@@ -55,8 +55,8 @@ class feindura {
                               'category' => 'category',     // [String in an Array]    -> the variable name used for the get variable for the category
                               'modul' =>    'modul');       // [String in an Array]    -> the variable name used for the get variable for the modul
                               
-  protected $storePageIds = '';             // (empty or Array) stores all page IDs and category IDs in an Array, if its gone once trough the category folders (saves resources)
-  protected $storePageArrays = false;       // (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
+  protected $storedPageIds = '';            // (empty or Array) stores all page IDs and category IDs in an Array, if its gone once trough the category folders (saves resources)
+  protected $storedPages = false;           // (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
         
                               
   // PUBLIC
@@ -215,7 +215,7 @@ class feindura {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'" />'."\n\n"; 
       
       // -> create TITLE
-      if($currentPage = readPage($this->getCurrentPage(),$this->getCurrentCategory()))
+      if($currentPage = $this->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
         $pageNameInTitle = ' - '.$currentPage['title'];
       
       // -> add TITLE
@@ -322,7 +322,7 @@ class feindura {
      
     if($page &&
        ((is_array($page) && array_key_exists('id',$page) && $pageContent = $page) ||              // the $page var is a pageContent Array
-       (is_numeric($page) && $pageContent = readPage($page,$this->getPageCategory($page))))) {    // $the $page var is a page ID
+       (is_numeric($page) && $pageContent = $this->readPage($page,$this->getPageCategory($page))))) {    // $the $page var is a page ID
        
         // -> if NEXT or PREV
         // ----------------------------
@@ -953,7 +953,7 @@ class feindura {
       $pageContent = $page;
     } else {
       // if not throw ERROR
-      if(!$pageContent = readPage($page,$category)) {
+      if(!$pageContent = $this->readPage($page,$category)) {
         if($showErrors && $this->error) {      
           echo $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
         }
@@ -1203,7 +1203,58 @@ class feindura {
       return $title;
   }
   // -> END -- createTitle ---------------------------------------------------------------------------------
-
+  
+  
+  // -> START -- readPage ********************************************************************************
+  // OVERWRITES the readPage() function of the general.functions.php
+  // loads only pages if they are not already in the storedPages PROPERTY Array
+  // RETURNs the pageContent Array or FALSE
+  // -----------------------------------------------------------------------------------------------------
+  protected function readPage($page,                 // (Number) the page (id) of the page to load
+                              $category = false) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
+    
+    // -> checks if the page is already loaded
+    if(isset($this->storedPages[$page])) {
+      return $this->storedPages[$page];
+      
+    // -> if not load the page and store it in the storePages PROPERTY
+    } else {
+      if(($page = readPage($page,$category)) !== false) {
+        $this->storedPages[$page['id']] = $page;
+        return $this->storedPages[$page['id']];
+      } else return false;
+    }
+  }
+  // -> END -- readPage -----------------------------------------------------------------------------------
+  
+    // -> START -- loadPages ******************************************************************************
+  // OVERWRITES the loadPages() function of the general.functions.php
+  // loads only pages if they are not already in the storedPages PROPERTY Array
+  // RETURNs the pageContent Arrays or FALSE
+  // -----------------------------------------------------------------------------------------------------
+  protected function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $categories Array) the category or categories, which to load in an array
+                               $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
+    
+    // -> checks if the RETUNR should be an array
+    if($loadPagesInArray === true) {
+      // checks if the page is already loaded
+      if(isset($this->storedPages[$page])) {
+        return $this->storedPages[$page];
+        
+      // if not load the page and store it in the storePages PROPERTY
+      } else {
+        if(($page = readPage($page,$category)) !== false) {
+          $this->storedPages[$page['id']] = $page;
+          return $this->storedPages[$page['id']];
+        } else return false;
+      }
+    
+    // -> otherwise just use the loadPages function
+    } else
+      return loadPages($category,false);
+  }
+  // -> END -- loadPages ---------------------------------------------------------------------------------- 
+  
   // -> START -- loadPagesByType **************************************************************************
   // loads the Pages by the given IDs and the given idType
   // RETURNs an Array of pageContent Array(s)
@@ -1257,7 +1308,7 @@ class feindura {
           // loads all pages in an array
           $pages = array();
           foreach($ids as $page) {
-            if($pageContent = readPage($page,$this->getPageCategory($page))) {
+            if($pageContent = $this->readPage($page,$this->getPageCategory($page))) {
               $return[] = $pageContent;
             }
           }
@@ -1268,7 +1319,7 @@ class feindura {
       } elseif($ids && is_numeric($ids)) {
          
         // loads the single page in an array 
-        if($pageContent = readPage($ids,$this->getPageCategory($ids))) {
+        if($pageContent = $this->readPage($ids,$this->getPageCategory($ids))) {
           $return[] = $pageContent;
         } else return false;
       } else return false;
@@ -1323,15 +1374,15 @@ class feindura {
   }
   // -> END -- publicCategory ------------------------------------------------------------------------
   
-  // -> START -- getPageCategory ********************************************************************
+  // -> START -- getPageCategory *********************************************************************
   // gets the category ID of a given page ID
-  // ------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------
   protected function getPageCategory($page) {   // (Number) the page ID, from which to get the category ID
   
     // execute the genral function
-    $return = getPageCategory($page,$this->storePageIds,true);
+    $return = getPageCategory($page,$this->storedPageIds,true);
     
-    $this->storePageIds = $return[1];
+    $this->storedPageIds = $return[1];
     return $return[0];
   }
   // -> END -- getPageCategory ------------------------------------------------------------------------
@@ -1443,7 +1494,7 @@ class feindura {
         // goes trough every given id
         foreach($ids as $id) {          
           // loads every pageContent Array of the given page IDs
-          $page = readPage($id,$this->getPageCategory($id));
+          $page = $this->readPage($id,$this->getPageCategory($id));
           
           // checks if the page and the category is public
           if($page['public'] && $this->publicCategory($page['category']) !== false) {
@@ -1457,7 +1508,7 @@ class feindura {
       } elseif(is_numeric($ids)) {        
            
         // loads the pageContent Array of the given page ID
-        $page = readPage($ids,$this->getPageCategory($ids));
+        $page = $this->readPage($ids,$this->getPageCategory($ids));
         
         // checks if the page and the category is public
         if($page['public'] && $this->publicCategory($page['category']) !== false) {
