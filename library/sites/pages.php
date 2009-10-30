@@ -125,7 +125,7 @@ foreach($categories as $category) {
   
   // shows the text of the sorting of a CATEGORY
   if($category['sortdate'] == 'true') {
-    $categorySorting = '<span style="font-size: 12px; font-weight: normal;">('.$langFile['sortablePageList_sortOrder_date'].')</span>';
+    $categorySorting = '<img src="library/image/sign/sortByDate_small.png" class="toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" />';
   } else {
     $categorySorting = '';
     //$categorySorting = '<span style="font-size: 12px; font-weight: normal;">('.$langFile['sortablePageList_sortOrder_manuell'].')</span>';
@@ -142,15 +142,15 @@ foreach($categories as $category) {
   
   // shows ID and differtnet header color if its a CATEGORY
   if($category['id'] != 0) {
-    $categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
+    //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="blue"';
   } else {
-    $categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
+    //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="brown"';
   }
 
   echo '<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
-          <h1'.$headerColor.'><a href="#" style="font-size:15px; font-weight:bold; line-height:30px;"><img src="library/image/sign/categoryIcon_small.png" alt="category icon" /> '.$category['name'].' '.$categoryId.' '.$categorySorting.'</a></h1>
+          <h1'.$headerColor.'><a href="#" style="font-size:15px; font-weight:bold; line-height:30px;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="library/image/sign/categoryIcon_small.png" alt="category icon" /> '.$category['name'].'</span> '.$categorySorting.'</a></h1>
           <div class="category">';
     
     // show category status only if its a category (0 is none)

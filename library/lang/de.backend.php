@@ -214,7 +214,7 @@ $langFile['sortablePageList_sortDate'] = 'Seiten-Datum';
 $langFile['sortablePageList_tags'] = 'Tags';
 
 $langFile['sortablePageList_sortOrder_manuell'] = 'manuelle Sortierung';
-$langFile['sortablePageList_sortOrder_date'] = 'nach <b>Datum</b> sortiert';
+$langFile['sortablePageList_sortOrder_date'] = 'sortiert nach Datum';
 
 $langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
 $langFile['sortablePageList_functions_deletePage'] = 'Seite l&ouml;schen';
