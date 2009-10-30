@@ -1,0 +1,73 @@
+/*  feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+    
+*
+* 
+* progress.css version 0.11
+* 
+* loadinBox, loading, documentSaved, etc */
+
+/* ----------------------- */
+/* ---:- LOADING -*/
+
+#loadingBox {
+    visibility: hidden;
+    z-index: 16;
+    position: fixed;
+    top: 40%;
+    left: 470px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 330px;    
+    }    
+#loadingBox .top {
+    height: 30px;
+    background: url(../image/bg/loadingBox_top.png) no-repeat;
+    }
+#loadingBox .content {
+    padding: 0px 25px;
+    background: url(../image/bg/loadingBox_middle.png) repeat-y;
+    text-align: center;
+    }
+#loadingBox .bottom {
+    height: 30px;
+    background: url(../image/bg/loadingBox_bottom.png) no-repeat;
+    }
+    
+/* ----------------------- */
+/* ---:- loadingCircle -*/
+
+#loadingCircle {
+  display: block;
+  position: relative;  
+  width: 100%;
+  height: 48px;
+  background: url(../image/sign/loadingCircle.gif) no-repeat top center;
+  }
+
+/* ----------------------- */
+/* ---:- documentSaved -*/
+
+#documentSaved {
+    z-index: 17;
+    visibility: hidden;
+    position: fixed; /* absolute */
+    top: 20%; /*top: 100px; left: 270px;*/
+    left: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 320px;
+    background: url(../image/sign/documentSaved.png) no-repeat;
+    }

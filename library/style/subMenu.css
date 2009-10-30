@@ -1,0 +1,104 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+* Stylesheet format the sub menu under the header 
+* 
+* subMenu.css version 0.22 */
+
+/* ----------------------- */
+/* --- subMenu */
+
+.subMenu {
+    z-index: 1;
+    position: absolute;
+    top: -3px;
+    left: 240px; /* right: 250px; */
+    width: auto;
+    height: 56px; /* org height 64px */
+    overflow: visible;
+    background: url(../image/bg/subMenu_middle.png) repeat-x;
+    }
+    
+.subMenu .content {
+    padding: 4px 0px;
+    }
+    
+.subMenu .left {
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 20px;
+    height: 58px;
+    background: url(../image/bg/subMenu_left.png) no-repeat;
+    }
+.subMenu .right {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    width: 20px;
+    height: 58px;
+    background: url(../image/bg/subMenu_right.png) no-repeat;
+    }
+
+/* ------------------------- */
+/* --- spacer (button ul list defined in layout.css)*/
+
+.subMenu li.spacer {
+    width: 14px;
+    height: 47px;
+    background: url(../image/key/subMenu_spacer.png) no-repeat;
+    }
+    
+/* ----------------------- */
+/* --- buttons */
+
+.subMenu a {
+    display: block;
+    width: 45px;
+    height: 48px;
+    margin: 0px 5px;
+    text-decoration: none;
+    }
+
+/* createPage */ 
+.subMenu a.createPage {
+    background: url(../image/key/subMenu_createPage.png) no-repeat;
+    }
+.subMenu a.createPage:hover {
+    background-position: -45px 0px;
+    }
+/* deletePage */ 
+.subMenu a.deletePage {
+    background: url(../image/key/subMenu_deletePage.png) no-repeat;
+    }
+.subMenu a.deletePage:hover {
+    background-position: -45px 0px;
+    }
+/* uploadThumb */ 
+.subMenu a.pageThumbnailUpload {
+    width: 50px;
+    background: url(../image/key/subMenu_uploadThumb.png) no-repeat;
+    }
+.subMenu a.pageThumbnailUpload:hover {
+    background-position: -50px 0px;
+    }
+/* deleteThumb */ 
+.subMenu a.pageThumbnailDelete {
+    width: 50px;
+    background: url(../image/key/subMenu_deleteThumb.png) no-repeat;
+    }
+.subMenu a.pageThumbnailDelete:hover {
+    background-position: -50px 0px;
+    }

@@ -1,0 +1,358 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+layout.css version 0.54 */
+
+
+/* ----------------------- */	
+/* ---:- BODY */
+
+html,body {
+  	margin: 0px;
+  	padding: 0px;
+  	font: 12px Verdana, Arial, Sans-serif, Serif;
+  	background-color: #5b5b5b !important; /* #5b5b5b */
+  	color: #000000;
+  	height: 100%; /* läßt die #leftSidebar box auch im IE 100% hoch sein */
+  	}
+
+/* ----------------------- */	
+/* ---:- PROLOG */
+
+/* generelle Nullstellung */
+*   {
+    margin: 0px;
+    padding: 0px;
+    }
+
+/* Abstände restaurieren */
+h1, h2, h3, h4, h5, h6, p, blockquote, address, pre, ul, ol, dl, table {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 1em;
+    line-height: 1.5em;
+    }
+    
+/* Überschriften*/
+h1, h2, h3, h4, h5, h6 { padding-top: 1em; }
+
+/* Zitate einrücken */
+blockquote { margin: 1em 2em; }
+
+/* Auswahl in Auswahllisten (select)durch padding:0 schlecht lesbar */
+option { padding-left: 0.2em; padding-right: 0.3em; }
+
+/* Alle Listen einrücken */
+ul, ol, dl { margin-left: 1em; }
+
+/* Listenelemente mehr einrücken */
+li { margin-left: 1em; }
+
+/* Definitionen in Definitionslisten mehr einrücken */
+dd { margin-left: 2em; }
+
+/* Verschachtelte Listen ohne Außenabstand oben/unten */
+ul ul, ul ol, ul dl, ol ul, ol ol, ol dl, dl ul, dl ol, dl dl {
+    margin-top: 0;
+    margin-bottom: 0;
+    }
+/* delete borde from images in links */
+a img {
+    border: none;
+    }
+
+/* removing the border after click in firefox 3 */
+a:active, a:focus { outline:none; }
+
+/* ----------------------- */	
+/* ---:- CONTAINERS  
+    
+#container {
+    z-index: 0;
+    position: static;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    }
+*/
+
+/*-moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
+    filter:Alpha(opacity=50, finishopacity=50, style=0);*/
+    
+/* ----------------------- */
+/* hide some elements for blind reader */
+/* --- aural, braille, embossed
+
+@media aural, @media braille, @media embossed {
+    .bottom, .top img {
+        display: none;
+        }
+    }
+ */
+ 
+/* ----------------------- */	
+/* ---:- DIMM-CONTAINER */
+
+#dimmContainer {
+    z-index: 5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    /*background-color: #222222;*/
+    background: url(../image/bg/dimmContainer.png) repeat;
+    display: none;
+    -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
+    filter:Alpha(opacity=50, finishopacity=50, style=0);
+    } 
+
+
+/* ----------------------- */
+/* --- HEADER */    
+#header {
+    z-index: 3;
+    position: relative;
+    top: 0px;
+    width: 100%;
+    min-width: 1135px;
+    height: 150px;
+    background: url(../image/bg/header.png) repeat-x;
+    }
+#headerBlock {
+    z-index: 2;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 850px;
+    height: 141px;
+    background: url(../image/bg/headerBlock.png) no-repeat; 
+    }
+    
+#adminMenu {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 849px;
+    width: 190px; /* will be overwriten by javascript with 172px*/
+    height: 140px;
+    background: url(../image/bg/adminMenu.png) no-repeat;
+    text-align: center;
+    border-bottom: 1px solid #BBB9B7;
+    overflow: scroll; /* will be overwriten by javascript */
+    }
+#adminMenu h1 {
+    display: inline-block;
+    width: 120px;
+    padding-bottom: 5px;
+    margin-bottom: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #cccccc;
+    color: #999999;
+    }
+
+/* ----------------------- */
+/* --- LOGO and createdBy link */ 
+#logo {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;    
+    }
+#version {
+    z-index: 2;
+    position: absolute;
+    top: 43px;
+    left: 125px;
+    width: 50px;
+    font-size: 11px;
+    color: #3979A5;
+    text-align: right;
+    }
+.logoname {
+    color: #DD6C1D !important;
+    }
+.logoname span {
+    color: #3979A5 !important;
+    }
+a#createdBy {
+    position: absolute;
+    bottom: 17px;
+    left: 1024px;
+    width: 95px;
+    height: 27px;
+    background: url(../image/key/createdBy.png) no-repeat;
+    text-decoration: none;
+    }
+a#createdBy:hover {
+    background-position: 0px -27px;
+    }
+
+/* ----------------------- */
+/* --- MAINBODY */ 
+#leftSidebar {
+    z-index: 2;
+    position: absolute;
+    top: 145px;
+    left: 0px;
+    width: 208px;
+    padding: 0px 0px;
+    padding-bottom: 20px;
+    }
+
+#mainBody {
+    z-index: 0;
+    position: relative;
+    top: -5px;
+    width: 100%;
+    min-width: 1135px;
+    background: url(../image/bg/mainBody.png) repeat-y #d8d8d8;
+    }
+  
+#content {
+    z-index: 0;
+    position: relative;
+    top: 0px;
+    left: 220px;
+    width: 770px;
+    padding: 20px 20px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+    }
+
+/* ----------------------- */
+/* --- FOOTER */
+#footer {
+    z-index: 1;
+    position: relative;
+    top: -15px;
+    width: 100%px;
+    min-width: 1135px;
+    clear: left;
+    background: url(../image/bg/footer.png) repeat-x;
+    }
+#footerBlock {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 1024px;
+    height: 237px;
+    background: url(../image/bg/footerBlock.png) no-repeat;
+    }
+#copyright {
+    position: absolute;
+    top: 200px;
+    left: 108px;
+    width: 100%;
+    font-size: 11px;
+    color: #979797;
+    text-align: center;
+    }
+    
+/* - footer links */  
+#footer a {
+    color: #cccccc;
+    text-decoration: none;
+    }
+#footer a:hover {
+    color: #FCC882;
+    }
+#footer a:active {
+    color: #ffffff;
+    }
+
+/* ----------------------- */    
+/* --- BUTTON LISTE */
+
+ul.horizontalButtons {
+    position: relative;    
+    padding: 0px;
+    margin: 0px auto;
+    }
+.horizontalButtons li {
+    /*display: -moz-inline-stack;*/
+    display: block;
+    position: relative;
+    list-style: none;
+    float: left;
+    padding: 0px;
+    margin: 0px auto;    
+    vertical-align: top;
+    }
+    
+ul.verticalButtons {
+    padding: 0px;
+    margin: 0px;
+    }
+.verticalButtons li {
+    position: relative;
+    height: 35px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    }
+    
+/* ----------------------- */    
+/* --- DIV-TABLE */
+
+div.table {
+    display: table;
+    border-collapse: collapse;
+    }
+div.tr {
+    display: table-row;
+    }
+div.td { 
+    display: table-cell;
+    padding: 5px;
+    border: 1px solid red;
+    }
+div.row { 
+    display: table-row-group;
+    }
+
+/* Sprachauswahl */
+a.lang_de {
+  position: absolute;
+  top: 10px;
+  left: 60px;
+  height: 16px;
+  padding-left: 23px;
+  display: inline-block;
+  text-decoration: none;
+  background: url(../image/sign/de.png) no-repeat 2px;
+  color: #434F58;
+  }
+a.lang_de:hover {
+  color: #ffffff;
+  }
+a.lang_en {
+  position: absolute;
+  top: 10px;
+  left: 150px;
+  height: 16px;
+  padding-left: 23px;
+  display: inline-block;
+  text-decoration: none;
+  background: url(../image/sign/en.png) no-repeat 2px;
+  color: #434F58;
+  }
+a.lang_en:hover {
+  color: #ffffff;
+  }

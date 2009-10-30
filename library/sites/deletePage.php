@@ -1,0 +1,92 @@
+<?php
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+*/
+// deletePage.php version 0.92
+
+include_once(dirname(__FILE__).'/../backend.include.php');
+
+// gets the vars
+if(isset($_POST['category']))
+  $category = $_POST['category'];
+else
+  $category = $_GET['category'];  
+if(isset($_POST['id']))
+  $page = $_POST['id'];
+else
+  $page = $_GET['page'];
+$asking = $_POST['asking'];
+
+// load the page
+$pageContent = readPage($page,$category);
+
+// sets the none category (0) to emtpy
+if($category == 0)
+  $category = '';
+
+// QUESTION
+if(is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+  $question = '<h1>'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
+
+// NOT EXISTING
+} else {
+  $question = '<h1>'.$langFile['deletePage_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['savePath'].$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
+  <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok" onclick="closeWindowBox();return false;">&nbsp;</a>';
+  
+  // show only the ok button
+  $asking = true;
+}
+
+// DELETING PROCESS
+if($asking && is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+  @chmod($adminConfig['savePath'].$category.'/'.$page, 0777);
+
+    // DELETING THUMBNAIL
+    if(unlink(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+      if(!empty($pageContent['thumbnail'])) {
+        @unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+      }
+        // DELETING FINISH --------------
+        $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
+        <a href="?site=pages&amp;category='.$category.'" class="ok" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
+        //redirect($category,'',1);
+    } else {
+      // DELETING ERROR --------------
+      $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>
+      <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
+    }
+}
+
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+echo $question;
+
+
+if(!$asking) {
+
+?>
+<div>
+<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;">
+<input type="hidden" name="category" value="<?php echo $category; ?>" />
+<input type="hidden" name="id" value="<?php echo $page; ?>" />
+<input type="hidden" name="asking" value="true" />
+
+
+<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="toolTip cancel" title="<?php echo $langFile['delete_answer_cancel']; ?>::" onclick="closeWindowBox();return false;">&nbsp;</a>
+<input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['delete_answer_submit']; ?>" />
+</form>
+</div>
+<?php
+}
+?>

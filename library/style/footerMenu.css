@@ -1,0 +1,93 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+* Stylesheet format the footerMenu
+* 
+* footerMenus.css version 0.21 */
+
+    
+/* ----------------------- */
+/* --- footerMenu */
+
+#footerMenu {
+    z-index: 0;
+    position: absolute;
+    top: 24px;
+    left: 200px;
+    }
+
+/* ----------------------- */
+/* --- spacer (button ul list defined in layout.css)*/
+
+#footerMenu li.spacer {
+    width: 14px;
+    height: 100px;
+    background: url(../image/key/footerMenu_spacer.png) no-repeat;
+    }
+    
+/* ----------------------- */
+/* --- buttons */
+
+#footerMenu a {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 45px; /* org: 100px */
+    padding-top: 97px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #dfdfdf;
+    }
+#footerMenu a:hover {
+    color: #dfdfdf;
+    }
+/* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
+#footerMenu a span{
+    display: table-cell;
+    position: relative;
+    width: 100px;
+    height: 40px;
+    vertical-align: middle;
+    }
+
+/* createPage */ 
+#footerMenu a.createPage {
+    background: url(../image/key/footerMenu_createPage.png) no-repeat;
+    }
+#footerMenu a.createPage:hover {
+    background-position: -100px 0px;
+    }
+/* deletePage */ 
+#footerMenu a.deletePage {
+    background: url(../image/key/footerMenu_deletePage.png) no-repeat;
+    }
+#footerMenu a.deletePage:hover {
+    background-position: -100px 0px;
+    }
+/* uploadThumb */ 
+#footerMenu a.pageThumbnailUpload {
+    background: url(../image/key/footerMenu_uploadThumb.png) no-repeat;
+    }
+#footerMenu a.pageThumbnailUpload:hover {
+    background-position: -100px 0px;
+    }
+/* deleteThumb */ 
+#footerMenu a.pageThumbnailDelete {
+    background: url(../image/key/footerMenu_deleteThumb.png) no-repeat;
+    }
+#footerMenu a.pageThumbnailDelete:hover {
+    background-position: -100px 0px;
+    }

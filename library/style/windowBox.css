@@ -1,0 +1,139 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+windowBox.css version 0.1 */
+
+/* ----------------------- */	
+/* ---:- WINDOWBOX */
+
+#windowBoxContainer {
+    z-index: 10;
+    visibility: hidden; /* display: none; */
+    position: absolute;    
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    }
+
+#windowBox {    
+    position: fixed;
+    top: 25%;
+    width: 780px;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    left: 50%;
+    margin-left: -390px;
+    }
+#windowBox .boxTop {
+    z-index: 2;
+    position: absolute;
+    top: -60px;
+    left: 0px;
+    width: 780px;
+    height: 4px; /*org: 60px */
+    padding: 28px 0px;
+    background: url(../image/bg/windowBox_top.png) no-repeat;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #666666;
+    }
+#windowRequestBox {
+    z-index: 1;
+    position: relative;
+    width: 680px;    
+    padding: 0px 50px;
+    padding-top: 20px;
+    background: url(../image/bg/windowBox_middle.png) repeat-y;
+    overflow: hidden;
+    }
+#windowBox .boxBottom {
+    z-index: 2;
+    position: relative;
+    bottom: 1px; /* before -55px */
+    width: 780px;
+    height: 55px;
+    background: url(../image/bg/windowBox_bottom.png) no-repeat;
+    }
+    
+/* ----------------------- */	
+/* ---:- HEADLINES */
+
+#windowBox h1 {
+    width: 685px; /* 705px */
+    margin: 0px -11px;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    padding-bottom: 12px;
+    background: url(../image/bg/windowBox_h1.png) no-repeat bottom left;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #888888;
+    }
+
+#windowBox h2 {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #888888;
+    }
+
+/* ----------------------- */	
+/* ---:- CLOSE */
+
+#windowBox .boxTop a {
+    position: absolute;
+    top: 22px;
+    right: 25px;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    background: url(../image/key/windowBox_close.png) no-repeat;
+    }
+#windowBox .boxTop a:hover {
+    background-position: -35px 0px;
+    }
+    
+/* ----------------------- */	
+/* ---:- SUBMIT/CANCEL */
+
+#windowRequestBox .cancel { /* link on the left */
+    left: 10px;
+    float: left;
+    margin: 10px 0px;
+    }
+
+#windowRequestBox input.submit { /* form submit */
+    right: 10px;
+    float: right;
+    margin: 10px 0px;
+    }
+#windowRequestBox a.submit { /* link on the center */
+    left: 315px;
+    bottom: 0px;
+    }
+
+#windowRequestBox a.ok { /* link on the right, example: ok */
+    float: right;
+    right: 10px;
+    margin: 10px 0px;
+    }    
+#windowRequestBox a.ok.center { /* link on the right, example: ok */
+    float: left !important;
+    right: auto !important;
+    left: 315px;
+    margin: 10px auto;
+    }

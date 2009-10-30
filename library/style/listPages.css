@@ -1,0 +1,243 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+listPages.css version 0.15
+*/
+
+/* ----------------------- border: 1px solid red;*/	
+/* ---:- listPages */
+
+.listPages ul {
+    margin: 0px;
+    margin-top: 15px;
+    padding: 0px;
+    }
+
+.listPages li {
+    cursor: move;
+    width: 755px;
+    margin: 5px 0px;
+    height: 30px; /* org: 40px*/
+    padding: 5px 8px;
+    list-style: none;
+    background: url(../image/bg/sortPages_liBg.png) no-repeat;
+    white-space: nowrap;
+    }
+.listPages li:hover {    
+    background-position: 0px -41px;
+    }
+
+/* ----------------------- */	
+/* ---:- listPages HEAD */
+
+div.listPagesHead {
+    width: 790px;
+    height: 40px;
+    margin-left: -12px;
+    margin-bottom: 50px;
+    color:3C5E91;
+    border-top: 1px solid #DB9E39;
+    font-size:15px;
+    line-height:30px;
+    background: url(../image/bg/sortPages_headBg.png) repeat-x;
+    }
+
+.listPagesHead div {
+    display: inline-block;
+    max-height: 20px;
+    padding: 4px 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+    }
+    
+.listPagesHead div.name {    
+    width: 320px;
+    padding-left: 15px;
+    }
+.listPagesHead div.saveDate {
+    width: 140px;
+    padding-left: 10px;
+    }
+.listPagesHead div.counter {
+    width: 60px;
+    text-align: center;
+    }
+.listPagesHead div.status {
+    width: 85px;
+    text-align: center;
+    }
+.listPagesHead div.functions {
+    width: 100px;
+    text-align: center;
+    }
+
+/* ----------------------- */	
+/* ---:- listPages PAGES */
+
+.listPages .content div {
+    display: inline-block;
+    height: 20px;
+    max-height: 20px;
+    padding: 4px 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+    }
+
+.listPages .content div.name {    
+    width: 320px;
+    }
+.listPages .content div.saveDate {
+    width: 150px;    
+    }
+.listPages .content div.counter {
+    width: 90px;
+    padding-right: 4px;
+    text-align: center;
+    font-weight: bold;
+    }
+.listPages .content div.status {
+    width: 27px;
+    }
+.listPages .content .status.public {     
+    background: url(../image/sign/page_public.png) no-repeat 0px 2px !important;
+    }
+.listPages .content .status.nonpublic {
+    background: url(../image/sign/page_nonpublic.png) no-repeat 0px 2px !important;
+    }
+.listPages .content div.functions {
+    float: right !important;
+    width: 140px;
+    padding-right: 10px;
+    text-align: right;    
+    }
+
+/* ----------------------- */	
+/* ---:- listPages CATEGORY */
+
+.listPages div.category div.functions {
+    position: absolute;
+    top: 25px;
+    left: 592px;
+    width: 70px;
+    text-align: right;
+    }
+
+/* ----------------------- */	
+/* ---:- category icon */
+
+.listPages h1 a img {
+    position: relative;
+    top: 8px;
+    left: -2px;
+    }
+
+/* ----------------------- */	
+/* ---:- MESSAGEBOX */
+
+#sortPagesMessageBox {
+    height: 25px;
+    padding: 20px 0px;
+    padding-left: 75px;
+    margin-bottom: 15px;
+    vertical-align: middle;
+    background: url(../image/sign/hintBig.png) no-repeat center left;
+    }
+
+/* ----------------------- */	
+/* ---:- FUNCTION links */
+
+.listPages div.name a {
+    display: inline-block;
+    background: url(../image/sign/pageIcon_small.png) no-repeat 0px 0px !important;
+    padding-left: 30px !important;
+    }
+
+.listPages .functions a {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    padding: 0px !important;
+    background-position: 0px 0px !important;
+    }
+
+.listPages .functions a.startPage {
+    background: url(../image/key/listPages_startPage.png) no-repeat;
+    }
+.listPages .functions a.editPage {
+    background: url(../image/key/listPages_editPage.png) no-repeat;
+    }
+.listPages .functions a.deletePage {
+    background: url(../image/key/listPages_deletePage.png) no-repeat;
+    }  
+.listPages .functions a.pageThumbnailUpload {
+    background: url(../image/key/listPages_pageThumbnailUpload.png) no-repeat;
+    }
+.listPages .functions a.pageThumbnailDelete {
+    background: url(../image/key/listPages_pageThumbnailDelete.png) no-repeat;
+    } 
+
+
+.listPages .functions a:hover, .listPages .functions a.startPage.active {
+    background-position: 0px -27px !important;
+    }
+    
+
+.startPageIcon {
+    display: inline-block;
+    background: url(../image/key/listPages_startPage.png) no-repeat;
+    width:27px;
+    height: 23px;
+    }
+
+/* ----------------------- */	
+/* ---:- category FUNCTION links */
+
+.listPages .createPage {
+    display: block;    
+    width: 27px;
+    height: 27px;
+    background: url(../image/key/listPages_createPage.png) no-repeat !important;
+    }
+.listPages .createPage:hover {
+    background-position: 0px -27px !important;
+    }
+
+/* ----------------------- */	
+/* ---:- PUBLI/NON-PUBLIC links */
+
+.listPages .status a {
+    display: block;
+    width: 27px;
+    height: 27px;
+    background: none !important;
+    text-decoration: none;
+    }
+
+.listPages .changeStatusCategory {
+    display: block;
+    position: absolute;
+    top: 25px;
+    left: 592px;
+    width: 27px;
+    height: 27px;
+    }
+.listPages .changeStatusCategory.public {
+    background: url(../image/sign/category_public.png) no-repeat !important;
+    }
+.listPages .changeStatusCategory.nonpublic {
+    background: url(../image/sign/category_nonpublic.png) no-repeat !important;
+    }

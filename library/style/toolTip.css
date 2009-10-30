@@ -1,0 +1,82 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+toolTip.css version 0.53 */
+
+
+.toolTip {
+    z-index: 11;
+    cursor: help;
+    }
+input.toolTip, textarea.toolTip {
+    cursor: text;
+    }
+.checkboxes input.toolTip {
+    cursor: help;
+    }
+input.button.toolTip {
+    cursor: pointer;
+    }
+a.toolTip {
+    cursor: pointer;
+    }
+
+    
+.toolTip.mark {
+    font-style: italic;
+    color: #B46F00;
+    }
+
+/* format of the toolTip box */
+.toolTip .tip-title	{
+    z-index: 2;
+    position: relative;
+    padding-left: 16px;
+    margin: 0px 40px;
+    background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;    
+    font-weight:bold;
+    color:#947342;
+    word-wrap: break-word;
+    }
+.toolTip .tip-title span	{
+    color: #666666;
+    }
+.toolTip .tip-text	{
+    z-index: 2;
+    position: relative;
+    color: #666666;
+    padding: 10px 40px;
+    padding-bottom: 0px;
+    word-wrap: break-word;    
+    }
+.toolTip .tip-top {
+    z-index: 0;
+    position: relative;
+    background:url(../image/bg/toolTip_top.png) top left no-repeat;
+    width:272px;
+    height:40px;  
+    }
+.toolTip .tip {
+    z-index: 1;
+    position: relative;
+    width:272px;
+    background:url(../image/bg/toolTip_middle.png) left top repeat-y;
+    line-height: 20px;
+    }
+.toolTip .tip-bottom	{
+    background:url(../image/bg/toolTip_bottom.png) left bottom no-repeat;
+    width:272px;
+    height:35px;
+    }

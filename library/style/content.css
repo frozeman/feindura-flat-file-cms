@@ -1,0 +1,351 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+content.css version 0.1 */
+
+/* ----------------------- */	
+/* ---:- BLOCK */
+
+#content .block {
+    position: relative;
+    display: block;
+    width: 766px;
+    margin: 0px -20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: url(../image/bg/content_block_normal.png) repeat-y;
+    }
+#content .block .content { /* eliminate safari padding-problem */
+    position: relative;
+    padding: 1px 0px;
+    }
+#content .block .bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 806px;
+    height: 10px;
+    background: url(../image/bg/content_block_bottom.png) no-repeat;
+    }
+#content .block h1 {
+    margin-top: -15px;
+    padding-bottom: 2px; /* 3px */
+    }
+
+/* warning */
+#content .block.warning {
+    background: url(../image/bg/content_block_warning.png) repeat-y 0px 46px;
+    }
+#content .block.warning h1 {
+    color: #CA5C00;
+    }
+#content .block.warning h2 {
+    margin-left: 65px;
+    }
+#content .block.warning .content {
+    min-height: 48px;
+    background: url(../image/sign/warning.png) no-repeat center left;
+    }
+#content .block.warning .content p {
+    display: block;
+    margin-left: 70px;
+    }
+
+/* info */
+#content .block.info {
+    background: url(../image/bg/content_block_info.png) repeat-y 0px 46px;
+    }
+#content .block.info h1 {
+    color: #DFB300;
+    }
+#content .block.info h2 {
+    margin-left: 95px;
+    }
+#content .block.info .content {
+    min-height: 83px;
+    background: url(../image/sign/info.png) no-repeat center left;
+    }
+#content .block.info .content p {
+    display: block;
+    margin: 5px 3px;
+    margin-left: 100px;
+    color: #957700;
+    }
+
+
+/* ----------------------- */	
+/* --- BLOCK-TABLE */
+
+.block table {
+    border: none;    
+    border-collapse: collapse;
+    border-spacing: 0px;
+    padding: 0px;
+    margin: 10px 0px;
+    }
+.block table td {
+    padding: 8px 5px;
+    }
+    
+/* leftTop */   
+.block table td.leftTop {
+    height: 30px;
+    padding: 0px;
+    background: url(../image/bg/content_block_table_left_top.png) no-repeat right top;    
+    }
+    
+/* left */    
+.block table td.left {
+    width: 200px;
+    padding-right: 18px;
+    text-align: right;
+    vertical-align: middle;
+    color: #888888;
+    background: url(../image/bg/content_block_table_left_middle.png) repeat-y right top;
+    }
+.block table col.left {
+    background: url(../image/bg/content_block_table_left_middle.png) repeat-y right top;    
+    }
+.block table td.left.checkboxes {
+    vertical-align: top;
+    line-height:25px;
+    }
+    
+/* leftBottom */   
+.block table td.leftBottom {
+    height: 30px;
+    padding: 0px;
+    background: url(../image/bg/content_block_table_left_bottom.png) no-repeat right top;    
+    }
+    
+/* right */       
+.block table td.right {
+    padding-left: 10px;
+    text-align: left;
+    vertical-align: middle;
+    line-height: 23px;    
+    }  
+.block table td.right input {
+    width: 300px;
+    margin-right: 5px;
+    }
+.block table td.right.checkboxes {
+    vertical-align: top;
+    line-height:25px;
+    }
+    
+/* spacer */   
+.block table td.spacer {
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+    }
+    
+/* ----------------------- */	
+/* --- SLIDE H1 LINKS */
+#content h1 a, .slide {
+    position: relative;
+    display: block;
+    width: 725px;
+    min-height: 35px;
+    padding: 0px;
+    padding-right: 40px;
+    margin-bottom: -5px;  
+    background: url(../image/key/content_h1_up_off.png) no-repeat right top;
+    color: #536068;
+    }
+#content h1 a:hover {
+    color: #536068;
+    background: url(../image/key/content_h1_up_on.png) no-repeat right top;
+    }
+#content h1 a:active {
+    color: #536068;
+    }
+#content .hidden h1 a {
+    background: url(../image/key/content_h1_down_off.png) no-repeat right top;
+    }
+#content .hidden h1 a:hover {
+    background: url(../image/key/content_h1_down_on.png) no-repeat right top;
+    }
+
+/* ----------------------- */	
+/* - CONTENT FASTUP link */  
+#content a.fastUp {
+    z-index: 4;
+    position: fixed;
+    left: 1080px;
+    top: 80px;
+    display: block;
+    width: 66px;
+    height: 65px;
+    text-decoration: none;
+    background: url(../image/key/content_fastUp.png) no-repeat;
+    }
+#content a.fastUp:hover {
+    background-position: 0px -68px;
+    }
+    
+/* ----------------------- */	
+/* - BLOCK and WINDOBOX standard links */  
+.block a, #windowBox a {
+    padding-left: 18px;
+    color: #F58218;
+    text-decoration: none;
+    background: url(../image/sign/link.gif) no-repeat 0px 3px;
+    }
+.block a:hover, #windowBox a:hover {
+    color: #536068;
+    text-decoration: none;
+    }
+.block a:active, #windowBox a:active {
+    color: #000000;
+    text-decoration: none;
+    }
+
+
+/* ----------------------- */	
+/* - slide down link */  
+a.down {
+    font-size:15px;
+    font-weight:bold;
+    padding-left: 18px;
+    background: url(../image/key/down.gif) no-repeat 0px 3px !important;
+    color: #E19F68;
+    }
+
+/* ----------------------- */	
+/* - HINWEIS */
+
+span.hint {
+    display: inline-block;
+    padding-left: 16px;
+    background: url(../image/sign/hinweis.gif) no-repeat 0px 2px !important;
+    font-size: 12px;
+    color: #947342;
+    }
+.block table span.hint {
+    background-position: 0px 5px !important;
+    }
+span.warning {
+    display: inline-block;
+    padding-left: 20px;
+    background: url(../image/sign/warning.gif) no-repeat 0px 6px !important;
+    font-size: 12px;
+    color: #990000;
+    }
+
+/* ----------------------- */	
+/* ---:- THUMB SCALE */
+
+.scale {
+    height:10px;
+    border:1px solid #BE8500;
+    border-top:0px;
+    border-bottom:0px;
+    }
+.scale div {
+    position:relative;
+    top:4px;
+    border-top:1px solid #BE8500;
+    }
+
+/* ----------------------- */	
+/* ---:- THUMB PREVIEW */
+    
+.thumbnailPreview {
+    border: 5px solid #cccccc;
+    }
+
+/* --------------------------------------------- */	
+/* ---:- ELEMENTS */
+
+/* ----------------------- */	
+/* ---:- HEADLINES */
+
+#content h1 {
+    display: block;
+    margin: 0px -20px;
+    padding: 15px 23px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    color: #536068;
+    background: url(../image/bg/block_h1.png) no-repeat;
+    }
+#content h1.brown {
+    background: url(../image/bg/block_h1_brown.png) no-repeat;
+    }
+#content h1.blue {
+    background: url(../image/bg/block_h1_blue.png) no-repeat;
+    }
+#content .blue {
+    color: #668CA6;
+    }
+#content .brown {
+    color: #BE8423;
+    }
+#content h2 {
+    margin: 0px 10px 18px -4px;
+    padding: 8px 7px;
+    font-size: 15px;
+    color: #536068;
+    border-bottom: 1px solid #B3B3A1;
+    }
+#content h3 {
+  margin: 5px 0px;
+  margin-top: 10px;
+  padding: 5px 5px;
+  font-size: 13px;
+  color: #F58218;
+  }
+#content h3 span {
+  color: #BAB8B6;
+  }
+#content h4 {
+  margin: 8px 0 12px -10px;
+  padding: 5px 12px;
+  font-size: 14px;
+  color: #536068;
+  }
+
+/* ----------------------- */	
+/* ---:- TEXT */
+#content {
+    font-size: 14px;
+    color: #536068;
+    }
+#content p {
+    margin: 10px 3px;
+    font-size: 14px;
+    color: #536068;
+    }
+
+/* ----------------------- */	
+/* ---:- HR */
+
+ hr {
+    position: relative;
+    height: 0px;
+    margin: 15px 0px;
+    border: none;
+    border-top: 10px dotted #cccccc;
+    }
+
+ div.blockSpacer {
+    position: relative;
+    width: 788px;
+    height: 30px;
+    margin: 25px -8px;
+    background: url(../image/bg/content_blockSpacer.png) no-repeat;
+    }

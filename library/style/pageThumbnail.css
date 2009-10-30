@@ -1,0 +1,108 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+pageThumbnail.css version 0.1 */
+
+/* ----------------------- */	
+/* ---:- thumbInfo */
+
+#thumbInfo {
+    position: relative;
+    width: 300px;
+    padding: 5px;
+    float: right;
+    border: 1px solid #cccccc;
+    background-color: #EDF1E1;
+    }
+#thumbInfo ul {
+    margin: 0px;
+    margin-left: 10px;
+    color: #666666;
+    }
+#thumbInfo ul li {
+    margin: 3px 10px;
+    list-style-type: circle;
+    }
+
+/* ----------------------- */	
+/* ---:- pageThumbnailUploadForm */
+    
+#pageThumbnailUploadForm {
+    overflow: visible;
+    }
+
+/* ----------------------- */	
+/* ---:- thumbSize - change Thumbnail Size table */
+
+#thumbSize {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+    }
+
+/* thumbnailUpload BUTTON */
+input.thumbnailUpload {
+    position: relative;
+    left: 315px;
+    width: 75px;
+    height: 90px;
+    background: url(../image/key/thumbnailUpload.png) no-repeat !important;
+    }
+input.thumbnailUpload:hover {
+    background-position: 0px -90px !important;
+    }
+
+/* ----------------------- */	
+/* ---:- UPLOAD IFRAME */
+
+iframe#uploadTargetFrame {
+    width: 100%;
+    height: 300px;
+    background-color: transparent;
+    border: none !important;
+    overflow: hidden;
+    }
+
+/* ----------------------- */	
+/* ---:- UPLOAD IFRAME INNERHTML */
+
+body#thumbnailUploadFrame {
+    font: bold 15px Verdana, Arial, Sans-serif, Serif;
+    text-align: center;
+    vertical-align: middle;
+    color: #666666;
+    }
+    
+#thumbnailUploadFrame ul {
+    margin: 0px;
+    margin-left: 10px;    
+    }
+#thumbnailUploadFrame ul li {
+    margin: 3px 10px;
+    list-style-type: circle;
+    }
+
+/* response texts */
+#thumbnailUploadFrame .response {
+    color: #71A1BD;
+    }
+#thumbnailUploadFrame .response b {
+    color: #666666;
+    }
+
+/* error texts */
+#thumbnailUploadFrame .error {
+    color: #9C0000;
+    }

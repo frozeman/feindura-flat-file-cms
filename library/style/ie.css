@@ -1,0 +1,171 @@
+/*
+* Stylesheets for Internet Explorer 6
+* 
+* Verwendet den IE PNG Fix v1.0 / 2.0 Alpha 3 von http://www.twinhelix.com/css/iepngfix/
+*/
+
+/* png transparency hack */
+#logo, #header, #headerBlock, #footer, #mainMenu a,
+.sidebarMenu .top a, .sidebarMenu .top img,
+/* #content .block.warning .content, #content .block.info .content, */
+/*#content h1 a,*/
+#content a.fastUp,
+#errorWindow .content.warning,
+#documentSaved { behavior: url(library/thirdparty/iepngfix_v2/iepngfix.php) }
+
+/* documentSaved hack */
+#documentSaved {
+    position: absolute;
+    top: 100px;
+    left: 270px;
+    }
+
+/* hack that ie shows the dimm-container with height 100% */
+#dimmContainer {
+    position: absolute;
+    }
+
+/* hack to display: inline-block the li in the subMenu buttons */
+.horizontalButtons li {
+    zoom: 1;
+    display: inline;
+    }
+    
+/* corrects the mainMenu buttons */
+#mainMenu a {
+    height: 36px; /* org: 141px */
+    padding-top: 105px;
+    }
+    
+/* BLOCK element bottom border */
+#content .block {
+    }
+#content .block .content {
+    margin-bottom:;
+    }
+#content .block .bottom {
+    z-index: -1;
+    bottom: -10px;
+    }
+/* BLOCK element content */
+#content .block.warning .content {
+    height: 50px;
+    }
+#content .block.info .content {
+    height: 80px;
+    }
+/* h1 slide in button */
+#content h1 a {
+    height: 35px;
+    }
+
+/* content fastUp link */  
+#content a.fastUp {
+    z-index: 4;
+    position: absolute !important;
+    left: 830px;
+    top: auto !important;
+    bottom: 50px;
+    }
+    
+/* listPages */
+
+.listPages .content div {
+    zoom: 1;
+    display: inline;
+    margin: 0px 2px;
+    }
+.listPagesHead div {
+    zoom: 1;
+    display: inline;
+    margin: 0px 2px
+    }
+.listPages .status {     
+    background-position: 0px 3px !important;
+    }
+
+/* tooltip hack, use gif instead of png*/
+.toolTip .tip-top {
+    background:url(../image/bg/toolTip_top.gif) top left no-repeat;
+    }
+.toolTip .tip {
+    background:url(../image/bg/toolTip_middle.gif) left top repeat-y;
+    }
+.toolTip .tip-bottom	{
+    background:url(../image/bg/toolTip_bottom.gif) left bottom no-repeat;
+    }
+    
+/* loadingbox */
+#loadingBox {
+  position: absolute;
+  left: 250px;
+  }
+    
+/* windowbox */
+#windowBox {
+    position: relative;
+    top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    left: auto !important;
+    right: auto !important;  
+    }
+#windowBox .boxBottom {
+    position: absolute !important;
+    }
+/* windoxBox gif backgrounds */
+#windowBox .boxTop {
+    background: url(../image/bg/windowBox_top.gif) no-repeat;
+    }
+#windowRequestBox {
+    background: url(../image/bg/windowBox_middle.gif) repeat-y;
+    }
+#windowBox .boxBottom {
+    background: url(../image/bg/windowBox_bottom.gif) no-repeat;
+    }
+    
+/* errorWindow gif backgrounds */
+#errorWindow {
+    position: absolute;    
+    top: 200px;
+    left: 140px;
+    background: url(../image/bg/errorWindow_middle.gif) repeat-y; 
+    }
+
+#errorWindow .top {
+    background: url(../image/bg/errorWindow_top.gif) no-repeat;
+    }
+#errorWindow .content {
+    height: 48px;
+    }
+#errorWindow .bottom {
+    background: url(../image/bg/errorWindow_bottom.gif) no-repeat;
+    }
+
+/* .block submit buttom */    
+.block input.submit {
+    position: relative;
+    left: 180px;
+    bottom: 10px;
+    }
+
+
+/* thumbscale hack */
+.scale div {
+    top:5px;
+    /*left: 20px;*/
+    }
+
+/* DIV-TABLE hack */
+div.table {
+    display: block;
+    }
+div.tr {
+    zoom: 1;
+    display: inline;
+    padding: 5px 0px;
+    }
+div.td {
+    zoom: 1;
+    display: inline;
+    }
