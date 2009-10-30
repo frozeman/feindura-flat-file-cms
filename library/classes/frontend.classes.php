@@ -1212,14 +1212,20 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   protected function readPage($page,                 // (Number) the page (id) of the page to load
                               $category = false) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
+    //echo 'PAGE: '.$page.' -> '.$category.'<br />';
     
     // -> checks if the page is already loaded
-    if(isset($this->storedPages[$page])) {
+    if(isset($this->storedPages[$page])) {    
+      //echo '<br />->USED STORED '.$page.'<br />';
+    
       return $this->storedPages[$page];
       
     // -> if not load the page and store it in the storePages PROPERTY
     } else {
-      if(($page = readPage($page,$category)) !== false) {
+      if(($page = readPage($page,$category)) !== false) {        
+        //echo '<br />->>> LOAD '.$page['id'].'<br />';
+        
+        // add the pageContent Array to the PROPERTY
         $this->storedPages[$page['id']] = $page;
         return $this->storedPages[$page['id']];
       } else return false;
@@ -1227,31 +1233,58 @@ class feindura {
   }
   // -> END -- readPage -----------------------------------------------------------------------------------
   
-    // -> START -- loadPages ******************************************************************************
+  // -> START -- loadPages *******************************************************************************
   // OVERWRITES the loadPages() function of the general.functions.php
   // loads only pages if they are not already in the storedPages PROPERTY Array
   // RETURNs the pageContent Arrays or FALSE
   // -----------------------------------------------------------------------------------------------------
-  protected function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $categories Array) the category or categories, which to load in an array
+  protected function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $categories Array) the category or categories, which to load in an array, if TRUE it loads all categories
                                $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
-    
-    // -> checks if the RETUNR should be an array
+    global $categories;    
+
+    // -> checks if the RETURN should be an Array
     if($loadPagesInArray === true) {
-      // checks if the page is already loaded
-      if(isset($this->storedPages[$page])) {
-        return $this->storedPages[$page];
+      
+      //vars
+      $pagesArray = array();      
+      
+      // set false category to 0
+      if($category === false)
+        $category = '0';
+      
+      // change category into array
+      if(is_numeric($category))
+        $category = array($category);
         
-      // if not load the page and store it in the storePages PROPERTY
-      } else {
-        if(($page = readPage($page,$category)) !== false) {
-          $this->storedPages[$page['id']] = $page;
-          return $this->storedPages[$page['id']];
-        } else return false;
+      // go trough all given CATEGORIES       
+      foreach($category as $categoryId) {
+        
+        // go trough the storedPageIds and open the page in it
+        $newPageContentArrays = array();
+        foreach($this->getStoredPageIds() as $pageIdAndCategory) {
+          // use only pages from the right category
+          if($pageIdAndCategory[1] == $categoryId) {
+            //echo 'PAGE: '.$pageIdAndCategory[0].' -> '.$categoryId.'<br />';
+            $newPageContentArrays[] = $this->readPage($pageIdAndCategory[0],$pageIdAndCategory[1]);
+          }
+        }
+      
+        // sorts the category
+        if(is_array($newPageContentArrays) && !empty($categoryId)) {
+          if($categories['id_'.$categoryId]['sortbydate'])
+            $newPageContentArrays = sortPages($newPageContentArrays, 'sortByDate');
+          else
+            $newPageContentArrays = sortPages($newPageContentArrays, 'sortBySortOrder');
+        }
+      
+        // adds the new sorted category to the return array
+        $pagesArray = array_merge($pagesArray,$newPageContentArrays);
       }
-    
+      
+      return $pagesArray;
     // -> otherwise just use the loadPages function
     } else
-      return loadPages($category,false);
+      return loadPages($category,$loadPagesInArray);
   }
   // -> END -- loadPages ---------------------------------------------------------------------------------- 
   
@@ -1283,7 +1316,7 @@ class feindura {
  
             // loads the pageContent of the pages of the category in an Array
             // the pages in the returned array also get SORTED
-            $pages = loadPages($ids);
+            $pages = $this->loadPages($ids);
             // returns the loaded pages from the CATEGORY IDs
             return $pages;
           } else return false;
@@ -1380,7 +1413,7 @@ class feindura {
   protected function getPageCategory($page) {   // (Number) the page ID, from which to get the category ID
   
     // execute the genral function
-    $return = getPageCategory($page,$this->storedPageIds,true);
+    $return = getPageCategory($page,$this->getStoredPageIds(),true);
     
     $this->storedPageIds = $return[1];
     return $return[0];
@@ -1398,24 +1431,26 @@ class feindura {
     if($category === false)
       $category = $this->getPageCategory($page);
     
-    $categoryOfPage = loadPages($category);
+    $categoryOfPage = $this->loadPages($category);
+    
+    if($categoryOfPage !== false) {
+      $count = 0;
+      foreach($categoryOfPage as $categoryPage) {         
+  
+        if($categoryPage['id'] == $page) {
           
-    $count = 0;
-    foreach($categoryOfPage as $categoryPage) {         
-
-      if($categoryPage['id'] == $page) {
-        
-        // PREV
-        if($direction == 'prev' && (($count + 1) < count($categoryOfPage)))
-          return $categoryOfPage[($count + 1)];
-        // NEXT
-        elseif($direction == 'next' && (($count - 1) >= 0))
-          return $categoryOfPage[($count - 1)];
-        else return false;
-      }  
-          
-      $count++;
-    }
+          // PREV
+          if($direction == 'prev' && (($count + 1) < count($categoryOfPage)))
+            return $categoryOfPage[($count + 1)];
+          // NEXT
+          elseif($direction == 'next' && (($count - 1) >= 0))
+            return $categoryOfPage[($count - 1)];
+          else return false;
+        }  
+            
+        $count++;
+      }
+    } else return false;
   }  
   // -> END -- prevNextPage ---------------------------------------------------------------------
   
@@ -1461,66 +1496,16 @@ class feindura {
     }
     $return = false;
     
-    // -> category ID(s)
-    // ***************
-    if($idType == 'category' || $idType == 'categories') {
-      if($ids === true || is_array($ids) || is_numeric($ids)) {
-        // checks if the categories are public
-        $ids = $this->publicCategory($ids);
-        if($ids !== false) {
-          // loads the pageContent of the pages of the category in an Array
-          // the pages in the returned array also get SORTED
-          $pages = loadPages($ids);
-          
-          if($pages !== false) {
-            // goes trough every page and compares the tags
-            foreach($pages as $page) {
-              if($page['public'] && $this->compareTags($page, $tags)) {
-                $return[] = $page;
-              }
-            }
-          }
+    // get the pages and compare them if they have the tags
+    if(($pages = $this->loadPagesByType($idType,$ids)) !== false) {
+      // goes trough every page and compares the tags
+      foreach($pages as $page) {
+        if($page['public'] && $this->compareTags($page, $tags)) {
+          $return[] = $page;
         }
-      } else
-        return false;
-      
-    // ->> if its an array of IDs
-    // **************************
-    } elseif($idType == 'page' || $idType == 'pages') {
-      
-      // -> pages IDs
-      // ***************
-      if(is_array($ids)) {
-        // goes trough every given id
-        foreach($ids as $id) {          
-          // loads every pageContent Array of the given page IDs
-          $page = $this->readPage($id,$this->getPageCategory($id));
-          
-          // checks if the page and the category is public
-          if($page['public'] && $this->publicCategory($page['category']) !== false) {
-            if($this->compareTags($page, $tags)) {
-              $return[] = $page;
-            }
-          }
-        }        
-      // -> single page ID
-      // *************** 
-      } elseif(is_numeric($ids)) {        
-           
-        // loads the pageContent Array of the given page ID
-        $page = $this->readPage($ids,$this->getPageCategory($ids));
-        
-        // checks if the page and the category is public
-        if($page['public'] && $this->publicCategory($page['category']) !== false) {
-          if($this->compareTags($page, $tags)) {
-            $return[] = $page;
-          }
-        }
-      } else
-        return false;     
-    } else
-      return false;
-      
+      }
+    }   
+    // RETURNs only the page who have the tags
     return $return;
   }
   // -> END -- hasTags --------------------------------------------------------------------------------
@@ -1744,8 +1729,19 @@ class feindura {
   }
   // -> END -- getPropertyCategories ----------------------------------------------------------------
   
-   
+  // -> START -- getStoredPageIds *******************************************************************
+  // RETURNs the storedPageIDs PROPERTY
+  // ------------------------------------------------------------------------------------------------
+  protected function getStoredPageIds() { // (false or Array)
   
+    // load all page ids, if necessary
+    if($this->storedPageIds == '')
+      $this->storedPageIds = loadPages(true,false);
+
+    return $this->storedPageIds;
+  }
+  // -> END -- getStoredPageIds ---------------------------------------------------------------------
+   
   
   // -> START -- shortenText *******************************************************************************
   // shortens a text by the given length number

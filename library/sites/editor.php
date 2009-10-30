@@ -295,9 +295,247 @@ echo '<tr>
   <!--<div class="bottom"></div>-->
 </div>
 
+<?php
+if($_GET['page'] != 'new') {
+?>
+<!-- ***** PAGE STATISTICS -->
+<?php
+// dont shows the block below if pageSettings is saved
+if($savedForm)  $hidden = ' hidden';
+else $hidden = '';
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#"><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
+  <div class="content">
+  <?php
+  // -> format vars
+  // --------------
+  $firstVisitDate = formatDate($pageContent['log_firstVisit']);
+  $firstVisitTime = formatTime($pageContent['log_firstVisit']);
+  $lastVisitDate = formatDate($pageContent['log_lastVisit']);
+  $lastVisitTime = formatTime($pageContent['log_lastVisit']);
+  
+  $visitTimes_max = explode('|',$pageContent['log_visitTime_max']);
+  $visitTimes_min = explode('|',$pageContent['log_visitTime_min']);
+  ?>  
+  <table>   
+    
+    <colgroup>
+    <col class="left" />
+    </colgroup>
+    
+    <tr><td class="leftTop"></td><td></td></tr>
+    
+    <?php
+    
+    if($pageContent['log_firstVisit']) {
+    ?>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_visitCount']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // VISIT COUNT
+        echo '<span style="font-weight:bold;font-size:20px;color:#C37B43;">'.$pageContent['log_visitCount'].'</span>';
+        ?>
+      </td>      
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_firstVisit']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // FIRST VISIT
+        echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_lastVisit']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // LAST VISIT
+        echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
+        ?>
+      </td>
+    </tr>
+    
+    <tr><td class="spacer"></td><td></td></tr>
+    
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_visitTime_max']; ?>
+      </td><td class="right">
+        <?php
+        // VISIT TIME MAX
+        foreach($visitTimes_max as $visitTime_max) {
+          if($visitTime_max_formated = showVisitTime($visitTime_max))
+            echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
+        }
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_visitTime_min']; ?>
+      </td><td class="right">
+        <?php
+        // VISIT TIME MAX
+        foreach($visitTimes_min as $visitTime_min) {
+          if($visitTime_min_formated = showVisitTime($visitTime_min))
+            echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
+        }
+        ?>
+      </td>
+    </tr>
+    <?php
+    // show NO VISIT
+    } else {
+      echo '<tr>
+              <td class="left">
+              </td><td class="right" style="font-size:15px;">
+                '.$langFile['log_novisit'].'
+              </td>
+            </tr>';
+    }    
+    ?>
+    
+    <tr><td class="spacer"></td><td></td></tr>
+    
+    <tr>
+      <td class="left">
+        <span class="toolTip" title="<?php echo $langFile['log_tags_description_tip']; ?>::"><?php echo $langFile['log_tags_description']; ?></span>
+      </td><td class="right">
+      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
+      <?php
+      
+      createTagCloud($pageContent['log_searchwords']);
+
+      ?>
+      </div>
+      </td>
+    </tr>
+    
+    <tr><td class="leftBottom"></td><td></td></tr>
+    
+    
+  </table>
+  </div>
+  <div class="bottom"></div>
+</div>
+<?php
+}
+?>
+
+<!-- ***** PAGE SETTINGS -->
+<?php
+// shows the block below if it is the ones which is saved before
+if($_GET['page'] == 'new' || $savedForm == 'pageSettings')  $hidden = '';
+else $hidden = ' hidden';
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
+  <div class="content">
+    <table>
+     
+      <colgroup>
+      <col class="left" />
+      </colgroup>
+  
+      <tr><td class="leftTop"></td><td></td></tr>
+      
+      <!-- ***** PAGE TITLE -->
+      
+      <tr><td class="left">
+      <label for="edit_title"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
+      </td><td class="right">
+        <input id="edit_title" name="title" value="<?php echo $pageContent['title']; ?>" />        
+      </td></tr>
+      
+      <tr><td class="spacer"></td><td></td></tr>      
+      
+      <?php
+      // shows only if activated
+      if($categories['id_'.$_GET['category']]['sortdate']) { ?>  
+      <!-- ***** SORT DATE -->
+      
+      <?php
+      
+      if($adminConfig['dateFormat'] == 'eu')
+        $dateFormat = $langFile['date_eu'];
+      else
+        $dateFormat = $langFile['date_int'];
+        
+      // add the DATE of TODAY, if its a NEW PAGE
+      if($_GET['page'] == 'new') {
+          $pageContent['sortdate'][1] = date('Y')."-".date('m')."-".date('d');
+      }
+      
+      ?>      
+      <tr><td class="left">
+      <label for="edit_sortdate">
+      <?php
+      // CHECKs the DATE FORMAT
+      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
+        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
+      else
+        echo '<span class="toolTip mark" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
+      ?>
+      </label>
+      </td><td class="right">
+        <input name="sortdate[0]" value="<?php echo $pageContent['sortdate'][0]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
+        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
+        <input name="sortdate[2]" value="<?php echo $pageContent['sortdate'][2]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
+      </td></tr>
+      <?php } ?>
+      
+      <!-- ***** TAGS -->
+      
+      <tr><td class="left">
+      <label for="edit_tags"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_feld2'] ?></span></label>
+      </td><td class="right">
+        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
+      </td></tr>
+      
+      <tr><td class="leftBottom"></td><td></td></tr>
+      
+  
+      <tr><td class="leftTop"></td><td></td></tr>
+      
+      <!-- ***** PUBLIC/UNPUBLIC -->
+      
+      <tr><td class="left checkboxes">    
+        <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?> />
+      </td><td class="right">
+        <label for="edit_public">
+        <?php          
+          $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
+        
+        // shows the public or unpublic picture
+        if($pageContent['public'])
+          echo '<img src="library/image/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
+        else
+          echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
+
+        ?>
+        &nbsp;<span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
+        <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
+      </td></tr>
+
+     <tr><td class="leftBottom"></td><td></td></tr>
+      
+    </table>
+    
+    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
+  </div>
+  <div class="bottom"></div>
+</div>
 
 <div class="block editor">
-
 <?php
 
 // gives the editor the StyleFile/StyleId/StyleClass
@@ -310,7 +548,6 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
 
 
 ?>
-
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
 <?php echo $pageContent['content']; ?>
 </textarea>
@@ -474,115 +711,6 @@ $oFCKeditor->Value = $pageContent['content'];
   </div>
 </div>
 
-<!-- ***** PAGE SETTINGS -->
-<?php
-// shows the block below if it is the ones which is saved before
-if($_GET['page'] == 'new' || $savedForm == 'pageSettings')  $hidden = '';
-else $hidden = ' hidden';
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
-  <div class="content">
-    <table>
-     
-      <colgroup>
-      <col class="left" />
-      </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
-      
-      <!-- ***** PAGE TITLE -->
-      
-      <tr><td class="left">
-      <label for="edit_title"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
-      </td><td class="right">
-        <input id="edit_title" name="title" value="<?php echo $pageContent['title']; ?>" />        
-      </td></tr>
-      
-      <tr><td class="spacer"></td><td></td></tr>      
-      
-      <?php
-      // shows only if activated
-      if($categories['id_'.$_GET['category']]['sortdate']) { ?>  
-      <!-- ***** SORT DATE -->
-      
-      <?php
-      
-      if($adminConfig['dateFormat'] == 'eu')
-        $dateFormat = $langFile['date_eu'];
-      else
-        $dateFormat = $langFile['date_int'];
-        
-      // add the DATE of TODAY, if its a NEW PAGE
-      if($_GET['page'] == 'new') {
-          $pageContent['sortdate'][1] = date('Y')."-".date('m')."-".date('d');
-      }
-      
-      ?>      
-      <tr><td class="left">
-      <label for="edit_sortdate">
-      <?php
-      // CHECKs the DATE FORMAT
-      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
-        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
-      else
-        echo '<span class="toolTip mark" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
-      ?>
-      </label>
-      </td><td class="right">
-        <input name="sortdate[0]" value="<?php echo $pageContent['sortdate'][0]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
-        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
-        <input name="sortdate[2]" value="<?php echo $pageContent['sortdate'][2]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
-      </td></tr>
-      <?php } ?>
-      
-      <!-- ***** TAGS -->
-      
-      <tr><td class="left">
-      <label for="edit_tags"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_feld2'] ?></span></label>
-      </td><td class="right">
-        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
-      </td></tr>
-      
-      <tr><td class="leftBottom"></td><td></td></tr>
-      
-  
-      <tr><td class="leftTop"></td><td></td></tr>
-      
-      <!-- ***** PUBLIC/UNPUBLIC -->
-      
-      <tr><td class="left checkboxes">    
-        <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?> />
-      </td><td class="right">
-        <label for="edit_public">
-        <?php          
-          $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
-        
-        // shows the public or unpublic picture
-        if($pageContent['public'])
-          echo '<img src="library/image/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
-        else
-          echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
-
-        ?>
-        &nbsp;<span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
-        <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
-      </td></tr>
-
-     <tr><td class="leftBottom"></td><td></td></tr>
-      
-    </table>
-    
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
-  </div>
-  <div class="bottom"></div>
-</div>
-
-
-
 <!-- ***** ADVANCED PAGE SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
@@ -628,137 +756,4 @@ else $hidden = ' hidden';
   </div>
   <div class="bottom"></div>
 </div>
-
-<?php
-if($_GET['page'] != 'new') {
-?>
-<!-- ***** PAGE STATISTICS -->
-<?php
-// dont shows the block below if pageSettings is saved
-if($savedForm)  $hidden = ' hidden';
-else $hidden = '';
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
-  <div class="content">
-  <?php
-  // -> format vars
-  // --------------
-  $firstVisitDate = formatDate($pageContent['log_firstVisit']);
-  $firstVisitTime = formatTime($pageContent['log_firstVisit']);
-  $lastVisitDate = formatDate($pageContent['log_lastVisit']);
-  $lastVisitTime = formatTime($pageContent['log_lastVisit']);
-  
-  $visitTimes_max = explode('|',$pageContent['log_visitTime_max']);
-  $visitTimes_min = explode('|',$pageContent['log_visitTime_min']);
-  ?>  
-  <table>   
-    
-    <colgroup>
-    <col class="left" />
-    </colgroup>
-    
-    <tr><td class="leftTop"></td><td></td></tr>
-    
-    <?php
-    
-    if($pageContent['log_firstVisit']) {
-    ?>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_visitCount']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // VISIT COUNT
-        echo '<span style="font-weight:bold;font-size:20px;color:#C37B43;">'.$pageContent['log_visitCount'].'</span>';
-        ?>
-      </td>      
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_firstVisit']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // FIRST VISIT
-        echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
-        ?>
-      </td>
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_lastVisit']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // LAST VISIT
-        echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
-        ?>
-      </td>
-    </tr>
-    
-    <tr><td class="spacer"></td><td></td></tr>
-    
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_visitTime_max']; ?>
-      </td><td class="right">
-        <?php
-        // VISIT TIME MAX
-        foreach($visitTimes_max as $visitTime_max) {
-          if($visitTime_max_formated = showVisitTime($visitTime_max))
-            echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
-        }
-        ?>
-      </td>
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_visitTime_min']; ?>
-      </td><td class="right">
-        <?php
-        // VISIT TIME MAX
-        foreach($visitTimes_min as $visitTime_min) {
-          if($visitTime_min_formated = showVisitTime($visitTime_min))
-            echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
-        }
-        ?>
-      </td>
-    </tr>
-    <?php
-    // show NO VISIT
-    } else {
-      echo '<tr>
-              <td class="left">
-              </td><td class="right" style="font-size:15px;">
-                '.$langFile['log_novisit'].'
-              </td>
-            </tr>';
-    }    
-    ?>
-    
-    <tr><td class="spacer"></td><td></td></tr>
-    
-    <tr>
-      <td class="left">
-        <span class="toolTip" title="<?php echo $langFile['log_tags_description_tip']; ?>::"><?php echo $langFile['log_tags_description']; ?></span>
-      </td><td class="right">
-      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
-      <?php
-      
-      createTagCloud($pageContent['log_searchwords']);
-
-      ?>
-      </div>
-      </td>
-    </tr>
-    
-    <tr><td class="leftBottom"></td><td></td></tr>
-    
-    
-  </table>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php
-}
-?>
 </form>

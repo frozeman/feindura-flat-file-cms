@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 0.97
+* library/functions/general.functions.php version 0.99
 *
 * FUNCTIONS ----------------------------
 * 
@@ -41,6 +41,7 @@
 */
 
 //error_reporting(E_ALL);
+
 
 // ** -- getLanguage ----------------------------------------------------------------------------------
 // looks for the standard Browser language
@@ -132,7 +133,9 @@ function savePage($category,$page,$contentArray) {
     $category = $category.'/';
   
   //öffnet oder erstellt die flatfile
-  if((($category === false || $category == 0) && $fp = fopen(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$page.'.php',"w")) || $fp = fopen(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.$page.'.php',"w")) {
+  if((($category === false || $category == 0) &&
+      $fp = fopen(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$page.'.php',"w")) ||
+      $fp = fopen(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.$page.'.php',"w")) {
 
     // vorher thumbnailpath,
     // und name statt filename,
@@ -184,10 +187,8 @@ function savePage($category,$page,$contentArray) {
     fclose($fp);
     
     return true;
-  }
-  
-  return false;
-  
+  }  
+  return false;  
 }
 
 // ** -- readPage ----------------------------------------------------------------------------------
@@ -197,7 +198,7 @@ function savePage($category,$page,$contentArray) {
 // $category  [the categroy id in which the page is (String)],
 function readPage($page,$category = false) {
   global $adminConfig;
-   
+
   // fügt ein .php am Ende von $page an sofern es fehlt
   if(substr($page,-4) != '.php')
     $page .= '.php';
@@ -227,11 +228,11 @@ function readPage($page,$category = false) {
 // go trough the category folders and loads the pageContent Array in an Array
 // RETURNs a Array with the pageContent Array in it OR an Array with an Array with the page ID and the category ID
 // -----------------------------------------------------------------------------------------------------
-function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $categories Array) the category or categories, which to load in an array
+function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $categories Array) the category or categories, which to load in an array, if TRUE it loads all categories
                    $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
   global $adminConfig;
   global $categories;
-
+  
   // vars
   $pagesArray = array();
   $categoryDirs = array();
@@ -272,7 +273,7 @@ function loadPages($category = false,           // (Boolean, Number or Array wit
         $categoryDirs[] = $dir;
       }
   } else {
-    if(is_numeric($category) && $category == 0) //$category === false ||
+    if($category === false || (is_numeric($category) && $category == 0)) //$category === false ||
       $categoryDirs[0] = dirname(__FILE__).'/../../'.$adminConfig['savePath'];
     elseif(is_numeric($category))
       $categoryDirs[0] = dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category;
@@ -620,6 +621,24 @@ function formatTime($givenDate,$showSeconds = false) {
     }    
   
     return $hour.':'.$minute.$second;
+}
+
+// ** -- showMemoryUsage ----------------------------------------------------------------------------------
+// display the usage of memory of the script
+// -----------------------------------------------------------------------------------------------------
+function showMemoryUsage() {
+    $mem_usage = memory_get_usage(true);
+    
+    echo $mem_usage.' -> ';
+    
+    if ($mem_usage < 1024)
+        echo $mem_usage." bytes";
+    elseif ($mem_usage < 1048576)
+        echo round($mem_usage/1024,2)." kilobytes";
+    else
+        echo round($mem_usage/1048576,2)." megabytes";
+       
+    echo "<br />";
 }
 
 ?>
