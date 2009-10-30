@@ -111,14 +111,14 @@ windowBox.css version 0.1 */
 /* ---:- SUBMIT/CANCEL */
 
 #windowRequestBox .cancel { /* link on the left */
-    left: 10px;
-    float: left;
+    right: 10px;
+    float: right;
     margin: 10px 0px;
     }
 
 #windowRequestBox input.submit { /* form submit */
-    right: 10px;
-    float: right;
+    left: 10px;
+    float: left;
     margin: 10px 0px;
     }
 #windowRequestBox a.submit { /* link on the center */
