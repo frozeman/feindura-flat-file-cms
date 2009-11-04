@@ -46,13 +46,8 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
+  $_POST['title'] = clearTitle($_POST['title']);
   
-  // format title
-  $_POST['title'] = str_replace('\"', '"', $_POST['title']);
-  $_POST['title'] = preg_replace("/ +/", ' ', $_POST['title']);
-  $_POST['title'] = htmlentities($_POST['title'], ENT_QUOTES, 'UTF-8');
-  
-    
   //$postArray['FCKeditor'] = str_replace("<br />", "<br>", $postArray['FCKeditor'] );
   //$postArray['FCKeditor'] = str_replace("/>", ">", $postArray['FCKeditor'] );
   //$postArray['FCKeditor'] = str_replace("'", "\'", $postArray['FCKeditor'] ); //&#039;
@@ -277,11 +272,13 @@ if($_GET['page'] != 'new') {
   else
     $categoryInLink = $adminConfig['varName']['category'].'='.$_GET['category'].'&amp;';
 
+
+// shows the page link
 echo '<tr>
       <td class="left">
       <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
       </td><td class="right">
-      <span class="info"><a href="../index.php?'.$categoryInLink.$adminConfig['varName']['page'].'='.$_GET['page'].'" class="extern">index.php?'.$categoryInLink.$adminConfig['varName']['page'].'='.$_GET['page'].'</a></span>
+      <span class="info"><a href="'.createHref($pageContent).'" class="extern">'.createHref($pageContent).'</a></span>
       </td>
       </tr>';
 }
@@ -293,6 +290,114 @@ echo '<tr>
     <br style="clear:both;" />
   </div>
   <!--<div class="bottom"></div>-->
+</div>
+
+
+<!-- ***** PAGE SETTINGS -->
+<?php
+// shows the block below if it is the ones which is saved before
+if($_GET['page'] == 'new' || $savedForm == 'pageSettings')  $hidden = '';
+else $hidden = ' hidden';
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
+  <div class="content">
+    <table>
+     
+      <colgroup>
+      <col class="left" />
+      </colgroup>
+  
+      <tr><td class="leftTop"></td><td></td></tr>
+      
+      <!-- ***** PAGE TITLE -->
+      
+      <tr><td class="left">
+      <label for="edit_title"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
+      </td><td class="right">
+        <input id="edit_title" name="title" value="<?php echo $pageContent['title']; ?>" />        
+      </td></tr>
+      
+      <tr><td class="spacer"></td><td></td></tr>      
+      
+      <?php
+      // shows only if activated
+      if($categories['id_'.$_GET['category']]['sortdate']) { ?>  
+      <!-- ***** SORT DATE -->
+      
+      <?php
+      
+      if($adminConfig['dateFormat'] == 'eu')
+        $dateFormat = $langFile['date_eu'];
+      else
+        $dateFormat = $langFile['date_int'];
+        
+      // add the DATE of TODAY, if its a NEW PAGE
+      if($_GET['page'] == 'new') {
+          $pageContent['sortdate'][1] = date('Y')."-".date('m')."-".date('d');
+      }
+      
+      ?>      
+      <tr><td class="left">
+      <label for="edit_sortdate">
+      <?php
+      // CHECKs the DATE FORMAT
+      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
+        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
+      else
+        echo '<span class="toolTip mark" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
+      ?>
+      </label>
+      </td><td class="right">
+        <input name="sortdate[0]" value="<?php echo $pageContent['sortdate'][0]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
+        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
+        <input name="sortdate[2]" value="<?php echo $pageContent['sortdate'][2]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
+      </td></tr>
+      <?php } ?>
+      
+      <!-- ***** TAGS -->
+      
+      <tr><td class="left">
+      <label for="edit_tags"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_feld2'] ?></span></label>
+      </td><td class="right">
+        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
+      </td></tr>
+      
+      <tr><td class="leftBottom"></td><td></td></tr>
+      
+  
+      <tr><td class="leftTop"></td><td></td></tr>
+      
+      <!-- ***** PUBLIC/UNPUBLIC -->
+      
+      <tr><td class="left checkboxes">    
+        <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?> />
+      </td><td class="right">
+        <label for="edit_public">
+        <?php          
+          $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
+        
+        // shows the public or unpublic picture
+        if($pageContent['public'])
+          echo '<img src="library/image/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
+        else
+          echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
+
+        ?>
+        &nbsp;<span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
+        <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
+      </td></tr>
+
+     <tr><td class="leftBottom"></td><td></td></tr>
+      
+    </table>
+    
+    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
+  </div>
+  <div class="bottom"></div>
 </div>
 
 <?php
@@ -427,113 +532,6 @@ else $hidden = '';
 <?php
 }
 ?>
-
-<!-- ***** PAGE SETTINGS -->
-<?php
-// shows the block below if it is the ones which is saved before
-if($_GET['page'] == 'new' || $savedForm == 'pageSettings')  $hidden = '';
-else $hidden = ' hidden';
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
-  <div class="content">
-    <table>
-     
-      <colgroup>
-      <col class="left" />
-      </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
-      
-      <!-- ***** PAGE TITLE -->
-      
-      <tr><td class="left">
-      <label for="edit_title"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
-      </td><td class="right">
-        <input id="edit_title" name="title" value="<?php echo $pageContent['title']; ?>" />        
-      </td></tr>
-      
-      <tr><td class="spacer"></td><td></td></tr>      
-      
-      <?php
-      // shows only if activated
-      if($categories['id_'.$_GET['category']]['sortdate']) { ?>  
-      <!-- ***** SORT DATE -->
-      
-      <?php
-      
-      if($adminConfig['dateFormat'] == 'eu')
-        $dateFormat = $langFile['date_eu'];
-      else
-        $dateFormat = $langFile['date_int'];
-        
-      // add the DATE of TODAY, if its a NEW PAGE
-      if($_GET['page'] == 'new') {
-          $pageContent['sortdate'][1] = date('Y')."-".date('m')."-".date('d');
-      }
-      
-      ?>      
-      <tr><td class="left">
-      <label for="edit_sortdate">
-      <?php
-      // CHECKs the DATE FORMAT
-      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
-        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
-      else
-        echo '<span class="toolTip mark" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
-      ?>
-      </label>
-      </td><td class="right">
-        <input name="sortdate[0]" value="<?php echo $pageContent['sortdate'][0]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
-        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
-        <input name="sortdate[2]" value="<?php echo $pageContent['sortdate'][2]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
-      </td></tr>
-      <?php } ?>
-      
-      <!-- ***** TAGS -->
-      
-      <tr><td class="left">
-      <label for="edit_tags"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_feld2'] ?></span></label>
-      </td><td class="right">
-        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
-      </td></tr>
-      
-      <tr><td class="leftBottom"></td><td></td></tr>
-      
-  
-      <tr><td class="leftTop"></td><td></td></tr>
-      
-      <!-- ***** PUBLIC/UNPUBLIC -->
-      
-      <tr><td class="left checkboxes">    
-        <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?> />
-      </td><td class="right">
-        <label for="edit_public">
-        <?php          
-          $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
-        
-        // shows the public or unpublic picture
-        if($pageContent['public'])
-          echo '<img src="library/image/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
-        else
-          echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
-
-        ?>
-        &nbsp;<span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
-        <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
-      </td></tr>
-
-     <tr><td class="leftBottom"></td><td></td></tr>
-      
-    </table>
-    
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
-  </div>
-  <div class="bottom"></div>
-</div>
 
 <div class="block editor">
 <?php

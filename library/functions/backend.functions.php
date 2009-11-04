@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.06
+* library/functions/backend.functions.php version 1.07
 *
 * FUNCTIONS -----------------------------------
 * 

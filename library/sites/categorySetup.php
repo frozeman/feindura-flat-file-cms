@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.07
+* categorySetup.php version 1.08
 */
 
 //error_reporting(E_ALL);
@@ -139,7 +139,14 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 // ****** ---------- SAVE CATEGORIES
 if($_POST['send'] && isset($_POST['saveCategories'])) {
   
-  if(saveCategories($_POST['categories']))    
+  // cleans the category names
+  $catewgoriesCleaned = array();
+  foreach($_POST['categories'] as $category) {  
+      $category['name'] = clearTitle($category['name']);
+      $catewgoriesCleaned[$category['id']] = $category;
+  }
+  
+  if(saveCategories($catewgoriesCleaned))
     $documentSaved = true; // set documentSaved status
   else
     $errorWindow = $langFile['categorySetup_error_save'];

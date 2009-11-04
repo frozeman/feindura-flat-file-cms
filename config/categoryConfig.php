@@ -3,7 +3,7 @@
 $categories = array(
 "id_4" => array(
           "id"            => '4',
-          "name"          => 'weinachtsgruppe',
+          "name"          => 'wein&auml;chtsgrupp - dfdfge d! efeeeeinzwei',
           
           "public"        => 'true',
           "sortascending" => '',
@@ -20,7 +20,7 @@ $categories = array(
           "thumbHeight"   => '',),
 "id_3" => array(
           "id"            => '3',
-          "name"          => 'neu 1',
+          "name"          => 'netz 2',
           
           "public"        => 'true',
           "sortascending" => 'true',
@@ -37,7 +37,7 @@ $categories = array(
           "thumbHeight"   => '',),
 "id_2" => array(
           "id"            => '2',
-          "name"          => 'Veranstaltungen',
+          "name"          => 'qualenst&auml;rke',
           
           "public"        => 'true',
           "sortascending" => 'true',
@@ -54,7 +54,7 @@ $categories = array(
           "thumbHeight"   => '',),
 "id_1" => array(
           "id"            => '1',
-          "name"          => 'Aktuelles',
+          "name"          => 'huihui',
           
           "public"        => 'true',
           "sortascending" => '',

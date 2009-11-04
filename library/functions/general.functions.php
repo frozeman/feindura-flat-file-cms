@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 0.99
+* library/functions/general.functions.php version 1.02
 *
 * FUNCTIONS ----------------------------
 * 
@@ -366,6 +366,64 @@ function getPageCategory($page,                    // (Number) the page ID, from
   } else return false;
 }
 
+
+// -> START -- createHref ******************************************************************************
+// generates out of the a pageContent Array a href="" link for this page
+// RETURNs a String for the HREF attribute
+// -----------------------------------------------------------------------------------------------------
+function createHref($pageContent,               // (pageContent Array) the pageContent Array of the page
+                    $sessionId = false) {
+  global $categories;
+  global $adminConfig;
+    
+  $adminConfig['speakingUrls'] = 'true';
+  
+  // vars
+  $page = $pageContent['id'];
+  $category = $pageContent['category'];
+  
+  // ->> create HREF with speaking URL
+  // *************************************
+  if($adminConfig['speakingUrls'] == 'true') {
+    $speakingUrlHref = '';
+    
+    // adds the category to the href attribute
+    if($category != 0) {
+      $categoryName = encodeToUrl($categories['id_'.$category]['name']);
+      $categoryLink = $categoryName.'/';
+    } else $categoryLink = '';
+    
+    
+    $speakingUrlHref .= '/'.$categoryLink;
+    $speakingUrlHref .= encodeToUrl($pageContent['title']);
+    $speakingUrlHref .= '.html';
+    
+    if($sessionId)
+      $speakingUrlHref .= '='.session_id();   
+    
+      
+    return $speakingUrlHref;
+  
+  // ->> create HREF with varNames und Ids
+  // *************************************
+  } else {
+    $getVarHref = '';
+    
+    // adds the category to the href attribute
+    if($category != 0)
+      $categoryLink = $adminConfig['varName']['category'].'='.$category.'&amp;';
+    else $categoryLink = '';
+    
+    $getVarHref = '?'.$categoryLink.$adminConfig['varName']['page'].'='.$page;
+    
+    if($sessionId)
+      $getVarHref .= '&amp;'.$sessionId;
+    
+    return $getVarHref;
+  }  
+}
+// -> END -- createHref -----------------------------------------------------------------------------------
+
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER
 // -------------------------------------------------------------------------------------
@@ -570,14 +628,54 @@ function validateDateFormat($dateString) {       // (String) the given string wi
 // --------------------------------------------------------------------------------------------------
 // $string         [the string where the special chars should be removed  (String)],
 // $replaceString    [the string with which they should be replaced (String)]
-function cleanSpecialChars($string,$replaceString) {
-
+function cleanSpecialChars($string,$replaceString = '') {
+  
+  // allows only a-z and 0-9 and _
   $string = preg_replace('/[^\w]/u', $replaceString, $string);
   //$string = str_replace( array('å','è','ô','?','ä','|','@','[',']','ü','ç','∑','!','ó',',',";","*","∞","{",'}','^','¥','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ø',"$","ß",'"',"'","(",")"), $replaceSign, $string);
   
   return $string;
 }
 
+
+// ** -- clearTitle ----------------------------------------------------------------------------------
+// clears the title string from not allowed chars and change the speial chars into htmlentities
+// -----------------------------------------------------------------------------------------------------
+function clearTitle($title) {
+    
+    // format title
+    $title = preg_replace("/ +/", ' ', $title);
+    $title = htmlentities($title,ENT_QUOTES,'UTF-8');
+    
+    return $title;
+}
+
+// ** -- encodeToUrl ----------------------------------------------------------------------------------
+// encode a String so that it can be used as url
+// -----------------------------------------------------------------------------------------------------
+function encodeToUrl($string) {
+    
+    // format string
+    $string = preg_replace("/ +/", '_', $string);    
+    
+    // changes umlaute
+    $string = str_replace('&auml;','ae',$string);
+    $string = str_replace('&Auml;','Ae',$string);
+    $string = str_replace('&uuml;','ue',$string);    
+    $string = str_replace('&Uuml;','Ue',$string);
+    $string = str_replace('&ouml;','oe',$string);
+    $string = str_replace('&Ouml;','Oe',$string);
+    
+    // clears htmlentities example: &amp;
+    $string = preg_replace('/&[a-zA-Z0-9]+;/', '', $string);
+    // allows only a-z and 0-9 and _ and -
+    $string = preg_replace('/[^\w_-]/u', '', $string);
+    
+    // clears double __
+    $string = preg_replace("/_+/", '_', $string);
+    
+    return $string;
+}
 
 // ** -- formatDate ----------------------------------------------------------------------------------
 // returns the date out of a database-date-format in the choosen format

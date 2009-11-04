@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.18
+* library/classes/frontend.classes.php version 1.20
 * 
 */
 
@@ -151,16 +151,16 @@ class feindura {
     
     
     // saves the current GET vars in the PROPERTIES
-    // ********************************************
-    $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $websiteConfig['startPage'] if there is no GET page var
+    // ********************************************    
     $this->setCurrentCategory();           // $_GET['varNameCategory']
+    $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $websiteConfig['startPage'] if there is no GET page var
     
     // -> CHECKS if cookies are enabled
     if(!isset($_COOKIE['cookiesEnabled'])) {
       // try to set a cookie, for checking pn the next page
       setcookie( "cookiesEnabled", 'true');
       
-      $this->sessionId = '&amp;'.htmlspecialchars(session_name().'='.session_id()); //SID
+      $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
     
     // sets the language PROPERTY from the session var AND the languageFile Array
@@ -341,13 +341,8 @@ class feindura {
         $linkStartTag = '';
         $linkEndTag = '';
         $linkTextBefore = '';
-  
-        // adds the href attribute
-        if($pageContent['category'] != 0)
-          $categoryLink = $this->varNames['category'].'='.$pageContent['category'].'&amp;';
-        else $categoryLink = '';
         
-        $linkAttributes .= ' href="?'.$categoryLink.$this->varNames['page'].'='.$pageContent['id'].$this->sessionId.'" title="'.$pageContent['title'].'"';
+        $linkAttributes .= ' href="'.$this->createHref($pageContent).'" title="'.$pageContent['title'].'"';
         
         // adds ID and/or Class 
         // link ID
@@ -835,32 +830,90 @@ class feindura {
   public function getCurrentPage() {
     global $_GET;
     
-    $page = false;
+    // vars
+    $pageId = false;
     
     // set PAGE GET var
     if(!empty($_GET[$this->varNames['page']]) && is_numeric($_GET[$this->varNames['page']]))
       $page = $_GET[$this->varNames['page']]; // get the page ID from the $_GET var
-
-    return $page;
+    
+    
+    // ->> GET PAGE is an ID
+    // *********************
+    if(isset($_GET[$this->varNames['page']]) &&
+       is_numeric($_GET[$this->varNames['page']])) {
+       
+      // set PAGE GET var
+      if(!empty($_GET[$this->varNames['page']]))
+        $pageId = $_GET[$this->varNames['page']]; // get the category ID from the $_GET var
+    
+    // ->> GET PAGE is a NAME
+    // **********************
+    } elseif(isset($_GET['page']) &&
+             !empty($_GET['page'])) {
+    
+      // load the pages of the category
+      $pages = $this->loadPages($this->category);
+      //print_r($this->storedPages);
+      if($pages) {
+        foreach($pages as $page) {          
+          $transformedCategory = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
+          
+          // RETURNs the right page Id
+          if(encodeToUrl($page['title']) == $transformedCategory) {
+            return $page['id'];
+          }
+        }
+      }  
+    }
+    return $pageId;
   }
-  // -> END -- getCurrentPage ----------------------------------------------------------------------------
-  
+  // -> *ALIAS* OF getCurrentPage ***********************************************************************
+  public function getPage() {
+    // call the right function
+    return $this->getCurrentPage();
+  }
+
   // -> START -- getCurrentCategory **********************************************************************
   // get the current GET page var
   // -----------------------------------------------------------------------------------------------------
   public function getCurrentCategory() {
     global $_GET;
+    global $categories;
     
     // var
-    $category = false;
+    $categoryId = false;
     
-    // set CATEGORY GET var
-    if(!empty($_GET[$this->varNames['category']]) && is_numeric($_GET[$this->varNames['category']]))
-      $category = $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
-
-    return $category;
+    // ->> GET CATEGORY is an ID
+    // *************************
+    if(isset($_GET[$this->varNames['category']]) &&
+       is_numeric($_GET[$this->varNames['category']])) {
+       
+      // set CATEGORY GET var
+      if(!empty($_GET[$this->varNames['category']]))
+        $categoryId = $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
+    
+    // ->> GET CATEGORY is a NAME
+    // **************************
+    } elseif(isset($_GET['category']) &&
+             !empty($_GET['category'])) {
+      
+      foreach($categories as $category) {
+        $transformedCategory = htmlentities($_GET['category'],ENT_QUOTES,'UTF-8');
+      
+        // RETURNs the right category Id
+        if(encodeToUrl($category['name']) == $transformedCategory) {
+          return $category['id'];
+        }
+      }      
+    }
+    return $categoryId;
   }
-  // -> END -- getCurrentCategory ------------------------------------------------------------------------
+  // -> *ALIAS* OF getCurrentCategory ***********************************************************************
+  public function getCategory() {
+    // call the right function
+    return $this->getCurrentCategory();
+  }
   
   // -> START -- setCurrentPage **************************************************************************
   // saves the the current GET page var in the page PROPERTY
@@ -878,7 +931,11 @@ class feindura {
       
     return $this->page;
   }
-  // -> END -- setCurrentPage ----------------------------------------------------------------------------
+  // -> *ALIAS* OF setCurrentPage ***********************************************************************
+  public function setPage($setStartPage = false) {
+    // call the right function
+    return $this->setCurrentPage($setStartPage);
+  }
   
   // -> START -- setCurrentCategory **********************************************************************
   // saves the the current GET category var in the category PROPERTY
@@ -889,7 +946,11 @@ class feindura {
     $this->category = $this->getCurrentCategory();
     return $this->category;
   }
-  // -> END -- setCurrentCategory ------------------------------------------------------------------------
+  // -> *ALIAS* OF setCurrentCategory ***********************************************************************
+  public function setCategory() {
+    // call the right function
+    return $this->setCurrentCategory();
+  }
   
   
   // ****************************************************************************************************************
@@ -997,7 +1058,7 @@ class feindura {
     
     // shows the TITLE
     if($this->title)
-      $title = $this->createTitle($pageContent['category'], $pageContent['id'], $pageContent['title'], $this->titleTag, $this->titleId, $this->titleClass, $titleLength, $this->titleAsLink, $titleCategory, $titleDate, $this->titleStartText, $this->varNames);      
+      $title = $this->createTitle($pageContent, $this->titleTag, $this->titleId, $this->titleClass, $titleLength, $this->titleAsLink, $titleCategory, $titleDate, $this->titleStartText, $this->varNames);      
     else $title = '';
       
     // -> PAGE THUMBNAIL
@@ -1062,11 +1123,11 @@ class feindura {
           $shortenText = $this->previewLength; // standard preview length
   
         if($useHtml)
-          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, array($pageContent['id'],$pageContent['category']), " ...");
+          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, " ...");
         else {
           // clear string of html tags (except BR)
           $pageContentEdited = strip_tags($pageContentEdited, '<br>,<br />');
-          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, array($pageContent['id'],$pageContent['category']), " ...");
+          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent, " ...");
         }
       }
       
@@ -1117,9 +1178,7 @@ class feindura {
   // -> START -- createTitle ******************************************************************************
   // creates a title, with the given parameters
   // ------------------------------------------------------------------------------------------------------
-  protected function createTitle($category,                    // category id (Number)
-                                 $page,                        // the page id (Number)
-                                 $title,                       // the title text (String)
+  protected function createTitle($pageContent,                 // the pageContent Array of the Page (String)
                                  $titleTag,                    // the TAG which is used by the title (String)
                                  $titleId = false,             // the ID which is used by the title tag (String)
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
@@ -1132,7 +1191,7 @@ class feindura {
       global $categories;
       
       // saves the long version of the title, for the title="" tag
-      $fullTitle = strip_tags($title);
+      $fullTitle = strip_tags($pageContent['title']);
       
       // shorten the title
       if(is_numeric($titleLength) && strlen($title) > $titleLength)
@@ -1144,13 +1203,8 @@ class feindura {
       }
        
       // create a link for the title
-      if($titleAsLink && $this->varNames !== false && is_array($this->varNames)) {
-        // only show the category link if the page has a acategory
-        if($category && $category !== true)
-          $categoryLink = $this->varNames['category'].'='.$category.'&amp;';
-        else $categoryLink = '';
-        
-        $titleBefore = '<a href="?'.$categoryLink.$this->varNames['page'].'='.$page.$this->sessionId.'" title="'.$fullTitle.'">';
+      if($titleAsLink && $this->varNames !== false && is_array($this->varNames)) {        
+        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$fullTitle.'">';
         $titleAfter = '</a>';
       } else {
         $titleBefore = '<span title="'.$fullTitle.'">';
@@ -1164,9 +1218,9 @@ class feindura {
       // show the category name
       if($titleCategory) {
         if(is_bool($titleCategory))
-          $titleBefore .= $categories['id_'.$category]['name'];
+          $titleBefore .= $categories['id_'.$pageContent['category']]['name'];
         else
-          $titleBefore .= $categories['id_'.$category]['name'].$titleCategory;
+          $titleBefore .= $categories['id_'.$pageContent['category']]['name'].$titleCategory;
       }
       
       // show the page date
@@ -1197,13 +1251,23 @@ class feindura {
       
       // -> builds the title
       // *******************  
-      $title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
+      $title = $titleStartTag.$titleBefore.$pageContent['title'].$titleAfter.$titleEndTag;
       
       // returns the title
       return $title;
   }
   // -> END -- createTitle ---------------------------------------------------------------------------------
   
+  // -> START -- createHref ******************************************************************************
+  // generates out of the a pageContent Array a href="" link for this page
+  // RETURNs a String for the HREF attribute
+  // -----------------------------------------------------------------------------------------------------
+  protected function createHref($pageContent) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
+    
+    return createHref($pageContent,$this->sessionId);
+    
+  }
+  // -> END -- createHref -----------------------------------------------------------------------------------
   
   // -> START -- readPage ********************************************************************************
   // OVERWRITES the readPage() function of the general.functions.php
@@ -1748,7 +1812,7 @@ class feindura {
   // -------------------------------------------------------------------------------------------------------
   protected function shortenText($string,                   // (String) the string which will be shorten
                                  $length,                   // (Number) the number of characters to which the text will be shorten 
-                                 $ids = false,              // (false or Array) $ids[0] = the page Id; $ids[1] = the category Id
+                                 $pageContent = false,      // (false or Array) the pageContent Array of the Page
                                  $endString = " ...") {     // (String) the string add to the end of the shorten text
       
       // kürzt den string
@@ -1758,12 +1822,8 @@ class feindura {
       $string = substr($string, 0, strrpos($string, ' '));
       
       // adds the MORE LINK to the $endString
-      if($ids !== false && is_array($ids) &&
-         $this->varNames !== false && is_array($this->varNames)) {
-        $category = '';
-        if(!empty($ids[1]) && $ids[1] !== true && $ids[1] != 0)
-          $category = $this->varNames['category'].'='.$ids[1].'&amp;';
-        $endString .= ' <a href="?'.$category.$this->varNames['page'].'='.$ids[0].$this->sessionId.'">'.$this->languageFile['page_more'].'</a>';
+      if($pageContent !== false && is_array($pageContent)) {
+        $endString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       // adds the endString
@@ -1781,7 +1841,7 @@ class feindura {
   // ---------------------------------------------------------------------------------------------------------
   protected function shortenHtmlText($input,                    // (String) the string which will be shorten
                                      $length,                   // (Number) the number of characters to which the text will be shorten
-                                     $ids = false,              // (false or Array) $ids[0] = the page Id; $ids[1] = the category Id
+                                     $pageContent = false,      // (false or Array) the pageContent Array of the Page
                                      $endString = ' ...') {     // (String) the string add to the end of the shorten text
       
       // gets the raw text
@@ -1888,12 +1948,8 @@ class feindura {
       }
       
       // adds the MORE LINK to the $endString
-      if($ids !== false && is_array($ids) &&
-         $this->varNames !== false && is_array($this->varNames)) {
-        $category = '';
-        if(!empty($ids[1]) && $ids[1] !== true && $ids[1] != 0)
-          $category = $this->varNames['category'].'='.$ids[1].'&amp;';
-        $endString .= ' <a href="?'.$category.$this->varNames['page'].'='.$ids[0].$this->sessionId.'">'.$this->languageFile['page_more'].'</a>';
+      if($pageContent !== false && is_array($pageContent)) {
+        $endString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       // try to put the endString before the last HTML-Tag
