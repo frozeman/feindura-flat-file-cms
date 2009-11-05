@@ -471,7 +471,7 @@ else $hidden = '';
     <tr>
       <td class="left">
         <?php echo $langFile['log_visitTime_max']; ?>
-      </td><td class="right">
+      </td><td class="right" style="font-size:11px;">
         <?php
         // VISIT TIME MAX
         foreach($visitTimes_max as $visitTime_max) {
@@ -484,7 +484,7 @@ else $hidden = '';
     <tr>
       <td class="left">
         <?php echo $langFile['log_visitTime_min']; ?>
-      </td><td class="right">
+      </td><td class="right" style="font-size:11px;">
         <?php
         // VISIT TIME MAX
         foreach($visitTimes_min as $visitTime_min) {

@@ -57,37 +57,57 @@ function showVisitTime($time) {
   $second = substr($time,6,2);
   
   // adds the text for the HOURs
-  if($hour != 0) {
-    if($hour == 1)
-      $hour = $hour.' '.$langFile['log_hour_single'];
-    else
-      $hour = $hour.' '.$langFile['log_hour_multiple'];
-  } else $hour = false;  
-  
+  if($hour == 0)
+      $hour = false;
   // adds the text for the MINUTEs
-  if($minute != 0) {
-    if($minute == 1)
-      $minute = $minute.' '.$langFile['log_minute_single'];
-    else
-      $minute = $minute.' '.$langFile['log_minute_multiple'];
-  } else $minute = false;
-  
+  if($minute == 0)
+      $minute = false;  
   // adds the text for the SECONDs
-  if($second != 0) {
-    if($second == 1)
-      $second = $second.' '.$langFile['log_second_single'];
-    else
-      $second = $second.' '.$langFile['log_second_multiple'];
-  } else $second = false;
+  if($second == 0)
+      $second = false;
   
-  // adds the spacer
-  if($hour)
-    $hour .= ' '.$langFile['log_time_spacer'].' ';
-  if($minute)
-    $minute .= ' '.$langFile['log_time_spacer'].' ';
+  // 01:01:01 Stunden
+  if($hour !== false && $minute !== false && $second !== false)
+      $time = '<b>'.$hour.'</b>:'.$minute.':'.$second;
+  // 01:01 Stunden
+  elseif($hour !== false && $minute !== false && $second === false)
+      $time = '<b>'.$hour.'</b>:'.$minute;
+  // 01:01 Minuten
+  elseif($hour === false && $minute !== false && $second !== false)
+      $time = '<b>'.$minute.'</b>:'.$second; 
+  
+  // 01 Stunden
+  elseif($hour !== false && $minute === false && $second === false)
+      $time = '<b>'.$hour.'</b>';
+  // 01 Minuten
+  elseif($hour === false && $minute !== false && $second === false)
+      $time = '<b>'.$minute.'</b>';
+  // 01 Sekunden
+  elseif($hour === false && $minute === false && $second !== false)
+      $time = '<b>'.$second.'</b>';
+  
+  
+  // get the time together
+  if($hour) {
+    if($hour == 1)
+      $time = $time.' <b>'.$langFile['log_hour_single'].'</b>';
+    else
+      $time = $time.' <b>'.$langFile['log_hour_multiple'].'</b>';
+  } elseif($minute) {
+    if($hour == 1)
+      $time = $time.' <b>'.$langFile['log_minute_single'].'</b>';
+    else
+      $time = $time.' <b>'.$langFile['log_minute_multiple'].'</b>';
+  } elseif($second) {
+    if($hour == 1)
+      $time = $time.' <b>'.$langFile['log_second_single'].'</b>';
+    else
+      $time = $time.' <b>'.$langFile['log_second_multiple'].'</b>';
+  }
+  
   
   // RETURN formated time
-  return $hour.$minute.$second;
+  return $time;
 }
 
 // ** -- createTagCloud --------------------------------------------------------------------------------

@@ -82,7 +82,6 @@ $langFile['log_minute_single'] = 'Minute';
 $langFile['log_minute_multiple'] = 'Minuten';
 $langFile['log_second_single'] = 'Sekunde';
 $langFile['log_second_multiple'] = 'Sekunden';
-$langFile['log_time_spacer'] = 'und';
 
 // ---------- deleting
 
