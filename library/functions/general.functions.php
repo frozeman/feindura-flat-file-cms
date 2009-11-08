@@ -143,7 +143,7 @@ function savePage($category,$page,$contentArray) {
     // publicdate in date
     $z0 = $phpTags[0];
     $z1 = '$pageContent = array('."\n";
-  
+
   $znew = '
 "id"        => \''.$contentArray['id'].'\',
 "category"  => \''.$contentArray['category'].'\',
