@@ -7,14 +7,14 @@ $adminConfig['uploadPath'] =      '/_fms20/_upload/';
 $adminConfig['langPath'] =        '/_fms20/_lang/';
 $adminConfig['stylesheetPath'] =  '/_fms20/style/';
 $adminConfig['dateFormat'] =      'eu';
-$adminConfig['speakingUrl'] =      '';
+$adminConfig['speakingUrl'] =      'true';
 
 $adminConfig['varName']['page'] =     'p';
 $adminConfig['varName']['category'] = 'c';
 $adminConfig['varName']['modul'] =    'm';
 
-$adminConfig['user']['editLanguage'] =    '';
-$adminConfig['user']['editStylesheet'] =  '';
+$adminConfig['user']['editLanguage'] =    'true';
+$adminConfig['user']['editStylesheet'] =  'true';
 $adminConfig['user']['info'] =        'grhgtfhfghfgdh<br />
 ukzthjkghj';
 

@@ -95,7 +95,7 @@ input.submit:hover, a.submit:hover, a.ok:hover {
     }
 #content .block input.submit {
     z-index: 4;
-    position: absolute;
+    position: relative;
     left: 665px;
     bottom: 25px !important;
     }

@@ -273,9 +273,9 @@ $langFile['adminSetup_fmsSettings_feld3_inputTip'] = 'Relativer Pfad::Relativ zu
 $langFile['adminSetup_fmsSettings_feld4'] = 'Daten Upload Pfad';
 $langFile['adminSetup_fmsSettings_feld4_tip'] = '[b]Absoluter Pfad[/b]. Hier werden die Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span]';
 $langFile['adminSetup_fmsSettings_feld5'] = 'Sprachdateien Pfad';
-$langFile['adminSetup_fmsSettings_feld5_tip'] = 'Der [b]absolute Pfad[/b] in dem die Sprachdateien f&uuml;r die Webseite gespeichert werden, damit man diese aus dem FMS heraus bearbeiten kann (siehe weiter unten).';
+$langFile['adminSetup_fmsSettings_feld5_tip'] = 'Sprachdateien k&ouml;nnen verwendet werden um eine Webseite Mehrsprachig zu gestalten.[br /][br /]Die Sprachdateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.';
 $langFile['adminSetup_fmsSettings_feld6'] = 'Stylesheetdateien Pfad';
-$langFile['adminSetup_fmsSettings_feld6_tip'] = 'Der [b]absolute Pfad[/b] wo sich die Stylesheet-Dateien der Webseite befinden, damit man diese aus dem FMS heraus bearbeiten kann (siehe weiter unten).';
+$langFile['adminSetup_fmsSettings_feld6_tip'] = 'Der [b]absolute Pfad[/b] in dem sich die Stylesheet-Dateien der Webseite befinden.[br /][br /]Die Stylesheet-Dateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.';
 $langFile['adminSetup_fmsSettings_varName1'] = 'Seiten Variablenname';
 $langFile['adminSetup_fmsSettings_varName1_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]page[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName2'] = 'Kategorie Variablenname';

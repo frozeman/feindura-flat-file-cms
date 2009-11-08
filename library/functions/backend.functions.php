@@ -447,7 +447,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
 
       // gets the files out of the directory --------------
       $dir = $documentRoot.$filesPath;
-      if (is_dir($dir)) {
+      if(is_dir($dir)) {
           if ($openDir = opendir($dir)) {
               while (($file = readdir($openDir)) !== false) {
                   if(@is_file($dir . $file)){
@@ -503,18 +503,17 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
         $editFileOpen = fopen($documentRoot.$editFile,"r");  
         $file = @fread($editFileOpen,filesize($documentRoot.$editFile));
         fclose($editFileOpen);
-      }
-      else {
-        $file = $langFile['editFilesSettings_noFile'];
-      }
-  
-  echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
+        
+        echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
 
-  echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles">'.$file.'</textarea>';
+        echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles">'.$file.'</textarea>';
+      } 
   
-  echo '<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />
-        <input type="submit" value="" name="saveEditedFiles" class="toolTip button submit" title="'.$langFile['form_submit'].'" />
-      </div>
+  
+  echo '<!--<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />-->';
+  if(is_dir($dir))
+    echo '<input type="submit" value="" name="saveEditedFiles" class="toolTip button submit" title="'.$langFile['form_submit'].'" />';
+  echo '</div>
       <div class="bottom"></div>
     </div>
     </form>';
