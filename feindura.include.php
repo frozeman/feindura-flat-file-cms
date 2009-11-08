@@ -19,7 +19,7 @@
 */
 
 // starts the session; needed to prevent double count of the visitor statistics
-session_name("session"); 
+session_name("user"); 
 session_start();
 
 

@@ -77,10 +77,73 @@ window.addEvent('domready', function() {
     CKFinder.SetupCKEditor( HTMLEditor, 'library/thirdparty/ckfinder/' ) ;
   }
   
+  // -----------------------------------------
+  // ADD SLIDE TO THE VISIT TIME MAX
+  if($('visitTimeMax') != null) {
+
+     // creates the slide effect
+	   var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});  
+    
+     // slides the hotky div in, on start
+     slideVisitTimeMax.hide();
+    
+     // sets the SLIDE OUT on MOUSE OVER
+     $('visitTimeMax').addEvent('mouseover', function(e){  	   
+    		e.stop();    		
+    		slideVisitTimeMax.toggle();
+     });
+     // sets the SLIDE IN on MOUSE OUT container
+     $('visitTimeMaxContainer').addEvent('mouseover', function(e){   
+    		e.stop();    		
+    		slideVisitTimeMax.toggle();
+     });
+     // sets the SLIDE IN on MOUSE OUT
+     $('visitTimeMax').addEvent('mouseout', function(e){   
+    		e.stop();    		
+    		slideVisitTimeMax.toggle();
+     });
+     // sets the SLIDE IN on MOUSE OUT container
+     $('visitTimeMaxContainer').addEvent('mouseout', function(e){   
+    		e.stop();    		
+    		slideVisitTimeMax.toggle();
+     });
+  }
   
   // -----------------------------------------
-  // ADD SLIDE TO THE HOTKEYs
-  if($('hotKeys') != null) {  
+  // ADD SLIDE TO THE VISIT TIME MIN
+  if($('visitTimeMin') != null) {
+
+     // creates the slide effect
+	   var slideVisitTimeMin = new Fx.Slide($('visitTimeMinContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});  
+    
+     // slides the hotky div in, on start
+     slideVisitTimeMin.hide();
+    
+     // sets the SLIDE OUT on MOUSE OVER
+     $('visitTimeMin').addEvent('mouseover', function(e){  	   
+    		e.stop();    		
+    		slideVisitTimeMin.toggle();
+     });
+     // sets the SLIDE IN on MOUSE OUT container
+     $('visitTimeMinContainer').addEvent('mouseover', function(e){   
+    		e.stop();    		
+    		slideVisitTimeMin.toggle();
+     });
+     // sets the SLIDE IN on MOUSE OUT
+     $('visitTimeMin').addEvent('mouseout', function(e){   
+    		e.stop();    		
+    		slideVisitTimeMin.toggle();
+     });
+     // sets the SLIDE IN on MOUSE OUT container
+     $('visitTimeMinContainer').addEvent('mouseout', function(e){   
+    		e.stop();    		
+    		slideVisitTimeMin.toggle();
+     });
+  }
+    
+  // -----------------------------------------
+  // ADD SLIDE TO THE HOTKEYs (Tastenkürzel)
+  if($('hotKeys') != null) {
 
      // creates the slide effect
 	   var slideHotkeys = new Fx.Slide($('hotKeys'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});  

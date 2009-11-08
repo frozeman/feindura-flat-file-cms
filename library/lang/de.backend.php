@@ -73,7 +73,6 @@ $langFile['log_tags_description'] = 'Suchworte die von
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> oder
 <a href="http://www.bing.com">Bing (MSN)</a> auf diese Seite gef&uuml;hrt haben';
-$langFile['log_tags_description_tip'] = 'Die Zahl in Klammern zeigt an, wie oft dieses Suchwort auf diese Seite zu gef&uuml;hrt hat.';
 $langFile['log_notags'] = 'Es haben noch keine Suchworte auf diese Seite gef&uuml;hrt.';
 
 $langFile['log_hour_single'] = 'Stunde';

@@ -440,7 +440,7 @@ else $hidden = '';
         <?php echo $langFile['log_visitCount']; ?>
       </td><td class="right" style="font-size:15px;">
         <?php
-        // VISIT COUNT
+        // -> VISIT COUNT
         echo '<span style="font-weight:bold;font-size:20px;color:#C37B43;">'.$pageContent['log_visitCount'].'</span>';
         ?>
       </td>      
@@ -450,7 +450,7 @@ else $hidden = '';
         <?php echo $langFile['log_firstVisit']; ?>
       </td><td class="right" style="font-size:15px;">
         <?php
-        // FIRST VISIT
+        // -> FIRST VISIT
         echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
         ?>
       </td>
@@ -460,7 +460,7 @@ else $hidden = '';
         <?php echo $langFile['log_lastVisit']; ?>
       </td><td class="right" style="font-size:15px;">
         <?php
-        // LAST VISIT
+        // -> LAST VISIT
         echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
         ?>
       </td>
@@ -471,31 +471,45 @@ else $hidden = '';
     <tr>
       <td class="left">
         <?php echo $langFile['log_visitTime_max']; ?>
-      </td><td class="right" style="font-size:11px;">
+      </td><td class="right">
         <?php
-        // VISIT TIME MAX
-        foreach($visitTimes_max as $visitTime_max) {
-          if($visitTime_max_formated = showVisitTime($visitTime_max))
-            echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
+        // -> VISIT TIME MAX
+        $showTimeHead = true;
+        foreach($visitTimes_max as $visitTime_max) {          
+          if($visitTime_max_formated = showVisitTime($visitTime_max)) {
+            if($showTimeHead)
+              echo '<span class="blue toolTip" id="visitTimeMax" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br /><div id="visitTimeMaxContainer">';
+            else            
+              echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
+          }
+          $showTimeHead = false;
         }
+        echo '</div>';
         ?>
       </td>
     </tr>
     <tr>
       <td class="left">
         <?php echo $langFile['log_visitTime_min']; ?>
-      </td><td class="right" style="font-size:11px;">
+      </td><td class="right">
         <?php
-        // VISIT TIME MAX
-        foreach($visitTimes_min as $visitTime_min) {
-          if($visitTime_min_formated = showVisitTime($visitTime_min))
-            echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
+        // -> VISIT TIME MIN
+        $showTimeHead = true;
+        foreach($visitTimes_min as $visitTime_min) {          
+          if($visitTime_min_formated = showVisitTime($visitTime_min)) {
+            if($showTimeHead)
+              echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br /><div id="visitTimeMinContainer">';
+            else            
+              echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
+          }
+          $showTimeHead = false;
         }
+        echo '</div>';
         ?>
       </td>
     </tr>
     <?php
-    // show NO VISIT
+    // -> show NO VISIT
     } else {
       echo '<tr>
               <td class="left">
@@ -510,7 +524,7 @@ else $hidden = '';
     
     <tr>
       <td class="left">
-        <span class="toolTip" title="<?php echo $langFile['log_tags_description_tip']; ?>::"><?php echo $langFile['log_tags_description']; ?></span>
+        <span><?php echo $langFile['log_tags_description']; ?></span>
       </td><td class="right">
       <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
       <?php

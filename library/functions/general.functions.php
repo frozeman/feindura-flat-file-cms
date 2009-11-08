@@ -389,17 +389,19 @@ function createHref($pageContent,               // (pageContent Array) the pageC
     
     // adds the category to the href attribute
     if($category != 0) {
-      $categoryName = encodeToUrl($categories['id_'.$category]['name']);
-      $categoryLink = $categoryName.'/';
+      $categoryLink = '/category/'.encodeToUrl($categories['id_'.$category]['name']).'/';
     } else $categoryLink = '';
     
     
-    $speakingUrlHref .= '/'.$categoryLink;
-    $speakingUrlHref .= encodeToUrl($pageContent['title']);
+    $speakingUrlHref .= $categoryLink;
+    if($categoryLink == '')
+      $speakingUrlHref .= '/page/'.encodeToUrl($pageContent['title']);
+    else
+      $speakingUrlHref .= encodeToUrl($pageContent['title']);
     $speakingUrlHref .= '.html';
     
     if($sessionId)
-      $speakingUrlHref .= '='.session_id();   
+      $speakingUrlHref .= '?'.$sessionId;   
     
       
     return $speakingUrlHref;
