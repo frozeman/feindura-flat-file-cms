@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/editor.js version 0.1 (requires ckeditor)
+// java/editor.js version 0.11 (requires ckeditor)
 
 
 window.addEvent('domready', function() {
@@ -40,10 +40,11 @@ window.addEvent('domready', function() {
       
     // ------------------------------
     // CONFIG the HTMlEditor
-    HTMLEditor.config.uiColor                   = '#cccccc';
-    HTMLEditor.config.width                     = '780';
-    HTMLEditor.config.resize_minWidth           = '780';
-    HTMLEditor.config.height                    = '450';
+    HTMLEditor.config.dialog_backgroundCoverColor   = '#333333';
+    HTMLEditor.config.uiColor                       = '#cccccc';
+    HTMLEditor.config.width                         = '780';
+    HTMLEditor.config.resize_minWidth               = '780';
+    HTMLEditor.config.height                        = '450';
     
     //HTMLEditor.config.scayt_autoStartup         = true;
     //HTMLEditor.config.disableNativeSpellChecker = false;
@@ -58,7 +59,7 @@ window.addEvent('domready', function() {
                                             	['Link','Unlink','Anchor'],
                                             	['Image','Flash','Table','HorizontalRule','SpecialChar'],
                                                '/',
-                                            	['Styles','Format','FontName','Font','FontSize'],
+                                            	['Styles','Format','FontSize'], // 'Font','FontName',
                                             	['TextColor','BGColor','-'],
                                             	['Maximize','ShowBlocks','-','About']];		// No comma for the last row.
       
@@ -70,14 +71,11 @@ window.addEvent('domready', function() {
       {
           //stylesCombo_stylesSet : 'my_styles',
 
-      });  
-      
-     
+      });
       
     //HTMLeditor.config.stylesCombo_stylesSet = 'my_styles';    
     CKFinder.SetupCKEditor( HTMLEditor, 'library/thirdparty/ckfinder/' ) ;
   }
-  
   
   
   // -----------------------------------------
@@ -98,7 +96,5 @@ window.addEvent('domready', function() {
       	});
      }
   }
-  
-  
     
 });
