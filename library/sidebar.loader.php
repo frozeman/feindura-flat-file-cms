@@ -127,17 +127,24 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       break;
     // ***** adminSetup sideBar -------------------------------------------- **********
-    case 'adminSetup': //case 'adminSetup_save': case 'advancedsetup_phpaccess': case 'advancedsetup_creategroup': case 'advancedsetup_deletegroup':
+    case 'adminSetup':
       
       echo '<div class="sidebarInfo">';
       
       // FMS INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
-            <p>'.$version[2].' - '.$version[3].'</p>
-           <h1>'.$langFile['adminSetup_phpVersion'].'</h1>
-            <p>'.phpversion().'</p>
-           <h1>'.$langFile['adminSetup_srvRootPath'].'</h1>
-            <p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.$documentRoot.'">'.$documentRoot.'</p>
+            <p>'.$version[2].' - '.$version[3].'</p>';
+            
+      if(phpversion() >= '4.3') {
+           echo '<h1>'.$langFile['adminSetup_phpVersion'].'</h1>
+            <p>'.phpversion().'</p>';
+      } else {
+          echo '<h1 style="color:#B70000;">'.$langFile['adminSetup_phpVersion'].'</h1>
+            <p style="color:#B70000;">'.phpversion().'<br /><br /><b>'.$langFile['adminSetup_warning_phpversion'].' PHP 4.3.0</b></p>'; 
+      }
+      
+      echo '<h1>'.$langFile['adminSetup_srvRootPath'].'</h1>';   
+      echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.$documentRoot.'">'.$documentRoot.'</p>
           </div>';
       
       break;

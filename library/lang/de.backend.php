@@ -130,6 +130,7 @@ $langFile['date_int'] = 'JJJJ-MM-TT';
 $langFile['date_eu'] = 'TT.MM.JJJJ';
 $langFile['categories_nocategories_name'] = 'Seiten';
 $langFile['categories_nocategories_hint'] = 'ohne Kategorie';
+$langFile['text_example'] = 'Beispiel';
 
 // ---------- FEINDURA
 
@@ -144,6 +145,7 @@ $langFile['txt_loading'] = 'Seite wird geladen..';
 
 $langFile['btn_quickmenu_categories'] = 'Kategorien';
 $langFile['btn_quickmenu_pages'] = 'Seiten von';
+$langFile['adminSetup_warning_phpversion'] = 'for full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------- ERROR TEXTs
@@ -280,9 +282,17 @@ $langFile['adminSetup_fmsSettings_varName2'] = 'Kategorie Variablenname';
 $langFile['adminSetup_fmsSettings_varName2_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]category[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName3'] = 'Modul Variablenname';
 $langFile['adminSetup_fmsSettings_varName3_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]modul[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die in der feindura Klasse verwendet wird.';
+$langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
 $langFile['adminSetup_fmsSettings_feld7'] = 'Datumsformat';
-$langFile['adminSetup_fmsSettings_feld7_tip'] = 'Das verwendete Datumsformat.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
+$langFile['adminSetup_fmsSettings_feld7_tip'] = 'Wird im Backend und der Webseite verwendete.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
+$langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL Format';
+$langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URL';
+$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example/example.html';
+$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL mit Variablen';
+$langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['page'].'=1&amp;'.$adminConfig['varName']['category'].'=1';
+$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format welches f&uuml;r die Seiten Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
+
+
 
 // ---------- user Settings
 
@@ -290,7 +300,7 @@ $langFile['adminSetup_userSettings_h1'] = 'Benutzer Einstellungen';
 $langFile['adminSetup_userSettings_check1'] = 'Sprachdateien bearbeiten, in den Webseiten Einstellungen anzeigen';
 $langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien bearbeiten, in den Webseiten Einstellungen anzeigen';
 
-$langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> auf der <a href="?site=home">Startseite</a> anzeigen';
+$langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> auf der <a href="?site=home">Startseite</a>';
 $langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Diese zus&auml;tzlichen Informationen werden auf der Startseite angezeigt.';
 $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
 
@@ -320,7 +330,7 @@ $langFile['adminSetup_thumbnailSettings_feld3'] = 'Speicherpfad'; // Thumbnail-S
 $langFile['adminSetup_thumbnailSettings_feld3_tip'] = 'Der Pfad oder Verzeichnisname innerhalb des Daten Upload Pfad';
 $langFile['adminSetup_thumbnailSettings_feld3_inputTip1'] = 'Der Daten Upload Pfad';
 $langFile['adminSetup_thumbnailSettings_feld3_inputTip2'] = 'Relativer Pfad::Relativ zum &quot;[b]'.$adminConfig['uploadPath'].'image/[/b]&quot; Ordner.[br /][br /]Beginnt ohne &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_feld3_inputTip3'] = '<b>Beispiel</b> &quot;thumbnails/&quot; ';
+$langFile['adminSetup_thumbnailSettings_feld3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 
@@ -410,13 +420,13 @@ $langFile['websiteSetup_websiteConfig_feld3_tip'] = 'Der copyright Besitzer der 
 
 $langFile['websiteSetup_websiteConfig_feld4'] = 'Suchmaschinen Stichworte';
 $langFile['websiteSetup_websiteConfig_feld4_tip'] = 'Die meisten Suchmaschienen durchsuchen den Seiteninhalt nach Stichworten, jedoch sollte man einige Schl&uuml;sselw&ouml;rter hier auff&uuml;hren.';
-$langFile['websiteSetup_websiteConfig_feld4_inputTip'] = 'Die Stichworte m&uuml;ssen mit &quot;,&quot; getrennt werden.::Beispiel:[br /]stichwort1,stichwort2,etc';
+$langFile['websiteSetup_websiteConfig_feld4_inputTip'] = 'Die Stichworte m&uuml;ssen mit &quot;,&quot; getrennt werden.::'.$langFile['text_example'].':[br /]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_feld5'] = 'Webseiten Beschreibung';
 $langFile['websiteSetup_websiteConfig_feld5_tip'] = 'Ist eine kurze Beschreibung die in den Suchmaschienen auftaucht wenn man nach der Webseiten-Adresse sucht oder keine Stichworte im Text gefunden wurden.';
 $langFile['websiteSetup_websiteConfig_feld5_inputTip'] = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
 $langFile['websiteSetup_websiteConfig_feld6'] = 'E-Mail Adresse';
 $langFile['websiteSetup_websiteConfig_feld6_tip'] = 'Diese E-Mail Adresse wird f&uuml;r alle wichtigen Kontaktm&ouml;glichkeiten verwendet[br /](z.B. Kontaktformulare etc.)';
-$langFile['websiteSetup_websiteConfig_feld6_inputTip'] = 'Beispiel::name@providor.de';
+$langFile['websiteSetup_websiteConfig_feld6_inputTip'] = $langFile['text_example'].'::name@providor.de';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // editor.php
@@ -454,7 +464,7 @@ $langFile['editor_advancedpageSettings_h1'] = 'Erweiterte Seiten Einstellungen';
 
 $langFile['editor_advancedpageSettings_feld1'] = 'Seiten Stylesheet-Datei';
 $langFile['editor_advancedpageSettings_feld1_tip'] = 'Hier kann eine bestimmte Stylesheet-Datei angegeben werden die diese Seite in dem HTML-Editor verwenden soll.[br /][br /]Wenn das Feld leer ist dann wird die Standard Stylesheet-Datei aus den HTML-Editor Einstellungen verwendet.';
-$langFile['editor_advancedpageSettings_feld1_inputTip2'] = '<b>Beispiel</b> &quot;/style/layout.css&quot; ';
+$langFile['editor_advancedpageSettings_feld1_inputTip2'] = '<b>'.$langFile['text_example'].'</b> &quot;/style/layout.css&quot; ';
 $langFile['editor_advancedpageSettings_feld3'] = 'Seiten Stylesheet-Id';
 $langFile['editor_advancedpageSettings_feld3_tip'] = 'Hier kann eine bestimmte Stylesheet-Id angegeben werden die diese Seite in dem HTML-Editor verwenden soll.';
 $langFile['editor_advancedpageSettings_feld3_inputTip'] = 'Wenn das Feld leer ist dann wird die Standard Stylesheet-Id aus den HTML-Editor Einstellungen verwendet.';

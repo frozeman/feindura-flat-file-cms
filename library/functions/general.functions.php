@@ -375,8 +375,6 @@ function createHref($pageContent,               // (pageContent Array) the pageC
                     $sessionId = false) {
   global $categories;
   global $adminConfig;
-    
-  $adminConfig['speakingUrls'] = 'true';
   
   // vars
   $page = $pageContent['id'];
@@ -384,7 +382,7 @@ function createHref($pageContent,               // (pageContent Array) the pageC
   
   // ->> create HREF with speaking URL
   // *************************************
-  if($adminConfig['speakingUrls'] == 'true') {
+  if($adminConfig['speakingUrl'] == 'true') {
     $speakingUrlHref = '';
     
     // adds the category to the href attribute
@@ -395,7 +393,7 @@ function createHref($pageContent,               // (pageContent Array) the pageC
     
     $speakingUrlHref .= $categoryLink;
     if($categoryLink == '')
-      $speakingUrlHref .= '/page/'.encodeToUrl($pageContent['title']);
+      $speakingUrlHref .= '/pages/'.encodeToUrl($pageContent['title']);
     else
       $speakingUrlHref .= encodeToUrl($pageContent['title']);
     $speakingUrlHref .= '.html';
@@ -416,7 +414,7 @@ function createHref($pageContent,               // (pageContent Array) the pageC
       $categoryLink = $adminConfig['varName']['category'].'='.$category.'&amp;';
     else $categoryLink = '';
     
-    $getVarHref = '?'.$categoryLink.$adminConfig['varName']['page'].'='.$page;
+    $getVarHref = 'index.php?'.$categoryLink.$adminConfig['varName']['page'].'='.$page;
     
     if($sessionId)
       $getVarHref .= '&amp;'.$sessionId;

@@ -59,8 +59,68 @@ if($_POST['send'] && isset($_POST['adminConfig'])) {
         $_POST['cfg_savePath'] = substr($_POST['cfg_savePath'],1);
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
+  
+  // ->> SPEAKING URL .htaccess
+  // --------------------------
+    $speakingUrlCode = '<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# rewrite "/page/*.html" and "/category/*/*.html"
+# and also passes the session var
+RewriteRule ^category/([^/]+)/(.*)\.html?$ index.php?category=$1&page=$2$3 [QSA,L]
+RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
+</IfModule>';
+    
+    $htaccessFile = $documentRoot.'/.htaccess';
+  
+  // ** looks if the MOD_REWRITE modul exists
+  if(!in_array('mod_rewrite',apache_get_modules()))
+    $_POST['cfg_speakingUrl'] = '';
+  // ** ->> looks for a .htacces file with the speaking url mod_rewrite
+  elseif(in_array('mod_rewrite',apache_get_modules()) && $_POST['cfg_speakingUrl'] == 'true') {
+
+    // -> looks if the existing .htaccess file has the speaking urls code
+    if(file_exists($htaccessFile)) {
+
+      if(strstr(file_get_contents($htaccessFile),$speakingUrlCode) === false) {
+        if($htaccess = @fopen($htaccessFile,"a")) {
+          flock($htaccess,2); // LOCK_EX
+          fwrite($htaccess,"\n".$speakingUrlCode);
+          flock($htaccess,3); //LOCK_UN
+          fclose($htaccess);
+        } else $_POST['cfg_speakingUrl'] = '';
+      }
+    // -> creates a NEW .htaccess file
+    } else {
+      if($htaccess = @fopen($htaccessFile,"w")) {
+        flock($htaccess,2); // LOCK_EX
+        fwrite($htaccess,$speakingUrlCode);
+        flock($htaccess,3); //LOCK_UN
+        fclose($htaccess);
+      } else $_POST['cfg_speakingUrl'] = '';
+    }
+  // -> deletes the speaking Url code if necessary
+  } elseif($_POST['cfg_speakingUrl'] == '') {
+    
+    if(file_exists($htaccessFile)) {
+      $currrentHtaccess = file_get_contents($htaccessFile);
+      // looks if the speaking url code exists in the .htaccess file
+      if(strstr($currrentHtaccess,$speakingUrlCode)) {
+        $newHtaccess = str_replace($speakingUrlCode,'',$currrentHtaccess);
         
+        if(substr($newHtaccess,-2) == '\n' || substr($newHtaccess,-2) == '\r')
+          $newHtaccess = substr($newHtaccess,0,-2);
         
+        if($htaccess = @fopen($htaccessFile,"w")) {
+          flock($htaccess,2); // LOCK_EX
+          fwrite($htaccess,$newHtaccess);
+          flock($htaccess,3); //LOCK_UN
+          fclose($htaccess);
+        }
+      }
+    }
+  }
   
   // **** opens adminConfig.php for writing
   if($file = @fopen("config/adminConfig.php","w")) {
@@ -73,7 +133,8 @@ if($_POST['send'] && isset($_POST['adminConfig'])) {
     fwrite($file,"\$adminConfig['uploadPath'] =      '".$_POST['cfg_uploadPath']."';\n");  
     fwrite($file,"\$adminConfig['langPath'] =        '".$_POST['cfg_langPath']."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =  '".$_POST['cfg_stylesheetPath']."';\n");    
-    fwrite($file,"\$adminConfig['dateFormat'] =      '".$_POST['cfg_dateFormat']."';\n\n");
+    fwrite($file,"\$adminConfig['dateFormat'] =      '".$_POST['cfg_dateFormat']."';\n");
+    fwrite($file,"\$adminConfig['speakingUrl'] =      '".$_POST['cfg_speakingUrl']."';\n\n");
     
     fwrite($file,"\$adminConfig['varName']['page'] =     '".$_POST['cfg_varNamePage']."';\n");  
     fwrite($file,"\$adminConfig['varName']['category'] = '".$_POST['cfg_varNameCategory']."';\n");  
@@ -314,6 +375,30 @@ else $hidden = '';
         <option value="eu"<?php if($adminConfig['dateFormat'] == 'eu') echo ' selected="selected"'; ?>><?php echo $langFile['date_eu'];?></option>
         <option value="int"<?php if($adminConfig['dateFormat'] == 'int') echo ' selected="selected"'; ?>><?php echo $langFile['date_int'];?></option>
       </select>
+      </td></tr>
+      
+      <tr><td class="spacer"></td><td></td></tr>
+      
+      <!-- URL FORMAT -> SPEAKING URLS -->
+      <tr><td class="left">
+      <label for="cfg_speakingUrl"><span class="toolTip mark" title="<?php echo $langFile['adminSetup_fmsSettings_speakingUrl'].'::'.$langFile['adminSetup_fmsSettings_speakingUrl_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_speakingUrl'] ?></span></label>
+      </td><td class="right">
+      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" <?php if(!in_array('mod_rewrite',apache_get_modules())) echo 'disabled="disabled"'; ?>>
+        <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['adminSetup_fmsSettings_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['adminSetup_fmsSettings_speakingUrl_true_example'];?></option>
+        <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['adminSetup_fmsSettings_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.$langFile['adminSetup_fmsSettings_speakingUrl_false_example'];?></option>
+      </select>
+      <span class="hint">
+      <?php
+        echo '<b>'.$langFile['text_example'].':</b> ';
+        
+        // show the right example
+        if($adminConfig['speakingUrl'] == 'true')
+          echo $langFile['adminSetup_fmsSettings_speakingUrl_true_example'];
+        else
+          echo $langFile['adminSetup_fmsSettings_speakingUrl_false_example'];      
+      ?>
+      </span>
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>

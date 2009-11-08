@@ -7,6 +7,7 @@ $adminConfig['uploadPath'] =      '/_fms20/_upload/';
 $adminConfig['langPath'] =        '/_fms20/_lang/';
 $adminConfig['stylesheetPath'] =  '/_fms20/style/';
 $adminConfig['dateFormat'] =      'eu';
+$adminConfig['speakingUrl'] =      '';
 
 $adminConfig['varName']['page'] =     'p';
 $adminConfig['varName']['category'] = 'c';
@@ -31,5 +32,4 @@ $adminConfig['pageThumbnail']['height'] =     '400';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;
-
 ?>
