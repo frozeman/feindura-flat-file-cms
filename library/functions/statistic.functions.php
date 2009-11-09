@@ -259,6 +259,71 @@ function sortSearchwordString($a, $b) {
   return ($aExp[1] > $bExp[1]) ? -1 : 1;
 }
 
+// ** -- saveLog --------------------------------------------------------------------------------
+// saves the the website statistic
+// - count user visits
+// - count bot visits 
+// - register user browser
+// - logs the last referers
+// -----------------------------------------------------------------------------------------------------
+function saveWebsiteStats() {  
+  global $phpTags;
+  global $adminConfig;
+  global $websiteStatistic;
+  global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
+  global $HTTP_SESSION_VARS;
+  
+    //unset($_SESSION);
+    
+    // if its an older php version, set the session var
+    if(phpversion() <= '4.1.0')
+      $_SESSION = $HTTP_SESSION_VARS;
+    
+    // COUNT if the user/spider isn't already counted
+    if(!isset($_SESSION['log_agentVisited']) || $_SESSION['log_agentVisited'] === false) {
+      
+      // -> CHECKS if the user is NOT a BOT/SPIDER
+      if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
+          ($_SESSION['log_userIsSpider'] = isSpider()) === false) {
+        
+        // -> COUNT the userVisitCount UP
+        if($websiteStatistic['userVisitCount'] == '')
+          $websiteStatistic['userVisitCount'] = '0';
+        else
+          $websiteStatistic['userVisitCount']++;
+        
+        // -> adds the user Browser
+        $websiteStatistic["userBrowsers"] = ;
+        
+      // -> COUNT the spiderVisitCount UP
+      } elseif($websiteStatistic['spiderVisitCount'] == '')
+        $websiteStatistic['spiderVisitCount'] = '0';
+      else
+        $websiteStatistic['spiderVisitCount']++;
+      
+      // ->> OPEN websiteStatistic.php for writing
+      if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/websiteStatistic.php","w")) {
+
+        
+        flock($statisticFile,2);        
+        fwrite($statisticFile,$phpTags[0]);  
+              
+        fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
+        fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$websiteStatistic["spiderVisitCount"]."';\n");
+        fwrite($statisticFile,"\$websiteStatistic['userBrowsers'] =      '".$websiteStatistic["userBrowsers"]."';\n\n");
+        
+        fwrite($statisticFile,"return \$websiteStatistic;");
+              
+        fwrite($statisticFile,$phpTags[1]);        
+        flock($statisticFile,3);
+        fclose($statisticFile);
+        
+        // saves the user as visited
+        //$_SESSION['log_agentVisited'] = true;
+      }
+    }  
+}
+
 // ** -- savePageStats ----------------------------------------------------------------------------------
 // saves the statistics of a page
 // needs to have a session startet with: session_start(); in the header of the HTML Page, to prevent multiple count of page visits

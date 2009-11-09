@@ -141,7 +141,6 @@ function savePage($category,$page,$contentArray) {
     // und name statt filename,
     // public statt status,
     // publicdate in date
-    $z0 = $phpTags[0];
     $z1 = '$pageContent = array('."\n";
 
   $znew = '
@@ -175,7 +174,7 @@ function savePage($category,$page,$contentArray) {
     $z3 = ');'."\n\n";
     flock($fp,2);
     
-    fwrite($fp,$z0);
+    fwrite($fp,$phpTags[0]);
     fwrite($fp,$z1);
     
     fwrite($fp,$znew);

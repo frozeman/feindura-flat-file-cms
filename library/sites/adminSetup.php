@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.20
+* adminSetup.php version 2.21
 */
 
 //error_reporting(E_ALL);
@@ -263,6 +263,10 @@ $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/websiteConfig.php');
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.xml');
+
+$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/');
+if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log.txt'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log.txt');
 
 // check lang folder/files      
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath']);

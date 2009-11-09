@@ -14,12 +14,20 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* frontend.include.php version 0.15
+* frontend.include.php version 0.18
 */
 
-include_once(dirname(__FILE__)."/../config/adminConfig.php");
-include_once(dirname(__FILE__)."/../config/websiteConfig.php");
-include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+$documentRoot = $_SERVER["DOCUMENT_ROOT"];
+
+$phpTags = file(dirname(__FILE__)."/process/phptags.txt"); 
+$phpTags[0] .= "\n";
+$phpTags[1] = "\n".$phpTags[1];
+
+@include_once(dirname(__FILE__)."/../config/adminConfig.php");
+@include_once(dirname(__FILE__)."/../config/websiteConfig.php");
+@include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+
+@include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
 require_once(dirname(__FILE__)."/functions/general.functions.php");
 require_once(dirname(__FILE__)."/functions/statistic.functions.php");
@@ -28,11 +36,5 @@ require_once(dirname(__FILE__)."/functions/mysql.functions.php");
 require_once(dirname(__FILE__)."/functions/frontend.functions.php");
 
 require_once(dirname(__FILE__)."/classes/frontend.classes.php");
-
-$documentRoot = $_SERVER["DOCUMENT_ROOT"];
-
-$phpTags = file(dirname(__FILE__)."/process/phptags.txt"); 
-$phpTags[0] .= "\n";
-$phpTags[1] = "\n".$phpTags[1];
 
 ?>

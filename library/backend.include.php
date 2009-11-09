@@ -14,23 +14,24 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* backend.include.php version 0.13
+* backend.include.php version 0.15
 */
-
-
-include_once(dirname(__FILE__)."/../config/adminConfig.php");
-include_once(dirname(__FILE__)."/../config/websiteConfig.php");
-include_once(dirname(__FILE__)."/../config/categoryConfig.php");
-
-require_once(dirname(__FILE__)."/functions/general.functions.php");
-require_once(dirname(__FILE__)."/functions/statistic.functions.php");
-require_once(dirname(__FILE__)."/functions/backend.functions.php");
 
 $documentRoot = $_SERVER["DOCUMENT_ROOT"];
 
 $phpTags = file(dirname(__FILE__)."/process/phptags.txt"); 
 $phpTags[0] .= "\n";
 $phpTags[1] = "\n".$phpTags[1];
+
+@include_once(dirname(__FILE__)."/../config/adminConfig.php");
+@include_once(dirname(__FILE__)."/../config/websiteConfig.php");
+@include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+
+@include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
+
+require_once(dirname(__FILE__)."/functions/general.functions.php");
+require_once(dirname(__FILE__)."/functions/statistic.functions.php");
+require_once(dirname(__FILE__)."/functions/backend.functions.php");
 
 // *---* choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

@@ -147,8 +147,12 @@ class feindura {
     global $documentRoot;
     global $adminConfig;
     
+    // save the website statistics
+    // ***************************
+    saveWebsiteStats();
+    
     // sets the varNames.. from the adminConfig
-    // ******************************************
+    // ****************************************
     // page varName
     if(isset($adminConfig['varName']['page']) && !empty($adminConfig['varName']['page']))
       $this->varNames['page'] = $adminConfig['varName']['page'];
