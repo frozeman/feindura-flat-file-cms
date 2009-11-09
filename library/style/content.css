@@ -154,7 +154,7 @@ content.css version 0.1 */
     }
     
 /* ----------------------- */	
-/* --- SLIDE H1 LINKS */
+/* --- SLIDE H1 links */
 #content h1 a, .slide {
     position: relative;
     display: block;
@@ -289,11 +289,10 @@ span.warning {
 #content h1.blue {
     background: url(../image/bg/block_h1_blue.png) no-repeat;
     }
-#content .blue {
-    color: #668CA6;
-    }
-#content .brown {
-    color: #BE8423;
+
+#content h1 a img {
+    position: relative;
+    top: 8px;
     }
 #content h2 {
     margin: 0px 10px 18px -4px;

@@ -14,16 +14,22 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* feindura.include.php version 0.12
+* feindura.include.php version 0.13
 *
+*
+* !!! PROTECTED VARs (do not overwrite these in your script)
+* -> $adminConfig
+* -> $websiteConfig
+* -> $categories
+* -> $documentRoot
+* -> $phpTags 
 */
 
-// starts the session; needed to prevent double count of the visitor statistics
+// -> starts the SESSION; needed to prevent multiple count of the visitor statistics
 session_name("user"); 
 session_start();
 
-
-// include all important files
+// -> include all important functions and config vars
 include_once(dirname(__FILE__)."/library/frontend.include.php");
 
 ?>

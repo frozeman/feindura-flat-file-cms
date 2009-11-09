@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.07
+* library/functions/backend.functions.php version 1.09
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -22,11 +22,13 @@
 * 
 * numeratePage($group, $pageName, $numerateHowever = false) (NOT IN USE)
 * 
-* userIsAdmin()
+* isAdmin()
 * 
 * saveCategories($categories)
 * 
 * moveCategories($category, $direction)
+* 
+* saveWebsiteConfig();
 * 
 * editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType)
 * 
@@ -39,6 +41,14 @@
 * fileFolderIsWritableWarning($fileFolder)
 * 
 * getHighestId()
+* 
+* folderIsEmpty()
+* 
+* checkBasePath()
+* 
+* basePathWarning()
+* 
+* startPageWarning()
 * 
 * showAddons()*
 * 
@@ -136,10 +146,10 @@ function numeratePage($group, $pageName, $numerateHowever = false) {
 // *************************************** NICHT MEHR VERWENDET --ENDE-- *******************************************
 
 
-// ** -- userIsAdmin ----------------------------------------------------------------------------------
+// ** -- isAdmin ----------------------------------------------------------------------------------
 // open the .htpasswd file and checks the username for: is "admin", "adminstrator", "superuser" or "root" and return true, if no one exists also return true
 // -----------------------------------------------------------------------------------------------------
-function userIsAdmin() {
+function isAdmin() {
  
   $currentUser = strtolower(getenv("REMOTE_USER"));
   
@@ -724,7 +734,7 @@ function startPageWarning() {
     $startPageCategory = '';
 
   if($adminConfig['setStartPage'] && (!$websiteConfig['startPage'] || !file_exists(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$startPageCategory.$websiteConfig['startPage'].'.php'))) {
-    echo '<div class="block warning">
+    echo '<div class="block info">
             <h1>'.$langFile['warning_startPageWarning_h1'].'</h1>
             <div class="content">
               <p>'.$langFile['warning_startPageWarning'].'</p><!-- needs <p> tags for margin-left:..--> 

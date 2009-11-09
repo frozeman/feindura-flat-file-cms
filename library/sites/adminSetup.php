@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.18
+* adminSetup.php version 2.20
 */
 
 //error_reporting(E_ALL);
@@ -65,7 +65,6 @@ if($_POST['send'] && isset($_POST['adminConfig'])) {
     $speakingUrlCode = '<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
-
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
 RewriteRule ^category/([^/]+)/(.*)\.html?$ index.php?category=$1&page=$2$3 [QSA,L]
@@ -80,7 +79,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   // ** ->> looks for a .htacces file with the speaking url mod_rewrite
   elseif(in_array('mod_rewrite',apache_get_modules()) && $_POST['cfg_speakingUrl'] == 'true') {
 
-    // -> looks if the existing .htaccess file has the speaking urls code
+    // -> looks if the existing .htaccess file has the SPEAKING URL code
     if(file_exists($htaccessFile)) {
 
       if(strstr(file_get_contents($htaccessFile),$speakingUrlCode) === false) {
@@ -89,7 +88,10 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
           fwrite($htaccess,"\n".$speakingUrlCode);
           flock($htaccess,3); //LOCK_UN
           fclose($htaccess);
-        } else $_POST['cfg_speakingUrl'] = '';
+        } else {
+          $_POST['cfg_speakingUrl'] = '';
+          $errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
+        }
       }
     // -> creates a NEW .htaccess file
     } else {
@@ -98,25 +100,36 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
         fwrite($htaccess,$speakingUrlCode);
         flock($htaccess,3); //LOCK_UN
         fclose($htaccess);
-      } else $_POST['cfg_speakingUrl'] = '';
+      } else {
+        $_POST['cfg_speakingUrl'] = '';
+        $errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
+      }
     }
-  // -> deletes the speaking Url code if necessary
+    
+  // ->> deletes the SPEAKING URL code if SPEAKING URL turned OFF
   } elseif($_POST['cfg_speakingUrl'] == '') {
     
     if(file_exists($htaccessFile)) {
       $currrentHtaccess = file_get_contents($htaccessFile);
-      // looks if the speaking url code exists in the .htaccess file
-      if(strstr($currrentHtaccess,$speakingUrlCode)) {
+      // if ONLY the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
+      if($currrentHtaccess == $speakingUrlCode ||
+         $currrentHtaccess == "\n".$speakingUrlCode ||
+         $currrentHtaccess == "\n\n".$speakingUrlCode) {
+        @unlink($htaccessFile);
+           
+      // looks if SPEAKING URL code EXISTs in the .htaccess file
+      } elseif(strstr($currrentHtaccess,$speakingUrlCode)) {
         $newHtaccess = str_replace($speakingUrlCode,'',$currrentHtaccess);
-        
-        if(substr($newHtaccess,-2) == '\n' || substr($newHtaccess,-2) == '\r')
-          $newHtaccess = substr($newHtaccess,0,-2);
+        $newHtaccess = preg_replace("/ +/", ' ', $newHtaccess);
+        $newHtaccess = preg_replace("/\n+/", "\n", $newHtaccess);
         
         if($htaccess = @fopen($htaccessFile,"w")) {
           flock($htaccess,2); // LOCK_EX
           fwrite($htaccess,$newHtaccess);
           flock($htaccess,3); //LOCK_UN
           fclose($htaccess);
+        } else {
+          $errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
         }
       }
     }
@@ -165,6 +178,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     // give documentSaved status
     $documentSaved = true;
+    saveLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
   }
@@ -188,6 +202,7 @@ if($_POST['saveFckStyleFile']) {
   
     // give documentSaved status
     $documentSaved = true;
+    saveLog($langFile['log_adminSetup_ckstyles']); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -198,9 +213,10 @@ if($_POST['saveFckStyleFile']) {
 // ---------- SAVE the editFiles
 if(isset($_POST['saveEditedFiles'])) {
 
-  if(saveEditedFiles($_POST)) 
+  if(saveEditedFiles($_POST)) {
     $documentSaved = true; // give documentSaved status
-  else
+    saveLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
+  } else
     $errorWindow = $langFile['editFilesSettings_error_save'];
   
   // sets which block should be opend after saving
@@ -214,9 +230,8 @@ include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the sav
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 
 
-
 // didnt show the Setup for non-adminstrators
-if(userIsAdmin()) {
+if(isAdmin()) {
 
 // show basePath warning if necessary
 basePathWarning();

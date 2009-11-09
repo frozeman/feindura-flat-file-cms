@@ -77,6 +77,16 @@ a img {
 a:active, a:focus { outline:none; }
 
 /* ----------------------- */	
+/* ---:- GENERAL ELEMENT FORMAT  */
+
+span.blue {
+    color: #668CA6 !important;
+    }
+span.brown {
+    color: #BE8423 !important;
+    }
+
+/* ----------------------- */	
 /* ---:- CONTAINERS  
     
 #container {

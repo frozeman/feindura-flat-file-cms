@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.83
+* websiteSetup.php version 1.84
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -24,7 +24,7 @@ $errorWindow = false;
 $savedForm = '';
 
 // ------------ SPEICHERT die BENUTZER EINSTELLUNGEN, schreibe in usersettings.php
-if($_POST['send'] && isset($_POST['websiteConfig'])){
+if($_POST['send'] && isset($_POST['websiteConfig'])) {
 
     // gets the startPage var and put it in the POST var
     $_POST['startPage'] = $websiteConfig['startPage'];
@@ -33,6 +33,7 @@ if($_POST['send'] && isset($_POST['websiteConfig'])){
     if(saveWebsiteConfig($_POST)) {
       // give documentSaved status
       $documentSaved = true;
+      saveLog($langFile['log_websiteSetup_saved']); // <- SAVE the task in a LOG FILE
     } else
     $errorWindow = $langFile['websiteSetup_websiteConfig_error_save'];
   
@@ -42,9 +43,10 @@ if($_POST['send'] && isset($_POST['websiteConfig'])){
 // ---------- SAVE the editFiles
 if(isset($_POST['saveEditedFiles'])) {
 
-  if(saveEditedFiles($_POST)) 
+  if(saveEditedFiles($_POST)) { 
     $documentSaved = true; // give documentSaved status
-  else
+     saveLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
+  } else
     $errorWindow = $langFile['editFilesSettings_error_save'];
   
   $savedForm = $_POST['status'];

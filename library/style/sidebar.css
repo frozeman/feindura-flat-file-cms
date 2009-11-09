@@ -211,11 +211,17 @@
 .sidebarInfo {
     position: relative;
     top: 2px;
-    left: 1px;
-    width: 158px;
+    width: 198px;
     min-height: 260px;
-    padding: 20px 20px;
+    padding: 0px;
     background: url(../image/bg/sidebarInfo_bg.png) no-repeat;
+    border: 1px solid #ffffff;
+    }
+.sidebarInfo div {
+    position: relative;
+    width: 165px;
+    margin: 20px 20px;
+    margin-right: 13px;
     font-size: 10px;
     overflow: hidden;
     }
@@ -240,4 +246,16 @@
     margin: 15px 0px;
     border: none;
     border-top: 1px dotted #666666;
+    }
+
+.sidebarInfo ul {
+    margin: 2px 0px;
+    margin-left: 6px;
+    }
+.sidebarInfo ul li {    
+    margin: 3px 0px;
+    margin-left: 8px;
+    margin-bottom: 8px;
+    color: #888888;
+    list-style: circle;
     }

@@ -1,12 +1,12 @@
 <?php
 
 $categories = array(
-"id_4" => array(
-          "id"            => '4',
-          "name"          => 'wein&auml;chtsgrupp - dfdfge d! efeeeeinzwei',
+"id_3" => array(
+          "id"            => '3',
+          "name"          => 'netz 2',
           
           "public"        => 'true',
-          "sortascending" => '',
+          "sortascending" => 'true',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "sortdate"      => 'true',
@@ -18,12 +18,12 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
-"id_3" => array(
-          "id"            => '3',
-          "name"          => 'netz 2',
+"id_4" => array(
+          "id"            => '4',
+          "name"          => 'wein&auml;chtsgrupp - dfdfge d! efeeeeinzwei',
           
           "public"        => 'true',
-          "sortascending" => 'true',
+          "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "sortdate"      => 'true',

@@ -14,8 +14,15 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.20
+* library/classes/frontend.classes.php version 1.21
 * 
+*
+* !!! PROTECTED VARs (do not overwrite these in your script)
+* -> $adminConfig
+* -> $websiteConfig
+* -> $categories
+* -> $documentRoot
+* -> $phpTags 
 */
 
 //error_reporting(E_ALL);

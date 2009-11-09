@@ -181,8 +181,10 @@ if($_POST['upload']) {
             
             // saves the new thumbnail in the flatfile ---------------------  
             $pageContent['thumbnail'] = $newFileName;
-            if(savePage($category,$page,$pageContent))
+            if(savePage($category,$page,$pageContent)) {
               $response[] = $langFile['pagethumbnail_upload_response_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.'" />';
+              saveLog($langFile['log_pageThumbnail_upload'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+            }
             
             // call this javascript, on the succesfull finish of the upload
             echo '<script type="text/javascript">

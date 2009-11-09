@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-errorWindow.css version 0.1 */
+errorWindow.css version 0.11 */
 
 /* ----------------------- */	
 /* ---:- ERRORWINDOW */
@@ -76,7 +76,7 @@ errorWindow.css version 0.1 */
     position: relative;
     left: 130px;
     width: 75px;
-    height: 65px;
+    height: 70px;
     padding: 0px;
     background: url(../image/key/errorWindow_ok.png) no-repeat;
     }

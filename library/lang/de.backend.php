@@ -95,10 +95,39 @@ $langFile['status_page_nonpublic'] = 'Seite ist versteckt';
 $langFile['status_category_public'] = 'Kategorie ist &ouml;ffentlich';
 $langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
 
+
 // ---------------------------------------------------------------------------------------------------------------------
-// index.php
-//
-// --------- BUTTON-TEXT
+// ---------- FEINDURA TEXTs
+
+$langFile['txt_logo'] = 'feindura CMS, Version ';
+$langFile['txt_loading'] = 'Seite wird geladen..';
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------- LOG TEXTs
+
+$langFile['log_page_saved'] = 'Seite gespeichert';
+$langFile['log_page_new'] = 'Neue Seite erstellt';
+$langFile['log_page_delete'] = 'Seite gel&ouml;scht';
+
+$langFile['log_pageThumbnail_upload'] = 'Neues Thumbnail hochgeladen';
+$langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
+
+$langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
+
+$langFile['log_adminSetup_saved'] = 'Administrator Einstellungen gespeichert';
+$langFile['log_adminSetup_ckstyles'] = 'CKEditor Styles gespeichert';
+
+$langFile['log_websiteSetup_saved'] = 'Webseiten Einstellungen gespeichert';
+
+$langFile['log_categorySetup_saved'] = 'Kategorien gespeichert';
+$langFile['log_categorySetup_new'] = 'Neue Kategorie erstellt';
+$langFile['log_categorySetup_delete'] = 'Kategorie gel&ouml;scht';
+$langFile['log_categorySetup_move'] = 'Kategorie verschoben';
+
+$langFile['log_file_saved'] = 'Datei gespeichert';
+
+// ---------------------------------------------------------------------------------------------------------------------
+// --------- BUTTON-TEXT (index.php)
 // --- mainMenu
 $langFile['btn_home'] = '&Uuml;bersicht';
 $langFile['btn_pages'] = 'Kategorien und Seiten';
@@ -132,21 +161,6 @@ $langFile['categories_nocategories_name'] = 'Seiten';
 $langFile['categories_nocategories_hint'] = 'ohne Kategorie';
 $langFile['text_example'] = 'Beispiel';
 
-// ---------- FEINDURA
-
-$langFile['txt_logo'] = 'feindura CMS, Version ';
-$langFile['txt_loading'] = 'Seite wird geladen..';
-
-
-// ---------------------------------------------------------------------------------------------------------------------
-// sidebar.loader.php
-//
-// ---------- QUICKMENU
-
-$langFile['btn_quickmenu_categories'] = 'Kategorien';
-$langFile['btn_quickmenu_pages'] = 'Seiten von';
-$langFile['adminSetup_warning_phpversion'] = 'for full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
-
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------- ERROR TEXTs
 
@@ -158,6 +172,7 @@ $langFile['error_save_folder_part1'] = '<br /><br />Bitte &uuml;berpr&uuml;fe di
 
 $langFile['error_folder_end'] = '&quot; Ordners dessen Unterordner und Dateien.';
 $langFile['error_folderDatabase_end'] = '&quot; Ordners dessen Unterordner und Dateien oder die Datenbank.';
+
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -187,15 +202,32 @@ Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&
 <h2>im Opera</h2>
 <p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Einstellungen&quot;. Unter &quot;Erweitert&quot; &gt; &quot;Inhalte&quot; setze ein Haken bei &quot;JavaScript aktivieren&quot; und klicke dann OK.';
 
+
+// ---------------------------------------------------------------------------------------------------------------------
+// sidebar.loader.php
+//
+// ---------- QUICKMENU
+
+$langFile['btn_quickmenu_categories'] = 'Kategorien';
+$langFile['btn_quickmenu_pages'] = 'Seiten von';
+$langFile['adminSetup_warning_phpversion'] = 'for full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
+
+
 // ---------------------------------------------------------------------------------------------------------------------
 // home.php
 //
 // ---------- HOME
 
-$langFile['txt_home_userInfo_h1'] = 'Benutzer Information';
+$langFile['home_userInfo_h1'] = 'Benutzer Information';
 
-$langFile['txt_home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>, dem Content Management System deiner Webseite.';
-$langFile['txt_home_welcome'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span title="Flatfiles::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird." class="toolTip mark" >Flatfiles</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span><br />dem Content Management System deiner Webseite.';
+$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span title="Flatfiles::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird." class="toolTip mark" >Flatfiles</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+
+$langFile['home_statistic_h1'] = 'Webseiten Statistik';
+
+$langFile['home_log_h1'] = 'Letzte T&auml;tigkeiten';
+$langFile['home_log_nolog'] = 'keine';
+$langFile['home_user_h1'] = 'Benutzer';
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -213,8 +245,8 @@ $langFile['sortablePageList_headText5'] = 'Funktionen';
 $langFile['sortablePageList_sortDate'] = 'Seiten-Datum';
 $langFile['sortablePageList_tags'] = 'Tags';
 
-$langFile['sortablePageList_sortOrder_manuell'] = 'manuelle Sortierung';
-$langFile['sortablePageList_sortOrder_date'] = 'sortiert nach Datum';
+$langFile['sortablePageList_sortOrder_manuell'] = 'manuell sortiert';
+$langFile['sortablePageList_sortOrder_date'] = 'nach Datum sortiert';
 
 $langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
 $langFile['sortablePageList_functions_deletePage'] = 'Seite l&ouml;schen';
@@ -292,7 +324,9 @@ $langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL mit Variablen';
 $langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['page'].'=1&amp;'.$adminConfig['varName']['category'].'=1';
 $langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format welches f&uuml;r die Seiten Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
 
+// ---------- speaking url ERRORs
 
+$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URL</b> konnte nicht aktiviert werden'.$langFile['error_save_file'].'/.htaccess';
 
 // ---------- user Settings
 
@@ -413,7 +447,7 @@ $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_setti
 $langFile['websiteSetup_websiteConfig_h1'] = 'Webseiten Einstellungen';
 $langFile['websiteSetup_websiteConfig_feld1'] = 'Webseiten Titel';
 $langFile['websiteSetup_websiteConfig_feld1_tip'] = 'Der Titel der Webseite wird oben in der Browserleiste angezeigt.';
-$langFile['websiteSetup_websiteConfig_feld2'] = 'Ver&ouml;ffentlicher';
+$langFile['websiteSetup_websiteConfig_feld2'] = 'Publisher';
 $langFile['websiteSetup_websiteConfig_feld2_tip'] = 'Der Name der Organisation/Firma/Person die diese Seite ver&oumlffentlicht.';
 $langFile['websiteSetup_websiteConfig_feld3'] = 'Copyright';
 $langFile['websiteSetup_websiteConfig_feld3_tip'] = 'Der copyright Besitzer der Webseite.';
@@ -509,7 +543,7 @@ $langFile['deletePage_finish_error'] = 'FEHLER: Die Seite konnte nicht gel&ouml;
 $langFile['pageThumbnailDelete_question_part1'] = 'M&ouml;chtest du das Thumbnail von der Seite';
 $langFile['pageThumbnailDelete_question_part2'] = 'wirklich l&ouml;schen?';
 
-$langFile['pageThumbnailDelete_finishnotexisting_part1'] = 'Der Thumbnail';
+$langFile['pageThumbnailDelete_name'] = 'Der Thumbnail';
 $langFile['pageThumbnailDelete_finish_part2'] = 'wurde erfolgreich gel&ouml;scht';
 $langFile['pageThumbnailDelete_notexisting_part2'] = 'existiert nicht';
 

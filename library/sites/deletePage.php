@@ -61,7 +61,9 @@ if($asking && is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$cate
         // DELETING FINISH --------------
         $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
         <a href="?site=pages&amp;category='.$category.'" class="ok" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
-        //redirect($category,'',1);
+        
+        saveLog($langFile['log_page_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+        
     } else {
       // DELETING ERROR --------------
       $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>

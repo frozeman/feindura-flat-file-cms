@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// pageThumbnailDelete.php version 0.9
+// pageThumbnailDelete.php version 0.91
 
 include(dirname(__FILE__).'/../backend.include.php');
 
@@ -43,7 +43,7 @@ if(is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail'
 
 // NOT EXISTING
 } else {
-  $question = '<h1>'.$langFile['pageThumbnailDelete_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_notexisting_part2'].'</h1>
+  $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_notexisting_part2'].'</h1>
   <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site='.$site.'&amp;category='.$category.'&amp;page='.$page.'\');return false;">&nbsp;</a>';
   
   // if the thumbnail doesnt exists, delete it from the pageContent
@@ -63,9 +63,11 @@ if($asking && is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pag
     if(unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && savePage($category,$page,$pageContent)) {
 
         // DELETING FINISH --------------
-        $question = '<h1>'.$langFile['pageThumbnailDelete_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />
+        $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />
         <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site='.$site.'&amp;category='.$category.'&amp;page='.$page.'\');return false;">&nbsp;</a>'."\n";
-        //redirect($category,'',1);
+        
+        saveLog($langFile['log_pageThumbnail_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+        
     } else {
       // DELETING ERROR --------------
       $question = '<h1>'.$langFile['pageThumbnailDelete_finish_error'].'</h1>

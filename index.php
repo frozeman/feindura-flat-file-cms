@@ -166,7 +166,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
     </div>
     
     <!-- ADMIN-SPACE -->
-    <?php if(userIsAdmin()) { ?>
+    <?php if(isAdmin()) { ?>
     <div id="adminMenu">
       <?php // show the admin part if the user is admin, or no other user is admin, administrator, root or superuser
       ?>

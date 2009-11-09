@@ -12,12 +12,13 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 0.5
+verion 0.51
 
  -->
 <?php
 //error_reporting(E_ALL);
 
+include(dirname(__FILE__).'/../backend.include.php');
 
 
 /**********************/
@@ -88,7 +89,7 @@ $disable['fileimportuser'] = 1;		/* set to 1 to deactivate the 'Import User from
 /***************/
 /*  CONSTANTS  */
 /***************/
-define("AUTHNAME", "FrozeMentSystem");
+define("AUTHNAME", "feindura CMS");
 define("PASSWDFILE", dirname(__FILE__)."/../../.htpasswd");
 define("ACCESSFILE", dirname(__FILE__)."/../../.htaccess");
 define("SCRIPTVERSION","1.05");
@@ -1108,7 +1109,7 @@ function cryptpass($user, $newpass) {
 
 
 function adduser($user, $pass, &$status, &$newusers) {
-
+  global $langFile;
 	global $languagearray;
 
 	$cryptedpass = cryptpass($user, $pass);
@@ -1118,6 +1119,8 @@ function adduser($user, $pass, &$status, &$newusers) {
 	$newusers .= $newline;
 
 	$status .= $languagearray[11].$user.$languagearray[22];
+	
+	saveLog($langFile['log_userSetup_useradd'],$user); // <- SAVE the task in a LOG FILE
 
 } //EndOfFunction
 
@@ -1516,7 +1519,7 @@ checkfiles($status);		/* Existenz von ht...-files prüfen */
 require_once(dirname(__FILE__).'/../backend.include.php');
 
 // didnt show the Setup for non-adminstrators
-if(userIsAdmin()) {
+if(isAdmin()) {
 
 ?>
 

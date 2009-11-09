@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.08
+* categorySetup.php version 1.09
 */
 
 //error_reporting(E_ALL);
@@ -48,10 +48,10 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
   
   //fügt dem $categories array einen leeren array an
   array_push($categories, array('id' => ++$highestId)); // gives the new category a id
-  if(saveCategories($categories)) {
-  
+  if(saveCategories($categories)) {  
+    
     $categoryInfo = $langFile['categorySetup_createCategory_created'];
-  
+    
     // if there is no category dir, trys to create one
     if(!is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$highestId)) {
         // erstellt ein verzeichnis
@@ -62,6 +62,8 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
             $errorWindow = $langFile['categorySetup_error_createDir'];
       }
     }
+    
+    saveLog($langFile['log_categorySetup_new']); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_create'];
   
@@ -91,7 +93,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
           if(!empty($page['thumbnail']) && is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
             @chmod($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], 0777);          
             // DELETING    
-            unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
+            @unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
           }
         }
       }
@@ -104,7 +106,8 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
           $errorWindow = $langFile['categorySetup_error_deleteDir'];
       }    
     }
-  
+    
+    saveLog($langFile['log_categorySetup_delete'],$categoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_delete'];
 
@@ -125,9 +128,10 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     $categoryInfo = $langFile['categorySetup_moveCategory_moved'];
     
     // save the categories array
-    if(saveCategories($categories))
+    if(saveCategories($categories)) {
       $documentSaved = true; // set documentSaved status
-    else
+      saveLog($langFile['log_categorySetup_move'],$categories['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
+    } else
       $errorWindow = $langFile['categorySetup_error_save'];
     
   }
@@ -146,9 +150,10 @@ if($_POST['send'] && isset($_POST['saveCategories'])) {
       $catewgoriesCleaned[$category['id']] = $category;
   }
   
-  if(saveCategories($catewgoriesCleaned))
+  if(saveCategories($catewgoriesCleaned)) {
     $documentSaved = true; // set documentSaved status
-  else
+    saveLog($langFile['log_categorySetup_saved']); // <- SAVE the task in a LOG FILE
+  } else
     $errorWindow = $langFile['categorySetup_error_save'];
   
   $savedForm = 'categories';
@@ -270,7 +275,7 @@ if($unwriteableList) {
                 <tr><td class="leftTop"></td><td></td></tr>';
           
           echo '<tr><td class="left">';
-          echo '<span style="font-size:20px;font-weight:bold;">'.$category['name'].'</span>';
+          echo '<span style="font-size:20px;font-weight:bold;">'.$category['name'].'</span><br />ID '.$category['id'];
           echo '<input type="hidden" name="categories['.$category['id'].'][id]" value="'.$category['id'].'" />';
           echo '</td>'; 
           

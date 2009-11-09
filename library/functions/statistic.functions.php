@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/functions/general.functions.php version 0.29
+// library/functions/general.functions.php version 0.31
 
 
 //error_reporting(E_ALL);
@@ -44,6 +44,13 @@ function secToTime($sec) {
     $seconds = '0'.$seconds;
   
   return $hours.':'.$mins.':'.$seconds;
+}
+
+// ** -- formatHighNumber ----------------------------------------------------------------------------------
+// format a high number to 1 000 000,00
+// -------------------------------------------------------------------------------------------------
+function formatHighNumber($number,$decimalsNumber = 0) {  
+  return number_format($number, $decimalsNumber, ',', ' ');
 }
 
 // ** -- showVisitTime -----------------------------------------------------------------------------
@@ -110,6 +117,47 @@ function showVisitTime($time) {
   return $time;
 }
 
+// ** -- saveLog --------------------------------------------------------------------------------
+// saves a log file with time and task which was done
+// -----------------------------------------------------------------------------------------------------
+function saveLog($task,               // (String) a description of the task which was performed
+                 $object = false) {   // (String) the page name or the name of the object on which the task was performed
+  global $documentRoot;
+  global $adminConfig;
+  global $langFile;
+  
+  $logFile = dirname(__FILE__).'/../../'.'statistic/log.txt';
+  
+  if(file_exists($logFile))
+    $oldLog = file($logFile);
+    
+  if($logFile = @fopen($logFile,"w")) {
+    
+    // adds a break before the object
+    if($object)
+      $object = '::'.$object;
+    
+    // -> create the new log string
+    $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).' '.$task.$object;
+    
+    // -> write the new log file
+    flock($logFile,2);    
+    fwrite($logFile,$newLog."\n");    
+    $count = 1;
+    foreach($oldLog as $oldLogRow) {
+      fwrite($logFile,$oldLogRow);
+      // stops the log after 120 entries
+      if($count == 119)
+        break;      
+      $count++;
+    }    
+    flock($logFile,3);
+    fclose($logFile);
+    
+    return true;
+  } else return false;
+}
+
 // ** -- createTagCloud --------------------------------------------------------------------------------
 // creates a tag cloud out of the searchwords
 // -----------------------------------------------------------------------------------------------------
@@ -127,12 +175,14 @@ function createTagCloud($searchWordString,$minFontSize = 10,$maxFontSize = 20) {
     $swHighestNumber = $searchWords[0][1];
     $swLowestNumber = $searchWords[count($searchWords)-1][1];
     
+    sort($searchWords);
+    
     foreach($searchWords as $searchWord) {
       
       $fontSize = $searchWord[1] / $swHighestNumber;
       $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
       
-      echo '<span style="font-size:'.$fontSize.'px;color:#C37B43;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].',</span>'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
+      echo '<span style="font-size:'.$fontSize.'px;color:#C37B43;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
     
     }
   } else {

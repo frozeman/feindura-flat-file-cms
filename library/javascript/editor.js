@@ -90,22 +90,12 @@ window.addEvent('domready', function() {
      // sets the SLIDE OUT on MOUSE OVER
      $('visitTimeMax').addEvent('mouseover', function(e){  	   
     		e.stop();    		
-    		slideVisitTimeMax.toggle();
-     });
-     // sets the SLIDE IN on MOUSE OUT container
-     $('visitTimeMaxContainer').addEvent('mouseover', function(e){   
-    		e.stop();    		
-    		slideVisitTimeMax.toggle();
+    		slideVisitTimeMax.slideIn();
      });
      // sets the SLIDE IN on MOUSE OUT
      $('visitTimeMax').addEvent('mouseout', function(e){   
     		e.stop();    		
-    		slideVisitTimeMax.toggle();
-     });
-     // sets the SLIDE IN on MOUSE OUT container
-     $('visitTimeMaxContainer').addEvent('mouseout', function(e){   
-    		e.stop();    		
-    		slideVisitTimeMax.toggle();
+    		slideVisitTimeMax.slideOut();
      });
   }
   
@@ -122,22 +112,12 @@ window.addEvent('domready', function() {
      // sets the SLIDE OUT on MOUSE OVER
      $('visitTimeMin').addEvent('mouseover', function(e){  	   
     		e.stop();    		
-    		slideVisitTimeMin.toggle();
-     });
-     // sets the SLIDE IN on MOUSE OUT container
-     $('visitTimeMinContainer').addEvent('mouseover', function(e){   
-    		e.stop();    		
-    		slideVisitTimeMin.toggle();
+    		slideVisitTimeMin.slideIn();
      });
      // sets the SLIDE IN on MOUSE OUT
      $('visitTimeMin').addEvent('mouseout', function(e){   
-    		e.stop();    		
-    		slideVisitTimeMin.toggle();
-     });
-     // sets the SLIDE IN on MOUSE OUT container
-     $('visitTimeMinContainer').addEvent('mouseout', function(e){   
-    		e.stop();    		
-    		slideVisitTimeMin.toggle();
+    		e.stop();
+    		slideVisitTimeMin.slideOut();
      });
   }
     

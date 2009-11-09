@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.45
+// sidebar.loader.php version 0.48
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
@@ -30,7 +30,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = ' hidden';
     
     echo '<div class="sidebarMenu fixed'.$hidden.'">
-    <div class="top brown"><img src="library/image/sign/icon_page_small.png" class="icon" alt="icon" /><span>'.$langFile['categories_nocategories_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_nocategories_name'].'::'.$langFile['categories_nocategories_hint'].'">&nbsp;</a></div>
+    <div class="top brown"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['categories_nocategories_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_nocategories_name'].'::'.$langFile['categories_nocategories_hint'].'">&nbsp;</a></div>
     <div class="content brown">
       <ul class="verticalButtons">';
             
@@ -66,7 +66,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = ' hidden';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
-    <div class="top blue"><!--<img src="library/image/bg/sidebarMenu_fixedFade.png" alt="fade"/>--><img src="library/image/sign/icon_category_small.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_categories'].'::">&nbsp;</a></div>
+    <div class="top blue"><!--<img src="library/image/bg/sidebarMenu_fixedFade.png" alt="fade"/>--><img src="library/image/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_categories'].'::">&nbsp;</a></div>
     <div class="content blue">
       <ul class="verticalButtons">';      
         
@@ -90,8 +90,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top blue"><img src="library/image/sign/icon_page_small.png" class="icon" alt="icon" /><span>'.$categories['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categories['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
-    <div class="content blue">
+    <div class="top blue"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categories['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categories['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
+    <div class="content dark">
       <ul class="verticalButtons">';      
       
       if($pages = loadPages($_GET['category'])) { 
@@ -117,19 +117,40 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
 // SWITCH SITE
 } else {
 
-  // SWITCHES the &_GET['site'] var
+  // SWITCH the &_GET['site'] var
   switch($_GET['site']) {
     // ***** home -------------------------------------------- **********
     case 'home': case '':
       
-      echo '<div class="sidebarInfo">
-            </div>';
+      echo '<div class="sidebarInfo"><div>';
+      echo '<h1>'.$langFile['home_log_h1'].'</h1>';
+      
+      if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log.txt')) {
+         $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log.txt');
+         echo '<ul>';
+         foreach($logContent as $logRow) {
+          $logDateTime = substr($logRow,0,19);
+          $logDate = formatDate($logDateTime);
+          $logTime = formatTime($logDateTime);
+          // finds the "<br />" in the log row
+          if($logBreak = strpos($logRow,'::'))            
+            echo '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span class="blue" style="font-weight:bold;">'.substr($logRow,20,$logBreak-20).'</span><br /><span>'.substr($logRow,$logBreak+2).'</span></li>';         
+          else
+            echo '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span class="blue" style="font-weight:bold;">'.substr($logRow,20).'</span></li>';
+         }
+         echo '</ul>';
+         
+      } else
+        echo $langFile['home_log_nolog'];
+      
+      echo '<br /><br /><h1>'.$langFile['home_user_h1'].'</h1>';
+      echo '</div></div>';
       
       break;
     // ***** adminSetup sideBar -------------------------------------------- **********
     case 'adminSetup':
       
-      echo '<div class="sidebarInfo">';
+      echo '<div class="sidebarInfo"><div>';
       
       // FMS INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
@@ -145,7 +166,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       echo '<h1>'.$langFile['adminSetup_srvRootPath'].'</h1>';   
       echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.$documentRoot.'">'.$documentRoot.'</p>
-          </div>';
+          </div></div>';
       
       break;
     // ***** websiteSetup -------------------------------------------- **********

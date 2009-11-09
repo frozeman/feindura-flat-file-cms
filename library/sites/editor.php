@@ -67,14 +67,17 @@ if($_POST['save']) {
     $_GET['page'] = $page;
   
     $pageContent['log_visitCount'] = '0';
-
+    
+    $logText = $langFile['log_page_new'];
+    
   // *** SAVE PAGE ----------------------
   } else {
   
     // wenn die flatfile existiert, lade die content variable (wird für thumbnail benötigt)
     if(!$pageContent = readPage($page,$category))
       $errorWindow = $langFile['file_error_read'];
-    
+   
+    $logText = $langFile['log_page_saved']; 
   }
   
   // only save page if no error occured
@@ -117,9 +120,10 @@ if($_POST['save']) {
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchwords'] = $pageContent['log_searchwords'];
       
-    if(savePage($category,$page,$_POST))
+    if(savePage($category,$page,$_POST)) {
       $documentSaved = true;
-    else
+      saveLog($logText,$_POST['title']); // <- SAVE the task in a LOG FILE
+    } else
       $errorWindow = $langFile['editor_savepage_error_save'];
   }
   
@@ -163,7 +167,6 @@ function FCKeditor_OnComplete( editorInstance )
   oCombo.value = editorInstance.ToolbarSet.Name ;
   oCombo.style.visibility = '' ;
 }
-
 
 /* ]]> */
 </script>
@@ -292,6 +295,154 @@ echo '<tr>
   <!--<div class="bottom"></div>-->
 </div>
 
+<?php
+if($_GET['page'] != 'new') {
+?>
+<!-- ***** PAGE STATISTICS -->
+<?php
+// dont shows the block below if pageSettings is saved
+if($savedForm)  $hidden = ' hidden';
+else $hidden = '';
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#"><img src="library/image/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
+  <div class="content">
+  <?php
+  // -> format vars
+  // --------------
+  $firstVisitDate = formatDate($pageContent['log_firstVisit']);
+  $firstVisitTime = formatTime($pageContent['log_firstVisit']);
+  $lastVisitDate = formatDate($pageContent['log_lastVisit']);
+  $lastVisitTime = formatTime($pageContent['log_lastVisit']);
+  
+  $visitTimes_max = explode('|',$pageContent['log_visitTime_max']);
+  $visitTimes_min = explode('|',$pageContent['log_visitTime_min']);
+  ?>  
+  <table>   
+    
+    <colgroup>
+    <col class="left" />
+    </colgroup>
+    
+    <tr><td class="leftTop"></td><td></td></tr>
+    
+    <?php
+    
+    if($pageContent['log_firstVisit']) {
+    ?>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_visitCount']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // -> VISIT COUNT
+        echo '<span style="font-weight:bold;font-size:20px;color:#C37B43;">'.formatHighNumber($pageContent['log_visitCount']).'</span>';
+        ?>
+      </td>      
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_firstVisit']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // -> FIRST VISIT
+        echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_lastVisit']; ?>
+      </td><td class="right" style="font-size:15px;">
+        <?php
+        // -> LAST VISIT
+        echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
+        ?>
+      </td>
+    </tr>
+    
+    <tr><td class="spacer"></td><td></td></tr>
+    
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_visitTime_max']; ?>
+      </td><td class="right">
+        <?php
+        // -> VISIT TIME MAX
+        $showTimeHead = true;
+        foreach($visitTimes_max as $visitTime_max) {          
+          if($visitTime_max_formated = showVisitTime($visitTime_max)) {
+            if($showTimeHead)
+              echo '<span class="blue toolTip" id="visitTimeMax" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />
+              <div id="visitTimeMaxContainer">';
+            else            
+              echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
+          }
+          $showTimeHead = false;
+        }
+        echo '</div>';
+        ?>
+      </td>
+    </tr>
+    <tr>
+      <td class="left">
+        <?php echo $langFile['log_visitTime_min']; ?>
+      </td><td class="right">
+        <?php
+        // -> VISIT TIME MIN
+        $showTimeHead = true;
+        $visitTimes_min = array_reverse($visitTimes_min);
+        foreach($visitTimes_min as $visitTime_min) {          
+          if($visitTime_min_formated = showVisitTime($visitTime_min)) {
+            if($showTimeHead)
+              echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br /><div id="visitTimeMinContainer">';
+            else            
+              echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
+          }
+          $showTimeHead = false;
+        }
+        echo '</div>';
+        ?>
+      </td>
+    </tr>
+    <?php
+    // -> show NO VISIT
+    } else {
+      echo '<tr>
+              <td class="left">
+              </td><td class="right" style="font-size:15px;">
+                '.$langFile['log_novisit'].'
+              </td>
+            </tr>';
+    }    
+    ?>
+    
+    <tr><td class="spacer"></td><td></td></tr>
+    
+    <tr>
+      <td class="left">
+        <span><?php echo $langFile['log_tags_description']; ?></span>
+      </td><td class="right">
+      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
+      <?php
+      
+      createTagCloud($pageContent['log_searchwords']);
+
+      ?>
+      </div>
+      </td>
+    </tr>
+    
+    <tr><td class="leftBottom"></td><td></td></tr>
+    
+    
+  </table>
+  </div>
+  <div class="bottom"></div>
+</div>
+<?php
+}
+?>
 
 <!-- ***** PAGE SETTINGS -->
 <?php
@@ -400,152 +551,6 @@ else $hidden = ' hidden';
   <div class="bottom"></div>
 </div>
 
-<?php
-if($_GET['page'] != 'new') {
-?>
-<!-- ***** PAGE STATISTICS -->
-<?php
-// dont shows the block below if pageSettings is saved
-if($savedForm)  $hidden = ' hidden';
-else $hidden = '';
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
-  <div class="content">
-  <?php
-  // -> format vars
-  // --------------
-  $firstVisitDate = formatDate($pageContent['log_firstVisit']);
-  $firstVisitTime = formatTime($pageContent['log_firstVisit']);
-  $lastVisitDate = formatDate($pageContent['log_lastVisit']);
-  $lastVisitTime = formatTime($pageContent['log_lastVisit']);
-  
-  $visitTimes_max = explode('|',$pageContent['log_visitTime_max']);
-  $visitTimes_min = explode('|',$pageContent['log_visitTime_min']);
-  ?>  
-  <table>   
-    
-    <colgroup>
-    <col class="left" />
-    </colgroup>
-    
-    <tr><td class="leftTop"></td><td></td></tr>
-    
-    <?php
-    
-    if($pageContent['log_firstVisit']) {
-    ?>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_visitCount']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // -> VISIT COUNT
-        echo '<span style="font-weight:bold;font-size:20px;color:#C37B43;">'.$pageContent['log_visitCount'].'</span>';
-        ?>
-      </td>      
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_firstVisit']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // -> FIRST VISIT
-        echo '<span class="info brown toolTip" title="'.$firstVisitTime.'::">'.$firstVisitDate.'</span> ';
-        ?>
-      </td>
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_lastVisit']; ?>
-      </td><td class="right" style="font-size:15px;">
-        <?php
-        // -> LAST VISIT
-        echo '<span class="info blue toolTip" title="'.$lastVisitTime.'::">'.$lastVisitDate.'</span> ';
-        ?>
-      </td>
-    </tr>
-    
-    <tr><td class="spacer"></td><td></td></tr>
-    
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_visitTime_max']; ?>
-      </td><td class="right">
-        <?php
-        // -> VISIT TIME MAX
-        $showTimeHead = true;
-        foreach($visitTimes_max as $visitTime_max) {          
-          if($visitTime_max_formated = showVisitTime($visitTime_max)) {
-            if($showTimeHead)
-              echo '<span class="blue toolTip" id="visitTimeMax" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br /><div id="visitTimeMaxContainer">';
-            else            
-              echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
-          }
-          $showTimeHead = false;
-        }
-        echo '</div>';
-        ?>
-      </td>
-    </tr>
-    <tr>
-      <td class="left">
-        <?php echo $langFile['log_visitTime_min']; ?>
-      </td><td class="right">
-        <?php
-        // -> VISIT TIME MIN
-        $showTimeHead = true;
-        foreach($visitTimes_min as $visitTime_min) {          
-          if($visitTime_min_formated = showVisitTime($visitTime_min)) {
-            if($showTimeHead)
-              echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br /><div id="visitTimeMinContainer">';
-            else            
-              echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
-          }
-          $showTimeHead = false;
-        }
-        echo '</div>';
-        ?>
-      </td>
-    </tr>
-    <?php
-    // -> show NO VISIT
-    } else {
-      echo '<tr>
-              <td class="left">
-              </td><td class="right" style="font-size:15px;">
-                '.$langFile['log_novisit'].'
-              </td>
-            </tr>';
-    }    
-    ?>
-    
-    <tr><td class="spacer"></td><td></td></tr>
-    
-    <tr>
-      <td class="left">
-        <span><?php echo $langFile['log_tags_description']; ?></span>
-      </td><td class="right">
-      <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
-      <?php
-      
-      createTagCloud($pageContent['log_searchwords']);
-
-      ?>
-      </div>
-      </td>
-    </tr>
-    
-    <tr><td class="leftBottom"></td><td></td></tr>
-    
-    
-  </table>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php
-}
-?>
 
 <div class="block editor">
 <?php
