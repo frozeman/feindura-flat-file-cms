@@ -11,7 +11,8 @@
 /*#content h1 a,*/
 #content a.fastUp,
 #errorWindow .content.warning,
-#documentSaved { behavior: url(library/thirdparty/iepngfix_v2/iepngfix.php) }
+#documentSaved,
+#sidbarLogScrollUp, #sidbarLogScrollDown { behavior: url(library/thirdparty/iepngfix_v2/iepngfix.php) }
 
 /* documentSaved hack */
 #documentSaved {

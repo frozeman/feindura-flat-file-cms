@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.48
+// sidebar.loader.php version 0.50
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
@@ -122,40 +122,63 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     // ***** home -------------------------------------------- **********
     case 'home': case '':
       
-      echo '<div class="sidebarInfo"><div>';
+      echo '<div class="sidebarInfo"><div class="content">';
+      
+      // -> SHOW LOG
       echo '<h1>'.$langFile['home_log_h1'].'</h1>';
       
       if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log.txt')) {
          $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log.txt');
-         echo '<ul>';
+         
+         echo '<div id="sidbarLogScrollUp" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollUp.png) no-repeat;margin-bottom:-100px;"></div>
+              <div id="sidebarLog"><br />
+              <ul>';
          foreach($logContent as $logRow) {
           $logDateTime = substr($logRow,0,19);
           $logDate = formatDate($logDateTime);
           $logTime = formatTime($logDateTime);
           // finds the "<br />" in the log row
           if($logBreak = strpos($logRow,'::'))            
-            echo '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span class="blue" style="font-weight:bold;">'.substr($logRow,20,$logBreak-20).'</span><br /><span>'.substr($logRow,$logBreak+2).'</span></li>';         
+            echo '<li><span class="blue" style="font-weight:bold;">'.substr($logRow,20,$logBreak-20).'</span><br /><span>'.substr($logRow,$logBreak+2).'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span></li>';         
           else
-            echo '<li><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span class="blue" style="font-weight:bold;">'.substr($logRow,20).'</span></li>';
+            echo '<li><span class="blue" style="font-weight:bold;">'.substr($logRow,20).'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span></li>';
          }
-         echo '</ul>';
-         
+         echo '</ul>
+              <br /></div>
+              <div id="sidbarLogScrollDown" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollDown.png) no-repeat;margin-top:-100px;"></div>';
+      // no log
       } else
         echo $langFile['home_log_nolog'];
       
-      echo '<br /><br /><h1>'.$langFile['home_user_h1'].'</h1>';
+      echo '<hr />';
+      
+      // -> SHOW USERs
+      echo '<h1><img src="library/image/sign/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['home_user_h1'].'</h1><br />';
+        if(file_exists(dirname(__FILE__).'/../.htpasswd')) {
+          $users = file(dirname(__FILE__).'/../.htpasswd');
+          // list user
+          echo '<ul>';
+          foreach($users as $user) {
+            echo '<li style="font-weight:bold;">'.substr($user,0,strpos($user,':')).'</li>';
+          }
+          echo '</ul>';
+        // no users
+        } else
+          echo '<span style="color:#9E0000;">'.$langFile['user_nousers'].'</span>';
+      
       echo '</div></div>';
       
       break;
     // ***** adminSetup sideBar -------------------------------------------- **********
     case 'adminSetup':
       
-      echo '<div class="sidebarInfo"><div>';
+      echo '<div class="sidebarInfo"><div class="content">';
       
       // FMS INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
-            <p>'.$version[2].' - '.$version[3].'</p>';
-            
+            <p>'.$version[2].' - '.$version[3].'</p>';            
+      echo '<hr />';
+      
       if(phpversion() >= '4.3') {
            echo '<h1>'.$langFile['adminSetup_phpVersion'].'</h1>
             <p>'.phpversion().'</p>';

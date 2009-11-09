@@ -63,7 +63,6 @@ function setToolTips() {
     onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
     showDelay: 200,
     hideDelay: 0 });
-
 }
 
 

@@ -95,6 +95,9 @@ $langFile['status_page_nonpublic'] = 'Seite ist versteckt';
 $langFile['status_category_public'] = 'Kategorie ist &ouml;ffentlich';
 $langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
 
+// ----------- sidebar.include.php
+
+$langFile['user_nousers'] = 'Keine Benutzer angelegt';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------- FEINDURA TEXTs

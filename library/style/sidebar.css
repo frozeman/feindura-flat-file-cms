@@ -211,13 +211,14 @@
 .sidebarInfo {
     position: relative;
     top: 2px;
+    left: 1px;
     width: 198px;
     min-height: 260px;
     padding: 0px;
     background: url(../image/bg/sidebarInfo_bg.png) no-repeat;
-    border: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
     }
-.sidebarInfo div {
+.sidebarInfo div.content {
     position: relative;
     width: 165px;
     margin: 20px 20px;
@@ -230,8 +231,7 @@
     padding: 0px;
     margin: 0px;
     margin-top: 2px;
-    margin-bottom: 5px;
-    
+    margin-bottom: 5px;    
     font-weight: bold;
     font-size: 11px;
     color: #666666;
@@ -245,11 +245,11 @@
     height: 0px;
     margin: 15px 0px;
     border: none;
-    border-top: 1px dotted #666666;
+    border-top: 1px solid #E2E3E3;
     }
 
 .sidebarInfo ul {
-    margin: 2px 0px;
+    margin: 0px;
     margin-left: 6px;
     }
 .sidebarInfo ul li {    
@@ -258,4 +258,22 @@
     margin-bottom: 8px;
     color: #888888;
     list-style: circle;
+    }
+    
+/* ------------------------- */
+/* - SIDEBAR LOG */
+
+.sidebarInfo #sidebarLog {
+    z-index: 1;
+    position: relative;
+    height: 500px;
+    border-bottom: 1px solid #ffffff;
+    overflow: hidden;
+    }
+    
+.sidebarInfo .scrollUpDown {
+    z-index: 2;
+    position: absolute;
+    height: 100px;
+    width: 165px;
     }
