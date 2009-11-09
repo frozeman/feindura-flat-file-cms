@@ -76,6 +76,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/subMenu.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/sidebar.css" media="screen" />  
   <link rel="stylesheet" type="text/css" href="library/style/content.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/style/statistic.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/categorySetup.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/footerMenu.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/loading.css" media="screen" />

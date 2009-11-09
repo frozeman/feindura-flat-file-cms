@@ -158,6 +158,121 @@ function saveLog($task,               // (String) a description of the task whic
   } else return false;
 }
 
+// ** -- createBrowserChart --------------------------------------------------------------------------------
+// creates a chart to display the browsers, used by the users
+// -----------------------------------------------------------------------------------------------------
+// $searchWordString         [Der String der die suchworte enthält im Format: 'suchwort,1|suchwort,3|...'  (String)],
+// $minFontSize              [Die minimal Schriftartgröße (Number)],
+// $maxFontSize              [Die maximale Schriftartgröße (Number)]
+function createBrowserChart() {
+  global $websiteStatistic;
+  global $langFile;
+  
+  foreach(explode('|',$websiteStatistic['userBrowsers']) as $browser) {   
+    $browsers[] =  explode(',',$browser);
+  }
+  
+  $highestNumber = 1;
+  foreach($browsers as $browser) {
+    $highestNumber += $browser[1];
+  }
+  
+  echo '<table class="tableChart"><tr>';
+  foreach($browsers as $browser) {
+    
+    $tablePercent = $browser[1] / $highestNumber;
+    $tablePercent = round($tablePercent * 100);
+    
+    // change the Names and the Colors
+    if($browser[0] == 'firefox') {
+      $browserName = 'Firefox';
+      $browserColor = 'browserBg_firefox.png';
+      $browserLogo = 'browser_firefox.png';
+    } elseif($browser[0] == 'netscape') {
+      $browserName = 'Netscape Navigator';
+      $browserColor = 'browserBg_netscape.png';
+      $browserLogo = 'browser_netscape.png';
+    } elseif($browser[0] == 'chrome') {
+      $browserName = 'Google Chrome';
+      $browserColor = 'browserBg_chrome.png';
+      $browserLogo = 'browser_chrome.png';
+    } elseif($browser[0] == 'ie') {
+      $browserName = 'Internet Explorer';
+      $browserColor = 'browserBg_ie.png';
+      $browserLogo = 'browser_ie.png';
+    } elseif($browser[0] == 'opera') {
+      $browserName = 'Opera';
+      $browserColor = 'browserBg_opera.png';
+      $browserLogo = 'browser_opera.png';
+    } elseif($browser[0] == 'konqueror') {
+      $browserName = 'Konqueror';
+      $browserColor = 'browserBg_konqueror.png';
+      $browserLogo = 'browser_konqueror.png';
+    } elseif($browser[0] == 'lynx') {
+      $browserName = 'Lynx';
+      $browserColor = 'browserBg_lynx.png';
+      $browserLogo = 'browser_lynx.png';
+    } elseif($browser[0] == 'safari') {
+      $browserName = 'Safari';
+      $browserColor = 'browserBg_safari.png';
+      $browserLogo = 'browser_safari.png';
+    } elseif($browser[0] == 'mozilla') {
+      $browserName = 'Mozilla';
+      $browserColor = 'browserBg_mozilla.png';
+      $browserLogo = 'browser_mozilla.png';
+    } elseif($browser[0] == 'others') {
+      $browserName = $langFile['log_browser_others'];
+      $browserColor = 'browserBg_others.png';
+      $browserLogo = 'browser_others.png';
+    }  
+
+    // calculates the text width and the cell width
+    $textWidth = round(((strlen($browserName) + 20) * 4) + 45); // +45 = logo width + padding; +20 = percent text on the end    
+    $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
+    //echo '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
+    
+    // show tex only if cell is big enough
+    if($cellWidth < $textWidth) {
+      $cellText = '';
+      $cellWidth -= 10;
+      
+      //echo $browserName.': '.$cellWidth.'<br>';
+      
+      // makes the browser logo smaller
+      if($cellWidth < 40) {// 40 = logo width
+        
+        // change logo size
+        if($cellWidth <= 0)
+          $logoSize = 'width:0px;';
+        else
+          $logoSize = 'width:'.$cellWidth.'px;';
+        
+        // change cellpadding
+        $createPadding = round(($cellWidth / 40) * 10);
+        if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
+          $cellpadding = 'padding: '.$createPadding.'px 5px;';
+        else
+          $cellpadding = 'padding: 0px 5px;';
+
+      }
+        
+      $bigLogo = false;
+    } else {      
+      $cellText = '&nbsp;&nbsp;<span style="position:relative; top:12px;"><b>'.$browserName.'</b> ('.$browser[1].')';
+      $logoSize = '';
+      $bigLogo = true;
+      $cellpadding = '';
+    }
+    
+    // SHOW the table cell with the right browser and color
+    echo '<td style="'.$cellpadding.';width:'.$tablePercent.'%;background:url(library/image/bg/'.$browserColor.') repeat-x;" class="toolTip" title="'.$browserName.' '.$tablePercent.'%::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+  
+  }
+  echo '</tr></table>';
+
+
+}
+
 // ** -- createTagCloud --------------------------------------------------------------------------------
 // creates a tag cloud out of the searchwords
 // -----------------------------------------------------------------------------------------------------
@@ -172,14 +287,15 @@ function createTagCloud($searchWordString,$minFontSize = 10,$maxFontSize = 20) {
       $searchWords[] =  explode(',',$searchWord);
     }
     
-    $swHighestNumber = $searchWords[0][1];
-    $swLowestNumber = $searchWords[count($searchWords)-1][1];
+    $highestNumber = $searchWords[0][1];
+    //$lowestNumber = $searchWords[count($searchWords)-1][1];
     
+    // sort alphabetical
     sort($searchWords);
     
     foreach($searchWords as $searchWord) {
       
-      $fontSize = $searchWord[1] / $swHighestNumber;
+      $fontSize = $searchWord[1] / $highestNumber;
       $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
       
       echo '<span style="font-size:'.$fontSize.'px;color:#C37B43;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
@@ -259,6 +375,94 @@ function sortSearchwordString($a, $b) {
   return ($aExp[1] > $bExp[1]) ? -1 : 1;
 }
 
+// ** -- addToDataString ----------------------------------------------------------------------------------
+// adds to a string like "wordula,1|wordlem,5|wordquer,3" a new word or count up an exisiting word
+// -----------------------------------------------------------------------------------------------------
+function addToDataString($dataArray,       // (Array) an array with Strings to look for in the dataString
+                         $dataString) {    // (String) the data String in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
+                              
+  $exisitingDatas = explode('|',$dataString);
+          
+  // -> COUNTS THE EXISTING SEARCHWORDS
+  $countExistingData = 0;
+  $newDataString = '';
+  foreach($exisitingDatas as $exisitingData) {          
+    $exisitingData = explode(',',$exisitingData);
+    $countExistingData++; 
+    
+    $countNewData = -1;
+    foreach($dataArray as $data) {            
+      $data = cleanSpecialChars($data,''); // entfernt Sonderzeichen
+      $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
+      $data = strtolower($data);
+      $countNewData++;
+      
+      // wenn es das Stichwort schon gibt
+      if($exisitingData[0] == $data) {
+        // zählt ein die Anzahl des Stichworts höher
+        $exisitingData[1]++;
+        $foundSw[] = $data;
+      }
+    }
+    
+    // adds the old Searchwords (maybe counted up) to the String with the new ones            
+    if(!empty($exisitingData[0])) {
+      $newDataString .= $exisitingData[0].','.$exisitingData[1];
+      if($countExistingData < count($exisitingDatas))
+        $newDataString .= '|';
+    }
+  }
+  
+  // -> ADDS NEW SEARCHWORDS
+  $countNewData = 0;
+  foreach($dataArray as $data) {
+  
+    $data = cleanSpecialChars($data,''); // entfernt Sonderzeichen
+    $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
+    $data = strtolower($data);
+    $countNewData++;
+    
+    if(isset($foundSw) && is_array($foundSw))
+      $foundSwStr = implode('|',$foundSw);
+ 
+    if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) == false)) {
+      if(!empty($data)) {// verhindert das leere Suchwort strings gespeichert werden
+        if(substr($newDataString,-1) != '|')
+          $newDataString .= '|';
+        // fügt ein neues Suchwort in den String mit den Suchwörtern ein                
+        $newDataString .= $data.',1';
+        
+        if($countNewData < count($dataArray))
+          $newDataString .= '|';
+      }
+    }
+  }          
+  //echo $newDataString.'<br />';
+  
+  // removes the FIRST "|"
+  while(substr($newDataString,0,1) == '|') {
+    $newDataString = substr($newDataString, 1);
+  }
+  // removes the LAST "|"
+  while(substr($newDataString,-1) == '|') {
+    $newDataString = substr($newDataString, 0, -1);
+  }
+  
+  // -> SORTS the NEW SEARCHWORD STRING with THE SEARCHWORD with MOST COUNT at the BEGINNING
+  if($dataArray = explode('|',$newDataString)) {
+  
+    // sortiert den array, mithilfe der funktion sortArray
+    natsort($dataArray);
+    usort($dataArray, "sortSearchwordString");          
+
+    // fügt den neugeordneten Suchworte String wieder zu einem Array zusammen
+    $newDataString = implode('|',$dataArray);
+  }
+  
+  // RETURNs the new data String
+  return $newDataString;
+}
+
 // ** -- saveLog --------------------------------------------------------------------------------
 // saves the the website statistic
 // - count user visits
@@ -292,8 +496,9 @@ function saveWebsiteStats() {
         else
           $websiteStatistic['userVisitCount']++;
         
-        // -> adds the user Browser
-        $websiteStatistic["userBrowsers"] = ;
+        // -> adds the user BROWSER
+        $userBrowser = getBrowser($_SERVER['HTTP_USER_AGENT']);
+        $websiteStatistic["userBrowsers"] = addToDataString(array($userBrowser),$websiteStatistic["userBrowsers"]);
         
       // -> COUNT the spiderVisitCount UP
       } elseif($websiteStatistic['spiderVisitCount'] == '')
@@ -389,7 +594,12 @@ function savePageStats($pageContent) {
   
           $searchWords = rawurldecode($searchWords);
           //$searchWords = urldecode($searchWords);
-          $searchWords = explode('+',$searchWords);       
+          $searchWords = explode('+',$searchWords);    
+          
+          // adds the searchwords to the searchword data string
+          $pageContent['log_searchwords'] = addToDataString($searchWords,$pageContent['log_searchwords']);
+          
+          /*
           $exisitingSearchWords = explode('|',$pageContent['log_searchwords']);
           
           // -> COUNTS THE EXISTING SEARCHWORDS
@@ -469,7 +679,8 @@ function savePageStats($pageContent) {
           }          
           
           // replace the SEARCHWORDS var
-          $pageContent['log_searchwords'] = $newSearchString;        
+          $pageContent['log_searchwords'] = $newSearchString;
+          */       
         }
       }      
       

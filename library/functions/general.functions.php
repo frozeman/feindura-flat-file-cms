@@ -720,7 +720,7 @@ function formatTime($givenDate,$showSeconds = false) {
     return $hour.':'.$minute.$second;
 }
 
-// ** -- showMemoryUsage ----------------------------------------------------------------------------------
+// ** -- showMemoryUsage -------------------------------------------------------------------------------
 // display the usage of memory of the script
 // -----------------------------------------------------------------------------------------------------
 function showMemoryUsage() {
@@ -738,4 +738,26 @@ function showMemoryUsage() {
     echo "<br />";
 }
 
+// ** -- getBrowser -------------------------------------------------------------------------------
+// returns a the Browser Name
+// -----------------------------------------------------------------------------------------------------
+function getBrowser($agent) {
+        if(ereg("Firefox", $agent)) $c_browser = "firefox";                       // Phoenix oder Firefox
+        elseif((ereg("Nav", $agent)) ||
+        (ereg("Gold", $agent)) ||
+        (ereg("X11", $agent)) ||
+        (ereg("Netscape", $agent)) AND
+        (!ereg("MSIE 6", $agent))) $c_browser = "netscape";                       // Netscape Navigator
+        elseif(ereg("Chrome", $agent)) $c_browser  = "chrome";                    // Google Chrome
+        elseif(ereg("MSIE", $agent)) $c_browser = "ie";                           // Internet Explorer
+        elseif(ereg("Opera", $agent)) $c_browser = "opera";                       // Opera
+        elseif(ereg("Konqueror", $agent)) $c_browser = "konqueror";               // Konqueror
+        elseif(ereg("Lynx", $agent)) $c_browser = "lynx";                         // Lynx
+        elseif(ereg("iCab", $agent)) $c_browser = "safari";                       // Safari
+        elseif(ereg("Safari", $agent)) $c_browser = "safari";                     // Safari
+        elseif(ereg("gecko", $agent)) $c_browser = "mozilla";                     // Mozilla oder kompatibel
+        elseif(ereg("Mozilla", $agent)) $c_browser = "mozilla";                   // Mozilla oder kompatibel
+        else $c_browser = "others";
+        return $c_browser;
+}  
 ?>

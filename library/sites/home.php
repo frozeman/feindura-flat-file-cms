@@ -54,13 +54,21 @@ if(!empty($adminConfig['user']['info'])) {
 </div>
 <?php } ?>
 
-<!-- WEBSITe STATISTIC -->
+<!-- WEBSITE STATISTIC -->
 
 <div class="block">
   <h1><a href="#"><img src="library/image/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['home_statistic_h1']; ?></a></h1>
   <div class="content">
     <?php
-
+    
+    echo '<div class="visitCountBox">';
+    echo '<h3>'.$langFile['log_visitCount'].'</h3>';
+    echo '<span class="visitCountNumber">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span>';
+    echo '</div>';
+    
+    // -> BROWSER CHART
+    echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
+    createBrowserChart();
     
     ?>
   </div>
