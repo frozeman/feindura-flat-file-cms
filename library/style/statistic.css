@@ -19,5 +19,36 @@ statistic.css version 0.1 */
 /* -------> TABLE CHART */
 
 table.tableChart {
-    border: 1px solid #cccccc;
+    width: 100%;
+    font-size: 10px;
+    color: #000000;
+    border: 1px solid #C3C2C3;
+    border-top: 1px solid #D7D8D8;
+    border-left: none;
+    }
+
+table.tableChart td {
+    padding: 0px 5px;
+    border-left: 1px solid #cccccc;
+    }
+
+/* --------------------- */
+/* -------> TABLE CHART */
+
+.visitCountBox {
+    position: relative;
+    width: 270px; /* org: 320px */
+    height: 180px; /* org: 200px */
+    padding: 10px 25px;
+    margin: 20px 0px;
+    background: url(../image/bg/block_innerBlock_small.png) no-repeat;
+    font-size: 12px;
+    }
+    
+.visitCountNumber {
+    position: relative;
+    top: -5px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #C37B43;
     }

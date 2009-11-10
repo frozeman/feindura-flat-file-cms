@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/functions/general.functions.php version 0.31
+// library/functions/general.functions.php version 0.32
 
 
 //error_reporting(E_ALL);
@@ -227,7 +227,7 @@ function createBrowserChart() {
     }  
 
     // calculates the text width and the cell width
-    $textWidth = round(((strlen($browserName) + 20) * 4) + 45); // +45 = logo width + padding; +20 = percent text on the end    
+    $textWidth = round(((strlen($browserName) + strlen($browser[1]) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
     $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
     //echo '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
     
@@ -486,13 +486,22 @@ function saveWebsiteStats() {
     // COUNT if the user/spider isn't already counted
     if(!isset($_SESSION['log_agentVisited']) || $_SESSION['log_agentVisited'] === false) {
       
+      // -> saves the FIRST WEBSITE VISIT
+      // -----------------------------
+      if(empty($websiteStatistic['firstVisit']))
+        $websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+      
+      // -> saves the LAST WEBSITE VISIT
+      // ----------------------------
+      $websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+      
       // -> CHECKS if the user is NOT a BOT/SPIDER
       if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
           ($_SESSION['log_userIsSpider'] = isSpider()) === false) {
         
-        // -> COUNT the userVisitCount UP
+        // -> COUNT the USER UP
         if($websiteStatistic['userVisitCount'] == '')
-          $websiteStatistic['userVisitCount'] = '0';
+          $websiteStatistic['userVisitCount'] = '1';
         else
           $websiteStatistic['userVisitCount']++;
         
@@ -500,9 +509,9 @@ function saveWebsiteStats() {
         $userBrowser = getBrowser($_SERVER['HTTP_USER_AGENT']);
         $websiteStatistic["userBrowsers"] = addToDataString(array($userBrowser),$websiteStatistic["userBrowsers"]);
         
-      // -> COUNT the spiderVisitCount UP
+      // -> COUNT the SPIDER UP
       } elseif($websiteStatistic['spiderVisitCount'] == '')
-        $websiteStatistic['spiderVisitCount'] = '0';
+        $websiteStatistic['spiderVisitCount'] = '1';
       else
         $websiteStatistic['spiderVisitCount']++;
       
@@ -514,7 +523,11 @@ function saveWebsiteStats() {
         fwrite($statisticFile,$phpTags[0]);  
               
         fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
-        fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$websiteStatistic["spiderVisitCount"]."';\n");
+        fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$websiteStatistic["spiderVisitCount"]."';\n\n");
+        
+        fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        '".$websiteStatistic["firstVisit"]."';\n");
+        fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         '".$websiteStatistic["lastVisit"]."';\n\n");
+        
         fwrite($statisticFile,"\$websiteStatistic['userBrowsers'] =      '".$websiteStatistic["userBrowsers"]."';\n\n");
         
         fwrite($statisticFile,"return \$websiteStatistic;");
@@ -524,7 +537,7 @@ function saveWebsiteStats() {
         fclose($statisticFile);
         
         // saves the user as visited
-        //$_SESSION['log_agentVisited'] = true;
+        $_SESSION['log_agentVisited'] = true;
       }
     }  
 }

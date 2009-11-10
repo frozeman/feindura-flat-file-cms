@@ -295,25 +295,24 @@ span.warning {
     top: 8px;
     }
 #content h2 {
-    margin: 0px 10px 18px -4px;
+    margin: 0px 10px 15px -4px;
     padding: 8px 7px;
     font-size: 15px;
     color: #536068;
-    border-bottom: 1px solid #B3B3A1;
+    border-bottom: 1px solid #C3C4C4;
     }
 #content h3 {
-  margin: 5px 0px;
-  margin-top: 10px;
-  padding: 5px 5px;
-  font-size: 13px;
-  color: #F58218;
-  }
+    margin: 10px 10px 2px -4px;
+    padding: 5px 7px;
+    font-size: 15px;
+    color: #536068;
+    }
 #content h3 span {
-  color: #BAB8B6;
-  }
+    color: #BAB8B6;
+    }
 #content h4 {
-  margin: 8px 0 12px -10px;
-  padding: 5px 12px;
+  margin: 10px 0 5px -10px;
+  padding: 5px 10px;
   font-size: 14px;
   color: #536068;
   }
@@ -339,6 +338,13 @@ span.warning {
     margin: 15px 0px;
     border: none;
     border-top: 10px dotted #cccccc;
+    }
+ hr.small {
+    position: relative;
+    height: 0px;
+    margin: 10px 0px;
+    border: none;
+    border-top: 1px dotted #cccccc;
     }
 
  div.blockSpacer {

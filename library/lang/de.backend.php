@@ -58,7 +58,11 @@ $langFile['path_relativepath'] = 'Relativer Pfad';
 $langFile['path_absolutepath_tip'] = 'Absoluter Pfad::Beginnt mit einem &quot;/&quot;';
 $langFile['path_relativepath_tip'] = 'Relativer Pfad::Beginnt ohne &quot;/&quot;';
 
-// ---------- statistic
+// ---------- STATISTIC
+
+$langFile['home_browser_h1'] = 'Browserverteilung der Besucher';
+$langFile['log_spiderCount'] = 'Spider';
+$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt, sind Computer-programme, meistens von Suchmaschienen, die Seiten analysieren und indizieren.';
 
 $langFile['log_searchwordtothissite_part1'] = 'hat'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt';
@@ -66,7 +70,7 @@ $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt'
 $langFile['log_visitCount'] = 'Besucher';
 $langFile['log_visitTime_max'] = 'l&auml;ngste Verweildauer';
 $langFile['log_visitTime_min'] = 'k&uuml;rzeste Verweildauer';
-$langFile['log_firstVisit'] = 'erster Besuch';
+$langFile['log_firstVisit'] = 'seit dem';
 $langFile['log_lastVisit'] = 'letzter Besuch';
 $langFile['log_novisit'] = 'Es hat noch niemand diese Seite besucht.';
 $langFile['log_tags_description'] = 'Suchworte die von
@@ -81,6 +85,8 @@ $langFile['log_minute_single'] = 'Minute';
 $langFile['log_minute_multiple'] = 'Minuten';
 $langFile['log_second_single'] = 'Sekunde';
 $langFile['log_second_multiple'] = 'Sekunden';
+
+$langFile['log_browser_others'] = 'Sonstige';
 
 // ---------- deleting
 

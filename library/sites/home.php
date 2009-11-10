@@ -62,9 +62,21 @@ if(!empty($adminConfig['user']['info'])) {
     <?php
     
     echo '<div class="visitCountBox">';
-    echo '<h3>'.$langFile['log_visitCount'].'</h3>';
-    echo '<span class="visitCountNumber">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span>';
+    echo '<h2>'.$langFile['log_visitCount'].'</h2>';
+    
+    echo '<div style="width:100%; text-align:center;">';
+    // USER COUNTER
+    echo '<span class="visitCountNumber">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+    echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
+          <hr class="small" />';
     echo '</div>';
+    
+    echo '<div style="width:100%; text-align:right;">';
+    // FIRST VISIT
+    echo '<span class="toolTip" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+    // LADST VISIT
+    echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+    echo '</div></div>';
     
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
