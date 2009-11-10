@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.21
+* adminSetup.php version 2.22
 */
 
 //error_reporting(E_ALL);
@@ -133,6 +133,23 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
         }
       }
     }
+  }
+  
+  // checks if the varNames are empty, and add the last ones, if speaking url = true
+  if($_POST['cfg_speakingUrl'] == 'true') {
+    if(empty($_POST['cfg_varNamePage']))
+      $_POST['cfg_varNamePage'] = $adminConfig['varName']['page'];
+    if(empty($_POST['cfg_varNameCategory']))
+      $_POST['cfg_varNameCategory'] = $adminConfig['varName']['category'];
+    if(empty($_POST['cfg_varNameModul']))
+      $_POST['cfg_varNameModul'] = $adminConfig['varName']['modul'];
+  } else {
+    if(empty($_POST['cfg_varNamePage']))
+      $_POST['cfg_varNamePage'] = 'page';
+    if(empty($_POST['cfg_varNameCategory']))
+      $_POST['cfg_varNameCategory'] = 'category';
+    if(empty($_POST['cfg_varNameModul']))
+      $_POST['cfg_varNameModul'] = 'modul';
   }
   
   // **** opens adminConfig.php for writing
@@ -412,10 +429,14 @@ else $hidden = '';
         echo '<b>'.$langFile['text_example'].':</b> ';
         
         // show the right example
-        if($adminConfig['speakingUrl'] == 'true')
+        // AND disable varNames if speaking urls = true
+        if($adminConfig['speakingUrl'] == 'true') {
           echo $langFile['adminSetup_fmsSettings_speakingUrl_true_example'];
-        else
-          echo $langFile['adminSetup_fmsSettings_speakingUrl_false_example'];      
+          $varNamesStyle = ' disabled="disabled"';
+        } else {
+          echo $langFile['adminSetup_fmsSettings_speakingUrl_false_example'];
+          $varNamesStyle = '';
+        }
       ?>
       </span>
       </td></tr>
@@ -426,21 +447,21 @@ else $hidden = '';
       <label for="cfg_varNamePage"><span class="toolTip mark" title="<?php echo $langFile['adminSetup_fmsSettings_varName1'].'::'.$langFile['adminSetup_fmsSettings_varName_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_varName1'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_varNamePage" name="cfg_varNamePage" value="<?php echo $adminConfig['varName']['page']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_varName1'].'::'.$langFile['adminSetup_fmsSettings_varName1_inputTip']; ?>" />
+      <input size="40" id="cfg_varNamePage" name="cfg_varNamePage" value=<?php echo '"'.$adminConfig['varName']['page'].'"'.$varNamesStyle; ?> class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_varName1'].'::'.$langFile['adminSetup_fmsSettings_varName1_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="cfg_varNameCategory"><span class="toolTip mark" title="<?php echo $langFile['adminSetup_fmsSettings_varName2'].'::'.$langFile['adminSetup_fmsSettings_varName_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_varName2'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_varNameCategory" name="cfg_varNameCategory" value="<?php echo $adminConfig['varName']['category']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_varName2'].'::'.$langFile['adminSetup_fmsSettings_varName2_inputTip']; ?>" />
+      <input size="40" id="cfg_varNameCategory" name="cfg_varNameCategory" value=<?php echo '"'.$adminConfig['varName']['category'].'"'.$varNamesStyle; ?> class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_varName2'].'::'.$langFile['adminSetup_fmsSettings_varName2_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="cfg_varNameModul"><span class="toolTip mark" title="<?php echo $langFile['adminSetup_fmsSettings_varName3'].'::'.$langFile['adminSetup_fmsSettings_varName_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_varName3'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_varNameModul" name="cfg_varNameModul" value="<?php echo $adminConfig['varName']['modul']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_varName3'].'::'.$langFile['adminSetup_fmsSettings_varName3_inputTip']; ?>" />
+      <input size="40" id="cfg_varNameModul" name="cfg_varNameModul" value=<?php echo '"'.$adminConfig['varName']['modul'].'"'.$varNamesStyle; ?> class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_varName3'].'::'.$langFile['adminSetup_fmsSettings_varName3_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>

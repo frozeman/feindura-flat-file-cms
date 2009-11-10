@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.48 (requires mootools-core and mootools-more)
+// java/content.js version 0.50 (requires mootools-core and mootools-more)
 //
 
 
@@ -73,8 +73,9 @@ window.addEvent('domready', function() {
         var smallSize = '50';
         
         $$('.right input').each(function(input){
+            
             // looks for empty inputs
-            if(input.get('value') == '') {
+            if(input.get('value') == '' || input.get('disabled') != false) {
                 
                 var hasFocus = false;
                 var hasContent = false;
@@ -103,7 +104,6 @@ window.addEvent('domready', function() {
                   }
                 });
             }
-
         });
   }
   

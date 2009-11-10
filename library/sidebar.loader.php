@@ -159,7 +159,16 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           // list user
           echo '<ul>';
           foreach($users as $user) {
-            echo '<li style="font-weight:bold;">'.substr($user,0,strpos($user,':')).'</li>';
+            $user = substr($user,0,strpos($user,':'));
+            
+            // set the style for the active user
+            if($user == $_SERVER['PHP_AUTH_USER'])
+              $activeUserStyle = ' class="blue" style="font-weight:bold;"';
+            else
+              $activeUserStyle = '';
+              
+            // list users
+            echo '<li><span'.$activeUserStyle.'>'.$user.'</span></li>';
           }
           echo '</ul>';
         // no users

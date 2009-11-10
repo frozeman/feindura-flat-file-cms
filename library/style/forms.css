@@ -32,7 +32,11 @@ input:focus, textarea:focus, select:focus {
     } 
 input[readonly="readonly"], textarea[readonly="readonly"] {
     border: 1px dotted #cccccc;
-    color: #444444;
+    color: #555555;
+    }
+input[disabled="disabled"], textarea[disabled="disabled"] {
+    border: 1px dotted #cccccc;
+    color: #A0A3A1;
     }
 
 input[type="file"]{ /* works only in safari*/

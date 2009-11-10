@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* index.php version 1.94
+* index.php version 1.95
 */
 
 session_cache_limiter(60);
@@ -97,12 +97,12 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <script type="text/javascript" src="library/thirdparty/mootools-1.2.4-core.js"></script>
   <script type="text/javascript" src="library/thirdparty/mootools-1.2.3.1-more.js"></script>
   
-  <script type="text/javascript" src="library/javascript/adminMenu.js"></script>
+  <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  
   <script type="text/javascript" src="library/javascript/sidebar.js"></script>
   <script type="text/javascript" src="library/javascript/sidebarMenu.js"></script>  
   <script type="text/javascript" src="library/javascript/sortPages.js"></script>
-  <script type="text/javascript" src="library/javascript/content.js"></script>
   <script type="text/javascript" src="library/javascript/setup.js"></script>
+  <script type="text/javascript" src="library/javascript/content.js"></script>  
   <script type="text/javascript" src="library/javascript/loading.js"></script>
   <script type="text/javascript" src="library/javascript/ajax.js"></script>
   <script type="text/javascript" src="library/javascript/windowBox.js"></script>

@@ -9,9 +9,9 @@ $adminConfig['stylesheetPath'] =  '/_fms20/style/';
 $adminConfig['dateFormat'] =      'eu';
 $adminConfig['speakingUrl'] =      'true';
 
-$adminConfig['varName']['page'] =     'p';
-$adminConfig['varName']['category'] = 'c';
-$adminConfig['varName']['modul'] =    'm';
+$adminConfig['varName']['page'] =     'page';
+$adminConfig['varName']['category'] = 'category';
+$adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['editLanguage'] =    'true';
 $adminConfig['user']['editStylesheet'] =  'true';
@@ -28,7 +28,7 @@ $adminConfig['editor']['styleId'] =     'content';
 $adminConfig['editor']['styleClass'] =  'block';
 
 $adminConfig['pageThumbnail']['width'] =      '300';
-$adminConfig['pageThumbnail']['height'] =     '400';
+$adminConfig['pageThumbnail']['height'] =     '200';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;

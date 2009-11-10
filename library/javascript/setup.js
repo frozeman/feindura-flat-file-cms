@@ -69,6 +69,34 @@ window.addEvent('domready', function() {
     });
   }
   
+  // -> DISABLE varNames if SPEAKING URL is selected
+  if($('cfg_speakingUrl') != null) {
+    var smallSize = '50px';
+    var deactivateType = 'disabled'; // disabled/readonly
+    
+    $('cfg_speakingUrl').addEvent('change',function() {
+      
+      // disables all varNames fields is option value == true; speaking url
+      if($('cfg_speakingUrl')[$('cfg_speakingUrl').selectedIndex].value == 'true') {
+        $('cfg_varNamePage').setProperty(deactivateType,deactivateType);
+        $('cfg_varNamePage').tween('width',smallSize);
+        $('cfg_varNameCategory').setProperty(deactivateType,deactivateType);
+        $('cfg_varNameCategory').tween('width',smallSize);
+        $('cfg_varNameModul').setProperty(deactivateType,deactivateType);
+        $('cfg_varNameModul').tween('width',smallSize);
+      // activates thema if link with vars
+      } else {
+        $('cfg_varNamePage').removeProperty(deactivateType);
+        $('cfg_varNamePage').tween('width','300px');
+        $('cfg_varNameCategory').removeProperty(deactivateType);
+        $('cfg_varNameCategory').tween('width','300px');
+        $('cfg_varNameModul').removeProperty(deactivateType);
+        $('cfg_varNameModul').tween('width','300px');
+      }
+      
+    });
+  }
+  
 });
 
 // editFiles
