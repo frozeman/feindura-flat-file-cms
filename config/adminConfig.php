@@ -7,7 +7,7 @@ $adminConfig['uploadPath'] =      '/_fms20/_upload/';
 $adminConfig['langPath'] =        '/_fms20/_lang/';
 $adminConfig['stylesheetPath'] =  '/_fms20/style/';
 $adminConfig['dateFormat'] =      'eu';
-$adminConfig['speakingUrl'] =      'true';
+$adminConfig['speakingUrl'] =      '';
 
 $adminConfig['varName']['page'] =     'page';
 $adminConfig['varName']['category'] = 'category';

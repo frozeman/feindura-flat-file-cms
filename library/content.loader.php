@@ -68,7 +68,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'pages':
       if(empty($categories))
         $_GET['category'] = 0;
-      include (dirname(__FILE__).'/sites/pages.php');
+      include (dirname(__FILE__).'/sites/listPages.php');
       break;
     // adminSetup
     case 'adminSetup':

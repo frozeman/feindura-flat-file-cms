@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-pages.php version 0.77
+listPages.php version 0.77
 
 */
 
@@ -234,8 +234,17 @@ if(is_array($pages)) {
       // -----------------------   ********  ---------------------- 
       // LIST PAGES
       // id'.$pageContent['id'].' sort'.$pageContent['sortorder'].' cat: '.$pageContent['category'].' 
-      echo '<li id="page'.$pageContent['id'].'">
-      <div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].'[br /][br /]'.$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
+      echo '<li id="page'.$pageContent['id'].'">';
+      
+      if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
+        $activeStartPage = ' style="background: url(library/image/key/listPages_startPage.png) no-repeat 0px -27px !important;"';
+        $startPageTitle = $langFile['btn_startPage_set'];
+      } else {
+        $activeStartPage = '';
+        $startPageTitle = $langFile['btn_startPage_title'];
+      }
+      
+      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].'[br /][br /]'.$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
       <div class="saveDate">&nbsp;&nbsp;'.$date.'</div>
       <div class="counter">&nbsp;&nbsp;'.formatHighNumber($pageContent['log_visitCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
@@ -260,13 +269,13 @@ if(is_array($pages)) {
       
       // startpage
       if($adminConfig['setStartPage']) {
-        if($pageContent['id'] == $websiteConfig['startPage']) {          
+        if($pageContent['id'] == $websiteConfig['startPage']) {
           $activeStartPage = ' active';
           $startPageTitle = $langFile['btn_startPage_set'];
         } else {
           $activeStartPage = '';
           $startPageTitle = $langFile['btn_startPage_title'];
-        }
+        }        
         echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTip">&nbsp;</a>';
       }
             

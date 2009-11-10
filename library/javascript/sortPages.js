@@ -23,6 +23,48 @@ window.addEvent('domready', function() {
   
   
   // HIDE FUNCTIONS of the PAGES ---------------------------------------------------------------
+  if($$('ul li div.functions') != null) {  
+    
+    $$('ul li').each(function(li) {
+      var functionsDiv = false;
+      
+      // get the .functions div
+      li.getElements('div').each(function(divs) {
+        if(divs.hasClass('functions')) {
+          functionsDiv = divs;
+        }
+      });
+      
+      // add fade in and out event on mouseover
+      if(functionsDiv != false) {
+        functionsDiv.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
+        
+        li.addEvent('mouseover',function(e) {
+          e.stop();
+          
+          if(navigator.appVersion.match(/MSIE/))
+            functionsDiv.tween('width','140px');
+          else
+            functionsDiv.tween('opacity','1');
+        });
+        li.addEvent('mouseout',function(e) {
+          e.stop();
+          if(navigator.appVersion.match(/MSIE/))
+            functionsDiv.tween('width','0px');
+          else
+            functionsDiv.tween('opacity','0.2');
+        });      
+      
+        // HIDE the functions AT STARTUP
+        if(navigator.appVersion.match(/MSIE/))
+            functionsDiv.setStyle('width','0px');
+          else
+            functionsDiv.setStyle('opacity','0.2');            
+      }
+      
+    });    
+  }
+
   
   
   var clicked = false;
@@ -76,7 +118,10 @@ window.addEvent('domready', function() {
 			var sort_order = '';
       var count_sort = 0;
           
-			$$('.sortablePageList li').each(function(li) { if(li.getParent().get('id') == el.getParent().get('id') && li.get('id') != null) {sort_order = sort_order + li.get('id').substr(4)  + '|'; count_sort++;} });
+			$$('.sortablePageList li').each(function(li) {
+        if(li.getParent().get('id') == el.getParent().get('id') && li.get('id') != null) {
+          sort_order = sort_order + li.get('id').substr(4)  + '|'; count_sort++;
+        } });
 			$('sort_order' + categoryNew).value = sort_order;
 			
 			// if pages has changed the category id in the href!
@@ -119,8 +164,7 @@ window.addEvent('domready', function() {
 			$$('.sortablePageList span').each(function(span) { if($('reverse').value) count_sort--;	else count_sort++; span.innerHTML = count_sort + '.';});
 			*/
 			
-			
-			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/process/sortPages.php	------------------------------
+			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/process/sortlistPages.php	------------------------------
 				var req = new Request({
 					url:'library/process/sortPages.php',
 					method:'post',
@@ -178,11 +222,18 @@ window.addEvent('domready', function() {
 	});  
   
   // makes the "no pages notice" li un-dragable
-  $$('.sortablePageList li').each(function(li) { 
+  $$('.sortablePageList li').each(function(li) {
       if(li.get('id') == null) {
         li.removeEvents(); 
         li.setStyle('cursor','auto');
       }
+      
+      /*
+      li.hasChild($$('.functions')).addEvent('mouseover',function(e) {
+        alert('dd');
+        functions.fade('in');
+      });
+      */
   });
 
 

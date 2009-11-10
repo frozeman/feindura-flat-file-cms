@@ -121,7 +121,7 @@ div.listPagesHead {
 .listPages .content div.functions {
     float: right !important;
     width: 140px;
-    padding-right: 10px;
+    margin-right: 10px;
     text-align: right;    
     }
 
@@ -162,7 +162,8 @@ div.listPagesHead {
 
 .listPages div.name a {
     display: inline-block;
-    background: url(../image/sign/pageIcon_small.png) no-repeat 0px 0px !important;
+    height: 27px;
+    background: url(../image/sign/pageIcon_small.png) no-repeat 0px 0px;
     padding-left: 30px !important;
     }
 
