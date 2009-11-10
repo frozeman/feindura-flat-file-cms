@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 2.0
-Build 35
+Build 38
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3

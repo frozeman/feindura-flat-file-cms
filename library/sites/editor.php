@@ -203,13 +203,19 @@ echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$
 
 // shows ID and differtnet header color if its a CATEGORY
 if($category['id'] != 0) {
-  $headerColor = ' class="blue"';
+  $headerColor = 'blue'; //" comes in the h1
 } else {
-  $headerColor = ' class="brown"';
+  $headerColor = 'brown'; //" comes in the h1
+}
+
+// checks for startpage, and show icon
+if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
+  $startPageIcon = '<img src="library/image/sign/startPageIcon_middle.png" style="float:left;" />';
+  $startPageTitle = ' toolTip" title="'.$langFile['btn_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the page headline
-echo '<h1'.$headerColor.'><span'.$headerColor.'>'.$pageTitle.'</span>';
+echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.'</span>';
       
 if($_GET['page'] != 'new')
   echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_savedate'].' '.$saveDate.' '.$saveTime.' ]</span></h1>';
@@ -305,8 +311,9 @@ if($_GET['page'] != 'new') {
 <!-- ***** PAGE STATISTICS -->
 <?php
 // dont shows the block below if pageSettings is saved
-if($savedForm)  $hidden = ' hidden';
-else $hidden = '';
+//if($savedForm)  $hidden = ' hidden';
+//else $hidden = '';
+$hidden = ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><img src="library/image/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>

@@ -21,7 +21,7 @@
 /* when the DOM is ready */
 window.addEvent('domready', function() {  
   
-  
+  // -------------------------------------------------------------------------------------------
   // HIDE FUNCTIONS of the PAGES ---------------------------------------------------------------
   if($$('ul li div.functions') != null) {  
     
@@ -64,9 +64,9 @@ window.addEvent('domready', function() {
       
     });    
   }
-
   
-  
+  // -------------------------------------------------------------------------------------------
+  // LIST PAGES SORTABLE -----------------------------------------------------------------------
   var clicked = false;
   var categoryOld;
   var categoryNew;
@@ -76,9 +76,8 @@ window.addEvent('domready', function() {
 
   var preventLink = function (){
       return false;
-  }
+  }  
   
-  // LIST PAGES SORTABLE -----------------------------------------------------------------------
 	var sb = new Sortables('.sortablePageList', {
 		/* set options */
 		//clone: true,
@@ -164,7 +163,7 @@ window.addEvent('domready', function() {
 			$$('.sortablePageList span').each(function(span) { if($('reverse').value) count_sort--;	else count_sort++; span.innerHTML = count_sort + '.';});
 			*/
 			
-			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/process/sortlistPages.php	------------------------------
+			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/process/sortPages.php	------------------------------
 				var req = new Request({
 					url:'library/process/sortPages.php',
 					method:'post',
@@ -175,18 +174,19 @@ window.addEvent('domready', function() {
             
 						//$('sortPagesMessageBox').set('html','<span style="text-decoration:blink;color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
 						
-            // put the save new order - text in the loadingBox
+            // put the save new order - text in the loadingBox AND show the loadingBox
             $$('#loadingBox .content')[0].set('html','<span style="text-decoration:blink;color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
-            $('loadingBox').setStyle('visibility','visible');
+            $('loadingBox').setStyle('display','block');
             $('loadingBox').fade('hide');
             $('loadingBox').fade('in');
+            
 					},
 					//-------------------------------------
 					onSuccess: function(responseText) {
             
             // hide the loadingBox
             //$('loadingBox').setStyle('visibility','hidden');
-            $('loadingBox').fade('hide');
+            $('loadingBox').fade('show');
             $('loadingBox').fade('out');
             
             	  

@@ -22,8 +22,8 @@ content.css version 0.1 */
     position: relative;
     display: block;
     width: 766px;
-    margin: 0px -20px;
-    margin-bottom: 20px;
+    margin: 30px -20px;    
+    margin-top: 45px;
     padding: 20px;
     background: url(../image/bg/content_block_normal.png) repeat-y;
     }
@@ -40,7 +40,7 @@ content.css version 0.1 */
     background: url(../image/bg/content_block_bottom.png) no-repeat;
     }
 #content .block h1 {
-    margin-top: -15px;
+    margin-top: -40px; /* balance out the height of the h1 */
     padding-bottom: 2px; /* 3px */
     }
 
@@ -281,6 +281,7 @@ span.warning {
     padding-bottom: 10px;
     font-size: 18px;
     color: #536068;
+    line-height: 30px;
     background: url(../image/bg/block_h1.png) no-repeat;
     }
 #content h1.brown {

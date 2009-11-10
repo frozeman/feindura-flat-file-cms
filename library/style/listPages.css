@@ -29,8 +29,8 @@ listPages.css version 0.16
     cursor: move;
     width: 755px;
     margin: 5px 0px;
-    height: 30px; /* org: 40px*/
-    padding: 5px 8px;
+    height: 34px; /* org: 40px*/
+    padding: 3px 8px;
     list-style: none;
     background: url(../image/bg/sortPages_liBg.png) no-repeat;
     white-space: nowrap;
@@ -89,10 +89,11 @@ div.listPagesHead {
 
 .listPages .content div {
     display: inline-block;
-    height: 20px;
-    max-height: 20px;
-    padding: 4px 0px;
+    height: 24px;
+    max-height: 24px;
+    padding: 5px 0px;
     overflow: hidden;
+    line-height: 22px;
     white-space: nowrap;
     float: left;
     }
@@ -130,7 +131,7 @@ div.listPagesHead {
 
 .listPages div.category div.functions {
     position: absolute;
-    top: 25px;
+    top: 0px;
     left: 592px;
     width: 70px;
     text-align: right;
@@ -170,7 +171,7 @@ div.listPagesHead {
 .listPages .functions a {
     display: inline-block;
     width: 27px;
-    height: 27px;
+    height: 26px;
     padding: 0px !important;
     background-position: 0px 0px !important;
     }
@@ -231,7 +232,7 @@ div.listPagesHead {
 .listPages .changeStatusCategory {
     display: block;
     position: absolute;
-    top: 25px;
+    top: 0px;
     left: 592px;
     width: 27px;
     height: 27px;

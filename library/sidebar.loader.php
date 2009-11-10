@@ -91,7 +91,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     
     echo '<div class="sidebarMenu free">
     <div class="top blue"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categories['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categories['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
-    <div class="content dark">
+    <div class="content light">
       <ul class="verticalButtons">';      
       
       if($pages = loadPages($_GET['category'])) { 

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.21
+* library/classes/frontend.classes.php version 1.23
 * 
 *
 * !!! PROTECTED VARs (do not overwrite these in your script)
@@ -1288,21 +1288,21 @@ class feindura {
   protected function readPage($page,                 // (Number) the page (id) of the page to load
                               $category = false) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
-    
+   
+    $storedPages = $this->getStoredPages();
+   
     // -> checks if the page is already loaded
-    if(isset($this->storedPages[$page])) {    
-      //echo '<br />->USED STORED '.$page.'<br />';
-    
-      return $this->storedPages[$page];
+    if(isset($storedPages[$page])) {
+      echo '<br />->USED STORED '.$page.'<br />';    
+      return $storedPages[$page];
       
     // -> if not load the page and store it in the storePages PROPERTY
     } else {
       if(($page = readPage($page,$category)) !== false) {        
-        //echo '<br />->>> LOAD '.$page['id'].'<br />';
+        echo '<br />->>> LOAD '.$page['id'].'<br />';
         
-        // add the pageContent Array to the PROPERTY
-        $this->storedPages[$page['id']] = $page;
-        return $this->storedPages[$page['id']];
+        // add the pageContent Array to the PROPERTY and SESSION
+        return $this->setStoredPages($page);
       } else return false;
     }
   }
@@ -1816,7 +1816,56 @@ class feindura {
     return $this->storedPageIds;
   }
   // -> END -- getStoredPageIds ---------------------------------------------------------------------
-   
+  
+  // -> START -- getStoredPages ********************************************************************
+  // GET the storedPages Array from SESSION or PROPERTY
+  // ------------------------------------------------------------------------------------------------
+  protected function getStoredPages() {
+    global $_SESSION;
+    global $HTTP_SESSION_VARS;
+    
+    //unset($_SESSION);
+    
+    // if its an older php version, set the session var
+    if(phpversion() <= '4.1.0')
+      $_SESSION = $HTTP_SESSION_VARS;    
+      
+    // -> checks if the SESSION storedPages Array exists
+    if(isset($_SESSION['storedPages']))
+      $storedPages = $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
+    else
+      $storedPages = $this->storedPages; // if not get the storedPages from the PROPERTY
+
+    return $storedPages;
+  }
+  // -> END -- getStoredPages ----------------------------------------------------------------------
+  
+  // -> START -- setStoredPages ********************************************************************
+  // SAVE a new pageContentArray in the storedPages Array from SESSION or PROPERTY
+  // ------------------------------------------------------------------------------------------------
+  protected function setStoredPages($pageContent = false) { // (false or PageContent Array)
+    global $_SESSION;
+    global $HTTP_SESSION_VARS;
+    
+    //unset($_SESSION);
+    
+    // if its an older php version, set the session var
+    if(phpversion() <= '4.1.0')
+      $_SESSION = $HTTP_SESSION_VARS;  
+    
+    if($pageContent) {    
+      // -> checks if the SESSION storedPages Array exists
+      if(isset($_SESSION['storedPages']))
+        $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
+      else {
+        $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
+        $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
+      }
+
+      return $pageContent;    
+    } else return false;
+  }
+  // -> END -- setStoredPages ----------------------------------------------------------------------
   
   // -> START -- shortenText *******************************************************************************
   // shortens a text by the given length number
