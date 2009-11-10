@@ -277,11 +277,15 @@ if($_GET['page'] != 'new') {
 
 
 // shows the page link
+if($adminConfig['speakingUrl'] == '')
+  $hostUrl = $adminConfig['url'].'/';
+else
+  $hostUrl = $adminConfig['url'];
 echo '<tr>
       <td class="left">
       <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
       </td><td class="right">
-      <span class="info"><a href="'.createHref($pageContent).'" class="extern">'.createHref($pageContent).'</a></span>
+      <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.createHref($pageContent).'" class="extern">'.$hostUrl.createHref($pageContent).'</a></span>
       </td>
       </tr>';
 }

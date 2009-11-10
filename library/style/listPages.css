@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.css version 0.15
+listPages.css version 0.16
 */
 
 /* ----------------------- border: 1px solid red;*/	
@@ -64,11 +64,11 @@ div.listPagesHead {
     }
     
 .listPagesHead div.name {    
-    width: 320px;
+    width: 300px;
     padding-left: 15px;
     }
 .listPagesHead div.saveDate {
-    width: 140px;
+    width: 150px;
     padding-left: 10px;
     }
 .listPagesHead div.counter {
@@ -76,11 +76,11 @@ div.listPagesHead {
     text-align: center;
     }
 .listPagesHead div.status {
-    width: 85px;
+    width: 90px;
     text-align: center;
     }
 .listPagesHead div.functions {
-    width: 100px;
+    width: 145px;
     text-align: center;
     }
 
@@ -98,13 +98,13 @@ div.listPagesHead {
     }
 
 .listPages .content div.name {    
-    width: 320px;
+    width: 300px;
     }
 .listPages .content div.saveDate {
-    width: 150px;    
+    width: 140px;
     }
 .listPages .content div.counter {
-    width: 90px;
+    width: 120px;
     padding-right: 4px;
     text-align: center;
     font-weight: bold;

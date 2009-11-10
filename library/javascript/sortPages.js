@@ -21,6 +21,10 @@
 /* when the DOM is ready */
 window.addEvent('domready', function() {  
   
+  
+  // HIDE FUNCTIONS of the PAGES ---------------------------------------------------------------
+  
+  
   var clicked = false;
   var categoryOld;
   var categoryNew;

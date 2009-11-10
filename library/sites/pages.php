@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-pages.php version 0.76
+pages.php version 0.77
 
 */
 
@@ -237,7 +237,7 @@ if(is_array($pages)) {
       echo '<li id="page'.$pageContent['id'].'">
       <div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].'[br /][br /]'.$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
       <div class="saveDate">&nbsp;&nbsp;'.$date.'</div>
-      <div class="counter">&nbsp;&nbsp;'.$pageContent['log_visitCount'].'</div>
+      <div class="counter">&nbsp;&nbsp;'.formatHighNumber($pageContent['log_visitCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS

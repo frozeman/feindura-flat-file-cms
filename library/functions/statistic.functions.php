@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/functions/general.functions.php version 0.32
+// library/functions/general.functions.php version 0.33
 
 
 //error_reporting(E_ALL);
@@ -114,7 +114,10 @@ function showVisitTime($time) {
   
   
   // RETURN formated time
-  return $time;
+  if($time != '00:00:00')
+    return $time;
+  else
+    return false;
 }
 
 // ** -- saveLog --------------------------------------------------------------------------------
@@ -556,9 +559,89 @@ function savePageStats($pageContent) {
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;
+      $_SESSION = $HTTP_SESSION_VARS;    
+    
+    // -------------------------------------------------------------------------------------
+    // -->> --------------------------------------------------------------------------------
+    // ->> VISIT TIME
+      // --------------
+      $newMinVisitTimes = '';
+      $newMaxVisitTimes = '';
+      $maxCount = 5;
+      
+      // -> count the time difference, between the last page and the current
+      if(isset($_SESSION['log_lastPage'])) {
+        $orgVisitTime = getMicroTime() - $_SESSION['log_lastPage_timestamp'];
+        // makes a time out of seconds
+        $orgVisitTime = secToTime($orgVisitTime);
+        $visitTime = $orgVisitTime;
+        
+        // -> saves the MAX visitTime
+        // ****
+        if(!empty($_SESSION['log_lastPage']['log_visitTime_max']) && $visitTime !== false) {
+        
+          $maxVisitTimes = explode('|',$_SESSION['log_lastPage']['log_visitTime_max']);
+          
+          // adds the new time if it is bigger than the highest min time
+          if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
+            array_unshift($maxVisitTimes,$visitTime);
+            $visitTime = false;
+          }
+          // adds the new time on the beginnig of the array          
+          $newMaxVisitTimes = array_slice($maxVisitTimes,0,$maxCount);
+          
+          // sort array
+          natsort($newMaxVisitTimes);
+          $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
+          // make array to string
+          $newMaxVisitTimes = implode('|',$newMaxVisitTimes);
+          
+        } elseif(!empty($_SESSION['log_lastPage']['log_visitTime_max']))
+          $newMaxVisitTimes = $_SESSION['log_lastPage']['log_visitTime_max'];
+        else
+          $newMaxVisitTimes = $orgVisitTime;
+        
+        // -> saves the MIN visitTime
+        // ****
+        if(!empty($_SESSION['log_lastPage']['log_visitTime_min']) && $visitTime !== false) {
+        
+          $minVisitTimes = explode('|',$_SESSION['log_lastPage']['log_visitTime_min']);
+          
+          // adds the new time if it is bigger than the highest min time
+          if($visitTime > $minVisitTimes[0]) {
+            array_unshift($minVisitTimes,$visitTime);
+          }
+          // adds the new time on the beginnig of the array  
+          $newMinVisitTimes = array_slice($minVisitTimes,0,$maxCount);
 
-    // --------------------------------------------------------------------------------
+          // sort array
+          natsort($newMinVisitTimes);
+          $newMinVisitTimes = array_reverse($newMinVisitTimes);
+          // make array to string
+          $newMinVisitTimes = implode('|',$newMinVisitTimes);
+          
+        } elseif(!empty($_SESSION['log_lastPage']['log_visitTime_min']))
+          $newMinVisitTimes = $_SESSION['log_lastPage']['log_visitTime_min'];
+        else
+          $newMinVisitTimes = '00:00:00';
+          
+        //echo '-> '.$newMaxVisitTimes.'<br />';
+        //echo '-> '.$newMinVisitTimes.'<br />';
+        
+        // -> adds the new max times to the pageContent Array
+        $_SESSION['log_lastPage']['log_visitTime_max'] = $newMaxVisitTimes;
+        $_SESSION['log_lastPage']['log_visitTime_min'] = $newMinVisitTimes;        
+        
+        // -> SAVE the LAST PAGE
+        savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
+      }
+      // stores the time of the LAST PAGE in the session
+      $_SESSION['log_lastPage'] = $pageContent;
+      $_SESSION['log_lastPage_timestamp'] = getMicroTime();
+      
+    
+    // -------------------------------------------------------------------------------------
+    // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER
     if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
         ($_SESSION['log_userIsSpider'] = isSpider()) === false) {
@@ -695,82 +778,7 @@ function savePageStats($pageContent) {
           $pageContent['log_searchwords'] = $newSearchString;
           */       
         }
-      }      
-      
-      // ->> VISIT TIME
-      // --------------
-      $newMinVisitTimes = '';
-      $newMaxVisitTimes = '';
-      $maxCount = 5;
-      
-      // -> count the time difference, between the last page and the current
-      if(isset($_SESSION['log_lastPage'])) {
-        $orgVisitTime = getMicroTime() - $_SESSION['log_lastPage_timestamp'];
-        
-        // makes a time out of seconds
-        $orgVisitTime = secToTime($orgVisitTime);
-        $visitTime = $orgVisitTime;
-        
-        // -> saves the MAX visitTime
-        // ****
-        if(!empty($_SESSION['log_lastPage']['log_visitTime_max']) && $visitTime !== false) {
-        
-          $maxVisitTimes = explode('|',$_SESSION['log_lastPage']['log_visitTime_max']);
-          
-          // adds the new time if it is bigger than the highest min time
-          if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
-            array_unshift($maxVisitTimes,$visitTime);
-            $visitTime = false;
-          }
-          // adds the new time on the beginnig of the array          
-          $newMaxVisitTimes = array_slice($maxVisitTimes,0,$maxCount);
-          
-          // sort array
-          natsort($newMaxVisitTimes);
-          $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
-          // make array to string
-          $newMaxVisitTimes = implode('|',$newMaxVisitTimes);
-          
-        } elseif(!empty($_SESSION['log_lastPage']['log_visitTime_max']))
-          $newMaxVisitTimes = $_SESSION['log_lastPage']['log_visitTime_max'];
-        else
-          $newMaxVisitTimes = $orgVisitTime;
-        
-        // -> saves the MIN visitTime
-        // ****
-        if(!empty($_SESSION['log_lastPage']['log_visitTime_min']) && $visitTime !== false) {
-        
-          $minVisitTimes = explode('|',$_SESSION['log_lastPage']['log_visitTime_min']);
-          
-          // adds the new time if it is bigger than the highest min time
-          if($visitTime > $minVisitTimes[0]) {
-            array_unshift($minVisitTimes,$visitTime);
-          }
-          // adds the new time on the beginnig of the array  
-          $newMinVisitTimes = array_slice($minVisitTimes,0,$maxCount);
-
-          // sort array
-          natsort($newMinVisitTimes);
-          $newMinVisitTimes = array_reverse($newMinVisitTimes);
-          // make array to string
-          $newMinVisitTimes = implode('|',$newMinVisitTimes);
-          
-        } elseif(!empty($_SESSION['log_lastPage']['log_visitTime_min']))
-          $newMinVisitTimes = $_SESSION['log_lastPage']['log_visitTime_min'];
-        else
-          $newMinVisitTimes = '00:00:00';          
-        
-        // -> adds the new max times to the pageContent Array
-        $_SESSION['log_lastPage']['log_visitTime_min'] = $newMinVisitTimes;
-        $_SESSION['log_lastPage']['log_visitTime_max'] = $newMaxVisitTimes;
-        
-        // -> SAVE the LAST PAGE
-        savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
       }
-      // stores the time of the LAST PAGE in the session
-      $_SESSION['log_lastPage'] = $pageContent;
-      $_SESSION['log_lastPage_timestamp'] = getMicroTime();
-      
 
       // -> SAVE the PAGE STATISTICS
       return savePage($pageContent['category'],$pageContent['id'],$pageContent);
