@@ -66,7 +66,7 @@ if(!empty($adminConfig['user']['info'])) {
     
     echo '<div style="width:100%; text-align:center;">';
     // USER COUNTER
-    echo '<span class="visitCountNumber">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+    echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
     echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
           <hr class="small" />';
     echo '</div>';

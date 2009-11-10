@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.74
+// editor.php version 1.75
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -381,8 +381,9 @@ else $hidden = '';
               <div id="visitTimeMaxContainer">';
             else            
               echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
+            
+            $showTimeHead = false;
           }
-          $showTimeHead = false;
         }
         echo '</div>';
         ?>
@@ -402,8 +403,9 @@ else $hidden = '';
               echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br /><div id="visitTimeMinContainer">';
             else            
               echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
-          }
-          $showTimeHead = false;
+          
+            $showTimeHead = false;
+          }          
         }
         echo '</div>';
         ?>

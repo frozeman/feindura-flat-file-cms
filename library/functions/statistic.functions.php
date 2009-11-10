@@ -101,12 +101,12 @@ function showVisitTime($time) {
     else
       $time = $time.' <b>'.$langFile['log_hour_multiple'].'</b>';
   } elseif($minute) {
-    if($hour == 1)
+    if($minute == 1)
       $time = $time.' <b>'.$langFile['log_minute_single'].'</b>';
     else
       $time = $time.' <b>'.$langFile['log_minute_multiple'].'</b>';
   } elseif($second) {
-    if($hour == 1)
+    if($second == 1)
       $time = $time.' <b>'.$langFile['log_second_single'].'</b>';
     else
       $time = $time.' <b>'.$langFile['log_second_multiple'].'</b>';
@@ -268,7 +268,7 @@ function createBrowserChart() {
     }
     
     // SHOW the table cell with the right browser and color
-    echo '<td style="'.$cellpadding.';width:'.$tablePercent.'%;background:url(library/image/bg/'.$browserColor.') repeat-x;" class="toolTip" title="'.$browserName.' '.$tablePercent.'%::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+    echo '<td style="'.$cellpadding.';width:'.$tablePercent.'%;background:url(library/image/bg/'.$browserColor.') repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
   
   }
   echo '</tr></table>';
@@ -301,7 +301,7 @@ function createTagCloud($searchWordString,$minFontSize = 10,$maxFontSize = 20) {
       $fontSize = $searchWord[1] / $highestNumber;
       $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
       
-      echo '<span style="font-size:'.$fontSize.'px;color:#C37B43;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
+      echo '<span style="font-size:'.$fontSize.'px;" class="toolTip brown" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
     
     }
   } else {

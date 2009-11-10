@@ -18,26 +18,9 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
-"id_4" => array(
-          "id"            => '4',
-          "name"          => 'wein&auml;chtsgrupp - dfdfge d! efeeeeinzwei',
-          
-          "public"        => 'true',
-          "sortascending" => '',
-          "createdelete"  => 'true',
-          "thumbnail"     => 'true',
-          "sortdate"      => 'true',
-          "sortbydate"    => 'true',
-          
-          "styleFile"     => '',
-          "styleId"       => '',
-          "styleClass"    => '',
-          
-          "thumbWidth"    => '',
-          "thumbHeight"   => '',),
 "id_2" => array(
           "id"            => '2',
-          "name"          => 'qualenst&auml;rke',
+          "name"          => '',
           
           "public"        => 'true',
           "sortascending" => 'true',
@@ -62,6 +45,23 @@ $categories = array(
           "thumbnail"     => 'true',
           "sortdate"      => '',
           "sortbydate"    => '',
+          
+          "styleFile"     => '',
+          "styleId"       => '',
+          "styleClass"    => '',
+          
+          "thumbWidth"    => '',
+          "thumbHeight"   => '',),
+"id_4" => array(
+          "id"            => '4',
+          "name"          => '',
+          
+          "public"        => 'true',
+          "sortascending" => '',
+          "createdelete"  => 'true',
+          "thumbnail"     => 'true',
+          "sortdate"      => 'true',
+          "sortbydate"    => 'true',
           
           "styleFile"     => '',
           "styleId"       => '',
