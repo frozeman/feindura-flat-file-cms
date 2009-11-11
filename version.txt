@@ -20,6 +20,7 @@ if not, see http://www.gnu.org/licenses/.
 
 REQUIREMENTS:
 -> PHP >= 4.2.0
+-> storedPages Array can have up to 30 000 Pages if the memory limit is 16MB 
 
 --------------------------------------------------
 Changelog:

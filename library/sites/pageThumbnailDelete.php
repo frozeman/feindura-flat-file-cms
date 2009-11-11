@@ -66,7 +66,7 @@ if($asking && is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pag
         $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />
         <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site='.$site.'&amp;category='.$category.'&amp;page='.$page.'\');return false;">&nbsp;</a>'."\n";
         
-        saveLog($langFile['log_pageThumbnail_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+        saveTaskLog($langFile['log_pageThumbnail_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
         
     } else {
       // DELETING ERROR --------------

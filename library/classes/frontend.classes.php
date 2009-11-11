@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.23
+* library/classes/frontend.classes.php version 1.24
 * 
 *
 * !!! PROTECTED VARs (do not overwrite these in your script)
@@ -730,6 +730,7 @@ class feindura {
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
     
+    
     // -> if pages SORTED BY CATEGORY
     if($sortingConsiderCategories === true)
       $pages = sortPages($pages);
@@ -1293,13 +1294,13 @@ class feindura {
    
     // -> checks if the page is already loaded
     if(isset($storedPages[$page])) {
-      echo '<br />->USED STORED '.$page.'<br />';    
+      //echo '<br />->USED STORED '.$page.'<br />';        
       return $storedPages[$page];
       
     // -> if not load the page and store it in the storePages PROPERTY
     } else {
       if(($page = readPage($page,$category)) !== false) {        
-        echo '<br />->>> LOAD '.$page['id'].'<br />';
+        //echo '<br />->>> LOAD '.$page['id'].'<br />';
         
         // add the pageContent Array to the PROPERTY and SESSION
         return $this->setStoredPages($page);
@@ -1341,6 +1342,7 @@ class feindura {
           if($pageIdAndCategory[1] == $categoryId) {
             //echo 'PAGE: '.$pageIdAndCategory[0].' -> '.$categoryId.'<br />';
             $newPageContentArrays[] = $this->readPage($pageIdAndCategory[0],$pageIdAndCategory[1]);
+            
           }
         }
       
@@ -1355,7 +1357,7 @@ class feindura {
         // adds the new sorted category to the return array
         $pagesArray = array_merge($pagesArray,$newPageContentArrays);
       }
-      
+
       return $pagesArray;
     // -> otherwise just use the loadPages function
     } else
@@ -1392,6 +1394,7 @@ class feindura {
             // loads the pageContent of the pages of the category in an Array
             // the pages in the returned array also get SORTED
             $pages = $this->loadPages($ids);
+
             // returns the loaded pages from the CATEGORY IDs
             return $pages;
           } else return false;
@@ -1819,12 +1822,14 @@ class feindura {
   
   // -> START -- getStoredPages ********************************************************************
   // GET the storedPages Array from SESSION or PROPERTY
+  // to turn the SESSION storedPages OFF, just unset the session in this function
   // ------------------------------------------------------------------------------------------------
   protected function getStoredPages() {
     global $_SESSION;
     global $HTTP_SESSION_VARS;
     
-    //unset($_SESSION);
+    unset($_SESSION['storedPages']);    
+    //echo 'STORED-PAGES -> '.count($this->storedPages);
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
@@ -1832,11 +1837,11 @@ class feindura {
       
     // -> checks if the SESSION storedPages Array exists
     if(isset($_SESSION['storedPages']))
-      $storedPages = $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
+      $this->storedPages = $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
     else
       $storedPages = $this->storedPages; // if not get the storedPages from the PROPERTY
 
-    return $storedPages;
+    return $this->storedPages;
   }
   // -> END -- getStoredPages ----------------------------------------------------------------------
   
@@ -1847,7 +1852,7 @@ class feindura {
     global $_SESSION;
     global $HTTP_SESSION_VARS;
     
-    //unset($_SESSION);
+    //unset($_SESSION['storedPages']);
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')

@@ -33,7 +33,7 @@ if($_POST['send'] && isset($_POST['websiteConfig'])) {
     if(saveWebsiteConfig($_POST)) {
       // give documentSaved status
       $documentSaved = true;
-      saveLog($langFile['log_websiteSetup_saved']); // <- SAVE the task in a LOG FILE
+      saveTaskLog($langFile['log_websiteSetup_saved']); // <- SAVE the task in a LOG FILE
     } else
     $errorWindow = $langFile['websiteSetup_websiteConfig_error_save'];
   
@@ -45,7 +45,7 @@ if(isset($_POST['saveEditedFiles'])) {
 
   if(saveEditedFiles($_POST)) { 
     $documentSaved = true; // give documentSaved status
-     saveLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
+     saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow = $langFile['editFilesSettings_error_save'];
   

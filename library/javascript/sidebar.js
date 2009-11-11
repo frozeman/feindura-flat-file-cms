@@ -20,13 +20,13 @@
 window.addEvent('domready', function() {
   
   // ->> LOG LIST
-  if($('sidebarLog') != null) {
+  if($('sidebarTaskLog') != null) {
     // vars
     var minHeight = '200px';
     var maxHeight = '450px';
   
     // -> adds the SCROLL to the LOG-list
-    var logScroll = new Fx.Scroll('sidebarLog', {
+    var logScroll = new Fx.Scroll('sidebarTaskLog', {
       offset: {        
           'x': 0,
           'y': 0
@@ -36,39 +36,39 @@ window.addEvent('domready', function() {
     });
     
     // scroll up
-    $('sidbarLogScrollUp').addEvent('mouseover', function() {
+    $('sidbarTaskLogScrollUp').addEvent('mouseover', function() {
       logScroll.toTop();
       // prevent tween back
-      $('sidebarLog').tween('height',maxHeight);
+      $('sidebarTaskLog').tween('height',maxHeight);
     });
     
     // scroll down
-    $('sidbarLogScrollDown').addEvent('mouseover', function() {
+    $('sidbarTaskLogScrollDown').addEvent('mouseover', function() {
       logScroll.toBottom();
       // prevent tween back
-      $('sidebarLog').tween('height',maxHeight);
+      $('sidebarTaskLog').tween('height',maxHeight);
     });
     
     // -> adds the TWEEN to the LOG-list
-    $('sidebarLog').setStyle('height',minHeight);
+    $('sidebarTaskLog').setStyle('height',minHeight);
     
     // mouseover
-    $('sidebarLog').addEvent('mouseover', function() {
-      $('sidebarLog').tween('height',maxHeight);
+    $('sidebarTaskLog').addEvent('mouseover', function() {
+      $('sidebarTaskLog').tween('height',maxHeight);
       logScroll.cancel();
     });
     // mouseout
-    $('sidebarLog').addEvent('mouseout', function() {
-      $('sidebarLog').tween('height',minHeight);
+    $('sidebarTaskLog').addEvent('mouseout', function() {
+      $('sidebarTaskLog').tween('height',minHeight);
     });
     
     // mouseout scroll UP
-    $('sidbarLogScrollUp').addEvent('mouseout', function(){
-      $('sidebarLog').tween('height',minHeight);
+    $('sidbarTaskLogScrollUp').addEvent('mouseout', function(){
+      $('sidebarTaskLog').tween('height',minHeight);
     });    
     // mouseout scroll DOWN
-    $('sidbarLogScrollDown').addEvent('mouseout', function(){
-      $('sidebarLog').tween('height',minHeight);
+    $('sidbarTaskLogScrollDown').addEvent('mouseout', function(){
+      $('sidebarTaskLog').tween('height',minHeight);
     });    
 
    }

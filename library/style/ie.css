@@ -12,7 +12,7 @@
 #content a.fastUp,
 #errorWindow .content.warning,
 #documentSaved,
-#sidbarLogScrollUp, #sidbarLogScrollDown { behavior: url(library/thirdparty/iepngfix_v2/iepngfix.php) }
+#sidbarTaskLogScrollUp, #sidbarTaskLogScrollDown { behavior: url(library/thirdparty/iepngfix_v2/iepngfix.php) }
 
 /* documentSaved hack */
 #documentSaved {

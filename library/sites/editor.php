@@ -122,7 +122,7 @@ if($_POST['save']) {
       
     if(savePage($category,$page,$_POST)) {
       $documentSaved = true;
-      saveLog($logText,$_POST['title']); // <- SAVE the task in a LOG FILE
+      saveTaskLog($logText,$_POST['title']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['editor_savepage_error_save'];
   }

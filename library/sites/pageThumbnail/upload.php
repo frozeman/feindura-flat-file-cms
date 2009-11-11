@@ -183,7 +183,7 @@ if($_POST['upload']) {
             $pageContent['thumbnail'] = $newFileName;
             if(savePage($category,$page,$pageContent)) {
               $response[] = $langFile['pagethumbnail_upload_response_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.'" />';
-              saveLog($langFile['log_pageThumbnail_upload'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+              saveTaskLog($langFile['log_pageThumbnail_upload'],$pageContent['title']); // <- SAVE the task in a LOG FILE
             }
             
             // call this javascript, on the succesfull finish of the upload

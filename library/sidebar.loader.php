@@ -124,14 +124,14 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       echo '<div class="sidebarInfo"><div class="content">';
       
-      // -> SHOW LOG
-      echo '<h1>'.$langFile['home_log_h1'].'</h1>';
+      // -> SHOW TASK LOG
+      echo '<h1>'.$langFile['home_taskLog_h1'].'</h1>';
       
-      if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log.txt')) {
-         $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log.txt');
+      if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_tasks.txt')) {
+         $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log_tasks.txt');
          
-         echo '<div id="sidbarLogScrollUp" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollUp.png) no-repeat;margin-bottom:-100px;"></div>
-              <div id="sidebarLog"><br />
+         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollUp.png) no-repeat;margin-bottom:-100px;"></div>
+              <div id="sidebarTaskLog"><br />
               <ul>';
          foreach($logContent as $logRow) {
           $logDateTime = substr($logRow,0,19);
@@ -145,10 +145,10 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          }
          echo '</ul>
               <br /></div>
-              <div id="sidbarLogScrollDown" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollDown.png) no-repeat;margin-top:-100px;"></div>';
+              <div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollDown.png) no-repeat;margin-top:-100px;"></div>';
       // no log
       } else
-        echo $langFile['home_log_nolog'];
+        echo $langFile['home_taskLog_nolog'];
       
       echo '<hr />';
       

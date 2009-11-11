@@ -195,7 +195,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     // give documentSaved status
     $documentSaved = true;
-    saveLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
+    saveTaskLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
   }
@@ -219,7 +219,7 @@ if($_POST['saveFckStyleFile']) {
   
     // give documentSaved status
     $documentSaved = true;
-    saveLog($langFile['log_adminSetup_ckstyles']); // <- SAVE the task in a LOG FILE
+    saveTaskLog($langFile['log_adminSetup_ckstyles']); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -232,7 +232,7 @@ if(isset($_POST['saveEditedFiles'])) {
 
   if(saveEditedFiles($_POST)) {
     $documentSaved = true; // give documentSaved status
-    saveLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
+    saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow = $langFile['editFilesSettings_error_save'];
   
@@ -282,8 +282,10 @@ $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.xml');
 
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/');
-if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log.txt'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log.txt');
+if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_tasks.txt'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_tasks.txt');
+if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
 
 // check lang folder/files      
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath']);

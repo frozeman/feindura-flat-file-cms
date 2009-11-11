@@ -120,16 +120,17 @@ function showVisitTime($time) {
     return false;
 }
 
-// ** -- saveLog --------------------------------------------------------------------------------
-// saves a log file with time and task which was done
+// ** -- saveTaskLog --------------------------------------------------------------------------------
+// SAVE a log file with time and task which was done
 // -----------------------------------------------------------------------------------------------------
-function saveLog($task,               // (String) a description of the task which was performed
+function saveTaskLog($task,               // (String) a description of the task which was performed
                  $object = false) {   // (String) the page name or the name of the object on which the task was performed
   global $documentRoot;
   global $adminConfig;
   global $langFile;
   
-  $logFile = dirname(__FILE__).'/../../'.'statistic/log.txt';
+  $maxEntries = 119;
+  $logFile = dirname(__FILE__).'/../../'.'statistic/log_tasks.txt';
   
   if(file_exists($logFile))
     $oldLog = file($logFile);
@@ -150,7 +151,44 @@ function saveLog($task,               // (String) a description of the task whic
     foreach($oldLog as $oldLogRow) {
       fwrite($logFile,$oldLogRow);
       // stops the log after 120 entries
-      if($count == 119)
+      if($count == $maxEntries)
+        break;
+      $count++;
+    }    
+    flock($logFile,3);
+    fclose($logFile);
+    
+    return true;
+  } else return false;
+}
+
+// ** -- saveRefererLog --------------------------------------------------------------------------------
+// SAVE a log file with links where the people are coming from
+// -----------------------------------------------------------------------------------------------------
+function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
+  global $documentRoot;
+  global $adminConfig;
+  global $langFile;
+  
+  $maxEntries = 300;
+  $logFile = dirname(__FILE__).'/../../'.'statistic/log_referers.txt';
+  
+  if(file_exists($logFile))
+    $oldLog = file($logFile);
+    
+  if(isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER']) && $logFile = @fopen($logFile,"w")) {
+    
+    // -> create the new log string
+    $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).' '.$_SERVER['HTTP_REFERER'];
+    
+    // -> write the new log file
+    flock($logFile,2);    
+    fwrite($logFile,$newLog."\n");    
+    $count = 1;
+    foreach($oldLog as $oldLogRow) {
+      fwrite($logFile,$oldLogRow);
+      // stops the log after 120 entries
+      if($count == $maxEntries)
         break;      
       $count++;
     }    
@@ -480,7 +518,7 @@ function saveWebsiteStats() {
   global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
   global $HTTP_SESSION_VARS;
   
-    //unset($_SESSION);
+    unset($_SESSION);
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
@@ -497,6 +535,10 @@ function saveWebsiteStats() {
       // -> saves the LAST WEBSITE VISIT
       // ----------------------------
       $websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+      
+      // -> saves the HTTP REFERER
+      // ----------------------------
+      saveRefererLog();
       
       // -> CHECKS if the user is NOT a BOT/SPIDER
       if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||

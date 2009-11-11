@@ -51,3 +51,30 @@ table.tableChart td {
     font-size: 35px;
     font-weight: bold;
     }
+    
+/* --------------------- */
+/* -------> REFERER LOG */
+
+#refererLogContainer {
+    width:750px;
+    height:250px;
+    padding: 0px;
+    border:1px solid #cccccc;
+    overflow:scroll;
+    }
+#refererLogContainer ul {
+    padding: 0px;
+    margin: 0px;   
+    }
+#refererLogContainer ul li {
+    padding: 5px 10px;
+    margin: 0px;    
+    background-color: #ffffff;
+    list-style: none;
+    }
+#refererLogContainer ul li.light {  
+    background-color: #EFEEEE;
+    }
+#refererLogContainer ul li.dark {  
+    background-color: #e0e0e0;
+    }

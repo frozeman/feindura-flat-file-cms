@@ -78,9 +78,41 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
     echo '</div></div>';
     
+    echo '<br /><hr class="small" /><br />';
+    
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
     createBrowserChart();
+    
+    echo '<br /><hr class="small" /><br />';
+    
+    // -> SHOW REFERER LOG
+    echo '<h3>'.$langFile['home_refererLog_h1'].'</h3>';
+    
+    if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt')) {
+       $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt');
+       
+       echo '<div id="refererLogContainer">
+            <ul>';
+       $rowColor = 'dark'; // starting row color
+       foreach($logContent as $logRow) {
+        $logDateTime = substr($logRow,0,19);
+        $logDate = formatDate($logDateTime);
+        $logTime = formatTime($logDateTime);
+ 
+        echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logRow.'" class="blue">'.str_replace('http://','',substr($logRow,20)).'</a></li>';
+        
+        // change row color
+        if($rowColor == 'light')
+          $rowColor = 'dark';
+        else
+          $rowColor = 'light';
+       }
+       echo '</ul>
+            </div>';
+    // no log
+    } else
+      echo $langFile['home_refererLog_nolog'];
     
     ?>
   </div>

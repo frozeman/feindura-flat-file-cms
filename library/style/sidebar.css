@@ -263,7 +263,7 @@
 /* ------------------------- */
 /* - SIDEBAR LOG */
 
-.sidebarInfo #sidebarLog {
+.sidebarInfo #sidebarTaskLog {
     z-index: 1;
     position: relative;
     height: 450px;

@@ -1120,7 +1120,7 @@ function adduser($user, $pass, &$status, &$newusers) {
 
 	$status .= $languagearray[11].$user.$languagearray[22];
 	
-	saveLog($langFile['log_userSetup_useradd'],$user); // <- SAVE the task in a LOG FILE
+	saveTaskLog($langFile['log_userSetup_useradd'],$user); // <- SAVE the task in a LOG FILE
 
 } //EndOfFunction
 

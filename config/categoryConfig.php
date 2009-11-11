@@ -43,8 +43,8 @@ $categories = array(
           "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
-          "sortdate"      => 'true',
-          "sortbydate"    => 'true',
+          "sortdate"      => '',
+          "sortbydate"    => '',
           
           "styleFile"     => '',
           "styleId"       => '',

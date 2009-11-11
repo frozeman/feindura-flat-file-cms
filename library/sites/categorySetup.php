@@ -63,7 +63,7 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
       }
     }
     
-    saveLog($langFile['log_categorySetup_new']); // <- SAVE the task in a LOG FILE
+    saveTaskLog($langFile['log_categorySetup_new']); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_create'];
   
@@ -107,7 +107,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
       }    
     }
     
-    saveLog($langFile['log_categorySetup_delete'],$categoryName); // <- SAVE the task in a LOG FILE
+    saveTaskLog($langFile['log_categorySetup_delete'],$categoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_delete'];
 
@@ -130,7 +130,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     // save the categories array
     if(saveCategories($categories)) {
       $documentSaved = true; // set documentSaved status
-      saveLog($langFile['log_categorySetup_move'],$categories['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
+      saveTaskLog($langFile['log_categorySetup_move'],$categories['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['categorySetup_error_save'];
     
@@ -152,7 +152,7 @@ if($_POST['send'] && isset($_POST['saveCategories'])) {
   
   if(saveCategories($catewgoriesCleaned)) {
     $documentSaved = true; // set documentSaved status
-    saveLog($langFile['log_categorySetup_saved']); // <- SAVE the task in a LOG FILE
+    saveTaskLog($langFile['log_categorySetup_saved']); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow = $langFile['categorySetup_error_save'];
   

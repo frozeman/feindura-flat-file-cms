@@ -234,10 +234,12 @@ $langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></
 
 $langFile['home_statistic_h1'] = 'Webseiten Statistik';
 
-$langFile['home_log_h1'] = 'Letzte T&auml;tigkeiten';
-$langFile['home_log_nolog'] = 'keine';
 $langFile['home_user_h1'] = 'Benutzer';
+$langFile['home_taskLog_h1'] = 'Letzte T&auml;tigkeiten';
+$langFile['home_taskLog_nolog'] = 'keine';
 
+$langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
+$langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese gekommen.';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // listPages.php
