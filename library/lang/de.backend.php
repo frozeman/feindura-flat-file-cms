@@ -238,6 +238,9 @@ $langFile['home_user_h1'] = 'Benutzer';
 $langFile['home_taskLog_h1'] = 'Letzte T&auml;tigkeiten';
 $langFile['home_taskLog_nolog'] = 'keine';
 
+$langFile['home_mostVisitedPage_h1'] = 'Die 10 meist besuchten Seiten';
+$langFile['home_longestViewedPage_h1'] = 'Die 10 am l&auml;ngsten betrachteten Seiten';
+
 $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
 $langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese gekommen.';
 

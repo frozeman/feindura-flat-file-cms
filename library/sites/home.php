@@ -61,24 +61,86 @@ if(!empty($adminConfig['user']['info'])) {
   <div class="content">
     <?php
     
-    echo '<div class="visitCountBox">';
+    // -> INNER BOX LEFT
+    echo '<div class="innerBlockLeft">';
     echo '<h2>'.$langFile['log_visitCount'].'</h2>';
     
-    echo '<div style="width:100%; text-align:center;">';
-    // USER COUNTER
-    echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
-    echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
+      echo '<div style="width:100%; text-align:center;">';
+      // USER COUNTER
+      echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+      echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
           <hr class="small" />';
-    echo '</div>';
+      echo '</div>';
     
-    echo '<div style="width:100%; text-align:right;">';
-    // FIRST VISIT
-    echo '<span class="toolTip" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
-    // LADST VISIT
-    echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+      echo '<div style="width:100%; text-align:right;">';
+      // FIRST VISIT
+      echo '<span class="toolTip" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+      // LADST VISIT
+      echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
     echo '</div></div>';
     
-    echo '<br /><hr class="small" /><br />';
+    // ->> LOAD all PAGES
+    $pages = loadPages(true);
+    
+    // -> MOST VISITED PAGE
+    echo '<div class="innerBlockRight">';    
+    echo '<h2>'.$langFile['home_mostVisitedPage_h1'].'</h2>';
+    
+      echo '<div class="innerBlockListPages">
+            <table class="coloredList">';
+      
+      // SORT the Pages by VISIT COUNT
+      usort($pages, 'sortByVisitCount');
+      
+      $count = 1;
+      $rowColor = 'dark'; // starting row color
+      foreach($pages as $page) {
+ 
+        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;">'.$page['log_visitCount'].'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
+        
+        // change row color
+        if($rowColor == 'light') $rowColor = 'dark';
+        else $rowColor = 'light';
+        
+        // count
+        if($count == 10) break;
+        else $count++;
+      }
+      echo '</table>
+            </div>';
+    echo '</div>';
+    
+    // -> LONGEST VIEWED PAGE
+    echo '<div class="innerBlockRight">';    
+    echo '<h2>'.$langFile['home_longestViewedPage_h1'].'</h2>';
+    
+      echo '<div class="innerBlockListPages">
+            <table class="coloredList">';
+      
+      // SORT the Pages by MAX VISIT TIME
+      usort($pages, 'sortByVisitTimeMax');
+      
+      $count = 1;
+      $rowColor = 'dark'; // starting row color
+      foreach($pages as $page) {
+        
+        if($pageVisitTime = showVisitTime(substr($page['log_visitTime_max'],0,strpos($page['log_visitTime_max'],'|'))))
+          echo '<tr><td class="'.$rowColor.'" style="font-size:11px;">'.$pageVisitTime.'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
+        
+        // change row color
+        if($rowColor == 'light') $rowColor = 'dark';
+        else $rowColor = 'light';
+        
+        // count
+        if($count == 10) break;
+        else $count++;
+      }
+      echo '</table>
+            </div>';                        
+    echo '</div>';
+    
+    //echo '<br /><hr class="small" /><br />';
+    echo '<br style="clear:both;" /><br />';
     
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
@@ -90,12 +152,12 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<h3>'.$langFile['home_refererLog_h1'].'</h3>';
     
     if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt')) {
-       $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt');
+      $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt');
        
-       echo '<div id="refererLogContainer">
-            <ul>';
-       $rowColor = 'dark'; // starting row color
-       foreach($logContent as $logRow) {
+      echo '<div id="refererLogContainer">
+            <ul class="coloredList">';
+      $rowColor = 'dark'; // starting row color
+      foreach($logContent as $logRow) {
         $logDateTime = substr($logRow,0,19);
         $logDate = formatDate($logDateTime);
         $logTime = formatTime($logDateTime);
@@ -103,12 +165,10 @@ if(!empty($adminConfig['user']['info'])) {
         echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logRow.'" class="blue">'.str_replace('http://','',substr($logRow,20)).'</a></li>';
         
         // change row color
-        if($rowColor == 'light')
-          $rowColor = 'dark';
-        else
-          $rowColor = 'light';
-       }
-       echo '</ul>
+        if($rowColor == 'light') $rowColor = 'dark';
+        else $rowColor = 'light';
+      }
+      echo '</ul>
             </div>';
     // no log
     } else

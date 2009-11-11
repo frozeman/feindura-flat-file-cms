@@ -161,7 +161,7 @@ span.brown {
     background: url(../image/bg/adminMenu.png) no-repeat;
     text-align: center;
     border-bottom: 1px solid #BBB9B7;
-    overflow: scroll; /* will be overwriten by javascript */
+    overflow: auto; /* will be overwriten by javascript */
     }
 #adminMenu h1 {
     display: inline-block;

@@ -423,12 +423,11 @@ function createHref($pageContent,               // (pageContent Array) the pageC
 }
 // -> END -- createHref -----------------------------------------------------------------------------------
 
+
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER
 // -------------------------------------------------------------------------------------
-// $a       [der aktuelle Wert des Array],
-// $b       [der folgende Wert des Array]
-function sortBySortOrder($a, $b) {
+function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing value
   if ($a['sortorder'] == $b['sortorder']) {
     return 0;
   }
@@ -439,9 +438,7 @@ function sortBySortOrder($a, $b) {
 // ** -- sortByDate ********************************************************************
 // sort an Array with the pageContent Array by DATE
 // -------------------------------------------------------------------------------------
-// $a       [der aktuelle Wert des Array],
-// $b       [der folgende Wert des Array]
-function sortByDate($a, $b) {
+function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
   global $adminConfig;
   
   $a['sortdate'] = str_replace('-','',$a['sortdate'][1]);
@@ -461,9 +458,7 @@ function sortByDate($a, $b) {
 // ** -- sortbyCategory ****************************************************************
 // sort an Array with the pageContent Array by CATEGORY
 // -------------------------------------------------------------------------------------
-// $a       [der aktuelle Wert des Array],
-// $b       [der folgende Wert des Array]
-function sortByCategory($a, $b) {
+function sortByCategory($a, $b) {     // (Array) $a = current; $b = follwing value
   global $categories;
   
   // looks for the categories order
@@ -480,6 +475,28 @@ function sortByCategory($a, $b) {
 }
 // ---- sortbyCategory is used by the function sortPages -------------------------------
 
+// ** -- sortByVisitCount ***************************************************************
+// sort an Array with the pageContent Array by VISIT COUNT
+// -------------------------------------------------------------------------------------
+function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
+  if ($a['log_visitCount'] == $b['log_visitCount']) {
+    return 0;
+  }
+  return ($a['log_visitCount'] > $b['log_visitCount']) ? -1 : 1;
+}
+
+// ** -- sortByVisitTimeMax ***************************************************************
+// sort an Array with the pageContent Array by MAX VISIT TIME
+// -------------------------------------------------------------------------------------
+function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing value
+  $aMaxVisitTime = substr($a['log_visitTime_max'],0,strpos($a['log_visitTime_max'],'|'));
+  $bMaxVisitTime = substr($b['log_visitTime_max'],0,strpos($b['log_visitTime_max'],'|'));
+
+  if ($aMaxVisitTime == $bMaxVisitTime) {
+    return 0;
+  }
+  return ($aMaxVisitTime > $bMaxVisitTime) ? -1 : 1;
+}
 
 // ** -- sortPages ----------------------------------------------------------------------------------
 // sort an Array with the pageContent Arrays by the given sort function
@@ -487,7 +504,7 @@ function sortByCategory($a, $b) {
 // $pagesArray   [the array with the pageContent array (Array with pageContent Array)],
 // $category     [gruppe in der sich die Seiten befinden (String)]
 function sortPages($pageContentArrays,           // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
-                   $sortBy = false) {            // (Boolean or String) the sortfunction to be used ('sortBySortOrder';'sortByCategory','sortByDate'), if FALSE it detects the sortfunction by the category
+                   $sortBy = false) {            // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if FALSE it detects the sortfunction by the category
 
   global $categories;
   
@@ -531,7 +548,7 @@ function sortPages($pageContentArrays,           // the ARRAY with the PAGECONTE
         if($category && $categories['id_'.$category]['sortbydate'])
           usort($categoriesArray, 'sortByDate');
         else
-          usort($categoriesArray, 'sortBySortOrder');        
+          usort($categoriesArray, 'sortBySortOrder');
       } else
         usort($categoriesArray, $sortBy);
       

@@ -58,7 +58,7 @@ function formatHighNumber($number,$decimalsNumber = 0) {
 // -------------------------------------------------------------------------------------------------
 function showVisitTime($time) {
   global $langFile;
-
+  
   $hour = substr($time,0,2);
   $minute = substr($time,3,2);
   $second = substr($time,6,2);
@@ -75,23 +75,23 @@ function showVisitTime($time) {
   
   // 01:01:01 Stunden
   if($hour !== false && $minute !== false && $second !== false)
-      $time = '<b>'.$hour.'</b>:'.$minute.':'.$second;
+      $time = $hour.':'.$minute.':'.$second;
   // 01:01 Stunden
   elseif($hour !== false && $minute !== false && $second === false)
-      $time = '<b>'.$hour.'</b>:'.$minute;
+      $time = $hour.':'.$minute;
   // 01:01 Minuten
   elseif($hour === false && $minute !== false && $second !== false)
-      $time = '<b>'.$minute.'</b>:'.$second; 
+      $time = $minute.':'.$second; 
   
   // 01 Stunden
   elseif($hour !== false && $minute === false && $second === false)
-      $time = '<b>'.$hour.'</b>';
+      $time = $hour;
   // 01 Minuten
   elseif($hour === false && $minute !== false && $second === false)
-      $time = '<b>'.$minute.'</b>';
+      $time = $minute;
   // 01 Sekunden
   elseif($hour === false && $minute === false && $second !== false)
-      $time = '<b>'.$second.'</b>';
+      $time = $second;
   
   
   // get the time together

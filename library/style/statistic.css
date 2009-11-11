@@ -34,16 +34,6 @@ table.tableChart td {
 
 /* --------------------- */
 /* -------> TABLE CHART */
-
-.visitCountBox {
-    position: relative;
-    width: 270px; /* org: 320px */
-    height: 180px; /* org: 200px */
-    padding: 10px 25px;
-    margin: 20px 0px;
-    background: url(../image/bg/block_innerBlock_small.png) no-repeat;
-    font-size: 12px;
-    }
     
 .visitCountNumber {
     position: relative;
@@ -56,25 +46,32 @@ table.tableChart td {
 /* -------> REFERER LOG */
 
 #refererLogContainer {
-    width:750px;
-    height:250px;
+    width: 750px;
+    height: 250px;
     padding: 0px;
-    border:1px solid #cccccc;
-    overflow:scroll;
+    border: 1px solid #cccccc;
+    overflow: auto;
     }
-#refererLogContainer ul {
+    
+/* COLORED LIST in an UL or TABLE with two colors */
+ul.coloredList {
     padding: 0px;
-    margin: 0px;   
+    margin: 0px; 
     }
-#refererLogContainer ul li {
+ul.coloredList li {
     padding: 5px 10px;
-    margin: 0px;    
-    background-color: #ffffff;
+    margin: 0px;
     list-style: none;
     }
-#refererLogContainer ul li.light {  
+    
+table.coloredList {
+    padding: 0px;
+    margin: 0px;
+    }
+
+.coloredList .light {  
     background-color: #EFEEEE;
     }
-#refererLogContainer ul li.dark {  
+.coloredList .dark {  
     background-color: #e0e0e0;
     }
