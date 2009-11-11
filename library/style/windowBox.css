@@ -137,3 +137,8 @@ windowBox.css version 0.1 */
     left: 315px;
     margin: 10px auto;
     }
+#windowRequestBox a.ok.left { /* link on the right, example: ok */
+    float: left !important;
+    left: 10px;
+    margin: 10px 0px;
+    }

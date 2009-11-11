@@ -127,6 +127,7 @@ $pageContent = readPage($page,$category);
 </form>
 </div>
 
+<!-- ok button, after upload -->
 <a href="?category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" onclick="closeWindowBox('index.php?site=<?php echo $site; ?>&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->

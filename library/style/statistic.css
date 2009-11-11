@@ -50,6 +50,8 @@ table.tableChart td {
     height: 250px;
     padding: 0px;
     border: 1px solid #cccccc;
+    border-left: none;
+    border-right: none;
     overflow: auto;
     }
     

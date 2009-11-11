@@ -123,9 +123,9 @@ input.cancel, a.cancel {
 input.cancel:hover, a.cancel:hover {
     background-position: 0px -78px !important;
     }
-#content input.cancel {
+#content .block input.cancel {
     position: relative;
-    left: 10px;
+    left: 10px;    
     margin-top: 10px;
     margin-bottom: 20px;
     }

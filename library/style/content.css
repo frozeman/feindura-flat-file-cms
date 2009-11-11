@@ -115,6 +115,8 @@ content.css version 0.1 */
     height: 108px;
     padding: 0px;
     border: 1px solid #cccccc;
+    border-left: none;
+    border-right: none;
     overflow: auto;
     }
 
@@ -168,7 +170,7 @@ content.css version 0.1 */
     padding-left: 10px;
     text-align: left;
     vertical-align: middle;
-    line-height: 23px;    
+    line-height: 23px;
     }  
 .block table td.right input {
     width: 300px;
