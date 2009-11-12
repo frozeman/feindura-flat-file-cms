@@ -60,7 +60,7 @@ $pageContent = readPage($page,$category);
 	
   <table id="thumbSize">  
   <tr><td style="width: 80px">
-  <label for="windowBox_thumbWidth"><span class="toolTip mark" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_feld1_tip'] ?>">
+  <label for="windowBox_thumbWidth"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_feld1_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></span></label>
   </td><td>
   <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php if(!empty($categories['id_'.$category]['thumbWidth'])) echo $categories['id_'.$category]['thumbWidth']; else echo $adminConfig['pageThumbnail']['width']; ?>" />
@@ -82,7 +82,7 @@ $pageContent = readPage($page,$category);
   </td></tr>
   
   <tr><td>
-  <label for="windowBox_thumbHeight"><span class="toolTip mark" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_feld2_tip'] ?>">
+  <label for="windowBox_thumbHeight"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_feld2_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></span></label>
   </td><td>
   <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php if(!empty($categories['id_'.$category]['thumbHeight'])) echo $categories['id_'.$category]['thumbHeight']; else echo $adminConfig['pageThumbnail']['height']; ?>" />

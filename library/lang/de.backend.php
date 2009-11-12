@@ -230,7 +230,7 @@ $langFile['adminSetup_warning_phpversion'] = 'for full functionality of <span cl
 $langFile['home_userInfo_h1'] = 'Benutzer Information';
 
 $langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span><br />dem Content Management System deiner Webseite.';
-$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span title="Flatfiles::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird." class="toolTip mark" >Flatfiles</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flatfiles::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flatfiles</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
 
 $langFile['home_statistic_h1'] = 'Webseiten Statistik';
 

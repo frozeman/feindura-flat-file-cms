@@ -97,21 +97,21 @@ if($savedForm != 'websiteConfig')
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="seitentitel"><span class="toolTip mark" title="<?php echo $langFile['websiteSetup_websiteConfig_feld1'].'::'.$langFile['websiteSetup_websiteConfig_feld1_tip']; ?>">
+      <label for="seitentitel"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld1'].'::'.$langFile['websiteSetup_websiteConfig_feld1_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld1']; ?></span></label>
       </td><td class="right">
       <input id="seitentitel" name="seitentitel" value="<?php echo $websiteConfig['seitentitel']; ?>" />
       </td></tr>
       
       <tr><td class="left">
-      <label for="publisher"><span class="toolTip mark" title="<?php echo $langFile['websiteSetup_websiteConfig_feld2'].'::'.$langFile['websiteSetup_websiteConfig_feld2_tip']; ?>">
+      <label for="publisher"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld2'].'::'.$langFile['websiteSetup_websiteConfig_feld2_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld2']; ?></span></label>
       </td><td class="right">
       <input id="publisher" name="publisher" value="<?php echo $websiteConfig['publisher']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld2_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
-      <label for="websiteConfig_copyright"><span class="toolTip mark" title="<?php echo $langFile['websiteSetup_websiteConfig_feld3'].'::'.$langFile['websiteSetup_websiteConfig_feld3_tip']; ?>">
+      <label for="websiteConfig_copyright"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld3'].'::'.$langFile['websiteSetup_websiteConfig_feld3_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld3']; ?></span></label>
       </td><td class="right">
       <input id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo $websiteConfig['copyright']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld3_inputTip']; ?>" />
@@ -120,14 +120,14 @@ if($savedForm != 'websiteConfig')
       <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="keywords"><span class="toolTip mark" title="<?php echo $langFile['websiteSetup_websiteConfig_feld4'].'::'.$langFile['websiteSetup_websiteConfig_feld4_tip']; ?>">
+      <label for="keywords"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld4'].'::'.$langFile['websiteSetup_websiteConfig_feld4_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld4']; ?></span></label>
       </td><td class="right">
       <input id="keywords" name="keywords" value="<?php echo $websiteConfig['keywords']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld4_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
-      <label for="description"><span class="toolTip mark" title="<?php echo $langFile['websiteSetup_websiteConfig_feld5'].'::'.$langFile['websiteSetup_websiteConfig_feld5_tip']; ?>">
+      <label for="description"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld5'].'::'.$langFile['websiteSetup_websiteConfig_feld5_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld5']; ?></span></label>
       </td><td class="right">
       <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld5_inputTip']; ?>"><?php echo $websiteConfig['description']; ?></textarea>
@@ -136,7 +136,7 @@ if($savedForm != 'websiteConfig')
       <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="contactMail"><span class="toolTip mark" title="<?php echo $langFile['websiteSetup_websiteConfig_feld6'].'::'.$langFile['websiteSetup_websiteConfig_feld6_tip']; ?>">
+      <label for="contactMail"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld6'].'::'.$langFile['websiteSetup_websiteConfig_feld6_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld6']; ?></span></label>
       </td><td class="right">
       <input id="contactMail" name="contactMail" value="<?php echo $websiteConfig['contactMail']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld6_inputTip']; ?>" />

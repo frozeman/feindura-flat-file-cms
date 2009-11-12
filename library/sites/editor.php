@@ -477,7 +477,7 @@ else $hidden = ' hidden';
       <!-- ***** PAGE TITLE -->
       
       <tr><td class="left">
-      <label for="edit_title"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
+      <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
       </td><td class="right">
         <input id="edit_title" name="title" value="<?php echo $pageContent['title']; ?>" />        
@@ -510,7 +510,7 @@ else $hidden = ' hidden';
       if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
         echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
       else
-        echo '<span class="toolTip mark" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
+        echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
       ?>
       </label>
       </td><td class="right">
@@ -523,7 +523,7 @@ else $hidden = ' hidden';
       <!-- ***** TAGS -->
       
       <tr><td class="left">
-      <label for="edit_tags"><span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
+      <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_feld2'] ?></span></label>
       </td><td class="right">
         <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
@@ -550,7 +550,7 @@ else $hidden = ' hidden';
           echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
 
         ?>
-        &nbsp;<span class="toolTip mark" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
+        &nbsp;<span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
         <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
       </td></tr>
 
@@ -759,20 +759,20 @@ else $hidden = ' hidden';
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <span class="toolTip mark" title="<?php echo $langFile['editor_advancedpageSettings_feld1'].'::'.$langFile['editor_advancedpageSettings_feld1_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld1']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld1'].'::'.$langFile['editor_advancedpageSettings_feld1_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld1']; ?></span>
       </td><td class="right">
       <input name="styleFile" value="<?php if(empty($pageContent['styleFile'])) { if(!empty($categories['id_'.$_GET['category']]['styleFile'])) echo $categories['id_'.$_GET['category']]['styleFile']; else echo $adminConfig['editor']['styleFile']; } else echo $pageContent['styleFile']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['editor_advancedpageSettings_feld1_inputTip2']; ?></span>                
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip mark" title="<?php echo $langFile['editor_advancedpageSettings_feld3'].'::'.$langFile['editor_advancedpageSettings_feld3_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld3']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld3'].'::'.$langFile['editor_advancedpageSettings_feld3_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld3']; ?></span>
       </td><td class="right">
       <input name="styleId" value="<?php if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category']]['styleId'])) echo $categories['id_'.$_GET['category']]['styleId']; else echo $adminConfig['editor']['styleId']; } else echo $pageContent['styleId']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld3_inputTip']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip mark" title="<?php echo $langFile['editor_advancedpageSettings_feld4'].'::'.$langFile['editor_advancedpageSettings_feld4_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld4']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld4'].'::'.$langFile['editor_advancedpageSettings_feld4_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld4']; ?></span>
       </td><td class="right">
       <input name="styleClass" value="<?php if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) echo $categories['id_'.$_GET['category']]['styleClass']; else echo $adminConfig['editor']['styleClass']; } else echo $pageContent['styleClass']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld4_inputTip']; ?>" />
       </td></tr>

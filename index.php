@@ -88,21 +88,37 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/editor.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/pageThumbnail.css" media="screen" />
   
+  <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
+  
   <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  
   <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie.css" /><![endif]-->
   
   
   <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
   <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
+  
+  <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/mootools-1.2.4-core.js"></script>
   <script type="text/javascript" src="library/thirdparty/mootools-1.2.3.1-more.js"></script>
   
+  <!-- thirdparty/CustomFormElements -->
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.replace.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.checkbox.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.addon.dependencies.js"></script>
+  
+  <!-- thirdparty/CKEditor -->
+  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="library/thirdparty/ckfinder/ckfinder.js"></script>
+  
+  <!-- javascripts -->
   <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  
   <script type="text/javascript" src="library/javascript/sidebar.js"></script>
   <script type="text/javascript" src="library/javascript/sidebarMenu.js"></script>  
   <script type="text/javascript" src="library/javascript/sortPages.js"></script>
   <script type="text/javascript" src="library/javascript/setup.js"></script>
-  <script type="text/javascript" src="library/javascript/content.js"></script>  
+  <script type="text/javascript" src="library/javascript/content.js"></script>
+  <script type="text/javascript" src="library/javascript/forms.js"></script>
   <script type="text/javascript" src="library/javascript/loading.js"></script>
   <script type="text/javascript" src="library/javascript/ajax.js"></script>
   <script type="text/javascript" src="library/javascript/windowBox.js"></script>
@@ -110,9 +126,6 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
   <script type="text/javascript" src="library/javascript/editor.js"></script>
   <script type="text/javascript" src="library/javascript/pageThumbnail.js"></script>
-  
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
-  <script type="text/javascript" src="library/thirdparty/ckfinder/ckfinder.js"></script>
     
 </head>
 <body>

@@ -18,25 +18,34 @@ toolTip.css version 0.53 */
 
 .toolTip {
     z-index: 11;
-    cursor: help;
+    cursor: help;    
     }
+/* textarea toolTip */
 input.toolTip, textarea.toolTip {
     cursor: text;
     }
-.checkboxes input.toolTip {
+/* checkbox toolTip */
+input.toolTip[type=checkbox] {
     cursor: help;
     }
+/* button toolTip */
 input.button.toolTip {
     cursor: pointer;
     }
+/* link toolTip */
 a.toolTip {
     cursor: pointer;
+    }    
+/* text toolTip */
+span.toolTip {
+    /*color: #B46F00;*/
+    background: url(../image/sign/toolTip.gif) no-repeat right center;
+    padding-right: 15px;
     }
 
     
 .toolTip.mark {
-    font-style: italic;
-    color: #B46F00;
+    
     }
 
 /* format of the toolTip box */
@@ -45,7 +54,7 @@ a.toolTip {
     position: relative;
     padding-left: 16px;
     margin: 0px 40px;
-    background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;    
+    background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;
     font-weight:bold;
     color:#947342;
     word-wrap: break-word;
@@ -74,6 +83,7 @@ a.toolTip {
     width:272px;
     background:url(../image/bg/toolTip_middle.png) left top repeat-y;
     line-height: 20px;
+    border: none;
     }
 .toolTip .tip-bottom	{
     background:url(../image/bg/toolTip_bottom.png) left bottom no-repeat;

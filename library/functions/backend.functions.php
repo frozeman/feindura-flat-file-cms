@@ -214,6 +214,10 @@ function saveCategories($categories) {
   
       foreach($categories as $category) {
       
+        // check depency
+        if($category['sortdate'] == '')
+          $category['sortbydate'] = '';
+        
         if($category['sortbydate'] == 'true')
           $category['sortdate'] = 'true';
           

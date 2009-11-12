@@ -21,7 +21,7 @@
 // auto resize of the THUMBNAIL-PREVIEW
 function autoResizeThumbnailPreview() {
   
-  $$('.thumbnailPreview').each(function(thumbnail) {     
+  $$('.thumbnailPreview').each(function(thumbnail) {
       
       // only set tween if the img tag has a width attribute,
       // prevent double addEvent and double set of vars
@@ -67,45 +67,6 @@ window.addEvent('domready', function() {
         duration: 1200
     });*/
 
-  
-  // makes inputs who are empty small, and resize it on mouseover -----------------------------------------------------
-  if($$('.right input') != null) {
-        var smallSize = '50';
-        
-        $$('.right input').each(function(input){
-            
-            // looks for empty inputs
-            if(input.get('value') == '' || input.get('disabled') != false) {
-                
-                var hasFocus = false;
-                var hasContent = false;
-                
-                var inputWidthBefore = input.getStyle('width');
-                input.setStyle('width', smallSize + 'px'); //makes the input small
-                
-                input.set('tween',{duration: '700', transition: Fx.Transitions.Bounce.easeOut})
-                
-                input.addEvents({
-                  'mouseover' : function() { // resize on mouseover
-                      input.tween('width',inputWidthBefore);
-                  },
-                  'focus' : function(){ // if onfocus set hasFocus = true
-                      hasFocus = true;
-                      input.tween('width',inputWidthBefore);
-                  },
-                  'blur' : function() { // if onblur set hasFocus = false and tween to small if the input has still no content
-                      hasFocus = false;
-                      if(input.get('value') == '')
-                        input.tween('width',smallSize + 'px');
-                  },
-                  'mouseout' : function() { // onmouseout, if has not focus tween to small
-                      if(!hasFocus && input.get('value') == '')
-                        input.tween('width',smallSize + 'px');
-                  }
-                });
-            }
-        });
-  }
   
   // block SLIDE IN/OUT ----------------------------------------------------------------------------------------------
 	$$('.block').each(function(block) {
@@ -203,7 +164,5 @@ window.addEvent('domready', function() {
       links: '.smoothAnchor',
       wheelStops: true,
       duration: 200
-  });
-
-  
+  });  
 });

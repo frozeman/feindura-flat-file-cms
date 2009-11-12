@@ -92,8 +92,7 @@ window.addEvent('domready', function() {
         $('cfg_varNameCategory').tween('width','300px');
         $('cfg_varNameModul').removeProperty(deactivateType);
         $('cfg_varNameModul').tween('width','300px');
-      }
-      
+      }      
     });
   }
   

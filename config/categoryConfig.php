@@ -9,8 +9,8 @@ $categories = array(
           "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
-          "sortdate"      => '',
-          "sortbydate"    => '',
+          "sortdate"      => 'true',
+          "sortbydate"    => 'true',
           
           "styleFile"     => '',
           "styleId"       => '',
@@ -60,7 +60,7 @@ $categories = array(
           "sortascending" => 'true',
           "createdelete"  => '',
           "thumbnail"     => 'true',
-          "sortdate"      => '',
+          "sortdate"      => 'true',
           "sortbydate"    => '',
           
           "styleFile"     => '',

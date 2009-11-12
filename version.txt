@@ -1,6 +1,6 @@
 feindura - Flat File Content Management System
 Version
-2.0
+1.0
 Build 39
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
@@ -26,7 +26,7 @@ REQUIREMENTS:
 Changelog:
 
 
-2.0	-> name changed from FrozeMentSystem to feindura - Flat File Content Management System
+1.0	-> name changed from FrozeMentSystem to feindura - Flat File Content Management System
 	-> complete redesigned
 
 	-> file and category system based on ids
@@ -36,8 +36,11 @@ Changelog:
 	-> feindura class for an easy implimentation of the feindura cms
 	
 	-> Build Number system introduced
+	-> version set back to 1.0
 
----
+
+OLD LOG
+---------------------------------
 
 1.8	complete redesigned;
 

@@ -322,16 +322,16 @@ if($unwriteableList) {
               else
                 echo '<img src="library/image/sign/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_category_nonpublic'].'"'.$publicSignStyle.' />&nbsp;';
                 
-          echo '<span class="toolTip mark" title="'.$langFile['categorySetup_check1'].'::'.$langFile['categorySetup_check1_tip'].'">'.$langFile['categorySetup_check1'].'</span></label><br />
+          echo '<span class="toolTip" title="'.$langFile['categorySetup_check1'].'::'.$langFile['categorySetup_check1_tip'].'">'.$langFile['categorySetup_check1'].'</span></label><br />
                 <br />';
           
-          echo '<label for="categories'.$category['id'].'createdelete"><span class="toolTip mark" title="'.$langFile['categorySetup_check2'].'::'.$langFile['categorySetup_check2_tip'].'">'.$langFile['categorySetup_check2'].'</span></label><br />  
-                <label for="categories'.$category['id'].'thumbnail"><span class="toolTip mark" title="'.$langFile['categorySetup_check3'].'::'.$langFile['categorySetup_check3_tip'].'">'.$langFile['categorySetup_check3'].'</span></label><br />                
+          echo '<label for="categories'.$category['id'].'createdelete"><span class="toolTip" title="'.$langFile['categorySetup_check2'].'::'.$langFile['categorySetup_check2_tip'].'">'.$langFile['categorySetup_check2'].'</span></label><br />  
+                <label for="categories'.$category['id'].'thumbnail"><span class="toolTip" title="'.$langFile['categorySetup_check3'].'::'.$langFile['categorySetup_check3_tip'].'">'.$langFile['categorySetup_check3'].'</span></label><br />                
                 <br />
-                <label for="categories'.$category['id'].'sortdate"><span class="toolTip mark" title="'.$langFile['categorySetup_check4'].'::'.$langFile['categorySetup_check4_tip'].'">'.$langFile['categorySetup_check4'].'</span></label><br />
-                <label for="categories'.$category['id'].'sortbydate"><span class="toolTip mark" title="'.$langFile['categorySetup_check5'].'::'.$langFile['categorySetup_check5_tip'].'">'.$langFile['categorySetup_check5'].'</span></label><br /> 
+                <label for="categories'.$category['id'].'sortdate"><span class="toolTip" title="'.$langFile['categorySetup_check4'].'::'.$langFile['categorySetup_check4_tip'].'">'.$langFile['categorySetup_check4'].'</span></label><br />
+                <label for="categories'.$category['id'].'sortbydate"><span class="toolTip" title="'.$langFile['categorySetup_check5'].'::'.$langFile['categorySetup_check5_tip'].'">'.$langFile['categorySetup_check5'].'</span></label><br /> 
                 <br />
-                <label for="categories'.$category['id'].'sortascending"><span class="toolTip mark" title="'.$langFile['categorySetup_check6'].'::'.$langFile['categorySetup_check6_tip'].'">'.$langFile['categorySetup_check6'].'</span></label>          
+                <label for="categories'.$category['id'].'sortascending"><span class="toolTip" title="'.$langFile['categorySetup_check6'].'::'.$langFile['categorySetup_check6_tip'].'">'.$langFile['categorySetup_check6'].'</span></label>          
                 </td></tr>';
           
           // finish the TABLE for one category
@@ -348,7 +348,7 @@ if($unwriteableList) {
                 <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['categorySetup_advancedSettings_hint'].'</span></td></tr>';
           
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleFile"><span class="toolTip mark" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /]'.$langFile['categorySetup_stylesheet_ifempty'].'">
+                <label for="categories'.$category['id'].'styleFile"><span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /]'.$langFile['categorySetup_stylesheet_ifempty'].'">
                 '.$langFile['stylesheet_name_styleFile'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile]" value="'.$category['styleFile'].'" class="toolTip" title="'.$langFile['path_absolutepath_tip'].'" />
@@ -356,14 +356,14 @@ if($unwriteableList) {
                 </td></tr>';
                 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleId"><span class="toolTip mark" title="'.$langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /]'.$langFile['categorySetup_stylesheet_ifempty'].'">
+                <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /]'.$langFile['categorySetup_stylesheet_ifempty'].'">
                 '.$langFile['stylesheet_name_styleId'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.$category['styleId'].'" class="toolTip" title="'.$langFile['categorySetup_stylesheet_inputTip'].'" />
+                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.$category['styleId'].'" class="toolTip" title="'.$langFile['categorySetup_stylesheet_ifempty'].'" />
                 </td></tr>';
                 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleClass"><span class="toolTip mark" title="'.$langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /]'.$langFile['categorySetup_stylesheet_ifempty'].'">
+                <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /]'.$langFile['categorySetup_stylesheet_ifempty'].'">
                 '.$langFile['stylesheet_name_styleClass'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.$category['styleClass'].'" class="toolTip" title="'.$langFile['categorySetup_stylesheet_ifempty'].'" />
@@ -373,7 +373,7 @@ if($unwriteableList) {
           
                // category thumbSize 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip mark" title="'.$langFile['thumbnail_width_tip'].'">
+                <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['thumbnail_width_tip'].'">
                 '.$langFile['thumbnail_name_width'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" />
@@ -391,7 +391,7 @@ if($unwriteableList) {
                 </td></tr>';
               
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip mark" title="'.$langFile['thumbnail_height_tip'].'">
+                <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['thumbnail_height_tip'].'">
                 '.$langFile['thumbnail_name_height'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" />
