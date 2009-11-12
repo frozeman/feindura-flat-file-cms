@@ -297,7 +297,7 @@ function createBrowserChart() {
         
       $bigLogo = false;
     } else {      
-      $cellText = '&nbsp;&nbsp;<span style="position:relative; top:12px;"><b>'.$browserName.'</b> ('.$browser[1].')';
+      $cellText = '&nbsp;&nbsp;<span style="position:relative; top:12px;"><b>'.$browserName.'</b> ('.$browser[1].')</span>';
       $logoSize = '';
       $bigLogo = true;
       $cellpadding = '';

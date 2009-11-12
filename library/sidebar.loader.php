@@ -202,7 +202,17 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       break;
     // ***** websiteSetup -------------------------------------------- **********
-    case 'websiteSetup': //case 'usersetup_save':
+    case 'websiteSetup':     
+      
+      break;
+    // ***** categorySetup -------------------------------------------- **********
+    case 'categorySetup':
+      
+      echo '<div class="sidebarInfo" style="position:fixed; top:150px;"><div class="content">';
+      
+      echo 'sdfsd';
+      
+      echo '</div></div>';
 
       break;
     // ***** userSetup -------------------------------------------- **********

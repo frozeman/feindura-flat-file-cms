@@ -6,8 +6,8 @@ $categories = array(
           "name"          => 'netz 2',
           
           "public"        => 'true',
-          "sortascending" => 'true',
-          "createdelete"  => 'true',
+          "sortascending" => '',
+          "createdelete"  => '',
           "thumbnail"     => 'true',
           "sortdate"      => 'true',
           "sortbydate"    => 'true',

@@ -1,7 +1,7 @@
 CKEDITOR.addStylesSet( 'htmlEditorStyles',
 [
 
-{name:'Gerd',element:'h3',styles:{color:'Blue'}},
+{name:'Blue Title',element:'h1',styles:{color:'Blue'}},
 {name:'Red Title',element:'h3',styles:{color:'Red'}},
 {name:'Marker: Yellow',element:'span',styles:{'background-color':'Yellow'}},
 {name:'Marker: Green',element:'span',styles:{'background-color':'Lime'}},

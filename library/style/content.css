@@ -22,8 +22,9 @@ content.css version 0.1 */
     position: relative;
     display: block;
     width: 766px;
+    left: 0px;
     margin: 30px -20px;
-    margin-top: 45px;
+    margin-top: 30px;
     padding: 20px;
     background: url(../image/bg/content_block_normal.png) repeat-y;
     }
@@ -310,6 +311,7 @@ span.warning {
 /* ---:- HEADLINES */
 
 #content h1 {
+    position: relative;
     display: block;
     margin: 0px -20px;
     padding: 15px 23px;
