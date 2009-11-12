@@ -382,7 +382,7 @@ $langFile['adminSetup_thumbnailSettings_feld3_inputTip3'] = '<b>'.$langFile['tex
 
 // ---------- styleFile Settings
 
-$langFile['adminSetup_styleFileSettings_h1'] = 'HTML-Editor &quot;Stil-Auswahl&quot; bearbeiten (htmlEditorStyles.xml)';
+$langFile['adminSetup_styleFileSettings_h1'] = '&quot;Stil-Auswahl&quot; des HTML-Editors bearbeiten';
 $langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei &quot;htmlEditorStyles.xml&quot; konnte nicht gespeichert werden.</b>'.$langFile['error_save_file'];
 
 // ---------- editFiles Settings

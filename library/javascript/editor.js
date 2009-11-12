@@ -21,22 +21,7 @@ window.addEvent('domready', function() {
   
   if($('HTMLEditor') != null) {
   
-    var HTMLEditor = CKEDITOR;
-  
-  
-  
-    HTMLEditor.addStylesSet( 'my_styles',
-      [
-          // Block Styles
-          { name : 'Blue Title', element : 'h1', styles : { 'color' : '#cccccc' } },
-          { name : 'Red Title' , element : 'h3', styles : { 'color' : 'Red' } },
-      
-          // Inline Styles
-          { name : 'CSS Style', element : 'span', attributes : { 'class' : 'my_style' } },
-          { name : 'Marker: Yellow', element : 'span', styles : { 'background-color' : 'Yellow' } }
-      ]);
-      
-      
+    var HTMLEditor = CKEDITOR;      
       
     // ------------------------------
     // CONFIG the HTMlEditor

@@ -210,8 +210,10 @@ if($_POST['saveFckStyleFile']) {
   $fckstylewrite = $_POST['fckStyleFile'];
   
   $fckstylewrite 	= str_replace('\"', '"', $fckstylewrite);
+  $fckstylewrite 	= str_replace("\'", "'", $fckstylewrite);
+  $fckstylewrite 	= stripslashes($fckstylewrite);
   
-  if($file = fopen("config/htmlEditorStyles.xml","w")) {
+  if($file = fopen("config/htmlEditorStyles.js","w")) {
     flock($file,2);
     fwrite($file,$fckstylewrite);
     flock($file,3);
@@ -282,7 +284,7 @@ if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/categoryConfig.php'
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/websiteConfig.php'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/websiteConfig.php');
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.xml');
+$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.js');
 
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt'))
@@ -714,7 +716,7 @@ else $hidden = '';
 
 <?php
 
-$htmlEditorStyleFilePath = "config/htmlEditorStyles.xml";
+$htmlEditorStyleFilePath = "config/htmlEditorStyles.js";
 $htmlEditorStyleFile = fopen($htmlEditorStyleFilePath,"r");
 
 $htmlEditorStyleContent = fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));

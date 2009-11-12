@@ -592,6 +592,9 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
   HTMLEditor.config.language                  = '<?php echo $_SESSION["language"]; ?>';
   HTMLEditor.config.contentsCss               = '<?php echo $editorStyleFile; ?>';
   HTMLEditor.config.enterMode                 = '<?php if($adminConfig['editor']['enterMode'] == "p") echo "CKEDITOR.ENTER_P"; else echo "CKEDITOR.ENTER_BR"; ?>';
+  HTMLEditor.config.stylesCombo_stylesSet     = 'htmlEditorStyles:config/htmlEditorStyles.js';
+
+  
   
   // adds the ID and a CLASS to the body element of the editor instance
   var setIdClass = HTMLEditor.on( 'instanceReady', function(e)
