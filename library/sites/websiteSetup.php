@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.84
+* websiteSetup.php version 1.85
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -147,7 +147,7 @@ if($savedForm != 'websiteConfig')
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="websiteConfig" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" />
+    <input type="submit" value="" name="websiteConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>

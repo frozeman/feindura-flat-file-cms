@@ -1,12 +1,12 @@
 <?php
 
 $categories = array(
-"id_1" => array(
-          "id"            => '1',
-          "name"          => 'huihui',
+"id_3" => array(
+          "id"            => '3',
+          "name"          => 'netz 2',
           
           "public"        => 'true',
-          "sortascending" => '',
+          "sortascending" => 'true',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "sortdate"      => 'true',
@@ -18,12 +18,12 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
-"id_3" => array(
-          "id"            => '3',
-          "name"          => 'netz 2',
+"id_1" => array(
+          "id"            => '1',
+          "name"          => 'huihui',
           
           "public"        => 'true',
-          "sortascending" => 'true',
+          "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "sortdate"      => 'true',

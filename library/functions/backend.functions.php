@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.09
+* library/functions/backend.functions.php version 1.10
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -50,7 +50,7 @@
 * 
 * startPageWarning()
 * 
-* showAddons()*
+* showAddons()***
 * 
 */
 
@@ -523,7 +523,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   echo '<!--<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />-->';
   if(is_dir($dir))
-    echo '<input type="submit" value="" name="saveEditedFiles" class="toolTip button submit" title="'.$langFile['form_submit'].'" />';
+    echo '<input type="submit" value="" name="saveEditedFiles" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />';
   echo '</div>
       <div class="bottom"></div>
     </div>

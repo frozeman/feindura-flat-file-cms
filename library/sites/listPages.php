@@ -118,7 +118,7 @@ array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocate
 foreach($categories as $category) {
 
   // shows after saving the right category open
-  if(empty($_GET['category']) || $opendCategory == $category['id'] || $_GET['category'] == $category['id'])
+  if($opendCategory == $category['id'] || $_GET['category'] == $category['id'])
     $hidden = '';
   else
     $hidden = ' hidden';
@@ -143,17 +143,18 @@ foreach($categories as $category) {
   // shows ID and differtnet header color if its a CATEGORY
   if($category['id'] != 0) {
     //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
-    $headerColor = ' class="blue"';
+    $headerColor = ' class="toolTip blue"';
     $headerIcon = 'library/image/sign/categoryIcon_small.png';
     $category['name'] = ' '.$category['name'];
   } else {
     //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
-    $headerColor = ' class="brown"';
+    $headerColor = ' class="toolTip brown"';
     $headerIcon = 'library/image/sign/pageIcon_middle.png';
   }
-
+  
+  // -> CREATE CATEGORY HEADLINE
   echo '<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
-          <h1'.$headerColor.'><a href="#" style="font-size:15px; font-weight:bold; line-height:30px;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].'</span> '.$categorySorting.'</a></h1>
+          <h1'.$headerColor.' title="ID '.$category['id'].'::"><a href="#" style="font-size:15px; font-weight:bold; line-height:30px;"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].' '.$categorySorting.'</a></h1>
           <div class="category">';
     
     // show category status only if its a category (0 is none)

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.23
+* adminSetup.php version 2.24
 */
 
 //error_reporting(E_ALL);
@@ -474,7 +474,7 @@ else $hidden = '';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'fmsSettings';" />
+    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'fmsSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -517,7 +517,7 @@ else $hidden = '';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings';" />
+    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -562,7 +562,7 @@ else $hidden = '';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
+    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -619,7 +619,7 @@ else $hidden = '';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings';" />
+    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -697,7 +697,7 @@ else $hidden = '';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings';" />
+    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -732,8 +732,8 @@ if($savedForm != 'fckStyleFile')
   <div class="content">
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles"><?php echo $htmlEditorStyleContent; ?></textarea>
  
-    <input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />
-    <input type="submit" value="" name="saveCategories" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" />
+    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>

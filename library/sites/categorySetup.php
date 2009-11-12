@@ -412,7 +412,7 @@ if($unwriteableList) {
           echo '<tr><td class="leftBottom"></td><td></td></tr>
                 </table>';
                 
-          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit" title="'.$langFile['form_submit'].'" />
+          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />
                 </div>'; // end slide in box
           
         }

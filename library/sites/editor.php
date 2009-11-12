@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.75
+// editor.php version 1.76
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -559,7 +559,7 @@ else $hidden = ' hidden';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -737,7 +737,7 @@ $oFCKeditor->Value = $pageContent['content'];
     </div>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </div>
 </div>
 
@@ -782,7 +782,7 @@ else $hidden = ' hidden';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings';" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings';" />
   </div>
   <div class="bottom"></div>
 </div>

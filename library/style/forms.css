@@ -83,7 +83,7 @@ input.button {
     border: none;
     }
     
-/* submit */
+/* SUBMIT */
 a.submit, a.ok {
     display: inline-block;
     text-decoration: none;
@@ -100,17 +100,10 @@ input.submit:hover, a.submit:hover, a.ok:hover {
 #content .block input.submit {
     z-index: 4;
     position: relative;
-    left: 665px;
     bottom: 25px !important;
     }
     
-#content .block .categoryConfig input.submit {
-    z-index: 4;
-    position: relative !important;
-    left: 120px;
-    }
-    
-/* cancel */
+/* CANCEL */
 a.cancel {
     display: inline-block;
     text-decoration: none;  
@@ -125,10 +118,22 @@ input.cancel:hover, a.cancel:hover {
     }
 #content .block input.cancel {
     position: relative;
-    left: 10px;    
-    margin-top: 10px;
     margin-bottom: 20px;
     }
+    
+/* CANCEL, SUBMIT -> POSITIONS */
+#content .block input.submit.center, #content .block input.cancel.center { /* link on the right, example: ok */
+    left: 360px;
+    }
+#content .block input.submit.left, #content .block input.cancel.left { /* link on the right, example: ok */
+    float: left !important;
+    left: 15px;
+    }
+#content .block input.submit.right, #content .block input.cancel.right { /* link on the right, example: ok */
+    float: right !important;
+    right: 15px;
+    }
+
 
 /* search */
 input.search {
