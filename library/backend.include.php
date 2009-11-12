@@ -14,14 +14,10 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* backend.include.php version 0.15
+* backend.include.php version 0.16
 */
 
-$documentRoot = $_SERVER["DOCUMENT_ROOT"];
-
-$phpTags = file(dirname(__FILE__)."/process/phptags.txt"); 
-$phpTags[0] .= "\n";
-$phpTags[1] = "\n".$phpTags[1];
+require_once(dirname(__FILE__)."/general.include.php");
 
 @include_once(dirname(__FILE__)."/../config/adminConfig.php");
 @include_once(dirname(__FILE__)."/../config/websiteConfig.php");

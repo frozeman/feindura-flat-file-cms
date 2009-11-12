@@ -125,7 +125,6 @@ function showVisitTime($time) {
 // -----------------------------------------------------------------------------------------------------
 function saveTaskLog($task,               // (String) a description of the task which was performed
                  $object = false) {   // (String) the page name or the name of the object on which the task was performed
-  global $documentRoot;
   global $adminConfig;
   global $langFile;
   
@@ -166,7 +165,6 @@ function saveTaskLog($task,               // (String) a description of the task 
 // SAVE a log file with links where the people are coming from
 // -----------------------------------------------------------------------------------------------------
 function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
-  global $documentRoot;
   global $adminConfig;
   global $langFile;
   
@@ -512,7 +510,6 @@ function addToDataString($dataArray,       // (Array) an array with Strings to l
 // - logs the last referers
 // -----------------------------------------------------------------------------------------------------
 function saveWebsiteStats() {  
-  global $phpTags;
   global $adminConfig;
   global $websiteStatistic;
   global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
@@ -565,7 +562,7 @@ function saveWebsiteStats() {
 
         
         flock($statisticFile,2);        
-        fwrite($statisticFile,$phpTags[0]);  
+        fwrite($statisticFile,PHPSTARTTAG);  
               
         fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
         fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$websiteStatistic["spiderVisitCount"]."';\n\n");
@@ -577,7 +574,7 @@ function saveWebsiteStats() {
         
         fwrite($statisticFile,"return \$websiteStatistic;");
               
-        fwrite($statisticFile,$phpTags[1]);        
+        fwrite($statisticFile,PHPENDTAG);        
         flock($statisticFile,3);
         fclose($statisticFile);
         

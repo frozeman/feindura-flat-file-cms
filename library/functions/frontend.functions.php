@@ -71,7 +71,6 @@ $months_after = 0) {              // [bis welchen Monat (Zahl) (Monate werden zu
 
   global $adminConfig;
   global $cfg_groups;
-  global $documentRoot;
   
 
   $files = loadPages($category);
@@ -146,7 +145,7 @@ $months_after = 0) {              // [bis welchen Monat (Zahl) (Monate werden zu
         
         // SEITEN-BILD ---------------------
         // ZEIGT das SEITENBILD an WENN es existiert gibt $categories['id_'.$category]['thumbnail'] == true und showThumb == true
-        if($showthumb && $categories['id_'.$category]['thumbnail'] && !empty($pageContent['thumbnail']) && @is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
+        if($showthumb && $categories['id_'.$category]['thumbnail'] && !empty($pageContent['thumbnail']) && @is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
           $thumbimage = '<a href="?'.$varNameCategory.'='.$category.'&amp;'.$varNamePage.'='.$pageContent['id'].'" class="thumbnail" title="'.$pageContent['title'].'">
                         <img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnail" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'" />
                         </a>';

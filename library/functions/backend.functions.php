@@ -203,14 +203,13 @@ function isAdmin() {
 // -----------------------------------------------------------------------------------------------------
 // $categories     [der group array der in der settings.php gespeichert werden soll (Array)],
 function saveCategories($categories) {
-  global $phpTags;
 
   // öffnet die categoryConfig.php zum schreiben
   if($categoryConfig = @fopen("config/categoryConfig.php","w")) {
 
     // *** Schreibe CATEGORIES
     flock($categoryConfig,2); //LOCK_EX
-      fwrite($categoryConfig,$phpTags[0]); //< ?php
+      fwrite($categoryConfig,PHPSTARTTAG); //< ?php
       fwrite($categoryConfig,'$categories = array('."\n");
   
       foreach($categories as $category) {
@@ -245,7 +244,7 @@ function saveCategories($categories) {
       fwrite($categoryConfig,');'."\n\n");      
       fwrite($categoryConfig,"return \$categories;");
       
-      fwrite($categoryConfig,$phpTags[1]); //? >
+      fwrite($categoryConfig,PHPENDTAG); //? >
     flock($categoryConfig,3); //LOCK_UN
     fclose($categoryConfig);
   
@@ -384,8 +383,7 @@ function moveCategories($category,            // the category id to be moved (Nu
 // open the config/websiteConfig.php and writes the categories array.
 // -----------------------------------------------------------------------------------------------------
 function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to save
-  global $phpTags;
-  
+   
   // opens the file for writing
   if($websiteConfig = @fopen("config/websiteConfig.php","w")) {
     
@@ -398,7 +396,7 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
     
     // *** Schreibe CATEGORIES
     flock($websiteConfig,2); //LOCK_EX
-      fwrite($websiteConfig,$phpTags[0]); //< ?php
+      fwrite($websiteConfig,PHPSTARTTAG); //< ?php
   
       fwrite($websiteConfig,"\$websiteConfig['seitentitel']    = '".htmlentities($givenSettings['seitentitel'])."';\n");
       fwrite($websiteConfig,"\$websiteConfig['publisher']    = '".htmlentities($givenSettings['publisher'])."';\n");
@@ -411,7 +409,7 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
       
       fwrite($websiteConfig,"return \$websiteConfig;");
     
-      fwrite($websiteConfig,$phpTags[1]); //? >
+      fwrite($websiteConfig,PHPENDTAG); //? >
     flock($websiteConfig,3); //LOCK_UN
     fclose($websiteConfig);
   
@@ -434,7 +432,6 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
 // $varNameContent     [variablenname für den Inhalt der Dateien]
 function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType) {
   global $_GET;
-  global $documentRoot;
   global $langFile;
   global $savedForm;
   
@@ -456,7 +453,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
           <div class="content"><br />';
 
       // gets the files out of the directory --------------
-      $dir = $documentRoot.$filesPath;
+      $dir = DOCUMENTROOT.$filesPath;
       if(is_dir($dir)) {
           if ($openDir = opendir($dir)) {
               while (($file = readdir($openDir)) !== false) {
@@ -509,9 +506,9 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       }
       
       // OPEN THE FILE -------------------------------------
-      if(@is_file($documentRoot.$editFile)) {
-        $editFileOpen = fopen($documentRoot.$editFile,"r");  
-        $file = @fread($editFileOpen,filesize($documentRoot.$editFile));
+      if(@is_file(DOCUMENTROOT.$editFile)) {
+        $editFileOpen = fopen(DOCUMENTROOT.$editFile,"r");  
+        $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$editFile));
         fclose($editFileOpen);
         
         echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
@@ -534,10 +531,9 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
 // -----------------------------------------------------------------------------------------------------
 // $post            [postvariable with the filename and filecontent (array)]
 function saveEditedFiles($post) {
-    global $documentRoot;
     
     // SAVE FILE
-    if(@is_file($documentRoot.$post['file']) && empty($post['newFile'])) {
+    if(@is_file(DOCUMENTROOT.$post['file']) && empty($post['newFile'])) {
 
       $post['fileContent'] 	= str_replace('\"', '"', $post['fileContent']);
       $post['fileContent'] 	= str_replace("\'", "'", $post['fileContent']);
@@ -549,7 +545,7 @@ function saveEditedFiles($post) {
       // wandelt die php einleitungstags wieder in zeichen um
       $post['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$post['fileContent']);
       
-      if($file = fopen($documentRoot.$post['file'],"w")) {
+      if($file = fopen(DOCUMENTROOT.$post['file'],"w")) {
       flock($file,2);
       fwrite($file,$post['fileContent']);
       flock($file,3);
@@ -568,7 +564,7 @@ function saveEditedFiles($post) {
       $post['newFile'] = str_replace( array(" ","%","+",'/',"&","#","!","?","$","§",'"',"'","(",")"), '_', $post['newFile'] ) ;
       $post['newFile'] = str_replace( array("ä","ü","ö","ß",'\"'), array("ae","ue","oe","ss","-"), $post['newFile'] ) ;
       
-      if($file = @fopen($documentRoot.$post['filesPath'].$post['newFile'].'.'.$post['fileType'],"w")) {
+      if($file = @fopen(DOCUMENTROOT.$post['filesPath'].$post['newFile'].'.'.$post['fileType'],"w")) {
       
         $_GET['status'] = $_POST['status'];
         $_GET['file'] = $_POST['file'];
@@ -628,9 +624,8 @@ function movePage($page, $fromCategory, $toCategory) {
 // $fileFolder  [the File or Folder which is checked for writeability, must beginn with a "/" (String)]
 function fileFolderIsWritableWarning($fileFolder) {
   global $langFile;
-  global $documentRoot;
   
-  if(is_writable($documentRoot.$fileFolder) === false) {
+  if(is_writable(DOCUMENTROOT.$fileFolder) === false) {
       return '<span class="warning"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$langFile['txt_adminSetup_writeAccess_error'].'</span><br />';
   } else return false;
 }
@@ -669,9 +664,8 @@ function getHighestId() {
 // -----------------------------------------------------------------------------------------------------------
 // $folder    [the ABSOLUTE PATH of the Folder which will be checked (String)]
 function folderIsEmpty($folder) {
-  global $documentRoot;
   
-  $folder = $documentRoot.$folder;
+  $folder = DOCUMENTROOT.$folder;
   
   // opens the "modules/" dir
   // and checks if there are files in

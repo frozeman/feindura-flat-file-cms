@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.09
+* categorySetup.php version 1.10
 */
 
 //error_reporting(E_ALL);
@@ -90,10 +90,10 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
       
         // deletes possible thumbnails before deleting the category
         foreach($pageContent as $page) {
-          if(!empty($page['thumbnail']) && is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
-            @chmod($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], 0777);          
+          if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
+            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], 0777);          
             // DELETING    
-            @unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
+            @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
           }
         }
       }
@@ -185,8 +185,8 @@ $unwriteableList = '';
 
 // check config files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
-
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/categoryConfig.php'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList) {

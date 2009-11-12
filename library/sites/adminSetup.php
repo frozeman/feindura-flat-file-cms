@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.22
+* adminSetup.php version 2.23
 */
 
 //error_reporting(E_ALL);
@@ -71,7 +71,7 @@ RewriteRule ^category/([^/]+)/(.*)\.html?$ index.php?category=$1&page=$2$3 [QSA,
 RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
 </IfModule>';
     
-    $htaccessFile = $documentRoot.'/.htaccess';
+    $htaccessFile = DOCUMENTROOT.'/.htaccess';
   
   // ** looks if the MOD_REWRITE modul exists
   if(!in_array('mod_rewrite',apache_get_modules()))
@@ -155,7 +155,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   // **** opens adminConfig.php for writing
   if($file = @fopen("config/adminConfig.php","w")) {
     flock($file,2); // LOCK_EX
-    fwrite($file,$phpTags[0]); //< ?php
+    fwrite($file,PHPSTARTTAG); //< ?php
     
     fwrite($file,"\$adminConfig['url'] =             '".$_SERVER["HTTP_HOST"]."';\n");
     fwrite($file,"\$adminConfig['basePath'] =        '".dirname($_SERVER['PHP_SELF']).'/'."';\n");
@@ -189,7 +189,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     fwrite($file,"return \$adminConfig;");
        
-    fwrite($file,$phpTags[1]); //? >
+    fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
     
@@ -276,15 +276,18 @@ $unwriteableList = '';
 
 // check config files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/adminConfig.php');
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/websiteConfig.php');
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/adminConfig.php'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'/adminConfig.php');
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/categoryConfig.php'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/websiteConfig.php'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/websiteConfig.php');
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.xml');
 
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/');
-if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_tasks.txt'))
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_tasks.txt');
-if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_referers.txt'))
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
 
 // check lang folder/files      

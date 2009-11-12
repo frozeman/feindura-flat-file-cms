@@ -20,9 +20,8 @@
 * !!! PROTECTED VARs (do not overwrite these in your script)
 * -> $adminConfig
 * -> $websiteConfig
+* -> $websiteStatistic
 * -> $categories
-* -> $documentRoot
-* -> $phpTags 
 */
 
 //error_reporting(E_ALL);
@@ -144,7 +143,6 @@ class feindura {
   // get the language File for the frontend
   // -----------------------------------------------------------------------------------------------------
   public function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-    global $documentRoot;
     global $adminConfig;
     
     // save the website statistics
@@ -184,7 +182,7 @@ class feindura {
       $this->language = $language;
     
     // includes the langFile
-    $this->languageFile = include($documentRoot.$adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php');
+    $this->languageFile = include(DOCUMENTROOT.$adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php');
     
     return true;
   }
@@ -303,7 +301,6 @@ class feindura {
                              $linkText = true,              // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
                              $linkClass = false,            // (false or String) the CLASS used for the link
                              $linkId = false) {             // (false or String) the ID used for the link
-    global $documentRoot;
     global $categories;
     global $adminConfig;
     
@@ -375,7 +372,7 @@ class feindura {
         // *****************
         if($this->linkShowThumbnail &&      
           !empty($pageContent['thumbnail']) &&
-          @is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
+          @is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
           ((!$pageContent['category'] && $adminConfig['page']['thumbnailUpload']) ||
           ($pageContent['category'] && $categories['id_'.$pageContent['category']]['thumbnail']))) {
           
@@ -980,7 +977,6 @@ class feindura {
                                   $useHtml = true) {          // (Boolean) use Html in the content, or strip all tags
     global $adminConfig;
     global $categories;
-    global $documentRoot;
 
     
     // set TAG ENDING (xHTML or HTML) 
@@ -1077,7 +1073,7 @@ class feindura {
     // *****************
     if($this->contentShowThumbnail &&      
       !empty($pageContent['thumbnail']) &&
-      @is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
+      @is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
       ((!$pageContent['category'] && $adminConfig['page']['thumbnailUpload']) ||
       ($pageContent['category'] && $categories['id_'.$pageContent['category']]['thumbnail']))) {
       
@@ -1852,7 +1848,7 @@ class feindura {
     global $_SESSION;
     global $HTTP_SESSION_VARS;
     
-    //unset($_SESSION['storedPages']);
+    unset($_SESSION['storedPages']);
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')

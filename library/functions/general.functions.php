@@ -53,14 +53,13 @@
 // $standardLang        [standard country name for languages, if no supported ones is found in the browsers lang (String)]
 function getLanguage($useLangPath = false, $returnCountryCode = true, $standardLang = 'de') {  
     global $adminConfig;
-    global $documentRoot;
     
     // checks if dther is a different path given
     // and if its a ABSOLUTE PATH
     if($useLangPath && substr($useLangPath,0,1) == '/')
-      $adminConfig['langPath'] = $documentRoot.$useLangPath;
+      $adminConfig['langPath'] = DOCUMENTROOT.$useLangPath;
     else
-      $adminConfig['langPath'] = $documentRoot.$adminConfig['langPath'];
+      $adminConfig['langPath'] = DOCUMENTROOT.$adminConfig['langPath'];
     
     // opens the lang Dir
     if(!$openlangdir = @opendir($adminConfig['langPath'])) {
@@ -119,8 +118,7 @@ function getLanguage($useLangPath = false, $returnCountryCode = true, $standardL
 // $category         [die gruppe innerhalb der sich die datei befindet (String)],
 // $page          [die seite welche gespeichert werden soll (String)]
 // $contentArray  [Array mit dem Inhalt und den Daten der Seite (Array)]
-function savePage($category,$page,$contentArray) {  
-  global $phpTags;
+function savePage($category,$page,$contentArray) {
   global $adminConfig;
   
   // escaped ",',\,NUL undescapped aber wieder die "
@@ -174,13 +172,13 @@ function savePage($category,$page,$contentArray) {
     $z3 = ');'."\n\n";
     flock($fp,2);
     
-    fwrite($fp,$phpTags[0]);
+    fwrite($fp,PHPSTARTTAG);
     fwrite($fp,$z1);
     
     fwrite($fp,$znew);
     fwrite($fp,$z3);
     
-    fwrite($fp,$phpTags[1]);
+    fwrite($fp,PHPENDTAG);
     
     flock($fp,3);
     fclose($fp);

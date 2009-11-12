@@ -38,7 +38,7 @@ $pageContent = readPage($page,$category);
 $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
-if(is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
+if(is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
   $question = '<h1>'.$langFile['pageThumbnailDelete_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['pageThumbnailDelete_question_part2'].'</h1>';
 
 // NOT EXISTING
@@ -55,12 +55,12 @@ if(is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail'
 }
 
 // DELETING PROCESS
-if($asking && is_file($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
-  @chmod($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail, 0777);
+if($asking && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
+  @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail, 0777);
     
     // DELETING    
     $pageContent['thumbnail'] = '';
-    if(unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && savePage($category,$page,$pageContent)) {
+    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && savePage($category,$page,$pageContent)) {
 
         // DELETING FINISH --------------
         $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />

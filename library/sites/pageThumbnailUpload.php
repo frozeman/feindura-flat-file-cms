@@ -109,7 +109,7 @@ $pageContent = readPage($page,$category);
   // show thumbnail if the page has one
   if(!empty($pageContent['thumbnail'])) {
     
-    $thumbnailWidth = getimagesize($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+    $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     $thumbnailWidth = $thumbnailWidth[0];
     
     if($thumbnailWidth <= 200)

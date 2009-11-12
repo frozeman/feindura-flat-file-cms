@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.77
+listPages.php version 0.78
 
 */
 
@@ -236,12 +236,11 @@ if(is_array($pages)) {
       // id'.$pageContent['id'].' sort'.$pageContent['sortorder'].' cat: '.$pageContent['category'].' 
       echo '<li id="page'.$pageContent['id'].'">';
       
+      // startpage icon before the name
       if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
         $activeStartPage = ' style="background: url(library/image/key/listPages_startPage.png) no-repeat 0px -27px !important;"';
-        $startPageTitle = $langFile['btn_startPage_set'];
       } else {
         $activeStartPage = '';
-        $startPageTitle = $langFile['btn_startPage_title'];
       }
       
       echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].'[br /][br /]'.$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
@@ -250,22 +249,23 @@ if(is_array($pages)) {
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS
-      echo '<div class="functions">';
-      
-      // thumbnail upload delete
-      if((($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
-        echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_title'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
+      echo '<div class="functions">';      
       
       // thumbnail upload
       if(($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$category['id']]['thumbnail'])
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_title'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
       
+      // thumbnail upload delete
+      if((($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
+        echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_title'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
+               
+      // edit page
+      echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
+      
       // delete page
       if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$category['id']]['createdelete'])
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['sortablePageList_functions_deletePage'].'::" class="deletePage toolTip">&nbsp;</a>';
-            
-      // edit page
-      echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
+         
       
       // startpage
       if($adminConfig['setStartPage']) {

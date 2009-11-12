@@ -89,8 +89,8 @@ if($_POST['upload']) {
     
     // ---------------- ERROR
     // checks if the upload Dir exists
-    if(!@is_dir($documentRoot.$uploadPath))
-      if(!@mkdir($documentRoot.$uploadPath, '0777'))
+    if(!@is_dir(DOCUMENTROOT.$uploadPath))
+      if(!@mkdir(DOCUMENTROOT.$uploadPath, '0777'))
         $error[] = $langFile['pagethumbnail_upload_error_nodir_part1'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['pagethumbnail_upload_error_nodir_part2'];
     
     
@@ -119,14 +119,14 @@ if($_POST['upload']) {
       	// stops the while, because the fileName is possible
       	$changeFileName = false;
   
-      	if(!move_uploaded_file( $_FILES['thumbFile']['tmp_name'], $documentRoot.$filePath ))
+      	if(!move_uploaded_file( $_FILES['thumbFile']['tmp_name'], DOCUMENTROOT.$filePath ))
       	 $error[] = $langFile['pagethumbnail_upload_error_couldntmovefile_part1'].' (<b>'.$uploadPath.'</b>) '.$langFile['pagethumbnail_upload_error_couldntmovefile_part2'];
         
         // CHECK FOR ERROR 3
         // --------------------------------------------------------------------------------
         if($error === false) {
           // sets the rights of the file
-        	if(is_file($documentRoot.$filePath))	{
+        	if(is_file(DOCUMENTROOT.$filePath))	{
         		$oldumask = umask(0);
         		@chmod( $filePath, 0777);
         		umask( $oldumask );
@@ -137,14 +137,14 @@ if($_POST['upload']) {
           $newFileName = 'thumb_cat'.$category.'page'.$page.'.'.$fileExtension;
           $newFilePath = $uploadPath.$newFileName;
           
-          $imagesize = getimagesize($documentRoot.$filePath);
+          $imagesize = getimagesize(DOCUMENTROOT.$filePath);
           
           // GETIMAGE jpg
           if($fileExtension == 'jpg' || $fileExtension == 'jpeg')
-            $oldImg = imagecreatefromjpeg($documentRoot.$filePath);
+            $oldImg = imagecreatefromjpeg(DOCUMENTROOT.$filePath);
           // GETIMAGE png
           if($fileExtension == 'png')
-            $oldImg = imagecreatefrompng($documentRoot.$filePath);  
+            $oldImg = imagecreatefrompng(DOCUMENTROOT.$filePath);  
             
           // create a blank image
           $newImg = imagecreatetruecolor($thumbWidth, $thumbHeight);
@@ -154,13 +154,13 @@ if($_POST['upload']) {
           
           // SAVEIMAGE jpg
           if($fileExtension == 'jpg' || $fileExtension == 'jpeg')
-            imagejpeg($newImg,$documentRoot.$newFilePath,100);
+            imagejpeg($newImg,DOCUMENTROOT.$newFilePath,100);
           // SAVEIMAGE png
           if($fileExtension == 'png')
-            imagepng($newImg,$documentRoot.$newFilePath,100);
+            imagepng($newImg,DOCUMENTROOT.$newFilePath,100);
           
           // deletes the uploaded original file
-          unlink($documentRoot.$filePath);
+          unlink(DOCUMENTROOT.$filePath);
           
           // get pageContent (ERROR)
           if(!$pageContent = readPage($page,$category))
@@ -173,9 +173,9 @@ if($_POST['upload']) {
             // delete old thumbnail -------------------
             if(!empty($pageContent['thumbnail']) &&
               $pageContent['thumbnail'] != $newFileName &&
-              @is_file($documentRoot.$uploadPath.$pageContent['thumbnail'])) {
+              @is_file(DOCUMENTROOT.$uploadPath.$pageContent['thumbnail'])) {
               
-              if(!unlink($documentRoot.$uploadPath.$pageContent['thumbnail']))
+              if(!unlink(DOCUMENTROOT.$uploadPath.$pageContent['thumbnail']))
                 $error[] = $langFile['pagethumbnail_upload_error_deleteoldfile'];
             }
             

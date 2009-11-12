@@ -20,9 +20,8 @@
 * !!! PROTECTED VARs (do not overwrite these in your script)
 * -> $adminConfig
 * -> $websiteConfig
+* -> $websiteStatistic
 * -> $categories
-* -> $documentRoot
-* -> $phpTags 
 */
 
 // -> starts the SESSION; needed to prevent multiple count of the visitor statistics

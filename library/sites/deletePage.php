@@ -56,7 +56,7 @@ if($asking && is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$cate
     // DELETING THUMBNAIL
     if(unlink(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
       if(!empty($pageContent['thumbnail'])) {
-        @unlink($documentRoot.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+        @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       }
         // DELETING FINISH --------------
         $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />

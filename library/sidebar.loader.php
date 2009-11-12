@@ -127,8 +127,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // -> SHOW TASK LOG
       echo '<h1>'.$langFile['home_taskLog_h1'].'</h1>';
       
-      if(file_exists($documentRoot.$adminConfig['basePath'].'statistic/log_tasks.txt')) {
-         $logContent = file($documentRoot.$adminConfig['basePath'].'statistic/log_tasks.txt');
+      if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt')) {
+         $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt');
          
          echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollUp.png) no-repeat;margin-bottom:-100px;"></div>
               <div id="sidebarTaskLog"><br />
@@ -197,7 +197,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       }
       
       echo '<h1>'.$langFile['adminSetup_srvRootPath'].'</h1>';   
-      echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.$documentRoot.'">'.$documentRoot.'</p>
+      echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div></div>';
       
       break;
