@@ -1061,7 +1061,7 @@ class feindura {
     if($this->titleShowDate && $pageContent['category'] && isset($categories['id_'.$pageContent['category']]) && $categories['id_'.$pageContent['category']]['sortdate'] &&
       !empty($pageContent['sortdate']) &&
       $sortedDate = validateDateFormat($pageContent['sortdate'][1]))
-      $titleDate = $this->createTitleDate($pageContent['sortdate'][0].' '.formatDate($sortedDate).' '.$pageContent['sortdate'][2]);
+      $titleDate = $pageContent['sortdate'][0].' '.formatDate(dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate'][2];
     else $titleDate = false;
     
     // shows the TITLE

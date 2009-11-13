@@ -18,9 +18,9 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
-"id_3" => array(
-          "id"            => '3',
-          "name"          => 'netz 2',
+"id_4" => array(
+          "id"            => '4',
+          "name"          => 'mehrddd',
           
           "public"        => 'true',
           "sortascending" => '',
@@ -35,16 +35,16 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
-"id_4" => array(
-          "id"            => '4',
-          "name"          => 'mehrddd',
+"id_3" => array(
+          "id"            => '3',
+          "name"          => 'netz 2',
           
           "public"        => 'true',
           "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
-          "sortdate"      => '',
-          "sortbydate"    => '',
+          "sortdate"      => 'true',
+          "sortbydate"    => 'true',
           
           "styleFile"     => '',
           "styleId"       => '',

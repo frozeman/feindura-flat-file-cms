@@ -203,10 +203,10 @@ if(is_array($pages)) {
       }
       
       // kürzt den titel
-      if(strlen($pageContent['title'])<= 21) {
+      if(strlen($pageContent['title'])<= 30) {
         $titleShort = $pageContent['title'];
       } else {
-        $titleShort = substr($pageContent['title'],0,20).'..';
+        $titleShort = substr($pageContent['title'],0,29).'..';
       }
       
       // show savedate

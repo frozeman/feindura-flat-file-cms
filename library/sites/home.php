@@ -61,12 +61,13 @@ if(!empty($adminConfig['user']['info'])) {
   <div class="content">
     <?php
     
-    // -> INNER BOX LEFT
+    // --------------------------------
+    // USER COUNTER
     echo '<div class="innerBlockLeft">';
     echo '<h2>'.$langFile['log_visitCount'].'</h2>';
     
       echo '<div style="width:100%; text-align:center;">';
-      // USER COUNTER
+      
       echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
       echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
           <hr class="small" />';
@@ -80,28 +81,27 @@ if(!empty($adminConfig['user']['info'])) {
     echo '</div></div>';
     
     // ->> LOAD all PAGES
-    $pages = loadPages(true);
+    $orgPages = loadPages(true);
+    $pages = $orgPages;
     
+    //print_r($orgPages);
+    
+    // ---------------------------------
     // -> MOST VISITED PAGE
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['home_mostVisitedPage_h1'].'</h2>';
-    
+    echo '<h2>'.$langFile['home_mostVisitedPage_h1'].'</h2>';    
       echo '<div class="innerBlockListPages">
-            <table class="coloredList">';
-      
+            <table class="coloredList">';      
       // SORT the Pages by VISIT COUNT
       usort($pages, 'sortByVisitCount');
       
       $count = 1;
       $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) {
- 
-        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;">'.$page['log_visitCount'].'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
-        
+      foreach($pages as $page) { 
+        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;"><b>'.$page['log_visitCount'].'</b></td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';
-        else $rowColor = 'light';
-        
+        else $rowColor = 'light';        
         // count
         if($count == 10) break;
         else $count++;
@@ -110,27 +110,51 @@ if(!empty($adminConfig['user']['info'])) {
             </div>';
     echo '</div>';
     
+    $pages = $orgPages;
+    
+    // ---------------------------------
+    // -> LAST EDITED PAGES
+    echo '<div class="innerBlockLeft">';    
+    echo '<h2>'.$langFile['home_lastEditedPage_h1'].'</h2>';    
+      echo '<div class="innerBlockListPages">
+            <table class="coloredList">';      
+      // SORT the Pages by VISIT SAVEDATE
+      usort($pages, 'sortBySaveDate');
+      
+      $count = 1;
+      $rowColor = 'dark'; // starting row color
+      foreach($pages as $page) { 
+        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:left;"><b>'.formatDate(dateDayBeforeAfter($page['savedate'])).'</b> '.formatTime($page['savedate']).'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        // change row color
+        if($rowColor == 'light') $rowColor = 'dark';
+        else $rowColor = 'light';        
+        // count
+        if($count == 30) break;
+        else $count++;
+      }
+      echo '</table>
+            </div>';
+    echo '</div>';
+    
+    $pages = $orgPages;
+    
+    // ---------------------------------
     // -> LONGEST VIEWED PAGE
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['home_longestViewedPage_h1'].'</h2>';
-    
+    echo '<h2>'.$langFile['home_longestViewedPage_h1'].'</h2>';    
       echo '<div class="innerBlockListPages">
-            <table class="coloredList">';
-      
+            <table class="coloredList">';      
       // SORT the Pages by MAX VISIT TIME
       usort($pages, 'sortByVisitTimeMax');
       
       $count = 1;
       $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) {
-        
+      foreach($pages as $page) {        
         if($pageVisitTime = showVisitTime(substr($page['log_visitTime_max'],0,strpos($page['log_visitTime_max'],'|'))))
-          echo '<tr><td class="'.$rowColor.'" style="font-size:11px;">'.$pageVisitTime.'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
-        
+          echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';
-        else $rowColor = 'light';
-        
+        else $rowColor = 'light';        
         // count
         if($count == 10) break;
         else $count++;
@@ -142,12 +166,14 @@ if(!empty($adminConfig['user']['info'])) {
     //echo '<br /><hr class="small" /><br />';
     echo '<br style="clear:both;" /><br />';
     
+    // ---------------------------------
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
     createBrowserChart();
     
     echo '<br /><hr class="small" /><br />';
     
+    // ---------------------------------
     // -> SHOW REFERER LOG
     echo '<h3>'.$langFile['home_refererLog_h1'].'</h3>';
     

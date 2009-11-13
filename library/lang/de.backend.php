@@ -112,6 +112,13 @@ $langFile['txt_logo'] = 'feindura CMS, Version ';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
 // ---------------------------------------------------------------------------------------------------------------------
+// ---------- FRONTEND shared TEXTs
+
+$langFile['date_yesterday'] = 'Gestern';
+$langFile['date_today'] = 'Heute';
+$langFile['date_tomorrow'] = 'Morgen';
+
+// ---------------------------------------------------------------------------------------------------------------------
 // ---------- LOG TEXTs
 
 $langFile['log_page_saved'] = 'Seite gespeichert';
@@ -239,6 +246,7 @@ $langFile['home_taskLog_h1'] = 'Letzte T&auml;tigkeiten';
 $langFile['home_taskLog_nolog'] = 'keine';
 
 $langFile['home_mostVisitedPage_h1'] = 'Die 10 meist besuchten Seiten';
+$langFile['home_lastEditedPage_h1'] = 'zuletzt bearbeitete Seiten';
 $langFile['home_longestViewedPage_h1'] = 'Die 10 am l&auml;ngsten betrachteten Seiten';
 
 $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';

@@ -360,7 +360,7 @@ $hidden = ' hidden';
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> VISIT COUNT
-        echo '<span style="font-weight:bold;font-size:20px;color:#C37B43;">'.formatHighNumber($pageContent['log_visitCount']).'</span>';
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.formatHighNumber($pageContent['log_visitCount']).'</span>';
         ?>
       </td>      
     </tr>

@@ -35,6 +35,7 @@ $frontendLangFile['error_pageClosed'] = 'Die angeforderte Seite ist zur Zeit nic
 // ---------------------------------------------------------------------------------------------------------------------
 // --------- date texts
 
+$frontendLangFile['date_yesterday'] = 'Gestern';
 $frontendLangFile['date_today'] = 'Heute';
 $frontendLangFile['date_tomorrow'] = 'Morgen';
 

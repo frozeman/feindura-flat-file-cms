@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 1.02
+* library/functions/general.functions.php version 1.03
 *
 * FUNCTIONS ----------------------------
 * 
@@ -363,6 +363,30 @@ function getPageCategory($page,                    // (Number) the page ID, from
   } else return false;
 }
 
+// -> START -- dateDayBeforeAfter ***************************************************************************
+// replace the date with "tomorrow" and "today", if it is one day before or the same day
+// -------------------------------------------------------------------------------------------------------
+function dateDayBeforeAfter($date,$givenLangFile = false) { // (String with the format YYYY-MM-DD HH:MM) date which will be check for is today or tomorrow
+  global $langFile;
+  
+  if($givenLangFile === false)
+    $givenLangFile = $langFile;
+  
+  // if the date is TODAY
+  if(substr($date,0,10) == date('Y')."-".date('m')."-".date('d'))
+    return $givenLangFile['date_today'];
+  
+  // if the date is YESTERDAY
+  elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')-1)))
+    return $givenLangFile['date_yesterday'];
+  
+  // if the date is TOMORROW
+  elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')+1)))
+    return $givenLangFile['date_tomorrow'];
+
+  else return $date;
+}
+// -> END -- createTitleDate ----------------------------------------------------------------------------
 
 // -> START -- createHref ******************************************************************************
 // generates out of the a pageContent Array a href="" link for this page
@@ -452,6 +476,25 @@ function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
   return ($a['sortdate'] > $b['sortdate']) ? -1 : 1;
 }
 // ---- sortByDate is used by the function sortPages -----------------------------------
+
+// ** -- sortBySaveDate ********************************************************************
+// sort an Array with the pageContent Array by SAVEDATE
+// -------------------------------------------------------------------------------------
+function sortBySaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
+  global $adminConfig;
+  
+  $a['savedate'] = str_replace(array('-',':',' '),'',$a['savedate']);
+  $b['savedate'] = str_replace(array('-',':',' '),'',$b['savedate']); 
+  
+  //echo $a['sortdate'].'<br>';
+  //echo $b['sortdate'].'<br><br>';
+  
+  if ($a['savedate'] == $b['savedate']) {
+    return 0;
+  }
+  return ($a['savedate'] > $b['savedate']) ? -1 : 1;
+}
+// ---- sortBySaveDate is used by the function sortPages -----------------------------------
 
 // ** -- sortbyCategory ****************************************************************
 // sort an Array with the pageContent Array by CATEGORY
@@ -620,15 +663,15 @@ function validateDateFormat($dateString) {       // (String) the given string wi
      is_numeric($date[1]) &&
      is_numeric($date[2])) {
 
-    //mmddyyyy
-    if(checkdate($date[0], $date[1], $date[2]))
-      return $date[2].'-'.$date[0].'-'.$date[1];
     //ddmmyyyy
-    elseif(checkdate($date[1], $date[0], $date[2]))
+    if(checkdate($date[1], $date[0], $date[2]))
       return $date[2].'-'.$date[1].'-'.$date[0];
     //yyyymmdd
     elseif(checkdate($date[1], $date[2], $date[0]))
       return $date[0].'-'.$date[1].'-'.$date[2];
+    //mmddyyyy
+    elseif(checkdate($date[0], $date[1], $date[2]))
+      return $date[2].'-'.$date[0].'-'.$date[1];    
     else
       return false;
   }

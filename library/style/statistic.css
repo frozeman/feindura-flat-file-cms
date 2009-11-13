@@ -60,20 +60,24 @@ ul.coloredList {
     padding: 0px;
     margin: 0px; 
     }
-ul.coloredList li {
+ul.coloredList li {    
     padding: 5px 10px;
     margin: 0px;
     list-style: none;
     }
     
 table.coloredList {
+    width: 100%;
     padding: 0px;
     margin: 0px;
     }
+table.coloredList td {
+    padding: 5px;
+    }
 
 .coloredList .light {  
-    background-color: #EFEEEE;
+    background-color: #E5EEEE;
     }
 .coloredList .dark {  
-    background-color: #e0e0e0;
+    background-color: #D4E0E0;
     }
