@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-content.css version 0.1 */
+content.css version 0.2 */
 
 /* ----------------------- */	
 /* ---:- BLOCK */
@@ -25,7 +25,7 @@ content.css version 0.1 */
     left: 0px;
     margin: 30px -20px;
     margin-top: 30px;
-    padding: 20px;
+    padding: 20px;    
     background: url(../image/bg/content_block_normal.png) repeat-y;
     }
 #content .block .content { /* eliminate safari padding-problem */
@@ -233,23 +233,6 @@ content.css version 0.1 */
     background-position: 0px -68px;
     }
     
-/* ----------------------- */	
-/* - BLOCK and WINDOBOX standard links */  
-.block a, #windowBox a {
-    padding-left: 18px;
-    color: #F58218;
-    text-decoration: none;
-    background: url(../image/sign/link.gif) no-repeat 0px 3px;
-    }
-.block a:hover, #windowBox a:hover {
-    color: #536068;
-    text-decoration: none;
-    }
-.block a:active, #windowBox a:active {
-    color: #000000;
-    text-decoration: none;
-    }
-
 
 /* ----------------------- */	
 /* - slide down link */  
@@ -393,3 +376,32 @@ span.warning {
     margin: 25px -8px;
     background: url(../image/bg/content_blockSpacer.png) no-repeat;
     }
+    
+/* ----------------------- */	
+/* - BLOCK and WINDOBOX standard links */  
+.block a, #windowBox a, #leftSidebar a.standardLink {
+    padding-left: 18px;
+    color: #F58218;
+    text-decoration: none;
+    background: url(../image/sign/link.gif) no-repeat 0px 3px;
+    }
+#leftSidebar a.standardLink {
+    background: url(../image/sign/link.gif) no-repeat 0px 1px;
+    }
+.block a:hover, #windowBox a:hover, #leftSidebar a.standardLink:hover {
+    color: #536068;
+    text-decoration: none;
+    }
+.block a:active, #windowBox a:active, #leftSidebar a.standardLink:active {
+    color: #000000;
+    text-decoration: none;
+    }
+
+/* anchor targets*/
+a.anchorTarget {
+    visibility:hidden;
+    padding-left: 0px;
+    height: 0px;
+    background: none;
+    }
+    

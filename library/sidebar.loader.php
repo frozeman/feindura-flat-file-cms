@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.50
+// sidebar.loader.php version 0.51
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
@@ -208,11 +208,23 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     // ***** categorySetup -------------------------------------------- **********
     case 'categorySetup':
       
-      echo '<div class="sidebarInfo" style="position:fixed; top:150px;"><div class="content">';
+      // -> CATEGORY ANCHOR LINKS
+      echo '<div style="position:fixed; top:150px;">';
       
-      echo 'sdfsd';
+      echo '<a href="?site=categorySetup&amp;status=createCategory#categories" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['categorySetup_createCategory'].'::"></a>'; 
+            
+      echo '<div class="sidebarInfo"><div class="content">';     
+      echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
+      echo '<ul>';
       
-      echo '</div></div>';
+      // -> show a anchor link to each category
+      foreach($categories as $category) {
+        echo '<li><a href="#category'.$category['id'].'" class="standardLink smoothAnchor">'.$category['name'].'</a></li>';
+      
+      }
+      echo '</ul>';
+      echo '</div></div>
+            </div>';
 
       break;
     // ***** userSetup -------------------------------------------- **********

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.10
+* categorySetup.php version 1.12
 */
 
 //error_reporting(E_ALL);
@@ -264,6 +264,8 @@ if($unwriteableList) {
           
           // slide container (help for the javascript to find the right elements)
           echo '<div class="categoryConfig">';
+          // anchor
+          echo '<a name="category'.$category['id'].'" id="category'.$category['id'].'" class="anchorTarget"></a>';
           
           // --------------------------------------
           // first TABLE (normal category settings)

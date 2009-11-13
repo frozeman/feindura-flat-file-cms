@@ -334,8 +334,10 @@ if($unwriteableList && checkBasePath()) {
 
 ?>
 
+<!-- anchor for the adminSettings -->
+<a name="adminSettingsTop" id="adminSettingsTop" class="anchor"></a>
 
-<form action="?site=adminSetup#top" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
+<form action="?site=adminSetup#adminSettingsTop" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
   <div>
   <input type="hidden" name="send" value="true" />
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />

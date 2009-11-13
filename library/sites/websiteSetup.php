@@ -107,14 +107,14 @@ if($savedForm != 'websiteConfig')
       <label for="publisher"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld2'].'::'.$langFile['websiteSetup_websiteConfig_feld2_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld2']; ?></span></label>
       </td><td class="right">
-      <input id="publisher" name="publisher" value="<?php echo $websiteConfig['publisher']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld2_inputTip']; ?>" />
+      <input id="publisher" name="publisher" value="<?php echo $websiteConfig['publisher']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="websiteConfig_copyright"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld3'].'::'.$langFile['websiteSetup_websiteConfig_feld3_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld3']; ?></span></label>
       </td><td class="right">
-      <input id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo $websiteConfig['copyright']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld3_inputTip']; ?>" />
+      <input id="websiteConfig_copyright" name="websiteConfig_copyright" value="<?php echo $websiteConfig['copyright']; ?>" />
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>

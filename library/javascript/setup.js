@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/setup.js version 0.2 (requires mootools-core and mootools-more)
+// java/setup.js version 0.21 (requires mootools-core and mootools-more)
 
 function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) {
 
@@ -56,8 +56,8 @@ window.addEvent('domready', function() {
        slideAdvancedcategoryConfig.hide();
       
        // sets the SLIDE EFFECT to the buttons
-       if(categoryConfig.getElements('a')[1] != null) {
-         categoryConfig.getElements('a')[1].addEvent('click', function(e) {
+       if(categoryConfig.getElements('a')[2] != null) {
+         categoryConfig.getElements('a')[2].addEvent('click', function(e) {
         		e.stop();	
         		slideAdvancedcategoryConfig.toggle();
         	});

@@ -23,6 +23,7 @@ listPages.css version 0.16
     margin: 0px;
     margin-top: 15px;
     padding: 0px;
+    padding-bottom: 20px;
     }
 
 .listPages li {
@@ -93,7 +94,7 @@ div.listPagesHead {
     max-height: 24px;
     padding: 5px 0px;
     overflow: hidden;
-    line-height: 22px;
+    line-height: 24px;
     white-space: nowrap;
     float: left;
     }

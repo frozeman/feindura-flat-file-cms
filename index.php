@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* index.php version 1.95
+* index.php version 1.96
 */
 
 session_cache_limiter(60);
@@ -143,7 +143,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <!-- ***************************************************************************************** -->
   <!-- ** HEADER ******************************************************************************* -->
   <div id="header">
-    <a id="top" name="top" style="visibility:hidden;"></a>
+    <a id="top" name="top" class="anchorTarget"></a>
     
     <div id="headerBlock">
           
