@@ -27,6 +27,7 @@ content.css version 0.2 */
     margin-top: 30px;
     padding: 20px;    
     background: url(../image/bg/content_block_normal.png) repeat-y;
+    overflow: visible;
     }
 #content .block .content { /* eliminate safari padding-problem */
     position: relative;
@@ -299,6 +300,7 @@ span.warning {
 /* ---:- HEADLINES */
 
 #content h1 {
+    z-index: 1;
     position: relative;
     display: block;
     margin: 0px -20px;

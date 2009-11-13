@@ -130,11 +130,17 @@ div.listPagesHead {
 /* ----------------------- */	
 /* ---:- listPages CATEGORY */
 
-.listPages div.category div.functions {
-    z-index: 99; /* fixes the problem that it hides the functions div under the h1 */
+.listPages div.category {
+    z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
-    top: 0px;
+    top: -5px;
     left: 592px;
+    }
+
+.listPages div.category div.functions {
+    z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
+    position: absolute;
+    top: 0px;    
     width: 70px;
     height: 27px;
     text-align: right;
@@ -232,17 +238,16 @@ div.listPagesHead {
     text-decoration: none;
     }
 
-.listPages .changeStatusCategory {
+.listPages .category .changeStatusCategory {
     display: block;
     position: absolute;
     top: 0px;
-    left: 592px;
     width: 27px;
     height: 27px;
     }
-.listPages .changeStatusCategory.public {
+.listPages .category .changeStatusCategory.public {
     background: url(../image/sign/category_public.png) no-repeat !important;
     }
-.listPages .changeStatusCategory.nonpublic {
+.listPages .category .changeStatusCategory.nonpublic {
     background: url(../image/sign/category_nonpublic.png) no-repeat !important;
     }

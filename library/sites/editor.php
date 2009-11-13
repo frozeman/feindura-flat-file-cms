@@ -21,8 +21,6 @@ include_once("library/backend.include.php");
 
 // VARs
 // ---------------------------------------------------------------------------
-$documentSaved = false;
-$errorWindow = false;
 $savedForm = false;
 
 $page	= $_GET['page'];
@@ -174,23 +172,7 @@ function FCKeditor_OnComplete( editorInstance )
 
 /* ]]> */
 </script>
-
-
-<!-- documentSaved -->
-<div id="documentSaved"<?php if($documentSaved) echo ' class="saved"'; ?>></div>
-
-<!-- errorWindow -->
-<?php if($errorWindow !== false) { ?>
-<div id="errorWindow">
-  <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
-  <div class="content warning">
-    <p><?php echo $errorWindow; ?></p>
-    <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php }
-
+<?php
 
 // create the FORM
 echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8">

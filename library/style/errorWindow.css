@@ -19,9 +19,9 @@ errorWindow.css version 0.11 */
 /* ---:- ERRORWINDOW */
 
 #errorWindow {
-    z-index: 12;
+    z-index: 20;
     position: fixed;    
-    top: 40%;
+    top: 20%;
     left: 370px;
     width: 447px;
     padding: 0px 40px;
@@ -30,9 +30,9 @@ errorWindow.css version 0.11 */
 
 #errorWindow .top {
     z-index: 3;
-    position: absolute;
+    position: relative;
     top: -40px;
-    left: 0px;
+    left: -40px;
     width: 527px;
     height: 10px; /*org: 40px */
     padding: 0px;
@@ -47,12 +47,12 @@ errorWindow.css version 0.11 */
 #errorWindow .content {
     z-index: 0;
     width: 377px;
-    padding-left: 70px;
+    padding-left: 70px;    
     }
 #errorWindow .bottom {
-    position: absolute;
+    position: relative;
     bottom: -40px;
-    left: 0px;
+    left: -40px;
     width: 527px;
     height: 40px;
     background: url(../image/bg/errorWindow_bottom.png) no-repeat;
@@ -74,6 +74,7 @@ errorWindow.css version 0.11 */
 #errorWindow .content a.ok {
     display: block;
     position: relative;
+    top: 20px;
     left: 130px;
     width: 75px;
     height: 70px;

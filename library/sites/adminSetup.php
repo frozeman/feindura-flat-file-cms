@@ -23,8 +23,6 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 
 // VARs
 // ---------------------------------------------------------------------------
-$documentSaved = false;
-$errorWindow = false;
 $savedForm = false;
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
@@ -254,23 +252,6 @@ if(isAdmin()) {
 
 // show basePath warning if necessary
 basePathWarning();
-
-?>
-<!-- documentSaved -->
-<div id="documentSaved"<?php if($documentSaved) echo ' class="saved"'; ?>></div>
-
-<!-- errorWindow -->
-<?php if($errorWindow !== false) { ?>
-<div id="errorWindow">
-  <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
-  <div class="content warning">
-    <p><?php echo $errorWindow; ?></p>
-    <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php }
-
 
 // CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------

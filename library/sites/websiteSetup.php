@@ -19,8 +19,6 @@
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
-$documentSaved = false;
-$errorWindow = false;
 $savedForm = '';
 
 // ------------ SPEICHERT die BENUTZER EINSTELLUNGEN, schreibe in usersettings.php
@@ -57,22 +55,6 @@ include (dirname(__FILE__)."/../../config/websiteConfig.php"); // loads the save
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 ?>
-
-<!-- documentSaved -->
-<div id="documentSaved"<?php if($documentSaved) echo ' class="saved"'; ?>></div>
-
-<!-- errorWindow -->
-<?php if($errorWindow !== false) { ?>
-<div id="errorWindow">
-  <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
-  <div class="content warning">
-    <p><?php echo $errorWindow; ?></p>
-    <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php } ?>
-
 <form action="?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
   <div><input type="hidden" name="send" value="true" /></div>
   

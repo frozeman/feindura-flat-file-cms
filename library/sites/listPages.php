@@ -19,8 +19,6 @@ listPages.php version 0.78
 
 include_once(dirname(__FILE__).'/../backend.include.php');
 
-$documentSaved = false;
-$errorWindow = false;
 $opendCategory = false;
 
 // -> CHANGE PAGE STATUS
@@ -45,7 +43,7 @@ if($_GET['status'] == 'changePageStatus') {
   $opendCategory = $_GET['category'];
 }
 
-// -> CHANGE STATUS OF THE WHOLE CATEGORY
+// -> CHANGE CATEGORY STATUS
 if($_GET['status'] == 'changeCategoryStatus') {    
      
       // change the status
@@ -87,9 +85,6 @@ if($_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
 startPageWarning();
 
 ?>
-<!-- documentSaved -->
-<div id="documentSaved"<?php if($documentSaved) echo ' class="saved"'; ?>></div>
-
 <div id="sortPagesMessageBox"><?php echo $langFile['sortablePageList_info']; ?></div>
 <!-- the javascript request of the sortable gets its error messages from this input -->
 <div><input type="hidden" id="sortablePageList_status" value="<?php echo $langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty']; ?>" /></div>
@@ -160,16 +155,15 @@ foreach($categories as $category) {
     if($category['id'] != 0)
       echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'" class="changeStatusCategory toolTip'.$publicClass.'" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkCategory'].'">&nbsp;</a>';
   
-    // CATEGORY FUNCTIONS
-    echo '<div class="functions">';
-    
-    // create page
-    if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$category['id']]['createdelete'])
-      echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['btn_createPage_title'].'::" class="createPage toolTip">&nbsp;</a>';
+      // CATEGORY FUNCTIONS
+      echo '<div class="functions">';
       
-    echo '</div>';
-            
-  echo ' </div>          
+      // create page
+      if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$category['id']]['createdelete'])
+        echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['btn_createPage_title'].'::" class="createPage toolTip">&nbsp;</a>';
+         
+  echo '    </div>
+          </div>          
         <div class="content">';
   
   echo '<ul class="sortablePageList" id="category'.$category['id'].'">';
@@ -202,7 +196,7 @@ if(is_array($pages)) {
         $publicText = $langFile['status_page_nonpublic'];
       }
       
-      // kürzt den titel
+      // shorten the title
       if(strlen($pageContent['title'])<= 30) {
         $titleShort = $pageContent['title'];
       } else {
@@ -308,16 +302,3 @@ include(dirname(__FILE__)."/../../config/categoryConfig.php");
 
 
 </form>
-
-
-<!-- errorWindow -->
-<?php if($errorWindow !== false) { ?>
-<div id="errorWindow">
-  <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
-  <div class="content warning">
-    <p><?php echo $errorWindow; ?></p>
-    <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
-  </div>
-  <div class="bottom"></div>
-</div>
-<?php } ?>

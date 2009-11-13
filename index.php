@@ -24,9 +24,8 @@ session_start();
 include("library/backend.include.php");
 
 // *---* holt die VARIABLEN ---------------------------------------------------------
-//$category = $_GET['category'];
-
-//$is_ie = eregi("(msie) ([0-9]{1,2}.[0-9]{1,3})",$_SERVER['HTTP_USER_AGENT']);
+$errorWindow = false;
+$documentSaved = false;
 
 // gets the version of the feindura CMS
 $version = file("version.txt");
@@ -306,7 +305,22 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
     
   </div>
   
+  <!-- ************************************************************************* -->
+  <!-- ** DOCUMENT SAVED ******************************************************* -->
+  <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
   
+  <!-- ************************************************************************* -->
+  <!-- ** ERROR WINDOW ********************************************************* -->
+  <?php if($errorWindow !== false) { ?>
+  <div id="errorWindow">
+    <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
+    <div class="content warning">
+      <p><?php echo $errorWindow; ?></p>
+      <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <?php } ?>
   
   <!-- ************************************************************************* -->
   <!-- ** SIDEBAR ************************************************************** -->
@@ -362,7 +376,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
         </ul>
         <?php } ?>
       </div>
-    
+      
       <div id="copyright">
         <span class="logoname">fein<span>dura</span></span> - Flat File Content Management System, Copyright &copy; 2009 <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="logoname">fein<span>dura</span></span> is published under the <a href="license.txt">GNU General Public License, version 3</a>
       </div>
