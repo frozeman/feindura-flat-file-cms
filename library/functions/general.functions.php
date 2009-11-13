@@ -51,19 +51,19 @@
 // $useLangPath         [if here is given a ABSOLUT path he scans this folder for lang files, they should end with de or en.. (String or Boolean)],
 // $returnCountryCode   [if false he returns the array from the language File (Boolean)],
 // $standardLang        [standard country name for languages, if no supported ones is found in the browsers lang (String)]
-function getLanguage($useLangPath = false, $returnCountryCode = true, $standardLang = 'de') {  
+function getLanguage($useLangPath = true, $returnLangFile = true, $standardLang = 'de') {  
     global $adminConfig;
     
-    // checks if dther is a different path given
+    // checks if other is a different path given
     // and if its a ABSOLUTE PATH
-    if($useLangPath && substr($useLangPath,0,1) == '/')
-      $adminConfig['langPath'] = DOCUMENTROOT.$useLangPath;
+    if(is_string($useLangPath) && substr($useLangPath,0,1) == '/')
+      $langPath = DOCUMENTROOT.$useLangPath;
     else
-      $adminConfig['langPath'] = DOCUMENTROOT.$adminConfig['langPath'];
-    
+      $langPath = DOCUMENTROOT.$adminConfig['langPath'];
+
     // opens the lang Dir
-    if(!$openlangdir = @opendir($adminConfig['langPath'])) {
-      if($returnCountryCode)
+    if(!$openlangdir = @opendir($langPath)) {
+      if(!$returnLangFile)
         return $standardLang;
       else
         return false;
@@ -72,7 +72,7 @@ function getLanguage($useLangPath = false, $returnCountryCode = true, $standardL
     // go trough the lang Dir
     while(false !== ($lang_file = @readdir($openlangdir))) {
       if($lang_file != "." && $lang_file != ".."
-      && is_file($adminConfig['langPath'].$lang_file)) {
+      && is_file($langPath.$lang_file)) {
         
         $langFileSchema = $lang_file;
         
@@ -83,8 +83,8 @@ function getLanguage($useLangPath = false, $returnCountryCode = true, $standardL
       		if (strstr(strtolower(substr(substr($lang_file,-6),0,2)).",", $browserData.",") ||
               strstr(strtolower(substr($lang_file,0,2)).",", $browserData.",")) {
       		  // returns either langFile or the COUNTRY CODE
-      		  if(!$returnCountryCode) {
-      		    if($langFile = @include($adminConfig['langPath'].$lang_file))
+      		  if($returnLangFile) {
+      		    if($langFile = @include($langPath.$lang_file))
                 return $langFile;
               else
                 return false;
@@ -97,10 +97,10 @@ function getLanguage($useLangPath = false, $returnCountryCode = true, $standardL
     @closedir($mod_openedmodul);
     
   	// if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
-  	if(!$returnCountryCode) {
+  	if($returnLangFile) {
       if(!empty($langFileSchema)) {
-        if($langFile = @include($adminConfig['langPath'].substr($langFileSchema,0,-6).$standardLang.'.php') ||
-           $langFile = @include($adminConfig['langPath'].$standardLang.substr($langFileSchema,2)))
+        if($langFile = @include($langPath.substr($langFileSchema,0,-6).$standardLang.'.php') ||
+           $langFile = @include($langPath.$standardLang.substr($langFileSchema,2)))
           return $langFile;
         else
           return false;

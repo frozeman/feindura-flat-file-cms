@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.24
+* library/classes/frontend.classes.php version 1.25
 * 
 *
 * !!! PROTECTED VARs (do not overwrite these in your script)
@@ -177,7 +177,7 @@ class feindura {
     // if no country code is given
     if($language === false || !strlen($language) != 2) {
       // gets the BROWSER STANDARD language
-      $this->language = getLanguage($adminConfig['basePath'].'library/lang/'); // returns a COUNTRY SHORTNAME
+      $this->language = getLanguage($adminConfig['langPath'],false); // returns a COUNTRY SHORTNAME
     } else
       $this->language = $language;
     

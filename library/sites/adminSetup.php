@@ -497,8 +497,7 @@ else $hidden = '';
       <colgroup>
       <col class="left" />
       </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
+      
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_userLanguage" name="cfg_userLanguage" value="true"<?php if($adminConfig['user']['editLanguage']) echo ' checked="checked"'; ?> /><br />
@@ -509,6 +508,7 @@ else $hidden = '';
       <label for="cfg_userStylesheet"><?php echo $langFile['adminSetup_userSettings_check2']; ?></label>
       </td></tr>
       
+      <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
       <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_tip']; ?>"><?php echo $langFile['adminSetup_userSettings_textarea1']; ?></span></label>
@@ -540,9 +540,7 @@ else $hidden = '';
       <colgroup>
       <col class="left" />
       </colgroup>
-  
-      <tr><td class="leftTop"></td><td></td></tr>
-      
+        
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_setStartPage" name="cfg_setStartPage" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check1'].'::'.$langFile['adminSetup_pageSettings_check1_tip']; ?>"<?php if($adminConfig['setStartPage']) echo ' checked="checked"'; ?> />
       
@@ -550,7 +548,7 @@ else $hidden = '';
       <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check1'].'::'.$langFile['adminSetup_pageSettings_check1_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check1']; ?></span></label>
       </td></tr>
       
-      <tr><td class="spacer"></td><td></td></tr>      
+      <tr><td class="spacer checkboxes"></td><td></td></tr>      
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check2'].'::'.$langFile['adminSetup_pageSettings_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
@@ -561,7 +559,8 @@ else $hidden = '';
       <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check3']; ?></span></label>
       </td></tr>
       
-      <tr><td class="leftBottom"></td><td></td></tr>
+      <tr><td class="spacer checkboxes"></td><td></td></tr>
+      <tr><td class="spacer checkboxes"></td><td></td></tr> 
       
     </table>
     

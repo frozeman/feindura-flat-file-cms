@@ -107,5 +107,6 @@ function changeFile( site, fileName, status, anchorName )
 // -> NO SUBMIT goto ANCHOR
 function submitAnchor(blockId,formId,anchorName) {
   
-  $(formId).set('action',$(formId).get('action') + '#' + anchorName + blockId);
+  if(!navigator.appVersion.match(/MSIE/))
+    $(formId).setAttribute('action',$(formId).getAttribute('action') + '#' + anchorName + blockId);
 }

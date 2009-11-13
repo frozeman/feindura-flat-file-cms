@@ -153,8 +153,6 @@ if($savedForm != 'websiteConfig')
 </div>
 
 </form>
-
-
 <?php
 
 if($adminConfig['user']['editLanguage']) {  

@@ -44,6 +44,13 @@ function preventInjections($sqlDataArray, $arrayType) {
     // entfernt ; und = um eine weitere ausführung von befehlen zu verhindern
     $sqlDataArray[$key] = str_replace(";","",$sqlDataArray[$key]);
     $sqlDataArray[$key] = str_replace("=","",$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace("'",'',$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace("´",'',$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace('"','',$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace('DROP','',$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace('drop','',$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace('TABLE','',$sqlDataArray[$key]);
+    $sqlDataArray[$key] = str_replace('table','',$sqlDataArray[$key]);
         
     //$_POST[$key] = mysql_real_escape_string($_POST[$key]);
        

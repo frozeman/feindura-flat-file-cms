@@ -454,8 +454,9 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   echo '<div class="block'.$hidden.'">
           <h1><a href="#" name="'.$anchorName.'">'.$titleText.'</a></h1>
-          <div class="content"><br />';
-
+          <div class="content"><br />';     
+      
+      //echo $filesPath.'<br />';      
       // gets the files out of the directory --------------
       $dir = DOCUMENTROOT.$filesPath;
       if(is_dir($dir)) {

@@ -542,10 +542,9 @@ else $hidden = ' hidden';
         <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
       </td></tr>
       
-      <tr><td class="leftBottom"></td><td></td></tr>
+      <tr><td class="leftBottom"></td><td></td></tr>      
       
-  
-      <tr><td class="leftTop"></td><td></td></tr>
+      <tr><td class="spacer checkboxes"></td><td></td></tr>
       
       <!-- ***** PUBLIC/UNPUBLIC -->
       
@@ -566,8 +565,9 @@ else $hidden = ' hidden';
         &nbsp;<span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
         <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
       </td></tr>
-
-     <tr><td class="leftBottom"></td><td></td></tr>
+      
+      <tr><td class="spacer checkboxes"></td><td></td></tr>
+      <tr><td class="spacer checkboxes"></td><td></td></tr> 
       
     </table>
     

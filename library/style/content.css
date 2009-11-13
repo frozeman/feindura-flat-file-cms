@@ -154,16 +154,18 @@ content.css version 0.2 */
 .block table col.left {
     background: url(../image/bg/content_block_table_left_middle.png) repeat-y right top;    
     }
+   /* checkboxes */
 .block table td.left.checkboxes {
-    vertical-align: top;
-    line-height:25px;
+    line-height: 22px;
+    padding-right: 1px !important;
+    background: #ffffff !important;
     }
-    
+ 
 /* leftBottom */   
 .block table td.leftBottom {
-    height: 30px;
+    height: 35px;
     padding: 0px;
-    background: url(../image/bg/content_block_table_left_bottom.png) no-repeat right top;    
+    background: url(../image/bg/content_block_table_left_bottom.png) no-repeat right top #ffffff;    
     }
     
 /* right */       
@@ -179,14 +181,17 @@ content.css version 0.2 */
     }
 .block table td.right.checkboxes {
     vertical-align: top;
-    line-height:25px;
     }
-    
+
+
 /* spacer */   
 .block table td.spacer {
     height: 20px;
     padding: 0px;
     margin: 0px;
+    }
+.block table td.spacer.checkboxes {
+    background: #ffffff !important;
     }
     
 /* ----------------------- */	

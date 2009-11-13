@@ -14,12 +14,11 @@ $adminConfig['varName']['category'] = 'category';
 $adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['editLanguage'] =    'true';
-$adminConfig['user']['editStylesheet'] =  'true';
-$adminConfig['user']['info'] =        'grhgtfhfghfgdh<br />
-ukzthjkghj';
+$adminConfig['user']['editStylesheet'] =  '';
+$adminConfig['user']['info'] =        '';
 
 $adminConfig['setStartPage'] =            'true';
-$adminConfig['page']['createPages'] =     'true';
+$adminConfig['page']['createPages'] =     '';
 $adminConfig['page']['thumbnailUpload'] = 'true';
 
 $adminConfig['editor']['enterMode'] =   'br';

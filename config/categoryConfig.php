@@ -1,6 +1,23 @@
 <?php
 
 $categories = array(
+"id_2" => array(
+          "id"            => '2',
+          "name"          => 'hello',
+          
+          "public"        => 'true',
+          "sortascending" => 'true',
+          "createdelete"  => '',
+          "thumbnail"     => 'true',
+          "sortdate"      => '',
+          "sortbydate"    => '',
+          
+          "styleFile"     => '',
+          "styleId"       => '',
+          "styleClass"    => '',
+          
+          "thumbWidth"    => '',
+          "thumbHeight"   => '',),
 "id_3" => array(
           "id"            => '3',
           "name"          => 'netz 2',
@@ -11,23 +28,6 @@ $categories = array(
           "thumbnail"     => 'true',
           "sortdate"      => 'true',
           "sortbydate"    => 'true',
-          
-          "styleFile"     => '',
-          "styleId"       => '',
-          "styleClass"    => '',
-          
-          "thumbWidth"    => '',
-          "thumbHeight"   => '',),
-"id_2" => array(
-          "id"            => '2',
-          "name"          => 'hello',
-          
-          "public"        => 'true',
-          "sortascending" => 'true',
-          "createdelete"  => '',
-          "thumbnail"     => 'true',
-          "sortdate"      => 'true',
-          "sortbydate"    => '',
           
           "styleFile"     => '',
           "styleId"       => '',

@@ -295,6 +295,8 @@ if($unwriteableList) {
                 <input name="categories['.$category['id'].'][name]" value="'.$category['name'].'" />
                 </td></tr>';
           
+          echo '<tr><td class="leftBottom"></td><td></td></tr>';
+          
           echo '<tr><td class="left checkboxes">';
           
                // category settings
@@ -338,8 +340,7 @@ if($unwriteableList) {
                 </td></tr>';
           
           // finish the TABLE for one category
-          echo '<tr><td class="leftBottom"></td><td></td></tr>
-                </table>';
+          echo '</table>';
           
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
