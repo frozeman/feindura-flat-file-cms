@@ -206,7 +206,7 @@ if($unwriteableList) {
 
 <!-- CATEGORIES SETTINGS -->
 
-<form action="?site=categorySetup" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
+<form action="?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
   <div><input type="hidden" name="send" value="true" /></div>
 
 <div class="block">
@@ -310,7 +310,8 @@ if($unwriteableList) {
                 
                 </td><td class="right checkboxes">';
         
-            // category up / down
+              // category up / down
+              //(!!!problem with #category'.$category['id'].' in the link; no ANCHOR possible?)
           echo '<a href="?site=categorySetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['categorySetup_moveCategory_up_tip'].'::"></a>
                 <a href="?site=categorySetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['categorySetup_moveCategory_down_tip'].'::"></a>';
                 
@@ -414,7 +415,7 @@ if($unwriteableList) {
           echo '<tr><td class="leftBottom"></td><td></td></tr>
                 </table>';
                 
-          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />
+          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" onclick="submitAnchor(\''.$category['id'].'\',\'categoriesForm\',\'category\');" />
                 </div>'; // end slide in box
           
         }

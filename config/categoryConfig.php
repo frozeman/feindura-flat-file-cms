@@ -18,6 +18,40 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
+"id_2" => array(
+          "id"            => '2',
+          "name"          => 'hello',
+          
+          "public"        => 'true',
+          "sortascending" => 'true',
+          "createdelete"  => '',
+          "thumbnail"     => 'true',
+          "sortdate"      => 'true',
+          "sortbydate"    => '',
+          
+          "styleFile"     => '',
+          "styleId"       => '',
+          "styleClass"    => '',
+          
+          "thumbWidth"    => '',
+          "thumbHeight"   => '',),
+"id_4" => array(
+          "id"            => '4',
+          "name"          => 'mehrddd',
+          
+          "public"        => 'true',
+          "sortascending" => '',
+          "createdelete"  => 'true',
+          "thumbnail"     => 'true',
+          "sortdate"      => '',
+          "sortbydate"    => '',
+          
+          "styleFile"     => '',
+          "styleId"       => '',
+          "styleClass"    => '',
+          
+          "thumbWidth"    => '',
+          "thumbHeight"   => '',),
 "id_1" => array(
           "id"            => '1',
           "name"          => 'huihui',
@@ -35,32 +69,15 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',),
-"id_4" => array(
-          "id"            => '4',
-          "name"          => 'mehr',
+"id_5" => array(
+          "id"            => '5',
+          "name"          => 'ooooo',
           
           "public"        => 'true',
           "sortascending" => '',
-          "createdelete"  => 'true',
-          "thumbnail"     => 'true',
-          "sortdate"      => '',
-          "sortbydate"    => '',
-          
-          "styleFile"     => '',
-          "styleId"       => '',
-          "styleClass"    => '',
-          
-          "thumbWidth"    => '',
-          "thumbHeight"   => '',),
-"id_2" => array(
-          "id"            => '2',
-          "name"          => 'hello',
-          
-          "public"        => 'true',
-          "sortascending" => 'true',
           "createdelete"  => '',
-          "thumbnail"     => 'true',
-          "sortdate"      => 'true',
+          "thumbnail"     => '',
+          "sortdate"      => '',
           "sortbydate"    => '',
           
           "styleFile"     => '',

@@ -98,8 +98,14 @@ window.addEvent('domready', function() {
   
 });
 
-// editFiles
+// -> editFiles
 function changeFile( site, fileName, status, anchorName )
 {
   window.location.href = window.location.pathname + "?site=" + site + "&status=" + status + "&file=" + fileName + "#" + anchorName ;
+}
+
+// -> NO SUBMIT goto ANCHOR
+function submitAnchor(blockId,formId,anchorName) {
+  
+  $(formId).set('action',$(formId).get('action') + '#' + anchorName + blockId);
 }
