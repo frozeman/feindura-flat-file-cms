@@ -95,7 +95,6 @@ startPageWarning();
 <div><input type="hidden" id="sortablePageList_status" value="<?php echo $langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty']; ?>" /></div>
 
 
-
 <h1><?php echo $langFile['sortablePageList_h1']; ?></h1>
 
 <div class="listPagesHead">

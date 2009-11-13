@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.76
+// editor.php version 1.8
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -27,6 +27,7 @@ $savedForm = false;
 
 $page	= $_GET['page'];
 $category = $_GET['category'];
+
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
@@ -131,23 +132,26 @@ if($_POST['save']) {
   $savedForm = $_POST['savedBlock'];
 }
 
+// -------------------------------------------------------------------------------------------------------------------
 // show the PAGE CONTENT
 // ------------------------------------------------------------------------------
+// -> read PAGE (saved or given)
 $pageContent = readPage($page,$category);
 
-$saveDate =  formatDate($pageContent['savedate']);
-$saveTime =  formatTime($pageContent['savedate']);
-
-  
-// creates the page title
-if(!empty($pageContent['savedate']))
-  $pageTitle = $pageContent['title'];
+// -> CHECK for NEW PAGE
+if($pageContent === false)
+  $newPage = true;
 else
-  $pageTitle = $langFile['editor_h1_createpage'];
+  $newPage = false;
 
-// empties the pageContent var, if createPage is choosen
-if($_GET['page'] == 'new') {
-  $pageContent = '';
+// set Title
+if($newPage) {
+  //$pageContent = '';  
+  $pageTitle = $langFile['editor_h1_createpage'];
+  $_GET['page'] = 'new';
+  $page = 'new';
+} else {
+  $pageTitle = $pageContent['title'];  
 }
 
 ?>
@@ -208,16 +212,25 @@ if($category['id'] != 0) {
   $headerColor = 'brown'; //" comes in the h1
 }
 
-// checks for startpage, and show icon
+// -> show NEWPAGE ICON
+if($newPage) {
+  $newPageIcon = '<img src="library/image/sign/newPageIcon_middle.png" style="float:left;" />';  
+}
+
+// -> checks for startpage, and show STARTPAGE ICON
 if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/image/sign/startPageIcon_middle.png" style="float:left;" />';
   $startPageTitle = ' toolTip" title="'.$langFile['btn_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
-// shows the page headline
-echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.'</span>';
-      
-if($_GET['page'] != 'new')
+// -> show the page PAGE HEADLINE
+echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.'</span>';
+
+// -> show LAST SAVE DATE TIME
+$saveDate =  formatDate($pageContent['savedate']);
+$saveTime =  formatTime($pageContent['savedate']);
+
+if(!$newPage)
   echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_savedate'].' '.$saveDate.' '.$saveTime.' ]</span></h1>';
 else
   echo '</h1>';
@@ -252,7 +265,7 @@ else
       
 <?php
 
-if($_GET['page'] != 'new')
+if(!$newPage)
 echo '<tr>
       <td class="left">      
       <span class="info toolTip" title="'.$langFile['editor_h1_id'].'::'.$langFile['editor_h1_id_tip'].'"><strong>'.$langFile['editor_h1_id'].'</strong></span>
@@ -274,7 +287,7 @@ echo '<tr>
       </td>
       </tr>';
 
-if($_GET['page'] != 'new') {
+if(!$newPage) {
   // shows the category var in the link or not
   if($_GET['category'] == 0)
     $categoryInLink = '';
@@ -306,7 +319,7 @@ echo '<tr>
 </div>
 
 <?php
-if($_GET['page'] != 'new') {
+if(!$newPage) {
 ?>
 <!-- ***** PAGE STATISTICS -->
 <?php
@@ -460,7 +473,7 @@ $hidden = ' hidden';
 <!-- ***** PAGE SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($_GET['page'] == 'new' || $savedForm == 'pageSettings')  $hidden = '';
+if($newPage || $savedForm == 'pageSettings')  $hidden = '';
 else $hidden = ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -498,7 +511,7 @@ else $hidden = ' hidden';
         $dateFormat = $langFile['date_int'];
         
       // add the DATE of TODAY, if its a NEW PAGE
-      if($_GET['page'] == 'new') {
+      if($newPage) {
           $pageContent['sortdate'][1] = date('Y')."-".date('m')."-".date('d');
       }
       

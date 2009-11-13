@@ -7,7 +7,7 @@ $categories = array(
           
           "public"        => 'true',
           "sortascending" => '',
-          "createdelete"  => '',
+          "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "sortdate"      => 'true',
           "sortbydate"    => 'true',

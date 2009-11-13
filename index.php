@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* index.php version 1.96
+* index.php version 1.97
 */
 
 session_cache_limiter(60);
@@ -229,13 +229,13 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
       $showCreatePage = false;
     
     // show deletePage
-    if(empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new')
+    if(!$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new')
       $showDeletePage = true;
     else
       $showDeletePage = false;
       
     // show pageThumbnailUpload
-    if(empty($_GET['site']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$_GET['category']]['thumbnail']) && !empty($_GET['page']) &&  $_GET['page'] != 'new')
+    if(!$newPage && empty($_GET['site']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$_GET['category']]['thumbnail']) && !empty($_GET['page']) &&  $_GET['page'] != 'new')
       $showPageThumbnailUpload = true;
     else
       $showPageThumbnailUpload = false;

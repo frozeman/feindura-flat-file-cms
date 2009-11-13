@@ -124,17 +124,19 @@ div.listPagesHead {
     float: right !important;
     width: 140px;
     margin-right: 10px;
-    text-align: right;    
+    text-align: right; 
     }
 
 /* ----------------------- */	
 /* ---:- listPages CATEGORY */
 
 .listPages div.category div.functions {
+    z-index: 99; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
     top: 0px;
     left: 592px;
     width: 70px;
+    height: 27px;
     text-align: right;
     }
 

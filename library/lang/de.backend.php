@@ -124,7 +124,7 @@ $langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
 $langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
 
 $langFile['log_adminSetup_saved'] = 'Administrator Einstellungen gespeichert';
-$langFile['log_adminSetup_ckstyles'] = 'CKEditor Styles gespeichert';
+$langFile['log_adminSetup_ckstyles'] = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
 
 $langFile['log_websiteSetup_saved'] = 'Webseiten Einstellungen gespeichert';
 
