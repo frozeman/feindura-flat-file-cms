@@ -207,14 +207,28 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
     <?php
+    // show createPage
+    if(($_GET['category'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$_GET['category']]['createdelete'])
+      $showCreatePage = true;
+    else
+      $showCreatePage = false;
+    
+    // CHECK 1. pageThumbnailUpload
+    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$_GET['category']]['thumbnail']))
+      $showPageThumbnailUpload = true;
+    else
+      $showPageThumbnailUpload = false;
+    
     // CHECK 1. SHOW SUB- FOOTERMENU
     if($_GET['status'] != 'changePageStatus' &&
        $_GET['status'] != 'changeCategoryStatus' &&
-       ($_GET['site'] == 'pages' || !empty($_GET['page']))
-       && !empty($_GET['category']))
+       ($_GET['site'] == 'pages' || !empty($_GET['page'])) &&
+       $_GET['category'] != '' &&
+       ($showPageThumbnailUpload || $showCreatePage))
       $showSubFooterMenu = true;
     else
-      $showSubFooterMenu = false;
+      $showSubFooterMenu = false;      
+    
     ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
@@ -230,20 +244,14 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
     // ---------------------------------------------------------------
     // CHECK to show BUTTONs in subMenu and FooterMenu
     
-    // show createPage
-    if(($_GET['category'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$_GET['category']]['createdelete'])
-      $showCreatePage = true;
-    else
-      $showCreatePage = false;
-    
     // show deletePage
     if(!$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new')
       $showDeletePage = true;
     else
       $showDeletePage = false;
       
-    // show pageThumbnailUpload
-    if(!$newPage && empty($_GET['site']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$_GET['category']]['thumbnail']) && !empty($_GET['page']) &&  $_GET['page'] != 'new')
+    // CHECK 2. pageThumbnailUpload
+    if(!$newPage && $showPageThumbnailUpload)
       $showPageThumbnailUpload = true;
     else
       $showPageThumbnailUpload = false;

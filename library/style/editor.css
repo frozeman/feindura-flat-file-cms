@@ -41,6 +41,23 @@ editor.css version 0.1 */
     }
 
 /* ----------------------- */	
+/* - PAGE-THUMBNAIL UPLOAD */  
+
+#content .block a.pageThumbnailUpload {
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 90px;
+    height: 75px; /* org: 40px*/
+    text-decoration: none;
+    background: url(../image/key/content_pageThumbnailUpload.png) no-repeat;  
+    }
+#content .block a.pageThumbnailUpload:hover {
+    background-position: 0px -76px;
+    }
+
+/* ----------------------- */	
 /* - info text */  
 
 span.info {

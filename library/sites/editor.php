@@ -220,7 +220,7 @@ else
   <div class="content">
    
   <?php 
-  // show thumbnail if the page has one
+  // -> show thumbnail if the page has one
   if(!empty($pageContent['thumbnail'])) {
     
     $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
@@ -235,9 +235,15 @@ else
     echo '<span class="toolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
     echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
     echo '</div>';
-  }
-  ?> 
   
+  // -> show the thumbnail upload button if there is no thumbnail yet
+  } elseif(!$newPage &&
+          (($pageContent['category'] == 0 && $adminConfig['page']['thumbnailUpload']) ||
+          $categories['id_'.$pageContent['category']]['thumbnail'])) {  
+    
+      echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_title'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
+  }
+  ?>  
   <table>     
       <colgroup>
       <col class="left" />
@@ -356,6 +362,7 @@ $hidden = ' hidden';
         ?>
       </td>
     </tr>
+    
     <tr>
       <td class="left">
         <?php echo $langFile['log_lastVisit']; ?>
@@ -434,6 +441,7 @@ $hidden = ' hidden';
       <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
       <?php
       
+      // -> show TAG CLOUD
       createTagCloud($pageContent['log_searchwords']);
 
       ?>
@@ -442,7 +450,6 @@ $hidden = ' hidden';
     </tr>
     
     <tr><td class="leftBottom"></td><td></td></tr>
-    
     
   </table>
   </div>

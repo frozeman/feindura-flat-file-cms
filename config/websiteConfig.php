@@ -7,7 +7,7 @@ $websiteConfig['keywords']       = 'stichwort1,stichwort2,stichwort3,dfgdfg';
 $websiteConfig['description']    = 'sdfsdfsd';
 $websiteConfig['contactMail']    = 'name@providor.de';
 
-$websiteConfig['startPage']      = '8';
+$websiteConfig['startPage']      = '6';
 
 return $websiteConfig;
 ?>
