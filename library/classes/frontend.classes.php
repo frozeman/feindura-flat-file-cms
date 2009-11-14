@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.25
+* library/classes/frontend.classes.php version 1.26
 * 
 *
 * !!! PROTECTED VARs (do not overwrite these in your script)
@@ -122,7 +122,7 @@ class feindura {
   // *** METHODS
   // ****************************
   /*
-  * createLink($page = false, $linkText = true, $linkClass = false, $linkId = false)
+  * createLink($page = false, $linkText = true, $linkClass = false, $linkId = false, $linkAttribute = false)
   *  
   * createMenu($idType, $ids, $linkText = true, $menuTag = true, $breakAfter = false)
   * 
@@ -300,7 +300,8 @@ class feindura {
   public function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if FALSE it use VAR PRIORITY
                              $linkText = true,              // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
                              $linkClass = false,            // (false or String) the CLASS used for the link
-                             $linkId = false) {             // (false or String) the ID used for the link
+                             $linkId = false,               // (false or String) the ID used for the link
+                             $linkAttribute = false) {      // (false or String) a strong of attibutes writen lik in html EXAMPLE: 'type="value" type2="value2"'
     global $categories;
     global $adminConfig;
     
@@ -338,9 +339,9 @@ class feindura {
           $pageContent = $this->prevNextPage($prevNext,$pageContent['id'],$pageContent['category']);
         }
 
-        
-      if($pageContent['public'] && $this->publicCategory($pageContent['category']) !== false) {
-            
+      // -> CHECK IF PUBLIC
+      // ---------------------------------------->        
+      if($pageContent['public'] && $this->publicCategory($pageContent['category']) !== false) {            
         
         // -> sets the LINK
         // ----------------------------  
@@ -350,7 +351,12 @@ class feindura {
         $linkEndTag = '';
         $linkTextBefore = '';
         
+        // adds HREF
         $linkAttributes .= ' href="'.$this->createHref($pageContent).'" title="'.$pageContent['title'].'"';
+        
+        // add LINK ATTRIBUTES
+        if($linkAttribute)
+          $linkAttributes .= ' '.$linkAttribute;
         
         // adds ID and/or Class 
         // link ID
