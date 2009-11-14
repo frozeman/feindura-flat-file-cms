@@ -232,7 +232,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
     ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 70px;"'; ?>>
+    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 60px;"'; ?>>
       <?php
   
       include('library/content.loader.php');

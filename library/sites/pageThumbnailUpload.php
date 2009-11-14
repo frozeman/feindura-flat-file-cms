@@ -41,13 +41,13 @@ $pageContent = readPage($page,$category);
 </ul>
 </div>
 
-<div>
+<div style="position: relative">
 <!-- <form action="?site=pageThumbnail&amp;category=<?php echo $category; ?>&amp;id=<?php echo $page; ?>" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','pageThumbnailUploadForm');return false;"> -->
 <form action="library/sites/pageThumbnail/upload.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame">
 	<input type="hidden" name="upload" value="true" />
 	<input type="hidden" name="category" value="<?php echo $category; ?>" />
   <input type="hidden" name="id" value="<?php echo $page; ?>" />
-	
+
 	<!-- file selection -->
   <h2><?php echo $langFile['pagethumbnail_feld1']; ?></h2>
   
@@ -104,7 +104,7 @@ $pageContent = readPage($page,$category);
   </td></tr>  
   </table>
   
-  <!-- show a preview of the thumbnail -->
+  <!-- show a PREVIEW of the current THUMBNAIL -->
   <?php 
   // show thumbnail if the page has one
   if(!empty($pageContent['thumbnail'])) {

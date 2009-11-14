@@ -43,7 +43,7 @@ editor.css version 0.1 */
 /* ----------------------- */	
 /* - PAGE-THUMBNAIL UPLOAD */  
 
-#content .block a.pageThumbnailUpload {
+#content .block.pageHead  a.pageThumbnailUpload {
     display: block;
     position: absolute;
     top: 50px;
