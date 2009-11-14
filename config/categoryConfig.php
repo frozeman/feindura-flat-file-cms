@@ -22,7 +22,7 @@ $categories = array(
           "id"            => '4',
           "name"          => 'mehrddd',
           
-          "public"        => 'true',
+          "public"        => '',
           "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',

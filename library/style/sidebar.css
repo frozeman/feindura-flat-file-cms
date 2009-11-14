@@ -87,6 +87,9 @@
 .sidebarMenu .content.dark {
     border-right: 1px solid #666666;    
     }
+.sidebarMenu .content.white {
+    border-right: 1px solid #BDBDB9;
+    }
 .sidebarMenu .content.light {
     border-right: 1px solid #979797;
     }
@@ -122,6 +125,20 @@
 .sidebarMenu .content.dark a:hover {
     background: url(../image/key/sidebarMenu_key_dark.png) repeat-x 0px -35px;
     color: #333333;
+    }
+
+/* white */
+.sidebarMenu .content.white a {
+    background: url(../image/key/sidebarMenu_key_white.png) repeat-x;
+    color: #707F81;
+    }
+.sidebarMenu .content.white a.active {
+    background: url(../image/key/sidebarMenu_key_white.png) repeat-x 0px -70px !important;
+    color: #585F5F !important;
+    }
+.sidebarMenu .content.white a:hover {
+    background: url(../image/key/sidebarMenu_key_white.png) repeat-x 0px -35px;
+    color: #ffffff;
     }
 
 /* light */

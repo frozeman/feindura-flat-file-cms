@@ -33,6 +33,10 @@ content.css version 0.2 */
     position: relative;
     padding: 1px 0px;
     }
+#content .block.hidden .content{
+    /*display: none;*/
+    height: 0px !important;
+    }
 #content .block .bottom {
     position: absolute;
     bottom: 0px;

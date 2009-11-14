@@ -20,13 +20,13 @@ listPages.css version 0.16
 /* ---:- listPages */
 
 .listPages ul {
-    margin: 0px;
-    margin-top: 15px;
+    position: relative;
+    margin: 15px 0px;
     padding: 0px;
-    padding-bottom: 20px;
     }
 
 .listPages li {
+    position: relative;
     cursor: move;
     width: 755px;
     margin: 5px 0px;

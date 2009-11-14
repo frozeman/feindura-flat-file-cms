@@ -206,10 +206,19 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
-  
+    <?php
+    // CHECK 1. SHOW SUB- FOOTERMENU
+    if($_GET['status'] != 'changePageStatus' &&
+       $_GET['status'] != 'changeCategoryStatus' &&
+       ($_GET['site'] == 'pages' || !empty($_GET['page']))
+       && !empty($_GET['category']))
+      $showSubFooterMenu = true;
+    else
+      $showSubFooterMenu = false;
+    ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $_GET['category'] != '') echo ' style="padding-top: 70px;"'; ?>>
+    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 70px;"'; ?>>
       <?php
   
       include('library/content.loader.php');
@@ -246,14 +255,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
       $showPageThumbnailDelete = false;
       
     // ---------------------------------------------------------------
-    // CHECK to show subMenu and FooterMenu
-    
-    // show subMenu and FooterMenu
-    /* if(((empty($_GET['site']) && !empty($_GET['page'])) || $_GET['site'] == 'pages') &&
-      ($_GET['category'] == 0 && $adminConfig['page']['createPages']) ||
-      $categories['id_'.$_GET['category']]['createdelete'] ||
-      (!empty($_GET['page']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$_GET['category']]['thumbnail']))) */
-    if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $_GET['category'] != '' && ($showCreatePage || $showPageThumbnailUpload))
+    // CHECK 2. SHOW SUB- FOOTERMENU
+    if($showSubFooterMenu && ($showCreatePage || $showPageThumbnailUpload))
       $showSubFooterMenu = true;
     else
       $showSubFooterMenu = false;

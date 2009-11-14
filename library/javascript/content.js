@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.50 (requires mootools-core and mootools-more)
+// java/content.js version 0.51 (requires mootools-core and mootools-more)
 //
 
 
@@ -129,16 +129,16 @@ window.addEvent('domready', function() {
        slideVertical.onComplete = function(el) {            
                  
             // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-            if(slideVertical.open) {        
-              slideContent.getParent().fade('hide');      
+            if(slideVertical.open) {
+              block.toggleClass('hidden'); // hides it
+              slideContent.getParent().fade('hide');
               slideVertical.open = false;
-            } else {
+            } else {              
               slideContent.getParent().setStyle('height','auto');
               slideContent.getParent().fade('show');
               slideVertical.open= true;
-            }   
+            }           
             
-            block.toggleClass('hidden');
             layoutFix();
        }
 
@@ -146,7 +146,9 @@ window.addEvent('domready', function() {
   	   // sets the SLIDE EFFECT to the buttons
   	   slideButtonH1.addEvent('click', function(e){  	   
       		e.stop();
-          slideVertical.toggle(); 
+      		if(!slideVertical.open)
+      		  block.toggleClass('hidden'); // shows it
+          slideVertical.toggle();
       	});
 
       } // <-- end go trough blocks

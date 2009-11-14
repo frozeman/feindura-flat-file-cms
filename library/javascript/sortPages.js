@@ -18,6 +18,21 @@
 // partly code from http://davidwalsh.name/mootools-drag-drop
 // Drag and Drop of the Pages and between the categories
 
+/*
+// -------------------------------------------------------------------------------------------
+// ACTIVATE SORTABLE -------------------------------------------------------------------------
+function activateSortPages() {
+  $$('.block').each(function(block) {
+    block.getElements('div').each(function(passedDiv) {
+        // gets slideing content
+        if(passedDiv.hasClass('content')) {
+          passedDiv.slide('in');
+        }
+     });
+  });
+}
+*/
+
 /* when the DOM is ready */
 window.addEvent('domready', function() {  
   
@@ -83,7 +98,7 @@ window.addEvent('domready', function() {
 		//clone: true,
 		revert: true,
 		opacity: 1,
-		snap: 8,
+		snap: 10,
 			
 		/* --> initialization stuff here */
 		initialize: function() {
