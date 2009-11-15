@@ -79,6 +79,7 @@ class feindura {
   var $modul = false;                     // [Boolean or String]    -> the modul name (if set to false: it will uses the $_GET modul var)
   
   var $linkShowThumbnail = false;         // [Boolean]              -> show the thumbnail in the link
+  var $linkLength = false;                // [Boolean or Number]    -> the number of maximun characters for the link Title, after this length it will be shorten with abc..
   var $linkShowCategory = false;          // [Boolean]              -> show the category name before the title
   var $linkCategorySpacer = ' &rArr; ';   // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
   var $linkShowDate = false;              // [Boolean]              -> show the page date before the title
@@ -161,8 +162,8 @@ class feindura {
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************    
-    $this->setCurrentCategory();           // $_GET['varNameCategory']
     $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $websiteConfig['startPage'] if there is no GET page var
+    $this->setCurrentCategory();           // $_GET['varNameCategory']    
     
     // -> CHECKS if cookies are enabled
     if(!isset($_COOKIE['cookiesEnabled'])) {
@@ -296,12 +297,13 @@ class feindura {
   
   // -> START -- createLink ******************************************************************************
   // RETURNs a link created with the page ID and a category ID
+  // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   public function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if FALSE it use VAR PRIORITY
                              $linkText = true,              // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
                              $linkClass = false,            // (false or String) the CLASS used for the link
                              $linkId = false,               // (false or String) the ID used for the link
-                             $linkAttribute = false) {      // (false or String) a strong of attibutes writen lik in html EXAMPLE: 'type="value" type2="value2"'
+                             $linkAttribute = false) {      // (false or String) a strong of attibutes writen like in html EXAMPLE: 'type="value" type2="value2"'
     global $categories;
     global $adminConfig;
     
@@ -370,10 +372,6 @@ class feindura {
         $linkEndTag = '</'.$linkTag.'>';        
         
         
-        // -> create the text
-        if($linkText === true) $linkText = $pageContent['title'];         
-        
-        
         // -> LINK THUMBNAIL
         // *****************
         if($this->linkShowThumbnail &&      
@@ -397,27 +395,33 @@ class feindura {
           
           $linkThumbnail = '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
         } else $linkThumbnail = '';
+      
         
+        // -> LINK TITLE
+        // *****************
+        // -> create the text
+        if($linkText === true) {         
         
-        // -> show the a text before the title text
-        if($this->linkStartText && $this->linkStartText !== true)
-          $linkTextBefore .= $this->linkStartText.' ';
-        
-        // -> link text with category name
-        if($this->linkShowCategory && $pageContent['category']) {
-          if(is_string($this->linkCategorySpacer))
-            $linkTextBefore .= $categories['id_'.$pageContent['category']]['name'].$this->linkCategorySpacer;
-          else
-            $linkTextBefore .= $categories['id_'.$pageContent['category']]['name'];
+          // title with category name
+          if($this->linkShowCategory && $pageContent['category']) {
+            if(is_string($this->linkCategorySpacer))
+              $linkCategory = $this->linkCategorySpacer;
+            else
+              $linkCategory = true;
+          } else $linkCategory = false;
+          
+          // shows the TITLE
+          $linkText = $this->createTitle($pageContent,
+                                        false, //linktag
+                                        false,
+                                        false,
+                                        $this->linkLength,
+                                        false,
+                                        $linkCategory,
+                                        $this->linkShowDate,
+                                        $this->linkStartText);
         }
         
-        // -> title with date
-        if($this->linkShowDate && $pageContent['category'] && isset($categories['id_'.$pageContent['category']]) && $categories['id_'.$pageContent['category']]['sortdate'] &&
-          !empty($pageContent['sortdate']) &&
-          $sortedDate = validateDateFormat($pageContent['sortdate'][1])) {
-          $linkTextBefore .= $pageContent['sortdate'][0].' '.formatDate($sortedDate).' '.$pageContent['sortdate'][2];
-        }
-
         // -> create the LINK
         // ----------------------------
         $link = $linkStartTag.$linkThumbnail.$linkTextBefore.$linkText.$linkEndTag;
@@ -431,11 +435,12 @@ class feindura {
   // -> START -- createMenu ******************************************************************************
   // SHOW a menu created out of the pages IDs or a category ID(s) and also
   // RETURNs the whole menu as a String
+  // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   public function createMenu($idType = 'categories',                      // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                              $ids = true,                                 // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
                              $linkText = true,                            // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
-                             $menuTag = true,                             // (Boolean or String) the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
+                             $menuTag = true,                             // (Boolean or String like "table" or "ul") the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                              $breakAfter = false,                         // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                              $sortingConsiderCategories = false) {        // (Boolean) if FALSE it sorts the pages by categories and the sorting like in the backend
     
@@ -479,9 +484,9 @@ class feindura {
       $menuTagSet = 'div';
       // eventually overwrites standard tag
       if($menuTag && $menuTag !== true)
-        $menuTagSet = $menuTag;
-      elseif ($this->menuTag && $this->menuTag !== true)
-        $menuTagSet = $this->menuTag;
+        $menuTagSet = strtolower($menuTag);
+      elseif($this->menuTag && $this->menuTag !== true)
+        $menuTagSet = strtolower($this->menuTag);
                 
       $menuStartTag = '<'.$menuTagSet.$menuAttributes.'>';
       $menuEndTag = '</'.$menuTagSet.'>';
@@ -584,6 +589,7 @@ class feindura {
   // -> START -- createMenuByTags ******************************************************************************
   // SHOW a menu created out of the pages IDs or a category ID(s) and also, but only if the page has one of the given TAGS
   // RETURNs the whole menu as a String
+  // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   public function createMenuByTags($tags,                             // (String or Array) the tags to select the page(s)/category(ies) with
                                    $idType = 'categories',            // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
@@ -623,6 +629,7 @@ class feindura {
   // -> START -- createMenuByDate **************************************************************************
   // SHOW a menu created out of the pages IDs or a category ID(s), if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
   // RETURNs an Array of the UNCHANGED pageContent Arrays
+  // * MORE OPTIONs in the PROPERTIES
   // ------------------------------------------------------------------------------------------------------
   public function createMenuByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                                    $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
@@ -643,8 +650,69 @@ class feindura {
   }  
   
   // -> START -- showPage ********************************************************************************
+  // SHOWs the Title of a given Page
+  // * MORE OPTIONs in the PROPERTIES
+  // -----------------------------------------------------------------------------------------------------
+  public function showPageTitle($page = false,                // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
+                                $category = false) {          // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
+                                
+    
+    // -> PREV or NEXT if given direction
+    $prevNext = false;
+    if(is_string($page)) {
+      $page = strtolower($page);
+      // PREV
+      if($page == 'prev' || $page == 'previous') {
+        $prevNext = 'prev';
+        $page = false;
+      // NEXT
+      } elseif($page == 'next') {
+        $prevNext = 'next';
+        $page = false;
+      }
+    }
+    
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    $page = $this->getPropertyPage($page);
+    
+    // gets the category of the page if it is not given
+    if($category === false)
+      $category = $this->getPageCategory($page);
+      
+    if($this->publicCategory($category) !== false &&
+       $pageContent = $this->readPage($page,$category)) {  
+      
+      if($pageContent['public']) {
+        // shows the TITLE
+        if($this->title)
+          $title = $this->createTitle($pageContent,
+                                      $this->titleTag,
+                                      $this->titleId,
+                                      $this->titleClass,
+                                      $this->titleLength,
+                                      $this->titleAsLink,
+                                      $this->titleShowCategory,
+                                      $this->titleShowDate,
+                                      $this->titleStartText);
+                                      
+        echo $title;
+                                    
+        return $title;
+      } else
+      return false; 
+    } else
+      return false;    
+  }
+  // -> *ALIAS* OF showPageTitle **********************************************************************
+  public function showTitle() {
+    // call the right function
+    return $this->showPageTitle();
+  } 
+  
+  // -> START -- showPage ********************************************************************************
   // SHOWs a Page, if there is no category set, it opens a page in the non-category and also
   // RETURNs the UNCHANGED pageContent Array
+  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // -----------------------------------------------------------------------------------------------------
   public function showPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
                            $category = false,             // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
@@ -704,6 +772,7 @@ class feindura {
   // -> START -- listPages ********************************************************************************
   // SHOWs PAGEs, sorted by the categories or by the given array
   // RETURNs an Array of the UNCHANGED pageContent Arrays
+  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // ------------------------------------------------------------------------------------------------------
   public function listPages($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                             $ids = true,                           // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories, -> can also be a Array with pageContent Arrays
@@ -761,6 +830,7 @@ class feindura {
   // -> START -- listPagesByTags *************************************************************************
   // SHOWs PAGEs, sorted by the categories or by the given array, but only if the page has one of the given TAGS
   // RETURNs an Array of the UNCHANGED pageContent Arrays
+  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // -----------------------------------------------------------------------------------------------------
   public function listPagesByTags($tags,                                 // (String or Array) the tags to select the pages with
                                   $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
@@ -811,6 +881,7 @@ class feindura {
   // -> START -- listPagesByDate **************************************************************************
   // SHOWs PAGEs, if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
   // RETURNs an Array of the UNCHANGED pageContent Arrays
+  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // ------------------------------------------------------------------------------------------------------
   public function listPagesByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                                   $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
@@ -935,13 +1006,14 @@ class feindura {
   // and RETURNs the new page PROPERTY
   // -----------------------------------------------------------------------------------------------------
   public function setCurrentPage($setStartPage = false) {  // (Boolean) if TRUE it sets the startPage
+    global $adminConfig;
     global $websiteConfig;
     
     // sets the new page PROPERTY
     $this->page = $this->getCurrentPage();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->page === false && !empty($websiteConfig['startPage']))
+    if($setStartPage === true && $adminConfig['setStartPage'] && $this->page === false && !empty($websiteConfig['startPage']))
       $this->page = $websiteConfig['startPage'];
       
     return $this->page;
@@ -1050,29 +1122,26 @@ class feindura {
     
     // -> PAGE TITLE
     // *****************
-    // title length
-    if(is_numeric($this->titleLength))
-      $titleLength = $this->titleLength;
-    else $titleLength = false;
     
     // title with category name
     if($this->titleShowCategory && $pageContent['category']) {
       if(is_string($this->titleCategorySpacer))
-        $titleCategory = $this->titleCategorySpacer;
+        $titleShowCategory = $this->titleCategorySpacer;
       else
-        $titleCategory = true;
-    } else $titleCategory = false;
-    
-    // title with date
-    if($this->titleShowDate && $pageContent['category'] && isset($categories['id_'.$pageContent['category']]) && $categories['id_'.$pageContent['category']]['sortdate'] &&
-      !empty($pageContent['sortdate']) &&
-      $sortedDate = validateDateFormat($pageContent['sortdate'][1]))
-      $titleDate = $pageContent['sortdate'][0].' '.formatDate(dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate'][2];
-    else $titleDate = false;
+        $titleShowCategory = true;
+    } else $titleShowCategory = false;
     
     // shows the TITLE
     if($this->title)
-      $title = $this->createTitle($pageContent, $this->titleTag, $this->titleId, $this->titleClass, $titleLength, $this->titleAsLink, $titleCategory, $titleDate, $this->titleStartText, $this->varNames);      
+      $title = $this->createTitle($pageContent,
+                                  $this->titleTag,
+                                  $this->titleId,
+                                  $this->titleClass,
+                                  $this->titleLength,
+                                  $this->titleAsLink,
+                                  $titleShowCategory,
+                                  $this->titleShowDate,
+                                  $this->titleStartText);      
     else $title = '';
       
     // -> PAGE THUMBNAIL
@@ -1168,26 +1237,6 @@ class feindura {
   }
   // -> END -- generatePage --------------------------------------------------------------------------------  
   
-  // -> START -- createTitleDate ***************************************************************************
-  // replace the date with "tomorrow" and "today", if it is one day before or the same day
-  // -------------------------------------------------------------------------------------------------------
-  protected function createTitleDate($date) { // (String with the format DD.MM.YYYY or YYYY-MM-DD) date which will be check for is today or tomorrow
-
-    // if the date is TODAY
-    if(substr($date, -10) == date('d').".".date('m').".".date('Y') || 
-       substr($date, -10) == date('Y')."-".date('m')."-".date('d')) {
-      $date = substr($date, 0, -10).$this->languageFile['date_today'];
-      return $date;
-
-    // if the date is TOMORROW
-    } elseif(substr($date, -10) == sprintf("%02d",(date('d')+1)).".".date('m').".".date('Y') ||
-             substr($date, -10) == date('Y')."-".date('m')."-".(date('d')+1)) {
-      $date = substr($date, 0, -10).$this->languageFile['date_tomorrow'];
-      return $date;
-      
-    } else return $date;  
-  }
-  // -> END -- createTitleDate ----------------------------------------------------------------------------
   
   // -> START -- createTitle ******************************************************************************
   // creates a title, with the given parameters
@@ -1198,24 +1247,36 @@ class feindura {
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
                                  $titleLength = false,         // if Number, it shortens the title characters to this Length (Boolean or Number)
                                  $titleAsLink = false,         // if true, it set the title as a link (Boolean)
-                                 $titleCategory = false,       // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
-                                 $titleDate = false,           // if String, it shows the pageContent['sortdate'] var before the title (Boolean or String)
+                                 $titleShowCategory = false,       // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
+                                 $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
                                  $titleStartText = false) {    // if String, it appears before the title text
                        
       global $categories;
       
       // saves the long version of the title, for the title="" tag
       $fullTitle = strip_tags($pageContent['title']);
+
+           
+      // title with date
+      if($titleShowDate && $pageContent['category'] &&
+         isset($categories['id_'.$pageContent['category']]) &&
+         $categories['id_'.$pageContent['category']]['sortdate'] &&
+         !empty($pageContent['sortdate']) &&
+         $sortedDate = validateDateFormat($pageContent['sortdate'][1]))
+         $titleDate = $pageContent['sortdate'][0].' '.formatDate(dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate'][2];
+      else $titleDate = false;      
       
       // shorten the title
-      if(is_numeric($titleLength) && strlen($title) > $titleLength)
-        $title = substr($title, 0, $titleLength)."..";
+      if(is_numeric($titleLength) && strlen($fullTitle) > $titleLength)
+        $title = substr($fullTitle, 0, $titleLength)."..";
+      else
+        $title = $fullTitle;
         
-      // show the page date in the title="" tag
-      if($titleDate) {
-        $fullTitle = $titleDate.' '.$fullTitle;
-      }
-       
+        
+       // show the page date in the title="" tag
+      if($titleDate)
+        $fullTitle = $titleDate.' '.$fullTitle;     
+        
       // create a link for the title
       if($titleAsLink && $this->varNames !== false && is_array($this->varNames)) {        
         $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$fullTitle.'">';
@@ -1228,19 +1289,20 @@ class feindura {
       // show the a text before the title text
       if($titleStartText && $titleStartText !== true)
         $titleBefore .= $titleStartText.' ';
-  
+            
       // show the category name
-      if($titleCategory) {
-        if(is_bool($titleCategory))
+      if($titleShowCategory && $pageContent['category'] != 0) {
+        if(is_bool($titleShowCategory))
           $titleBefore .= $categories['id_'.$pageContent['category']]['name'];
         else
-          $titleBefore .= $categories['id_'.$pageContent['category']]['name'].$titleCategory;
+          $titleBefore .= $categories['id_'.$pageContent['category']]['name'].$titleShowCategory; // adds the Spacer
       }
       
-      // show the page date
+      // show the page date     
       if($titleDate)
-        $titleBefore .= $titleDate.' ';
-      
+        $titleBefore .= $titleDate.' ';      
+        
+      // -------------------------------
       // adds ID and/or Class
       $titleTagAttributes = '';
       $titleStartTag = '';
@@ -1261,11 +1323,11 @@ class feindura {
                   
         $titleStartTag = '<'.$titleTag.$titleTagAttributes.'>';
         $titleEndTag = '</'.$titleTag.'>';
-      }      
+      }
       
       // -> builds the title
       // *******************  
-      $title = $titleStartTag.$titleBefore.$pageContent['title'].$titleAfter.$titleEndTag;
+      $title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
       
       // returns the title
       return $title;
