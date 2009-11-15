@@ -515,7 +515,7 @@ function saveWebsiteStats() {
   global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
   global $HTTP_SESSION_VARS;
   
-    unset($_SESSION);
+    //unset($_SESSION);
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')

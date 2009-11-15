@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.26
+* library/classes/frontend.classes.php version 1.28
 * 
 *
 * !!! PROTECTED VARs (do not overwrite these in your script)
@@ -100,7 +100,7 @@ class feindura {
   var $titleShowDate = false;             // [Boolean]              -> show the page date before the title
   var $titleStartText = false;            // [Boolean or String]    -> a text which appears before the title
   
-  var $previewLength = '100';             // [Boolean or Number]    -> the numbers of characters, which will be used if the content text will be shorten (example: in listing of pages) (STANDARD 100)
+  var $contentPreviewLength = '100';             // [Boolean or Number]    -> the numbers of characters, which will be used if the content text will be shorten (example: in listing of pages) (STANDARD 100)
   
   var $contentShowThumbnail = true;       // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
   var $content = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
@@ -653,9 +653,9 @@ class feindura {
   // SHOWs the Title of a given Page
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
-  public function showPageTitle($page = false,                // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
-                                $category = false) {          // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
-                                
+  public function showPageTitle($page = false,              // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
+                                $category = false,          // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
+                                $titleTag = true) {         // the TAG which is used by the title (String), if TRUE it loads the titleTag PROPERTY
     
     // -> PREV or NEXT if given direction
     $prevNext = false;
@@ -678,15 +678,23 @@ class feindura {
     // gets the category of the page if it is not given
     if($category === false)
       $category = $this->getPageCategory($page);
-      
+
+    
     if($this->publicCategory($category) !== false &&
        $pageContent = $this->readPage($page,$category)) {  
       
-      if($pageContent['public']) {
+      if($pageContent['public']) { 
+        
+        // if $titleTag = FALSE -> LOAD the titleTag PROPERTY
+        if($titleTag === true && $this->titleTag && $this->titleTag !== true)
+          $titleTag = strtolower($this->titleTag);
+            
+        elseif(is_string($titleTag))
+          $titleTag = strtolower($titleTag);
+      
         // shows the TITLE
-        if($this->title)
-          $title = $this->createTitle($pageContent,
-                                      $this->titleTag,
+        $title = $this->createTitle($pageContent,
+                                      $titleTag,
                                       $this->titleId,
                                       $this->titleClass,
                                       $this->titleLength,
@@ -1203,7 +1211,7 @@ class feindura {
       // -> SHORTEN CONTENT   
       if($shortenText) {
         if($shortenText === true)
-          $shortenText = $this->previewLength; // standard preview length
+          $shortenText = $this->$contentPreviewLength; // standard preview length
   
         if($useHtml)
           $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, " ...");
@@ -1242,7 +1250,7 @@ class feindura {
   // creates a title, with the given parameters
   // ------------------------------------------------------------------------------------------------------
   protected function createTitle($pageContent,                 // the pageContent Array of the Page (String)
-                                 $titleTag,                    // the TAG which is used by the title (String)
+                                 $titleTag = false,            // the TAG which is used by the title (String)
                                  $titleId = false,             // the ID which is used by the title tag (String)
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
                                  $titleLength = false,         // if Number, it shortens the title characters to this Length (Boolean or Number)
@@ -1314,12 +1322,12 @@ class feindura {
       if($titleClass && $titleClass !== true)
         $titleTagAttributes .= ' class="'.$titleClass.'"';
         
-      if($titleTag || !empty($titleTagAttributes)) {        
+      if($titleTag || !empty($titleTagAttributes)) {
         // set tag
         if($titleTag && $titleTag !== true)
           $titleTag = $titleTag;
         else // or uses standard tag          
-          $titleTag = 'h1';
+          $titleTag = 'span';
                   
         $titleStartTag = '<'.$titleTag.$titleTagAttributes.'>';
         $titleEndTag = '</'.$titleTag.'>';
