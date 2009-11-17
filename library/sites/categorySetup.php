@@ -61,7 +61,7 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
       }
     }
     
-    saveTaskLog($langFile['log_categorySetup_new']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_categorySetup_new']); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_create'];
   
@@ -84,7 +84,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$_GET['category'])) {
     
-      if($pageContent = loadPages($_GET['category'])) {
+      if($pageContent = $generalFunctions->loadPages($_GET['category'])) {
       
         // deletes possible thumbnails before deleting the category
         foreach($pageContent as $page) {
@@ -105,7 +105,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
       }    
     }
     
-    saveTaskLog($langFile['log_categorySetup_delete'],$categoryName); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_categorySetup_delete'],$categoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_delete'];
 
@@ -128,7 +128,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     // save the categories array
     if(saveCategories($categories)) {
       $documentSaved = true; // set documentSaved status
-      saveTaskLog($langFile['log_categorySetup_move'],$categories['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog($langFile['log_categorySetup_move'],$categories['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['categorySetup_error_save'];
     
@@ -144,13 +144,13 @@ if($_POST['send'] && isset($_POST['saveCategories'])) {
   // cleans the category names
   $catewgoriesCleaned = array();
   foreach($_POST['categories'] as $category) {  
-      $category['name'] = clearTitle($category['name']);
+      $category['name'] = $generalFunctions->clearTitle($category['name']);
       $catewgoriesCleaned[$category['id']] = $category;
   }
   
   if(saveCategories($catewgoriesCleaned)) {
     $documentSaved = true; // set documentSaved status
-    saveTaskLog($langFile['log_categorySetup_saved']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_categorySetup_saved']); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow = $langFile['categorySetup_error_save'];
   

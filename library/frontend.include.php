@@ -19,18 +19,16 @@
 
 require_once(dirname(__FILE__)."/general.include.php");
 
-@include_once(dirname(__FILE__)."/../config/adminConfig.php");
-@include_once(dirname(__FILE__)."/../config/websiteConfig.php");
-@include_once(dirname(__FILE__)."/../config/categoryConfig.php");
-
 @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
-require_once(dirname(__FILE__)."/functions/general.functions.php");
-require_once(dirname(__FILE__)."/functions/statistic.functions.php");
+//require_once(dirname(__FILE__)."/functions/general.functions.php");
+//require_once(dirname(__FILE__)."/functions/statistic.functions.php");
 require_once(dirname(__FILE__)."/functions/mysql.functions.php");
 
 require_once(dirname(__FILE__)."/functions/frontend.functions.php");
 
-require_once(dirname(__FILE__)."/classes/frontend.classes.php");
+require_once(dirname(__FILE__)."/classes/general.class.php");
+require_once(dirname(__FILE__)."/classes/statistic.class.php");
+require_once(dirname(__FILE__)."/classes/feindura.class.php");
 
 ?>

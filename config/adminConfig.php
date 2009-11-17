@@ -22,9 +22,9 @@ $adminConfig['page']['createPages'] =     'true';
 $adminConfig['page']['thumbnailUpload'] = 'true';
 
 $adminConfig['editor']['enterMode'] =   'br';
-$adminConfig['editor']['styleFile'] =   '/_fms20/library/style/content.css';
-$adminConfig['editor']['styleId'] =     'content';
-$adminConfig['editor']['styleClass'] =  'block';
+$adminConfig['editor']['styleFile'] =   '/fabianruss/style/layout.css';
+$adminConfig['editor']['styleId'] =     'feinduraEditorStyles';
+$adminConfig['editor']['styleClass'] =  '';
 
 $adminConfig['pageThumbnail']['width'] =      '150';
 $adminConfig['pageThumbnail']['height'] =     '100';

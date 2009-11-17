@@ -41,7 +41,7 @@ foreach($sortOrder as $sort) {
    
     
     // ordnet die seiten neu
-    if($pageContent = readPage($sort.'.php',$_POST['categoryNew'])) {
+    if($pageContent = $generalFunctions->readPage($sort.'.php',$_POST['categoryNew'])) {
       
       // changes the properties of the page
       $pageContent['sortorder'] = $count; // get a new sort order number
@@ -49,7 +49,7 @@ foreach($sortOrder as $sort) {
        
       
       // speichert die neue ordung
-      if(savePage($_POST['categoryNew'],$pageContent['id'],$pageContent)) {
+      if($generalFunctions->savePage($_POST['categoryNew'],$pageContent['id'],$pageContent)) {
           $status = $langFile['sortablePageList_save_finished'];
           $count++;
       } else {
@@ -70,7 +70,7 @@ foreach($sortOrder as $sort) {
 
 // checks if the category folder is empty,
 // if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
-if(!loadPages($_POST['categoryOld'],false))
+if(!$generalFunctions->loadPages($_POST['categoryOld'],false))
   echo '&nbsp;';  
   
 echo $status;

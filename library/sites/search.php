@@ -35,7 +35,7 @@ $langFile['search_results_time_part2'] = 'Sekunden';
 */
 
 // LADEZEIT MESSEN
-$time_start = getMicroTime(); //Zeitbeginn am Seitenanfang
+$time_start = $statisticFunctions->getMicroTime(); //Zeitbeginn am Seitenanfang
 
 // such variablen und php version -----------------------
 include(dirname(__FILE__)."/../backend.include.php");
@@ -81,7 +81,7 @@ function ausgabeblock_end() {
 
 
 array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPages = loadPages($categories);
+$allPages = $generalFunctions->loadPages($categories);
 
 //print_r($allPages);
 
@@ -301,7 +301,7 @@ $allPages = loadPages($categories);
 	
 // AUSGABE angabe der Treffer vor ausgabe
 // LADEZEIT MESSEN ausgabe
-$time_end = getMicroTime();
+$time_end = $statisticFunctions->getMicroTime();
 $time = round($time_end - $time_start,2);
 
 $timeOutputText = '<h2>'.$count.' '.$langFile['search_results_count'].' <span style="font-size:10px;">'.$langFile['search_results_time_part1'].' '.$time.' '.$langFile['search_results_time_part2'].'</span></h2>';

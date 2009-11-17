@@ -34,7 +34,7 @@ else
 $asking = $_POST['asking'];
 
 // load the page
-$pageContent = readPage($page,$category);
+$pageContent = $generalFunctions->readPage($page,$category);
 $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
@@ -48,7 +48,7 @@ if(is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']
   
   // if the thumbnail doesnt exists, delete it from the pageContent
   $pageContent['thumbnail'] = '';
-  savePage($category,$page,$pageContent);
+  $generalFunctions->savePage($category,$page,$pageContent);
   
   // show only the ok button
   $asking = true;
@@ -60,13 +60,13 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['page
     
     // DELETING    
     $pageContent['thumbnail'] = '';
-    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && savePage($category,$page,$pageContent)) {
+    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && $generalFunctions->savePage($category,$page,$pageContent)) {
 
         // DELETING FINISH --------------
         $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />
         <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site='.$site.'&amp;category='.$category.'&amp;page='.$page.'\');return false;">&nbsp;</a>'."\n";
         
-        saveTaskLog($langFile['log_pageThumbnail_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+        $statisticFunctions->saveTaskLog($langFile['log_pageThumbnail_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
         
     } else {
       // DELETING ERROR --------------

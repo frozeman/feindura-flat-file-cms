@@ -24,7 +24,7 @@ $category = $_GET['category'];
 
 include(dirname(__FILE__)."/../backend.include.php");
 
-$pageContent = readPage($page,$category);
+$pageContent = $generalFunctions->readPage($page,$category);
 
 ?>
 

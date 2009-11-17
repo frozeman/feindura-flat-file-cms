@@ -163,7 +163,7 @@ if($_POST['upload']) {
           unlink(DOCUMENTROOT.$filePath);
           
           // get pageContent (ERROR)
-          if(!$pageContent = readPage($page,$category))
+          if(!$pageContent = $generalFunctions->readPage($page,$category))
             $error[] = $langFile['file_error_read'];
         
           // CHECK FOR ERROR 4
@@ -181,9 +181,9 @@ if($_POST['upload']) {
             
             // saves the new thumbnail in the flatfile ---------------------  
             $pageContent['thumbnail'] = $newFileName;
-            if(savePage($category,$page,$pageContent)) {
+            if($generalFunctions->savePage($category,$page,$pageContent)) {
               $response[] = $langFile['pagethumbnail_upload_response_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.'" />';
-              saveTaskLog($langFile['log_pageThumbnail_upload'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+              $statisticFunctions->saveTaskLog($langFile['log_pageThumbnail_upload'],$pageContent['title']); // <- SAVE the task in a LOG FILE
             }
             
             // call this javascript, on the succesfull finish of the upload

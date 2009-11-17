@@ -45,7 +45,7 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
-  $_POST['title'] = clearTitle($_POST['title']);
+  $_POST['title'] = $generalFunctions->clearTitle($_POST['title']);
   
   //$postArray['FCKeditor'] = str_replace("<br />", "<br>", $postArray['FCKeditor'] );
   //$postArray['FCKeditor'] = str_replace("/>", ">", $postArray['FCKeditor'] );
@@ -73,7 +73,7 @@ if($_POST['save']) {
   } else {
   
     // wenn die flatfile existiert, lade die content variable (wird für thumbnail benötigt)
-    if(!$pageContent = readPage($page,$category))
+    if(!$pageContent = $generalFunctions->readPage($page,$category))
       $errorWindow = $langFile['file_error_read'];
    
     $logText = $langFile['log_page_saved']; 
@@ -89,7 +89,7 @@ if($_POST['save']) {
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
     // VALIDATE the SORT DATE
-    if(($sortDate = validateDateFormat($_POST['sortdate'][1])) === false) {
+    if(($sortDate = $statisticFunctions->validateDateFormat($_POST['sortdate'][1])) === false) {
       $sortDate = $_POST['sortdate'][1];
     }
     // set the validated date to the post var
@@ -119,9 +119,9 @@ if($_POST['save']) {
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchwords'] = $pageContent['log_searchwords'];
       
-    if(savePage($category,$page,$_POST)) {
+    if($generalFunctions->savePage($category,$page,$_POST)) {
       $documentSaved = true;
-      saveTaskLog($logText,$_POST['title']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog($logText,$_POST['title']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['editor_savepage_error_save'];
   }
@@ -134,7 +134,7 @@ if($_POST['save']) {
 // show the PAGE CONTENT
 // ------------------------------------------------------------------------------
 // -> read PAGE (saved or given)
-$pageContent = readPage($page,$category);
+$pageContent = $generalFunctions->readPage($page,$category);
 
 // -> CHECK for NEW PAGE
 if($pageContent === false)
@@ -209,8 +209,8 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.'</span>';
 
 // -> show LAST SAVE DATE TIME
-$saveDate =  formatDate($pageContent['savedate']);
-$saveTime =  formatTime($pageContent['savedate']);
+$saveDate =  $statisticFunctions->formatDate($pageContent['savedate']);
+$saveTime =  $statisticFunctions->formatTime($pageContent['savedate']);
 
 if(!$newPage)
   echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_savedate'].' '.$saveDate.' '.$saveTime.' ]</span></h1>';
@@ -292,7 +292,7 @@ echo '<tr>
       <td class="left">
       <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
       </td><td class="right">
-      <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.createHref($pageContent).'" class="extern">'.$hostUrl.createHref($pageContent).'</a></span>
+      <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
       </td>
       </tr>';
 }
@@ -322,10 +322,10 @@ $hidden = ' hidden';
   <?php
   // -> format vars
   // --------------
-  $firstVisitDate = formatDate($pageContent['log_firstVisit']);
-  $firstVisitTime = formatTime($pageContent['log_firstVisit']);
-  $lastVisitDate = formatDate($pageContent['log_lastVisit']);
-  $lastVisitTime = formatTime($pageContent['log_lastVisit']);
+  $firstVisitDate = $statisticFunctions->formatDate($pageContent['log_firstVisit']);
+  $firstVisitTime = $statisticFunctions->formatTime($pageContent['log_firstVisit']);
+  $lastVisitDate = $statisticFunctions->formatDate($pageContent['log_lastVisit']);
+  $lastVisitTime = $statisticFunctions->formatTime($pageContent['log_lastVisit']);
   
   $visitTimes_max = explode('|',$pageContent['log_visitTime_max']);
   $visitTimes_min = explode('|',$pageContent['log_visitTime_min']);
@@ -348,7 +348,7 @@ $hidden = ' hidden';
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> VISIT COUNT
-        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.formatHighNumber($pageContent['log_visitCount']).'</span>';
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.$statisticFunctions->formatHighNumber($pageContent['log_visitCount']).'</span>';
         ?>
       </td>      
     </tr>
@@ -384,7 +384,7 @@ $hidden = ' hidden';
         // -> VISIT TIME MAX
         $showTimeHead = true;
         foreach($visitTimes_max as $visitTime_max) {          
-          if($visitTime_max_formated = showVisitTime($visitTime_max)) {
+          if($visitTime_max_formated = $statisticFunctions->showVisitTime($visitTime_max)) {
             if($showTimeHead)
               echo '<span class="blue toolTip" id="visitTimeMax" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />
               <div id="visitTimeMaxContainer">';
@@ -407,7 +407,7 @@ $hidden = ' hidden';
         $showTimeHead = true;
         $visitTimes_min = array_reverse($visitTimes_min);
         foreach($visitTimes_min as $visitTime_min) {          
-          if($visitTime_min_formated = showVisitTime($visitTime_min)) {
+          if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min)) {
             if($showTimeHead)
               echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br /><div id="visitTimeMinContainer">';
             else            
@@ -442,7 +442,7 @@ $hidden = ' hidden';
       <?php
       
       // -> show TAG CLOUD
-      createTagCloud($pageContent['log_searchwords']);
+      $statisticFunctions->createTagCloud($pageContent['log_searchwords']);
 
       ?>
       </div>
@@ -509,7 +509,7 @@ else $hidden = ' hidden';
       <label for="edit_sortdate">
       <?php
       // CHECKs the DATE FORMAT
-      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
+      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && $statisticFunctions->validateDateFormat($pageContent['sortdate'][1]) === false)
         echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
@@ -517,7 +517,7 @@ else $hidden = ' hidden';
       </label>
       </td><td class="right">
         <input name="sortdate[0]" value="<?php echo $pageContent['sortdate'][0]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
-        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
+        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo $$statisticFunctions->formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
         <input name="sortdate[2]" value="<?php echo $pageContent['sortdate'][2]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
       </td></tr>
       <?php } ?>

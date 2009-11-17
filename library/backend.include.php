@@ -25,9 +25,16 @@ require_once(dirname(__FILE__)."/general.include.php");
 
 @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
-require_once(dirname(__FILE__)."/functions/general.functions.php");
-require_once(dirname(__FILE__)."/functions/statistic.functions.php");
+//require_once(dirname(__FILE__)."/functions/general.functions.php");
+//require_once(dirname(__FILE__)."/functions/statistic.functions.php");
 require_once(dirname(__FILE__)."/functions/backend.functions.php");
+
+require_once(dirname(__FILE__)."/classes/general.class.php");
+require_once(dirname(__FILE__)."/classes/statistic.class.php");
+
+// GET FUNCTIONS
+$generalFunctions = new general();
+$statisticFunctions = new statistic();
 
 // *---* choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

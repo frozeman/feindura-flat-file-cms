@@ -24,14 +24,14 @@ $opendCategory = false;
 // -> CHANGE PAGE STATUS
 if($_GET['status'] == 'changePageStatus') {
     
-    if($contentArray = readPage($_GET['page'],$_GET['category'])) {      
+    if($contentArray = $generalFunctions->readPage($_GET['page'],$_GET['category'])) {      
       // change the status
       if($_GET['public'])
         $contentArray['public'] = '';
       else
         $contentArray['public'] = 'true';      
       // save the new status
-      if(savePage($_GET['category'],$_GET['page'],$contentArray))
+      if($generalFunctions->savePage($_GET['category'],$_GET['page'],$contentArray))
         $documentSaved = true;
       else
         $errorWindow = $langFile['sortablePageList_changeStatusPage_error_save'];
@@ -172,7 +172,7 @@ foreach($categories as $category) {
   echo '<ul class="sortablePageList" id="category'.$category['id'].'">';
 
 //lädt die seiten aus den gruppenverzeichnis in einen array
-$pages = loadPages($category['id']);
+$pages = $generalFunctions->loadPages($category['id']);
 //print_r($pages);
 
 // list the pages of the categories
@@ -207,16 +207,16 @@ if(is_array($pages)) {
       }
       
       // show savedate
-      $date = formatDate($pageContent['savedate']).' '.formatTime($pageContent['savedate']);
+      $date = $statisticFunctions->formatDate($pageContent['savedate']).' '.$statisticFunctions->formatTime($pageContent['savedate']);
       
       // show sortdate
       if(!empty($pageContent['sortdate'])) {
         
         // CHECKs the DATE FORMAT
-        if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && validateDateFormat($pageContent['sortdate'][1]) === false)
+        if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && $statisticFunctions->validateDateFormat($pageContent['sortdate'][1]) === false)
           $showDate = '[b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_sortDate_error'].':[/span] '.$pageContent['sortdate'][1].' '.$pageContent['sortdate'][2];
         else
-          $showDate = '[b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.formatDate($pageContent['sortdate'][1]).' '.$pageContent['sortdate'][2];
+          $showDate = '[b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.$statisticFunctions->formatDate($pageContent['sortdate'][1]).' '.$pageContent['sortdate'][2];
         
       } else $showDate = '';
       
@@ -242,7 +242,7 @@ if(is_array($pages)) {
       
       echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].'[br /][br /]'.$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
       <div class="saveDate">&nbsp;&nbsp;'.$date.'</div>
-      <div class="counter">&nbsp;&nbsp;'.formatHighNumber($pageContent['log_visitCount']).'</div>
+      <div class="counter">&nbsp;&nbsp;'.$statisticFunctions->formatHighNumber($pageContent['log_visitCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS

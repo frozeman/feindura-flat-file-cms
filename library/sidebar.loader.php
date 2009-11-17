@@ -34,7 +34,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <div class="content brown">
       <ul class="verticalButtons">';
             
-      if($pages = loadPages(0)) {
+      if($pages = $generalFunctions->loadPages(0)) {
           
         foreach($pages as $page) {
           if($_GET['page'] == $page['id'])
@@ -94,7 +94,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <div class="content white">
       <ul class="verticalButtons">';      
       
-      if($pages = loadPages($_GET['category'])) { 
+      if($pages = $generalFunctions->loadPages($_GET['category'])) { 
   
         foreach($pages as $page) {
           if($_GET['page'] == $page['id'])
@@ -135,8 +135,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
               <ul>';
          foreach($logContent as $logRow) {
           $logDateTime = substr($logRow,0,19);
-          $logDate = formatDate($logDateTime);
-          $logTime = formatTime($logDateTime);
+          $logDate = $statisticFunctions->formatDate($logDateTime);
+          $logTime = $statisticFunctions->formatTime($logDateTime);
           // finds the "<br />" in the log row
           if($logBreak = strpos($logRow,'::'))            
             echo '<li><span class="blue" style="font-weight:bold;">'.substr($logRow,20,$logBreak-20).'</span><br /><span>'.substr($logRow,$logBreak+2).'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span></li>';         

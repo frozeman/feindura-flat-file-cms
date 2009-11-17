@@ -14,14 +14,8 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.30
+* library/classes/frontend.classes.php version 1.31
 * 
-*
-* !!! PROTECTED VARs (do not overwrite these in your script)
-* -> $adminConfig
-* -> $websiteConfig
-* -> $websiteStatistic
-* -> $categories
 */
 
 //error_reporting(E_ALL);
@@ -63,10 +57,16 @@ class feindura {
                               
   protected $storedPageIds = '';            // (empty or Array) stores all page IDs and category IDs in an Array, if its gone once trough the category folders (saves resources)
   protected $storedPages = false;           // (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
-        
-                              
+                                 
   // PUBLIC
   // *********
+  var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
+  var $websiteConfig;                     // [Array] the Array with the websiteConfig Data from the feindura CMS
+  var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
+  
+  var $generalFunctions;
+  var $statisticFunctions;
+  
   var $language = 'de';                   // [String]               -> string with the COUNTRY CODE ("de", "en", ..), which is used by the feindura class (for warnings etc)
   var $languageFile = false;              // [Array]                -> Array of the languageFile (example: "/feindura/library/lang/en.frontend.php")
   
@@ -174,30 +174,39 @@ class feindura {
   
   // -> START ** constructor *****************************************************************************
   // the class constructor
+  // get the config Arrays
   // set the varNames from the adminConfig.php
   // gte the GET (if existing) and set it to the PROPERTIES
   // get the language File for the frontend
   // -----------------------------------------------------------------------------------------------------
   public function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-    global $adminConfig;
+   
+    // GET CONFIG FILES and SET CONFIG PROPERTIES
+    $this->adminConfig = include(dirname(__FILE__)."/../../config/adminConfig.php");
+    $this->websiteConfig = include(dirname(__FILE__)."/../../config/websiteConfig.php");
+    $this->categoryConfig = include(dirname(__FILE__)."/../../config/categoryConfig.php");
+    
+    // GET FUNCTIONS
+    $this->generalFunctions = new general();
+    $this->statisticFunctions = new statistic();
     
     // save the website statistics
     // ***************************
-    saveWebsiteStats();
+    $this->statisticFunctions->saveWebsiteStats();
     
     // sets the varNames.. from the adminConfig
     // ****************************************
     // page varName
-    if(isset($adminConfig['varName']['page']) && !empty($adminConfig['varName']['page']))
-      $this->varNames['page'] = $adminConfig['varName']['page'];
+    if(isset($this->adminConfig['varName']['page']) && !empty($this->adminConfig['varName']['page']))
+      $this->varNames['page'] = $this->adminConfig['varName']['page'];
     // category varName
-    if(isset($adminConfig['varName']['category']) && !empty($adminConfig['varName']['category']))
-      $this->varNames['category'] = $adminConfig['varName']['category'];
+    if(isset($this->adminConfig['varName']['category']) && !empty($this->adminConfig['varName']['category']))
+      $this->varNames['category'] = $this->adminConfig['varName']['category'];
     
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************    
-    $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $websiteConfig['startPage'] if there is no GET page var
+    $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $this->websiteConfig['startPage'] if there is no GET page var
     $this->setCurrentCategory();           // $_GET['varNameCategory']    
     
     // -> CHECKS if cookies are enabled
@@ -213,12 +222,12 @@ class feindura {
     // if no country code is given
     if($language === false || !strlen($language) != 2) {
       // gets the BROWSER STANDARD language
-      $this->language = getLanguage($adminConfig['langPath'],false); // returns a COUNTRY SHORTNAME
+      $this->language = $this->generalFunctions->getLanguage($this->adminConfig['langPath'],false); // returns a COUNTRY SHORTNAME
     } else
       $this->language = $language;
     
     // includes the langFile
-    $this->languageFile = include(DOCUMENTROOT.$adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php');
+    $this->languageFile = include(DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php');
     
     return true;
   }
@@ -238,8 +247,6 @@ class feindura {
                                  $author = false,               // (false or String) the author used in the meta tags
                                  $publisher = false,            // (false or String) the publisher used in the meta tags
                                  $copyright = false) {          // (false or String) the copyright used in the meta tags
-      global $adminConfig;
-      global $websiteConfig;
       
       // vars
       $metaTags = '';
@@ -260,12 +267,12 @@ class feindura {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'" />'."\n\n"; 
       
       // -> create TITLE
-      if($currentPage = $this->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
+      if($this->getCurrentPage() && $currentPage = $this->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
         $pageNameInTitle = ' - '.$currentPage['title'];
       
       // -> add TITLE
       $metaTags .= '  <title>'."\n";      
-      $metaTags .= '  '.$websiteConfig['seitentitel'].$pageNameInTitle."\n";
+      $metaTags .= '  '.$this->websiteConfig['seitentitel'].$pageNameInTitle."\n";
       $metaTags .= '  </title>'."\n\n";
       
       // -> add robots.txt
@@ -288,7 +295,7 @@ class feindura {
       $metaTags .= '  <meta http-equiv="cache-control" content="no-cache" /> <!-- browser/proxy does not cache -->'."\n\n";
       
       // -> add title
-      $metaTags .= '  <meta name="title" content="'.$websiteConfig['seitentitel'].$pageNameInTitle.'" />'."\n";
+      $metaTags .= '  <meta name="title" content="'.$this->websiteConfig['seitentitel'].$pageNameInTitle.'" />'."\n";
       
       // -> add author
       if($author && is_string($author))
@@ -297,22 +304,22 @@ class feindura {
       // -> add puplisher
       if($publisher && is_string($publisher))
         $metaTags .= '  <meta name="publisher" content="'.$publisher.'" />'."\n";
-      elseif(!empty($websiteConfig['publisher']))
-        $metaTags .= '  <meta name="publisher" content="'.$websiteConfig['publisher'].'" />'."\n";
+      elseif(!empty($this->websiteConfig['publisher']))
+        $metaTags .= '  <meta name="publisher" content="'.$this->websiteConfig['publisher'].'" />'."\n";
         
       // -> add copyright
       if($copyright && is_string($copyright))
         $metaTags .= '  <meta name="copyright" content="'.$copyright.'" />'."\n";
-      elseif(!empty($websiteConfig['copyright']))
-        $metaTags .= '  <meta name="copyright" content="'.$websiteConfig['copyright'].'" />'."\n";
+      elseif(!empty($this->websiteConfig['copyright']))
+        $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'" />'."\n";
         
       // -> add description
-      if($websiteConfig['description'])
-        $metaTags .= '  <meta name="description" content="'.$websiteConfig['description'].'" />'."\n";
+      if($this->websiteConfig['description'])
+        $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'" />'."\n";
         
       // -> add keywords
-      if($websiteConfig['keywords'])
-        $metaTags .= '  <meta name="keywords" content="'.$websiteConfig['keywords'].'" />'."\n";
+      if($this->websiteConfig['keywords'])
+        $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'" />'."\n";
       
       
       
@@ -337,9 +344,6 @@ class feindura {
   public function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if FALSE it use VAR PRIORITY
                              $category = false,             // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
                              $linkText = true) {            // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
-
-    global $categories;
-    global $adminConfig;    
     
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
@@ -413,9 +417,9 @@ class feindura {
         // *****************
         if($this->linkShowThumbnail &&      
           !empty($pageContent['thumbnail']) &&
-          @is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
-          ((!$pageContent['category'] && $adminConfig['page']['thumbnailUpload']) ||
-          ($pageContent['category'] && $categories['id_'.$pageContent['category']]['thumbnail']))) {
+          @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
+          ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
+          ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
           
           // adds ID and/or Class and/or FLOAT
           $thumbnailAttributes = '';
@@ -430,7 +434,7 @@ class feindura {
              strtolower($this->thumbnailFloat) === 'right')
             $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailFloat).';"';
           
-          $linkThumbnail = '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
+          $linkThumbnail = '<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
         } else $linkThumbnail = '';
       
         
@@ -483,7 +487,7 @@ class feindura {
   public function createMenu($idType = 'categories',                      // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                              $ids = true,                                 // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
                              $linkText = true,                            // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
-                             $menuTag = true,                             // (Boolean or String like "table" or "ul") the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
+                             $menuTag = false,                            // (Boolean or String like "table" or "ul") the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                              $breakAfter = false,                         // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                              $sortingConsiderCategories = false) {        // (Boolean) if FALSE it sorts the pages by categories and the sorting like in the backend
     
@@ -525,27 +529,29 @@ class feindura {
     if($this->menuAttributes && $this->menuAttributes !== true)
       $menuAttributes .= ' '.$this->menuAttributes;
     
-    // -> SET PROPERTY $menuTag
-    if(($menuTag === true && $this->menuTag && $this->menuTag !== true) || !empty($menuAttributes)) {
+    
+    if(($menuTag && $this->menuTag && $this->menuTag !== true) || !empty($menuAttributes)) {
       // creates standard tag
       $menuTagSet = 'div';
       // eventually overwrites standard tag
-      if($this->menuTag && $this->menuTag !== true)
+      
+      // -> SET GIVEN $menuTag
+      if($menuTag !== true)
+        $menuTagSet = strtolower($menuTag);       
+      // OR -> SET PROPERTY $menuTag
+      elseif($this->menuTag && $this->menuTag !== true)
         $menuTagSet = strtolower($this->menuTag);
                 
       $menuStartTag = '<'.$menuTagSet.$menuAttributes.'>';
       $menuEndTag = '</'.$menuTagSet.'>';
-    
-    // OR -> SET GIVEN $menuTag
-    } elseif($menuTag)
-      $menuTagSet = strtolower($menuTag);
+    }
     
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
     
     // -> if pages SORTED BY CATEGORY
     if($sortingConsiderCategories === true)
-      $pages = sortPages($pages);
+      $pages = $this->generalFunctions->sortPages($pages);
     
     if($pages !== false) {
       // create a link out of every page in the array
@@ -712,7 +718,7 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   public function showPageTitle($page = false,              // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
                                 $category = false,          // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
-                                $titleTag = true) {         // the TAG which is used by the title (String), if TRUE it loads the titleTag PROPERTY
+                                $titleTag = false) {        // (Boolean or String) the TAG which is used by the title (String), if TRUE it loads the titleTag PROPERTY
     
     // -> PREV or NEXT if given direction
     $prevNext = false;
@@ -829,7 +835,7 @@ class feindura {
       if($pageContent = $this->generatePage($page,$category,$this->error,$shortenText,$useHtml)) {
         // -> SAVE PAGE STATISTIC
         // **********************
-        savePageStats($pageContent);
+        $this->statisticFunctions->savePageStats($pageContent);
         
         // returns the UNCHANGED pageContent Array, after showing the page
         return $pageContent;
@@ -876,7 +882,7 @@ class feindura {
     
     // -> if pages SORTED BY CATEGORY
     if($sortingConsiderCategories === true)
-      $pages = sortPages($pages);
+      $pages = $this->generalFunctions->sortPages($pages);
     
     if($pages !== false) {
       // -> list a category(ies)
@@ -1017,7 +1023,7 @@ class feindura {
           $transformedCategory = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
           
           // RETURNs the right page Id
-          if(encodeToUrl($page['title']) == $transformedCategory) {
+          if($this->generalFunctions->encodeToUrl($page['title']) == $transformedCategory) {
             return $page['id'];
           }
         }
@@ -1036,8 +1042,7 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   public function getCurrentCategory() {
     global $_GET;
-    global $categories;
-    
+   
     // var
     $categoryId = false;
     
@@ -1055,11 +1060,11 @@ class feindura {
     } elseif(isset($_GET['category']) &&
              !empty($_GET['category'])) {
       
-      foreach($categories as $category) {
+      foreach($this->categoryConfig as $category) {
         $transformedCategory = htmlentities($_GET['category'],ENT_QUOTES,'UTF-8');
       
         // RETURNs the right category Id
-        if(encodeToUrl($category['name']) == $transformedCategory) {
+        if($this->generalFunctions->encodeToUrl($category['name']) == $transformedCategory) {
           return $category['id'];
         }
       }      
@@ -1077,15 +1082,13 @@ class feindura {
   // and RETURNs the new page PROPERTY
   // -----------------------------------------------------------------------------------------------------
   public function setCurrentPage($setStartPage = false) {  // (Boolean) if TRUE it sets the startPage
-    global $adminConfig;
-    global $websiteConfig;
     
     // sets the new page PROPERTY
     $this->page = $this->getCurrentPage();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $adminConfig['setStartPage'] && $this->page === false && !empty($websiteConfig['startPage']))
-      $this->page = $websiteConfig['startPage'];
+    if($setStartPage === true && $this->adminConfig['setStartPage'] && $this->page === false && !empty($this->websiteConfig['startPage']))
+      $this->page = $this->websiteConfig['startPage'];
       
     return $this->page;
   }
@@ -1124,10 +1127,7 @@ class feindura {
                                   $showErrors = true,         // (Boolean) show warnings (example: 'The page you requested doesn't exist')
                                   $shortenText = false,       // (Boolean or Number)shorten the content Text
                                   $useHtml = true) {          // (Boolean) use Html in the content, or strip all tags
-    global $adminConfig;
-    global $categories;
 
-    
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
     else $tagEnding = '>';      
@@ -1219,9 +1219,9 @@ class feindura {
     // *****************
     if($this->contentShowThumbnail &&      
       !empty($pageContent['thumbnail']) &&
-      @is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
-      ((!$pageContent['category'] && $adminConfig['page']['thumbnailUpload']) ||
-      ($pageContent['category'] && $categories['id_'.$pageContent['category']]['thumbnail']))) {
+      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
+      ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
+      ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
       
       // adds ID and/or Class and/or FLOAT
       $thumbnailAttributes = '';
@@ -1236,7 +1236,7 @@ class feindura {
          strtolower($this->thumbnailFloat) === 'right')
         $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailFloat).';"';
       
-      $pageThumbnail = '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
+      $pageThumbnail = '<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
     } else $pageThumbnail = '';
     
     // ->> MODIFING pageContent
@@ -1336,20 +1336,18 @@ class feindura {
                                  $titleShowCategory = false,       // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
                                  $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
                                  $titleStartText = false) {    // if String, it appears before the title text
-                       
-      global $categories;
-      
+
       // saves the long version of the title, for the title="" tag
       $fullTitle = strip_tags($pageContent['title']);
 
            
       // title with date
       if($titleShowDate && $pageContent['category'] &&
-         isset($categories['id_'.$pageContent['category']]) &&
-         $categories['id_'.$pageContent['category']]['sortdate'] &&
+         isset($this->categoryConfig['id_'.$pageContent['category']]) &&
+         $this->categoryConfig['id_'.$pageContent['category']]['sortdate'] &&
          !empty($pageContent['sortdate']) &&
-         $sortedDate = validateDateFormat($pageContent['sortdate'][1]))
-         $titleDate = $pageContent['sortdate'][0].' '.formatDate(dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate'][2];
+         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate'][1]))
+         $titleDate = $pageContent['sortdate'][0].' '.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate'][2];
       else $titleDate = false;      
       
       // shorten the title
@@ -1379,9 +1377,9 @@ class feindura {
       // show the category name
       if($titleShowCategory && $pageContent['category'] != 0) {
         if(is_bool($titleShowCategory))
-          $titleBefore .= $categories['id_'.$pageContent['category']]['name'];
+          $titleBefore .= $this->categoryConfig['id_'.$pageContent['category']]['name'];
         else
-          $titleBefore .= $categories['id_'.$pageContent['category']]['name'].$titleShowCategory; // adds the Spacer
+          $titleBefore .= $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleShowCategory; // adds the Spacer
       }
       
       // show the page date     
@@ -1426,7 +1424,7 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   protected function createHref($pageContent) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
     
-    return createHref($pageContent,$this->sessionId);
+    return $this->generalFunctions->createHref($pageContent,$this->sessionId);
     
   }
   // -> END -- createHref -----------------------------------------------------------------------------------
@@ -1449,7 +1447,7 @@ class feindura {
       
     // -> if not load the page and store it in the storePages PROPERTY
     } else {
-      if(($page = readPage($page,$category)) !== false) {        
+      if(($page = $this->generalFunctions->readPage($page,$category)) !== false) {        
         //echo '<br />->>> LOAD '.$page['id'].'<br />';
         
         // add the pageContent Array to the PROPERTY and SESSION
@@ -1464,9 +1462,8 @@ class feindura {
   // loads only pages if they are not already in the storedPages PROPERTY Array
   // RETURNs the pageContent Arrays or FALSE
   // -----------------------------------------------------------------------------------------------------
-  protected function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $categories Array) the category or categories, which to load in an array, if TRUE it loads all categories
+  protected function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
                                $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
-    global $categories;    
 
     // -> checks if the RETURN should be an Array
     if($loadPagesInArray === true) {
@@ -1498,10 +1495,10 @@ class feindura {
       
         // sorts the category
         if(is_array($newPageContentArrays) && !empty($categoryId)) {
-          if($categories['id_'.$categoryId]['sortbydate'])
-            $newPageContentArrays = sortPages($newPageContentArrays, 'sortByDate');
+          if($this->categoryConfig['id_'.$categoryId]['sortbydate'])
+            $newPageContentArrays = $this->generalFunctions->sortPages($newPageContentArrays, 'sortByDate');
           else
-            $newPageContentArrays = sortPages($newPageContentArrays, 'sortBySortOrder');
+            $newPageContentArrays = $this->generalFunctions->sortPages($newPageContentArrays, 'sortBySortOrder');
         }
       
         // adds the new sorted category to the return array
@@ -1511,7 +1508,7 @@ class feindura {
       return $pagesArray;
     // -> otherwise just use the loadPages function
     } else
-      return loadPages($category,$loadPagesInArray);
+      return $this->generalFunctions->loadPages($category,$loadPagesInArray);
   }
   // -> END -- loadPages ---------------------------------------------------------------------------------- 
   
@@ -1595,7 +1592,6 @@ class feindura {
   // checks if the category ID(s) are public, returns false or a array with the IDs of the public categories
   // ------------------------------------------------------------------------------------------------
   protected function publicCategory($ids) {     // (true or Number or Array) the category ID or a array with the category IDs, if TRUE it returns all categories
-    global $categories;
     
     // -> check an Array of category IDs
     if($ids === true || is_array($ids)) {
@@ -1606,7 +1602,7 @@ class feindura {
         // adds the non-category
         $newIds[] = 0;
         
-        foreach($categories as $category) {
+        foreach($this->categoryConfig as $category) {
           // checks if the category is public and creates a new array
           if($category['public'])
             $newIds[] = $category['id'];
@@ -1616,7 +1612,7 @@ class feindura {
         // goes trough the given category IDs array
         foreach($ids as $id) {
           // checks if the category is public and creates a new array
-          if($id == 0 || (array_key_exists('id_'.$id,$categories) && $categories['id_'.$id]['public']))    
+          if($id == 0 || (array_key_exists('id_'.$id,$this->categoryConfig) && $this->categoryConfig['id_'.$id]['public']))    
             $newIds[] = $id;
         }
       }
@@ -1627,7 +1623,7 @@ class feindura {
     } elseif($ids !== true && is_numeric($ids)) {
 
       // checks if the category is public
-      if($ids == 0 || $categories['id_'.$ids]['public'])    
+      if($ids == 0 || $this->categoryConfig['id_'.$ids]['public'])    
         return $ids;
       else return false;
     
@@ -1641,7 +1637,7 @@ class feindura {
   protected function getPageCategory($page) {   // (Number) the page ID, from which to get the category ID
   
     // execute the genral function
-    $return = getPageCategory($page,$this->getStoredPageIds(),true);
+    $return = $this->generalFunctions->getPageCategory($page,$this->getStoredPageIds(),true);
     
     $this->storedPageIds = $return[1];
     return $return[0];
@@ -1752,8 +1748,7 @@ class feindura {
                                 $sortingConsiderCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
                                 $breakAfter = false,                   // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                                 $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
-                                
-    global $categories;
+
     if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
       $monthsInThePast = round($monthsInThePast);
     if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
@@ -1782,7 +1777,7 @@ class feindura {
     
     // -> if pages SORTED BY CATEGORY
     //if($sortingConsiderCategories === true)
-      //$pages = sortPages($pages);
+      //$pages = $this->generalFunctions->sortPages($pages);
       
     if($pages !== false) {
       
@@ -1815,7 +1810,7 @@ class feindura {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['sortdate']) &&
            !empty($page['sortdate'][1]) &&
-           ($page['category'] != 0 && $categories['id_'.$page['category']]['sortdate'])) {
+           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['sortdate'])) {
            
            // makes the page sort date compareable
            $pageSortDate = str_replace('-','',$page['sortdate'][1]);           
@@ -1837,7 +1832,7 @@ class feindura {
         usort($selectedPages,'sortByDate');
       // sorts by DATE and CATEGORIES
       else
-        $selectedPages = sortPages($selectedPages,'sortByDate');
+        $selectedPages = $this->generalFunctions->sortPages($selectedPages,'sortByDate');
       
       // -> flips the sorted array if $flipList === true
       if($flipList === true)
@@ -1964,7 +1959,7 @@ class feindura {
   
     // load all page ids, if necessary
     if($this->storedPageIds == '')
-      $this->storedPageIds = loadPages(true,false);
+      $this->storedPageIds = $this->generalFunctions->loadPages(true,false);
 
     return $this->storedPageIds;
   }

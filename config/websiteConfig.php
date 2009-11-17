@@ -1,8 +1,8 @@
 <?php
 
-$websiteConfig['seitentitel']    = 'Frontend';
-$websiteConfig['publisher']    = '';
-$websiteConfig['copyright']    = 'frau';
+$websiteConfig['seitentitel']    = 'Fabian Russ';
+$websiteConfig['publisher']    = 'Fabian Russ';
+$websiteConfig['copyright']    = 'Fabian Russ';
 $websiteConfig['keywords']       = 'stichwort1,stichwort2,stichwort3,dfgdfg';
 $websiteConfig['description']    = 'sdfsdfsd';
 $websiteConfig['contactMail']    = 'name@providor.de';

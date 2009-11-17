@@ -193,7 +193,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     // give documentSaved status
     $documentSaved = true;
-    saveTaskLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
   }
@@ -219,7 +219,7 @@ if($_POST['saveFckStyleFile']) {
   
     // give documentSaved status
     $documentSaved = true;
-    saveTaskLog($langFile['log_adminSetup_ckstyles']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_adminSetup_ckstyles']); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -232,7 +232,7 @@ if(isset($_POST['saveEditedFiles'])) {
 
   if(saveEditedFiles($_POST)) {
     $documentSaved = true; // give documentSaved status
-    saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow = $langFile['editFilesSettings_error_save'];
   
@@ -290,7 +290,7 @@ $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].$adminC
 
 foreach($categories as $category) {
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].$adminConfig['savePath'].$category['id'].'/');
-  $category = loadPages($category['id'],false);
+  $category = $generalFunctions->loadPages($category['id'],false);
   
   if(is_array($category)) { // prevent error, if the category is empty
     foreach($category as $page) {
@@ -592,8 +592,8 @@ else $hidden = '';
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_editorStyleClass"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleClass_tip'] ?>">
-      <?php echo $langFile['stylesheet_name_styleFile'] ?></span></label>
+      <label for="cfg_editorStyleClass"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'] ?>">
+      <?php echo $langFile['stylesheet_name_styleClass'] ?></span></label>
       </td><td class="right">
       <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="toolTip" value="<?php echo $adminConfig['editor']['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_feld4_inputTip']; ?>" />
       </td></tr>

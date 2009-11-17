@@ -76,76 +76,6 @@ function redirect($goToCategory, $goToPage, $time = 2) {
   echo 'You should be automatically redirected, if not click <a href="'.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">here</a>.';
 }
 
-
-// *************************************** NICHT MEHR VERWENDET *******************************************
-// *************************************** NICHT MEHR VERWENDET *******************************************
-// ** -- numeratePage ----------------------------------------------------------------------------------
-// nummeriert die seiten automatisch, höher/kleiner als die numerierung der letzten seite in dem Gruppenordner
-// wird in der htmleditor/postdata.php verwendet
-// -----------------------------------------------------------------------------------------------------
-// $group           [gruppe in der sich die datei befindet, deren dateiname nummeriert werden soll (String)],
-// $pageName        [Dateiname der Datei die nummeriert werden soll (String)],
-// $numerateHowever [führt die nummerierung durch, auch wenn die nummerierung für die angegebene Gruppe ausgeschaltet ist (Boolean)]
-function numeratePage($group, $pageName, $numerateHowever = false) {
-  global $adminConfig;
-  global $cfg_groups;
-    
-  if($cfg_groups[$group]['numerate'] || $numerateHowever) {
-      $files = loadPages('../'.$adminConfig['savePath'].$group);  
-      if(is_array($files) && !is_numeric(substr($pageName,0,1))) {
-        natcasesort($files);
-        
-        if($cfg_groups[$group]['changesort']) {
-          $files = array_reverse($files);
-          $fileSortDownward = true; // absteigend (z.b 5 -> 1)
-        }    
-        //echo 'absteigend? '.$fileSortDownward.'<br />';
-      
-        // holt die höchste page und speichert ihren dateinamen in der variable $filename
-        foreach ($files as $file) {
-          $filename = $file;
-          $filenameLength = strlen($filename);
-          
-          // oder holt die Datei die eine Nummer am anfang besitzt
-          if(is_numeric(substr($filename,0,1)))
-            break;
-        }
-        
-        do {
-          // zählt den string von hinten druch und stoppt wenn nur noch eine zahl vorhanden ist
-          $filename = substr($filename,0,$filenameLength--);
-          //echo 'neee: '.$filename.' '.$filenameLength.'<br />';
-          
-          // erhöht die vorderste zahl der höhsten flatpage          
-          if(is_numeric($filename)) {       
-            if($fileSortDownward)
-              ++$filename;
-            else
-              --$filename;
-            
-            // und fügt die zahl vorne an den neu erstellten dateinamen an
-            $pageName = $filename.'_'.$pageName;
-          }
-                    
-        } while (!is_numeric($filename) && $filenameLength >= 0);
-        
-        // wenn keine Seite mit nummerieung gefunden wurde dann nummeriere mit 1 (z.B. 1_dateiname.php)
-        if(!is_numeric($filename))
-          $pageName = '1_'.$pageName;
-      
-      } else // wenn noch keine seite existiert, dann nummeriere mit 1 (z.B. 1_dateiname.php)
-        $pageName = '1_'.$pageName;
-            
-      // gibt den GEÄNDERTEN dateinamen zurück
-      return $pageName;
-    } else {
-      // gibt den UNGEÄNDERTEN dateinamen zurück
-      return $pageName;
-    }
-}
-// *************************************** NICHT MEHR VERWENDET --ENDE-- *******************************************
-
-
 // ** -- isAdmin ----------------------------------------------------------------------------------
 // open the .htpasswd file and checks the username for: is "admin", "adminstrator", "superuser" or "root" and return true, if no one exists also return true
 // -----------------------------------------------------------------------------------------------------
@@ -640,15 +570,16 @@ function fileFolderIsWritableWarning($fileFolder) {
 // -----------------------------------------------------------------------------------------------------
 function getHighestId() {
   global $categories;
+  global $generalFunctions;
   
   $cats = $categories;
   array_unshift($cats,array('id' => 0));
   
   // loads the file list in an array
   if(empty($cats))
-    $pages = loadPages(0,false);
+    $pages = $generalFunctions->loadPages(0,false);
   else
-    $pages = loadPages($cats,false);
+    $pages = $generalFunctions->loadPages($cats,false);
   
   $highestId = 0;
   
@@ -724,10 +655,11 @@ function basePathWarning() {
 function startPageWarning() {
   global $adminConfig;
   global $websiteConfig;
+  global $generalFunctions;
   global $langFile;
   global $_GET;
   
-  if($adminConfig['setStartPage'] && $websiteConfig['startPage'] && ($startPageCategory = getPageCategory($websiteConfig['startPage'])) != 0)
+  if($adminConfig['setStartPage'] && $websiteConfig['startPage'] && ($startPageCategory = $generalFunctions->getPageCategory($websiteConfig['startPage'])) != 0)
     $startPageCategory .= '/';
   else
     $startPageCategory = '';

@@ -68,20 +68,20 @@ if(!empty($adminConfig['user']['info'])) {
     
       echo '<div style="width:100%; text-align:center;">';
       
-      echo '<span class="visitCountNumber brown">'.formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
-      echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
+      echo '<span class="visitCountNumber brown">'.$statisticFunctions->formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+      echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
           <hr class="small" />';
       echo '</div>';
     
       echo '<div style="width:100%; text-align:right;">';
       // FIRST VISIT
-      echo '<span class="toolTip" title="'.formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+      echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
       // LADST VISIT
-      echo '<span class="toolTip" title="'.formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+      echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
     echo '</div></div>';
     
     // ->> LOAD all PAGES
-    $orgPages = loadPages(true);
+    $orgPages = $generalFunctions->loadPages(true);
     $pages = $orgPages;
     
     //print_r($orgPages);
@@ -124,7 +124,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) { 
-        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:left;"><b>'.formatDate(dateDayBeforeAfter($page['savedate'])).'</b> '.formatTime($page['savedate']).'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:left;"><b>'.$statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($page['savedate'])).'</b> '.$statisticFunctions->formatTime($page['savedate']).'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';
         else $rowColor = 'light';        
@@ -150,7 +150,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) {        
-        if($pageVisitTime = showVisitTime(substr($page['log_visitTime_max'],0,strpos($page['log_visitTime_max'],'|'))))
+        if($pageVisitTime = $statisticFunctions->showVisitTime(substr($page['log_visitTime_max'],0,strpos($page['log_visitTime_max'],'|'))))
           echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';
@@ -169,7 +169,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
-    createBrowserChart();
+    $statisticFunctions->createBrowserChart();
     
     echo '<br /><hr class="small" /><br />';
     
@@ -185,8 +185,8 @@ if(!empty($adminConfig['user']['info'])) {
       $rowColor = 'dark'; // starting row color
       foreach($logContent as $logRow) {
         $logDateTime = substr($logRow,0,19);
-        $logDate = formatDate($logDateTime);
-        $logTime = formatTime($logDateTime);
+        $logDate = $statisticFunctions->formatDate($logDateTime);
+        $logTime = $statisticFunctions->formatTime($logDateTime);
  
         echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logRow.'" class="blue">'.str_replace('http://','',substr($logRow,20)).'</a></li>';
         
