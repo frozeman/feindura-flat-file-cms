@@ -83,7 +83,10 @@ class feindura {
   var $linkAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   var $linkBefore = false;                // [False or String]      -> a String which comes BEFORE the link <a> tag
   var $linkAfter = false;                 // [False or String]      -> a String which comes AFTER the link </a> tag
-  var $linkShowThumbnail = false;         // [Boolean]              -> show the thumbnail in the link
+  var $linkTextBefore = false;            // [False or String]      -> a String which comes BEFORE the linkText <a> tag
+  var $linkTextAfter = false;             // [False or String]      -> a String which comes AFTER the linkText </a> tag
+  var $linkThumbnail = false;         // [Boolean]              -> show the thumbnail in the link
+  var $linkThumbnailAfterText = false;    // [Boolean]              -> show the thumbnail after the linkText
   var $linkLength = false;                // [Boolean or Number]    -> the number of maximun characters for the link Title, after this length it will be shorten with abc..
   var $linkShowCategory = false;          // [Boolean]              -> show the category name before the title
   var $linkCategorySpacer = ' &rArr; ';   // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
@@ -117,7 +120,7 @@ class feindura {
   var $contentId = false;                 // [False or String]      -> the content container  ID which is used when creating a page (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $contentClass = false;              // [False or String]      -> the content container  CLASS which is used when creating a page
   var $contentLength = false;             // [Boolean or Number]    -> the number of maximun characters for the content, after this length it will be shorten with abc..
-  var $contentShowThumbnail = true;       // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
+  var $contentThumbnail = true;       // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
   var $contentBefore = false;             // [False or String]      -> a String which comes BEFORE the link <$contentTag> tag
   var $contentAfter = false;              // [False or String]      -> a String which comes AFTER the link </$contentTag> tag
   
@@ -125,7 +128,8 @@ class feindura {
   var $thumbnailFloat = false;            // [False or String ("left" or "right")]   -> let the thumbnail float to left or right
   var $thumbnailId = false;               // [False or String]      -> the thumbnail ID which is used when creating a thumbnail (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $thumbnailClass = false;            // [False or String]      -> the thumbnail CLASS which is used when creating a thumbnail
-  
+  var $thumbnailBefore = false;           // [False or String]      -> a String which comes BEFORE the thumbnail img <$titleTag> tag
+  var $thumbnailAfter = false;            // [False or String]      -> a String which comes AFTER the thumbnail img </$titleTag> tag
   
   var $error = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
   var $errorTag = false;                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
@@ -415,7 +419,7 @@ class feindura {
         
         // -> LINK THUMBNAIL
         // *****************
-        if($this->linkShowThumbnail &&      
+        if($this->linkThumbnail &&      
           !empty($pageContent['thumbnail']) &&
           @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
           ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
@@ -453,14 +457,30 @@ class feindura {
           
           // add the TITLE
           $linkText = $this->createTitle($pageContent,
-                                        false, //linktag
-                                        false,
-                                        false,
+                                        false, // linktag
+                                        false, // $titleId
+                                        false, // $titleClass
                                         $this->linkLength,
-                                        false,
+                                        false, // $titleAsLink
                                         $linkCategory,
                                         $this->linkShowDate,
                                         $this->linkStartText);
+        }
+             
+        // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
+        if(!empty($linkThumbnail)) {
+          if($this->thumbnailBefore !== true)
+            $thumbnailBefore = $this->thumbnailBefore;
+          if($this->thumbnailAfter !== true)
+            $thumbnailAfter = $this->thumbnailAfter;          
+        }
+        
+        // CHECK if the LINKTEXT BEFORE & AFTER is !== true
+        if(!empty($linkText)) {
+          if($this->linkTextBefore !== true)
+            $linkTextBefore = $this->linkTextBefore;
+          if($this->linkTextAfter !== true)
+            $linkTextAfter = $this->linkTextAfter;
         }
         
         // CHECK if the LINK BEFORE & AFTER is !== true
@@ -469,9 +489,16 @@ class feindura {
         if($this->linkAfter !== true)
           $linkAfter = $this->linkAfter;
         
+        // CHECK IF THUMBNAIL AFTER TEXT
+        if($this->linkThumbnailAfterText === true)
+          $linkString = $linkTextBefore.$linkText.$linkTextAfter.$thumbnailBefore.$linkThumbnail.$thumbnailAfter;
+        else
+          $linkString = $thumbnailBefore.$linkThumbnail.$thumbnailAfter.$linkTextBefore.$linkText.$linkTextAfter;
+            
+        
         // -> create the LINK
         // ----------------------------
-        $link = $linkBefore.$linkStartTag.$linkThumbnail.$linkTextBefore.$linkText.$linkEndTag.$linkAfter;
+        $link = $linkBefore.$linkStartTag.$linkString.$linkEndTag.$linkAfter;
         
         return $link;
       } else return false;
@@ -530,7 +557,7 @@ class feindura {
       $menuAttributes .= ' '.$this->menuAttributes;
     
     
-    if(($menuTag && $this->menuTag && $this->menuTag !== true) || !empty($menuAttributes)) {
+    if($menuTag || ($this->menuTag && $this->menuTag !== true) || !empty($menuAttributes)) {
       // creates standard tag
       $menuTagSet = 'div';
       // eventually overwrites standard tag
@@ -542,8 +569,8 @@ class feindura {
       elseif($this->menuTag && $this->menuTag !== true)
         $menuTagSet = strtolower($this->menuTag);
                 
-      $menuStartTag = '<'.$menuTagSet.$menuAttributes.'>';
-      $menuEndTag = '</'.$menuTagSet.'>';
+      $menuStartTag = '<'.$menuTagSet.$menuAttributes.'>'."\n";
+      $menuEndTag = "\n".'</'.$menuTagSet.'>'."\n";
     }
     
     // LOADS the PAGES BY TYPE
@@ -764,8 +791,7 @@ class feindura {
                                     $this->titleAsLink,
                                     $this->titleShowCategory,
                                     $this->titleShowDate,
-                                    $this->titleStartText);
-                                      
+                                    $this->titleStartText);                                      
         
         
         // CHECK if the LINK BEFORE & AFTER is !== true
@@ -1130,7 +1156,7 @@ class feindura {
 
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
-    else $tagEnding = '>';      
+    else $tagEnding = '>';
 
     // ->> CHECKS
     // -------------------
@@ -1217,7 +1243,7 @@ class feindura {
       
     // -> PAGE THUMBNAIL
     // *****************
-    if($this->contentShowThumbnail &&      
+    if($this->contentThumbnail &&      
       !empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
       ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
@@ -1264,7 +1290,7 @@ class feindura {
           $contentTag = $this->contentTag;  
                   
         $contentStartTag = '<'.$contentTag.$contentAttributes.'>';
-        $contentEndTag = '</'.$contentTag.'>';
+        $contentEndTag = '</'.$contentTag.'>';        
       } 
       
       // clear Html tags?
@@ -1297,15 +1323,23 @@ class feindura {
       $pageContentEdited = '';
     }
     
-    // CHECK if the LINK BEFORE & AFTER is !== true
+    // CHECK if the TITLE BEFORE & AFTER is !== true
     if(!empty($title)) {
       if($this->titleBefore !== true)
         $titleBefore = $this->titleBefore;
       if($this->titleAfter !== true)
         $titleAfter = $this->titleAfter;
     }
+    
+    // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
+    if(!empty($pageThumbnail)) {
+      if($this->thumbnailBefore !== true)
+        $thumbnailBefore = $this->thumbnailBefore;
+      if($this->thumbnailAfter !== true)
+        $thumbnailAfter = $this->thumbnailAfter;
+    }
       
-    // CHECK if the LINK BEFORE & AFTER is !== true
+    // CHECK if the CONTENT BEFORE & AFTER is !== true
     if($this->contentBefore !== true)
       $contentBefore = $this->contentBefore;
     if($this->contentAfter !== true)
@@ -1314,7 +1348,7 @@ class feindura {
     // -> BUILDING the PAGE
     // *******************
     echo $titleBefore.$title.$titleAfter."\n";
-    echo $pageThumbnail;
+    echo $thumbnailBefore.$pageThumbnail.$thumbnailAfter;
     echo $contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter."\n";
     
     // -> AFTER all RETURN $pageContentEdited

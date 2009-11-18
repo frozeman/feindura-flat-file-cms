@@ -357,7 +357,7 @@ class general {
       // loads only the page IDs and category IDs in an array
       // but only if it hasn't done this yet
       if($allPageIds == '')
-        $allPageIds = loadPages(true,false);
+        $allPageIds = $this->loadPages(true,false);
         
       if($allPageIds) {
         // gets the category id of the given page
@@ -425,9 +425,9 @@ class general {
       
       $speakingUrlHref .= $categoryLink;
       if($categoryLink == '')
-        $speakingUrlHref .= '/pages/'.encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= '/pages/'.$this->encodeToUrl($pageContent['title']);
       else
-        $speakingUrlHref .= encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= $this->encodeToUrl($pageContent['title']);
       $speakingUrlHref .= '.html';
       
       if($sessionId)
