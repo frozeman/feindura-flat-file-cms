@@ -130,8 +130,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt')) {
          $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt');
          
-         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollUp.png) no-repeat;margin-bottom:-100px;"></div>
-              <div id="sidebarTaskLog"><br />
+         //echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollUp.png) no-repeat;margin-bottom:-100px;"></div>';
+         echo '<div id="sidebarTaskLog"><br />
               <ul>';
          foreach($logContent as $logRow) {
           $logDateTime = substr($logRow,0,19);
@@ -144,8 +144,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             echo '<li><span class="blue" style="font-weight:bold;">'.substr($logRow,20).'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span></li>';
          }
          echo '</ul>
-              <br /></div>
-              <div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollDown.png) no-repeat;margin-top:-100px;"></div>';
+              <br /></div>';
+         //echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/key/sidebarScrollDown.png) no-repeat;margin-top:-100px;"></div>';
       // no log
       } else
         echo $langFile['home_taskLog_nolog'];

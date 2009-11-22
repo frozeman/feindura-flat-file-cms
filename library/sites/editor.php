@@ -34,8 +34,7 @@ if($_POST['save']) {
   $page	= $_POST['id'];
   $category = $_POST['category'];
   $_GET['page'] = $page;
-  $_GET['category'] = $category;
-  
+  $_GET['category'] = $category;  
   
   // Datum erzeugung
   $saveDate	= date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());

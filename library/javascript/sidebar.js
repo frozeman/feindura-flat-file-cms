@@ -20,11 +20,12 @@
 window.addEvent('domready', function() {
   
   // ->> LOG LIST
-  //var scrollLog = new Scroller('sidebarTaskLog', {area: 300, velocity: 0.4});
+  var scrollLog = new Scroller('sidebarTaskLog', {area: 300, velocity: 0.4});
 	// myContent
-	//$('sidebarTaskLog').addEvent('mouseenter', scrollLog.start.bind(scrollLog));
-	//$('sidebarTaskLog').addEvent('mouseleave', scrollLog.stop.bind(scrollLog));  
+	$('sidebarTaskLog').addEvent('mouseenter', scrollLog.start.bind(scrollLog));
+	$('sidebarTaskLog').addEvent('mouseleave', scrollLog.stop.bind(scrollLog));  
   
+  /*
   if($('sidebarTaskLog') != null) {
     // vars
     var minHeight = '200px';
@@ -76,5 +77,5 @@ window.addEvent('domready', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });    
 
-   }
+   }*/
 });

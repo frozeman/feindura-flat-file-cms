@@ -20,24 +20,34 @@
 * 
 * getLanguage($useLangPath = false, $returnLangArray = true, $standardLang = 'en')
 * 
-* readPage($page,$category = false)
-* 
 * savePage($category,$page,$contentArray)
+* 
+* readPage($page,$category = false)
 * 
 * loadPages($category = 0,$loadPagesInArray = true)
 * 
 * getPageCategory($page, $allPageIds = '')
 *
-* sortPages($pagesArray, $sortBy)
+* dateDayBeforeAfter($date,$givenLangFile = false)
+*
+* createHref($pageContent, $sessionId = false)
+*
+* sortPages($pageContentArrays, $sortBy = false)
 *
 * cleanSpecialChars($string,$replaceSign)
 * 
-*  
+* clearTitle($title)
+* 
+* encodeToUrl($string)
+* 
+* showMemoryUsage()
+* 
+* getBrowser($agent)
+* 
 */
 
 //error_reporting(E_ALL);
 include_once(dirname(__FILE__)."/../functions/sort.functions.php");
-
 
 class generalFunctions {
   
@@ -46,6 +56,7 @@ class generalFunctions {
   var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
   var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
   
+  var $statisticFunctions;
   
   // -> START ** constructor *****************************************************************************
   // the class constructor
@@ -58,6 +69,9 @@ class generalFunctions {
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $adminConfig;
     $this->categoryConfig = $categories;
+    
+    // GET FUNCTIONS
+    $this->statisticFunctions = new statisticFunctions();
   
     return true;
   }
@@ -243,7 +257,7 @@ class generalFunctions {
   // RETURNs a Array with the pageContent Array in it OR an Array with an Array with the page ID and the category ID
   // -----------------------------------------------------------------------------------------------------
   public function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
-                     $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
+                     $loadPagesInArray = true) {         // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
     
     // vars
     $pagesArray = array();
@@ -298,15 +312,15 @@ class generalFunctions {
       // opens every category dir and stores the arrays of the pages in an array
       if(is_dir($dir)) {
       
-      $pages = array();
+        $pages = array();
+        
+        // checks if its a category or the non-category
+        if($category === false || $category == 0 || !is_numeric(basename($dir)))
+          $categoryId = false;
+        else
+          $categoryId = basename($dir);
       
-      // checks if its a category or the non-category
-      if($category === false || $category == 0 || !is_numeric(basename($dir)))
-        $categoryId = false;
-      else
-        $categoryId = basename($dir);
-      
-      $catDir = opendir($dir);
+        $catDir = opendir($dir);
         while(false !== ($file = readdir($catDir))) {
         if($file != "." && $file != "..") {
             if(is_file($dir."/".$file)){
@@ -421,7 +435,7 @@ class generalFunctions {
       
       // adds the category to the href attribute
       if($category != 0) {
-        $categoryLink = '/category/'.encodeToUrl($this->categoryConfig['id_'.$category]['name']).'/';
+        $categoryLink = '/category/'.$this->encodeToUrl($this->categoryConfig['id_'.$category]['name']).'/';
       } else $categoryLink = '';
       
       
@@ -463,8 +477,8 @@ class generalFunctions {
   // --------------------------------------------------------------------------------------------------
   // $pagesArray   [the array with the pageContent array (Array with pageContent Array)],
   // $category     [gruppe in der sich die Seiten befinden (String)]
-  public function sortPages($pageContentArrays,           // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
-                     $sortBy = false) {            // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if FALSE it detects the sortfunction by the category
+  public function sortPages($pageContentArrays,    // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
+                            $sortBy = false) {     // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if FALSE it detects the sortfunction by the category
     
     if(is_array($pageContentArrays)) {
       // sorts the array with the given sort function
@@ -623,6 +637,5 @@ class generalFunctions {
           else $c_browser = "others";
           return $c_browser;
   }
-
 }
 ?>
