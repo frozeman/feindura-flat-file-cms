@@ -468,6 +468,9 @@ class feindura {
         }
              
         // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
+        $thumbnailBefore = false;
+        $thumbnailAfter = false;
+        
         if(!empty($linkThumbnail)) {
           if($this->thumbnailBefore !== true)
             $thumbnailBefore = $this->thumbnailBefore;
@@ -476,6 +479,9 @@ class feindura {
         }
         
         // CHECK if the LINKTEXT BEFORE & AFTER is !== true
+        $linkTextBefore = false;
+        $linkTextAfter = false;
+        
         if(!empty($linkText)) {
           if($this->linkTextBefore !== true)
             $linkTextBefore = $this->linkTextBefore;
@@ -484,17 +490,20 @@ class feindura {
         }
         
         // CHECK if the LINK BEFORE & AFTER is !== true
+        $linkBefore = false;
+        $linkAfter = false;
+        
         if($this->linkBefore !== true)
           $linkBefore = $this->linkBefore;
         if($this->linkAfter !== true)
           $linkAfter = $this->linkAfter;
         
+        
         // CHECK IF THUMBNAIL AFTER TEXT
         if($this->linkThumbnailAfterText === true)
           $linkString = $linkTextBefore.$linkText.$linkTextAfter.$thumbnailBefore.$linkThumbnail.$thumbnailAfter;
         else
-          $linkString = $thumbnailBefore.$linkThumbnail.$thumbnailAfter.$linkTextBefore.$linkText.$linkTextAfter;
-            
+          $linkString = $thumbnailBefore.$linkThumbnail.$thumbnailAfter.$linkTextBefore.$linkText.$linkTextAfter;            
         
         // -> create the LINK
         // ----------------------------
@@ -1324,6 +1333,9 @@ class feindura {
     }
     
     // CHECK if the TITLE BEFORE & AFTER is !== true
+    $titleBefore = false;
+    $titleAfter = false;
+    
     if(!empty($title)) {
       if($this->titleBefore !== true)
         $titleBefore = $this->titleBefore;
@@ -1332,6 +1344,9 @@ class feindura {
     }
     
     // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
+    $thumbnailBefore = false;
+    $thumbnailAfter = false;
+    
     if(!empty($pageThumbnail)) {
       if($this->thumbnailBefore !== true)
         $thumbnailBefore = $this->thumbnailBefore;
@@ -1340,6 +1355,9 @@ class feindura {
     }
       
     // CHECK if the CONTENT BEFORE & AFTER is !== true
+    $contentBefore = false;
+    $contentAfter = false;
+    
     if($this->contentBefore !== true)
       $contentBefore = $this->contentBefore;
     if($this->contentAfter !== true)
