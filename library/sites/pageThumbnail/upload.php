@@ -157,7 +157,7 @@ if($_POST['upload']) {
             imagejpeg($newImg,DOCUMENTROOT.$newFilePath,100);
           // SAVEIMAGE png
           if($fileExtension == 'png')
-            imagepng($newImg,DOCUMENTROOT.$newFilePath,100);
+            imagepng($newImg,DOCUMENTROOT.$newFilePath);
           
           // deletes the uploaded original file
           unlink(DOCUMENTROOT.$filePath);

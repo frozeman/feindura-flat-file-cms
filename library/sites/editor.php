@@ -133,14 +133,13 @@ if($_POST['save']) {
 // -------------------------------------------------------------------------------------------------------------------
 // show the PAGE CONTENT
 // ------------------------------------------------------------------------------
-// -> read PAGE (saved or given)
-$pageContent = $generalFunctions->readPage($page,$category);
 
+// -> read PAGE (saved or given)
 // -> CHECK for NEW PAGE
-if($pageContent === false)
-  $newPage = true;
-else
+if($pageContent = $generalFunctions->readPage($page,$category))
   $newPage = false;
+else
+  $newPage = true;
 
 // set Title
 if($newPage) {
@@ -148,7 +147,8 @@ if($newPage) {
   $pageTitle = $langFile['editor_h1_createpage'];
   $_GET['page'] = 'new';
   $page = 'new';
-} else {
+  
+} else {  
   $pageTitle = $pageContent['title'];  
 }
 
@@ -281,27 +281,25 @@ if(!$newPage) {
     $categoryInLink = '';
   else
     $categoryInLink = $adminConfig['varName']['category'].'='.$_GET['category'].'&amp;';
-
-
-// shows the page link
-if($adminConfig['speakingUrl'] == '')
-  $hostUrl = $adminConfig['url'].'/';
-else
-  $hostUrl = $adminConfig['url'];
-echo '<tr>
-      <td class="left">
-      <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
-      </td><td class="right">
-      <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
-      </td>
-      </tr>';
+  
+  
+  // shows the page link
+  if($adminConfig['speakingUrl'] == '')
+    $hostUrl = $adminConfig['url'].'/';
+  else
+    $hostUrl = $adminConfig['url'];
+  echo '<tr>
+        <td class="left">
+        <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
+        </td><td class="right">
+        <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
+        </td>
+        </tr>';
 }
-?>
-        
-    <tr><td class="leftBottom"></td><td></td></tr>
+?>        
+    <tr><td class="leftBottom"><p style="clear:both;"></p></td><td></td></tr>
+    </table>    
     
-    </table>
-    <br style="clear:both;" />
   </div>
   <!--<div class="bottom"></div>-->
 </div>
@@ -602,8 +600,8 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
   var setIdClass = HTMLEditor.on( 'instanceReady', function(e)
   {     
       // adds ID and a CLASS to the editors body tag
-      <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
-      <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
+      <?php if(!empty($editorStyleId)) echo "e.editor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
+      <?php if(!empty($editorStyleClass)) echo "e.editor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>      
       
       //alert( HTMLEditor.instances.HTMLEditor.document.getBody().getAttribute('id') );
       //alert( HTMLEditor.instances.HTMLEditor.document.getBody().getAttribute('class') );
@@ -613,20 +611,19 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
       
       
       // HACK1: onSelectionChange; because looses the body id and class on edit mode switching
-      HTMLEditor.instances.HTMLEditor.on( 'selectionChange', function(e) //selectionChange
+      e.editor.on( 'selectionChange', function(e) //selectionChange
       {      
           if(HTMLEditor.instances.HTMLEditor.document !== null) {
           <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
-          <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
+          <?php if(!empty($editorStyleClass)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
           }
       });
       
       // HACK2: onmouseout; because looses the body id and class on edit mode switching
-      $$('.cke_button_source')[0].addEvent( 'mouseout', function(e)
-      {   
+      $$('.cke_button_source')[0].addEvent( 'mouseout', function(e) {
           if(HTMLEditor.instances.HTMLEditor.document !== null) {
           <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
-          <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
+          <?php if(!empty($editorStyleClass)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
           }
       });
 

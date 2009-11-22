@@ -226,7 +226,7 @@ class general {
     //echo 'PAGE: '.$page.'<br />';   
     //echo 'CATEGORY: '.$category.'<br />';
     
-    if(include(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$category.$page)) {
+    if(@include(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$category.$page)) {
       
       // UNESCPAE the SINGLE QUOTES '
       $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
@@ -547,6 +547,7 @@ class general {
       
       // format title
       $title = preg_replace("/ +/", ' ', $title);
+      $title = str_replace('\\', '', $title);
       $title = htmlentities($title,ENT_QUOTES,'UTF-8');
       
       return $title;
