@@ -110,8 +110,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
   <script type="text/javascript" src="library/thirdparty/ckfinder/ckfinder.js"></script>
   
-  <!-- thirdparty/scroller
-  <script type="text/javascript" src="library/javascript/divScroll.js"></script> -->
+  <!-- thirdparty/scroller -->
+  <script type="text/javascript" src="library/javascript/divScroll.js"></script>
   
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  

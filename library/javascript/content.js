@@ -158,7 +158,6 @@ window.addEvent('domready', function() {
     	  slideVertical.hide();
     	  slideVertical.open = false;
     	}
-
   });
   
   // ADDs SMOOTHSCROLL to all ANCHORs

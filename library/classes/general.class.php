@@ -56,8 +56,6 @@ class generalFunctions {
   var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
   var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
   
-  var $statisticFunctions;
-  
   // -> START ** constructor *****************************************************************************
   // the class constructor
   // get the config arrays
@@ -69,13 +67,9 @@ class generalFunctions {
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $adminConfig;
     $this->categoryConfig = $categories;
-    
-    // GET FUNCTIONS
-    $this->statisticFunctions = new statisticFunctions();
   
     return true;
-  }
-  
+  }  
   
   // ** -- getLanguage ----------------------------------------------------------------------------------
   // looks for the standard Browser language
