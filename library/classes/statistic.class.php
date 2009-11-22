@@ -14,13 +14,13 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/functions/general.functions.php version 0.33
+// library/classes/general.class.php version 0.35
 
 
 //error_reporting(E_ALL);
 
 
-class statistic {
+class statisticFunctions {
   
   // PUBLIC
   // *********
@@ -33,14 +33,16 @@ class statistic {
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
-  public function statistic() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
- 
+  public function statisticFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+    global $adminConfig;
+    global $categories;
+    
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = include(dirname(__FILE__)."/../../config/adminConfig.php");
-    $this->categoryConfig = include(dirname(__FILE__)."/../../config/categoryConfig.php");
+    $this->adminConfig = $adminConfig;
+    $this->categoryConfig = $categories;
     
     // GET FUNCTIONS
-    $this->generalFunctions = new general();
+    $this->generalFunctions = new generalFunctions();
   
     return true;
   }

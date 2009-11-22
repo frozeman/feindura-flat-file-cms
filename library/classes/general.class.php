@@ -39,7 +39,7 @@
 include_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
 
-class general {
+class generalFunctions {
   
   // PUBLIC
   // *********
@@ -51,11 +51,13 @@ class general {
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
-  public function general() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
- 
+  public function generalFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+    global $adminConfig;
+    global $categories;
+    
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = include(dirname(__FILE__)."/../../config/adminConfig.php");
-    $this->categoryConfig = include(dirname(__FILE__)."/../../config/categoryConfig.php");
+    $this->adminConfig = $adminConfig;
+    $this->categoryConfig = $categories;
   
     return true;
   }

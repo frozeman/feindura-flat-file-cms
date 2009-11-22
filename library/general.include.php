@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* general.include.php version 0.1
+* general.include.php version 0.11
 */
 
 define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);

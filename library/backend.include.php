@@ -14,29 +14,28 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* backend.include.php version 0.16
+* backend.include.php version 0.20
 */
 
 require_once(dirname(__FILE__)."/general.include.php");
 
-@include_once(dirname(__FILE__)."/../config/adminConfig.php");
-@include_once(dirname(__FILE__)."/../config/websiteConfig.php");
-@include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+// get SETTINGS
+$adminConfig =       @include_once(dirname(__FILE__)."/../config/adminConfig.php");
+$websiteConfig =     @include_once(dirname(__FILE__)."/../config/websiteConfig.php");
+$categories =        @include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+$websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
-@include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
-
-//require_once(dirname(__FILE__)."/functions/general.functions.php");
-//require_once(dirname(__FILE__)."/functions/statistic.functions.php");
 require_once(dirname(__FILE__)."/functions/backend.functions.php");
 
 require_once(dirname(__FILE__)."/classes/general.class.php");
 require_once(dirname(__FILE__)."/classes/statistic.class.php");
 
 // GET FUNCTIONS
-$generalFunctions = new general();
-$statisticFunctions = new statistic();
+$generalFunctions = new generalFunctions();
+$statisticFunctions = new statisticFunctions();
 
-// *---* choose LANGUAGE START -----------------------------------------------------
+
+// ->> choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)
 // and includes the langFile
 
@@ -50,7 +49,6 @@ if(empty($_SESSION['language'])) {
 
 // includes the langFile which is set by the session var
 $langFile = include(dirname(__FILE__).'/lang/'.$_SESSION['language'].'.backend.php');
-
 
 // *---* choose LANGUAGE END -----------------------------------------------------
 

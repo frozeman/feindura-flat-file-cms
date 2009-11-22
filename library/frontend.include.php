@@ -14,21 +14,22 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* frontend.include.php version 0.19
+* frontend.include.php version 0.21
 */
 
 require_once(dirname(__FILE__)."/general.include.php");
 
-@include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
+// get SETTINGS
+$adminConfig =       @include_once(dirname(__FILE__)."/../config/adminConfig.php");
+$websiteConfig =     @include_once(dirname(__FILE__)."/../config/websiteConfig.php");
+$categories =        @include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+$websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
-//require_once(dirname(__FILE__)."/functions/general.functions.php");
-//require_once(dirname(__FILE__)."/functions/statistic.functions.php");
 require_once(dirname(__FILE__)."/functions/mysql.functions.php");
-
-require_once(dirname(__FILE__)."/functions/frontend.functions.php");
 
 require_once(dirname(__FILE__)."/classes/general.class.php");
 require_once(dirname(__FILE__)."/classes/statistic.class.php");
+require_once(dirname(__FILE__)."/classes/frontend.class.php");
 require_once(dirname(__FILE__)."/classes/feindura.class.php");
 
 ?>

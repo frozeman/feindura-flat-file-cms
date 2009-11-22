@@ -66,6 +66,7 @@ class feindura {
   
   var $generalFunctions;
   var $statisticFunctions;
+  var $frontendFunctions;
   
   var $language = 'de';                   // [String]               -> string with the COUNTRY CODE ("de", "en", ..), which is used by the feindura class (for warnings etc)
   var $languageFile = false;              // [Array]                -> Array of the languageFile (example: "/feindura/library/lang/en.frontend.php")
@@ -184,15 +185,21 @@ class feindura {
   // get the language File for the frontend
   // -----------------------------------------------------------------------------------------------------
   public function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-   
+    global $adminConfig;
+    global $websiteConfig;
+    global $categories;
+    
+    
+    
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = include(dirname(__FILE__)."/../../config/adminConfig.php");
-    $this->websiteConfig = include(dirname(__FILE__)."/../../config/websiteConfig.php");
-    $this->categoryConfig = include(dirname(__FILE__)."/../../config/categoryConfig.php");
+    $this->adminConfig = $adminConfig;
+    $this->websiteConfig = $websiteConfig;
+    $this->categoryConfig = $categories;
     
     // GET FUNCTIONS
-    $this->generalFunctions = new general();
-    $this->statisticFunctions = new statistic();
+    $this->generalFunctions = new generalFunctions();
+    $this->statisticFunctions = new statisticFunctions();
+    $this->frontendFunctions = new frontendFunctions();
     
     // save the website statistics
     // ***************************
