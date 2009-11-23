@@ -13,69 +13,54 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/sidebar.js version 0.1 (requires mootools-core and mootools-more)
-
+// javascript/sidebar.js version 0.3 (requires mootools-core and mootools-more)
 
 
 window.addEvent('domready', function() {
   
   // ->> LOG LIST
-  /*
+  // ------------
   if($('sidebarTaskLog') != null) {
-    var scrollLog = new divScroll('sidebarTaskLog', {area: 300, velocity: 0.4});
-  	// myContent
-  	$('sidebarTaskLog').addEvent('mouseenter', scrollLog.start.bind(scrollLog));
-  	$('sidebarTaskLog').addEvent('mouseleave', scrollLog.stop.bind(scrollLog));  
-  }*/
-  
-  if($('sidebarTaskLog') != null) {
+
     // vars
     var minHeight = '200px';
     var maxHeight = '450px';
-  
-    // -> adds the SCROLL to the LOG-list
-    var logScroll = new Fx.Scroll('sidebarTaskLog', {
-      offset: { 'x': 0, 'y': 0 },
-      duration: 2500,
-      wait: false,
-      transition: Fx.Transitions.Quad.easeInOut
-    });
-    
-    // scroll up
-    $('sidbarTaskLogScrollUp').addEvent('mouseover', function() {
-      logScroll.toTop();
-      // prevent tween back
-      $('sidebarTaskLog').tween('height',maxHeight);
-    });
-    
-    // scroll down
-    $('sidbarTaskLogScrollDown').addEvent('mouseover', function() {
-      logScroll.toBottom();
-      // prevent tween back
-      $('sidebarTaskLog').tween('height',maxHeight);
-    });
     
     // -> adds the TWEEN to the LOG-list
     $('sidebarTaskLog').setStyle('height',minHeight);
     
-    // mouseover
+    // TWEEN OUT
     $('sidebarTaskLog').addEvent('mouseover', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
-      logScroll.cancel();
     });
-    // mouseout
+    // TWEEN IN
     $('sidebarTaskLog').addEvent('mouseout', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
     
-    // mouseout scroll UP
-    $('sidbarTaskLogScrollUp').addEvent('mouseout', function(){
+    // TWEEN OUT sidebarScrollUp
+    $('sidbarTaskLogScrollUp').addEvent('mouseover', function() {
+      $('sidebarTaskLog').tween('height',maxHeight);
+    });
+    // TWEEN IN sidebarScrollUp
+    $('sidbarTaskLogScrollUp').addEvent('mouseout', function() {
       $('sidebarTaskLog').tween('height',minHeight);
-    });    
-    // mouseout scroll DOWN
-    $('sidbarTaskLogScrollDown').addEvent('mouseout', function(){
+    });
+    
+    // TWEEN OUT sidebarScrollDown
+    $('sidbarTaskLogScrollDown').addEvent('mouseover', function() {
+      $('sidebarTaskLog').tween('height',maxHeight);
+    });
+    // TWEEN IN sidebarScrollDown
+    $('sidbarTaskLogScrollDown').addEvent('mouseout', function() {
       $('sidebarTaskLog').tween('height',minHeight);
-    });    
+    });
+    
+    // add DIV SCROLLER
+    var logScroller = new divScroller('sidebarTaskLog', {area: 150,direction: 'y', velocity: 0.4,scrollSpeed: 60});
+  	// myContent
+  	$('sidebarTaskLog').addEvent('mouseenter', logScroller.start.bind(logScroller));
+  	$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller)); 
 
    }
 });
