@@ -84,14 +84,16 @@ if($_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
 // if not throw a warning
 startPageWarning();
 
+
+
+  //<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->
+  
+  // -> the javascript request of the sortable gets its error messages from this input
+  echo '<div id="sortPagesMessageBox">';  
+  echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
+  echo '</div>';
+
 ?>
-
-<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->
-
-<div id="sortPagesMessageBox"><?php echo $langFile['sortablePageList_info']; ?></div>
-<!-- the javascript request of the sortable gets its error messages from this input -->
-<div><input type="hidden" id="sortablePageList_status" value="<?php echo $langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty']; ?>" /></div>
-
 
 <h1><?php echo $langFile['sortablePageList_h1']; ?></h1>
 

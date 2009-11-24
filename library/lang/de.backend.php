@@ -281,7 +281,7 @@ $langFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnt
 $langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 $langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
-$langFile['sortablePageList_info'] = 'Du kannst per <b>Drag and Drop</b> die <b>Seiten Anordnung</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
+$langFile['sortablePageList_info'] = 'Du kannst per <b>Drag and Drop</b> die <b>Seiten-Anordnung</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
 $langFile['sortablePageList_save'] = 'Speichere die neue Anordnung ...';
 $langFile['sortablePageList_save_finished'] = '<span style=\'font-weight:bold;font-size:18px;\'>Neu Anordnung erfolgreich gespeichert!</span>';
 $langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];

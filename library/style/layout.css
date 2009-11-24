@@ -137,7 +137,7 @@ span.brown {
     position: relative;
     top: 0px;
     width: 100%;
-    min-width: 1135px;
+    min-width: 1255px;
     height: 150px;
     background: url(../image/bg/header.png) repeat-x;
     }
@@ -211,8 +211,9 @@ a#createdBy:hover {
     background-position: 0px -27px;
     }
 
-/* ----------------------- */
-/* --- MAINBODY */ 
+ /* ----------------------- */
+/* --- SIDEBARS */
+
 #leftSidebar {
     z-index: 2;
     position: absolute;
@@ -223,12 +224,37 @@ a#createdBy:hover {
     padding-bottom: 20px;
     }
 
+#rightSidebar {
+    z-index: 2;
+    position: absolute;
+    top: 145px;
+    left: 1035px;
+    width: 170px;
+    padding: 20px;
+    padding-bottom: 5px;
+    background: url(../image/bg/rightSidebar_bg.png) repeat-y;
+    color: #666666;
+    line-height: 18px;
+    }
+#rightSidebar .bottom {
+    z-index: 2;
+    position: absolute;
+    bottom: -25px;
+    left: 0px;
+    width: 210px;
+    height: 25px;
+    background: url(../image/bg/rightSidebar_bgBottom.png) no-repeat;
+    }
+
+
+/* ----------------------- */
+/* --- MAINBODY */
 #mainBody {
     z-index: 0;
     position: relative;
     top: -5px;
     width: 100%;
-    min-width: 1135px;
+    min-width: 1255px;
     background: url(../image/bg/mainBody.png) repeat-y #d8d8d8;
     }
   
@@ -250,7 +276,7 @@ a#createdBy:hover {
     position: relative;
     top: -15px;
     width: 100%px;
-    min-width: 1135px;
+    min-width: 1255px;
     clear: left;
     background: url(../image/bg/footer.png) repeat-x;
     }

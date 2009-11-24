@@ -41,9 +41,24 @@ editor.css version 0.1 */
     }
 
 /* ----------------------- */	
+/* - PAGE HEAD */ 
+
+#content .block.pageHead {
+    z-index: 0;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    background: url(../image/bg/content_block_pageHead.png) no-repeat !important; 
+    }
+
+#content .block.pageHead .bottom {
+    clear: both;
+    height: 0px;
+    }
+
+/* ----------------------- */	
 /* - PAGE-THUMBNAIL UPLOAD */  
 
-#content .block.pageHead  a.pageThumbnailUpload {
+#content .block.pageHead a.pageThumbnailUpload {
     display: block;
     position: absolute;
     top: 50px;

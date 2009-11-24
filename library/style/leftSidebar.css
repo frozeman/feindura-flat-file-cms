@@ -1,6 +1,6 @@
 /* Stylesheet format of the left sidebar menu (categories, pages) 
 * 
-* sidebar.css version 0.22
+* leftSidebar.css version 0.25
 * 
 * sidebarMenu und sidebarInfo */
 
@@ -16,7 +16,7 @@
 /* ----------------------- */
 /* --- sidebarMenu */
 
-.sidebarMenu {
+#leftSidebar .sidebarMenu {
     z-index: 0;
     position: relative;
     width: 210px;
@@ -26,7 +26,7 @@
     }
 
 /* top */
-.sidebarMenu .top {
+#leftSidebar .sidebarMenu .top {
     position: relative;
     height: 35px;
     overflow: hidden;
@@ -36,73 +36,73 @@
     text-decoration: none;    
     }
         
-.sidebarMenu .top span {
+#leftSidebar .sidebarMenu .top span {
     position: absolute;
     top: 9px;
     left: 43px;
     }
-.sidebarMenu .top.blue span {
+#leftSidebar .sidebarMenu .top.blue span {
     color: #536068; /* color: #668CA6; */    
     }
-.sidebarMenu .top.brown span {
+#leftSidebar .sidebarMenu .top.brown span {
     color: #536068; /* color: #668CA6; */ 
     }
   
-.sidebarMenu.free .top.blue {
+#leftSidebar .sidebarMenu.free .top.blue {
     background: url(../image/bg/sidebarMenu_freeTop_blue.png) repeat-x right top;
     }
-.sidebarMenu.free .top.brown {
+#leftSidebar .sidebarMenu.free .top.brown {
     background: url(../image/bg/sidebarMenu_freeTop_brown.png) repeat-x right top;
     } 
-.sidebarMenu.fixed .top.blue {
+#leftSidebar .sidebarMenu.fixed .top.blue {
     background: url(../image/bg/sidebarMenu_fixedTop_blue.png) repeat-x right top;
     }
-.sidebarMenu.fixed .top.brown {
+#leftSidebar .sidebarMenu.fixed .top.brown {
     background: url(../image/bg/sidebarMenu_fixedTop_brown.png) repeat-x right top;
     }
-.sidebarMenu.fixed .top.brown {
+#leftSidebar .sidebarMenu.fixed .top.brown {
     border-right: 1px solid #EED2A3;
     }
-.sidebarMenu.free .top {
+#leftSidebar .sidebarMenu.free .top {
     border-right: 0px solid #ffffff;
     }
 
-.sidebarMenu .top img {
+#leftSidebar .sidebarMenu .top img {
     display: inline-block;
     height: 35px;
     }
-.sidebarMenu.fixed .top img.icon {
+#leftSidebar .sidebarMenu.fixed .top img.icon {
     margin-left: 5px; /* -15px */
     }
-.sidebarMenu.free .top img.icon {
+#leftSidebar .sidebarMenu.free .top img.icon {
     margin-left: 4px;
     }
     
 /* content */
-.sidebarMenu .content {
+#leftSidebar .sidebarMenu .content {
     position: relative;
     background-color: #EEEFF7;
     }
 
-.sidebarMenu .content.dark {
+#leftSidebar .sidebarMenu .content.dark {
     border-right: 1px solid #666666;    
     }
-.sidebarMenu .content.white {
+#leftSidebar .sidebarMenu .content.white {
     border-right: 1px solid #BDBDB9;
     }
-.sidebarMenu .content.light {
+#leftSidebar .sidebarMenu .content.light {
     border-right: 1px solid #979797;
     }
-.sidebarMenu .content.brown {
+#leftSidebar .sidebarMenu .content.brown {
     border-right: 1px solid #E6BF7C;
     }    
-.sidebarMenu .content.blue {
+#leftSidebar .sidebarMenu .content.blue {
     border-right: 1px solid #89B5D6;
     }
 
 /* ------------------------- */
 /* - buttons */
-.sidebarMenu .content a {
+#leftSidebar .sidebarMenu .content a {
     display: block;
     height: 19px; /* original 35px */
     padding: 8px 0px;
@@ -114,71 +114,71 @@
     }
 
 /* dark */
-.sidebarMenu .content.dark a {
+#leftSidebar .sidebarMenu .content.dark a {
     background: url(../image/key/sidebarMenu_key_dark.png) repeat-x;
     color: #ffffff;
     }
-.sidebarMenu .content.dark a.active {
+#leftSidebar .sidebarMenu .content.dark a.active {
     background: url(../image/key/sidebarMenu_key_dark.png) repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
-.sidebarMenu .content.dark a:hover {
+#leftSidebar .sidebarMenu .content.dark a:hover {
     background: url(../image/key/sidebarMenu_key_dark.png) repeat-x 0px -35px;
     color: #333333;
     }
 
 /* white */
-.sidebarMenu .content.white a {
+#leftSidebar .sidebarMenu .content.white a {
     background: url(../image/key/sidebarMenu_key_white.png) repeat-x;
     color: #707F81;
     }
-.sidebarMenu .content.white a.active {
+#leftSidebar .sidebarMenu .content.white a.active {
     background: url(../image/key/sidebarMenu_key_white.png) repeat-x 0px -70px !important;
     color: #585F5F !important;
     }
-.sidebarMenu .content.white a:hover {
+#leftSidebar .sidebarMenu .content.white a:hover {
     background: url(../image/key/sidebarMenu_key_white.png) repeat-x 0px -35px;
     color: #ffffff;
     }
 
 /* light */
-.sidebarMenu .content.light a {
+#leftSidebar .sidebarMenu .content.light a {
     background: url(../image/key/sidebarMenu_key_light.png) repeat-x;
     color: #444444;
     }
-.sidebarMenu .content.light a.active {
+#leftSidebar .sidebarMenu .content.light a.active {
     background: url(../image/key/sidebarMenu_key_light.png) repeat-x 0px -70px !important;
     color: #444444 !important;
     }
-.sidebarMenu .content.light a:hover {
+#leftSidebar .sidebarMenu .content.light a:hover {
     background: url(../image/key/sidebarMenu_key_light.png) repeat-x 0px -35px;
     color: #ffffff;
     }
     
 /* brown */
-.sidebarMenu .content.brown a {
+#leftSidebar .sidebarMenu .content.brown a {
     background: url(../image/key/sidebarMenu_key_brown.png) repeat-x;
     color: #9B6B1D;
     }
-.sidebarMenu .content.brown a.active {
+#leftSidebar .sidebarMenu .content.brown a.active {
     background: url(../image/key/sidebarMenu_key_brown.png) repeat-x 0px -70px !important;
     color: #BE8423 !important;
     }
-.sidebarMenu .content.brown a:hover {
+#leftSidebar .sidebarMenu .content.brown a:hover {
     background: url(../image/key/sidebarMenu_key_brown.png) repeat-x 0px -35px;
     color: #ffffff;
     }
 
 /* blue */
-.sidebarMenu .content.blue a {
+#leftSidebar .sidebarMenu .content.blue a {
     background: url(../image/key/sidebarMenu_key_blue.png) repeat-x;
     color: #457A96;
     }
-.sidebarMenu .content.blue a.active {
+#leftSidebar .sidebarMenu .content.blue a.active {
     background: url(../image/key/sidebarMenu_key_blue.png) repeat-x 0px -70px !important;
     color: #668CA6 !important;
     }
-.sidebarMenu .content.blue a:hover {
+#leftSidebar .sidebarMenu .content.blue a:hover {
     background: url(../image/key/sidebarMenu_key_blue.png) repeat-x 0px -35px;
     color: #ffffff;
     }
@@ -186,7 +186,7 @@
 /* ------------------------- */
 /* - Pull up/down link */
 
-.sidebarMenu .top a {
+#leftSidebar .sidebarMenu .top a {
     display: inline-block;
     position: absolute;
     top: 0px;
@@ -196,14 +196,14 @@
     text-decoration: none;    
     }
 
-.sidebarMenu .top a {
+#leftSidebar .sidebarMenu .top a {
     background: url(../image/key/sidebarMenu_buttonUp.png) no-repeat right top;
     }
-.sidebarMenu.hidden .top a {
+#leftSidebar .sidebarMenu.hidden .top a {
     background: url(../image/key/sidebarMenu_buttonDown.png) no-repeat right top;
     } 
         
-.sidebarMenu .top a:hover {
+#leftSidebar .sidebarMenu .top a:hover {
     background-position: right -36px;
     }
 
@@ -211,31 +211,31 @@
 /* ------------------------- */
 /* - pullToogle link */
 
-.sidebarMenu .bottom a {
+#leftSidebar .sidebarMenu .bottom a {
     display: block;
     width: 100%;
     height: 13px; /* original 13px */ 
     text-decoration: none;
     background: url(../image/key/sidebarMenu_pullToogle.png) no-repeat right top;
     }
-.sidebarMenu .bottom a:hover {
+#leftSidebar .sidebarMenu .bottom a:hover {
     background-position: right -14px;
     }
 
 /* ------------------------- */
 /* - SIDEBAR INFO */
 
-.sidebarInfo {
+#leftSidebar .sidebarInfo {
     position: relative;
     top: 2px;
     left: 1px;
     width: 198px;
     min-height: 260px;
     padding: 0px;
-    background: url(../image/bg/sidebarInfo_bg.png) no-repeat;
+    background: url(../image/bg/leftSidebarInfo_bg.png) no-repeat;
     border-top: 1px solid #ffffff;
     }
-.sidebarInfo div.content {
+#leftSidebar .sidebarInfo div.content {
     position: relative;
     width: 165px;
     margin: 20px 20px;
@@ -244,7 +244,7 @@
     overflow: hidden;
     }
   
-.sidebarInfo h1 {
+#leftSidebar .sidebarInfo h1 {
     padding: 0px;
     margin: 0px;
     margin-top: 4px;
@@ -253,23 +253,23 @@
     font-size: 11px;
     color: #666666;
     }
-.sidebarInfo p {
+#leftSidebar .sidebarInfo p {
     color: #C57F3D;
     margin: 2px 0px;
     margin-bottom: 12px;
     }
-.sidebarInfo hr {    
+#leftSidebar .sidebarInfo hr {    
     height: 0px;
     margin: 15px 0px;
     border: none;
     border-top: 1px solid #E2E3E3;
     }
 
-.sidebarInfo ul {
+#leftSidebar .sidebarInfo ul {
     margin: 0px;
     margin-left: 6px;
     }
-.sidebarInfo ul li {    
+#leftSidebar .sidebarInfo ul li {    
     margin: 3px 0px;
     margin-left: 8px;
     margin-bottom: 8px;
@@ -280,7 +280,7 @@
 /* ------------------------- */
 /* - SIDEBAR LOG */
 
-.sidebarInfo #sidebarTaskLog {
+#leftSidebar .sidebarInfo #sidebarTaskLog {
     z-index: 1;
     position: relative;
     height: 450px;
@@ -288,7 +288,7 @@
     overflow: hidden;
     }
     
-.sidebarInfo .scrollUpDown {
+#leftSidebar .sidebarInfo .scrollUpDown {
     z-index: 2;
     position: absolute;
     height: 20px;

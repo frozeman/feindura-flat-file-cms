@@ -19,6 +19,7 @@ content.css version 0.2 */
 /* ---:- BLOCK */
 
 #content .block {
+    z-index: 1;
     position: relative;
     display: block;
     width: 766px;
@@ -32,6 +33,7 @@ content.css version 0.2 */
 #content .block .content { /* eliminate safari padding-problem */
     position: relative;
     padding: 1px 0px;
+    overflow: hidden;
     }
 #content .block.hidden .content{
     /*display: none;*/

@@ -85,7 +85,7 @@ window.addEvent('domready', function() {
   var clicked = false;
   var categoryOld;
   var categoryNew;
-  
+    
   if($('sortablePageList_status') != null)
     var sortablePageList_status = $('sortablePageList_status').get('value').split("|");
 
@@ -187,7 +187,8 @@ window.addEvent('domready', function() {
 					//-------------------------------------
           onRequest: function() {
             
-						//$('sortPagesMessageBox').set('html','<span style="text-decoration:blink;color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
+            // -> shows the sortMessageBox
+						$('sortPagesMessageBox').setStyle('display','block');
 						
             // put the save new order - text in the loadingBox AND show the loadingBox
             $$('#loadingBox .content')[0].set('html','<span style="text-decoration:blink;color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
@@ -197,13 +198,7 @@ window.addEvent('domready', function() {
             
 					},
 					//-------------------------------------
-					onSuccess: function(responseText) {
-            
-            // hide the loadingBox
-            //$('loadingBox').setStyle('visibility','hidden');
-            $('loadingBox').fade('show');
-            $('loadingBox').fade('out');
-            
+					onSuccess: function(responseText) {            
             	  
 					  // puts the right message which is get from the sortablePageList_status array (hidden input) in the sortPagesMessageBox
 					  //$('sortPagesMessageBox').set('html',sortablePageList_status[responseText.substr(6,1)]);
@@ -229,6 +224,11 @@ window.addEvent('domready', function() {
                 }
               });
             }
+            
+            // hide the loadingBox
+            //$('loadingBox').setStyle('visibility','hidden');
+            $('loadingBox').fade('show');
+            $('loadingBox').fade('out');
 					}
 				}).send();
 

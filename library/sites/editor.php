@@ -218,89 +218,89 @@ else
 ?>
   <div class="content">
    
-  <?php 
-  // -> show thumbnail if the page has one
-  if(!empty($pageContent['thumbnail'])) {
+    <?php 
+    // -> show thumbnail if the page has one
+    if(!empty($pageContent['thumbnail'])) {
+      
+      $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+      $thumbnailWidth = $thumbnailWidth[0];
+      
+      if($thumbnailWidth <= 200)
+        $thumbnailWidth = ' width="'.$thumbnailWidth.'"';
+      else
+        $thumbnailWidth = ' width="200"';
+      
+      echo '<div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
+      echo '<span class="toolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
+      echo '</div>';
     
-    $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-    $thumbnailWidth = $thumbnailWidth[0];
+    // -> show the thumbnail upload button if there is no thumbnail yet
+    } elseif(!$newPage &&
+            (($pageContent['category'] == 0 && $adminConfig['page']['thumbnailUpload']) ||
+            $categories['id_'.$pageContent['category']]['thumbnail'])) {  
+      
+        echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_title'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
+    }
+    ?>
     
-    if($thumbnailWidth <= 200)
-      $thumbnailWidth = ' width="'.$thumbnailWidth.'"';
-    else
-      $thumbnailWidth = ' width="200"';
-    
-    echo '<div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
-    echo '<span class="toolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
-    echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
-    echo '</div>';
-  
-  // -> show the thumbnail upload button if there is no thumbnail yet
-  } elseif(!$newPage &&
-          (($pageContent['category'] == 0 && $adminConfig['page']['thumbnailUpload']) ||
-          $categories['id_'.$pageContent['category']]['thumbnail'])) {  
-    
-      echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_title'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
-  }
-  ?>  
-  <table>     
+    <table>     
       <colgroup>
       <col class="left" />
       </colgroup>
   
-      <tr><td class="leftTop"></td><td></td></tr>
+      <tr><td class="leftTop"></td><td></td></tr>      
+      <?php
       
-<?php
-
-if(!$newPage)
-echo '<tr>
-      <td class="left">      
-      <span class="info toolTip" title="'.$langFile['editor_h1_id'].'::'.$langFile['editor_h1_id_tip'].'"><strong>'.$langFile['editor_h1_id'].'</strong></span>
-      </td><td class="right">
-      <span class="info">'.$_GET['page'].'</span>
-      </td>
-      </tr>';
-
-if($_GET['category'] == 0) // show only if categories exist
-  $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_h1_categoryid_noCategory'].'</span>';
-else
-  $categoryName = $_GET['category'].' <span style="color:#A6A6A6;">&rArr; '.$categories['id_'.$_GET['category']]['name'].'</span>';
-  
-echo '<tr>
-      <td class="left">
-      <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
-      </td><td class="right">
-      <span class="info">'.$categoryName.'</span>
-      </td>
-      </tr>';
-
-if(!$newPage) {
-  // shows the category var in the link or not
-  if($_GET['category'] == 0)
-    $categoryInLink = '';
-  else
-    $categoryInLink = $adminConfig['varName']['category'].'='.$_GET['category'].'&amp;';
-  
-  
-  // shows the page link
-  if($adminConfig['speakingUrl'] == '')
-    $hostUrl = $adminConfig['url'].'/';
-  else
-    $hostUrl = $adminConfig['url'];
-  echo '<tr>
-        <td class="left">
-        <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
-        </td><td class="right">
-        <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
-        </td>
-        </tr>';
-}
-?>        
-    <tr><td class="leftBottom"><p style="clear:both;"></p></td><td></td></tr>
+      if(!$newPage)
+      echo '<tr>
+            <td class="left">      
+            <span class="info toolTip" title="'.$langFile['editor_h1_id'].'::'.$langFile['editor_h1_id_tip'].'"><strong>'.$langFile['editor_h1_id'].'</strong></span>
+            </td><td class="right">
+            <span class="info">'.$_GET['page'].'</span>
+            </td>
+            </tr>';
+      
+      if($_GET['category'] == 0) // show only if categories exist
+        $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_h1_categoryid_noCategory'].'</span>';
+      else
+        $categoryName = $_GET['category'].' <span style="color:#A6A6A6;">&rArr; '.$categories['id_'.$_GET['category']]['name'].'</span>';
+        
+      echo '<tr>
+            <td class="left">
+            <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
+            </td><td class="right">
+            <span class="info">'.$categoryName.'</span>
+            </td>
+            </tr>';
+      
+      if(!$newPage) {
+        // shows the category var in the link or not
+        if($_GET['category'] == 0)
+          $categoryInLink = '';
+        else
+          $categoryInLink = $adminConfig['varName']['category'].'='.$_GET['category'].'&amp;';
+        
+        
+        // shows the page link
+        if($adminConfig['speakingUrl'] == '')
+          $hostUrl = $adminConfig['url'].'/';
+        else
+          $hostUrl = $adminConfig['url'];
+        echo '<tr>
+              <td class="left">
+              <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
+              </td><td class="right">
+              <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
+              </td>
+              </tr>';
+      }
+      ?>        
+      <tr><td class="leftBottom"></td><td></td></tr>
     </table>    
     
   </div>
-  <!--<div class="bottom"></div>-->
+  <div class="bottom"></div>
 </div>
 
 <?php

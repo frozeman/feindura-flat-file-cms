@@ -73,7 +73,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/layout.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/style/headerMenus.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/subMenu.css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="library/style/sidebar.css" media="screen" />  
+  <link rel="stylesheet" type="text/css" href="library/style/leftSidebar.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/style/rightSidebar.css" media="screen" /> 
   <link rel="stylesheet" type="text/css" href="library/style/content.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/statistic.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/categorySetup.css" media="screen" />
@@ -335,14 +336,26 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <?php } ?>
   
   <!-- ************************************************************************* -->
-  <!-- ** SIDEBAR ************************************************************** -->
+  <!-- ** LEFT-SIDEBAR ************************************************************** -->
   <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
   <div id="leftSidebar">
     <?php
 
-    include('library/sidebar.loader.php');
+    include('library/leftSidebar.loader.php');
     
     ?>
+  </div>
+  
+  <!-- ************************************************************************* -->
+  <!-- ** RIGHT-SIDEBAR ************************************************************** -->
+  <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
+  <div id="rightSidebar">
+    <?php
+
+    include('library/rightSidebar.loader.php');
+    
+    ?>
+    <div class="bottom"></div>
   </div>
   
   <!-- ******************************************************************************************* -->

@@ -1,0 +1,16 @@
+/* Stylesheet format of the left sidebar menu (categories, pages) 
+* 
+* rightSidebar.css version 0.1
+* 
+* */
+
+
+/* ----------------------- */
+/* --- sidebarMenu */
+
+#rightSidebar .hintIcon {
+    position: relative;
+    display: block;
+    left: 50px;
+    margin-bottom: 13px;
+    }
