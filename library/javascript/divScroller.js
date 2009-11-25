@@ -92,7 +92,7 @@ var divScroller = new Class({
 	},
 
 	scroll: function() { 
-	 
+
   	 /*
      $('output').set('html',
       'elementScroll X: ' + this.elementScroll.x + '<br />',

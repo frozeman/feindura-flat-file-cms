@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// javascript/sidebar.js version 0.3 (requires mootools-core and mootools-more)
+// javascript/sidebar.js version 0.32 (requires mootools-core and mootools-more)
 
 
 window.addEvent('domready', function() {
@@ -30,29 +30,29 @@ window.addEvent('domready', function() {
     $('sidebarTaskLog').setStyle('height',minHeight);
     
     // TWEEN OUT
-    $('sidebarTaskLog').addEvent('mouseover', function() {
+    $('sidebarTaskLog').addEvent('mouseenter', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
     });
     // TWEEN IN
-    $('sidebarTaskLog').addEvent('mouseout', function() {
+    $('sidebarTaskLog').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
     
     // TWEEN OUT sidebarScrollUp
-    $('sidbarTaskLogScrollUp').addEvent('mouseover', function() {
+    $('sidbarTaskLogScrollUp').addEvent('mouseenter', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
     });
     // TWEEN IN sidebarScrollUp
-    $('sidbarTaskLogScrollUp').addEvent('mouseout', function() {
+    $('sidbarTaskLogScrollUp').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
     
     // TWEEN OUT sidebarScrollDown
-    $('sidbarTaskLogScrollDown').addEvent('mouseover', function() {
+    $('sidbarTaskLogScrollDown').addEvent('mouseenter', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
     });
     // TWEEN IN sidebarScrollDown
-    $('sidbarTaskLogScrollDown').addEvent('mouseout', function() {
+    $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
     
@@ -60,7 +60,7 @@ window.addEvent('domready', function() {
     var logScroller = new divScroller('sidebarTaskLog', {area: 150,direction: 'y', velocity: 0.4,scrollSpeed: 60});
   	// myContent
   	$('sidebarTaskLog').addEvent('mouseenter', logScroller.start.bind(logScroller));
-  	$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller)); 
+  	$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller));
 
    }
 });

@@ -130,9 +130,10 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt')) {
          $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt');
          
-         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-20px;"></div>';
+         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-40px;"></div>';
          echo '<div id="sidebarTaskLog"><br />
-              <ul>';
+              <ul>
+              <br />';
          foreach($logContent as $logRow) {
           $logDateTime = substr($logRow,0,19);
           $logDate = $statisticFunctions->formatDate($logDateTime);
@@ -145,7 +146,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          }
          echo '</ul>
               <br /></div>';
-         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollDown.png) no-repeat;margin-top:-20px;"></div>';
+         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollDown.png) no-repeat;margin-top:-40px;"></div>';
       // no log
       } else
         echo $langFile['home_taskLog_nolog'];

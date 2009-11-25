@@ -539,11 +539,11 @@ class statisticFunctions {
   }
 
   
-  // ** -- addToDataString ----------------------------------------------------------------------------------
+  // ** -- addDataToString ----------------------------------------------------------------------------------
   // adds to a string like "wordula,1|wordlem,5|wordquer,3" a new word or count up an exisiting word
   // -----------------------------------------------------------------------------------------------------
-  public function addToDataString($dataArray,       // (Array) an array with Strings to look for in the dataString
-                           $dataString) {    // (String) the data String in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
+  public function addDataToString($dataArray,       // (Array) an array with Strings to look for in the dataString
+                                  $dataString) {    // (String) the data String in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
             
     $exisitingDatas = explode('|',$dataString);
             
@@ -674,7 +674,7 @@ class statisticFunctions {
           
           // -> adds the user BROWSER
           $userBrowser = $this->generalFunctions->getBrowser($_SERVER['HTTP_USER_AGENT']);
-          $websiteStatistic["userBrowsers"] = $this->addToDataString(array($userBrowser),$websiteStatistic["userBrowsers"]);
+          $websiteStatistic["userBrowsers"] = $this->addDataToString(array($userBrowser),$websiteStatistic["userBrowsers"]);
           
         // -> COUNT the SPIDER UP
         } elseif($websiteStatistic['spiderVisitCount'] == '')
@@ -857,7 +857,7 @@ class statisticFunctions {
             $searchWords = explode('+',$searchWords);    
             
             // adds the searchwords to the searchword data string
-            $pageContent['log_searchwords'] = $this->addToDataString($searchWords,$pageContent['log_searchwords']);
+            $pageContent['log_searchwords'] = $this->addDataToString($searchWords,$pageContent['log_searchwords']);
             
             /*
             $exisitingSearchWords = explode('|',$pageContent['log_searchwords']);

@@ -291,6 +291,6 @@
 #leftSidebar .sidebarInfo .scrollUpDown {
     z-index: 2;
     position: absolute;
-    height: 20px;
+    height: 40px;
     width: 165px;
     }

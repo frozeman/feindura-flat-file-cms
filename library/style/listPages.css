@@ -35,6 +35,7 @@ listPages.css version 0.16
     list-style: none;
     background: url(../image/bg/sortPages_liBg.png) no-repeat;
     white-space: nowrap;
+    overflow: hidden;
     }
 .listPages li:hover {    
     background-position: 0px -41px;

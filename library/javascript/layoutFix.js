@@ -20,17 +20,20 @@
 // fixes the problem that the leftSidebar is absoolute,
 // so it will not aitosize the relative parent element
 function layoutFix() {
-  // get the high of both elements
-  var leftSideBarHeight = $('leftSidebar').getSize().y;
-  var contentHeight = $('content').getSize().y;
   
-  // set the high of #mainBody as high as the highest element
-  $('mainBody').set('tween', {duration: '550', transition: Fx.Transitions.Pow.easeOut});
-  
-  if(leftSideBarHeight > contentHeight) {
-    $('mainBody').tween('height',leftSideBarHeight);
-  } else {    
-  	$('mainBody').setStyle('height', 'auto');
+  if($('leftSidebar') != null) {
+    // get the high of both elements
+    var leftSideBarHeight = $('leftSidebar').getSize().y;
+    var contentHeight = $('content').getSize().y;
+    
+    // set the high of #mainBody as high as the highest element
+    $('mainBody').set('tween', {duration: '550', transition: Fx.Transitions.Pow.easeOut});
+    
+    if(leftSideBarHeight > contentHeight) {
+      $('mainBody').tween('height',leftSideBarHeight);
+    } else {    
+    	$('mainBody').setStyle('height', 'auto');
+    }
   }
 }
 

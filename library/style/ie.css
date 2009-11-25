@@ -7,6 +7,7 @@
 /* png transparency hack */
 #logo, #header, #headerBlock, #footer, #mainMenu a,
 .sidebarMenu .top a, .sidebarMenu .top img,
+#rightSidebar .content, #rightSidebar .bottom,
 /* #content .block.warning .content, #content .block.info .content, */
 /*#content h1 a,*/
 #content a.fastUp,
@@ -64,9 +65,9 @@
 #content a.fastUp {
     z-index: 4;
     position: absolute !important;
-    left: 830px;
+    left: 885px;
     top: auto !important;
-    bottom: 50px;
+    bottom: 100px;
     }
     
 /* listPages */

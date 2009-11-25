@@ -355,7 +355,6 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
     include('library/rightSidebar.loader.php');
     
     ?>
-    <div class="bottom"></div>
   </div>
   
   <!-- ******************************************************************************************* -->

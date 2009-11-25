@@ -36,8 +36,8 @@ content.css version 0.2 */
     overflow: hidden;
     }
 #content .block.hidden .content{
-    /*display: none;*/
-    height: 0px !important;
+    display: none;
+    /*height: 0px !important;*/
     }
 #content .block .bottom {
     position: absolute;
@@ -233,7 +233,7 @@ content.css version 0.2 */
 #content a.fastUp {
     z-index: 4;
     position: fixed;
-    left: 1080px;
+    left: 1108px;
     top: 80px;
     display: block;
     width: 66px;

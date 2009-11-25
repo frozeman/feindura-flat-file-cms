@@ -616,6 +616,7 @@ $langFile['search_results_text4'] = '&Uuml;bereinstimmenden Satz gefunden';
 $langFile['search_results_text5'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
 $langFile['search_results_text6'] = '&Uuml;bereinstimmenden Satz gefunden';
 $langFile['search_results_text7'] = '&Uuml;bereinstimmungen im Text';
+$langFile['search_results_text8'] = '&Uuml;bereinstimmung mit der Seiten ID';
 $langFile['search_results_count'] = 'Treffer';
 $langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden
 $langFile['search_results_time_part2'] = 'Sekunden';

@@ -542,8 +542,10 @@ class generalFunctions {
   // $replaceString    [the string with which they should be replaced (String)]
   public function cleanSpecialChars($string,$replaceString = '') {
     
-    // allows only a-z and 0-9 and _
-    $string = preg_replace('/[^\w]/u', $replaceString, $string);
+    // removes multiple spaces
+    $string = preg_replace("/ +/", ' ', $string);
+    // allows only a-z and 0-9, "_", "." and " "
+    $string = preg_replace('/[^\w^.^ ]/u', $replaceString, $string);
     //$string = str_replace( array('å','è','ô','?','ä','|','@','[',']','ü','ç','∑','!','ó',',',";","*","∞","{",'}','^','¥','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ø',"$","ß",'"',"'","(",")"), $replaceSign, $string);
     
     return $string;

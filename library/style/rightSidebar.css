@@ -4,6 +4,30 @@
 * 
 * */
 
+/* ----------------------- */
+/* --- rightSidebar */
+
+#rightSidebar .content {
+    z-index: 2;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 170px;
+    padding: 20px;
+    padding-bottom: 5px;
+    background: url(../image/bg/rightSidebar_bg.png) repeat-y;
+    color: #666666;
+    line-height: 18px;
+    }
+#rightSidebar .bottom {
+    z-index: 2;
+    position: absolute;
+    bottom: -25px;
+    left: 0px;
+    width: 210px;
+    height: 25px;
+    background: url(../image/bg/rightSidebar_bgBottom.png) no-repeat;
+    }
 
 /* ----------------------- */
 /* --- sidebarMenu */

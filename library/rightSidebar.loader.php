@@ -20,8 +20,11 @@
 // if $_GET['site'] == 'pages'
 if($_GET['site'] == 'pages') {
  
+  echo '<div class="content">';
   echo '<img src="library/image/sign/hintIcon.png" class="hintIcon" />'.$langFile['sortablePageList_info'];
-
+  echo '<div class="bottom"></div>';
+  echo '</div>';
+  
 // -----------------------------------------------------------------------------------
 // SWITCH SITE
 } else {
