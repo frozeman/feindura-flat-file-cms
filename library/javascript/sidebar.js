@@ -28,6 +28,7 @@ window.addEvent('domready', function() {
     
     // -> adds the TWEEN to the LOG-list
     $('sidebarTaskLog').setStyle('height',minHeight);
+    $('sidebarTaskLog').setStyle('overflow','hidden');
     
     // TWEEN OUT
     $('sidebarTaskLog').addEvent('mouseenter', function() {

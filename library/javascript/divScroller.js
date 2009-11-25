@@ -74,14 +74,16 @@ var divScroller = new Class({
 
 	getCoords: function(event) { 
 		
+		var mouseEvent = new Event(event);
+		
 		this.elementScroll = this.element.getScroll();		
 		this.elementPos = this.element.getPosition();
 		
     this.elementPosX = this.elementPos.x + this.elementScroll.x;
     this.elementPosY = this.elementPos.y + this.elementScroll.y;
 		
-	  this.mousePosX = event.pageX - this.elementPosX;
-	  this.mousePosY = event.pageY - this.elementPosY;
+	  this.mousePosX = mouseEvent.page.x - this.elementPosX;
+	  this.mousePosY = mouseEvent.page.y - this.elementPosY;
 		
 		this.scrollWidthTopY = (1 - (this.mousePosY / this.options.area)) * this.options.scrollSpeed * this.options.velocity;
 		this.scrollWidthBottomY = (1 - ((this.element.getSize().y - this.mousePosY) / this.options.area)) * this.options.scrollSpeed * this.options.velocity;
@@ -108,12 +110,13 @@ var divScroller = new Class({
     // --------
     // TOP BOUNDARY
     if((this.options.direction == 'y' || this.options.direction == 'xy' || this.options.direction == 'both') &&
-       this.mousePosY < this.options.area && this.element.getScroll().y > 0) {       
+       this.mousePosY < this.options.area && this.element.getScroll().y > 0) {
   		this.element.scrollTo(this.element.getScroll().x,this.element.getScroll().y - this.scrollWidthTopY);
-  	}
+  	}  	
     // BOTTOM BOUNDARY
     if((this.options.direction == 'y' || this.options.direction == 'xy' || this.options.direction == 'both') &&
-       (this.element.getSize().y - this.mousePosY) < this.options.area && this.element.getScroll().y < this.element.getScrollSize().y) {       
+       (this.element.getSize().y - this.mousePosY) < this.options.area && this.element.getScroll().y < this.element.getScrollSize().y) {
+            
   		this.element.scrollTo(this.element.getScroll().x,this.element.getScroll().y + this.scrollWidthBottomY);
   	}
     

@@ -280,17 +280,26 @@
 /* ------------------------- */
 /* - SIDEBAR LOG */
 
-#leftSidebar .sidebarInfo #sidebarTaskLog {
+#leftSidebar #sidebarTaskLog {
     z-index: 1;
     position: relative;
     height: 450px;
     border-bottom: 1px solid #ffffff;
-    overflow: hidden;
+    overflow: auto;
     }
     
-#leftSidebar .sidebarInfo .scrollUpDown {
+#leftSidebar .scrollUpDown {
     z-index: 2;
     position: absolute;
-    height: 40px;
+    height: 30px;
     width: 165px;
+    }
+
+/* links */   
+#leftSidebar #sidebarTaskLog a {
+    text-decoration: none;
+    color: #666666;
+    }
+#leftSidebar #sidebarTaskLog a:hover {
+    color: #3A7AA5;
     }

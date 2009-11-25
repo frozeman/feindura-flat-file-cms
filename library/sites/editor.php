@@ -120,7 +120,7 @@ if($_POST['save']) {
       
     if($generalFunctions->savePage($category,$page,$_POST)) {
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog($logText,$_POST['title']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog($logText,'<a href="index.php?category='.$category.'&amp;page='.$page.'">'.$_POST['title'].'</a>'); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['editor_savepage_error_save'];
   }

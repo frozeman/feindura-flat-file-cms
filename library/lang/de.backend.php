@@ -104,6 +104,7 @@ $langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
 // ----------- sidebar.include.php
 
 $langFile['user_nousers'] = 'Keine Benutzer angelegt';
+$langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------- FEINDURA TEXTs
@@ -313,6 +314,9 @@ $langFile['txt_adminSetup_writeAccess_error'] = 'ist nicht beschreibbar';
 $langFile['adminSetup_fmsSettings_error_save'] = $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/adminConfig.php';
 
 $langFile['adminSetup_fmsSettings_h1'] = 'Grund Einstellungen';
+
+$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'] = '[span class=hint]Der Pfad sollte au&szlig;erhalb des feindura Ordners liegen, wenn der feindura Ordner passwortgesch&uuml;zt ist.[/span]';
+
 $langFile['adminSetup_fmsSettings_feld1'] = 'Webseiten URL';
 $langFile['adminSetup_fmsSettings_feld1_tip'] = 'Die URL ihrer Webseite wird automatisch eingef&uuml;gt.';
 $langFile['adminSetup_fmsSettings_feld1_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
@@ -322,12 +326,12 @@ $langFile['adminSetup_fmsSettings_feld2_tip'] = 'Der Hauptpfad wird automatisch 
 $langFile['adminSetup_fmsSettings_feld2_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
 $langFile['adminSetup_fmsSettings_feld2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
 $langFile['adminSetup_fmsSettings_feld3'] = 'Speicherpfad';
-$langFile['adminSetup_fmsSettings_feld3_tip'] = 'Der [b]relative Pfad[/b] wo die Flatfiles mit dem Seiteninhalt gespeichert werden.';
+$langFile['adminSetup_fmsSettings_feld3_tip'] = 'Der [b]relative Pfad[/b] wo die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld3_inputTip'] = 'Relativer Pfad::Relativ zum [b]'.$adminConfig['basePath'].'[/b] Ordner.[br /][br /]Beginnt ohne &quot;/&quot;';
 $langFile['adminSetup_fmsSettings_feld4'] = 'Daten Upload Pfad';
-$langFile['adminSetup_fmsSettings_feld4_tip'] = '[b]Absoluter Pfad[/b]. Hier werden die Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span]';
+$langFile['adminSetup_fmsSettings_feld4_tip'] = '[b]Absoluter Pfad[/b]. Hier werden die Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld5'] = 'Sprachdateien Pfad';
-$langFile['adminSetup_fmsSettings_feld5_tip'] = 'Sprachdateien k&ouml;nnen verwendet werden um eine Webseite Mehrsprachig zu gestalten.[br /][br /]Die Sprachdateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.';
+$langFile['adminSetup_fmsSettings_feld5_tip'] = 'Sprachdateien k&ouml;nnen verwendet werden um eine Webseite Mehrsprachig zu gestalten.[br /][br /]Die Sprachdateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld6'] = 'Stylesheetdateien Pfad';
 $langFile['adminSetup_fmsSettings_feld6_tip'] = 'Der [b]absolute Pfad[/b] in dem sich die Stylesheet-Dateien der Webseite befinden.[br /][br /]Die Stylesheet-Dateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.';
 $langFile['adminSetup_fmsSettings_varName1'] = 'Seiten Variablenname';
