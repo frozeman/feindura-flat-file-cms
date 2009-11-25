@@ -452,7 +452,7 @@ class feindura {
         // -> LINK TITLE
         // *****************
         // -> create the text
-        if($linkText === true) {         
+        if($linkText === true) {
         
           // title with category name
           if($this->linkShowCategory && $pageContent['category']) {

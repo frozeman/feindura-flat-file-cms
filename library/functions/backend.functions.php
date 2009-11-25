@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.12
+* library/functions/backend.functions.php version 1.15
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -80,7 +80,8 @@ function redirect($goToCategory, $goToPage, $time = 2) {
 // open the .htpasswd file and checks the username for: is "admin", "adminstrator", "superuser" or "root" and return true, if no one exists also return true
 // -----------------------------------------------------------------------------------------------------
 function isAdmin() {
- 
+  global $adminConfig;
+  
   $currentUser = strtolower(getenv("REMOTE_USER"));
   
   // checks if the current user has a username like:
@@ -88,7 +89,7 @@ function isAdmin() {
     return true;
   } else { // otherwise it checks if in the htpasswd is one of the above usernames, if not return true
     // checks for userfile
-    if($getHtaccess = @file(dirname(__FILE__).'/../../.htaccess')) {
+    if($getHtaccess = @file(DOCUMENTROOT.$adminConfig['basePath'].'.htaccess')) {      
 
       // try to find the .htpasswd path
       foreach($getHtaccess as $htaccessLine) {
@@ -102,18 +103,18 @@ function isAdmin() {
       
       // go trough users in .htpasswd, if there is any user with the above names
       // and current user have not such a username return false
-      if($getHtpasswd = @file($passwdFilePath)) {
+      if($getHtpasswd = @file($passwdFilePath)) {        
         
         $adminExists = false;        
         foreach($getHtpasswd as $htpasswdLine) {
           $user = explode(':',strtolower($htpasswdLine));          
           
-          if($user[0] == 'admin' || $user[0] == 'administrator' || $user[0] == 'root' || $user[0] == 'superuser' || $currentUser == 'frozeman')
+          if($user[0] == 'admin' || $user[0] == 'administrator' || $user[0] == 'root' || $user[0] == 'superuser' || $user[0] == 'frozeman')
             $adminExists = true;
         }
-      
+        
         // checks if the currentuser has such a name
-        if($adminExists) {
+        if($adminExists) {          
           return false; // ONLY WHEN AN ADMIN EXITS AND THE CURRENT USER ISNT THE ADMIN return false
         } else
           return true;
@@ -121,11 +122,10 @@ function isAdmin() {
       } else
         return true;
       
-    } else { // there is no user file
+    } else { // there is no user file      
       return true;
     }    
-  }  
-  return true;  
+  } return true;  
 }
 
 // ** -- saveCategories ----------------------------------------------------------------------------------

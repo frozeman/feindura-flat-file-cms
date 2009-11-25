@@ -287,13 +287,15 @@ class statisticFunctions {
       flock($logFile,2);    
       fwrite($logFile,$newLog."\n");    
       $count = 1;
-      foreach($oldLog as $oldLogRow) {
-        fwrite($logFile,$oldLogRow);
-        // stops the log after 120 entries
-        if($count == $maxEntries)
-          break;
-        $count++;
-      }    
+      if(!empty($oldLog)) {
+        foreach($oldLog as $oldLogRow) {
+          fwrite($logFile,$oldLogRow);
+          // stops the log after 120 entries
+          if($count == $maxEntries)
+            break;
+          $count++;
+        }
+      }  
       flock($logFile,3);
       fclose($logFile);
       
