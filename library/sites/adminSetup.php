@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.24
+* adminSetup.php version 2.26
 */
 
 //error_reporting(E_ALL);
@@ -273,17 +273,19 @@ if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt'))
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
 
-// check lang folder/files      
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath']);
-$langDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['langPath']);
-while (false !== ($file = @readdir($langDir))) {
-if($file!="." && $file!="..") {
-    if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['langPath']."/".$file)){
-      $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath'].$file);
+// check lang folder/files
+if(!empty($adminConfig['langPath'])) {
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath']);
+  $langDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['langPath']);
+  while (false !== ($file = @readdir($langDir))) {
+  if($file!="." && $file!="..") {
+      if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['langPath']."/".$file)){
+        $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath'].$file);
+      }
     }
   }
+  @closedir($langDir);
 }
-@closedir($langDir);
 
 // check page folder/files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].$adminConfig['savePath']);
@@ -345,7 +347,11 @@ else $hidden = '';
       <label for="cfg_url"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld1'].'::'.$langFile['adminSetup_fmsSettings_feld1_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_feld1'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_url" name="cfg_url"<?php if($adminConfig['url'] != $_SERVER["HTTP_HOST"]) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_feld1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld1_inputTip']; ?>" />
+      <?php
+      $basePath = str_replace('www.','',$adminConfig['url']);
+      $checkPath = str_replace('www.','',$_SERVER["HTTP_HOST"]);
+      ?>
+      <input id="cfg_url" name="cfg_url"<?php if($basePath != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_feld1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld1_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">

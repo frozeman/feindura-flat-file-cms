@@ -306,7 +306,7 @@ $langFile['form_errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
 $langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> Version';
 $langFile['adminSetup_phpVersion'] = 'PHP Version';
 $langFile['adminSetup_srvRootPath'] = 'Server-Root-Pfad';
-$langFile['adminSetup_writeAccess'] = 'Bei folgenden Dateien und Verzeichnissen m&uuml;ssen die Schreibrechte auf <span class="toolTip" title="Schreibrechte::Besitzer[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small][br /]Gruppen[br /][small]Lesen/Ausf&uuml;hren[/small][br /]&Ouml;ffentlich[br /][small]Lesen/Ausf&uuml;hren[/small]" style="text-decoration: underline;">755</span> gesetzt werden';
+$langFile['adminSetup_writeAccess'] = 'Bei folgenden Dateien und Verzeichnissen m&uuml;ssen die Schreibrechte auf <span class="toolTip" title="Schreibrechte::Besitzer[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small][br /]Gruppen[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small][br /]&Ouml;ffentlich[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small]" style="text-decoration: underline;">777</span> gesetzt werden';
 
 $langFile['txt_adminSetup_writeAccess_error'] = 'ist nicht beschreibbar';
 

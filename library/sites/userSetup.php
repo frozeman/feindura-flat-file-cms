@@ -12,7 +12,7 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 0.51
+verion 0.53
 
  -->
 <?php
@@ -90,8 +90,8 @@ $disable['fileimportuser'] = 1;		/* set to 1 to deactivate the 'Import User from
 /*  CONSTANTS  */
 /***************/
 define("AUTHNAME", "feindura CMS");
-define("PASSWDFILE", dirname(__FILE__)."/../../.htpasswd");
-define("ACCESSFILE", dirname(__FILE__)."/../../.htaccess");
+define("PASSWDFILE", DOCUMENTROOT.$adminConfig['basePath'].".htpasswd");
+define("ACCESSFILE", DOCUMENTROOT.$adminConfig['basePath'].".htaccess");
 define("SCRIPTVERSION","1.05");
 define("SERVERNAME", getenv("SERVER_NAME"));
 
@@ -1111,6 +1111,7 @@ function cryptpass($user, $newpass) {
 function adduser($user, $pass, &$status, &$newusers) {
   global $langFile;
 	global $languagearray;
+	global $statisticFunctions;
 
 	$cryptedpass = cryptpass($user, $pass);
 

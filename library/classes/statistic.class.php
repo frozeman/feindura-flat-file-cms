@@ -265,7 +265,7 @@ class statisticFunctions {
   // SAVE a log file with time and task which was done
   // -----------------------------------------------------------------------------------------------------
   public function saveTaskLog($task,               // (String) a description of the task which was performed
-                   $object = false) {   // (String) the page name or the name of the object on which the task was performed
+                              $object = false) {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
     $maxEntries = 119;

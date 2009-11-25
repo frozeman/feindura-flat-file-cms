@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.10
+* library/functions/backend.functions.php version 1.12
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -625,7 +625,11 @@ function folderIsEmpty($folder) {
 function checkBasePath() {
   global $adminConfig;
   
-  if($adminConfig['basePath'] != dirname($_SERVER['PHP_SELF']).'/' || $adminConfig['url'] != $_SERVER["HTTP_HOST"])
+  $basePath = str_replace('www.','',$adminConfig['url']);
+  $checkPath = str_replace('www.','',$_SERVER["HTTP_HOST"]);
+  
+  if($adminConfig['basePath'] !=  dirname($_SERVER['PHP_SELF']).'/' ||
+     $basePath != $checkPath)
     return false;
   else return true;
 }
