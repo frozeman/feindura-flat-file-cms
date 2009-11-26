@@ -83,3 +83,13 @@ span.info {
 span.info strong {
     color: #71A1BD !important;
     }
+
+/* ----------------------- */	
+/* - VISIT-TIME */  
+
+#visitTimeMaxContainer {
+    width: 180px;
+    }
+#visitTimeMinContainer {
+    width: 180px;
+    }

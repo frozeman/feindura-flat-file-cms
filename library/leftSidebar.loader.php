@@ -136,7 +136,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
               <br />';
          foreach($logContent as $logRow) {
           $logDateTime = substr($logRow,0,19);
-          $logDate = $statisticFunctions->formatDate($logDateTime);
+          $logDate = $statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($logDateTime));
           $logTime = $statisticFunctions->formatTime($logDateTime);
           // finds the "<br />" in the log row
           if($logBreak = strpos($logRow,'::'))            

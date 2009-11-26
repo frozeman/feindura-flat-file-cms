@@ -227,7 +227,7 @@ Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&
 
 $langFile['btn_quickmenu_categories'] = 'Kategorien';
 $langFile['btn_quickmenu_pages'] = 'Seiten von';
-$langFile['adminSetup_warning_phpversion'] = 'for full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
+$langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -243,12 +243,12 @@ $langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></
 $langFile['home_statistic_h1'] = 'Webseiten Statistik';
 
 $langFile['home_user_h1'] = 'Benutzer';
-$langFile['home_taskLog_h1'] = 'Letzte T&auml;tigkeiten';
+$langFile['home_taskLog_h1'] = 'letzte T&auml;tigkeiten';
 $langFile['home_taskLog_nolog'] = 'keine';
 
-$langFile['home_mostVisitedPage_h1'] = 'Die 10 meist besuchten Seiten';
+$langFile['home_mostVisitedPage_h1'] = 'die 10 meist besuchten Seiten';
 $langFile['home_lastEditedPage_h1'] = 'zuletzt bearbeitete Seiten';
-$langFile['home_longestViewedPage_h1'] = 'Die 10 am l&auml;ngsten betrachteten Seiten';
+$langFile['home_longestViewedPage_h1'] = 'die 10 am l&auml;ngsten betrachteten Seiten';
 
 $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
 $langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese gekommen.';
@@ -347,7 +347,7 @@ $langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL Format';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URL';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example/example.html';
 $langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL mit Variablen';
-$langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['page'].'=1&amp;'.$adminConfig['varName']['category'].'=1';
+$langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
 $langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format welches f&uuml;r die Seiten Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
 
 // ---------- speaking url ERRORs

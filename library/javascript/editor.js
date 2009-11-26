@@ -72,13 +72,24 @@ window.addEvent('domready', function() {
      // slides the hotky div in, on start
      slideVisitTimeMax.hide();
     
-     // sets the SLIDE OUT on MOUSE OVER
-     $('visitTimeMax').addEvent('mouseover', function(e){  	   
+     // sets the SLIDE OUT on MOUSE ENTER
+     $('visitTimeMax').addEvent('mouseenter', function(e){  	   
     		e.stop();    		
     		slideVisitTimeMax.slideIn();
      });
-     // sets the SLIDE IN on MOUSE OUT
-     $('visitTimeMax').addEvent('mouseout', function(e){   
+     // sets the SLIDE IN on MOUSE LEAVE
+     $('visitTimeMax').addEvent('mouseleave', function(e){   
+    		e.stop();    		
+    		//slideVisitTimeMax.slideOut();
+     });
+     
+     // sets the SLIDE OUT on MOUSE ENTER
+     $('visitTimeMaxContainer').addEvent('mouseenter', function(e){  	   
+    		e.stop();    		
+    		slideVisitTimeMax.slideIn();
+     });
+     // sets the SLIDE IN on MOUSE LEAVE
+     $('visitTimeMaxContainer').addEvent('mouseleave', function(e){   
     		e.stop();    		
     		slideVisitTimeMax.slideOut();
      });
@@ -94,13 +105,24 @@ window.addEvent('domready', function() {
      // slides the hotky div in, on start
      slideVisitTimeMin.hide();
     
-     // sets the SLIDE OUT on MOUSE OVER
-     $('visitTimeMin').addEvent('mouseover', function(e){  	   
+     // sets the SLIDE OUT on MOUSE ENTER
+     $('visitTimeMin').addEvent('mouseenter', function(e){  	   
     		e.stop();    		
     		slideVisitTimeMin.slideIn();
      });
-     // sets the SLIDE IN on MOUSE OUT
-     $('visitTimeMin').addEvent('mouseout', function(e){   
+     // sets the SLIDE IN on MOUSE LEAVE
+     $('visitTimeMin').addEvent('mouseleave', function(e){   
+    		e.stop();
+    		//slideVisitTimeMin.slideOut();
+     });
+     
+     // sets the SLIDE OUT on MOUSE ENTER
+     $('visitTimeMinContainer').addEvent('mouseenter', function(e){  	   
+    		e.stop();    		
+    		slideVisitTimeMin.slideIn();
+     });
+     // sets the SLIDE IN on MOUSE LEAVE
+     $('visitTimeMinContainer').addEvent('mouseleave', function(e){   
     		e.stop();
     		slideVisitTimeMin.slideOut();
      });

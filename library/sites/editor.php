@@ -388,10 +388,10 @@ $hidden = ' hidden';
             else            
               echo '<span class="blue toolTip" title="'.$visitTime_max.'::">'.$visitTime_max_formated.'</span><br />';
             
-            $showTimeHead = false;
+            $showTimeHead = false;            
           }
         }
-        echo '</div>';
+        echo '</div>';    
         ?>
       </td>
     </tr>
@@ -406,7 +406,8 @@ $hidden = ' hidden';
         foreach($visitTimes_min as $visitTime_min) {          
           if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min)) {
             if($showTimeHead)
-              echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br /><div id="visitTimeMinContainer">';
+              echo '<span class="blue toolTip" id="visitTimeMin" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />
+              <div id="visitTimeMinContainer">';
             else            
               echo '<span class="blue toolTip" title="'.$visitTime_min.'::">'.$visitTime_min_formated.'</span><br />';
           
