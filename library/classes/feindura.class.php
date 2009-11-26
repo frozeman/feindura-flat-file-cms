@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.31
+* library/classes/frontend.classes.php version 1.33
 * 
 */
 
@@ -1035,14 +1035,6 @@ class feindura {
   public function getCurrentPage() {
     global $_GET;
     
-    // vars
-    $pageId = false;
-    
-    // set PAGE GET var
-    if(!empty($_GET[$this->varNames['page']]) && is_numeric($_GET[$this->varNames['page']]))
-      $page = $_GET[$this->varNames['page']]; // get the page ID from the $_GET var
-    
-    
     // ->> GET PAGE is an ID
     // *********************
     if(isset($_GET[$this->varNames['page']]) &&
@@ -1050,7 +1042,7 @@ class feindura {
        
       // set PAGE GET var
       if(!empty($_GET[$this->varNames['page']]))
-        $pageId = $_GET[$this->varNames['page']]; // get the category ID from the $_GET var
+        return $_GET[$this->varNames['page']]; // get the category ID from the $_GET var
     
     // ->> GET PAGE is a NAME
     // **********************
@@ -1061,7 +1053,7 @@ class feindura {
       $pages = $this->loadPages($this->category);
       //print_r($this->storedPages);
       if($pages) {
-        foreach($pages as $page) {          
+        foreach($pages as $page) {
           $transformedCategory = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
           
           // RETURNs the right page Id
@@ -1071,7 +1063,7 @@ class feindura {
         }
       }  
     }
-    return $pageId;
+    return false;
   }
   // -> *ALIAS* OF getCurrentPage ***********************************************************************
   public function getPage() {
@@ -1084,9 +1076,6 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   public function getCurrentCategory() {
     global $_GET;
-   
-    // var
-    $categoryId = false;
     
     // ->> GET CATEGORY is an ID
     // *************************
@@ -1095,7 +1084,7 @@ class feindura {
        
       // set CATEGORY GET var
       if(!empty($_GET[$this->varNames['category']]))
-        $categoryId = $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
+        return $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
     
     // ->> GET CATEGORY is a NAME
     // **************************
@@ -1111,7 +1100,7 @@ class feindura {
         }
       }      
     }
-    return $categoryId;
+    return false;
   }
   // -> *ALIAS* OF getCurrentCategory ***********************************************************************
   public function getCategory() {
