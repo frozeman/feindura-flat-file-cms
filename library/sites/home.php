@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-home.php version 0.7
+home.php version 0.82
 
 */
 
@@ -188,8 +188,9 @@ if(!empty($adminConfig['user']['info'])) {
         $logDateTime = substr($logRow,0,19);
         $logDate = $statisticFunctions->formatDate($logDateTime);
         $logTime = $statisticFunctions->formatTime($logDateTime);
+        $logUrl = substr($logRow,20);
  
-        echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logRow.'" class="blue">'.str_replace('http://','',substr($logRow,20)).'</a></li>';
+        echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
         
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';
