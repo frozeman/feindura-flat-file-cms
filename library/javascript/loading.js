@@ -104,7 +104,7 @@ window.addEvent('domready', function() {
           lastTween = true;
       });
       
-      $('documentSaved').fireEvent('load', $('documentSaved'), 1000);
+      $('documentSaved').fireEvent('load', $('documentSaved'), 300);
       
     }
   });

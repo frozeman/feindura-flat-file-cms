@@ -22,8 +22,8 @@ $adminConfig['page']['createPages'] =     'true';
 $adminConfig['page']['thumbnailUpload'] = 'true';
 
 $adminConfig['editor']['enterMode'] =   'br';
-$adminConfig['editor']['styleFile'] =   '/fabianruss/style/layout.css';
-$adminConfig['editor']['styleId'] =     'feinduraEditorStyles';
+$adminConfig['editor']['styleFile'] =   '/gratz/style/layout.css';
+$adminConfig['editor']['styleId'] =     'feinduraStyles';
 $adminConfig['editor']['styleClass'] =  '';
 
 $adminConfig['pageThumbnail']['width'] =      '150';
