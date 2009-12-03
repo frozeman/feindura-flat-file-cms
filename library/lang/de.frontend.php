@@ -28,8 +28,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // --------- FRONTEND Error texts
 
-$frontendLangFile['error_noPage'] = 'Die angeforderte Seite existiert nicht';
-$frontendLangFile['error_pageClosed'] = 'Die angeforderte Seite ist zur Zeit nicht &ouml;ffentlich';
+$frontendLangFile['error_noPage'] = 'Die Seite existiert nicht';
+$frontendLangFile['error_pageClosed'] = 'Die Seite ist zur Zeit nicht &ouml;ffentlich';
 
 
 // ---------------------------------------------------------------------------------------------------------------------

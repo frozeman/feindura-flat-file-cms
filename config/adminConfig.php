@@ -17,17 +17,17 @@ $adminConfig['user']['editLanguage'] =    'true';
 $adminConfig['user']['editStylesheet'] =  '';
 $adminConfig['user']['info'] =        '';
 
-$adminConfig['setStartPage'] =            '';
-$adminConfig['page']['createPages'] =     'true';
-$adminConfig['page']['thumbnailUpload'] = 'true';
+$adminConfig['setStartPage'] =            'true';
+$adminConfig['page']['createPages'] =     '';
+$adminConfig['page']['thumbnailUpload'] = '';
 
 $adminConfig['editor']['enterMode'] =   'br';
 $adminConfig['editor']['styleFile'] =   '/gratz/style/layout.css';
 $adminConfig['editor']['styleId'] =     'feinduraStyles';
 $adminConfig['editor']['styleClass'] =  '';
 
-$adminConfig['pageThumbnail']['width'] =      '150';
-$adminConfig['pageThumbnail']['height'] =     '100';
+$adminConfig['pageThumbnail']['width'] =      '123';
+$adminConfig['pageThumbnail']['height'] =     '85';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;
