@@ -229,7 +229,7 @@ class feindura {
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************    
     // if no country code is given
-    if($language === false || !strlen($language) != 2) {
+    if($language === false || strlen($language) != 2) {
       // gets the BROWSER STANDARD language
       $this->language = $this->generalFunctions->getLanguage($this->adminConfig['langPath'],false); // returns a COUNTRY SHORTNAME
     } else

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/general.class.php version 0.35
+// library/classes/statistic.class.php version 0.36
 
 
 //error_reporting(E_ALL);
@@ -798,8 +798,10 @@ class statisticFunctions {
           $_SESSION['log_lastPage']['log_visitTime_max'] = $newMaxVisitTimes;
           $_SESSION['log_lastPage']['log_visitTime_min'] = $newMinVisitTimes;        
           
-          // -> SAVE the LAST PAGE
-          $this->generalFunctions->savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
+          // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
+          if(file_exists(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].'/'.$_SESSION['log_lastPage']['category'].'/'.$_SESSION['log_lastPage']['id'].'.php')) {
+            $this->generalFunctions->savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
+            }
         }
         // stores the time of the LAST PAGE in the session
         $_SESSION['log_lastPage'] = $pageContent;

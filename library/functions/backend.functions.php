@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.15
+* library/functions/backend.functions.php version 1.16
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -477,6 +477,8 @@ function saveEditedFiles($post) {
       
       // wandelt umlaut in HTML zeichen um
       $post['fileContent'] = htmlentities($post['fileContent'],ENT_NOQUOTES,'UTF-8');
+      // changes & back, because of the $auml;
+      $post['fileContent'] 	= str_replace("&amp;", "&", $post['fileContent']);
       // wandelt die php einleitungstags wieder in zeichen um
       $post['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$post['fileContent']);
       
@@ -484,13 +486,11 @@ function saveEditedFiles($post) {
       flock($file,2);
       fwrite($file,$post['fileContent']);
       flock($file,3);
-      fclose($file);
-      
+      fclose($file);      
       
       $_GET['status'] = $_POST['status'];
       $_GET['file'] = $_POST['file'];
-      return true;
-      
+      return true;      
       }
       
     // NEW FILE
@@ -506,8 +506,7 @@ function saveEditedFiles($post) {
         
         return true;
       }  
-    }
-    
+    }    
     return false;
 }
 
