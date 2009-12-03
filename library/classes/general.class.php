@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 1.03
+* library/functions/general.functions.php version 1.05
 *
 * FUNCTIONS ----------------------------
 * 
@@ -60,7 +60,7 @@ class generalFunctions {
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
-  public function generalFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function generalFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     global $adminConfig;
     global $categories;
     
@@ -79,7 +79,7 @@ class generalFunctions {
   // $useLangPath         [if here is given a ABSOLUT path he scans this folder for lang files, they should end with de or en.. (String or Boolean)],
   // $returnCountryCode   [if false he returns the array from the language File (Boolean)],
   // $standardLang        [standard country name for languages, if no supported ones is found in the browsers lang (String)]
-  public function getLanguage($useLangPath = true, $returnLangFile = true, $standardLang = 'de') {  
+  function getLanguage($useLangPath = true, $returnLangFile = true, $standardLang = 'de') {  
      
       // checks if other is a different path given
       // and if its a ABSOLUTE PATH
@@ -145,7 +145,7 @@ class generalFunctions {
   // $category         [die gruppe innerhalb der sich die datei befindet (String)],
   // $page          [die seite welche gespeichert werden soll (String)]
   // $contentArray  [Array mit dem Inhalt und den Daten der Seite (Array)]
-  public function savePage($category,$page,$contentArray) {
+  function savePage($category,$page,$contentArray) {
         
     // escaped ",',\,NUL undescapped aber wieder die "
     $contentArray['content'] = stripslashes($contentArray['content']);
@@ -219,7 +219,7 @@ class generalFunctions {
   // -----------------------------------------------------------------------------------------------------
   // $page      [the id of the site page which will be opened (String)]
   // $category  [the categroy id in which the page is (String)],
-  public function readPage($page,$category = false) {
+  function readPage($page,$category = false) {
       
     // fügt ein .php am Ende von $page an sofern es fehlt
     if(substr($page,-4) != '.php')
@@ -250,7 +250,7 @@ class generalFunctions {
   // go trough the category folders and loads the pageContent Array in an Array
   // RETURNs a Array with the pageContent Array in it OR an Array with an Array with the page ID and the category ID
   // -----------------------------------------------------------------------------------------------------
-  public function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
+  function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
                      $loadPagesInArray = true) {         // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
     
     // vars
@@ -337,7 +337,7 @@ class generalFunctions {
         closedir($catDir);
               
         // sorts the category
-        if($loadPagesInArray && is_array($pages) && !empty($categoryId)) {
+        if($loadPagesInArray && is_array($pages)) { // && !empty($categoryId) <- prevents sorting of the non-category
           if($this->categoryConfig['id_'.$categoryId]['sortbydate'])
             $pages = $this->sortPages($pages, 'sortByDate');
           else
@@ -359,7 +359,7 @@ class generalFunctions {
   // gets the category ID of a given page ID
   // RETURNs an array with the page category and the allPages Ids OR only the page category
   // ------------------------------------------------------------------------------------------------
-  public function getPageCategory($page,                    // (Number) the page ID, from which to get the category ID
+  function getPageCategory($page,                    // (Number) the page ID, from which to get the category ID
                            $allPageIds = '',         // (empty or Array) an array with all the page IDs and Category IDs
                            $returnPageIds = false) { // (Boolean) if TRUE it RETURNs an array with the category and the $allPageIds, otherwise only the page catgeory
     
@@ -389,7 +389,7 @@ class generalFunctions {
   // -> START -- dateDayBeforeAfter ***************************************************************************
   // replace the date with "tomorrow" and "today", if it is one day before or the same day
   // -------------------------------------------------------------------------------------------------------
-  public function dateDayBeforeAfter($date,$givenLangFile = false) { // (String with the format YYYY-MM-DD HH:MM) date which will be check for is today or tomorrow
+  function dateDayBeforeAfter($date,$givenLangFile = false) { // (String with the format YYYY-MM-DD HH:MM) date which will be check for is today or tomorrow
     global $langFile;
     
     if($givenLangFile === false)
@@ -415,7 +415,7 @@ class generalFunctions {
   // generates out of the a pageContent Array a href="" link for this page
   // RETURNs a String for the HREF attribute
   // -----------------------------------------------------------------------------------------------------
-  public function createHref($pageContent,               // (pageContent Array) the pageContent Array of the page
+  function createHref($pageContent,               // (pageContent Array) the pageContent Array of the page
                              $sessionId = false) {
     
     // vars
@@ -471,7 +471,7 @@ class generalFunctions {
   // --------------------------------------------------------------------------------------------------
   // $pagesArray   [the array with the pageContent array (Array with pageContent Array)],
   // $category     [gruppe in der sich die Seiten befinden (String)]
-  public function sortPages($pageContentArrays,    // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
+  function sortPages($pageContentArrays,    // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
                             $sortBy = false) {     // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if FALSE it detects the sortfunction by the category
     
     if(is_array($pageContentArrays)) {
@@ -503,7 +503,7 @@ class generalFunctions {
       // -> SORTS every CATEGORY
       $newPageContentArray = array();
       $category = false;   
-      foreach($categoriesArrays as $categoriesArray) {
+      foreach($categoriesArrays as $categoriesArray) {        
         
         // gets the current category
         if(isset($categoriesArray[0]))
@@ -516,8 +516,7 @@ class generalFunctions {
           else
             usort($categoriesArray, 'sortBySortOrder');
         } else
-          usort($categoriesArray, $sortBy);
-        
+          usort($categoriesArray, $sortBy);  
         
         
         // makes the category ascending, if its in the options
@@ -529,8 +528,7 @@ class generalFunctions {
           $newPageContentArray[] = $pageContent;
         }
       }
-    }
-      
+    }      
     return $newPageContentArray;
   }
 
@@ -540,7 +538,7 @@ class generalFunctions {
   // --------------------------------------------------------------------------------------------------
   // $string         [the string where the special chars should be removed  (String)],
   // $replaceString    [the string with which they should be replaced (String)]
-  public function cleanSpecialChars($string,$replaceString = '') {
+  function cleanSpecialChars($string,$replaceString = '') {
     
     // removes multiple spaces
     $string = preg_replace("/ +/", ' ', $string);
@@ -555,7 +553,7 @@ class generalFunctions {
   // ** -- clearTitle ----------------------------------------------------------------------------------
   // clears the title string from not allowed chars and change the speial chars into htmlentities
   // -----------------------------------------------------------------------------------------------------
-  public function clearTitle($title) {
+  function clearTitle($title) {
       
       // format title
       $title = preg_replace("/ +/", ' ', $title);
@@ -568,7 +566,7 @@ class generalFunctions {
   // ** -- encodeToUrl ----------------------------------------------------------------------------------
   // encode a String so that it can be used as url
   // -----------------------------------------------------------------------------------------------------
-  public function encodeToUrl($string) {
+  function encodeToUrl($string) {
       
       // format string
       $string = preg_replace("/ +/", '_', $string);    
@@ -596,7 +594,7 @@ class generalFunctions {
   // ** -- showMemoryUsage -------------------------------------------------------------------------------
   // display the usage of memory of the script
   // -----------------------------------------------------------------------------------------------------
-  public function showMemoryUsage() {
+  function showMemoryUsage() {
       $mem_usage = memory_get_usage(true);
       
       echo $mem_usage.' -> ';
@@ -614,7 +612,7 @@ class generalFunctions {
   // ** -- getBrowser -------------------------------------------------------------------------------
   // returns a the Browser Name
   // -----------------------------------------------------------------------------------------------------
-  public function getBrowser($agent) {
+  function getBrowser($agent) {
           if(ereg("Firefox", $agent)) $c_browser = "firefox";                       // Phoenix oder Firefox
           elseif((ereg("Nav", $agent)) ||
           (ereg("Gold", $agent)) ||

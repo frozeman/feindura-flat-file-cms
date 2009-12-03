@@ -37,7 +37,7 @@ class frontendFunctions {
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
-  public function frontendFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function frontendFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     global $adminConfig;
     global $categories;
     
@@ -55,7 +55,7 @@ class frontendFunctions {
   // ** -- none ----------------------------------------------------------------------------------
   // text
   // -----------------------------------------------------------------------------------------------------
-  public function none() {
+  function none() {
      return true;
   }
   

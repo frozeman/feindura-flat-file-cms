@@ -33,7 +33,7 @@ class statisticFunctions {
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
-  public function statisticFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function statisticFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     global $adminConfig;
     global $categories;
     
@@ -50,7 +50,7 @@ class statisticFunctions {
   // ** -- getmicrotime ------------------------------------------------------------------------------
   // returns a unix timestamp as float
   // -------------------------------------------------------------------------------------------------
-  public function getMicroTime(){
+  function getMicroTime(){
     list($usec, $sec) = explode(" ",microtime());
     return ((float)$usec + (float)$sec);
   }
@@ -58,7 +58,7 @@ class statisticFunctions {
   // ** -- secToMin ----------------------------------------------------------------------------------
   // changes seconds in minutes
   // -------------------------------------------------------------------------------------------------
-  public function secToTime($sec) {
+  function secToTime($sec) {
     $hours = floor($sec / 3600);
     $mins = floor(($sec -= ($hours * 3600)) / 60);  
     $seconds = floor($sec - ($mins * 60));
@@ -79,7 +79,7 @@ class statisticFunctions {
   // -------------------------------------------------------------------------------------------------
   // $givenDate       [],
   // $format          [the format of the date, "de" = dd.mm.yyyy or "int" = yyyy.mm.dd (String)]
-  public function formatDate($givenDate,               // (String like: yyyy-mm-dd hh:mm:ss) the date given in a database-date-format like: yyyy-mm-dd hh:mm:ss
+  function formatDate($givenDate,               // (String like: yyyy-mm-dd hh:mm:ss) the date given in a database-date-format like: yyyy-mm-dd hh:mm:ss
                       $format = false) {        // (false or String) the format to use ("eu" or "int")
                               
       $year = substr($givenDate,0,4);
@@ -105,7 +105,7 @@ class statisticFunctions {
   // -------------------------------------------------------------------------------------------------
   // $givenDate       [the date given in a database-date-format like: yyyy-mm-dd hh:mm:ss],
   // $showSeconds     [if true the secondes in the time will also be returned (Boolean)]
-  public function formatTime($givenDate,$showSeconds = false) {
+  function formatTime($givenDate,$showSeconds = false) {
       $hour = substr($givenDate,-8,2);
       $minute = substr($givenDate,-5,2);
       $second = ':'.substr($givenDate,-2,2);
@@ -120,7 +120,7 @@ class statisticFunctions {
   // ** -- formatHighNumber ----------------------------------------------------------------------------------
   // format a high number to 1 000 000,00
   // -------------------------------------------------------------------------------------------------
-  public function formatHighNumber($number,$decimalsNumber = 0) {  
+  function formatHighNumber($number,$decimalsNumber = 0) {  
     return number_format($number, $decimalsNumber, ',', ' ');
   }
   
@@ -130,7 +130,7 @@ class statisticFunctions {
   // with the array[0] =text before the date,
   // and array[1] = the date (in FORMAT YYYY-MM-DD), or FALSE
   // -----------------------------------------------------------------------------------------------------
-  public function validateDateFormat($dateString) {       // (String) the given string with an date on the end
+  function validateDateFormat($dateString) {       // (String) the given string with an date on the end
     
     if(!is_string($dateString))
       return false;
@@ -197,7 +197,7 @@ class statisticFunctions {
   // ** -- showVisitTime -----------------------------------------------------------------------------
   // SHOWs the visitTime as text
   // -------------------------------------------------------------------------------------------------
-  public function showVisitTime($time) {
+  function showVisitTime($time) {
     global $langFile;
     
     $hour = substr($time,0,2);
@@ -264,7 +264,7 @@ class statisticFunctions {
   // ** -- saveTaskLog --------------------------------------------------------------------------------
   // SAVE a log file with time and task which was done
   // -----------------------------------------------------------------------------------------------------
-  public function saveTaskLog($task,               // (String) a description of the task which was performed
+  function saveTaskLog($task,               // (String) a description of the task which was performed
                               $object = false) {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
@@ -306,7 +306,7 @@ class statisticFunctions {
   // ** -- saveRefererLog --------------------------------------------------------------------------------
   // SAVE a log file with links where the people are coming from
   // -----------------------------------------------------------------------------------------------------
-  public function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
+  function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
     $maxEntries = 300;
@@ -344,7 +344,7 @@ class statisticFunctions {
   // $searchWordString         [Der String der die suchworte enthält im Format: 'suchwort,1|suchwort,3|...'  (String)],
   // $minFontSize              [Die minimal Schriftartgröße (Number)],
   // $maxFontSize              [Die maximale Schriftartgröße (Number)]
-  public function createBrowserChart() {
+  function createBrowserChart() {
     global $websiteStatistic;
     global $langFile;
     
@@ -459,7 +459,7 @@ class statisticFunctions {
   // $searchWordString         [Der String der die suchworte enthält im Format: 'suchwort,1|suchwort,3|...'  (String)],
   // $minFontSize              [Die minimal Schriftartgröße (Number)],
   // $maxFontSize              [Die maximale Schriftartgröße (Number)]
-  public function createTagCloud($searchWordString,$minFontSize = 10,$maxFontSize = 20) {
+  function createTagCloud($searchWordString,$minFontSize = 10,$maxFontSize = 20) {
     global $langFile;
     
     if(!empty($searchWordString)) {
@@ -492,7 +492,7 @@ class statisticFunctions {
   // actual botlist from http://spiderlist.codeforgers.com/
   // require spiders.xml/spiders.txt
   // ---------------------------------------------------------------------------------------------------
-  public function isSpider() {
+  function isSpider() {
   
     if(isset($_SERVER['HTTP_USER_AGENT'])) {
       $userAgent = ($_SERVER['HTTP_USER_AGENT']);
@@ -544,7 +544,7 @@ class statisticFunctions {
   // ** -- addDataToString ----------------------------------------------------------------------------------
   // adds to a string like "wordula,1|wordlem,5|wordquer,3" a new word or count up an exisiting word
   // -----------------------------------------------------------------------------------------------------
-  public function addDataToString($dataArray,       // (Array) an array with Strings to look for in the dataString
+  function addDataToString($dataArray,       // (Array) an array with Strings to look for in the dataString
                                   $dataString) {    // (String) the data String in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
             
     $exisitingDatas = explode('|',$dataString);
@@ -636,7 +636,7 @@ class statisticFunctions {
   // - register user browser
   // - logs the last referers
   // -----------------------------------------------------------------------------------------------------
-  public function saveWebsiteStats() {
+  function saveWebsiteStats() {
     global $generalFunctions; 
     global $websiteStatistic;
     global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
@@ -716,7 +716,7 @@ class statisticFunctions {
   // needs to have a session startet with: session_start(); in the header of the HTML Page, to prevent multiple count of page visits
   // -----------------------------------------------------------------------------------------------------
   // $pageContent      [the array, given by the readPage($page,$category) function (Array)]
-  public function savePageStats($pageContent) {
+  function savePageStats($pageContent) {
       global $generalFunctions;
       global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
       global $HTTP_SESSION_VARS;
