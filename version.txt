@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 73
+Build 74
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 
+	build 74: slide in the non-category if empty
 
 1.0	-> name changed from FrozeMentSystem to feindura - Flat File Content Management System
 	-> complete redesigned

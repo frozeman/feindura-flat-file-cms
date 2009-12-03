@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.78
+listPages.php version 0.80
 
 */
 
@@ -116,8 +116,14 @@ array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocate
 // LIST CATEGORIES
 foreach($categories as $category) {
 
+  // -> LOAD the PAGES FROM the CATEGORY
+  $pages = $generalFunctions->loadPages($category['id']);
+  //print_r($pages);
+
   // shows after saving the right category open
-  if($opendCategory == $category['id'] || $_GET['category'] == $category['id'])
+  if(is_array($pages) &&                      // -> slide in the category if EMPTY
+     ($opendCategory == $category['id'] ||    // -> slide out the category if ACTIVE
+     $_GET['category'] == $category['id']))
     $hidden = '';
   else
     $hidden = ' hidden';
@@ -172,10 +178,6 @@ foreach($categories as $category) {
         <div class="content">';
   
   echo '<ul class="sortablePageList" id="category'.$category['id'].'">';
-
-//lädt die seiten aus den gruppenverzeichnis in einen array
-$pages = $generalFunctions->loadPages($category['id']);
-//print_r($pages);
 
 // list the pages of the categories
 // ----------------------------------------------------------
