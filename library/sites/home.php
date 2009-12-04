@@ -167,6 +167,27 @@ if(!empty($adminConfig['user']['info'])) {
     //echo '<br /><hr class="small" /><br />';
     echo '<br style="clear:both;" /><br />';
     
+    $pages = $orgPages;
+    
+    // ---------------------------------
+    // ->> SEARCHWORD CLOUD    
+    
+    // -> create SEARCHWORD DATASTRING of ALL PAGES
+    $allSearchwords = false;
+    foreach($pages as $page) {      
+      // if page has searchwords
+      if(!empty($page['log_searchwords'])) {        
+        $allSearchwords = $statisticFunctions->addDataToString($page['log_searchwords'],$allSearchwords);
+      }
+    }
+    // SHOW tag CLOUD
+    echo '<h3>'.$langFile['log_tags_description'].'</h3>';
+    echo '<div class="tagCloud">';
+    $statisticFunctions->createTagCloud($allSearchwords);
+    echo '</div>';
+    
+    echo '<br /><br /><hr class="small" /><br />';
+    
     // ---------------------------------
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';

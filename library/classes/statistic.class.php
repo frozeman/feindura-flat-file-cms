@@ -14,8 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/statistic.class.php version 0.36
-
+// library/classes/statistic.class.php version 0.4
 
 //error_reporting(E_ALL);
 
@@ -341,9 +340,6 @@ class statisticFunctions {
   // ** -- createBrowserChart --------------------------------------------------------------------------------
   // creates a chart to display the browsers, used by the users
   // -----------------------------------------------------------------------------------------------------
-  // $searchWordString         [Der String der die suchworte enthält im Format: 'suchwort,1|suchwort,3|...'  (String)],
-  // $minFontSize              [Die minimal Schriftartgröße (Number)],
-  // $maxFontSize              [Die maximale Schriftartgröße (Number)]
   function createBrowserChart() {
     global $websiteStatistic;
     global $langFile;
@@ -368,42 +364,52 @@ class statisticFunctions {
         $browserName = 'Firefox';
         $browserColor = 'browserBg_firefox.png';
         $browserLogo = 'browser_firefox.png';
+        $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'netscape') {
         $browserName = 'Netscape Navigator';
         $browserColor = 'browserBg_netscape.png';
         $browserLogo = 'browser_netscape.png';
+        $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'chrome') {
         $browserName = 'Google Chrome';
         $browserColor = 'browserBg_chrome.png';
         $browserLogo = 'browser_chrome.png';
+        $browserTextColor = '#000000';
       } elseif($browser[0] == 'ie') {
         $browserName = 'Internet Explorer';
         $browserColor = 'browserBg_ie.png';
         $browserLogo = 'browser_ie.png';
+        $browserTextColor = '#000000';
       } elseif($browser[0] == 'opera') {
         $browserName = 'Opera';
         $browserColor = 'browserBg_opera.png';
         $browserLogo = 'browser_opera.png';
+        $browserTextColor = '#000000';
       } elseif($browser[0] == 'konqueror') {
         $browserName = 'Konqueror';
         $browserColor = 'browserBg_konqueror.png';
         $browserLogo = 'browser_konqueror.png';
+        $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'lynx') {
         $browserName = 'Lynx';
         $browserColor = 'browserBg_lynx.png';
         $browserLogo = 'browser_lynx.png';
+        $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'safari') {
         $browserName = 'Safari';
         $browserColor = 'browserBg_safari.png';
         $browserLogo = 'browser_safari.png';
+        $browserTextColor = '#000000';
       } elseif($browser[0] == 'mozilla') {
         $browserName = 'Mozilla';
         $browserColor = 'browserBg_mozilla.png';
         $browserLogo = 'browser_mozilla.png';
+        $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'others') {
         $browserName = $langFile['log_browser_others'];
         $browserColor = 'browserBg_others.png';
         $browserLogo = 'browser_others.png';
+        $browserTextColor = '#000000';
       }  
   
       // calculates the text width and the cell width
@@ -445,7 +451,7 @@ class statisticFunctions {
       }
       
       // SHOW the table cell with the right browser and color
-      echo '<td style="'.$cellpadding.';width:'.$tablePercent.'%;background:url(library/image/bg/'.$browserColor.') repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+      echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:url(library/image/bg/'.$browserColor.') repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
     
     }
     echo '</tr></table>';
@@ -478,7 +484,7 @@ class statisticFunctions {
         $fontSize = $searchWord[1] / $highestNumber;
         $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
         
-        echo '<span style="font-size:'.$fontSize.'px;" class="toolTip brown" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
+        echo '<span style="font-size:'.$fontSize.'px;" class="toolTip blue" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
       
       }
     } else {
@@ -543,90 +549,124 @@ class statisticFunctions {
   
   // ** -- addDataToString ----------------------------------------------------------------------------------
   // adds to a string like "wordula,1|wordlem,5|wordquer,3" a new word or count up an exisiting word
+  // RETURNs a new data String with the words counted up and/or add
   // -----------------------------------------------------------------------------------------------------
-  function addDataToString($dataArray,       // (Array) an array with Strings to look for in the dataString
-                                  $dataString) {    // (String) the data String in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
+  function addDataToString($givenData,                     // (Array or dataString) an array with Strings to look for in the dataString, or a dataString in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
+                           $dataString,                    // (String) the data String in the FORMAT: "wordula,1|wordlem,5|wordquer,3"
+                           $encodeSpecialChars = true) {   // (Boolean) if TRUE it clean Speacial Chars and encode the htmlentities
             
     $exisitingDatas = explode('|',$dataString);
-            
-    // -> COUNTS THE EXISTING SEARCHWORDS
-    $countExistingData = 0;
-    $newDataString = '';
-    foreach($exisitingDatas as $exisitingData) {          
-      $exisitingData = explode(',',$exisitingData);
-      $countExistingData++; 
+    
+    // ->> IF given DATA is a DATASTRING
+    //------------------------------
+    if(is_string($givenData)) {
+      $newDataString = $dataString;
       
-      $countNewData = -1;
-      foreach($dataArray as $data) {            
-        $data = $this->generalFunctions->cleanSpecialChars($data,''); // entfernt Sonderzeichen
-        $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
+      $givenData = explode('|',$givenData);
+      
+      // goes trough all searchwords
+      foreach($givenData as $data) {
+        $data = explode(',',$data);
+        
+        //echo '<br />->'.$data[0].'-'.$data[1].'<br />';
+        // add every word
+        for($i = 0; $i < $data[1]; $i++) {
+          $newDataString = $this->addDataToString(array($data[0]),$newDataString,false);
+        }
+      }
+      
+      // -> RETURNs the new data String
+      return $newDataString;
+    
+    // ->> IF given DATA is a ARRAY WITH DATA
+    //------------------------------
+    } elseif(is_array($givenData)) {
+    
+      // -> COUNTS THE EXISTING SEARCHWORDS
+      $countExistingData = 0;
+      $newDataString = '';
+      foreach($exisitingDatas as $exisitingData) {
+        $exisitingData = explode(',',$exisitingData);
+        $countExistingData++; 
+        
+        $countNewData = -1;
+        foreach($givenData as $data) {
+          if($encodeSpecialChars === true) {
+            $data = $this->generalFunctions->cleanSpecialChars($data,''); // entfernt Sonderzeichen
+            $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
+            //$data = str_replace('&amp;','&',$data); // prevent double decoding        
+          }
+          $data = strtolower($data);
+          $countNewData++;
+          
+          // wenn es das Stichwort schon gibt
+          if($exisitingData[0] == $data) {
+            // zählt ein die Anzahl des Stichworts höher
+            $exisitingData[1]++;
+            $foundSw[] = $data;
+          }
+        }
+        
+        // adds the old Searchwords (maybe counted up) to the String with the new ones            
+        if(!empty($exisitingData[0])) {
+          $newDataString .= $exisitingData[0].','.$exisitingData[1];
+          if($countExistingData < count($exisitingDatas))
+            $newDataString .= '|';
+        }
+      }
+      
+      // -> ADDS NEW SEARCHWORDS
+      $countNewData = 0;
+      foreach($givenData as $data) {
+        if($encodeSpecialChars === true) {
+          $data = $this->generalFunctions->cleanSpecialChars($data,''); // entfernt Sonderzeichen
+          $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
+          //$data = str_replace('&amp;','&',$data); // prevent double decoding
+        }
         $data = strtolower($data);
         $countNewData++;
         
-        // wenn es das Stichwort schon gibt
-        if($exisitingData[0] == $data) {
-          // zählt ein die Anzahl des Stichworts höher
-          $exisitingData[1]++;
-          $foundSw[] = $data;
+        if(isset($foundSw) && is_array($foundSw))
+          $foundSwStr = implode('|',$foundSw);
+     
+        if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) == false)) {
+          if(!empty($data)) {// verhindert das leere Suchwort strings gespeichert werden
+            if(substr($newDataString,-1) != '|')
+              $newDataString .= '|';
+            // fügt ein neues Suchwort in den String mit den Suchwörtern ein                
+            $newDataString .= $data.',1';
+            
+            if($countNewData < count($givenData))
+              $newDataString .= '|';
+          }
         }
+      }          
+      //echo $newDataString.'<br />';
+      
+      // removes the FIRST "|"
+      while(substr($newDataString,0,1) == '|') {
+        $newDataString = substr($newDataString, 1);
+      }
+      // removes the LAST "|"
+      while(substr($newDataString,-1) == '|') {
+        $newDataString = substr($newDataString, 0, -1);
       }
       
-      // adds the old Searchwords (maybe counted up) to the String with the new ones            
-      if(!empty($exisitingData[0])) {
-        $newDataString .= $exisitingData[0].','.$exisitingData[1];
-        if($countExistingData < count($exisitingDatas))
-          $newDataString .= '|';
-      }
-    }
-    
-    // -> ADDS NEW SEARCHWORDS
-    $countNewData = 0;
-    foreach($dataArray as $data) {
-    
-      $data = $this->generalFunctions->cleanSpecialChars($data,''); // entfernt Sonderzeichen
-      $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
-      $data = strtolower($data);
-      $countNewData++;
+      // -> SORTS the NEW SEARCHWORD STRING with THE SEARCHWORD with MOST COUNT at the BEGINNING
+      if($givenData = explode('|',$newDataString)) {
       
-      if(isset($foundSw) && is_array($foundSw))
-        $foundSwStr = implode('|',$foundSw);
-   
-      if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) == false)) {
-        if(!empty($data)) {// verhindert das leere Suchwort strings gespeichert werden
-          if(substr($newDataString,-1) != '|')
-            $newDataString .= '|';
-          // fügt ein neues Suchwort in den String mit den Suchwörtern ein                
-          $newDataString .= $data.',1';
-          
-          if($countNewData < count($dataArray))
-            $newDataString .= '|';
-        }
+        // sortiert den array, mithilfe der funktion sortArray
+        natsort($givenData);
+        usort($givenData, "sortSearchwordString");          
+    
+        // fügt den neugeordneten Suchworte String wieder zu einem Array zusammen
+        $newDataString = implode('|',$givenData);
       }
-    }          
-    //echo $newDataString.'<br />';
-    
-    // removes the FIRST "|"
-    while(substr($newDataString,0,1) == '|') {
-      $newDataString = substr($newDataString, 1);
-    }
-    // removes the LAST "|"
-    while(substr($newDataString,-1) == '|') {
-      $newDataString = substr($newDataString, 0, -1);
-    }
-    
-    // -> SORTS the NEW SEARCHWORD STRING with THE SEARCHWORD with MOST COUNT at the BEGINNING
-    if($dataArray = explode('|',$newDataString)) {
-    
-      // sortiert den array, mithilfe der funktion sortArray
-      natsort($dataArray);
-      usort($dataArray, "sortSearchwordString");          
-  
-      // fügt den neugeordneten Suchworte String wieder zu einem Array zusammen
-      $newDataString = implode('|',$dataArray);
-    }
-    
-    // RETURNs the new data String
-    return $newDataString;
+      
+      // -> RETURNs the new data String
+      return $newDataString;
+      
+    } else return $dataString;
   }
   
   // ** -- saveLog --------------------------------------------------------------------------------
@@ -842,7 +882,7 @@ class statisticFunctions {
         if(!empty($_SERVER['HTTP_REFERER'])) {
           $searchWords = parse_url($_SERVER['HTTP_REFERER']);
           // test search url strings:
-          //$searchWords = parse_url('http://www.google.de/search?q=mair%E4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a');
+          //$searchWords = parse_url('http://www.google.de/search?q=mair%C3%A4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a');
           //$searchWords = parse_url('http://www.google.de/search?hl=de&safe=off&client=firefox-a&rls=org.mozilla%3Ade%3Aofficial&hs=pLl&q=umlaute+aus+url+umwandeln&btnG=Suche&meta=');
           //$searchWords = parse_url('http://www.bing.com/search?q=hll%C3%B6le+ich+such+ein+wort+f%C3%BCr+mich&go=&form=QBRE&filt=all');
           //$searchWords = parse_url('http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=wurmi&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1');
@@ -857,7 +897,6 @@ class statisticFunctions {
             $searchWords = substr($searchWords,2,strpos($searchWords,'&')-2);
     
             $searchWords = rawurldecode($searchWords);
-            //$searchWords = urldecode($searchWords);
             $searchWords = explode('+',$searchWords);    
             
             // adds the searchwords to the searchword data string

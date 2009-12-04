@@ -542,7 +542,7 @@ class generalFunctions {
     
     // removes multiple spaces
     $string = preg_replace("/ +/", ' ', $string);
-    // allows only a-z and 0-9, "_", "." and " "
+    // allows only a-z and 0-9, "_", ".", " "
     $string = preg_replace('/[^\w^.^ ]/u', $replaceString, $string);
     //$string = str_replace( array('å','è','ô','?','ä','|','@','[',']','ü','ç','∑','!','ó',',',";","*","∞","{",'}','^','¥','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ø',"$","ß",'"',"'","(",")"), $replaceSign, $string);
     

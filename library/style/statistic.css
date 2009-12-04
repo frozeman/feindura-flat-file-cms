@@ -81,3 +81,18 @@ table.coloredList td {
 .coloredList .dark {  
     background-color: #D4E0E0;
     }
+    
+/* --------------------- */
+/* -------> TAG CLOUD */
+
+div.tagCloud {
+    width: 100%;
+    max-height: 200px;
+    text-align: center;
+    overflow: auto;
+    }
+
+div.tagCloud span {
+    background: none !important;
+    padding-right: 0px !important;
+    }

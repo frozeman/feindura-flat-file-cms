@@ -18,7 +18,7 @@ CKEDITOR.addStylesSet( 'htmlEditorStyles',
 {name:'Inline Quotation',element:'q'},
 {name:'Language: RTL',element:'span',attributes:{dir:'rtl'}},
 {name:'Language: LTR',element:'span',attributes:{dir:'ltr'}},
-{name:'Image on Left',element:'img',attributes:{align:'left'}},
-{name:'Image on Right',element:'img',attributes:{align:'right'}}
+{name:'Bild nach links',element:'img',attributes:{align:'left'},styles:{'margin':'4px 6px 4px 0px'}},
+{name:'Bild nach Rechts',element:'img',attributes:{align:'right'},styles:{'margin':'4px 0px 4px 6px'}}
 
 ]);

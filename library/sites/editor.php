@@ -440,7 +440,9 @@ $hidden = ' hidden';
       <?php
       
       // -> show TAG CLOUD
+      echo '<div class="tagCloud">';
       $statisticFunctions->createTagCloud($pageContent['log_searchwords']);
+      echo '</div>';
 
       ?>
       </div>
