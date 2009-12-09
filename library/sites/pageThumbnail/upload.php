@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// upload.php v. 1.4
+// upload.php v. 1.5
 
 include_once(dirname(__FILE__)."/../../backend.include.php");
 
@@ -138,6 +138,22 @@ if($_POST['upload']) {
           $newFilePath = $uploadPath.$newFileName;
           
           $imagesize = getimagesize(DOCUMENTROOT.$filePath);
+          
+          // -> CALCULATE the RATIO, IF RATIO is X or Y
+          if($_POST['thumbRatio']) {            
+            // RATIO X
+            if($_POST['thumbRatio'] == 'x') {
+              $ratio = $imagesize[0] / $imagesize[1];
+              $thumbHeight = $thumbWidth / $ratio;
+              $thumbHeight = round($thumbHeight);
+            }  
+            // RATIO Y
+            if($_POST['thumbRatio'] == 'y') {
+              $ratio = $imagesize[1] / $imagesize[0];
+              $thumbWidth = $thumbHeight / $ratio;
+              $thumbWidth = round($thumbWidth);
+            }
+          }
           
           // GETIMAGE jpg
           if($fileExtension == 'jpg' || $fileExtension == 'jpeg')

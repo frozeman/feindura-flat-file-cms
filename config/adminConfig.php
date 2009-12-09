@@ -7,7 +7,7 @@ $adminConfig['uploadPath'] =      '/_fms20/_upload/';
 $adminConfig['langPath'] =        '/_fms20/_lang/';
 $adminConfig['stylesheetPath'] =  '/_fms20/style/';
 $adminConfig['dateFormat'] =      'eu';
-$adminConfig['speakingUrl'] =      'true';
+$adminConfig['speakingUrl'] =      '';
 
 $adminConfig['varName']['page'] =     'page';
 $adminConfig['varName']['category'] = 'category';
@@ -26,8 +26,9 @@ $adminConfig['editor']['styleFile'] =   '/gratz/style/layout.css';
 $adminConfig['editor']['styleId'] =     'feinduraStyles';
 $adminConfig['editor']['styleClass'] =  '';
 
-$adminConfig['pageThumbnail']['width'] =      '123';
-$adminConfig['pageThumbnail']['height'] =     '85';
+$adminConfig['pageThumbnail']['width'] =      '200';
+$adminConfig['pageThumbnail']['height'] =     '30';
+$adminConfig['pageThumbnail']['ratio'] =      'y';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;

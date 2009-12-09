@@ -15,27 +15,65 @@
 */
 // java/setup.js version 0.21 (requires mootools-core and mootools-more)
 
-function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) {
 
-  // realtime thumbScale ---------------------------------------------------------------------------------------------
+var deactivateType = 'disabled'; // disabled/readonly
+
+// ------------------------------------------------------------------------------
+// SET UP the REALTIME THUMBNAIL SIZE SCALE, all given vars are the object IDs
+function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) {
+  
+  // thumbwidth
   if($(thumbWidth) != null) {
       $(thumbWidth).addEvent('keyup', function(){
           $(thumbWidthScale).tween('width',$(thumbWidth).get('value'));
       });
   }
+  // thumbheight
   if($(thumbHeight) != null) {
       $(thumbHeight).addEvent('keyup', function(){
           $(thumbHeightScale).tween('width',$(thumbHeight).get('value'));
       });
   }
-
 }
 
-// loaded on startup
+// ------------------------------------------------------------------------------
+// DISABLE THUMBNAIL SIZE IF RATIO is ON, all given vars are the object IDs
+function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,thumbNoRatio) {
+    
+  // thumbwidth
+  if($(thumbWidthRatio) != null) {
+      $(thumbWidthRatio).addEvent('change', function() {
+          $(thumbHeight).setProperty(deactivateType,deactivateType);
+          $(thumbWidth).removeProperty(deactivateType);
+      });
+  }
+  
+  // thumbheight
+  if($(thumbHeightRatio) != null) {
+      $(thumbHeightRatio).addEvent('change', function() {
+          $(thumbWidth).setProperty(deactivateType,deactivateType);
+          $(thumbHeight).removeProperty(deactivateType);
+      });
+  }
+    
+  // no Ratio
+  if($(thumbNoRatio) != null) {
+      $(thumbNoRatio).addEvent('change', function() {
+          $(thumbWidth).removeProperty(deactivateType);
+          $(thumbHeight).removeProperty(deactivateType);
+      });
+  }
+}
+
+// DOMREADY ------------
+// ->> LOADED ON STARTUP
 window.addEvent('domready', function() {
   
   // adds realtime THUMBSCALE to the thumbnail Settings
-  setThumbScale('cfg_thumbWidth','thumbWidthScale','cfg_thumbHeight','thumbHeightScale');  
+  setThumbScale('cfg_thumbWidth','thumbWidthScale','cfg_thumbHeight','thumbHeightScale');
+  
+  // adds THUMBRATIO deactivation
+  setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio'); 
   
   // go trough every category
   if($$('.advancedcategoryConfig') != null) {  
@@ -66,13 +104,15 @@ window.addEvent('domready', function() {
       // -----------------------------------------
       // adds realtime THUMBSCALE to the advanced category settings
       setThumbScale('categories'+countCategories+'thumbWidth','categories'+countCategories+'thumbWidthScale','categories'+countCategories+'thumbHeight','categories'+countCategories+'thumbHeightScale');
+    
+      // adds THUMBRATIO deactivation
+      setThumbRatio('categories'+countCategories+'thumbWidth','categories'+countCategories+'ratioX','categories'+countCategories+'thumbHeight','categories'+countCategories+'ratioY','categories'+countCategories+'noRatio'); 
     });
   }
   
   // -> DISABLE varNames if SPEAKING URL is selected
   if($('cfg_speakingUrl') != null) {
     var smallSize = '50px';
-    var deactivateType = 'disabled'; // disabled/readonly
     
     $('cfg_speakingUrl').addEvent('change',function() {
       

@@ -32,13 +32,20 @@ if not,see <http://www.gnu.org/licenses/>.
 $langFile['thumbSize_unit'] = 'Pixel';
 
 $langFile['thumbnail_name'] = 'Seiten-Thumbnail';
-$langFile['thumbnail_name_width'] = 'Standard Thumbnail<b>breite</b>';
-$langFile['thumbnail_name_height'] = 'Standard Thumbnail<b>h&ouml;he</b>';
+$langFile['thumbnail_name_width'] = 'Standard <b>Breite</b>';
+$langFile['thumbnail_name_height'] = 'Standard <b>H&ouml;he</b>';
 
 $langFile['thumbnail_tip'] = 'Es ist m&ouml;glich das nach dem Upload noch das alte Bild zu sehen ist, das liegt am Browser-Cache.[br /][br /]Um das aktuelle Bild zu sehen musst du einfach die Seite aktualisieren (F5).';
 
 $langFile['thumbnail_width_tip'] = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf diese Gr&ouml;&szlig;e gerechnet.';
 $langFile['thumbnail_height_tip'] = 'Standardh&ouml;he::Die H&ouml;he des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf diese Gr&ouml;&szlig;e gerechnet.';
+
+$langFile['thumbnail_ratio_name'] = 'Seitenverh&auml;ltnis';
+$langFile['thumbnail_ratio_fieldText'] = 'Seitenverh&auml;ltnis beibehalten';
+$langFile['thumbnail_ratio_noRatio'] = 'festes Seitenverh&auml;ltnis';
+$langFile['thumbnail_ratio_noRatio_tip'] = 'H&ouml;he und Breite ist fest einstellbar.';
+$langFile['thumbnail_ratio_x_tip'] = 'Wird an der [b]Breite[/b] ausgerichtet.';
+$langFile['thumbnail_ratio_y_tip'] = 'Wird an der [b]H&ouml;he[/b] ausgerichtet.';
 
 // ---------- stylesheet
 $langFile['stylesheet_name_styleFile'] = 'Stylesheet-Datei';

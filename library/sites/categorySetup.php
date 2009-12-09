@@ -244,6 +244,19 @@ if($unwriteableList) {
           
           if($category['sortascending'])
             $checked[6] = 'checked="checked"';
+            
+          if($category['thumbRatio'] == '')
+            $checked[7] = 'checked="checked"';
+            
+          if($category['thumbRatio'] == 'x') {
+            $checked[8] = 'checked="checked"';
+            $disabled[8] = 'disabled="disabled"';
+          }
+          
+          if($category['thumbRatio'] == 'y') {
+            $checked[9] = 'checked="checked"';
+            $disabled[8] = 'disabled="disabled"';
+          }
           
           // slide container (help for the javascript to find the right elements)
           echo '<div class="categoryConfig">';
@@ -363,8 +376,13 @@ if($unwriteableList) {
                 <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['thumbnail_width_tip'].'">
                 '.$langFile['thumbnail_name_width'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" />
+                <input id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[8].' />
                 '.$langFile['thumbSize_unit'].'
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="toolTip" title="'.$langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_x_tip'].'">
+                    <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[8].' />
+                    <label for="categories'.$category['id'].'ratioX"> '.$langFile['thumbnail_ratio_fieldText'].'</label>
+                  </span>
                 </td></tr>';
           
                 // <!-- shows the width in a scale -->
@@ -381,8 +399,13 @@ if($unwriteableList) {
                 <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['thumbnail_height_tip'].'">
                 '.$langFile['thumbnail_name_height'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" />
+                <input id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[9].' />
                 '.$langFile['thumbSize_unit'].'
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <span class="toolTip" title="'.$langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_y_tip'].'">
+                    <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[9].' />
+                    <label for="categories'.$category['id'].'ratioY"> '.$langFile['thumbnail_ratio_fieldText'].'</label>
+                  </span>
                 </td></tr>';
                 
                 // <!-- shows the height in a scale -->
@@ -394,7 +417,16 @@ if($unwriteableList) {
                 </td><td class="right">
                 <div id="categories'.$category['id'].'thumbHeightScale" class="scale"  style="'.$catThumbHeight.'max-width:520px;"><div></div></div>
                 </td></tr>';
-    
+          
+          echo '<!-- NO THUMB RATIO -->
+                <tr><td class="left">
+                <input type="radio" id="categories'.$category['id'].'noRatio" name="categories['.$category['id'].'][thumbRatio]" value="" '.$checked[7].' />
+                </td><td class="right">
+                  <span class="toolTip" title="'.$langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_noRatio_tip'].'">
+                    <label for="categories'.$category['id'].'noRatio"> '.$langFile['thumbnail_ratio_noRatio'].'</label>
+                  </span>
+                </td></tr>';
+          
           // finish the TABLE for one category
           echo '<tr><td class="leftBottom"></td><td></td></tr>
                 </table>';

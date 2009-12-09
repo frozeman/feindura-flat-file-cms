@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* index.php version 1.97
+* index.php version 1.98
 */
 
 session_cache_limiter(60);
@@ -51,7 +51,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
   <title>      
-    feindura CMS -> <?php echo $websiteConfig['seitentitel']; ?>
+    <?php echo $websiteConfig['seitentitel']; ?> -> feindura CMS
   </title>  
     
   <meta name="siteinfo" content="<?php echo $adminConfig['basePath'] ?>robots.txt" />
@@ -105,6 +105,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.replace.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.checkbox.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.radio.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.addon.dependencies.js"></script>
   
   <!-- thirdparty/CKEditor -->

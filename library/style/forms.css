@@ -39,10 +39,6 @@ input[disabled="disabled"], textarea[disabled="disabled"] {
     color: #A0A3A1;
     }
 
-input[type="file"]{ /* works only in safari*/
-    width: 300px;
-    }
-
 textarea {
     line-height: 20px;
     padding: 10px;
@@ -62,8 +58,18 @@ input.short {
     text-align: center;
     }
     
-input[type=checkbox] {
+input[type="checkbox"] {
     width: 10px !important;
+    }
+
+input[type="radio"]{ /* works only in safari*/
+    position: relative;
+    top: 3px;
+    width: 18px !important;
+    }
+    
+input[type="file"]{ /* works only in safari*/
+    width: 300px;
     }
 
 /* ----------------------- */	

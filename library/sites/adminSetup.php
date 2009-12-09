@@ -133,13 +133,13 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     }
   }
   
-  // checks if the varNames are empty, and add the last ones, if speaking url = true
+  // -> CHECK if the VARNAMES are EMPTY, and add the previous ones, if speaking url = true
   if($_POST['cfg_speakingUrl'] == 'true') {
-    if(empty($_POST['cfg_varNamePage']))
+    if(!isset($_POST['cfg_varNamePage']))
       $_POST['cfg_varNamePage'] = $adminConfig['varName']['page'];
-    if(empty($_POST['cfg_varNameCategory']))
+    if(!isset($_POST['cfg_varNameCategory']))
       $_POST['cfg_varNameCategory'] = $adminConfig['varName']['category'];
-    if(empty($_POST['cfg_varNameModul']))
+    if(!isset($_POST['cfg_varNameModul']))
       $_POST['cfg_varNameModul'] = $adminConfig['varName']['modul'];
   } else {
     if(empty($_POST['cfg_varNamePage']))
@@ -150,6 +150,12 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
       $_POST['cfg_varNameModul'] = 'modul';
   }
   
+  // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
+  if(!isset($_POST['cfg_thumbWidth']))
+    $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
+  if(!isset($_POST['cfg_thumbHeight']))
+    $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];    
+
   // **** opens adminConfig.php for writing
   if($file = @fopen("config/adminConfig.php","w")) {
     flock($file,2); // LOCK_EX
@@ -166,7 +172,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     fwrite($file,"\$adminConfig['varName']['page'] =     '".$_POST['cfg_varNamePage']."';\n");  
     fwrite($file,"\$adminConfig['varName']['category'] = '".$_POST['cfg_varNameCategory']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$_POST['cfg_varNameModul']."';\n\n");  
+    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$_POST['cfg_varNameModul']."';\n\n");
     
     fwrite($file,"\$adminConfig['user']['editLanguage'] =    '".$_POST['cfg_userLanguage']."';\n");
     fwrite($file,"\$adminConfig['user']['editStylesheet'] =  '".$_POST['cfg_userStylesheet']."';\n");  
@@ -183,6 +189,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   
     fwrite($file,"\$adminConfig['pageThumbnail']['width'] =      '".$_POST['cfg_thumbWidth']."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['height'] =     '".$_POST['cfg_thumbHeight']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =      '".$_POST['cfg_thumbRatio']."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['path'] =       'images/".$_POST['cfg_thumbPath']."';\n\n");
     
     fwrite($file,"return \$adminConfig;");
@@ -631,12 +638,18 @@ else $hidden = '';
   
       <tr><td class="leftTop"></td><td></td></tr>
       
+      <!-- THUMB WIDTH -->
       <tr><td class="left">
       <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['thumbnail_width_tip'] ?>">
       <?php echo $langFile['thumbnail_name_width'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" />
-      <?php echo $langFile['thumbSize_unit']; ?>
+        <input id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?> />
+        <?php echo $langFile['thumbSize_unit']; ?>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_x_tip']; ?>">
+          <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?> />
+          <label for="ratioX"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
+        </span>
       </td></tr>
       
       <!-- shows the width in a scale -->
@@ -653,12 +666,18 @@ else $hidden = '';
       </div>
       </td></tr>
       
+      <!-- THUMB HEIGHT -->
       <tr><td class="left">
       <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['thumbnail_height_tip'] ?>">
       <?php echo $langFile['thumbnail_name_height'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" />
-      <?php echo $langFile['thumbSize_unit']; ?>
+        <input id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?> />
+        <?php echo $langFile['thumbSize_unit']; ?>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_y_tip']; ?>">
+          <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?> />
+          <label for="ratioY"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
+        </span>
       </td></tr>
       
       <!-- shows the height in a scale -->
@@ -673,6 +692,18 @@ else $hidden = '';
       <div id="thumbHeightScale" class="scale" style="<?php echo $style_thumbHeight; ?>max-width:520px;"><div></div></div>
       </td></tr>
       
+      <!-- NO THUMB RATIO -->
+      <tr><td class="left">
+      <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?> />
+      </td><td class="right">
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_noRatio_tip']; ?>">
+          <label for="noRatio"> <?php echo $langFile['thumbnail_ratio_noRatio']; ?></label>
+        </span>
+      </td></tr>
+      
+      <tr><td class="leftSpacer"></td><td></td></tr>
+      
+      <!-- THUMB PATH -->
       <tr><td class="left">
       <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_feld3'].'::'.$langFile['adminSetup_thumbnailSettings_feld3_tip'] ?>">
       <?php echo $langFile['adminSetup_thumbnailSettings_feld3'] ?></span></label>

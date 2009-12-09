@@ -26,8 +26,51 @@ include(dirname(__FILE__)."/../backend.include.php");
 
 $pageContent = $generalFunctions->readPage($page,$category);
 
-?>
+$categoryRatio = false;
+$thumbRatio = false;
 
+// GET THUMBNAIL SIZE
+// --------------------------
+// THUMB WIDTH
+if(!empty($categories['id_'.$category]['thumbWidth'])) {
+  $thumbWidth = $categories['id_'.$category]['thumbWidth'];
+  $categoryRatio = true;
+} else
+  $thumbWidth = $adminConfig['pageThumbnail']['width'];
+// THUMB HEIGHT
+if(!empty($categories['id_'.$category]['thumbHeight'])) {
+  $thumbHeight = $categories['id_'.$category]['thumbHeight'];
+  $categoryRatio = true;
+} else
+  $thumbHeight = $adminConfig['pageThumbnail']['height'];
+  
+// THUMB RATIO X
+if($categoryRatio) {
+  if($categories['id_'.$category]['thumbRatio'] == 'y') {
+    $thumbRatioX = ' disabled="disabled"';
+    $thumbRatio = 'y';
+  }
+} else {
+  if($adminConfig['pageThumbnail']['ratio'] == 'y') {
+    $thumbRatioX = ' disabled="disabled"';
+    $thumbRatio = 'y';
+  }
+}
+
+// THUMB RATIO Y
+if($categoryRatio) {
+  if($categories['id_'.$category]['thumbRatio'] == 'x') {
+    $thumbRatioY = ' disabled="disabled"';
+    $thumbRatio = 'x';
+  }
+} else {
+  if($adminConfig['pageThumbnail']['ratio'] == 'x') {
+    $thumbRatioY = ' disabled="disabled"';
+    $thumbRatio = 'x';
+  }
+}
+
+?>
 <h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>
 
 <div id="thumbInfo">
@@ -35,8 +78,8 @@ $pageContent = $generalFunctions->readPage($page,$category);
   <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?></li>
   <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <b>'.ini_get('upload_max_filesize').'B</b>'; ?></li>
   <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br />
-  <?php echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$adminConfig['pageThumbnail']['width'].'</b> '.$langFile['thumbSize_unit'].'<br />
-            '.$langFile['pagethumbnail_thumbsize_height'].' = <b>'.$adminConfig['pageThumbnail']['height'].'</b> '.$langFile['thumbSize_unit']; ?>
+  <?php echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['thumbSize_unit'].'<br />
+            '.$langFile['pagethumbnail_thumbsize_height'].' = <b>'.$thumbHeight.'</b> '.$langFile['thumbSize_unit']; ?>
   </li>
 </ul>
 </div>
@@ -47,6 +90,7 @@ $pageContent = $generalFunctions->readPage($page,$category);
 	<input type="hidden" name="upload" value="true" />
 	<input type="hidden" name="category" value="<?php echo $category; ?>" />
   <input type="hidden" name="id" value="<?php echo $page; ?>" />
+  <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>" />
 
 	<!-- file selection -->
   <h2><?php echo $langFile['pagethumbnail_feld1']; ?></h2>
@@ -63,16 +107,14 @@ $pageContent = $generalFunctions->readPage($page,$category);
   <label for="windowBox_thumbWidth"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_feld1_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></span></label>
   </td><td>
-  <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php if(!empty($categories['id_'.$category]['thumbWidth'])) echo $categories['id_'.$category]['thumbWidth']; else echo $adminConfig['pageThumbnail']['width']; ?>" />
+  <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?> />
   <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
   </td></tr>
   
   <!-- shows the width in a scale -->
   <?php
-  if(!empty($categories['id_'.$category]['thumbWidth']))
-    $styleThumbWidth = 'width:'.$categories['id_'.$category]['thumbWidth'].'px';
-  elseif(!empty($adminConfig['pageThumbnail']['width']))
-    $styleThumbWidth = 'width:'.$adminConfig['pageThumbnail']['width'].'px';
+  if($thumbWidth)
+    $styleThumbWidth = 'width:'.$thumbWidth.'px';
   else
     $styleThumbWidth = 'width:0px';
   ?>
@@ -85,16 +127,14 @@ $pageContent = $generalFunctions->readPage($page,$category);
   <label for="windowBox_thumbHeight"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_feld2_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></span></label>
   </td><td>
-  <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php if(!empty($categories['id_'.$category]['thumbHeight'])) echo $categories['id_'.$category]['thumbHeight']; else echo $adminConfig['pageThumbnail']['height']; ?>" />
+  <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?> />
   <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
   </td></tr>
   
   <!-- shows the height in a scale -->
   <?php
-  if(!empty($categories['id_'.$category]['thumbHeight']))
-    $styleThumbHeight = 'width:'.$categories['id_'.$category]['thumbHeight'].'px';
-  elseif(!empty($adminConfig['pageThumbnail']['height']))
-    $styleThumbHeight = 'width:'.$adminConfig['pageThumbnail']['height'].'px';
+  if($thumbHeight)
+    $styleThumbHeight = 'width:'.$thumbHeight.'px';
   else
     $styleThumbHeight = 'width:0px';
   ?>

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.16
+* library/functions/backend.functions.php version 1.17
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -132,24 +132,31 @@ function isAdmin() {
 // open the config/categoryConfig.php and writes the categories array.
 // -----------------------------------------------------------------------------------------------------
 // $categories     [der group array der in der settings.php gespeichert werden soll (Array)],
-function saveCategories($categories) {
-
+function saveCategories($newCategories) {
+  global $categories;
+  
   // öffnet die categoryConfig.php zum schreiben
   if($categoryConfig = @fopen("config/categoryConfig.php","w")) {
-
+ 
     // *** Schreibe CATEGORIES
     flock($categoryConfig,2); //LOCK_EX
       fwrite($categoryConfig,PHPSTARTTAG); //< ?php
       fwrite($categoryConfig,'$categories = array('."\n");
   
-      foreach($categories as $category) {
+      foreach($newCategories as $category) {
       
-        // check depency
+        // -> CHECK depency of SORTDATE
         if($category['sortdate'] == '')
           $category['sortbydate'] = '';
         
         if($category['sortbydate'] == 'true')
           $category['sortdate'] = 'true';
+        
+        // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
+        if(!isset($category['thumbWidth']))
+          $category['thumbWidth'] = $categories['id_'.$category['id']]['thumbWidth'];
+        if(!isset($category['thumbHeight']))
+          $category['thumbHeight'] = $categories['id_'.$category['id']]['thumbHeight'];
           
       
         // ** adds a "/" on the beginning of all absolute paths
@@ -172,7 +179,9 @@ function saveCategories($categories) {
           "styleClass"    => \''.$category['styleClass'].'\',
           
           "thumbWidth"    => \''.$category['thumbWidth'].'\',
-          "thumbHeight"   => \''.$category['thumbHeight'].'\',),'."\n";
+          "thumbHeight"   => \''.$category['thumbHeight'].'\',
+          "thumbRatio"    => \''.$category['thumbRatio'].'\',
+          ),'."\n";
         fwrite($categoryConfig,$znew);
       }
       fwrite($categoryConfig,');'."\n\n");      

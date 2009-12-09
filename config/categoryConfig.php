@@ -17,7 +17,9 @@ $categories = array(
           "styleClass"    => 'category',
           
           "thumbWidth"    => '',
-          "thumbHeight"   => '',),
+          "thumbHeight"   => '',
+          "thumbRatio"    => '',
+          ),
 "id_2" => array(
           "id"            => '2',
           "name"          => 'Produktpalette',
@@ -34,7 +36,9 @@ $categories = array(
           "styleClass"    => '',
           
           "thumbWidth"    => '',
-          "thumbHeight"   => '',),
+          "thumbHeight"   => '',
+          "thumbRatio"    => '',
+          ),
 );
 
 return $categories;
