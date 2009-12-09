@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 80
+Build 81
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 81: statistic.class: taskLog shows also the user now
 	build 80: adminSetup/categorySetup: add size-ratio for the pageThumbnail 
 	build 79: ajax.js: with click on a category in the leftSidebar Menu a ajax request loads the leftSideBar.loader.php new, with new GET vars
 	build 78: adminSetup: warning add to Speaking URLs

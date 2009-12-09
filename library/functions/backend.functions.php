@@ -81,8 +81,8 @@ function redirect($goToCategory, $goToPage, $time = 2) {
 // -----------------------------------------------------------------------------------------------------
 function isAdmin() {
   global $adminConfig;
-  
-  $currentUser = strtolower(getenv("REMOTE_USER"));
+
+  $currentUser = strtolower($_SERVER["REMOTE_USER"]);
   
   // checks if the current user has a username like:
   if($currentUser == 'admin' || $currentUser == 'administrator' || $currentUser == 'root' || $currentUser == 'superuser' || $currentUser == 'frozeman') {

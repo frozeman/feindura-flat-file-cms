@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.55
+// sidebar.loader.php version 0.56
 
 // -> GET FUNCTIONS
 require_once(dirname(__FILE__)."/backend.include.php");  
@@ -139,14 +139,14 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
               <ul>
               <br />';
          foreach($logContent as $logRow) {
-          $logDateTime = substr($logRow,0,19);
-          $logDate = $statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($logDateTime));
-          $logTime = $statisticFunctions->formatTime($logDateTime);
+          $logRow = explode('|-|',$logRow);
+          $logDate = $statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($logRow[0]));
+          $logTime = $statisticFunctions->formatTime($logRow[0]);
           // finds the "<br />" in the log row
-          if($logBreak = strpos($logRow,'::'))            
-            echo '<li><span class="blue" style="font-weight:bold;">'.substr($logRow,20,$logBreak-20).'</span><br /><span>'.substr($logRow,$logBreak+2).'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span></li>';         
+          if(isset($logRow[3]))            
+            echo '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span>'.$logRow[3].'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span></li>';         
           else
-            echo '<li><span class="blue" style="font-weight:bold;">'.substr($logRow,20).'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span></li>';
+            echo '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span></li>';
          }
          echo '</ul>
               <br /></div>';

@@ -263,7 +263,7 @@ class statisticFunctions {
   // SAVE a log file with time and task which was done
   // -----------------------------------------------------------------------------------------------------
   function saveTaskLog($task,               // (String) a description of the task which was performed
-                              $object = false) {   // (String) the page name or the name of the object on which the task was performed
+                       $object = false) {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
     $maxEntries = 119;
@@ -274,12 +274,12 @@ class statisticFunctions {
       
     if($logFile = @fopen($logFile,"w")) {
       
-      // adds a break before the object
+      // adds the Object
       if($object)
-        $object = '::'.$object;
+        $object = '|-|'.$object;
       
       // -> create the new log string
-      $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).' '.$task.$object;
+      $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    
