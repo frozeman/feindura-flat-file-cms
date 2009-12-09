@@ -349,6 +349,7 @@ $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/exampl
 $langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL mit Variablen';
 $langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
 $langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format welches f&uuml;r die Seiten Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
+$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gel&ouml;scht werden.[/span][br /][br /](In manchen FTP Programmen muss man erst die versteckten Dateien anzeigen um die .htaccess Datei sichtbar zu machen)';
 
 // ---------- speaking url ERRORs
 
