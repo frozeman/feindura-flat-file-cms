@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 75
+Build 77
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,8 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 77: general.class: speaking url are now lower-case
+	build 76: statistics.class: dont save referrer with the own url  in it
 	build 75: add searchword cloud on the overview page
 	build 74: slide in the non-category if empty
 

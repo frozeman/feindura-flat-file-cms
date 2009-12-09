@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 1.05
+* library/functions/general.functions.php version 1.06
 *
 * FUNCTIONS ----------------------------
 * 
@@ -568,16 +568,19 @@ class generalFunctions {
   // -----------------------------------------------------------------------------------------------------
   function encodeToUrl($string) {
       
+      // makes the string to lower
+      $string = strtolower($string);
+      
       // format string
       $string = preg_replace("/ +/", '_', $string);    
       
       // changes umlaute
       $string = str_replace('&auml;','ae',$string);
-      $string = str_replace('&Auml;','Ae',$string);
-      $string = str_replace('&uuml;','ue',$string);    
-      $string = str_replace('&Uuml;','Ue',$string);
+      $string = str_replace('&uuml;','ue',$string);
       $string = str_replace('&ouml;','oe',$string);
-      $string = str_replace('&Ouml;','Oe',$string);
+      //$string = str_replace('&Auml;','Ae',$string);         
+      //$string = str_replace('&Uuml;','Ue',$string);      
+      //$string = str_replace('&Ouml;','Oe',$string);
       
       // clears htmlentities example: &amp;
       $string = preg_replace('/&[a-zA-Z0-9]+;/', '', $string);
