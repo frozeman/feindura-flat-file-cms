@@ -14,10 +14,9 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/statistic.class.php version 0.4
+// library/classes/statistic.class.php version 0.41
 
 //error_reporting(E_ALL);
-
 
 class statisticFunctions {
   
@@ -314,7 +313,10 @@ class statisticFunctions {
     if(file_exists($logFile))
       $oldLog = file($logFile);
       
-    if(isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER']) && $logFile = @fopen($logFile,"w")) {
+    if(isset($_SERVER['HTTP_REFERER']) &&
+       !empty($_SERVER['HTTP_REFERER']) &&
+       !strstr($_SERVER['HTTP_REFERER'],$this->adminConfig['url']) && // checks if referer is not the own page
+       $logFile = @fopen($logFile,"w")) {
       
       // -> create the new log string
       $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).' '.$_SERVER['HTTP_REFERER'];
@@ -879,7 +881,9 @@ class statisticFunctions {
         
         // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
         // -------------------------------------------------------
-        if(!empty($_SERVER['HTTP_REFERER'])) {
+        if(isset($_SERVER['HTTP_REFERER']) &&
+           !empty($_SERVER['HTTP_REFERER'])) {
+           
           $searchWords = parse_url($_SERVER['HTTP_REFERER']);
           // test search url strings:
           //$searchWords = parse_url('http://www.google.de/search?q=mair%C3%A4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a');
