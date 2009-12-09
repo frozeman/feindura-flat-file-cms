@@ -198,7 +198,7 @@ window.addEvent('domready', function() {
             
 					},
 					//-------------------------------------
-					onSuccess: function(responseText) {            
+					onSuccess: function(responseText) {
             	  
 					  // puts the right message which is get from the sortablePageList_status array (hidden input) in the sortPagesMessageBox
 					  //$('sortPagesMessageBox').set('html',sortablePageList_status[responseText.substr(6,1)]);
@@ -224,6 +224,9 @@ window.addEvent('domready', function() {
                 }
               });
             }
+            
+            // RELOADS the sidebarMenu
+            requestLeftSidebar(categoryNew,'','pages');
             
             // hide the loadingBox
             //$('loadingBox').setStyle('visibility','hidden');

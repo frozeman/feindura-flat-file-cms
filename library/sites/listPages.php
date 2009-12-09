@@ -159,7 +159,7 @@ foreach($categories as $category) {
   
   // -> CREATE CATEGORY HEADLINE
   echo '<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
-          <h1'.$headerColor.' title="ID '.$category['id'].'::"><a href="#" style="font-size:15px; font-weight:bold; line-height:30px;"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].' '.$categorySorting.'</a></h1>
+          <h1'.$headerColor.' title="ID '.$category['id'].'::"><a href="?site=pages&amp;category='.$category['id'].'" style="font-size:15px; font-weight:bold; line-height:30px;" onclick="return false;"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].' '.$categorySorting.'</a></h1>
           <div class="category">';
     
     // show category status only if its a category (0 is none)
