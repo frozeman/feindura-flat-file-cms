@@ -1,8 +1,18 @@
 /* Stylesheet format of the left sidebar menu (categories, pages) 
 * 
-* leftSidebar.css version 0.25
+* leftSidebar.css version 0.26
 * 
 * sidebarMenu und sidebarInfo */
+
+
+/* ----------------------- */
+/* --- leftSidebar Loading Circle */
+#leftSidebarLoadingCircle {
+    z-index: 0;
+    position: absolute;
+    top: 200px;
+    left: 80px;
+    }
 
 /* ----------------------- */
 /* --- sidebarMenu SPACER */

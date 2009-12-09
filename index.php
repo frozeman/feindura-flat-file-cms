@@ -337,7 +337,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   
   <!-- ************************************************************************* -->
   <!-- ** LEFT-SIDEBAR ************************************************************** -->
-  <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
+  <!-- requires the <span> tag inside the <li><a> tag for measure the text width 
+  <img src="library/image/sign/loadingCircle.gif" id="leftSidebarLoadingCircle" alt="dfsdf" />-->
   <div id="leftSidebar">
     <?php
 

@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/ajax.js version 0.3 (requires mootools-core)
+// java/ajax.js version 0.32 (requires mootools-core)
 
 /* ---------------------------------------------------------------------------------- */
 // send a HTML request and put the outcome in the windowRequestBox
@@ -104,9 +104,72 @@ function requestSite(site,siteTitle,formId) {
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
-			$('result').set('text', 'The request failed.');
+			$('windowRequestBox').set('text', 'The request failed.');
 		  }
     }).post(formular);
+
+}
+
+/* ---------------------------------------------------------------------------------- */
+// send a HTML request to load the new Sidebar content
+function requestLeftSidebar(category,page,site) {
+  
+  var leftSideBarloadingCircle = new Element('img',{
+        'id': 'leftSidebarLoadingCircle',
+        'src': 'library/image/sign/loadingCircle.gif',
+        'alt': 'loadingCircle'
+      });
+  
+  // creates the request Object
+  var requestCategory = new Request.HTML({
+    url:'library/leftSidebar.loader.php',
+    method: 'get',
+    data: 'site=' + site + '&category=' + category + '&page=' + page,
+    
+    //-----------------------------------------------------------------------------
+    onRequest: function() { //-----------------------------------------------------
+        
+        //Clear the boxTop <div>
+    		//$('leftSidebar').set('html', '<a href="#" onclick="closeWindowBox(false);"></a>');
+    		
+    	
+        // -> TWEEN leftSidebar
+        $('leftSidebar').set('tween',{duration: 150});
+        $('leftSidebar').tween('left','-200px');
+        //$('leftSidebar').tween('opacity',0);
+        
+        // -> ADD the LOADING CIRCLE
+    		$('leftSidebar').grab(leftSideBarloadingCircle,'before');
+    		
+
+    },
+    //-----------------------------------------------------------------------------
+		onSuccess: function(html) { //-------------------------------------------------
+
+			// Clear the text currently inside the leftSidebar div.
+			$('leftSidebar').set('text', '');
+			// -> ADD the new HTML elements into the leftSidebar div.
+			$('leftSidebar').adopt(html);
+			
+			// -> TWEEN leftSidebar
+			$('leftSidebar').set('tween',{duration: 500});
+			$('leftSidebar').tween('left','0px');
+			//$('leftSidebar').tween('opacity',1);
+			
+			// -> REMOVE the LOADING CIRCLE
+			leftSideBarloadingCircle.destroy();
+			
+	    sidebarMenu();
+		},
+		//-----------------------------------------------------------------------------
+		//Our request will most likely succeed, but just in case, we'll add an
+		//onFailure method which will let the user know what happened.
+		onFailure: function() { //-----------------------------------------------------
+		  var failureText = new Element('p');
+		  failureText.set('text','The request failed.');
+			$('leftSidebar').inject(failureText);
+		  }
+    }).send();
 
 }
 

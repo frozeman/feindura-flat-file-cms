@@ -14,7 +14,11 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.52
+// sidebar.loader.php version 0.55
+
+// -> GET FUNCTIONS
+require_once(dirname(__FILE__)."/backend.include.php");  
+
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
@@ -59,11 +63,11 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   
   // ----  show QUICKMENU for the CATEGORIES
   if(!empty($categories)) {   
-    
-    // slide the categories menu IN, when a category is open
-    if($_GET['site'] == 'pages' || $_GET['category'] == 0)
-      $hidden = '';
-    else $hidden = ' hidden';
+
+    // slide the categories menu OUT, when a category is open
+    if($_GET['site'] != 'pages' && $_GET['category'] == 0) // 
+      $hidden = ' hidden';
+    else $hidden = '';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
     <div class="top blue"><!--<img src="library/image/bg/sidebarMenu_fixedFade.png" alt="fade"/>--><img src="library/image/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_categories'].'::">&nbsp;</a></div>
@@ -75,7 +79,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             $categorySelected = ' class="active"';
           else
             $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" onclick="requestLeftSidebar(\''.$category['id'].'\',\''.$_GET['page'].'\',\''.$_GET['site'].'\');return false;"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
       }        
     echo '</ul>          
       </div>

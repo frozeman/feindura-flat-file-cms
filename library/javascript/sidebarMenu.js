@@ -13,19 +13,23 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/sidebarMeu.js version 0.24 (requires mootools-core and mootools-more)
+// java/sidebarMeu.js version 0.26 (requires mootools-core and mootools-more)
 //
 // let the sideBarMenu SLIDE IN/OUT and RESIZE on mouseover
 
-
-window.addEvent('domready', function() {
-
-	$$('.sidebarMenu').each(function(sideBarMenu) {
+// -------------------------------------------------
+// SLIDE IN/OUT and MOUSEOVER RESIZE
+function sidebarMenu() {
+  
+  	$$('.sidebarMenu').each(function(sideBarMenu) {
 	   
      var slideTopButton;
 	   var slideBottomButton;
 	   var slideContent;
 	   var slideVertical;
+	   
+	   
+	   // ->> SLIDE IN/OUT on MouseOver -------------------------------------------------------------------------------------------
 	   
 	   // gets the <a> tag in the <div class="content"> container and <div class="bottom">
 	   sideBarMenu.getElements('div').each(function(passedDiv) {
@@ -51,10 +55,10 @@ window.addEvent('domready', function() {
 	   // so that the picture of the upper Toogle Buttons changes
 	   slideVertical.onComplete = function(el) {
           sideBarMenu.toggleClass('hidden');
-          layoutFix();
+          layoutFix();          
      }
 
-	   // sets the SLIDE EFFECT to the buttons
+	   // -> sets the SLIDE EFFECT to the buttons
 	   slideTopButton.addEvent('click', function(e){
     		e.stop();    		
     		slideVertical.toggle();
@@ -64,11 +68,12 @@ window.addEvent('domready', function() {
     		slideVertical.toggle();
     	});
     	
-    	// hide the Menu if it has class "hidden"
-    	if(sideBarMenu.hasClass('hidden'))    	 
-    	  slideVertical.hide();
+    	// -> HIDE the Menu IF it has CLASS "HIDDEN"
+    	if(sideBarMenu.hasClass('hidden')) {
+          slideVertical.hide();
+      }     	  
     	
-     // RESIZE on MouseOver -------------------------------------------------------------------------------------------
+     // ->> RESIZE on MouseOver -------------------------------------------------------------------------------------------
      
      // gets the length of the longest text
       var maxTextLength = 0;
@@ -80,7 +85,7 @@ window.addEvent('domready', function() {
         }
       });
     	
-     // sets the RESIZE-TWEEN to the sideBarMenu
+     // -> sets the RESIZE-TWEEN to the sideBarMenu
 	   sideBarMenu.set('tween', {duration: '650', transition: Fx.Transitions.Pow.easeOut});
 	   
      slideContent.addEvent('mouseover', function(e){
@@ -94,7 +99,12 @@ window.addEvent('domready', function() {
       slideContent.addEvent('mouseout', function(e){
     		e.stop();
     		sideBarMenu.tween('width', '210');
-    	});
-            
-  });	
+    	});            
+  });  
+}
+
+window.addEvent('domready', function() {
+
+  sidebarMenu();
+
 });

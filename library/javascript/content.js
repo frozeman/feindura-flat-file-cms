@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.51 (requires mootools-core and mootools-more)
+// java/content.js version 0.52 (requires mootools-core and mootools-more)
 //
 
 
@@ -54,22 +54,18 @@ function autoResizeThumbnailPreview() {
   
 }
 
-// LOAD (all pics are loaded)
-window.addEvent('load',autoResizeThumbnailPreview);
-
-// DOMREADY
-window.addEvent('domready', function() {
+// -------------------------------------------------
+// BLOCK SLIDE IN/OUT
+function blockSlideInOut(givenIdCLass) {
   
-  // creates a smooth Scroll effect to anchors
-  /* new Fx.SmoothScroll({
-        links: '.smoothAnchors',
-        wheelStops: true,
-        duration: 1200
-    });*/
-
+  var blocksInDiv = '';
   
-  // block SLIDE IN/OUT ----------------------------------------------------------------------------------------------
-	$$('.block').each(function(block) {
+  // prepares the given container div id or class
+  if(givenIdCLass) {
+    blocksInDiv = givenIdCLass + ' ';
+  }
+  
+  $$(blocksInDiv + '.block').each(function(block) {
 	   
      var slideButtonH1;
 	   var slideContent;
@@ -78,7 +74,7 @@ window.addEvent('domready', function() {
 	   
 	   // gets the <a> tag in the <h1>
       if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
-            
+        
         slideButtonH1 = block.getElement('h1').getElement('a');
         
         block.getElements('div').each(function(passedDiv) {
@@ -159,6 +155,24 @@ window.addEvent('domready', function() {
     	  slideVertical.open = false;
     	}
   });
+}
+
+// LOAD (all pics are loaded)
+window.addEvent('load',autoResizeThumbnailPreview);
+
+// DOMREADY
+window.addEvent('domready', function() {
+  
+  // creates a smooth Scroll effect to anchors
+  /* new Fx.SmoothScroll({
+        links: '.smoothAnchors',
+        wheelStops: true,
+        duration: 1200
+    });*/
+
+  
+  // block SLIDE IN/OUT ----------------------------------------------------------------------------------------------
+	blockSlideInOut();
   
   // ADDs SMOOTHSCROLL to all ANCHORs
   var smoothAnchorScroll = new Fx.SmoothScroll({
