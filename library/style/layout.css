@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-layout.css version 0.54 */
+layout.css version 0.58 */
 
 
 /* ----------------------- */	
@@ -132,6 +132,10 @@ span.red {
     filter:Alpha(opacity=50, finishopacity=50, style=0);
     } 
 
+#cke_dialog_background_cover {
+    background: url(../image/bg/dimmContainer.png) repeat !important;
+    background-color: transparent !important;
+    }
 
 /* ----------------------- */
 /* --- HEADER */    

@@ -20,7 +20,7 @@
     position: relative;
     width: 202px;
     height: 17px;
-    background: url(../image/bg/sideBarMenu_spacer.png) repeat-x;
+    background: url(../image/bg/sidebarMenu_spacer.png) no-repeat top left !important;
     }
 
 /* ----------------------- */
