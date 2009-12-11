@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// setup.php version 2.4 (BACKEND)
+// setup.php version 2.42 (BACKEND)
 
 
 /* LANGUAGE-VARS
@@ -38,10 +38,13 @@ $langFile['search_results_time_part2'] = 'Sekunden';
 // LADEZEIT MESSEN
 $time_start = $statisticFunctions->getMicroTime(); //Zeitbeginn am Seitenanfang
 
+// set the GET searchword as the POST searchword, IF exists
+if(isset($_GET['search']))
+  $_POST['searchWord'] = urldecode($_GET['search']);
 
 // clean up the searchWord
 $searchWord = stripslashes($_POST['searchWord']);
-$searchWord = htmlentities($searchWord,ENT_NOQUOTES, 'UTF-8');
+$searchWord = htmlentities($searchWord,ENT_NOQUOTES,'UTF-8');
 
 // show the form
 echo '<form action="?site='.$_GET['site'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">';
@@ -56,32 +59,36 @@ echo '<div class="block">
       </div>
       </form>';
 
-
 $count = '0';
-
 // -------------------------------------------------------------------------------------------
 // STARTS SEARCH
-if(!empty($_POST['searchWord'])) {
+if(!empty($searchWord)) {
 
+array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
+$allPages = $generalFunctions->loadPages($categories);
+
+// SEARCH RESULTS HEADLINE
 echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
 
-// --- LAYOUT DER AUSGABE
+// ------------------------
+// --->> OUTPUT LAYOUT
 function ausgabeblock_start($count,$pageContent) {
   global $categories;
   
-  return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>&lArr; '.$categories['id_'.$pageContent['category']]['name'].'</span></h3><p>';
+  // set category name
+  if(isset($categories['id_'.$pageContent['category']]['name']))
+    $categoryName = '&lArr; '.$categories['id_'.$pageContent['category']]['name'];
+  
+  // -> RETURN OUTPUT LAYOUT
+  return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>'.$categoryName.'</span></h3><p>';
 }
 function ausgabeblock_end() {
   return '</p></div>
   <div class="bottom"></div>';
 }
-// --- ENDE LAYOUT DER AUSGABE
+// --- ENDE OUTPUT LAYOUT
+// ---------------------------
 
-
-
-
-array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPages = $generalFunctions->loadPages($categories);
 
 //print_r($allPages);
 

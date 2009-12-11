@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/sidebarMeu.js version 0.26 (requires mootools-core and mootools-more)
+// java/sidebarMeu.js version 0.27 (requires mootools-core and mootools-more)
 //
 // let the sideBarMenu SLIDE IN/OUT and RESIZE on mouseover
 
@@ -81,7 +81,7 @@ function sidebarMenu() {
       slideContent.getElement('ul').getElements('li').each(function(passedLi) {      
         var textLength = passedLi.getElement('a').getElement('span').offsetWidth;        
         if(maxTextLength < textLength) {
-          maxTextLength = textLength + 30; //+ 10 for padding
+          maxTextLength = textLength + 40; //+ 10 for padding
         }
       });
     	

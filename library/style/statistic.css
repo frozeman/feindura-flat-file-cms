@@ -92,7 +92,8 @@ div.tagCloud {
     overflow: auto;
     }
 
-div.tagCloud span {
+div.tagCloud span, div.tagCloud a {
     background: none !important;
     padding-right: 0px !important;
+    color: #668CA6 !important;
     }

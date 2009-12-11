@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/setup.js version 0.21 (requires mootools-core and mootools-more)
+// java/setup.js version 0.22 (requires mootools-core and mootools-more)
 
 
 var deactivateType = 'disabled'; // disabled/readonly
@@ -42,7 +42,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
     
   // thumbwidth
   if($(thumbWidthRatio) != null) {
-      $(thumbWidthRatio).addEvent('change', function() {
+      $(thumbWidthRatio).addEvent('click', function() {
           $(thumbHeight).setProperty(deactivateType,deactivateType);
           $(thumbWidth).removeProperty(deactivateType);
       });
@@ -50,7 +50,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
   
   // thumbheight
   if($(thumbHeightRatio) != null) {
-      $(thumbHeightRatio).addEvent('change', function() {
+      $(thumbHeightRatio).addEvent('click', function() {
           $(thumbWidth).setProperty(deactivateType,deactivateType);
           $(thumbHeight).removeProperty(deactivateType);
       });
@@ -58,7 +58,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
     
   // no Ratio
   if($(thumbNoRatio) != null) {
-      $(thumbNoRatio).addEvent('change', function() {
+      $(thumbNoRatio).addEvent('click', function() {
           $(thumbWidth).removeProperty(deactivateType);
           $(thumbHeight).removeProperty(deactivateType);
       });

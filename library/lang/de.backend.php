@@ -73,6 +73,7 @@ $langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt, sind C
 
 $langFile['log_searchwordtothissite_part1'] = 'hat'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt';
+$langFile['log_searchwordtothissite_tip'] = 'Anklicken um dieses Suchwort in allen Seiten zu suchen.';
 
 $langFile['log_visitCount'] = 'Besucher';
 $langFile['log_visitTime_max'] = 'l&auml;ngste Verweildauer';

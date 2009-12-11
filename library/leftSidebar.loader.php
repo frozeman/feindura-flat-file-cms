@@ -14,11 +14,12 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.56
+// sidebar.loader.php version 0.57
 
 // -> GET FUNCTIONS
 require_once(dirname(__FILE__)."/backend.include.php");  
 
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
@@ -193,7 +194,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             <p>'.$version[2].' - '.$version[3].'</p>';            
       echo '<hr />';
       
-      if(phpversion() >= '4.3') {
+      if(substr(phpversion(),0,3) >= '4.3') {
            echo '<h1>'.$langFile['adminSetup_phpVersion'].'</h1>
             <p>'.phpversion().'</p>';
       } else {

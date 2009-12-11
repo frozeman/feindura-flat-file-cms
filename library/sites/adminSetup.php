@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.26
+* adminSetup.php version 2.27
 */
 
 //error_reporting(E_ALL);
@@ -155,7 +155,14 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
   if(!isset($_POST['cfg_thumbHeight']))
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];    
-
+  
+  // -> CHANGE HTMLENTITIES from the USER-INFO
+  $_POST['cfg_userInfo'] = nl2br(stripslashes(htmlentities($_POST['cfg_userInfo'],ENT_QUOTES, 'UTF-8')));
+  $_POST['cfg_userInfo'] = str_replace('&lt;','<',$_POST['cfg_userInfo']);
+  $_POST['cfg_userInfo'] = str_replace('&gt;','>',$_POST['cfg_userInfo']);
+  $_POST['cfg_userInfo'] = str_replace('&quot;','"',$_POST['cfg_userInfo']);
+  
+  
   // **** opens adminConfig.php for writing
   if($file = @fopen("config/adminConfig.php","w")) {
     flock($file,2); // LOCK_EX
@@ -176,7 +183,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     fwrite($file,"\$adminConfig['user']['editLanguage'] =    '".$_POST['cfg_userLanguage']."';\n");
     fwrite($file,"\$adminConfig['user']['editStylesheet'] =  '".$_POST['cfg_userStylesheet']."';\n");  
-    fwrite($file,"\$adminConfig['user']['info'] =        '".nl2br(stripslashes(htmlentities($_POST['cfg_userInfo'],ENT_QUOTES, 'UTF-8')))."';\n\n");
+    fwrite($file,"\$adminConfig['user']['info'] =            '".$_POST['cfg_userInfo']."';\n\n");
     
     fwrite($file,"\$adminConfig['setStartPage'] =            '".$_POST['cfg_setStartPage']."';\n");
     fwrite($file,"\$adminConfig['page']['createPages'] =     '".$_POST['cfg_pageCreatePages']."';\n");
@@ -507,7 +514,7 @@ else $hidden = '';
       <tr><td class="left">
       <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_tip']; ?>"><?php echo $langFile['adminSetup_userSettings_textarea1']; ?></span></label>
       </td><td class="right">
-      <textarea id="cfg_userInfo" name="cfg_userInfo"  cols="50" rows="8" style="white-space:normal;width:500px;height:250px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo strip_tags($adminConfig['user']['info']); ?></textarea>
+      <textarea id="cfg_userInfo" name="cfg_userInfo"  cols="50" rows="8" style="white-space:normal;width:500px;height:250px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo $adminConfig['user']['info']; ?></textarea>
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

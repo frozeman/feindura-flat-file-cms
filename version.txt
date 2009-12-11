@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 83
+Build 84
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 84: createTagCloud: tags link to the searchpage with the tag as searchword
 	build 83: sidebarMenu: reloads if pages are sorted; categories in listpages can now be opend without javascript
 	build 82: layout.css: ck_editor dialog background set to the one in from the windowBox to: #cke_dialog_background_cover
 	build 81: statistic.class: taskLog shows also the user now

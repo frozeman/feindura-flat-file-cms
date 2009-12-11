@@ -28,7 +28,7 @@ $adminConfig['editor']['styleClass'] =  '';
 
 $adminConfig['pageThumbnail']['width'] =      '200';
 $adminConfig['pageThumbnail']['height'] =     '30';
-$adminConfig['pageThumbnail']['ratio'] =      'y';
+$adminConfig['pageThumbnail']['ratio'] =      'x';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;

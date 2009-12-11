@@ -160,6 +160,7 @@ function requestLeftSidebar(category,page,site) {
 			leftSideBarloadingCircle.destroy();
 			
 	    sidebarMenu();
+	    layoutFix();
 		},
 		//-----------------------------------------------------------------------------
 		//Our request will most likely succeed, but just in case, we'll add an

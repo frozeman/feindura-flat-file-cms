@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/statistic.class.php version 0.41
+// library/classes/statistic.class.php version 0.43
 
 //error_reporting(E_ALL);
 
@@ -315,7 +315,7 @@ class statisticFunctions {
       
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
-       !strstr($_SERVER['HTTP_REFERER'],$this->adminConfig['url']) && // checks if referer is not the own page
+       !strstr($_SERVER['HTTP_REFERER'],str_replace('www.','',$this->adminConfig['url'])) && // checks if referer is not the own page
        $logFile = @fopen($logFile,"w")) {
       
       // -> create the new log string
@@ -486,7 +486,13 @@ class statisticFunctions {
         $fontSize = $searchWord[1] / $highestNumber;
         $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
         
-        echo '<span style="font-size:'.$fontSize.'px;" class="toolTip blue" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::">'.$searchWord[0].'</span>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
+        // create href
+        if(substr(phpversion(),0,3) >= '5')
+          $searchWordHref = urlencode(html_entity_decode($searchWord[0],ENT_QUOTES,'UTF-8'));
+        else
+          $searchWordHref = urlencode(utf8_encode(html_entity_decode($searchWord[0],ENT_QUOTES,'ISO-8859-15')));
+        
+        echo '<a href="?site=search&amp;search='.$searchWordHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::'.$langFile['log_searchwordtothissite_tip'].'">'.$searchWord[0].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
       
       }
     } else {
