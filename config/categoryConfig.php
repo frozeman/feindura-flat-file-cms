@@ -5,12 +5,12 @@ $categories = array(
           "id"            => '1',
           "name"          => 'Maschienenpark',
           
-          "public"        => '',
+          "public"        => 'true',
           "sortascending" => '',
-          "createdelete"  => 'true',
+          "createdelete"  => '',
           "thumbnail"     => 'true',
-          "sortdate"      => '',
-          "sortbydate"    => '',
+          "sortdate"      => 'true',
+          "sortbydate"    => 'true',
           
           "styleFile"     => '',
           "styleId"       => '',

@@ -25,9 +25,8 @@ listPages.css version 0.16
     padding: 0px;
     }
 
-.listPages li {
+.listPages ul li {
     position: relative;
-    cursor: move;
     width: 755px;
     margin: 5px 0px;
     height: 34px; /* org: 40px*/
@@ -37,8 +36,12 @@ listPages.css version 0.16
     white-space: nowrap;
     overflow: hidden;
     }
-.listPages li:hover {    
+.listPages ul li:hover {    
     background-position: 0px -41px;
+    }
+
+.listPages ul.sortablePageList li {
+    cursor: move;
     }
 
 /* ----------------------- */	

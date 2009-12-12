@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// process/sortPages.php version 0.3
+// process/sortPages.php version 0.32
 
 include(dirname(__FILE__)."/../backend.include.php");
 
@@ -26,32 +26,46 @@ $sortOrder = explode('|',$_POST['sort_order']);
 if(!$categories['id_'.$_POST['categoryNew']]['sortascending'])
   $sortOrder = array_reverse($sortOrder);
 
-// move the file if it is sorted in an new category
+// MOVE the file if it is sorted in an new category
 if($_POST['categoryOld'] != $_POST['categoryNew']) {
   if(!movePage($_POST['sortedPageId'],$_POST['categoryOld'],$_POST['categoryNew'])) {
       echo '<span style="color: #960000;">'.$langFile['sortablePageList_error_move'].'</span>';
       die();
-  }      
+  }
 }
+
+// set Name of the non category
+$categories['id_0']['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
 
 // go trough the sort_order which has the id of the pages in the new order
 foreach($sortOrder as $sort) {
   static $count = 1;
+  
   if($sort != '') {
-   
     
-    // ordnet die seiten neu
-    if($pageContent = $generalFunctions->readPage($sort.'.php',$_POST['categoryNew'])) {
+    // ->> SORT the pages new
+    if($pageContent = $generalFunctions->readPage($sort,$_POST['categoryNew'])) {
       
-      // changes the properties of the page
+      // -> changes the properties of the page
       $pageContent['sortorder'] = $count; // get a new sort order number
       $pageContent['category'] = $_POST['categoryNew']; // eventually get a new category id
        
       
-      // speichert die neue ordung
+      // ->> save the new sorting
       if($generalFunctions->savePage($_POST['categoryNew'],$pageContent['id'],$pageContent)) {
-          $status = $langFile['sortablePageList_save_finished'];
-          $count++;
+        $status = $langFile['sortablePageList_save_finished'];
+        $count++;
+        
+        // -> saves the task log
+        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categories['id_'.$_POST['categoryNew']]['sortbydate'])) {
+          if($_POST['categoryOld'] != $_POST['categoryNew'])
+            $logText = $langFile['log_listPages_moved'];
+          else
+            $logText = $langFile['log_listPages_sorted'];
+          // save log
+          $statisticFunctions->saveTaskLog($logText,'<a href="index.php?category='.$_POST['categoryNew'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a><br />'.$langFile['log_listPages_moved_in'].' <a href="index.php?site=pages&amp;category='.$_POST['categoryNew'].'">'.$categories['id_'.$_POST['categoryNew']]['name'].'</a>'); // <- SAVE the task in a LOG FILE
+        }
+      // -X ERROR savePage
       } else {
         $status = $langFile['sortablePageList_error_save'];
       }        
@@ -62,16 +76,15 @@ foreach($sortOrder as $sort) {
       echo $pageContent['sortorder'].'|';
       */
       
-      
+    // -X ERROR readPage 
     } else
       $status = $langFile['sortablePageList_error_read'];
   }  
 }
-
-// checks if the category folder is empty,
+// -> CHECKs if the category folder is empty,
 // if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
 if(!$generalFunctions->loadPages($_POST['categoryOld'],false))
-  echo '&nbsp;';  
+  echo '&nbsp;';
   
 echo $status;
 ?>

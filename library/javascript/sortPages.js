@@ -260,17 +260,18 @@ window.addEvent('domready', function() {
   //var backgroundStyleBefore;
 
 	// MENU SORTABLE --------------------------------------------
+	/*
 	var sb = new Sortables('sortPagesList', {
-		/* set options */
+		// set options
 		clone: true,
 		revert: true,
 		opacity: 1,
 		snap: 8,
 			
-		/* initialization stuff here */
+		// initialization stuff here
 		initialize: function() {			
 		},
-		/* once an item is selected */
+		// once an item is selected
 		onStart: function(el,elClone) { 
 			$$('#sortPagesList a').setStyle('cursor','move'); // ändert den Cursor
 			elClone.setStyle('z-index','1');		
@@ -280,13 +281,13 @@ window.addEvent('domready', function() {
   		clicked = true;
   		$$('#sortPagesList a').addEvent('click',preventLink); // prevent clicking the link on sort
   	},		
-		/* when a drag is complete */
+		// when a drag is complete
 		onComplete: function(el) {
 		  // sets the cursor back
 			$$('#sortPagesList a').setStyle('cursor','pointer');
 			
 			// SAVE SORT ---------------------------
-			/* nur wenn sortiert wurde wird werden die seiten neu gespeichert */
+			// nur wenn sortiert wurde wird werden die seiten neu gespeichert
 			if(clicked) {
 			clicked = false;
 			
@@ -329,4 +330,5 @@ window.addEvent('domready', function() {
 	   }
 	 }
 	});
+	*/
 });

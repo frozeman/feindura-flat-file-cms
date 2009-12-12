@@ -281,8 +281,8 @@
     }
 #leftSidebar .sidebarInfo ul li {    
     margin: 3px 0px;
-    margin-left: 8px;
-    margin-bottom: 8px;
+    margin-left: 7px;
+    margin-bottom: 20px;
     color: #888888;
     list-style: circle;
     }
@@ -308,8 +308,10 @@
 /* links */   
 #leftSidebar #sidebarTaskLog a {
     text-decoration: none;
-    color: #666666;
+    color: #3A7AA5;
+    /* padding-left: 17px;
+    background: url(../image/sign/link.gif) no-repeat 0px 0px; */
     }
 #leftSidebar #sidebarTaskLog a:hover {
-    color: #3A7AA5;
+    color: #666666;
     }

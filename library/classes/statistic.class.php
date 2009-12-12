@@ -266,7 +266,7 @@ class statisticFunctions {
                        $object = false) {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
-    $maxEntries = 119;
+    $maxEntries = 300;
     $logFile = dirname(__FILE__).'/../../'.'statistic/log_tasks.txt';
     
     if(file_exists($logFile))
@@ -307,7 +307,7 @@ class statisticFunctions {
   function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
-    $maxEntries = 300;
+    $maxEntries = 500;
     $logFile = dirname(__FILE__).'/../../'.'statistic/log_referers.txt';
     
     if(file_exists($logFile))

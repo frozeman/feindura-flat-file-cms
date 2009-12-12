@@ -58,7 +58,7 @@ window.addEvent('domready', function() {
     });
     
     // add DIV SCROLLER
-    var logScroller = new divScroller('sidebarTaskLog', {area: 150,direction: 'y', velocity: 0.4,scrollSpeed: 60});
+    var logScroller = new divScroller('sidebarTaskLog', {area: 200,direction: 'y', velocity: 0.4,scrollSpeed: 60});
   	// myContent
   	$('sidebarTaskLog').addEvent('mouseenter', logScroller.start.bind(logScroller));
   	$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller));

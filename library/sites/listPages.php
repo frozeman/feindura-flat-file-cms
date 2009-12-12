@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.80
+listPages.php version 0.82
 
 */
 
@@ -113,7 +113,7 @@ startPageWarning();
 array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocategories_name'].' <span style="font-size:12px;color:#9FA0A0;">('.$langFile['categories_nocategories_hint'].')</span>'));
 
 // -----------------------------------------------------------------------------------------------------------
-// LIST CATEGORIES
+// ->> LIST CATEGORIES
 foreach($categories as $category) {
 
   // -> LOAD the PAGES FROM the CATEGORY
@@ -121,15 +121,15 @@ foreach($categories as $category) {
   //print_r($pages);
 
   // shows after saving the right category open
-  if(is_array($pages) &&                      // -> slide in the category if EMPTY
-     ($opendCategory == $category['id'] ||    // -> slide out the category if ACTIVE
-     $_GET['category'] == $category['id']))
+  if(is_array($pages) &&                                                            // -> slide in the category if EMPTY
+     (!isset($_GET['category']) && $category['id'] == 0) ||                                             // -> slide non-category in if no category is selected
+     ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))   // -> slide out the category if ACTIVE
     $hidden = '';
   else
     $hidden = ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  if($category['sortdate'] == 'true') {
+  if($category['sortbydate'] == 'true') {
     $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
   } else {
     $categorySorting = '';
@@ -145,7 +145,7 @@ foreach($categories as $category) {
     $publicText = $langFile['status_category_nonpublic'];
   }
   
-  // shows ID and differtnet header color if its a CATEGORY
+  // shows ID and different header color if its a CATEGORY
   if($category['id'] != 0) {
     //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="toolTip blue"';
@@ -158,7 +158,7 @@ foreach($categories as $category) {
   }
   
   // -> CREATE CATEGORY HEADLINE
-  echo '<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
+  echo "\n\n".'<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
           <h1'.$headerColor.' title="ID '.$category['id'].'::"><a href="?site=pages&amp;category='.$category['id'].'" style="font-size:15px; font-weight:bold; line-height:30px;" onclick="return false;"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].' '.$categorySorting.'</a></h1>
           <div class="category">';
     
@@ -170,14 +170,20 @@ foreach($categories as $category) {
       echo '<div class="functions">';
       
       // create page
-      if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$category['id']]['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $category['createdelete'])
         echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['btn_createPage_title'].'::" class="createPage toolTip">&nbsp;</a>';
          
   echo '    </div>
           </div>          
         <div class="content">';
   
-  echo '<ul class="sortablePageList" id="category'.$category['id'].'">';
+  // -> CHECK if pages are sortable
+  if(empty($category['sortbydate']))
+    $listIsSortableClass = ' class="sortablePageList"';
+  else
+    $listIsSortableClass = '';
+  
+  echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
 // list the pages of the categories
 // ----------------------------------------------------------
@@ -210,24 +216,24 @@ if(is_array($pages)) {
         $titleShort = substr($pageContent['title'],0,29).'..';
       }
       
-      // show savedate
-      $date = $statisticFunctions->formatDate($pageContent['savedate']).' '.$statisticFunctions->formatTime($pageContent['savedate']);
+      // -> show savedate
+      $saveDate = $statisticFunctions->formatDate($pageContent['savedate']).' '.$statisticFunctions->formatTime($pageContent['savedate']);
       
-      // show sortdate
-      if(!empty($pageContent['sortdate'])) {
+      // -> show sortdate
+      if(!empty($category['sortdate']) &&
+        (!empty($pageContent['sortdate'][0]) || !empty($pageContent['sortdate'][1]) || !empty($pageContent['sortdate'][2]))) {
         
         // CHECKs the DATE FORMAT
-        if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && $statisticFunctions->validateDateFormat($pageContent['sortdate'][1]) === false)
-          $showDate = '[b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_sortDate_error'].':[/span] '.$pageContent['sortdate'][1].' '.$pageContent['sortdate'][2];
+        if(!empty($pageContent['sortdate'][1]) && $statisticFunctions->validateDateFormat($pageContent['sortdate'][1]) === false)
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_sortDate_error'].':[/span] '.$pageContent['sortdate'][1].' '.$pageContent['sortdate'][2];
         else
-          $showDate = '[b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.$statisticFunctions->formatDate($pageContent['sortdate'][1]).' '.$pageContent['sortdate'][2];
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.$statisticFunctions->formatDate($pageContent['sortdate'][1]).' '.$pageContent['sortdate'][2];
         
       } else $showDate = '';
       
-      // show tags
+      // -> show tags
       if(!empty($pageContent['tags'])) {
-        if(!empty($showDate))
-          $showTags = '[br /][br /]';
+        $showTags = '[br /][br /]';
         $showTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$pageContent['tags'];
       }
 
@@ -244,8 +250,8 @@ if(is_array($pages)) {
         $activeStartPage = '';
       }
       
-      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].'[br /][br /]'.$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
-      <div class="saveDate">&nbsp;&nbsp;'.$date.'</div>
+      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
+      <div class="saveDate">&nbsp;&nbsp;'.$saveDate.'</div>
       <div class="counter">&nbsp;&nbsp;'.$statisticFunctions->formatHighNumber($pageContent['log_visitCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
@@ -297,7 +303,7 @@ echo '</ul>
   </div>';
 
 
-echo '<!-- Übergibt variablen an das Javascript -->
+echo "\n".'<!-- transport the sortorder to the javascript -->
       <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$categories['id_'.$category['id']]['sortascending'].'" /> <!-- absteigede reihenfolge ja/nein -->
       <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" />             <!-- die neue ordnung der Seiten -->';
 }
