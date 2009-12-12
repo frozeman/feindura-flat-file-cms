@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// pageThumbnailUpload.php version 1.01
+// pageThumbnailUpload.php version 1.02
 
 $error = false;
 $response = false;
@@ -27,6 +27,8 @@ include(dirname(__FILE__)."/../backend.include.php");
 $pageContent = $generalFunctions->readPage($page,$category);
 
 $categoryRatio = false;
+$thumbRatioX = false;
+$thumbRatioY = false;
 $thumbRatio = false;
 
 // GET THUMBNAIL SIZE
@@ -47,12 +49,14 @@ if(!empty($categories['id_'.$category]['thumbHeight'])) {
 // THUMB RATIO X
 if($categoryRatio) {
   if($categories['id_'.$category]['thumbRatio'] == 'y') {
-    $thumbRatioX = ' disabled="disabled"';
+    //$thumbRatioX = ' disabled="disabled"';
+    $thumbRatioX = true;
     $thumbRatio = 'y';
   }
 } else {
   if($adminConfig['pageThumbnail']['ratio'] == 'y') {
-    $thumbRatioX = ' disabled="disabled"';
+    //$thumbRatioX = ' disabled="disabled"';
+    $thumbRatioX = true;
     $thumbRatio = 'y';
   }
 }
@@ -60,12 +64,14 @@ if($categoryRatio) {
 // THUMB RATIO Y
 if($categoryRatio) {
   if($categories['id_'.$category]['thumbRatio'] == 'x') {
-    $thumbRatioY = ' disabled="disabled"';
+    //$thumbRatioY = ' disabled="disabled"';
+    $thumbRatioY = true;
     $thumbRatio = 'x';
   }
 } else {
   if($adminConfig['pageThumbnail']['ratio'] == 'x') {
-    $thumbRatioY = ' disabled="disabled"';
+    //$thumbRatioY = ' disabled="disabled"';
+    $thumbRatioY = true;
     $thumbRatio = 'x';
   }
 }
@@ -78,8 +84,11 @@ if($categoryRatio) {
   <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?></li>
   <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <b>'.ini_get('upload_max_filesize').'B</b>'; ?></li>
   <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br />
-  <?php echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['thumbSize_unit'].'<br />
-            '.$langFile['pagethumbnail_thumbsize_height'].' = <b>'.$thumbHeight.'</b> '.$langFile['thumbSize_unit']; ?>
+  <?php 
+  
+    if($thumbRatioY) echo $langFile['pagethumbnail_thumbsize_width'].' = <b>'.$thumbWidth.'</b> '.$langFile['thumbSize_unit'].'<br />';
+    if($thumbRatioX) echo $langFile['pagethumbnail_thumbsize_height'].' = <b>'.$thumbHeight.'</b> '.$langFile['thumbSize_unit'];
+  ?>
   </li>
 </ul>
 </div>
@@ -103,6 +112,10 @@ if($categoryRatio) {
 	<br clear="all"/>
 	
   <table id="thumbSize">  
+  <?php
+  // -> THUMB-WIDTH
+  if($thumbRatioY) {
+  ?>
   <tr><td style="width: 80px">
   <label for="windowBox_thumbWidth"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_feld1_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></span></label>
@@ -122,8 +135,12 @@ if($categoryRatio) {
   </td><td style="height:40px;">
   <div id="windowBox_thumbWidthScale" class="scale" style="<?php echo $styleThumbWidth; ?>"><div></div></div>
   </td></tr>
-  
-  <tr><td>
+  <?php
+  }
+  // -> THUMB-HEIGHT
+  if($thumbRatioX) {
+  ?>  
+  <tr><td style="width: 80px">
   <label for="windowBox_thumbHeight"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_feld2_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></span></label>
   </td><td>
@@ -141,7 +158,10 @@ if($categoryRatio) {
   <tr><td>
   </td><td style="height:40px;">
   <div id="windowBox_thumbHeightScale" class="scale" style="<?php echo $styleThumbHeight; ?>"><div></div></div>
-  </td></tr>  
+  </td></tr>
+  <?php
+  }
+  ?>
   </table>
   
   <!-- show a PREVIEW of the current THUMBNAIL -->
@@ -161,8 +181,7 @@ if($categoryRatio) {
     echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
     echo '</div>';
   }
-  ?> 
-  
+  ?>
 	<input type="submit" value="" class="toolTip button thumbnailUpload" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>" />
 </form>
 </div>

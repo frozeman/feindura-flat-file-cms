@@ -15,7 +15,7 @@ $adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['editLanguage'] =    'true';
 $adminConfig['user']['editStylesheet'] =  '';
-$adminConfig['user']['info'] =        '';
+$adminConfig['user']['info'] =            '';
 
 $adminConfig['setStartPage'] =            'true';
 $adminConfig['page']['createPages'] =     '';
@@ -28,7 +28,7 @@ $adminConfig['editor']['styleClass'] =  '';
 
 $adminConfig['pageThumbnail']['width'] =      '200';
 $adminConfig['pageThumbnail']['height'] =     '30';
-$adminConfig['pageThumbnail']['ratio'] =      'x';
+$adminConfig['pageThumbnail']['ratio'] =      'y';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;
