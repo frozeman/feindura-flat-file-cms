@@ -72,7 +72,9 @@ table.coloredList {
     margin: 0px;
     }
 table.coloredList td {
-    padding: 5px;
+    padding: 5px 0px;
+    padding-left: 5px;
+    padding-right: 2px;
     }
 
 .coloredList .light {  

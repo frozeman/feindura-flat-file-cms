@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.58
+// sidebar.loader.php version 0.59
 
 // -> GET FUNCTIONS
 require_once(dirname(__FILE__)."/backend.include.php");
@@ -162,6 +162,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<h1><img src="library/image/sign/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['home_user_h1'].'</h1><br />';
         if(file_exists(dirname(__FILE__).'/../.htpasswd')) {
           $users = file(dirname(__FILE__).'/../.htpasswd');
+          natsort($users);
           // list user
           echo '<ul>';
           foreach($users as $user) {
