@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/statistic.class.php version 0.43
+// library/classes/statistic.class.php version 0.45
 
 //error_reporting(E_ALL);
 
@@ -339,6 +339,30 @@ class statisticFunctions {
     } else return false;
   }
   
+  // ** -- getBrowser -------------------------------------------------------------------------------
+  // returns a the Browser Name
+  // -----------------------------------------------------------------------------------------------------
+  function getBrowser($agent) {
+    if(ereg("Firefox", $agent)) $c_browser = "firefox";                       // Phoenix oder Firefox
+    elseif((ereg("Nav", $agent)) ||
+    (ereg("Gold", $agent)) ||
+    (ereg("X11", $agent)) ||
+    (ereg("Netscape", $agent)) AND
+    (!ereg("MSIE 6", $agent))) $c_browser = "netscape";                       // Netscape Navigator
+    elseif(ereg("Chrome", $agent)) $c_browser  = "chrome";                    // Google Chrome
+    elseif(ereg("MSIE [0-6]", $agent)) $c_browser = "ie_old";                 // Internet Explorer 1-6
+    elseif(ereg("MSIE", $agent)) $c_browser = "ie";                           // Internet Explorer
+    elseif(ereg("Opera", $agent)) $c_browser = "opera";                       // Opera
+    elseif(ereg("Konqueror", $agent)) $c_browser = "konqueror";               // Konqueror
+    elseif(ereg("Lynx", $agent)) $c_browser = "lynx";                         // Lynx
+    elseif(ereg("iCab", $agent)) $c_browser = "safari";                       // Safari
+    elseif(ereg("Safari", $agent)) $c_browser = "safari";                     // Safari
+    elseif(ereg("gecko", $agent)) $c_browser = "mozilla";                     // Mozilla oder kompatibel
+    elseif(ereg("Mozilla", $agent)) $c_browser = "mozilla";                   // Mozilla oder kompatibel
+    else $c_browser = "others";
+    return $c_browser;
+  }
+  
   // ** -- createBrowserChart --------------------------------------------------------------------------------
   // creates a chart to display the browsers, used by the users
   // -----------------------------------------------------------------------------------------------------
@@ -364,52 +388,57 @@ class statisticFunctions {
       // change the Names and the Colors
       if($browser[0] == 'firefox') {
         $browserName = 'Firefox';
-        $browserColor = 'browserBg_firefox.png';
+        $browserColor = 'url(library/image/bg/browserBg_firefox.png) repeat-x';
         $browserLogo = 'browser_firefox.png';
         $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'netscape') {
         $browserName = 'Netscape Navigator';
-        $browserColor = 'browserBg_netscape.png';
+        $browserColor = 'url(library/image/bg/browserBg_netscape.png) repeat-x';
         $browserLogo = 'browser_netscape.png';
         $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'chrome') {
         $browserName = 'Google Chrome';
-        $browserColor = 'browserBg_chrome.png';
+        $browserColor = 'url(library/image/bg/browserBg_chrome.png) repeat-x';
         $browserLogo = 'browser_chrome.png';
         $browserTextColor = '#000000';
       } elseif($browser[0] == 'ie') {
         $browserName = 'Internet Explorer';
-        $browserColor = 'browserBg_ie.png';
+        $browserColor = 'url(library/image/bg/browserBg_ie.png) repeat-x';
         $browserLogo = 'browser_ie.png';
+        $browserTextColor = '#000000';
+      } elseif($browser[0] == 'ie_old') {
+        $browserName = 'Internet Explorer 1-6';
+        $browserColor = 'url(library/image/bg/browserBg_ie_old.png) repeat-x';
+        $browserLogo = 'browser_ie_old.png';
         $browserTextColor = '#000000';
       } elseif($browser[0] == 'opera') {
         $browserName = 'Opera';
-        $browserColor = 'browserBg_opera.png';
+        $browserColor = 'url(library/image/bg/browserBg_opera.png) repeat-x';
         $browserLogo = 'browser_opera.png';
         $browserTextColor = '#000000';
       } elseif($browser[0] == 'konqueror') {
         $browserName = 'Konqueror';
-        $browserColor = 'browserBg_konqueror.png';
+        $browserColor = 'url(library/image/bg/browserBg_konqueror.png) repeat-x';
         $browserLogo = 'browser_konqueror.png';
         $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'lynx') {
         $browserName = 'Lynx';
-        $browserColor = 'browserBg_lynx.png';
+        $browserColor = 'url(library/image/bg/browserBg_lynx.png) repeat-x';
         $browserLogo = 'browser_lynx.png';
         $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'safari') {
         $browserName = 'Safari';
-        $browserColor = 'browserBg_safari.png';
+        $browserColor = 'url(library/image/bg/browserBg_safari.png) repeat-x';
         $browserLogo = 'browser_safari.png';
         $browserTextColor = '#000000';
       } elseif($browser[0] == 'mozilla') {
         $browserName = 'Mozilla';
-        $browserColor = 'browserBg_mozilla.png';
+        $browserColor = 'url(library/image/bg/browserBg_mozilla.png) repeat-x';
         $browserLogo = 'browser_mozilla.png';
         $browserTextColor = '#ffffff';
       } elseif($browser[0] == 'others') {
         $browserName = $langFile['log_browser_others'];
-        $browserColor = 'browserBg_others.png';
+        $browserColor = 'url(library/image/bg/browserBg_others.png) repeat-x';
         $browserLogo = 'browser_others.png';
         $browserTextColor = '#000000';
       }  
@@ -453,7 +482,7 @@ class statisticFunctions {
       }
       
       // SHOW the table cell with the right browser and color
-      echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:url(library/image/bg/'.$browserColor.') repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+      echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:'.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
     
     }
     echo '</tr></table>';
@@ -723,7 +752,7 @@ class statisticFunctions {
             $websiteStatistic['userVisitCount']++;
           
           // -> adds the user BROWSER
-          $userBrowser = $this->generalFunctions->getBrowser($_SERVER['HTTP_USER_AGENT']);
+          $userBrowser = $this->getBrowser($_SERVER['HTTP_USER_AGENT']);
           $websiteStatistic["userBrowsers"] = $this->addDataToString(array($userBrowser),$websiteStatistic["userBrowsers"]);
           
         // -> COUNT the SPIDER UP
