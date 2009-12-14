@@ -34,24 +34,23 @@ function autoResizeThumbnailPreview() {
         var orgWidth = thumbnail.getSize().x;
         
         // add the width property again
-        thumbnail.setStyle('width',oldWidth+'px');      
+        thumbnail.setStyle('width',oldWidth + 'px');
         
         // set tween
         thumbnail.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
         
         //mouseover      
-        thumbnail.addEvent('mouseover',function() {
+        thumbnail.addEvent('mouseenter',function() {
           thumbnail.tween('width',orgWidth+'px');
         });
         
         // mouseout
-        thumbnail.addEvent('mouseout',function() {
+        thumbnail.addEvent('mouseleave',function() {
         thumbnail.tween('width',oldWidth+'px');
         });
       
       }
-    });
-  
+    });  
 }
 
 // -------------------------------------------------

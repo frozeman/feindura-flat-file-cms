@@ -96,7 +96,7 @@ window.addEvent('domready', function() {
       setThumbScale('windowBox_thumbWidth','windowBox_thumbWidthScale','windowBox_thumbHeight','windowBox_thumbHeightScale');
     
       /* set autoresize to THUMBNAIL PREVIEW */
-			autoResizeThumbnailPreview();
+			//autoResizeThumbnailPreview();
     }
   });
 });

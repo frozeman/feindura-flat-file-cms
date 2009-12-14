@@ -6,7 +6,7 @@
 
 /* png transparency hack */
 #logo, #header, #headerBlock, #footer, #mainMenu a,
-.sidebarMenu .top a, .sidebarMenu .top img,
+/*.sidebarMenu .top a,*/ .sidebarMenu .top img,
 #rightSidebar .content, #rightSidebar .bottom,
 /* #content .block.warning .content, #content .block.info .content, */
 /*#content h1 a,*/

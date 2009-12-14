@@ -24,6 +24,8 @@ $category = $_GET['category'];
 
 include(dirname(__FILE__)."/../backend.include.php");
 
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+
 $pageContent = $generalFunctions->readPage($page,$category);
 
 $categoryRatio = false;
@@ -170,14 +172,13 @@ if($categoryRatio) {
   if(!empty($pageContent['thumbnail'])) {
     
     $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-    $thumbnailWidth = $thumbnailWidth[0];
     
-    if($thumbnailWidth <= 200)
-      $thumbnailWidth = ' width="'.$thumbnailWidth.'"';
+    if($thumbnailWidth[0] <= 250)
+      $thumbnailWidth = ' width="'.$thumbnailWidth[0].'"';
     else
-      $thumbnailWidth = ' width="200"';
+      $thumbnailWidth = ' width="250"';
     
-    echo '<div style="z-index:0; position:relative; margin-bottom: 10px; float:right;">';
+    echo '<div style="z-index:0; position:relative; width: 280px; margin-bottom: 10px; float:right; text-align: center;">';
     echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
     echo '</div>';
   }

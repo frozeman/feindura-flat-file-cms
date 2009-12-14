@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/sidebarMeu.js version 0.27 (requires mootools-core and mootools-more)
+// java/sidebarMeu.js version 0.28 (requires mootools-core and mootools-more)
 //
 // let the sideBarMenu SLIDE IN/OUT and RESIZE on mouseover
 
@@ -29,7 +29,7 @@ function sidebarMenu() {
 	   var slideVertical;
 	   
 	   
-	   // ->> SLIDE IN/OUT on MouseOver -------------------------------------------------------------------------------------------
+	   // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------
 	   
 	   // gets the <a> tag in the <div class="content"> container and <div class="bottom">
 	   sideBarMenu.getElements('div').each(function(passedDiv) {
@@ -54,7 +54,8 @@ function sidebarMenu() {
 	   // changes the up and down button class from the <div class="top">
 	   // so that the picture of the upper Toogle Buttons changes
 	   slideVertical.onComplete = function(el) {
-          sideBarMenu.toggleClass('hidden');
+	        if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+            sideBarMenu.toggleClass('hidden');
           layoutFix();          
      }
 

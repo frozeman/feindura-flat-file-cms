@@ -3,28 +3,9 @@
 $categories = array(
 "id_1" => array(
           "id"            => '1',
-          "name"          => 'Maschienenpark',
+          "name"          => 'hallooo',
           
           "public"        => 'true',
-          "sortascending" => '',
-          "createdelete"  => '',
-          "thumbnail"     => 'true',
-          "sortdate"      => 'true',
-          "sortbydate"    => 'true',
-          
-          "styleFile"     => '',
-          "styleId"       => '',
-          "styleClass"    => 'category',
-          
-          "thumbWidth"    => '',
-          "thumbHeight"   => '',
-          "thumbRatio"    => '',
-          ),
-"id_2" => array(
-          "id"            => '2',
-          "name"          => 'Produktpalette',
-          
-          "public"        => '',
           "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',

@@ -35,10 +35,10 @@ $langFile['thumbnail_name'] = 'Seiten-Thumbnail';
 $langFile['thumbnail_name_width'] = 'Standard <b>Breite</b>';
 $langFile['thumbnail_name_height'] = 'Standard <b>H&ouml;he</b>';
 
-$langFile['thumbnail_tip'] = 'Es ist m&ouml;glich das nach dem Upload noch das alte Bild zu sehen ist, das liegt am Browser-Cache.[br /][br /]Um das aktuelle Bild zu sehen musst du einfach die Seite aktualisieren (F5).';
+$langFile['thumbnail_tip'] = 'M&ouml;glicherweise ist nach dem Upload noch das vorherige Bild zu sehen, dies ist bedingt durch den Browser-Cache.[br /][br /]Um das aktuelle Bild zu sehen musst du die Seite aktualisieren (F5).';
 
-$langFile['thumbnail_width_tip'] = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf diese Gr&ouml;&szlig;e gerechnet.';
-$langFile['thumbnail_height_tip'] = 'Standardh&ouml;he::Die H&ouml;he des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf diese Gr&ouml;&szlig;e gerechnet.';
+$langFile['thumbnail_width_tip'] = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Gr&ouml;&szlig;e skaliert.';
+$langFile['thumbnail_height_tip'] = 'Standardh&ouml;he::Die H&ouml;he des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Gr&ouml;&szlig;e skaliert.';
 
 $langFile['thumbnail_ratio_name'] = 'Seitenverh&auml;ltnis';
 $langFile['thumbnail_ratio_fieldText'] = 'Seitenverh&auml;ltnis beibehalten';
@@ -52,9 +52,9 @@ $langFile['stylesheet_name_styleFile'] = 'Stylesheet-Datei';
 $langFile['stylesheet_name_styleId'] = 'Stylesheet-Id';
 $langFile['stylesheet_name_styleClass'] = 'Stylesheet-Klasse';
 
-$langFile['stylesheet_styleFile_tip'] = 'Hier kann eine bestimmte Stylesheet-Datei angegeben werden die der HTML-Editor verwenden soll.';
-$langFile['stylesheet_styleId_tip'] = 'Hier kann eine bestimmte Stylesheet-Id angegeben werden die der HTML-Editor verwenden soll.';
-$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine bestimmte Stylesheet-Klasse angegeben werden die der HTML-Editor verwenden soll.';
+$langFile['stylesheet_styleFile_tip'] = 'Hier kann eine Stylesheet-Datei angegeben werden, die im HTML-Editor verwendet wird um den Inhalt zu stylen.';
+$langFile['stylesheet_styleId_tip'] = 'Hier kann eine Stylesheet-Id angegeben werden, die im HTML-Editor verwendet wird um den Inhalt zu stylen.';
+$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine Stylesheet-Klasse angegeben werden, die im HTML-Editor verwendet wird um den Inhalt zu stylen.';
 
 $langFile['stylesheet_styleFile_example'] = '<b>Beispiel</b> &quot;/style/layout.css&quot;';
 
@@ -69,7 +69,7 @@ $langFile['path_relativepath_tip'] = 'Relativer Pfad::Beginnt ohne &quot;/&quot;
 
 $langFile['home_browser_h1'] = 'Browserverteilung der Besucher';
 $langFile['log_spiderCount'] = 'Spider';
-$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt, sind Computer-programme, meistens von Suchmaschienen, die Seiten analysieren und indizieren.';
+$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt sind Computer-programme von Suchmaschienen, die Seiten analysieren und indizieren.';
 
 $langFile['log_searchwordtothissite_part1'] = 'hat'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt';
@@ -98,8 +98,8 @@ $langFile['log_browser_others'] = 'Sonstige';
 
 // ---------- deleting
 
-$langFile['delete_question_submit'] = 'Ja bitte l&ouml;schen!';
-$langFile['delete_question_cancel'] = 'Nein doch nicht';
+$langFile['delete_question_submit'] = 'Ja, bitte l&ouml;schen!';
+$langFile['delete_question_cancel'] = 'Nein, doch nicht';
 
 // ----------- page/category public/nonpuplic
 
@@ -218,12 +218,12 @@ Bitte gehe in die <a href="?site=adminSetup">Administrator Einstellungen</a> und
 
 $langFile['warning_jsWarning_h1'] = 'Bitte aktiviere Javascript';
 // no <p> tag on the start and the end, its already in the home.php
-$langFile['warning_jsWarning'] = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu k&ouml;nnen muss Javascript aktiviert sein!</strong></p>
+$langFile['warning_jsWarning'] = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu k&ouml;nnen, muss Javascript aktiviert sein!</strong></p>
 <h2>im Firefox</h2>
 <p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Einstellungen&quot;. Unter Inhalt aktivierst du den Punkt &quot;JavaScript aktivieren&quot; und best&auml;tigst dann mit OK.</p>
 <h2>im Internet Explorer</h2>
 <p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Internetoptionen&quot;.<br />
-Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&auml;hle &quot;Stufe anpassen&quot; und aktivieren dann unter Scripting den Punkt &quot;Active Scripting Aktivieren&quot;. Best&auml;tige mit OK.</p>
+Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&auml;hle &quot;Stufe anpassen&quot; und aktiviere dann unter Scripting den Punkt &quot;Active Scripting Aktivieren&quot;. Best&auml;tige mit OK.</p>
 <h2>im Safari</h2>
 <p>Klicke in der obersten Men&uuml;leiste auf das Symbol ganz rechts, w&auml;hle &quot;Einstellungen&quot;. Unter &quot;Sicherheit&quot; aktivierst du den Punkt &quot;JavaScript aktivieren&quot; und klicke zum best&auml;tigen auf OK.</p>
 <h2>im Mozilla</h2>
@@ -338,14 +338,14 @@ $langFile['adminSetup_fmsSettings_feld2_tip'] = 'Der Hauptpfad wird automatisch 
 $langFile['adminSetup_fmsSettings_feld2_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
 $langFile['adminSetup_fmsSettings_feld2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
 $langFile['adminSetup_fmsSettings_feld3'] = 'Speicherpfad';
-$langFile['adminSetup_fmsSettings_feld3_tip'] = 'Der [b]relative Pfad[/b] wo die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_feld3_tip'] = 'Der [b]relative Pfad[/b], unter dem die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld3_inputTip'] = 'Relativer Pfad::Relativ zum [b]'.$adminConfig['basePath'].'[/b] Ordner.[br /][br /]Beginnt ohne &quot;/&quot;';
-$langFile['adminSetup_fmsSettings_feld4'] = 'Daten Upload Pfad';
-$langFile['adminSetup_fmsSettings_feld4_tip'] = '[b]Absoluter Pfad[/b]. Hier werden die Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_feld4'] = 'Daten-Upload Pfad';
+$langFile['adminSetup_fmsSettings_feld4_tip'] = '[b]Absoluter Pfad[/b][br /]Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld5'] = 'Sprachdateien Pfad';
-$langFile['adminSetup_fmsSettings_feld5_tip'] = 'Sprachdateien k&ouml;nnen verwendet werden um eine Webseite Mehrsprachig zu gestalten.[br /][br /]Die Sprachdateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_feld5_tip'] = 'Sprachdateien k&ouml;nnen verwendet werden, um eine Webseite mehrsprachig zu gestalten.[br /][br /]Die Sprachdateien kann man weiter unten oder in den Webseiten Einstellungen bearbeiten (sollte dies in den Benutzer Einstellungen aktiviert sein).[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld6'] = 'Stylesheetdateien Pfad';
-$langFile['adminSetup_fmsSettings_feld6_tip'] = 'Der [b]absolute Pfad[/b] in dem sich die Stylesheet-Dateien der Webseite befinden.[br /][br /]Die Stylesheet-Dateien kann man dann (weiter unten) oder in den Webseiten Einstellungen bearbeiten.';
+$langFile['adminSetup_fmsSettings_feld6_tip'] = 'Der [b]absolute Pfad[/b], in dem sich die Stylesheet-Dateien der Webseite befinden.[br /][br /]Die Stylesheet-Dateien kann man weiter unten oder in den Webseiten Einstellungen bearbeiten (sollte dies in den Benutzer Einstellungen aktiviert sein).';
 $langFile['adminSetup_fmsSettings_varName1'] = 'Seiten Variablenname';
 $langFile['adminSetup_fmsSettings_varName1_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]page[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName2'] = 'Kategorie Variablenname';
@@ -354,14 +354,14 @@ $langFile['adminSetup_fmsSettings_varName3'] = 'Modul Variablenname';
 $langFile['adminSetup_fmsSettings_varName3_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]modul[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
 $langFile['adminSetup_fmsSettings_feld7'] = 'Datumsformat';
-$langFile['adminSetup_fmsSettings_feld7_tip'] = 'Wird im Backend und der Webseite verwendete.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
+$langFile['adminSetup_fmsSettings_feld7_tip'] = 'Wird in <span class="logoname">fein<span>dura</span></span> und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
 $langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL Format';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URL';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example/example.html';
 $langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL mit Variablen';
 $langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
-$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format welches f&uuml;r die Seiten Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
-$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gel&ouml;scht werden.[/span][br /][br /](In manchen FTP Programmen muss man erst die versteckten Dateien anzeigen um die .htaccess Datei sichtbar zu machen)';
+$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format, welches f&uuml;r die Seiten-Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
+$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gel&ouml;scht werden.[/span][br /][br /](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
 
 // ---------- speaking url ERRORs
 
@@ -375,33 +375,33 @@ $langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien bearbeiten, in 
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> auf der <a href="?site=home">Startseite</a>';
 $langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Diese zus&auml;tzlichen Informationen werden auf der Startseite angezeigt.';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
+$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
 
 // ---------- pageSettings
 
 $langFile['adminSetup_pageSettings_h1'] = 'Seiten Einstellungen';
 $langFile['adminSetup_pageSettings_check1'] = 'Startseite ist einstellbar';
-$langFile['adminSetup_pageSettings_check1_tip'] = 'Legt fest ob der Benutzer die Startseite selbst festlegen kann.';
+$langFile['adminSetup_pageSettings_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
 $langFile['adminSetup_pageSettings_check2'] = 'Seiten erstellen/l&ouml;schen anzeigen';
-$langFile['adminSetup_pageSettings_check2_tip'] = 'Legt fest ob der Benutzer, au&szlig;erhalb der Kategorien, Seiten erstellen und l&ouml;schen kann.';
+$langFile['adminSetup_pageSettings_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
 $langFile['adminSetup_pageSettings_check3'] = 'Thumbnail hochladen anzeigen';
-$langFile['adminSetup_pageSettings_check3_tip'] = 'Legt fest ob der Benutzer, au&szlig;erhalb der Kategorien, Seiten-Thumbnails hochladen kann.';
+$langFile['adminSetup_pageSettings_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
 
 // ---------- editor Settings
 
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor Einstellungen';
 $langFile['adminSetup_editorSettings_feld1'] = 'ENTER-Taste Modus';
-$langFile['adminSetup_editorSettings_feld1_tip'] = 'Legt fest welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]werden soll.[br /][br /][span class=hint]Mit SHIFT + ENTER wird standard m&auml;&szlig;ig ein &lt;br&gt; gesetzt.[/span]';
+$langFile['adminSetup_editorSettings_feld1_tip'] = 'Legt fest, welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]wird.[br /][br /][span class=hint]Mit SHIFT + ENTER wird standard m&auml;&szlig;ig ein &lt;br /&gt; gesetzt.[/span]';
 $langFile['adminSetup_editorSettings_feld1_inputTip'] = '&quot;p&quot;, &quot;br&quot;';
-$langFile['adminSetup_editorSettings_feld3_inputTip'] = 'Wenn das Feld leer ist wird keine Id verwendet.';
-$langFile['adminSetup_editorSettings_feld4_inputTip'] = 'Wenn das Feld leer ist wird keine Klasse verwendet.';
+$langFile['adminSetup_editorSettings_feld3_inputTip'] = 'Wenn das Feld leer ist, wird keine Id verwendet.';
+$langFile['adminSetup_editorSettings_feld4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
 
 // ---------- thumbnail Settings
 
 $langFile['adminSetup_thumbnailSettings_h1'] = 'Seiten-Thumbnail Einstellungen';
 $langFile['adminSetup_thumbnailSettings_feld3'] = 'Speicherpfad'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_feld3_tip'] = 'Der Pfad oder Verzeichnisname innerhalb des Daten Upload Pfad';
-$langFile['adminSetup_thumbnailSettings_feld3_inputTip1'] = 'Der Daten Upload Pfad';
+$langFile['adminSetup_thumbnailSettings_feld3_tip'] = 'Der Pfad oder Verzeichnisname innerhalb des Daten-Upload Pfads';
+$langFile['adminSetup_thumbnailSettings_feld3_inputTip1'] = 'Der Daten-Upload Pfad';
 $langFile['adminSetup_thumbnailSettings_feld3_inputTip2'] = 'Relativer Pfad::Relativ zum &quot;[b]'.$adminConfig['uploadPath'].'image/[/b]&quot; Ordner.[br /][br /]Beginnt ohne &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_feld3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
 
@@ -450,21 +450,21 @@ $langFile['categorySetup_advancedSettings'] = 'Erweiterte Einstellungen';
 $langFile['categorySetup_advancedSettings_hint'] = 'Diese Einstellungen, wenn ausgef&uuml;llt, &uuml;berschreiben die Editor und Thumbnail Einstellungen in den <a href="?site=adminSetup">Administrator Einstellungen</a>';
 
 $langFile['categorySetup_feld1'] = 'Name';
-$langFile['categorySetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist dann werden die Standard Stylesheet-Einstellungen aus den HTML-Editor Einstellungen verwendet.';
+$langFile['categorySetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Standard Stylesheet-Einstellungen aus den HTML-Editor Einstellungen verwendet.';
 
 $langFile['categorySetup_check1'] = 'Status der Kategorie';
-$langFile['categorySetup_check1_tip'] = 'Legt fest ob die Kategorie auf der Webseite angezigt wird oder nicht,[br /]das kann vorallem sinnvoll bei News oder anderen kurzweiligen Informationen sein.';
+$langFile['categorySetup_check1_tip'] = 'Legt fest, ob die Kategorie auf der Webseite sichtbar ist.';
 $langFile['categorySetup_check2'] = 'Seiten erstellen/l&ouml;schen';
 $langFile['categorySetup_check2_tip'] = 'Der Benutzer kann in dieser Kategorie Seiten erstellen und l&ouml;schen.';
 $langFile['categorySetup_check3'] = 'Thumbnail hochladen';
 $langFile['categorySetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
 $langFile['categorySetup_check4'] = 'Datum f&uuml;r die Seiten festlegen';
-$langFile['categorySetup_check4_tip'] = 'Das G&uuml;ltigkeitsdatum kann dazu verwendet werden Seiten auf der Webseite nach Datum zu sortieren';
+$langFile['categorySetup_check4_tip'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
 $langFile['categorySetup_check5'] = 'Seiten nach Datum sortieren';
 $langFile['categorySetup_check5_tip'] = 'Die Seiten werden nach einem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
 
-$langFile['categorySetup_check6'] = 'Neuste Seite immer bis unten anzeigen';
+$langFile['categorySetup_check6'] = 'Neueste Seite immer unten anzeigen';
 $langFile['categorySetup_check6_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
 
 
@@ -487,15 +487,15 @@ $langFile['websiteSetup_websiteConfig_h1'] = 'Webseiten Einstellungen';
 $langFile['websiteSetup_websiteConfig_feld1'] = 'Webseiten Titel';
 $langFile['websiteSetup_websiteConfig_feld1_tip'] = 'Der Titel der Webseite wird oben in der Browserleiste angezeigt.';
 $langFile['websiteSetup_websiteConfig_feld2'] = 'Publisher';
-$langFile['websiteSetup_websiteConfig_feld2_tip'] = 'Der Name der Organisation/Firma/Person die diese Seite ver&oumlffentlicht.';
+$langFile['websiteSetup_websiteConfig_feld2_tip'] = 'Der Name der Organisation/Firma/Person, die diese Seite ver&oumlffentlicht.';
 $langFile['websiteSetup_websiteConfig_feld3'] = 'Copyright';
-$langFile['websiteSetup_websiteConfig_feld3_tip'] = 'Der copyright Besitzer der Webseite.';
+$langFile['websiteSetup_websiteConfig_feld3_tip'] = 'Der Copyright-Besitzer der Webseite.';
 
 $langFile['websiteSetup_websiteConfig_feld4'] = 'Suchmaschinen Stichworte';
 $langFile['websiteSetup_websiteConfig_feld4_tip'] = 'Die meisten Suchmaschienen durchsuchen den Seiteninhalt nach Stichworten, jedoch sollte man einige Schl&uuml;sselw&ouml;rter hier auff&uuml;hren.';
 $langFile['websiteSetup_websiteConfig_feld4_inputTip'] = 'Die Stichworte m&uuml;ssen mit &quot;,&quot; getrennt werden.::'.$langFile['text_example'].':[br /]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_feld5'] = 'Webseiten Beschreibung';
-$langFile['websiteSetup_websiteConfig_feld5_tip'] = 'Ist eine kurze Beschreibung die in den Suchmaschienen auftaucht wenn man nach der Webseiten-Adresse sucht oder keine Stichworte im Text gefunden wurden.';
+$langFile['websiteSetup_websiteConfig_feld5_tip'] = 'Ist eine kurze Beschreibung die in den Suchmaschienen ercheint, wenn man nach der Webseiten-Adresse sucht oder keine Stichworte im Webseiten-Text gefunden wurden.';
 $langFile['websiteSetup_websiteConfig_feld5_inputTip'] = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
 $langFile['websiteSetup_websiteConfig_feld6'] = 'E-Mail Adresse';
 $langFile['websiteSetup_websiteConfig_feld6_tip'] = 'Diese E-Mail Adresse wird f&uuml;r alle wichtigen Kontaktm&ouml;glichkeiten verwendet[br /](z.B. Kontaktformulare etc.)';
@@ -520,15 +520,15 @@ $langFile['editor_pagestatistics_h1'] = 'Seiten Statistik';
 $langFile['editor_pageSettings_feld1'] = 'Seitentitel';
 $langFile['editor_pageSettings_feld1_tip'] = 'Der Titel der Seite';
 $langFile['editor_pageSettings_feld2'] = 'Tags';
-$langFile['editor_pageSettings_feld2_tip'] = 'Tags sind Stichworte die mit der Seite verkn&uuml;pft sind.[br /][br /]Wof&uuml;r diese verwendet werden entscheidet der Webdesigner.';
+$langFile['editor_pageSettings_feld2_tip'] = 'Tags sind Stichworte, die mit dieser Seite verkn&uuml;pft sind.';
 $langFile['editor_pageSettings_feld2_tip_inputTip'] = 'Die Stichworte sollten mit [b]Leerzeichen[/b] getrennt werden.';
 $langFile['editor_pageSettings_feld3'] = 'Seitendatum';
-$langFile['editor_pageSettings_feld3_tip'] = 'Das Datum kann dazu verwendet werden Seiten nach Aktualit&auml;t zu sortieren. (z.B. bei Veranstaltungen)';
+$langFile['editor_pageSettings_feld3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Aktualit&auml;t zu sortieren. (z.B. bei Veranstaltungen)';
 $langFile['editor_pageSettings_feld3_inpuTip_part1'] = 'Text vor dem Datum::z.B. vom Tag/Monat';
 $langFile['editor_pageSettings_feld3_inpuTip_part2'] = '[b]Format[/b]';
 $langFile['editor_pageSettings_feld3_inpuTip_part3'] = 'Text nach dem Datum::';
 $langFile['editor_pageSettings_feld4'] = 'Status der Seite';
-$langFile['editor_pageSettings_feld4_tip'] = '[b]Nur wenn die Seite &ouml;ffentlich ist wird diese auf der Webseite angezeigt![/b]';
+$langFile['editor_pageSettings_feld4_tip'] = '[b]Nur wenn die Seite &ouml;ffentlich ist, wird diese auf der Webseite angezeigt![/b]';
 
 $langFile['editor_pageSettings_sortDate_error'] = 'Fehlerhaftes Datumsformat';
 $langFile['editor_pageSettings_sortDate_error_tip'] = 'Das Datum muss folgendes Format haben:';
@@ -536,14 +536,14 @@ $langFile['editor_pageSettings_sortDate_error_tip'] = 'Das Datum muss folgendes 
 $langFile['editor_advancedpageSettings_h1'] = 'Erweiterte Seiten Einstellungen';
 
 $langFile['editor_advancedpageSettings_feld1'] = 'Seiten Stylesheet-Datei';
-$langFile['editor_advancedpageSettings_feld1_tip'] = 'Hier kann eine bestimmte Stylesheet-Datei angegeben werden die diese Seite in dem HTML-Editor verwenden soll.[br /][br /]Wenn das Feld leer ist dann wird die Standard Stylesheet-Datei aus den HTML-Editor Einstellungen verwendet.';
+$langFile['editor_advancedpageSettings_feld1_tip'] = $langFile['stylesheet_styleFile_tip'].'[br /][br /]Wenn das Feld leer ist dann wird die Standard Stylesheet-Datei aus den HTML-Editor Einstellungen verwendet.';
 $langFile['editor_advancedpageSettings_feld1_inputTip2'] = '<b>'.$langFile['text_example'].'</b> &quot;/style/layout.css&quot; ';
 $langFile['editor_advancedpageSettings_feld3'] = 'Seiten Stylesheet-Id';
-$langFile['editor_advancedpageSettings_feld3_tip'] = 'Hier kann eine bestimmte Stylesheet-Id angegeben werden die diese Seite in dem HTML-Editor verwenden soll.';
-$langFile['editor_advancedpageSettings_feld3_inputTip'] = 'Wenn das Feld leer ist dann wird die Standard Stylesheet-Id aus den HTML-Editor Einstellungen verwendet.';
+$langFile['editor_advancedpageSettings_feld3_tip'] = $langFile['stylesheet_styleId_tip'];
+$langFile['editor_advancedpageSettings_feld3_inputTip'] = 'Wenn das Feld leer ist, dann wird die Standard Stylesheet-Id aus den HTML-Editor Einstellungen verwendet.';
 $langFile['editor_advancedpageSettings_feld4'] = 'Seiten Stylesheet-Klasse';
-$langFile['editor_advancedpageSettings_feld4_tip'] = 'Hier kann eine bestimmte Stylesheet-Klasse angegeben werden die diese Seite in dem HTML-Editor verwenden soll.';
-$langFile['editor_advancedpageSettings_feld4_inputTip'] = 'Wenn das Feld leer ist dann wird die Standard Stylesheet-Klasse aus den HTML-Editor Einstellungen verwendet.';
+$langFile['editor_advancedpageSettings_feld4_tip'] = $langFile['stylesheet_styleClass_tip'];
+$langFile['editor_advancedpageSettings_feld4_inputTip'] = 'Wenn das Feld leer ist, dann wird die Standard Stylesheet-Klasse aus den HTML-Editor Einstellungen verwendet.';
 
 $langFile['editor_htmleditor_hotkeys_h1'] = 'Tastenk&uuml;rzel';
 $langFile['editor_htmleditor_hotkeys_feld1'] = 'Alles markieren';

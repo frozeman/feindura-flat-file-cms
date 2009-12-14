@@ -80,7 +80,7 @@ img.thumbnailPreview {
 /* thumbnailUpload BUTTON */
 input.thumbnailUpload {
     position: relative;
-    left: 315px;
+    left: 305px;
     width: 75px;
     height: 90px;
     background: url(../image/key/thumbnailUpload.png) no-repeat !important;

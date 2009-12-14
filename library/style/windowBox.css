@@ -29,7 +29,7 @@ windowBox.css version 0.1 */
 
 #windowBox {    
     position: fixed;
-    top: 25%;
+    top: 20%;
     width: 780px;
     /*margin-left: auto;
     margin-right: auto;*/
@@ -64,7 +64,7 @@ windowBox.css version 0.1 */
     position: relative;
     bottom: 1px; /* before -55px */
     width: 780px;
-    height: 55px;
+    height: 100px; /* org: 55px */
     background: url(../image/bg/windowBox_bottom.png) no-repeat;
     }
     

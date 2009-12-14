@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 87
+Build 88
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 88: fixed some safari ajax problems (needs a space at the beginning of every ajax loaded page); corrected the de.backend.php
 	build 87: sortbydate deactivates the sorting of the category; some fixes in the toolTip -> showSortDate
 	build 86: task log logs also the page sortings now
 	build 85: if there is an thumbnail size ratio set, then dont show the height or width in the thumbnail upload

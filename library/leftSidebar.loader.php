@@ -14,10 +14,10 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.57
+// sidebar.loader.php version 0.58
 
 // -> GET FUNCTIONS
-require_once(dirname(__FILE__)."/backend.include.php");  
+require_once(dirname(__FILE__)."/backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
@@ -57,13 +57,13 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       </div>
       <div class="bottom"><a href="#">&nbsp;</a></div>
     </div>';
-    
-    // SPACER
-    echo '<div class="spacer"></div>';
   }
   
   // ----  show QUICKMENU for the CATEGORIES
-  if(!empty($categories)) {   
+  if(!empty($categories)) {
+    
+    // SPACER
+    echo '<div class="spacer"></div>';
 
     // slide the categories menu OUT, when a category is open
     if($_GET['site'] != 'pages' && $_GET['category'] == 0) // 
@@ -217,7 +217,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // -> CATEGORY ANCHOR LINKS
       echo '<div style="position:fixed; top:150px;">';
       
-      echo '<a href="?site=categorySetup&amp;status=createCategory#categories" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['categorySetup_createCategory'].'::"></a>'; 
+      echo '<a href="?site=categorySetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['categorySetup_createCategory'].'::"></a>'; 
       
       if(!empty($categories)) {
         echo '<div class="sidebarInfo"><div class="content">';     

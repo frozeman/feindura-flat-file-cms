@@ -14,9 +14,11 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// deleteCategory.php version 0.1
+// deleteCategory.php version 0.11
 
 include_once(dirname(__FILE__).'/../backend.include.php');
+
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // QUESTION
 echo '<h1>'.$langFile['categorySetup_question_part1'].' &quot;<span style="color:#000000;">'.$categories['id_'.$_GET['category']]['name'].'</span>&quot; '.$langFile['categorySetup_question_part2'].'</h1>';

@@ -32,28 +32,23 @@ $categoryInfo = false;
 
 // ****** ---------- CREATE NEW CATEGORY
 if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'createCategory') {
+   
+  // -> GET highest category id
+  $newId = getNewCatgoryId();
   
-  // gets the highest id
-  $highestId = 0;
-  if(is_array($categories)) {
-    foreach($categories as $category) {          
-      if($category['id'] > $highestId)
-        $highestId = $category['id'];
-    }
-  } else {
+  if($newId == 1)
     $categories = array();
-  }
   
   //fügt dem $categories array einen leeren array an
-  array_push($categories, array('id' => ++$highestId)); // gives the new category a id
-  if(saveCategories($categories)) {  
+  array_push($categories, array('id' => $newId)); // gives the new category a id
+  if(saveCategories($categories)) {
     
     $categoryInfo = $langFile['categorySetup_createCategory_created'];
     
     // if there is no category dir, trys to create one
-    if(!is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$highestId)) {
+    if(!is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$newId)) {
         // erstellt ein verzeichnis
-        if(!mkdir (dirname(__FILE__).'/../../'.$adminConfig['savePath'].$highestId, 0777)) {
+        if(!mkdir (dirname(__FILE__).'/../../'.$adminConfig['savePath'].$newId, 0777)) {
           if($errorWindow) // if there is allready an warning
             $errorWindow .= '<br /><br />'.$langFile['categorySetup_error_createDir'];
           else
@@ -204,7 +199,7 @@ if($unwriteableList) {
       <tr><td class="leftTop"></td><td></td></tr>
 
       <tr><td class="left">
-        <a href="?site=categorySetup&amp;status=createCategory#categories" class="createCategory toolTip" title="<?php echo $langFile['categorySetup_createCategory']; ?>::"></a>
+        <a href="?site=categorySetup&amp;status=createCategory#category<?php echo getNewCatgoryId(); ?>" class="createCategory toolTip" title="<?php echo $langFile['categorySetup_createCategory']; ?>::"></a>
       </td><td class="right">
       <br />
       <?php

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.17
+* library/functions/backend.functions.php version 1.18
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -23,6 +23,8 @@
 * numeratePage($group, $pageName, $numerateHowever = false) (NOT IN USE)
 * 
 * isAdmin()
+* 
+* getNewCatgoryId()
 * 
 * saveCategories($categories)
 * 
@@ -126,6 +128,24 @@ function isAdmin() {
       return true;
     }    
   } return true;  
+}
+
+// ** -- getNewCatgoryId ----------------------------------------------------------------------------------
+// get the highest category id and make it one higher
+// -----------------------------------------------------------------------------------------------------
+function getNewCatgoryId() {
+  global $categories;
+  
+  // gets the highest id
+  $highestId = 0;
+  if(is_array($categories)) {
+    foreach($categories as $category) {          
+      if($category['id'] > $highestId)
+        $highestId = $category['id'];
+    }
+    return ++$highestId;
+  } else
+    return 1;
 }
 
 // ** -- saveCategories ----------------------------------------------------------------------------------
