@@ -32,15 +32,7 @@ if($_GET['site'] != 'adminSetup')
 if($_GET['site'] != 'pages')
   startPageWarning();
 
-?>
-<!-- loadingBox -->
-<div id="loadingBox">
-  <div class="top"></div> 
-  <div class="content">
-  </div> 
-  <div class="bottom"></div> 
-</div>
-<?php
+
 // start of loading the content
 // -------------------------------------------------------------------------------------------------------------
 

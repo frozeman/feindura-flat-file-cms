@@ -134,6 +134,14 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <div id="dimmContainer">
   </div>
   
+  <!-- loadingBox -->
+  <div id="loadingBox">
+    <div class="top"></div>
+    <div class="content">
+    </div>
+    <div class="bottom"></div>
+  </div>
+  
   <div id="windowBoxContainer">
     <div id="windowBox">
       <div class="boxTop"><?php echo $langFile['txt_loading']; ?><a href="#" onclick="closeWindowBox(false);"></a></div>
