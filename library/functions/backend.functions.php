@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.18
+* library/functions/backend.functions.php version 1.19
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -341,9 +341,8 @@ function moveCategories($category,            // the category id to be moved (Nu
     return false;
 }
 
-
-// ** -- savewebsiteConfig ----------------------------------------------------------------------------------
-// open the config/websiteConfig.php and writes the categories array.
+// ** -- saveWebsiteConfig ----------------------------------------------------------------------------------
+// open the config/websiteConfig.php
 // -----------------------------------------------------------------------------------------------------
 function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to save
    
@@ -357,13 +356,13 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
     $keywords = str_replace(' ,',',', $keywords);
     $keywords = str_replace(' ',',', $keywords);
     
-    // *** Schreibe CATEGORIES
+    // *** write
     flock($websiteConfig,2); //LOCK_EX
       fwrite($websiteConfig,PHPSTARTTAG); //< ?php
   
-      fwrite($websiteConfig,"\$websiteConfig['seitentitel']    = '".htmlentities($givenSettings['seitentitel'])."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['publisher']    = '".htmlentities($givenSettings['publisher'])."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['copyright']    = '".htmlentities($givenSettings['copyright'])."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['title']          = '".htmlentities($givenSettings['title'])."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['publisher']      = '".htmlentities($givenSettings['publisher'])."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['copyright']      = '".htmlentities($givenSettings['copyright'])."';\n");
       fwrite($websiteConfig,"\$websiteConfig['keywords']       = '".htmlentities($keywords)."';\n");
       fwrite($websiteConfig,"\$websiteConfig['description']    = '".htmlentities($givenSettings['description'])."';\n");
       fwrite($websiteConfig,"\$websiteConfig['contactMail']    = '".$givenSettings['contactMail']."';\n\n");
@@ -375,6 +374,36 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
       fwrite($websiteConfig,PHPENDTAG); //? >
     flock($websiteConfig,3); //LOCK_UN
     fclose($websiteConfig);
+  
+    return true;
+  } else return false;
+}
+
+// ** -- saveStatisticConfig ----------------------------------------------------------------------------------
+// open the config/statisticConfig.php
+// -----------------------------------------------------------------------------------------------------
+function saveStatisticConfig($givenSettings) {  // (Array) with the settings to save
+   
+  // opens the file for writing
+  if($statisticConfig = @fopen("config/statisticConfig.php","w")) {
+        
+    // *** write
+    flock($statisticConfig,2); //LOCK_EX
+      fwrite($statisticConfig,PHPSTARTTAG); //< ?php
+  
+      fwrite($statisticConfig,"\$statisticConfig['number']['mostVisitedPages']        = '".$givenSettings['number']['mostVisitedPages']."';\n");
+      fwrite($statisticConfig,"\$statisticConfig['number']['longestVisitedPages']     = '".$givenSettings['number']['longestVisitedPages']."';\n");
+      fwrite($statisticConfig,"\$statisticConfig['number']['lastEditedPages']         = '".$givenSettings['number']['lastEditedPages']."';\n\n");
+      
+      fwrite($statisticConfig,"\$statisticConfig['number']['refererLog']    = '".$givenSettings['number']['refererLog']."';\n");
+      fwrite($statisticConfig,"\$statisticConfig['number']['taskLog']       = '".$givenSettings['number']['taskLog']."';\n\n");
+      
+      
+      fwrite($statisticConfig,"return \$statisticConfig;");
+    
+      fwrite($statisticConfig,PHPENDTAG); //? >
+    flock($statisticConfig,3); //LOCK_UN
+    fclose($statisticConfig);
   
     return true;
   } else return false;

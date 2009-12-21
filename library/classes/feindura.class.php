@@ -281,7 +281,7 @@ class feindura {
       
       // -> add TITLE
       $metaTags .= '  <title>'."\n";      
-      $metaTags .= '  '.$this->websiteConfig['seitentitel'].$pageNameInTitle."\n";
+      $metaTags .= '  '.$this->websiteConfig['title'].$pageNameInTitle."\n";
       $metaTags .= '  </title>'."\n\n";
       
       // -> add robots.txt
@@ -304,7 +304,7 @@ class feindura {
       $metaTags .= '  <meta http-equiv="cache-control" content="no-cache" /> <!-- browser/proxy does not cache -->'."\n\n";
       
       // -> add title
-      $metaTags .= '  <meta name="title" content="'.$this->websiteConfig['seitentitel'].$pageNameInTitle.'" />'."\n";
+      $metaTags .= '  <meta name="title" content="'.$this->websiteConfig['title'].$pageNameInTitle.'" />'."\n";
       
       // -> add author
       if($author && is_string($author))
@@ -1386,21 +1386,20 @@ class feindura {
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
                                  $titleLength = false,         // if Number, it shortens the title characters to this Length (Boolean or Number)
                                  $titleAsLink = false,         // if true, it set the title as a link (Boolean)
-                                 $titleShowCategory = false,       // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
+                                 $titleShowCategory = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
                                  $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
                                  $titleStartText = false) {    // if String, it appears before the title text
 
       // saves the long version of the title, for the title="" tag
       $fullTitle = strip_tags($pageContent['title']);
-
            
       // title with date
       if($titleShowDate && $pageContent['category'] &&
          isset($this->categoryConfig['id_'.$pageContent['category']]) &&
          $this->categoryConfig['id_'.$pageContent['category']]['sortdate'] &&
          !empty($pageContent['sortdate']) &&
-         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate'][1]))
-         $titleDate = $pageContent['sortdate'][0].' '.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate'][2];
+         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate']['date']))
+         $titleDate = $pageContent['sortdate']['before'].' '.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate']['after'];
       else $titleDate = false;      
       
       // shorten the title
@@ -1516,7 +1515,7 @@ class feindura {
   // RETURNs the pageContent Arrays or FALSE
   // -----------------------------------------------------------------------------------------------------
   function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
-                               $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
+                     $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
 
     // -> checks if the RETURN should be an Array
     if($loadPagesInArray === true) {
@@ -1547,7 +1546,7 @@ class feindura {
               
         // sorts the category
         if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-          if($this->categoryConfig['id_'.$categoryId]['sortbydate'])
+          if($categoryId !== 0 && $this->categoryConfig['id_'.$categoryId]['sortbydate'])
             $newPageContentArrays = $this->generalFunctions->sortPages($newPageContentArrays, 'sortByDate');
           else
             $newPageContentArrays = $this->generalFunctions->sortPages($newPageContentArrays, 'sortBySortOrder');
@@ -1857,11 +1856,11 @@ class feindura {
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['sortdate']) &&
-           !empty($page['sortdate'][1]) &&
+           !empty($page['sortdate']['date']) &&
            ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['sortdate'])) {
            
            // makes the page sort date compareable
-           $pageSortDate = str_replace('-','',$page['sortdate'][1]);           
+           $pageSortDate = str_replace('-','',$page['sortdate']['date']);
            
            //echo 'pageSortDate: '.$pageSortDate.'<br /><br />';           
            

@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-home.php version 0.82
+home.php version 0.85
 
 */
 
@@ -42,9 +42,22 @@ include_once(dirname(__FILE__).'/../backend.include.php');
 </noscript>
 
 <?php
-// show the user hints
-if(!empty($adminConfig['user']['info'])) {
+
+// SHOW the BROWSER HINT
+if(preg_match("/MSIE [0-6]/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
+<div class="block info hidden">
+  <h1><a href="#"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
+  <div class="content">
+    <p><?php echo $langFile['warning_ieOld']; ?></p><!-- needs <p> tags for margin-left:..-->
+  </div>
+  <div class="bottom"></div>
+</div>
+<?php } 
+
+// SHOW the USER HINTs
+if(!empty($adminConfig['user']['info'])) {
+?>
 <div class="block info">
   <h1><a href="#"><?php echo $langFile['home_userInfo_h1']; ?></a></h1>
   <div class="content">
@@ -90,7 +103,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> MOST VISITED PAGE
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['home_mostVisitedPage_h1'].'</h2>';    
+    echo '<h2>'.$langFile['home_h1_article'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['home_mostVisitedPages_h1'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT COUNT
@@ -98,14 +111,16 @@ if(!empty($adminConfig['user']['info'])) {
       
       $count = 1;
       $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) { 
-        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;"><b>'.$page['log_visitCount'].'</b></td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
-        // change row color
-        if($rowColor == 'light') $rowColor = 'dark';
-        else $rowColor = 'light';        
-        // count
-        if($count == 10) break;
-        else $count++;
+      foreach($pages as $page) {
+        if(!empty($page['log_visitCount'])) {
+          echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;"><b>'.$page['log_visitCount'].'</b></td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
+          // change row color
+          if($rowColor == 'light') $rowColor = 'dark';
+          else $rowColor = 'light';        
+          // count
+          if($count == $statisticConfig['number']['mostVisitedPages']) break;
+          else $count++;
+        }
       }
       echo '</table>
             </div>';
@@ -116,7 +131,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LAST EDITED PAGES
     echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['home_lastEditedPage_h1'].'</h2>';    
+    echo '<h2>'.$langFile['home_lastEditedPages_h1'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE
@@ -130,7 +145,7 @@ if(!empty($adminConfig['user']['info'])) {
         if($rowColor == 'light') $rowColor = 'dark';
         else $rowColor = 'light';        
         // count
-        if($count == 30) break;
+        if($count == $statisticConfig['number']['lastEditedPages']) break;
         else $count++;
       }
       echo '</table>
@@ -142,7 +157,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LONGEST VIEWED PAGE
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['home_longestViewedPage_h1'].'</h2>';    
+    echo '<h2>'.$langFile['home_h1_article'].' '.$statisticConfig['number']['longestVisitedPages'].' '.$langFile['home_longestViewedPages_h1'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by MAX VISIT TIME
@@ -157,7 +172,7 @@ if(!empty($adminConfig['user']['info'])) {
         if($rowColor == 'light') $rowColor = 'dark';
         else $rowColor = 'light';        
         // count
-        if($count == 10) break;
+        if($count == $statisticConfig['number']['longestVisitedPages']) break;
         else $count++;
       }
       echo '</table>
@@ -199,8 +214,9 @@ if(!empty($adminConfig['user']['info'])) {
     // -> SHOW REFERER LOG
     echo '<h3>'.$langFile['home_refererLog_h1'].'</h3>';
     
-    if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt')) {
-      $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt');
+    if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt') &&
+       $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt')) {
+      ;
        
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';

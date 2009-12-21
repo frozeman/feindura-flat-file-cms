@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/ajax.js version 0.32 (requires mootools-core)
+// java/ajax.js version 0.33 (requires mootools-core)
 
 /* ---------------------------------------------------------------------------------- */
 // send a HTML request and put the outcome in the windowRequestBox
@@ -28,7 +28,7 @@ function requestSite(site,siteTitle,formId) {
     onRequest: function() { //-----------------------------------------------------
         
         //Clear the boxTop <div>
-    		$$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);"></a>');
+    		$$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
         
         // checks if the windowRequestBox is empty, means that an new window is opend
   		  if($('windowRequestBox').get('text') != '')
@@ -54,7 +54,7 @@ function requestSite(site,siteTitle,formId) {
 			$('windowBox').fireEvent('loaded',$('windowRequestBox'));
 		
 			// resize the box by a slide; set the slide
-			$('windowRequestBox').set('slide', {duration: '500', transition: Fx.Transitions.Pow.easeOut});
+			$('windowRequestBox').set('slide', {duration: '300', transition: Fx.Transitions.Pow.easeOut});
       
       // sets the height of the wrapper to auto after the slide,
       // so that the windowRequestBox, resizes automaticly when content is changing
@@ -69,7 +69,7 @@ function requestSite(site,siteTitle,formId) {
   		  // first fill in the title
   		  if(siteTitle) {  		  
     			//Inject the new DOM elements into the boxTop div.
-    			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();"></a>');
+    			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();return false;"></a>');
   			}			   
   
         // slides in
@@ -130,7 +130,7 @@ function requestLeftSidebar(category,page,site) {
     onRequest: function() { //-----------------------------------------------------
         
         //Clear the boxTop <div>
-    		//$('leftSidebar').set('html', '<a href="#" onclick="closeWindowBox(false);"></a>');
+    		//$('leftSidebar').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
     		
     	
         // -> TWEEN leftSidebar

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/statistic.class.php version 0.45
+// library/classes/statistic.class.php version 0.52
 
 //error_reporting(E_ALL);
 
@@ -23,6 +23,7 @@ class statisticFunctions {
   // PUBLIC
   // *********
   var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
+  var $statisticConfig;                   // [Array] the Array with the statisticConfig Data from the feindura CMS
   var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
   
   var $generalFunctions;
@@ -33,10 +34,12 @@ class statisticFunctions {
   // -----------------------------------------------------------------------------------------------------
   function statisticFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     global $adminConfig;
+    global $statisticConfig;
     global $categories;
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $adminConfig;
+    $this->statisticConfig = $statisticConfig;
     $this->categoryConfig = $categories;
     
     // GET FUNCTIONS
@@ -140,7 +143,7 @@ class statisticFunctions {
     
     $date = explode('/', $date);
   
-    // checks a date with no seperation signs -> has to have the format YYYYMMDD or DDMMYYYY
+    // CHECK a date with no seperation signs -> has to have the format YYYYMMDD or DDMMYYYY
     if(count($date) == 1)  {
       $date[0] = substr($date[0],-8);
       
@@ -159,6 +162,32 @@ class statisticFunctions {
         else
           return false;
       } else return false;
+      
+    // -> CHECK the array with the date
+    } elseif(count($date) == 3 &&
+       is_numeric($date[0]) &&
+       is_numeric($date[1]) &&
+       is_numeric($date[2])) {
+      
+      // adds ZEROs before the number IF number is only one character
+      if(strlen($date[0]) == 1)
+        $date[0] = '0'.$date[0];
+      if(strlen($date[1]) == 1)
+        $date[1] = '0'.$date[1];
+      if(strlen($date[2]) == 1)
+        $date[2] = '0'.$date[2];
+      
+      //ddmmyyyy
+      if(strlen($date[2]) == 4 && checkdate($date[1], $date[0], $date[2]))
+        return $date[2].'-'.$date[1].'-'.$date[0];
+      //yyyymmdd
+      elseif(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
+        return $date[0].'-'.$date[1].'-'.$date[2];
+      //mmddyyyy
+      elseif(strlen($date[2]) == 4 && checkdate($date[0], $date[1], $date[2]))
+        return $date[2].'-'.$date[0].'-'.$date[1];    
+      else
+        return false;
     }
     
     // check if it is a date format 'de' or 'int'
@@ -168,25 +197,6 @@ class statisticFunctions {
         return false;
     }
     */
-    
-    // checks the array with the date
-    if(count($date) == 3 &&
-       is_numeric($date[0]) &&
-       is_numeric($date[1]) &&
-       is_numeric($date[2])) {
-  
-      //ddmmyyyy
-      if(checkdate($date[1], $date[0], $date[2]))
-        return $date[2].'-'.$date[1].'-'.$date[0];
-      //yyyymmdd
-      elseif(checkdate($date[1], $date[2], $date[0]))
-        return $date[0].'-'.$date[1].'-'.$date[2];
-      //mmddyyyy
-      elseif(checkdate($date[0], $date[1], $date[2]))
-        return $date[2].'-'.$date[0].'-'.$date[1];    
-      else
-        return false;
-    }
    
     // wenn die funktion nichts anderes zurückgegeben hat return false
     return false;
@@ -266,7 +276,7 @@ class statisticFunctions {
                        $object = false) {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
-    $maxEntries = 300;
+    $maxEntries = $this->statisticConfig['number']['taskLog'];
     $logFile = dirname(__FILE__).'/../../'.'statistic/log_tasks.txt';
     
     if(file_exists($logFile))
@@ -284,7 +294,7 @@ class statisticFunctions {
       // -> write the new log file
       flock($logFile,2);    
       fwrite($logFile,$newLog."\n");    
-      $count = 1;
+      $count = 2;
       if(!empty($oldLog)) {
         foreach($oldLog as $oldLogRow) {
           fwrite($logFile,$oldLogRow);
@@ -307,16 +317,17 @@ class statisticFunctions {
   function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
     global $langFile;
     
-    $maxEntries = 500;
+    $maxEntries = $this->statisticConfig['number']['refererLog'];
     $logFile = dirname(__FILE__).'/../../'.'statistic/log_referers.txt';
     
     if(file_exists($logFile))
       $oldLog = file($logFile);
-      
+    
+    // -> SAVE REFERER LOG
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
        !strstr($_SERVER['HTTP_REFERER'],str_replace('www.','',$this->adminConfig['url'])) && // checks if referer is not the own page
-       $logFile = @fopen($logFile,"w")) {
+       $logFile = @fopen($logFile,"w")) {       
       
       // -> create the new log string
       $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).' '.$_SERVER['HTTP_REFERER'];
@@ -324,7 +335,7 @@ class statisticFunctions {
       // -> write the new log file
       flock($logFile,2);    
       fwrite($logFile,$newLog."\n");    
-      $count = 1;
+      $count = 2;
       foreach($oldLog as $oldLogRow) {
         fwrite($logFile,$oldLogRow);
         // stops the log after 120 entries
@@ -343,23 +354,24 @@ class statisticFunctions {
   // returns a the Browser Name
   // -----------------------------------------------------------------------------------------------------
   function getBrowser($agent) {
-    if(ereg("Firefox", $agent)) $c_browser = "firefox";                       // Phoenix oder Firefox
-    elseif((ereg("Nav", $agent)) ||
-    (ereg("Gold", $agent)) ||
-    (ereg("X11", $agent)) ||
-    (ereg("Netscape", $agent)) AND
-    (!ereg("MSIE 6", $agent))) $c_browser = "netscape";                       // Netscape Navigator
-    elseif(ereg("Chrome", $agent)) $c_browser  = "chrome";                    // Google Chrome
-    elseif(ereg("MSIE [0-6]", $agent)) $c_browser = "ie_old";                 // Internet Explorer 1-6
-    elseif(ereg("MSIE", $agent)) $c_browser = "ie";                           // Internet Explorer
-    elseif(ereg("Opera", $agent)) $c_browser = "opera";                       // Opera
-    elseif(ereg("Konqueror", $agent)) $c_browser = "konqueror";               // Konqueror
-    elseif(ereg("Lynx", $agent)) $c_browser = "lynx";                         // Lynx
-    elseif(ereg("iCab", $agent)) $c_browser = "safari";                       // Safari
-    elseif(ereg("Safari", $agent)) $c_browser = "safari";                     // Safari
-    elseif(ereg("gecko", $agent)) $c_browser = "mozilla";                     // Mozilla oder kompatibel
-    elseif(ereg("Mozilla", $agent)) $c_browser = "mozilla";                   // Mozilla oder kompatibel
+    if(preg_match("/Firefox/", $agent)) $c_browser = "firefox";                       // Phoenix oder Firefox
+    elseif((preg_match("/Nav/", $agent)) ||
+    (preg_match("/Gold/", $agent)) ||
+    (preg_match("/X11/", $agent)) ||
+    (preg_match("/Netscape/", $agent)) AND
+    (!preg_match("/MSIE 6/", $agent))) $c_browser = "netscape";                       // Netscape Navigator
+    elseif(preg_match("/Chrome/", $agent)) $c_browser  = "chrome";                    // Google Chrome
+    elseif(preg_match("/MSIE [0-6]/", $agent)) $c_browser = "ie_old";                 // Internet Explorer 1-6
+    elseif(preg_match("/MSIE/", $agent)) $c_browser = "ie";                           // Internet Explorer
+    elseif(preg_match("/Opera/", $agent)) $c_browser = "opera";                       // Opera
+    elseif(preg_match("/Konqueror/", $agent)) $c_browser = "konqueror";               // Konqueror
+    elseif(preg_match("/Lynx/", $agent)) $c_browser = "lynx";                         // Lynx
+    elseif(preg_match("/iCab/", $agent)) $c_browser = "safari";                       // Safari
+    elseif(preg_match("/Safari/", $agent)) $c_browser = "safari";                     // Safari
+    elseif(preg_match("/gecko/", $agent)) $c_browser = "mozilla";                     // Mozilla oder kompatibel
+    elseif(preg_match("/Mozilla/", $agent)) $c_browser = "mozilla";                   // Mozilla oder kompatibel
     else $c_browser = "others";
+    
     return $c_browser;
   }
   
@@ -370,124 +382,126 @@ class statisticFunctions {
     global $websiteStatistic;
     global $langFile;
     
-    foreach(explode('|',$websiteStatistic['userBrowsers']) as $browser) {   
-      $browsers[] =  explode(',',$browser);
-    }
-    
-    $highestNumber = 1;
-    foreach($browsers as $browser) {
-      $highestNumber += $browser[1];
-    }
-    
-    echo '<table class="tableChart"><tr>';
-    foreach($browsers as $browser) {
-      
-      $tablePercent = $browser[1] / $highestNumber;
-      $tablePercent = round($tablePercent * 100);
-      
-      // change the Names and the Colors
-      if($browser[0] == 'firefox') {
-        $browserName = 'Firefox';
-        $browserColor = 'url(library/image/bg/browserBg_firefox.png) repeat-x';
-        $browserLogo = 'browser_firefox.png';
-        $browserTextColor = '#ffffff';
-      } elseif($browser[0] == 'netscape') {
-        $browserName = 'Netscape Navigator';
-        $browserColor = 'url(library/image/bg/browserBg_netscape.png) repeat-x';
-        $browserLogo = 'browser_netscape.png';
-        $browserTextColor = '#ffffff';
-      } elseif($browser[0] == 'chrome') {
-        $browserName = 'Google Chrome';
-        $browserColor = 'url(library/image/bg/browserBg_chrome.png) repeat-x';
-        $browserLogo = 'browser_chrome.png';
-        $browserTextColor = '#000000';
-      } elseif($browser[0] == 'ie') {
-        $browserName = 'Internet Explorer';
-        $browserColor = 'url(library/image/bg/browserBg_ie.png) repeat-x';
-        $browserLogo = 'browser_ie.png';
-        $browserTextColor = '#000000';
-      } elseif($browser[0] == 'ie_old') {
-        $browserName = 'Internet Explorer 1-6';
-        $browserColor = 'url(library/image/bg/browserBg_ie_old.png) repeat-x';
-        $browserLogo = 'browser_ie_old.png';
-        $browserTextColor = '#000000';
-      } elseif($browser[0] == 'opera') {
-        $browserName = 'Opera';
-        $browserColor = 'url(library/image/bg/browserBg_opera.png) repeat-x';
-        $browserLogo = 'browser_opera.png';
-        $browserTextColor = '#000000';
-      } elseif($browser[0] == 'konqueror') {
-        $browserName = 'Konqueror';
-        $browserColor = 'url(library/image/bg/browserBg_konqueror.png) repeat-x';
-        $browserLogo = 'browser_konqueror.png';
-        $browserTextColor = '#ffffff';
-      } elseif($browser[0] == 'lynx') {
-        $browserName = 'Lynx';
-        $browserColor = 'url(library/image/bg/browserBg_lynx.png) repeat-x';
-        $browserLogo = 'browser_lynx.png';
-        $browserTextColor = '#ffffff';
-      } elseif($browser[0] == 'safari') {
-        $browserName = 'Safari';
-        $browserColor = 'url(library/image/bg/browserBg_safari.png) repeat-x';
-        $browserLogo = 'browser_safari.png';
-        $browserTextColor = '#000000';
-      } elseif($browser[0] == 'mozilla') {
-        $browserName = 'Mozilla';
-        $browserColor = 'url(library/image/bg/browserBg_mozilla.png) repeat-x';
-        $browserLogo = 'browser_mozilla.png';
-        $browserTextColor = '#ffffff';
-      } elseif($browser[0] == 'others') {
-        $browserName = $langFile['log_browser_others'];
-        $browserColor = 'url(library/image/bg/browserBg_others.png) repeat-x';
-        $browserLogo = 'browser_others.png';
-        $browserTextColor = '#000000';
-      }  
-  
-      // calculates the text width and the cell width
-      $textWidth = round(((strlen($browserName) + strlen($browser[1]) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
-      $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
-      //echo '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
-      
-      // show tex only if cell is big enough
-      if($cellWidth < $textWidth) {
-        $cellText = '';
-        $cellWidth -= 10;
-        
-        //echo $browserName.': '.$cellWidth.'<br>';
-        
-        // makes the browser logo smaller
-        if($cellWidth < 40) {// 40 = logo width
-          
-          // change logo size
-          if($cellWidth <= 0)
-            $logoSize = 'width:0px;';
-          else
-            $logoSize = 'width:'.$cellWidth.'px;';
-          
-          // change cellpadding
-          $createPadding = round(($cellWidth / 40) * 10);
-          if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
-            $cellpadding = 'padding: '.$createPadding.'px 5px;';
-          else
-            $cellpadding = 'padding: 0px 5px;';
-  
-        }
-          
-        $bigLogo = false;
-      } else {      
-        $cellText = '&nbsp;&nbsp;<span style="position:relative; top:12px;"><b>'.$browserName.'</b> ('.$browser[1].')</span>';
-        $logoSize = '';
-        $bigLogo = true;
-        $cellpadding = '';
+    if(isset($websiteStatistic['userBrowsers']) && !empty($websiteStatistic['userBrowsers'])) {
+      foreach(explode('|',$websiteStatistic['userBrowsers']) as $browser) {   
+        $browsers[] =  explode(',',$browser);
       }
       
-      // SHOW the table cell with the right browser and color
-      echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:'.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+      $highestNumber = 1;
+      foreach($browsers as $browser) {
+        $highestNumber += $browser[1];
+      }
+      
+      echo '<table class="tableChart"><tr>';
+      foreach($browsers as $browser) {
+        
+        $tablePercent = $browser[1] / $highestNumber;
+        $tablePercent = round($tablePercent * 100);
+        
+        // change the Names and the Colors
+        if($browser[0] == 'firefox') {
+          $browserName = 'Firefox';
+          $browserColor = 'url(library/image/bg/browserBg_firefox.png) repeat-x';
+          $browserLogo = 'browser_firefox.png';
+          $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'netscape') {
+          $browserName = 'Netscape Navigator';
+          $browserColor = 'url(library/image/bg/browserBg_netscape.png) repeat-x';
+          $browserLogo = 'browser_netscape.png';
+          $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'chrome') {
+          $browserName = 'Google Chrome';
+          $browserColor = 'url(library/image/bg/browserBg_chrome.png) repeat-x';
+          $browserLogo = 'browser_chrome.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'ie') {
+          $browserName = 'Internet Explorer';
+          $browserColor = 'url(library/image/bg/browserBg_ie.png) repeat-x';
+          $browserLogo = 'browser_ie.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'ie_old') {
+          $browserName = 'Internet Explorer 1-6';
+          $browserColor = 'url(library/image/bg/browserBg_ie_old.png) repeat-x';
+          $browserLogo = 'browser_ie_old.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'opera') {
+          $browserName = 'Opera';
+          $browserColor = 'url(library/image/bg/browserBg_opera.png) repeat-x';
+          $browserLogo = 'browser_opera.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'konqueror') {
+          $browserName = 'Konqueror';
+          $browserColor = 'url(library/image/bg/browserBg_konqueror.png) repeat-x';
+          $browserLogo = 'browser_konqueror.png';
+          $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'lynx') {
+          $browserName = 'Lynx';
+          $browserColor = 'url(library/image/bg/browserBg_lynx.png) repeat-x';
+          $browserLogo = 'browser_lynx.png';
+          $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'safari') {
+          $browserName = 'Safari';
+          $browserColor = 'url(library/image/bg/browserBg_safari.png) repeat-x';
+          $browserLogo = 'browser_safari.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'mozilla') {
+          $browserName = 'Mozilla';
+          $browserColor = 'url(library/image/bg/browserBg_mozilla.png) repeat-x';
+          $browserLogo = 'browser_mozilla.png';
+          $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'others') {
+          $browserName = $langFile['log_browser_others'];
+          $browserColor = 'url(library/image/bg/browserBg_others.png) repeat-x';
+          $browserLogo = 'browser_others.png';
+          $browserTextColor = '#000000';
+        }  
     
-    }
-    echo '</tr></table>';
-  
-  
+        // calculates the text width and the cell width
+        $textWidth = round(((strlen($browserName) + strlen($browser[1]) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
+        $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
+        //echo '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
+        
+        // show tex only if cell is big enough
+        if($cellWidth < $textWidth) {
+          $cellText = '';
+          $cellWidth -= 10;
+          
+          //echo $browserName.': '.$cellWidth.'<br>';
+          
+          // makes the browser logo smaller
+          if($cellWidth < 40) {// 40 = logo width
+            
+            // change logo size
+            if($cellWidth <= 0)
+              $logoSize = 'width:0px;';
+            else
+              $logoSize = 'width:'.$cellWidth.'px;';
+            
+            // change cellpadding
+            $createPadding = round(($cellWidth / 40) * 10);
+            if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
+              $cellpadding = 'padding: '.$createPadding.'px 5px;';
+            else
+              $cellpadding = 'padding: 0px 5px;';
+    
+          }
+            
+          $bigLogo = false;
+        } else {      
+          $cellText = '&nbsp;&nbsp;<span style="position:relative; top:12px;"><b>'.$browserName.'</b> ('.$browser[1].')</span>';
+          $logoSize = '';
+          $bigLogo = true;
+          $cellpadding = '';
+        }
+        
+        // SHOW the table cell with the right browser and color
+        echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:'.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+      
+      }
+      echo '</tr></table>';
+      
+    } else
+      echo $langFile['home_novisitors']; 
   }
   
   // ** -- createTagCloud --------------------------------------------------------------------------------
@@ -730,7 +744,8 @@ class statisticFunctions {
         
         // -> saves the FIRST WEBSITE VISIT
         // -----------------------------
-        if(empty($websiteStatistic['firstVisit']))
+        if(!isset($websiteStatistic['firstVisit']) ||
+          (isset($websiteStatistic['firstVisit']) && empty($websiteStatistic['firstVisit'])))
           $websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
         
         // -> saves the LAST WEBSITE VISIT
@@ -741,29 +756,37 @@ class statisticFunctions {
         // ----------------------------
         $this->saveRefererLog();
         
-        // -> CHECKS if the user is NOT a BOT/SPIDER
+        // ->> CHECKS if the user is NOT a BOT/SPIDER
         if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
             ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false) {
           
           // -> COUNT the USER UP
-          if($websiteStatistic['userVisitCount'] == '')
+          if(!isset($websiteStatistic['userVisitCount']) ||
+             (isset($websiteStatistic['userVisitCount']) && $websiteStatistic['userVisitCount'] == ''))
             $websiteStatistic['userVisitCount'] = '1';
           else
             $websiteStatistic['userVisitCount']++;
           
           // -> adds the user BROWSER
           $userBrowser = $this->getBrowser($_SERVER['HTTP_USER_AGENT']);
-          $websiteStatistic["userBrowsers"] = $this->addDataToString(array($userBrowser),$websiteStatistic["userBrowsers"]);
+          if(isset($websiteStatistic["userBrowsers"]))
+            $websiteStatistic["userBrowsers"] = $this->addDataToString(array($userBrowser),$websiteStatistic["userBrowsers"]);
+          else
+            $websiteStatistic["userBrowsers"] = '';
           
-        // -> COUNT the SPIDER UP
-        } elseif($websiteStatistic['spiderVisitCount'] == '')
+          if(!isset($websiteStatistic["spiderVisitCount"]))
+            $websiteStatistic["spiderVisitCount"] = '0';
+          
+        // ->> COUNT the SPIDER UP
+        } elseif(!isset($websiteStatistic['spiderVisitCount']) ||
+                 (isset($websiteStatistic['spiderVisitCount']) && $websiteStatistic['spiderVisitCount'] == ''))
           $websiteStatistic['spiderVisitCount'] = '1';
         else
           $websiteStatistic['spiderVisitCount']++;
+
         
         // ->> OPEN websiteStatistic.php for writing
         if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/websiteStatistic.php","w")) {
-  
           
           flock($statisticFile,2);        
           fwrite($statisticFile,PHPSTARTTAG);  
@@ -895,7 +918,7 @@ class statisticFunctions {
         // -----------------------------
         if(empty($pageContent['log_firstVisit'])) {
           $pageContent['log_firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
-          $pageContent['log_visitCount'] = 1;
+          $pageContent['log_visitCount'] = 0;
         }
         
         // -> saves the LAST PAGE VISIT

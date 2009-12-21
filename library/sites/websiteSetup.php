@@ -14,14 +14,14 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.85
+* websiteSetup.php version 1.86
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
 $savedForm = '';
 
-// ------------ SPEICHERT die BENUTZER EINSTELLUNGEN, schreibe in usersettings.php
+// ------------ SAVE the WEBSITE SETTINGS
 if($_POST['send'] && isset($_POST['websiteConfig'])) {
 
     // gets the startPage var and put it in the POST var
@@ -51,7 +51,7 @@ if(isset($_POST['saveEditedFiles'])) {
 }
 
 
-include (dirname(__FILE__)."/../../config/websiteConfig.php"); // loads the saved settings again
+@include (dirname(__FILE__)."/../../config/websiteConfig.php"); // loads the saved settings again
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 ?>
@@ -68,7 +68,7 @@ if($savedForm != 'websiteConfig')
     $hidden = '';  
 ?>
 <div class="block<?php /*echo $hidden;*/ ?>">
-  <h1><a href="#" name="fmsSettings"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
+  <h1><a href="#" id="websiteSettings" name="websiteSettings"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -79,10 +79,10 @@ if($savedForm != 'websiteConfig')
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="seitentitel"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld1'].'::'.$langFile['websiteSetup_websiteConfig_feld1_tip']; ?>">
+      <label for="title"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_feld1'].'::'.$langFile['websiteSetup_websiteConfig_feld1_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_feld1']; ?></span></label>
       </td><td class="right">
-      <input id="seitentitel" name="seitentitel" value="<?php echo $websiteConfig['seitentitel']; ?>" />
+      <input id="title" name="title" value="<?php echo $websiteConfig['title']; ?>" />
       </td></tr>
       
       <tr><td class="left">

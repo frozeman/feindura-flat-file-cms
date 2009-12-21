@@ -23,7 +23,7 @@ session_start();
 //error_reporting(E_ALL);
 include("library/backend.include.php");
 
-// *---* holt die VARIABLEN ---------------------------------------------------------
+// *---* sets the basic VARIABLEs ---------------------------------------------------------
 $errorWindow = false;
 $documentSaved = false;
 
@@ -51,7 +51,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
   <title>      
-    <?php echo $websiteConfig['seitentitel']; ?> -> feindura CMS
+    <?php echo $websiteConfig['title']; ?> -> feindura CMS
   </title>  
     
   <meta name="siteinfo" content="<?php echo $adminConfig['basePath'] ?>robots.txt" />
@@ -61,7 +61,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy würde die seite nicht cachen-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy würde die seite nicht cachen-->  
       
-  <meta name="title" content="feindura CMS -> <?php echo $websiteConfig['seitentitel']; ?>" />    
+  <meta name="title" content="feindura CMS -> <?php echo $websiteConfig['title']; ?>" />    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
@@ -69,6 +69,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <meta name="keywords" content="fmx,cms,conte,management,system,flatfiles" /> 
    
   <link rel="shortcut icon" href="<?php echo dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
+  
+  <!-- STYLESHEETS -->
   
   <link rel="stylesheet" type="text/css" href="library/style/layout.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/style/headerMenus.css" media="screen" />
@@ -83,16 +85,24 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/windowBox.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/errorWindow.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/listPages.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/style/notifications.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/forms.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/toolTip.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/editor.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/pageThumbnail.css" media="screen" />
   
-  <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
-  
   <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  
   <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie.css" /><![endif]-->
   
+  <noscript>
+  <link rel="stylesheet" type="text/css" href="library/style/noJavascript.css" media="screen" />
+  </noscript>
+  
+  <!-- thirdparty/customformelements -->
+  <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
+    
+  
+  <!-- JAVASCRIPT -->
   
   <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
   <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
@@ -144,7 +154,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   
   <div id="windowBoxContainer">
     <div id="windowBox">
-      <div class="boxTop"><?php echo $langFile['txt_loading']; ?><a href="#" onclick="closeWindowBox(false);"></a></div>
+      <div class="boxTop"><?php echo $langFile['txt_loading']; ?><a href="#" onclick="closeWindowBox(false);return false;"></a></div>
       <div id="windowRequestBox"><div id="loadingCircle"></div></div>
       <div class="boxBottom"></div>
     </div>
@@ -203,8 +213,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
           <td><a href="?site=adminSetup" class="adminSetup" title="<?php  echo $langFile['btn_adminSetup']; ?>"><span><?php echo $langFile['btn_adminSetup']; ?></span></a></td>
           <td><a href="?site=categorySetup" class="categorySetup" title="<?php  echo $langFile['btn_categorySetup']; ?>"><span><?php echo $langFile['btn_categorySetup']; ?></span></a></td>
           </tr><tr>
+          <td><a href="?site=statisticSetup" class="statisticSetup" title="<?php  echo $langFile['btn_statisticSetup']; ?>"><span><?php echo $langFile['btn_statisticSetup']; ?></span></a></td>
           <td><a href="?site=userSetup" onclick="openWindowBox('library/sites/userSetup.php','<?php echo $langFile['btn_userSetup']; ?>',true);return false;" class="userSetup" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
-          <td></td>
           </tr>
         </table>
       </div>      

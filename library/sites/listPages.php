@@ -84,14 +84,12 @@ if($_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
 // if not throw a warning
 startPageWarning();
 
+//<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->
 
-
-  //<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->
-  
-  // -> the javascript request of the sortable gets its error messages from this input
-  echo '<div id="sortPagesMessageBox">';  
-  echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
-  echo '</div>';
+// -> the javascript request of the sortable gets its error messages from this input
+echo '<div id="sortPagesMessageBox" class="messageBox">';
+echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
+echo '</div>';
 
 ?>
 
@@ -221,13 +219,13 @@ if(is_array($pages)) {
       
       // -> show sortdate
       if(!empty($category['sortdate']) &&
-        (!empty($pageContent['sortdate'][0]) || !empty($pageContent['sortdate'][1]) || !empty($pageContent['sortdate'][2]))) {
+        (!empty($pageContent['sortdate']['before']) || !empty($pageContent['sortdate']['date']) || !empty($pageContent['sortdate']['after']))) {
         
         // CHECKs the DATE FORMAT
-        if(!empty($pageContent['sortdate'][1]) && $statisticFunctions->validateDateFormat($pageContent['sortdate'][1]) === false)
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_sortDate_error'].':[/span] '.$pageContent['sortdate'][1].' '.$pageContent['sortdate'][2];
+        if(!empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate']['before'].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_sortDate_error'].':[/span] '.$pageContent['sortdate']['date'].' '.$pageContent['sortdate']['after'];
         else
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate'][0].' '.$statisticFunctions->formatDate($pageContent['sortdate'][1]).' '.$pageContent['sortdate'][2];
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate']['before'].' '.$statisticFunctions->formatDate($pageContent['sortdate']['date']).' '.$pageContent['sortdate']['after'];
         
       } else $showDate = '';
       

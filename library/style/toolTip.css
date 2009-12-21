@@ -51,12 +51,13 @@ span.toolTip {
 /* format of the toolTip box */
 .toolTip .tip-title	{
     z-index: 2;
-    position: relative;
-    padding-left: 16px;
+    position: relative;    
     margin: 0px 40px;
-    background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;
+    /*padding-left: 16px;
+    background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;*/
     font-weight:bold;
     color:#947342;
+    text-align: center;
     word-wrap: break-word;
     }
 .toolTip .tip-title span	{
@@ -84,6 +85,15 @@ span.toolTip {
     background:url(../image/bg/toolTip_middle.png) left top repeat-y;
     line-height: 20px;
     border: none;
+    }
+.toolTip .tip ul {
+    padding: 0px;
+    margin: 0px;
+    margin-left: 15px;
+    }
+.toolTip .tip ul li {
+    padding: 2px 0px;
+    margin: 0px;
     }
 .toolTip .tip-bottom	{
     background:url(../image/bg/toolTip_bottom.png) left bottom no-repeat;

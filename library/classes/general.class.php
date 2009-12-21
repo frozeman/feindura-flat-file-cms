@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 1.06
+* library/functions/general.functions.php version 1.07
 *
 * FUNCTIONS ----------------------------
 * 
@@ -143,21 +143,21 @@ class generalFunctions {
   // $category         [die gruppe innerhalb der sich die datei befindet (String)],
   // $page          [die seite welche gespeichert werden soll (String)]
   // $contentArray  [Array mit dem Inhalt und den Daten der Seite (Array)]
-  function savePage($category,$page,$contentArray) {
+  function savePage($categoryId,$pageId,$pageContentArray) {
         
     // escaped ",',\,NUL undescapped aber wieder die "
-    $contentArray['content'] = stripslashes($contentArray['content']);
-    $contentArray['content'] = addslashes($contentArray['content']); //escaped ",',\,NUL
-    $contentArray['content'] = str_replace('\"', '"', $contentArray['content'] );
+    $pageContentArray['content'] = stripslashes($pageContentArray['content']);
+    $pageContentArray['content'] = addslashes($pageContentArray['content']); //escaped ",',\,NUL
+    $pageContentArray['content'] = str_replace('\"', '"', $pageContentArray['content'] );
     
     // fügt hinter der gruppe ein / an wenn sie nicht leer ist
-    if(!empty($category) && $category != 0)
-      $category = $category.'/';
+    if(!empty($categoryId) && $categoryId != 0)
+      $categoryId = $categoryId.'/';
     
     //öffnet oder erstellt die flatfile
-    if((($category === false || $category == 0) &&
-        $fp = fopen(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$page.'.php',"w")) ||
-        $fp = fopen(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$category.$page.'.php',"w")) {
+    if((($categoryId === false || $categoryId == 0) &&
+        $fp = fopen(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
+        $fp = fopen(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
   
       // vorher thumbnailpath,
       // und name statt filename,
@@ -166,30 +166,30 @@ class generalFunctions {
       $z1 = '$pageContent = array('."\n";
   
     $znew = '
-  "id"        => \''.$contentArray['id'].'\',
-  "category"  => \''.$contentArray['category'].'\',
-  "public"    => \''.$contentArray['public'].'\',
-  "sortorder" => \''.$contentArray['sortorder'].'\',
-  "sortdate"  => array(\''.$contentArray['sortdate'][0].'\',\''.$contentArray['sortdate'][1].'\',\''.$contentArray['sortdate'][2].'\'),
-  "savedate"  => \''.$contentArray['savedate'].'\',
-  "title"     => \''.$contentArray['title'].'\',
-  "tags"      => \''.$contentArray['tags'].'\',
+  "id"        => \''.$pageContentArray['id'].'\',
+  "category"  => \''.$pageContentArray['category'].'\',
+  "public"    => \''.$pageContentArray['public'].'\',
+  "sortorder" => \''.$pageContentArray['sortorder'].'\',
+  "sortdate"  => array("before" => \''.$pageContentArray['sortdate']['before'].'\',"date" => \''.$pageContentArray['sortdate']['date'].'\',"after" => \''.$pageContentArray['sortdate']['after'].'\'),
+  "savedate"  => \''.$pageContentArray['savedate'].'\',
+  "title"     => \''.$pageContentArray['title'].'\',
+  "tags"      => \''.$pageContentArray['tags'].'\',
   
-  "thumbnail"   => \''.$contentArray['thumbnail'].'\',
-  "styleFile"   => \''.$contentArray['styleFile'].'\',
-  "styleId"     => \''.$contentArray['styleId'].'\',
-  "styleClass"  => \''.$contentArray['styleClass'].'\',
+  "thumbnail"   => \''.$pageContentArray['thumbnail'].'\',
+  "styleFile"   => \''.$pageContentArray['styleFile'].'\',
+  "styleId"     => \''.$pageContentArray['styleId'].'\',
+  "styleClass"  => \''.$pageContentArray['styleClass'].'\',
   
-  "log_visitCount"      => \''.$contentArray['log_visitCount'].'\',
-  "log_visitTime_min"   => \''.$contentArray['log_visitTime_min'].'\',
-  "log_visitTime_max"   => \''.$contentArray['log_visitTime_max'].'\',
-  "log_firstVisit"      => \''.$contentArray['log_firstVisit'].'\',
-  "log_lastVisit"       => \''.$contentArray['log_lastVisit'].'\',
-  "log_searchwords"     => \''.$contentArray['log_searchwords'].'\',
+  "log_visitCount"      => \''.$pageContentArray['log_visitCount'].'\',
+  "log_visitTime_min"   => \''.$pageContentArray['log_visitTime_min'].'\',
+  "log_visitTime_max"   => \''.$pageContentArray['log_visitTime_max'].'\',
+  "log_firstVisit"      => \''.$pageContentArray['log_firstVisit'].'\',
+  "log_lastVisit"       => \''.$pageContentArray['log_lastVisit'].'\',
+  "log_searchwords"     => \''.$pageContentArray['log_searchwords'].'\',
   
   "content" => 
   
-  \''.$contentArray['content'].'\'
+  \''.$pageContentArray['content'].'\'
   
   ';
   
@@ -248,8 +248,8 @@ class generalFunctions {
   // go trough the category folders and loads the pageContent Array in an Array
   // RETURNs a Array with the pageContent Array in it OR an Array with an Array with the page ID and the category ID
   // -----------------------------------------------------------------------------------------------------
-  function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
-                     $loadPagesInArray = true) {         // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
+  function loadPages($category = false,                   // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
+                     $loadPagesInArray = true) {          // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
     
     // vars
     $pagesArray = array();
@@ -336,7 +336,7 @@ class generalFunctions {
               
         // sorts the category
         if($loadPagesInArray && is_array($pages)) { // && !empty($categoryId) <- prevents sorting of the non-category
-          if($this->categoryConfig['id_'.$categoryId]['sortbydate'])
+          if($categoryId !== 0 && $this->categoryConfig['id_'.$categoryId]['sortbydate'])
             $pages = $this->sortPages($pages, 'sortByDate');
           else
             $pages = $this->sortPages($pages, 'sortBySortOrder');

@@ -255,8 +255,8 @@ if(isset($_POST['saveEditedFiles'])) {
 }
 
 
-include (dirname(__FILE__)."/../../config/adminConfig.php"); // loads the saved settings again
-include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
+@include (dirname(__FILE__)."/../../config/adminConfig.php"); // loads the saved settings again
+@include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 
@@ -514,7 +514,7 @@ else $hidden = '';
       <tr><td class="left">
       <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_tip']; ?>"><?php echo $langFile['adminSetup_userSettings_textarea1']; ?></span></label>
       </td><td class="right">
-      <textarea id="cfg_userInfo" name="cfg_userInfo"  cols="50" rows="8" style="white-space:normal;width:500px;height:250px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo $adminConfig['user']['info']; ?></textarea>
+      <textarea id="cfg_userInfo" name="cfg_userInfo"  cols="50" rows="8" style="white-space:normal;width:500px;height:250px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br />','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>
@@ -544,7 +544,6 @@ else $hidden = '';
         
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_setStartPage" name="cfg_setStartPage" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check1'].'::'.$langFile['adminSetup_pageSettings_check1_tip']; ?>"<?php if($adminConfig['setStartPage']) echo ' checked="checked"'; ?> />
-      
       </td><td class="right checkboxes">
       <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check1'].'::'.$langFile['adminSetup_pageSettings_check1_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check1']; ?></span></label>
       </td></tr>

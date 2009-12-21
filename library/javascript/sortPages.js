@@ -191,7 +191,7 @@ window.addEvent('domready', function() {
 						$('sortPagesMessageBox').setStyle('display','block');
 						
             // put the save new order - text in the loadingBox AND show the loadingBox
-            $$('#loadingBox .content')[0].set('html','<span style="text-decoration:blink;color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
+            $$('#loadingBox .content')[0].set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
             $('loadingBox').setStyle('display','block');
             $('loadingBox').fade('hide');
             $('loadingBox').fade('in');
@@ -200,7 +200,7 @@ window.addEvent('domready', function() {
 					//-------------------------------------
 					onSuccess: function(responseText) {
             	  
-					  // puts the right message which is get from the sortablePageList_status array (hidden input) in the sortPagesMessageBox
+					  // puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
 					  //$('sortPagesMessageBox').set('html',sortablePageList_status[responseText.substr(6,1)]);
 					  $('sortPagesMessageBox').set('html',responseText);
 						

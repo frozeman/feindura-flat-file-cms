@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/windowBox.js version 0.37 (requires mootools-core and mootools-more)
+// java/windowBox.js version 0.38 (requires mootools-core and mootools-more)
 
 /* ---------------------------------------------------------------------------------- */
 // dimms the background and calls: requestSite(site,siteTitle);
@@ -22,7 +22,7 @@ function openWindowBox(site,siteTitle,fixed) {
     $('dimmContainer').setStyle('opacity','0');
     $('dimmContainer').setStyle('display','block');
     
-    var fadeBg = new Fx.Tween($('dimmContainer'), {duration: 300, transition: Fx.Transitions.Sine.easeOut});
+    var fadeBg = new Fx.Tween($('dimmContainer'), {duration: 200, transition: Fx.Transitions.Sine.easeOut});
     fadeBg.start('opacity', '0.5');
     
     
@@ -67,13 +67,13 @@ function openWindowBox(site,siteTitle,fixed) {
 function closeWindowBox(redirectAfter) {
 
 			// resize the box by a slide
-			$('windowRequestBox').set('slide', {duration: '500', transition: Fx.Transitions.Pow.easeOut});
-			$('windowBox').set('fade', {duration: '200', transition: Fx.Transitions.Pow.easeOut});
-			$('dimmContainer').set('fade', {duration: '200', transition: Fx.Transitions.Pow.easeOut});
+			$('windowRequestBox').set('slide', {duration: '250', transition: Fx.Transitions.Pow.easeIn});
+			$('windowBox').set('fade', {duration: '100', transition: Fx.Transitions.Pow.easeOut});
+			$('dimmContainer').set('fade', {duration: '100', transition: Fx.Transitions.Pow.easeOut});
 			
 			// IE HACK, wont bring the bottom div to the top
 			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-  			$$('#windowBox .boxBottom')[0].set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
+  			$$('#windowBox .boxBottom')[0].set('tween',{duration: '250', transition: Fx.Transitions.Pow.easeIn});
   			$$('#windowBox .boxBottom')[0].tween('top','0px');
 			}	
 			

@@ -96,6 +96,40 @@ $langFile['log_second_multiple'] = 'Sekunden';
 
 $langFile['log_browser_others'] = 'Sonstige';
 
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------- LOG TEXTs
+
+$langFile['log_page_saved'] = 'Seite gespeichert';
+$langFile['log_page_new'] = 'Neue Seite erstellt';
+$langFile['log_page_delete'] = 'Seite gel&ouml;scht';
+
+$langFile['log_listPages_moved'] = 'Seite in Kategorie verschoben';
+$langFile['log_listPages_moved_in'] = 'in'; // Page in Category
+$langFile['log_listPages_sorted'] = 'Seite neu sortiert';
+
+$langFile['log_pageThumbnail_upload'] = 'Neues Thumbnail hochgeladen';
+$langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
+
+$langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
+
+$langFile['log_adminSetup_saved'] = 'Administrator Einstellungen gespeichert';
+$langFile['log_adminSetup_ckstyles'] = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
+
+$langFile['log_websiteSetup_saved'] = 'Webseiten Einstellungen gespeichert';
+
+$langFile['log_statisticSetup_saved'] = 'Statistik Einstellungen gespeichert';
+$langFile['log_clearStatistic_websiteStatistic'] = 'Webseiten-Statistik gel&ouml;scht';
+$langFile['log_clearStatistic_pagesStatistics'] = 'Seiten-Statistiken gel&ouml;scht';
+$langFile['log_clearStatistic_refererLog'] = 'Referrer-URLs Log gel&ouml;scht';
+$langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten Log gel&ouml;scht';
+
+$langFile['log_categorySetup_saved'] = 'Kategorien gespeichert';
+$langFile['log_categorySetup_new'] = 'Neue Kategorie erstellt';
+$langFile['log_categorySetup_delete'] = 'Kategorie gel&ouml;scht';
+$langFile['log_categorySetup_move'] = 'Kategorie verschoben';
+
+$langFile['log_file_saved'] = 'Datei gespeichert';
+
 // ---------- deleting
 
 $langFile['delete_question_submit'] = 'Ja, bitte l&ouml;schen!';
@@ -128,34 +162,6 @@ $langFile['date_today'] = 'Heute';
 $langFile['date_tomorrow'] = 'Morgen';
 
 // ---------------------------------------------------------------------------------------------------------------------
-// ---------- LOG TEXTs
-
-$langFile['log_page_saved'] = 'Seite gespeichert';
-$langFile['log_page_new'] = 'Neue Seite erstellt';
-$langFile['log_page_delete'] = 'Seite gel&ouml;scht';
-
-$langFile['log_listPages_moved'] = 'Seite in Kategorie verschoben';
-$langFile['log_listPages_moved_in'] = 'in'; // Page in Category
-$langFile['log_listPages_sorted'] = 'Seite neu sortiert';
-
-$langFile['log_pageThumbnail_upload'] = 'Neues Thumbnail hochgeladen';
-$langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
-
-$langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
-
-$langFile['log_adminSetup_saved'] = 'Administrator Einstellungen gespeichert';
-$langFile['log_adminSetup_ckstyles'] = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
-
-$langFile['log_websiteSetup_saved'] = 'Webseiten Einstellungen gespeichert';
-
-$langFile['log_categorySetup_saved'] = 'Kategorien gespeichert';
-$langFile['log_categorySetup_new'] = 'Neue Kategorie erstellt';
-$langFile['log_categorySetup_delete'] = 'Kategorie gel&ouml;scht';
-$langFile['log_categorySetup_move'] = 'Kategorie verschoben';
-
-$langFile['log_file_saved'] = 'Datei gespeichert';
-
-// ---------------------------------------------------------------------------------------------------------------------
 // --------- BUTTON-TEXT (index.php)
 // --- mainMenu
 $langFile['btn_home'] = '&Uuml;bersicht';
@@ -168,6 +174,7 @@ $langFile['btn_search'] = 'Seiten durchsuchen';
 $langFile['title_adminMenu'] = 'Administration';
 $langFile['btn_adminSetup'] = 'Administrator Einstellungen';
 $langFile['btn_categorySetup'] = 'Kategorien Verwaltung';
+$langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
 $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
 
 // --- subMenu/footer
@@ -231,6 +238,9 @@ Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&
 <h2>im Opera</h2>
 <p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Einstellungen&quot;. Unter &quot;Erweitert&quot; &gt; &quot;Inhalte&quot; setze ein Haken bei &quot;JavaScript aktivieren&quot; und klicke dann OK.';
 
+$langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> ist nicht f&uuml;r &auml;ltere Versionen des Internet Explorers ausgelegt';
+$langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollst&auml;ndig nutzen zu k&ouml;nnen ist mindestens der Internet Explorer 7 n&ouml;tig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox Browser</a> herunter.';
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // sidebar.loader.php
@@ -258,12 +268,14 @@ $langFile['home_user_h1'] = 'Benutzer';
 $langFile['home_taskLog_h1'] = 'letzte T&auml;tigkeiten';
 $langFile['home_taskLog_nolog'] = 'keine';
 
-$langFile['home_mostVisitedPage_h1'] = 'die 10 meist besuchten Seiten';
-$langFile['home_lastEditedPage_h1'] = 'zuletzt bearbeitete Seiten';
-$langFile['home_longestViewedPage_h1'] = 'die 10 am l&auml;ngsten betrachteten Seiten';
+$langFile['home_h1_article'] = 'die';
+$langFile['home_mostVisitedPages_h1'] = 'meist besuchten Seiten';
+$langFile['home_lastEditedPages_h1'] = 'zuletzt bearbeitete Seiten';
+$langFile['home_longestViewedPages_h1'] = 'am l&auml;ngsten betrachteten Seiten';
 
 $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
-$langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese gekommen.';
+$langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese Seite gekommen.';
+$langFile['home_novisitors'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // listPages.php
@@ -296,7 +308,7 @@ $langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status d
 
 $langFile['sortablePageList_info'] = 'Du kannst per <b>Drag and Drop</b> die <b>Seiten-Anordnung</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
 $langFile['sortablePageList_save'] = 'Speichere die neue Anordnung ...';
-$langFile['sortablePageList_save_finished'] = '<span style=\'font-weight:bold;font-size:18px;\'>Neu Anordnung erfolgreich gespeichert!</span>';
+$langFile['sortablePageList_save_finished'] = 'Neu Anordnung erfolgreich gespeichert!';
 $langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
 $langFile['sortablePageList_error_read'] = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
 $langFile['sortablePageList_error_move'] = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
@@ -354,7 +366,7 @@ $langFile['adminSetup_fmsSettings_varName3'] = 'Modul Variablenname';
 $langFile['adminSetup_fmsSettings_varName3_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]modul[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
 $langFile['adminSetup_fmsSettings_feld7'] = 'Datumsformat';
-$langFile['adminSetup_fmsSettings_feld7_tip'] = 'Wird in <span class="logoname">fein<span>dura</span></span> und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
+$langFile['adminSetup_fmsSettings_feld7_tip'] = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
 $langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL Format';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URL';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example/example.html';
@@ -430,6 +442,7 @@ $langFile['editFilesSettings_noFile'] = 'Es sind noch keine Dateien vorhanden';
 $langFile['categorySetup_h1'] = 'Kategorien Verwaltung';
 $langFile['categorySetup_createCategory'] = 'Neue Kategorie erstellen';
 $langFile['categorySetup_createCategory_created'] = 'Neue Kategorie erstellt';
+$langFile['categorySetup_createCategory_unnamed'] = 'Unbenannte Kategorie';
 
 $langFile['categorySetup_deleteCategory'] = 'Kategorie l&ouml;schen';
 $langFile['categorySetup_deleteCategory_warning'] = 'ACHTUNG: Es werden auch alle Seiten innerhalb dieser Kategorie gel&ouml;scht!';
@@ -470,11 +483,11 @@ $langFile['categorySetup_check6_tip'] = 'Sortiert die Seiten automatisch [b]aufs
 
 // ---------- deleting category
 
-$langFile['categorySetup_question_part1'] = 'Kategorie'; // Kategorie "test" löschen?
-$langFile['categorySetup_question_part2'] = 'l&ouml;schen?';
+$langFile['categorySetup_deletCategory_question_part1'] = 'Kategorie'; // Kategorie "test" löschen?
+$langFile['categorySetup_deletCategory_question_part2'] = 'l&ouml;schen?';
 
-$langFile['categorySetup_question_ok'] = 'Ja bitte l&ouml;schen!';
-$langFile['categorySetup_question_cancel'] = 'Nicht l&ouml;schen';
+$langFile['categorySetup_deletCategory_question_ok'] = 'Ja bitte l&ouml;schen!';
+$langFile['categorySetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // websiteSetup.php
@@ -500,6 +513,44 @@ $langFile['websiteSetup_websiteConfig_feld5_inputTip'] = 'Ein kurzer Text mit ni
 $langFile['websiteSetup_websiteConfig_feld6'] = 'E-Mail Adresse';
 $langFile['websiteSetup_websiteConfig_feld6_tip'] = 'Diese E-Mail Adresse wird f&uuml;r alle wichtigen Kontaktm&ouml;glichkeiten verwendet[br /](z.B. Kontaktformulare etc.)';
 $langFile['websiteSetup_websiteConfig_feld6_inputTip'] = $langFile['text_example'].'::name@providor.de';
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// statisticSetup.php
+//
+// ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
+
+$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/statisticConfig.php';
+
+$langFile['statisticSetup_statisticConfig_h1'] = 'Statistik Einstellungen';
+$langFile['statisticSetup_statisticConfig_feld1'] = 'Anzahl der sichtbaren <b>meist besuchten</b> Seiten';
+$langFile['statisticSetup_statisticConfig_feld1_tip'] = 'Gibt an wieviele meist besuchte Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
+$langFile['statisticSetup_statisticConfig_feld2'] = 'Anzahl der sichtbaren <b>am l&auml;ngsten betrachteten</b> Seiten';
+$langFile['statisticSetup_statisticConfig_feld2_tip'] = 'Gibt an wieviele am l&auml;ngsten betrachtete Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
+$langFile['statisticSetup_statisticConfig_feld3'] = 'Anzahl der sichtbaren <b>zuletzt bearbeiteten</b> Seiten';
+$langFile['statisticSetup_statisticConfig_feld3_tip'] = 'Gibt an wieviele zuletzt bearbeitete Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
+
+$langFile['statisticSetup_statisticConfig_feld4'] = 'maximale Anzahl der zu speichernden <b>Referrer-URLs</b>';
+$langFile['statisticSetup_statisticConfig_feld4_tip'] = 'Gibt an wieviele Referrer-URLs ([i]URLs die auf diese Webseite gef&uuml;hrt haben[/i]) maximal gespeichert werden.';
+$langFile['statisticSetup_statisticConfig_feld5'] = 'maximale Anzahl der zu speichernden <b>T&auml;tigkeiten-Logs</b>';
+$langFile['statisticSetup_statisticConfig_feld5_tip'] = 'Gibt an wieviele T&auml;tigkeiten-Logs maximal gespeichert werden.';
+
+
+$langFile['statisticSetup_clearStatistic_h1'] = 'Statistiken l&ouml;schen';
+$langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Webseiten-Statistik';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserverteilung[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Seiten-Statistiken';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]k&uuml;rzeste Verweildauer[/li][li]l&auml;ngste Verweildauer[/li][li]Suchmaschienen-Stichworte die auf diese Seite gef&uuml;hrt haben[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_refererLog'] = 'Referrer-URLs Log'; // engl.: referer
+$langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Beinhaltet eine Liste mit allen Referrer-URLs die auf diese Webseite gef&uuml;hrt haben.';
+$langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs der letzten T&auml;tigkeiten';
+$langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste der letzten T&auml;tigkeiten.';
+
+$langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
+$langFile['statisticSetup_clearStatistics_question_ok'] = 'Ja bitte l&ouml;schen!';
+$langFile['statisticSetup_clearStatistics_question_cancel'] = 'Nicht l&ouml;schen';
+
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 // ---------------------------------------------------------------------------------------------------------------------
 // editor.php

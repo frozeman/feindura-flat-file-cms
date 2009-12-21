@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.12
+* categorySetup.php version 1.13
 */
 
 //error_reporting(E_ALL);
@@ -67,14 +67,14 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
 if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == 'deleteCategory') && isset($categories['id_'.$_GET['category']])) {  
   
   // save the name, to put it in the info
-  $categoryName = $categories['id_'.$_GET['category']]['name'];
+  $storedCategoryName = $categories['id_'.$_GET['category']]['name'];
   
   // deletes the category with the given id from the array and saves the categoriesSettings.php
   unset($categories['id_'.$_GET['category']]);  
   if(saveCategories($categories)) {
   
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
-    $categoryInfo = $langFile['categorySetup_deleteCategory_deleted'].' &quot;<b>'.$categoryName.'</b>&quot;';
+    $categoryInfo = $langFile['categorySetup_deleteCategory_deleted'].' &quot;<b>'.$storedCategoryName.'</b>&quot;';
   
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$_GET['category'])) {
@@ -100,7 +100,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
       }    
     }
     
-    $statisticFunctions->saveTaskLog($langFile['log_categorySetup_delete'],$categoryName); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog($langFile['log_categorySetup_delete'],$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow = $langFile['categorySetup_error_delete'];
 
@@ -152,7 +152,7 @@ if($_POST['send'] && isset($_POST['saveCategories'])) {
   $savedForm = 'categories';
 }
 
-include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
+@include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 
@@ -267,15 +267,21 @@ if($unwriteableList) {
                 
                 <tr><td class="leftTop"></td><td></td></tr>';
           
+          // category NAME
+          if(empty($category['name']))
+            $categoryName = '<i>'.$langFile['categorySetup_createCategory_unnamed'].'</i>';
+          else
+            $categoryName = $category['name'];
+          
           echo '<tr><td class="left">';
-          echo '<span style="font-size:20px;font-weight:bold;">'.$category['name'].'</span><br />ID '.$category['id'];
+          echo '<span style="font-size:20px;font-weight:bold;">'.$categoryName.'</span><br />ID '.$category['id'];
           echo '<input type="hidden" name="categories['.$category['id'].'][id]" value="'.$category['id'].'" />';
           echo '</td>'; 
           
                 // deleteCategory
           echo '<td class="right" style="width:525px;">
                 <div style="border-bottom: 1px dotted #cccccc;width:400px;height:15px;float:left !important;"></div>
-                <a href="?site=categorySetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/sites/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'#categories\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['categorySetup_deleteCategory'].'::'.$category['name'].'[br /][br /][span style=color:#990000;]'.$langFile['categorySetup_deleteCategory_warning'].'[/span]"></a>';
+                <a href="?site=categorySetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/sites/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['categorySetup_deleteCategory'].'::'.$category['name'].'[br /][br /][span style=color:#990000;]'.$langFile['categorySetup_deleteCategory_warning'].'[/span]"></a>';
                 // advanced Settings slide link
           echo '<a href="#" class="down" style="position:relative; bottom:-11px;">'.$langFile['categorySetup_advancedSettings'].'</a>
                 </td></tr>';          
@@ -426,7 +432,7 @@ if($unwriteableList) {
           echo '<tr><td class="leftBottom"></td><td></td></tr>
                 </table>';
                 
-          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" onclick="submitAnchor(\''.$category['id'].'\',\'categoriesForm\',\'category\');" />
+          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" onclick="submitAnchor(\'categoriesForm\',\'category'.$category['id'].'\');" />
                 </div>'; // end slide in box
           
         }

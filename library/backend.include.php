@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* backend.include.php version 0.20
+* backend.include.php version 0.21
 */
 
 require_once(dirname(__FILE__)."/general.include.php");
@@ -22,6 +22,7 @@ require_once(dirname(__FILE__)."/general.include.php");
 // get SETTINGS
 $adminConfig =       @include_once(dirname(__FILE__)."/../config/adminConfig.php");
 $websiteConfig =     @include_once(dirname(__FILE__)."/../config/websiteConfig.php");
+$statisticConfig =   @include_once(dirname(__FILE__)."/../config/statisticConfig.php");
 $categories =        @include_once(dirname(__FILE__)."/../config/categoryConfig.php");
 $websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 

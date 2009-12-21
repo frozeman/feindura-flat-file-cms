@@ -107,9 +107,9 @@ function ausgabeblock_end() {
        	$id = strtolower($pageContent['id']);
         $titel = strtolower($pageContent['title']);
         $categoryName = strtolower($categories['id_'.$pageContent['category']]['name']);
-        $beforeDate = strtolower($pageContent['sortdate'][0]);
-        $date = $pageContent['sortdate'][1];
-        $afterDate = strtolower($pageContent['sortdate'][2]);
+        $beforeDate = strtolower($pageContent['sortdate']['before']);
+        $date = $pageContent['sortdate']['date'];
+        $afterDate = strtolower($pageContent['sortdate']['after']);
       /*} else {
        	$inhalt = '';
        	$titel = '';

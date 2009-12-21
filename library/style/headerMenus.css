@@ -125,6 +125,7 @@
     left: 8px;
     }
 
+
 /*#adminMenu .content table {
   border:1px solid red;
 }*/
@@ -141,9 +142,10 @@
     margin: 0px 5px;
     text-align: center;
     text-decoration: none;
-    font-size: 10px;
+    font-size: 9px;
     color: #666666;
     line-height: 11px;
+
     }
 #adminMenu .content a:hover {
     color: #CF7F52;
@@ -156,11 +158,18 @@
 #adminMenu .content a.adminSetup:hover {
     background-position: -65px 0px;
     }
-/* userSetup */
+/* categorySetup */
 #adminMenu .content a.categorySetup {
     background: url(../image/key/adminMenu_categorySetup.png) no-repeat;
     }
 #adminMenu .content a.categorySetup:hover {
+    background-position: -65px 0px;
+    }
+/* statisticSetup */
+#adminMenu .content a.statisticSetup {
+    background: url(../image/key/adminMenu_statisticSetup.png) no-repeat;
+    }
+#adminMenu .content a.statisticSetup:hover {
     background-position: -65px 0px;
     }
 /* userSetup */

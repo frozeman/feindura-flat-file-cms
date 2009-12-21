@@ -27,7 +27,7 @@
 */
 
 //error_reporting(E_ALL);
-$feindura_categories = include(dirname(__FILE__).'/../../config/categoryConfig.php');
+$feindura_categories = @include(dirname(__FILE__).'/../../config/categoryConfig.php');
 
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER
@@ -45,8 +45,8 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
 // -------------------------------------------------------------------------------------
 function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
   
-  $a['sortdate'] = str_replace('-','',$a['sortdate'][1]);
-  $b['sortdate'] = str_replace('-','',$b['sortdate'][1]);
+  $a['sortdate'] = str_replace('-','',$a['sortdate']['date']);
+  $b['sortdate'] = str_replace('-','',$b['sortdate']['date']);
 
   //echo $a['sortdate'].'<br>';
   //echo $b['sortdate'].'<br><br>';

@@ -163,13 +163,7 @@ div.listPagesHead {
 /* ---:- MESSAGEBOX */
 
 #sortPagesMessageBox {
-    display: none; /* activiates in sortPages.js */
-    height: 25px;
-    padding: 20px 0px;
-    padding-left: 75px;
-    margin-bottom: 15px;
-    vertical-align: middle;
-    background: url(../image/sign/hintIcon.png) no-repeat center left;    
+    display: none; /* get activiated in sortPages.js */
     }
 
 /* ----------------------- */	

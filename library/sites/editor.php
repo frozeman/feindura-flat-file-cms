@@ -88,14 +88,14 @@ if($_POST['save']) {
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
     // VALIDATE the SORT DATE
-    if(($sortDate = $statisticFunctions->validateDateFormat($_POST['sortdate'][1])) === false) {
-      $sortDate = $_POST['sortdate'][1];
+    if(($sortDate = $statisticFunctions->validateDateFormat($_POST['sortdate']['date'])) === false) {
+      $sortDate = $_POST['sortdate']['date'];
     }
     // set the validated date to the post var
-    $_POST['sortdate'][1] = $sortDate;
+    $_POST['sortdate']['date'] = $sortDate;
     
-    //echo '<br />'.$_POST['sortdate'][0];
-    //echo '<br />'.$_POST['sortdate'][1];
+    //echo '<br />'.$_POST['sortdate']['before'];
+    //echo '<br />'.$_POST['sortdate']['date'];
     
     if(empty($_POST['sortorder']))
       $_POST['sortorder'] = $pageContent['sortorder'];
@@ -501,7 +501,7 @@ else $hidden = ' hidden';
         
       // add the DATE of TODAY, if its a NEW PAGE
       if($newPage) {
-          $pageContent['sortdate'][1] = date('Y')."-".date('m')."-".date('d');
+          $pageContent['sortdate']['date'] = date('Y')."-".date('m')."-".date('d');
       }
       
       ?>      
@@ -509,16 +509,16 @@ else $hidden = ' hidden';
       <label for="edit_sortdate">
       <?php
       // CHECKs the DATE FORMAT
-      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate'][1]) && $statisticFunctions->validateDateFormat($pageContent['sortdate'][1]) === false)
+      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
         echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
       ?>
       </label>
       </td><td class="right">
-        <input name="sortdate[0]" value="<?php echo $pageContent['sortdate'][0]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
-        <input id="edit_sortdate" name="sortdate[1]" value="<?php echo $statisticFunctions->formatDate($pageContent['sortdate'][1]); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
-        <input name="sortdate[2]" value="<?php echo $pageContent['sortdate'][2]; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
+        <input name="sortdate[before]" value="<?php echo $pageContent['sortdate']['before']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
+        <input id="edit_sortdate" name="sortdate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['sortdate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
+        <input name="sortdate[after]" value="<?php echo $pageContent['sortdate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
       </td></tr>
       <?php } ?>
       

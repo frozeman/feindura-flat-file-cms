@@ -40,22 +40,11 @@
     }
     
 /* BLOCK element bottom border */
-#content .block {
-    }
-#content .block .content {
-    margin-bottom:;
-    }
 #content .block .bottom {
     z-index: -1;
     bottom: -10px;
     }
-/* BLOCK element content */
-#content .block.warning .content {
-    height: 50px;
-    }
-#content .block.info .content {
-    height: 80px;
-    }
+    
 /* h1 slide in button */
 #content h1 a {
     height: 35px;

@@ -121,35 +121,35 @@ function blockSlideInOut(givenIdCLass) {
         
   	   // changes the up and down button class from the <div class="top">
   	   // so that the picture of the upper Toggle Buttons changes
-       slideVertical.onComplete = function(el) {            
-                 
-            // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-            if(slideVertical.open) {
-              block.toggleClass('hidden'); // hides it
-              slideContent.getParent().fade('hide');
-              slideVertical.open = false;
-            } else {              
-              slideContent.getParent().setStyle('height','auto');
-              slideContent.getParent().fade('show');
-              slideVertical.open= true;
-            }           
-            
-            layoutFix();
-       }
+       slideVertical.onComplete = function(el) {
 
+          // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+          if(slideVertical.open) {
+            block.toggleClass('hidden'); // hides it
+            slideContent.getParent().fade('hide');
+            slideVertical.open = false;
+          } else {              
+            slideContent.getParent().setStyle('height','auto');
+            slideContent.getParent().fade('show');
+            slideVertical.open= true;
+          }
+          
+          layoutFix();
+       }
   
   	   // sets the SLIDE EFFECT to the buttons
   	   slideButtonH1.addEvent('click', function(e){  	   
       		e.stop();
-      		if(!slideVertical.open)
+      		if(!slideVertical.open) {
       		  block.toggleClass('hidden'); // shows it
-          slideVertical.toggle();
+          }
+          slideVertical.toggle();          
       	});
 
       } // <-- end go trough blocks
       
       // hide the Menu if it has class "hidden"
-    	if(block.hasClass('hidden'))  { 	 
+    	if(block.hasClass('hidden'))  {
     	  slideVertical.hide();
     	  slideVertical.open = false;
     	}
@@ -168,15 +168,15 @@ window.addEvent('domready', function() {
         wheelStops: true,
         duration: 1200
     });*/
-
   
   // block SLIDE IN/OUT ----------------------------------------------------------------------------------------------
 	blockSlideInOut();
+
   
   // ADDs SMOOTHSCROLL to all ANCHORs
   var smoothAnchorScroll = new Fx.SmoothScroll({
       links: '.smoothAnchor',
       wheelStops: true,
       duration: 200
-  });  
+  });
 });

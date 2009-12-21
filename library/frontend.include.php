@@ -22,6 +22,7 @@ require_once(dirname(__FILE__)."/general.include.php");
 // get SETTINGS
 $adminConfig =       @include_once(dirname(__FILE__)."/../config/adminConfig.php");
 $websiteConfig =     @include_once(dirname(__FILE__)."/../config/websiteConfig.php");
+$statisticConfig =   @include_once(dirname(__FILE__)."/../config/statisticConfig.php");
 $categories =        @include_once(dirname(__FILE__)."/../config/categoryConfig.php");
 $websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
