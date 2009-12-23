@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.38
+* library/classes/frontend.classes.php version 1.40
 * 
 */
 
@@ -38,10 +38,12 @@ class feindura {
   *  ->> in the these METHODs:
   *    -> createLink()
   *    -> createMenu()
-  *    -> createMenuByTags()   
+  *    -> createMenuByTags()
+  *    -> createMenuByDate()    
   *    -> showPage()
   *    -> listPages()  
   *    -> listPagesByTags()
+  *    -> listPagesByDate()  
   */  
   
   // ----------------------------
@@ -347,7 +349,8 @@ class feindura {
   }
   
   // -> START -- createLink ******************************************************************************
-  // RETURNs a link created with the page ID
+  // SHOWs a link created with the page ID
+  // IF $page is a pageContent Array it ONLY RETURNs the LINK
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if FALSE it use VAR PRIORITY
@@ -381,7 +384,13 @@ class feindura {
       $category = $this->getPageCategory($page);
     
     //echo 'PAGE: '.$page;
-     
+    
+    // IF page == pageContent Array, return the LINK to the MENU otherwise SHOW the LINK
+    if(is_array($page) && array_key_exists('id',$page) && $pageContent = $page)
+      $onlyReturn = true;
+    else
+      $onlyReturn = false;
+    
     if($page &&
        ((is_array($page) && array_key_exists('id',$page) && $pageContent = $page) ||              // the $page var is a pageContent Array
        (is_numeric($page) && $pageContent = $this->readPage($page,$category)))) {    // $the $page var is a page ID
@@ -514,6 +523,11 @@ class feindura {
         // ----------------------------
         $link = $linkBefore.$linkStartTag.$linkString.$linkEndTag.$linkAfter;
         
+        // shows the link if page was ONLY a ID
+        if($onlyReturn === false)
+          echo $link;
+          
+        // returns the whole link after finish
         return $link;
       } else return false;
     } else return false;
@@ -739,7 +753,7 @@ class feindura {
   
   // -> START -- createMenuByDate **************************************************************************
   // SHOW a menu created out of the pages IDs or a category ID(s), if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
-  // RETURNs an Array of the UNCHANGED pageContent Arrays
+  // RETURNs the whole menu as a String
   // * MORE OPTIONs in the PROPERTIES
   // ------------------------------------------------------------------------------------------------------
   function createMenuByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
@@ -1035,7 +1049,7 @@ class feindura {
   }  
   
   // -> START -- getCurrentPage **************************************************************************
-  // get the current GET page var
+  // RETURNs the current GET page var
   // -----------------------------------------------------------------------------------------------------
   function getCurrentPage() {
     global $_GET;
@@ -1052,7 +1066,7 @@ class feindura {
     // ->> GET PAGE is a NAME
     // **********************
     } elseif(isset($_GET['page']) &&
-             !empty($_GET['page'])) { 
+             !empty($_GET['page'])) {
     
       // load the pages of the category
       $pages = $this->loadPages($this->category);
@@ -1077,7 +1091,7 @@ class feindura {
   }
 
   // -> START -- getCurrentCategory **********************************************************************
-  // get the current GET page var
+  // RETURNs the current GET category var
   // -----------------------------------------------------------------------------------------------------
   function getCurrentCategory() {
     global $_GET;

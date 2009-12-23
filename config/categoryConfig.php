@@ -3,13 +3,13 @@
 $categories = array(
 "id_1" => array(
           "id"            => '1',
-          "name"          => 'hallooohzu',
+          "name"          => 'Fragen',
           
           "public"        => 'true',
           "sortascending" => '',
           "createdelete"  => 'true',
-          "thumbnail"     => 'true',
-          "sortdate"      => 'true',
+          "thumbnail"     => '',
+          "sortdate"      => '',
           "sortbydate"    => '',
           
           "styleFile"     => '',
