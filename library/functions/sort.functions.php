@@ -16,7 +16,7 @@
 
 * FRONTEND feindura functions
 * 
-* library/functions/frontend.functions.php version 1.88
+* library/functions/frontend.functions.php version 1.89
 * 
 * FUNCTIONS -----------------------------------
 * 
@@ -79,18 +79,20 @@ function sortBySaveDate($a, $b) {     // (Array) $a = current; $b = follwing val
 // ** -- sortbyCategory ****************************************************************
 // sort an Array with the pageContent Array by CATEGORY
 // -------------------------------------------------------------------------------------
-function sortByCategory($a, $b) {     // (Array) $a = current; $b = follwing value
+function sortByCategory($a, $b) {     // (Array) $a = current; $b = following value
   global $feindura_categories;
   
-  // looks for the categories order
+  // puts the categories order in a string for comparision
   $categoryIds = '0 ';
   foreach($feindura_categories as $category) {
     $categoryIds .= $category['id'].' ';
   }
   
-  if ($a['category'] == $b['category']) {
+  if($a['category'] == $b['category'] ||
+     (empty($a['category']) && $a['category'] !== 0) || (empty($b['category']) && $b['category'] !== 0)) {
     return 0;
   }
+
   // sorts the array like the categories array order is
   return (strpos($categoryIds,$a['category']) < strpos($categoryIds,$b['category'])) ? -1 : 1;
 }

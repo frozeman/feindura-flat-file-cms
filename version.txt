@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 93
+Build 94
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 94: feindura.class.php: all methods ONLY RETURN values now, and don't echo them directly in the methods!
 	build 93: feindura.class.php: createLink() SHOWs now also the link and not only returns them
 	build 92: add statisticSetup.php -> can delete statistics and setup them; fixed some issues; old IE show now a info to update
 	build 91: loading box now loaded at the start of the page

@@ -526,8 +526,10 @@ class generalFunctions {
           $newPageContentArray[] = $pageContent;
         }
       }
-    }      
-    return $newPageContentArray;
+      
+      return $newPageContentArray;
+    } else
+      return $pageContentArrays;
   }
 
   
