@@ -494,7 +494,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       // create a NEW FILE ---------------------------------      
       echo '<div style="position:absolute;right:20px;top:22px;width:250px;" class="right">
             <h2>'.$langFile['editFilesSettings_createFile'].'</h2>
-            <input name="newFile" class="toolTip" title="'.$langFile['editFilesSettings_createFile'].'::'.$langFile['editFilesSettings_createFile_inputTip'].'" /> <b>.'.$fileType.'</b>
+            <input name="newFile" style="width:200px;" class="toolTip" title="'.$langFile['editFilesSettings_createFile'].'::'.$langFile['editFilesSettings_createFile_inputTip'].'" /> <b>.'.$fileType.'</b>
             </div>';
       }
       
@@ -512,7 +512,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   echo '<!--<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />-->';
   if(is_dir($dir))
-    echo '<input type="submit" value="" name="saveEditedFiles" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />';
+    echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />';
   echo '</div>
       <div class="bottom"></div>
     </div>
