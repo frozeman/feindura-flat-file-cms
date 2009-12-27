@@ -27,14 +27,14 @@ window.addEvent('domready', function() {
     // CONFIG the HTMlEditor
     HTMLEditor.config.dialog_backgroundCoverColor   = '#333333';
     HTMLEditor.config.uiColor                       = '#cccccc';
-    HTMLEditor.config.width                         = '780';
+    HTMLEditor.config.width                         = '792';
     HTMLEditor.config.resize_minWidth               = '780';
     HTMLEditor.config.height                        = '450';
     
     //HTMLEditor.config.scayt_autoStartup         = true;
     //HTMLEditor.config.disableNativeSpellChecker = false;
     
-    HTMLEditor.config.toolbar                   = [['Save','Preview','-','Source'],
+    HTMLEditor.config.toolbar               = [['Save','Preview','-','Source'],
                                               ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],
                                               ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
                                                '/',

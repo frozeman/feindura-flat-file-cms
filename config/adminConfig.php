@@ -21,10 +21,10 @@ $adminConfig['setStartPage'] =            'true';
 $adminConfig['page']['createPages'] =     '';
 $adminConfig['page']['thumbnailUpload'] = '';
 
-$adminConfig['editor']['enterMode'] =   'br';
-$adminConfig['editor']['styleFile'] =   '/gratz/style/layout.css';
-$adminConfig['editor']['styleId'] =     'feinduraStyles';
-$adminConfig['editor']['styleClass'] =  '';
+$adminConfig['editor']['enterMode'] =   'p';
+$adminConfig['editor']['styleFile'] =   '/mattis/style/layout.css';
+$adminConfig['editor']['styleId'] =     '';
+$adminConfig['editor']['styleClass'] =  'feinduraStyles';
 
 $adminConfig['pageThumbnail']['width'] =      '200';
 $adminConfig['pageThumbnail']['height'] =     '30';

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.27
+* adminSetup.php version 2.28
 */
 
 //error_reporting(E_ALL);
@@ -189,7 +189,7 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     fwrite($file,"\$adminConfig['page']['createPages'] =     '".$_POST['cfg_pageCreatePages']."';\n");
     fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$_POST['cfg_pageThumbnailUpload']."';\n\n");
     
-    fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".$_POST['cfg_editorEnterMode']."';\n");
+    fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".strtolower($_POST['cfg_editorEnterMode'])."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$_POST['cfg_editorStyleFile']."';\n");
     fwrite($file,"\$adminConfig['editor']['styleId'] =     '".$_POST['cfg_editorStyleId']."';\n");  
     fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".$_POST['cfg_editorStyleClass']."';\n\n");  

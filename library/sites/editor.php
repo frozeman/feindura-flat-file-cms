@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.81
+// editor.php version 1.83
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -151,29 +151,8 @@ if($newPage) {
   $pageTitle = $pageContent['title'];  
 }
 
-?>
-<script type="text/javascript">
-/* <![CDATA[ */
 
-// FCK Editor Toolbar wechseln
-function ChangeToolbar( toolbarName )
-{
-  var page = "<?php echo $pageId; ?>";
-  var group = "<?php echo $_GET['category']; ?>";
-  window.location.href = window.location.pathname + "?category=" + group + "&id=" + page + "&Toolbar=" + toolbarName ;
-}
-function FCKeditor_OnComplete( editorInstance )
-{
-  var oCombo = document.getElementById( 'cmbToolbars' ) ;
-  oCombo.value = editorInstance.ToolbarSet.Name ;
-  oCombo.style.visibility = '' ;
-}
-
-/* ]]> */
-</script>
-<?php
-
-// create the FORM
+// ->> SHOW the FORM
 echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8">
       <div>
       <input type="hidden" name="save" value="true" />
@@ -570,6 +549,8 @@ else $hidden = ' hidden';
 <div class="block editor">
 <?php
 
+// -> CHOOSES the RIGHT EDITOR ID and/or CLASS
+// -------------------------------------------
 // gives the editor the StyleFile/StyleId/StyleClass
 // from the Page, if empty,
 // than from the Category if empty,
@@ -579,6 +560,8 @@ if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category
 if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categories['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
 
 
+// -> CREATES the EDITOR-INSTANCE
+// ------------------------------
 ?>
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
 <?php echo $pageContent['content']; ?>
@@ -593,93 +576,14 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
   HTMLEditor.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
   HTMLEditor.config.language                  = '<?php echo $_SESSION["language"]; ?>';
   HTMLEditor.config.contentsCss               = '<?php echo $editorStyleFile; ?>';
-  HTMLEditor.config.enterMode                 = '<?php if($adminConfig['editor']['enterMode'] == "p") echo "CKEDITOR.ENTER_P"; else echo "CKEDITOR.ENTER_BR"; ?>';
+  HTMLEditor.config.bodyId                    = '<?php echo $editorStyleId; ?>';
+  HTMLEditor.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
+  HTMLEditor.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
   HTMLEditor.config.stylesCombo_stylesSet     = 'htmlEditorStyles:config/htmlEditorStyles.js';
 
-  
-  
-  // adds the ID and a CLASS to the body element of the editor instance
-  var setIdClass = HTMLEditor.on( 'instanceReady', function(e)
-  {     
-      // adds ID and a CLASS to the editors body tag
-      <?php if(!empty($editorStyleId)) echo "e.editor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
-      <?php if(!empty($editorStyleClass)) echo "e.editor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>      
-      
-      //alert( HTMLEditor.instances.HTMLEditor.document.getBody().getAttribute('id') );
-      //alert( HTMLEditor.instances.HTMLEditor.document.getBody().getAttribute('class') );
-      
-      // removes the eventlistener
-      HTMLEditor.removeListener( setIdClass );
-      
-      
-      // HACK1: onSelectionChange; because looses the body id and class on edit mode switching
-      e.editor.on( 'selectionChange', function(e) //selectionChange
-      {      
-          if(HTMLEditor.instances.HTMLEditor.document !== null) {
-          <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
-          <?php if(!empty($editorStyleClass)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
-          }
-      });
-      
-      // HACK2: onmouseout; because looses the body id and class on edit mode switching
-      $$('.cke_button_source')[0].addEvent( 'mouseout', function(e) {
-          if(HTMLEditor.instances.HTMLEditor.document !== null) {
-          <?php if(!empty($editorStyleId)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('id', '".$editorStyleId."');"; ?>
-          <?php if(!empty($editorStyleClass)) echo "HTMLEditor.instances.HTMLEditor.document.getBody().setAttribute('class', '".$editorStyleClass."');"; ?>
-          }
-      });
-
-  });
 
 /* ]]> */
 </script>
-<?php
-
-/* toolbar auswahl des fckeditor 2.6
-echo '<div style="float:right">
-      <sup>Men&uuml; Elemente:</sup>
-      <select id="cmbToolbars" onchange="ChangeToolbar(this.value);">
-        <option value="FMSbasic" selected>Basic</option>
-        <option value="FMSadvanced">Erweitert</option>
-      </select>
-    </div>';
-
-
-// Automatically calculates the editor base path based on the _samples directory.
-// This is usefull only for these samples. A real application should use something like this:
-// $oFCKeditor->BasePath = '/cms/htmleditor/' ; // '/fckeditor/' is the default value.
-//$adminConfig['basePath'] = $_SERVER['PHP_SELF'] ;
-//$adminConfig['basePath'] = substr( $adminConfig['basePath'], 0, strpos( $adminConfig['basePath'], "_samples" ) ) ;
-$oFCKeditor = new FCKeditor('FCKeditor') ;
-$oFCKeditor->BasePath	= $adminConfig['basePath'].'library/thirdparty/fckeditor/' ;
-
-if ( isset($_GET['Toolbar']) )
-	$oFCKeditor->ToolbarSet = htmlspecialchars($_GET['Toolbar']);
-else
-  $oFCKeditor->ToolbarSet = 'FMSbasic';
- 
-// gives the editor the StyleFile/StyleId/StyleClass
-// from the Page, if empty,
-// than from the Category if empty,
-// than from the HTMl-Editor Settings
-if(empty($pageContent['styleFile'])) { if(!empty($categories['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categories['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
-if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categories['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
-if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categories['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
-
-$oFCKeditor->Config['EditorAreaCSS'] = $editorStyleFile;
-$oFCKeditor->Config['BodyId'] = $editorStyleId;
-$oFCKeditor->Config['BodyClass'] = $editorStyleClass;
-
-$oFCKeditor->Config['EnterMode'] = $adminConfig['editor']['enterMode'];
-$oFCKeditor->Config['StylesXmlPath'] = $adminConfig['basePath'].'config/htmlEditorStyles.xml';
-$oFCKeditor->Config['SkinPath'] = $adminConfig['basePath'].'library/thirdparty/fckeditor/editor/skins/SilverNarrow/';
-
-$oFCKeditor->Height = '540';
-
-$oFCKeditor->Value = $pageContent['content'];
-//$oFCKeditor->Create() ;
-*/
-?>
 
     <div class="content">    
     
