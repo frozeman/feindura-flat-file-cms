@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 97
+Build 98
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 98: editor.php: submitAnchor add to the submit buttons;
 	build 97: editor.php: embeded CKEditor 3.1, now has also config.bodyId and config.bodyClass, fixed some editor size issues
 	build 96: feindura.class.php: listPages RETURNs an empty Array if there are no Pages
 	build 95: backend.functions.php: editFilesInFolders() fixed new file input issue (input doesn't resize)

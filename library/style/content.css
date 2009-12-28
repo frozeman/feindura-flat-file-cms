@@ -378,7 +378,7 @@ a.down {
 
 /* anchor targets*/
 a.anchorTarget {
-    visibility:hidden;
+    visibility: hidden;
     padding-left: 0px;
     height: 0px;
     background: none;

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.83
+// editor.php version 1.84
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -151,9 +151,11 @@ if($newPage) {
   $pageTitle = $pageContent['title'];  
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------
 
 // ->> SHOW the FORM
-echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8">
+echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8" id="editorForm">
       <div>
       <input type="hidden" name="save" value="true" />
       <input type="hidden" name="category" value="'.$category.'" />
@@ -281,6 +283,9 @@ else
   </div>
   <div class="bottom"></div>
 </div>
+
+<!-- page settings anchor is here -->
+<a id="pageSettingsAnchor" name="pageSettingsAnchor" class="anchorTarget"></a>
 
 <?php
 if(!$newPage) {
@@ -540,12 +545,13 @@ else $hidden = ' hidden';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettingsAnchor');" />
   </div>
   <div class="bottom"></div>
 </div>
 
 
+<a id="htmlEditorAnchor" name="htmlEditorAnchor" class="anchorTarget"></a>
 <div class="block editor">
 <?php
 
@@ -645,11 +651,12 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
     </div>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="submitAnchor('editorForm','htmlEditorAnchor');" />
   </div>
 </div>
 
 <!-- ***** ADVANCED PAGE SETTINGS -->
+<a id="advancedPageSettingsAnchor" name="advancedPageSettingsAnchor" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 if($savedForm == 'advancedPageSettings')  $hidden = '';
@@ -690,7 +697,7 @@ else $hidden = ' hidden';
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings';" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');" />
   </div>
   <div class="bottom"></div>
 </div>

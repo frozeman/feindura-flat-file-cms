@@ -34,7 +34,7 @@ window.addEvent('domready', function() {
     //HTMLEditor.config.scayt_autoStartup         = true;
     //HTMLEditor.config.disableNativeSpellChecker = false;
     
-    HTMLEditor.config.toolbar               = [['Save','Preview','-','Source'],
+    HTMLEditor.config.toolbar               = [['Save','Preview','Maximize','-','Source'],
                                               ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],
                                               ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
                                                '/',
@@ -46,7 +46,7 @@ window.addEvent('domready', function() {
                                                '/',
                                             	['Styles','Format','FontSize'], // 'Font','FontName',
                                             	['TextColor','BGColor','-'],
-                                            	['Maximize','ShowBlocks','-','About']];		// No comma for the last row.
+                                            	['ShowBlocks','-','About']];		// No comma for the last row.
       
       
     
