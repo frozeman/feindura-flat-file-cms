@@ -18,7 +18,7 @@ $adminConfig['user']['editStylesheet'] =  '';
 $adminConfig['user']['info'] =            '';
 
 $adminConfig['setStartPage'] =            'true';
-$adminConfig['page']['createPages'] =     '';
+$adminConfig['page']['createPages'] =     'true';
 $adminConfig['page']['thumbnailUpload'] = '';
 
 $adminConfig['editor']['enterMode'] =   'p';

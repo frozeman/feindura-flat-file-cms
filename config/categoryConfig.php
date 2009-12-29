@@ -3,7 +3,7 @@
 $categories = array(
 "id_1" => array(
           "id"            => '1',
-          "name"          => 'Fragen',
+          "name"          => 'Kontakt',
           
           "public"        => 'true',
           "sortascending" => '',

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.13
+* categorySetup.php version 1.14
 */
 
 //error_reporting(E_ALL);
@@ -185,7 +185,10 @@ if($unwriteableList) {
 <!-- CATEGORIES SETTINGS -->
 
 <form action="?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
-  <div><input type="hidden" name="send" value="true" /></div>
+  <div>
+  <input type="hidden" name="send" value="true" />
+  <input type="hidden" name="savedCategory" id="savedCategory" value="" />
+  </div>
 
 <div class="block">
   <h1><a href="#" name="categories"><?php echo $langFile['categorySetup_h1']; ?></a></h1>
@@ -311,8 +314,8 @@ if($unwriteableList) {
         
               // category up / down
               //(!!!problem with #category'.$category['id'].' in the link; no ANCHOR possible?)
-          echo '<a href="?site=categorySetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['categorySetup_moveCategory_up_tip'].'::"></a>
-                <a href="?site=categorySetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['categorySetup_moveCategory_down_tip'].'::"></a>';
+          echo '<a href="?site=categorySetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['categorySetup_moveCategory_up_tip'].'::"></a>
+                <a href="?site=categorySetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['categorySetup_moveCategory_down_tip'].'::"></a>';
                 
                 
           echo '<label for="categories'.$category['id'].'public">';
@@ -341,7 +344,12 @@ if($unwriteableList) {
           
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
-          echo '<table>     
+          if($_POST['savedCategory'] != $category['id'])
+            $hidden = ' class="hidden"';
+          else
+            $hidden = '';
+          
+          echo '<table id="advancedConfigTable'.$category['id'].'"'.$hidden.'>     
                 <colgroup>
                 <col class="left" />
                 </colgroup>
@@ -431,8 +439,10 @@ if($unwriteableList) {
           // finish the TABLE for one category
           echo '<tr><td class="leftBottom"></td><td></td></tr>
                 </table>';
-                
-          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" onclick="submitAnchor(\'categoriesForm\',\'category'.$category['id'].'\');" />
+          
+          // SUBMIT: IF advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
+          // and gives the submit anchor to the FORM      
+          echo '<input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="'.$langFile['form_submit'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'category'.$category['id'].'\');" />
                 </div>'; // end slide in box
           
         }

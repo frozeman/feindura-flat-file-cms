@@ -83,21 +83,26 @@ window.addEvent('domready', function() {
     // -----------------------------------------
     // ADD SLIDE TO THE ADVANCED CATEGORY SETTINGS
     // go trough every advancedcategoryConfig class and add the slide effect
-    $$('.categoryConfig').each(function (categoryConfig) {
+    $$('.categoryConfig').each(function(categoryConfig) {
        // count categories
        countCategories++;
+       
+       //var
+       var advancedcategoryConfigTable = categoryConfig.getElements('table')[1];
     
        // creates the slide effect
-  	   var slideAdvancedcategoryConfig = new Fx.Slide(categoryConfig.getElements('table')[1],{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
+  	   var slideAdvancedcategoryConfig = new Fx.Slide(advancedcategoryConfigTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
       
        // slides the hotky div in, on start
-       slideAdvancedcategoryConfig.hide();
+       if(advancedcategoryConfigTable.hasClass('hidden'))
+        slideAdvancedcategoryConfig.hide();
       
        // sets the SLIDE EFFECT to the buttons
        if(categoryConfig.getElements('a')[2] != null) {
          categoryConfig.getElements('a')[2].addEvent('click', function(e) {
         		e.stop();	
         		slideAdvancedcategoryConfig.toggle();
+        		advancedcategoryConfigTable.toggleClass('hidden');
         	});
        }
        

@@ -182,7 +182,12 @@ function saveCategories($newCategories) {
         // ** adds a "/" on the beginning of all absolute paths
         if(!empty($category['styleFile']) && substr($category['styleFile'],0,1) !== '/')
               $category['styleFile'] = '/'.$category['styleFile'];  
-      
+        
+        // -> CLEAN all " out of the strings
+        foreach($category as $postKey => $post) {    
+          $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
+        }
+        
         $znew = '"id_'.$category['id'].'" => array(
           "id"            => \''.$category['id'].'\',
           "name"          => \''.$category['name'].'\',
@@ -195,8 +200,8 @@ function saveCategories($newCategories) {
           "sortbydate"    => \''.$category['sortbydate'].'\',
           
           "styleFile"     => \''.$category['styleFile'].'\',
-          "styleId"       => \''.$category['styleId'].'\',
-          "styleClass"    => \''.$category['styleClass'].'\',
+          "styleId"       => \''.str_replace(array('#','.'),'',$category['styleId']).'\',
+          "styleClass"    => \''.str_replace(array('#','.'),'',$category['styleClass']).'\',
           
           "thumbWidth"    => \''.$category['thumbWidth'].'\',
           "thumbHeight"   => \''.$category['thumbHeight'].'\',

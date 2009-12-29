@@ -34,8 +34,8 @@ $savedForm = false;
 if($_POST['send'] && isset($_POST['adminConfig'])) {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
-  foreach($_POST as $postKey => $post) {
-
+  foreach($_POST as $postKey => $post) {    
+    
     if(strstr($postKey,'Path'))
       if(!empty($post) && substr($post,-1) !== '/')
         $_POST[$postKey] = $post.'/';
@@ -162,6 +162,10 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   $_POST['cfg_userInfo'] = str_replace('&gt;','>',$_POST['cfg_userInfo']);
   $_POST['cfg_userInfo'] = str_replace('&quot;','"',$_POST['cfg_userInfo']);
   
+  // -> CLEAN all " out of the strings
+  foreach($_POST as $postKey => $post) {    
+    $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
+  }
   
   // **** opens adminConfig.php for writing
   if($file = @fopen("config/adminConfig.php","w")) {
@@ -191,8 +195,8 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".strtolower($_POST['cfg_editorEnterMode'])."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$_POST['cfg_editorStyleFile']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleId'] =     '".$_POST['cfg_editorStyleId']."';\n");  
-    fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".$_POST['cfg_editorStyleClass']."';\n\n");  
+    fwrite($file,"\$adminConfig['editor']['styleId'] =     '".str_replace(array('#','.'),'',$_POST['cfg_editorStyleId'])."';\n");  
+    fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass'])."';\n\n");  
   
     fwrite($file,"\$adminConfig['pageThumbnail']['width'] =      '".$_POST['cfg_thumbWidth']."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['height'] =     '".$_POST['cfg_thumbHeight']."';\n");

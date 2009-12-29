@@ -106,6 +106,9 @@ if($_POST['save']) {
     if(!empty($categories['id_'.$category]['styleId'])) { if($_POST['styleId'] == $categories['id_'.$category]['styleId']) $_POST['styleId'] = ''; } elseif($_POST['styleId'] == $adminConfig['editor']['styleId']) { $_POST['styleId'] = ''; }
     if(!empty($categories['id_'.$category]['styleClass'])) { if($_POST['styleClass'] == $categories['id_'.$category]['styleClass']) $_POST['styleClass'] = ''; } elseif($_POST['styleClass'] == $adminConfig['editor']['styleClass']) { $_POST['styleClass'] = ''; }
     
+    $_POST['styleId'] = str_replace(array('#','.'),'',$_POST['styleId']);
+    $_POST['styleClass'] = str_replace(array('#','.'),'',$_POST['styleClass']);
+    
     if(!empty($_POST['styleFile']) && substr($_POST['styleFile'],0,1) !== '/')
           $_POST['styleFile'] = '/'.$_POST['styleFile'];
     
