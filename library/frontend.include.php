@@ -14,13 +14,13 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* frontend.include.php version 0.22
+* frontend.include.php version 0.23
 */
 
 require_once(dirname(__FILE__)."/general.include.php");
 
 // get SETTINGS
-$adminConfig =       @include_once(dirname(__FILE__)."/../config/adminConfig.php");
+$adminConfig =       include_once(dirname(__FILE__)."/../config/adminConfig.php");
 $websiteConfig =     @include_once(dirname(__FILE__)."/../config/websiteConfig.php");
 $statisticConfig =   @include_once(dirname(__FILE__)."/../config/statisticConfig.php");
 $categories =        @include_once(dirname(__FILE__)."/../config/categoryConfig.php");

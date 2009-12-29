@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.44
+* library/classes/frontend.classes.php version 1.45
 * 
 */
 
@@ -81,6 +81,7 @@ class feindura {
   var $category = false;                  // [Boolean or Number]    -> category ID (if set to false: it will uses the $_GET category var)
   var $categories = false;                // [Boolean or Array]     -> Array with category IDs
   var $modul = false;                     // [Boolean or String]    -> the modul name (if set to false: it will uses the $_GET modul var)
+  var $startPage = false;                 // [False or Number]      -> the Number of the startPage, if t6here is one set in the websiteConfig
   
   var $linkId = false;                    // [False or String]      -> the link ID which is used when creating a link (REMEMBER you can only set ONE ID in an HTML Page)
   var $linkClass = false;                 // [False or String]      -> the link CLASS which is used when creating a link
@@ -1145,8 +1146,11 @@ class feindura {
     $this->page = $this->getCurrentPage();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->adminConfig['setStartPage'] && $this->page === false && !empty($this->websiteConfig['startPage']))
+    if($setStartPage === true && $this->page === false && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
       $this->page = $this->websiteConfig['startPage'];
+      $this->startPage = $this->websiteConfig['startPage'];
+    } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
+      $this->startPage = $this->websiteConfig['startPage'];
       
     return $this->page;
   }
