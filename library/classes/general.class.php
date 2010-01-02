@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 1.07
+* library/functions/general.functions.php version 1.08
 *
 * FUNCTIONS ----------------------------
 * 
@@ -96,8 +96,8 @@ class generalFunctions {
       
       // go trough the lang Dir
       while(false !== ($lang_file = @readdir($openlangdir))) {
-        if($lang_file != "." && $lang_file != ".."
-        && is_file($langPath.$lang_file)) {
+        if($lang_file != "." && $lang_file != ".." && 
+           is_file($langPath.$lang_file)) {
           
           $langFileSchema = $lang_file;
           
@@ -105,21 +105,23 @@ class generalFunctions {
           $l = explode(",", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
         	while(list($key, $value) = each($l)) {
         	  $browserData = strtolower(substr($value, 0, 2));
-        		if (strstr(strtolower(substr(substr($lang_file,-6),0,2)).",", $browserData.",") ||
-                strstr(strtolower(substr($lang_file,0,2)).",", $browserData.",")) {
+        		if(strstr(strtolower(substr(substr($lang_file,-6),0,2)).",", $browserData.",") ||
+               strstr(strtolower(substr($lang_file,0,2)).",", $browserData.",")) {
         		  // returns either langFile or the COUNTRY CODE
         		  if($returnLangFile) {
         		    if($langFile = @include($langPath.$lang_file))
                   return $langFile;
                 else
                   return false;
-        		  } else
-        			 return $browserData;
+        		  } else {
+        			   return $browserData;
+        			}
         		}
         	}
         }
       }
-      @closedir($mod_openedmodul);
+      @closedir($mod_openedmodul);      
+      
       
     	// if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
     	if($returnLangFile) {

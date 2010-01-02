@@ -115,7 +115,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.replace.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.checkbox.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.radio.js"></script>
+  <!--<script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.radio.js"></script>-->
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.addon.dependencies.js"></script>
   
   <!-- thirdparty/CKEditor -->
