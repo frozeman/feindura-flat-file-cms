@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 101
+Build 102
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 102: backend.functions.php: saveWebseiteSetup() htmlentities add UTF-8 coding
 	build 101: feindura.class.php: load de.frontend.php language file, checks before if file exists
 	build 100: feindura.class.php: PROPERTY ->startPage add;
 	build 99: categorySetup.php: anchor now also on category up/down; if saved with advancedConfig open it stays open; ALL inputs are now save to insert " or ' (" will be deleted and ' escaped)

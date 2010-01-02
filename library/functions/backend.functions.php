@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.19
+* library/functions/backend.functions.php version 1.20
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -365,11 +365,11 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
     flock($websiteConfig,2); //LOCK_EX
       fwrite($websiteConfig,PHPSTARTTAG); //< ?php
   
-      fwrite($websiteConfig,"\$websiteConfig['title']          = '".htmlentities($givenSettings['title'])."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['publisher']      = '".htmlentities($givenSettings['publisher'])."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['copyright']      = '".htmlentities($givenSettings['copyright'])."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['keywords']       = '".htmlentities($keywords)."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['description']    = '".htmlentities($givenSettings['description'])."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['title']          = '".htmlentities($givenSettings['title'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['publisher']      = '".htmlentities($givenSettings['publisher'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['copyright']      = '".htmlentities($givenSettings['copyright'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['keywords']       = '".htmlentities($keywords,ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($websiteConfig,"\$websiteConfig['description']    = '".htmlentities($givenSettings['description'],ENT_QUOTES,'UTF-8')."';\n");
       fwrite($websiteConfig,"\$websiteConfig['contactMail']    = '".$givenSettings['contactMail']."';\n\n");
       
       fwrite($websiteConfig,"\$websiteConfig['startPage']      = '".$givenSettings['startPage']."';\n\n");
