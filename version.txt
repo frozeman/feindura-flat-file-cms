@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 102
+Build 103
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 103: ckeditor 3.1 add (build 4937)
 	build 102: backend.functions.php: saveWebseiteSetup() htmlentities add UTF-8 coding
 	build 101: feindura.class.php: load de.frontend.php language file, checks before if file exists
 	build 100: feindura.class.php: PROPERTY ->startPage add;
