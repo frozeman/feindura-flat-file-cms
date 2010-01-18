@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/frontend.classes.php version 1.46
+* library/classes/frontend.classes.php version 1.47
 * 
 */
 
@@ -2090,6 +2090,12 @@ class feindura {
                                  $length,                   // (Number) the number of characters to which the text will be shorten 
                                  $pageContent = false,      // (false or Array) the pageContent Array of the Page
                                  $endString = " ...") {     // (String) the string add to the end of the shorten text
+      
+      // find ..ml; and ..lig; etc and adds the number of findings * strlen($finding) (~6) characters to the length
+      preg_match_all('/\&[A-Za-z]{1,6}\;/', $string, $entitiesFindings);
+      foreach($entitiesFindings[0] as $finding) {
+        $length += strlen($finding);
+      }      
       
       // kürzt den string
       if(is_numeric($length))
