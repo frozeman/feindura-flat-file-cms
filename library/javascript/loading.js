@@ -33,7 +33,7 @@ window.addEvent('load', function() {
    var lastLoadingTween = false;    
     
   // add the loading circle to the #content div
-  if($('content') != null)
+  if($('content') != null && $$('#loadingBox .content')[0] != null)
     //$('content').grab(loadingCircleContent,'top');
     $$('#loadingBox .content')[0].grab(loadingCircleContent,'top');
 
@@ -63,8 +63,10 @@ window.addEvent('unload',  function() {
   //loadingCircle(true);
   
   // empties the loadingBox, and refill with the loadingCircle
-  $$('#loadingBox .content')[0].set('html','');
-  $$('#loadingBox .content')[0].grab(loadingCircleContent,'top');
+  if($$('#loadingBox .content')[0] != null) {
+    $$('#loadingBox .content')[0].set('html','');
+    $$('#loadingBox .content')[0].grab(loadingCircleContent,'top');
+  }
   
   $('loadingBox').setStyle('display','block'); 
   //loadingCircleContent.setStyle('opacity','0');

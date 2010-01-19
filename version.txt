@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 104
+Build 105
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 105: loading.js: fixed small IE issue, asks now if the loading box container  is not null
 	build 104: feindura.class.php: textShorten, now adds 6 chars if ther is a speacial char like "&auml;"
 	build 103: ckeditor 3.1 add (build 4937)
 	build 102: backend.functions.php: saveWebseiteSetup() htmlentities add UTF-8 coding

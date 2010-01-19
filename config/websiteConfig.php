@@ -5,7 +5,7 @@ $websiteConfig['publisher']      = 'Gratz Metallverarbeitung';
 $websiteConfig['copyright']      = 'Gratz Metallverarbeitung';
 $websiteConfig['keywords']       = 'stichwort1,stichwort2,stichwort3,dfgdfg';
 $websiteConfig['description']    = 'sdfsdfsd';
-$websiteConfig['contactMail']    = 'name@providor.de';
+$websiteConfig['contactMail']    = 'fabian@frozeman.de';
 
 $websiteConfig['startPage']      = '7';
 
