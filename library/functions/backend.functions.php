@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.20
+* library/functions/backend.functions.php version 1.21
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -561,6 +561,8 @@ function saveEditedFiles($post) {
       
       $post['newFile'] = str_replace( array(" ","%","+",'/',"&","#","!","?","$","§",'"',"'","(",")"), '_', $post['newFile'] ) ;
       $post['newFile'] = str_replace( array("ä","ü","ö","ß",'\"'), array("ae","ue","oe","ss","-"), $post['newFile'] ) ;
+      
+      $post['newFile'] = str_replace('.php','',$post['newFile']);
       
       if($file = @fopen(DOCUMENTROOT.$post['filesPath'].$post['newFile'].'.'.$post['fileType'],"w")) {
       
