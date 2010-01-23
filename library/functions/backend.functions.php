@@ -567,7 +567,8 @@ function saveEditedFiles($post) {
       if($file = @fopen(DOCUMENTROOT.$post['filesPath'].$post['newFile'].'.'.$post['fileType'],"w")) {
       
         $_GET['status'] = $_POST['status'];
-        $_GET['file'] = $_POST['file'];
+        //$_GET['file'] = $_POST['file'];        
+        $_GET['file'] = $post['filesPath'].$post['newFile'].'.'.$post['fileType'];
         
         return true;
       }  
