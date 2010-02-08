@@ -5,7 +5,7 @@ $adminConfig['basePath'] =        '/_fms20/';
 $adminConfig['savePath'] =        '_page/';
 $adminConfig['uploadPath'] =      '/_fms20/_upload/';
 $adminConfig['langPath'] =        '/mattis/_texte/';
-$adminConfig['stylesheetPath'] =  '/_fms20/style/';
+$adminConfig['stylesheetPath'] =  '/_mattis/style/';
 $adminConfig['dateFormat'] =      'eu';
 $adminConfig['speakingUrl'] =      '';
 

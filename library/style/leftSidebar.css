@@ -1,6 +1,6 @@
 /* Stylesheet format of the left sidebar menu (categories, pages) 
 * 
-* leftSidebar.css version 0.26
+* leftSidebar.css version 0.27
 * 
 * sidebarMenu und sidebarInfo */
 
@@ -13,18 +13,23 @@
     top: 200px;
     left: 80px;
     }
+    
 
 /* ----------------------- */
-/* --- sidebarMenu SPACER */
-#leftSidebar .spacer {
-    position: relative;
-    width: 202px;
-    height: 17px;
-    background: url(../image/bg/sidebarMenu_spacer.png) no-repeat top left !important;
+/* --- SIDEBAR LINKS */
+#leftSidebar a {
+    text-decoration: none;
+    color: #3A7AA5;
+    /* padding-left: 17px;
+    background: url(../image/sign/link.gif) no-repeat 0px 0px; */
+    }
+#leftSidebar a:hover {
+    color: #666666;
     }
 
+
 /* ----------------------- */
-/* --- sidebarMenu */
+/* ---  SIDEBAR MENU */
 
 #leftSidebar .sidebarMenu {
     z-index: 0;
@@ -232,6 +237,14 @@
     background-position: right -14px;
     }
 
+/* --- sidebarMenu SPACER */
+#leftSidebar .spacer {
+    position: relative;
+    width: 202px;
+    height: 17px;
+    background: url(../image/bg/sidebarMenu_spacer.png) no-repeat top left !important;
+    }
+
 /* ------------------------- */
 /* - SIDEBAR INFO */
 
@@ -303,15 +316,4 @@
     position: absolute;
     height: 30px;
     width: 165px;
-    }
-
-/* links */   
-#leftSidebar #sidebarTaskLog a {
-    text-decoration: none;
-    color: #3A7AA5;
-    /* padding-left: 17px;
-    background: url(../image/sign/link.gif) no-repeat 0px 0px; */
-    }
-#leftSidebar #sidebarTaskLog a:hover {
-    color: #666666;
     }

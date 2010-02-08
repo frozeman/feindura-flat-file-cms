@@ -221,7 +221,9 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<a href="?site=categorySetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['categorySetup_createCategory'].'::"></a>'; 
       
       if(!empty($categories)) {
-        echo '<div class="sidebarInfo"><div class="content">';     
+        echo '<div class="sidebarInfo"><div class="content">';
+        echo '<a href="#top" class="smoothAnchor" title="'.$langFile['btn_fastUp'].'">'.$langFile['btn_fastUp'].'</a>';
+        echo '<hr />';
         echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
         echo '<ul>';      
         
