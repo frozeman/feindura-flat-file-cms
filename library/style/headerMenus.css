@@ -93,11 +93,11 @@
 #mainMenu a.pages:hover {
     background-position: 0px -142px;
     }
-/* plugins */
-#mainMenu a.plugins {
+/* addons */
+#mainMenu a.addons {
     background: url(../image/key/mainMenu_plugins.png) no-repeat;
     }
-#mainMenu a.plugins:hover {
+#mainMenu a.addons:hover {
     background-position: 0px -142px;
     }
 /* settings */

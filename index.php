@@ -70,6 +70,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
    
   <link rel="shortcut icon" href="<?php echo dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
   
+  <!-- ----------------------------------------------------------------------------------------------------------------- -->
   <!-- STYLESHEETS -->
   
   <link rel="stylesheet" type="text/css" href="library/style/layout.css" media="all" />
@@ -91,6 +92,11 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/editor.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/pageThumbnail.css" media="screen" />
   
+  <!-- addons -->
+<?php
+loadCssFiles('addons/');
+?>
+  
   <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  
   <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie.css" /><![endif]-->
   
@@ -100,8 +106,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   
   <!-- thirdparty/customformelements -->
   <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
-    
-  
+
+  <!-- ----------------------------------------------------------------------------------------------------------------- -->
   <!-- JAVASCRIPT -->
   
   <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
@@ -177,8 +183,8 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
           <td><a href="?site=pages" class="pages" title="<?php echo $langFile['btn_pages']; ?>"><span><?php echo $langFile['btn_pages']; ?></span></a></td>
           <?php
           // checks if there any modules or plugins, if not dont show the menupoint
-          if(folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
-          <td><a href="" class="plugins" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
+          if(!folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
+          <td><a href="" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
           <?php } ?>
           <td><a href="?site=websiteSetup" class="websiteSetup" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></td>
           <td><a href="?site=search" class="search" title="<?php echo $langFile['btn_search']; ?>"><span><?php echo $langFile['btn_search']; ?></span></a></td>
@@ -191,13 +197,13 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
           <li><a href="?site=pages" class="pages" title="<?php echo $langFile['btn_pages']; ?>"><span><?php echo $langFile['btn_pages']; ?></span></a></li>
           <?php
           // checks if there any modules or plugins, if not dont show the menupoint
-          if(folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
-          <li><a href="" class="plugins" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></li>
+          if(!folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
+          <li><a href="" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></li>
           <?php } ?>
           <li><a href="?site=websiteSetup" class="websiteSetup" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></li>
           <li><a href="?site=search" class="search" title="<?php echo $langFile['btn_search']; ?>"><span><?php echo $langFile['btn_search']; ?></span></a></li>
         </ul>
-        -->        
+        -->
       </div>
     </div>
     
@@ -253,7 +259,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
     ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 60px;"'; ?>>
+    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 60px;"'; ?>>    
       <?php
   
       include('library/content.loader.php');

@@ -660,27 +660,50 @@ function getHighestId() {
   return $highestId;
 }
 
+// ** -- readFolder ----------------------------------------------------------------------------------
+// OPENS a Folder and RETURNs an Array with $return['folders'][0] ,.. and $return['files'][0] ,..
+// -----------------------------------------------------------------------------------------------------------
+function readFolder($folder) {
+  
+  // -> adds / on the end of the folder
+  if(substr($folder,-1) != '/')
+    $folder .= '/';
+  
+  // vars
+  $return = false;
+  $fullFolder = $folder;
+  
+  // adds the DOCUMENTROOT
+  $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);
+  $fullFolder = DOCUMENTROOT.$fullFolder;  
+
+  // open the folder and read the content
+  $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
+  while(false !== ($inDirObjects = @readdir($openedDir))) {
+    if($inDirObjects != "." && $inDirObjects != "..") {
+      if(is_dir($fullFolder.$inDirObjects)) {
+        $return['folders'][] = $folder.$inDirObjects;
+      } elseif(is_file($folder.$inDirObjects)) {
+        $return['files'][] = $folder.$inDirObjects;
+      }
+    }
+  }
+  @closedir($openedDir);
+  
+  return $return;  
+}
+
 // ** -- showModulesPlugins ----------------------------------------------------------------------------------
 // opens the modules and plugin folder and return tru if there something in
 // -----------------------------------------------------------------------------------------------------------
 // $folder    [the ABSOLUTE PATH of the Folder which will be checked (String)]
 function folderIsEmpty($folder) {
   
-  $folder = DOCUMENTROOT.$folder;
-  
-  // opens the "modules/" dir
-  // and checks if there are files in
-  $openeddir = @opendir($folder);  // @ zeichen eingefügt
-  while (false !== ($indir = @readdir($openeddir))) {
-    if($indir != "." && $indir != "..") {
-      if(is_file($folder.$indir) || is_dir($folder.$indir)) {
-        return true;
-      }
-    }
-  }
-  @closedir($openeddir);
-  
-  return false;  
+  if(readFolder($folder) === false)
+    return true;
+  else
+    return false;
+
 }
 
 // ** -- checkBasePath ----------------------------------------------------------------------------------
@@ -741,6 +764,60 @@ function startPageWarning() {
             </div> 
             <div class="bottom"></div> 
           </div>';
+  }
+}
+
+// ** -- loadCssFiles ----------------------------------------------------------------------------------
+// GOs trough a Folder and its Sub-Folders and creates a HTML-Style-Tag out of every CSS-File
+// -----------------------------------------------------------------------------------------------------------
+function loadCssFiles($folder) {
+  global $adminConfig;
+  
+  // -> removes the $adminConfig('basePath')
+  $folder = str_replace($adminConfig['basePath'],'',$folder);  
+  
+  //vars
+  //$cssFiles = false;
+  $fullFolder = DOCUMENTROOT.$adminConfig['basePath'].$folder;
+  //$filePath = $folder;
+  $goTroughFolders['folders'][0] = $fullFolder;
+  $goTroughFolders['files'] = array();
+  $subFolders = array();
+  $files = array();
+  
+    
+  // ->> goes trough all SUB-FOLDERS  
+  while(!empty($goTroughFolders['folders'][0])) {
+    
+    // ->> GOES TROUGH folders
+    foreach($goTroughFolders['folders'] as $subFolder) {
+      //echo '<br /><br />'.$subFolder.'<br />';      
+      $inDirObjects = readFolder($subFolder);
+            
+      // -> add all subfolders to an array
+      $subFolders = array_merge($subFolders, $inDirObjects['folders']);
+        //foreach($inDirObjects['folders'] as $echoFolders) {
+          //echo '<br />Folder-> '.$echoFolders;
+        ///}
+      // -> add files to the fieles array
+      if(is_array($inDirObjects['files'])) {
+        foreach($inDirObjects['files'] as $file) {
+          if(substr($file,-4) == '.css')
+            $cssFiles[] = str_replace(DOCUMENTROOT.$adminConfig['basePath'],'',$file);
+        }
+      }
+    }    
+    
+    $goTroughFolders['folders'] = $subFolders;
+    $goTroughFolders['files'] = $files;
+
+    $subFolders = array();
+    $files = array();
+  }
+  
+  // -> WRITES the HTML-Style-Tags
+  foreach($cssFiles as $cssFile) {
+    echo '  <link rel="stylesheet" type="text/css" href="'.$cssFile.'" media="screen" />'."\n";
   }
 }
 

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 109
+Build 110
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 110: backend.functions.php: add readFolder() and loadCssFiles()
 	build 109: leftSidebar.loader.php: #top anchor add in categorySetup
 	build 108: CKFinder 1.4.2 add
 	build 107: backend.functions.php: editFilesInFolders() on saving new file, it opens this file after saving
