@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.84
+// editor.php version 1.85
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -469,7 +469,7 @@ else $hidden = ' hidden';
       <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" value="<?php echo $pageContent['title']; ?>" />        
+        <input id="edit_title" name="title" style="width:480px;" value="<?php echo $pageContent['title']; ?>" />        
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>      

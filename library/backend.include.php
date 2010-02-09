@@ -28,8 +28,8 @@ $websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStati
 
 require_once(dirname(__FILE__)."/functions/backend.functions.php");
 
-require_once(dirname(__FILE__)."/classes/general.class.php");
-require_once(dirname(__FILE__)."/classes/statistic.class.php");
+require_once(dirname(__FILE__)."/classes/generalFunctions.class.php");
+require_once(dirname(__FILE__)."/classes/statisticFunctions.class.php");
 
 // GET FUNCTIONS
 $generalFunctions = new generalFunctions();

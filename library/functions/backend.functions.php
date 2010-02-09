@@ -533,15 +533,15 @@ function saveEditedFiles($post) {
     // SAVE FILE
     if(@is_file(DOCUMENTROOT.$post['file']) && empty($post['newFile'])) {
 
-      $post['fileContent'] 	= str_replace('\"', '"', $post['fileContent']);
-      $post['fileContent'] 	= str_replace("\'", "'", $post['fileContent']);
+      $post['fileContent'] = str_replace('\"', '"', $post['fileContent']);
+      $post['fileContent'] = str_replace("\'", "'", $post['fileContent']);
       //$post['fileContent'] 	= str_replace("<br />", "", $post['fileContent']);
-      $post['fileContent'] 	= stripslashes($post['fileContent']);
+      $post['fileContent'] = stripslashes($post['fileContent']);
       
       // wandelt umlaut in HTML zeichen um
-      $post['fileContent'] = htmlentities($post['fileContent'],ENT_NOQUOTES,'UTF-8');
+      $post['fileContent'] = htmlentities($post['fileContent'],ENT_NOQUOTES,'UTF-8');      
       // changes & back, because of the $auml;
-      $post['fileContent'] 	= str_replace("&amp;", "&", $post['fileContent']);
+      $post['fileContent'] = str_replace("&amp;", "&", $post['fileContent']);
       // wandelt die php einleitungstags wieder in zeichen um
       $post['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$post['fileContent']);
       

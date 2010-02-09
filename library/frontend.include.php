@@ -28,11 +28,11 @@ $websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStati
 
 require_once(dirname(__FILE__)."/functions/mysql.functions.php");
 
-require_once(dirname(__FILE__)."/classes/general.class.php");
+require_once(dirname(__FILE__)."/classes/generalFunctions.class.php");
 $generalFunctions = new generalFunctions();
 
-require_once(dirname(__FILE__)."/classes/statistic.class.php");
-require_once(dirname(__FILE__)."/classes/frontend.class.php");
+require_once(dirname(__FILE__)."/classes/statisticFunctions.class.php");
+require_once(dirname(__FILE__)."/classes/frontendFunctions.class.php");
 require_once(dirname(__FILE__)."/classes/feindura.class.php");
 
 ?>

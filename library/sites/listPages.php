@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.82
+listPages.php version 0.83
 
 */
 
@@ -208,10 +208,10 @@ if(is_array($pages)) {
       }
       
       // shorten the title
-      if(strlen($pageContent['title'])<= 30) {
+      if(strlen($pageContent['title']) <= $generalFunctions->getCharacterNumber($pageContent['title'],31)) {
         $titleShort = $pageContent['title'];
       } else {
-        $titleShort = substr($pageContent['title'],0,29).'..';
+        $titleShort = substr($pageContent['title'],0,$generalFunctions->getCharacterNumber($pageContent['title'],29)).'..';      // (String) the string to shorten 
       }
       
       // -> show savedate

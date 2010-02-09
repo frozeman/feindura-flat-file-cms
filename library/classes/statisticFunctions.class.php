@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// library/classes/statistic.class.php version 0.52
+// library/classes/statisticFunctions.class.php version 0.52
 
 //error_reporting(E_ALL);
 

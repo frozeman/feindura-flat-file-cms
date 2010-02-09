@@ -16,7 +16,7 @@
 
 * FRONTEND feindura functions
 * 
-* library/classes/frontend.class.php version 1.9
+* library/classes/frontendFunctions.class.php version 1.9
 * 
 * FUNCTIONS -----------------------------------
 * 

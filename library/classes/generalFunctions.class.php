@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/general.functions.php version 1.08
+* library/functions/generalFunctions.functions.php version 1.09
 *
 * FUNCTIONS ----------------------------
 * 
@@ -33,6 +33,8 @@
 * createHref($pageContent, $sessionId = false)
 *
 * sortPages($pageContentArrays, $sortBy = false)
+*
+* getCharacterNumber($string, $characterLength = false)
 *
 * cleanSpecialChars($string,$replaceSign)
 * 
@@ -534,6 +536,28 @@ class generalFunctions {
       return $pageContentArrays;
   }
 
+  
+  // ** -- getCharacterNumber ----------------------------------------------------------------------------------
+  // count htmlspecialchars like &amp; etc as 1 character, and returns the right character number
+  // -----------------------------------------------------------------------------------------------------
+  function getCharacterNumber($string,                         // (String) the string to count the characters
+                              $characterLength = false) {      // (Number of False) the number of maximum characters to count
+    
+    // get the full string length if no maximum characternumber is given
+    if($characterLength === false)
+      return strlen($string);
+      
+    // shorten the string to the maximum characternumber
+    $string = substr($string,0,$characterLength);
+    
+    // find ..ml; and ..lig; etc and adds the number of findings * strlen($finding) (~6) characters to the length
+    preg_match_all('/\&[A-Za-z]{1,6}\;/', $string, $entitiesFindings);
+    foreach($entitiesFindings[0] as $finding) {
+      $characterLength += (strlen($finding) - 1); // -1 because of double spaces
+    }
+      
+    return $characterLength;
+  }
   
   // ** -- cleanSpecialChars --------------------------------------------------------------------------
   // removes all special chars

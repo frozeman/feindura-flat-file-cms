@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 110
+Build 111
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 111: generalFunctions.class.php: add getCharacterNumber(), and renamed: general.class.php in generalFunctions.class.php, statistic.class.php in statisticFunctions.class.php and frontend.class.php in frontendFunctions.class.php
 	build 110: backend.functions.php: add readFolder() and loadCssFiles()
 	build 109: leftSidebar.loader.php: #top anchor add in categorySetup
 	build 108: CKFinder 1.4.2 add
