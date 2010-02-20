@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/feindura.class.php version 1.48
+* library/classes/feindura.class.php version 1.49
 * 
 */
 
@@ -105,7 +105,7 @@ class feindura {
   var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
   
   var $title = true;                      // [Boolean]              -> show the title when SHOW Pages and LISTING Pages
-  var $titleTag = 'h1';                   // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
+  var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
   var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
   var $titleLength = false;               // [Boolean or Number]    -> the number of maximun characters for the title, after this length it will be shorten with abc..

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.21
+* library/functions/backend.functions.php version 1.22
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -793,12 +793,15 @@ function loadCssFiles($folder) {
     foreach($goTroughFolders['folders'] as $subFolder) {
       //echo '<br /><br />'.$subFolder.'<br />';      
       $inDirObjects = readFolder($subFolder);
-            
+      
       // -> add all subfolders to an array
-      $subFolders = array_merge($subFolders, $inDirObjects['folders']);
-        //foreach($inDirObjects['folders'] as $echoFolders) {
-          //echo '<br />Folder-> '.$echoFolders;
-        ///}
+      if(is_array($inDirObjects['folders'])) {        
+        $subFolders = array_merge($subFolders, $inDirObjects['folders']);
+          //foreach($inDirObjects['folders'] as $echoFolders) {
+            //echo '<br />Folder-> '.$echoFolders;
+          ///}
+      }  
+      
       // -> add files to the fieles array
       if(is_array($inDirObjects['files'])) {
         foreach($inDirObjects['files'] as $file) {
@@ -816,8 +819,10 @@ function loadCssFiles($folder) {
   }
   
   // -> WRITES the HTML-Style-Tags
-  foreach($cssFiles as $cssFile) {
-    echo '  <link rel="stylesheet" type="text/css" href="'.$cssFile.'" media="screen" />'."\n";
+  if(is_array($cssFiles)) {
+    foreach($cssFiles as $cssFile) {
+      echo '  <link rel="stylesheet" type="text/css" href="'.$cssFile.'" media="screen" />'."\n";
+    }
   }
 }
 

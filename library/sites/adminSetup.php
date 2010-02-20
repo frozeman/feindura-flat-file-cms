@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.28
+* adminSetup.php version 2.29
 */
 
 //error_reporting(E_ALL);
@@ -71,11 +71,17 @@ RewriteRule ^pages/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     $htaccessFile = DOCUMENTROOT.'/.htaccess';
   
+  // ** looks for the apache modules
+  if(function_exists('apache_get_modules'))
+    $apacheModules = apache_get_modules();
+  else
+    $apacheModules = array(false);
+  
   // ** looks if the MOD_REWRITE modul exists
-  if(!in_array('mod_rewrite',apache_get_modules()))
+  if(!in_array('mod_rewrite',$apacheModules))
     $_POST['cfg_speakingUrl'] = '';
   // ** ->> looks for a .htacces file with the speaking url mod_rewrite
-  elseif(in_array('mod_rewrite',apache_get_modules()) && $_POST['cfg_speakingUrl'] == 'true') {
+  elseif(in_array('mod_rewrite',$apacheModules) && $_POST['cfg_speakingUrl'] == 'true') {
 
     // -> looks if the existing .htaccess file has the SPEAKING URL code
     if(file_exists($htaccessFile)) {
@@ -434,7 +440,7 @@ else $hidden = '';
       <label for="cfg_speakingUrl"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_speakingUrl'].'::'.$langFile['adminSetup_fmsSettings_speakingUrl_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_speakingUrl'] ?></span></label>
       </td><td class="right">
-      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" <?php if(!in_array('mod_rewrite',apache_get_modules())) echo 'disabled="disabled"'; ?>>
+      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" <?php if(!in_array('mod_rewrite',$apacheModules)) echo 'disabled="disabled"'; ?>>
         <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; echo ' class="toolTip" title="'.$langFile['adminSetup_fmsSettings_speakingUrl_warning'].'"'; ?>><?php echo $langFile['adminSetup_fmsSettings_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['adminSetup_fmsSettings_speakingUrl_true_example'];?></option>
         <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['adminSetup_fmsSettings_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.$langFile['adminSetup_fmsSettings_speakingUrl_false_example'];?></option>
       </select>
