@@ -650,7 +650,7 @@ $langFile['pagethumbnail_h1_part2'] = 'hochladen';
 $langFile['pagethumbnail_feld1'] = 'Bild ausw&auml;hlen';
 
 $langFile['pagethumbnail_thumbinfo_formats'] = 'Nur folgende Dateiformate sind erlaubt<br /><b>JPG</b>, <b>JPEG</b> oder <b>PNG</b>';
-$langFile['pagethumbnail_thumbinfo_filesize'] = 'Die Datei darf nicht gr&ouml;&szlig;er sein als';
+$langFile['pagethumbnail_thumbinfo_filesize'] = 'maximale Dateigr&ouml;&szlig;e';
 $langFile['pagethumbnail_thumbinfo_standardthumbsize'] = 'Standardbildgr&ouml;&szlig;e';
 
 $langFile['pagethumbnail_thumbsize_h1'] = 'Bildgr&ouml;&szlig;e selbst festlegen';
@@ -659,7 +659,9 @@ $langFile['pagethumbnail_thumbsize_height'] = 'Bildh&ouml;he';
 
 $langFile['pagethumbnail_submit_tip'] = 'Bild hochladen';
 
-$langFile['pagethumbnail_upload_error_nofile'] = 'Du hast keine Datei ausgew&auml;hlt';
+$langFile['pagethumbnail_upload_error_nofile'] = 'Du hast keine Datei ausgew&auml;hlt.';
+$langFile['pagethumbnail_upload_error_nouploadedfile'] = 'Es wurde keine Datei hochgeladen.';
+$langFile['pagethumbnail_upload_error_filesize'] = 'Wahrscheinlich ist die hochgeladene Datei zu gro&szlig;.<br />Die maximal erlaubte Dateigr&ouml;&szlig;e betr&auml;gt';
 $langFile['pagethumbnail_upload_error_wrongformat'] = 'Die ausgew&auml;hlte Datei hat ein nicht unterst&uuml;tztes Format';
 $langFile['pagethumbnail_upload_error_nodir_part1'] = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
 $langFile['pagethumbnail_upload_error_nodir_part2'] = 'existiert nicht oder konnte nicht erstellt werden.';

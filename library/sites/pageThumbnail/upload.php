@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// upload.php v. 1.5
+// upload.php v. 1.51
 
 include_once(dirname(__FILE__)."/../../backend.include.php");
 
@@ -51,8 +51,17 @@ if($_POST['upload']) {
   
   // ---------------- ERROR
   // Check if the file has been correctly uploaded.
-  if ( !isset( $_FILES['thumbFile'] ) || is_null( $_FILES['thumbFile']['tmp_name'] ) || $_FILES['thumbFile']['name'] == '' )
+  if(!isset($_FILES['thumbFile']) || $_FILES['thumbFile']['name'] == '')
   	$error[] = $langFile['pagethumbnail_upload_error_nofile'];
+  
+  if($error === false) {
+    if($_FILES['thumbFile']['tmp_name'] == '')
+      $error[] = $langFile['pagethumbnail_upload_error_nouploadedfile'];
+      
+    // Check if the file filesize is not 0
+    if($_FILES['thumbFile']['size'] == 0)
+      $error[] = $langFile['pagethumbnail_upload_error_filesize'].' '.ini_get('upload_max_filesize').'B';
+  }
   
   // CHECK FOR ERROR 1
   // --------------------------------------------------------------------------------
