@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/feindura.class.php version 1.49
+* library/classes/feindura.class.php version 1.50
 * 
 */
 
@@ -611,19 +611,19 @@ class feindura {
         }
       }      
     } else 
-      return array();
+      return array(false);
     
     // --------------------------------------
-    // -> RETURNs a Array of LINKs, if there is no menuTag set
-    if($menuTag === false) {
+    // -> RETURNs a Array of LINKs, if there is no menuTag set <- (!!! LEGACY !!!)
+    //if($menuTag === false) {
       
       // add a standard tag if there is a class or id (REMOVED)
       //if(!empty($menuStartTag) && !empty($menuEndTag)) {
         //array_unshift($links,$menuStartTag);
         //array_push($links,$menuEndTag);
       //}
-      return $links;
-    }     
+      //return $links;
+    //}     
     
     // ->> OR
     
@@ -631,7 +631,7 @@ class feindura {
     // -> builds the final MENU
     // ************************
     if(empty($links))
-      return array();
+      return array(false);
     
     // CHECK if the LINK BEFORE & AFTER is !== true
     if($this->menuBefore !== true)
@@ -639,7 +639,7 @@ class feindura {
     if($this->menuAfter !== true)
       $menuAfter = $this->menuAfter;
     
-    if($this->menuBetween !== true)
+    if(!is_bool($this->menuBetween))
       $menuBetween = $this->menuBetween;
     
     // creating the START TR tag
@@ -677,17 +677,21 @@ class feindura {
         $menuBetween = false;
       
       // if menuTag is a LIST ------
-      if($menuTagSet == 'ul' || $menuTagSet == 'ol')
-        $link = '<li>'.$link."</li>\n".$menuBetween."\n";
+      if($menuTagSet == 'ul' || $menuTagSet == 'ol') {
+        $link = '<li>'.$link."</li>\n".$menuBetween;
         
       // if menuTag is a TABLE -----
-      if($menuTagSet == 'table') {
-        $link = '<td>'.$link."</td>\n".$menuBetween."\n";
+      } elseif($menuTagSet == 'table') {
+        $link = '<td>'.$link."</td>\n".$menuBetween;
+        
+      // if menuTag is a FALSE -----
+      } elseif(isset($menuBetween)) {
+        $link = $link."\n".$menuBetween;
       }
       
       // SHOW the link
       //echo $link;
-      $menu[] = $link;
+      $menu[] = $link."\n";
       
       // count the table cells
       $count++;
