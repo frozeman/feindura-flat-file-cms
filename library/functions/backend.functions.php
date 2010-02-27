@@ -196,6 +196,7 @@ function saveCategories($newCategories) {
           "sortascending" => \''.$category['sortascending'].'\',
           "createdelete"  => \''.$category['createdelete'].'\',
           "thumbnail"     => \''.$category['thumbnail'].'\',
+          "tags"          => \''.$category['tags'].'\',
           "sortdate"      => \''.$category['sortdate'].'\',
           "sortbydate"    => \''.$category['sortbydate'].'\',
           

@@ -471,14 +471,18 @@ $langFile['categorySetup_check2'] = 'Seiten erstellen/l&ouml;schen';
 $langFile['categorySetup_check2_tip'] = 'Der Benutzer kann in dieser Kategorie Seiten erstellen und l&ouml;schen.';
 $langFile['categorySetup_check3'] = 'Thumbnail hochladen';
 $langFile['categorySetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
-$langFile['categorySetup_check4'] = 'Datum f&uuml;r die Seiten festlegen';
-$langFile['categorySetup_check4_tip'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
-$langFile['categorySetup_check5'] = 'Seiten nach Datum sortieren';
-$langFile['categorySetup_check5_tip'] = 'Die Seiten werden nach einem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
+$langFile['categorySetup_check4'] = 'Es k&ouml;nnen Tags f&uuml;r diese Seiten festgelegt werden';
+$langFile['categorySetup_check4_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
 
-$langFile['categorySetup_check6'] = 'Neueste Seite immer unten anzeigen';
-$langFile['categorySetup_check6_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
+$langFile['categorySetup_check5'] = 'Es kann ein Datum f&uuml;r diese Seiten festlegt werden';
+$langFile['categorySetup_check5_tip'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
+
+$langFile['categorySetup_check6'] = 'Seiten nach Datum sortieren';
+$langFile['categorySetup_check6_tip'] = 'Die Seiten werden nach einem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
+
+$langFile['categorySetup_check7'] = 'Neueste Seite immer unten anzeigen';
+$langFile['categorySetup_check7_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
 
 
 // ---------- deleting category

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.85
+// editor.php version 1.86
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -507,8 +507,11 @@ else $hidden = ' hidden';
         <input id="edit_sortdate" name="sortdate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['sortdate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
         <input name="sortdate[after]" value="<?php echo $pageContent['sortdate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
       </td></tr>
-      <?php } ?>
+      <?php }
       
+      // shows only if activated
+      if($categories['id_'.$_GET['category']]['tags']) {
+      ?>      
       <!-- ***** TAGS -->
       
       <tr><td class="left">
@@ -517,6 +520,7 @@ else $hidden = ' hidden';
       </td><td class="right">
         <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
       </td></tr>
+      <?php } ?>
       
       <tr><td class="leftBottom"></td><td></td></tr>      
       
