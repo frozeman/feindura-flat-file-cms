@@ -437,7 +437,7 @@ class generalFunctions {
       
       $speakingUrlHref .= $categoryLink;
       if($categoryLink == '')
-        $speakingUrlHref .= '/pages/'.$this->encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= '/page/'.$this->encodeToUrl($pageContent['title']);
       else
         $speakingUrlHref .= $this->encodeToUrl($pageContent['title']);
       $speakingUrlHref .= '.html';
