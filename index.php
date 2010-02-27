@@ -53,8 +53,10 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   
   <title>      
     <?php echo $websiteConfig['title']; ?> -> feindura CMS
-  </title>  
-    
+  </title>
+  
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
   <meta name="siteinfo" content="<?php echo $adminConfig['basePath'] ?>robots.txt" />
   <meta name="revisit_after" content="12" />
   <meta name="robots" content="index" />
@@ -111,6 +113,7 @@ loadCssFiles('addons/');
   <!-- ************************************************************************************************************ -->
   <!-- JAVASCRIPT -->
   
+  <!-- thirdparty/iePNGfix -->
   <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
   <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
   
@@ -234,7 +237,8 @@ loadCssFiles('addons/');
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
-    <?php
+    <?php    
+    
     // show createPage
     if(($_GET['category'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$_GET['category']]['createdelete'])
       $showCreatePage = true;
@@ -260,9 +264,9 @@ loadCssFiles('addons/');
     ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 60px;"'; ?>>    
+    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 60px;"'; ?>>      
       <?php
-  
+      
       include('library/content.loader.php');
       
       ?>
