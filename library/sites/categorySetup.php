@@ -26,6 +26,7 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 $savedForm = false;
 $categoryInfo = false;
 
+
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------------
@@ -138,11 +139,11 @@ if($_POST['send'] && isset($_POST['saveCategories'])) {
   
   // cleans the category names
   $catewgoriesCleaned = array();
-  foreach($_POST['categories'] as $category) {  
+  foreach($_POST['categories'] as $category) {
       $category['name'] = $generalFunctions->clearTitle($category['name']);
       $catewgoriesCleaned[$category['id']] = $category;
   }
-  
+
   if(saveCategories($catewgoriesCleaned)) {
     $documentSaved = true; // set documentSaved status
     $statisticFunctions->saveTaskLog($langFile['log_categorySetup_saved']); // <- SAVE the task in a LOG FILE
@@ -184,7 +185,7 @@ if($unwriteableList) {
 
 <!-- CATEGORIES SETTINGS -->
 
-<form action="?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
+<form action="?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
   <input type="hidden" name="send" value="true" />
   <input type="hidden" name="savedCategory" id="savedCategory" value="" />

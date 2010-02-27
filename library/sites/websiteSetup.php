@@ -55,7 +55,7 @@ if(isset($_POST['saveEditedFiles'])) {
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 ?>
-<form action="?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
+<form action="?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div><input type="hidden" name="send" value="true" /></div>
   
 <!-- PAGE SETTINGS -->

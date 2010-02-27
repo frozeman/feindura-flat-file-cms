@@ -96,8 +96,8 @@ if($categoryRatio) {
 </div>
 
 <div style="position: relative">
-<!-- <form action="?site=pageThumbnail&amp;category=<?php echo $category; ?>&amp;id=<?php echo $page; ?>" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','pageThumbnailUploadForm');return false;"> -->
-<form action="library/sites/pageThumbnail/upload.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame">
+<!-- <form action="?site=pageThumbnail&amp;category=<?php echo $category; ?>&amp;id=<?php echo $page; ?>" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','pageThumbnailUploadForm');return false;" accept-charset="UTF-8"> -->
+<form action="library/sites/pageThumbnail/upload.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
 	<input type="hidden" name="upload" value="true" />
 	<input type="hidden" name="category" value="<?php echo $category; ?>" />
   <input type="hidden" name="id" value="<?php echo $page; ?>" />

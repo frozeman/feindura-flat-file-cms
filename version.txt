@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 114
+Build 115
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 115: fixed UTF-8 issue, every form is now only set to UTF-8
 	build 114: feindura.class.php: createMenu() if no menuTag als menuBefore and MenuBetween and menuAfter are integrated (removed line 625)
 	build 113: upload.php: add filesize error
 	build 112: backend.functions.php: loadCssFiles() fixes

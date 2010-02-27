@@ -32,6 +32,7 @@ $version = file("version.txt");
 $version = str_replace("\n",'',$version);
 $version = str_replace("\r",'',$version);
 
+
 // -----------------------------------------------------------------------------------
 // generates the DOCUMENT TYPE
 // kind of hack, because i use iframes for uploading the thumbnail
@@ -70,7 +71,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
    
   <link rel="shortcut icon" href="<?php echo dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
   
-  <!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
   <link rel="stylesheet" type="text/css" href="library/style/layout.css" media="all" />
@@ -107,7 +108,7 @@ loadCssFiles('addons/');
   <!-- thirdparty/customformelements -->
   <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
 
-  <!-- ----------------------------------------------------------------------------------------------------------------- -->
+  <!-- ************************************************************************************************************ -->
   <!-- JAVASCRIPT -->
   
   <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->

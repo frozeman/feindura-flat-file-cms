@@ -122,7 +122,7 @@ if($_POST['sendClearstatistics']) {
 
 <!-- OVERVIEW STATISTIC SETTINGS -->
 
-<form action="?site=statisticSetup#statisticSettings" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1,ISO-8859-2,ISO-8859-15,UTF-8">
+<form action="?site=statisticSetup#statisticSettings" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div><input type="hidden" name="send" value="true" /></div>
 
 <?php
@@ -198,7 +198,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
 
 <!-- CLEAR STATISTICS -->
 
-<form action="?site=statisticSetup" method="post" enctype="multipart/form-data" id="clearStatisticsForm" name="clearStatisticsForm">
+<form action="?site=statisticSetup" method="post" enctype="multipart/form-data" id="clearStatisticsForm" name="clearStatisticsForm" accept-charset="UTF-8">
   <div><input type="hidden" name="sendClearstatistics" value="true" /></div>
   
 <?php

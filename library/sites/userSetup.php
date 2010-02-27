@@ -1342,7 +1342,7 @@ if($logok == false) {
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td valign="top" align="center"> 
-			<form name="adminlogin" method="post" action="?site=advancedsetup_phpaccess" id="userSetupLoginForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userSetupLoginForm');return false;">
+			<form name="adminlogin" method="post" action="?site=advancedsetup_phpaccess" id="userSetupLoginForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userSetupLoginForm');return false;" accept-charset="UTF-8">
 			 
 			 <div><input type="hidden" name="" value="true" id="hiddenSubmit" /></div><!-- ajax hack: hand over the submit buttom name for the ajax -->
 			
@@ -1524,7 +1524,7 @@ if(isAdmin()) {
 
 ?>
 
-<form enctype="multipart/form-data" method="post" action="?site=userSetup" id="userSetupForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userSetupForm');return false;">
+<form enctype="multipart/form-data" method="post" action="?site=userSetup" id="userSetupForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','userSetupForm');return false;" accept-charset="UTF-8">
   
   <input type="hidden" name="" value="true" id="hiddenSubmit" /><!-- ajax hack: hand over the submit buttom name for the ajax -->
   
