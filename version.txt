@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 118
+Build 119
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 119: removed toolTip from editor.php show max/min time visit
 	build 118: GoogleChrome-Frame integrated
 	build 117: changed speaking url folders from from /pages/ to /page/
 	build 116: edit tags, can now be disabled in the categorySetup.php
