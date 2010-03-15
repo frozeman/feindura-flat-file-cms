@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.87
+// editor.php version 1.88
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -63,6 +63,11 @@ if($_POST['save']) {
     $_POST['id'] = $page;
     $_POST['sortorder'] = $page;
     $_GET['page'] = $page;
+    
+    // sets the selected category
+    $category = $_POST['categoryId'];
+    $_GET['category'] = $category;
+    $_POST['category'] = $category;       
   
     $pageContent['log_visitCount'] = '0';
     
@@ -239,26 +244,57 @@ else
       <?php
       
       if(!$newPage)
-      echo '<tr>
-            <td class="left">      
-            <span class="info toolTip" title="'.$langFile['editor_h1_id'].'::'.$langFile['editor_h1_id_tip'].'"><strong>'.$langFile['editor_h1_id'].'</strong></span>
-            </td><td class="right">
-            <span class="info">'.$_GET['page'].'</span>
-            </td>
-            </tr>';
+        echo '<tr>
+              <td class="left">      
+              <span class="info toolTip" title="'.$langFile['editor_h1_id'].'::'.$langFile['editor_h1_id_tip'].'"><strong>'.$langFile['editor_h1_id'].'</strong></span>
+              </td><td class="right">
+              <span class="info">'.$_GET['page'].'</span>
+              </td>
+              </tr>';
+              
       
       if($_GET['category'] == 0) // show only if categories exist
         $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_h1_categoryid_noCategory'].'</span>';
       else
         $categoryName = $_GET['category'].' <span style="color:#A6A6A6;">&rArr; '.$categories['id_'.$_GET['category']]['name'].'</span>';
-        
-      echo '<tr>
-            <td class="left">
-            <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
-            </td><td class="right">
-            <span class="info">'.$categoryName.'</span>
-            </td>
-            </tr>';
+      
+      if(!$newPage)
+        echo '<tr>
+              <td class="left">
+              <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
+              </td><td class="right">
+              <span class="info">'.$categoryName.'</span>
+              </td>
+              </tr>';
+      // -> if newPage, show a category selection
+      else {
+        echo '<tr>
+              <td class="left">
+              <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
+              </td><td class="right">
+              <select name="categoryId">';
+              
+              // -> shows non-category selection if create pages is allowed
+              if($adminConfig['page']['createPages'])
+                echo '<option value="0">'.$langFile['editor_h1_categoryid_noCategory'].'</option>';
+              
+              // ->> goes trough categories and list them
+              foreach($categories as $listCategory) {
+                
+                if($listCategory['id'] == $_GET['category'])
+                  $selected = ' selected="selected"';
+                else
+                  $selected = '';
+                
+                // -> shows category selection if create pages is allowed
+                if($listCategory['createdelete'])
+                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.$listCategory['id'].' &rArr; '.$listCategory['name'].'</option>'."\n";
+              }             
+              
+        echo '</select>
+              </td>
+              </tr>';
+      }
       
       if(!$newPage) {
         // shows the category var in the link or not

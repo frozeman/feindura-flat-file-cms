@@ -566,7 +566,7 @@ $langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
 $langFile['editor_h1_linktothispage'] = 'Link zu dieser Seite';
 $langFile['editor_h1_id'] = 'Seiten ID';
 $langFile['editor_h1_id_tip'] = 'Unter der Seiten ID wird die Seite auf dem Server oder in der Datenbank gespeichert.';
-$langFile['editor_h1_categoryid'] = 'Kategorie ID';
+$langFile['editor_h1_categoryid'] = 'Kategorie';
 $langFile['editor_h1_categoryid_noCategory'] = 'keine Kategorie';
 
 $langFile['editor_pageSettings_h1'] = 'Seiten-Einstellungen';

@@ -237,10 +237,25 @@ loadCssFiles('addons/');
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
-    <?php    
+    <?php   
+     
+    // CHECK createPage
+    $generallyCreatePages = false;
+    // check if non-category can create pages
+    if($adminConfig['page']['createPages'])
+      $generallyCreatePages = true;
+    // if not check if one category can create pages
+    else {
+      foreach($categories as $category) {
+        if($category['createdelete'])
+          $generallyCreatePages = true;
+      }
+    }
     
-    // show createPage
-    if(($_GET['category'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$_GET['category']]['createdelete'])
+    if($generallyCreatePages && $_GET['site'] == 'pages' ||
+       (!empty($_GET['page']) &&
+       ($_GET['category'] == 0 && $adminConfig['page']['createPages']) ||
+        $categories['id_'.$_GET['category']]['createdelete']))
       $showCreatePage = true;
     else
       $showCreatePage = false;
@@ -252,14 +267,14 @@ loadCssFiles('addons/');
       $showPageThumbnailUpload = false;
     
     // CHECK 1. SHOW SUB- FOOTERMENU
-    if($_GET['status'] != 'changePageStatus' &&
-       $_GET['status'] != 'changeCategoryStatus' &&
-       ($_GET['site'] == 'pages' || !empty($_GET['page'])) &&
-       $_GET['category'] != '' &&
-       ($showPageThumbnailUpload || $showCreatePage))
+    if(//$_GET['status'] != 'changePageStatus' &&
+       //$_GET['status'] != 'changeCategoryStatus' &&
+       //$_GET['category'] != '' &&
+       //($_GET['site'] == 'pages' || !empty($_GET['page'])) &&       
+       $showPageThumbnailUpload || $showCreatePage)
       $showSubFooterMenu = true;
     else
-      $showSubFooterMenu = false;      
+      $showSubFooterMenu = false;          
     
     ?>
     <!-- ************************************************************************* -->    

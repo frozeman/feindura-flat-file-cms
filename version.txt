@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 123
+Build 124
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 124: editor.php: add category selection at creating a page
 	build 123: editor.php: fixed thumbnail resize bug (small thumbnail were resized to 200px)
 	build 122: pageThumbnailUpload.php: fixed thumbsize none ratio bug
 	build 121: fixed error text issue, now returns false if showError == false; title renamed in showTitle; content renamed in showContent; error renamed in showError
