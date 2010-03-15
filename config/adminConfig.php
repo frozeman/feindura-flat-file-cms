@@ -26,9 +26,9 @@ $adminConfig['editor']['styleFile'] =   '/mattis/style/layout.css';
 $adminConfig['editor']['styleId'] =     '';
 $adminConfig['editor']['styleClass'] =  'feinduraStyles';
 
-$adminConfig['pageThumbnail']['width'] =      '200';
+$adminConfig['pageThumbnail']['width'] =      '100';
 $adminConfig['pageThumbnail']['height'] =     '30';
-$adminConfig['pageThumbnail']['ratio'] =      'y';
+$adminConfig['pageThumbnail']['ratio'] =      'x';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;

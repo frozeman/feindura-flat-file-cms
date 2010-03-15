@@ -54,7 +54,7 @@ if($_POST['save']) {
   $_POST['HTMLEditor'] = str_replace("'", "\'", $_POST['HTMLEditor'] ); //&#039;
   
   
-  // *** CREATE NEW PAGE ----------------------  
+  // *** CREATE NEW PAGE ----------------------
   if ($page == 'new') {
     
     // looks fore the highest id (FLATFILES)

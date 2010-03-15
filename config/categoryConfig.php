@@ -8,7 +8,7 @@ $categories = array(
           "public"        => 'true',
           "sortascending" => 'true',
           "createdelete"  => 'true',
-          "thumbnail"     => '',
+          "thumbnail"     => 'true',
           "tags"          => 'true',
           "sortdate"      => '',
           "sortbydate"    => '',
@@ -19,7 +19,7 @@ $categories = array(
           
           "thumbWidth"    => '120',
           "thumbHeight"   => '120',
-          "thumbRatio"    => '',
+          "thumbRatio"    => 'x',
           ),
 "id_2" => array(
           "id"            => '2',

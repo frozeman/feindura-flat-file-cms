@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// pageThumbnailUpload.php version 1.02
+// pageThumbnailUpload.php version 1.03
 
 $error = false;
 $response = false;
@@ -50,13 +50,15 @@ if(!empty($categories['id_'.$category]['thumbHeight'])) {
   
 // THUMB RATIO X
 if($categoryRatio) {
-  if($categories['id_'.$category]['thumbRatio'] == 'y') {
+  if($categories['id_'.$category]['thumbRatio'] == 'y' ||
+     $categories['id_'.$category]['thumbRatio'] == '') {
     //$thumbRatioX = ' disabled="disabled"';
     $thumbRatioX = true;
     $thumbRatio = 'y';
   }
 } else {
-  if($adminConfig['pageThumbnail']['ratio'] == 'y') {
+  if($adminConfig['pageThumbnail']['ratio'] == 'y' ||
+     $adminConfig['pageThumbnail']['ratio'] == '') {
     //$thumbRatioX = ' disabled="disabled"';
     $thumbRatioX = true;
     $thumbRatio = 'y';
@@ -65,13 +67,15 @@ if($categoryRatio) {
 
 // THUMB RATIO Y
 if($categoryRatio) {
-  if($categories['id_'.$category]['thumbRatio'] == 'x') {
+  if($categories['id_'.$category]['thumbRatio'] == 'x' ||
+     $categories['id_'.$category]['thumbRatio'] == '') {
     //$thumbRatioY = ' disabled="disabled"';
     $thumbRatioY = true;
     $thumbRatio = 'x';
   }
 } else {
-  if($adminConfig['pageThumbnail']['ratio'] == 'x') {
+  if($adminConfig['pageThumbnail']['ratio'] == 'x' ||
+     $adminConfig['pageThumbnail']['ratio'] == '') {
     //$thumbRatioY = ' disabled="disabled"';
     $thumbRatioY = true;
     $thumbRatio = 'x';
