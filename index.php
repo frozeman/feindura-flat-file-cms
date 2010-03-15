@@ -119,7 +119,7 @@ loadCssFiles('addons/');
   
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/mootools-1.2.4-core.js"></script>
-  <script type="text/javascript" src="library/thirdparty/mootools-1.2.3.1-more.js"></script>
+  <script type="text/javascript" src="library/thirdparty/mootools-1.2.4.4-more.js"></script>
   
   <!-- thirdparty/CustomFormElements -->
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>

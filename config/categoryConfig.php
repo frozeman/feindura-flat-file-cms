@@ -17,9 +17,9 @@ $categories = array(
           "styleId"       => '',
           "styleClass"    => '',
           
-          "thumbWidth"    => '120',
-          "thumbHeight"   => '120',
-          "thumbRatio"    => 'x',
+          "thumbWidth"    => '',
+          "thumbHeight"   => '',
+          "thumbRatio"    => '',
           ),
 "id_2" => array(
           "id"            => '2',

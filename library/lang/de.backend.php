@@ -460,7 +460,7 @@ $langFile['categorySetup_error_save'] = $langFile['error_save_settings'].$langFi
 
 
 $langFile['categorySetup_advancedSettings'] = 'Erweiterte-Einstellungen';
-$langFile['categorySetup_advancedSettings_hint'] = 'Diese Einstellungen, wenn ausgef&uuml;llt, &uuml;berschreiben die HTML-Editor- und Seiten-Thumbnail-Einstellungen in den <a href="?site=adminSetup">Administrator-Einstellungen</a>';
+$langFile['categorySetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die HTML-Editor- und Seiten-Thumbnail-Einstellungen in den <a href="?site=adminSetup">Administrator-Einstellungen</a>';
 
 $langFile['categorySetup_feld1'] = 'Name';
 $langFile['categorySetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Standard Stylesheet-Einstellungen aus den HTML-Editor-Einstellungen verwendet.';

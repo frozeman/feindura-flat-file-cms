@@ -61,6 +61,7 @@ function setToolTips() {
     className: 'toolTip',
     onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
     onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
+    offset: {'x': 5,'y': 12},
     showDelay: 200,
     hideDelay: 0 });
 }
