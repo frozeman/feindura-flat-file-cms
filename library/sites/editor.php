@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.86
+// editor.php version 1.87
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -209,10 +209,12 @@ else
       $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       $thumbnailWidth = $thumbnailWidth[0];
       
-      if($thumbnailWidth <= 200)
-        $thumbnailWidth = ' width="'.$thumbnailWidth.'"';
-      else
+      
+      if($thumbnailWidth >= 200)        
         $thumbnailWidth = ' width="200"';
+      //else
+        //$thumbnailWidth = ' width="'.$thumbnailWidth.'"';
+        
       
       echo '<div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
       echo '<span class="toolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
