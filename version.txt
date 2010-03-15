@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 120
+Build 121
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 121: fixed error text issue, now returns false if showError == false; title renamed in showTitle; content renamed in showContent; error renamed in showError
 	build 120: changed text and var: sprachdateien in websitefiles
 	build 119: removed toolTip from editor.php show max/min time visit
 	build 118: GoogleChrome-Frame integrated

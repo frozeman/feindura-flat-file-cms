@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/feindura.class.php version 1.51
+* library/classes/feindura.class.php version 1.52
 * 
 */
 
@@ -104,7 +104,7 @@ class feindura {
   var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
   var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
   
-  var $title = true;                      // [Boolean]              -> show the title when SHOW Pages and LISTING Pages
+  var $showTitle = true;                  // [Boolean]              -> show the title when SHOW Pages and LISTING Pages
   var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
   var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
@@ -117,7 +117,7 @@ class feindura {
   var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
   
 
-  var $content = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
+  var $showContent = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
   var $contentTag = false;                // [False or String]      -> the content container TAG which is used when creating a page (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set)
   var $contentId = false;                 // [False or String]      -> the content container  ID which is used when creating a page (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $contentClass = false;              // [False or String]      -> the content container  CLASS which is used when creating a page
@@ -133,7 +133,7 @@ class feindura {
   var $thumbnailBefore = false;           // [False or String]      -> a String which comes BEFORE the thumbnail img <$titleTag> tag
   var $thumbnailAfter = false;            // [False or String]      -> a String which comes AFTER the thumbnail img </$titleTag> tag
   
-  var $error = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
+  var $showError = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
   var $errorTag = false;                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
   var $errorId = false;                 // [False or String]      -> the message ID which is used when creating a message (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $errorClass = false;              // [False or String]      -> the message CLASS which is used when creating a message
@@ -904,7 +904,7 @@ class feindura {
       
       // ->> load SINGLE PAGE
       // *******************
-      if($generatedPage = $this->generatePage($page,$category,$this->error,$shortenText,$useHtml)) {
+      if($generatedPage = $this->generatePage($page,$category,$this->showError,$shortenText,$useHtml)) {
         // -> SAVE PAGE STATISTIC
         // **********************
         $this->statisticFunctions->savePageStats($this->readPage($page,$category));
@@ -1209,7 +1209,7 @@ class feindura {
     
     // -> sets the MESSAGE SETTINGS
     // ----------------------------
-    if($showErrors && $this->error) {
+    if($showErrors && $this->showError) {
       // adds ID and/or Class    
       $errorAttributes = '';
       $errorStartTag = '';
@@ -1234,24 +1234,28 @@ class feindura {
       }
     }
     
-    // -> LOAD the pageContent ARRAY
+    // ->> LOAD the pageContent ARRAY
+    // -> checks if $page is an pageContent Array
     if(is_array($page) && array_key_exists('id',$page)) {
       $pageContent = $page;
     } else {
-      // if not throw ERROR
+      // -> if not try to load the page
       if(!$pageContent = $this->readPage($page,$category)) {
-        if($showErrors && $this->error) {      
+        // if could not load throw ERROR
+        if($showErrors && $this->showError) {
           return $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
-        }
+        } else
+          return false;
       }
     }
 
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
-      if($showErrors && $this->error) {
+      if($showErrors && $this->showError) {
         return $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
-      }
+      } else
+        return false;
     }
     
     // ->> BEGINNING TO BUILD THE PAGE
@@ -1261,7 +1265,7 @@ class feindura {
     // *****************
     
     // shows the TITLE
-    if($this->title)
+    if($this->showTitle)
       $title = $this->createTitle($pageContent,
                                   $this->titleTag,
                                   $this->titleId,
@@ -1298,7 +1302,7 @@ class feindura {
     
     // ->> MODIFING pageContent
     // ************************
-    if($this->content) {
+    if($this->showContent) {
       $pageContentEdited = $pageContent['content'];
       
       // -> adds ID and/or Class
