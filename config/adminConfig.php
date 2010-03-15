@@ -1,11 +1,11 @@
 <?php
 
 $adminConfig['url'] =             'localhost';
-$adminConfig['basePath'] =        '/_fms20/';
+$adminConfig['basePath'] =        '/_feindura10/';
 $adminConfig['savePath'] =        '_page/';
-$adminConfig['uploadPath'] =      '/_fms20/_upload/';
-$adminConfig['langPath'] =        '/mattis/_texte/';
-$adminConfig['stylesheetPath'] =  '/_mattis/style/';
+$adminConfig['uploadPath'] =      '/_feindura10/_upload/';
+$adminConfig['websitefilesPath'] =        '/_feindura10/_lang/';
+$adminConfig['stylesheetPath'] =  '';
 $adminConfig['dateFormat'] =      'eu';
 $adminConfig['speakingUrl'] =      '';
 

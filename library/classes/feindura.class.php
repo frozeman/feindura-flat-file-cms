@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/classes/feindura.class.php version 1.50
+* library/classes/feindura.class.php version 1.51
 * 
 */
 
@@ -233,7 +233,7 @@ class feindura {
     // if no country code is given
     if($language === false || strlen($language) != 2) {
       // gets the BROWSER STANDARD language
-      $this->language = $this->generalFunctions->getLanguage($this->adminConfig['langPath'],false); // returns a COUNTRY SHORTNAME
+      $this->language = $this->generalFunctions->getLanguage(true,false); // returns a COUNTRY SHORTNAME
     } else
       $this->language = $language;
     

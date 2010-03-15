@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.29
+* adminSetup.php version 2.30
 */
 
 //error_reporting(E_ALL);
@@ -44,8 +44,8 @@ if($_POST['send'] && isset($_POST['adminConfig'])) {
   // ** adds a "/" on the beginning of all absolute paths
   if(!empty($_POST['cfg_uploadPath']) && substr($_POST['cfg_uploadPath'],0,1) !== '/')
         $_POST['cfg_uploadPath'] = '/'.$_POST['cfg_uploadPath'];  
-  if(!empty($_POST['cfg_langPath']) && substr($_POST['cfg_langPath'],0,1) !== '/')
-        $_POST['cfg_langPath'] = '/'.$_POST['cfg_langPath'];        
+  if(!empty($_POST['cfg_websitefilesPath']) && substr($_POST['cfg_websitefilesPath'],0,1) !== '/')
+        $_POST['cfg_websitefilesPath'] = '/'.$_POST['cfg_websitefilesPath'];        
   if(!empty($_POST['cfg_stylesheetPath']) && substr($_POST['cfg_stylesheetPath'],0,1) !== '/')
         $_POST['cfg_stylesheetPath'] = '/'.$_POST['cfg_stylesheetPath'];
         
@@ -182,7 +182,7 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     fwrite($file,"\$adminConfig['basePath'] =        '".dirname($_SERVER['PHP_SELF']).'/'."';\n");
     fwrite($file,"\$adminConfig['savePath'] =        '".$_POST['cfg_savePath']."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =      '".$_POST['cfg_uploadPath']."';\n");  
-    fwrite($file,"\$adminConfig['langPath'] =        '".$_POST['cfg_langPath']."';\n");
+    fwrite($file,"\$adminConfig['websitefilesPath'] =        '".$_POST['cfg_websitefilesPath']."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =  '".$_POST['cfg_stylesheetPath']."';\n");    
     fwrite($file,"\$adminConfig['dateFormat'] =      '".$_POST['cfg_dateFormat']."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      '".$_POST['cfg_speakingUrl']."';\n\n");
@@ -298,17 +298,17 @@ if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
 
 // check lang folder/files
-if(!empty($adminConfig['langPath'])) {
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath']);
-  $langDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['langPath']);
-  while (false !== ($file = @readdir($langDir))) {
+if(!empty($adminConfig['websitefilesPath'])) {
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['websitefilesPath']);
+  $websitefilesDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['websitefilesPath']);
+  while (false !== ($file = @readdir($websitefilesDir))) {
   if($file!="." && $file!="..") {
-      if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['langPath']."/".$file)){
-        $unwriteableList .= fileFolderIsWritableWarning($adminConfig['langPath'].$file);
+      if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['websitefilesPath']."/".$file)){
+        $unwriteableList .= fileFolderIsWritableWarning($adminConfig['websitefilesPath'].$file);
       }
     }
   }
-  @closedir($langDir);
+  @closedir($websitefilesDir);
 }
 
 // check page folder/files
@@ -406,10 +406,10 @@ else $hidden = '';
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_langPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld5'].'::'.$langFile['adminSetup_fmsSettings_feld5_tip'] ?>">
+      <label for="cfg_websitefilesPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld5'].'::'.$langFile['adminSetup_fmsSettings_feld5_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_feld5'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_langPath" name="cfg_langPath" value="<?php echo $adminConfig['langPath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
+      <input size="40" id="cfg_websitefilesPath" name="cfg_websitefilesPath" value="<?php echo $adminConfig['websitefilesPath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
       </td></tr>
       
@@ -779,7 +779,7 @@ if($savedForm != 'fckStyleFile')
 <?php
 
 // BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['langPath'], $_GET['site'], "editLangfile",  $langFile['editFilesSettings_h1_lang'], "langFilesAnchor", "php");
+editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_lang'], "websiteFilesAnchor", "php");
   
 
 // BEARBEITUNG DER STYLESHEETDATEI

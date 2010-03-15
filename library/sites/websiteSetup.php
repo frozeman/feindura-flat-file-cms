@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.86
+* websiteSetup.php version 1.87
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -138,8 +138,8 @@ if($savedForm != 'websiteConfig')
 <?php
 
 if($adminConfig['user']['editLanguage']) {  
-// BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['langPath'], $_GET['site'], "editLangfile",  $langFile['editFilesSettings_h1_lang'], "langFilesAnchor", "php");
+  // BEARBEITUNG DER ERWEITERTEN WEBSEITEN-EINSTELLUNGEN 
+  editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_lang'], "websiteFilesAnchor", "php");
 }
 
 if($adminConfig['user']['editStylesheet']) {

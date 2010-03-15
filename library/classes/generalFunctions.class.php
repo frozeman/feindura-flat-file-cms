@@ -86,7 +86,7 @@ class generalFunctions {
       if(is_string($useLangPath) && substr($useLangPath,0,1) == '/')
         $langPath = DOCUMENTROOT.$useLangPath;
       else
-        $langPath = DOCUMENTROOT.$this->adminConfig['langPath'];
+        $langPath = DOCUMENTROOT.$this->adminConfig['websitefilesPath'];
   
       // opens the lang Dir
       if(!$openlangdir = @opendir($langPath)) {
