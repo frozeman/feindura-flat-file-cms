@@ -217,7 +217,7 @@ class feindura {
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategory();           // $_GET['varNameCategory']  // first category to load then the page
+    $this->setCurrentCategory(true);           // $_GET['varNameCategory']  // first category to load then the page
     $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $this->websiteConfig['startPage'] if there is no GET page var
           
     // -> CHECKS if cookies are enabled
@@ -1170,9 +1170,17 @@ class feindura {
   // and RETURNs the new category PROPERTY
   // RETURNs -> NUMBER
   // -----------------------------------------------------------------------------------------------------
-  function setCurrentCategory() {
+  function setCurrentCategory($setStartPage = false) {
     // sets the new category PROPERTY
     $this->category = $this->getCurrentCategory();
+    
+    // sets the startPage if it exists
+    if($setStartPage === true && $this->category === false && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
+      $this->category = $this->getPageCategory($this->websiteConfig['startPage']);
+      $this->startPage = $this->websiteConfig['startPage'];
+    } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
+      $this->startPage = $this->websiteConfig['startPage'];
+    
     return $this->category;
   }
   // -> *ALIAS* OF setCurrentCategory ***********************************************************************

@@ -383,7 +383,7 @@ $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URL</b
 // ---------- user Settings
 
 $langFile['adminSetup_userSettings_h1'] = 'Benutzer-Einstellungen';
-$langFile['adminSetup_userSettings_check1'] = 'erweiterte Einstellungsdateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
+$langFile['adminSetup_userSettings_check1'] = 'Webseitendateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
 $langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> auf der <a href="?site=home">Startseite</a>';

@@ -6,7 +6,7 @@ $categories = array(
           "name"          => 'linkes oberes Men&uuml;',
           
           "public"        => 'true',
-          "sortascending" => '',
+          "sortascending" => 'true',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "tags"          => '',
