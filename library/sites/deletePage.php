@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// deletePage.php version 0.92
+// deletePage.php version 0.93
 
 include_once(dirname(__FILE__).'/../backend.include.php');
 
@@ -43,7 +43,7 @@ if(is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$p
 // NOT EXISTING
 } else {
   $question = '<h1>'.$langFile['deletePage_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['savePath'].$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
-  <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok" onclick="closeWindowBox();return false;">&nbsp;</a>';
+  <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>';
   
   // show only the ok button
   $asking = true;
@@ -60,14 +60,14 @@ if($asking && is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$cate
       }
         // DELETING FINISH --------------
         $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
-        <a href="?site=pages&amp;category='.$category.'" class="ok" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
+        <a href="?site=pages&amp;category='.$category.'" class="ok center" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
         
         $statisticFunctions->saveTaskLog($langFile['log_page_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
         
     } else {
       // DELETING ERROR --------------
       $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>
-      <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
+      <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
     }
 }
 
@@ -85,8 +85,8 @@ if(!$asking) {
 <input type="hidden" name="asking" value="true" />
 
 
-<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="toolTip cancel" title="<?php echo $langFile['delete_answer_cancel']; ?>::" onclick="closeWindowBox();return false;">&nbsp;</a>
-<input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['delete_answer_submit']; ?>" />
+<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<input type="submit" value="" class="button submit" />
 </form>
 </div>
 <?php

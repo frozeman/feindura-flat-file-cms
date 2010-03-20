@@ -88,8 +88,8 @@ if(!$asking) {
 <input type="hidden" name="site" value="<?php echo $site; ?>" />
 <input type="hidden" name="asking" value="true" />
 
-<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="toolTip cancel" title="<?php echo $langFile['delete_question_cancel']; ?>::" onclick="closeWindowBox();return false;">&nbsp;</a>
-<input type="submit" value="" class="toolTip button submit" title="<?php echo $langFile['delete_question_submit']; ?>" />
+<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<input type="submit" value="" class=" button submit" />
 </form>
 
 <!-- show a preview of the thumbnail -->

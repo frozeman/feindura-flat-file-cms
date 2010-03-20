@@ -130,10 +130,11 @@ $langFile['log_categorySetup_move'] = 'Kategorie verschoben';
 
 $langFile['log_file_saved'] = 'Datei gespeichert';
 
-// ---------- deleting
-
+// ---------- deleting (entfernt)
+/*
 $langFile['delete_question_submit'] = 'Ja, bitte l&ouml;schen!';
 $langFile['delete_question_cancel'] = 'Nein, doch nicht';
+*/
 
 // ----------- page/category public/nonpuplic
 

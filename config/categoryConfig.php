@@ -6,10 +6,10 @@ $categories = array(
           "name"          => 'linkes oberes Men&uuml;',
           
           "public"        => 'true',
-          "sortascending" => 'true',
+          "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
-          "tags"          => 'true',
+          "tags"          => '',
           "sortdate"      => '',
           "sortbydate"    => '',
           
@@ -26,7 +26,27 @@ $categories = array(
           "name"          => 'rechtes oberes Men&uuml;',
           
           "public"        => 'true',
-          "sortascending" => 'true',
+          "sortascending" => '',
+          "createdelete"  => 'true',
+          "thumbnail"     => '',
+          "tags"          => '',
+          "sortdate"      => '',
+          "sortbydate"    => '',
+          
+          "styleFile"     => '',
+          "styleId"       => '',
+          "styleClass"    => '',
+          
+          "thumbWidth"    => '',
+          "thumbHeight"   => '',
+          "thumbRatio"    => '',
+          ),
+"id_3" => array(
+          "id"            => '3',
+          "name"          => 'rechtes unteres Men&uuml;',
+          
+          "public"        => 'true',
+          "sortascending" => '',
           "createdelete"  => 'true',
           "thumbnail"     => '',
           "tags"          => '',

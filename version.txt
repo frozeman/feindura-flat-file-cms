@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 125
+Build 126
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 126: deletePage.php: moved the ok button after deleting in the center
 	build 125: toolTips.js: removed arrow like corner of the toolTip an repositioned the toolTip box
 	build 124: editor.php: add category selection at creating a page
 	build 123: editor.php: fixed thumbnail resize bug (small thumbnail were resized to 200px)
