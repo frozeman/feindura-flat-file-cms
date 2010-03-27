@@ -19,26 +19,42 @@ editor.css version 0.1 */
 /* ----------------------- */	
 /* - BLOCK EDITOR */  
 
-#content .block.editor {
-    width: 792px !important;
-    padding: 7px !important;
+#content .editor {
+    z-index: 1;
+    position: relative;
+    display: block;
+    left: 0px;
+    margin: 30px -20px;
+    margin-top: 30px; 
+    background: url(../image/bg/content_block_normal.png) repeat-y;
+    overflow: visible;
+    width: 792px;
+    padding: 7px;
     }
 
-#content .block.editor .content {
+#content .editor .content {
     margin: 20px 20px !important;
     }    
 
-#content .block.editor textarea {
+#content .editor textarea {
     width: 746px !important;
     height: 437px !important;
     padding: 7px;
     }
-#content .block.editor textarea:hover {
+#content .editor textarea:hover {
     border: none !important;
     }
-#content .block.editor textarea:focus {
+#content .editor textarea:focus {
     border: none !important;
     }
+
+/* ----------------------- */	
+/* - BLOCK EDITOR LINKS  
+
+#content .block.editor a {
+    background-image: none;
+    }
+*/
 
 /* ----------------------- */	
 /* - PAGE HEAD */ 

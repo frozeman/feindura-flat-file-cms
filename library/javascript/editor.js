@@ -20,7 +20,8 @@ window.addEvent('domready', function() {
 
   
   if($('HTMLEditor') != null) {
-  
+    
+    // var
     var HTMLEditor = CKEDITOR;      
       
     // ------------------------------
@@ -30,6 +31,7 @@ window.addEvent('domready', function() {
     HTMLEditor.config.width                         = '792';
     HTMLEditor.config.resize_minWidth               = '780';
     HTMLEditor.config.height                        = '450';
+    HTMLEditor.config.resize_minHeight              = '400';
     
     //HTMLEditor.config.scayt_autoStartup         = true;
     //HTMLEditor.config.disableNativeSpellChecker = false;
@@ -54,11 +56,10 @@ window.addEvent('domready', function() {
     // creates the editor instance, with replacing the textarea with the name="HTMLEditor"
   	HTMLEditor.replace( 'HTMLEditor',
       {
-          //stylesCombo_stylesSet : 'my_styles',
+          //stylesCombo_stylesSet : 'htmlEditorStyles:../../../config/htmlEditorStyles.js',
 
       });
-      
-    //HTMLeditor.config.stylesCombo_stylesSet = 'my_styles';    
+         
     CKFinder.SetupCKEditor( HTMLEditor, 'library/thirdparty/ckfinder/' ) ;
   }
   

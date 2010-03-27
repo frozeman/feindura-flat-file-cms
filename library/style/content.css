@@ -357,8 +357,8 @@ a.down {
     }
     
 /* ----------------------- */	
-/* - BLOCK and WINDOBOX standard links */  
-.block a, #windowBox a, #leftSidebar a.standardLink {
+/* - BLOCK and WINDOBOX Standard Links */  
+a.standardLink, .block a, #windowBox a {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
@@ -367,11 +367,11 @@ a.down {
 #leftSidebar a.standardLink {
     background: url(../image/sign/link.gif) no-repeat 0px 1px;
     }
-.block a:hover, #windowBox a:hover, #leftSidebar a.standardLink:hover {
+a.standardLink:hover, .block a:hover, #windowBox a:hover {
     color: #536068;
     text-decoration: none;
     }
-.block a:active, #windowBox a:active, #leftSidebar a.standardLink:active {
+a.standardLink:active, .block a:active, #windowBox a:active {
     color: #000000;
     text-decoration: none;
     }
@@ -382,5 +382,4 @@ a.anchorTarget {
     padding-left: 0px;
     height: 0px;
     background: none;
-    }
-    
+    }  

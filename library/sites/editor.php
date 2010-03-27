@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.88
+// editor.php version 1.89
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
@@ -597,7 +597,7 @@ else $hidden = ' hidden';
 
 
 <a id="htmlEditorAnchor" name="htmlEditorAnchor" class="anchorTarget"></a>
-<div class="block editor">
+<div class="editor">
 <?php
 
 // -> CHOOSES the RIGHT EDITOR ID and/or CLASS
@@ -630,7 +630,7 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
   HTMLEditor.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   HTMLEditor.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   HTMLEditor.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
-  HTMLEditor.config.stylesCombo_stylesSet     = 'htmlEditorStyles:config/htmlEditorStyles.js';
+  HTMLEditor.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
 
 
 /* ]]> */
@@ -638,7 +638,7 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
 
     <div class="content">    
     
-    <a href="#" id="hotKeysToogle" class="down"><?php echo $langFile['editor_htmleditor_hotkeys_h1']; ?></a><br />
+    <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['editor_htmleditor_hotkeys_h1']; ?></a><br />
     <br />
     <div id="hotKeys" style="border:1px solid #B3B3B4; width: 450px; background-color:#B3B3B4;">    
     <table width="450" cellspacing="0" cellpadding="8" border="0">

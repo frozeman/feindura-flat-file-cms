@@ -127,7 +127,9 @@ input.cancel:hover, a.cancel:hover {
     }
     
 /* CANCEL, SUBMIT -> POSITIONS */
-#content .block input.submit.center, #content .block input.cancel.center { /* link on the right, example: ok */
+#content .block input.submit.center,
+#content .block input.cancel.center,
+#content .editor input.submit.center { /* link on the right, example: ok */
     left: 360px;
     }
 #content .block input.submit.left, #content .block input.cancel.left { /* link on the right, example: ok */
