@@ -405,7 +405,6 @@ $langFile['adminSetup_pageSettings_check3_tip'] = 'Legt fest ob der Benutzer, in
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
 $langFile['adminSetup_editorSettings_feld1'] = 'ENTER-Taste Modus';
 $langFile['adminSetup_editorSettings_feld1_tip'] = 'Legt fest, welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]wird.[br /][br /][span class=hint]Mit SHIFT + ENTER wird standard m&auml;&szlig;ig ein &lt;br /&gt; gesetzt.[/span]';
-$langFile['adminSetup_editorSettings_feld1_inputTip'] = '&quot;p&quot;, &quot;br&quot;';
 $langFile['adminSetup_editorSettings_feld3_inputTip'] = 'Wenn das Feld leer ist, wird keine Id verwendet.';
 $langFile['adminSetup_editorSettings_feld4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
 

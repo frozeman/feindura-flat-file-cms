@@ -601,8 +601,10 @@ else $hidden = '';
       <label for="cfg_editorEnterMode"><span class="toolTip" title="<?php echo $langFile['adminSetup_editorSettings_feld1'].'::'.$langFile['adminSetup_editorSettings_feld1_tip'] ?>">
       <?php echo $langFile['adminSetup_editorSettings_feld1'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_editorEnterMode" name="cfg_editorEnterMode" style="width:30px;text-align:center;" value="<?php echo $adminConfig['editor']['enterMode']; ?>" />
-      <span class="hint"><?php echo $langFile['adminSetup_editorSettings_feld1_inputTip']; ?></span>
+      <select id="cfg_editorEnterMode" name="cfg_editorEnterMode">
+        <option value="p" <?php if($adminConfig['editor']['enterMode'] == 'p') echo 'selected="selected"'; ?>>&lt;p&gt;</option>
+        <option value="br" <?php if($adminConfig['editor']['enterMode'] == 'br') echo 'selected="selected"'; ?>>&lt;br /&gt;</option>
+      </select>
       </td></tr>
       
       <tr><td class="left">
