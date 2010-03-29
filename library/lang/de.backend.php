@@ -387,7 +387,7 @@ $langFile['adminSetup_userSettings_check1'] = 'Webseitendateien bearbeiten, in d
 $langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> auf der <a href="?site=home">Startseite</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Diese zus&auml;tzlichen Informationen werden auf der Startseite angezeigt.';
+$langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Diese zus&auml;tzlichen Informationen werden auf der [span class=logoname]fein[span]dura[/span][/span] Startseite angezeigt.';
 $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
 
 // ---------- pageSettings
