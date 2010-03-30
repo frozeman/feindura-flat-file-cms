@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 133
+Build 134
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,8 +23,11 @@ REQUIREMENTS:
 -> storedPages Array can have up to 30 000 Pages if the memory limit is 16MB 
 
 --------------------------------------------------
+
+
 Changelog:
 	
+	build 134: backend.functions.php: editFiles() edit files even in subfolders, and there are now sorted naturally in the file selection
 	build 133: backend.functions.php: add readFolderRecursive() annd modified createStyleTags()
 	build 132: adminSetup.php: check if files/folders are readable go now recursive trough folders and check them
 	build 131: add stylefile files/folder to the check read/write list

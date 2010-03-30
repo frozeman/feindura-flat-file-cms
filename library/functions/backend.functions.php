@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.23
+* library/functions/backend.functions.php version 1.24
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -459,19 +459,12 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       //echo $filesPath.'<br />';      
       // gets the files out of the directory --------------
       $dir = DOCUMENTROOT.$filesPath;
-      if(is_dir($dir)) {
-          if ($openDir = opendir($dir)) {
-              while (($file = readdir($openDir)) !== false) {
-                  if(@is_file($dir . $file)){
-                    $files[] = $filesPath.$file;
-                  }
-              }
-              closedir($openDir);
-          }
-          
-          $files = readFolderRecursive($filesPath);
-          $files = $files['files'];
+      if(is_dir($dir)) {          
+        $files = readFolderRecursive($filesPath);
+        $files = $files['files'];
+        natsort($files);
         $isDir = true;
+        
       } else {
         echo '<code>"'.$filesPath.'"</code> <b>'.$langFile['editFilesSettings_noDir'].'</b>';
         $isDir = false;
@@ -567,12 +560,12 @@ function saveEditedFiles($post) {
       }
       
     // NEW FILE
-    } else { // erstellt eine neue Sprachdatei wenn etwas ins das neu erstellen Feld eingetragen wurde
+    } else { // erstellt eine neue datei wenn etwas ins das neu erstellen Feld eingetragen wurde
       
       $post['newFile'] = str_replace( array(" ","%","+",'/',"&","#","!","?","$","§",'"',"'","(",")"), '_', $post['newFile'] ) ;
       $post['newFile'] = str_replace( array("ä","ü","ö","ß",'\"'), array("ae","ue","oe","ss","-"), $post['newFile'] ) ;
       
-      $post['newFile'] = str_replace('.php','',$post['newFile']);
+      $post['newFile'] = str_replace($post['fileType'],'',$post['newFile']);
       
       if($file = @fopen(DOCUMENTROOT.$post['filesPath'].$post['newFile'].'.'.$post['fileType'],"w")) {
       
@@ -586,7 +579,7 @@ function saveEditedFiles($post) {
     return false;
 }
 
-// ** -- delDir ----------------------------------------------------------------------------------
+// ** -- delDir ----------------------------------------------------------------------------------------
 // deletes a dir, with files in it
 // -----------------------------------------------------------------------------------------------------
 // $dir            [the directory to be deleted, must end with a slash "/" (array)]
