@@ -281,6 +281,7 @@ basePathWarning();
 // ----------------------------------------------------------------------------------------
 $unwriteableList = '';
 
+/*
 // check config folder/files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/adminConfig.php'))
@@ -297,8 +298,42 @@ if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_tasks.txt');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
+*/
+
+
+
+$checkFolders[] = $adminConfig['basePath'].'config/';
+$checkFolders[] = $adminConfig['basePath'].'statistic/';
+$checkFolders[] = $adminConfig['basePath'].$adminConfig['savePath'];
+$checkFolders[] = $adminConfig['websitefilesPath'];
+$checkFolders[] = $adminConfig['stylesheetPath'];
+$checkFolders[] = $adminConfig['uploadPath'];
+
+foreach($checkFolders as $checkFolder) {
+  if(!empty($checkFolder)) {
+    if($isFolder = isFolderWarning($checkFolder)) {
+      $unwriteableList .= $isFolder;
+    } else {
+      $unwriteableList .= fileFolderIsWritableWarning($checkFolder);
+      if($readFolder = readFolderRecursive($checkFolder)) {
+        if(is_array($readFolder['folders'])) {
+          foreach($readFolder['folders'] as $folder) {
+            $unwriteableList .= fileFolderIsWritableWarning($folder);
+          }
+        }
+        if(is_array($readFolder['files'])) {
+          foreach($readFolder['files'] as $files) {
+            $unwriteableList .= fileFolderIsWritableWarning($files);
+          }
+        }
+      }
+    }
+  }
+}
+
 
 // check websitefiles folder/files
+/*
 if(!empty($adminConfig['websitefilesPath'])) {
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['websitefilesPath']);
   $websitefilesDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['websitefilesPath']);
@@ -311,6 +346,7 @@ if(!empty($adminConfig['websitefilesPath'])) {
   }
   @closedir($websitefilesDir);
 }
+
 
 // check style folder/files
 if(!empty($adminConfig['stylesheetPath'])) {
@@ -340,10 +376,12 @@ foreach($categories as $category) {
   }
 }
 
+*/
+
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_writeAccess'].'</h1>
+    <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- needs <p> tags for margin-left:..-->
     </div>

@@ -14,13 +14,11 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.22
+* library/functions/backend.functions.php version 1.23
 *
 * FUNCTIONS -----------------------------------
 * 
 * redirect($goToCategory, $goToPage, $time = 2)
-* 
-* numeratePage($group, $pageName, $numerateHowever = false) (NOT IN USE)
 * 
 * isAdmin()
 * 
@@ -42,6 +40,14 @@
 * 
 * fileFolderIsWritableWarning($fileFolder)
 * 
+* isFolderWarning($folder)
+*
+* getHighestId();
+*
+* readFolder($folder)
+* 
+* readFolderRecursive($folder)
+*
 * getHighestId()
 * 
 * folderIsEmpty()
@@ -52,7 +58,7 @@
 * 
 * startPageWarning()
 * 
-* showAddons()***
+* loadCssFiles($folder)***
 * 
 */
 
@@ -626,8 +632,26 @@ function movePage($page, $fromCategory, $toCategory) {
 function fileFolderIsWritableWarning($fileFolder) {
   global $langFile;
   
+  if(substr($fileFolder,0,1) != '/')
+    $fileFolder = '/'.$fileFolder;
+  
   if(is_writable(DOCUMENTROOT.$fileFolder) === false) {
-      return '<span class="warning"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$langFile['txt_adminSetup_writeAccess_error'].'</span><br />';
+      return '<span class="warning toolTip" title="'.$fileFolder.'::'.$langFile['adminSetup_error_writeAccess_tip'].'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$langFile['adminSetup_error_writeAccess'].'</span><br />';
+  } else return false;
+}
+
+// ** -- isFolderWarning ----------------------------------------------------------------------------------
+// checks the folder exists, and gives back an error text if not (made for the adminConfig.php)
+// -----------------------------------------------------------------------------------------------------
+// $folder  [the File or Folder which is checked for writeability, must beginn with a "/" (String)]
+function isFolderWarning($folder) {
+  global $langFile;
+  
+  if(substr($folder,0,1) != '/')
+    $folder = '/'.$folder;
+
+  if(is_dir(DOCUMENTROOT.$folder) === false) {
+      return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$langFile['adminSetup_error_isFolder'].'</span><br />';
   } else return false;
 }
 
@@ -662,10 +686,16 @@ function getHighestId() {
 }
 
 // ** -- readFolder ----------------------------------------------------------------------------------
-// OPENS a Folder and RETURNs an Array with $return['folders'][0] ,.. and $return['files'][0] ,..
+// OPENS a Folder and RETURNs an Hash with $return['folders'][0] ,.. and $return['files'][0] ,..
 // -----------------------------------------------------------------------------------------------------------
 function readFolder($folder) {
   
+  if(empty($folder))
+    return false;
+  
+  // -> adds / on the beginning of the folder
+  if(substr($folder,0,1) != '/')
+    $folder = '/'.$folder;
   // -> adds / on the end of the folder
   if(substr($folder,-1) != '/')
     $folder .= '/';
@@ -676,15 +706,15 @@ function readFolder($folder) {
   
   // adds the DOCUMENTROOT
   $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);
-  $fullFolder = DOCUMENTROOT.$fullFolder;  
-
+  $fullFolder = DOCUMENTROOT.$fullFolder; 
+  
   // open the folder and read the content
   $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
   while(false !== ($inDirObjects = @readdir($openedDir))) {
-    if($inDirObjects != "." && $inDirObjects != "..") {
-      if(is_dir($fullFolder.$inDirObjects)) {
+    if($inDirObjects != "." && $inDirObjects != "..") {      
+      if(is_dir($fullFolder.$inDirObjects)) {        
         $return['folders'][] = $folder.$inDirObjects;
-      } elseif(is_file($folder.$inDirObjects)) {
+      } elseif(is_file($fullFolder.$inDirObjects)) {
         $return['files'][] = $folder.$inDirObjects;
       }
     }
@@ -693,6 +723,65 @@ function readFolder($folder) {
   
   return $return;  
 }
+
+// ** -- readFolderRecursive ----------------------------------------------------------------------------------
+// OPENS a Folder and ALL SUBFOLDERS and RETURNs an Array with $return['folders'][0] ,.. and $return['files'][0] ,..
+// -----------------------------------------------------------------------------------------------------------
+function readFolderRecursive($folder) {
+  
+  if(empty($folder))
+    return false;
+  
+  // adds a slash on the beginning
+  if(substr($folder,0,1) != '/')
+    $folder = '/'.$folder;
+  
+  //vars
+  $fullFolder = DOCUMENTROOT.$folder;
+  $goTroughFolders['folders'][0] = $fullFolder;
+  $goTroughFolders['files'] = array();
+  $subFolders = array();
+  $files = array();
+  $return['folders'] = false;
+  $return['files'] = false;
+    
+  // ->> goes trough all SUB-FOLDERS  
+  while(!empty($goTroughFolders['folders'][0])) {
+    
+    // ->> GOES TROUGH folders
+    foreach($goTroughFolders['folders'] as $subFolder) {
+      //echo '<br /><br />'.$subFolder.'<br />';      
+      $inDirObjects = readFolder($subFolder);
+      
+      // -> add all subfolders to an array
+      if(is_array($inDirObjects['folders'])) {        
+        $subFolders = array_merge($subFolders, $inDirObjects['folders']);
+      }        
+    
+      // -> add folders to the $return array
+      if(is_array($inDirObjects['folders'])) {
+        foreach($inDirObjects['folders'] as $folder) {
+          $return['folders'][] = str_replace(DOCUMENTROOT,'',$folder);
+        }
+      }
+      // -> add files to the $return array
+      if(is_array($inDirObjects['files'])) {
+        foreach($inDirObjects['files'] as $file) {
+          $return['files'][] = str_replace(DOCUMENTROOT,'',$file);
+        }
+      }
+    }
+    
+    $goTroughFolders['folders'] = $subFolders;
+    $goTroughFolders['files'] = $files;
+
+    $subFolders = array();
+    $files = array();
+  }
+
+  return $return;
+} 
+
 
 // ** -- showModulesPlugins ----------------------------------------------------------------------------------
 // opens the modules and plugin folder and return tru if there something in
@@ -774,57 +863,20 @@ function startPageWarning() {
 function loadCssFiles($folder) {
   global $adminConfig;
   
-  // -> removes the $adminConfig('basePath')
-  $folder = str_replace($adminConfig['basePath'],'',$folder);  
-  
-  //vars
-  //$cssFiles = false;
-  $fullFolder = DOCUMENTROOT.$adminConfig['basePath'].$folder;
-  //$filePath = $folder;
-  $goTroughFolders['folders'][0] = $fullFolder;
-  $goTroughFolders['files'] = array();
-  $subFolders = array();
-  $files = array();
-  
-    
-  // ->> goes trough all SUB-FOLDERS  
-  while(!empty($goTroughFolders['folders'][0])) {
-    
-    // ->> GOES TROUGH folders
-    foreach($goTroughFolders['folders'] as $subFolder) {
-      //echo '<br /><br />'.$subFolder.'<br />';      
-      $inDirObjects = readFolder($subFolder);
-      
-      // -> add all subfolders to an array
-      if(is_array($inDirObjects['folders'])) {        
-        $subFolders = array_merge($subFolders, $inDirObjects['folders']);
-          //foreach($inDirObjects['folders'] as $echoFolders) {
-            //echo '<br />Folder-> '.$echoFolders;
-          ///}
-      }  
-      
-      // -> add files to the fieles array
-      if(is_array($inDirObjects['files'])) {
-        foreach($inDirObjects['files'] as $file) {
-          if(substr($file,-4) == '.css')
-            $cssFiles[] = str_replace(DOCUMENTROOT.$adminConfig['basePath'],'',$file);
-        }
+  // ->> goes trough all folder and subfolders
+  $filesInFolder = readFolderRecursive($folder);
+  if(is_array($filesInFolder['files'])) {
+    foreach($filesInFolder['files'] as $file) {
+      // -> check for CSS FILES
+      if(substr($file,-4) == '.css') {
+        // -> removes the $adminConfig('basePath')
+        $file = str_replace('/'.$adminConfig['basePath'],'',$file);
+        // -> WRITES the HTML-Style-Tags
+        echo '  <link rel="stylesheet" type="text/css" href="'.$file.'" media="screen" />'."\n";
       }
-    }    
-    
-    $goTroughFolders['folders'] = $subFolders;
-    $goTroughFolders['files'] = $files;
-
-    $subFolders = array();
-    $files = array();
-  }
-  
-  // -> WRITES the HTML-Style-Tags
-  if(is_array($cssFiles)) {
-    foreach($cssFiles as $cssFile) {
-      echo '  <link rel="stylesheet" type="text/css" href="'.$cssFile.'" media="screen" />'."\n";
     }
   }
+  
 }
 
 ?>
