@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.30
+* adminSetup.php version 2.31
 */
 
 //error_reporting(E_ALL);
@@ -281,7 +281,7 @@ basePathWarning();
 // ----------------------------------------------------------------------------------------
 $unwriteableList = '';
 
-// check config files
+// check config folder/files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/adminConfig.php'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/adminConfig.php');
@@ -291,13 +291,14 @@ if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/websiteConfig.php')
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/websiteConfig.php');
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.js');
 
+// check statistic folder/files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_tasks.txt');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
 
-// check lang folder/files
+// check websitefiles folder/files
 if(!empty($adminConfig['websitefilesPath'])) {
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['websitefilesPath']);
   $websitefilesDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['websitefilesPath']);
@@ -309,6 +310,20 @@ if(!empty($adminConfig['websitefilesPath'])) {
     }
   }
   @closedir($websitefilesDir);
+}
+
+// check style folder/files
+if(!empty($adminConfig['stylesheetPath'])) {
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['stylesheetPath']);
+  $stylefilesDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['stylesheetPath']);
+  while (false !== ($file = @readdir($stylefilesDir))) {
+  if($file!="." && $file!="..") {
+      if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['stylesheetPath']."/".$file)){
+        $unwriteableList .= fileFolderIsWritableWarning($adminConfig['stylesheetPath'].$file);
+      }
+    }
+  }
+  @closedir($stylefilesDir);
 }
 
 // check page folder/files

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 130
+Build 131
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -25,6 +25,7 @@ REQUIREMENTS:
 --------------------------------------------------
 Changelog:
 	
+	build 131: add stylefile files/folder to the check read/write list
 	build 130: leftSidbar.loader.php: add changelog link in the admin setup sidebar
 	build 129: adminSetup.php: enter key mode in html editor is now a selection instead of an textfield
 	build 128: add ckeditor 3.2.1 build 5302, and ckfinder 1.4.3, and fixed htmlEditorStyles.js link in editor.php
