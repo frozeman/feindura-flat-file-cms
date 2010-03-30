@@ -1,8 +1,8 @@
 <?php
 
-$websiteConfig['title']          = 'MLC Medien &amp; Logistik Center GmbH';
-$websiteConfig['publisher']      = 'MLC Medien &amp; Logistik Center GmbH';
-$websiteConfig['copyright']      = 'MLC Medien &amp; Logistik Center GmbH';
+$websiteConfig['title']          = 'feindura 10';
+$websiteConfig['publisher']      = '';
+$websiteConfig['copyright']      = '';
 $websiteConfig['keywords']       = 'stichwort1,stichwort2,stichwort3,dfgdfg';
 $websiteConfig['description']    = 'sdfsdfsd';
 $websiteConfig['contactMail']    = 'fabian@frozeman.de';

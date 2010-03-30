@@ -97,7 +97,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   
   <!-- addons -->
 <?php
-loadCssFiles($adminConfig['basePath'].'addons/');
+createStyleTags($adminConfig['basePath'].'addons/');
 ?>
   
   <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  

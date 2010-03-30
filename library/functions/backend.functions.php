@@ -468,6 +468,9 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
               }
               closedir($openDir);
           }
+          
+          $files = readFolderRecursive($filesPath);
+          $files = $files['files'];
         $isDir = true;
       } else {
         echo '<code>"'.$filesPath.'"</code> <b>'.$langFile['editFilesSettings_noDir'].'</b>';
@@ -700,12 +703,16 @@ function readFolder($folder) {
   if(substr($folder,-1) != '/')
     $folder .= '/';
   
+  //clean vars
+  $folder = preg_replace("/\/+/", '/', $folder);
+  $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);  
+  
   // vars
-  $return = false;
+  $return = false;  
   $fullFolder = $folder;
   
-  // adds the DOCUMENTROOT
-  $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);
+  // adds the DOCUMENTROOT  
+  $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);  
   $fullFolder = DOCUMENTROOT.$fullFolder; 
   
   // open the folder and read the content
@@ -736,8 +743,12 @@ function readFolderRecursive($folder) {
   if(substr($folder,0,1) != '/')
     $folder = '/'.$folder;
   
-  //vars
-  $fullFolder = DOCUMENTROOT.$folder;
+  //clean vars
+  $folder = preg_replace("/\/+/", '/', $folder);
+  $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);
+  
+  //vars  
+  $fullFolder = DOCUMENTROOT.$folder;  
   $goTroughFolders['folders'][0] = $fullFolder;
   $goTroughFolders['files'] = array();
   $subFolders = array();
@@ -747,10 +758,10 @@ function readFolderRecursive($folder) {
     
   // ->> goes trough all SUB-FOLDERS  
   while(!empty($goTroughFolders['folders'][0])) {
-    
+
     // ->> GOES TROUGH folders
     foreach($goTroughFolders['folders'] as $subFolder) {
-      //echo '<br /><br />'.$subFolder.'<br />';      
+      //echo '<br /><br />'.$subFolder.'<br />';     
       $inDirObjects = readFolder($subFolder);
       
       // -> add all subfolders to an array
@@ -857,10 +868,10 @@ function startPageWarning() {
   }
 }
 
-// ** -- loadCssFiles ----------------------------------------------------------------------------------
+// ** -- createStyleTags ----------------------------------------------------------------------------------
 // GOs trough a Folder and its Sub-Folders and creates a HTML-Style-Tag out of every CSS-File
 // -----------------------------------------------------------------------------------------------------------
-function loadCssFiles($folder) {
+function createStyleTags($folder) {
   global $adminConfig;
   
   // ->> goes trough all folder and subfolders
@@ -870,7 +881,7 @@ function loadCssFiles($folder) {
       // -> check for CSS FILES
       if(substr($file,-4) == '.css') {
         // -> removes the $adminConfig('basePath')
-        $file = str_replace('/'.$adminConfig['basePath'],'',$file);
+        $file = str_replace($adminConfig['basePath'],'',$file);
         // -> WRITES the HTML-Style-Tags
         echo '  <link rel="stylesheet" type="text/css" href="'.$file.'" media="screen" />'."\n";
       }
