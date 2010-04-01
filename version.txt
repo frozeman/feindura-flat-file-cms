@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 134
+Build 135
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 135: error_reporting(E_ALL) is now only in the backend.include.php, add is_dir($fullFolder) check in readFolder()
 	build 134: backend.functions.php: editFiles() edit files even in subfolders, and there are now sorted naturally in the file selection
 	build 133: backend.functions.php: add readFolderRecursive() annd modified createStyleTags()
 	build 132: adminSetup.php: check if files/folders are readable go now recursive trough folders and check them

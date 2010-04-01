@@ -18,7 +18,6 @@
 * 
 */
 
-//error_reporting(E_ALL);
 include_once(dirname(__FILE__)."/../frontend.include.php");
 
 // ***** -- feindura --------------------------------------------------------------------------------

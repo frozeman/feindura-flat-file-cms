@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// setup.php version 2.42 (BACKEND)
+// setup.php version 2.43 (BACKEND)
 
 
 /* LANGUAGE-VARS
@@ -77,7 +77,7 @@ function ausgabeblock_start($count,$pageContent) {
   
   // set category name
   if(isset($categories['id_'.$pageContent['category']]['name']))
-    $categoryName = '&lArr; '.$categories['id_'.$pageContent['category']]['name'];
+    $categoryName = '&rArr; '.$categories['id_'.$pageContent['category']]['name'];
   
   // -> RETURN OUTPUT LAYOUT
   return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>'.$categoryName.'</span></h3><p>';

@@ -17,6 +17,8 @@
 * backend.include.php version 0.21
 */
 
+//error_reporting(E_ALL);
+
 require_once(dirname(__FILE__)."/general.include.php");
 
 // get SETTINGS

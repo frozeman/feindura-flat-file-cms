@@ -16,7 +16,6 @@ verion 0.53
 
  -->
 <?php
-//error_reporting(E_ALL);
 
 include(dirname(__FILE__).'/../backend.include.php');
 

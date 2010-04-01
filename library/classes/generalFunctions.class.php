@@ -46,7 +46,6 @@
 * 
 */
 
-//error_reporting(E_ALL);
 include_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
 class generalFunctions {

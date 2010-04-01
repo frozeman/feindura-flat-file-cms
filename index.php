@@ -20,7 +20,6 @@
 session_cache_limiter(60);
 session_start();
 
-//error_reporting(E_ALL);
 include("library/backend.include.php");
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------

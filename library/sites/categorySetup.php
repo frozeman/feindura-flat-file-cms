@@ -17,8 +17,6 @@
 * categorySetup.php version 1.15
 */
 
-//error_reporting(E_ALL);
-
 include_once(dirname(__FILE__)."/../backend.include.php");
 
 // VARs

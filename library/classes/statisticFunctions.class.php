@@ -16,8 +16,6 @@
 */
 // library/classes/statisticFunctions.class.php version 0.52
 
-//error_reporting(E_ALL);
-
 class statisticFunctions {
   
   // PUBLIC

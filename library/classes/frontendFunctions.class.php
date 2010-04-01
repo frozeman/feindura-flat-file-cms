@@ -22,8 +22,6 @@
 * 
 */
 
-//error_reporting(E_ALL);
-
 class frontendFunctions {
   
   // PUBLIC

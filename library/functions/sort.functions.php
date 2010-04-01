@@ -26,7 +26,6 @@
 *
 */
 
-//error_reporting(E_ALL);
 $feindura_categories = @include(dirname(__FILE__).'/../../config/categoryConfig.php');
 
 // ** -- sortBySortOrder ***************************************************************

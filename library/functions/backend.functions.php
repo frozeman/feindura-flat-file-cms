@@ -62,7 +62,6 @@
 * 
 */
 
-//error_reporting(E_ALL);
 include_once(dirname(__FILE__)."/../backend.include.php");
 
 
@@ -709,17 +708,19 @@ function readFolder($folder) {
   $fullFolder = DOCUMENTROOT.$fullFolder; 
   
   // open the folder and read the content
-  $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
-  while(false !== ($inDirObjects = @readdir($openedDir))) {
-    if($inDirObjects != "." && $inDirObjects != "..") {      
-      if(is_dir($fullFolder.$inDirObjects)) {        
-        $return['folders'][] = $folder.$inDirObjects;
-      } elseif(is_file($fullFolder.$inDirObjects)) {
-        $return['files'][] = $folder.$inDirObjects;
+  if(is_dir($fullFolder)) {
+    $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
+    while(false !== ($inDirObjects = @readdir($openedDir))) {
+      if($inDirObjects != "." && $inDirObjects != "..") {      
+        if(is_dir($fullFolder.$inDirObjects)) {        
+          $return['folders'][] = $folder.$inDirObjects;
+        } elseif(is_file($fullFolder.$inDirObjects)) {
+          $return['files'][] = $folder.$inDirObjects;
+        }
       }
     }
+    @closedir($openedDir);
   }
-  @closedir($openedDir);
   
   return $return;  
 }

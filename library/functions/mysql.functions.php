@@ -17,8 +17,6 @@
 // library/functions/general.functions.php version 0.12
 
 
-//error_reporting(E_ALL);
-
 // ** -- preventInjections -----------------------------------------------------------------------------
 // VERHINDERT MYSQL INJECTIONs
 // -----------------------------------------------------------------------------------------------------

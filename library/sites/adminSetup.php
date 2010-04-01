@@ -17,8 +17,6 @@
 * adminSetup.php version 2.31
 */
 
-//error_reporting(E_ALL);
-
 include_once(dirname(__FILE__)."/../backend.include.php");
 
 // VARs
