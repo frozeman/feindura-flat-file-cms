@@ -14,18 +14,15 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* index.php version 1.98
+* index.php version 1.99
 */
 
-session_cache_limiter(60);
-session_start();
+
 
 include("library/backend.include.php");
 
-// *---* sets the basic VARIABLEs ---------------------------------------------------------
-$errorWindow = false;
-$documentSaved = false;
-
+// VARs
+// -----------------------------------------------------------------------------------
 // gets the version of the feindura CMS
 $version = file("version.txt");
 $version = str_replace("\n",'',$version);

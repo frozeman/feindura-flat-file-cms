@@ -14,14 +14,11 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.31
+* adminSetup.php version 2.32
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
-// VARs
-// ---------------------------------------------------------------------------
-$savedForm = false;
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------

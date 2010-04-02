@@ -14,12 +14,16 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.87
+* websiteSetup.php version 1.88
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
-$savedForm = '';
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
+
 
 // ------------ SAVE the WEBSITE SETTINGS
 if($_POST['send'] && isset($_POST['websiteConfig'])) {

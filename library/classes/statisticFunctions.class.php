@@ -119,7 +119,8 @@ class statisticFunctions {
   // ** -- formatHighNumber ----------------------------------------------------------------------------------
   // format a high number to 1 000 000,00
   // -------------------------------------------------------------------------------------------------
-  function formatHighNumber($number,$decimalsNumber = 0) {  
+  function formatHighNumber($number,$decimalsNumber = 0) {
+    $number = floatval($number);
     return number_format($number, $decimalsNumber, ',', ' ');
   }
   

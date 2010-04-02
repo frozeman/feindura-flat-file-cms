@@ -14,17 +14,20 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.89
+// editor.php version 1.90
 
 include_once("library/backend.include.php");
 //include("library/thirdparty/fckeditor/fckeditor.php");
 
 // VARs
-// ---------------------------------------------------------------------------
-$savedForm = false;
-
+// -----------------------------------------------------------------------------
 $page	= $_GET['page'];
 $category = $_GET['category'];
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+// **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 
 // SAVE the PAGE
