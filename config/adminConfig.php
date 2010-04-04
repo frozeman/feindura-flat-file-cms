@@ -1,10 +1,10 @@
 <?php
 
 $adminConfig['url'] =             'localhost';
-$adminConfig['basePath'] =        '/_feindura10/';
+$adminConfig['basePath'] =        '/feindura-flat-file-cms/';
 $adminConfig['savePath'] =        '_page/';
 $adminConfig['uploadPath'] =      '/_feindura10/_upload/';
-$adminConfig['websitefilesPath'] =        '/_feindura10/_lang/';
+$adminConfig['websitefilesPath'] =        '/feindura-flat-file-cms/addons/';
 $adminConfig['stylesheetPath'] =  '';
 $adminConfig['dateFormat'] =      'eu';
 $adminConfig['speakingUrl'] =      '';

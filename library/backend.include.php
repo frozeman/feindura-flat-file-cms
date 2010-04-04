@@ -17,7 +17,7 @@
 * backend.include.php version 0.22
 */
 
-//error_reporting(E_ALL | E_STRICT); //E_ALL & ~E_NOTICE
+error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
 
 
 // -> START SESSION (for what?)
@@ -26,29 +26,6 @@ session_start();
 
 require_once(dirname(__FILE__)."/general.include.php");
 
-/*
-// GET VARs
-if(isset($_GET['site']))  $GETsite = $_GET['site'];
-else  $GETsite = null;
-
-if(isset($_GET['page']))  $GETpage = $_GET['page'];
-else  $GETpage = null;
-
-if(isset($_GET['category']))  $GETcategory = $_GET['category'];
-else  $GETcategory = null;
-
-if(isset($_GET['status']))  $GETstatus = $_GET['status'];
-else  $GETstatus = null;
-
-if(isset($_GET['public']))  $GETpublic = $_GET['public'];
-else  $GETpublic = null;
-
-if(isset($_GET['file']))  $GETfile = $_GET['file'];
-else  $GETfile = null;
-
-if(isset($_GET['search']))  $GETsearch = $_GET['search'];
-else  $GETsearch = null;
-*/
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
 $errorWindow = false;

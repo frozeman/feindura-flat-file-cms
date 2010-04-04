@@ -285,7 +285,8 @@ if(is_array($pages)) {
       }
             
       echo '</div>
-      </li>'."\n";  // backup download <a href="download.php?filename='.$pageContent['id'].'.php&amp;category='.$category['id'].'" class="extern" title="'.$adminConfig['savePath'].$gruppe['short'].'/'.$pageContent['id'].'.php">Download</a>
+      </li>'."\n";
+      // backup download <a href="download.php?filename='.$pageContent['id'].'.php&amp;category='.$category['id'].'" class="extern" title="'.$adminConfig['savePath'].$gruppe['short'].'/'.$pageContent['id'].'.php">Download</a>
       // LIST PAGES END
       // -----------------------   ********  ----------------------      
       

@@ -14,9 +14,9 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// download.php version 0.1
+// download.php version 0.11
 
-include("library/baseInclude.php");
+include("../backend.include.php");
 
 header('Content-Disposition: attachment; filename="'.$_GET['filename'].'"'); //Sagt dem Browser, dass es sich um einem Download handelt
 header('Content-Type: x-type/subtype'); //"Bug-Fix" für den IE 4.x & 5.x
