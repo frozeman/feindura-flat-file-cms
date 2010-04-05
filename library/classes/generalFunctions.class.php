@@ -159,8 +159,8 @@ class generalFunctions {
     
     //öffnet oder erstellt die flatfile
     if((($categoryId === false || $categoryId == 0) &&
-        $fp = fopen(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
-        $fp = fopen(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
+        $fp = fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
+        $fp = fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
   
       // vorher thumbnailpath,
       // und name statt filename,
@@ -238,7 +238,7 @@ class generalFunctions {
     //echo 'PAGE: '.$page.'<br />';   
     //echo 'CATEGORY: '.$category.'<br />';
     
-    if(@include(dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$category.$page)) {
+    if(@include(DOCUMENTROOT.$this->adminConfig['savePath'].$category.$page)) {
       
       // UNESCPAE the SINGLE QUOTES '
       $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
@@ -278,17 +278,17 @@ class generalFunctions {
              array_key_exists('id',$categoryArray)) {
             // if category == 0, means that the files are stored in the $this->adminConfig['savePath'] folder
             if($categoryArray['id'] == 0)
-              $dir = dirname(__FILE__).'/../../'.$this->adminConfig['savePath'];
+              $dir = DOCUMENTROOT.$this->adminConfig['savePath'];
             elseif(is_numeric($categoryArray['id']))
-              $dir = dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$categoryArray['id'];
+              $dir = DOCUMENTROOT.$this->adminConfig['savePath'].$categoryArray['id'];
           
           // *** if its just an array with the ids of the categories
           } else {
             // if category == 0, means that the files are stored in the $this->adminConfig['savePath'] folder
             if(is_numeric($categoryArray) && $categoryArray == 0) //$categoryArray === false ||
-              $dir = dirname(__FILE__).'/../../'.$this->adminConfig['savePath'];
+              $dir = DOCUMENTROOT.$this->adminConfig['savePath'];
             elseif(is_numeric($categoryArray))
-              $dir = dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$categoryArray;
+              $dir = DOCUMENTROOT.$this->adminConfig['savePath'].$categoryArray;
           }
           
           // stores the paths in an array
@@ -296,9 +296,9 @@ class generalFunctions {
         }
     } else {
       if($category === false || (is_numeric($category) && $category == 0)) //$category === false ||
-        $categoryDirs[0] = dirname(__FILE__).'/../../'.$this->adminConfig['savePath'];
+        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['savePath'];
       elseif(is_numeric($category))
-        $categoryDirs[0] = dirname(__FILE__).'/../../'.$this->adminConfig['savePath'].$category;
+        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['savePath'].$category;
     }
     
     // LOAD THE FILES out of the dirs

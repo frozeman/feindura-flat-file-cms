@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.24
+* library/functions/backend.functions.php version 1.25
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -612,9 +612,9 @@ function movePage($page, $fromCategory, $toCategory) {
     $toCategory = '';
     
   // MOVE categories
-  if(@copy(dirname(__FILE__)."/../../".$adminConfig['savePath'].$fromCategory.'/'.$page.'.php',
-    dirname(__FILE__)."/../../".$adminConfig['savePath'].$toCategory.'/'.$page.'.php') &&
-    @unlink(dirname(__FILE__)."/../../".$adminConfig['savePath'].$fromCategory.'/'.$page.'.php'))
+  if(@copy(DOCUMENTROOT.$adminConfig['savePath'].$fromCategory.'/'.$page.'.php',
+    DOCUMENTROOT.$adminConfig['savePath'].$toCategory.'/'.$page.'.php') &&
+    @unlink(DOCUMENTROOT.$adminConfig['savePath'].$fromCategory.'/'.$page.'.php'))
     return true;
   else
     return false;
@@ -851,7 +851,7 @@ function startPageWarning() {
   else
     $startPageCategory = '';
 
-  if($adminConfig['setStartPage'] && (!$websiteConfig['startPage'] || !file_exists(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$startPageCategory.$websiteConfig['startPage'].'.php'))) {
+  if($adminConfig['setStartPage'] && (!$websiteConfig['startPage'] || !file_exists(DOCUMENTROOT.$adminConfig['savePath'].$startPageCategory.$websiteConfig['startPage'].'.php'))) {
     echo '<div class="block info">
             <h1>'.$langFile['warning_startPageWarning_h1'].'</h1>
             <div class="content">

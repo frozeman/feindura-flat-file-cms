@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.32
+* adminSetup.php version 2.33
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -37,10 +37,12 @@ if($_POST['send'] && isset($_POST['adminConfig'])) {
   }
   
   // ** adds a "/" on the beginning of all absolute paths
+  if(!empty($_POST['cfg_savePath']) && substr($_POST['cfg_savePath'],0,1) !== '/')
+        $_POST['cfg_savePath'] = '/'.$_POST['cfg_savePath'];
   if(!empty($_POST['cfg_uploadPath']) && substr($_POST['cfg_uploadPath'],0,1) !== '/')
-        $_POST['cfg_uploadPath'] = '/'.$_POST['cfg_uploadPath'];  
+        $_POST['cfg_uploadPath'] = '/'.$_POST['cfg_uploadPath'];
   if(!empty($_POST['cfg_websitefilesPath']) && substr($_POST['cfg_websitefilesPath'],0,1) !== '/')
-        $_POST['cfg_websitefilesPath'] = '/'.$_POST['cfg_websitefilesPath'];        
+        $_POST['cfg_websitefilesPath'] = '/'.$_POST['cfg_websitefilesPath'];
   if(!empty($_POST['cfg_stylesheetPath']) && substr($_POST['cfg_stylesheetPath'],0,1) !== '/')
         $_POST['cfg_stylesheetPath'] = '/'.$_POST['cfg_stylesheetPath'];
         
@@ -48,8 +50,6 @@ if($_POST['send'] && isset($_POST['adminConfig'])) {
         $_POST['cfg_editorStyleFile'] = '/'.$_POST['cfg_editorStyleFile'];
   
   // ** removes a "/" on the beginning of all relative paths
-  if(!empty($_POST['cfg_savePath']) && substr($_POST['cfg_savePath'],0,1) == '/')
-        $_POST['cfg_savePath'] = substr($_POST['cfg_savePath'],1);
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
   
@@ -276,30 +276,10 @@ basePathWarning();
 // ----------------------------------------------------------------------------------------
 $unwriteableList = '';
 
-/*
-// check config folder/files
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/adminConfig.php'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/adminConfig.php');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/categoryConfig.php'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/websiteConfig.php'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/websiteConfig.php');
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/htmlEditorStyles.js');
-
-// check statistic folder/files
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_tasks.txt');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'statistic/log_referers.txt');
-*/
-
-
 
 $checkFolders[] = $adminConfig['basePath'].'config/';
 $checkFolders[] = $adminConfig['basePath'].'statistic/';
-$checkFolders[] = $adminConfig['basePath'].$adminConfig['savePath'];
+$checkFolders[] = $adminConfig['savePath'];
 $checkFolders[] = $adminConfig['websitefilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
@@ -326,52 +306,6 @@ foreach($checkFolders as $checkFolder) {
   }
 }
 
-
-// check websitefiles folder/files
-/*
-if(!empty($adminConfig['websitefilesPath'])) {
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['websitefilesPath']);
-  $websitefilesDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['websitefilesPath']);
-  while (false !== ($file = @readdir($websitefilesDir))) {
-  if($file!="." && $file!="..") {
-      if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['websitefilesPath']."/".$file)){
-        $unwriteableList .= fileFolderIsWritableWarning($adminConfig['websitefilesPath'].$file);
-      }
-    }
-  }
-  @closedir($websitefilesDir);
-}
-
-
-// check style folder/files
-if(!empty($adminConfig['stylesheetPath'])) {
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['stylesheetPath']);
-  $stylefilesDir = @opendir(dirname(__FILE__).'/../../../'.$adminConfig['stylesheetPath']);
-  while (false !== ($file = @readdir($stylefilesDir))) {
-  if($file!="." && $file!="..") {
-      if(is_file(dirname(__FILE__).'/../../../'.$adminConfig['stylesheetPath']."/".$file)){
-        $unwriteableList .= fileFolderIsWritableWarning($adminConfig['stylesheetPath'].$file);
-      }
-    }
-  }
-  @closedir($stylefilesDir);
-}
-
-// check page folder/files
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].$adminConfig['savePath']);
-
-foreach($categories as $category) {
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].$adminConfig['savePath'].$category['id'].'/');
-  $category = $generalFunctions->loadPages($category['id'],false);
-  
-  if(is_array($category)) { // prevent error, if the category is empty
-    foreach($category as $page) {
-      $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].$adminConfig['savePath'].$page[1].'/'.$page[0].'.php');
-    }
-  }
-}
-
-*/
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {
@@ -439,8 +373,8 @@ else $hidden = '';
       <label for="cfg_savePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld3'].'::'.$langFile['adminSetup_fmsSettings_feld3_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_feld3'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_savePath" name="cfg_savePath" value="<?php echo $adminConfig['savePath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld3_inputTip']; ?>" />
-      <span class="hint"><?php echo $langFile['path_relativepath']; ?></span>
+      <input size="40" id="cfg_savePath" name="cfg_savePath" value="<?php echo $adminConfig['savePath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
+      <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>

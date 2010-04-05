@@ -37,7 +37,7 @@ if($category == 0)
   $category = '';
 
 // QUESTION
-if(is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+if(is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
   $question = '<h1>'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
@@ -50,11 +50,11 @@ if(is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$p
 }
 
 // DELETING PROCESS
-if($asking && is_file(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
-  @chmod($adminConfig['savePath'].$category.'/'.$page, 0777);
+if($asking && is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+  @chmod(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page, 0777);
 
     // DELETING THUMBNAIL
-    if(unlink(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+    if(@unlink(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
       if(!empty($pageContent['thumbnail'])) {
         @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       }

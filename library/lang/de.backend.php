@@ -355,8 +355,7 @@ $langFile['adminSetup_fmsSettings_feld2_tip'] = 'Der Hauptpfad wird automatisch 
 $langFile['adminSetup_fmsSettings_feld2_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
 $langFile['adminSetup_fmsSettings_feld2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
 $langFile['adminSetup_fmsSettings_feld3'] = 'Speicherpfad';
-$langFile['adminSetup_fmsSettings_feld3_tip'] = 'Der [b]relative Pfad[/b], unter dem die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
-$langFile['adminSetup_fmsSettings_feld3_inputTip'] = 'Relativer Pfad::Relativ zum [b]'.$adminConfig['basePath'].'[/b] Ordner.[br /][br /]Beginnt ohne &quot;/&quot;';
+$langFile['adminSetup_fmsSettings_feld3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld4'] = 'Daten-Upload Pfad';
 $langFile['adminSetup_fmsSettings_feld4_tip'] = '[b]Absoluter Pfad[/b][br /]Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_feld5'] = 'Dateipfad f&uuml;r Webseitendateien';

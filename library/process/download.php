@@ -21,7 +21,7 @@ include("../backend.include.php");
 header('Content-Disposition: attachment; filename="'.$_GET['filename'].'"'); //Sagt dem Browser, dass es sich um einem Download handelt
 header('Content-Type: x-type/subtype'); //"Bug-Fix" für den IE 4.x & 5.x
 
-readfile($adminConfig['savePath'].$_GET['group'].'/'.$_GET['filename']);
+readfile(DOCUMENTROOT.$adminConfig['savePath'].$_GET['group'].'/'.$_GET['filename']);
 
 
 ?>

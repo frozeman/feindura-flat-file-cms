@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.16
+* categorySetup.php version 1.17
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -44,9 +44,9 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
     $categoryInfo = $langFile['categorySetup_createCategory_created'];
     
     // if there is no category dir, trys to create one
-    if(!is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$newId)) {
+    if(!is_dir(DOCUMENTROOT.$adminConfig['savePath'].$newId)) {
         // erstellt ein verzeichnis
-        if(!mkdir (dirname(__FILE__).'/../../'.$adminConfig['savePath'].$newId, 0777)) {
+        if(!mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777)) {
           if($errorWindow) // if there is allready an warning
             $errorWindow .= '<br /><br />'.$langFile['categorySetup_error_createDir'];
           else
@@ -75,7 +75,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
     $categoryInfo = $langFile['categorySetup_deleteCategory_deleted'].' &quot;<b>'.$storedCategoryName.'</b>&quot;';
   
     // if there is a category dir, trys to delete it !important deletes all files in it
-    if(is_dir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$_GET['category'])) {
+    if(is_dir(DOCUMENTROOT.$adminConfig['savePath'].$_GET['category'])) {
     
       if($pageContent = $generalFunctions->loadPages($_GET['category'])) {
       
@@ -90,7 +90,7 @@ if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == '
       }
       
       // deletes the dir with subdirs and files
-      if(!delDir(dirname(__FILE__).'/../../'.$adminConfig['savePath'].$_GET['category'].'/')) {
+      if(!delDir(DOCUMENTROOT.$adminConfig['savePath'].$_GET['category'].'/')) {
         if($errorWindow) // if there is allready an warning
           $errorWindow .= '<br /><br />'.$langFile['categorySetup_error_deleteDir'];
         else
