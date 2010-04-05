@@ -72,7 +72,7 @@ div.listPagesHead {
     width: 300px;
     padding-left: 15px;
     }
-.listPagesHead div.saveDate {
+.listPagesHead div.lastSaveDate {
     width: 150px;
     padding-left: 10px;
     }
@@ -106,7 +106,7 @@ div.listPagesHead {
 .listPages .content div.name {    
     width: 300px;
     }
-.listPages .content div.saveDate {
+.listPages .content div.lastSaveDate {
     width: 140px;
     }
 .listPages .content div.counter {

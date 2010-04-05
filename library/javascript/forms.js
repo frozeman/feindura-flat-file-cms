@@ -66,27 +66,29 @@ window.addEvent('domready', function() {
   // ------------------------------------------------------------
   // REPLACE the CHECKBOXES
   
-  /* path to a 1x1 pixel transparent gif */
-  cfe.spacer = "library/thirdparty/customformelements/gfx/spacer.gif";
-  
-  // create a cfe replacement instance
-  myCfe = new cfe.replace();
-  
-  // ->> create CHECKBOX DEPENDENCIES
-  $$('input[type=checkbox]').each(function(checkbox) {
-    var checkboxId = checkbox.get('id');
-    // go trough checkboxes with id
-    if(checkboxId) {    
-      // -> ** categories[0-9]sortdate
-      if(checkbox.get('id').match(/^categories[0-9]sortbydate$/)) {
-        var categoryNumber = checkbox.get('id').match(/[0-9]+/);
-        myCfe.addDependencies(checkbox,['categories'+categoryNumber+'sortdate']);
-      }    
+  if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+    /* path to a 1x1 pixel transparent gif */
+    cfe.spacer = "library/thirdparty/customformelements/gfx/spacer.gif";
     
-    }
-  });
+    // create a cfe replacement instance
+    myCfe = new cfe.replace();
+    
+    // ->> create CHECKBOX DEPENDENCIES
+    $$('input[type=checkbox]').each(function(checkbox) {
+      var checkboxId = checkbox.get('id');
+      // go trough checkboxes with id
+      if(checkboxId) {    
+        // -> ** categories[0-9]sortdate
+        if(checkbox.get('id').match(/^categories[0-9]sortbydate$/)) {
+          var categoryNumber = checkbox.get('id').match(/[0-9]+/);
+          myCfe.addDependencies(checkbox,['categories'+categoryNumber+'sortdate']);
+        }    
+      
+      }
+    });
+    
+    // initialize the replacment
+    myCfe.init({scope: $('content')});
+  }
   
-  // initialize the replacment
-  myCfe.init({scope: $('content')});
-   
 });

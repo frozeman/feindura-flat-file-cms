@@ -33,14 +33,15 @@ $category = $_GET['category'];
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
 if($_POST['save']) {
-
+  
+  // vars
   $page	= $_POST['id'];
   $category = $_POST['category'];
   $_GET['page'] = $page;
   $_GET['category'] = $category;  
   
-  // Datum erzeugung
-  $saveDate	= date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+  // generate current date
+  $lastsavedate	= date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
   
   // format tags  
   $_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
@@ -91,7 +92,8 @@ if($_POST['save']) {
   
   
     // speichert den inhalt in der flatfile
-    $_POST['savedate'] = $saveDate;
+    $_POST['lastsavedate'] = $lastsavedate;
+    $_POST['lastsaveauthor'] = $_SERVER["REMOTE_USER"];
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
@@ -200,11 +202,11 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.'</span>';
 
 // -> show LAST SAVE DATE TIME
-$saveDate =  $statisticFunctions->formatDate($pageContent['savedate']);
-$saveTime =  $statisticFunctions->formatTime($pageContent['savedate']);
+$lastSaveDate =  $statisticFunctions->formatDate($pageContent['lastsavedate']);
+$lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
 
 if(!$newPage)
-  echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_savedate'].' '.$saveDate.' '.$saveTime.' ]</span></h1>';
+  echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.' '.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].']</span></h1>';
 else
   echo '</h1>';
 ?>

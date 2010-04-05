@@ -57,23 +57,23 @@ function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
 }
 // ---- sortByDate is used by the function sortPages -----------------------------------
 
-// ** -- sortBySaveDate ********************************************************************
-// sort an Array with the pageContent Array by SAVEDATE
+// ** -- sortByLastSaveDate ********************************************************************
+// sort an Array with the pageContent Array by LASTSAVEDATE
 // -------------------------------------------------------------------------------------
-function sortBySaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
+function sortByLastSaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
   
-  $a['savedate'] = str_replace(array('-',':',' '),'',$a['savedate']);
-  $b['savedate'] = str_replace(array('-',':',' '),'',$b['savedate']); 
+  $a['lastsavedate'] = str_replace(array('-',':',' '),'',$a['lastsavedate']);
+  $b['lastsavedate'] = str_replace(array('-',':',' '),'',$b['lastsavedate']); 
   
-  //echo $a['sortdate'].'<br>';
-  //echo $b['sortdate'].'<br><br>';
+  //echo $a['lastsavedate'].'<br>';
+  //echo $b['lastsavedate'].'<br><br>';
   
-  if ($a['savedate'] == $b['savedate']) {
+  if ($a['lastsavedate'] == $b['lastsavedate']) {
     return 0;
   }
-  return ($a['savedate'] > $b['savedate']) ? -1 : 1;
+  return ($a['lastsavedate'] > $b['lastsavedate']) ? -1 : 1;
 }
-// ---- sortBySaveDate is used by the function sortPages -----------------------------------
+// ---- sortByLastSaveDate is used by the function sortPages -----------------------------------
 
 // ** -- sortbyCategory ****************************************************************
 // sort an Array with the pageContent Array by CATEGORY

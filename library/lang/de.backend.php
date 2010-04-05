@@ -565,7 +565,8 @@ $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler 
 //
 // ---------- EDITOR
 
-$langFile['editor_h1_savedate'] = 'zuletzt bearbeitet am';
+$langFile['editor_h1_lastsavedate'] = 'zuletzt bearbeitet am';
+$langFile['editor_h1_lastsaveauthor'] = 'von';
 $langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
 $langFile['editor_h1_linktothispage'] = 'Link zu dieser Seite';
 $langFile['editor_h1_id'] = 'Seiten ID';

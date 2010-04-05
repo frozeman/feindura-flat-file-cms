@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.52 (requires mootools-core and mootools-more)
+// java/content.js version 0.53 (requires mootools-core and mootools-more)
 //
 
 
@@ -69,22 +69,27 @@ function blockSlideInOut(givenIdCLass) {
      var slideButtonH1;
 	   var slideContent;
 	   var bottomBorder;
-	   var slideVertical;
+	   var slideVertical;	   
 	   
 	   // gets the <a> tag in the <h1>
-      if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
-        
-        slideButtonH1 = block.getElement('h1').getElement('a');
-        
-        block.getElements('div').each(function(passedDiv) {
-          // gets slideing content
-          if(passedDiv.hasClass('content')) {
-            slideContent = passedDiv;
-          }
-          if(passedDiv.hasClass('bottom')) {
-            bottomBorder = passedDiv;
-          }
-       });  	   
+     if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
+      
+       slideButtonH1 = block.getElement('h1').getElement('a');
+      
+       block.getElements('div').each(function(passedDiv) {
+         // gets slideing content
+         if(passedDiv.hasClass('content')) {
+           slideContent = passedDiv;
+         }
+         if(passedDiv.hasClass('bottom')) {
+           bottomBorder = passedDiv;
+         }
+      });
+      
+      // DONT show the content bottom if IE 0-7
+      if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
+        bottomBorder.setStyle('display', 'none');
+      }	   
 
       
        var slideContentHeightOut = slideContent.offsetHeight;

@@ -97,7 +97,7 @@ echo '</div>';
 
 <div class="listPagesHead">
   <div class="name"><?php echo $langFile['sortablePageList_headText1']; ?></div>
-  <div class="saveDate"><?php echo $langFile['sortablePageList_headText2']; ?></div>
+  <div class="lastSaveDate"><?php echo $langFile['sortablePageList_headText2']; ?></div>
   <div class="status"><?php echo $langFile['sortablePageList_headText3']; ?></div>
   <div class="counter"><?php echo $langFile['sortablePageList_headText4']; ?></div>
   <div class="functions"><?php echo $langFile['sortablePageList_headText5']; ?></div>
@@ -214,8 +214,8 @@ if(is_array($pages)) {
         $titleShort = substr($pageContent['title'],0,$generalFunctions->getCharacterNumber($pageContent['title'],29)).'..';      // (String) the string to shorten 
       }
       
-      // -> show savedate
-      $saveDate = $statisticFunctions->formatDate($pageContent['savedate']).' '.$statisticFunctions->formatTime($pageContent['savedate']);
+      // -> show lastsavedate
+      $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
       
       // -> show sortdate
       if(!empty($category['sortdate']) &&
@@ -249,7 +249,7 @@ if(is_array($pages)) {
       }
       
       echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>
-      <div class="saveDate">&nbsp;&nbsp;'.$saveDate.'</div>
+      <div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>
       <div class="counter">&nbsp;&nbsp;'.$statisticFunctions->formatHighNumber($pageContent['log_visitCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       

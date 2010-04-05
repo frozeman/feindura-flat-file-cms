@@ -169,14 +169,15 @@ class generalFunctions {
       $z1 = '$pageContent = array('."\n";
   
     $znew = '
-  "id"        => \''.$pageContentArray['id'].'\',
-  "category"  => \''.$pageContentArray['category'].'\',
-  "public"    => \''.$pageContentArray['public'].'\',
-  "sortorder" => \''.$pageContentArray['sortorder'].'\',
-  "sortdate"  => array("before" => \''.$pageContentArray['sortdate']['before'].'\',"date" => \''.$pageContentArray['sortdate']['date'].'\',"after" => \''.$pageContentArray['sortdate']['after'].'\'),
-  "savedate"  => \''.$pageContentArray['savedate'].'\',
-  "title"     => \''.$pageContentArray['title'].'\',
-  "tags"      => \''.$pageContentArray['tags'].'\',
+  "id"              => \''.$pageContentArray['id'].'\',
+  "category"        => \''.$pageContentArray['category'].'\',
+  "public"          => \''.$pageContentArray['public'].'\',
+  "sortorder"       => \''.$pageContentArray['sortorder'].'\',
+  "sortdate"        => array("before" => \''.$pageContentArray['sortdate']['before'].'\',"date" => \''.$pageContentArray['sortdate']['date'].'\',"after" => \''.$pageContentArray['sortdate']['after'].'\'),
+  "lastsavedate"    => \''.$pageContentArray['lastsavedate'].'\',
+  "lastsaveauthor"  => \''.$pageContentArray['lastsaveauthor'].'\',
+  "title"           => \''.$pageContentArray['title'].'\',
+  "tags"            => \''.$pageContentArray['tags'].'\',
   
   "thumbnail"   => \''.$pageContentArray['thumbnail'].'\',
   "styleFile"   => \''.$pageContentArray['styleFile'].'\',
