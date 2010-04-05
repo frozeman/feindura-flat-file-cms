@@ -130,6 +130,8 @@ $langFile['log_categorySetup_move'] = 'Kategorie verschoben';
 
 $langFile['log_file_saved'] = 'Datei gespeichert';
 
+$langFile['log_file_deleted'] = 'Datei gel&ouml;scht';
+
 // ---------- deleting (entfernt)
 /*
 $langFile['delete_question_submit'] = 'Ja, bitte l&ouml;schen!';
@@ -437,6 +439,15 @@ $langFile['editFilesSettings_createFile'] = 'Neue Datei anlegen';
 $langFile['editFilesSettings_createFile_inputTip'] = 'Wenn hier ein Dateiname eingetragen wird, dann wird eine Neue Datei erstellt,[br /]und [b]die derzeit ausgew&auml;hlte Datei wird nicht gespeichert![/b]';
 $langFile['editFilesSettings_noFile'] = 'Es sind noch keine Dateien vorhanden';
 
+$langFile['editFilesSettings_deleteFile'] = 'Datei l&ouml;schen';
+$langFile['editFilesSettings_deleteFile_question_part1'] = 'Datei'; // Kategorie "test" löschen?
+$langFile['editFilesSettings_deleteFile_question_part2'] = 'wirklich l&ouml;schen?';
+
+$langFile['editFilesSettings_deleteFile_question_ok'] = 'Ja bitte l&ouml;schen!';
+$langFile['editFilesSettings_deleteFile_question_cancel'] = 'Nicht l&ouml;schen';
+
+$langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'];
+
 // ---------------------------------------------------------------------------------------------------------------------
 // categorySetup.php
 //
@@ -558,6 +569,15 @@ $langFile['statisticSetup_clearStatistics_question_ok'] = 'Ja bitte l&ouml;schen
 $langFile['statisticSetup_clearStatistics_question_cancel'] = 'Nicht l&ouml;schen';
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+
+// ---------------------------------------------------------------------------------------------------------------------
+// pluginSetup.php
+//
+// ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
+
+
+$langFile['pluginSetup_editFiles_h1'] = 'bearbeite Dateien von';
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // editor.php

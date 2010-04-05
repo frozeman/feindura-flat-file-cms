@@ -524,8 +524,8 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   
   if($isDir) {
-    //echo '<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />';
-    echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />';
+    echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$langFile['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$langFile['editFilesSettings_deleteFile'].'::" style="position:absolute;"></a>';
+    echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit right" title="'.$langFile['form_submit'].'" />';
   }
   echo '</div>
       <div class="bottom"></div>

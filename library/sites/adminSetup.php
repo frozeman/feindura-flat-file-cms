@@ -247,17 +247,7 @@ if(isset($_POST['saveFckStyleFile'])) {
 }
 
 // ---------- SAVE the editFiles
-if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
-
-  if(saveEditedFiles($_POST)) {
-    $documentSaved = true; // give documentSaved status
-    $statisticFunctions->saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
-  } else
-    $errorWindow = $langFile['editFilesSettings_error_save'];
-  
-  // sets which block should be opend after saving
-  $savedForm = $_POST['savedBlock'];
-}
+include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
 @include (dirname(__FILE__)."/../../config/adminConfig.php"); // loads the saved settings again

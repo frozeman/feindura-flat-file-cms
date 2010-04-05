@@ -43,16 +43,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 }
 
 // ---------- SAVE the editFiles
-if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
-
-  if(saveEditedFiles($_POST)) { 
-    $documentSaved = true; // give documentSaved status
-     $statisticFunctions->saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
-  } else
-    $errorWindow = $langFile['editFilesSettings_error_save'];
-  
-  $savedForm = $_POST['status'];
-}
+include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
 @include (dirname(__FILE__)."/../../config/websiteConfig.php"); // loads the saved settings again
