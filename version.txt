@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 142
+Build 143
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 143: removed old mootools.js and add the new to git
 	build 142: listPages.php: dont show toolTip if there is no "lastsaveauthor" for the page
 	build 141: content.css picture of blockSpacer and bottom-margin changed
 	build 140: adminConfig['savePath'] is now an absolute path
