@@ -1,0 +1,1 @@
+cfe.module.textarea=new Class({Extends:cfe.module.text,type:"Textarea",selector:"textarea",options:{slidingDoors:4},createOriginal:function(){return new Element("textarea")}});

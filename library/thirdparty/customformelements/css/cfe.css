@@ -1,0 +1,370 @@
+form{clear:both;}
+
+label.jsTextL ,label.jsPasswordL, label.jsFileL, label.jsSelectorL, label.jsTextareaL,
+.jsTextL span.label, .jsPasswordL span.label, .jsTextareaL span.label, .jsFileL span.label{
+	float:left;
+	margin-right: 5px;
+	padding:4px 0;
+}
+
+.jsOption.icon1{
+    padding-left: 22px;
+    background: url(../img/lorry.png) no-repeat 4px 7px;
+}
+
+.jsOption.icon2{
+    padding-left: 22px;
+    background: url(../img/download.png) no-repeat 4px 7px;
+}
+
+ /**********************************************/
+/*  customFormElements Definitions				*/
+/* 												*/
+/*  classes:									*/
+/*  F - Element has focus						*/
+/*  H - Mouse is over the Element				*/
+/*  A - Element is somehow active (e.g. checked)*/
+/*  P - Element is pressed						*/
+/*												*/
+/*  classes can be used in any combination		*/
+ /**********************************************/
+form *:focus{outline: none;}
+
+ /* fieldsets */
+fieldset{
+ 	border: 2px solid #ccc;
+ }
+
+ fieldset.H, fieldset.F{
+ 	border: 2px dashed #F0E68C;
+	background-color: #FFFFF0;
+ }
+
+fieldset.H legend{
+    background-color: #FFFFF0;
+}
+
+fieldset.F legend, fieldset.P legend{
+	background-color: #F0E68C;
+ }
+
+fieldset.P, fieldset.F{
+    border: 2px solid #F0E68C;
+}
+
+/* labels */
+label{cursor:pointer;}
+label.H{color:#339999;}
+label.F{color:#cc3300;}
+label.D{color:#999999;}
+
+
+.jsQM{
+	cursor: help;
+	margin-left: 3px;
+	vertical-align: middle;
+	height: 13px;
+	width: 12px;
+	background: url(../gfx/qm.gif) no-repeat left top;
+}
+
+/* textfields with sliding doors */
+.jsTextSlide,.jsPasswordSlide{
+	background: url(../gfx/cfeTextL.gif) no-repeat left top;
+	float:left;display:inline;
+	border: none;
+}
+
+.jsTextSlide .jsText,.jsPasswordSlide .jsPassword{
+	float:left;display:inline;
+	background: url(../gfx/cfeTextR.gif) no-repeat right top;
+	border: none; margin:0 0 0 6px;
+	padding: 5px 6px 5px 0;
+	height: 20px;
+}
+.jsTextSlide.F,.jsPasswordSlide.F{background-position: 0 -40px;}
+.jsTextSlide.D,.jsPasswordSlide.D{background-position: 0 -80px;}
+.jsTextSlide.F .jsText,.jsPasswordSlide.F .jsPassword{background-position: 100% -40px;}
+.jsTextSlide.D .jsText,.jsPasswordSlide.D .jsPassword{background-position: 100% -80px;}
+
+/* teaxtareas with sliding doors */
+.jstextarea1 textarea
+{
+    height: 140px;
+    width: 300px;
+}
+
+.jsTextareaSlide{
+	float:left;
+	background: url(../gfx/cfeTextareaB.gif) no-repeat right bottom;
+}
+
+.jsTextareaSlide1{
+	float:left;
+	background: url(../gfx/cfeTextareaT.gif) no-repeat left top;
+}
+
+.jsTextareaSlide2{
+	float:left;
+	background: url(../gfx/cfeTextareaTR.gif) no-repeat right top;
+}
+
+.jsTextareaSlide .jsTextarea{
+	float:left;
+	background: url(../gfx/cfeTextareaBL.gif) no-repeat left bottom;
+	border:0;margin:0;
+	padding: 5px 6px;
+}
+
+.jsTextareaSlide.F .jsTextareaSlide1{background-image: url(../gfx/cfeTextareaT-H.gif);}
+.jsTextareaSlide.F .jsTextareaSlide2{background-image: url(../gfx/cfeTextareaTR-H.gif);}
+.jsTextareaSlide.F .jsTextarea{background-image: url(../gfx/cfeTextareaBL.gif);}
+
+.jsTextareaSlide.D {background-image: url(../gfx/cfeTextareaB-D.gif);}
+.jsTextareaSlide.D .jsTextareaSlide1{background-image: url(../gfx/cfeTextareaT-D.gif);}
+.jsTextareaSlide.D .jsTextareaSlide2{background-image: url(../gfx/cfeTextareaTR-D.gif);}
+.jsTextareaSlide.D .jsTextarea{background-image: url(../gfx/cfeTextareaBL-D.gif);}
+
+
+/* checkboxes and radiobuttons */
+.jsCheckbox img,.jsRadiobutton img{
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+	background: no-repeat 0 0;
+    padding-bottom: 3px;
+}
+.jsCheckbox img{background-image: url(../gfx/checkboxes.png);}
+.jsRadiobutton img{background-image: url(../gfx/radiobuttons.png);}
+
+.jsCheckbox.A img,.jsRadiobutton.A img{background-position: 0 -40px;}
+
+.jsCheckbox.H img,.jsRadiobutton.H img{background-position: 0 -80px;}
+.jsCheckbox.H.A img,.jsRadiobutton.H.A img{background-position: 0 -120px;}
+
+.jsCheckbox.F img,.jsRadiobutton.F img{background-position: 0 -160px;}
+.jsCheckbox.F.A img,.jsRadiobutton.F.A img{background-position: 0 -200px;}
+
+.jsCheckbox.F.H img,.jsRadiobutton.F.H img{background-position: 0 -240px;}
+.jsCheckbox.F.A.H img,.jsRadiobutton.F.A.H img{background-position: 0 -280px;}
+
+.jsCheckbox.D img,.jsRadiobutton.D img{background-position: 0 -320px;}
+.jsCheckbox.D.A img,.jsRadiobutton.D.A img{background-position: 0 -360px;}
+
+/* alternate checkboxes in second fieldset */
+.chb2 .jsCheckbox img{
+	background-image: none;
+	background-color: white;
+	border: 1px solid #000;
+	width: 12px;
+	height: 12px;
+	margin: 3px;
+}
+
+.chb2 .jsCheckbox.A img{background-color: #477B76;}
+
+.chb2 .jsCheckbox.H img{background-color: #ddd;}
+.chb2 .jsCheckbox.H.A img{background-color: #999;}
+
+
+/* file input */
+.jsFile{
+	width: 125px;
+	height: 26px;
+	background: url(../gfx/cfeFile.gif) no-repeat 0 3px;
+}
+.jsFile.H{background-position:0 -76px;}
+.jsFile.D{background-position:0 -236px;}
+
+.jsFile,.jsFileL{
+	float:left;display:inline;
+}
+
+.jsFilePath{
+	float:left;
+	height: 20px;
+	padding: 3px 0;
+}
+.jsFilePath.hidden{display:none;}
+
+.jsFile.hidden{position: absolute; left: -999px;}
+
+.jsFilePath *{
+	vertical-align: middle;
+}
+.jsFilePath .fileIcon{
+	width: 16px;height:16px;
+	margin-right: 3px;
+	background-image:url(../gfx/fileicons/file.gif);
+}
+.jsFilePath .delete .spc{
+	width: 16px; height:16px;
+	margin-left: 5px;
+	background-image:url(../gfx/cross.gif);
+}
+
+.jsFilePath img.pdf{background-image:url(../gfx/fileicons/pdf.gif)}
+.jsFilePath img.jpg,.jsFilePath img.gif,.jsFilePath img.jpeg,.jsFilePath img.tif,.jsFilePath img.bmp{background-image:url(../gfx/fileicons/img.gif)}
+.jsFilePath img.doc{background-image:url(../gfx/fileicons/doc.gif)}
+.jsFilePath img.xls{background-image:url(../gfx/fileicons/xls.gif)}
+.jsFilePath img.sql,.jsFilePath img.db{background-image:url(../gfx/fileicons/db.gif)}
+.jsFilePath img.html,.jsFilePath img.htm{background-image:url(../gfx/fileicons/html.gif)}
+.jsFilePath img.swf,.jsFilePath img.fla{background-image:url(../gfx/fileicons/flash.gif)}
+.jsFilePath img.zip,.jsFilePath img.rar,.jsFilePath img.ace{background-image:url(../gfx/fileicons/zip.gif)}
+.jsFilePath img.txt,.jsFilePath img.odt{background-image:url(../gfx/fileicons/text.gif)}
+
+/*****************************
+ * submit and reset button   *
+ ****************************/
+/*	description:
+	~ this example covers sliding doors configuration
+	~ if you have slidingDoors disabled, then a simple backgroundimage will be sufficient
+	  and you may delete the ".js*******Slide"-parts
+*/
+.jsSubmit,.jsReset{
+	background: url(../gfx/cfeButtonR.gif) no-repeat right top;
+	text-align:center;
+    float:left;
+    display: inline;
+}
+
+.jsButton.jsSubmit, .jsButton.jsReset{
+    background: none;
+}
+
+.jsSubmitSlide, .jsResetSlide{
+    background: url(../gfx/cfeButtonL.gif) no-repeat left top;
+    float:left;
+    display: inline;
+}
+
+.jsButton .label{
+    line-height: 1.75em;
+    float: left;
+    height: 100%;
+    display: inline;
+    padding: 1px 15px;
+	/*uncomment this to hide the buttons text */
+	/*visibility:hidden;*/
+}
+.jsButton.P{background-position: 0 -40px;}
+.jsButton.H{background-position: 0 -80px;}
+.jsButton.F{background-position: 0 -200px;}
+.jsButton.F.P{background-position: 0 -160px;}
+.jsButton.H.P{background-position: 0 -40px;}
+.jsButton.D{background-position: 0 -240px;}
+
+.jsButton.P span{background-position: 100% -40px;}
+.jsButton.H span{background-position: 100% -80px;}
+.jsButton.F span{background-position: 100% -200px;}
+.jsButton.F.P span{background-position: 100% -160px;}
+.jsButton.H.P span{background-position: 100% -40px;}
+.jsButton.D span{background-position: 100% -240px;}
+
+.jsButton.P .label{padding-top: 2px; padding-left: 17px;color: #666;padding-bottom: 0; padding-right: 13px;}
+.jsButton.D .label{color: #999;}
+
+ /*############################################*/
+/*  select boxes                    			*/
+ /*############################################*/
+ /*--------------------------------------------*/
+/*  select boxes - custom styles 				*/
+ /*--------------------------------------------*/
+.jsSelector{height: 30px;}
+.jsSelector0{width: 283px;}
+.jsSelector0 .jsSelectorContent{width: 245px;}
+
+.jsSelector1{width: 220px;}
+.jsSelector1 .jsSelectorContent{width: 180px;}
+
+.jsSelector .jsSelectorContentSlide1{
+    margin: -3px 0 0 5px;
+}
+
+.jsSelectorMultiple0 .jsSelectorContent{width: 283px;}
+
+ /*--------------------------------------------*/
+/*  select boxes - general styles 				*/
+ /*--------------------------------------------*/
+.jsSelector{
+	float: left;
+	background: url(../gfx/cfeSelectL.gif) no-repeat left top;
+}
+
+.jsSelectorMultiple
+{
+    background: none;
+    height: auto;
+}
+
+.jsSelector.H{background-position: 0 -40px;}
+.jsSelector.F{background-position: 0 -80px;}
+.jsSelector.F .jsSelectorSlide{background-position: 100% -80px;}
+.jsSelector.H .jsSelectorArrow{background-position: 3px -36px}
+
+.jsSelector.D{background-position: 0 -120px;}
+.jsSelector.D .jsSelectorSlide{background-position: 100% -120px;}
+.jsSelector.D .jsSelectorArrow{background-position: 3px -106px}
+
+.jsSelectorArrow{
+	height: 20px;width: 20px;
+	background: url(../gfx/cfeSelectorArrow.gif) no-repeat 3px 4px;
+	margin-right: 7px;
+}
+.jsSelectorSlide{
+	float:left;
+	width: 100%;
+	background: url(../gfx/cfeSelectR.gif) no-repeat right top;
+	padding: 6px 0 4px 0;
+}
+
+.jsSelector .jsOptionSelected{padding:0 0 0 8px;margin:0 0 0 5px;}
+.jsSelector.D .jsOptionSelected, .jsSelector.D .jsOption{color:#999;}
+
+.jsOption{
+	padding: 6px 6px 4px 5px;
+	cursor: pointer;
+	color: #009999;
+	height: 20px;
+}
+
+.jsOption.H, .jsOption.H label.H
+{
+    background-color: transparent; /* background-color: #666;*/
+    color: #fff;
+}
+
+.jsSelectorContainer, .jsSelectorScrollerWrapper{
+    float: left;
+}
+.jsSelectorScrollerWrapper .spc{width: 17px;height: 13px;display:block;cursor:pointer;}
+.jsSelectorScrollerWrapper .scrollTop .spc{background: url(../gfx/scrollUp.gif) no-repeat 3px 3px;}
+.jsSelectorScrollerWrapper .scrollKnob{background: url(../gfx/scrollKnob.gif) no-repeat 3px 0;}
+.jsSelectorScrollerWrapper .scrollBottom .spc{background: url(../gfx/scrollDown.gif) no-repeat 3px 3px;}
+
+.jsSelectorContentSlide1{
+	float:left;
+	background: url(../gfx/cfeTextareaB.gif) no-repeat right bottom;
+}
+
+.jsSelectorContentSlide2{
+	float:left;
+	background: url(../gfx/cfeTextareaT.gif) no-repeat left top;
+}
+
+.jsSelectorContentSlide3{
+	float:left;
+	background: url(../gfx/cfeTextareaTR.gif) no-repeat right top;
+}
+
+.jsSelectorContentSlide1 .jsSelectorContent{
+	float:left;
+	background: url(../gfx/cfeTextareaBL.gif) no-repeat left bottom;
+	border:0; margin:0;
+	padding: 3px 3px 4px 3px;
+}
+
+.jsSelectorMultiple.D .jsSelectorContentSlide1 {background-image: url(../gfx/cfeTextareaB-D.gif);}
+.jsSelectorMultiple.D .jsSelectorContentSlide2{background-image: url(../gfx/cfeTextareaT-D.gif);}
+.jsSelectorMultiple.D .jsSelectorContentSlide3{background-image: url(../gfx/cfeTextareaTR-D.gif);}
+.jsSelectorMultiple.D .jsSelectorContentSlide1 .jsSelectorContent{background-image: url(../gfx/cfeTextareaBL-D.gif);}
