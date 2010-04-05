@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.88
+* websiteSetup.php version 1.89
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -26,7 +26,7 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 
 
 // ------------ SAVE the WEBSITE SETTINGS
-if($_POST['send'] && isset($_POST['websiteConfig'])) {
+if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 
     // gets the startPage var and put it in the POST var
     $_POST['startPage'] = $websiteConfig['startPage'];
@@ -43,7 +43,7 @@ if($_POST['send'] && isset($_POST['websiteConfig'])) {
 }
 
 // ---------- SAVE the editFiles
-if(isset($_POST['saveEditedFiles'])) {
+if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
 
   if(saveEditedFiles($_POST)) { 
     $documentSaved = true; // give documentSaved status
@@ -57,10 +57,10 @@ if(isset($_POST['saveEditedFiles'])) {
 
 @include (dirname(__FILE__)."/../../config/websiteConfig.php"); // loads the saved settings again
 
-// ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
+// ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 ?>
 <form action="?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-  <div><input type="hidden" name="send" value="true" /></div>
+  <div><input type="hidden" name="send" value="websiteSetup" /></div>
   
 <!-- PAGE SETTINGS -->
 
@@ -143,7 +143,7 @@ if($savedForm != 'websiteConfig')
 
 if($adminConfig['user']['editLanguage']) {  
   // BEARBEITUNG DER ERWEITERTEN WEBSEITEN-EINSTELLUNGEN 
-  editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_lang'], "websiteFilesAnchor", "php");
+  editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor", "php");
 }
 
 if($adminConfig['user']['editStylesheet']) {

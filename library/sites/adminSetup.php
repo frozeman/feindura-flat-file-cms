@@ -26,7 +26,7 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 
 
 // ****** ---------- EINSTELLUNEGN SPEICHERN in config/adminConfig.php
-if($_POST['send'] && isset($_POST['adminConfig'])) {
+if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
   foreach($_POST as $postKey => $post) {    
@@ -222,7 +222,7 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
 }
 
 // ---------- Speichern in fckstyles.xml
-if($_POST['saveFckStyleFile']) {
+if(isset($_POST['saveFckStyleFile'])) {
 
   $fckstylewrite = $_POST['fckStyleFile'];
   
@@ -247,7 +247,7 @@ if($_POST['saveFckStyleFile']) {
 }
 
 // ---------- SAVE the editFiles
-if(isset($_POST['saveEditedFiles'])) {
+if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
 
   if(saveEditedFiles($_POST)) {
     $documentSaved = true; // give documentSaved status
@@ -263,7 +263,7 @@ if(isset($_POST['saveEditedFiles'])) {
 @include (dirname(__FILE__)."/../../config/adminConfig.php"); // loads the saved settings again
 @include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
 
-// ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
+// ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
 
 // didnt show the Setup for non-adminstrators
@@ -328,7 +328,7 @@ if($unwriteableList && checkBasePath()) {
 
 <form action="?site=adminSetup#adminSettingsTop" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
-  <input type="hidden" name="send" value="true" />
+  <input type="hidden" name="send" value="adminSetup" />
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />
   </div>
   
@@ -763,7 +763,7 @@ if($savedForm != 'fckStyleFile')
 <?php
 
 // BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_lang'], "websiteFilesAnchor", "php");
+editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor", "php");
   
 
 // BEARBEITUNG DER STYLESHEETDATEI

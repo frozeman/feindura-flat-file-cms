@@ -430,7 +430,7 @@ $langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei &quot;htmlE
 $langFile['editFilesSettings_error_save'] = '<b>Die Datei konnte nicht gespeichert werden.</b>'.$langFile['error_save_file'];
 
 $langFile['editFilesSettings_h1_style'] = 'Stylesheetdateien bearbeiten';
-$langFile['editFilesSettings_h1_lang'] = 'Webseitendateien bearbeiten';
+$langFile['editFilesSettings_h1_websitefiles'] = 'Webseitendateien bearbeiten';
 $langFile['editFilesSettings_noDir'] = 'ist kein g&uuml;ltiges Verzeichnis!';
 $langFile['editFilesSettings_chooseFile'] = 'Datei ausw&auml;hlen';
 $langFile['editFilesSettings_createFile'] = 'Neue Datei anlegen';

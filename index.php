@@ -222,6 +222,10 @@ createStyleTags($adminConfig['basePath'].'addons/');
           <td><a href="?site=statisticSetup" class="statisticSetup" title="<?php  echo $langFile['btn_statisticSetup']; ?>"><span><?php echo $langFile['btn_statisticSetup']; ?></span></a></td>
           <td><a href="?site=userSetup" onclick="openWindowBox('library/sites/userSetup.php','<?php echo $langFile['btn_userSetup']; ?>',true);return false;" class="userSetup" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
           </tr>
+          <tr>
+          <td><a href="?site=pluginSetup" class="pluginSetup" title="<?php  echo $langFile['btn_pluginSetup']; ?>"><span><?php echo $langFile['btn_pluginSetup']; ?></span></a></td>
+          <td><a href="?site=modulSetup" class="modulSetup" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
+          </tr>
         </table>
       </div>      
     </div>

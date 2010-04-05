@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* categorySetup.php version 1.17
+* categorySetup.php version 1.18
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -29,7 +29,8 @@ $categoryInfo = false;
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
 // ****** ---------- CREATE NEW CATEGORY
-if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'createCategory') {
+if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['createCategory'])) ||
+   $_GET['status'] == 'createCategory') {
    
   // -> GET highest category id
   $newId = getNewCatgoryId();
@@ -62,7 +63,8 @@ if(($_POST['send'] && isset($_POST['createCategory'])) || $_GET['status'] == 'cr
 }
 
 // ****** ---------- DELETE CATEGORY
-if((($_POST['send'] && isset($_POST['deleteCategory']))  || $_GET['status'] == 'deleteCategory') && isset($categories['id_'.$_GET['category']])) {  
+if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['deleteCategory'])) ||
+   $_GET['status'] == 'deleteCategory') && isset($categories['id_'.$_GET['category']])) {  
   
   // save the name, to put it in the info
   $storedCategoryName = $categories['id_'.$_GET['category']]['name'];
@@ -132,7 +134,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
 
 // ****** ---------- SAVE CATEGORIES
-if($_POST['send'] && isset($_POST['saveCategories'])) {
+if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
   
   // cleans the category names
   $catewgoriesCleaned = array();
@@ -152,7 +154,7 @@ if($_POST['send'] && isset($_POST['saveCategories'])) {
 
 @include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
 
-// ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
+// ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
 
 // CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
@@ -184,7 +186,7 @@ if($unwriteableList) {
 
 <form action="?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
-  <input type="hidden" name="send" value="true" />
+  <input type="hidden" name="send" value="categorySetup" />
   <input type="hidden" name="savedCategory" id="savedCategory" value="" />
   </div>
 

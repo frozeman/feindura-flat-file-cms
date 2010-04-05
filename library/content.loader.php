@@ -82,6 +82,14 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'userSetup':
       include (dirname(__FILE__).'/sites/userSetup.php');
       break;
+    // pluginSetup
+    case 'pluginSetup':
+      include (dirname(__FILE__).'/sites/pluginSetup.php');
+      break;
+    // modulSetup
+    case 'modulSetup':
+      include (dirname(__FILE__).'/sites/modulSetup.php');
+      break;
     // search
     case 'search':
       include (dirname(__FILE__).'/sites/search.php');

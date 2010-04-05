@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 143
+Build 144
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 144: started to build pluginSetup.php, made changes in $_POST['send'] in the forms, no contains the form name (before only true), fixes in editFiles()
 	build 143: removed old mootools.js and add the new to git
 	build 142: listPages.php: dont show toolTip if there is no "lastsaveauthor" for the page
 	build 141: content.css picture of blockSpacer and bottom-margin changed

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/backend.functions.php version 1.25
+* library/functions/backend.functions.php version 1.26
 *
 * FUNCTIONS -----------------------------------
 * 
@@ -446,6 +446,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   echo '<form action="?site='.$siteName.'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>
+        <input type="hidden" name="send" value="saveEditedFiles" />
         <input type="hidden" name="status" value="'.$status.'" />
         <input type="hidden" name="filesPath" value="'.$filesPath.'" />
         <input type="hidden" name="fileType" value="'.$fileType.'" />
@@ -453,12 +454,14 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   echo '<div class="block'.$hidden.'">
           <h1><a href="#" name="'.$anchorName.'">'.$titleText.'</a></h1>
-          <div class="content"><br />';     
+          <div class="content"><br />';
       
       //echo $filesPath.'<br />';      
       // gets the files out of the directory --------------
+      // adds the DOCUMENTROOT  
+      $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);  
       $dir = DOCUMENTROOT.$filesPath;
-      if(is_dir($dir)) {          
+      if(!empty($filesPath) && is_dir($dir)) {
         $files = readFolderRecursive($filesPath);
         $files = $files['files'];
         natsort($files);
@@ -468,11 +471,11 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
         echo '<code>"'.$filesPath.'"</code> <b>'.$langFile['editFilesSettings_noDir'].'</b>';
         $isDir = false;
       }
+
       
       // GETS ACTUAL FILE ----------------------------------
-      if($_GET['status'] == $status)
-    
-      $editFile = $_GET['file'];
+      if($_GET['status'] == $status)    
+        $editFile = $_GET['file'];
       
       // wenn noch nicht per Dateiauswahl $editfile kreiert wurde
       if(empty($editFile) && isset($files)) {
@@ -499,7 +502,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       } // -------------------------------------------------
       
       // create a NEW FILE ---------------------------------      
-      echo '<div style="position:absolute;right:20px;top:22px;width:250px;" class="right">
+      echo '<div class="editFiles right">
             <h2>'.$langFile['editFilesSettings_createFile'].'</h2>
             <input name="newFile" style="width:200px;" class="toolTip" title="'.$langFile['editFilesSettings_createFile'].'::'.$langFile['editFilesSettings_createFile_inputTip'].'" /> <b>.'.$fileType.'</b>
             </div>';
@@ -513,13 +516,17 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
         
         echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
 
+        $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
+        
         echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles">'.$file.'</textarea>';
       } 
   
   
-  echo '<!--<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />-->';
-  if(is_dir($dir))
+  
+  if($isDir) {
+    //echo '<input type="reset" value="" class="toolTip button cancel" title="'.$langFile['form_cancel'].'" />';
     echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit center" title="'.$langFile['form_submit'].'" />';
+  }
   echo '</div>
       <div class="bottom"></div>
     </div>
@@ -531,9 +538,17 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
 // -----------------------------------------------------------------------------------------------------
 // $post            [postvariable with the filename and filecontent (array)]
 function saveEditedFiles($post) {
+    global $_POST;
     
-    // SAVE FILE
-    if(@is_file(DOCUMENTROOT.$post['file']) && empty($post['newFile'])) {
+    // add DOCUMENTROOT
+    $post['file'] = str_replace(DOCUMENTROOT,'',$post['file']);  
+    $post['file'] = DOCUMENTROOT.$post['file'];    
+    $post['filesPath'] = str_replace(DOCUMENTROOT,'',$post['filesPath']);  
+    $post['filesPath'] = DOCUMENTROOT.$post['filesPath'];    
+    
+    
+    // ->> SAVE FILE
+    if(@is_file($post['file']) && empty($post['newFile'])) {
 
       $post['fileContent'] = str_replace('\"', '"', $post['fileContent']);
       $post['fileContent'] = str_replace("\'", "'", $post['fileContent']);
@@ -547,7 +562,7 @@ function saveEditedFiles($post) {
       // wandelt die php einleitungstags wieder in zeichen um
       $post['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$post['fileContent']);
       
-      if($file = fopen(DOCUMENTROOT.$post['file'],"w")) {
+      if($file = fopen($post['file'],"w")) {
       flock($file,2);
       fwrite($file,$post['fileContent']);
       flock($file,3);
@@ -558,7 +573,7 @@ function saveEditedFiles($post) {
       return true;      
       }
       
-    // NEW FILE
+    // ->> NEW FILE
     } else { // erstellt eine neue datei wenn etwas ins das neu erstellen Feld eingetragen wurde
       
       $post['newFile'] = str_replace( array(" ","%","+",'/',"&","#","!","?","$","§",'"',"'","(",")"), '_', $post['newFile'] ) ;
@@ -566,15 +581,19 @@ function saveEditedFiles($post) {
       
       $post['newFile'] = str_replace($post['fileType'],'',$post['newFile']);
       
-      if($file = @fopen(DOCUMENTROOT.$post['filesPath'].$post['newFile'].'.'.$post['fileType'],"w")) {
+      $fullFilePath = $post['filesPath'].'/'.$post['newFile'].'.'.$post['fileType'];
       
+      //clean vars
+      $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
+      
+      if($file = @fopen($fullFilePath,"w")) {
+        
         $_GET['status'] = $_POST['status'];
-        //$_GET['file'] = $_POST['file'];        
-        $_GET['file'] = $post['filesPath'].$post['newFile'].'.'.$post['fileType'];
+        $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);
         
         return true;
-      }  
-    }    
+      }
+    }
     return false;
 }
 
@@ -688,6 +707,9 @@ function readFolder($folder) {
   if(empty($folder))
     return false;
   
+  //change windows path
+  $folder = str_replace('\\','/',$folder);
+  
   // -> adds / on the beginning of the folder
   if(substr($folder,0,1) != '/')
     $folder = '/'.$folder;
@@ -695,7 +717,7 @@ function readFolder($folder) {
   if(substr($folder,-1) != '/')
     $folder .= '/';
   
-  //clean vars
+  //clean vars  
   $folder = preg_replace("/\/+/", '/', $folder);
   $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);  
   

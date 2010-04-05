@@ -142,7 +142,7 @@ input.cancel:hover, a.cancel:hover {
     }
 
 
-/* search */
+/* SEARCH FIELD */
 input.search {
     position: relative;
     display: inline-block;
@@ -153,4 +153,15 @@ input.search {
     }
 input.search:hover {
     background-position: 0px -50px !important;
+    }
+
+/* EDITFILES new file */
+.editFiles.right {
+    position: absolute;
+    right: 7px;
+    top: 19px;
+    width: 250px;
+    height: 80px;
+    padding-left: 10px;
+    background-color: #ffffff;    
     }
