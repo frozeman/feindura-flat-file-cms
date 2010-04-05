@@ -24,7 +24,7 @@ $adminConfig =       include_once(dirname(__FILE__)."/../config/admin.config.php
 $websiteConfig =     @include_once(dirname(__FILE__)."/../config/website.config.php");
 $statisticConfig =   @include_once(dirname(__FILE__)."/../config/statistic.config.php");
 $categories =        @include_once(dirname(__FILE__)."/../config/category.config.php");
-$websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
+$websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/website.statistic.php");
 
 require_once(dirname(__FILE__)."/functions/mysql.functions.php");
 

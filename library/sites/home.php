@@ -218,8 +218,8 @@ if(!empty($adminConfig['user']['info'])) {
     // -> SHOW REFERER LOG
     echo '<h3>'.$langFile['home_refererLog_h1'].'</h3>';
     
-    if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt') &&
-       $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_referers.txt')) {
+    if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.txt') &&
+       $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.txt')) {
       ;
        
       echo '<div id="refererLogContainer">

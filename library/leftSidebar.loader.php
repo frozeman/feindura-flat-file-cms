@@ -132,8 +132,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // -> SHOW TASK LOG
       echo '<h1>'.$langFile['home_taskLog_h1'].'</h1>';
       
-      if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt') &&
-         $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/log_tasks.txt')) {
+      if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/task.statistic.txt') &&
+         $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/task.statistic.txt')) {
          
          echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
          echo '<div id="sidebarTaskLog"><br />

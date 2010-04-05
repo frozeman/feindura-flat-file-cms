@@ -276,7 +276,7 @@ class statisticFunctions {
     global $langFile;
     
     $maxEntries = $this->statisticConfig['number']['taskLog'];
-    $logFile = dirname(__FILE__).'/../../'.'statistic/log_tasks.txt';
+    $logFile = dirname(__FILE__).'/../../'.'statistic/task.statistic.txt';
     
     if(file_exists($logFile))
       $oldLog = file($logFile);
@@ -317,7 +317,7 @@ class statisticFunctions {
     global $langFile;
     
     $maxEntries = $this->statisticConfig['number']['refererLog'];
-    $logFile = dirname(__FILE__).'/../../'.'statistic/log_referers.txt';
+    $logFile = dirname(__FILE__).'/../../'.'statistic/referer.statistic.txt';
     
     if(file_exists($logFile))
       $oldLog = file($logFile);
@@ -784,8 +784,8 @@ class statisticFunctions {
           $websiteStatistic['spiderVisitCount']++;
 
         
-        // ->> OPEN websiteStatistic.php for writing
-        if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/websiteStatistic.php","w")) {
+        // ->> OPEN website.statistic.php for writing
+        if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","w")) {
           
           flock($statisticFile,2);        
           fwrite($statisticFile,PHPSTARTTAG);  
