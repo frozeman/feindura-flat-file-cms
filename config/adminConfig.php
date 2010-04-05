@@ -1,7 +1,7 @@
 <?php
 
 $adminConfig['url'] =             'localhost';
-$adminConfig['basePath'] =        '/feindura-flat-file-cms/';
+$adminConfig['basePath'] =        '/_feindura10/';
 $adminConfig['savePath'] =        '_page/';
 $adminConfig['uploadPath'] =      '/_feindura10/_upload/';
 $adminConfig['websitefilesPath'] =        '/feindura-flat-file-cms/addons/';
