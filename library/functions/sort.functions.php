@@ -26,7 +26,7 @@
 *
 */
 
-$feindura_categories = @include(dirname(__FILE__).'/../../config/categoryConfig.php');
+$feindura_categories = @include(dirname(__FILE__).'/../../config/category.config.php');
 
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER

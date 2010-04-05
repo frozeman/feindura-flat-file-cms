@@ -311,8 +311,8 @@ echo "\n".'<!-- transport the sortorder to the javascript -->
 }
 
 unset($pageContent);
-// include the the categoryConfig.php again, to overwrite the eventually changed $categories var
-include(dirname(__FILE__)."/../../config/categoryConfig.php");
+// include the the category.config.php again, to overwrite the eventually changed $categories var
+include(dirname(__FILE__)."/../../config/category.config.php");
 ?>
 
 

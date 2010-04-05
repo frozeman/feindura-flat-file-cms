@@ -58,7 +58,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-include_once(dirname(__FILE__).'/../../../config/adminConfig.php');
+include_once(dirname(__FILE__).'/../../../config/admin.config.php');
 $baseUrl = $adminConfig['uploadPath'];
 
 /*

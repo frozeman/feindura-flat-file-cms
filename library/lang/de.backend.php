@@ -305,7 +305,7 @@ $langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Statu
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';
 
 $langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>'.$langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/websiteConfig.php&quot;';
+$langFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>'.$langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;';
 $langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 $langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
@@ -342,7 +342,7 @@ $langFile['adminSetup_error_writeAccess'] = 'ist nicht beschreibbar';
 $langFile['adminSetup_error_isFolder'] = 'ist kein Verzeichnis';
 
 // ---------- FMS Settings
-$langFile['adminSetup_fmsSettings_error_save'] = $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/adminConfig.php';
+$langFile['adminSetup_fmsSettings_error_save'] = $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/admin.config.php';
 
 $langFile['adminSetup_fmsSettings_h1'] = 'Grund-Einstellungen';
 
@@ -468,9 +468,9 @@ $langFile['categorySetup_moveCategory_down_tip'] = 'Kategorie nach unten verschi
 
 $langFile['categorySetup_error_create'] = '<b>Eine neue Kategorie konnte nicht erstellt werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].'config/'.$langFile['error_folderDatabase_end'];
 $langFile['categorySetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].'&quot; Ordners.';
-$langFile['categorySetup_error_delete'] = '<b>Die Kategorie konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/categoryConfig.php';
+$langFile['categorySetup_error_delete'] = '<b>Die Kategorie konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
 $langFile['categorySetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['categorySetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/categoryConfig.php';
+$langFile['categorySetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
 
 
 $langFile['categorySetup_advancedSettings'] = 'Erweiterte-Einstellungen';
@@ -512,7 +512,7 @@ $langFile['categorySetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 //
 // ---------- WEBSITE SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 
-$langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/websiteConfig.php';
+$langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/website.config.php';
 
 $langFile['websiteSetup_websiteConfig_h1'] = 'Webseiten-Einstellungen';
 $langFile['websiteSetup_websiteConfig_feld1'] = 'Webseiten Titel';
@@ -538,7 +538,7 @@ $langFile['websiteSetup_websiteConfig_feld6_inputTip'] = $langFile['text_example
 //
 // ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 
-$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/statisticConfig.php';
+$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/statistic.config.php';
 
 $langFile['statisticSetup_statisticConfig_h1'] = 'Statistik-Einstellungen';
 $langFile['statisticSetup_statisticConfig_feld1'] = 'Anzahl der sichtbaren <b>meist besuchten</b> Seiten';
@@ -576,7 +576,7 @@ $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler 
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 
 
-$langFile['pluginSetup_editFiles_h1'] = 'bearbeite Dateien von';
+$langFile['pluginSetup_editFiles_h1'] = 'Dateien bearbeiten';
 
 
 // ---------------------------------------------------------------------------------------------------------------------

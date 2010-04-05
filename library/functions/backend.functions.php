@@ -154,14 +154,14 @@ function getNewCatgoryId() {
 }
 
 // ** -- saveCategories ----------------------------------------------------------------------------------
-// open the config/categoryConfig.php and writes the categories array.
+// open the config/category.config.php and writes the categories array.
 // -----------------------------------------------------------------------------------------------------
 // $categories     [der group array der in der settings.php gespeichert werden soll (Array)],
 function saveCategories($newCategories) {
   global $categories;
   
-  // öffnet die categoryConfig.php zum schreiben
-  if($categoryConfig = @fopen("config/categoryConfig.php","w")) {
+  // öffnet die category.config.php zum schreiben
+  if($categoryConfig = @fopen("config/category.config.php","w")) {
  
     // *** Schreibe CATEGORIES
     flock($categoryConfig,2); //LOCK_EX
@@ -353,12 +353,12 @@ function moveCategories($category,            // the category id to be moved (Nu
 }
 
 // ** -- saveWebsiteConfig ----------------------------------------------------------------------------------
-// open the config/websiteConfig.php
+// open the config/website.config.php
 // -----------------------------------------------------------------------------------------------------
 function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to save
    
   // opens the file for writing
-  if($websiteConfig = @fopen("config/websiteConfig.php","w")) {
+  if($websiteConfig = @fopen("config/website.config.php","w")) {
     
     // format keywords
     $keywords = preg_replace("/ +/", ' ', $givenSettings['keywords']);
@@ -391,12 +391,12 @@ function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to sa
 }
 
 // ** -- saveStatisticConfig ----------------------------------------------------------------------------------
-// open the config/statisticConfig.php
+// open the config/statistic.config.php
 // -----------------------------------------------------------------------------------------------------
 function saveStatisticConfig($givenSettings) {  // (Array) with the settings to save
    
   // opens the file for writing
-  if($statisticConfig = @fopen("config/statisticConfig.php","w")) {
+  if($statisticConfig = @fopen("config/statistic.config.php","w")) {
         
     // *** write
     flock($statisticConfig,2); //LOCK_EX
@@ -640,7 +640,7 @@ function movePage($page, $fromCategory, $toCategory) {
 }
 
 // ** -- fileFolderIsWritableWarning ----------------------------------------------------------------------------------
-// checks the file/folder if it is writeable, and gives back an error text if not (made for the adminConfig.php)
+// checks the file/folder if it is writeable, and gives back an error text if not (made for the admin.config.php)
 // -----------------------------------------------------------------------------------------------------
 // $fileFolder  [the File or Folder which is checked for writeability, must beginn with a "/" (String)]
 function fileFolderIsWritableWarning($fileFolder) {
@@ -655,7 +655,7 @@ function fileFolderIsWritableWarning($fileFolder) {
 }
 
 // ** -- isFolderWarning ----------------------------------------------------------------------------------
-// checks the folder exists, and gives back an error text if not (made for the adminConfig.php)
+// checks the folder exists, and gives back an error text if not (made for the admin.config.php)
 // -----------------------------------------------------------------------------------------------------
 // $folder  [the File or Folder which is checked for writeability, must beginn with a "/" (String)]
 function isFolderWarning($folder) {

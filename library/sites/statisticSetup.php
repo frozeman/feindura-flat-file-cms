@@ -114,7 +114,7 @@ if($_POST['sendClearstatistics']) {
   $savedForm = 'clearStatistics';
 }
 
-@include (dirname(__FILE__)."/../../config/statisticConfig.php"); // loads the saved settings again
+@include (dirname(__FILE__)."/../../config/statistic.config.php"); // loads the saved settings again
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 

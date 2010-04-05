@@ -181,7 +181,7 @@ class feindura {
   // -> START ** constructor *****************************************************************************
   // the class constructor
   // get the config Arrays
-  // set the varNames from the adminConfig.php
+  // set the varNames from the admin.config.php
   // gte the GET (if existing) and set it to the PROPERTIES
   // get the language File for the frontend
   // -----------------------------------------------------------------------------------------------------

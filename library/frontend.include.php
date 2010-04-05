@@ -20,10 +20,10 @@
 require_once(dirname(__FILE__)."/general.include.php");
 
 // get SETTINGS
-$adminConfig =       include_once(dirname(__FILE__)."/../config/adminConfig.php");
-$websiteConfig =     @include_once(dirname(__FILE__)."/../config/websiteConfig.php");
-$statisticConfig =   @include_once(dirname(__FILE__)."/../config/statisticConfig.php");
-$categories =        @include_once(dirname(__FILE__)."/../config/categoryConfig.php");
+$adminConfig =       include_once(dirname(__FILE__)."/../config/admin.config.php");
+$websiteConfig =     @include_once(dirname(__FILE__)."/../config/website.config.php");
+$statisticConfig =   @include_once(dirname(__FILE__)."/../config/statistic.config.php");
+$categories =        @include_once(dirname(__FILE__)."/../config/category.config.php");
 $websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/websiteStatistic.php");
 
 require_once(dirname(__FILE__)."/functions/mysql.functions.php");

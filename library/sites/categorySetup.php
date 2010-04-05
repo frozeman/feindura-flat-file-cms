@@ -152,7 +152,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   $savedForm = 'categories';
 }
 
-@include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
+@include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
@@ -163,8 +163,8 @@ $unwriteableList = '';
 
 // check config files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/categoryConfig.php'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/categoryConfig.php');
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/category.config.php'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/category.config.php');
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList) {

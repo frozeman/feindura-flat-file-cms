@@ -25,7 +25,7 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
 
-// ****** ---------- EINSTELLUNEGN SPEICHERN in config/adminConfig.php
+// ****** ---------- EINSTELLUNEGN SPEICHERN in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
@@ -168,8 +168,8 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
   }
   
-  // **** opens adminConfig.php for writing
-  if($file = @fopen("config/adminConfig.php","w")) {
+  // **** opens admin.config.php for writing
+  if($file = @fopen("config/admin.config.php","w")) {
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
     
@@ -250,8 +250,8 @@ if(isset($_POST['saveFckStyleFile'])) {
 include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
-@include (dirname(__FILE__)."/../../config/adminConfig.php"); // loads the saved settings again
-@include (dirname(__FILE__)."/../../config/categoryConfig.php"); // loads the saved categories again
+@include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved settings again
+@include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
