@@ -15,7 +15,7 @@ $adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['editLanguage'] =    'true';
 $adminConfig['user']['editStylesheet'] =  '';
-$adminConfig['user']['info'] =            '';
+$adminConfig['user']['info'] =            'cfgdfgdf';
 
 $adminConfig['setStartPage'] =            'true';
 $adminConfig['page']['createPages'] =     'true';
