@@ -24,11 +24,16 @@ define('PHPSTARTTAG',$phpTags[0]."\n");
 define('PHPENDTAG',"\n".$phpTags[1]);
 
 // get SETTINGS
-$adminConfig =       @include_once(dirname(__FILE__)."/../config/admin.config.php");
-$websiteConfig =     @include_once(dirname(__FILE__)."/../config/website.config.php");
-$statisticConfig =   @include_once(dirname(__FILE__)."/../config/statistic.config.php");
-$categories =        @include_once(dirname(__FILE__)."/../config/category.config.php");
-$websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/website.statistic.php");
+if(!$adminConfig =      @include_once(dirname(__FILE__)."/../config/admin.config.php"))
+  $adminConfig =      array();
+if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.config.php"))
+  $websiteConfig =    array();
+if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.config.php"))
+  $statisticConfig =  array();
+if(!$categories =       @include_once(dirname(__FILE__)."/../config/category.config.php"))
+  $categories =       array();
+if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../statistic/website.statistic.php"))
+  $websiteStatistic = array();
 
 // INCLUDES
 require_once(dirname(__FILE__)."/classes/generalFunctions.class.php");

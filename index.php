@@ -279,7 +279,7 @@ createStyleTags($adminConfig['basePath'].'addons/');
     ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 60px;"'; ?>>      
+    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 70px;"'; ?>>      
       <?php
       
       include('library/content.loader.php');

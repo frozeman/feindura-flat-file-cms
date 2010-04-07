@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 149
+Build 150
 --------------------------------------------------
 feindura Copyright © 2009 Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 150: even if config folder is missing there are now no errors thrown
 	build 149: reorganized all *.include.php
 	build 148: add pluginSetup.php
 	build 147: changed statiostic file names to *.statistic.php

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/generalFunctions.functions.php version 1.09
+* library/functions/generalFunctions.functions.php version 1.10
 *
 * FUNCTIONS ----------------------------
 * 
@@ -259,7 +259,7 @@ class generalFunctions {
     $pagesArray = array();
     $categoryDirs = array();
     $categoryArray = $this->categoryConfig;
-    
+
     // if $category === true,
     // load ALL CATEGORIES and the NON-CATEGORY
     if($category === true) {
@@ -270,7 +270,8 @@ class generalFunctions {
     // COLLECT THE DIRS in an array
     // if $category is an array, i stores alle dirs in $this->adminConfig['savePath'] in an array
     if(is_array($category)) {
-        foreach($category as $categoryArray) {
+      
+        foreach($category as $categoryArray) {          
           $dir = '';
           
           // *** if it is $this->categoryConfig settings array
@@ -294,8 +295,8 @@ class generalFunctions {
           // stores the paths in an array
           $categoryDirs[] = $dir;
         }
-    } else {
-      if($category === false || (is_numeric($category) && $category == 0)) //$category === false ||
+    } else {    
+      if($category === false || (is_numeric($category) && $category == 0))
         $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['savePath'];
       elseif(is_numeric($category))
         $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['savePath'].$category;
@@ -306,8 +307,8 @@ class generalFunctions {
     foreach($categoryDirs as $dir) {
   
       // opens every category dir and stores the arrays of the pages in an array
-      if(is_dir($dir)) {
-      
+      if(is_dir($dir) && $dir != DOCUMENTROOT) {
+
         $pages = array();
         
         // checks if its a category or the non-category

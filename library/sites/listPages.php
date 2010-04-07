@@ -108,12 +108,13 @@ echo '</div>';
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
 // by adding a empty category to the $categories array
-array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocategories_name'].' <span style="font-size:12px;color:#9FA0A0;">('.$langFile['categories_nocategories_hint'].')</span>'));
+$allCategories= $categories;
+array_unshift($allCategories,array('id' => 0,'name' => $langFile['categories_nocategories_name'].' <span style="font-size:12px;color:#9FA0A0;">('.$langFile['categories_nocategories_hint'].')</span>'));
 
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES
-foreach($categories as $category) {
-
+foreach($allCategories as $category) {
+  
   // -> LOAD the PAGES FROM the CATEGORY
   $pages = $generalFunctions->loadPages($category['id']);
   //print_r($pages);
@@ -192,7 +193,7 @@ if(is_array($pages)) {
   
   // zählt die $pages durch
   foreach ($pages as $pageContent) {
-      
+
       // vars
       $showDate = '';
       $showTags = '';
@@ -260,18 +261,18 @@ if(is_array($pages)) {
       echo '<div class="functions">';      
       
       // thumbnail upload
-      if(($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$category['id']]['thumbnail'])
+      if(($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $allCategories['id_'.$category['id']]['thumbnail'])
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_title'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
       
       // thumbnail upload delete
-      if((($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
+      if((($category['id'] == 0 && $adminConfig['page']['thumbnailUpload']) || $allCategories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
         echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_title'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
                
       // edit page
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
       
       // delete page
-      if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $categories['id_'.$category['id']]['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['page']['createPages']) || $allCategories['id_'.$category['id']]['createdelete'])
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['sortablePageList_functions_deletePage'].'::" class="deletePage toolTip">&nbsp;</a>';
          
       
@@ -306,13 +307,12 @@ echo '</ul>
 
 
 echo "\n".'<!-- transport the sortorder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$categories['id_'.$category['id']]['sortascending'].'" /> <!-- absteigede reihenfolge ja/nein -->
+      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories['id_'.$category['id']]['sortascending'].'" /> <!-- absteigede reihenfolge ja/nein -->
       <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" />             <!-- die neue ordnung der Seiten -->';
 }
 
 unset($pageContent);
-// include the the category.config.php again, to overwrite the eventually changed $categories var
-include(dirname(__FILE__)."/../../config/category.config.php");
+
 ?>
 
 

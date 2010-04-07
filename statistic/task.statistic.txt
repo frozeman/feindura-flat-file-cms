@@ -1,3 +1,5 @@
+2010-04-07 15:49:18|-|frozeman|-|Seite in Kategorie verschoben|-|<a href="index.php?category=1&amp;page=1">Willkommen</a><br />in <a href="index.php?site=pages&amp;category=1">linkes oberes Men&uuml;</a>
+2010-04-07 15:49:12|-|frozeman|-|Seite in Kategorie verschoben|-|<a href="index.php?category=0&amp;page=1">Willkommen</a><br />in <a href="index.php?site=pages&amp;category=0">Seiten ohne Kategorie</a>
 2010-04-06 18:52:30|-|frozeman|-|Administrator-Einstellungen gespeichert
 2010-04-05 19:31:51|-|frozeman|-|Administrator-Einstellungen gespeichert
 2010-04-05 19:20:12|-|frozeman|-|Datei gel&ouml;scht|-|/_feindura10/addons/heute.php

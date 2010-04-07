@@ -16,17 +16,11 @@
 
 * FRONTEND feindura functions
 * 
-* library/functions/frontend.functions.php version 1.89
+* library/functions/sort.functions.php version 0.12
 * 
-* FUNCTIONS -----------------------------------
-* 
-* createTitleDate($date)
-* 
-* createTitle($category, $page, $title, $titleTag, $titleId = false, $titleClass = false, $titleLength = false, $titleAsLink = false, $titleWithCategory = false, $titleDate = false)
-*
 */
 
-$feindura_categories = @include(dirname(__FILE__).'/../../config/category.config.php');
+$feindura_categories = $categories;  
 
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER

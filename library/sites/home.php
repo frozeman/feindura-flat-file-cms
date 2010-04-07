@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-home.php version 0.85
+home.php version 0.86
 
 */
 
@@ -90,13 +90,16 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
           <hr class="small" />';
       echo '</div>';
-    
-      echo '<div style="width:100%; text-align:right;">';
-      // FIRST VISIT
-      echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
-      // LADST VISIT
-      echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
-    echo '</div></div>';
+      
+      if(!empty($websiteStatistic['firstVisit'])) {
+        echo '<div style="width:100%; text-align:right;">';
+        // FIRST VISIT
+        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+        // LADST VISIT
+        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+        echo '</div>';
+      }
+    echo '</div>';
     
     // ->> LOAD all PAGES
     $orgPages = $generalFunctions->loadPages(true);

@@ -19,8 +19,7 @@
 
 error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
 
-
-// -> START SESSION (for what?)
+// -> START SESSION (for the language)
 session_cache_limiter(60);
 session_start();
 

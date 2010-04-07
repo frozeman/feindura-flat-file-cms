@@ -726,10 +726,9 @@ else $hidden = '';
 <?php
 
 $htmlEditorStyleFilePath = "config/htmlEditorStyles.js";
-$htmlEditorStyleFile = fopen($htmlEditorStyleFilePath,"r");
-
-$htmlEditorStyleContent = fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
-fclose($htmlEditorStyleFile);
+$htmlEditorStyleFile = @fopen($htmlEditorStyleFilePath,"r");
+$htmlEditorStyleContent = @fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
+@fclose($htmlEditorStyleFile);
 
 
 // shows the block below if it is the ones which is saved before
