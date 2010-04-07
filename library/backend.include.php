@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* backend.include.php version 0.23
+* backend.include.php version 0.24
 */
 
 error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
@@ -24,8 +24,13 @@ error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
 session_cache_limiter(60);
 session_start();
 
+// INCLUDES
 require_once(dirname(__FILE__)."/general.include.php");
+require_once(dirname(__FILE__)."/functions/backend.functions.php");
 
+// GET FUNCTIONS
+$generalFunctions = new generalFunctions();
+$statisticFunctions = new statisticFunctions();
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
 $errorWindow = false;
@@ -33,22 +38,6 @@ $documentSaved = false;
 $savedForm = false;
 $newPage = false;
 
-
-// get SETTINGS
-$adminConfig =       @include_once(dirname(__FILE__)."/../config/admin.config.php");
-$websiteConfig =     @include_once(dirname(__FILE__)."/../config/website.config.php");
-$statisticConfig =   @include_once(dirname(__FILE__)."/../config/statistic.config.php");
-$categories =        @include_once(dirname(__FILE__)."/../config/category.config.php");
-$websiteStatistic =  @include_once(dirname(__FILE__)."/../statistic/website.statistic.php");
-
-require_once(dirname(__FILE__)."/functions/backend.functions.php");
-
-require_once(dirname(__FILE__)."/classes/generalFunctions.class.php");
-require_once(dirname(__FILE__)."/classes/statisticFunctions.class.php");
-
-// GET FUNCTIONS
-$generalFunctions = new generalFunctions();
-$statisticFunctions = new statisticFunctions();
 
 
 // ->> choose LANGUAGE START -----------------------------------------------------
