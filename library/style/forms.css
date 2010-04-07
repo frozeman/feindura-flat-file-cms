@@ -105,13 +105,13 @@ input.submit:hover, a.submit:hover, a.ok:hover {
 #content .block input.submit {
     z-index: 4;
     position: relative;
-    bottom: 25px !important;
+    bottom: 15px !important;
     }
     
 /* CANCEL */
 a.cancel {
     display: inline-block;
-    text-decoration: none;  
+    text-decoration: none;    
     }
 input.cancel, a.cancel {
     width: 75px;
@@ -124,6 +124,10 @@ input.cancel:hover, a.cancel:hover {
 #content .block input.cancel {
     position: relative;
     margin-bottom: 20px;
+    }
+#content .block a.cancel {
+    position: relative;
+    bottom: -18px !important;
     }
     
 /* CANCEL, SUBMIT -> POSITIONS */
@@ -156,7 +160,7 @@ input.search:hover {
     }
 
 /* EDITFILES new file */
-.editFiles.right {
+div.editFiles.right {
     position: absolute;
     right: 7px;
     top: 19px;

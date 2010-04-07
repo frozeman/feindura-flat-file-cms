@@ -128,6 +128,8 @@ $langFile['log_categorySetup_new'] = 'Neue Kategorie erstellt';
 $langFile['log_categorySetup_delete'] = 'Kategorie gel&ouml;scht';
 $langFile['log_categorySetup_move'] = 'Kategorie verschoben';
 
+$langFile['log_pluginSetup_saved'] = 'Plugin-Einstellungen gespeichert';
+
 $langFile['log_file_saved'] = 'Datei gespeichert';
 
 $langFile['log_file_deleted'] = 'Datei gel&ouml;scht';
@@ -342,7 +344,7 @@ $langFile['adminSetup_error_writeAccess'] = 'ist nicht beschreibbar';
 $langFile['adminSetup_error_isFolder'] = 'ist kein Verzeichnis';
 
 // ---------- FMS Settings
-$langFile['adminSetup_fmsSettings_error_save'] = $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/admin.config.php';
+$langFile['adminSetup_fmsSettings_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/admin.config.php';
 
 $langFile['adminSetup_fmsSettings_h1'] = 'Grund-Einstellungen';
 
@@ -577,6 +579,10 @@ $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler 
 
 
 $langFile['pluginSetup_editFiles_h1'] = 'Dateien bearbeiten';
+
+$langFile['pluginSetup_pluginconfig_active'] = 'Plugin aktiviert';
+
+$langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
 
 
 // ---------------------------------------------------------------------------------------------------------------------

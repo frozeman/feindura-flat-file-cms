@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 153
+Build 154
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
 	build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png
 	build 152: editFiles() delete button position fixed with float: left;
 	build 151: userSetup.php fixed start session issue

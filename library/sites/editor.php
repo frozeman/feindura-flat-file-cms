@@ -327,7 +327,7 @@ else
     </table>    
     
   </div>
-  <div class="bottom"></div>
+  <div class="bottom" style="height:0px; clear:all;"></div>
 </div>
 
 <!-- page settings anchor is here -->

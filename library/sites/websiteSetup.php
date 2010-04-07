@@ -43,7 +43,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 }
 
 // ---------- SAVE the editFiles
-include(dirname(__FILE__).'/../process/saveEditFiles.php');
+include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
 @include (dirname(__FILE__)."/../../config/website.config.php"); // loads the saved settings again

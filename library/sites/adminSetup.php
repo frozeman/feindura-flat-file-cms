@@ -247,7 +247,7 @@ if(isset($_POST['saveFckStyleFile'])) {
 }
 
 // ---------- SAVE the editFiles
-include(dirname(__FILE__).'/../process/saveEditFiles.php');
+include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
 @include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved settings again
@@ -266,9 +266,9 @@ basePathWarning();
 // ----------------------------------------------------------------------------------------
 $unwriteableList = '';
 
-
 $checkFolders[] = $adminConfig['basePath'].'config/';
 $checkFolders[] = $adminConfig['basePath'].'statistic/';
+$checkFolders[] = $adminConfig['basePath'].'plugins/';
 $checkFolders[] = $adminConfig['savePath'];
 $checkFolders[] = $adminConfig['websitefilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
@@ -496,7 +496,7 @@ else $hidden = '';
       <tr><td class="left">
       <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_tip']; ?>"><?php echo $langFile['adminSetup_userSettings_textarea1']; ?></span></label>
       </td><td class="right">
-      <textarea id="cfg_userInfo" name="cfg_userInfo"  cols="50" rows="8" style="white-space:normal;width:500px;height:250px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br />','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
+      <textarea id="cfg_userInfo" name="cfg_userInfo"  cols="50" rows="8" style="white-space:normal;width:500px;height:250px;" class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br />','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>
