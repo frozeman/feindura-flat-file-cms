@@ -10,8 +10,8 @@ $categories = array(
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
           "tags"          => '',
-          "sortdate"      => '',
-          "sortbydate"    => '',
+          "sortdate"      => 'true',
+          "sortbydate"    => 'true',
           
           "styleFile"     => '',
           "styleId"       => '',

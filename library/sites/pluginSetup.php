@@ -56,7 +56,7 @@ foreach($pluginFolders['folders'] as $pluginFolder) {
     
     $pluginName = basename($pluginFolder);
     
-    echo '<div class="block">
+    echo '<div class="block open">
             <h1>'.$pluginName.'</h1>';
             
             // edit plugin files

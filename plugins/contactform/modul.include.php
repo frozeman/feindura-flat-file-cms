@@ -1,7 +1,7 @@
 <?php
 // created by Fabian Vogelsteller [frozeman.de]
 // 
-// contactform.php version 1.56 (ben�tigt Rmail (thirdparty/Rmail/))
+// contactform.php version 1.56 (needs Rmail (thirdparty/Rmail/))
 //
 // mit session (muss mit session_start(); gestartet werden)
 //

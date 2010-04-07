@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-content.css version 0.2 */
+content.css version 0.21 */
 
 /* ----------------------- */	
 /* ---:- BLOCK */
@@ -91,6 +91,20 @@ content.css version 0.2 */
     margin: 5px 3px;
     margin-left: 100px;
     color: #957700;
+    }
+
+/* open block */
+
+#content .block.open {
+    z-index: 0;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    background: url(../image/bg/content_block_open.png) no-repeat !important; 
+    }
+
+#content .block.open .bottom {
+    clear: both;
+    height: 0px;
     }
 
 /* ----------------------- */	
