@@ -1,6 +1,6 @@
 <?php
 /*  feindura - Flat File Content Management System
-    Copyright (C) 2009 Fabian Vogelsteller [frozeman.de]
+    Copyright (C) Fabian Vogelsteller [frozeman.de]
 
     This program is free software;
     you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
