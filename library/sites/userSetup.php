@@ -1,4 +1,6 @@
-<!-- 
+<?php
+/*
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 + PHPAccess by sc02
 + Administration of 
@@ -14,8 +16,7 @@ edited by Fabian Vogelsteller:
 
 verion 0.53
 
- -->
-<?php
+*/
 
 include(dirname(__FILE__).'/../backend.include.php');
 

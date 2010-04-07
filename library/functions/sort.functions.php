@@ -20,7 +20,7 @@
 * 
 */
 
-$feindura_categories = $categories;  
+$feindura_categories = $categories;
 
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER
