@@ -123,6 +123,8 @@ $langFile['log_clearStatistic_pagesStatistics'] = 'Seiten-Statistiken gel&ouml;s
 $langFile['log_clearStatistic_refererLog'] = 'Referrer-URLs Log gel&ouml;scht';
 $langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten Log gel&ouml;scht';
 
+$langFile['log_pageSetup_saved'] = 'Seiten-Einstellungen gespeichert';
+
 $langFile['log_categorySetup_saved'] = 'Kategorien gespeichert';
 $langFile['log_categorySetup_new'] = 'Neue Kategorie erstellt';
 $langFile['log_categorySetup_delete'] = 'Kategorie gel&ouml;scht';
@@ -159,8 +161,6 @@ $langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
 $langFile['txt_logo'] = 'feindura CMS, Version ';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
-$langFile['txt_tag_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
-
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------- FRONTEND shared TEXTs
 
@@ -180,7 +180,7 @@ $langFile['btn_search'] = 'Seiten durchsuchen';
 // --- adminMenu
 $langFile['title_adminMenu'] = 'Administration';
 $langFile['btn_adminSetup'] = 'Administrator Einstellungen';
-$langFile['btn_categorySetup'] = 'Kategorien Verwaltung';
+$langFile['btn_categorySetup'] = 'Seiten Einstellungen';
 $langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
 $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
 
@@ -398,23 +398,6 @@ $langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</s
 $langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Diese zus&auml;tzlichen Informationen werden auf der [span class=logoname]fein[span]dura[/span][/span] Startseite angezeigt.';
 $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
 
-// ---------- pageSettings
-
-$langFile['adminSetup_pageSettings_h1'] = 'Seiten-Einstellungen';
-$langFile['adminSetup_pageSettings_check1'] = 'Startseite ist einstellbar';
-$langFile['adminSetup_pageSettings_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
-
-$langFile['adminSetup_pageSettings_noncategorypages'] = 'Seiten ohne Kategorie';
-$langFile['adminSetup_pageSettings_check2'] = 'Seiten erstellen/l&ouml;schen';
-$langFile['adminSetup_pageSettings_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
-$langFile['adminSetup_pageSettings_check3'] = 'Thumbnail hochladen';
-$langFile['adminSetup_pageSettings_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
-$langFile['adminSetup_pageSettings_check4'] = 'Tags bearbeiten';
-$langFile['adminSetup_pageSettings_check4_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['txt_tag_tip'];
-$langFile['adminSetup_pageSettings_check5'] = 'Plugins erlauben';
-$langFile['adminSetup_pageSettings_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
-
-
 // ---------- editor Settings
 
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
@@ -463,7 +446,27 @@ $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte ni
 //
 // ---------- CATEGORY SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
 
-$langFile['categorySetup_h1'] = 'Kategorien Verwaltung';
+$langFile['categorySetup_general_tag_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
+
+// ---------- page settings
+
+$langFile['categorySetup_pageConfig_h1'] = 'Seiten-Einstellungen';
+$langFile['categorySetup_pageConfig_check1'] = 'Startseite ist einstellbar';
+$langFile['categorySetup_pageConfig_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
+
+$langFile['categorySetup_pageConfig_noncategorypages'] = 'Seiten ohne Kategorie';
+$langFile['categorySetup_pageConfig_check2'] = 'Seiten erstellen/l&ouml;schen';
+$langFile['categorySetup_pageConfig_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
+$langFile['categorySetup_pageConfig_check3'] = 'Thumbnail hochladen';
+$langFile['categorySetup_pageConfig_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
+$langFile['categorySetup_pageConfig_check4'] = 'Tags bearbeiten';
+$langFile['categorySetup_pageConfig_check4_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['categorySetup_general_tag_tip'];
+$langFile['categorySetup_pageConfig_check5'] = 'Plugins erlauben';
+$langFile['categorySetup_pageConfig_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
+
+// ---------- category settings
+
+$langFile['categorySetup_h1'] = 'Kategorien-Verwaltung';
 $langFile['categorySetup_createCategory'] = 'Neue Kategorie erstellen';
 $langFile['categorySetup_createCategory_created'] = 'Neue Kategorie erstellt';
 $langFile['categorySetup_createCategory_unnamed'] = 'Unbenannte Kategorie';
@@ -497,7 +500,7 @@ $langFile['categorySetup_check3'] = 'Thumbnail hochladen';
 $langFile['categorySetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
 
 $langFile['categorySetup_check4'] = 'Tags bearbeiten';
-$langFile['categorySetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['txt_tag_tip'];
+$langFile['categorySetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['categorySetup_general_tag_tip'];
 
 $langFile['categorySetup_check8'] = 'Plugins erlauben';
 $langFile['categorySetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie erlauben';

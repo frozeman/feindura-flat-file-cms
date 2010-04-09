@@ -132,12 +132,12 @@ if($savedForm != 'websiteConfig')
 </form>
 <?php
 
-if($adminConfig['user']['editLanguage']) {  
+if($adminConfig['user']['editWebsiteFiles']) {  
   // BEARBEITUNG DER ERWEITERTEN WEBSEITEN-EINSTELLUNGEN 
-  editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor", "php");
+  editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
 }
 
-if($adminConfig['user']['editStylesheet']) {
+if($adminConfig['user']['editStylesheets']) {
   // BEARBEITUNG DER STYLESHEETDATEI
   editFiles($adminConfig['stylesheetPath'], $_GET['site'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
 }

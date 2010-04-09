@@ -25,7 +25,7 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
 
-// ****** ---------- EINSTELLUNEGN SPEICHERN in config/admin.config.php
+// ****** ---------- SAVE ADMIN CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
@@ -53,7 +53,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
   
-  // ->> SPEAKING URL .htaccess
+  // ->> add SPEAKING URL to .htaccess
   // --------------------------
     $speakingUrlCode = '<IfModule mod_rewrite.c>
 RewriteEngine On
@@ -168,56 +168,51 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
   }
   
-  // **** opens admin.config.php for writing
-  if($file = @fopen("config/admin.config.php","w")) {
-    flock($file,2); // LOCK_EX
-    fwrite($file,PHPSTARTTAG); //< ?php
-    
-    fwrite($file,"\$adminConfig['url'] =             '".$_SERVER["HTTP_HOST"]."';\n");
-    fwrite($file,"\$adminConfig['basePath'] =        '".dirname($_SERVER['PHP_SELF']).'/'."';\n");
-    fwrite($file,"\$adminConfig['savePath'] =        '".$_POST['cfg_savePath']."';\n");
-    fwrite($file,"\$adminConfig['uploadPath'] =      '".$_POST['cfg_uploadPath']."';\n");  
-    fwrite($file,"\$adminConfig['websitefilesPath'] =        '".$_POST['cfg_websitefilesPath']."';\n");
-    fwrite($file,"\$adminConfig['stylesheetPath'] =  '".$_POST['cfg_stylesheetPath']."';\n");    
-    fwrite($file,"\$adminConfig['dateFormat'] =      '".$_POST['cfg_dateFormat']."';\n");
-    fwrite($file,"\$adminConfig['speakingUrl'] =      '".$_POST['cfg_speakingUrl']."';\n\n");
-    
-    fwrite($file,"\$adminConfig['varName']['page'] =     '".$_POST['cfg_varNamePage']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['category'] = '".$_POST['cfg_varNameCategory']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$_POST['cfg_varNameModul']."';\n\n");
-    
-    fwrite($file,"\$adminConfig['user']['editLanguage'] =    '".$_POST['cfg_userLanguage']."';\n");
-    fwrite($file,"\$adminConfig['user']['editStylesheet'] =  '".$_POST['cfg_userStylesheet']."';\n");  
-    fwrite($file,"\$adminConfig['user']['info'] =            '".$_POST['cfg_userInfo']."';\n\n");
-    
-    fwrite($file,"\$adminConfig['setStartPage'] =            '".$_POST['cfg_setStartPage']."';\n");
-    fwrite($file,"\$adminConfig['page']['createPages'] =     '".$_POST['cfg_pageCreatePages']."';\n");
-    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$_POST['cfg_pageThumbnailUpload']."';\n");
-    fwrite($file,"\$adminConfig['page']['tags'] =            '".$_POST['cfg_pageTags']."';\n");
-    fwrite($file,"\$adminConfig['page']['plugins'] =         '".$_POST['cfg_pagePlugins']."';\n\n");
-    
-    fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".strtolower($_POST['cfg_editorEnterMode'])."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$_POST['cfg_editorStyleFile']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleId'] =     '".str_replace(array('#','.'),'',$_POST['cfg_editorStyleId'])."';\n");  
-    fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass'])."';\n\n");  
+  // -> PREPARE CONFIG VARs
+  $adminConfig['url'] = $_SERVER["HTTP_HOST"];
+  $adminConfig['basePath'] = dirname($_SERVER['PHP_SELF']).'/';
+  $adminConfig['savePath'] =  $_POST['cfg_savePath'];
   
-    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =      '".$_POST['cfg_thumbWidth']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['height'] =     '".$_POST['cfg_thumbHeight']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =      '".$_POST['cfg_thumbRatio']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =       'images/".$_POST['cfg_thumbPath']."';\n\n");
+  $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
+  $adminConfig['websitefilesPath'] = $_POST['cfg_websitefilesPath'];
+  $adminConfig['stylesheetPath'] = $_POST['cfg_stylesheetPath'];    
+  $adminConfig['dateFormat'] = $_POST['cfg_dateFormat'];
+  $adminConfig['speakingUrl'] = $_POST['cfg_speakingUrl'];
     
-    fwrite($file,"return \$adminConfig;");
-       
-    fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
-    fclose($file);
+  $adminConfig['varName']['page'] = $_POST['cfg_varNamePage'];  
+  $adminConfig['varName']['category'] = $_POST['cfg_varNameCategory'];  
+  $adminConfig['varName']['modul'] = $_POST['cfg_varNameModul'];
     
+  $adminConfig['user']['editWebsiteFiles'] = $_POST['cfg_userWebsiteFiles'];
+  $adminConfig['user']['editStylesheets'] = $_POST['cfg_userStylesheets'];  
+  $adminConfig['user']['info'] = $_POST['cfg_userInfo'];
+    
+  // -> saved in categorySetup.php
+  //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
+  //$adminConfig['page']['createPages'] = $_POST['cfg_pageCreatePages'];
+  //$adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];
+  //$adminConfig['page']['tags'] = $_POST['cfg_pageTags'];
+  //$adminConfig['page']['plugins'] = $_POST['cfg_pagePlugins'];
+    
+  $adminConfig['editor']['enterMode'] = strtolower($_POST['cfg_editorEnterMode']);
+  $adminConfig['editor']['styleFile'] = $_POST['cfg_editorStyleFile'];
+  $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
+  $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
+  
+  $adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
+  $adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
+  $adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
+  $adminConfig['pageThumbnail']['path'] = 'images/'.$_POST['cfg_thumbPath'];
+  
+  // **** opens admin.config.php for writing
+  if(saveAdminConfig($adminConfig)) {   
+     
     // give documentSaved status
     $documentSaved = true;
     $statisticFunctions->saveTaskLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
-  } else {
+    
+  } else
     $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
-  }
   
   $savedForm = $_POST['savedBlock'];
 
@@ -485,12 +480,12 @@ else $hidden = '';
       
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userLanguage" name="cfg_userLanguage" value="true"<?php if($adminConfig['user']['editLanguage']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_userStylesheet" name="cfg_userStylesheet" value="true"<?php if($adminConfig['user']['editStylesheet']) echo ' checked="checked"'; ?> />
+      <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStylesheets']) echo ' checked="checked"'; ?> />
       
       </td><td class="right checkboxes">
-      <label for="cfg_userLanguage"><?php echo $langFile['adminSetup_userSettings_check1']; ?></label><br />
-      <label for="cfg_userStylesheet"><?php echo $langFile['adminSetup_userSettings_check2']; ?></label>
+      <label for="cfg_userWebsiteFiles"><?php echo $langFile['adminSetup_userSettings_check1']; ?></label><br />
+      <label for="cfg_userStylesheets"><?php echo $langFile['adminSetup_userSettings_check2']; ?></label>
       </td></tr>
       
       <tr><td class="leftTop"></td><td></td></tr>
@@ -507,55 +502,6 @@ else $hidden = '';
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
     <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings';" />
-  </div>
-  <div class="bottom"></div>
-</div>
-
-<!-- PAGE SETTINGS -->
-<?php
-// shows the block below if it is the ones which is saved before
-if($savedForm != 'pageSettings')  $hidden = ' hidden';
-else $hidden = '';  
-?>
-<div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="pageSettings" name="pageSettings"><?php echo $langFile['adminSetup_pageSettings_h1']; ?></a></h1>
-  <div class="content">
-    <table>
-     
-      <colgroup>
-      <col class="left" />
-      </colgroup>
-        
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_setStartPage" name="cfg_setStartPage" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check1'].'::'.$langFile['adminSetup_pageSettings_check1_tip']; ?>"<?php if($adminConfig['setStartPage']) echo ' checked="checked"'; ?> />
-      </td><td class="right checkboxes">
-      <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check1'].'::'.$langFile['adminSetup_pageSettings_check1_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check1']; ?></span></label>
-      </td></tr>
-      
-      <tr><td class="spacer checkboxes"></td><td></td></tr>      
-      
-      <tr><td class="spacer checkboxes"></td><td><h2><?php echo $langFile['adminSetup_pageSettings_noncategorypages']; ?></h2></td></tr>      
-      
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check2'].'::'.$langFile['adminSetup_pageSettings_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check4'].'::'.$langFile['adminSetup_pageSettings_check4_tip']; ?>"<?php if($adminConfig['page']['tags']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pagePlugins" name="cfg_pagePlugins" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check5'].'::'.$langFile['adminSetup_pageSettings_check5_tip']; ?>"<?php if($adminConfig['page']['plugins']) echo ' checked="checked"'; ?> />
-      
-      </td><td class="right checkboxes">
-      <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check2'].'::'.$langFile['adminSetup_pageSettings_check2_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check2']; ?></span></label><br />
-      <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check3']; ?></span></label><br />
-      <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check4'].'::'.$langFile['adminSetup_pageSettings_check4_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check4']; ?></span></label><br />
-      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check5'].'::'.$langFile['adminSetup_pageSettings_check5_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check5']; ?></span></label>
-      </td></tr>
-      
-      <tr><td class="spacer checkboxes"></td><td></td></tr>
-      <tr><td class="spacer checkboxes"></td><td></td></tr> 
-      
-    </table>
-    
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -760,7 +706,7 @@ if($savedForm != 'fckStyleFile')
 <?php
 
 // BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor", "php");
+editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
   
 
 // BEARBEITUNG DER STYLESHEETDATEI

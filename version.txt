@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 155
+Build 156
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 156: add saveAdminConfig() to backend.functions.php; moved page settings to categorySetup.php; changeg saveprcess of the admin.config.php; add input field in editFiles()
 	build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off 
 	build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
 	build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png

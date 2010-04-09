@@ -28,6 +28,32 @@ $categoryInfo = false;
 // **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------------------------------
+// ****** ---------- SAVE PAGE CONFIG in config/admin.config.php
+if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
+  
+  $adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
+  $adminConfig['page']['createPages'] = $_POST['cfg_pageCreatePages'];
+  $adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];
+  $adminConfig['page']['tags'] = $_POST['cfg_pageTags'];
+  $adminConfig['page']['plugins'] = $_POST['cfg_pagePlugins'];
+  
+  // **** opens admin.config.php for writing
+  if(saveAdminConfig($adminConfig)) {
+     
+    // give documentSaved status
+    $documentSaved = true;
+    $statisticFunctions->saveTaskLog($langFile['log_pageSetup_saved']); // <- SAVE the task in a LOG FILE
+    
+  } else
+    $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
+  
+  $savedForm = 'pageConfig';
+}
+
+// ---------------------------------------------------------------------------------------------------
+// ****** ---------- SAVE CATEGORY CONFIG in config/category.config.php
+
 // ****** ---------- CREATE NEW CATEGORY
 if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['createCategory'])) ||
    $_GET['status'] == 'createCategory') {
@@ -152,6 +178,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   $savedForm = 'categories';
 }
 
+
+@include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved adminConfig again
 @include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
@@ -163,6 +191,8 @@ $unwriteableList = '';
 
 // check config files
 $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
+if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/admin.config.php'))
+  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/admin.config.php');
 if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/category.config.php'))
   $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/category.config.php');
 
@@ -181,6 +211,62 @@ if($unwriteableList) {
 // ------------------------------------------------------------------------------------------- end WRITEABLE CHECK
 
 ?>
+
+<!-- PAGE CONFIG -->
+<?php
+// shows the block below if it is the ones which is saved before
+if($savedForm == 'categories') $hidden = ' hidden';
+else $hidden = '';
+?>
+
+<form action="?site=categorySetup#top" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  <div>
+  <input type="hidden" name="send" value="pageConfig" />
+  </div>
+  
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#" id="pageConfig" name="pageConfig"><?php echo $langFile['categorySetup_pageConfig_h1']; ?></a></h1>
+  <div class="content">
+    <table>
+     
+      <colgroup>
+      <col class="left" />
+      </colgroup>
+        
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_setStartPage" name="cfg_setStartPage" value="true" class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check1'].'::'.$langFile['categorySetup_pageConfig_check1_tip']; ?>"<?php if($adminConfig['setStartPage']) echo ' checked="checked"'; ?> />
+      </td><td class="right checkboxes">
+      <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check1'].'::'.$langFile['categorySetup_pageConfig_check1_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check1']; ?></span></label>
+      </td></tr>
+      
+      <tr><td class="spacer checkboxes"></td><td></td></tr>      
+      
+      <tr><td class="spacer checkboxes"></td><td><h2><?php echo $langFile['categorySetup_pageConfig_noncategorypages']; ?></h2></td></tr>      
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check2'].'::'.$langFile['categorySetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check3'].'::'.$langFile['categorySetup_pageConfig_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check4'].'::'.$langFile['categorySetup_pageConfig_check4_tip']; ?>"<?php if($adminConfig['page']['tags']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pagePlugins" name="cfg_pagePlugins" value="true" class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check5'].'::'.$langFile['categorySetup_pageConfig_check5_tip']; ?>"<?php if($adminConfig['page']['plugins']) echo ' checked="checked"'; ?> />
+      
+      </td><td class="right checkboxes">
+      <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check2'].'::'.$langFile['categorySetup_pageConfig_check2_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check2']; ?></span></label><br />
+      <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check3'].'::'.$langFile['categorySetup_pageConfig_check3_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check3']; ?></span></label><br />
+      <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check4'].'::'.$langFile['categorySetup_pageConfig_check4_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check4']; ?></span></label><br />
+      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check5'].'::'.$langFile['categorySetup_pageConfig_check5_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check5']; ?></span></label>
+      </td></tr>
+      
+      <tr><td class="spacer checkboxes"></td><td></td></tr>
+      <tr><td class="spacer checkboxes"></td><td></td></tr> 
+      
+    </table>
+    
+    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+  </div>
+  <div class="bottom"></div>
+</div>
+</form>
 
 <!-- CATEGORIES SETTINGS -->
 

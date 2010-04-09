@@ -160,10 +160,17 @@ input.search:hover {
     }
 
 /* EDITFILES new file */
+div.editFiles.left {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 600px;
+    white-space:nowrap;
+    }
 div.editFiles.right {
     position: absolute;
     right: 7px;
-    top: 19px;
+    top: 18px;
     width: 250px;
     height: 80px;
     padding-left: 10px;
