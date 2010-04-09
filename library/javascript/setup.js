@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/setup.js version 0.22 (requires mootools-core and mootools-more)
+// java/setup.js version 0.23 (requires mootools-core and mootools-more)
 
 
 var deactivateType = 'disabled'; // disabled/readonly
@@ -75,8 +75,9 @@ window.addEvent('domready', function() {
   // adds THUMBRATIO deactivation
   setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio'); 
   
-  // go trough every category
-  if($$('.advancedcategoryConfig') != null) {  
+  // -----------------------------------------
+  // GO TROUGH every CATEGORY
+  if($$('.advancedcategoryConfig') != null) {
     
     var countCategories = 0;
     
@@ -87,11 +88,27 @@ window.addEvent('domready', function() {
        // count categories
        countCategories++;
        
-       //var
+       // var
        var advancedcategoryConfigTable = categoryConfig.getElements('table')[1];
     
        // creates the slide effect
   	   var slideAdvancedcategoryConfig = new Fx.Slide(advancedcategoryConfigTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
+       
+       // hides the wrapper on start
+       advancedcategoryConfigTable.getParent().fade('hide');
+      
+       // ON COMPLETE
+       slideAdvancedcategoryConfig.onComplete = function(el) {
+  
+            // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+            if(slideAdvancedcategoryConfig.open) {
+              advancedcategoryConfigTable.getParent().fade('hide');
+              slideAdvancedcategoryConfig.open = false;
+            } else {              
+              advancedcategoryConfigTable.getParent().fade('show');
+              slideAdvancedcategoryConfig.open= true;
+            }
+        }
       
        // slides the hotky div in, on start
        if(advancedcategoryConfigTable.hasClass('hidden'))
@@ -102,6 +119,7 @@ window.addEvent('domready', function() {
          categoryConfig.getElements('a')[2].addEvent('click', function(e) {
         		e.stop();	
         		slideAdvancedcategoryConfig.toggle();
+        		advancedcategoryConfigTable.getParent().fade('show');
         		advancedcategoryConfigTable.toggleClass('hidden');
         	});
        }
