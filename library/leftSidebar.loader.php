@@ -193,7 +193,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // FMS INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
             <p>'.$version[2].' - '.$version[3].'</p>';
-      echo '<a href="version.txt" class="standardLink">changelog</a>';
+      echo '<a href="VERSION.txt" class="standardLink">changelog</a>';
       echo '<hr />';
       
       if(substr(phpversion(),0,3) >= '4.3') {
