@@ -14,7 +14,9 @@
     
 * 
 * 
-* toolTips.php version 0.11 (require mootools-core AND mootools-more) */
+* toolTips.php version 0.12 (require mootools-core AND mootools-more) */
+
+// !!!! TOOLTIPS IN IE DEACTIVATED, WAITING FOR mootools UPDATE !!!!
 
 /* str_replace funktion */
 function is_array(value) {
@@ -37,6 +39,7 @@ function str_replace(s, r, c) {
 
 /* set toolTips to all objects with a toolTip class */
 function setToolTips() {
+
   //store titles and text
 	$$('.toolTip').each(function(element,index) {
 	  if(element.get('title')) {
@@ -53,15 +56,17 @@ function setToolTips() {
   		element.store('tip:title', content[0]);
   		element.store('tip:text', content[1]);    		
   	}
+
 	});
 
   
   /* add Tooltips */
   var toolTips = new Tips('.toolTip',{
-    className: 'toolTip',
-    onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
-    onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
+    className: 'toolTipBox',
+    //onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
+    //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
     offset: {'x': 5,'y': 12},
+    fixed: false,
     showDelay: 200,
     hideDelay: 0 });
 }
@@ -69,6 +74,7 @@ function setToolTips() {
 
 /* when the DOM is ready */
 window.addEvent('domready', function() {
-    
-    setToolTips();
+    // toolTips throw error in IE :-(
+    if(!navigator.appVersion.match(/MSIE ([0-8]\.\d)/))
+      setToolTips();
 });

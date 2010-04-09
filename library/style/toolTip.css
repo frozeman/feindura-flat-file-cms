@@ -13,12 +13,13 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-toolTip.css version 0.53 */
+toolTip.css version 0.54 */
 
+/* --- TOOLTIP in the text */
 
 .toolTip {
     z-index: 11;
-    cursor: help;    
+    cursor: help;
     }
 /* textarea toolTip */
 input.toolTip, textarea.toolTip {
@@ -48,8 +49,10 @@ span.toolTip {
     
     }
 
+/* --- TOOLTIP BOX */
+
 /* format of the toolTip box */
-.toolTip .tip-title	{
+.toolTipBox .tip-title	{
     z-index: 2;
     position: relative;    
     margin: 0px 40px;
@@ -60,10 +63,10 @@ span.toolTip {
     text-align: center;
     word-wrap: break-word;
     }
-.toolTip .tip-title span	{
+.toolTipBox .tip-title span	{
     color: #666666;
     }
-.toolTip .tip-text	{
+.toolTipBox .tip-text	{
     z-index: 2;
     position: relative;
     color: #666666;
@@ -71,14 +74,14 @@ span.toolTip {
     padding-bottom: 0px;
     word-wrap: break-word;    
     }
-.toolTip .tip-top {
+.toolTipBox .tip-top {
     z-index: 0;
     position: relative;
     background:url(../image/bg/toolTip_top.png) top left no-repeat;
     width:272px;
     height:40px;  
     }
-.toolTip .tip {
+.toolTipBox .tip {
     z-index: 1;
     position: relative;
     width:272px;
@@ -86,16 +89,16 @@ span.toolTip {
     line-height: 20px;
     border: none;
     }
-.toolTip .tip ul {
+.toolTipBox .tip ul {
     padding: 0px;
     margin: 0px;
     margin-left: 15px;
     }
-.toolTip .tip ul li {
+.toolTipBox .tip ul li {
     padding: 2px 0px;
     margin: 0px;
     }
-.toolTip .tip-bottom	{
+.toolTipBox .tip-bottom	{
     background:url(../image/bg/toolTip_bottom.png) left bottom no-repeat;
     width:272px;
     height:35px;
