@@ -38,6 +38,10 @@ input[disabled="disabled"], textarea[disabled="disabled"] {
     border: 1px dotted #cccccc;
     color: #A0A3A1;
     }
+    
+select {
+    padding: 1px 4px;
+    }
 
 textarea {
     line-height: 20px;

@@ -382,7 +382,7 @@ else $hidden = '';
                 </td></tr>';          
                 // category name
           echo '<tr><td class="left">
-                '.$langFile['categorySetup_feld1'].'
+                '.$langFile['categorySetup_field1'].'
                 </td><td class="right">
                 <input name="categories['.$category['id'].'][name]" value="'.$category['name'].'" />
                 </td></tr>';

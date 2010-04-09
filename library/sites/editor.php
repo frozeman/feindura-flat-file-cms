@@ -97,9 +97,12 @@ if($_POST['save']) {
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
+    // generates sortDate
+    $generatedSortDate = $_POST['sortdate']['year'].'-'.$_POST['sortdate']['month'].'-'.$_POST['sortdate']['day'];
+    
     // VALIDATE the SORT DATE
-    if(($sortDate = $statisticFunctions->validateDateFormat($_POST['sortdate']['date'])) === false) {
-      $sortDate = $_POST['sortdate']['date'];
+    if(($sortDate = $statisticFunctions->validateDateFormat($generatedSortDate)) === false) {
+      $sortDate = $generatedSortDate;
     }
     // set the validated date to the post var
     $_POST['sortdate']['date'] = $sortDate;
@@ -509,25 +512,21 @@ else $hidden = ' hidden';
       <!-- ***** PAGE TITLE -->
       
       <tr><td class="left">
-      <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld1'].'::'.$langFile['editor_pageSettings_feld1_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_feld1'] ?></span></label>
+      <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1'].'::'.$langFile['editor_pageSettings_field1_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_field1'] ?></span></label>
       </td><td class="right">
         <input id="edit_title" name="title" style="width:480px;" value="<?php echo $pageContent['title']; ?>" />        
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>      
-      
       <?php
+      
       // shows only if activated
-      if($categories['id_'.$_GET['category']]['sortdate']) { ?>  
+      if($categories['id_'.$_GET['category']]['sortdate']) { ?>
+      
       <!-- ***** SORT DATE -->
       
-      <?php
-      
-      if($adminConfig['dateFormat'] == 'eu')
-        $dateFormat = $langFile['date_eu'];
-      else
-        $dateFormat = $langFile['date_int'];
+      <?php      
         
       // add the DATE of TODAY, if its a NEW PAGE
       if($newPage) {
@@ -538,17 +537,71 @@ else $hidden = ' hidden';
       <tr><td class="left">
       <label for="edit_sortdate">
       <?php
+      
+      // get date format
+      if($adminConfig['dateFormat'] == 'eu')
+        $dateFormat = $langFile['date_eu'];
+      else
+        $dateFormat = $langFile['date_int'];
+      
       // CHECKs the DATE FORMAT
       if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
         echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
       else
-        echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_tip'].'">'.$langFile['editor_pageSettings_feld3'].'</span>';
+        echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_tip'].'">'.$langFile['editor_pageSettings_field3'].'</span>';
       ?>
       </label>
+      
       </td><td class="right">
-        <input name="sortdate[before]" value="<?php echo $pageContent['sortdate']['before']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part1']; ?>" style="width:140px;" />
-        <input id="edit_sortdate" name="sortdate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['sortdate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3'].'::'.$langFile['editor_pageSettings_feld3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />
-        <input name="sortdate[after]" value="<?php echo $pageContent['sortdate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld3_inpuTip_part3']; ?>" style="width:140px;" />
+        <input name="sortdate[before]" value="<?php echo $pageContent['sortdate']['before']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_sortdate_before_inputTip']; ?>" style="width:130px;" />
+        
+        <?php
+        
+        // -> creates DAY selection
+        $sortDateTags['day'] = '<select name="sortdate[day]" class="toolTip" title="'.$langFile['editor_pageSettings_sortdate_day_inputTip'].'">'."\n";
+        for($i = 1; $i <= 31; $i++) {
+          // adds following zero
+          if(strlen($i) == 1)
+            $countDays = '0'.$i;
+          else $countDays = $i;
+          // selects the selected month
+          if(substr($pageContent['sortdate']['date'],-2) == $countDays)
+            $selected = ' selected="selected"';
+          else $selected = null;
+          $sortDateTags['day'] .= '<option value="'.$countDays.'"'.$selected.'>'.$countDays.'</option>'."\n";
+        }
+        $sortDateTags['day'] .= '</select>'."\n";
+
+        // -> creates MONTH selection
+        $sortDateTags['month'] = '<select name="sortdate[month]" class="toolTip" title="'.$langFile['editor_pageSettings_sortdate_month_inputTip'].'">'."\n";
+        for($i = 1; $i <= 12; $i++) {
+          // adds following zero
+          if(strlen($i) == 1)
+            $countMonths = '0'.$i;            
+          else $countMonths = $i;
+          // selects the selected month
+          if(substr($pageContent['sortdate']['date'],5,2) == $countMonths)
+            $selected = ' selected="selected"';
+          else $selected = null;
+          $sortDateTags['month'] .= '<option value="'.$countMonths.'"'.$selected.'>'.$countMonths.'</option>'."\n";
+        }
+        $sortDateTags['month'] .= '</select>'."\n";
+        
+        // -> creates MONTH selection
+        $sortDateTags['year'] = '<input type="text" class="short toolTip" name="sortdate[year]" title="'.$langFile['editor_pageSettings_sortdate_year_inputTip'].'" value="'.substr($pageContent['sortdate']['date'],0,4).'" maxlength="4" />'."\n";
+
+        
+        // -> WRITES the SORT DATE TAGS
+        if($adminConfig['dateFormat'] == 'eu') {
+          echo $sortDateTags['day'].' . '.$sortDateTags['month'].' . '.$sortDateTags['year'];
+        } elseif($adminConfig['dateFormat'] == 'int') {
+          echo $sortDateTags['year'].' - '.$sortDateTags['month'].' - '.$sortDateTags['day'];
+        }
+        
+        ?>
+        
+        <!--<input id="edit_sortdate" name="sortdate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['sortdate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />-->
+        <input name="sortdate[after]" value="<?php echo $pageContent['sortdate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_sortdate_after_inputTip']; ?>" style="width:120px;" />
       </td></tr>
       <?php }
       
@@ -558,10 +611,10 @@ else $hidden = ' hidden';
       <!-- ***** TAGS -->
       
       <tr><td class="left">
-      <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_feld2'] ?></span></label>
+      <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_field2'] ?></span></label>
       </td><td class="right">
-        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_feld2'].'::'.$langFile['editor_pageSettings_feld2_tip_inputTip']; ?>" />        
+        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip_inputTip']; ?>" />        
       </td></tr>
       <?php } ?>
       
@@ -585,8 +638,8 @@ else $hidden = ' hidden';
           echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
 
         ?>
-        &nbsp;<span class="toolTip" title="<?php echo $langFile['editor_pageSettings_feld4'].'::'.$langFile['editor_pageSettings_feld4_tip'] ?>">
-        <?php echo $langFile['editor_pageSettings_feld4']; ?></span></label>        
+        &nbsp;<span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field4'].'::'.$langFile['editor_pageSettings_field4_tip'] ?>">
+        <?php echo $langFile['editor_pageSettings_field4']; ?></span></label>        
       </td></tr>
       
       <tr><td class="spacer checkboxes"></td><td></td></tr>
@@ -649,20 +702,20 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
     <table width="450" cellspacing="0" cellpadding="8" border="0">
       <tr>
         <td style="background-color:#EDECEC;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld1']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field1']; ?></b></td>
         <td align="left" style="background-color:#EDECEC;"> STRG + A</td>
       </tr><tr>
         <td style="background-color:#E3E3E3;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld2']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field2']; ?></b></td>
         <td align="left" style="background-color:#E3E3E3;"> STRG + C</td>
       </tr><tr>
         <td style="background-color:#EDECEC;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld3']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field3']; ?></b></td>
         <td align="left" style="background-color:#EDECEC;">
           STRG + V</td>
       </tr><tr>
         <td style="background-color:#E3E3E3;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld4']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field4']; ?></b></td>
         <td align="left" style="background-color:#E3E3E3;">
           STRG + X 
           <b><?php echo $langFile['editor_htmleditor_hotkeys_or']; ?></b> SHIFT + Del</td>
@@ -670,11 +723,11 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
         <td colspan="2" height="5" style="background-color:#B3B3B4;"> </td>
       </tr><tr>
         <td style="background-color:#EDECEC;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld5']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field5']; ?></b></td>
         <td align="left" style="background-color:#EDECEC;"> STRG + Z</td>
       </tr><tr>
         <td style="background-color:#E3E3E3;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld6']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field6']; ?></b></td>
         <td align="left" style="background-color:#E3E3E3;">
           STRG + Y 
           <b><?php echo $langFile['editor_htmleditor_hotkeys_or']; ?></b> STRG + SHIFT + Z</td>
@@ -682,19 +735,19 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
         <td colspan="2" height="5" style="background-color:#B3B3B4;"> </td>
       </tr><tr>
         <td style="background-color:#EDECEC;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld7']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field7']; ?></b></td>
         <td align="left" style="background-color:#EDECEC;"> STRG + L</td>
       </tr><tr>
         <td style="background-color:#E3E3E3;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld8']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field8']; ?></b></td>
         <td align="left" style="background-color:#E3E3E3;"> STRG + B</td>
       </tr><tr>
         <td style="background-color:#EDECEC;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld9']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field9']; ?></b></td>
         <td align="left" style="background-color:#EDECEC;"> STRG + I</td>
       </tr><tr>
         <td style="background-color:#E3E3E3;">
-          <b><?php echo $langFile['editor_htmleditor_hotkeys_feld10']; ?></b></td>
+          <b><?php echo $langFile['editor_htmleditor_hotkeys_field10']; ?></b></td>
         <td align="left" style="background-color:#E3E3E3;"> STRG + U</td>
       </tr>
     </table>
@@ -724,22 +777,22 @@ else $hidden = ' hidden';
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld1'].'::'.$langFile['editor_advancedpageSettings_feld1_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld1']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field1'].'::'.$langFile['editor_advancedpageSettings_field1_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field1']; ?></span>
       </td><td class="right">
       <input name="styleFile" value="<?php if(empty($pageContent['styleFile'])) { if(!empty($categories['id_'.$_GET['category']]['styleFile'])) echo $categories['id_'.$_GET['category']]['styleFile']; else echo $adminConfig['editor']['styleFile']; } else echo $pageContent['styleFile']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
-      <span class="hint"><?php echo $langFile['editor_advancedpageSettings_feld1_inputTip2']; ?></span>                
+      <span class="hint"><?php echo $langFile['editor_advancedpageSettings_field1_inputTip2']; ?></span>                
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld3'].'::'.$langFile['editor_advancedpageSettings_feld3_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld3']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3'].'::'.$langFile['editor_advancedpageSettings_field3_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field3']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category']]['styleId'])) echo $categories['id_'.$_GET['category']]['styleId']; else echo $adminConfig['editor']['styleId']; } else echo $pageContent['styleId']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld3_inputTip']; ?>" />
+      <input name="styleId" value="<?php if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category']]['styleId'])) echo $categories['id_'.$_GET['category']]['styleId']; else echo $adminConfig['editor']['styleId']; } else echo $pageContent['styleId']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3_inputTip']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld4'].'::'.$langFile['editor_advancedpageSettings_feld4_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_feld4']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4'].'::'.$langFile['editor_advancedpageSettings_field4_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field4']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) echo $categories['id_'.$_GET['category']]['styleClass']; else echo $adminConfig['editor']['styleClass']; } else echo $pageContent['styleClass']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_feld4_inputTip']; ?>" />
+      <input name="styleClass" value="<?php if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) echo $categories['id_'.$_GET['category']]['styleClass']; else echo $adminConfig['editor']['styleClass']; } else echo $pageContent['styleClass']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4_inputTip']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

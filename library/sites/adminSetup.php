@@ -337,28 +337,28 @@ else $hidden = '';
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="cfg_url"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld1'].'::'.$langFile['adminSetup_fmsSettings_feld1_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld1'] ?></span></label>
+      <label for="cfg_url"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field1'].'::'.$langFile['adminSetup_fmsSettings_field1_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field1'] ?></span></label>
       </td><td class="right">
       <?php
       $basePath = str_replace('www.','',$adminConfig['url']);
       $checkPath = str_replace('www.','',$_SERVER["HTTP_HOST"]);
       ?>
-      <input id="cfg_url" name="cfg_url"<?php if($basePath != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_feld1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld1_inputTip']; ?>" />
+      <input id="cfg_url" name="cfg_url"<?php if($basePath != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field1_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_basePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld2'].'::'.$langFile['adminSetup_fmsSettings_feld2_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld2'] ?></span></label>
+      <label for="cfg_basePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field2'].'::'.$langFile['adminSetup_fmsSettings_field2_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field2'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != dirname($_SERVER['PHP_SELF']).'/') echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_feld2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld2_inputTip']; ?>" />
+      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != dirname($_SERVER['PHP_SELF']).'/') echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field2_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="cfg_savePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld3'].'::'.$langFile['adminSetup_fmsSettings_feld3_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld3'] ?></span></label>
+      <label for="cfg_savePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field3'].'::'.$langFile['adminSetup_fmsSettings_field3_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field3'] ?></span></label>
       </td><td class="right">
       <input size="40" id="cfg_savePath" name="cfg_savePath" value="<?php echo $adminConfig['savePath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
@@ -367,24 +367,24 @@ else $hidden = '';
       <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="cfg_uploadPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld4'].'::'.$langFile['adminSetup_fmsSettings_feld4_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld4'] ?></span></label>
+      <label for="cfg_uploadPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field4'].'::'.$langFile['adminSetup_fmsSettings_field4_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field4'] ?></span></label>
       </td><td class="right">
       <input size="40" id="cfg_uploadPath" name="cfg_uploadPath" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_websitefilesPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld5'].'::'.$langFile['adminSetup_fmsSettings_feld5_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld5'] ?></span></label>
+      <label for="cfg_websitefilesPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field5'].'::'.$langFile['adminSetup_fmsSettings_field5_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field5'] ?></span></label>
       </td><td class="right">
       <input size="40" id="cfg_websitefilesPath" name="cfg_websitefilesPath" value="<?php echo $adminConfig['websitefilesPath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_stylesheetPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld6'].'::'.$langFile['adminSetup_fmsSettings_feld6_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld6'] ?></span></label>
+      <label for="cfg_stylesheetPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field6'].'::'.$langFile['adminSetup_fmsSettings_field6_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field6'] ?></span></label>
       </td><td class="right">
       <input size="40" id="cfg_stylesheetPath" name="cfg_stylesheetPath" value="<?php echo $adminConfig['stylesheetPath']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
@@ -393,8 +393,8 @@ else $hidden = '';
       <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="cfg_dateFormat"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_feld7'].'::'.$langFile['adminSetup_fmsSettings_feld7_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_feld7'] ?></span></label>
+      <label for="cfg_dateFormat"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field7'].'::'.$langFile['adminSetup_fmsSettings_field7_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field7'] ?></span></label>
       </td><td class="right">
       <select id="cfg_dateFormat" name="cfg_dateFormat">
         <option value="eu"<?php if($adminConfig['dateFormat'] == 'eu') echo ' selected="selected"'; ?>><?php echo $langFile['date_eu'];?></option>
@@ -524,8 +524,8 @@ else $hidden = '';
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="cfg_editorEnterMode"><span class="toolTip" title="<?php echo $langFile['adminSetup_editorSettings_feld1'].'::'.$langFile['adminSetup_editorSettings_feld1_tip'] ?>">
-      <?php echo $langFile['adminSetup_editorSettings_feld1'] ?></span></label>
+      <label for="cfg_editorEnterMode"><span class="toolTip" title="<?php echo $langFile['adminSetup_editorSettings_field1'].'::'.$langFile['adminSetup_editorSettings_field1_tip'] ?>">
+      <?php echo $langFile['adminSetup_editorSettings_field1'] ?></span></label>
       </td><td class="right">
       <select id="cfg_editorEnterMode" name="cfg_editorEnterMode">
         <option value="p" <?php if($adminConfig['editor']['enterMode'] == 'p') echo 'selected="selected"'; ?>>&lt;p&gt;</option>
@@ -545,14 +545,14 @@ else $hidden = '';
       <label for="cfg_editorStyleId"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'] ?>">
       <?php echo $langFile['stylesheet_name_styleId'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="toolTip" value="<?php echo $adminConfig['editor']['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_feld3_inputTip']; ?>" />
+      <input id="cfg_editorStyleId" name="cfg_editorStyleId" class="toolTip" value="<?php echo $adminConfig['editor']['styleId']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field3_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="cfg_editorStyleClass"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'] ?>">
       <?php echo $langFile['stylesheet_name_styleClass'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="toolTip" value="<?php echo $adminConfig['editor']['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_feld4_inputTip']; ?>" />
+      <input id="cfg_editorStyleClass" name="cfg_editorStyleClass" class="toolTip" value="<?php echo $adminConfig['editor']['styleClass']; ?>" title="<?php echo $langFile['adminSetup_editorSettings_field4_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>
@@ -649,11 +649,11 @@ else $hidden = '';
       
       <!-- THUMB PATH -->
       <tr><td class="left">
-      <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_feld3'].'::'.$langFile['adminSetup_thumbnailSettings_feld3_tip'] ?>">
-      <?php echo $langFile['adminSetup_thumbnailSettings_feld3'] ?></span></label>
+      <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3'].'::'.$langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
+      <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
       </td><td class="right">
-      <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>images/" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_feld3_inputTip1']; ?>" />
-      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo str_replace("images/","",$adminConfig['pageThumbnail']['path']); ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_feld3_inputTip2']; ?>" />
+      <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>images/" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>" />
+      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo str_replace("images/","",$adminConfig['pageThumbnail']['path']); ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip2']; ?>" />
       </td></tr>
       
             

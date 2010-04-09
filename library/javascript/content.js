@@ -96,33 +96,13 @@ function blockSlideInOut(givenIdCLass) {
        
   	   // creates the slide effect
   	   slideVertical = new Fx.Slide(slideContent,{duration: '500', transition: Fx.Transitions.Pow.easeOut});	   
-
-  	   // --- IE 6 HACK fixes the problem in ie 6, that the bottom div stays at the bottom ---
-  	   /* ie hack vars */
-  	   /*if(bottomBorder != null && navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-  	     var blockHeightOut = (block.offsetHeight - 9) + 'px';
-  	     var blockHeightIn = (block.getElement('h1').offsetHeight + 20) + 'px';
-  	     bottomBorder.setStyle('top',blockHeightOut);
-  	     bottomBorder.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
-    	   
-    	   slideVertical.onStart = function(el) {
-    	       if(slideVertical.open) {  	           
-                bottomBorder.tween('top',blockHeightIn);
-                slideVertical.open = false;
-            } else {        
-                bottomBorder.tween('top',blockHeightOut);
-                slideVertical.open = true;
-            }         
-    	   }
-    	 }*/
-    	 // --- IE 6 HACK end ----
       
       
-      // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-      slideVertical.onStart = function(el) {     
-        slideContent.getParent().fade('show');  
-        slideContent.getParent().setStyle('height',slideContentHeightOut);
-      }      
+       // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+       slideVertical.onStart = function(el) {     
+         slideContent.getParent().fade('show');
+         //slideContent.getParent().setStyle('height',slideContentHeightOut);
+       }      
         
   	   // changes the up and down button class from the <div class="top">
   	   // so that the picture of the upper Toggle Buttons changes

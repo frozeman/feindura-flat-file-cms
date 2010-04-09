@@ -144,22 +144,22 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="numberMostVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_feld1_tip']; ?>">
-      <?php echo $langFile['statisticSetup_statisticConfig_feld1']; ?></span></label>
+      <label for="numberMostVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_field1_tip']; ?>">
+      <?php echo $langFile['statisticSetup_statisticConfig_field1']; ?></span></label>
       </td><td class="right">
       <input id="numberMostVisitedPages" name="number[mostVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['mostVisitedPages']; ?>" />
       </td></tr>
       
       <tr><td class="left">
-      <label for="numberLongestVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_feld2_tip']; ?>">
-      <?php echo $langFile['statisticSetup_statisticConfig_feld2']; ?></span></label>
+      <label for="numberLongestVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_field2_tip']; ?>">
+      <?php echo $langFile['statisticSetup_statisticConfig_field2']; ?></span></label>
       </td><td class="right">
       <input id="numberLongestVisitedPages" name="number[longestVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['longestVisitedPages']; ?>" />
       </td></tr>
       
       <tr><td class="left">
-      <label for="numberLastEditedPages"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_feld3_tip']; ?>">
-      <?php echo $langFile['statisticSetup_statisticConfig_feld3']; ?></span></label>
+      <label for="numberLastEditedPages"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_field3_tip']; ?>">
+      <?php echo $langFile['statisticSetup_statisticConfig_field3']; ?></span></label>
       </td><td class="right">
       <input id="numberLastEditedPages" name="number[lastEditedPages]" class="short" value="<?php echo $statisticConfig['number']['lastEditedPages']; ?>" />
       </td></tr>
@@ -167,15 +167,15 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
       <tr><td class="leftSpacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="numberRefererLog"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_feld4_tip']; ?>">
-      <?php echo $langFile['statisticSetup_statisticConfig_feld4']; ?></span></label>
+      <label for="numberRefererLog"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_field4_tip']; ?>">
+      <?php echo $langFile['statisticSetup_statisticConfig_field4']; ?></span></label>
       </td><td class="right">
       <input id="numberRefererLog" name="number[refererLog]" class="short" value="<?php echo $statisticConfig['number']['refererLog']; ?>" />
       </td></tr>
 
       <tr><td class="left">
-      <label for="numberTaskLog"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_feld5_tip']; ?>">
-      <?php echo $langFile['statisticSetup_statisticConfig_feld5']; ?></span></label>
+      <label for="numberTaskLog"><span class="toolTip" title="<?php echo '::'.$langFile['statisticSetup_statisticConfig_field5_tip']; ?>">
+      <?php echo $langFile['statisticSetup_statisticConfig_field5']; ?></span></label>
       </td><td class="right">
       <input id="numberTaskLog" name="number[taskLog]" class="short" value="<?php echo $statisticConfig['number']['taskLog']; ?>" />
       </td></tr>

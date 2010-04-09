@@ -108,7 +108,7 @@ if($categoryRatio) {
   <input type="hidden" name="thumbRatio" value="<?php echo $thumbRatio; ?>" />
 
 	<!-- file selection -->
-  <h2><?php echo $langFile['pagethumbnail_feld1']; ?></h2>
+  <h2><?php echo $langFile['pagethumbnail_field1']; ?></h2>
   
 	<input type="file" name="thumbFile" style="z-index:10;"/>
   <br />	
@@ -123,7 +123,7 @@ if($categoryRatio) {
   if($thumbRatioY) {
   ?>
   <tr><td style="width: 80px">
-  <label for="windowBox_thumbWidth"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_feld1_tip'] ?>">
+  <label for="windowBox_thumbWidth"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_field1_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></span></label>
   </td><td>
   <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?> />
@@ -147,7 +147,7 @@ if($categoryRatio) {
   if($thumbRatioX) {
   ?>  
   <tr><td style="width: 80px">
-  <label for="windowBox_thumbHeight"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_feld2_tip'] ?>">
+  <label for="windowBox_thumbHeight"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_field2_tip'] ?>">
   <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></span></label>
   </td><td>
   <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?> />
