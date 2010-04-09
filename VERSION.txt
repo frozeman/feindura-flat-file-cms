@@ -1,0 +1,241 @@
+feindura - Flat File Content Management System
+Version
+1.0 beta
+Build 161
+--------------------------------------------------
+Copyright © Fabian Vogelsteller [frozeman.de]
+published under the GNU General Public License version 3
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 3 of the License, or any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program;
+You can find it in the license.txt
+if not, see http://www.gnu.org/licenses/. 
+--------------------------------------------------
+
+REQUIREMENTS:
+-> PHP >= 4.3.0
+-> storedPages Array can have up to 30 000 Pages if the memory limit is 16MB 
+
+--------------------------------------------------
+
+
+Changelog:
+	
+	build 161: license.txt and version.txt changed in LICENSE.txt and VERSION.txt
+	build 160: add CKEditor 3.2.1 build 5372 and add to git
+	build 159: editor sortdate is now an selection instead of an input field
+	build 158: fixed slide advancedCategorySetup in IE7
+	build 157: !!! TOOLTIPS IN IE DEACTIVATED, WAITING FOR mootools UPDATE !!!
+	build 156: add saveAdminConfig() to backend.functions.php; moved page settings to categorySetup.php; changeg saveprcess of the admin.config.php; add input field in editFiles()
+	build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off 
+	build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
+	build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png
+	build 152: editFiles() delete button position fixed with float: left;
+	build 151: userSetup.php fixed start session issue
+	build 150: even if config folder is missing there are now no errors thrown
+	build 149: reorganized all *.include.php
+	build 148: add pluginSetup.php
+	build 147: changed statiostic file names to *.statistic.php
+	build 146: changed config file names to *.config.php
+	build 145: add deleteEditFiles.php, editFiles() are now deleteable
+	build 144: started to build pluginSetup.php, made changes in $_POST['send'] in the forms, no contains the form name (before only true), fixes in editFiles()
+	build 143: removed old mootools.js and add the new to git
+	build 142: listPages.php: dont show toolTip if there is no "lastsaveauthor" for the page
+	build 141: content.css picture of blockSpacer and bottom-margin changed
+	build 140: adminConfig['savePath'] is now an absolute path
+	build 139: add the thirdparty ckfinder config.php and the customformelements folder to git
+	build 138: add "lastsaveauthor" to the pages variables and changed "savedate" in "lastsavedate", made the content box shadows lighter
+	build 137: changed version to beta status
+	build 136: statisticFunctions.class.php: change $number with floatval() before make formatHighNumber(), changed all file permissions in linux to 755
+	build 135: error_reporting(E_ALL) is now only in the backend.include.php, add is_dir($fullFolder) check in readFolder()
+	build 134: backend.functions.php: editFiles() edit files even in subfolders, and there are now sorted naturally in the file selection
+	build 133: backend.functions.php: add readFolderRecursive() annd modified createStyleTags()
+	build 132: adminSetup.php: check if files/folders are readable go now recursive trough folders and check them
+	build 131: add stylefile files/folder to the check read/write list
+	build 130: leftSidbar.loader.php: add changelog link in the admin setup sidebar
+	build 129: adminSetup.php: enter key mode in html editor is now a selection instead of an textfield
+	build 128: add ckeditor 3.2.1 build 5302, and ckfinder 1.4.3, and fixed htmlEditorStyles.js link in editor.php
+	build 127: feindura.class.php: category will also be set if there is setStartPage allowed
+	build 126: deletePage.php: moved the ok button after deleting in the center
+	build 125: toolTips.js: removed arrow like corner of the toolTip an repositioned the toolTip box
+	build 124: editor.php: add category selection at creating a page
+	build 123: editor.php: fixed thumbnail resize bug (small thumbnail were resized to 200px)
+	build 122: pageThumbnailUpload.php: fixed thumbsize none ratio bug
+	build 121: fixed error text issue, now returns false if showError == false; title renamed in showTitle; content renamed in showContent; error renamed in showError
+	build 120: changed text and var: sprachdateien in websitefiles
+	build 119: removed toolTip from editor.php show max/min time visit
+	build 118: GoogleChrome-Frame integrated
+	build 117: changed speaking url folders from from /pages/ to /page/
+	build 116: edit tags, can now be disabled in the categorySetup.php
+	build 115: fixed UTF-8 issue, every form is now only set to UTF-8
+	build 114: feindura.class.php: createMenu() if no menuTag als menuBefore and MenuBetween and menuAfter are integrated (removed line 625)
+	build 113: upload.php: add filesize error
+	build 112: backend.functions.php: loadCssFiles() fixes
+	build 111: generalFunctions.class.php: add getCharacterNumber(), and renamed: general.class.php in generalFunctions.class.php, statistic.class.php in statisticFunctions.class.php and frontend.class.php in frontendFunctions.class.php
+	build 110: backend.functions.php: add readFolder() and loadCssFiles()
+	build 109: leftSidebar.loader.php: #top anchor add in categorySetup
+	build 108: CKFinder 1.4.2 add
+	build 107: backend.functions.php: editFilesInFolders() on saving new file, it opens this file after saving
+	build 106: backend.functions.php: delete filetype of editFilesInFolders() if there is one set, to prevent double filetype
+	build 105: loading.js: fixed small IE issue, asks now if the loading box container  is not null
+	build 104: feindura.class.php: textShorten, now adds 6 chars if ther is a speacial char like "&auml;"
+	build 103: ckeditor 3.1 add (build 4937)
+	build 102: backend.functions.php: saveWebseiteSetup() htmlentities add UTF-8 coding
+	build 101: feindura.class.php: load de.frontend.php language file, checks before if file exists
+	build 100: feindura.class.php: PROPERTY ->startPage add;
+	build 99: categorySetup.php: anchor now also on category up/down; if saved with advancedConfig open it stays open; ALL inputs are now save to insert " or ' (" will be deleted and ' escaped)
+	build 98: editor.php: submitAnchor add to the submit buttons;
+	build 97: editor.php: embeded CKEditor 3.1, now has also config.bodyId and config.bodyClass, fixed some editor size issues
+	build 96: feindura.class.php: listPages RETURNs an empty Array if there are no Pages
+	build 95: backend.functions.php: editFilesInFolders() fixed new file input issue (input doesn't resize)
+	build 94: feindura.class.php: all methods ONLY RETURN values now, and DON'T echo them directly in the methods!
+	build 93: feindura.class.php: createLink() SHOWs now also the link and not only returns them
+	build 92: add statisticSetup.php -> can delete statistics and setup them; fixed some issues; old IE show now a info to update
+	build 91: loading box now loaded at the start of the page
+	build 90: sort user on home alphabetical; change padding in the table.td.coloredList
+	build 89: add seperate browser statistic for IE 1-6
+	build 88: fixed some safari ajax problems (needs a space at the beginning of every ajax loaded page); corrected the de.backend.php
+	build 87: sortbydate deactivates the sorting of the category; some fixes in the toolTip -> showSortDate
+	build 86: task log logs also the page sortings now
+	build 85: if there is an thumbnail size ratio set, then dont show the height or width in the thumbnail upload
+	build 84: createTagCloud: tags link to the searchpage with the tag as searchword
+	build 83: sidebarMenu: reloads if pages are sorted; categories in listpages can now be opend without javascript
+	build 82: layout.css: ck_editor dialog background set to the one in from the windowBox to: #cke_dialog_background_cover
+	build 81: statistic.class: taskLog shows also the user now
+	build 80: adminSetup/categorySetup: add size-ratio for the pageThumbnail 
+	build 79: ajax.js: with click on a category in the leftSidebar Menu a ajax request loads the leftSideBar.loader.php new, with new GET vars
+	build 78: adminSetup: warning add to Speaking URLs
+	build 77: general.class: speaking url are now lower-case
+	build 76: statistics.class: dont save referrer with the own url  in it
+	build 75: add searchword cloud on the overview page
+	build 74: slide in the non-category if empty
+
+1.0 alpha
+	-> name changed from FrozeMentSystem to feindura - Flat File Content Management System
+	-> complete redesigned
+
+	-> file and category system based on ids
+	-> drag and drop to change the sorting of the pages, even between catgories
+	-> complete restructure of the file system
+
+	-> feindura class for an easy implimentation of the feindura cms
+	
+	-> Build Number system introduced
+	-> version set back to 1.0
+
+
+OLD LOG
+---------------------------------
+
+1.8	complete redesigned;
+
+
+1.71:	Übungsseite entfernt;
+	Flatfiles werden nicht mehr nach Dateinamen sondern nach ID gespeichert;
+	mootools Drag and Drop sortierfunktion zum anordnen der Seiten;
+
+1.7:  GPL Lizens eingefügt;      
+
+      library/php/ ordner erstellt;
+      library/thumbnail/ ordner erstellt; <- thumbnailupload.php, thumbnailinfo.php, thumbnaildelete.php, thumbupload.php und util.php, config.php (von filemanager/upload/php/) hineinkopiert
+    
+      fmsfuntions.php in library/php/backend.php umbenannt;
+      functions.php aus dem frontend in library/php/frontend.php umbenannt;
+      
+      license.txt in version.txt umbenannt;
+      sheets.css: input[readonly] eingefügt und border auf none gesetzt;
+      alle FMS Farbschema css Dateien geändert;
+
+      htmleditor/posteddata.php in library/savePage.php umbenannt; 
+
+      Dateien verändert: savePage.php, search.php, delete.php, editor.php, setup.php, home.php,
+      userSetup.php, download.php, settings.php, index.php, fmsFuntcions.php, frontendFunctions.php,
+      thumbinfo.php, thumbnaildelete.php, thumbupload.php.thumbnailupload.php,
+
+      editor/filemanager/upload/php/config.php $upload_ordner in $cfg_uploadPath geändert;
+      editor/filemanager/connectors/php/config.php $upload_ordner in $cfg_uploadPath geändert;
+
+      setup.php: $sBasePath wird automatisch über dirname(__FILE__) eingefügt;
+
+
+1.68: fmsfuntion.php: phpTags werden jetzt über dirname(__FILE__)."/style/phptags.txt" geladen;
+
+1.67: usersetup.php, setup.php: bei der Sprachdatei speichern werden die umlaute in html zeichen umgewandelt;
+
+1.66: postdata.php: wandelt in filename mehrere ____ in _ um;
+
+1.65: setup.php: $version in $license umbenannt;
+      postdata.php: verbessert
+
+1.64: index.php: module werde in seperaten blöcken und mit name und version angezeigt;
+      bei allen Dateien FrozeMent System in FrozeMentSystem umbenannt;
+      version.txt in license.txt umbenannt;
+
+1.63: index.php: modul/stylesheets werden automatisch geladen, aus _modules/.../css/;
+      styles/ ordner: theme input.buttons geändert;
+
+1.62: styles/ index.php: menu nach gruppen sortiert
+
+1.61: index.php: module befinden sich jetzt in unterordnern von modules/
+      sheets.css: module sind hervorgehoben gegnüber anderen buttons
+
+1.6:  editor.php: überprüft das Datumsfomat
+
+1.59: fmsfunctions.php: numeratePage() hinzugefüpgt;
+      postdata.php: neue_seite.php wird automatisch nummeriert beim vergessen des dateinamens,
+      umbenennen auf schon existierende dateien wird auch diese nummeriert
+1.58: setup.php, editor.php: user entermode eingefügt (br,p oder div)
+      delete.php: automatische weiterleitung wieder aktiviert;
+1.57: thumbnailupload.php, thumbinfo.php: erstellt (umbenannt von editor/fck_thumb.php); 
+      thumbupload.php: dateityp check, überprüft ob es ein jpeg, jpg oder png datei ist, ansonsten -> fehler
+      editor.php, sheets.css;
+      postdata.php: bei automatischer nummerierung _ eingefügt nach der zahl;
+      fmsfunctions.php: wird jetzt überall mit require_once() eingebunden;
+      delete.php löscht jetzt auch die thumbnails mit;
+1.56: search.php, setup.php, usersetup.php, index.php, postdata.php, thumbnailupload, thumbnaildelete, editor.php, fmsfunctions.php:
+      - gruppen werden per array_push und unset hinzugefügt bzw. entfernt ($gruppen_anzahl entfernt)
+      - fckeditor 2.6.4 installiert
+      - sheet.css, layout.css modifiziert, beim speichern der einstellungen verschwinden diese, und erst nachdem fertig gespeichert wurde erscheinen sie wieder
+      - automatische seitennummerierung eingebaut (läßt sich für jede gruppe, ein bzw aus schalten)
+      - stylsheet und sprachdatei bearbeitung zentral als funktion in fmsfunctions.php integriert
+1.55: setup.php, postdata.php: automatische dateinummerierung eingebaut;
+1.54: fmsfunction.php eingeführt;
+      geändert: postdata.php, thumbnaildelete.php, thumbnailupload.php, editor.php, setup.php, usersetup.php, index.php, home.php, search.php, delete.php,
+      filemanager/php/config.php settings.php rausgenommen;
+      thumbupload.php in den ordner htmleditor verschoben und geändert;
+1.53: setup.php, usersetup.php, editor.php: vor alle is_file ein @is_file;
+1.52: editor.php: zuletzt bearbeitet.. neu positioniert, schriftfarbe von aktualisieren geändert;
+      home.php: bearbeite von <strong>autor</strong>;
+      sheet.css: h1 line height eingefügt;
+      usersetup.php, setup.php absolut elemente an neue h1 höhe angepasst;
+1.51: index.php: im seitenmenu der gruppenseite, wird beim mouseover auch noch das publicdate mit angezeigt
+1.5:  editor.php haken bilder eingebaut; home.php haken bilder eingebaut; sheet.css ul.home_in rausgenommen;
+      index.php imt titel vom seitenmenü wird der status mit angezeigt;
+1.49: setup.php, usersetup.php, postdata.php: php tags < ?php ? > in extra datei gespeichert (style/phptags.txt);
+1.48.2: postdata.php: speichern der content variable verbessert (überall "test"=>'text');
+1.48.1: setup.php FrozeMentSystem Hauptpfad fett gemacht;
+1.48: setup.php: Miniaturansicht name in "Seitenbild" umgeändert
+1.47-5: setup.php, usersetup.php: design von edit stylesheets und edit sprachdatei angepasst
+1.47: usersetup.php hetmlentities() bei title eingefügt;
+      delete.php automatische weiterleitung eingefügt;
+      thumbnailupload.php, thumbnaildelete.php löschen gibt jetzt fehler aus bei fehlen der datei;
+      editor.php: Miniaturansicht in Vorschaubild umgeändert
+1.46: sprachdatei und stylesheetdatei bearbeiten eingebaut/verbessert,
+      textänderungen in setup.php; editor.php 1.1 neu thumbnailpic file_exists abfrage;
+      änderung thumbupload.php;
+      closedir änderung in index.php; änderung in der usersetup.php
+1.45: editor.php bei der testseite den auswahlbutton basic/erweitert weggenommen;
+      sheet.css bei h1 text-align: left eingefügt
+1.44: Farbige Buttons hinzugefügt (sheet.css und buttons_on/off.jpg)
+1.43: close button hinzugefügt und änderungen in der sheet.css
+1.42: pageT.php in _testpage.php umbenannt in index.php, postdata.php, editor.php
+1.42: weiterleitungs nach dem speichern option entfernt in postdata.php und setup.php
+1.42: modul funktion eingebaut in die index.php
+1.41: fck editor 2.6 installiert
+1.41: search.php 2.10
