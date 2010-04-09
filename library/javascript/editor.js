@@ -17,26 +17,22 @@
 
 
 window.addEvent('domready', function() {
-
   
-  if($('HTMLEditor') != null) {
+  if($('HTMLEditor') != null) {   
     
-    // var
-    var HTMLEditor = CKEDITOR;      
-      
     // ------------------------------
     // CONFIG the HTMlEditor
-    HTMLEditor.config.dialog_backgroundCoverColor   = '#333333';
-    HTMLEditor.config.uiColor                       = '#cccccc';
-    HTMLEditor.config.width                         = '792';
-    HTMLEditor.config.resize_minWidth               = '780';
-    HTMLEditor.config.height                        = '450';
-    HTMLEditor.config.resize_minHeight              = '400';
+    CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
+    CKEDITOR.config.uiColor                       = '#cccccc';
+    CKEDITOR.config.width                         = '792';
+    CKEDITOR.config.resize_minWidth               = '780';
+    CKEDITOR.config.height                        = '450';
+    CKEDITOR.config.resize_minHeight              = '400';
     
     //HTMLEditor.config.scayt_autoStartup         = true;
     //HTMLEditor.config.disableNativeSpellChecker = false;
     
-    HTMLEditor.config.toolbar               = [['Save','Preview','Maximize','-','Source'],
+    CKEDITOR.config.toolbar               = [['Save','Preview','Maximize','-','Source'],
                                               ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],
                                               ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
                                                '/',
@@ -49,18 +45,16 @@ window.addEvent('domready', function() {
                                             	['Styles','Format','FontSize'], // 'Font','FontName',
                                             	['TextColor','BGColor','-'],
                                             	['ShowBlocks','-','About']];		// No comma for the last row.
-      
+  
       
     
     // ----------------------------------------------------------------------
-    // creates the editor instance, with replacing the textarea with the name="HTMLEditor"
-  	HTMLEditor.replace( 'HTMLEditor',
-      {
-          //stylesCombo_stylesSet : 'htmlEditorStyles:../../../config/htmlEditorStyles.js',
+    // CREATES the editor instance, with replacing the textarea with the name="HTMLEditor"
+  	CKEDITOR.replace( 'HTMLEditor');
 
-      });
-         
-    CKFinder.SetupCKEditor( HTMLEditor, 'library/thirdparty/ckfinder/' ) ;
+    
+    // ADDS the CKFinder as filemanager to the CKEditor
+    CKFinder.SetupCKEditor(CKEDITOR, 'library/thirdparty/ckfinder/');    
   }
   
   // -----------------------------------------

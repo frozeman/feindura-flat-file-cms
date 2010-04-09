@@ -14,10 +14,10 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.90
+// editor.php version 1.91
 
 include_once("library/backend.include.php");
-//include("library/thirdparty/fckeditor/fckeditor.php");
+
 
 // VARs
 // -----------------------------------------------------------------------------
@@ -673,22 +673,21 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
 // ------------------------------
 ?>
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-<?php echo $pageContent['content']; ?>
+<?php echo htmlspecialchars($pageContent['content'],ENT_NOQUOTES,'UTF-8'); ?>
 </textarea>
 
 <script type="text/javascript">
 /* <![CDATA[ */
   
-  var HTMLEditor = CKEDITOR;
   
   // set the CONFIGs of the editor
-  HTMLEditor.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
-  HTMLEditor.config.language                  = '<?php echo $_SESSION["language"]; ?>';
-  HTMLEditor.config.contentsCss               = '<?php echo $editorStyleFile; ?>';
-  HTMLEditor.config.bodyId                    = '<?php echo $editorStyleId; ?>';
-  HTMLEditor.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
-  HTMLEditor.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
-  HTMLEditor.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
+  CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
+  CKEDITOR.config.language                  = '<?php echo $_SESSION["language"]; ?>';
+  CKEDITOR.config.contentsCss               = '<?php echo $editorStyleFile; ?>';
+  CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
+  CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
+  CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
+  CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
 
 
 /* ]]> */

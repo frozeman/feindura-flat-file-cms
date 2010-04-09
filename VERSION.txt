@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 161
+Build 162
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 162: editor.php: pageContent['content'] get converted with htmlspecialchars before put into the html code, ckeditor handles it right :-)
 	build 161: license.txt and version.txt changed in LICENSE.txt and VERSION.txt
 	build 160: add CKEditor 3.2.1 build 5372 and add to git
 	build 159: editor sortdate is now an selection instead of an input field

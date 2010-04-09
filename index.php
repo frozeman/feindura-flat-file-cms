@@ -448,7 +448,7 @@ createStyleTags($adminConfig['basePath'].'addons/');
       </div>
       
       <div id="copyright">
-        <span class="logoname">fein<span>dura</span></span> - Flat File Content Management System, Copyright &copy; 2009 <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="logoname">fein<span>dura</span></span> is published under the <a href="LICENSE.txt">GNU General Public License, version 3</a>
+        <span class="logoname">fein<span>dura</span></span> - Flat File Content Management System, Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="logoname">fein<span>dura</span></span> is published under the <a href="LICENSE.txt">GNU General Public License, version 3</a>
       </div>
     </div>
   </div>
