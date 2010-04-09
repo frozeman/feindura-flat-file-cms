@@ -202,6 +202,7 @@ function saveCategories($newCategories) {
           "createdelete"  => \''.$category['createdelete'].'\',
           "thumbnail"     => \''.$category['thumbnail'].'\',
           "tags"          => \''.$category['tags'].'\',
+          "plugins"       => \''.$category['plugins'].'\',
           "sortdate"      => \''.$category['sortdate'].'\',
           "sortbydate"    => \''.$category['sortbydate'].'\',
           

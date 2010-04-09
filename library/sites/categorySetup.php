@@ -191,7 +191,7 @@ if($unwriteableList) {
   </div>
 
 <div class="block">
-  <h1><a href="#" name="categories"><?php echo $langFile['categorySetup_h1']; ?></a></h1>
+  <h1><?php echo $langFile['categorySetup_h1']; ?></h1>
   <div class="content">
   
     <table>     
@@ -236,6 +236,9 @@ if($unwriteableList) {
           
           if($category['tags'])
             $checked[4] = 'checked="checked"';
+            
+          if($category['plugins'])
+            $checked[11] = 'checked="checked"';
           
           if($category['sortdate'])
             $checked[5] = 'checked="checked"';
@@ -309,6 +312,7 @@ if($unwriteableList) {
                 <input type="checkbox" id="categories'.$category['id'].'thumbnail" name="categories['.$category['id'].'][thumbnail]" value="true" '.$checked[3].' class="toolTip" title="'.$langFile['categorySetup_check3'].'::'.$langFile['categorySetup_check3_tip'].'" /><br />                
                 <br />
                 <input type="checkbox" id="categories'.$category['id'].'tags" name="categories['.$category['id'].'][tags]" value="true" '.$checked[4].' class="toolTip" title="'.$langFile['categorySetup_check4'].'::'.$langFile['categorySetup_check4_tip'].'" /><br />
+                <input type="checkbox" id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins]" value="true" '.$checked[11].' class="toolTip" title="'.$langFile['categorySetup_check8'].'::'.$langFile['categorySetup_check8_tip'].'" /><br />
                 <br />
                 <input type="checkbox" id="categories'.$category['id'].'sortdate" name="categories['.$category['id'].'][sortdate]" value="true" '.$checked[5].' class="toolTip" title="'.$langFile['categorySetup_check5'].'::'.$langFile['categorySetup_check5_tip'].'" /><br />
                 <input type="checkbox" id="categories'.$category['id'].'sortbydate" name="categories['.$category['id'].'][sortbydate]" value="true" '.$checked[6].' class="toolTip" title="'.$langFile['categorySetup_check6'].'::'.$langFile['categorySetup_check6_tip'].'" /><br />
@@ -339,6 +343,7 @@ if($unwriteableList) {
                 <label for="categories'.$category['id'].'thumbnail"><span class="toolTip" title="'.$langFile['categorySetup_check3'].'::'.$langFile['categorySetup_check3_tip'].'">'.$langFile['categorySetup_check3'].'</span></label><br />                
                 <br />
                 <label for="categories'.$category['id'].'tags"><span class="toolTip" title="'.$langFile['categorySetup_check4'].'::'.$langFile['categorySetup_check4_tip'].'">'.$langFile['categorySetup_check4'].'</span></label><br />
+                <label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['categorySetup_check8'].'::'.$langFile['categorySetup_check8_tip'].'">'.$langFile['categorySetup_check8'].'</span></label><br />
                 <br />
                 <label for="categories'.$category['id'].'sortdate"><span class="toolTip" title="'.$langFile['categorySetup_check5'].'::'.$langFile['categorySetup_check5_tip'].'">'.$langFile['categorySetup_check5'].'</span></label><br />
                 <label for="categories'.$category['id'].'sortbydate"><span class="toolTip" title="'.$langFile['categorySetup_check6'].'::'.$langFile['categorySetup_check6_tip'].'">'.$langFile['categorySetup_check6'].'</span></label><br /> 

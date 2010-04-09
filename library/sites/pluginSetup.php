@@ -95,14 +95,17 @@ if($unwriteableList && checkBasePath()) {
 // ---------------------------------------------------------------------------------------------------------------
 $pluginFolders = readFolder(DOCUMENTROOT.$adminConfig['basePath'].'plugins/'); //DOCUMENTROOT.$adminConfig['basePath'].'plugins/'; //dirname(__FILE__).'/../../plugins/'
 
+// VARs
+  $firstLine = true;
+
 foreach($pluginFolders['folders'] as $pluginFolder) {
   
   // ->> IF plugin folder HAS FILES
   if($pluginSubFolders = readFolderRecursive($pluginFolder)) {
 
-    // var
+    // VARs
     $pluginName = basename($pluginFolder);
-    $savedForm = false;
+    $savedForm = false;    
 
     // ->> WRITE PLUGIN CONFIG
     // ---------------------------------------------------------------------------
@@ -139,6 +142,12 @@ foreach($pluginFolders['folders'] as $pluginFolder) {
     
     // -> BEGINN PLUGIN FORM
     // ---------------------------------------------------------------------------
+    
+    // seperation line
+    if($firstLine) $firstLine = false;
+    else echo '<div class="blockSpacer"></div>';    
+    
+    
     echo '<form action="?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
             <div>
             <input type="hidden" name="send" value="'.$pluginName.'" />
@@ -177,9 +186,7 @@ foreach($pluginFolders['folders'] as $pluginFolder) {
             // edit plugin files
             editFiles($pluginFolder, $_GET['site'], "edit".$pluginName,  $pluginName.' '.$langFile['pluginSetup_editFiles_h1'], $pluginName."EditFilesAnchor", "php");
 
-    echo '</div>';
-    
-    echo '<div class="blockSpacer"></div>';  
+    echo '</div>';   
     
   }
 }

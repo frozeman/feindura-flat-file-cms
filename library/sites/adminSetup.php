@@ -192,7 +192,9 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
     
     fwrite($file,"\$adminConfig['setStartPage'] =            '".$_POST['cfg_setStartPage']."';\n");
     fwrite($file,"\$adminConfig['page']['createPages'] =     '".$_POST['cfg_pageCreatePages']."';\n");
-    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$_POST['cfg_pageThumbnailUpload']."';\n\n");
+    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$_POST['cfg_pageThumbnailUpload']."';\n");
+    fwrite($file,"\$adminConfig['page']['tags'] =            '".$_POST['cfg_pageTags']."';\n");
+    fwrite($file,"\$adminConfig['page']['plugins'] =         '".$_POST['cfg_pagePlugins']."';\n\n");
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".strtolower($_POST['cfg_editorEnterMode'])."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$_POST['cfg_editorStyleFile']."';\n");
@@ -532,13 +534,19 @@ else $hidden = '';
       
       <tr><td class="spacer checkboxes"></td><td></td></tr>      
       
+      <tr><td class="spacer checkboxes"></td><td><h2><?php echo $langFile['adminSetup_pageSettings_noncategorypages']; ?></h2></td></tr>      
+      
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check2'].'::'.$langFile['adminSetup_pageSettings_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> />
+      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check4'].'::'.$langFile['adminSetup_pageSettings_check4_tip']; ?>"<?php if($adminConfig['page']['tags']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pagePlugins" name="cfg_pagePlugins" value="true" class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check5'].'::'.$langFile['adminSetup_pageSettings_check5_tip']; ?>"<?php if($adminConfig['page']['plugins']) echo ' checked="checked"'; ?> />
       
       </td><td class="right checkboxes">
       <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check2'].'::'.$langFile['adminSetup_pageSettings_check2_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check2']; ?></span></label><br />
-      <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check3']; ?></span></label>
+      <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check3'].'::'.$langFile['adminSetup_pageSettings_check3_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check3']; ?></span></label><br />
+      <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check4'].'::'.$langFile['adminSetup_pageSettings_check4_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check4']; ?></span></label><br />
+      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['adminSetup_pageSettings_check5'].'::'.$langFile['adminSetup_pageSettings_check5_tip']; ?>"><?php echo $langFile['adminSetup_pageSettings_check5']; ?></span></label>
       </td></tr>
       
       <tr><td class="spacer checkboxes"></td><td></td></tr>

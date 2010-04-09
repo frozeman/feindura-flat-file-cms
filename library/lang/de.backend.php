@@ -154,10 +154,12 @@ $langFile['user_nousers'] = 'Keine Benutzer angelegt';
 $langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
 
 // ---------------------------------------------------------------------------------------------------------------------
-// ---------- FEINDURA TEXTs
+// ---------- GENERAL TEXTs
 
 $langFile['txt_logo'] = 'feindura CMS, Version ';
 $langFile['txt_loading'] = 'Seite wird geladen..';
+
+$langFile['txt_tag_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------- FRONTEND shared TEXTs
@@ -254,8 +256,6 @@ $langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span
 
 $langFile['btn_quickmenu_categories'] = 'Kategorien';
 $langFile['btn_quickmenu_pages'] = 'Seiten von';
-$langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
-
 
 // ---------------------------------------------------------------------------------------------------------------------
 // home.php
@@ -334,6 +334,7 @@ $langFile['form_errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
 
 $langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> Version';
 $langFile['adminSetup_phpVersion'] = 'PHP Version';
+$langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
 $langFile['adminSetup_srvRootPath'] = 'Server-Root-Pfad';
 
 $langFile['adminSetup_error_title'] = 'Es sind Fehler aufgetreten';
@@ -402,10 +403,17 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, 
 $langFile['adminSetup_pageSettings_h1'] = 'Seiten-Einstellungen';
 $langFile['adminSetup_pageSettings_check1'] = 'Startseite ist einstellbar';
 $langFile['adminSetup_pageSettings_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
-$langFile['adminSetup_pageSettings_check2'] = 'Seiten erstellen/l&ouml;schen anzeigen';
+
+$langFile['adminSetup_pageSettings_noncategorypages'] = 'Seiten ohne Kategorie';
+$langFile['adminSetup_pageSettings_check2'] = 'Seiten erstellen/l&ouml;schen';
 $langFile['adminSetup_pageSettings_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
-$langFile['adminSetup_pageSettings_check3'] = 'Thumbnail hochladen anzeigen';
+$langFile['adminSetup_pageSettings_check3'] = 'Thumbnail hochladen';
 $langFile['adminSetup_pageSettings_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
+$langFile['adminSetup_pageSettings_check4'] = 'Tags bearbeiten';
+$langFile['adminSetup_pageSettings_check4_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['txt_tag_tip'];
+$langFile['adminSetup_pageSettings_check5'] = 'Plugins erlauben';
+$langFile['adminSetup_pageSettings_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
+
 
 // ---------- editor Settings
 
@@ -488,14 +496,17 @@ $langFile['categorySetup_check2_tip'] = 'Der Benutzer kann in dieser Kategorie S
 $langFile['categorySetup_check3'] = 'Thumbnail hochladen';
 $langFile['categorySetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
 
-$langFile['categorySetup_check4'] = 'Es k&ouml;nnen Tags f&uuml;r diese Seiten festgelegt werden';
-$langFile['categorySetup_check4_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
+$langFile['categorySetup_check4'] = 'Tags bearbeiten';
+$langFile['categorySetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['txt_tag_tip'];
 
-$langFile['categorySetup_check5'] = 'Es kann ein Datum f&uuml;r diese Seiten festlegt werden';
-$langFile['categorySetup_check5_tip'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
+$langFile['categorySetup_check8'] = 'Plugins erlauben';
+$langFile['categorySetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie erlauben';
 
-$langFile['categorySetup_check6'] = 'Seiten nach Datum sortieren';
-$langFile['categorySetup_check6_tip'] = 'Die Seiten werden nach einem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
+$langFile['categorySetup_check5'] = 'Datum einstellbar';
+$langFile['categorySetup_check5_tip'] = 'Das Datum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
+
+$langFile['categorySetup_check6'] = 'nach Datum sortieren';
+$langFile['categorySetup_check6_tip'] = 'Die Seiten werden nach dem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
 
 $langFile['categorySetup_check7'] = 'Neueste Seite immer unten anzeigen';
 $langFile['categorySetup_check7_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';

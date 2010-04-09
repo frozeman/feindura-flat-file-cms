@@ -19,7 +19,9 @@ $adminConfig['user']['info'] =            'cfgdfgdf';
 
 $adminConfig['setStartPage'] =            'true';
 $adminConfig['page']['createPages'] =     'true';
-$adminConfig['page']['thumbnailUpload'] = '';
+$adminConfig['page']['thumbnailUpload'] = 'true';
+$adminConfig['page']['tags'] =            'true';
+$adminConfig['page']['plugins'] =         'true';
 
 $adminConfig['editor']['enterMode'] =   'p';
 $adminConfig['editor']['styleFile'] =   '/mattis/style/layout.css';
@@ -28,7 +30,7 @@ $adminConfig['editor']['styleClass'] =  'feinduraStyles';
 
 $adminConfig['pageThumbnail']['width'] =      '100';
 $adminConfig['pageThumbnail']['height'] =     '30';
-$adminConfig['pageThumbnail']['ratio'] =      'x';
+$adminConfig['pageThumbnail']['ratio'] =      '';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
 return $adminConfig;

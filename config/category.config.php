@@ -9,7 +9,8 @@ $categories = array(
           "sortascending" => 'true',
           "createdelete"  => 'true',
           "thumbnail"     => 'true',
-          "tags"          => '',
+          "tags"          => 'true',
+          "plugins"       => 'true',
           "sortdate"      => 'true',
           "sortbydate"    => 'true',
           
@@ -30,6 +31,7 @@ $categories = array(
           "createdelete"  => 'true',
           "thumbnail"     => '',
           "tags"          => '',
+          "plugins"       => '',
           "sortdate"      => '',
           "sortbydate"    => '',
           
@@ -50,6 +52,7 @@ $categories = array(
           "createdelete"  => 'true',
           "thumbnail"     => '',
           "tags"          => '',
+          "plugins"       => '',
           "sortdate"      => '',
           "sortbydate"    => '',
           
