@@ -181,6 +181,7 @@ $langFile['btn_search'] = 'Seiten durchsuchen';
 $langFile['title_adminMenu'] = 'Administration';
 $langFile['btn_adminSetup'] = 'Administrator Einstellungen';
 $langFile['btn_categorySetup'] = 'Seiten Einstellungen';
+$langFile['btn_pluginSetup'] = 'Plugins Einstellungen';
 $langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
 $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
 

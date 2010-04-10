@@ -165,6 +165,13 @@
 #adminMenu .content a.categorySetup:hover {
     background-position: -65px 0px;
     }
+/* pluginSetup */
+#adminMenu .content a.pluginSetup {
+    background: url(../image/key/adminMenu_pluginSetup.png) no-repeat;
+    }
+#adminMenu .content a.pluginSetup:hover {
+    background-position: -65px 0px;
+    }
 /* statisticSetup */
 #adminMenu .content a.statisticSetup {
     background: url(../image/key/adminMenu_statisticSetup.png) no-repeat;
