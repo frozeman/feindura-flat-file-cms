@@ -159,6 +159,8 @@ window.addEvent('domready', function() {
     });
   }
   
+  
+  
 });
 
 // -> editFiles
@@ -169,6 +171,17 @@ function changeFile( site, fileName, status, anchorName )
 
 // -> NO SUBMIT goto ANCHOR
 function submitAnchor(formId,anchorName) {
-  if(!navigator.appVersion.match(/MSIE/))
-    $(formId).setAttribute('action',$(formId).getAttribute('action') + '#' + anchorName);
+  
+  // IE
+  if(navigator.appVersion.match(/MSIE/)) {
+    // get form
+    var form = document.getElementById(formId);
+    // create new action attribute
+    var attr = document.createAttribute('action');
+    attr.nodeValue = form.getAttributeNode('action').nodeValue + '#' + anchorName;
+    // set new action attribute
+    form.setAttributeNode(attr);
+  // ALL the OTHERS
+  } else
+    $(formId).setAttribute('action',($(formId).getAttribute('action') + '#' + anchorName));
 }

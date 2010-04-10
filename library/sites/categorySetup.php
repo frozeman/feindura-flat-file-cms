@@ -270,7 +270,7 @@ else $hidden = '';
 
 <!-- CATEGORIES SETTINGS -->
 
-<form action="?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=categorySetup" id="categoriesForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
   <input type="hidden" name="send" value="categorySetup" />
   <input type="hidden" name="savedCategory" id="savedCategory" value="" />
