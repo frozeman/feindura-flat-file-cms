@@ -158,11 +158,11 @@
 #adminMenu .content a.adminSetup:hover {
     background-position: -65px 0px;
     }
-/* categorySetup */
-#adminMenu .content a.categorySetup {
-    background: url(../image/key/adminMenu_categorySetup.png) no-repeat;
+/* pageSetup */
+#adminMenu .content a.pageSetup {
+    background: url(../image/key/adminMenu_pageSetup.png) no-repeat;
     }
-#adminMenu .content a.categorySetup:hover {
+#adminMenu .content a.pageSetup:hover {
     background-position: -65px 0px;
     }
 /* pluginSetup */

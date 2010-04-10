@@ -43,8 +43,8 @@ if($_GET['site'] == 'pages') {
     case 'websiteSetup':     
       
       break;
-    // ***** categorySetup -------------------------------------------- **********
-    case 'categorySetup':
+    // ***** pageSetup -------------------------------------------- **********
+    case 'pageSetup':
       
 
       break;

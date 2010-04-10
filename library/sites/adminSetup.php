@@ -179,7 +179,7 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   $adminConfig['user']['editStylesheets'] = $_POST['cfg_userStylesheets'];  
   $adminConfig['user']['info'] = $_POST['cfg_userInfo'];
     
-  // -> saved in categorySetup.php
+  // -> saved in pageSetup.php
   //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
   //$adminConfig['page']['createPages'] = $_POST['cfg_pageCreatePages'];
   //$adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];
@@ -191,7 +191,7 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
   $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
   
-  // -> saved in categorySetup.php
+  // -> saved in pageSetup.php
   //$adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
   //$adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
   //$adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];

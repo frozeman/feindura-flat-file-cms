@@ -125,10 +125,10 @@ $langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten Log gel&ouml;
 
 $langFile['log_pageSetup_saved'] = 'Seiten-Einstellungen gespeichert';
 
-$langFile['log_categorySetup_saved'] = 'Kategorien gespeichert';
-$langFile['log_categorySetup_new'] = 'Neue Kategorie erstellt';
-$langFile['log_categorySetup_delete'] = 'Kategorie gel&ouml;scht';
-$langFile['log_categorySetup_move'] = 'Kategorie verschoben';
+$langFile['log_pageSetup_saved'] = 'Kategorien gespeichert';
+$langFile['log_pageSetup_new'] = 'Neue Kategorie erstellt';
+$langFile['log_pageSetup_delete'] = 'Kategorie gel&ouml;scht';
+$langFile['log_pageSetup_move'] = 'Kategorie verschoben';
 
 $langFile['log_pluginSetup_saved'] = 'Plugin-Einstellungen gespeichert';
 
@@ -180,7 +180,7 @@ $langFile['btn_search'] = 'Seiten durchsuchen';
 // --- adminMenu
 $langFile['title_adminMenu'] = 'Administration';
 $langFile['btn_adminSetup'] = 'Administrator Einstellungen';
-$langFile['btn_categorySetup'] = 'Seiten Einstellungen';
+$langFile['btn_pageSetup'] = 'Seiten Einstellungen';
 $langFile['btn_pluginSetup'] = 'Plugins Einstellungen';
 $langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
 $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
@@ -443,86 +443,86 @@ $langFile['editFilesSettings_deleteFile_question_cancel'] = 'Nicht l&ouml;schen'
 $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'];
 
 // ---------------------------------------------------------------------------------------------------------------------
-// categorySetup.php
+// pageSetup.php
 //
 // ---------- CATEGORY SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
 
-$langFile['categorySetup_general_tag_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
+$langFile['pageSetup_general_tag_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
 
 // ---------- page settings
 
-$langFile['categorySetup_pageConfig_h1'] = 'Seiten-Einstellungen';
-$langFile['categorySetup_pageConfig_check1'] = 'Startseite ist einstellbar';
-$langFile['categorySetup_pageConfig_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
+$langFile['pageSetup_pageConfig_h1'] = 'Seiten-Einstellungen';
+$langFile['pageSetup_pageConfig_check1'] = 'Startseite ist einstellbar';
+$langFile['pageSetup_pageConfig_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
 
-$langFile['categorySetup_pageConfig_noncategorypages_h1'] = 'Seiten ohne Kategorie';
-$langFile['categorySetup_pageConfig_check2'] = 'Seiten erstellen/l&ouml;schen';
-$langFile['categorySetup_pageConfig_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
-$langFile['categorySetup_pageConfig_check3'] = 'Thumbnail hochladen';
-$langFile['categorySetup_pageConfig_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
-$langFile['categorySetup_pageConfig_check4'] = 'Tags bearbeiten';
-$langFile['categorySetup_pageConfig_check4_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['categorySetup_general_tag_tip'];
-$langFile['categorySetup_pageConfig_check5'] = 'Plugins erlauben';
-$langFile['categorySetup_pageConfig_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
+$langFile['pageSetup_pageConfig_noncategorypages_h1'] = 'Seiten ohne Kategorie';
+$langFile['pageSetup_pageConfig_check2'] = 'Seiten erstellen/l&ouml;schen';
+$langFile['pageSetup_pageConfig_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
+$langFile['pageSetup_pageConfig_check3'] = 'Thumbnail hochladen';
+$langFile['pageSetup_pageConfig_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
+$langFile['pageSetup_pageConfig_check4'] = 'Tags bearbeiten';
+$langFile['pageSetup_pageConfig_check4_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['pageSetup_general_tag_tip'];
+$langFile['pageSetup_pageConfig_check5'] = 'Plugins erlauben';
+$langFile['pageSetup_pageConfig_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
 
 // ---------- category settings
 
-$langFile['categorySetup_h1'] = 'Kategorien-Verwaltung';
-$langFile['categorySetup_createCategory'] = 'Neue Kategorie erstellen';
-$langFile['categorySetup_createCategory_created'] = 'Neue Kategorie erstellt';
-$langFile['categorySetup_createCategory_unnamed'] = 'Unbenannte Kategorie';
+$langFile['pageSetup_h1'] = 'Kategorien-Verwaltung';
+$langFile['pageSetup_createCategory'] = 'Neue Kategorie erstellen';
+$langFile['pageSetup_createCategory_created'] = 'Neue Kategorie erstellt';
+$langFile['pageSetup_createCategory_unnamed'] = 'Unbenannte Kategorie';
 
-$langFile['categorySetup_deleteCategory'] = 'Kategorie l&ouml;schen';
-$langFile['categorySetup_deleteCategory_warning'] = 'ACHTUNG: Es werden auch alle Seiten innerhalb dieser Kategorie gel&ouml;scht!';
-$langFile['categorySetup_deleteCategory_deleted'] = 'Kategorie gel&ouml;scht';
+$langFile['pageSetup_deleteCategory'] = 'Kategorie l&ouml;schen';
+$langFile['pageSetup_deleteCategory_warning'] = 'ACHTUNG: Es werden auch alle Seiten innerhalb dieser Kategorie gel&ouml;scht!';
+$langFile['pageSetup_deleteCategory_deleted'] = 'Kategorie gel&ouml;scht';
 
-$langFile['categorySetup_moveCategory_moved'] = 'Kategorie verschoben';
-$langFile['categorySetup_moveCategory_up_tip'] = 'Kategorie nach oben verschieben';
-$langFile['categorySetup_moveCategory_down_tip'] = 'Kategorie nach unten verschieben';
+$langFile['pageSetup_moveCategory_moved'] = 'Kategorie verschoben';
+$langFile['pageSetup_moveCategory_up_tip'] = 'Kategorie nach oben verschieben';
+$langFile['pageSetup_moveCategory_down_tip'] = 'Kategorie nach unten verschieben';
 
-$langFile['categorySetup_error_create'] = '<b>Eine neue Kategorie konnte nicht erstellt werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].'config/'.$langFile['error_folderDatabase_end'];
-$langFile['categorySetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].'&quot; Ordners.';
-$langFile['categorySetup_error_delete'] = '<b>Die Kategorie konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['categorySetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['categorySetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
+$langFile['pageSetup_error_create'] = '<b>Eine neue Kategorie konnte nicht erstellt werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].'config/'.$langFile['error_folderDatabase_end'];
+$langFile['pageSetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].'&quot; Ordners.';
+$langFile['pageSetup_error_delete'] = '<b>Die Kategorie konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
+$langFile['pageSetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['pageSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
 
 
-$langFile['categorySetup_advancedSettings'] = 'Erweiterte-Einstellungen';
-$langFile['categorySetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die HTML-Editor- und Seiten-Thumbnail-Einstellungen in den <a href="?site=adminSetup">Administrator-Einstellungen</a>';
+$langFile['pageSetup_advancedSettings'] = 'Erweiterte-Einstellungen';
+$langFile['pageSetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die HTML-Editor-Einstellungen in den <a href="?site=adminSetup">Administrator-Einstellungen</a>';
 
-$langFile['categorySetup_field1'] = 'Name';
-$langFile['categorySetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Standard Stylesheet-Einstellungen aus den HTML-Editor-Einstellungen verwendet.';
+$langFile['pageSetup_field1'] = 'Name';
+$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Standard Stylesheet-Einstellungen aus den HTML-Editor-Einstellungen verwendet.';
 
-$langFile['categorySetup_check1'] = 'Status der Kategorie';
-$langFile['categorySetup_check1_tip'] = 'Legt fest, ob die Kategorie auf der Webseite sichtbar ist.';
-$langFile['categorySetup_check2'] = 'Seiten erstellen/l&ouml;schen';
-$langFile['categorySetup_check2_tip'] = 'Der Benutzer kann in dieser Kategorie Seiten erstellen und l&ouml;schen.';
-$langFile['categorySetup_check3'] = 'Thumbnail hochladen';
-$langFile['categorySetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
+$langFile['pageSetup_check1'] = 'Status der Kategorie';
+$langFile['pageSetup_check1_tip'] = 'Legt fest, ob die Kategorie auf der Webseite sichtbar ist.';
+$langFile['pageSetup_check2'] = 'Seiten erstellen/l&ouml;schen';
+$langFile['pageSetup_check2_tip'] = 'Der Benutzer kann in dieser Kategorie Seiten erstellen und l&ouml;schen.';
+$langFile['pageSetup_check3'] = 'Thumbnail hochladen';
+$langFile['pageSetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
 
-$langFile['categorySetup_check4'] = 'Tags bearbeiten';
-$langFile['categorySetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['categorySetup_general_tag_tip'];
+$langFile['pageSetup_check4'] = 'Tags bearbeiten';
+$langFile['pageSetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['pageSetup_general_tag_tip'];
 
-$langFile['categorySetup_check8'] = 'Plugins erlauben';
-$langFile['categorySetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie erlauben';
+$langFile['pageSetup_check8'] = 'Plugins erlauben';
+$langFile['pageSetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie erlauben';
 
-$langFile['categorySetup_check5'] = 'Datum einstellbar';
-$langFile['categorySetup_check5_tip'] = 'Das Datum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
+$langFile['pageSetup_check5'] = 'Datum einstellbar';
+$langFile['pageSetup_check5_tip'] = 'Das Datum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
-$langFile['categorySetup_check6'] = 'nach Datum sortieren';
-$langFile['categorySetup_check6_tip'] = 'Die Seiten werden nach dem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
+$langFile['pageSetup_check6'] = 'nach Datum sortieren';
+$langFile['pageSetup_check6_tip'] = 'Die Seiten werden nach dem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
 
-$langFile['categorySetup_check7'] = 'Neueste Seite immer unten anzeigen';
-$langFile['categorySetup_check7_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
+$langFile['pageSetup_check7'] = 'Neueste Seite immer unten anzeigen';
+$langFile['pageSetup_check7_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
 
 
 // ---------- deleting category
 
-$langFile['categorySetup_deletCategory_question_part1'] = 'Kategorie'; // Kategorie "test" löschen?
-$langFile['categorySetup_deletCategory_question_part2'] = 'l&ouml;schen?';
+$langFile['pageSetup_deletCategory_question_part1'] = 'Kategorie'; // Kategorie "test" löschen?
+$langFile['pageSetup_deletCategory_question_part2'] = 'l&ouml;schen?';
 
-$langFile['categorySetup_deletCategory_question_ok'] = 'Ja bitte l&ouml;schen!';
-$langFile['categorySetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
+$langFile['pageSetup_deletCategory_question_ok'] = 'Ja bitte l&ouml;schen!';
+$langFile['pageSetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // websiteSetup.php

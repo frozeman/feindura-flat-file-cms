@@ -67,8 +67,8 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       include (dirname(__FILE__).'/sites/adminSetup.php');
       break;
     // adminSetup
-    case 'categorySetup':
-      include (dirname(__FILE__).'/sites/categorySetup.php');
+    case 'pageSetup':
+      include (dirname(__FILE__).'/sites/pageSetup.php');
       break;
     // websiteSetup
     case 'websiteSetup':

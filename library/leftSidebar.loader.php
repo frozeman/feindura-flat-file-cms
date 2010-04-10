@@ -213,13 +213,13 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     case 'websiteSetup':     
       
       break;
-    // ***** categorySetup -------------------------------------------- **********
-    case 'categorySetup':
+    // ***** pageSetup -------------------------------------------- **********
+    case 'pageSetup':
       
       // -> CATEGORY ANCHOR LINKS
       echo '<div style="position:fixed; top:150px;">';
       
-      echo '<a href="?site=categorySetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['categorySetup_createCategory'].'::"></a>'; 
+      echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['pageSetup_createCategory'].'::"></a>'; 
       
       if(!empty($categories)) {
         echo '<div class="sidebarInfo"><div class="content">';

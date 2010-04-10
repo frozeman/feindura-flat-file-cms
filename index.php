@@ -79,7 +79,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/rightSidebar.css" media="screen" /> 
   <link rel="stylesheet" type="text/css" href="library/style/content.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/statistic.css" media="screen" />
-  <link rel="stylesheet" type="text/css" href="library/style/categorySetup.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/style/pageSetup.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/footerMenu.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/loading.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/windowBox.css" media="screen" />
@@ -217,7 +217,7 @@ createStyleTags($adminConfig['basePath'].'addons/');
         <table>
           <tr>
           <td><a href="?site=adminSetup" class="adminSetup" title="<?php  echo $langFile['btn_adminSetup']; ?>"><span><?php echo $langFile['btn_adminSetup']; ?></span></a></td>
-          <td><a href="?site=categorySetup" class="categorySetup" title="<?php  echo $langFile['btn_categorySetup']; ?>"><span><?php echo $langFile['btn_categorySetup']; ?></span></a></td>
+          <td><a href="?site=pageSetup" class="pageSetup" title="<?php  echo $langFile['btn_pageSetup']; ?>"><span><?php echo $langFile['btn_pageSetup']; ?></span></a></td>
           </tr><tr>
           <td><a href="?site=pluginSetup" class="pluginSetup" title="<?php  echo $langFile['btn_pluginSetup']; ?>"><span><?php echo $langFile['btn_pluginSetup']; ?></span></a></td>
           <td><a href="?site=modulSetup" class="modulSetup" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
