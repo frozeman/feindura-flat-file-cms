@@ -32,11 +32,27 @@ $categoryInfo = false;
 // ****** ---------- SAVE PAGE CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   
+  // ** removes a "/" on the beginning of all relative paths
+  if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
+        $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);
+  
+  // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
+  if(!isset($_POST['cfg_thumbWidth']))
+    $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
+  if(!isset($_POST['cfg_thumbHeight']))
+    $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];   
+  
+  // -> PREPARE CONFIG VARs
   $adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
   $adminConfig['page']['createPages'] = $_POST['cfg_pageCreatePages'];
   $adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];
   $adminConfig['page']['tags'] = $_POST['cfg_pageTags'];
   $adminConfig['page']['plugins'] = $_POST['cfg_pagePlugins'];
+  
+  $adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
+  $adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
+  $adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
+  $adminConfig['pageThumbnail']['path'] = 'images/'.$_POST['cfg_thumbPath'];
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {
@@ -48,7 +64,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   } else
     $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
   
-  $savedForm = 'pageConfig';
+  $savedForm = $_POST['savedBlock'];
 }
 
 // ---------------------------------------------------------------------------------------------------
@@ -212,10 +228,16 @@ if($unwriteableList) {
 
 ?>
 
-<!-- PAGE CONFIG -->
+<form action="?site=categorySetup#top" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  <div>
+  <input type="hidden" name="send" value="pageConfig" />
+  <input type="hidden" name="savedBlock" id="savedBlock" value="" />
+  </div>
+
+<!-- GENERAL PAGE CONFIG -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm == 'categories') $hidden = ' hidden';
+if($savedForm != 'generalPageConfig') $hidden = ' hidden';
 else $hidden = '';
 ?>
 
@@ -239,9 +261,131 @@ else $hidden = '';
       <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check1'].'::'.$langFile['categorySetup_pageConfig_check1_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check1']; ?></span></label>
       </td></tr>
       
-      <tr><td class="spacer checkboxes"></td><td></td></tr>      
+    </table>
+    
+    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'generalPageConfig';" />
+  </div>
+  <div class="bottom"></div>
+</div>
+
+<!-- THUMBNAIL SETTINGS -->
+<?php
+// shows the block below if it is the ones which is saved before
+if($savedForm != 'thumbnailConfig')  $hidden = ' hidden';
+else $hidden = '';  
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#" id="thumbnailSettings" name="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
+  <div class="content">
+    <table>
+     
+      <colgroup>
+      <col class="left" />
+      </colgroup>
+  
+      <tr><td class="leftTop"></td><td></td></tr>
       
-      <tr><td class="spacer checkboxes"></td><td><h2><?php echo $langFile['categorySetup_pageConfig_noncategorypages']; ?></h2></td></tr>      
+      <!-- THUMB WIDTH -->
+      <tr><td class="left">
+      <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['thumbnail_width_tip'] ?>">
+      <?php echo $langFile['thumbnail_name_width'] ?></span></label>
+      </td><td class="right">
+        <input id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?> />
+        <?php echo $langFile['thumbSize_unit']; ?>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_x_tip']; ?>">
+          <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?> />
+          <label for="ratioX"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
+        </span>
+      </td></tr>
+      
+      <!-- shows the width in a scale -->
+      <?php
+      if(!empty($adminConfig['pageThumbnail']['width']))
+        $style_thumbWidth = 'width:'.$adminConfig['pageThumbnail']['width'].'px;';
+      else
+        $style_thumbWidth = 'width:0px;';
+      ?>
+      <tr><td class="left">
+      </td><td class="right">
+      <div id="thumbWidthScale" class="scale" style="<?php echo $style_thumbWidth; ?>max-width:520px;">
+        <div></div>
+      </div>
+      </td></tr>
+      
+      <!-- THUMB HEIGHT -->
+      <tr><td class="left">
+      <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['thumbnail_height_tip'] ?>">
+      <?php echo $langFile['thumbnail_name_height'] ?></span></label>
+      </td><td class="right">
+        <input id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?> />
+        <?php echo $langFile['thumbSize_unit']; ?>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_y_tip']; ?>">
+          <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?> />
+          <label for="ratioY"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
+        </span>
+      </td></tr>
+      
+      <!-- shows the height in a scale -->
+      <?php
+      if(!empty($adminConfig['pageThumbnail']['height']))
+        $style_thumbHeight = 'width:'.$adminConfig['pageThumbnail']['height'].'px;';
+      else
+        $style_thumbHeight = 'width:0px;';
+      ?>
+      <tr><td class="left">
+      </td><td class="right">
+      <div id="thumbHeightScale" class="scale" style="<?php echo $style_thumbHeight; ?>max-width:520px;"><div></div></div>
+      </td></tr>
+      
+      <!-- NO THUMB RATIO -->
+      <tr><td class="left">
+      <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?> />
+      </td><td class="right">
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_noRatio_tip']; ?>">
+          <label for="noRatio"> <?php echo $langFile['thumbnail_ratio_noRatio']; ?></label>
+        </span>
+      </td></tr>
+      
+      <tr><td class="leftSpacer"></td><td></td></tr>
+      
+      <!-- THUMB PATH -->
+      <tr><td class="left">
+      <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3'].'::'.$langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
+      <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
+      </td><td class="right">
+      <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>images/" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>" />
+      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo str_replace("images/","",$adminConfig['pageThumbnail']['path']); ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip2']; ?>" />
+      </td></tr>
+      
+            
+      <tr><td class="leftBottom"></td><td></td></tr>
+      
+    </table>
+    
+    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'thumbnailConfig';" />
+  </div>
+  <div class="bottom"></div>
+</div>
+
+<!-- NON CATEGORY PAGES CONFIG -->
+<?php
+// shows the block below if it is the ones which is saved before
+if($savedForm !== false && $savedForm != 'nonCategoryPages') $hidden = ' hidden';
+else $hidden = '';
+?>
+  
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#" id="pageConfig" name="pageConfig"><?php echo $langFile['categorySetup_pageConfig_noncategorypages_h1']; ?></a></h1>
+  <div class="content">
+    <table>
+     
+      <colgroup>
+      <col class="left" />
+      </colgroup>  
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check2'].'::'.$langFile['categorySetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
@@ -254,18 +398,16 @@ else $hidden = '';
       <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check3'].'::'.$langFile['categorySetup_pageConfig_check3_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check3']; ?></span></label><br />
       <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check4'].'::'.$langFile['categorySetup_pageConfig_check4_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check4']; ?></span></label><br />
       <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['categorySetup_pageConfig_check5'].'::'.$langFile['categorySetup_pageConfig_check5_tip']; ?>"><?php echo $langFile['categorySetup_pageConfig_check5']; ?></span></label>
-      </td></tr>
-      
-      <tr><td class="spacer checkboxes"></td><td></td></tr>
-      <tr><td class="spacer checkboxes"></td><td></td></tr> 
+      </td></tr> 
       
     </table>
     
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'nonCategoryPages';" />
   </div>
   <div class="bottom"></div>
 </div>
+
 </form>
 
 <!-- CATEGORIES SETTINGS -->

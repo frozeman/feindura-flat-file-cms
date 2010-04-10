@@ -454,7 +454,7 @@ $langFile['categorySetup_pageConfig_h1'] = 'Seiten-Einstellungen';
 $langFile['categorySetup_pageConfig_check1'] = 'Startseite ist einstellbar';
 $langFile['categorySetup_pageConfig_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
 
-$langFile['categorySetup_pageConfig_noncategorypages'] = 'Seiten ohne Kategorie';
+$langFile['categorySetup_pageConfig_noncategorypages_h1'] = 'Seiten ohne Kategorie';
 $langFile['categorySetup_pageConfig_check2'] = 'Seiten erstellen/l&ouml;schen';
 $langFile['categorySetup_pageConfig_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
 $langFile['categorySetup_pageConfig_check3'] = 'Thumbnail hochladen';

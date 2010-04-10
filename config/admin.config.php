@@ -28,8 +28,8 @@ $adminConfig['editor']['styleFile'] =   '/_feindura10/library/style/layout.css';
 $adminConfig['editor']['styleId'] =     '';
 $adminConfig['editor']['styleClass'] =  '';
 
-$adminConfig['pageThumbnail']['width'] =      '100';
-$adminConfig['pageThumbnail']['height'] =     '';
+$adminConfig['pageThumbnail']['width'] =      '110';
+$adminConfig['pageThumbnail']['height'] =     '150';
 $adminConfig['pageThumbnail']['ratio'] =      'x';
 $adminConfig['pageThumbnail']['path'] =       'images/thumbnail/';
 
