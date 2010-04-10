@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 163
+Build 164
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 164: setup.js: fixed slide in of advanced category config in IE 7, now hides when has class hidden
 	build 163: setup.js: fixed submitAnchor() problem in IE
 	build 162: editor.php: pageContent['content'] get converted with htmlspecialchars before put into the html code, ckeditor handles it right :-)
 	build 161: license.txt and version.txt changed in LICENSE.txt and VERSION.txt

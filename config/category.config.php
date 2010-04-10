@@ -20,7 +20,7 @@ $categories = array(
           
           "thumbWidth"    => '',
           "thumbHeight"   => '',
-          "thumbRatio"    => '',
+          "thumbRatio"    => 'y',
           ),
 "id_2" => array(
           "id"            => '2',

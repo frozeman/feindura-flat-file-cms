@@ -94,8 +94,7 @@ window.addEvent('domready', function() {
        // creates the slide effect
   	   var slideAdvancedcategoryConfig = new Fx.Slide(advancedcategoryConfigTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
        
-       // hides the wrapper on start
-       advancedcategoryConfigTable.getParent().fade('hide');
+       
       
        // ON COMPLETE
        slideAdvancedcategoryConfig.onComplete = function(el) {
@@ -111,8 +110,11 @@ window.addEvent('domready', function() {
         }
       
        // slides the hotky div in, on start
-       if(advancedcategoryConfigTable.hasClass('hidden'))
-        slideAdvancedcategoryConfig.hide();
+       if(advancedcategoryConfigTable.hasClass('hidden')) {
+         // hides the wrapper on start
+         slideAdvancedcategoryConfig.hide();
+         advancedcategoryConfigTable.getParent().fade('hide');
+       }
       
        // sets the SLIDE EFFECT to the buttons
        if(categoryConfig.getElements('a')[2] != null) {
