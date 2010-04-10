@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/editor.js version 0.11 (requires ckeditor)
+// java/editor.js version 0.12 (requires ckeditor)
 
 
 window.addEvent('domready', function() {
@@ -33,24 +33,24 @@ window.addEvent('domready', function() {
     //HTMLEditor.config.disableNativeSpellChecker = false;
     
     CKEDITOR.config.toolbar               = [['Save','Preview','Maximize','-','Source'],
-                                              ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],
-                                              ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-                                               '/',
-                                              ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],	                                               
-                                              ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-                                              ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-                                            	['Link','Unlink','Anchor'],
-                                            	['Image','Flash','Table','HorizontalRule','SpecialChar'],
-                                               '/',
-                                            	['Styles','Format','FontSize'], // 'Font','FontName',
-                                            	['TextColor','BGColor','-'],
-                                            	['ShowBlocks','-','About']];		// No comma for the last row.
+                                            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],
+                                            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+                                             '/',
+                                            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],	                                               
+                                            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                                            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                                          	['Link','Unlink','Anchor'],
+                                          	['Image','Flash','Table','HorizontalRule','SpecialChar'],
+                                             '/',
+                                          	['Styles','Format','FontSize'], // 'Font','FontName',
+                                          	['TextColor','BGColor','-'],
+                                          	['ShowBlocks','-','About']];		// No comma for the last row.
   
       
     
     // ----------------------------------------------------------------------
-    // CREATES the editor instance, with replacing the textarea with the name="HTMLEditor"
-  	CKEDITOR.replace( 'HTMLEditor');
+    // CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
+  	CKEDITOR.replace( 'HTMLEditor' );
 
     
     // ADDS the CKFinder as filemanager to the CKEditor

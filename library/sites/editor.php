@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.91
+// editor.php version 1.92
 
 include_once("library/backend.include.php");
 
@@ -219,7 +219,7 @@ else
     // -> show thumbnail if the page has one
     if(!empty($pageContent['thumbnail'])) {
       
-      $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+      $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       $thumbnailWidth = $thumbnailWidth[0];
       
       
@@ -688,7 +688,6 @@ if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['categ
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
-
 
 /* ]]> */
 </script>
