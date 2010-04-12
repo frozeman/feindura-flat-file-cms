@@ -812,7 +812,7 @@ function getusers(&$status, $changestatus=1) {
 		if ($changestatus==1) 
 			$status .= $languagearray[9];
 
-		return false;	/* FALSE, wenn keine .htpasswd-Datei */
+		return false;	/* false, wenn keine .htpasswd-Datei */
 
 	} //endif
 	
@@ -823,7 +823,7 @@ function getusers(&$status, $changestatus=1) {
 		if ($changestatus==1)
 			$status .= $languagearray[7];
 
-		return false;		/* FALSE, wenn keine Benutzer definiert */
+		return false;		/* false, wenn keine Benutzer definiert */
 
 	} //endif
 

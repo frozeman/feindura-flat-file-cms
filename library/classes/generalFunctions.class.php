@@ -475,7 +475,7 @@ class generalFunctions {
   // $pagesArray   [the array with the pageContent array (Array with pageContent Array)],
   // $category     [gruppe in der sich die Seiten befinden (String)]
   function sortPages($pageContentArrays,    // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
-                            $sortBy = false) {     // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if FALSE it detects the sortfunction by the category
+                            $sortBy = false) {     // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if false it detects the sortfunction by the category
     
     if(is_array($pageContentArrays)) {
       // sorts the array with the given sort function

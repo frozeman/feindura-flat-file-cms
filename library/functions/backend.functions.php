@@ -887,7 +887,7 @@ function folderIsEmpty($folder) {
 
 // ** -- checkBasePath ----------------------------------------------------------------------------------
 // CHECKs if the current basePath is matching the real basePath
-// RETURNs TRUE if the basePath is correct, otherwise FALSE
+// RETURNs TRUE if the basePath is correct, otherwise false
 // -----------------------------------------------------------------------------------------------------------
 function checkBasePath() {
   global $adminConfig;

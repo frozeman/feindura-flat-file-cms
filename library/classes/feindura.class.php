@@ -13,26 +13,36 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-*
-* library/classes/feindura.class.php version 1.52
-* 
 */
+/** @file feindura.class.php 
+ * \brief library/classes/feindura.class.php
+ *  
+ * This file conatins the feindura class
+ * 
+ * */ 
+
 
 include_once(dirname(__FILE__)."/../frontend.include.php");
 
-// ***** -- feindura --------------------------------------------------------------------------------
-// the class for the implimentation of the feindura - Flat File Content Management System
-// -----------------------------------------------------------------------------------------------------
+/** \class feindura
+* \brief feindura class
+* 
+* the class for the implimentation of the feindura - Flat File Content Management System.\n
+* Its methods provide necessary functions to create a website, like building a menu and place the page content.
+* 
+* \version 1.52
+* 
+*/
 class feindura {
   
   /* VAR PRIORITY INFO:
   *  ->> uses the following PRIORITY for the VARs:
   *  
-  *  1: USE the given page(s) AND/OR category(ies) var         -> (if FALSE, go to the NEXT)
+  *  1: USE the given page(s) AND/OR category(ies) var         -> (if false, go to the NEXT)
   *  *
-  *  2: USE the PROPERTY page(s) AND/OR category(ies) var      -> (if FALSE, go to the NEXT)
+  *  2: USE the PROPERTY page(s) AND/OR category(ies) var      -> (if false, go to the NEXT)
   *  *
-  *  3: page(s) AND/OR category(ies) var is set to FALSE       -> (NO PAGE or CATEGORY will be SHOWN) 
+  *  3: page(s) AND/OR category(ies) var is set to false       -> (NO PAGE or CATEGORY will be SHOWN) 
   *    
   *  ->> in the these METHODs:
   *    -> createLink()
@@ -52,7 +62,7 @@ class feindura {
   
   // PROTECTED
   // *********
-  var $sessionId = false;                 // the session id, if cookies are deactivated
+  var $sessionId = false;                 /**< \brief stores the session id, if cookies are deactivated */
   var $varNames = array('page' =>     'page',         // [String in an Array]    -> the variable name used for the get variable for the page
                         'category' => 'category',     // [String in an Array]    -> the variable name used for the get variable for the category
                         'modul' =>    'modul');       // [String in an Array]    -> the variable name used for the get variable for the modul
@@ -178,13 +188,42 @@ class feindura {
   *     
   */ 
   
-  // -> START ** constructor *****************************************************************************
-  // the class constructor
-  // get the config Arrays
-  // set the varNames from the admin.config.php
-  // gte the GET (if existing) and set it to the PROPERTIES
-  // get the language File for the frontend
-  // -----------------------------------------------------------------------------------------------------
+/** \brief the constructor of the class
+  * 
+  * get the config Arrays\n
+  * set the varNames from the admin.config.php
+  * get the GET (if existing) and set it to the PROPERTIES
+  * 
+  * get the \a language File for the frontend
+  * 
+  * 
+  * \param $language  (\b string) a country code (Example: \c de, \c en, \c ..) to set the language of feindura
+  * 
+  * \usedproperties
+  *   #$sessionId\n
+  *   #$sessionId\n
+  *   #$sessionId
+  * 
+  * \retval true
+  * 
+  *    
+  * \see feindura()
+  * 
+  * beispiel hier\n
+  * 
+  * \code
+  * 
+  * < href="sdf">dfgdf</a>
+  * 
+  * \endcode
+  * 
+  * This is an example of how to use the Test class.
+  * More details about this example.
+  * @include createFeindura.example.php
+  * 
+  * \line (echo)
+  * 
+  */
   function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     global $adminConfig;
     global $websiteConfig;
@@ -354,8 +393,8 @@ class feindura {
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
-  function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if FALSE it use VAR PRIORITY
-                             $category = false,             // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
+  function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if false it use VAR PRIORITY
+                             $category = false,             // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                              $linkText = true) {            // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
     
     // set TAG ENDING (xHTML or HTML) 
@@ -377,7 +416,7 @@ class feindura {
       }
     }
     
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = $this->getPropertyPage($page);
     
     // gets the category of the page if it is not given
@@ -531,8 +570,8 @@ class feindura {
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   function createMenu($idType = 'categories',                      // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                             $ids = true,                                 // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                             
-                             $menuTag = false,                            // (Boolean or String or [a Block Element, "ul", "ol" or "table"]) the menu TAG which is used when creating a menu, IF FALSE it RETURNs a Array with the links (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set it RETURNs an Array with all the <a..> tags within a DIV tag with the id and/or class)
+                             $ids = true,                                 // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                             
+                             $menuTag = false,                            // (Boolean or String or [a Block Element, "ul", "ol" or "table"]) the menu TAG which is used when creating a menu, IF false it RETURNs a Array with the links (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set it RETURNs an Array with all the <a..> tags within a DIV tag with the id and/or class)
                              $linkText = true,                            // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                              $breakAfter = false,                         // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                              $sortingConsiderCategories = false) {        // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
@@ -542,19 +581,19 @@ class feindura {
     
     $idType = strtolower($idType);
     
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if($ids === false) {
       if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> FALSE
+        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPages($ids);
       elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
         $ids = $this->getPropertyPage($ids);
       elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> FALSE
+        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> FALSE
+        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
     }    
           
@@ -683,7 +722,7 @@ class feindura {
       } elseif($menuTagSet == 'table') {
         $link = '<td>'.$link."</td>\n".$menuBetween;
         
-      // if menuTag is a FALSE -----
+      // if menuTag is a false -----
       } elseif(isset($menuBetween)) {
         $link = $link."\n".$menuBetween;
       }
@@ -733,26 +772,26 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   function createMenuByTags($tags,                                     // (String or Array) the tags to select the page(s)/category(ies) with
                                    $idType = 'categories',                    // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                   $ids = true,                               // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                                   
+                                   $ids = true,                               // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                                   
                                    $menuTag = false,                          // (Boolean or String) the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                                    $linkText = true,                          // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                                    $breakAfter = false,                       // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                                    $sortingConsiderCategories = false) {      // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    
     $idType = strtolower($idType);    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> GET page var 4. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> GET page var 4. -> false
     if($ids === false) {
       if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> FALSE
+        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPages($ids);
       elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
         $ids = $this->getPropertyPage($ids);
       elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> FALSE
+        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> FALSE
+        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
     }
     
@@ -773,9 +812,9 @@ class feindura {
   // * MORE OPTIONs in the PROPERTIES
   // ------------------------------------------------------------------------------------------------------
   function createMenuByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                   $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                   $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if FALSE it shows ONLY pages FROM TODAY
-                                   $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if FALSE it shows ONLY pages UNTIL TODAY                                   
+                                   $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
+                                   $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
+                                   $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY                                   
                                    $menuTag = false,                      // (Boolean or String) the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                                    $linkText = true,                      // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                                    $breakAfter = false,                   // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
@@ -795,8 +834,8 @@ class feindura {
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
-  function showPageTitle($page = false,              // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
-                                $category = false,          // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
+  function showPageTitle($page = false,              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
+                                $category = false,          // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                                 $titleTag = true) {        // (Boolean or String) the TAG which is used by the title (String), if TRUE it loads the titleTag PROPERTY
     
     // -> PREV or NEXT if given direction
@@ -814,7 +853,7 @@ class feindura {
       }
     }
     
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = $this->getPropertyPage($page);
     
     // gets the category of the page if it is not given
@@ -863,8 +902,8 @@ class feindura {
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // -----------------------------------------------------------------------------------------------------
-  function showPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if FALSE it use VAR PRIORITY
-                           $category = false,             // (false or Number) the category where the page is situated, if FALSE it looks automaticly for the category ID
+  function showPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
+                           $category = false,             // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                            $shortenText = false,          // (false or Number) the Number of characters to shorten the content text
                            $useHtml = true) {             // (Boolean) use html in the content text
     
@@ -883,7 +922,7 @@ class feindura {
       }
     }
     
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = $this->getPropertyPage($page);
     
     // gets the category of the page if it is not given
@@ -922,7 +961,7 @@ class feindura {
   // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // ------------------------------------------------------------------------------------------------------
   function listPages($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                            $ids = true,                           // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories, -> can also be a Array with pageContent Arrays
+                            $ids = true,                           // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories, -> can also be a Array with pageContent Arrays
                             $shortenText = true,                  // (Boolean or Number) the Number of characters to shorten the content text
                             $useHtml = true,                       // (Boolean) use html in the content text
                             $sortingConsiderCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
@@ -932,19 +971,19 @@ class feindura {
     
     $idType = strtolower($idType);
     
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if($ids === false) {
       if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> FALSE
+        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPages($ids);
       elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
         $ids = $this->getPropertyPage($ids);
       elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> FALSE
+        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> FALSE
+        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
     } 
         
@@ -983,25 +1022,25 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   function listPagesByTags($tags,                                 // (String or Array) the tags to select the pages with
                                   $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                  $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
+                                  $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
                                   $shortenText = true,                   // (false or Number) the Number of characters to shorten the content text
                                   $useHtml = true,                       // (Boolean) use html in the content text
                                   $sortingConsiderCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
      
     $idType = strtolower($idType);
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if($ids === false) {
       if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> FALSE
+        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPages($ids);
       elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
         $ids = $this->getPropertyPage($ids);
       elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> FALSE
+        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> FALSE
+        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
     }
     
@@ -1032,9 +1071,9 @@ class feindura {
   // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // ------------------------------------------------------------------------------------------------------
   function listPagesByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                  $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                  $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if FALSE it shows ONLY pages FROM TODAY
-                                  $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if FALSE it shows ONLY pages UNTIL TODAY
+                                  $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
+                                  $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
+                                  $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY
                                   $shortenText = true,                   // (Boolean or Number) the Number of characters to shorten the content text
                                   $useHtml = true,                       // (Boolean) use html in the content text
                                   $sortingConsiderCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
@@ -1509,7 +1548,7 @@ class feindura {
   // generates out of the a pageContent Array a href="" link for this page
   // RETURNs a String for the HREF attribute
   // -----------------------------------------------------------------------------------------------------
-  function createHref($pageContent) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
+  function createHref($pageContent) {   // (false or Number) the category (id) of the page to load, if false it loads the pages of the non-category
     
     return $this->generalFunctions->createHref($pageContent,$this->sessionId);
     
@@ -1519,10 +1558,10 @@ class feindura {
   // -> START -- readPage ********************************************************************************
   // OVERWRITES the readPage() function of the general.functions.php
   // loads only pages if they are not already in the storedPages PROPERTY Array
-  // RETURNs the pageContent Array or FALSE
+  // RETURNs the pageContent Array or false
   // -----------------------------------------------------------------------------------------------------
   function readPage($page,                 // (Number) the page (id) of the page to load
-                              $category = false) {   // (false or Number) the category (id) of the page to load, if FALSE it loads the pages of the non-category
+                              $category = false) {   // (false or Number) the category (id) of the page to load, if false it loads the pages of the non-category
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
    
     $storedPages = $this->getStoredPages();
@@ -1547,7 +1586,7 @@ class feindura {
   // -> START -- loadPages *******************************************************************************
   // OVERWRITES the loadPages() function of the general.functions.php
   // loads only pages if they are not already in the storedPages PROPERTY Array
-  // RETURNs the pageContent Arrays or FALSE
+  // RETURNs the pageContent Arrays or false
   // -----------------------------------------------------------------------------------------------------
   function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
                      $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
@@ -1766,7 +1805,7 @@ class feindura {
   
   // -> START -- compareTags **************************************************************************
   // goes trough all TAGs and compares them with the TAGs in the pageContent Array
-  // returns the pageContent Array which have the tags in it, otherwise FALSE
+  // returns the pageContent Array which have the tags in it, otherwise false
   // --------------------------------------------------------------------------------------------------
   function compareTags($pageContent,  // (Array) the pageContent Array, needs the $pageContent['tags'] var
                                  $tags) {       // (Array) with the search TAGs
@@ -1825,9 +1864,9 @@ class feindura {
   // ------------------------------------------------------------------------------------------------------
   function listByDate($type,                                 // (String ["menu" or "pages"]) set the type of the listByDate
                                 $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if FALSE it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if FALSE it shows ONLY pages FROM TODAY
-                                $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if FALSE it shows ONLY pages UNTIL TODAY                                
+                                $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
+                                $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
+                                $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY                                
                                 $shortenTextORlinkText = false,        // (Boolean or Number or String)  the Number of characters to shorten the content text OR the TEXT used for the links, if TRUE it USES the TITLE of the pages
                                 $useHtmlORmenuTag = true,              // (Boolean or String) use html in the content text OR the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                                 $sortingConsiderCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
@@ -1840,19 +1879,19 @@ class feindura {
       $monthsInTheFuture = round($monthsInTheFuture);
     
     $idType = strtolower($idType);
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if($ids === false) {
       if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> FALSE
+        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPages($ids);
       elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> FALSE
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
         $ids = $this->getPropertyPage($ids);
       elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> FALSE
+        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> FALSE
+        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
     }
     //$return = false;
@@ -1950,7 +1989,7 @@ class feindura {
   // --------------------------------------------------------------------------------------------------
   function changeMonth($date,                  // (Number) the date to add and sub months in the FORMAT: YYYYMMDD
                                   $monthNumber,           // (Number) number of months to add or to sub
-                                  $addMonths = true) {    // (Boolean) the math to use, if TRUE it ADD months if FALSE it SUBTRACT months
+                                  $addMonths = true) {    // (Boolean) the math to use, if TRUE it ADD months if false it SUBTRACT months
     
     // CHECKS if the given date and month are numbers and not a boolean
     if(!is_numeric($date) || (is_bool($monthNumber) && !is_numeric($monthNumber)))

@@ -128,7 +128,7 @@ class statisticFunctions {
   // checks the date,
   // RETURNs a validated array
   // with the array[0] =text before the date,
-  // and array[1] = the date (in FORMAT YYYY-MM-DD), or FALSE
+  // and array[1] = the date (in FORMAT YYYY-MM-DD), or false
   // -----------------------------------------------------------------------------------------------------
   function validateDateFormat($dateString) {       // (String) the given string with an date on the end
     
