@@ -20,8 +20,8 @@ $adminConfig['user']['info'] =                '';
 $adminConfig['setStartPage'] =            'true';
 $adminConfig['page']['createPages'] =     'true';
 $adminConfig['page']['thumbnailUpload'] = 'true';
-$adminConfig['page']['tags'] =            'true';
 $adminConfig['page']['plugins'] =         'true';
+$adminConfig['page']['showtags'] =            '';
 
 $adminConfig['editor']['enterMode'] =   'p';
 $adminConfig['editor']['styleFile'] =   '/_feindura10/library/style/layout.css';

@@ -149,15 +149,7 @@ div.listPagesHead {
     height: 27px;
     text-align: right;
     }
-
-/* ----------------------- */	
-/* ---:- category icon */
-
-.listPages h1 a img {
-    position: relative;
-    top: 8px;
-    left: -2px;
-    }
+    
 
 /* ----------------------- */	
 /* ---:- MESSAGEBOX */

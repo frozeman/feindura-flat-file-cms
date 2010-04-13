@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 167
+Build 168
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 168: savePage is now saving in the style of the admin.config.php and category.config.php; changed $category['tags'] -> $category['showtags'] and $category['sortdate'] -> $category['showsortdate']
 	build 167: changed name "categorySetup" in "pageSetup"
 	build 166: add adminMenu button for pluginSetup
 	build 165: categorySetup.php: moved thumbnail config from adminSetup.php and split page config and non category pages config

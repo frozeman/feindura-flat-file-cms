@@ -182,9 +182,9 @@ RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
   // -> saved in pageSetup.php
   //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
   //$adminConfig['page']['createPages'] = $_POST['cfg_pageCreatePages'];
-  //$adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];
-  //$adminConfig['page']['tags'] = $_POST['cfg_pageTags'];
+  //$adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];  
   //$adminConfig['page']['plugins'] = $_POST['cfg_pagePlugins'];
+  //$adminConfig['page']['showtags'] = $_POST['cfg_pageTags'];
     
   $adminConfig['editor']['enterMode'] = strtolower($_POST['cfg_editorEnterMode']);
   $adminConfig['editor']['styleFile'] = $_POST['cfg_editorStyleFile'];

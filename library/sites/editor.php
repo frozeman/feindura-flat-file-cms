@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.92
+// editor.php version 1.94
 
 include_once("library/backend.include.php");
 
@@ -98,6 +98,7 @@ if($_POST['save']) {
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
     // generates sortDate
+    if(!empty($_POST['sortdate']['day']) && !empty($_POST['sortdate']['month']))
     $generatedSortDate = $_POST['sortdate']['year'].'-'.$_POST['sortdate']['month'].'-'.$_POST['sortdate']['day'];
     
     // VALIDATE the SORT DATE
@@ -201,17 +202,24 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
   $startPageTitle = ' toolTip" title="'.$langFile['btn_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
+// shows the text of the sorting of a CATEGORY
+if($categories['id_'.$_GET['category']]['sortbydate'] == 'true')
+  $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
+else
+  $categorySorting = '';
+
 // -> show the page PAGE HEADLINE
-echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.'</span>';
+echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.$categorySorting.'</span>';
 
 // -> show LAST SAVE DATE TIME
 $lastSaveDate =  $statisticFunctions->formatDate($pageContent['lastsavedate']);
 $lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
 
-if(!$newPage)
-  echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.' '.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].']</span></h1>';
-else
+if($newPage)
   echo '</h1>';
+else
+  echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.' '.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].']</span></h1>';
+  
 ?>
   <div class="content">
    
@@ -522,7 +530,7 @@ else $hidden = ' hidden';
       <?php
       
       // shows only if activated
-      if($categories['id_'.$_GET['category']]['sortdate']) { ?>
+      if($categories['id_'.$_GET['category']]['showsortdate']) { ?>
       
       <!-- ***** SORT DATE -->
       
@@ -545,7 +553,7 @@ else $hidden = ' hidden';
         $dateFormat = $langFile['date_int'];
       
       // CHECKs the DATE FORMAT
-      if(!empty($pageContent['sortdate']) && !empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
+      if(!empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
         echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_tip'].'">'.$langFile['editor_pageSettings_field3'].'</span>';
@@ -580,15 +588,19 @@ else $hidden = ' hidden';
             $countMonths = '0'.$i;            
           else $countMonths = $i;
           // selects the selected month
-          if(substr($pageContent['sortdate']['date'],5,2) == $countMonths)
+          if(substr($pageContent['sortdate']['date'],-5,2) == $countMonths)
             $selected = ' selected="selected"';
           else $selected = null;
           $sortDateTags['month'] .= '<option value="'.$countMonths.'"'.$selected.'>'.$countMonths.'</option>'."\n";
         }
         $sortDateTags['month'] .= '</select>'."\n";
         
-        // -> creates MONTH selection
-        $sortDateTags['year'] = '<input type="text" class="short toolTip" name="sortdate[year]" title="'.$langFile['editor_pageSettings_sortdate_year_inputTip'].'" value="'.substr($pageContent['sortdate']['date'],0,4).'" maxlength="4" />'."\n";
+        // -> creates YEAR selection
+        $year = substr($pageContent['sortdate']['date'],0,4);
+        if(preg_match('/[0-9]{4}/',$year))
+          $year = $year;
+        else $year = null;
+        $sortDateTags['year'] = '<input type="text" class="short toolTip" name="sortdate[year]" title="'.$langFile['editor_pageSettings_sortdate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
 
         
         // -> WRITES the SORT DATE TAGS
@@ -606,7 +618,7 @@ else $hidden = ' hidden';
       <?php }
       
       // shows only if activated
-      if($categories['id_'.$_GET['category']]['tags']) {
+      if($categories['id_'.$_GET['category']]['showtags']) {
       ?>      
       <!-- ***** TAGS -->
       

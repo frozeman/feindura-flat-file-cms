@@ -14,7 +14,7 @@
     
 *
 * 
-* forms.php version 0.1 (require mootools-core AND mootools-more)  */
+* forms.php version 0.11 (require mootools-core AND mootools-more)  */
 
 var myCfe;
 
@@ -81,7 +81,7 @@ window.addEvent('domready', function() {
         // -> ** categories[0-9]sortdate
         if(checkbox.get('id').match(/^categories[0-9]sortbydate$/)) {
           var categoryNumber = checkbox.get('id').match(/[0-9]+/);
-          myCfe.addDependencies(checkbox,['categories'+categoryNumber+'sortdate']);
+          myCfe.addDependencies(checkbox,['categories'+categoryNumber+'showsortdate']);
         }    
       
       }

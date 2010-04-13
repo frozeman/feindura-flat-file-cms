@@ -1466,7 +1466,7 @@ class feindura {
       // title with date
       if($titleShowDate && $pageContent['category'] &&
          isset($this->categoryConfig['id_'.$pageContent['category']]) &&
-         $this->categoryConfig['id_'.$pageContent['category']]['sortdate'] &&
+         $this->categoryConfig['id_'.$pageContent['category']]['showsortdate'] &&
          !empty($pageContent['sortdate']) &&
          $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate']['date']))
          $titleDate = $pageContent['sortdate']['before'].' '.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate']['after'];
@@ -1930,7 +1930,7 @@ class feindura {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['sortdate']) &&
            !empty($page['sortdate']['date']) &&
-           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['sortdate'])) {
+           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['showsortdate'])) {
            
            // makes the page sort date compareable
            $pageSortDate = str_replace('-','',$page['sortdate']['date']);

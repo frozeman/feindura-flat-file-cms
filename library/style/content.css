@@ -238,6 +238,15 @@ content.css version 0.21 */
 #content .hidden h1 a:hover {
     background: url(../image/key/content_h1_down_on.png) no-repeat right top;
     }
+    
+/* ----------------------- */	
+/* ---:- category SORT ICON */
+
+h1 img.sortIcon {
+    position: relative;
+    top: 7px;
+    left: -2px;
+    }
 
 /* ----------------------- */	
 /* - CONTENT FASTUP link */  

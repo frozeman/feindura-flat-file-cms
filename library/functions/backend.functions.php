@@ -166,16 +166,16 @@ function saveCategories($newCategories) {
     // *** Schreibe CATEGORIES
     flock($categoryConfig,2); //LOCK_EX
       fwrite($categoryConfig,PHPSTARTTAG); //< ?php
-      fwrite($categoryConfig,'$categories = array('."\n");
-  
+      
+      // ->> GO TROUGH every catgory adn write it
       foreach($newCategories as $category) {
       
         // -> CHECK depency of SORTDATE
-        if($category['sortdate'] == '')
+        if($category['showsortdate'] == '')
           $category['sortbydate'] = '';
         
         if($category['sortbydate'] == 'true')
-          $category['sortdate'] = 'true';
+          $category['showsortdate'] = 'true';
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
         if(!isset($category['thumbWidth']))
@@ -191,33 +191,30 @@ function saveCategories($newCategories) {
         // -> CLEAN all " out of the strings
         foreach($category as $postKey => $post) {    
           $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
-        }
+        } 
         
-        $znew = '"id_'.$category['id'].'" => array(
-          "id"            => \''.$category['id'].'\',
-          "name"          => \''.$category['name'].'\',
-          
-          "public"        => \''.$category['public'].'\',
-          "sortascending" => \''.$category['sortascending'].'\',
-          "createdelete"  => \''.$category['createdelete'].'\',
-          "thumbnail"     => \''.$category['thumbnail'].'\',
-          "tags"          => \''.$category['tags'].'\',
-          "plugins"       => \''.$category['plugins'].'\',
-          "sortdate"      => \''.$category['sortdate'].'\',
-          "sortbydate"    => \''.$category['sortbydate'].'\',
-          
-          "styleFile"     => \''.$category['styleFile'].'\',
-          "styleId"       => \''.str_replace(array('#','.'),'',$category['styleId']).'\',
-          "styleClass"    => \''.str_replace(array('#','.'),'',$category['styleClass']).'\',
-          
-          "thumbWidth"    => \''.$category['thumbWidth'].'\',
-          "thumbHeight"   => \''.$category['thumbHeight'].'\',
-          "thumbRatio"    => \''.$category['thumbRatio'].'\',
-          ),'."\n";
-        fwrite($categoryConfig,$znew);
-      }
-      fwrite($categoryConfig,');'."\n\n");      
-      fwrite($categoryConfig,"return \$categories;");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['id'] =              '".$category['id']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['name'] =            '".$category['name']."';\n");
+        
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['public'] =          '".$category['public']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['sortascending'] =   '".$category['sortascending']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['createdelete'] =    '".$category['createdelete']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbnail'] =       '".$category['thumbnail']."';\n");        
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['plugins'] =         '".$category['plugins']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showtags'] =        '".$category['showtags']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showsortdate'] =    '".$category['showsortdate']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['sortbydate'] =      '".$category['sortbydate']."';\n\n");
+        
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleClass'] =      '".str_replace(array('#','.'),'',$category['styleClass'])."';\n\n");
+        
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbWidth'] =      '".$category['thumbWidth']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbHeight'] =     '".$category['thumbHeight']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
+        
+      }    
+      fwrite($categoryConfig,'return $categories;');
       
       fwrite($categoryConfig,PHPENDTAG); //? >
     flock($categoryConfig,3); //LOCK_UN
@@ -382,9 +379,9 @@ function saveAdminConfig($givenSettings) {  // (Array) with the settings to save
     
     fwrite($file,"\$adminConfig['setStartPage'] =            '".$givenSettings['setStartPage']."';\n");
     fwrite($file,"\$adminConfig['page']['createPages'] =     '".$givenSettings['page']['createPages']."';\n");
-    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$givenSettings['page']['thumbnailUpload']."';\n");
-    fwrite($file,"\$adminConfig['page']['tags'] =            '".$givenSettings['page']['tags']."';\n");
-    fwrite($file,"\$adminConfig['page']['plugins'] =         '".$givenSettings['page']['plugins']."';\n\n");
+    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$givenSettings['page']['thumbnailUpload']."';\n");    
+    fwrite($file,"\$adminConfig['page']['plugins'] =         '".$givenSettings['page']['plugins']."';\n");
+    fwrite($file,"\$adminConfig['page']['showtags'] =            '".$givenSettings['page']['showtags']."';\n\n");
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".$givenSettings['editor']['enterMode']."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$givenSettings['editor']['styleFile']."';\n");

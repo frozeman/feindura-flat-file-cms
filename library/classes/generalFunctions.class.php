@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/generalFunctions.functions.php version 1.10
+* library/functions/generalFunctions.functions.php version 1.11
 *
 * FUNCTIONS ----------------------------
 * 
@@ -161,50 +161,39 @@ class generalFunctions {
     if((($categoryId === false || $categoryId == 0) &&
         $fp = fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
         $fp = fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
-  
-      // vorher thumbnailpath,
-      // und name statt filename,
-      // public statt status,
-      // publicdate in date
-      $z1 = '$pageContent = array('."\n";
-  
-    $znew = '
-  "id"              => \''.$pageContentArray['id'].'\',
-  "category"        => \''.$pageContentArray['category'].'\',
-  "public"          => \''.$pageContentArray['public'].'\',
-  "sortorder"       => \''.$pageContentArray['sortorder'].'\',
-  "sortdate"        => array("before" => \''.$pageContentArray['sortdate']['before'].'\',"date" => \''.$pageContentArray['sortdate']['date'].'\',"after" => \''.$pageContentArray['sortdate']['after'].'\'),
-  "lastsavedate"    => \''.$pageContentArray['lastsavedate'].'\',
-  "lastsaveauthor"  => \''.$pageContentArray['lastsaveauthor'].'\',
-  "title"           => \''.$pageContentArray['title'].'\',
-  "tags"            => \''.$pageContentArray['tags'].'\',
-  
-  "thumbnail"   => \''.$pageContentArray['thumbnail'].'\',
-  "styleFile"   => \''.$pageContentArray['styleFile'].'\',
-  "styleId"     => \''.$pageContentArray['styleId'].'\',
-  "styleClass"  => \''.$pageContentArray['styleClass'].'\',
-  
-  "log_visitCount"      => \''.$pageContentArray['log_visitCount'].'\',
-  "log_visitTime_min"   => \''.$pageContentArray['log_visitTime_min'].'\',
-  "log_visitTime_max"   => \''.$pageContentArray['log_visitTime_max'].'\',
-  "log_firstVisit"      => \''.$pageContentArray['log_firstVisit'].'\',
-  "log_lastVisit"       => \''.$pageContentArray['log_lastVisit'].'\',
-  "log_searchwords"     => \''.$pageContentArray['log_searchwords'].'\',
-  
-  "content" => 
-  
-  \''.$pageContentArray['content'].'\'
-  
-  ';
-  
-      $z3 = ');'."\n\n";
+
+
       flock($fp,2);
       
       fwrite($fp,PHPSTARTTAG);
-      fwrite($fp,$z1);
       
-      fwrite($fp,$znew);
-      fwrite($fp,$z3);
+      fwrite($fp,"\$pageContent['id'] =                 '".$pageContentArray['id']."';\n");
+      fwrite($fp,"\$pageContent['category'] =           '".$pageContentArray['category']."';\n");
+      fwrite($fp,"\$pageContent['title'] =              '".$pageContentArray['title']."';\n");
+      fwrite($fp,"\$pageContent['public'] =             '".$pageContentArray['public']."';\n");
+      fwrite($fp,"\$pageContent['sortorder'] =          '".$pageContentArray['sortorder']."';\n");
+      fwrite($fp,"\$pageContent['sortdate']['before'] = '".$pageContentArray['sortdate']['before']."';\n");
+      fwrite($fp,"\$pageContent['sortdate']['date'] =   '".$pageContentArray['sortdate']['date']."';\n");
+      fwrite($fp,"\$pageContent['sortdate']['after'] =  '".$pageContentArray['sortdate']['after']."';\n");
+      fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContentArray['lastsavedate']."';\n");
+      fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContentArray['lastsaveauthor']."';\n");      
+      fwrite($fp,"\$pageContent['tags'] =               '".$pageContentArray['tags']."';\n\n");
+      
+      fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContentArray['thumbnail']."';\n");
+      fwrite($fp,"\$pageContent['styleFile'] =          '".$pageContentArray['styleFile']."';\n");
+      fwrite($fp,"\$pageContent['styleId'] =            '".$pageContentArray['styleId']."';\n");
+      fwrite($fp,"\$pageContent['styleClass'] =         '".$pageContentArray['styleClass']."';\n\n");
+      
+      fwrite($fp,"\$pageContent['log_visitCount'] =     '".$pageContentArray['log_visitCount']."';\n");
+      fwrite($fp,"\$pageContent['log_visitTime_min'] =  '".$pageContentArray['log_visitTime_min']."';\n");
+      fwrite($fp,"\$pageContent['log_visitTime_max'] =  '".$pageContentArray['log_visitTime_max']."';\n");
+      fwrite($fp,"\$pageContent['log_firstVisit'] =     '".$pageContentArray['log_firstVisit']."';\n");
+      fwrite($fp,"\$pageContent['log_lastVisit'] =      '".$pageContentArray['log_lastVisit']."';\n");
+      fwrite($fp,"\$pageContent['log_searchwords'] =    '".$pageContentArray['log_searchwords']."';\n\n");
+      
+      fwrite($fp,"\$pageContent['content'] = \n'".$pageContentArray['content']."';\n\n");
+      
+      fwrite($fp,"return \$pageContent;");
       
       fwrite($fp,PHPENDTAG);
       

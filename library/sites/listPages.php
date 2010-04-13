@@ -129,7 +129,7 @@ foreach($allCategories as $category) {
   
   // shows the text of the sorting of a CATEGORY
   if($category['sortbydate'] == 'true') {
-    $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
+    $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
   } else {
     $categorySorting = '';
     //$categorySorting = '<span style="font-size: 12px; font-weight: normal;">('.$langFile['sortablePageList_sortOrder_manuell'].')</span>';
@@ -219,7 +219,7 @@ if(is_array($pages)) {
       $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
       
       // -> show sortdate
-      if(!empty($category['sortdate']) &&
+      if($category['showsortdate'] &&
         (!empty($pageContent['sortdate']['before']) || !empty($pageContent['sortdate']['date']) || !empty($pageContent['sortdate']['after']))) {
         
         // CHECKs the DATE FORMAT
@@ -231,7 +231,7 @@ if(is_array($pages)) {
       } else $showDate = '';
       
       // -> show tags
-      if(!empty($pageContent['tags'])) {
+      if($category['showtags'] && !empty($pageContent['tags'])) {
         $showTags = '[br /][br /]';
         $showTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$pageContent['tags'];
       }
