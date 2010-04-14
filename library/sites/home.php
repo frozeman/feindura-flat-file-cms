@@ -74,11 +74,13 @@ if(!empty($adminConfig['user']['info'])) {
 
 <!-- WEBSITE STATISTIC -->
 
+
+
 <div class="block">
   <h1><a href="#"><img src="library/image/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['home_statistic_h1']; ?></a></h1>
   <div class="content">
     <?php
-    
+
     // --------------------------------
     // USER COUNTER
     echo '<div class="innerBlockLeft">';

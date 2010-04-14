@@ -15,22 +15,21 @@
     if not,see <http://www.gnu.org/licenses/>.
 */
 /** @file feindura.class.php 
- * \brief library/classes/feindura.class.php
- *  
- * This file conatins the feindura class
- * 
- * */ 
+ * \brief library/classes/feindura.class.php This file contains the feindura class.
+ */ 
 
 
 include_once(dirname(__FILE__)."/../frontend.include.php");
 
 /** \class feindura
-* \brief feindura class
+* \brief The class for the CMS-implimentation in a website
 * 
-* the class for the implimentation of the feindura - Flat File Content Management System.\n
-* Its methods provide necessary functions to create a website, like building a menu and place the page content.
+* The class for the implimentation of the feindura - Flat File Content Management System in a website.
 * 
-* \version 1.52
+* Its methods provide necessary functions to impliment the cms in a website.\n 
+* It contains for example methods for building a menu and place the page content, etc.
+* 
+* \version 1.53
 * 
 */
 class feindura {
@@ -62,12 +61,23 @@ class feindura {
   
   // PROTECTED
   // *********
-  var $sessionId = false;                 /**< \brief stores the session id, if cookies are deactivated */
+  var $sessionId = null;                  /**< \brief \c string -> stores the session-ID, if cookies are deactivated */
   var $varNames = array('page' =>     'page',         // [String in an Array]    -> the variable name used for the get variable for the page
                         'category' => 'category',     // [String in an Array]    -> the variable name used for the get variable for the category
                         'modul' =>    'modul');       // [String in an Array]    -> the variable name used for the get variable for the modul
                               
-  var $storedPageIds = '';                // (empty or Array) stores all page IDs and category IDs in an Array, if its gone once trough the category folders (saves resources)
+  var $storedPageIds = null;              /**< \brief \c array -> stores all page IDs and category IDs on the first loading of a page.
+  * \details On the first loading of a page, in a #feindura \c class instance, 
+  * it goes trough all category folders and look which pages are in which folders and stores it in the #$storedPageIds \c array 
+  * to speed up the page loading process.
+  *
+  * Example construction of the array:
+  * \code
+  * array(
+  *   array('page' => 1, 'category' => 1),
+  *   array('page' => 2, 'category' => 1)
+  * );
+  * \endcode */
   var $storedPages = false;               // (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
                                  
   // PUBLIC
@@ -197,12 +207,12 @@ class feindura {
   * get the \a language File for the frontend
   * 
   * 
-  * \param $language  (\b string) a country code (Example: \c de, \c en, \c ..) to set the language of feindura
+  * \param $language (\c string: \e optional) - A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files and is also set to the #$language property.
   * 
-  * \usedproperties
+  * \par used Properties:
   *   #$sessionId\n
   *   #$sessionId\n
-  *   #$sessionId
+  *   #$sessionId\n
   * 
   * \retval true
   * 
@@ -1612,9 +1622,9 @@ class feindura {
         $newPageContentArrays = array();
         foreach($this->getStoredPageIds() as $pageIdAndCategory) {
           // use only pages from the right category
-          if($pageIdAndCategory[1] == $categoryId) {
-            //echo 'PAGE: '.$pageIdAndCategory[0].' -> '.$categoryId.'<br />';
-            $newPageContentArrays[] = $this->readPage($pageIdAndCategory[0],$pageIdAndCategory[1]);            
+          if($pageIdAndCategory['category'] == $categoryId) {
+            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
+            $newPageContentArrays[] = $this->readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
           }
         }
         
@@ -2078,7 +2088,7 @@ class feindura {
   function getStoredPageIds() { // (false or Array)
   
     // load all page ids, if necessary
-    if($this->storedPageIds == '')
+    if($this->storedPageIds == null)
       $this->storedPageIds = $this->generalFunctions->loadPages(true,false);
 
     return $this->storedPageIds;

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 *
-* library/functions/generalFunctions.functions.php version 1.11
+* library/functions/generalFunctions.functions.php version 1.12
 *
 * FUNCTIONS ----------------------------
 * 
@@ -315,13 +315,13 @@ class generalFunctions {
                 if($loadPagesInArray)
                   $pages[] = $this->readPage($file);
                 else
-                  $pages[] = array(substr($file,0,-4),0);
+                  $pages[] = array('page' => substr($file,0,-4), 'category' => 0);
               // load Pages, with a category
               } else {
                 if($loadPagesInArray)
                   $pages[] = $this->readPage($file,$categoryId);
                 else
-                  $pages[] = array(substr($file,0,-4),$categoryId);
+                  $pages[] = array('page' => substr($file,0,-4), 'category' => $categoryId);
               }
             }
           }
@@ -358,16 +358,16 @@ class generalFunctions {
     if($page !== false && is_numeric($page)) {
       // loads only the page IDs and category IDs in an array
       // but only if it hasn't done this yet
-      if($allPageIds == '')
+      if($allPageIds == null)
         $allPageIds = $this->loadPages(true,false);
         
       if($allPageIds) {
         // gets the category id of the given page
         foreach($allPageIds as $everyPage) {
           // if its the right page, return the category of it        
-          if($page == $everyPage[0]) {
-            if($returnPageIds === false) return $everyPage[1];
-            else return array($everyPage[1],$allPageIds);
+          if($page == $everyPage['page']) {
+            if($returnPageIds === false) return $everyPage['category'];
+            else return array($everyPage['category'],$allPageIds);
           }
         }
         // if it found nothing
@@ -408,7 +408,7 @@ class generalFunctions {
   // RETURNs a String for the HREF attribute
   // -----------------------------------------------------------------------------------------------------
   function createHref($pageContent,               // (pageContent Array) the pageContent Array of the page
-                             $sessionId = false) {
+                             $sessionId = null) {
     
     // vars
     $page = $pageContent['id'];

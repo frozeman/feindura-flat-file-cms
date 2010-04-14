@@ -749,7 +749,7 @@ function getHighestId() {
   // go trough the file list and look for the highest number
   if(is_array($pages)) {
     foreach($pages as $page) {
-      $pageId = $page[0];
+      $pageId = $page['page'];
           
       if($pageId > $highestId)
         $highestId = $pageId;
