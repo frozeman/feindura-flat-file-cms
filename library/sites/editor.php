@@ -323,8 +323,8 @@ else
         // shows the page link
         if($adminConfig['speakingUrl'] == '')
           $hostUrl = $adminConfig['url'].'/';
-        else
-          $hostUrl = $adminConfig['url'];
+        else $hostUrl = $adminConfig['url'];
+        
         echo '<tr>
               <td class="left">
               <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>

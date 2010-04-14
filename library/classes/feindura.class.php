@@ -61,34 +61,111 @@ class feindura {
   
   // PROTECTED
   // *********
-  var $sessionId = null;                  /**< \brief \c string -> stores the session-ID, if cookies are deactivated */
+  var $sessionId = null;                  /**< \brief \c string -> Stores the session-ID, if cookies are deactivated. */
   var $varNames = array('page' =>     'page',         // [String in an Array]    -> the variable name used for the get variable for the page
-                        'category' => 'category',     // [String in an Array]    -> the variable name used for the get variable for the category
-                        'modul' =>    'modul');       // [String in an Array]    -> the variable name used for the get variable for the modul
-                              
-  var $storedPageIds = null;              /**< \brief \c array -> stores all page IDs and category IDs on the first loading of a page.
+       'category' => 'category',     // [String in an Array]    -> the variable name used for the get variable for the category
+       'modul' =>    'modul');       // [String in an Array]    -> the variable name used for the get variable for the modul
+/**\property $varNames
+  * \brief \c array -> Stores the variable names used for the \c $_GET variables.
+  * \details This variable names are configured in the feindura adminstrator settings and set in the feindura() contructor to the #$varNames \c array .\n
+  * For standard value see above.
+  * 
+  * Example of a link using the standard variable name's \c array:
+  * \code
+  * http://www.examplepage.com/index.php?category=1&page=6
+  * \endcode
+  * 
+  * \see feindura() */
+  
+  var $storedPageIds = null;              /**< \brief \c array -> Stores all page IDs and category IDs on the first loading of a page.
   * \details On the first loading of a page, in a #feindura \c class instance, 
   * it goes trough all category folders and look which pages are in which folders and stores it in the #$storedPageIds \c array 
   * to speed up the page loading process.
-  *
-  * Example construction of the array:
+  * 
+  * Example construction of the \c array:
   * \code
   * array(
-  *   array('page' => 1, 'category' => 1),
-  *   array('page' => 2, 'category' => 1)
+  *   [0] => array(
+  *           'page' => 1,
+  *           'category' => 1
+  *          ),
+  *   [1] => array(
+  *           'page' => 2,
+  *           'category' => 1
+  *          )
   * );
   * \endcode */
-  var $storedPages = false;               // (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
+  
+  var $storedPages = null;                /**< \brief \c array -> Stores all page content \c array's once a page is loaded.
+  * \details If a page is loaded (\e included) its page content \c array will be stored in the #$storedPages \c array.\n
+  * If the page is later needed again its page content will be fetched from this property.\n
+  * It should speed up the page loading process.
+  *
+  * Example construction of the \c array:
+  * \code
+  * array(
+  *   [5] => array(
+  *           'id' => 5,
+  *           'category' => 1,
+  *           'title' => 'First Example Page',
+  *           'public' => 'true',
+  *           ...  
+  *           'content' => '<p>example</p>'      
+  *          ),
+  *   [8] => array(
+  *           'id' => 8,
+  *           'category' => 1,
+  *           'title' => 'Second Example Page',
+  *           'public' => '',
+  *           ...  
+  *           'content' => '<p>example</p>'      
+  *          )
+  * );
+  * \endcode */// (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
                                  
   // PUBLIC
   // *********
-  var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
-  var $websiteConfig;                     // [Array] the Array with the websiteConfig Data from the feindura CMS
-  var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
+  var $adminConfig;                       /**< \brief \c array -> Stores the administrator settings set in the CMS backend.
+  * \details The file with the administrator settings is situated at \e "fedinura-CMS/config/admin.config.php".\n
+  * This settings will be set to this \a property in the feindura() constructor.
+  * 
+  * \see feindura()
+  */
+
+  var $websiteConfig;                     /**< \brief \c array -> Stores the website settings set in the CMS backend.
+  * \details The file with the website settings is situated at \e "fedinura-CMS/config/website.config.php".\n
+  * This settings will be set to this \a property in the feindura() constructor.
+  * 
+  * \see feindura()
+  */
   
-  var $generalFunctions;
-  var $statisticFunctions;
-  var $frontendFunctions;
+  var $categoryConfig;                    /**< \brief \c array -> Stores the categories settings set in the CMS backend.
+  * \details The file with the categories settings is situated at \e "fedinura-CMS/config/category.config.php".\n
+  * This settings will be set to this \a property in the feindura() constructor.
+  * 
+  * \see feindura()
+  */
+  
+  var $generalFunctions;                  /**< \brief \c array -> Stores the #generalFunctions \c class for using in this \c class.
+  * \details The file with the #generalFunctions \c class is situated at \e "fedinura-CMS/library/classes/generalFunctions.class.php".\n
+  * This \c class will be set to this \a property in the feindura() constructor.
+  * 
+  * \see feindura()
+  */
+  
+  var $statisticFunctions;                /**< \brief \c array -> Stores the #statisticFunctions \c class for using in this \c class.
+  * \details The file with the #statisticFunctions \c class is situated at \e "fedinura-CMS/library/classes/statisticFunctions.class.php".\n
+  * This \c class will be set to this \a property in the feindura() constructor.
+  * 
+  * \see feindura()
+  */
+  
+  var $frontendFunctions;                 /**< \brief \c array -> Stores the #frontendFunctions \c class for using in this \c class.
+  * \details The file with the #frontendFunctions \c class is situated at \e "fedinura-CMS/library/classes/frontendFunctions.class.php".\n
+  * This \c class will be set to this \a property in the feindura() constructor.
+  * 
+  * \see feindura()
+  */
   
   var $language = 'de';                   // [String]               -> string with the COUNTRY CODE ("de", "en", ..), which is used by the feindura class (for warnings etc)
   var $languageFile = false;              // [Array]                -> Array of the languageFile (example: "/feindura/library/lang/en.frontend.php")
