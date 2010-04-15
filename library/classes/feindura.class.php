@@ -22,11 +22,11 @@
 include_once(dirname(__FILE__)."/../frontend.include.php");
 
 /** \class feindura
-* \brief The class for the CMS-implimentation in a website
+* \brief The class for website implimentation.
 * 
 * The class for the implimentation of the feindura - Flat File Content Management System in a website.
 * 
-* Its methods provide necessary functions to impliment the cms in a website.\n 
+* It's methods provide necessary functions to impliment the cms in a website.\n 
 * It contains for example methods for building a menu and place the page content, etc.
 * 
 * \version 1.53
@@ -62,12 +62,14 @@ class feindura {
   // PROTECTED
   // *********
   var $sessionId = null;                  /**< \brief \c string -> Stores the session-ID, if cookies are deactivated. */
-  var $varNames = array('page' =>     'page',         // [String in an Array]    -> the variable name used for the get variable for the page
-       'category' => 'category',     // [String in an Array]    -> the variable name used for the get variable for the category
-       'modul' =>    'modul');       // [String in an Array]    -> the variable name used for the get variable for the modul
+  
+  var $varNames = array('page' =>     'page',
+       'category' => 'category',
+       'modul' =>    'modul');
 /**\property $varNames
   * \brief \c array -> Stores the variable names used for the \c $_GET variables.
-  * \details This variable names are configured in the feindura adminstrator settings and set in the feindura() contructor to the #$varNames \c array .\n
+  * 
+  * This variable names are configured in the feindura adminstrator settings and set in the feindura() contructor to the #$varNames \c property .\n
   * For standard value see above.
   * 
   * Example of a link using the standard variable name's \c array:
@@ -75,11 +77,13 @@ class feindura {
   * http://www.examplepage.com/index.php?category=1&page=6
   * \endcode
   * 
-  * \see feindura() */
+  * \see feindura()
+  */
   
   var $storedPageIds = null;              /**< \brief \c array -> Stores all page IDs and category IDs on the first loading of a page.
-  * \details On the first loading of a page, in a #feindura \c class instance, 
-  * it goes trough all category folders and look which pages are in which folders and stores it in the #$storedPageIds \c array 
+  * 
+  * On the first loading of a page, in a #feindura \c class instance, 
+  * it goes trough all category folders and look which pages are in which folders and stores it in the #$storedPageIds \c property 
   * to speed up the page loading process.
   * 
   * Example construction of the \c array:
@@ -94,11 +98,13 @@ class feindura {
   *           'category' => 1
   *          )
   * );
-  * \endcode */
+  * \endcode
+  */
   
   var $storedPages = null;                /**< \brief \c array -> Stores all page content \c array's once a page is loaded.
-  * \details If a page is loaded (\e included) its page content \c array will be stored in the #$storedPages \c array.\n
-  * If the page is later needed again its page content will be fetched from this property.\n
+  * 
+  * If a page is loaded (\e included) it's page content \c array will be stored in the #$storedPages \c array.\n
+  * If the page is later needed again it's page content will be fetched from this \c property.\n
   * It should speed up the page loading process.
   *
   * Example construction of the \c array:
@@ -121,60 +127,111 @@ class feindura {
   *           'content' => '<p>example</p>'      
   *          )
   * );
-  * \endcode */// (false or Array) stores all pageContentArrays, if they where loaded (saves resources)
+  * \endcode
+  */
                                  
   // PUBLIC
   // *********
   var $adminConfig;                       /**< \brief \c array -> Stores the administrator settings set in the CMS backend.
-  * \details The file with the administrator settings is situated at \e "fedinura-CMS/config/admin.config.php".\n
-  * This settings will be set to this \a property in the feindura() constructor.
+  * 
+  * The file with the administrator settings is situated at \e "feindura-CMS/config/admin.config.php".
+  *   
+  * This settings will be set to this \c property in the #feindura constructor.
   * 
   * \see feindura()
   */
 
   var $websiteConfig;                     /**< \brief \c array -> Stores the website settings set in the CMS backend.
-  * \details The file with the website settings is situated at \e "fedinura-CMS/config/website.config.php".\n
-  * This settings will be set to this \a property in the feindura() constructor.
+  * 
+  * The file with the website settings is situated at \e "feindura-CMS/config/website.config.php".
+  *   
+  * This settings will be set to this \c property in the #feindura constructor.
   * 
   * \see feindura()
   */
   
   var $categoryConfig;                    /**< \brief \c array -> Stores the categories settings set in the CMS backend.
-  * \details The file with the categories settings is situated at \e "fedinura-CMS/config/category.config.php".\n
-  * This settings will be set to this \a property in the feindura() constructor.
+  * 
+  * The file with the categories settings is situated at \e "feindura-CMS/config/category.config.php".
+  *   
+  * This settings will be set to this \c property in the #feindura constructor.
   * 
   * \see feindura()
   */
   
   var $generalFunctions;                  /**< \brief \c array -> Stores the #generalFunctions \c class for using in this \c class.
-  * \details The file with the #generalFunctions \c class is situated at \e "fedinura-CMS/library/classes/generalFunctions.class.php".\n
-  * This \c class will be set to this \a property in the feindura() constructor.
+  * 
+  * The file with the #generalFunctions \c class is situated at \e "feindura-CMS/library/classes/generalFunctions.class.php".
+  *   
+  * This \c class will be set to this \c property in the #feindura constructor.
   * 
   * \see feindura()
   */
   
   var $statisticFunctions;                /**< \brief \c array -> Stores the #statisticFunctions \c class for using in this \c class.
-  * \details The file with the #statisticFunctions \c class is situated at \e "fedinura-CMS/library/classes/statisticFunctions.class.php".\n
-  * This \c class will be set to this \a property in the feindura() constructor.
+  * 
+  * The file with the #statisticFunctions \c class is situated at \e "feindura-CMS/library/classes/statisticFunctions.class.php".
+  *   
+  * This \c class will be set to this \c property in the #feindura constructor.
   * 
   * \see feindura()
   */
   
   var $frontendFunctions;                 /**< \brief \c array -> Stores the #frontendFunctions \c class for using in this \c class.
-  * \details The file with the #frontendFunctions \c class is situated at \e "fedinura-CMS/library/classes/frontendFunctions.class.php".\n
-  * This \c class will be set to this \a property in the feindura() constructor.
+  * 
+  * The file with the #frontendFunctions \c class is situated at \e "feindura-CMS/library/classes/frontendFunctions.class.php".
+  *   
+  * This \c class will be set to this \c property in the #feindura constructor.
   * 
   * \see feindura()
   */
   
-  var $language = 'de';                   // [String]               -> string with the COUNTRY CODE ("de", "en", ..), which is used by the feindura class (for warnings etc)
-  var $languageFile = false;              // [Array]                -> Array of the languageFile (example: "/feindura/library/lang/en.frontend.php")
+  var $language = 'de';                    /**< \brief \c string -> A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files.
+  * 
+  * The frontend language file is used when displaying page warnings or errors.\n
+  * This \c property will be set in the #feindura constructor.
+  * 
+  * The standad value is \a "de" (german).
+  *  
+  * \see feindura()
+  */
+
+  var $languageFile = null;                /**< \brief \c array -> Stores the frontend language file \c array.
+  * 
+  * The frontend language file \c array contains texts for displaying page \e warnings or \e errors and additional texts like \e "more", etc.\n
+  * The file is situated at \e "feindura-CMS/library/lang/de.frontend.php".
+  *   
+  * It will be \e included and set to this \c property in the #feindura constructor.
+  * 
+  * \see feindura()
+  */
   
-  var $xHtml = true;                      // [Boolean]              -> all pages are displayed in xHTML if not in HTML (changes standalone tags " />" to ">")
+  var $xHtml = true;                      /**< \brief \c boolean -> \c true when the page content should be handled as XHTML.
+  *
+  * In XHTML standalone tags end with " />" instead of ">".\n
+  * When a page content is displayed and #$xHtml is FALSE all " />" will be changed to ">".
+  */
   
-  var $page = false;                      // [Boolean or Number]    -> page ID (if set to false: it will uses the $_GET page var)
+  var $page = null;                       /**< \brief \c number -> Stores the current page ID get from the \c $_GET variable.
+  *
+  * This \c property is used when a page loading \c method is called (like #showPage()) but no page ID \c parameter is given.
+  *   
+  * This \c property will be set in the #feindura constructor.
+  * 
+  * \see feindura()  
+  */
+  
   var $pages = false;                     // [Boolean or Array]     -> Array with page IDs
-  var $category = false;                  // [Boolean or Number]    -> category ID (if set to false: it will uses the $_GET category var)
+  
+  var $category = null;                   /**< \brief \c number -> Stores the current category ID get from the \c $_GET variable.
+  *
+  * This \c property is used when a page loading \c method is called (like #showPage()) but no category ID \c parameter is given.
+  *   
+  * This \c property will be set in the #feindura constructor.
+  * 
+  * \see feindura()  
+  */
+  // [Boolean or Number]    -> category ID (if set to false: it will uses the $_GET category var)
   var $categories = false;                // [Boolean or Array]     -> Array with category IDs
   var $modul = false;                     // [Boolean or String]    -> the modul name (if set to false: it will uses the $_GET modul var)
   var $startPage = false;                 // [False or Number]      -> the Number of the startPage, if t6here is one set in the websiteConfig
@@ -281,10 +338,10 @@ class feindura {
   * set the varNames from the admin.config.php
   * get the GET (if existing) and set it to the PROPERTIES
   * 
-  * get the \a language File for the frontend
+  * get the \a frontend \a language \a file for the frontend
   * 
   * 
-  * \param $language (\c string: \e optional) - A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files and is also set to the #$language property.
+  * \param $language (\c string: \e optional) - A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files and is also set to the #$language \c property.
   * 
   * \par used Properties:
   *   #$sessionId\n
@@ -897,7 +954,7 @@ class feindura {
   // RETURN a menu created out of the pages IDs or a category ID(s), if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
   // RETURNs -> ARRAY
   // * MORE OPTIONs in the PROPERTIES
-  // ------------------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------  
   function createMenuByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                                    $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
                                    $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
@@ -989,6 +1046,8 @@ class feindura {
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // -----------------------------------------------------------------------------------------------------
+  /**< \brief \c array -> Stores the frontend language file \c array.
+  */ 
   function showPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
                            $category = false,             // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                            $shortenText = false,          // (false or Number) the Number of characters to shorten the content text
@@ -1276,7 +1335,7 @@ class feindura {
     $this->page = $this->getCurrentPage();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->page === false && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
+    if($setStartPage === true && $this->page === null && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
       $this->page = $this->websiteConfig['startPage'];
       $this->startPage = $this->websiteConfig['startPage'];
     } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
@@ -1300,7 +1359,7 @@ class feindura {
     $this->category = $this->getCurrentCategory();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->category === false && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
+    if($setStartPage === true && $this->category === null && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
       $this->category = $this->getPageCategory($this->websiteConfig['startPage']);
       $this->startPage = $this->websiteConfig['startPage'];
     } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
@@ -2127,7 +2186,7 @@ class feindura {
   // -> END -- getPropertyPage ----------------------------------------------------------------------
   
   // -> START -- getPropertyPages *******************************************************************
-  // if given pages var is false it sets the PAGES PROPERTY
+  // if given pages var if false it sets the PAGES PROPERTY
   // ------------------------------------------------------------------------------------------------
   function getPropertyPages($pages = false) { // (false or Array)
     if($pages === false && is_array($this->pages))

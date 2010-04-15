@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 169
+Build 170
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -27,6 +27,7 @@ REQUIREMENTS:
 
 Changelog:
 	
+	build 170: feindura.class.php changed $page and $category property standard value from "false" to "null"; add some doxygen comments
 	build 169: changed the index of the storedPageIds property, the array structure is now array(array('page' => 0, 'category' => '0'));
 	build 168: savePage is now saving in the style of the admin.config.php and category.config.php; changed $category['tags'] -> $category['showtags'] and $category['sortdate'] -> $category['showsortdate']
 	build 167: changed name "categorySetup" in "pageSetup"
