@@ -8,25 +8,26 @@
    released on 15-04-2010
     
 \par Features
- Easy to install\n
- Easy to setup on the server\n 
- Easy to use backend-interface through the use of mootools\n
- Website statistics\n
- Using the famous WYSIWYG CKEditor\n
- No templating, just create your design like you want it and say where to put what (menu, content, etc)\n
- Upload images and files\n
- Set thumbnails for every page\n
- Multi-languages (currently english and german)\n
- possibility of building Multi-language websites\n 
- plugin system (like adding contactforms to a page)\n
- modul system (like search)\n
- addon system, build your own application running in the feindura-CMS backend\n
+   Easy to install\n
+   Easy to setup on the server\n 
+   Easy to use backend-interface through the use of mootools\n
+   Website statistics\n
+   Using the famous WYSIWYG CKEditor\n
+   No templating, just create your design like you want it and say where to put what (menu, content, etc)\n
+   Upload images and files\n
+   Set thumbnails for every page\n
+   Drag'n'Drop for moving pages\n
+   Multi-languages (currently english and german)\n
+   possibility of building Multi-language websites\n 
+   plugin system (like adding contactforms to a page)\n
+   modul system (like search)\n
+   addon system, build your own application running in the feindura-CMS backend\n
  
 \par Requirements
    \e PHP >= 4.3.0\n
    \e Javascript\n    
 
-\par Appropriate uses  
+\par Appropriate Uses  
    It's not tested yet, but it should work well on websites with up to 10 000 vistiors per day\n
    feindura#$storedPages \c Array can have up to 30 000 Pages if the php memory limit is 16MB\n
 
