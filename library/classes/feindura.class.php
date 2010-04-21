@@ -14,46 +14,25 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-/** @file feindura.class.php 
- * \brief library/classes/feindura.class.php This file contains the feindura class.
+/** 
+ * feindura.class.php 
+ * 
+ * library/classes/feindura.class.php This file contains the feindura class.
  */ 
 
 
 include_once(dirname(__FILE__)."/../frontend.include.php");
 
-/** \class feindura
-* \brief The class for website implimentation.
-* 
+/**
 * The class for the implimentation of the feindura - Flat File Content Management System in a website.
 * 
 * It's methods provide necessary functions to impliment the cms in a website.\n 
 * It contains for example methods for building a menu and place the page content, etc.
 * 
-* \version 1.53
+* @version 1.53
 * 
 */
 class feindura {
-  
-  /* VAR PRIORITY INFO:
-  *  ->> uses the following PRIORITY for the VARs:
-  *  
-  *  1: USE the given page(s) AND/OR category(ies) var         -> (if false, go to the NEXT)
-  *  *
-  *  2: USE the PROPERTY page(s) AND/OR category(ies) var      -> (if false, go to the NEXT)
-  *  *
-  *  3: page(s) AND/OR category(ies) var is set to false       -> (NO PAGE or CATEGORY will be SHOWN) 
-  *    
-  *  ->> in the these METHODs:
-  *    -> createLink()
-  *    -> createMenu()
-  *    -> createMenuByTags()
-  *    -> createMenuByDate()
-  *    -> showPageTitle()   
-  *    -> showPage()
-  *    -> listPages()  
-  *    -> listPagesByTags()
-  *    -> listPagesByDate()  
-  */  
   
   // ----------------------------
   // *** PROPERTIES
@@ -61,24 +40,37 @@ class feindura {
   
   // PROTECTED
   // *********
-  var $sessionId = null;                  /**< \brief \c string -> Stores the session-ID, if cookies are deactivated. */
   
-  var $varNames = array('page' =>     'page',
-       'category' => 'category',
-       'modul' =>    'modul');
-/**\property $varNames
-  * \brief \c array -> Stores the variable names used for the \c $_GET variables.
+  /**
+   * Contains the session-ID, if cookies are deactivated
+   *      
+   * @var string
+   * @access protected
+   */
+  var $sessionId = null;                  
+  
+  /**
+  * Stores the variable names used for the <var>$_GET</var> variables
   * 
-  * This variable names are configured in the feindura adminstrator settings and set in the feindura() contructor to the #$varNames \c property .\n
+  * This variable names are configured in the feindura adminstrator settings and set in the {@link feindura()} contructor to the {@link $varNames} <var>property</var>.<br>
   * For standard value see above.
   * 
-  * Example of a link using the standard variable name's \c array:
-  * \code
+  * Example of a link using the standard variable names  <var>array</var>:
+  * <code>
   * http://www.examplepage.com/index.php?category=1&page=6
-  * \endcode
+  * </code>
   * 
-  * \see feindura()
+  * @var array
+  *     
+  * @see feindura()
   */
+  var $varNames = array('page' => 'page', 'category' => 'category', 'modul' =>    'modul');
+
+  
+  
+  
+  
+  
   
   var $storedPageIds = null;              /**< \brief \c array -> Stores all page IDs and category IDs on the first loading of a page.
   * 
@@ -363,7 +355,7 @@ class feindura {
   * 
   * This is an example of how to use the Test class.
   * More details about this example.
-  * @include createFeindura.example.php
+  * inline {@example createFeindura.example.php}
   * 
   * \line (echo)
   * 
