@@ -30,8 +30,9 @@ include_once(dirname(__FILE__)."/../frontend.include.php");
 * It contains for example methods for building a menu and place the page content, etc.
 * 
 * @author Fabian Vogelsteller
+* @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.54
+* @version 1.55
 *
 */
 class feindura {
@@ -233,8 +234,8 @@ class feindura {
   * The standad value is <i>"de"</i> (german).
   *  
   * @var string
+  * @see $languageFile   
   * @see feindura()
-  * @see $languageFile 
   * @access public
   *   
   */  
@@ -290,6 +291,8 @@ class feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var number
+  * @see $category  
+  * @see $startPage  
   * @see feindura()
   * @access public
   *   
@@ -305,6 +308,8 @@ class feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var string
+  * @see $page
+  * @see $startPage  
   * @see feindura()
   * @access public
   *   
@@ -319,13 +324,27 @@ class feindura {
   *   
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * @var string
+  * @var number
+  * @see $page
   * @see feindura()
   * @access public
   *   
   */
   var $startPage = null;
   
+ /**
+  * Contains a id-Attribute which will be assigned to any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * 
+  * 
+  * @var false|string If no link id-Attribute should be assigned, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()  
+  * @access public
+  * @example createLink.example.php  
+  *   
+  *   
+  */
   var $linkId = false;                    // [False or String]      -> the link ID which is used when creating a link (REMEMBER you can only set ONE ID in an HTML Page)
   var $linkClass = false;                 // [False or String]      -> the link CLASS which is used when creating a link
   var $linkAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
@@ -682,7 +701,7 @@ class feindura {
         $linkTextBefore = '';
         
         // add HREF
-        $linkAttributes .= ' href="'.$this->createHref($pageContent).'" title="'.$pageContent['title'].'"';
+        $linkAttributes .= ' href="'.$this->createHref($pageContent).'"'; // title="'.$pageContent['title'].'"
 
         // add LINK ID
         if($this->linkId && $this->linkId !== true)
@@ -729,24 +748,26 @@ class feindura {
         // -> create the text
         if($linkText === true) {
         
-          // title with category name
+          // title with category name (remopved because it will be checked in the createTitle() method
+          /*
           if($this->linkShowCategory && $pageContent['category']) {
             if(is_string($this->linkCategorySpacer))
               $linkCategory = $this->linkCategorySpacer;
             else
               $linkCategory = true;
           } else $linkCategory = false;
+          */
           
           // add the TITLE
           $linkText = $this->createTitle($pageContent,
-                                        false, // linktag
+                                        false, // $titletag
                                         false, // $titleId
                                         false, // $titleClass
                                         $this->linkLength,
                                         false, // $titleAsLink
-                                        $linkCategory,
+                                        $this->linkShowCategory,
                                         $this->linkShowDate,
-                                        true); // $link
+                                        true); // $inLink
         }
              
         // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
@@ -1698,7 +1719,7 @@ class feindura {
                                  $titleAsLink = false,         // if true, it set the title as a link (Boolean)
                                  $titleShowCategory = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
                                  $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
-                                 $link = false) {              // (Boolean) if TRUE it dont set the tileBefore and titleAfter
+                                 $inLink = false) {            // (Boolean) if TRUE it dont set the titleBefore and titleAfter
       
       // vars 
       $titleBefore = '';
@@ -1707,54 +1728,62 @@ class feindura {
       // saves the long version of the title, for the title="" tag
       $fullTitle = strip_tags($pageContent['title']);
            
-      // title with date
+      // generate titleDate
       if($titleShowDate && $pageContent['category'] &&
          isset($this->categoryConfig['id_'.$pageContent['category']]) &&
          $this->categoryConfig['id_'.$pageContent['category']]['showsortdate'] &&
          !empty($pageContent['sortdate']) &&
-         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate']['date']))
-         $titleDate = $pageContent['sortdate']['before'].' '.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).' '.$pageContent['sortdate']['after'];
-      else $titleDate = false;      
+         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate']['date'])) {
+         $titleDateBefore = '';
+         $titleDateAfter = '';
+         if($pageContent['sortdate']['before'])
+          $titleDateBefore = $pageContent['sortdate']['before'].' ';
+         if($pageContent['sortdate']['after'])
+          $titleDateAfter = ' '.$pageContent['sortdate']['after'];
+         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).$titleDateAfter;
+      } else $titleDate = false;      
       
       // shorten the title
       if(is_numeric($titleLength) && strlen($fullTitle) > $titleLength)
-        $title = substr($fullTitle, 0, $titleLength)."..";
+        $title = $this->shortenText($fullTitle, $titleLength, false, "..");
       else
         $title = $fullTitle;
         
-        
-       // show the page date in the title="" tag
-      if($titleDate)
-        $fullTitle = $titleDate.' '.$fullTitle;     
-      
-      // create a link for the title
-      if($titleAsLink && $this->varNames !== false && is_array($this->varNames)) {        
-        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$fullTitle.'">';
-        $titleAfter = '</a>';
-      } else {
-        $titleBefore = '<span title="'.$fullTitle.'">';
-        $titleAfter = '</span>';
-      }
-      
-      // CHECK if the TITLE BEFORE & AFTER is !== true
-      if($link === false) {
-        if($this->titleBefore !== true)
-          $titleBefore .= $this->titleBefore;
-        if($this->titleAfter !== true)
-          $titleAfter = $this->titleAfter.$titleAfter;
-      }
-      
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
         if(is_string($this->titleCategorySpacer))
-          $titleBefore .= $this->categoryConfig['id_'.$pageContent['category']]['name'].$this->titleCategorySpacer; // adds the Spacer
+          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$this->titleCategorySpacer; // adds the Spacer
         else
-          $titleBefore .= $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
-      }
-      
+          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
+      }      
+ 
       // show the page date     
       if($titleDate)
-        $titleBefore .= $titleDate.' ';
+        $titleDate = $titleDate.' ';
+        
+      // generate titleBefore without tags
+      $titleBefore = $titleShowCategory.$titleDate;
+      
+      // dont put titleTextBefore/After if $inLink is TRUE
+      if($inLink === false) {
+        // CHECK if the TITLE BEFORE & AFTER is !== true
+        if($this->titleBefore !== true)
+          $titleBefore = $this->titleBefore.$titleBefore;
+        if($this->titleAfter !== true)
+          $titleAfter = $this->titleAfter;
+      }
+      
+      // generates the title for the title="" tag
+      $titleTagText = $titleBefore.$fullTitle.$titleAfter;
+            
+      // create a link for the title
+      if($titleAsLink && is_array($this->varNames)) {        
+        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
+        $titleAfter = $titleAfter.'</a>';
+      } else {
+        $titleBefore = '<span title="'.$titleTagText.'">'.$titleBefore;
+        $titleAfter = $titleAfter.'</span>';
+      }      
         
       // -------------------------------
       // adds ID and/or Class
@@ -2395,27 +2424,31 @@ class feindura {
                                  $pageContent = false,      // (false or Array) the pageContent Array of the Page
                                  $endString = " ...") {     // (String) the string add to the end of the shorten text
       
-      $length = $this->generalFunctions->getCharacterNumber($string,$length);
+      // cut string
+      if(is_numeric($length)) {
+        // gets real length, if there are htmlentities like &auml; &uuml; etc
+        $length = $this->generalFunctions->getCharacterNumber($string,$length);
+        $shortenString = substr($string,0,$length);
+      }
+
+      // adds $endString only if text was shorten
+      if($length < strlen($string)) {
+        // search last whitespace and cut until there
+        $shortenString = substr($shortenString, 0, strrpos($shortenString, ' '));
       
-      // kürzt den string
-      if(is_numeric($length))
-        $string = substr($string,0,$length);
-      
-      // sucht das letzte vorkommende leerzeichen und kürzt den string bis dahin 
-      $string = substr($string, 0, strrpos($string, ' '));
-      
-      // adds the MORE LINK to the $endString
-      if($pageContent !== false && is_array($pageContent)) {
-        $endString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        // adds the endString
+        if(is_string($endString))
+          $shortenString .= $endString;
       }
       
-      // adds the endString
-      if($endString !== false)
-        $string .= $endString;
+      // adds the MORE LINK
+      if($endString !== false && $pageContent !== false && is_array($pageContent)) {
+        $shortenString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+      }
       
-      $string = preg_replace("/ +/", ' ', $string);
+      $shortenString = preg_replace("/ +/", ' ', $shortenString);
       
-      return $string;
+      return $shortenString;
   }
   // -> END -- shortenText -----------------------------------------------------------------------------------
   
