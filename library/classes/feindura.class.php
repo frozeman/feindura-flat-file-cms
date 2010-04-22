@@ -31,7 +31,7 @@ include_once(dirname(__FILE__)."/../frontend.include.php");
 * 
 * @author Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.53
+* @version 1.54
 *
 */
 class feindura {
@@ -51,7 +51,7 @@ class feindura {
   * @var string
   * @access protected
   */
-  var $sessionId = null;                  
+  var $sessionId = null;
   
  /**
   * Contains the variable names used for the <var>$_GET</var> variables
@@ -69,7 +69,7 @@ class feindura {
   * @access protected
   *   
   */
-  var $varNames = array('page' => 'page', 'category' => 'category', 'modul' =>    'modul');
+  var $varNames = array('page' => 'page', 'category' => 'category', 'modul' => 'modul');
 
  /**
   * Contains all page and category IDs on the first loading of a page.
@@ -96,7 +96,7 @@ class feindura {
   * @access protected
   *    
   */
-  var $storedPageIds = null;              
+  var $storedPageIds = null;
   
  /**
   * Contains all page content <var>array's</var> once a page is loaded.
@@ -131,7 +131,7 @@ class feindura {
   * @access protected
   *   
   */
-  var $storedPages = null;                
+  var $storedPages = null;
                                  
   // PUBLIC
   // *********
@@ -148,7 +148,7 @@ class feindura {
   * @access public 
   *    
   */
-  var $adminConfig;                       
+  var $adminConfig;
 
  /**
   * Contains the website-settings config of the CMS backend
@@ -162,7 +162,7 @@ class feindura {
   * @access public 
   *   
   */
-  var $websiteConfig;  
+  var $websiteConfig;
   
  /**
   * Contains the categories-settings config of the CMS backend
@@ -176,7 +176,7 @@ class feindura {
   * @access public 
   *   
   */
-  var $categoryConfig;                    
+  var $categoryConfig;
   
  /**
   * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
@@ -206,7 +206,7 @@ class feindura {
   * @access public
   *   
   */
-  var $statisticFunctions;                
+  var $statisticFunctions;
   
  /**
   * Contains a <var>instance</var> of the {@link frontendFunctions::frontendFunctions() frontendFunctions} <var>class</var> for using in this <var>class</var>.
@@ -238,7 +238,7 @@ class feindura {
   * @access public
   *   
   */  
-  var $language = 'en';                    
+  var $language = 'en';
   
  /**
   * Contains the frontend language-file <var>array</var>
@@ -254,48 +254,77 @@ class feindura {
   *   
   */
   var $languageFile = null;
-  
-  
-  
-  
-  
-  var $xHtml = true;                      /**< \brief \c boolean -> \c true when the page content should be handled as XHTML.
+
+ /**
+  * <i>TRUE</i> when the page content should be handled as XHTML
   *
-  * In XHTML standalone tags end with " />" instead of ">".\n
-  * When a page content is displayed and #$xHtml is FALSE all " />" will be changed to ">".
+  * In XHTML standalone tags end with " />" instead of ">".<br>
+  * When a page content is displayed and this <var>property</var> is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var boolean  
-  * @see feindura()
   * @access public
   *    
   */
+  var $xHtml = true;
   
-  var $page = null;                       /**< \brief \c number -> Stores the current page ID get from the \c $_GET variable.
+ /**
+  * Contains the current page ID get from the <var>$_GET</var> variable
   *
-  * This <var>property</var> is used when a page loading <var>method</var> is called (like #showPage()) but no page ID <var>parameter</var> is given.
+  * This <var>property</var> is used when a page loading <var>method</var> is called (for example: {@link showPage()}) and no page ID <var>parameter</var> is given.
   *   
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * @var number  
+  * @var number
   * @see feindura()
   * @access public
   *   
   */
+  var $page = null;
+  //var $pages = false;                     // [Boolean or Array]     -> Array with page IDs  
   
-  var $pages = false;                     // [Boolean or Array]     -> Array with page IDs
-  
-  var $category = null;                   /**< \brief \c number -> Stores the current category ID get from the \c $_GET variable.
+ /**
+  * Contains the current category ID get from the <var>$_GET</var> variable
   *
-  * This \c property is used when a page loading \c method is called (like #showPage()) but no category ID \c parameter is given.
+  * This <var>property</var> is used when a page-loading <var>method</var> is called (for example: {@link showPage()}) and no category ID <var>parameter</var> is given.
   *   
-  * This \c property will be set in the {@link feindura} constructor.
+  * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * \see feindura()  
+  * @var number
+  * @see feindura()
+  * @access public
+  *   
   */
-  // [Boolean or Number]    -> category ID (if set to false: it will uses the $_GET category var)
-  var $categories = false;                // [Boolean or Array]     -> Array with category IDs
-  var $modul = false;                     // [Boolean or String]    -> the modul name (if set to false: it will uses the $_GET modul var)
-  var $startPage = false;                 // [False or Number]      -> the Number of the startPage, if t6here is one set in the websiteConfig
+  var $category = null;
+  //var $categories = false;                // [Boolean or Array]     -> Array with category IDs
+  
+ /**
+  * Contains the current modul ID get from the <var>$_GET</var> variable
+  *
+  * This <var>property</var> is used when a modul-loading <var>method</var> is called (for example: {@link showModul()}) and no modul ID <var>parameter</var> is given.
+  *   
+  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * 
+  * @var string
+  * @see feindura()
+  * @access public
+  *   
+  */
+  var $modul = false;
+  
+ /**
+  * Contains the startpage ID website-settings config
+  *
+  * This <var>property</var> is used a page loading <var>method</var> is called (for example: {@link showPage()}) and no page ID <var>parameter</var> is given<br>
+  * <b> and the {@link page} <var>property</var> is <i>empty</i>.
+  *   
+  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * 
+  * @var string
+  * @see feindura()
+  * @access public
+  *   
+  */
+  var $startPage = null;
   
   var $linkId = false;                    // [False or String]      -> the link ID which is used when creating a link (REMEMBER you can only set ONE ID in an HTML Page)
   var $linkClass = false;                 // [False or String]      -> the link CLASS which is used when creating a link
@@ -787,19 +816,21 @@ class feindura {
     $idType = strtolower($idType);
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if($ids === false) {
+    if(!$ids) {
       if($idType == 'page')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPage($ids);
+        $ids = $this->getPropertyPage($ids);      
       elseif($idType == 'category')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
+      /*
+      elseif($idType == 'pages')
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+        $ids = $this->getPropertyPages($ids);
       elseif($idType == 'categories')
         // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
+      */
     }    
           
     // -> sets the MENU attributes
@@ -985,19 +1016,21 @@ class feindura {
                                    
     $idType = strtolower($idType);    
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> GET page var 4. -> false
-    if($ids === false) {
+    if(!$ids) {
       if($idType == 'page')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPage($ids);
+        $ids = $this->getPropertyPage($ids);      
       elseif($idType == 'category')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
+      /*
+      elseif($idType == 'pages')
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+        $ids = $this->getPropertyPages($ids);
       elseif($idType == 'categories')
         // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
+      */
     }
     
     // check for the tags and CREATE A MENU
@@ -1179,19 +1212,21 @@ class feindura {
     $idType = strtolower($idType);
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if($ids === false) {
+    if(!$ids) {
       if($idType == 'page')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPage($ids);
+        $ids = $this->getPropertyPage($ids);      
       elseif($idType == 'category')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
+      /*
+      elseif($idType == 'pages')
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+        $ids = $this->getPropertyPages($ids);
       elseif($idType == 'categories')
         // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
+      */
     } 
         
     // LOADS the PAGES BY TYPE
@@ -1236,19 +1271,21 @@ class feindura {
      
     $idType = strtolower($idType);
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if($ids === false) {
+    if(!$ids) {
       if($idType == 'page')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPage($ids);
+        $ids = $this->getPropertyPage($ids);      
       elseif($idType == 'category')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
+      /*
+      elseif($idType == 'pages')
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+        $ids = $this->getPropertyPages($ids);
       elseif($idType == 'categories')
         // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
+      */
     }
     
     // check for the tags and LIST PAGES
@@ -1396,7 +1433,7 @@ class feindura {
     $this->page = $this->getCurrentPage();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->page === null && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
+    if($setStartPage === true && empty($this->page) && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
       $this->page = $this->websiteConfig['startPage'];
       $this->startPage = $this->websiteConfig['startPage'];
     } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
@@ -1420,7 +1457,7 @@ class feindura {
     $this->category = $this->getCurrentCategory();
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->category === null && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
+    if($setStartPage === true && empty($this->page) && empty($this->category) && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
       $this->category = $this->getPageCategory($this->websiteConfig['startPage']);
       $this->startPage = $this->websiteConfig['startPage'];
     } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
@@ -2087,19 +2124,21 @@ class feindura {
     
     $idType = strtolower($idType);
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if($ids === false) {
+    if(!$ids) {
       if($idType == 'page')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPage($ids);
+        $ids = $this->getPropertyPage($ids);      
       elseif($idType == 'category')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
+      /*
+      elseif($idType == 'pages')
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+        $ids = $this->getPropertyPages($ids);
       elseif($idType == 'categories')
         // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
         $ids = $this->getPropertyCategories($ids);
+      */
     }
     //$return = false;
     
@@ -2249,12 +2288,14 @@ class feindura {
   // -> START -- getPropertyPages *******************************************************************
   // if given pages var if false it sets the PAGES PROPERTY
   // ------------------------------------------------------------------------------------------------
+  /*
   function getPropertyPages($pages = false) { // (false or Array)
     if($pages === false && is_array($this->pages))
       $pages = $this->pages;  // set the pages var from PROPERTY var
 
     return $pages;
   }
+  */
   // -> END -- getPropertyPages ---------------------------------------------------------------------
   
   // -> START -- getPropertyCategory ****************************************************************
@@ -2271,12 +2312,14 @@ class feindura {
   // -> START -- getPropertyCategories **************************************************************
   // if given categories var is false it sets the CATEGORIES PROPERTY
   // ------------------------------------------------------------------------------------------------
+  /*
   function getPropertyCategories($categories = false) { // (false or Array)
     if($categories === false && is_array($this->categories))
       $categories = $this->categories;  // set the categories var from PROPERTY var
 
     return $categories;
   }
+  */
   // -> END -- getPropertyCategories ----------------------------------------------------------------
   
   // -> START -- getStoredPageIds *******************************************************************
