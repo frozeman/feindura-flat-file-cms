@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>@uses</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.tutorial.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.var.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@tutorial</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@var</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">@uses</h1>
+  <h2 class="ref-purpose">Display a link to the documentation for an element, and create a backlink in the other element's documentation to this</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+    <div class="author-blurb">Tag Documentation written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span>
+   <div class="notes">Copyright 2002, Gregory Beaver</div>
+   <div class="release-info">(phpDocumentor 0.1+)</div>
+  <div class="cmd-synopsis"><span class="cmd-title">@uses</span>
+    <span class = "req">file.ext|elementname|class::methodname()|class::$variablename|functionname()|function functionname</span>
+    <span class = "opt">description of how the element is used</span></div></div>
+ <span><a name="description"></a><h2 class="title">Description</h2><span class="warning">Since version 1.2.0beta3, the syntax for @uses has changed.  It differs in that @uses now contains a description of how the element is used and does not allow a comma-delimited list of values any longer.</span>
+  <p>The @uses tag may be used to document any element (global variable, include, page, class, function, define, method, variable)</p>
+  <span class="warning">@uses only displays links to element documentation.  If you want to display a hyperlink, use <a href="../phpDocumentor/tutorial_tags.link.pkg.html">@link</a> or <a href="../phpDocumentor/tutorial_tags.inlinelink.pkg.html">inline {@link}</a></span>
+  <p>@uses is very similar to <a href="../phpDocumentor/tutorial_tags.see.pkg.html">@see</a>, see the documentation for @see for details on format and structure.  The @uses tag differs from @see in two ways.  @see is a one-way link, meaning the documentation containing a @see tag contains a link to other documentation.  The @uses tag automatically creates a virtual @usedby tag in the other documentation that links to the documentation containing the @uses tag.  In other words, it is exactly like @see, except a return link is added automatically.</p>
+  <p>The other difference is that @uses only accepts one element to link to, and a description of that element.</p></span>
+ <span><a name="example"></a><h2 class="title">Example</h2><p>Here's an example of valid @uses syntax:</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;class&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">main_class</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">integer&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-id">foo&nbsp;</span>=&nbsp;<span class="src-num">3</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;subclass&nbsp;inherits&nbsp;this&nbsp;method.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;example&nbsp;of&nbsp;a&nbsp;word&nbsp;which&nbsp;is&nbsp;either&nbsp;a&nbsp;constant&nbsp;or&nbsp;class&nbsp;name,</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;in&nbsp;this&nbsp;case&nbsp;a&nbsp;classname</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@uses</span><span class="src-doc">&nbsp;subclass&nbsp;sets&nbsp;a&nbsp;temporary&nbsp;variable</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@uses</span><span class="src-doc">&nbsp;subclass::$foo&nbsp;this&nbsp;is&nbsp;compared&nbsp;to&nbsp;TEST_CONST</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@uses</span><span class="src-doc">&nbsp;TEST_CONST&nbsp;compared&nbsp;to&nbsp;subclass::$foo,&nbsp;we</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die()&nbsp;if&nbsp;not&nbsp;found</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><span class="src-id">parent_method</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">foo</span>==<span class="src-num">9</span><span class="src-sym">)&nbsp;</span><span class="src-key">die</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$test&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id">subclass</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$a&nbsp;</span>=&nbsp;<span class="src-var">$test</span><span class="src-sym">-&gt;</span><span class="src-id">foo</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$a&nbsp;</span>==&nbsp;<span class="src-id">TEST_CONST</span><span class="src-sym">)&nbsp;</span><span class="src-key">die</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;this&nbsp;class&nbsp;extends&nbsp;main_class.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-id">subclass&nbsp;</span><span class="src-key">extends&nbsp;</span><span class="src-id">main_class</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">integer&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$foo&nbsp;</span>=&nbsp;<span class="src-num">9</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">&quot;TEST_CONST&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;foobar&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p>
+  <p>This will parse as if it were:</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;class&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">main_class</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">integer&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-id">foo&nbsp;</span>=&nbsp;<span class="src-num">3</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;subclass&nbsp;inherits&nbsp;this&nbsp;method.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;example&nbsp;of&nbsp;a&nbsp;word&nbsp;which&nbsp;is&nbsp;either&nbsp;a&nbsp;constant&nbsp;or&nbsp;class&nbsp;name,</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;in&nbsp;this&nbsp;case&nbsp;a&nbsp;classname</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@uses</span><span class="src-doc">&nbsp;subclass&nbsp;sets&nbsp;a&nbsp;temporary&nbsp;variable</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@uses</span><span class="src-doc">&nbsp;subclass::$foo&nbsp;this&nbsp;is&nbsp;compared&nbsp;to&nbsp;TEST_CONST</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@uses</span><span class="src-doc">&nbsp;TEST_CONST&nbsp;compared&nbsp;to&nbsp;subclass::$foo,&nbsp;we</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die()&nbsp;if&nbsp;not&nbsp;found</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><span class="src-id">parent_method</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">foo</span>==<span class="src-num">9</span><span class="src-sym">)&nbsp;</span><span class="src-key">die</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$test&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id">subclass</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$a&nbsp;</span>=&nbsp;<span class="src-var">$test</span><span class="src-sym">-&gt;</span><span class="src-id">foo</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$a&nbsp;</span>==&nbsp;<span class="src-id">TEST_CONST</span><span class="src-sym">)&nbsp;</span><span class="src-key">die</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;this&nbsp;class&nbsp;extends&nbsp;main_class.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@usedby</span><span class="src-doc">&nbsp;main_class::parent_method()&nbsp;sets&nbsp;a&nbsp;temporary&nbsp;variable</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-id">subclass&nbsp;</span><span class="src-key">extends&nbsp;</span><span class="src-id">main_class</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">integer&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-tag">@usedby</span><span class="src-doc">&nbsp;main_class::parent_method()&nbsp;this&nbsp;is&nbsp;compared&nbsp;to&nbsp;TEST_CONST</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$foo&nbsp;</span>=&nbsp;<span class="src-num">9</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@usedby</span><span class="src-doc">&nbsp;main_class::parent_method()&nbsp;compared&nbsp;to&nbsp;subclass::$foo,&nbsp;we</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die()&nbsp;if&nbsp;not&nbsp;found</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">&quot;TEST_CONST&quot;</span><span class="src-sym">,</span><span class="src-str">&quot;foobar&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.tutorial.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.var.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@tutorial</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@var</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:57 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

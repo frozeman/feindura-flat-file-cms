@@ -1,0 +1,1955 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class phpDocumentor_IntermediateParser</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class phpDocumentor_IntermediateParser</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The phpDocumentor_IntermediateParser Class</p>
+<p class="description"><p>This class performs the work of organizing raw data from the parser in the  format of descendants of the <a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a> class.  This is also where  processing of package pages occurs, in  <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleClass">phpDocumentor_IntermediateParser::handleClass()</a> for class-level  packages and <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleDocBlock">phpDocumentor_IntermediateParser::handleDocBlock()</a> for  page-level packages.</p><p>Most of the work of this parser goes to matching up  DocBlocks with the elements that they are documenting.  Since DocBlocks are  passed before the element they document, the last DocBlock is stored in  <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$last">phpDocumentor_IntermediateParser::$last</a> and then placed into the  $docblock parameter of the parserElement  descendant object.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Gregory Beaver</li>
+				<li><span class="field">version:</span> $Id: IntermediateParser.inc 247821 2007-12-09 06:11:35Z ashnazg $</li>
+				<li><span class="field">copyright:</span> 2002 Gregory Beaver</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---IntermediateParser.inc.html">/phpDocumentor/IntermediateParser.inc</a> (line <span class="field"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a60">60</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																																																																																																																																																																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$all_packages" title="details" class="var-name">$all_packages</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../phpDocumentor/Classes.html">Classes</a></span>
+					<a href="#$classes" title="details" class="var-name">$classes</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$converters" title="details" class="var-name">$converters</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$cur_class" title="details" class="var-name">$cur_class</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../phpDocumentor/ParserData/parserData.html">parserData</a></span>
+					<a href="#$data" title="details" class="var-name">$data</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$db_template" title="details" class="var-name">$db_template</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$event_handlers" title="details" class="var-name">$event_handlers</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a></span>
+					<a href="#$last" title="details" class="var-name">$last</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$lasttype" title="details" class="var-name">$lasttype</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$packagecategories" title="details" class="var-name">$packagecategories</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">false|array</span>
+					<a href="#$packageoutput" title="details" class="var-name">$packageoutput</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$package_pages" title="details" class="var-name">$package_pages</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$package_parents" title="details" class="var-name">$package_parents</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$pages" title="details" class="var-name">$pages</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">boolean</span>
+					<a href="#$parsePrivate" title="details" class="var-name">$parsePrivate</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$privatepages" title="details" class="var-name">$privatepages</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$private_class" title="details" class="var-name">$private_class</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a></span>
+					<a href="#$proceduralpages" title="details" class="var-name">$proceduralpages</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">boolean</span>
+					<a href="#$quietMode" title="details" class="var-name">$quietMode</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$ric" title="details" class="var-name">$ric</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$targetDir" title="details" class="var-name">$targetDir</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$templateBase" title="details" class="var-name">$templateBase</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$title" title="details" class="var-name">$title</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$type" title="details" class="var-name">$type</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">boolean</span>
+					<a href="#$undocumentedElementWarnings" title="details" class="var-name">$undocumentedElementWarnings</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$uses" title="details" class="var-name">$uses</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																																														
+				<div class="method-definition">
+											<span class="method-result">phpDocumentor_IntermediateParser</span>
+										<a href="#phpDocumentor_IntermediateParser" title="details" class="method-name">phpDocumentor_IntermediateParser</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$title</span> = <span class="var-default">'Generated Documentation'</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addConverter" title="details" class="method-name">addConverter</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$output</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$template</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addElementToPage" title="details" class="method-name">addElementToPage</a>
+											(<span class="var-type"><a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>&nbsp;<span class="var-name">$element</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addPackageParent" title="details" class="method-name">addPackageParent</a>
+											(<span class="var-type"><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></span>&nbsp;<span class="var-name">&$class</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addPage" title="details" class="method-name">addPage</a>
+											(<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>&nbsp;<span class="var-name">$page</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addPageIfNecessary" title="details" class="method-name">addPageIfNecessary</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$class</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addPrivatePage" title="details" class="method-name">addPrivatePage</a>
+											(<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>&nbsp;<span class="var-name">$page</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addUses" title="details" class="method-name">addUses</a>
+											(<span class="var-type"><a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>&nbsp;<span class="var-name">$element</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#ClasselementCmp" title="details" class="method-name">ClasselementCmp</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$a</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$b</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#Convert" title="details" class="method-name">Convert</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$title</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$converter</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#elementCmp" title="details" class="method-name">elementCmp</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$a</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$b</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleClass" title="details" class="method-name">handleClass</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleConst" title="details" class="method-name">handleConst</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleDefine" title="details" class="method-name">handleDefine</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserDefine.html">parserDefine</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleDocBlock" title="details" class="method-name">handleDocBlock</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#HandleEvent" title="details" class="method-name">HandleEvent</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleFunction" title="details" class="method-name">handleFunction</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserFunction.html">parserFunction</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleGlobal" title="details" class="method-name">handleGlobal</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserGlobal.html">parserGlobal</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleInclude" title="details" class="method-name">handleInclude</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserInclude.html">parserInclude</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleMethod" title="details" class="method-name">handleMethod</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserMethod.html">parserMethod</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handlePackagePage" title="details" class="method-name">handlePackagePage</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserPackagePage.html">parserPackagePage</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handlePage" title="details" class="method-name">handlePage</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleTutorial" title="details" class="method-name">handleTutorial</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserTutorial.html">parserTutorial</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#handleVar" title="details" class="method-name">handleVar</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></span>&nbsp;<span class="var-name">$data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#Output" title="details" class="method-name">Output</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$title</span> = <span class="var-default">&quot;Generated Documentation&quot;</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#parsePackagePage" title="details" class="method-name">parsePackagePage</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$package</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setParsePrivate" title="details" class="method-name">setParsePrivate</a>
+											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$parse</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setQuietMode" title="details" class="method-name">setQuietMode</a>
+											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$quietMode</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setTargetDir" title="details" class="method-name">setTargetDir</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setTemplateBase" title="details" class="method-name">setTemplateBase</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setUndocumentedElementWarningsMode" title="details" class="method-name">setUndocumentedElementWarningsMode</a>
+											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$undocumentedElementWarnings</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_guessPackage" title="details" class="method-name">_guessPackage</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, <span class="var-type">template-ready</span>&nbsp;<span class="var-name">$sourceloc</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$all_packages" id="$all_packages"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$all_packages</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a186">186</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">list of all packages encountered while documenting.  Used in automatic  linking.</p>
+<p class="description"><p>Converter::getLink() first checks if an ambiguous link is found in the  current package.  If not, it then checks in parent packages, and if still  not found, uses this array to check in the rest of the packages before  giving up</p></p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: array(packagename =&gt; 1, packagename =&gt; 1,...)</li>
+				<li><span class="field">see:</span> <a href="../Converters/Converter.html#methodgetLink">Converter::getLink()</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$classes" id="$classes"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../phpDocumentor/Classes.html">Classes</a></span>
+			<span class="var-name">$classes</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a268">268</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used to keep track of inheritance at the smartest level possible for a</p>
+<p class="description"><p>dumb computer</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$converters" id="$converters"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$converters</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a287">287</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">an array of template names indexed by converter name</p>
+<p class="description"><p>For example, if the default HTMLframesConverter is using the DOM/l0l33t  template, the array will be  <div class="src-code"><ol><li><div class="src-line"><span class="src-var">$converters</span><span class="src-sym">[</span><span class="src-str">'frames'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-str">'DOM/l0l33t'</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: array(Convertername1 =&gt; templatename)</li>
+				<li><span class="field">see:</span> <a href="../Converters/Converter.html">Converter</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$cur_class" id="$cur_class"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$cur_class</span>
+			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a88">88</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Name of the class currently being parsed.</p>
+<p class="description"><p>It is only used (and only valid) when phpDocumentor_IntermediateParser is  parsing a class</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$data" id="$data"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../phpDocumentor/ParserData/parserData.html">parserData</a></span>
+			<span class="var-name">$data</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a237">237</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">$data contains parsed structures for the current page being parsed</p>
+<p class="description"><p>In version 1.1+, $data is only used to store the current page information.  All handling of documented elements is handled by the  <a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a> and <a href="../phpDocumentor/Classes.html">Classes</a> classes.</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$db_template" id="$db_template"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$db_template</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a295">295</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$event_handlers" id="$event_handlers"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$event_handlers</span>
+			 = <span class="var-default">array(<br />            'docblock' =&gt; 'handleDocBlock',<br />            'page' =&gt; 'handlePage',<br />            'class' =&gt; 'handleClass',<br />            'define' =&gt; 'handleDefine',<br />            'function' =&gt; 'handleFunction',<br />            'method' =&gt; 'handleMethod',<br />            'var' =&gt; 'handleVar',<br />            'const' =&gt; 'handleConst',<br />            'packagepage' =&gt; 'handlePackagePage',<br />            'include' =&gt; 'handleInclude',<br />            'global' =&gt; 'handleGlobal',<br />            'tutorial' =&gt; 'handleTutorial',<br />            )</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a214">214</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">the functions which handle output from the <a href="../phpDocumentor/Parsers/Parser.html">Parser</a></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandlePackagePage">phpDocumentor_IntermediateParser::handlePackagePage()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleInclude">phpDocumentor_IntermediateParser::handleInclude()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleTutorial">phpDocumentor_IntermediateParser::handleTutorial()</a></li>
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleDefine">phpDocumentor_IntermediateParser::handleDefine()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleFunction">phpDocumentor_IntermediateParser::handleFunction()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleMethod">phpDocumentor_IntermediateParser::handleMethod()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleVar">phpDocumentor_IntermediateParser::handleVar()</a></li>
+				<li><span class="field">see:</span> handleEvent(), <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleDocBlock">phpDocumentor_IntermediateParser::handleDocBlock()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandlePage">phpDocumentor_IntermediateParser::handlePage()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleClass">phpDocumentor_IntermediateParser::handleClass()</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$last" id="$last"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a></span>
+			<span class="var-name">$last</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a65">65</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$lasttype" id="$lasttype"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$lasttype</span>
+			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a80">80</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">type of the last parser Element handled</p>
+<p class="description"><p>This is used in handleDocBlock to determine whether a DocBlock is a  page-level DocBlock in conjunction with the <a href="../phpDocumentor/ParserData/parserData.html#var$clean">parserData::$clean</a>  var.  A page-level DocBlock is alwaysthe first DocBlock in a file, and  must be followed by another DocBlock.  The first test is handled by  parserData::$clean, which is set to false on the first encounter of an  element, and the second test is handled by this variable, which must be  equal to &quot;docblock&quot;</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleDocBlock">phpDocumentor_IntermediateParser::handleDocBlock()</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$packagecategories" id="$packagecategories"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$packagecategories</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a173">173</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Used to determine the category for tutorials.</p>
+<p class="description"><p><strong>WARNING:</strong> If more than one category exists, the last category  encountered will overwrite the previous and will raise a big warning</p></p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: packagename =&gt; categoryname</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$packageoutput" id="$packageoutput"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">false|array</span>
+			<span class="var-name">$packageoutput</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a206">206</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">array of packages to parser and output documentation for, if not all  packages should be documented</p>
+<p class="description"><p>Format:<br />  array(package1,package2,...)<br />  or false if not set</p><p>Use this option to limit output similar to ignoring files.  If you have  some temporary files that you don't want to specify by name but don't  want included in output, set a package name for all the elements in your  project, and set packageoutput to that name.  the default package will be  ignored.  Parsing speed does not improve.  If you want to ignore files  for speed reasons, use the ignore command-line option</p></p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.packageoutput">-po, --packageoutput</a></li>
+				<li><span class="field">see:</span> <a href="../phpDocumentor/Io.html">Io</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$package_pages" id="$package_pages"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$package_pages</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a133">133</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">array of parsed package pages</p>
+<p class="description"><p>used by <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodConvert">Convert()</a> to convert all package pages into output</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$package_parents" id="$package_parents"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$package_parents</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a164">164</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Keeps track of packages of classes that have parent classes in another  package.  Used in automatic linking.</p>
+<p class="description"><p>This array is updated by <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPackageParent">addPackageParent()</a>, which is called in  <a href="../phpDocumentor/Classes.html#methodprocessChild">Classes::processChild()</a> to keep track of classes that descend  from classes in different packages.  In other words, if class foo is in  package one, and class bar is in package two, an entry  $package_parents['two'] = 'one' will be made.</p></p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: packagename =&gt; parentpackagename</li>
+				<li><span class="field">see:</span> <a href="../Converters/Converter.html#methodgetLink">Converter::getLink()</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$pages" id="$pages"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$pages</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a138">138</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> array of all <a href="../phpDocumentor/ParserData/parserData.html">parserData</a> containing page information</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$parsePrivate" id="$parsePrivate"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">boolean</span>
+			<span class="var-name">$parsePrivate</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a106">106</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">set in <a href="../phpDocumentor/_phpDocumentor---Setup.inc.php.html">Setup.inc.php</a> to the value of the parseprivate commandline</p>
+<p class="description"><p>option.  If this option is true, elements with an @access private tag  will be parsed and displayed</p></p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.parseprivate">-pp, --parseprivate</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$privatepages" id="$privatepages"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$privatepages</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a151">151</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Put away a page that has been @ignored or @access private if  !$parsePrivate</p>
+<p class="description"><p>When a page has @access private in its DocBlock, it is placed here  instead of in <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$pages">$pages</a>, to allow for proper Class parsing.  Since  classes and pages are parsed as if they were separate, this array allows  public classes on private pages to retrieve information needed about the  page that holds the class and to <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPageIfNecessary">addPageIfNecessary()</a> to the  $pages array</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$private_class" id="$private_class"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$private_class</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a113">113</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">this variable is used to prevent parsing of elements with an @ignore tag</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$parsePrivate">phpDocumentor_IntermediateParser::$parsePrivate</a></li>
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$packageoutput">phpDocumentor_IntermediateParser::$packageoutput</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$proceduralpages" id="$proceduralpages"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a></span>
+			<span class="var-name">$proceduralpages</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a276">276</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used to keep track of all elements in a procedural page.  Handles name</p>
+<p class="description"><p>conflicts with elegance</p></p>
+	<ul class="tags">
+				<li><span class="field">since:</span> 1.1</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$quietMode" id="$quietMode"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">boolean</span>
+			<span class="var-name">$quietMode</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a248">248</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">set in <a href="../phpDocumentor/_phpDocumentor---Setup.inc.php.html">Setup.inc.php</a> to the value of the quitemode commandline  option.</p>
+<p class="description"><p>If this option is true, informative output while parsing will not be  displayed (documentation is unaffected)</p></p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.quiet">-q, --quiet</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$ric" id="$ric"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$ric</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a303">303</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Stores parsed CHANGELOG/INSTALL/README files</p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: array(CHANGELOG =&gt; contents,                           INSTALL =&gt; contents,                           README =&gt; contents)</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$targetDir" id="$targetDir"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$targetDir</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a119">119</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used to set the output directory</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodsetTargetDir">phpDocumentor_IntermediateParser::setTargetDir()</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$templateBase" id="$templateBase"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$templateBase</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a125">125</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used to set the template base directory</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodsetTemplateBase">phpDocumentor_IntermediateParser::setTemplateBase()</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$title" id="$title"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$title</span>
+			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a291">291</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> Title of generated documentation, passed to Converters</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$type" id="$type"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$type</span>
+			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a97">97</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">type of the current parser Element being handled</p>
+<p class="description"><p>This is used by <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodHandleEvent">HandleEvent()</a> to set the <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$lasttype">$lasttype</a> var,  which is used to detect page-level DocBlocks</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$undocumentedElementWarnings" id="$undocumentedElementWarnings"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">boolean</span>
+			<span class="var-name">$undocumentedElementWarnings</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a261">261</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">set in <a href="../phpDocumentor/_phpDocumentor---Setup.inc.php.html">Setup.inc.php</a> to the value of the undocumentedElementWarnings commandline  option.</p>
+<p class="description"><p>If this option is true, warnings about certain elements (classes, methods)  that are not documented with DocBlocks will be shown while parsing,  and will also be displayed in the errors.html page  (other documentation is unaffected)</p></p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.undocumentedelements">-ue, --undocumentedelements</a></li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$uses" id="$uses"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$uses</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a293">293</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodphpDocumentor_IntermediateParser" id="phpDocumentor_IntermediateParser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor phpDocumentor_IntermediateParser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a326">326</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">sets up basic data structures</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$title">phpDocumentor_IntermediateParser::$title</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$data">phpDocumentor_IntermediateParser::$data</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$classes">phpDocumentor_IntermediateParser::$classes</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$proceduralpages">phpDocumentor_IntermediateParser::$proceduralpages</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">phpDocumentor_IntermediateParser</span>
+		<span class="method-name">
+			phpDocumentor_IntermediateParser
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$title</span> = <span class="var-default">'Generated Documentation'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$title</span><span class="var-description">: Title of generated documentation, passed to Converters</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddConverter" id="addConverter"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addConverter</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1708">1708</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a converter name to use to the list of converters</p>
+<p class="description"><p>Sets up the <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$converters">$converters</a> array.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addConverter
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$output</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$template</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$output</span><span class="var-description">: output format (HTML, PDF, XML).  Must be all caps</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span><span class="var-description">: Converter name (frames, for example, is the name of                      HTMLframesConverter)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$template</span><span class="var-description">: template to use, should be a relative path to the                          templates dir (like DOM/default)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddElementToPage" id="addElementToPage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addElementToPage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1474">1474</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">adds a processed descendant of <a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a> to the $pages  array or $privatepages array</p>
+<p class="description"><p>This function expects the page to exist in either $pages or $privatepages.  It calls the  <a href="../phpDocumentor/ParserData/parserData.html#methodaddElement">parserData::addElement()</a> method to add $element to the page.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addElementToPage
+		</span>
+					(<span class="var-type"><a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>&nbsp;<span class="var-name">$element</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>
+				<span class="var-name">$element</span><span class="var-description">: this will actually be a descendant of parserElement</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddPackageParent" id="addPackageParent"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addPackageParent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1685">1685</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">If the parent class of $class is in a different package, adds it to the</p>
+<p class="description"><p><a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$package_parents">$package_parents</a> array</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addPackageParent
+		</span>
+					(<span class="var-type"><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></span>&nbsp;<span class="var-name">&$class</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></span>
+				<span class="var-name">&$class</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddPage" id="addPage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addPage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1368">1368</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Replaces the <a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a> represented by $this-&gt;pages[$path] with  $page</p>
+<p class="description"><p>Called by <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPageIfNecessary">addPageIfNecessary()</a>, <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodhandleDocBlock">handleDocBlock()</a> and  <a href="../phpDocumentor/ProceduralPages.html#methodsetupPages">ProceduralPages::setupPages()</a>, this method first checks to see if  the page has been added.  If not, it assumes that the page has either  been @ignored or set with @access private with --parseprivate off, and  returns <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPrivatePage">addPrivatePage()</a>.  Otherwise, it sets the pages[$path] to  be the parserPage $page and sets the package and subpackage to that of  $page</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$pages">phpDocumentor_IntermediateParser::$pages</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addPage
+		</span>
+					(<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>&nbsp;<span class="var-name">$page</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>
+				<span class="var-name">$page</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: full path to the file</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddPageIfNecessary" id="addPageIfNecessary"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addPageIfNecessary</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1398">1398</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">add a new <a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a> to the $pages array if none is found</p>
+<p class="description"><p>This method is used when a page has been @ignored or marked with @access  private, and a public class is in the page (a class with no @access  private in its DocBlock).  The method first creates a new page in the  <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$pages">$pages</a> array and then copies path information, and calls  <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPage">addPage()</a> to set up packages</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addPageIfNecessary
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, <span class="var-type"></span>&nbsp;<span class="var-name">&$class</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: full path of page</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$class</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddPrivatePage" id="addPrivatePage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addPrivatePage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1436">1436</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Adds a <a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a> element to the <a href="../phpDocumentor/ParserData/parserData.html">parserData</a> element in  $this-&gt;privatepages[$path]</p>
+<p class="description"><p>Performs a similar function to addPage, but adds to the  $privatePages array</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPage">phpDocumentor_IntermediateParser::addPage()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addPrivatePage
+		</span>
+					(<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>&nbsp;<span class="var-name">$page</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>
+				<span class="var-name">$page</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: full path to the page</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddUses" id="addUses"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addUses</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1505">1505</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add all the @uses tags from $element to the $uses array so that @usedby</p>
+<p class="description"><p>virtual tags can be added</p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> parserUsesTag::getSeeElement() - used to initialize <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$uses">$uses</a></li>
+				<li><span class="field">uses:</span> <a href="../phpDocumentor/DocBlockTags/parserUsesTag.html#methodgetDescription">parserUsesTag::getDescription()</a> - used to initialize $uses</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addUses
+		</span>
+					(<span class="var-type"><a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>&nbsp;<span class="var-name">$element</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>
+				<span class="var-name">$element</span><span class="var-description">: descendant of parserElement</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: full path to the file</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodClasselementCmp" id="ClasselementCmp"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">ClasselementCmp</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1775">1775</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">does a natural case sort on two class elements (either  <a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a>, <a href="../phpDocumentor/ParserElements/parserMethod.html">parserMethod</a> or <a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> generateElementIndex()</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			ClasselementCmp
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$a</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$b</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$a</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$b</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodConvert" id="Convert"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Convert</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1650">1650</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Interface to the Converter</p>
+<p class="description"><p>This function simply passes <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$pages">$pages</a> and <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$package_pages">package_pages</a> to  the walk() method, and then calls the Output() method.  Note that  Output() is not required to do anything, and in fact doesn't in  HTMLframesConverter.</p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../Converters/Converter.html#methodwalk">Converter::walk()</a> - passes $pages and $package_pages</li>
+				<li><span class="field">uses:</span> <a href="../Converters/Converter.html#methodOutput">Converter::Output()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Convert
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$title</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$converter</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$title</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$converter</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodelementCmp" id="elementCmp"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">elementCmp</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1761">1761</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">does a natural case sort on two <a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a> descendants</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> generateElementIndex()</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			elementCmp
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$a</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$b</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$a</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$b</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleClass" id="handleClass"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleClass</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a905">905</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of classes</p>
+<p class="description"><p>This function sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$data">$data</a>-&gt;clean to false to tell the  phpDocumentor_IntermediateParser that a page-level DocBlock can't be  found after this point on this page.  It sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$cur_class">$cur_class</a> to its  name, and if an @ignore tag is found in the DocBlock, it sets  <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$private_class">$private_class</a> to true, to prevent post-parsing of any of the  class's vars or methods.  Then it checks for the existence of a package  page for the class's package</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleClass
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleConst" id="handleConst"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleConst</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a609">609</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of class constants</p>
+<p class="description"><p>This function aligns $data's  $path var and packages to match the parent object</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleConst
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleDefine" id="handleDefine"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleDefine</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a849">849</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of defines</p>
+<p class="description"><p>This function sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$data">$data</a>-&gt;clean to false to tell the  phpDocumentor_IntermediateParser that a page-level DocBlock can't be  found after this point on this page.  It then sets the package to be the  same as the page and adds itself to the <a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a> class</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleDefine
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserDefine.html">parserDefine</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserDefine.html">parserDefine</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleDocBlock" id="handleDocBlock"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleDocBlock</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1046">1046</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of DocBlocks</p>
+<p class="description"><p>This function sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$last">$last</a> to the DocBlock represented by $data, to  allow the next documentable element passed to  phpDocumentor_IntermediateParser to link the DocBlock into its $docblock  property.  This function also checks for two special cases of DocBlocks:  <ol><li>First DocBlock in the file contains a @package tag</li><li>First DocBlock in the file is immediately followed by another
+        DocBlock</li></ol>  In both cases, the function extracts this tag and uses it as the  page-level package.  If the @package tag is in the DocBlock of an  element (function, global variable, whatever) that isn't a page-level  DocBlock, a warning will be raised to notify the author that a @package  tag belongs in a page-level DocBlock.</p><p><strong>New</strong> in version 1.2.2, if the first DocBlock in a file contains  a @package tag, it is a page-level DocBlock.</p><p>If the DocBlock is page-level, it is processed with  _processPageLevelDocBlock</p><p>Finally, the function replaces the old parserPage in  parserData::$data-&gt;parent with the new one containing information  from the DocBlock by calling <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodaddPage">addPage()</a>, and checks for  package-level docs.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleDocBlock
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodHandleEvent" id="HandleEvent"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">HandleEvent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1226">1226</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">called via <a href="../phpDocumentor/Parsers/Parser.html#methodparse">Parser::parse()</a> and Parser's inherited method  <a href="../phpDocumentor/Publisher.html#methodpublishEvent">Publisher::publishEvent()</a></p>
+<p class="description"><p>$event is one of the PHPDOC constants from Parser.inc.  If it is not  PHPDOCUMENTOR_EVENT_NEWSTATE, then a function name is retrieved from the  <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$event_handlers">$event_handlers</a> array and called to handle the $data</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> array $_phpDocumentor_setting$phpDocumentor_DefaultPackageName: we use 'sourcecode' to determine whether to highlight the source
+               of the current file if it has no file-level docblock</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			HandleEvent
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$data</span><span class="var-description">: if $event is <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html#definePHPDOCUMENTOR_EVENT_NEWSTATE">PHPDOCUMENTOR_EVENT_NEWSTATE</a>, $data is a PHP_DOC_EVENT_END_PAGE or <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html#defineSTATE_END_CLASS">STATE_END_CLASS</a>,                     otherwise $data is either a <a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a>, <a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a> or descendant of <a href="../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleFunction" id="handleFunction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleFunction</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a763">763</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of functions</p>
+<p class="description"><p>This function sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$data">$data</a>-&gt;clean to false to tell the  phpDocumentor_IntermediateParser that a page-level DocBlock can't be  found after this point on this page.  It then sets the package to be the  same as the page, aligns the docblock's @param, @global, and @staticvar  tags with the information parsed from the function source code.</p><p>If source code has been parsed by a {@source} tag, the source is added  to its docblock, and then the parserFunction adds itself to the  <a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a> class</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleFunction
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserFunction.html">parserFunction</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserFunction.html">parserFunction</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleGlobal" id="handleGlobal"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleGlobal</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a459">459</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of global variables</p>
+<p class="description"><p>This function sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$data">$data</a>-&gt;clean to false to tell the  phpDocumentor_IntermediateParser that a page-level DocBlock can't be  found after this point on this page.  It then sets the package  to be the same as the page, and adds itself to the  <a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a> class</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleGlobal
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserGlobal.html">parserGlobal</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserGlobal.html">parserGlobal</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleInclude" id="handleInclude"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleInclude</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a403">403</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of include/require/include_once/require_once</p>
+<p class="description"><p>This function sets <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$data">$data</a>-&gt;clean to false to tell the  phpDocumentor_IntermediateParser that a page-level DocBlock can't be  found after this point on this page.  It then sets the package  to be the same as the page, and adds itself to the  <a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a> class</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleInclude
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserInclude.html">parserInclude</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserInclude.html">parserInclude</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleMethod" id="handleMethod"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleMethod</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a659">659</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of class methods</p>
+<p class="description"><p>This function first aligns $data's path and package to match the parent  object, and also aligns the docblock's @param, @global, and @staticvar  tags with the information parsed from the method source code.  It also  checks to see if the method is a constructor and sets the $isConstructor  flag.  If source code has been parsed by a {@source} tag, the source is  added to its docblock</p><p>Finally, it adds the method to the <a href="../phpDocumentor/Classes.html">Classes</a> class.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleMethod
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserMethod.html">parserMethod</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserMethod.html">parserMethod</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandlePackagePage" id="handlePackagePage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">handlePackagePage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a515">515</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of Package-level documentation pages.</p>
+<p class="description"><p>sets the <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$package_pages">$package_pages</a>[$data-&gt;package] to $data</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handlePackagePage
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserPackagePage.html">parserPackagePage</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserPackagePage.html">parserPackagePage</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandlePage" id="handlePage"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">handlePage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1000">1000</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of procedural pages</p>
+<p class="description"><p>this event is called at the start of a new page, before the Parser knows  whether the page will contain any procedural pages or not</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handlePage
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleTutorial" id="handleTutorial"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleTutorial</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a530">530</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handle post-parsing of Tutorials.</p>
+<p class="description"><p>This adds the parsed tutorial to the tutorial tree</p></p>
+	<ul class="tags">
+				<li><span class="field">since:</span> 1.2</li>
+				<li><span class="field">uses:</span> $tutorials - sets the value of tutorials to parameter $data</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleTutorial
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserTutorial.html">parserTutorial</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event Number</span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserTutorial.html">parserTutorial</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodhandleVar" id="handleVar"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">handleVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a550">550</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">handles post-parsing of class vars</p>
+<p class="description"><p>This function sets up a @var tag if none is found, and aligns $data's  $path var and packages to match the parent object</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			handleVar
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$event</span>, <span class="var-type"><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></span>&nbsp;<span class="var-name">$data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$event</span><span class="var-description">: Event number from <a href="../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html">Parser.inc</a></span>			</li>
+					<li>
+				<span class="var-type"><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></span>
+				<span class="var-name">$data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodOutput" id="Output"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Output</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1805">1805</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">call this method once parsing has completed.</p>
+<p class="description"><p>This method calls the private methods fixClasses and fixProcPages, both  of which adjust inheritance and package information based on complicated  post-parsing rules described in <a href="../phpDocumentor/ProceduralPages.html#methodsetupPages">ProceduralPages::setupPages()</a>  and <a href="../phpDocumentor/Classes.html#methodInherit">Classes::Inherit()</a>.  Then, it sorts elements of the $pages  array and calls Convert for each Converter in the $converters array</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#methodConvert">phpDocumentor_IntermediateParser::Convert()</a></li>
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$pages">phpDocumentor_IntermediateParser::$pages</a></li>
+				<li><span class="field">see:</span> <a href="../phpDocumentor/phpDocumentor_IntermediateParser.html#var$converters">phpDocumentor_IntermediateParser::$converters</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Output
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$title</span> = <span class="var-default">&quot;Generated Documentation&quot;</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$title</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodparsePackagePage" id="parsePackagePage"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">parsePackagePage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1180">1180</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Backward-compatibility only, use the new tutorials for more power</p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_tutorials.pkg.html">phpDocumentor Tutorials</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			parsePackagePage
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$package</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$package</span><span class="var-description">: package name of package file to parse</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: directory of file that contains package name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetParsePrivate" id="setParsePrivate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setParsePrivate</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1929">1929</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">set display of elements marked with @access private</p>
+<p class="description"><p>If set to true, elements will be displayed</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setParsePrivate
+		</span>
+					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$parse</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$parse</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetQuietMode" id="setQuietMode"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setQuietMode</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1906">1906</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">set parsing information output mode (quiet or verbose)</p>
+<p class="description"><p>If set to false, no parsing information (parsing /php/file/thisfile.php,  Converting etc.) will be displayed.  Useful for cron jobs</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setQuietMode
+		</span>
+					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$quietMode</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$quietMode</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetTargetDir" id="setTargetDir"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setTargetDir</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1882">1882</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sets the output directory</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setTargetDir
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$dir</span><span class="var-description">: the output directory</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetTemplateBase" id="setTemplateBase"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setTemplateBase</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1893">1893</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sets the template base directory</p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.templatebase">-tb, --templatebase</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setTemplateBase
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$dir</span><span class="var-description">: the template base directory</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetUndocumentedElementWarningsMode" id="setUndocumentedElementWarningsMode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setUndocumentedElementWarningsMode</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a1918">1918</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">show warnings for undocumented elements</p>
+<p class="description"><p>If set to false, no warnings will be shown for undocumented elements.  Useful for identifying classes and methods that haven't yet been documented.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setUndocumentedElementWarningsMode
+		</span>
+					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$undocumentedElementWarnings</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$undocumentedElementWarnings</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_guessPackage" id="_guessPackage"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">_guessPackage</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIntermediateParser.inc.html#a376">376</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Guess the package/subpackage based on subdirectory if the --pear option</p>
+<p class="description"><p>A file in pear/dir/file.php will be in package &quot;dir.&quot;  A file in  pear/dir/subdir/file.php will be in package &quot;dir,&quot; subpackage &quot;subdir.&quot;</p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> array <a href="../phpDocumentor/_phpDocumentor---Setup.inc.php.html#global$_phpDocumentor_setting">$_phpDocumentor_setting</a>: uses the 'pear' option to determine whether to guess based
+               on subdirectory</li>
+				<li><span class="field">tutorial:</span> <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.pear">-p, --pear</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_guessPackage
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, <span class="var-type">template-ready</span>&nbsp;<span class="var-name">$sourceloc</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: full path of file</span>			</li>
+					<li>
+				<span class="var-type">template-ready</span>
+				<span class="var-name">$sourceloc</span><span class="var-description">: source location Program_Root/dir/file.php</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:35 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>@package</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.name.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.param.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@name</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@param</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">@package</h1>
+  <h2 class="ref-purpose">Specify package to group classes or functions and defines into</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+    <div class="author-blurb">Tag Documentation written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span>
+   <div class="notes">Copyright 2002, Gregory Beaver</div>
+   <div class="release-info">(phpDocumentor 0.1+)</div>
+  <div class="cmd-synopsis"><span class="cmd-title">@package</span>
+    <span class = "req">packagename</span></div></div>
+ <span><a name="description"></a><h2 class="title">Description</h2><p>@package can only be used to document procedural pages or classes.</p>
+  <p><em>Packages</em> are used to help you logically group related elements. You write classes to group related functions and data together, and phpDocumentor represents the contents of files (functions, defines, and includes) as &quot;Procedural Pages.&quot; A package is used to group classes and procedural pages together in the same manner that a directory groups related files together.</p>
+  <p>If found in a page-level DocBlock, packagename specifies the package that all functions, includes, and defines in the php file belong to.  If found in a class-level DocBlock, packagename specifies the package that the class belongs to.</p>
+  <span class="warning">If not present, a class's package is set to <em>default</em>, or the value of the -dn command-line switch, <em>even if the page-level package is set to another value.</em>  This may be changed by the command-line option -dn or --defaultpackagename.  PACKAGES MUST BE ONE WORD WITH NO SPACES OR NEWLINES CONTAINING ONLY LETTERS, DIGITS, and &quot;_&quot;, &quot;-&quot;, &quot;[&quot; or &quot;]&quot;</span>
+  <p>@package groups php files together for documentation.</p>
+  <p>There are two ways a @package tag is parsed:
+   <ol class = "I"><li><p>page-level package (defines, functions, includes/requires)</p></li>
+    <li><p>class-level package (class, all its variables and methods)</p></li></ol></p>
+  <p>If a file contains functions and defines, they will be packaged by a page-level DocBlock.  A page-level DocBlock is a DocBlock at the top of a file that precedes another DocBlock.  In other words, it is not paired with any phpDocumentor element (include, function, define, class, class function, class variable).</p></span>
+ <span><a name="example"></a><h2 class="title">Example</h2><p>phpDocumentor parses a DocBlock as a page-level DocBlock if it precedes another DocBlock like this:</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Page-Level&nbsp;DocBlock&nbsp;example.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;This&nbsp;DocBlock&nbsp;precedes&nbsp;another&nbsp;DocBlock&nbsp;and&nbsp;will&nbsp;be&nbsp;parsed&nbsp;as&nbsp;the&nbsp;page-level.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Put&nbsp;your&nbsp;@package&nbsp;and&nbsp;@subpackage&nbsp;tags&nbsp;here</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;pagelevel_package</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;function&nbsp;bluh</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">bluh</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">...</div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+  <p>A page is documented as a procedural page if it is parsed, regardless of its content <em>(NEW in 1.0)</em>.</p>
+  <p>A class-level DocBlock is any DocBlock that precedes a class definition in a php file.</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;class&nbsp;bluh</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;class-level&nbsp;DocBlock&nbsp;example.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;applies_to_bluh</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">bluh</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;This&nbsp;variable&nbsp;is&nbsp;parsed&nbsp;as&nbsp;part&nbsp;of&nbsp;package&nbsp;applies_to_bluh</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$foo</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;So&nbsp;is&nbsp;this&nbsp;function</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><span class="src-id">bar</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-sym">}}</span></div></li>
+<li><div class="src-line"><span class="src-php">?&gt;</span></div></li>
+</ol></div></p>
+  <p>If no @package tag is specified, the package named &quot;default&quot; will be used, with one major exception.  If a class extends a parent class that has a @package tag, it will inherit the package from the parent class.  This can be very useful in small projects.  HOWEVER, it is highly recommended that a @package tag is used before every class that should have that package to avoid name collisions.  What is a name collision?  If you are documenting two related but separate packages, and both packages contain classes with the same name.  For example, the tests package included with phpDocumentor contains several files used to verify the eradication of bugs from phpDocumentor.  Several of these files contain classes with the same name as classes in phpDocumentor.  phpDocumentor cannot determine the correct parent class automatically and will not inherit package at all to avoid a wrong guess.  WE HIGHLY RECOMMEND THAT YOU USE @package IN THE DOCBLOCK OF EVERY CLASS OR PROCEDURAL PAGE YOU WISH TO BE IN A PACKAGE.</p>
+  <p>Elements can also be grouped into subpackages using <a href="../phpDocumentor/tutorial_tags.subpackage.pkg.html">@subpackage</a></p>
+  <p>See also <a href="../phpDocumentor/tutorial_tags.subpackage.pkg.html">@subpackage</a></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.name.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.param.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@name</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@param</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:56 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

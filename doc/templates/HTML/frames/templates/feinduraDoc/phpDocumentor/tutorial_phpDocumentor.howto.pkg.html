@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Tutorial</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_sample3.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_phpDocumentor.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_elements.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Source code for sample3.php</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor Guide to Creating Fantastic Documentation</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Documentable PHP Elements</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Tutorial</h1>
+  <h2 class="ref-purpose">An in-depth look at using phpDocumentor to document PHP Source Code, and phpDocumentor internals</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+   <div class="author-blurb">Tutorial written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span></div>
+ <h1 class="title">Table of Contents</h1>
+<ul class="toc">
+	
+			
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#intro">Introduction</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics">phpDocumentor Basics</a></li>
+					
+				  				<ul class="toc">
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.starting">Starting Out From Scratch</a></li>
+						
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblock">DocBlocks</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.desc">DocBlock Description details</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblocktemplate">DocBlock Templates</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.tags">Tags</a></li>
+					
+				  															</ul>
+						<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting">Documenting your PHP project</a></li>
+																				
+					
+				  				<ul class="toc">
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting.intro">Where to begin</a></li>
+						
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting.elements">Elements of the source code that can be documented</a></li>
+					
+				  																				<ul class="toc">
+							<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting.elements.packages">Dividing projects into packages</a></li>
+															
+					
+				  								        </ul>
+					</ul>
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting.tutorials">Advanced phpDocumentor: tutorials and extended Documentation</a></li>
+										
+					
+				  															</ul>
+						<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using">Running phpDocumentor</a></li>
+																				
+					
+				  				<ul class="toc">
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.docbuilder">Using the new Web Interface docbuilder</a></li>
+						
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.web">Using the old Web Interface phpdoc.php or new_phpdoc.php</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line">Using the Command-line tool</a></li>
+					
+				  																				<ul class="toc">
+							<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.windows">Running the command-line in MS Windows</a></li>
+															
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.unix">Running the command-line in unix</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.config">-c, --config</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.converterparams">-cp, --converterparams</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.customtags">-ct, --customtags</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.hidden">-dh, --hidden</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.defaultcategoryname">-dc, --defaultcategoryname</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.defaultpackagename">-dn, --defaultpackagename</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.directory">-d, --directory</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.examplesdir">-ed, --examplesdir</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.filename">-f, --filename</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.ignore">-i, --ignore</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.ignore-symlinks">-is, --ignoresymlinks</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.ignore-tags">-it, --ignore-tags</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.javadocdesc">-j, --javadocdesc</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.output">-o, --output</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.parseprivate">-pp, --parseprivate</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.packageoutput">-po, --packageoutput</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.pear">-p, --pear</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.quiet">-q, --quiet</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.readmeinstallchangelog">-ric, --readmeinstallchangelog</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.sourcecode">-s, --sourcecode</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.target">-t, --target</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.templatebase">-tb, --templatebase</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.title">-ti, --title</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.undocumentedelements">-ue, --undocumentedelements</a></li>
+					
+				  								        </ul>
+					</ul>
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.config-files">phpDocumentor's dynamic User-defined config files</a></li>
+										
+					
+					<li><a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.phpdocumentorini">phpDocumentor.ini - global configuration options</a></li>
+						</ul>
+		</ul>
+
+ <span><a name="intro"></a><h2 class="title">Introduction</h2><p>phpDocumentor is the most advanced automatic documentation system written for PHP, in PHP. This package has many features:</p>
+   <p><ul><li><p><em>NEW</em> The first auto-documentor with PHP 5 support</p></li>
+     <li><p>Extended documentation in docbook format with linking to any element and to other documentation,
+      including sub-sections, from the source code (see <a href="../phpDocumentor/tutorial_tutorials.pkg.html">phpDocumentor Tutorials</a>)</p></li>
+     <li><p>docblock templates to cut down on repetition</p></li>
+     <li><p>XML:DocBook:peardoc2 templates for PEAR developers</p></li>
+     <li><p>Greater ease of extending a Converter, see <a href="../Converters/tutorial_Converters.pkg.html">Converter Manual</a></p></li>
+     <li><p>ability to parse any PHP file, regardless of documentation format</p></li>
+     <li><p>conforms loosely to the <a href="http://java.sun.com/docs/books/jls/first_edition/html/18.doc.html">JavaDOC protocol</a>,
+     and will be familiar to Java programmers</p></li>
+     <li><p>documents all includes, constants, functions, static functions, classes,
+      methods, static variables, class variables, and can document global variables and
+      external tutorials</p></li>
+     <li><p>auto-linking to pre-defined PHP functions</p></li>
+     <li><p>Output in HTML, CHM, PDF, XML DocBook formats</p></li>
+     <li><p>templateable with many bundled templates</p></li>
+     <li><p>automatic linking to elements in any documented package</p></li>
+     <li><p>documents name conflicts between packages to help avoid PHP errors</p></li>
+     <li><p>document CVS repository directly.</p></li>
+     <li><p>support for JavaDoc doclet-like output through Converters</p></li>
+     <li><p>error/warning tracking system</p></li>
+     <li><p>extreme class intelligence: inherits documentation, package</p></li>
+     <li><p>complete phpdoc.de DocBlock tag support.  Additions include @var, @magic, @deprec, @todo, and phpdoc.de parsing of @param.</p></li>
+     <li><p>alphabetical indexing of all elements by package and overall</p></li>
+     <li><p>class trees</p></li>
+     <li><p>MUCH more than just this short list</p></li></ul></p></span>
+ <span><a name="basics"></a><h2 class="title">phpDocumentor Basics</h2><span><a name="basics.starting"></a><h3 class="title">Starting Out From Scratch</h3><p>The documentation process begins with the most basic element of phpDocumentor: a
+    <em>Documentation block</em> or <em>DocBlock</em>. A basic
+    DocBlock looks like this:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>A DocBlock is an extended C++-style PHP comment that begins with &quot;/**&quot; and has
+    an &quot;*&quot; at the beginning of every line.  DocBlocks precede the element they are documenting.</p>
+   <span class="warning">Any line within a DocBlock that doesn't begin with a * will be ignored.</span>
+   <p>To document function &quot;foo()&quot;, place the DocBlock immediately before the function declaration:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Defies&nbsp;imagination,&nbsp;extends&nbsp;boundaries&nbsp;and&nbsp;saves&nbsp;the&nbsp;world&nbsp;...all&nbsp;before&nbsp;breakfast!</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">foo</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+   <p>This example will apply the DocBlock to &quot;define('me',2);&quot; instead of to &quot;function foo()&quot;:
+   <div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;DocBlock&nbsp;for&nbsp;function&nbsp;foo?</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;No,&nbsp;this&nbsp;will&nbsp;be&nbsp;for&nbsp;the&nbsp;constant&nbsp;me!</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'me'</span><span class="src-sym">,</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">foo</span><span class="src-sym">(</span><span class="src-var">$param&nbsp;</span>=&nbsp;<span class="src-id">me</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+   <p>define() statements, functions, classes, class methods, and class vars, include()
+    statements, and global variables can all be documented, see
+    <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting.elements">Elements of the source code that can be documented</a></p></span>
+  <span><a name="basics.docblock"></a><h3 class="title">DocBlocks</h3><p>A DocBlock contains three basic segments in this order:</p>
+   <p><ul><li><p>Short Description</p></li>
+     <li><p>Long Description</p></li>
+     <li><p>Tags</p></li></ul></p>
+   <p>The Short Description starts on the first line, and can be terminated with a blank line
+    or a period. A period inside a word (like example.com or 0.1 %) is ignored. If the Short
+    Description would become more than three lines long, only the first line is taken. The Long
+    Description continues for as many lines as desired and may contain html markup for display
+    formatting.  Here is a sample DocBlock with a Short and a Long Description:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;return&nbsp;the&nbsp;date&nbsp;of&nbsp;Easter</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Using&nbsp;the&nbsp;formula&nbsp;from&nbsp;&quot;Formulas&nbsp;that&nbsp;are&nbsp;way&nbsp;too&nbsp;complicated&nbsp;for&nbsp;anyone&nbsp;to</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;ever&nbsp;understand&nbsp;except&nbsp;for&nbsp;me&quot;&nbsp;by&nbsp;Irwin&nbsp;Nerdy,&nbsp;this&nbsp;function&nbsp;calculates&nbsp;the</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;date&nbsp;of&nbsp;Easter&nbsp;given&nbsp;a&nbsp;date&nbsp;in&nbsp;the&nbsp;Ancient&nbsp;Mayan&nbsp;Calendar,&nbsp;if&nbsp;you&nbsp;can&nbsp;also</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;guess&nbsp;the&nbsp;birthday&nbsp;of&nbsp;the&nbsp;author.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>Optionally, you may enclose all paragraphs in a &lt;p&gt;&lt;/p&gt; tag.  Be careful,
+    if the first paragraph does not begin with &lt;p&gt;, phpDocumentor will assume that the
+    DocBlock is using the simple double linebreak to define paragraph breaks as in:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Short&nbsp;desc</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Long&nbsp;description&nbsp;first&nbsp;sentence&nbsp;starts&nbsp;here</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;and&nbsp;continues&nbsp;on&nbsp;this&nbsp;line&nbsp;for&nbsp;a&nbsp;while</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;finally&nbsp;concluding&nbsp;here&nbsp;at&nbsp;the&nbsp;end&nbsp;of</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;this&nbsp;paragraph</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;The&nbsp;blank&nbsp;line&nbsp;above&nbsp;denotes&nbsp;a&nbsp;paragraph&nbsp;break</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>Here is an example of using &lt;p&gt;</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Short&nbsp;desc</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;p&gt;Long&nbsp;description&nbsp;first&nbsp;sentence&nbsp;starts&nbsp;here</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;and&nbsp;continues&nbsp;on&nbsp;this&nbsp;line&nbsp;for&nbsp;a&nbsp;while</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;finally&nbsp;concluding&nbsp;here&nbsp;at&nbsp;the&nbsp;end&nbsp;of</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;this&nbsp;paragraph&lt;/p&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;This&nbsp;text&nbsp;is&nbsp;completely&nbsp;ignored!&nbsp;it&nbsp;is&nbsp;not&nbsp;enclosed&nbsp;in&nbsp;p&nbsp;tags</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;p&gt;This&nbsp;is&nbsp;a&nbsp;new&nbsp;paragraph&lt;/p&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>phpDocumentor also supports JavaDoc's DocBlock format through the command-line
+    option <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.javadocdesc">-j, --javadocdesc</a>.  Due to
+    the non-xhtml compliant unmatched p tag, we highly recommend you avoid this syntax
+    whenever possible</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;p&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Short&nbsp;desc&nbsp;is&nbsp;only&nbsp;to&nbsp;the&nbsp;first&nbsp;period.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;This&nbsp;means&nbsp;a&nbsp;sentence&nbsp;like:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&quot;Parses&nbsp;Mr./Mrs.&nbsp;out&nbsp;of&nbsp;$_GET.&quot;&nbsp;will</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;parse&nbsp;a&nbsp;short&nbsp;description&nbsp;of&nbsp;&quot;Parses&nbsp;Mr.&quot;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;which&nbsp;is&nbsp;rather&nbsp;silly.&nbsp;&nbsp;Long&nbsp;description&nbsp;is</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;the&nbsp;entire&nbsp;DocBlock&nbsp;description&nbsp;including&nbsp;the</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Short&nbsp;desc,&nbsp;and&nbsp;paragraphs&nbsp;begin&nbsp;where&nbsp;p&nbsp;is&nbsp;like:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;p&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;The&nbsp;p&nbsp;above&nbsp;denotes&nbsp;a&nbsp;paragraph&nbsp;break</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>phpDocumentor will convert all whitespace into a single space in the
+    long description, use paragraph breaks to define newlines, or &lt;pre&gt;,
+    as discussed in the next section.</p></span>
+  <span><a name="basics.desc"></a><h3 class="title">DocBlock Description details</h3><p>As of phpDocumentor 1.2.0, the long and short description of a DocBlock
+    is parsed for a few select html tags that determine additional formatting.  Due
+    to the nature of phpDocumentor's output as multiple-format, straight html is not
+    allowed in a DocBlock, and will be converted into plain text by all of the
+    converters unless it is one of these tags:
+    <ul><li><p>&lt;b&gt; -- emphasize/bold text</p></li>
+     <li><p>&lt;code&gt; -- Use this to surround php code, some converters will highlight it</p></li>
+     <li><p>&lt;br&gt; -- hard line break, may be ignored by some converters</p></li>
+     <li><p>&lt;i&gt; -- italicize/mark as important</p></li>
+     <li><p>&lt;kbd&gt; -- denote keyboard input/screen display</p></li>
+     <li><p>&lt;li&gt; -- list item</p></li>
+     <li><p>&lt;ol&gt; -- ordered list</p></li>
+     <li><p>&lt;p&gt; -- If used to enclose all paragraphs, otherwise it will be considered text</p></li>
+     <li><p>&lt;pre&gt; -- Preserve line breaks and spacing, and assume all tags are text (like XML's CDATA)</p></li>
+     <li><p>&lt;samp&gt; -- denote sample or examples (non-php)</p></li>
+     <li><p>&lt;ul&gt; -- unordered list</p></li>
+     <li><p>&lt;var&gt; -- denote a variable name</p></li></ul>
+    Do not think of these tags as text, they are parsed into objects and converted
+    into the appropriate output format by the converter.  So, a b tag may become
+    &lt;emphasis&gt; in DocBook, and a &lt;p&gt; tag might become <pre>&quot;    &quot;</pre> (4 spaces)
+    in the PDF converter!  The text output is determined by the template options file
+    options.ini found in the base directory of every template.  For instance, the
+    options.ini file for the HTML:frames:default template is in
+    phpDocumentor/Converters/HTML/frames/templates/default/options.ini</p>
+   <p>For the rare case when the text &quot;&lt;b&gt;&quot; is needed in a DocBlock,
+    use a double delimiter as in &lt;&lt;b&gt;&gt;.  phpDocumentor will automatically
+    translate that to the physical text &quot;&lt;b&gt;&quot;.</p>
+   <p>Similarly, if you need an actual &quot;@&quot; in your DocBlock's description parts,
+   you should be careful to either ensure it is not the first character on a line,
+   or else escape it (&quot;\@&quot;) to avoid it being interpreted as a PhpDocumentor tag marker.</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Demonstrate&nbsp;an&nbsp;@include&nbsp;file</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;line&nbsp;in&nbsp;a&nbsp;code&nbsp;block:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;\@include&nbsp;somefile.php</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>This will parse as if it were:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Demonstrate&nbsp;an&nbsp;@include&nbsp;file</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;line&nbsp;in&nbsp;a&nbsp;code&nbsp;block:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@include</span><span class="src-doc">&nbsp;somefile.php</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p></p>
+   The &lt;code&gt;, &lt;kbd&gt;, and &lt;pre&gt; tags ignore any html listed above 
+    except for their own closing tags (&lt;/code&gt; &lt;/kbd&gt; &lt;/pre&gt;).
+    This is obviously necessary for each of those tag's behavior of controlling the appearance of the text
+    inside their tag blocks, without allowing other nested tags (like &lt;b&gt;) interfering inside them.
+    In general, other tags will allow other tags to be nested in them 
+    (i.e. &lt;samp&gt;&lt;b&gt;bold_my_sample&lt;/b&gt;&lt;/samp&gt;).
+   <p><em>New 1.2.0rc1:</em> If you need to use the closing comment &quot;*/&quot;
+    in a DocBlock, use the special escape sequence &quot;{@*}.&quot;  Here's an example:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Simple&nbsp;DocBlock&nbsp;with&nbsp;a&nbsp;code&nbsp;example&nbsp;containing&nbsp;a&nbsp;docblock</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;*&nbsp;My&nbsp;sample&nbsp;DocBlock&nbsp;in&nbsp;code</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;{@*}&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;/code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>This will parse as if it were:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Simple&nbsp;DocBlock&nbsp;with&nbsp;a&nbsp;code&nbsp;example&nbsp;containing&nbsp;a&nbsp;docblock</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;code&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;*&nbsp;My&nbsp;sample&nbsp;DocBlock&nbsp;in&nbsp;code</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;&lt;/<span class="src-id">code</span>&gt;</div></li>
+<li><div class="src-line">&nbsp;*/</div></li>
+</ol></div></p>
+   <p><em>New 1.2.0rc1:</em> The phpEdit tool supports very clever list
+    extraction from DocBlocks, and now phpDocumentor supports the same cleverness.  This example:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Simple&nbsp;DocBlock&nbsp;with&nbsp;simple&nbsp;lists</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Here's&nbsp;a&nbsp;simple&nbsp;list:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;-&nbsp;item&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;-&nbsp;item&nbsp;2,&nbsp;this&nbsp;one</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;is&nbsp;multi-line</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;-&nbsp;item&nbsp;3</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;end&nbsp;of&nbsp;list.&nbsp;&nbsp;Next&nbsp;list&nbsp;is&nbsp;ordered</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;1&nbsp;ordered&nbsp;item&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;2&nbsp;ordered&nbsp;item&nbsp;2</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;end&nbsp;of&nbsp;list.&nbsp;This&nbsp;is&nbsp;also&nbsp;ordered:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;1.&nbsp;ordered&nbsp;item&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;2.&nbsp;ordered&nbsp;item&nbsp;2</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>phpDocumentor recognizes any simple list that begins with &quot;-&quot;,
+    &quot;+&quot;, &quot;#&quot; and &quot;o&quot;, and any ordered list with
+    sequential numbers or numbers followed by &quot;.&quot; as above.  The list
+    delimiter must be followed by a space (not a tab!) and whitespace must line
+    up exactly, or phpDocumentor will not recognize the list items as being in
+    the same list.</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Simple&nbsp;DocBlock&nbsp;with&nbsp;screwy&nbsp;lists</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;+not&nbsp;a&nbsp;list&nbsp;at&nbsp;all,&nbsp;no&nbsp;space</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Here's&nbsp;3&nbsp;lists!</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;-&nbsp;item&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;-&nbsp;item&nbsp;2,&nbsp;this&nbsp;one</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;is&nbsp;multi-line</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*-&nbsp;item&nbsp;3</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>Again, you must line up the list iterators in the same vertical column
+     in order for those list items to be considered &quot;on the same list&quot;.
+     Also, you cannot create nested lists using the simple list iterators...
+     doing so means it's no longer a &quot;simple&quot; list!  Varying the spacing
+     of the list iterators does not create nesting of the lists... it only starts up
+     new simple lists.  If you specifically need a nested list, you must use the list
+     tags (&lt;ol&gt;, &lt;ul&gt;):</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;DocBlock&nbsp;with&nbsp;nested&nbsp;lists</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Here's&nbsp;the&nbsp;&quot;complex&quot;&nbsp;list:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;ul&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;li&gt;outer&nbsp;item&nbsp;1&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;li&gt;outer&nbsp;item&nbsp;2,&nbsp;this&nbsp;one</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;is&nbsp;multi-line&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;li&gt;item&nbsp;3&nbsp;is&nbsp;a&nbsp;nested&nbsp;inner&nbsp;list</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;ul&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;li&gt;inner&nbsp;item&nbsp;1&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;li&gt;inner&nbsp;item&nbsp;2&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;/ul&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;li&gt;outer&nbsp;item&nbsp;4&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&lt;/ul&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>In some cases, the text description in a doc tag can contain a list, be it simple
+     or complex.  Notice that a title line is needed, with the list items themselves 
+     beginning on the next line:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;DocBlock&nbsp;with&nbsp;nested&nbsp;lists</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;in&nbsp;the&nbsp;tag&nbsp;descriptions</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;My&nbsp;Simple&nbsp;TODO&nbsp;List</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;item&nbsp;1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;item&nbsp;2</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;item&nbsp;3</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;My&nbsp;Complex&nbsp;TODO&nbsp;List</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ol&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;item&nbsp;1.0&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;item&nbsp;2.0&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;item&nbsp;3.0&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ol&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;item&nbsp;3.1&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;item&nbsp;3.2&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ol&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;item&nbsp;4.0&lt;/li&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ol&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>Tagged lists are always a more robust and predictable option for you to
+     use.  Simple lists are convenient, but if you find yourself trying to bend
+     a simple list into displaying a certain way in your generated docs, you may
+     be better served by switching to a tagged list instead.</p>
+   <p>For in-depth information on how phpDocumentor parses the description
+    field, see <a href="../phpDocumentor/_phpDocumentor---ParserDescCleanup.inc.html">ParserDescCleanup.inc</a></p></span>
+  <span><a name="basics.docblocktemplate"></a><h3 class="title">DocBlock Templates</h3><p>New for version 1.2.0, phpDocumentor supports the use of DocBlock
+    templates.  The purpose of a DocBlock template is to reduce redundant
+    typing.  For instance, if a large number of class variables are private,
+    one would use a DocBlock template to mark them as private.  DocBlock templates
+    simply augment any normal DocBlocks found in the template block.</p>
+   <p>A DocBlock template is distinguished from a normal DocBlock by its header.
+    Here is the most basic DocBlock template:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-comm">/**#@+</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;*/</span></div></li>
+</ol></div></p>
+   <p>The text that marks this as a DocBlock template is &quot;/**#@+&quot;
+    - all 6 characters must be present.  DocBlock templates are applied to all
+    documentable elements until the ending template marker:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-comm">/**#@-*/</span></div></li>
+</ol></div></p>
+   <p>Note that all 8 characters must appear as &quot;/**#@-*/&quot; in order
+    for phpDocumentor to recognize them as a template.  Here is an example of a
+    DocBlock template in action:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">Bob</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;beginning&nbsp;of&nbsp;docblock&nbsp;template&nbsp;area</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/**#@+</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@access&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@var&nbsp;string</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var1&nbsp;</span>=&nbsp;<span class="src-str">'hello'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var2&nbsp;</span>=&nbsp;<span class="src-str">'my'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var3&nbsp;</span>=&nbsp;<span class="src-str">'name'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var4&nbsp;</span>=&nbsp;<span class="src-str">'is'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var5&nbsp;</span>=&nbsp;<span class="src-str">'Bob'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var6&nbsp;</span>=&nbsp;<span class="src-str">'and'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var7&nbsp;</span>=&nbsp;<span class="src-str">'I'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Two&nbsp;words</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var8&nbsp;</span>=&nbsp;<span class="src-str">'like&nbsp;strings'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/**#@-*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$publicvar&nbsp;</span>=&nbsp;<span class="src-str">'Lookee&nbsp;me!'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+   <p>This example will parse as if it were:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">Bob</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;beginning&nbsp;of&nbsp;docblock&nbsp;template&nbsp;area</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var1&nbsp;</span>=&nbsp;<span class="src-str">'hello'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var2&nbsp;</span>=&nbsp;<span class="src-str">'my'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var3&nbsp;</span>=&nbsp;<span class="src-str">'name'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var4&nbsp;</span>=&nbsp;<span class="src-str">'is'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var5&nbsp;</span>=&nbsp;<span class="src-str">'Bob'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var6&nbsp;</span>=&nbsp;<span class="src-str">'and'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var7&nbsp;</span>=&nbsp;<span class="src-str">'I'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Two&nbsp;words</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$_var8&nbsp;</span>=&nbsp;<span class="src-str">'like&nbsp;strings'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$publicvar&nbsp;</span>=&nbsp;<span class="src-str">'Lookee&nbsp;me!'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+   <p>Note that for $_var8 the DocBlock template merged
+    with the DocBlock.  The rules for merging are simple:
+    <ul><li><p>The long description of the docblock template is added to
+      the front of the long description.  The short description is ignored.</p></li>
+     <li><p>All tags are merged from the docblock template</p></li></ul></p></span>
+  <span><a name="basics.tags"></a><h3 class="title">Tags</h3><p>Tags are single words prefixed by a &quot;@&quot; symbol.  Tags inform
+    phpDocumentor how to present information and modify display of documentation.
+    All tags are optional, but if you use a tag, they do have specific requirements
+    to parse properly.</p>
+   <p>A list of all possible tags in phpDocumentor follows:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;The&nbsp;short&nbsp;description</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;As&nbsp;many&nbsp;lines&nbsp;of&nbsp;extendend&nbsp;description&nbsp;as&nbsp;you&nbsp;want&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;element}</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;links&nbsp;to&nbsp;an&nbsp;element</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;http://www.example.com&nbsp;Example&nbsp;hyperlink&nbsp;inline&nbsp;link}</span><span class="src-doc">&nbsp;links&nbsp;to</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;a&nbsp;website.&nbsp;The&nbsp;inline</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;source&nbsp;tag&nbsp;displays&nbsp;function&nbsp;source&nbsp;code&nbsp;in&nbsp;the&nbsp;description:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-inlinetag">{@source&nbsp;}</span><span class="src-doc">&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;In&nbsp;addition,&nbsp;in&nbsp;version&nbsp;1.2+&nbsp;one&nbsp;can&nbsp;link&nbsp;to&nbsp;extended&nbsp;documentation&nbsp;like&nbsp;this</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;documentation&nbsp;using&nbsp;</span><span class="src-doc-inlinetag">{@tutorial&nbsp;phpDocumentor/phpDocumentor.howto.pkg}</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;In&nbsp;a&nbsp;method/class&nbsp;var,&nbsp;</span><span class="src-doc-inlinetag">{@inheritdoc&nbsp;may&nbsp;be&nbsp;used&nbsp;to&nbsp;copy&nbsp;documentation&nbsp;from}</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;the&nbsp;parent&nbsp;method</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-internal">{@internal&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc-internal">&nbsp;*&nbsp;This&nbsp;paragraph&nbsp;explains&nbsp;very&nbsp;detailed&nbsp;information&nbsp;that&nbsp;will&nbsp;only</span></div></li>
+<li><div class="src-line"><span class="src-doc-internal">&nbsp;*&nbsp;be&nbsp;of&nbsp;use&nbsp;to&nbsp;advanced&nbsp;developers,&nbsp;and&nbsp;can&nbsp;contain</span></div></li>
+<li><div class="src-line"><span class="src-doc-internal">&nbsp;*&nbsp;{@link&nbsp;http://www.example.com&nbsp;Other&nbsp;inline&nbsp;links!}&nbsp;as&nbsp;well&nbsp;as&nbsp;text}}</span><span class="src-doc">}</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Here&nbsp;are&nbsp;the&nbsp;tags:</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@abstract</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@access</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;or&nbsp;private</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;author&nbsp;name&nbsp;&lt;author@email&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;date</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@deprecated</span><span class="src-doc">&nbsp;&nbsp;&nbsp;description</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@deprec</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alias&nbsp;for&nbsp;deprecated</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@example</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/path/to/example</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@exception</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Javadoc-compatible,&nbsp;use&nbsp;as&nbsp;needed</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-doc-type">type&nbsp;</span><span class="src-doc-var">$globalvarname&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;or</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-doc-type">type&nbsp;</span><span class="src-doc">description&nbsp;of&nbsp;global&nbsp;variable&nbsp;usage&nbsp;in&nbsp;a&nbsp;function</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@ignore</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@internal</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;information&nbsp;for&nbsp;advanced&nbsp;developers&nbsp;only</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-doc-type">type&nbsp;</span><span class="src-doc">[$varname]&nbsp;description</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-doc-type">type&nbsp;</span><span class="src-doc">description</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@name</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;procpagealias</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;or</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@name</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$globalvaralias</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@magic</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phpdoc.de&nbsp;compatibility</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;package&nbsp;name</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;another&nbsp;element&nbsp;that&nbsp;can&nbsp;be&nbsp;documented,</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;produces&nbsp;a&nbsp;link&nbsp;to&nbsp;it&nbsp;in&nbsp;the&nbsp;documentation</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@since</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;version&nbsp;or&nbsp;a&nbsp;date</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@static</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@staticvar&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;</span><span class="src-doc-type">type&nbsp;</span><span class="src-doc">description&nbsp;of&nbsp;static&nbsp;variable&nbsp;usage&nbsp;in&nbsp;a&nbsp;function</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;sub&nbsp;package&nbsp;name,&nbsp;groupings&nbsp;inside&nbsp;of&nbsp;a&nbsp;project</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@throws</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javadoc-compatible,&nbsp;use&nbsp;as&nbsp;needed</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phpdoc.de&nbsp;compatibility</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="src-doc-type">type&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;a&nbsp;data&nbsp;type&nbsp;for&nbsp;a&nbsp;class&nbsp;variable</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;version</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">if_there_is_an_inline_source_tag_this_must_be_a_function</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;...</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+   <p>In addition, tutorials allow two addition inline tags: {@id}, used to
+    allow direct linking to sections in a tutorial, and {@toc}, used to generate
+    a table of contents from {@id}s in the file.  Think of {@id} like an &lt;a
+    name=&quot;idname&quot;&gt; HTML tag, it serves the same function.</p>
+   <p>See <a href="../phpDocumentor/tutorial_tags.inlineid.pkg.html">inline {@id}</a> and <a href="../phpDocumentor/tutorial_tags.inlinetoc.pkg.html">inline {@toc}</a> for
+    detailed information</p>
+   <p>In the example below, {@id} is used to name the refsect1 &quot;mysection&quot;
+    and the refsect2 &quot;mysection.mysubsection&quot; - note that the sub-sections inherit
+    the parent section's id.</p>
+   <p><div class="src-code"><pre>
+&lt;refentry id=&quot;{@id}&quot;&gt;
+ &lt;refsect1 id=&quot;{@id mysection}&quot;&gt;
+  &lt;refsect2 id=&quot;{@id mysubsection}&quot;&gt;
+  &lt;/refsect2&gt;
+ &lt;/refsect1&gt;
+&lt;/refentry&gt;
+    </pre></div></p>
+   <p>For an in-depth look at phpDocumentor tags, read <a href="../phpDocumentor/tutorial_tags.pkg.html">phpDocumentor tags</a>,
+    and for an in-depth look at inline tags, read <a href="../phpDocumentor/tutorial_inlinetags.pkg.html">phpDocumentor Inline tags</a>.</p></span></span>
+ <span><a name="documenting"></a><h2 class="title">Documenting your PHP project</h2><span><a name="documenting.intro"></a><h3 class="title">Where to begin</h3><p>Before you begin documenting your PHP project, you might want to try
+    a test run on your undocumented source code to see what kind of information
+    phpDocumentor will automatically extract from the source code.  phpDocumentor
+    is designed to make the task of documenting minimally redundant.  This means
+    less work, and better, up-to-date documentation with less effort than it used
+    to take.</p>
+   <span class="warning">phpDocumentor is a great tool, but it will not write good documentation
+    for you.  Please read the <a href="../phpDocumentor/tutorial_phpDocumentor.pkg.html">phpDocumentor Guide to Creating Fantastic Documentation</a></span></span>
+  <span><a name="documenting.elements"></a><h3 class="title">Elements of the source code that can be documented</h3><a name="documenting.elements.packages"></a><h4 class="title">Dividing projects into packages</h4><p>To understand the role of packages and how to use <a href="../phpDocumentor/tutorial_tags.package.pkg.html">@package</a>,
+     it is important to know the logic behind packaging in PHP.  The quest for structured
+     programming led to the invention of functions, then classes, and finally packages.
+     Traditionally, a re-usable software module was a collection of variables, constants
+     and functions that could be used by another software package.  PHP is an example of
+     this model, as their are many extensions that consist of constants and functions like
+     the tokenizer extension.  One can think of the tokenizer extension as a package: it
+     is a complete set of data, variables and functions that can be used in other programs.
+     A more structured format of this model is of course objects, or classes.  A class
+     contains variables and functions (but no constants in PHP).  A single class packages
+     together related functions and variables to be re-used.</p>
+    <p>phpDocumentor defines package in two ways:
+     <ol><li><p>Functions, Constants and Global Variables are grouped into files
+       (by the filesystem), which are in turn grouped into packages using the @package
+       tag in a page-level DocBlock</p></li>
+      <li><p>Methods and Class Variables are grouped into classes (by PH),
+       which are in turn grouped into packages in a Class DocBlock</p></li></ol>
+     These two definitions of package are exclusive.  In other words, it is possible
+     to have classes of a different package of the file that contains it!  Here's an example:</p>
+    <span class="warning">It may be possible, but don't put classes into a different package from the
+     file they reside in, that will be very confusing and unnecessary.  This behavior is
+     deprecated, in version 2.0, phpDocumentor will halt parsing upon this condition.</span>
+    <p><div class="src-code"><ol><li><div class="src-line"><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Pretend&nbsp;this&nbsp;is&nbsp;a&nbsp;file</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Page-level&nbsp;DocBlock&nbsp;is&nbsp;here&nbsp;because&nbsp;it&nbsp;is&nbsp;the&nbsp;first&nbsp;DocBlock</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;in&nbsp;the&nbsp;file,&nbsp;and&nbsp;is&nbsp;immediately&nbsp;followed&nbsp;by&nbsp;the&nbsp;second</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;DocBlock&nbsp;before&nbsp;any&nbsp;documentable&nbsp;element&nbsp;is&nbsp;declared</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;(function,&nbsp;define,&nbsp;class,&nbsp;global&nbsp;variable,&nbsp;include)</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;pagepackage</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Here&nbsp;is&nbsp;the&nbsp;class&nbsp;DocBlock</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;The&nbsp;class&nbsp;package&nbsp;is&nbsp;different&nbsp;from&nbsp;the&nbsp;page&nbsp;package!</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;classpackage</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">myclass</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><span class="src-php">?&gt;</span></div></li>
+</ol></div></p>
+    <p>For more information on page-level versus class-level packaging, see <a href="../phpDocumentor/tutorial_elements.pkg.html#procedural">Procedural Elements</a></p>
+    <p>Perhaps the best way to organize packages is to put all procedural code
+     into separate files from classes.  <a href="http://pear.php.net">PEAR</a> recommends
+     putting every class into a separate file.  For small, utility classes, this may
+     not be the best solution for all cases, but it is still best to separate packages
+     into different files for consistency.</p><br /></span>
+  <span><a name="documenting.tutorials"></a><h3 class="title">Advanced phpDocumentor: tutorials and extended Documentation</h3><p>phpDocumentor developers have received a number of requests to allow linking
+    to external documentation, and to sections of that documentation.  If phpDocumentor
+    only could create HTML documents, this would be a simple task, but the presence of
+    PDF and now XML converters as well as future possibilities complicates this question
+    tremendously.  What is the solution?</p>
+   <p>Give phpDocumentor the ability to parse external documentation in a common format
+    and then convert it to the appropriate format for each converter.  The implementation
+    of this solution in version 1.2.0 is very versatile.  Making use of the standard DocBook
+    XML format, external documentation can be designed and then reformatted for any output.
+    No longer is external documentation tied down to one &quot;look.&quot;  Here's a short
+    list of the benefits of this approach:</p>
+   <p>Benefits of using DocBook as the format:
+    <ul><li><p>DocBook is very similar to HTML at the basic level and very
+      easy to learn.</p></li>
+     <li><p>Each template has its own options.ini file which determines
+      how the DocBook tags will be translated into the output language - no need
+      to learn xslt.</p></li>
+     <li><p>Adding in xslt support will be very easy to allow for future
+      customization</p></li></ul>
+    Benefits of integrating tutorials/external documentation into phpDocumentor:
+    <ul><li><p>Linking to external documentation from within API docs is possible</p></li>
+     <li><p>Linking to API docs from external documentation is also possible</p></li>
+     <li><p>Customizable table of contents, both of all tutorials and within
+      a tutorial via <a href="../phpDocumentor/tutorial_tags.inlinetoc.pkg.html">inline {@toc}</a></p></li>
+     <li><p>It is possible to create User-level documentation that has direct
+      access to Programmer-level documentation</p></li></ul></p>
+   <p>User-level documentation generally consists of tutorials and information on how
+    to use a package, and avoids extreme detail.  On the other hand, programmer-level
+    documentation has all the details a programmer needs to extend and modify a package.
+    phpDocumentor has been assisting the creation of programmer-level documentation since
+    its inception.  With the addition of tutorials, it can now ease the creation of user-level
+    documentation.</p>
+   <p>For an in-depth look at how to use tutorials, read <a href="../phpDocumentor/tutorial_tutorials.pkg.html">phpDocumentor Tutorials</a></p></span></span>
+ <span><a name="using"></a><h2 class="title">Running phpDocumentor</h2><p>There are two bundled ways of invoking phpDocumentor, the command-line phpdoc,
+   or the web interface phpdoc.php/new_phpdoc.php.</p>
+  <span><a name="using.docbuilder"></a><h3 class="title">Using the new Web Interface docbuilder</h3><p>The new web interface requires a working installation of PHP with a web server,
+    and must be accessible from the document root.  Docbuilder is the creation of Andrew
+    Eddies, and it combines some slick formatting with the functionality of the old web
+    interface.  The docbuilder interface can be accessed via index.html in the install
+    directory of phpDocumentor, or the docbuilder subdirectory.</p></span>
+  <span><a name="using.web"></a><h3 class="title">Using the old Web Interface <a href="../phpDocumentor/_phpdoc.php.html">phpdoc.php</a> or <a href="../phpDocumentor/_new_phpdoc.php.html">new_phpdoc.php</a></h3><p>In order to use the web interface, there are a number of factors that must
+    be set up before anything else can occur.  First, you need a working web server
+    with php (it had to be said).  This manual will not assist with that setup.  Next,
+    the phpdoc.php or new_phpdoc.php file needs to be accessible by the webserver.  In
+    unix, place a symbolic link using ln -s to the desired interface into the public
+    html directory.</p>
+   <span class="warning">Security is always an issue with the internet.  Do not place phpDocumentor
+    into the web server publicly available path on a server connected to the internet.
+    Make sure that phpDocumentor will not have the power to overwrite <em>ANY</em>
+    system or user files.</span>
+   <p>Note that since the webserver runs as user nobody in unix, the generated files
+    will be owned by nobody.  The only way to change this is to either run phpDocumentor
+    from the command-line or to add a chuser wrapper around httpd.  <em>We do not
+    recommend using a chuser wrapper or running phpDocumentor as root.</em>  It is
+    much easier and safer to use a config file (see <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.config-files">phpDocumentor's dynamic User-defined config files</a>)
+    from the command line.</p></span>
+  <span><a name="using.command-line"></a><h3 class="title">Using the Command-line tool</h3><a name="using.command-line.windows"></a><h4 class="title">Running the command-line in MS Windows</h4><p>Running phpDocumentor from the command-line is fairly straightforward, even in
+     windows.  It is recommended to use the web interface in windows, from a non-publicly
+     accessible server root, as none of the permissions issues exist that exist in unix.
+     However, to use phpDocumentor from the command line is possible.  First, put the
+     location of php into the system path, then type:</p>
+    <p><pre>
+C:\&gt;php-cli C:\path\to\phpdoc\phpdoc [commandline]
+</pre></p>
+    <p>An alternative is to edit the phpdoc.bat file, and place phpdoc in the path,
+     then you can run phpdoc as a normal command.</p><br />
+   <a name="using.command-line.unix"></a><h4 class="title">Running the command-line in unix</h4><p>Running the command-line tool phpdoc is very easy in unix:</p>
+     <pre>
+.\phpdoc [commandline]
+</pre><br />
+   <table frame = "border"><colgroup span = "3"/><thead align = "center"><tr><td colspan = "3"><em>Command-line switches</em></td></tr></thead>
+    <tbody><tr><td>-cp</td>
+      <td>--converterparams</td>
+      <td>dynamic parameters for a converter, separate values with commas</td></tr>
+     <tr><td>-ct</td>
+      <td>--customtags</td>
+      <td>comma-separated list of non-standard @tags to pass to the converter as valid tags</td></tr>
+     <tr><td>-d</td>
+      <td>--directory</td>
+      <td>name of a directory(s) to parse directory1,directory2</td></tr>
+  	 <tr><td>-dc</td>
+      <td>--defaultcategoryname</td>
+      <td>name to use for the default category.  If not specified, uses 'default'</td></tr>
+     <tr><td>-dh</td>
+      <td>--hidden</td>
+      <td>set equal to on (-dh on) to descend into hidden directories (directories
+       starting with '.'), default is off</td></tr>
+  	 <tr><td>-dn</td>
+      <td>--defaultpackagename</td>
+      <td>name to use for the default package.  If not specified, uses 'default'</td></tr>
+     <tr><td>-ed</td>
+      <td>--examplesdir</td>
+      <td>full path of the directory to look for example files from @example tags</td></tr>
+     <tr><td>-f</td>
+      <td>--filename</td>
+      <td>name of file(s) to parse ',' file1,file2.  Can contain complete path and * ? wildcards</td></tr>
+     <tr><td>-i</td>
+      <td>--ignore</td>
+      <td>file(s) that will be ignored, multiple separated by ','.  Wildcards * and ? are ok</td></tr>
+     <tr><td>-is</td>
+      <td>--ignoresymlinks</td>
+      <td>Explicitly ignore symlinks, both symlinked directories and symlinked files.
+      Valid options are &quot;on&quot; and &quot;offn&quot; default value is &quot;off&quot;</td></tr>
+     <tr><td>-it</td>
+      <td>--ignore-tags</td>
+      <td>tags to ignore for this parse.  @package, @subpackage, @access and @ignore may not be ignored.</td></tr>
+     <tr><td>-j</td>
+      <td>--javadocdesc</td>
+      <td>use JavaDoc-compliant description (short desc is part of description, and is everything up to first .)</td></tr>
+     <tr><td>-o</td>
+      <td>--output</td>
+      <td>output information, format:converter:template (HTML:frames:phpedit for example)</td></tr>
+     <tr><td>-p</td>
+      <td>--pear</td>
+      <td>Parse a PEAR-style repository (package is directory, _members are @access private) on/off default off</td></tr>
+     <tr><td>-po</td>
+      <td>--packageoutput</td>
+      <td>output documentation only for selected packages.  Use a comma-delimited list</td></tr>
+     <tr><td>-pp</td>
+      <td>--parseprivate</td>
+      <td>parse elements marked private with @access.  Valid options are &quot;on&quot;
+       and &quot;off&quot; default value is &quot;off&quot;</td></tr>
+     <tr><td>-q</td>
+      <td>--quiet</td>
+      <td>do not display parsing/conversion messages.  Useful for cron jobs.  Valid options are &quot;on&quot;
+       and &quot;off&quot; default value is &quot;off&quot;</td></tr>
+     <tr><td>-ric</td>
+      <td>--readmeinstallchangelog</td>
+      <td>Specify custom filenames to parse like README, INSTALL or CHANGELOG files</td></tr>
+     <tr><td>-s</td>
+      <td>--sourcecode</td>
+      <td>generate highlighted sourcecode for every parsed file (PHP 4.3.0+ only) on/off default off</td></tr>
+     <tr><td>-t</td>
+      <td>--target</td>
+      <td>path where to save the generated files</td></tr>
+     <tr><td>-ti</td>
+      <td>--title</td>
+      <td>title of generated documentation, default is 'Generated Documentation'</td></tr>
+     <tr><td>-tb</td>
+      <td>--templatebase</td>
+      <td>base location of all templates for this parse.  Note that if -tb /path/to/here, then
+       templates for HTML:frames:default must be in /path/to/here/Converters/HTML/frames/templates/default/templates
+       and the /path/to/here/Converters/HTML/frames/templates/default/templates_c directory must
+       exist, or Smarty will bail on attempting to compile the templates.</td></tr>
+     <tr><td>-ue</td>
+      <td>--undocumentedelements</td>
+      <td>Enable warnings for undocumented elements. Useful for identifying classes and methods that haven't yet been documented.
+      Valid options are &quot;on&quot; and &quot;offn&quot; default value is &quot;off&quot;</td></tr></tbody></table>
+   <a name="using.command-line.config"></a><h4 class="title">-c, --config</h4><p>Use this option to load a config file (see <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.config-files">phpDocumentor's dynamic User-defined config files</a>)</p>
+    <p>&quot;phpdoc -c default&quot; will load the default.ini file</p><br />
+   <a name="using.command-line.converterparams"></a><h4 class="title">-cp, --converterparams</h4><p>This option is only used to pass dynamic parameters to extended converters.  The options
+     passed should be separated by commas, and are placed in the global variable
+     $_phpDocumentor_setting['converterparams'], an array.  It is the
+     responsibility of the Converter to access this variable, the code included with phpDocumentor 
+     does nothing with it.</p><br />
+   <a name="using.command-line.customtags"></a><h4 class="title">-ct, --customtags</h4><p>Use this option to specify tags that should be included in the list of valid tags for
+     the current run of phpdoc</p>
+    <p>&quot;phpdoc -ct mytag,anothertag&quot; will tell phpDocumentor to parse this DocBlock:</p>
+    <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@mytag</span><span class="src-doc">&nbsp;this&nbsp;is&nbsp;my&nbsp;tag</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@anothertag</span><span class="src-doc">&nbsp;this&nbsp;is&nbsp;another&nbsp;tag</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+    <p>without raising any errors, and include the tags in the known tags list for the
+     template to handle.  Note that in version 1.2.0+, the unknown_tags array is passed to templates.</p><br />
+   <a name="using.command-line.hidden"></a><h4 class="title">-dh, --hidden</h4><p>Use this option to tell phpDocumentor to parse files and directories that begin with a period (.)</p><br />
+   <a name="using.command-line.defaultcategoryname"></a><h4 class="title">-dc, --defaultcategoryname</h4><p>This will tell phpDocumentor to group any uncategorized elements into the primary
+     categoryname.  If not specified, the primary category is &quot;default.&quot;  The
+     category should be specified using the <a href="../phpDocumentor/tutorial_tags.category.pkg.html">@category</a> tag.</p>
+    <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;This&nbsp;package&nbsp;has&nbsp;no&nbsp;category&nbsp;and&nbsp;will&nbsp;be&nbsp;grouped&nbsp;into&nbsp;the&nbsp;default</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;category&nbsp;unless&nbsp;-dc&nbsp;categoryname&nbsp;is&nbsp;used</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;mypackage</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">nocategory</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p><br />
+   <a name="using.command-line.defaultpackagename"></a><h4 class="title">-dn, --defaultpackagename</h4><p>Use this option to tell phpDocumentor what the primary package's name is.  This will also tell phpDocumentor to group any unpackaged elements into the primary packagename.  If not specified, the primary package is &quot;default&quot;</p>
+    <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;This&nbsp;class&nbsp;has&nbsp;no&nbsp;package&nbsp;and&nbsp;will&nbsp;be&nbsp;grouped&nbsp;into&nbsp;the&nbsp;default</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;package&nbsp;unless&nbsp;-dn&nbsp;packagename&nbsp;is&nbsp;used</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">nopackage</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p><br />
+   <a name="using.command-line.directory"></a><h4 class="title">-d, --directory</h4><p>This or the -f option must be present, either on the command-line or in the config file.</p>
+    <p>Unlike -f, -d does not accept wildcards.  Use -d to specify full paths or relative paths to the current directory that phpDocumentor should recursively search for documentable files.  phpDocumentor will search through all subdirectories of any directory in the command-line list for tutorials/ and any files that have valid .php extensions as defined in phpDocumentor.ini.  For example:</p>
+    <p>&quot;phpdoc -d relative/path/to/dir1,/fullpath/to/here,..&quot;</p><br />
+   <a name="using.command-line.examplesdir"></a><h4 class="title">-ed, --examplesdir</h4><p>The -ed option is used to specify the full path to a directory that example files are located in.  This command-line setting affects the output of the <a href="../phpDocumentor/tutorial_tags.example.pkg.html">@example</a> tag.</p>
+    <p>&quot;phpdoc -ed /fullpath/to/examples&quot;</p><br />
+   <a name="using.command-line.filename"></a><h4 class="title">-f, --filename</h4><p>This or the -d option must be present, either on the command-line or in the config file.</p>
+    <p>This option is used to specify individual files or expressions with wildcards * and ?.  Use * to match any string, and ? to match any single character.</p>
+    <p><ul><li><p>phpdoc -f m*.p* will match myfile.php, mary_who.isthat.phtml, etc.</p></li>
+      <li><p>phpdoc -f /path/m* will match /path/my/files/here.php, /path/mommy.php /path/mucho/grande/what.doc, etc.</p></li>
+      <li><p>phpdoc -f file?.php will match file1.php, file2.php and will not match file10.php</p></li></ul></p><br />
+   <a name="using.command-line.ignore"></a><h4 class="title">-i, --ignore</h4><p>Use the -i option to exclude files and directories from parsing.  The -i option recognizes the * and ? wildcards, like -f does.  In addition, it is possible to ignore a subdirectory of any directory using &quot;dirname/&quot;.</p>
+    <p><ul><li><p>phpdoc -i tests/ will ignore /path/to/here/tests/* and /path/tests/*</p></li>
+      <li><p>phpdoc -i *.inc will ignore all .inc files</p></li>
+      <li><p>phpdoc -i *path/to/* will ignore /path/path/to/my/* as well as /path/to/*</p></li>
+      <li><p>phpdoc -i *test* will ignore /path/tests/* and /path/here/my_test.php</p></li></ul></p>
+    <p>Since v1.3.2, the value or pattern you provide will be case-sensitive (OS permitting, anyway), and will be applied relative to the top-level directory in the -d argument.</p>
+    <p><ul><li><p>phpdoc -i CVS/ will ignore /path/to/CVS/* but will not ignore /path/to/cvs</p></li>
+      <li><p>phpdoc -d /home/myhome/cvs/myproject -i cvs/ will ignore /home/myhome/cvs/myproject/files/cvs/* but will not ignore /home/myhome/cvs/*</p></li></ul></p><br />
+   <a name="using.command-line.ignore-symlinks"></a><h4 class="title">-is, --ignoresymlinks</h4><p>Use the -is option to explicitly ignore any symlinks, whether they be links to directories or links to files.</p>
+	<p>This only works on a Unix/Linux environment, since Windows doesn't have symlinks.</p><br />
+   <a name="using.command-line.ignore-tags"></a><h4 class="title">-it, --ignore-tags</h4><p>Use the -it option to exclude specific tags from output.  This is used for creating multiple sets of documentation for different audiences.  For instance, to generate documentation for end-users, it may not be desired to output all @todo tags, so --ignore-tags @todo would be used.  To ignore inline tags, surround them with brackets {} like --ignore-tags {@internal}.</p>
+    <p>--ignore-tags will not ignore the core tags @global, @access, @package, @ignore, @name, @param, @return, @staticvar or @var.</p>
+    <span class="warning">The --ignore-tags option requires a full tag name like --ignore-tags @todo.  --ignore-tags todo will not work.</span><br />
+   <a name="using.command-line.javadocdesc"></a><h4 class="title">-j, --javadocdesc</h4><p>Use this command-line option to enforce strict compliance with JavaDoc.  JavaDoc DocBlocks are much less flexible than phpDocumentor's DocBlocks (see <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblock">DocBlocks</a> for information).</p><br />
+   <a name="using.command-line.output"></a><h4 class="title">-o, --output</h4><p>Use this required option to tell phpDocumentor which Converters and templates to use.  In this release, there are several choices:
+     <ul><li><p>HTML:frames:* - output is HTML with frames.
+       <ul><li><p>HTML:frames:default - JavaDoc-like template, very plain, minimal formatting</p></li>
+        <li><p>HTML:frames:earthli - BEAUTIFUL template written by Marco von Ballmoos</p></li>
+        <li><p>HTML:frames:l0l33t - Stylish template</p></li>
+        <li><p>HTML:frames:phpdoc.de - Similar to phpdoc.de's PHPDoc output</p></li>
+        <li><p>HTML:frames:phphtmllib - Very nice user-contributed template</p></li>
+        <li><p>all of the templates listed above are also available with javascripted expandable indexes, as HTML:frames:DOM/name where name is default, l0l33t, phpdoc.de, etcetera</p></li>
+        <li><p>HTML:frames:phpedit - Based on output from <a href="http://www.phpedit.net">PHPEdit</a> Help Generator</p></li></ul></p></li>
+      <li><p>HTML:Smarty:* - output is HTML with no frames.
+       <ul><li><p>HTML:Smarty:default - Bold template design using css to control layout</p></li>
+        <li><p>HTML:Smarty:HandS - Layout is based on PHP, but more refined, with logo image</p></li>
+        <li><p>HTML:Smarty:PHP - Layout is identical to the PHP website</p></li></ul></p></li>
+      <li><p>CHM:default:* - output is CHM, compiled help file format (Windows help).
+       <ul><li><p>CHM:default:default - Windows help file, based on HTML:frames:l0l33t</p></li></ul></p></li>
+      <li><p>PDF:default:* - output is PDF, Adobe Acrobat format
+       <ul><li><p>PDF:default:default - standard, plain PDF formatting</p></li></ul></p></li>
+      <li><p>XML:DocBook:* - output is XML, in DocBook format
+       <ul><li><p>XML:DocBook/peardoc2:default - documentation ready for compiling into peardoc for online pear.php.net documentation, 2nd revision</p></li></ul></p></li></ul></p>
+    <p>In 1.2.0+, it is possible to generate output for several converters and/or templates at once.  Simply specify a comma-delimited list of output:converter:template like:</p>
+    <p>phpdoc -o HTML:frames:default,HTML:Smarty:PHP,HTML:frames:phpedit,PDF:default:default -t ./docs -d .</p><br />
+   <a name="using.command-line.parseprivate"></a><h4 class="title">-pp, --parseprivate</h4><p>By default, phpDocumentor does not create documentation for any elements marked <a href="../phpDocumentor/tutorial_tags.access.pkg.html">@access</a> private.  This allows creation of end-user API docs that filter out low-level information that will not be useful to most developers using your code.  To create complete documentation of all elements, use this command-line option to turn on parsing of elements marked private with @access private.</p><br />
+   <a name="using.command-line.packageoutput"></a><h4 class="title">-po, --packageoutput</h4><p>Use this option to remove all elements grouped by <a href="../phpDocumentor/tutorial_tags.package.pkg.html">@package</a> tags in a comma-delimited list from output.  This option is useful for projects that are not organized into separate files for each package.  Parsing speed is not affected by this option, use <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.ignore">-i, --ignore</a> whenever possible instead of --packageoutput.</p>
+    <p>phpdoc -o HTML:frames:default -t ./docs -d . -po mypackage,thatotherpackage will only display documentation for elements marked with &quot;@package mypackage&quot; or &quot;@package thatotherpackage&quot;</p><br />
+   <a name="using.command-line.pear"></a><h4 class="title">-p, --pear</h4><p>Use this option to parse a <a href="http://pear.php.net">PEAR</a>-style repository.  phpDocumentor will do several &quot;smart&quot; things to make life easier:
+     <ul><li><p>PEAR-style destructors are automatically parsed</p></li>
+      <li><p>If no @package tag is present in a file or class DocBlock, it will guess the package based on subdirectory</p></li>
+      <li><p>If a variable or method name begins with &quot;_&quot;, it will be assumed to be <a href="../phpDocumentor/tutorial_tags.access.pkg.html">@access</a> private, unless an @access tag is present.  Constructors are also assumed to be @access private in the current version.</p></li></ul>
+     <p>Warnings will be raised for every case above, as @package should always be explicit, as should @access private.  We do not like to assume that phpDocumentor knows better than you what to do with your code, and so will always require explicit usage or raise warnings if phpDocumentor does make any assumptions.</p></p><br />
+   <a name="using.command-line.quiet"></a><h4 class="title">-q, --quiet</h4><p>This option tells phpDocumentor to suppress output of parsing/conversion information to the console.  Use this for cron jobs or other situations where human intervention will not be needed.</p><br />
+   <a name="using.command-line.readmeinstallchangelog"></a><h4 class="title">-ric, --readmeinstallchangelog</h4><p>This comma-separated list of files specifies files that should be parsed and included in the
+    documentation.  phpDocumentor will automatically grab files listed here if and only if they are located
+    in the top-level directory that is parsed.  In other words, if you parse these files:</p>
+    <p><ul><li>/path/to/files/file1.php<br /></li>
+      <li>/path/to/files/file2.php<br /></li>
+      <li>/path/to/files/README<br /></li>
+      <li>/path/to/files/subdir/file2.php<br /></li>
+      <li>/path/to/files/subdir/README<br /></li></ul></p>
+    <p>The only README file that will be grabbed is /path/to/files/README, and not /path/to/files/subdir/REAMDE,
+     because the directory that is closest to the root directory that contains a parsed file is /path/to/files.</p>
+    <p>The default list of files is located in phpDocumentor.ini, which is found in the root installation directory
+     of phpDocumentor.</p><br />
+   <a name="using.command-line.sourcecode"></a><h4 class="title">-s, --sourcecode</h4><p>This option tells phpDocumentor to generate highlighted cross-referenced source code for every file parsed.  The highlighting code is somewhat unstable, so use this option at your own risk.</p><br />
+   <a name="using.command-line.target"></a><h4 class="title">-t, --target</h4><p>Use this to tell phpDocumentor where to put generated documentation.  Legal values are paths that phpDocumentor will have write access and directory creation priveleges.</p><br />
+   <a name="using.command-line.templatebase"></a><h4 class="title">-tb, --templatebase</h4><p>-tb accepts a single pathname as its parameter.  The default value of -tb if unspecified is &lt;phpDocumentor install directory&gt;/phpDocumentor.  This raises a very important point to understand.  The -tb command-line is designed to tell phpDocumentor to look for <em>all</em> templates for all converters in subdirectories of the path specified.  By default, templates are located in a special subdirectory structure.</p>
+    <p>For the hypothetical outputformat:convertername:templatename <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.output">-o, --output</a> argument, the directory structure is Converters/outputformat/convertname/templates/templatename/.  The class file for convertname should be in the convertname/templates directly, right beside your templatename directory/ies.  In addition, Smarty expects to find two subdirectories, templates/ (containing the Smarty template files) and templates_c/ (which will contain the compiled template files).</p>
+    <p>&quot;phpdoc -tb ~/phpdoctemplates -o HTML:frames:default&quot; will only work if the directory ~/phpdoctemplates/Converters/HTML/frames/default/templates contains all the template files, and ~/phpdoctemplates/Converters/HTML/frames/default/templates_c exists.</p><br />
+   <a name="using.command-line.title"></a><h4 class="title">-ti, --title</h4><p>Set the global title of the generated documentation</p><br />
+   <a name="using.command-line.undocumentedelements"></a><h4 class="title">-ue, --undocumentedelements</h4><p>This option tells phpDocumentor whether or not to suppress warnings about certain objects (classes, methods) that are not documented via a DocBlock comment.  Use this to help identify objects that you still need to write documentation for.</p><br /></span>
+  <span><a name="using.config-files"></a><h3 class="title">phpDocumentor's dynamic User-defined config files</h3><p>The new <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.config">-c, --config</a> command-line options heralds a new era of ease in using phpDocumentor.  What used to require:</p>
+   <p><pre>
+phpdoc -t /path/to/output -d path/to/directory1,/another/path,/third/path\
+-f /path/to/anotherfile.php -i *test.php,tests/ -pp on -ti My Title -o HTML:frames:phpedit
+    </pre></p>
+   <p>Can now be done in a single stroke!</p>
+   <p><pre>
+phpdoc -c myconfig
+    </pre></p>
+   <p>What makes this all possible is the use of config files that contain all of the command-line information.  There are two configuration files included in the distribution of phpDocumentor, and both are in the user/ subdirectory.  To use a configuration file &quot;myconfig.ini,&quot; simply place it in the user directory, and the command-line &quot;phpdoc -c myconfig&quot; will tell phpDocumentor to read all the command-line settings from that config file.  Configuration files may also be placed in another directory, just specify the full path to the configuration file:</p>
+   <p><pre>
+phpdoc -c /full/path/to/myconfig.ini
+    </pre></p>
+   <p>The best way to ensure your config file matches the format expected by phpDocumentor is to copy the default.ini config file, and modify it to match your needs.  Lines that begin with a semi-colon (;) are ignored, and can be used for comments.</p>
+   Be sure to put in your config file all the runtime options you need, because <em>all other command-line arguments are ignored</em> if you use a config file.</span>
+  <span><a name="using.phpdocumentorini"></a><h3 class="title">phpDocumentor.ini - global configuration options</h3><p>The phpDocumentor.ini file contains several useful options, most of which will never need to be changed.  However, some are useful.  The section [_phpDocumentor_options] contains several configuration settings that may be changed to enhance output documentation.  For Program Location, the relative path is specified as Program_Root/relativepath/to/file.  The prefix &quot;Program_Root&quot; may be changed to any text, including none at all, or &quot;Include &quot;, etc.  The [_phpDocumentor_setting] section can be used to specify a config file that should be used by default, so phpDocumentor may be run without any command-line arguments whatsoever!  The [_phpDocumentor_phpfile_exts] section tells phpDocumentor which file extensions are php files, add any non-standard extensions, such as &quot;class&quot; to this section.</p></span></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_sample3.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_phpDocumentor.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_elements.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Source code for sample3.php</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor Guide to Creating Fantastic Documentation</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Documentable PHP Elements</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

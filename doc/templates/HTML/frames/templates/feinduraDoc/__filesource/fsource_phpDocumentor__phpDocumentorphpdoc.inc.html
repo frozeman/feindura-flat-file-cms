@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>File Source for phpdoc.inc</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<h1>Source for file phpdoc.inc</h1>
+<p>Documentation is available at <a href="../phpDocumentor/_phpDocumentor---phpdoc.inc.html">phpdoc.inc</a></p>
+<div class="src-code">
+<div class="src-code"><ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">&nbsp;*&nbsp;startup&nbsp;file</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">&nbsp;*&nbsp;phpDocumentor&nbsp;::&nbsp;automatic&nbsp;documentation&nbsp;generator</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">&nbsp;*&nbsp;PHP&nbsp;versions&nbsp;4&nbsp;and&nbsp;5</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">&nbsp;*&nbsp;Copyright&nbsp;(c)&nbsp;2000-2007&nbsp;Joshua&nbsp;Eichorn,&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">&nbsp;*&nbsp;LICENSE:</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;library&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-doc">&nbsp;*&nbsp;and/or&nbsp;modify&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-doc">&nbsp;*&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">&nbsp;*&nbsp;either&nbsp;version&nbsp;2.1&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">&nbsp;*&nbsp;later&nbsp;version.</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;library&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the&nbsp;GNU</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-doc">&nbsp;*&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-doc">&nbsp;*&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-doc">&nbsp;*&nbsp;License&nbsp;along&nbsp;with&nbsp;this&nbsp;library;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-doc">&nbsp;*&nbsp;Foundation,&nbsp;Inc.,&nbsp;59&nbsp;Temple&nbsp;Place,&nbsp;Suite&nbsp;330,&nbsp;Boston,&nbsp;MA&nbsp;02111-1307&nbsp;USA</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Joshua&nbsp;Eichorn&nbsp;&lt;jeichorn@phpdoc.org&gt;</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;2000-2007&nbsp;Joshua&nbsp;Eichorn,&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;CVS:&nbsp;$Id:&nbsp;phpdoc.inc&nbsp;243933&nbsp;2007-10-10&nbsp;01:18:25Z&nbsp;ashnazg&nbsp;$</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@since</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.1</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@filesource</span></div></li>
+<li><div class="src-line"><a name="a39"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a40"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a41"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a42"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-comm">//&nbsp;set&nbsp;up&nbsp;include&nbsp;path&nbsp;so&nbsp;we&nbsp;can&nbsp;find&nbsp;all&nbsp;files,&nbsp;no&nbsp;matter&nbsp;what</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-var">$a&nbsp;</span>=&nbsp;<a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">'/'</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\\'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'/'</span><span class="src-sym">,&nbsp;</span><a href="http://www.php.net/dirname">dirname</a><span class="src-sym">(</span><a href="http://www.php.net/realpath">realpath</a><span class="src-sym">(</span>__FILE__<span class="src-sym">))))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a45"></a><a href="http://www.php.net/array_pop">array_pop</a><span class="src-sym">(</span><span class="src-var">$a</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-var">$GLOBALS</span><span class="src-sym">[</span><span class="src-str">'_phpDocumentor_install_dir'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<a href="http://www.php.net/join">join</a><span class="src-sym">(</span><span class="src-str">'/'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$a</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-comm">//&nbsp;add&nbsp;my&nbsp;directory&nbsp;to&nbsp;the&nbsp;include&nbsp;path,&nbsp;and&nbsp;make&nbsp;it&nbsp;first,&nbsp;should&nbsp;fix&nbsp;any&nbsp;errors</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-id">PHP_OS</span><span class="src-sym">,&nbsp;</span><span class="src-num">0</span><span class="src-sym">,&nbsp;</span><span class="src-num">3</span><span class="src-sym">)&nbsp;</span>==&nbsp;<span class="src-str">'WIN'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a49"></a><a href="http://www.php.net/ini_set">ini_set</a><span class="src-sym">(</span><span class="src-str">'include_path'</span><span class="src-sym">,&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a50"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$GLOBALS</span><span class="src-sym">[</span><span class="src-str">'_phpDocumentor_install_dir'</span><span class="src-sym">]</span>.<span class="src-str">';'</span>.<a href="http://www.php.net/ini_get">ini_get</a><span class="src-sym">(</span><span class="src-str">'include_path'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-key">else</span></div></li>
+<li><div class="src-line"><a name="a52"></a><a href="http://www.php.net/ini_set">ini_set</a><span class="src-sym">(</span><span class="src-str">'include_path'</span><span class="src-sym">,&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a53"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$GLOBALS</span><span class="src-sym">[</span><span class="src-str">'_phpDocumentor_install_dir'</span><span class="src-sym">]</span>.<span class="src-str">':'</span>.<a href="http://www.php.net/ini_get">ini_get</a><span class="src-sym">(</span><span class="src-str">'include_path'</span><span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a54"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-doc">&nbsp;*&nbsp;All&nbsp;command-line&nbsp;handling&nbsp;from&nbsp;previous&nbsp;version&nbsp;has&nbsp;moved&nbsp;to&nbsp;here</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-doc">&nbsp;*&nbsp;Many&nbsp;settings&nbsp;also&nbsp;moved&nbsp;to&nbsp;phpDocumentor.ini</span></div></li>
+<li><div class="src-line"><a name="a59"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a60"></a><span class="src-inc">require_once&nbsp;</span><span class="src-str">&quot;phpDocumentor/Setup.inc.php&quot;</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a62"></a><span class="src-var">$phpdoc&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../phpDocumentor/phpDocumentor_setup.html">phpDocumentor_setup</a></span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a63"></a><span class="src-var">$phpdoc</span><span class="src-sym">-&gt;</span><span class="src-id">readCommandLineSettings</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a64"></a><span class="src-var">$phpdoc</span><span class="src-sym">-&gt;</span><span class="src-id">setupConverters</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a65"></a><span class="src-var">$phpdoc</span><span class="src-sym">-&gt;</span><span class="src-id">createDocs</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a66"></a><span class="src-php">?&gt;</span></div></li>
+</ol></div>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:53 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</body>
+</html>

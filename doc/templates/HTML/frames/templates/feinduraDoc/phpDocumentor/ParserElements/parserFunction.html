@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class parserFunction</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class parserFunction</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">version:</span> $Id: ParserElements.inc 248547 2007-12-19 02:16:49Z ashnazg $</li>
+				<li><span class="field">copyright:</span> 2002-2008 Gregory Beaver</li>
+				<li><span class="field">since:</span> 1.0rc1</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---ParserElements.inc.html">/phpDocumentor/ParserElements.inc</a> (line <span class="field">321</span>)
+		</p>
+		
+				
+		<pre><a href="../../phpDocumentor/ParserData/parserBase.html">parserBase</a>
+   |
+   --<a href="../../phpDocumentor/ParserElements/parserElement.html">parserElement</a>
+      |
+      --parserFunction</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/ParserElements/parserMethod.html">parserMethod</a></td>
+					<td>
+											
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$globals" title="details" class="var-name">$globals</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$params" title="details" class="var-name">$params</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">boolean</span>
+					<a href="#$returnsreference" title="details" class="var-name">$returnsreference</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$source" title="details" class="var-name">$source</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$statics" title="details" class="var-name">$statics</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$type" title="details" class="var-name">$type</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addGlobals" title="details" class="method-name">addGlobals</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$globals</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addParam" title="details" class="method-name">addParam</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$has_default</span> = <span class="var-default">true</span>], [<span class="var-type">null|string</span>&nbsp;<span class="var-name">$typehint</span> = <span class="var-default">null</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addSource" title="details" class="method-name">addSource</a>
+											(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$source</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addStatics" title="details" class="method-name">addStatics</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$static</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$vals</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getConflicts" title="details" class="method-name">getConflicts</a>
+											(<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>&nbsp;<span class="var-name">&$c</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getFunctionCall" title="details" class="method-name">getFunctionCall</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getIntricateFunctionCall" title="details" class="method-name">getIntricateFunctionCall</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$converter</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$paramtags</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getLink" title="details" class="method-name">getLink</a>
+											(<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>&nbsp;<span class="var-name">$c</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span> = <span class="var-default">false</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$returnobj</span> = <span class="var-default">false</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getParam" title="details" class="method-name">getParam</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#getReturnsReference" title="details" class="method-name">getReturnsReference</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string|array</span>
+										<a href="#getSource" title="details" class="method-name">getSource</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#hasSource" title="details" class="method-name">hasSource</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#listGlobals" title="details" class="method-name">listGlobals</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#listParams" title="details" class="method-name">listParams</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#listStatics" title="details" class="method-name">listStatics</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setReturnsReference" title="details" class="method-name">setReturnsReference</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$globals" id="$globals"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$globals</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">351</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">global declarations parsed from function definition</p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: array(globalname1, globalname2,....)</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$params" id="$params"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$params</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">335</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">parameters parsed from function definition.</p>
+<p class="description"><p>param name may be null, in which case, updateParams() must be called from the Converter</p></p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: array(param name =&gt; default value parsed from function definition)</li>
+				<li><span class="field">see:</span> updateParams()</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$returnsreference" id="$returnsreference"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">boolean</span>
+			<span class="var-name">$returnsreference</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">345</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Function returns a reference to an element, instead of a value</p>
+<p class="description"><p>set to true if function is declared as:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">function&nbsp;</span><span class="src-sym">&amp;</span><span class="src-id">func</span><span class="src-sym">(</span>...</div></li>
+</ol></div></p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$source" id="$source"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$source</span>
+			 = <span class="var-default"> ''</span>			(line <span class="line-number">358</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$statics" id="$statics"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$statics</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">356</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">static variable declarations parsed from function definition</p>
+	<ul class="tags">
+				<li><span class="field">var:</span> Format: array(array('name' =&gt; staticvar1,'val' =&gt; '' or default val of staticvar1),...)</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$type" id="$type"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$type</span>
+			 = <span class="var-default"> 'function'</span>			(line <span class="line-number">327</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Type is used by many functions to skip the hassle of if phpDocumentor_get_class($blah) == 'parserBlah'</p>
+	<ul class="tags">
+				<li><span class="field">var:</span> always 'function'</li>
+			</ul>
+	
+	
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/ParserData/parserBase.html#var$type">parserBase::$type</a></dt>
+						<dd>Type is used by many functions to skip the hassle of if</dd>
+					</dl>
+		
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserMethod.html#var$type">parserMethod::$type</a>
+								: Type is used by many functions to skip the hassle of if phpDocumentor_get_class($blah) == 'parserBlah'
+							</li>
+				</ul>
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$conflicts">parserElement::$conflicts</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$docblock">parserElement::$docblock</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$endlinenumber">parserElement::$endlinenumber</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$file">parserElement::$file</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$linenumber">parserElement::$linenumber</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$name">parserElement::$name</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$path">parserElement::$path</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../../phpDocumentor/ParserData/parserBase.html">parserBase</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/ParserData/parserBase.html#var$value">parserBase::$value</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodaddGlobals" id="addGlobals"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addGlobals</span> (line <span class="line-number">433</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add all &quot;global $var, $var2&quot; declarations to this function</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addGlobals
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$globals</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$globals</span><span class="var-description">: Format: array(globalname1, globalname2,....)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddParam" id="addParam"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addParam</span> (line <span class="line-number">366</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addParam
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$has_default</span> = <span class="var-default">true</span>], [<span class="var-type">null|string</span>&nbsp;<span class="var-name">$typehint</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$value</span><span class="var-description">: default value parsed from function definition</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$has_default</span><span class="var-description">: indicates whether this parameter has a default value</span>			</li>
+					<li>
+				<span class="var-type">null|string</span>
+				<span class="var-name">$typehint</span><span class="var-description">: class type hint</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserMethod.html#methodaddParam">parserMethod::addParam()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodaddSource" id="addSource"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addSource</span> (line <span class="line-number">379</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set the source code.  Always array in PHP 4.3.0+</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addSource
+		</span>
+					(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$source</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$source</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddStatics" id="addStatics"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addStatics</span> (line <span class="line-number">443</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add all &quot;static $var, $var2 = 6&quot; declarations to this function</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addStatics
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$static</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$vals</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$static</span><span class="var-description">: Format: array(varname1, varname2,...)</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$vals</span><span class="var-description">: Format: array(default val of var 1, default val of var 2,...) if var 1 has no default, array(default val of var 2,...)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetConflicts" id="getConflicts"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getConflicts</span> (line <span class="line-number">422</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns all functions in other packages that have the same name as this function</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> false or an array Format: (package =&gt; <a href="../../phpDocumentor/ParserElements/parserFunction.html">parserFunction</a> of conflicting functions)</li>
+				<li><span class="field">usedby:</span> <a href="../../Converters/Converter.html#methodgetFormattedConflicts">Converter::getFormattedConflicts()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getConflicts
+		</span>
+					(<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>&nbsp;<span class="var-name">&$c</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>
+				<span class="var-name">&$c</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetFunctionCall" id="getFunctionCall"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getFunctionCall</span> (line <span class="line-number">580</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a human-friendly description of the function call</p>
+<p class="description"><p>takes declaration like:  <div class="src-code"><ol><li><div class="src-line">&nbsp;</div></li>
+</ol></div>  and returns:  string &amp;func( $param1, [$param2 = 6], [$param3 = array('20',9 =&gt; &quot;heroo&quot;)] )</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> stylized function declaration</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getFunctionCall
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserMethod.html#methodgetFunctionCall">parserMethod::getFunctionCall()</a>
+								: adds &quot;constructor &quot; to start of function call if $isConstructor is true
+							</li>
+				</ul>
+	</div>
+<a name="methodgetIntricateFunctionCall" id="getIntricateFunctionCall"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getIntricateFunctionCall</span> (line <span class="line-number">621</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Like getFunctionCall(), but has no English or pre-determined formatting.</p>
+<p class="description"><p>Much more flexible.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Format:  <div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'name'&nbsp;</span>=&gt;&nbsp;<span class="src-key">function&nbsp;</span><span class="src-id"><a href="../../phpDocumentor/ParserElements/parserElement.html#var$name">name</a></span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'returnsref'&nbsp;</span>=&gt;&nbsp;<span class="src-id">boolean&nbsp;</span><span class="src-key">if&nbsp;</span><span class="src-id">declared&nbsp;</span><span class="src-key">as&nbsp;</span><span class="src-str">&quot;function&nbsp;&amp;name()&quot;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'params'&nbsp;</span>=&gt;&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'type'&nbsp;</span>=&gt;&nbsp;<span class="src-id">data&nbsp;type&nbsp;of&nbsp;parameter</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'description'&nbsp;</span>=&gt;&nbsp;<span class="src-id">from&nbsp;</span><span class="src-sym">@</span><span class="src-id">param&nbsp;tag</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'name'&nbsp;</span>=&gt;&nbsp;<span class="src-id">variable&nbsp;name</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'default'&nbsp;</span>=&gt;&nbsp;<span class="src-key">default&nbsp;</span><span class="src-id">value&nbsp;</span><span class="src-key">if&nbsp;</span><span class="src-id">any</span><span class="src-sym">))</span></div></li>
+</ol></div></li>
+				<li><span class="field">see:</span> <a href="../../phpDocumentor/ParserElements/parserFunction.html#methodgetFunctionCall">parserFunction::getFunctionCall()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getIntricateFunctionCall
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$converter</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$paramtags</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$converter</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$paramtags</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserMethod.html#methodgetIntricateFunctionCall">parserMethod::getIntricateFunctionCall()</a>
+							</li>
+				</ul>
+	</div>
+<a name="methodgetLink" id="getLink"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLink</span> (line <span class="line-number">408</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">quick way to link to this element</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> converter-specific link to this function</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getLink
+		</span>
+					(<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>&nbsp;<span class="var-name">$c</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span> = <span class="var-default">false</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$returnobj</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>
+				<span class="var-name">$c</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$text</span><span class="var-description">: text to display for the link or false for default text</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$returnobj</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserMethod.html#methodgetLink">parserMethod::getLink()</a>
+								: quick way to link to this element
+							</li>
+				</ul>
+	</div>
+<a name="methodgetParam" id="getParam"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getParam</span> (line <span class="line-number">464</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> default value of param $name</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getParam
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetReturnsReference" id="getReturnsReference"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getReturnsReference</span> (line <span class="line-number">561</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> returns value of <a href="../../phpDocumentor/ParserElements/parserFunction.html#var$returnsreference">$returnsreference</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			getReturnsReference
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetSource" id="getSource"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSource</span> (line <span class="line-number">397</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> source code ready for highlighting</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string|array</span>
+		<span class="method-name">
+			getSource
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodhasSource" id="hasSource"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">hasSource</span> (line <span class="line-number">388</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determine whether the source code has been requested via {@source}</p>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			hasSource
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodlistGlobals" id="listGlobals"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">listGlobals</span> (line <span class="line-number">515</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> format: array(array(index, globalname),...)</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			listGlobals
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodlistParams" id="listParams"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">listParams</span> (line <span class="line-number">480</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> format: array(array(paramname, default value),...)</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			listParams
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodlistStatics" id="listStatics"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">listStatics</span> (line <span class="line-number">534</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> format: array(array(static var name, static var default value),...)</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			listStatics
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetReturnsReference" id="setReturnsReference"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setReturnsReference</span> (line <span class="line-number">553</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">sets $returnsreference to true</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setReturnsReference
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/ParserElements/parserElement.html">parserElement</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodgetEndLineNumber">parserElement::getEndLineNumber()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodgetFile">parserElement::getFile()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodgetLineNumber">parserElement::getLineNumber()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodgetName">parserElement::getName()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodgetPackage">parserElement::getPackage()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodgetPath">parserElement::getPath()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodsetDocBlock">parserElement::setDocBlock()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodsetEndLineNumber">parserElement::setEndLineNumber()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodsetFile">parserElement::setFile()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodsetLineNumber">parserElement::setLineNumber()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodsetName">parserElement::setName()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserElements/parserElement.html#methodsetPath">parserElement::setPath()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/ParserData/parserBase.html">parserBase</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/ParserData/parserBase.html#methodgetType">parserBase::getType()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserData/parserBase.html#methodgetValue">parserBase::getValue()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserData/parserBase.html#methodsetValue">parserBase::setValue()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:44 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

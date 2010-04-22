@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Writing a New Converter</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.inlinetutorial.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../Converters/tutorial_template.vars.cls.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">inline {@tutorial}</span>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Converter Default Template Variables</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">Writing a New Converter</h1>
+  <h2 class="ref-purpose">Overview of how to write a new Converter</h2></div>
+ <div class="ref-synopsis"><div class="authors"><h2 class="title">Authors</h2><span class="author">Joshua Eichorn
+    <div class="author-blurb"><a href="mailto:jeichorn@phpdoc.org">jeichorn@phpdoc.org</a></div></span>
+   <span class="author">Gregory Beaver
+    <div class="author-blurb"><a href="mailto:cellog@sourceforge.com">cellog@sourceforge.com</a></div></span></div></div>
+ <span><a name="intro"></a><h2 class="title">Introduction to Converters</h2><p>This documentation deals only with the advanced programming topic of creating a new output converter.  To learn how to use phpDocumentor, read the <a href="../phpDocumentor/tutorial_phpDocumentor.pkg.html">phpDocumentor Guide to Creating Fantastic Documentation</a>.  To learn how to extend an existing Converter, read <a href="../Converters/tutorial_Converters.pkg.html">Converter Manual</a></p></span>
+ <span><a name="concepts"></a><h2 class="title">Basic Concepts</h2><span><a name="concepts.abstractdata"></a><h3 class="title">Abstract Parsing Data</h3><a name="concepts.abstractdata.source"></a><h4 class="title">Source Code Elements</h4><p>A Converter's job is to take abstract data from parsing and create documentation.  What is the abstract data?  phpDocumentor is capable of documenting tutorials, and a php file and its re-usable or structurally important contents.  In other words, phpDocumentor can document:
+     <ul><li><p>A XML DocBook-based tutorial (see <a href="../phpDocumentor/tutorial_tutorials.pkg.html">phpDocumentor Tutorials</a>)</p></li>
+      <li><p>Procedural Page (PHP source file)</p></li>
+      <li><p>Include Statements</p></li>
+      <li><p>Define Statements</p></li>
+      <li><p>Global Variables</p></li>
+      <li><p>Functions</p></li>
+      <li><p>Classes</p></li>
+      <li><p>Class Variables</p></li>
+      <li><p>Class Methods</p></li></ul></p>
+    <p>phpDocumentor represents these PHP elements using classes:
+     <ul><li><p><a href="../phpDocumentor/ParserElements/parserTutorial.html">parserTutorial</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserData/parserData.html">parserData</a>, <a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserInclude.html">parserInclude</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserDefine.html">parserDefine</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserGlobal.html">parserGlobal</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserFunction.html">parserFunction</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserClass.html">parserClass</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserVar.html">parserVar</a></p></li>
+      <li><p><a href="../phpDocumentor/ParserElements/parserMethod.html">parserMethod</a></p></li></ul></p>
+    <p>This relationship between the source code and abstract data is quite clear, and very simple.  The data members of each abstract representation correspond with the information needed to display the documentation. All PHP elements contain a DocBlock, and this is represented by a class as well, <a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a>.  The elements of a DocBlock are simple:
+     <ul><li><p>Short Description, containing any number of inline tags</p></li>
+      <li><p>Long Description, containing any number of inline tags</p></li>
+      <li><p>Tags, some containing any number of inline tags in their general description field</p></li></ul></p>
+    <p>phpDocumentor represents these elements using classes as well:
+     <ul><li><p><a href="../phpDocumentor/ParserDocBlock/parserDesc.html">parserDesc</a> for both short and long descriptions</p></li>
+      <li><p><a href="../phpDocumentor/InlineTags/parserInlineTag.html">parserInlineTag</a> for inline tags</p></li>
+      <li><p><a href="../phpDocumentor/DocBlockTags/parserTag.html">parserTag</a> for regular tags</p></li></ul></p><br />
+   <a name="concepts.abstractdata.html"></a><h4 class="title">HTML-specific issues</h4><p>There are some other issues that Converters solve.  In HTML, a link is represented by an &lt;a&gt; tag, but in the PDF Converter, it is represented by a &lt;c:ilink&gt; tag.  How can we handle both cases?  Through another abstract class, the <a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a> and its descendants:
+     <ul><li><p><a href="../phpDocumentor/Links/tutorialLink.html">tutorialLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/pageLink.html">pageLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/defineLink.html">defineLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/globalLink.html">globalLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/functionLink.html">functionLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/classLink.html">classLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/varLink.html">varLink</a></p></li>
+      <li><p><a href="../phpDocumentor/Links/methodLink.html">methodLink</a></p></li></ul>
+     Note the absence of an &quot;includeLink&quot; class - this is intentional, as only re-usable elements need to be linked.  An include statement is always attached to the file that it is in, and cannot be anywhere else.</p>
+    <p>These abstract linking classes contain the information necessary to differentiate between the location of any of the element's documentation.  They are only used to allow linking to documentation, and not to source code.  A link is then converted to the appropriate text representation for the output format by <a href="../Converters/Converter.html#methodreturnSee">Converter::returnSee()</a> (a href=link for html, c:ilink:link for pdf, link linkend=link in xml:docbook, and so on).</p>
+    <p>The other issues solved by a converter involves html in a DocBlock.  To allow better documentation, html is allowed in DocBlocks to format the output.  Unfortunately, this complicates output in other formats.  To solve this issue, phpDocumentor also parses out all allowed HTML (see <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.desc">phpDocumentor Tutorial</a> for more detailed information) into abstract structures:
+     <ul><li><p>&lt;b&gt; -- emphasize/bold text</p></li>
+      <li><p>&lt;br&gt; -- hard line break, may be ignored by some converters</p></li>
+      <li><p>&lt;code&gt; -- Use this to surround php code, some converters will highlight it</p></li>
+      <li><p>&lt;i&gt; -- italicize/mark as important</p></li>
+      <li><p>&lt;li&gt; -- list item</p></li>
+      <li><p>&lt;ol&gt; -- ordered list</p></li>
+      <li><p>&lt;p&gt; -- If used to enclose all paragraphs, otherwise it will be considered text</p></li>
+      <li><p>&lt;pre&gt; -- Preserve line breaks and spacing, and assume all tags are text (like XML's CDATA)</p></li>
+      <li><p>&lt;ul&gt; -- unordered list</p></li></ul>
+     is mapped to classes:
+     <ul><li><p><a href="../phpDocumentor/DescHTML/parserB.html">parserB</a></p></li>
+      <li><p><a href="../phpDocumentor/DescHTML/parserBr.html">parserBr</a></p></li>
+      <li><p><a href="../phpDocumentor/DescHTML/parserCode.html">parserCode</a></p></li>
+      <li><p><a href="../phpDocumentor/DescHTML/parserI.html">parserI</a></p></li>
+      <li><p><a href="../phpDocumentor/DescHTML/parserList.html">parserList</a> - both types of lists are represented by this object, and each &lt;li&gt; is represented by an array item</p></li>
+      <li><p><a href="../phpDocumentor/DescHTML/parserPre.html">parserPre</a></p></li></ul>
+     &lt;p&gt; is represented by partitioning text into an array, where each array item is a new paragraph. (as in <a href="../phpDocumentor/ParserDocBlock/parserDocBlock.html#var$processed_desc">parserDocBlock::$processed_desc</a>)</p>
+    <p>With these simple structures and a few methods to handle them, the process of writing a new converter is straightforward.</p><br />
+   <a name="concepts.abstractdata.output"></a><h4 class="title">Separation of data from display formatting</h4><p>phpDocumentor has been designed to keep as much formatting out of the source code as possible.  For many converters, there need be no new code written to support the conversion, as all output-specific information can be placed in template files.  However, the complexity of generating class trees does require the insertion of some code into the source, so at the bare minimum, the <a href="../Converters/tutorial_Converter.methods.cls.html#override.getroottree">getRootTree()</a> method must be overridden.</p><br /></span></span>
+ <span><a name="override"></a><h2 class="title">Methods that must be overridden</h2><p>Creating a new converter can be challenging, but should not be too complicated.  You need to override one data structure, <a href="../Converters/Converter.html#var$leftindex">Converter::$leftindex</a>, to tell the Converter which of the individual element indexes your Converter will use.  You will also need to override a few methods for the Converter to work.  The most important relate to linking and output.</p>
+  <p>A Converter must override these core methods:
+   <ul><li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.convert">Convert()</a> - take any descendant of parserElement or a parserPackagePage and convert it into output</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.returnsee">returnSee()</a> - takes a abstract link and returns a string that links to an element's documentation</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.returnlink">returnLink()</a> - takes a URL and text to display and returns an internet-enabled link</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.output">Output()</a> - generate output, or perform other cleanup activities</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.convert-ric">Convert_RIC()</a> - Converts README/INSTALL/CHANGELOG file contents for inclusion in documentation</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.converterrorlog">ConvertErrorLog()</a> - formats errors and warnings from <a href="../phpDocumentor/Errors/_phpDocumentor---Errors.inc.html#global$phpDocumentor_errors">$phpDocumentor_errors</a>. see <a href="../Converters/HTMLframes/HTMLframesConverter.html#methodConvertErrorLog">HTMLframesConverter::ConvertErrorLog()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.getfunctionlink">getFunctionLink()</a> - for all of the functions below, see <a href="../Converters/HTMLframes/HTMLframesConverter.html#methodgetFunctionLink">HTMLframesConverter::getFunctionLink()</a> for an example</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.getclasslink">getClassLink()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.getdefinelink">getDefineLink()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.getgloballink">getGlobalLink()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.getmethodlink">getMethodLink()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#core.getvarlink">getVarLink()</a></p></li></ul></p>
+  <p>A Converter may optionally implement these abstract methods:
+   <ul><li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.endpage">endPage()</a> - do any post-processing of procedural page elements, possibly output documentation for the page</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.endclass">endClass()</a> - do any post-processing of class elements, possibly output documentation for the class</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.formatindex">formatIndex()</a> - format the $elements array into an index see <a href="../Converters/HTMLframes/HTMLframesConverter.html#methodgenerateElementIndex">HTMLframesConverter::generateElementIndex()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.formatpkgindex">formatPkgIndex()</a> - format the $pkg_elements array into an index see <a href="../Converters/HTMLframes/HTMLframesConverter.html#methodgeneratePkgElementIndex">HTMLframesConverter::generatePkgElementIndex()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.formatleftindex">formatLeftIndex()</a> - format the $elements array into an index see <a href="../Converters/HTMLframes/HTMLframesConverter.html#methodformatLeftIndex">HTMLframesConverter::formatLeftIndex()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.formattutorialtoc">formatTutorialTOC()</a> - format the output of a {@toc} tag, see <a href="../Converters/HTMLframes/HTMLframesConverter.html#methodformatTutorialTOC">HTMLframesConverter::formatTutorialTOC()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.getroottree">getRootTree()</a> - generates an output-specific tree of class inheritance</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.smartyinit">SmartyInit()</a> - initialize a <a href="../Smarty/Smarty.html">Smarty</a> template object</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.writesource">writeSource()</a> - write out highlighted source code for a parsed file</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.writeexample">writeExample()</a> - write out highlighted source code for an example</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#override.unmangle">unmangle()</a> - do any post-processing of class elements, possibly output documentation for the class</p></li></ul></p>
+  <p>The following methods may need to be overridden for proper functionality, and are for advanced situations.
+   <ul><li><p><a href="../Converters/tutorial_Converter.methods.cls.html#advanced.checkstate">checkState()</a> - used by the <a href="../phpDocumentor/ParserData/parserStringWithInlineTags.html#methodConvert">parserStringWithInlineTags::Convert()</a> cache to determine whether a cache hit or miss occurs</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#advanced.getstate">getState()</a> - used by the <a href="../phpDocumentor/ParserData/parserStringWithInlineTags.html#methodConvert">parserStringWithInlineTags::Convert()</a> cache to save state for the next Convert() call</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#advanced.type-adjust">type_adjust()</a> - used to enclose type names in proper tags as in <a href="../Converters/XMLDocBook/XMLDocBookConverter.html#methodtype_adjust">XMLDocBookConverter::type_adjust()</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#advanced.postprocess">postProcess()</a> - called on all converted text, so that any illegal characters may be escaped.  The HTML Converters, for example,  pass all output through <a href="http://www.php.net/htmlentities">http://www.php.net/htmlentities</a></p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#advanced.gettutorialid">getTutorialId()</a> - called by the {@id} inline tag to get the Converter's way of representing a document anchor</p></li></ul></p></span>
+ <span><a name="utility"></a><h2 class="title">Converter methods an extended converter should use</h2><p><ul><li><p><a href="../Converters/tutorial_Converter.methods.cls.html#utility.getsortedclasstreefromclass">getSortedClassTreeFromClass()</a> -- generating class trees by package</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#utility.hastutorial">hasTutorial()</a> -- use this to retrieve a tutorial, or determine if it exists</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#utility.gettutorialtree">getTutorialTree()</a> -- use this to retrieve a hierarchical tree of tutorials that can be used to generate a table of contents for all tutorials</p></li>
+    <li><p><a href="../Converters/tutorial_Converter.methods.cls.html#utility.vardump-tree">vardump_tree()</a> -- use this to assist in debugging large tree structures of tutorials</p></li></ul></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.inlinetutorial.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../Converters/tutorial_template.vars.cls.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">inline {@tutorial}</span>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Converter Default Template Variables</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:59 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

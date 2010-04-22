@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>phpDocumentor tags</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_manual.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_manual.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.abstract.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Manual</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Manual</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@abstract</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">phpDocumentor tags</h1>
+  <h2 class="ref-purpose">How to use tags in DocBlocks</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+    <div class="author-blurb">Tag Documentation written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span>
+   <div class="notes">Copyright 2002, Gregory Beaver</div></div>
+ <span><a name="manual"></a><h2 class="title">Tags Manual</h2><p>Welcome to the phpDocumentor Tags Manual</p>
+  <p>phpDocumentor tags are very similar to tags for the JavaDoc tool for Sun's Java Programming Language.  Tags are only parsed if they are the first thing on a new line of a DocBlock.  You may use the @ character freely throughout documents as long as it does not begin a new line.  An example:</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;tags&nbsp;demonstration</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;this&nbsp;tag&nbsp;is&nbsp;parsed,&nbsp;but&nbsp;this&nbsp;@version&nbsp;tag&nbsp;is&nbsp;ignored</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;1.0&nbsp;this&nbsp;version&nbsp;tag&nbsp;is&nbsp;parsed</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+  <p>Any tags that phpDocumentor does not recognize will not be parsed, and will be displayed in text flow as if they are part of the DocBlock long description. The example below displays text &quot;tags demonstration @foobar this is silly,&quot; and also displays the author as &quot;this tag is parsed, but this @version tag is ignored&quot;</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;tags&nbsp;demonstration</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-tag">@foobar</span><span class="src-doc">&nbsp;this&nbsp;is&nbsp;silly</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;this&nbsp;tag&nbsp;is&nbsp;parsed,&nbsp;but&nbsp;this&nbsp;@version&nbsp;tag&nbsp;is&nbsp;ignored</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+</ol></div></p>
+  <p>Inline tags display in the text flow where they appear, and are not separated from the description.  As of version 1.2, there are several inline tags.  The allowed inline tag list is different for tutorials and regular in-code documentation.  See <a href="../phpDocumentor/tutorial_inlinetags.pkg.html">phpDocumentor Inline tags</a> for more information.</p>
+  <p>The example below will display the text &quot;this function works heavily with <strong>foo()</strong> to rule the world&quot; where <strong>foo()</strong> represents a hyperlink that links to the function foo()'s documentation.</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;inline&nbsp;tags&nbsp;demonstration</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;this&nbsp;function&nbsp;works&nbsp;heavily&nbsp;with&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;foo()}</span><span class="src-doc">&nbsp;to&nbsp;rule&nbsp;the&nbsp;world</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">bar</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">foo</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p>
+  <span><a name="manual.standard"></a><h3 class="title">Standard phpDocumentor Tags</h3><p>Most tags can be in the DocBlock of any documentable PHP element (for a definition of a documentable PHP element, see <a href="../phpDocumentor/tutorial_elements.pkg.html">Documentable PHP Elements</a>).  Here is a list of the standard tags:
+    <ul><li><p><a href="../phpDocumentor/tutorial_tags.access.pkg.html">@access</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.author.pkg.html">@author</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.copyright.pkg.html">@copyright</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.deprecated.pkg.html">@deprecated</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.example.pkg.html">@example</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.ignore.pkg.html">@ignore</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.internal.pkg.html">@internal</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.link.pkg.html">@link</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.see.pkg.html">@see</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.since.pkg.html">@since</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.tutorial.pkg.html">@tutorial</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.version.pkg.html">@version</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.inlineinternal.pkg.html">inline {@internal}}</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.inlineinheritdoc.pkg.html">inline {@inheritdoc}</a></p></li>
+    <li><p><a href="../phpDocumentor/tutorial_tags.inlinelink.pkg.html">inline {@link}</a></p></li></ul></p></span></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_manual.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_manual.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.abstract.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Manual</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Manual</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@abstract</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

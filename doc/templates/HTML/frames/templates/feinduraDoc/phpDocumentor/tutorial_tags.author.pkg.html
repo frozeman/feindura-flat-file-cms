@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>@author</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.access.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.category.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@access</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@category</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">@author</h1>
+  <h2 class="ref-purpose">Author of current element</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+    <div class="author-blurb">Tag Documentation written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span>
+   <div class="notes">Copyright 2002, Gregory Beaver</div>
+   <div class="release-info">(phpDocumentor 0.1+)</div>
+  <div class="cmd-synopsis"><span class="cmd-title">@author</span>
+    <span class = "req">authorname <span class = "opt"><pre>&lt;authoremail@example.com&gt;</pre></span></span></div></div>
+ <span><a name="description"></a><h2 class="title">Description</h2><p>The @author tag is used to document the author of any element that can be documented (global variable, include, constant, function, define, class, variable, method, page).  phpDocumentor will take any text between angle brackets <pre>(&lt; and &gt;)</pre> and try to parse it as an email address.  If successful, it will be displayed with a mailto link in the page</p>
+  <p><em>NEW v1.2</em> - @author is now inherited by child classes from a parent class, see <a href="../phpDocumentor/tutorial_tags.inlineinheritdoc.pkg.html">inline {@inheritdoc}</a>.</p></span>
+ <span><a name="example"></a><h2 class="title">Example</h2><p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Page-Level&nbsp;DocBlock&nbsp;example.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;displays&nbsp;as&nbsp;Gregory&nbsp;Beaver&lt;strong&gt;cellog@php.net&lt;/strong&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;,&nbsp;where&nbsp;underlined&nbsp;text&nbsp;is&nbsp;a&nbsp;&quot;mailto:cellog@php.net&quot;&nbsp;link</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;function&nbsp;datafunction</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;another&nbsp;contributor&nbsp;authored&nbsp;this&nbsp;function</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;Joe&nbsp;Shmoe</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">datafunction</span><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">...</div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.access.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.category.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@access</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@category</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>@global</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.filesource.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.ignore.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@filesource</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@ignore</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">@global</h1>
+  <h2 class="ref-purpose">Document a global variable, or its use in a function/method</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+    <div class="author-blurb">Tag Documentation written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span>
+   <div class="notes">Copyright 2002, Gregory Beaver</div>
+   <div class="release-info">(phpDocumentor 0.1+)</div>
+  <div class="cmd-synopsis"><div class="cmd-synopsis"><span class="cmd-title">@global</span>
+     <span class = "req">datatype</span>
+     <span class = "req">$globalvariablename</span></div>
+	<div class="cmd-synopsis"><span class="cmd-title">@global</span>
+     <span class = "req">datatype</span>
+     <span class = "req">description</span></div></div></div>
+ <span><a name="description"></a><h2 class="title">Description</h2><p>Since there is no standard way to declare global variables, phpDocumentor requires that a @global tag be used in a docblock preceding a global variable's definition.  To support previous usage of @global, there is an alternate syntax that applies to DocBlocks preceding a function, used to document usage of global variables.  in other words, There are two usages of @global: definition and function usage.</p>
+  <p>phpDocumentor will not attempt to automatically parse out any global variables.  Only one @global tag is allowed per global variable DocBlock.  A global variable DocBlock must be followed by the global variable's definition before any other element or DocBlock occurs in the source, or an error will be raised.</p>
+  <p>datatype should be a valid PHP type or &quot;mixed.&quot;</p>
+  <p>$varname should be the EXACT name of the global variable as it is declared in the source (use <a href="../phpDocumentor/tutorial_tags.name.pkg.html">@name</a> to change the name displayed by documentation)</p>
+  <p>The function/method @global syntax is used to document usage of global variables in a function, and MUST NOT have a $ starting the third word.  The datatype will be ignored if a match is made between the declared global variable and a variable documented in the project.</p>
+  <p>phpDocumentor will check to see if the type specified is the name of a class that has been parsed.  If so, it will make a link to that class as the type instead of just the type.</p>
+  <p>phpDocumentor will display the optional description unmodified</p></span>
+ <span><a name="example"></a><h2 class="title">Example</h2><p>Here's an example of documenting the definition of a global variable:</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;example&nbsp;of&nbsp;incorrect&nbsp;@global&nbsp;declaration&nbsp;#1</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc-var">$GLOBALS['baz']&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;blahblah</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;-6</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-inc">include</span><span class="src-sym">(</span><span class="src-str">&quot;file.ext&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;error&nbsp;-&nbsp;element&nbsp;encountered&nbsp;before&nbsp;global&nbsp;variable&nbsp;declaration,&nbsp;docblock&nbsp;will&nbsp;apply&nbsp;to&nbsp;this&nbsp;include!</span></div></li>
+<li><div class="src-line"><span class="src-var">$GLOBALS</span><span class="src-sym">[</span><span class="src-str">'baz'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-str">'foo'</span><span class="src-sym">,</span><span class="src-str">'bar'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**&nbsp;example&nbsp;of&nbsp;incorrect&nbsp;@global&nbsp;declaration&nbsp;#2</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">parserElement&nbsp;</span><span class="src-doc-var">$_Element&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;error&nbsp;-&nbsp;this&nbsp;DocBlock&nbsp;occurs&nbsp;before&nbsp;the&nbsp;global&nbsp;variable&nbsp;definition&nbsp;and&nbsp;will&nbsp;apply&nbsp;to&nbsp;the&nbsp;function,</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;ignoring&nbsp;the&nbsp;global&nbsp;variable&nbsp;completely</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;/</span></div></li>
+<li><div class="src-line"><span class="src-doc">$_Element&nbsp;=&nbsp;new&nbsp;parserElement;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">function&nbsp;oopsie()</span></div></li>
+<li><div class="src-line"><span class="src-doc">{</span></div></li>
+<li><div class="src-line"><span class="src-doc">...</span></div></li>
+<li><div class="src-line"><span class="src-doc">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**&nbsp;example&nbsp;of&nbsp;correct&nbsp;@global&nbsp;declaration,</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;even&nbsp;with&nbsp;many&nbsp;irrelevant&nbsp;things&nbsp;in&nbsp;between</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">mixed&nbsp;</span><span class="src-doc-var">$_GLOBALS[&quot;myvar&quot;]&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;this&nbsp;is&nbsp;OK</span></div></li>
+<li><div class="src-line"><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$pre</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$thisstuff&nbsp;</span>=&nbsp;<span class="src-str">'is&nbsp;fine&nbsp;too'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><span class="src-var">$_GLOBALS</span><span class="src-sym">[</span><span class="src-str">&quot;myvar&quot;</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(&nbsp;</span><span class="src-str">&quot;this&quot;&nbsp;</span>=&gt;&nbsp;<span class="src-str">'works&nbsp;just&nbsp;fine'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;example&nbsp;of&nbsp;using&nbsp;@name&nbsp;with&nbsp;@global</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;the&nbsp;@name&nbsp;tag&nbsp;*must*&nbsp;have&nbsp;a&nbsp;$&nbsp;in&nbsp;the&nbsp;name,&nbsp;or&nbsp;an&nbsp;error&nbsp;will&nbsp;be&nbsp;raised</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">array&nbsp;</span><span class="src-doc-var">$GLOBALS['neato']&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@name</span><span class="src-doc">&nbsp;$neato</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-var">$GLOBALS</span><span class="src-sym">[</span><span class="src-str">'neato'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-str">'This&nbsp;variable\'s&nbsp;name&nbsp;is&nbsp;documented&nbsp;as&nbsp;$neato,&nbsp;and&nbsp;not&nbsp;as&nbsp;$GLOBALS[\'neato\']'</span><span class="src-sym">;</span></div></li>
+</ol></div></p>
+  <p>Here's an example of documenting the use of a global variable in a function/method:</p>
+  <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Used&nbsp;to&nbsp;showcase&nbsp;linking&nbsp;feature&nbsp;of&nbsp;function&nbsp;@global</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">test</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">test&nbsp;</span><span class="src-doc-var">$GLOBALS['baz']&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@name</span><span class="src-doc">&nbsp;$bar</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-var">$GLOBALS</span><span class="src-sym">[</span><span class="src-str">'bar'</span><span class="src-sym">]&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id">test</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;example&nbsp;of&nbsp;basic&nbsp;@global&nbsp;usage&nbsp;in&nbsp;a&nbsp;function</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;assume&nbsp;global&nbsp;variables&nbsp;&quot;$foo&quot;&nbsp;and&nbsp;&quot;$bar&quot;&nbsp;are&nbsp;already&nbsp;documented</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc">used&nbsp;to&nbsp;control&nbsp;the&nbsp;weather</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@global&nbsp;</span><span class="src-doc-type">test&nbsp;</span><span class="src-doc">used&nbsp;to&nbsp;calculate&nbsp;the&nbsp;division&nbsp;tables</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">bool&nbsp;</span><span class="src-doc-var">$baz&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">mixed&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">function1</span><span class="src-sym">(</span><span class="src-var">$baz</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-key">global&nbsp;</span><span class="src-var">$foo</span><span class="src-sym">,</span><span class="src-var">$bar</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;note&nbsp;that&nbsp;this&nbsp;also&nbsp;works&nbsp;as:</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;global&nbsp;$foo;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;global&nbsp;$bar;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-var">$baz</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$a&nbsp;</span>=&nbsp;<span class="src-num">5</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-sym">}&nbsp;</span><span class="src-key">else</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$a&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span><span class="src-num">1</span><span class="src-sym">,</span><span class="src-num">4</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$a</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
+</ol></div></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.filesource.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_tags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.ignore.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">@filesource</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">@ignore</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

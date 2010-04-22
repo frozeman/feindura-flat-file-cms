@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>File Source for LinkClasses.inc</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<h1>Source for file LinkClasses.inc</h1>
+<p>Documentation is available at <a href="../phpDocumentor/Links/_phpDocumentor---LinkClasses.inc.html">LinkClasses.inc</a></p>
+<div class="src-code">
+<div class="src-code"><ol><li><div class="src-line"><a name="a1"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">&nbsp;*&nbsp;Linking&nbsp;to&nbsp;element&nbsp;documentation&nbsp;is&nbsp;performed&nbsp;by&nbsp;the&nbsp;classes&nbsp;in&nbsp;this&nbsp;file.</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">&nbsp;*&nbsp;abstractLink&nbsp;descendants&nbsp;contain&nbsp;enough&nbsp;information&nbsp;to&nbsp;differentiate&nbsp;every</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">&nbsp;*&nbsp;documentable&nbsp;element,&nbsp;and&nbsp;so&nbsp;can&nbsp;be&nbsp;converted&nbsp;to&nbsp;a&nbsp;link&nbsp;string&nbsp;by</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;Converter::returnSee()}</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">&nbsp;*&nbsp;phpDocumentor&nbsp;::&nbsp;automatic&nbsp;documentation&nbsp;generator</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">&nbsp;*&nbsp;PHP&nbsp;versions&nbsp;4&nbsp;and&nbsp;5</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">&nbsp;*&nbsp;Copyright&nbsp;(c)&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-doc">&nbsp;*&nbsp;LICENSE:</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;library&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">&nbsp;*&nbsp;and/or&nbsp;modify&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">&nbsp;*&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">&nbsp;*&nbsp;either&nbsp;version&nbsp;2.1&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">&nbsp;*&nbsp;later&nbsp;version.</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;library&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-doc">&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-doc">&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the&nbsp;GNU</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-doc">&nbsp;*&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-doc">&nbsp;*&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-doc">&nbsp;*&nbsp;License&nbsp;along&nbsp;with&nbsp;this&nbsp;library;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-doc">&nbsp;*&nbsp;Foundation,&nbsp;Inc.,&nbsp;59&nbsp;Temple&nbsp;Place,&nbsp;Suite&nbsp;330,&nbsp;Boston,&nbsp;MA&nbsp;02111-1307&nbsp;USA</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;CVS:&nbsp;$Id:&nbsp;LinkClasses.inc&nbsp;253641&nbsp;2008-02-24&nbsp;02:35:44Z&nbsp;ashnazg&nbsp;$</span></div></li>
+<li><div class="src-line"><a name="a39"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@filesource</span></div></li>
+<li><div class="src-line"><a name="a40"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a41"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a42"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@since</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.0</span></div></li>
+<li><div class="src-line"><a name="a43"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a45"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-doc">&nbsp;*&nbsp;linking&nbsp;classes&nbsp;parent</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a59"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a60"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a61"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a62"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a63"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/**#@+</span></div></li>
+<li><div class="src-line"><a name="a64"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@var&nbsp;string</span></div></li>
+<li><div class="src-line"><a name="a65"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$path">$path</a><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a68"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;phpdoc&nbsp;alias&nbsp;_phpdoc_inc&nbsp;for&nbsp;phpdoc.inc</span></div></li>
+<li><div class="src-line"><a name="a69"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a70"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$fileAlias">$fileAlias</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a72"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;element&nbsp;type&nbsp;linked&nbsp;to.</span></div></li>
+<li><div class="src-line"><a name="a73"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;can&nbsp;only&nbsp;be&nbsp;a&nbsp;documentable&nbsp;element</span></div></li>
+<li><div class="src-line"><a name="a74"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a75"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$name">$name</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a77"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$category">$category</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a78"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$package">$package</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#var$subpackage">$subpackage</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/**#@-*/</span></div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a83"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;sets&nbsp;up&nbsp;the&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a84"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a85"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$path&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full&nbsp;path&nbsp;to&nbsp;file&nbsp;containing&nbsp;element</span></div></li>
+<li><div class="src-line"><a name="a86"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$fileAlias&nbsp;</span><span class="src-doc">&nbsp;page&nbsp;name,&nbsp;as&nbsp;configured&nbsp;by&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;Parser::parse}</span></div></li>
+<li><div class="src-line"><a name="a87"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$name&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element&nbsp;name</span></div></li>
+<li><div class="src-line"><a name="a88"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$package&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;package&nbsp;element&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a89"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$subpackage&nbsp;</span><span class="src-doc">subpackage&nbsp;element&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a90"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$category&nbsp;</span><span class="src-doc">&nbsp;&nbsp;optional&nbsp;category&nbsp;that&nbsp;documentation&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a91"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a92"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">void&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a93"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a94"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html#methodaddLink">addLink</a><span class="src-sym">(</span><span class="src-var">$path</span><span class="src-sym">,&nbsp;</span><span class="src-var">$fileAlias</span><span class="src-sym">,&nbsp;</span><span class="src-var">$name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$package</span><span class="src-sym">,&nbsp;</span><span class="src-var">$subpackage</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line"><a name="a95"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$category&nbsp;</span>=&nbsp;<span class="src-id">false</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a96"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a97"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/abstractLink.html#var$path">path</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-var">$path</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a98"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/abstractLink.html#var$fileAlias">fileAlias</a>&nbsp;&nbsp;=&nbsp;<span class="src-var">$fileAlias</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a99"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/abstractLink.html#var$name">name</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-var">$name</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a100"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/abstractLink.html#var$category">category</a>&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-var">$category</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a101"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/abstractLink.html#var$package">package</a>&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-var">$package</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a102"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/abstractLink.html#var$subpackage">subpackage</a>&nbsp;=&nbsp;<span class="src-var">$subpackage</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a103"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a104"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a105"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a106"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a107"></a><span class="src-doc">&nbsp;*&nbsp;procedural&nbsp;page&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a108"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a109"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a110"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a111"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a112"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a113"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a114"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a115"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a116"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a117"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a118"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a119"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a120"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a121"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/pageLink.html">pageLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a122"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a123"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a124"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a125"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a126"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/pageLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'page'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a127"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a128"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a129"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a130"></a><span class="src-doc">&nbsp;*&nbsp;function&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a131"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a132"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a133"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a134"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a135"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a136"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a137"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a138"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a139"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a140"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a141"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a142"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a143"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a144"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/functionLink.html">functionLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a145"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a146"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a147"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a148"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a149"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/functionLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'function'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a150"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a151"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a152"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a153"></a><span class="src-doc">&nbsp;*&nbsp;define&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a154"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a155"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a156"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a157"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a158"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a159"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a160"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a161"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a162"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a163"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a164"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a165"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a166"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a167"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/defineLink.html">defineLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a168"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a169"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a170"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a171"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a172"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/defineLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'define'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a173"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a174"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a175"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a176"></a><span class="src-doc">&nbsp;*&nbsp;global&nbsp;variable&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a177"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a178"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a179"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a180"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a181"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a182"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a183"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a184"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a185"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a186"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a187"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a188"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a189"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a190"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/globalLink.html">globalLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a191"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a192"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a193"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a194"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a195"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/globalLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'global'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a196"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a197"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a198"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a199"></a><span class="src-doc">&nbsp;*&nbsp;class&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a200"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a201"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a202"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a203"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a204"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a205"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a206"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a207"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a208"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a209"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a210"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a211"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a212"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a213"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/classLink.html">classLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a214"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a215"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a216"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a217"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a218"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/classLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'class'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a219"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a220"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a221"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a222"></a><span class="src-doc">&nbsp;*&nbsp;method&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a223"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a224"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a225"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a226"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a227"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a228"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a229"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a230"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a231"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a232"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a233"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a234"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a235"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a236"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/methodLink.html">methodLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a237"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a238"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a239"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a240"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a241"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/methodLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'method'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a242"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a243"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a244"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a245"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/methodLink.html#var$class">$class</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a246"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a247"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a248"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;sets&nbsp;up&nbsp;the&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a249"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a250"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$class&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;name</span></div></li>
+<li><div class="src-line"><a name="a251"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$path&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full&nbsp;path&nbsp;to&nbsp;file&nbsp;containing&nbsp;element</span></div></li>
+<li><div class="src-line"><a name="a252"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$fileAlias&nbsp;</span><span class="src-doc">&nbsp;page&nbsp;name,&nbsp;as&nbsp;configured&nbsp;by&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;Parser::parse}</span></div></li>
+<li><div class="src-line"><a name="a253"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$name&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element&nbsp;name</span></div></li>
+<li><div class="src-line"><a name="a254"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$package&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;package&nbsp;element&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a255"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$subpackage&nbsp;</span><span class="src-doc">subpackage&nbsp;element&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a256"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$category&nbsp;</span><span class="src-doc">&nbsp;&nbsp;optional&nbsp;category&nbsp;that&nbsp;documentation&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a257"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a258"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">void&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a259"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a260"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../phpDocumentor/Links/methodLink.html#methodaddLink">addLink</a><span class="src-sym">(</span><span class="src-var">$class</span><span class="src-sym">,&nbsp;</span><span class="src-var">$path&nbsp;</span><span class="src-sym">,&nbsp;</span><span class="src-var">$fileAlias</span><span class="src-sym">,&nbsp;</span><span class="src-var">$name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$package</span><span class="src-sym">,&nbsp;</span><span class="src-var">$subpackage</span><span class="src-sym">,&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a261"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$category&nbsp;</span>=&nbsp;<span class="src-id">false</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a262"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a263"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/methodLink.html#var$class">class</a>&nbsp;=&nbsp;<span class="src-var">$class</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a264"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></span><span class="src-sym">::</span><a href="../phpDocumentor/Links/abstractLink.html#methodaddLink">addLink</a><span class="src-sym">(</span><span class="src-var">$path</span><span class="src-sym">,&nbsp;</span><span class="src-var">$fileAlias</span><span class="src-sym">,&nbsp;</span><span class="src-var">$name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$package</span><span class="src-sym">,&nbsp;</span><span class="src-var">$subpackage</span><span class="src-sym">,&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a265"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$category</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a266"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a267"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a268"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a269"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a270"></a><span class="src-doc">&nbsp;*&nbsp;class&nbsp;variable&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a271"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a272"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a273"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a274"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a275"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a276"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a277"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a278"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a279"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a280"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a281"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a282"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a283"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a284"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/varLink.html">varLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/methodLink.html">methodLink</a></div></li>
+<li><div class="src-line"><a name="a285"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a286"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a287"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a288"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a289"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/varLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'var'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a290"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a291"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a292"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a293"></a><span class="src-doc">&nbsp;*&nbsp;class&nbsp;constant&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a294"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a295"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a296"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a297"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a298"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a299"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a300"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a301"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a302"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a303"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a304"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a305"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a306"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a307"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/constLink.html">constLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/methodLink.html">methodLink</a></div></li>
+<li><div class="src-line"><a name="a308"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a309"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a310"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a311"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a312"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/constLink.html#var$type">$type</a>&nbsp;=&nbsp;<span class="src-str">'const'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a313"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a314"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a315"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a316"></a><span class="src-doc">&nbsp;*&nbsp;tutorial&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a317"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a318"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@category</span><span class="src-doc">&nbsp;&nbsp;&nbsp;ToolsAndUtilities</span></div></li>
+<li><div class="src-line"><a name="a319"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a320"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;Links</span></div></li>
+<li><div class="src-line"><a name="a321"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gregory&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a322"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2002-2008&nbsp;Gregory&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a323"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a324"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;Release:&nbsp;@VER@</span></div></li>
+<li><div class="src-line"><a name="a325"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://www.phpdoc.org</span></div></li>
+<li><div class="src-line"><a name="a326"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@link</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://pear.php.net/PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a327"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;package&nbsp;to&nbsp;PhpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a328"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@todo</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CS&nbsp;cleanup&nbsp;-&nbsp;change&nbsp;classname&nbsp;to&nbsp;PhpDocumentor_*</span></div></li>
+<li><div class="src-line"><a name="a329"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a330"></a><span class="src-key">class&nbsp;</span><a href="../phpDocumentor/Links/tutorialLink.html">tutorialLink</a>&nbsp;<span class="src-key">extends&nbsp;</span><a href="../phpDocumentor/Links/abstractLink.html">abstractLink</a></div></li>
+<li><div class="src-line"><a name="a331"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a332"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/**#@+</span></div></li>
+<li><div class="src-line"><a name="a333"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@var&nbsp;string</span></div></li>
+<li><div class="src-line"><a name="a334"></a><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a335"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/tutorialLink.html#var$type">$type</a>&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-str">'tutorial'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a336"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/tutorialLink.html#var$section">$section</a>&nbsp;=&nbsp;<span class="src-str">''</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a337"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><a href="../phpDocumentor/Links/tutorialLink.html#var$title">$title</a>&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-id">false</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a338"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">/**#@-*/</span></div></li>
+<li><div class="src-line"><a name="a339"></a>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line"><a name="a340"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a341"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;sets&nbsp;up&nbsp;the&nbsp;link</span></div></li>
+<li><div class="src-line"><a name="a342"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a343"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$section&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;section/subsection&nbsp;name</span></div></li>
+<li><div class="src-line"><a name="a344"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$path&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;full&nbsp;path&nbsp;to&nbsp;file&nbsp;containing&nbsp;element</span></div></li>
+<li><div class="src-line"><a name="a345"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$name&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;page&nbsp;name,&nbsp;as&nbsp;configured&nbsp;by&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;Parser::parse}</span></div></li>
+<li><div class="src-line"><a name="a346"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$package&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;package&nbsp;element&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a347"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$subpackage&nbsp;</span><span class="src-doc">subpackage&nbsp;element&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a348"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$title&nbsp;</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;of&nbsp;tutorial</span></div></li>
+<li><div class="src-line"><a name="a349"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@param&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc-var">$category&nbsp;</span><span class="src-doc">&nbsp;&nbsp;optional&nbsp;category&nbsp;that&nbsp;documentation&nbsp;is&nbsp;in</span></div></li>
+<li><div class="src-line"><a name="a350"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a351"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@return&nbsp;</span><span class="src-doc-type">void&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a352"></a><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a353"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">function&nbsp;</span><a href="../phpDocumentor/Links/tutorialLink.html#methodaddLink">addLink</a><span class="src-sym">(</span><span class="src-var">$section</span><span class="src-sym">,&nbsp;</span><span class="src-var">$path</span><span class="src-sym">,&nbsp;</span><span class="src-var">$name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$package</span><span class="src-sym">,&nbsp;</span><span class="src-var">$subpackage</span><span class="src-sym">,&nbsp;</span><span class="src-var">$title&nbsp;</span>=&nbsp;<span class="src-id">false</span><span class="src-sym">,&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a354"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$category&nbsp;</span>=&nbsp;<span class="src-id">false</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a355"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a356"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/tutorialLink.html#var$section">section</a>&nbsp;=&nbsp;<span class="src-var">$section</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a357"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../phpDocumentor/Links/tutorialLink.html#var$title">title</a>&nbsp;&nbsp;&nbsp;=&nbsp;<span class="src-var">$title</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a358"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">parent</span><span class="src-sym">::</span><a href="../phpDocumentor/Links/abstractLink.html#methodaddLink">addLink</a><span class="src-sym">(</span><span class="src-var">$path</span><span class="src-sym">,&nbsp;</span><span class="src-str">''</span><span class="src-sym">,&nbsp;</span><span class="src-var">$name</span><span class="src-sym">,&nbsp;</span><span class="src-var">$package</span><span class="src-sym">,&nbsp;</span><span class="src-var">$subpackage</span><span class="src-sym">,&nbsp;</span><span class="src-var">$category</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a359"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a360"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a361"></a><span class="src-php">?&gt;</span></div></li>
+</ol></div>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:39 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</body>
+</html>

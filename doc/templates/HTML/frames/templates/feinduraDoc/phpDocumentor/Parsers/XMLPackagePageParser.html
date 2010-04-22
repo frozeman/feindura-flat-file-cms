@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class XMLPackagePageParser</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class XMLPackagePageParser</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Used to parse XML DocBook-based tutorials</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Gregory Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">version:</span> Release: @VER@</li>
+				<li><span class="field">copyright:</span> 2002-2007 Gregory Beaver</li>
+				<li><span class="field">link:</span> <a href="http://pear.php.net/PhpDocumentor">http://pear.php.net/PhpDocumentor</a></li>
+				<li><span class="field">link:</span> <a href="http://www.phpdoc.org">http://www.phpdoc.org</a></li>
+				<li><span class="field">todo:</span> CS cleanup - change package to PhpDocumentor</li>
+				<li><span class="field">since:</span> 1.2</li>
+				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---XMLpackagePageParser.inc.html">/phpDocumentor/XMLpackagePageParser.inc</a> (line <span class="field">98</span>)
+		</p>
+		
+				
+		<pre><a href="../../phpDocumentor/Publisher.html">Publisher</a>
+   |
+   --<a href="../../phpDocumentor/Parsers/Parser.html">Parser</a>
+      |
+      --XMLPackagePageParser</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$context" title="details" class="var-name">$context</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$eventHandlers" title="details" class="var-name">$eventHandlers</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$pars" title="details" class="var-name">$pars</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$refsect1id" title="details" class="var-name">$refsect1id</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$refsect2id" title="details" class="var-name">$refsect2id</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$refsect3id" title="details" class="var-name">$refsect3id</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																		
+				<div class="method-definition">
+					static 						<span class="method-result">mixed</span>
+										<a href="#getParserEventName" title="details" class="method-name">getParserEventName</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+																																		
+				<div class="method-definition">
+											<span class="method-result">XMLPackagePageParser</span>
+										<a href="#XMLPackagePageParser" title="details" class="method-name">XMLPackagePageParser</a>
+										()
+									</div>
+																						
+				<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#parse" title="details" class="method-name">parse</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$parse_data</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$tutorial</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setupStates" title="details" class="method-name">setupStates</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$context" id="$context"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$context</span>
+						(line <span class="line-number">125</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">var:</span> the tag stack</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$eventHandlers" id="$eventHandlers"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$eventHandlers</span>
+			 = <span class="var-default">array(<br />        PHPDOCUMENTOR_PDP_EVENT_TAG =&gt; 'handleTag',<br />        PHPDOCUMENTOR_PDP_EVENT_ATTRIBUTES =&gt; 'handleAttributes',<br />        PHPDOCUMENTOR_PDP_EVENT_CDATA =&gt; 'handleCData',<br />        PARSER_EVENT_NOEVENTS =&gt; 'defaultHandler',<br />        PARSER_EVENT_COMMENTBLOCK =&gt; 'ignoreHandler',<br />        PARSER_EVENT_OUTPHP =&gt; 'ignoreHandler',<br />        PARSER_EVENT_QUOTE =&gt; 'handleQuote',<br />        PHPDOCUMENTOR_PDP_EVENT_ENTITY =&gt; 'handleEntity',<br />    )</span>			(line <span class="line-number">103</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$pars" id="$pars"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$pars</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">117</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$refsect1id" id="$refsect1id"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$refsect1id</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">119</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$refsect2id" id="$refsect2id"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$refsect2id</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">120</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$refsect3id" id="$refsect3id"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$refsect3id</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">121</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../phpDocumentor/Publisher.html">Publisher</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/Publisher.html#var$subscriber">Publisher::$subscriber</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodgetParserEventName" id="getParserEventName"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static getParserEventName</span> (line <span class="line-number">615</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">debugging function</p>
+<p class="description"><p><div class="src-code"><ol><li><div class="src-line"><span class="src-key">function&nbsp;</span><a href="../../phpDocumentor/Parsers/XMLPackagePageParser.html#methodgetParserEventName">getParserEventName</a>&nbsp;<span class="src-sym">(</span><span class="src-var">$value</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{&nbsp;&nbsp;&nbsp;&nbsp;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$lookup&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html#definePARSER_EVENT_NOEVENTS">PARSER_EVENT_NOEVENTS</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PARSER_EVENT_NOEVENTS&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/Parsers/_phpDocumentor---XMLpackagePageParser.inc.html#definePHPDOCUMENTOR_PDP_EVENT_TAG">PHPDOCUMENTOR_PDP_EVENT_TAG</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_TAG&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/Parsers/_phpDocumentor---XMLpackagePageParser.inc.html#definePHPDOCUMENTOR_PDP_EVENT_ATTRIBUTES">PHPDOCUMENTOR_PDP_EVENT_ATTRIBUTES</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_ATTRIBUTES&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/Parsers/_phpDocumentor---XMLpackagePageParser.inc.html#definePHPDOCUMENTOR_PDP_EVENT_CDATA">PHPDOCUMENTOR_PDP_EVENT_CDATA</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_CDATA&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/_phpDocumentor---ParserDescCleanup.inc.html#definePHPDOCUMENTOR_PDP_EVENT_LIST">PHPDOCUMENTOR_PDP_EVENT_LIST</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_LIST&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/Parsers/_phpDocumentor---Parser.inc.html#definePARSER_EVENT_QUOTE">PARSER_EVENT_QUOTE</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PARSER_EVENT_QUOTE&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../../phpDocumentor/Parsers/_phpDocumentor---XMLpackagePageParser.inc.html#definePHPDOCUMENTOR_PDP_EVENT_ENTITY">PHPDOCUMENTOR_PDP_EVENT_ENTITY</a></span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_ENTITY&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">PHPDOCUMENTOR_PDP_EVENT_COMMENT</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_COMMENT&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id">PHPDOCUMENTOR_PDP_EVENT_PI</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="src-str">&quot;PHPDOCUMENTOR_PDP_EVENT_PI&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if&nbsp;</span><span class="src-sym">(</span>isset<span class="src-sym">(</span><span class="src-var">$lookup</span><span class="src-sym">[</span><span class="src-var">$value</span><span class="src-sym">]</span><span class="src-sym">))&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$lookup</span><span class="src-sym">[</span><span class="src-var">$value</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}&nbsp;</span><span class="src-key">else&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">return&nbsp;</span><span class="src-var">$value</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the looked up value if found,                else the original value</li>
+			</ul>
+	
+	<div class="method-signature">
+		static <span class="method-result">mixed</span>
+		<span class="method-name">
+			getParserEventName
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: a value</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/Parsers/Parser.html#methodgetParserEventName">Parser::getParserEventName()</a></dt>
+						<dd>Debugging function, takes an event number and attempts to return its name</dd>
+					</dl>
+			
+	</div>
+<a name="methodXMLPackagePageParser" id="XMLPackagePageParser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor XMLPackagePageParser</span> (line <span class="line-number">138</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set up the wordparser</p>
+<p class="description"><p><div class="src-code"><ol><li><div class="src-line"><span class="src-key">function&nbsp;</span><a href="../../phpDocumentor/Parsers/XMLPackagePageParser.html#methodXMLPackagePageParser">XMLPackagePageParser</a><span class="src-sym">(</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-id">wp&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../../phpDocumentor/WordParsers/ObjectWordParser.html">ObjectWordParser</a></span><span class="src-sym">(</span><span class="src-id">true</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+</ol></div></p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../../phpDocumentor/WordParsers/ObjectWordParser.html">ObjectWordParser</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">XMLPackagePageParser</span>
+		<span class="method-name">
+			XMLPackagePageParser
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodparse" id="parse"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">parse</span> (line <span class="line-number">155</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse a new file</p>
+	<ul class="tags">
+				<li><span class="field">staticvar:</span> integer $endrecur: used for recursion limiting             if a handler for an event is not found</li>
+				<li><span class="field">uses:</span> <a href="../../phpDocumentor/ParserElements/parserTutorial.html">parserTutorial</a> - using Publisher::PublishEvent(), a new tutorial
+                      is created from the file parsed, and passed to the
+                      Intermediate Parser</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			parse
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$parse_data</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$tutorial</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$parse_data</span><span class="var-description">: the parse data</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$tutorial</span><span class="var-description">: for format, see <a href="../../phpDocumentor/Io.html#methodgetTutorials">Io::getTutorials()</a></span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/Parsers/Parser.html#methodparse">Parser::parse()</a></dt>
+						<dd>Parse a new file</dd>
+					</dl>
+			
+	</div>
+<a name="methodsetupStates" id="setupStates"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setupStates</span> (line <span class="line-number">524</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">setup the parser tokens, and the pushEvent/popEvent arrays</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../phpDocumentor/Publisher.html#var$tokens">Publisher::$tokens</a>, <a href="../../phpDocumentor/Publisher.html#var$pushEvent">Publisher::$pushEvent</a>, <a href="../../phpDocumentor/Publisher.html#var$popEvent">Publisher::$popEvent</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setupStates
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/Parsers/Parser.html#methodsetupStates">Parser::setupStates()</a></dt>
+						<dd>setup the parser tokens, and the pushEvent/popEvent arrays</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/Parsers/Parser.html">Parser</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodParser">Parser::Parser()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodcategoryTagHandler">Parser::categoryTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodcheckEventPop">Parser::checkEventPop()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodcheckEventPush">Parser::checkEventPush()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodconfigWordParser">Parser::configWordParser()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methoddefaultTagHandler">Parser::defaultTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodendTag">Parser::endTag()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodexampleTagHandler">Parser::exampleTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodgetParserEventName">Parser::getParserEventName()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodglobalTagHandler">Parser::globalTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodinvalidTagHandler">Parser::invalidTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodpackageTagHandler">Parser::packageTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodparamTagHandler">Parser::paramTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodparse">Parser::parse()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodpropertyTagHandler">Parser::propertyTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodreturnTagHandler">Parser::returnTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodsetupStates">Parser::setupStates()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodstaticvarTagHandler">Parser::staticvarTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodusesTagHandler">Parser::usesTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodvarTagHandler">Parser::varTagHandler()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/Publisher.html">Publisher</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/Publisher.html#methodpublishEvent">Publisher::publishEvent()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Publisher.html#methodsubscribe">Publisher::subscribe()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:21:07 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

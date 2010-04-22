@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>File Source for top.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<h1>Source for file top.php</h1>
+<p>Documentation is available at <a href="../phpDocumentor/_docbuilder---top.php.html">top.php</a></p>
+<div class="src-code">
+<div class="src-code"><ol><li><div class="src-line"><a name="a1"></a>&lt;!DOCTYPE&nbsp;html&nbsp;PUBLIC&nbsp;&quot;-//W3C//DTD&nbsp;HTML&nbsp;4.01&nbsp;Transitional//EN&quot;&gt;</div></li>
+<li><div class="src-line"><a name="a2"></a><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line"><a name="a3"></a><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><a name="a4"></a><span class="src-doc">&nbsp;*&nbsp;phpDocumentor&nbsp;::&nbsp;docBuilder&nbsp;Web&nbsp;Interface</span></div></li>
+<li><div class="src-line"><a name="a5"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a6"></a><span class="src-doc">&nbsp;*&nbsp;Advanced&nbsp;Web&nbsp;Interface&nbsp;to&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a7"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a8"></a><span class="src-doc">&nbsp;*&nbsp;PHP&nbsp;versions&nbsp;4&nbsp;and&nbsp;5</span></div></li>
+<li><div class="src-line"><a name="a9"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a10"></a><span class="src-doc">&nbsp;*&nbsp;Copyright&nbsp;(c)&nbsp;2003-2006&nbsp;Andrew&nbsp;Eddie,&nbsp;Greg&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a11"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a12"></a><span class="src-doc">&nbsp;*&nbsp;LICENSE:</span></div></li>
+<li><div class="src-line"><a name="a13"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a14"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;library&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it</span></div></li>
+<li><div class="src-line"><a name="a15"></a><span class="src-doc">&nbsp;*&nbsp;and/or&nbsp;modify&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General</span></div></li>
+<li><div class="src-line"><a name="a16"></a><span class="src-doc">&nbsp;*&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;</span></div></li>
+<li><div class="src-line"><a name="a17"></a><span class="src-doc">&nbsp;*&nbsp;either&nbsp;version&nbsp;2.1&nbsp;of&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any</span></div></li>
+<li><div class="src-line"><a name="a18"></a><span class="src-doc">&nbsp;*&nbsp;later&nbsp;version.</span></div></li>
+<li><div class="src-line"><a name="a19"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a20"></a><span class="src-doc">&nbsp;*&nbsp;This&nbsp;library&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</span></div></li>
+<li><div class="src-line"><a name="a21"></a><span class="src-doc">&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</span></div></li>
+<li><div class="src-line"><a name="a22"></a><span class="src-doc">&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the&nbsp;GNU</span></div></li>
+<li><div class="src-line"><a name="a23"></a><span class="src-doc">&nbsp;*&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</span></div></li>
+<li><div class="src-line"><a name="a24"></a><span class="src-doc">&nbsp;*&nbsp;</span></div></li>
+<li><div class="src-line"><a name="a25"></a><span class="src-doc">&nbsp;*&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public</span></div></li>
+<li><div class="src-line"><a name="a26"></a><span class="src-doc">&nbsp;*&nbsp;License&nbsp;along&nbsp;with&nbsp;this&nbsp;library;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software</span></div></li>
+<li><div class="src-line"><a name="a27"></a><span class="src-doc">&nbsp;*&nbsp;Foundation,&nbsp;Inc.,&nbsp;59&nbsp;Temple&nbsp;Place,&nbsp;Suite&nbsp;330,&nbsp;Boston,&nbsp;MA&nbsp;02111-1307&nbsp;USA</span></div></li>
+<li><div class="src-line"><a name="a28"></a><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><a name="a29"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;phpDocumentor</span></div></li>
+<li><div class="src-line"><a name="a30"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Andrew&nbsp;Eddie</span></div></li>
+<li><div class="src-line"><a name="a31"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Greg&nbsp;Beaver&nbsp;&lt;cellog@php.net&gt;</span></div></li>
+<li><div class="src-line"><a name="a32"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@copyright</span><span class="src-doc">&nbsp;&nbsp;2003-2006&nbsp;Andrew&nbsp;Eddie,&nbsp;Greg&nbsp;Beaver</span></div></li>
+<li><div class="src-line"><a name="a33"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@license</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;http://www.opensource.org/licenses/lgpl-license.php&nbsp;LGPL</span></div></li>
+<li><div class="src-line"><a name="a34"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@version</span><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;CVS:&nbsp;$Id:&nbsp;top.php&nbsp;212211&nbsp;2006-04-30&nbsp;22:18:14Z&nbsp;cellog&nbsp;$</span></div></li>
+<li><div class="src-line"><a name="a35"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@filesource</span></div></li>
+<li><div class="src-line"><a name="a36"></a><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;phpdoc.php</span></div></li>
+<li><div class="src-line"><a name="a37"></a><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><a name="a38"></a><span class="src-key">if&nbsp;</span><span class="src-sym">(</span><span class="src-str">'@DATA-DIR@'&nbsp;</span>!=&nbsp;<span class="src-str">'@'</span>.<span class="src-str">'DATA-DIR@'</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><a name="a39"></a><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a40"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-inc">include_once</span><span class="src-sym">(&nbsp;</span><span class="src-str">&quot;PhpDocumentor/phpDocumentor/common.inc.php&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a41"></a><span class="src-sym">}&nbsp;</span><span class="src-key">else&nbsp;</span><span class="src-sym">{</span></div></li>
+<li><div class="src-line"><a name="a42"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$path&nbsp;</span>=&nbsp;<a href="http://www.php.net/dirname">dirname</a><span class="src-sym">(</span><a href="http://www.php.net/dirname">dirname</a><span class="src-sym">(</span>__FILE__<span class="src-sym">))</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a43"></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-inc">include_once</span><span class="src-sym">(&nbsp;</span><span class="src-str">&quot;</span><span class="src-var">$path</span>/phpDocumentor/common.inc.php<span class="src-str">&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a name="a44"></a><span class="src-sym">}</span></div></li>
+<li><div class="src-line"><a name="a45"></a><span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a46"></a><span class="src-comm">//&nbsp;+------------------------------------------------------------------------+</span></div></li>
+<li><div class="src-line"><a name="a47"></a><span class="src-comm">//&nbsp;|&nbsp;phpDocumentor&nbsp;::&nbsp;docBuilder&nbsp;Web&nbsp;Interface&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a48"></a><span class="src-comm">//&nbsp;+------------------------------------------------------------------------+</span></div></li>
+<li><div class="src-line"><a name="a49"></a><span class="src-comm">//&nbsp;|&nbsp;Copyright&nbsp;(c)&nbsp;2003&nbsp;Andrew&nbsp;Eddie,&nbsp;Greg&nbsp;Beaver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a50"></a><span class="src-comm">//&nbsp;+------------------------------------------------------------------------+</span></div></li>
+<li><div class="src-line"><a name="a51"></a><span class="src-comm">//&nbsp;|&nbsp;This&nbsp;source&nbsp;file&nbsp;is&nbsp;subject&nbsp;to&nbsp;version&nbsp;3.00&nbsp;of&nbsp;the&nbsp;PHP&nbsp;License,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a52"></a><span class="src-comm">//&nbsp;|&nbsp;that&nbsp;is&nbsp;available&nbsp;at&nbsp;http://www.php.net/license/3_0.txt.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a53"></a><span class="src-comm">//&nbsp;|&nbsp;If&nbsp;you&nbsp;did&nbsp;not&nbsp;receive&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;PHP&nbsp;license&nbsp;and&nbsp;are&nbsp;unable&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a54"></a><span class="src-comm">//&nbsp;|&nbsp;obtain&nbsp;it&nbsp;through&nbsp;the&nbsp;world-wide-web,&nbsp;please&nbsp;send&nbsp;a&nbsp;note&nbsp;to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a55"></a><span class="src-comm">//&nbsp;|&nbsp;license@php.net&nbsp;so&nbsp;we&nbsp;can&nbsp;mail&nbsp;you&nbsp;a&nbsp;copy&nbsp;immediately.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</span></div></li>
+<li><div class="src-line"><a name="a56"></a><span class="src-comm">//&nbsp;+------------------------------------------------------------------------+</span></div></li>
+<li><div class="src-line"><a name="a57"></a><span class="src-comm">//</span></div></li>
+<li><div class="src-line"><a name="a58"></a><span class="src-php">?&gt;</span></div></li>
+<li><div class="src-line"><a name="a59"></a>&lt;html&gt;</div></li>
+<li><div class="src-line"><a name="a60"></a>&lt;head&gt;</div></li>
+<li><div class="src-line"><a name="a61"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;</div></li>
+<li><div class="src-line"><a name="a62"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;to&nbsp;submit&nbsp;to&nbsp;phpDocumentor&nbsp;v<span class="src-php">&lt;?php&nbsp;</span>print&nbsp;<span class="src-id"><a href="../phpDocumentor/_phpDocumentor---common.inc.php.html#definePHPDOCUMENTOR_VER">PHPDOCUMENTOR_VER</a></span><span class="src-sym">;&nbsp;</span><span class="src-php">?&gt;</span></div></li>
+<li><div class="src-line"><a name="a63"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/title&gt;</div></li>
+<li><div class="src-line"><a name="a64"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;style&nbsp;type=&quot;text/css&quot;&gt;</div></li>
+<li><div class="src-line"><a name="a65"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body,&nbsp;td,&nbsp;th&nbsp;{</div></li>
+<li><div class="src-line"><a name="a66"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-family:&nbsp;verdana,sans-serif;</div></li>
+<li><div class="src-line"><a name="a67"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;10pt;</div></li>
+<li><div class="src-line"><a name="a68"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div></li>
+<li><div class="src-line"><a name="a69"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.title&nbsp;{</div></li>
+<li><div class="src-line"><a name="a70"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;12pt;</div></li>
+<li><div class="src-line"><a name="a71"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div></li>
+<li><div class="src-line"><a name="a72"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/style&gt;</div></li>
+<li><div class="src-line"><a name="a73"></a>&lt;/head&gt;</div></li>
+<li><div class="src-line"><a name="a74"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a75"></a>&lt;body&nbsp;bgcolor=&quot;#0099cc&quot;&nbsp;topmargin=&quot;0&quot;&nbsp;leftmargin=&quot;0&quot;&nbsp;marginheight=&quot;0&quot;&nbsp;marginwidth=&quot;0&quot;&gt;</div></li>
+<li><div class="src-line"><a name="a76"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a77"></a>&lt;table&nbsp;width=&quot;100%&quot;&nbsp;cellspacing=&quot;0&quot;&nbsp;cellpadding=&quot;0&quot;&gt;</div></li>
+<li><div class="src-line"><a name="a78"></a>&lt;tr&gt;</div></li>
+<li><div class="src-line"><a name="a79"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&nbsp;bgcolor=&quot;#0099cc&quot;&nbsp;height=&quot;35&quot;&nbsp;width=&quot;100&quot;&nbsp;nowrap=&quot;nowrap&quot;&gt;</div></li>
+<li><div class="src-line"><a name="a80"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img&nbsp;src=&quot;../poweredbyphpdoc.gif&quot;&nbsp;alt=&quot;&quot;&nbsp;width=&quot;88&quot;&nbsp;height=&quot;31&quot;&nbsp;border=&quot;0&quot;&nbsp;alt=&quot;&quot;&nbsp;/&gt;</div></li>
+<li><div class="src-line"><a name="a81"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;</div></li>
+<li><div class="src-line"><a name="a82"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&nbsp;bgcolor=&quot;#0099cc&quot;&nbsp;width=&quot;100%&quot;&gt;</div></li>
+<li><div class="src-line"><a name="a83"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&nbsp;class=&quot;title&quot;&gt;&lt;strong&gt;docBuilder&lt;/strong&gt;&nbsp;::&nbsp;phpDocumentor&nbsp;v<span class="src-php">&lt;?php&nbsp;</span>print&nbsp;<span class="src-id"><a href="../phpDocumentor/_phpDocumentor---common.inc.php.html#definePHPDOCUMENTOR_VER">PHPDOCUMENTOR_VER</a></span><span class="src-sym">;&nbsp;</span><span class="src-php">?&gt;</span>&nbsp;Web&nbsp;Interface&lt;/span&gt;</div></li>
+<li><div class="src-line"><a name="a84"></a>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;</div></li>
+<li><div class="src-line"><a name="a85"></a>&lt;/tr&gt;</div></li>
+<li><div class="src-line"><a name="a86"></a>&lt;/table&gt;</div></li>
+<li><div class="src-line"><a name="a87"></a>&nbsp;</div></li>
+<li><div class="src-line"><a name="a88"></a>&lt;/body&gt;</div></li>
+<li><div class="src-line"><a name="a89"></a>&lt;/html&gt;</div></li>
+</ol></div>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:59 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</body>
+</html>

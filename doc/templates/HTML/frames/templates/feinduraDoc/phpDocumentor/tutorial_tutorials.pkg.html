@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>phpDocumentor Tutorials</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_elements.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_manual.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Documentable PHP Elements</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Tutorial</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Manual</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">phpDocumentor Tutorials</h1>
+  <h2 class="ref-purpose">Writing User-level documentation/tutorials with phpDocumentor</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+   <div class="author-blurb"><a href="mailto:cellog@php.net">cellog@php.net</a></div></span></div>
+ <h1 class="title">Table of Contents</h1>
+<ul class="toc">
+	
+			
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#whatare">What are phpDocumentor-style tutorials/extended documentation?</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto">How to write phpDocumentor-style tutorials/extended documentation</a></li>
+					
+				  				<ul class="toc">
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.tags">Inline Tags that may be used in tutorials</a></li>
+						
+					
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.location">Where to put tutorials/extended documentation so phpDocumentor will find it</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.naming">Naming tutorials: .pkg, .cls, .proc</a></li>
+					
+				  																				<ul class="toc">
+							<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.naming.package">Package-level documentation</a></li>
+															
+					
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.naming.class">Class-level documentation</a></li>
+					
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.naming.procedural">Procedural-level documentation</a></li>
+					
+				  								        </ul>
+					</ul>
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#howto.subtutorials">Creating a tutorial hierarchy</a></li>
+										
+					
+				  															</ul>
+						<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#conversion">Converting tutorials/extended documentation to HTML/CHM/PDF/XML/...</a></li>
+																				
+					
+				  				<ul class="toc">
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#conversion.ppage">[ppage] section of options.ini</a></li>
+						
+					
+				  																				<ul class="toc">
+							<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#conversion.ppage.entities">DocBook Entity translation</a></li>
+															
+					
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#conversion.ppage.tags">DocBook Tag translation</a></li>
+					
+				  								        </ul>
+					</ul>
+					<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#conversion.tips">Tips for using the .ini files</a></li>
+										
+					
+				  															</ul>
+						<li><a href="../phpDocumentor/tutorial_tutorials.pkg.html#next">What next?</a></li>
+																				
+					</ul>
+
+ <span><a name="whatare"></a><h2 class="title">What are phpDocumentor-style tutorials/extended documentation?</h2><p>New in version 1.2.0+, tutorials are the missing link in auto-documentation.  We've had many requests from developers to be able to include links to external documentation, such as the reference of template tags for a template engine.  The source code would be harder to read if this kind of information was spread along the 150-300 lines it would take to describe the usage.  phpDocumentor Tutorials solve the problem of including external documentation by leveraging existing tried-and-true XML DocBook format and the power of phpDocumentor's inline tags (see <a href="../phpDocumentor/tutorial_inlinetags.pkg.html">phpDocumentor Inline tags</a>).  Now, it is possible to cross-reference between external documentation and generated API documentation through the versatile <a href="../phpDocumentor/tutorial_tags.inlinelink.pkg.html">inline {@link}</a>, <a href="../phpDocumentor/tutorial_tags.inlinetutorial.pkg.html">inline {@tutorial}</a>, and <a href="../phpDocumentor/tutorial_tags.tutorial.pkg.html">@tutorial</a> tag.</p></span>
+ <span><a name="howto"></a><h2 class="title">How to write phpDocumentor-style tutorials/extended documentation</h2><p>Tutorials may be written as any legal DocBook top-level tag (&lt;book&gt;, &lt;chapter&gt;, &lt;article&gt;, &lt;refentry&gt;), but it is <em>highly</em> recommended for any project that may become a part of PEAR to write with the &lt;refentry&gt; tag as the top-level, as this will automatically translate into peardoc2-ready tutorials.  Other projects have no such constraint and may do anything they wish.</p>
+  <span><a name="howto.tags"></a><h3 class="title">Inline Tags that may be used in tutorials</h3><p>There are several inline tags that may be used in tutorials.  The <a href="../phpDocumentor/tutorial_tags.inlinelink.pkg.html">inline {@link}</a> and <a href="../phpDocumentor/tutorial_tags.inlinetutorial.pkg.html">inline {@tutorial}</a> tags should be used in the same manner as in API source.  Inline tags that are specific to tutorials include <a href="../phpDocumentor/tutorial_tags.inlineid.pkg.html">inline {@id}</a> and <a href="../phpDocumentor/tutorial_tags.inlinetoc.pkg.html">inline {@toc}</a>.  Inline {@id} is used to mark areas in a similar manner to the way that &lt;a name=&quot;section&quot;&gt; in HTML.  {@id} will automatically generate an id tag appropriate for the output format.  The {@toc} tag is used at the top of a tutorial to generate an internal table of contents for that tutorial.  The {@toc} tag extracts all sections that have an {@id} tag and uses the title of that section for the generated table of contents.  {@id} is also used to mark subsections to allow linking to a sub-section of a tutorial, much the way that in HTML file.html#subsection is used.</p></span>
+  <span><a name="howto.location"></a><h3 class="title">Where to put tutorials/extended documentation so phpDocumentor will find it</h3><p>To simplify linking of tutorials, all tutorials must be in a subdirectory named &quot;tutorials&quot; and must be passed in a <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.directory">-d, --directory</a> or <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.filename">-f, --filename</a> command-line switch.</p>
+   <p>In addition, tutorials are grouped by the same packages that group documented elements (see <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#documenting.elements.packages">Dividing projects into packages</a> for more information).  To associate a tutorial with a package, place it in a subdirectory of tutorials/ named after the package.  A tutorial for package &quot;phpDocumentor&quot; goes in &quot;tutorials/phpDocumentor,&quot; a tutorial for subpackage &quot;CHMDefault&quot; of package &quot;Converters&quot; goes in &quot;tutorials/Converters/CHMdefault/&quot; - for an example, see the tutorials/ subdirectory of phpDocumentor.</p>
+   <p>At the bare minimum, assuming your one package is named &quot;MyApp&quot;, you should create the &quot;tutorials/MyApp/MyApp.pkg&quot; file, with this minimal content:
+    <ol><li><div class="src-line"><span class="tute-tag">&lt;refentry</span><span class="tute-attribute-name">&nbsp;id=</span><span class="tute-attribute-value">&quot;</span><span class="tute-inline-tag">{@id}</span><span class="tute-attribute-value">&quot;</span><span class="tute-tag">&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-tag">&lt;refnamediv&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;refname&gt;</span>User&nbsp;Guide&nbsp;for&nbsp;My&nbsp;Application<span class="tute-tag">&lt;/refname&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;refpurpose&gt;</span>To&nbsp;demonstrate&nbsp;the&nbsp;various&nbsp;tasks&nbsp;available&nbsp;in&nbsp;My&nbsp;app<span class="tute-tag">&lt;/refpurpose&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-tag">&lt;/refnamediv&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-tag">&lt;refsynopsisdiv&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;author&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;My&nbsp;Name</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="tute-tag">&lt;authorblurb&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tute-inline-tag">{@link&nbsp;mailto:myself@myhost.net&nbsp;My&nbsp;Name}</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;<span class="tute-tag">&lt;/authorblurb&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;/author&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-tag">&lt;/refsynopsisdiv&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-inline-tag">{@toc}</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-tag">&lt;refsect1</span><span class="tute-attribute-name">&nbsp;id=</span><span class="tute-attribute-value">&quot;</span><span class="tute-inline-tag">{@id&nbsp;intro}</span><span class="tute-attribute-value">&quot;</span><span class="tute-tag">&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;title&gt;</span>User&nbsp;Guide<span class="tute-tag">&lt;/title&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;para&gt;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;This&nbsp;will&nbsp;be&nbsp;the&nbsp;User&nbsp;Guide&nbsp;for&nbsp;My&nbsp;app.&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;<span class="tute-tag">&lt;/para&gt;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="tute-tag">&lt;/refsect1&gt;</span></div></li>
+<li><div class="src-line"><span class="tute-tag">&lt;/refentry&gt;</span></div></li>
+</ol></p>
+   <p>One common &quot;gotcha&quot; here is ensuring that you name the PKG file and its parent directory with your package's exact name, as well as ensuring you have indeed used the &quot;@package MyApp&quot; tag in your codebase.  Running PhpDocumentor against this minimal tutorial file, when no PHP files use this package name, will NOT result in your tutorial being generated.</p>
+   <p>A second common &quot;gotcha&quot; is that if you attempt to run PhpDocumentor against ONLY the tutorial directory and its files, you'll get &quot;ERROR: nothing parsed&quot;... because you did not give PhpDocumentor any PHP files to process.  PhpDocumentor does need at least one &quot;code&quot; file to process, along with the tutorials, in order for any tutorials to be generated.  This is a common mistake when first trying to write tutorial docs... writing the files and then trying to run PhpDocumentor against ONLY the tutorials directory to test your tutorial files.  You will need at least one PHP file included in your test run, to avoid getting &quot;ERROR: nothing parsed&quot;.</p>
+   <p>A third &quot;gotcha&quot; can occur when you make your tutorial for your package and expect that the top-level index.html file will show its content, only to see an empty page showing little more than &quot;Welcome to default!&quot;.  What has happened is that the default package name for a documentation generation is &quot;default&quot;, so unless you specify &quot;--defaultpackagename MyApp&quot;, then your resulting top-level index.html file wants to tie itself to a &quot;default.pkg&quot; tutorial file for the &quot;default&quot; package, which does not exist, and it therefore decides there is no tutorial and instead displays that generic &quot;Welcome&quot; message.</p></span>
+  <span><a name="howto.naming"></a><h3 class="title">Naming tutorials: .pkg, .cls, .proc</h3><p>There are three ways of associating tutorials/extended documentation with the elements they are written for:
+    <ul><li><p>Package-level tutorials always have file extension &quot;pkg&quot;</p></li>
+     <li><p>Class-level tutorials always have file extension &quot;cls&quot;</p></li>
+     <li><p>Procedural-level tutorials always have file extension &quot;proc&quot;</p></li></ul></p>
+   <a name="howto.naming.package"></a><h4 class="title">Package-level documentation</h4><p>The primary documentation for a package or subpackage should go in a file with the same name as the package or subpackage.  For package &quot;phpDocumentor&quot; the primary package-level documentation is in &quot;tutorials/phpDocumentor/phpDocumentor.pkg&quot;  For subpackage &quot;CHMdefault&quot; of package &quot;Converters,&quot; the primary subpackage-level documentation is in &quot;tutorials/Converters/CHMDefault/CHMdefault.pkg&quot;</p>
+    <p>Other package-level documentation can have any filename, but must have the package-tutorial extension .pkg.</p><br />
+   <a name="howto.naming.class"></a><h4 class="title">Class-level documentation</h4><p>Similar to package-level documentation, the primary documentation for a class must have the same name as the class.  The primary documentation for the class &quot;Converter&quot; in package &quot;Converters&quot; will be found in &quot;tutorials/Converters/Converter.cls.&quot;</p><br />
+   <a name="howto.naming.procedural"></a><h4 class="title">Procedural-level documentation</h4><p>If a package contains a number of functions, it may be good to include procedural-level documentation.  If a particular file contains a large amount of procedural information that must be documented, it is possible to link tutorials to that file's API docs in the same manner it is possible to link to a class's API docs.</p>
+    <p>The primary documentation for the procedural component of a PHP file must have the same name as the file.  The primary procedural documentation for the file test.php in package &quot;examples&quot; will be found in &quot;tutorials/examples/test.php.proc.&quot;</p><br /></span>
+  <span><a name="howto.subtutorials"></a><h3 class="title">Creating a tutorial hierarchy</h3><p>If you've ever wanted to separate a large user-level document into separate documents the way the PHP manual does, you're in luck.  phpDocumentor provides a dynamic and flexible solution to this problem.  When parsing a tutorial, phpDocumentor looks for an .ini file associated with that tutorial in the same directory.  In other words, for &quot;tutorials/phpDocumentor/phpDocumentor.pkg,&quot; phpDocumentor will search for a file named &quot;tutorials/phpDocumentor/phpDocumentor.pkg.ini&quot; and will parse out a section named [Linked Tutorials].  This section defines every child tutorial of the tutorial phpDocumentor.pkg</p>
+   <p>In order for a tutorial to be linked to another tutorial as a child, it must be in the same package, subpackage and be the same tutorial type.  tutorials/phpDocumentor/phpDocumentor.pkg cannot have tutorials/phpDocumentor/oops.cls as a child tutorial, nor can it have tutorials/phpDocumentor/oops/almostworks.pkg as a child tutorial.  It can have tutorials/phpDocumentor/works.pkg as a child, because the tutorial is in the same package, and is package-level documentation.</p>
+   <p>To help enforce this rule, the [Linked Tutorials] section is a list of filenames minus path and extension.</p>
+   <p>Here's an example tutorials/test/test.pkg.ini:
+    <div class="src-code">[Linked Tutorials]
+child1
+child2
+child3</div></p>
+   <p>phpDocumentor will search for tutorials/test/child1.pkg, tutorials/test/child2.pkg, and tutorials/test/child3.pkg and link them in that order.  Note that any tutorial can have an .ini file, allowing unlimited depth of tutorials.  We don't recommend going beyond 3 sub-levels, that will probably confuse readers more than it helps them.</p>
+   <p>For a working example, check out the .ini files in phpDocumentor's own tutorials/ directory.</p></span></span>
+ <span><a name="conversion"></a><h2 class="title">Converting tutorials/extended documentation to HTML/CHM/PDF/XML/...</h2><p>Support is built into the existing Converters for automatic conversion of tutorials to the desired output without any extra work on your part.  However, if the output is not quite right, and something needs to be changed, this is very easy.  For every template of every converter, there is a file in the template directory called &quot;options.ini.&quot;  In other words, for the HTML:frames:default template, the options.ini file is phpDocumentor/Converters/HTML/frames/templates/default/options.ini.  Open this file to see all of the template options for conversion of data.</p>
+  <p>The first section of the .ini file, [desctranslate], is for conversion of DocBlocks and is covered elsewhere (see <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.desc">DocBlock Description details</a>).</p>
+  <p>After that comes the section that deals with tutorials, [ppage].</p>
+  <span><a name="conversion.ppage"></a><h3 class="title">[ppage] section of options.ini</h3><p>The [ppage] section contains simple rules for transforming DocBook tags and DocBook entities into any output.  Re-ordering is supported for attributes and titles only.  The best way to learn how to use this simple and powerful transformation is to study the options.ini files for HTML:frames:phpedit and PDF:default:default</p>
+   <a name="conversion.ppage.entities"></a><h4 class="title">DocBook Entity translation</h4><p>The translation of entities like &amp;rdquo; is handled through entries in the [ppage] section like the following for html:
+     <div class="src-code"><pre>
+[ppage]
+&amp;quot; = &amp;quot;
+&amp;amp; = &amp;amp;
+&amp;rdquo; = &amp;rdquo;  
+     </pre></div>
+     or the following, for PDF:
+     <div class="src-code"><pre>
+[ppage]
+&amp;quot; = &quot;&quot;&quot;
+&amp;amp; = &amp;
+&amp;rdquo; = &quot;&quot;&quot;  
+     </pre></div>
+     Note that to specify a &quot;, it must be enclosed in double quotes, hence the usage of &quot;&quot;&quot;</p><br />
+   <a name="conversion.ppage.tags"></a><h4 class="title">DocBook Tag translation</h4><p>Each tag is transformed using a few possibilities.  If a tag is to be simply transformed into another tag (as in &lt;p&gt;&lt;/p&gt; to &lt;para&gt;&lt;/para&gt;, use
+     <ul><li><p>tagname = newtagname</p></li></ul>
+     phpDocumentor will automatically enclose the tag contents with the new tagname and all of its attributes</p>
+    <p>If the start and endtag should be different, specify the exact text using a slash before the tagname as in:
+     <ul><li><p>tagname = &lt;starttext attr=&quot;myval&quot; /&gt;</p></li>
+      <li><p>/tagname = &quot;\n&quot;</p></li></ul></p>
+    <p>If a tag needs only a new tag and attribute name (for example link and linkend become a and href):
+     <ul><li><p>tagname = newtagname</p></li>
+      <li><p>tagname-&gt;attr = newattrname</p></li></ul></p>
+    <p>If a tag needs only a new tag and attribute name, and a new attribute value (for example table frame=&quot;all&quot; becomes table frame=&quot;border&quot;):
+     <ul><li><p>tagname = newtagname</p></li>
+      <li><p>tagname-&gt;attr = newattrname</p></li>
+      <li><p>tagname-&gt;attr+val = newval</p></li></ul></p>
+    <p>If a tag needs only a new tag and attribute name, and two attributes combine into one (for example table colsep=&quot;1&quot; rowsep=&quot;1&quot; becomes table rules=&quot;all&quot;):
+     <ul><li><p>tagname = newtagname</p></li>
+      <li><p>tagname-&gt;attr = newattrname</p></li>
+      <li><p>tagname-&gt;attr2 = newattrname</p></li>
+      <li><p>tagname-&gt;attr+val|attr2+val = newval</p></li></ul></p>
+    <p>If an attribute should be ignored:
+     <ul><li><p>tagname = newtagname</p></li>
+      <li><p>tagname!attr =</p></li></ul></p>
+    <p>If all attributes should be ignored:
+     <ul><li><p>tagname = newtagname</p></li>
+      <li><p>tagname! =</p></li></ul></p>
+    <p>If a tag should have all attributes and be a single tag (like &lt;br /&gt;:
+     <ul><li><p>tagname = newtagname</p></li>
+      <li><p>tagname/ =</p></li></ul></p>
+    <p>If an attribute should be changed to a new name for all cases (like role changed to class, which would be $attr$role = class):
+     <ul><li><p>$attr$attrname = newattrname</p></li></ul></p><br /></span>
+  <span><a name="conversion.tips"></a><h3 class="title">Tips for using the .ini files</h3><p>The parsing of these ini files is performed by <a href="../phpDocumentor/_phpDocumentor---common.inc.php.html#functionphpDocumentor_parse_ini_file">phpDocumentor_parse_ini_file()</a>, a much more powerful version of PHP's <a href="http://www.php.net/parse_ini_file">http://www.php.net/parse_ini_file</a> built-in function.  If a value is encased in quotation marks, it will be stripped of backslashes (\) and used as is.  In other words:</p>
+   <p><div class="src-code"><pre>tagname = &quot;  Some &quot;enclosed&quot;\n\ttext&quot;</pre></div></p>
+   <p>will parse out as tagname = <pre>  Some &quot;enclosed&quot;
+   text</pre>.</p>
+   <p>Otherwise, this example:</p>
+   <p><div class="src-code"><pre>tagname =   Some &quot;enclosed&quot;\n\ttext</pre></div></p>
+   <p>will parse out as tagname = <pre>  Some &quot;enclosed&quot;\n\ttext</pre>.</p>
+   <p>Note that escaping of quotation marks is not needed, phpDocumentor_parse_ini() only strips the outer tags and then performs <a href="http://www.php.net/stripcslashes">http://www.php.net/stripcslashes</a> on the remaining string.</p></span></span>
+ <span><a name="next"></a><h2 class="title">What next?</h2><p>Write your tutorials and extended documentation!</p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_elements.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_manual.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Documentable PHP Elements</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Tutorial</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Manual</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

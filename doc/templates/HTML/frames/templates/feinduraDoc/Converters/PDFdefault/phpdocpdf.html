@@ -1,0 +1,1257 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class phpdocpdf</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class phpdocpdf</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">author:</span> Wayne Munro, R&amp;OS Ltd, <a href="http://www.ros.co.nz/pdf">http://www.ros.co.nz/pdf</a></li>
+				<li><span class="field">version:</span> 009 (versioning is linked to class.pdf.php)  released under a public domain licence.</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---Converters---PDF---default---class.phpdocpdf.php.html">/phpDocumentor/Converters/PDF/default/class.phpdocpdf.php</a> (line <span class="field"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a50">50</a></span>)
+		</p>
+		
+				
+		<pre><a href="../../Cpdf/Cpdf.html">Cpdf</a>
+   |
+   --<a href="../../Cpdf/Cezpdf.html">Cezpdf</a>
+      |
+      --phpdocpdf</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																																								<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$converter" title="details" class="var-name">$converter</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$font_dir" title="details" class="var-name">$font_dir</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$indents" title="details" class="var-name">$indents</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$indexContents" title="details" class="var-name">$indexContents</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$listType" title="details" class="var-name">$listType</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$reportContents" title="details" class="var-name">$reportContents</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$set_pageNumbering" title="details" class="var-name">$set_pageNumbering</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_colorStack" title="details" class="var-name">$_colorStack</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_save" title="details" class="var-name">$_save</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																						
+				<div class="method-definition">
+											<span class="method-result">phpdocpdf</span>
+										<a href="#phpdocpdf" title="details" class="method-name">phpdocpdf</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$pdfconverter</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$fontdir</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$paper</span> = <span class="var-default">'a4'</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$orientation</span> = <span class="var-default">'portrait'</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addMessage" title="details" class="method-name">addMessage</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$message</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#bullet" title="details" class="method-name">bullet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$Data</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#dots" title="details" class="method-name">dots</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#ezNewPage" title="details" class="method-name">ezNewPage</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$debug</span> = <span class="var-default">false</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#ezOutput" title="details" class="method-name">ezOutput</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$debug</span> = <span class="var-default">false</span>], <span class="var-type"></span>&nbsp;<span class="var-name">$template</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#ezProcessText" title="details" class="method-name">ezProcessText</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$text</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#ezText" title="details" class="method-name">ezText</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$text</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$options</span> = <span class="var-default">array()</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$test</span> = <span class="var-default">0</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getColor" title="details" class="method-name">getColor</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getYPlusOffset" title="details" class="method-name">getYPlusOffset</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$offset</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#indent" title="details" class="method-name">indent</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#index" title="details" class="method-name">index</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#IndexLetter" title="details" class="method-name">IndexLetter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#orderedBullet" title="details" class="method-name">orderedBullet</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#rf" title="details" class="method-name">rf</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setColorArray" title="details" class="method-name">setColorArray</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$color</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setHTMLColor" title="details" class="method-name">setHTMLColor</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$color</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setupTOC" title="details" class="method-name">setupTOC</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#textcolor" title="details" class="method-name">textcolor</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#validHTMLColor" title="details" class="method-name">validHTMLColor</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$color</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_ezText" title="details" class="method-name">_ezText</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$text</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$options</span> = <span class="var-default">array()</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$test</span> = <span class="var-default">0</span>])
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$converter" id="$converter"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$converter</span>
+						(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a57">57</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$font_dir" id="$font_dir"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$font_dir</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a55">55</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$indents" id="$indents"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$indents</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a54">54</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$indexContents" id="$indexContents"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$indexContents</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a53">53</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$listType" id="$listType"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$listType</span>
+			 = <span class="var-default"> 'ordered'</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a59">59</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$reportContents" id="$reportContents"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$reportContents</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a52">52</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$set_pageNumbering" id="$set_pageNumbering"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$set_pageNumbering</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a56">56</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$_colorStack" id="$_colorStack"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_colorStack</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a60">60</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+<a name="var$_save" id="$_save"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_save</span>
+			 = <span class="var-default"> ''</span>			(line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a58">58</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../Cpdf/Cezpdf.html">Cezpdf</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cezpdf.html#var$ez">Cezpdf::$ez</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cezpdf.html#var$ezPageCount">Cezpdf::$ezPageCount</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cezpdf.html#var$ezPages">Cezpdf::$ezPages</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cezpdf.html#var$y">Cezpdf::$y</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../../Cpdf/Cpdf.html">Cpdf</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$addLooseObjects">Cpdf::$addLooseObjects</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$arc4">Cpdf::$arc4</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$arc4_objnum">Cpdf::$arc4_objnum</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$callback">Cpdf::$callback</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$catalogId">Cpdf::$catalogId</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$checkpoint">Cpdf::$checkpoint</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentBaseFont">Cpdf::$currentBaseFont</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentColour">Cpdf::$currentColour</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentContents">Cpdf::$currentContents</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentFont">Cpdf::$currentFont</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentFontNum">Cpdf::$currentFontNum</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentLineStyle">Cpdf::$currentLineStyle</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentNode">Cpdf::$currentNode</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentPage">Cpdf::$currentPage</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentStrokeColour">Cpdf::$currentStrokeColour</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$currentTextState">Cpdf::$currentTextState</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$destinations">Cpdf::$destinations</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$encrypted">Cpdf::$encrypted</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$encryptionKey">Cpdf::$encryptionKey</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$fileIdentifier">Cpdf::$fileIdentifier</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$firstPageId">Cpdf::$firstPageId</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$fontFamilies">Cpdf::$fontFamilies</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$fonts">Cpdf::$fonts</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$infoObject">Cpdf::$infoObject</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$looseObjects">Cpdf::$looseObjects</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$messages">Cpdf::$messages</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$nCallback">Cpdf::$nCallback</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$nStack">Cpdf::$nStack</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$nStateStack">Cpdf::$nStateStack</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$numFonts">Cpdf::$numFonts</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$numImages">Cpdf::$numImages</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$numObj">Cpdf::$numObj</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$numPages">Cpdf::$numPages</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$objects">Cpdf::$objects</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$options">Cpdf::$options</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$procsetObjectId">Cpdf::$procsetObjectId</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$stack">Cpdf::$stack</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$stateStack">Cpdf::$stateStack</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../../Cpdf/Cpdf.html#var$wordSpaceAdjust">Cpdf::$wordSpaceAdjust</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodphpdocpdf" id="phpdocpdf"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor phpdocpdf</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a62">62</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">phpdocpdf</span>
+		<span class="method-name">
+			phpdocpdf
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$pdfconverter</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$fontdir</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$paper</span> = <span class="var-default">'a4'</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$orientation</span> = <span class="var-default">'portrait'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$pdfconverter</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$fontdir</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$paper</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$orientation</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddMessage" id="addMessage"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addMessage</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a263">263</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addMessage
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$message</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$message</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Cpdf/Cpdf.html#methodaddMessage">Cpdf::addMessage()</a></dt>
+						<dd>used to add messages for use in debugging</dd>
+					</dl>
+			
+	</div>
+<a name="methodbullet" id="bullet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">bullet</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a322">322</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">author:</span> Murray Shields</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			bullet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$Data</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$Data</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddots" id="dots"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">dots</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a175">175</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			dots
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodezNewPage" id="ezNewPage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">ezNewPage</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a341">341</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ezNewPage
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$debug</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$debug</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Cpdf/Cezpdf.html#methodezNewPage">Cezpdf::ezNewPage()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodezOutput" id="ezOutput"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">ezOutput</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a232">232</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ezOutput
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$debug</span> = <span class="var-default">false</span>], <span class="var-type"></span>&nbsp;<span class="var-name">$template</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$debug</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$template</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Cpdf/Cezpdf.html#methodezOutput">Cezpdf::ezOutput()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodezProcessText" id="ezProcessText"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">ezProcessText</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a270">270</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ezProcessText
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$text</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$text</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Cpdf/Cezpdf.html#methodezProcessText">Cezpdf::ezProcessText()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodezText" id="ezText"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">ezText</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a215">215</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../../Converters/PDFdefault/PDFParser.html">PDFParser</a> - extracts all meta-tags and processes text for output</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ezText
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$text</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$options</span> = <span class="var-default">array()</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$test</span> = <span class="var-default">0</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$text</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$size</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$options</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$test</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Cpdf/Cezpdf.html#methodezText">Cezpdf::ezText()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodgetColor" id="getColor"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getColor</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a72">72</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This really should be in the parent class</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getColor
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetYPlusOffset" id="getYPlusOffset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getYPlusOffset</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a258">258</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getYPlusOffset
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$offset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$offset</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodindent" id="indent"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">indent</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a300">300</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			indent
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodindex" id="index"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">index</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a142">142</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			index
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodIndexLetter" id="IndexLetter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">IndexLetter</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a152">152</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			IndexLetter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodorderedBullet" id="orderedBullet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">orderedBullet</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a336">336</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			orderedBullet
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodrf" id="rf"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">rf</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a132">132</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			rf
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetColorArray" id="setColorArray"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setColorArray</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a77">77</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setColorArray
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$color</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$color</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetHTMLColor" id="setHTMLColor"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setHTMLColor</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a105">105</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setHTMLColor
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$color</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$color</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetupTOC" id="setupTOC"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setupTOC</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a225">225</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setupTOC
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodtextcolor" id="textcolor"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">textcolor</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a111">111</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			textcolor
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$info</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$info</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodvalidHTMLColor" id="validHTMLColor"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">validHTMLColor</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a100">100</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			validHTMLColor
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$color</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$color</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_ezText" id="_ezText"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_ezText</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultclass.phpdocpdf.php.html#a253">253</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ezText
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$text</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$size</span> = <span class="var-default">0</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$options</span> = <span class="var-default">array()</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$test</span> = <span class="var-default">0</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$text</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$size</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$options</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$test</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Cpdf/Cezpdf.html">Cezpdf</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodCezpdf">Cezpdf::Cezpdf()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodalink">Cezpdf::alink()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodexecTemplate">Cezpdf::execTemplate()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezColumnsStart">Cezpdf::ezColumnsStart()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezColumnsStop">Cezpdf::ezColumnsStop()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezGetCurrentPageNumber">Cezpdf::ezGetCurrentPageNumber()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezImage">Cezpdf::ezImage()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezInsertMode">Cezpdf::ezInsertMode()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezNewPage">Cezpdf::ezNewPage()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezOutput">Cezpdf::ezOutput()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezProcessText">Cezpdf::ezProcessText()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezPRVTaddPageNumbers">Cezpdf::ezPRVTaddPageNumbers()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezPRVTcleanUp">Cezpdf::ezPRVTcleanUp()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezPrvtGetTextWidth">Cezpdf::ezPrvtGetTextWidth()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezPRVTpageNumberSearch">Cezpdf::ezPRVTpageNumberSearch()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezPrvtTableColumnHeadings">Cezpdf::ezPrvtTableColumnHeadings()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezPrvtTableDrawLines">Cezpdf::ezPrvtTableDrawLines()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezSetCmMargins">Cezpdf::ezSetCmMargins()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezSetDy">Cezpdf::ezSetDy()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezSetMargins">Cezpdf::ezSetMargins()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezSetY">Cezpdf::ezSetY()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezStartPageNumbers">Cezpdf::ezStartPageNumbers()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezStopPageNumbers">Cezpdf::ezStopPageNumbers()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezStream">Cezpdf::ezStream()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezTable">Cezpdf::ezTable()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezText">Cezpdf::ezText()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodezWhatPageNumber">Cezpdf::ezWhatPageNumber()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodilink">Cezpdf::ilink()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methodloadTemplate">Cezpdf::loadTemplate()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cezpdf.html#methoduline">Cezpdf::uline()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Cpdf/Cpdf.html">Cpdf</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodCpdf">Cpdf::Cpdf()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddDestination">Cpdf::addDestination()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddImage">Cpdf::addImage()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddInfo">Cpdf::addInfo()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddInternalLink">Cpdf::addInternalLink()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddJpegFromFile">Cpdf::addJpegFromFile()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddLink">Cpdf::addLink()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddMessage">Cpdf::addMessage()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddObject">Cpdf::addObject()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddPngFromFile">Cpdf::addPngFromFile()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddText">Cpdf::addText()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodaddTextWrap">Cpdf::addTextWrap()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodARC4">Cpdf::ARC4()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodARC4_init">Cpdf::ARC4_init()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodcheckAllHere">Cpdf::checkAllHere()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodcloseObject">Cpdf::closeObject()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodcurve">Cpdf::curve()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodellipse">Cpdf::ellipse()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodencryptInit">Cpdf::encryptInit()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodfilledEllipse">Cpdf::filledEllipse()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodfilledRectangle">Cpdf::filledRectangle()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodgetFirstPageId">Cpdf::getFirstPageId()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodgetFontDecender">Cpdf::getFontDecender()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodgetFontHeight">Cpdf::getFontHeight()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodgetTextWidth">Cpdf::getTextWidth()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodline">Cpdf::line()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodmd5_16">Cpdf::md5_16()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodnewPage">Cpdf::newPage()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodopenHere">Cpdf::openHere()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodopenObject">Cpdf::openObject()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodoutput">Cpdf::output()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_action">Cpdf::o_action()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_annotation">Cpdf::o_annotation()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_catalog">Cpdf::o_catalog()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_contents">Cpdf::o_contents()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_destination">Cpdf::o_destination()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_encryption">Cpdf::o_encryption()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_font">Cpdf::o_font()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_fontDescriptor">Cpdf::o_fontDescriptor()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_fontEncoding">Cpdf::o_fontEncoding()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_image">Cpdf::o_image()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_info">Cpdf::o_info()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_outlines">Cpdf::o_outlines()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_page">Cpdf::o_page()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_pages">Cpdf::o_pages()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_procset">Cpdf::o_procset()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodo_viewerPreferences">Cpdf::o_viewerPreferences()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodpartEllipse">Cpdf::partEllipse()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodpolygon">Cpdf::polygon()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodrectangle">Cpdf::rectangle()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodreopenObject">Cpdf::reopenObject()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodrestoreState">Cpdf::restoreState()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsaveState">Cpdf::saveState()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodselectFont">Cpdf::selectFont()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsetColor">Cpdf::setColor()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsetEncryption">Cpdf::setEncryption()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsetFontFamily">Cpdf::setFontFamily()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsetLineStyle">Cpdf::setLineStyle()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsetPreferences">Cpdf::setPreferences()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodsetStrokeColor">Cpdf::setStrokeColor()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodstopObject">Cpdf::stopObject()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodstream">Cpdf::stream()</a></span><br>
+													<span class="method-name"><a href="../../Cpdf/Cpdf.html#methodtransaction">Cpdf::transaction()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:19:11 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

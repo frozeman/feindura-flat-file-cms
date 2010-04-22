@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page Tokenizer.php</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name">/phpDocumentor/Converters/XML/DocBook/peardoc2/Tokenizer.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-classes">Classes</a>
+			|							<a href="#sec-includes">Includes</a>
+			|							<a href="#sec-constants">Constants</a>
+										</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">XML/Beautifier.php</p>
+<p class="description"><p>Format XML files containing unknown entities (like all of peardoc)</p><p>phpDocumentor :: automatic documentation generator</p><p>PHP versions 4 and 5</p><p>Copyright (c) 2004-2006 Gregory Beaver</p><p>LICENSE:</p><p>This library is free software; you can redistribute it  and/or modify it under the terms of the GNU Lesser General  Public License as published by the Free Software Foundation;  either version 2.1 of the License, or (at your option) any  later version.</p><p>This library is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU  Lesser General Public License for more details.</p><p>You should have received a copy of the GNU Lesser General Public  License along with this library; if not, write to the Free Software  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">version:</span> CVS: $Id: Tokenizer.php 238276 2007-06-22 14:58:30Z ashnazg $</li>
+				<li><span class="field">copyright:</span> 2004-2006 Gregory Beaver</li>
+				<li><span class="field">link:</span> <a href="http://pear.php.net/PhpDocumentor">http://pear.php.net/PhpDocumentor</a></li>
+				<li><span class="field">link:</span> <a href="http://www.phpdoc.org">http://www.phpdoc.org</a></li>
+				<li><span class="field">since:</span> 1.3.0</li>
+				<li><span class="field">filesource:</span> <a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html">Source Code for this file</a></li>
+				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></li>
+			</ul>
+		
+			</div>
+</div>
+		
+	<a name="sec-classes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Classes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Classes</span>
+			|							<a href="#sec-includes">Includes</a>
+				|										<a href="#sec-constants">Constants</a>
+															</div>
+		<div class="info-box-body">	
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../../phpDocumentor/Parsers/phpDocumentor_XML_Beautifier_Tokenizer.html">phpDocumentor_XML_Beautifier_Tokenizer</a>
+					</td>
+					<td>
+											Highlights source code using <a href="../../phpDocumentor/Parsers/XMLPackagePageParser.html#methodparse">parse()</a>
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+	<a name="sec-includes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Includes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-classes">Classes</a>
+				|						<span class="disabled">Includes</span>
+			|							<a href="#sec-constants">Constants</a>
+															</div>
+		<div class="info-box-body">	
+			<a name="_XML/Beautifier/Tokenizer_php"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name">'XML/Beautifier/Tokenizer.php'</span>)
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a44">44</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">From the XML_Beautifier package</p>
+	
+</div>
+		</div>
+	</div>
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-classes">Classes</a>
+				|										<a href="#sec-includes">Includes</a>
+				|						<span class="disabled">Constants</span>
+											</div>
+		<div class="info-box-body">	
+			<a name="definePHPDOC_BEAUTIFIER_CDATA"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_BEAUTIFIER_CDATA</span> = 100000
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a751">751</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">do not remove, needed in plain renderer</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_ATTRIBUTE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_ATTRIBUTE</span> = 4
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a701">701</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;tag attr=&quot;attribute&quot;&gt; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_CDATA"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_CDATA</span> = 11
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a736">736</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;! is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_CLOSETAG"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_CLOSETAG</span> = 5
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a706">706</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a close &lt;/tag&gt; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_COMMENT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_COMMENT</span> = 7
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a716">716</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;!-- comment --&gt; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_DEF"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_DEF</span> = 10
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a731">731</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;! is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_DOUBLEQUOTE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_DOUBLEQUOTE</span> = 9
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a726">726</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;!-- comment --&gt; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_ENTITY"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_ENTITY</span> = 6
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a711">711</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when an &amp;entity; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_IN_CDATA"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_IN_CDATA</span> = 13
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a746">746</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;![CDATA[ section is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_NOEVENTS"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_NOEVENTS</span> = 1
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a686">686</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">starting state</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_OPENTAG"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_OPENTAG</span> = 3
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a696">696</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when an open &lt;tag&gt; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_PI"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_PI</span> = 2
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a691">691</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a processor instruction is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_SINGLEQUOTE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_SINGLEQUOTE</span> = 8
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a721">721</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;!-- comment --&gt; is found</p>
+	
+		
+</div>
+<a name="definePHPDOC_XMLTOKEN_EVENT_XML"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">PHPDOC_XMLTOKEN_EVENT_XML</span> = 12
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a741">741</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">used when a &lt;?xml is found</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_ATTRIBUTE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_ATTRIBUTE</span> = 104
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a703">703</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing an open &lt;tag&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_CDATA"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_CDATA</span> = 111
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a738">738</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;!</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_CLOSETAG"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_CLOSETAG</span> = 105
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a708">708</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a close &lt;/tag&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_COMMENT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_COMMENT</span> = 107
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a718">718</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;!-- comment --&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_DEF"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_DEF</span> = 110
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a733">733</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;!</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_DOUBLEQUOTE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_DOUBLEQUOTE</span> = 109
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a728">728</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;!-- comment --&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_ENTITY"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_ENTITY</span> = 106
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a713">713</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing an &amp;entity;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_IN_CDATA"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_IN_CDATA</span> = 113
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a748">748</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;![CDATA[ ]]&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_NOEVENTS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_NOEVENTS</span> = 101
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a688">688</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently in starting state</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_OPENTAG"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_OPENTAG</span> = 103
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a698">698</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing an open &lt;tag&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_PI"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_PI</span> = 102
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a693">693</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently in processor instruction</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_SINGLEQUOTE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_SINGLEQUOTE</span> = 108
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a723">723</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;!-- comment --&gt;</p>
+	
+		
+</div>
+<a name="defineSTATE_XMLTOKEN_XML"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">STATE_XMLTOKEN_XML</span> = 112
+			(line <span class="line-number"><a href="../../__filesource/fsource_phpDocumentor_Parsers_phpDocumentorConvertersXMLDocBookpeardoc2Tokenizer.php.html#a743">743</a></span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">currently parsing a &lt;?xml</p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

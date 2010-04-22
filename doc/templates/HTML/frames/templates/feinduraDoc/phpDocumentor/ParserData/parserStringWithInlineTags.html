@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class parserStringWithInlineTags</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class parserStringWithInlineTags</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Used to represent strings that contain inline tags,  so that they can be properly parsed at link time</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Gregory Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">version:</span> Release: @VER@</li>
+				<li><span class="field">copyright:</span> 2002-2008 Gregory Beaver</li>
+				<li><span class="field">link:</span> <a href="http://pear.php.net/PhpDocumentor">http://pear.php.net/PhpDocumentor</a></li>
+				<li><span class="field">link:</span> <a href="http://www.phpdoc.org">http://www.phpdoc.org</a></li>
+				<li><span class="field">todo:</span> CS cleanup - change package to PhpDocumentor</li>
+				<li><span class="field">since:</span> 1.0rc1</li>
+				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---ParserData.inc.html">/phpDocumentor/ParserData.inc</a> (line <span class="field">776</span>)
+		</p>
+		
+				
+		<pre><a href="../../phpDocumentor/ParserData/parserBase.html">parserBase</a>
+   |
+   --parserStringWithInlineTags</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserCode.html">parserCode</a></td>
+					<td>
+											Used for &lt;code&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserPre.html">parserPre</a></td>
+					<td>
+											Used for &lt;pre&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserB.html">parserB</a></td>
+					<td>
+											Used for &lt;b&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserI.html">parserI</a></td>
+					<td>
+											Used for &lt;i&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserDescVar.html">parserDescVar</a></td>
+					<td>
+											Used for &lt;var&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserSamp.html">parserSamp</a></td>
+					<td>
+											Used for &lt;samp&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserKbd.html">parserKbd</a></td>
+					<td>
+											Used for &lt;kbd&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserBr.html">parserBr</a></td>
+					<td>
+											Used for &lt;br&gt; in a description
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DescHTML/parserList.html">parserList</a></td>
+					<td>
+											Used for lists &lt;ol&gt; and &lt;ul&gt;
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/ParserElements/parserPackagePage.html">parserPackagePage</a></td>
+					<td>
+											
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/DocBlockTags/parserTag.html">parserTag</a></td>
+					<td>
+											used to represent standard tags like @access, etc.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/ParserDocBlock/parserDesc.html">parserDesc</a></td>
+					<td>
+											represents a short or long description in a DocBlock (<a href="../../phpDocumentor/ParserDocBlock/parserDocBlock.html">parserDocBlock</a>)
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/Tutorial/parserCData.html">parserCData</a></td>
+					<td>
+											Represents &lt;![CDATA[ ]]&gt; sections.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em"><a href="../../phpDocumentor/Tutorial/parserXMLDocBookTag.html">parserXMLDocBookTag</a></td>
+					<td>
+											a standard XML DocBook Tag
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$type" title="details" class="var-name">$type</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$value" title="details" class="var-name">$value</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#add" title="details" class="method-name">add</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$stringOrInlineTag</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#Convert" title="details" class="method-name">Convert</a>
+											(<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>&nbsp;<span class="var-name">&$converter</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$postprocess</span> = <span class="var-default">true</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$trim</span> = <span class="var-default">true</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getString" title="details" class="method-name">getString</a>
+											([<span class="var-type">bool</span>&nbsp;<span class="var-name">$trim</span> = <span class="var-default">true</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#hasInlineTag" title="details" class="method-name">hasInlineTag</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setSource" title="details" class="method-name">setSource</a>
+											(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$source</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">integer</span>
+										<a href="#trimmedStrlen" title="details" class="method-name">trimmedStrlen</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$type" id="$type"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$type</span>
+			 = <span class="var-default"> '_string'</span>			(line <span class="line-number">784</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Type is used by many functions to skip the hassle of  if phpDocumentor_get_class($blah) == 'parserBlah'...</p>
+<p class="description"><p>always '_string'</p></p>
+	
+	
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/ParserData/parserBase.html#var$type">parserBase::$type</a></dt>
+						<dd>Type is used by many functions to skip the hassle of if</dd>
+					</dl>
+		
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserPackagePage.html#var$type">parserPackagePage::$type</a>
+								: Type is used by many functions to skip the hassle of if phpDocumentor_get_class($blah) == 'parserBlah'
+							</li>
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserTutorial.html#var$type">parserTutorial::$type</a>
+								: Type is used by many functions to skip the hassle of if phpDocumentor_get_class($blah) == 'parserBlah'
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserTag.html#var$type">parserTag::$type</a>
+								: Type is used by many functions to skip the hassle of
+							</li>
+					<li>
+				<a href="../../phpDocumentor/ParserDocBlock/parserDesc.html#var$type">parserDesc::$type</a>
+								: Type is used by many functions to skip the hassle of if phpDocumentor_get_class($blah) == 'parserBlah'
+							</li>
+				</ul>
+		
+
+</div>
+<a name="var$value" id="$value"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$value</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">795</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">array of strings and <a href="../../phpDocumentor/InlineTags/parserInlineTag.html">parserInlineTag</a>s</p>
+<p class="description"><p>Format:  array(string1,string2,parserInlineTag1,string3,parserInlineTag2,...)</p></p>
+	
+	
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/ParserData/parserBase.html#var$value">parserBase::$value</a></dt>
+						<dd>set to different things by its descendants</dd>
+					</dl>
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodadd" id="add"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">add</span> (line <span class="line-number">804</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">equivalent to the . operator ($a = $b . $c)</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			add
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$stringOrInlineTag</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$stringOrInlineTag</span><span class="var-description">: either a string or a <a href="../../phpDocumentor/InlineTags/parserInlineTag.html">parserInlineTag</a></span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/ParserDocBlock/parserDesc.html#methodadd">parserDesc::add()</a>
+							</li>
+					<li>
+				<a href="../../phpDocumentor/Tutorial/parserXMLDocBookTag.html#methodadd">parserXMLDocBookTag::add()</a>
+								: Add contents to this tag.
+							</li>
+				</ul>
+	</div>
+<a name="methodConvert" id="Convert"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Convert</span> (line <span class="line-number">924</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Use to convert the string to a real string  with all inline tags parsed and linked</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Converters/Converter.html#methodreturnSee">Converter::returnSee()</a></li>
+				<li><span class="field">todo:</span> CS cleanup - rename to convert for camelCase rule</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Convert
+		</span>
+					(<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>&nbsp;<span class="var-name">&$converter</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$postprocess</span> = <span class="var-default">true</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$trim</span> = <span class="var-default">true</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Converters/Converter.html">Converter</a></span>
+				<span class="var-name">&$converter</span><span class="var-description">: the output converter</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$postprocess</span><span class="var-description">: true if one needs to postprocess</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$trim</span><span class="var-description">: false if the output should not be trimmed</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserCode.html#methodConvert">parserCode::Convert()</a>
+								: performs the conversion of code tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserPre.html#methodConvert">parserPre::Convert()</a>
+								: performs the conversion of code tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserB.html#methodConvert">parserB::Convert()</a>
+								: performs the conversion of bold tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserI.html#methodConvert">parserI::Convert()</a>
+								: performs the conversion of italic tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserDescVar.html#methodConvert">parserDescVar::Convert()</a>
+								: performs the conversion of variable tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserSamp.html#methodConvert">parserSamp::Convert()</a>
+								: performs the conversion of sample tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserKbd.html#methodConvert">parserKbd::Convert()</a>
+								: performs the conversion of keyboard tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserBr.html#methodConvert">parserBr::Convert()</a>
+								: performs the conversion of linebreak tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DescHTML/parserList.html#methodConvert">parserList::Convert()</a>
+								: performs the conversion of list tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserPackagePage.html#methodConvert">parserPackagePage::Convert()</a>
+							</li>
+					<li>
+				<a href="../../phpDocumentor/ParserElements/parserTutorial.html#methodConvert">parserTutorial::Convert()</a>
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserTag.html#methodConvert">parserTag::Convert()</a>
+								: Perform the output conversion on this <a href="../../phpDocumentor/DocBlockTags/parserTag.html">parserTag</a>  using the <a href="../../Converters/Converter.html">output converter</a> that is passed in
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserNameTag.html#methodConvert">parserNameTag::Convert()</a>
+								: process this tag through the given output converter
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserAccessTag.html#methodConvert">parserAccessTag::Convert()</a>
+								: process this tag through the given output converter
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserReturnTag.html#methodConvert">parserReturnTag::Convert()</a>
+								: process this tag through the given output converter  (sets up the $converted_returnType)
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserSeeTag.html#methodConvert">parserSeeTag::Convert()</a>
+								: process this tag through the given output converter
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserUsesTag.html#methodConvert">parserUsesTag::Convert()</a>
+								: Return a link to documentation for other element,  and description of how it is used
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserUsedByTag.html#methodConvert">parserUsedByTag::Convert()</a>
+								: process this tag through the given output converter
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserTutorialTag.html#methodConvert">parserTutorialTag::Convert()</a>
+								: process this tag through the given output converter
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserFileSourceTag.html#methodConvert">parserFileSourceTag::Convert()</a>
+								: Return a link to the highlighted source and generate the source
+							</li>
+					<li>
+				<a href="../../phpDocumentor/Tutorial/parserCData.html#methodConvert">parserCData::Convert()</a>
+								: calls the output conversion
+							</li>
+					<li>
+				<a href="../../phpDocumentor/Tutorial/parserXMLDocBookTag.html#methodConvert">parserXMLDocBookTag::Convert()</a>
+								: calls the output conversion
+							</li>
+				</ul>
+	</div>
+<a name="methodgetString" id="getString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getString</span> (line <span class="line-number">896</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">return the string unconverted (all inline tags are taken out - this  should only be used in pre-parsing to see if any other text  is in the string)</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> trimmed value</li>
+				<li><span class="field">uses:</span> <a href="../../phpDocumentor/InlineTags/parserInlineTag.html#methodgetString">parserInlineTag::getString()</a> - removes inline tag length, as it is
+       indeterminate until conversion.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getString
+		</span>
+					([<span class="var-type">bool</span>&nbsp;<span class="var-name">$trim</span> = <span class="var-default">true</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$trim</span><span class="var-description">: whether to trim the string</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserTag.html#methodgetString">parserTag::getString()</a>
+								: Returns the text minus any inline tags
+							</li>
+					<li>
+				<a href="../../phpDocumentor/DocBlockTags/parserAccessTag.html#methodgetString">parserAccessTag::getString()</a>
+								: No inline tags are possible, returns 'public', 'protected' or 'private'
+							</li>
+				</ul>
+	</div>
+<a name="methodhasInlineTag" id="hasInlineTag"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">hasInlineTag</span> (line <span class="line-number">835</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Determine whether the string contains any inline tags</p>
+	<ul class="tags">
+				<li><span class="field">tutorial:</span> <a href="../../phpDocumentor/tutorial_inlinetags.pkg.html">phpDocumentor Inline tags</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			hasInlineTag
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetSource" id="setSource"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setSource</span> (line <span class="line-number">853</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Pass source code to any {@source} tags contained within the string  for later conversion.</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setSource
+		</span>
+					(<span class="var-type">string|array</span>&nbsp;<span class="var-name">$source</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string|array</span>
+				<span class="var-name">$source</span><span class="var-description">: source code ready to be highlighted</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodtrimmedStrlen" id="trimmedStrlen"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">trimmedStrlen</span> (line <span class="line-number">868</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">equivalent to trim(strlen($string))</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> length of the string this object represents</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">integer</span>
+		<span class="method-name">
+			trimmedStrlen
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/ParserData/parserBase.html">parserBase</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/ParserData/parserBase.html#methodgetType">parserBase::getType()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserData/parserBase.html#methodgetValue">parserBase::getValue()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/ParserData/parserBase.html#methodsetValue">parserBase::setValue()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:42 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

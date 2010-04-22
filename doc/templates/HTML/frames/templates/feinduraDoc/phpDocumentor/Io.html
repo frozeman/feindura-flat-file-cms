@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Io</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Io</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Class to handle file and user io opperations</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Gregory Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">author:</span> Joshua Eichorn &lt;<a href="mailto:jeichorn@phpdoc.org">jeichorn@phpdoc.org</a>&gt;</li>
+				<li><span class="field">version:</span> $Id: Io.inc 286921 2009-08-08 05:01:24Z ashnazg $</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---Io.inc.html">/phpDocumentor/Io.inc</a> (line <span class="field"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a50">50</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																								<div class="var-title">
+					<span class="var-type">false|array</span>
+					<a href="#$ignore" title="details" class="var-name">$ignore</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$phpDocOptions" title="details" class="var-name">$phpDocOptions</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">array</span>
+					<a href="#$valid_booleans" title="details" class="var-name">$valid_booleans</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																						
+				<div class="method-definition">
+											<span class="method-result">Io</span>
+										<a href="#Io" title="details" class="method-name">Io</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#checkIgnore" title="details" class="method-name">checkIgnore</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$ignore</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$ignore_no_ext</span> = <span class="var-default">true</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$ignoresymlinks</span> = <span class="var-default">false</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#dirList" title="details" class="method-name">dirList</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$orig_directory</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$hidden</span> = <span class="var-default">false</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$ignore_symlinks</span> = <span class="var-default">false</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$directory</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#displayHelpMsg" title="details" class="method-name">displayHelpMsg</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">mixed</span>
+										<a href="#getAllFiles" title="details" class="method-name">getAllFiles</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getBase" title="details" class="method-name">getBase</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$filelist</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getDirTree" title="details" class="method-name">getDirTree</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$base_dir</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$ignore</span> = <span class="var-default">array()</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$hidden</span> = <span class="var-default">false</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$ignoresymlinks</span> = <span class="var-default">false</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getReadmeInstallChangelog" title="details" class="method-name">getReadmeInstallChangelog</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$base</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$filelist</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getRegExpableSearchString" title="details" class="method-name">getRegExpableSearchString</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$s</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getTutorials" title="details" class="method-name">getTutorials</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$filelist</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#isIncludeable" title="details" class="method-name">isIncludeable</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$filename</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#parseArgv" title="details" class="method-name">parseArgv</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#readPhpFile" title="details" class="method-name">readPhpFile</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$quietMode</span> = <span class="var-default">false</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">string|array</span>
+										<a href="#removeNonMatches" title="details" class="method-name">removeNonMatches</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$dir</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$match</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#_setupIgnore" title="details" class="method-name">_setupIgnore</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$ignore</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$ignore" id="$ignore"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">false|array</span>
+			<span class="var-name">$ignore</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a63">63</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format: array(array(regexp-ready string to search for whole path,</p>
+<p class="description"><p>regexp-ready string to search for basename of ignore strings),...)</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$phpDocOptions" id="$phpDocOptions"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$phpDocOptions</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a57">57</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Holds all the options that are avaible to the cmd line interface</p>
+<p class="description"><p>and to the different web interfaces</p></p>
+	
+	
+		
+		
+
+</div>
+<a name="var$valid_booleans" id="$valid_booleans"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$valid_booleans</span>
+			 = <span class="var-default">array<br />    (<br />        '', ' ', 'on', 'y', 'yes', 'true', '1', <br />        'off', 'n', 'no', 'false', '0'<br /><br />    )</span>			(line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a71">71</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A specific array of values that boolean-based arguments can understand,  aided by the <a href="../phpDocumentor/_phpDocumentor---Setup.inc.php.html#functiondecideOnOrOff">decideOnOrOff()</a> helper method.</p>
+<p class="description"><p>Use lowercase letters always, to simplify string comparisons</p></p>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodIo" id="Io"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor Io</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a87">87</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">creates an array $this-&gt;phpDocOptions and sets program options in it.</p>
+<p class="description"><p>Array is in the format of:  <pre> [filename][tag][] = "f";
+ [filename][tag][] = "-file";
+ [filename][desc] "name of file to parse"</pre></p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">Io</span>
+		<span class="method-name">
+			Io
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcheckIgnore" id="checkIgnore"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">checkIgnore</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a717">717</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Tell whether to ignore a file or a directory  allows * and ? wildcards</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> true if $path should be ignored, false if it should not</li>
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">usedby:</span> <a href="../phpDocumentor/Io.html#methodgetDirTree">Io::getDirTree()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			checkIgnore
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$ignore</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$ignore_no_ext</span> = <span class="var-default">true</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$ignoresymlinks</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$file</span><span class="var-description">: just the file name of the file or directory,                           in the case of directories this is the last dir</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span><span class="var-description">: the path to consider (should be checked by                             realpath() before, and may be relative)</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$ignore</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$ignore_no_ext</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$ignoresymlinks</span><span class="var-description">: Ignore symlinks?</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddirList" id="dirList"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">dirList</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a377">377</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> list of files in a directory</li>
+				<li><span class="field">usedby:</span> <a href="../phpDocumentor/Io.html#methodgetAllFiles">Io::getAllFiles()</a></li>
+				<li><span class="field">usedby:</span> <a href="../phpDocumentor/Io.html#methodgetDirTree">Io::getDirTree()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			dirList
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$orig_directory</span>, [<span class="var-type">bool</span>&nbsp;<span class="var-name">$hidden</span> = <span class="var-default">false</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$ignore_symlinks</span> = <span class="var-default">false</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$directory</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$directory</span><span class="var-description">: full path to the directory you want the list of</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$hidden</span><span class="var-description">: whether to list files that begin with . like .bash_history</span>			</li>
+					<li>
+				<span class="var-type">bool</span>
+				<span class="var-name">$ignore_symlinks</span><span class="var-description">: whether to ignore symlinks</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$orig_directory</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoddisplayHelpMsg" id="displayHelpMsg"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">displayHelpMsg</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a204">204</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">create the help message for display on the command-line</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> a string containing a help message</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			displayHelpMsg
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetAllFiles" id="getAllFiles"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllFiles</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a888">888</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Take a filename with wildcards and return all files that match the</p>
+<p class="description"><p>wildcards</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> if $file contains wildcards, returns an array of matching                files, otherwise returns false</li>
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">uses:</span> <a href="../phpDocumentor/Io.html#methodremoveNonMatches">Io::removeNonMatches()</a></li>
+				<li><span class="field">uses:</span> <a href="../phpDocumentor/Io.html#methoddirList">Io::dirList()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getAllFiles
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$file</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$file</span><span class="var-description">: a full path from the -f command-line parameter, with  potential * and ? wildcards.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetBase" id="getBase"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getBase</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a444">444</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve common directory (case-insensitive in windows)</p>
+<p class="description"><p>takes the list of files, and returns the subdirectory they share in common,  so in this list:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-key">array</span><span class="src-sym">(</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-str">&quot;/dir1/dir2/subdir/dir3/filename.ext&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-str">&quot;/dir1/dir2/subdir/dir4/filename.ext&quot;</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-str">&quot;/dir1/dir2/mydir/dir5/filename.ext&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>getBase will return &quot;/dir1/dir2&quot;</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getBase
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$filelist</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$filelist</span><span class="var-description">: array of strings</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetDirTree" id="getDirTree"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDirTree</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a564">564</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">uses:</span> <a href="../phpDocumentor/_phpDocumentor---Io.inc.html#functionsetup_dirs">setup_dirs()</a></li>
+				<li><span class="field">uses:</span> <a href="../phpDocumentor/Io.html#methoddirList">Io::dirList()</a></li>
+				<li><span class="field">uses:</span> <a href="../phpDocumentor/Io.html#methodcheckIgnore">Io::checkIgnore()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getDirTree
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$base_dir</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$ignore</span> = <span class="var-default">array()</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$hidden</span> = <span class="var-default">false</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$ignoresymlinks</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$dir</span><span class="var-description">: directory</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$base_dir</span><span class="var-description">: base directory</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$ignore</span><span class="var-description">: array of ignored items</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$hidden</span><span class="var-description">: the &quot;hidden&quot; flag</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$ignoresymlinks</span><span class="var-description">: the &quot;ignoresymlinks&quot; flag</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetReadmeInstallChangelog" id="getReadmeInstallChangelog"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getReadmeInstallChangelog</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a537">537</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> array(filelist - README/INSTALL/CHANGELOG,                      README/INSTALL/CHANGELOG)</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getReadmeInstallChangelog
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$base</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$filelist</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$base</span><span class="var-description">: base directory from <a href="../phpDocumentor/Io.html#methodgetBase">getBase()</a></span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$filelist</span><span class="var-description">: file list from <a href="../phpDocumentor/Io.html#methoddirList">dirList()</a></span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetRegExpableSearchString" id="getRegExpableSearchString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRegExpableSearchString</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a832">832</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Converts $s into a string that can be used with preg_match</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> converts * to .*, ? to ., etc.</li>
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getRegExpableSearchString
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$s</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$s</span><span class="var-description">: string with wildcards ? and *</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetTutorials" id="getTutorials"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTutorials</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a493">493</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve tutorial subdirectories and their contents from the list of</p>
+<p class="description"><p>files to parse</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> array(filelist - tutorials, tutorials)</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getTutorials
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$filelist</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$filelist</span><span class="var-description">: array of paths (strings)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodisIncludeable" id="isIncludeable"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">isIncludeable</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a245">245</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">calls <a href="http://www.php.net/file_exists">http://www.php.net/file_exists</a> for each value in include_path,</p>
+<p class="description"><p>then calls <a href="http://www.php.net/is_readable">http://www.php.net/is_readable</a> when it finds the file</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			isIncludeable
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$filename</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$filename</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodparseArgv" id="parseArgv"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">parseArgv</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a277">277</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parses $_SERVER['argv'] and creates a setup array</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> a setup array</li>
+				<li><span class="field">global:</span> array $argv: command-line arguments</li>
+				<li><span class="field">todo:</span> replace with Console_* ?</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			parseArgv
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodreadPhpFile" id="readPhpFile"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">readPhpFile</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a648">648</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reads a file and returns it as a string  Does basic error checking</p>
+<p class="description"><p>file extensions are set in <a href="../phpDocumentor/_phpDocumentor---phpdoc.inc.html">phpdoc.inc</a></p></p>
+	<ul class="tags">
+				<li><span class="field">global:</span> array $_phpDocumentor_cvsphpfile_exts: PHP File extensions, used to validate that $path is a PHP File</li>
+				<li><span class="field">global:</span> array $_phpDocumentor_phpfile_exts: PHP File extensions in a CVS repository, used to validate that $path is a PHP File</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			readPhpFile
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$quietMode</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$path</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$quietMode</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodremoveNonMatches" id="removeNonMatches"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">removeNonMatches</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a859">859</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Removes files from the $dir array that do not match the search string in</p>
+<p class="description"><p>$match</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> listing of every file in a directory that matches                       the search string</li>
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">usedby:</span> <a href="../phpDocumentor/Io.html#methodgetAllFiles">Io::getAllFiles()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string|array</span>
+		<span class="method-name">
+			removeNonMatches
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$dir</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$match</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$dir</span><span class="var-description">: array of filenames (full path)</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$match</span><span class="var-description">: search string with wildcards</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_setupIgnore" id="_setupIgnore"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">_setupIgnore</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__phpDocumentorIo.inc.html#a796">796</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Construct the $ignore array</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_setupIgnore
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$ignore</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$ignore</span><span class="var-description">: strings of files/paths/wildcards to ignore</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:39 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

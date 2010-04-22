@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>inline {@example}</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_inlinetags.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_inlinetags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.inlineid.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">phpDocumentor Inline tags</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor Inline tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">inline {@id}</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">inline {@example}</h1>
+  <h2 class="ref-purpose">Display source code of an example file inline</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+    <div class="author-blurb">Tag Documentation written by <a href="mailto:cellog@php.net">cellog@php.net</a></div></span>
+   <div class="notes">Copyright 2004, Gregory Beaver</div>
+   <div class="release-info">(phpDocumentor 1.2+)</div>
+  <div class="cmd-synopsis"><span class="cmd-title">{@example</span>
+   <span class = "req">/path/to/example.php</span>
+   <span class = "opt">startline <span class = "opt">number of lines</span></span>
+   <span class = "plain">}</span></div>
+  <div class="cmd-synopsis"><span class="cmd-title">{@example</span>
+   <span class = "req">url://path/to/example.php</span>
+   <span class = "opt">startline <span class = "opt">number of lines</span></span>
+   <span class = "plain">}</span></div>
+  <div class="cmd-synopsis"><span class="cmd-title">{@example</span>
+   <span class = "req">relative/path/to/example.php</span>
+   <span class = "opt">startline <span class = "opt">number of lines</span></span>
+   <span class = "plain">}</span></div></div>
+ <span><a name="description"></a><h2 class="title">Description</h2><p>Like the <a href="../phpDocumentor/tutorial_tags.example.pkg.html">@example</a> tag, the inline example tag can be used to parse an example file for syntax highlighting and linking to documentation.  This versatile tag attempts to read the file from the full path specified, and will accept any path that <a href="http://www.php.net/fopen">http://www.php.net/fopen</a> will accept.  phpDocumentor checks the path to ensure that the file retrieved has a valid .php extension as defined in phpDocumentor.ini, and then opens the file.  It will parse the file, and output syntax-highlighted source with line numbers, links to documentation and will then add a link to the documentation to that file.</p>
+  <p>If given an absolute path, phpDocumentor will not search for the example file any further.  If given a relative path (no leading c:\ or /) phpDocumentor searches for examples files first in the directory specified by the <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.examplesdir">-ed, --examplesdir</a> command-line, if present.  As of phpDocumentor 1.2.1, it will next search for the file in an examples/ subdirectory of the current file's directory.  Otherwise, it will search for a subdirectory named &quot;examples&quot; in the top-level parsing directory, and if not found, in the top-level directory.</p>
+  <p>The top-level parsing directory is simply the directory that every file parsed has in common.</p>
+  <p>The <a href="../phpDocumentor/tutorial_tags.inlinesource.pkg.html">inline {@source}</a> tag serves a similar purpose, but instead of parsing a separate file, it parses the current function or method's source.</p>
+  <p>The {@example} tag has two optional parameters, the starting line number to display and the ending line number to display.  If only the first parameter is present, {@example} will print the source code starting on that line number to the end of the function source code.  If both parameters are present, {@example} will print an excerpt of the source code beginning on the starting line number, and concluding with the ending line number.</p></span>
+ <span><a name="example"></a><h2 class="title">Example</h2><p>Here's an example:</p>
+  <p><div class="src-code"><ol><li><div class="src-line">/**</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;My&nbsp;function</div></li>
+<li><div class="src-line">&nbsp;*</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;Here&nbsp;is&nbsp;an&nbsp;inline&nbsp;example:</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;&lt;code&gt;</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;<span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line">&nbsp;*&nbsp;echo&nbsp;<a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-str">'6'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;*&nbsp;<span class="src-php">?&gt;</span></div></li>
+<li><div class="src-line">&nbsp;*&nbsp;&lt;/code&gt;</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;and&nbsp;using&nbsp;an&nbsp;external&nbsp;example&nbsp;file:</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;{@example&nbsp;/path/to/example.php}</div></li>
+<li><div class="src-line">&nbsp;*</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;Display&nbsp;only&nbsp;the&nbsp;first&nbsp;2&nbsp;lines:</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;{@example&nbsp;/path/to/example.php&nbsp;0&nbsp;2}</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;@example&nbsp;/path/to/example.php&nbsp;How&nbsp;to&nbsp;use&nbsp;this&nbsp;function</div></li>
+<li><div class="src-line">&nbsp;*&nbsp;@example&nbsp;anotherexample.inc&nbsp;This&nbsp;example&nbsp;is&nbsp;in&nbsp;the&nbsp;&quot;examples&quot;&nbsp;subdirectory</div></li>
+<li><div class="src-line">&nbsp;*/</div></li>
+<li><div class="src-line">function&nbsp;mine()</div></li>
+<li><div class="src-line">{</div></li>
+<li><div class="src-line">}</div></li>
+</ol></div></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../phpDocumentor/tutorial_inlinetags.pkg.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../phpDocumentor/tutorial_inlinetags.pkg.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../phpDocumentor/tutorial_tags.inlineid.pkg.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">phpDocumentor Inline tags</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">phpDocumentor Inline tags</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">inline {@id}</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:57 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

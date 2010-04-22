@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class PDFParser</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class PDFParser</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">author:</span> Greg Beaver &lt;<a href="mailto:cellog@php.net">cellog@php.net</a>&gt;</li>
+				<li><span class="field">version:</span> $Id: Parser.inc 238276 2007-06-22 14:58:30Z ashnazg $</li>
+				<li><span class="field">copyright:</span> 2000-2007 Kellin, Joshua Eichorn</li>
+				<li><span class="field">since:</span> 1.2</li>
+				<li><span class="field">usedby:</span> <a href="../../Converters/PDFdefault/phpdocpdf.html#methodezText">phpdocpdf::ezText()</a> - extracts all meta-tags and processes text for output</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_phpDocumentor---Converters---PDF---default---ParserPDF.inc.html">/phpDocumentor/Converters/PDF/default/ParserPDF.inc</a> (line <span class="field"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultParserPDF.inc.html#a68">68</a></span>)
+		</p>
+		
+				
+		<pre><a href="../../phpDocumentor/Publisher.html">Publisher</a>
+   |
+   --<a href="../../phpDocumentor/Parsers/Parser.html">Parser</a>
+      |
+      --PDFParser</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																														
+				<div class="method-definition">
+											<span class="method-result">PDFParser</span>
+										<a href="#PDFParser" title="details" class="method-name">PDFParser</a>
+										()
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getParserEventName" title="details" class="method-name">getParserEventName</a>
+											(<span class="var-type">integer</span>&nbsp;<span class="var-name">$value</span>)
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#parse" title="details" class="method-name">parse</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$parse_data</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$fontdir</span>, <span class="var-type"><a href="../../Converters/PDFdefault/phpdocpdf.html">phpdocpdf</a></span>&nbsp;<span class="var-name">&$pdf</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$debug</span> = <span class="var-default">false</span>])
+									</div>
+														
+				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setupStates" title="details" class="method-name">setupStates</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../phpDocumentor/Publisher.html">Publisher</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../../phpDocumentor/Publisher.html#var$subscriber">Publisher::$subscriber</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-vars">Vars</a>
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodPDFParser" id="PDFParser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor PDFParser</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultParserPDF.inc.html#a89">89</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sets up the wordparser for this class</p>
+	
+	<div class="method-signature">
+		<span class="method-result">PDFParser</span>
+		<span class="method-name">
+			PDFParser
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetParserEventName" id="getParserEventName"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getParserEventName</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultParserPDF.inc.html#a549">549</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the name of the parser event</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getParserEventName
+		</span>
+					(<span class="var-type">integer</span>&nbsp;<span class="var-name">$value</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$value</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/Parsers/Parser.html#methodgetParserEventName">Parser::getParserEventName()</a></dt>
+						<dd>Debugging function, takes an event number and attempts to return its name</dd>
+					</dl>
+			
+	</div>
+<a name="methodparse" id="parse"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">parse</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultParserPDF.inc.html#a105">105</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse text for PDFParser XML tags, and add the text to the PDF file</p>
+	<ul class="tags">
+				<li><span class="field">staticvar:</span> integer $endrecur: used for recursion limiting if a handler for an event is not found</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			parse
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$parse_data</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$fontdir</span>, <span class="var-type"><a href="../../Converters/PDFdefault/phpdocpdf.html">phpdocpdf</a></span>&nbsp;<span class="var-name">&$pdf</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$debug</span> = <span class="var-default">false</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$parse_data</span><span class="var-description">: text to parse for PDFParser XML tags</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$fontdir</span><span class="var-description">: full path to the font directory</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../Converters/PDFdefault/phpdocpdf.html">phpdocpdf</a></span>
+				<span class="var-name">&$pdf</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$debug</span><span class="var-description">: determines whether output is saved in a variable or                    added directly to the output</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/Parsers/Parser.html#methodparse">Parser::parse()</a></dt>
+						<dd>Parse a new file</dd>
+					</dl>
+			
+	</div>
+<a name="methodsetupStates" id="setupStates"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setupStates</span> (line <span class="line-number"><a href="../../__filesource/fsource_Converters_PDFdefault_phpDocumentorConvertersPDFdefaultParserPDF.inc.html#a485">485</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">setup the parser tokens, and the pushEvent/popEvent arrays</p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../phpDocumentor/Publisher.html#var$tokens">Publisher::$tokens</a>, <a href="../../phpDocumentor/Publisher.html#var$pushEvent">Publisher::$pushEvent</a>, <a href="../../phpDocumentor/Publisher.html#var$popEvent">Publisher::$popEvent</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setupStates
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../phpDocumentor/Parsers/Parser.html#methodsetupStates">Parser::setupStates()</a></dt>
+						<dd>setup the parser tokens, and the pushEvent/popEvent arrays</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/Parsers/Parser.html">Parser</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodParser">Parser::Parser()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodcategoryTagHandler">Parser::categoryTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodcheckEventPop">Parser::checkEventPop()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodcheckEventPush">Parser::checkEventPush()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodconfigWordParser">Parser::configWordParser()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methoddefaultTagHandler">Parser::defaultTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodendTag">Parser::endTag()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodexampleTagHandler">Parser::exampleTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodgetParserEventName">Parser::getParserEventName()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodglobalTagHandler">Parser::globalTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodinvalidTagHandler">Parser::invalidTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodpackageTagHandler">Parser::packageTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodparamTagHandler">Parser::paramTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodparse">Parser::parse()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodpropertyTagHandler">Parser::propertyTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodreturnTagHandler">Parser::returnTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodsetupStates">Parser::setupStates()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodstaticvarTagHandler">Parser::staticvarTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodusesTagHandler">Parser::usesTagHandler()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Parsers/Parser.html#methodvarTagHandler">Parser::varTagHandler()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../phpDocumentor/Publisher.html">Publisher</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../phpDocumentor/Publisher.html#methodpublishEvent">Publisher::publishEvent()</a></span><br>
+													<span class="method-name"><a href="../../phpDocumentor/Publisher.html#methodsubscribe">Publisher::subscribe()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:20:48 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

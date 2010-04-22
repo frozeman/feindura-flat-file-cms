@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Converter Default Template Variables</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../Converters/tutorial_Converter.cls.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../Converters/tutorial_Converter.cls.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../Converters/tutorial_Converter.methods.cls.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Writing a New Converter</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">Writing a New Converter</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Writing a Converter, Methods</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">Converter Default Template Variables</h1>
+  <h2 class="ref-purpose">Basic Template Variables Available for Use by a New Converter</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+   <div class="author-blurb"><a href="mailto:cellog@sourceforge.com">cellog@sourceforge.com</a></div></span></div>
+ <h1 class="title">Table of Contents</h1>
+<ul class="toc">
+	
+			
+					<li><a href="../Converters/tutorial_template.vars.cls.html#intro">Introduction to Converter Template Variables</a></li>
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#smarty">Smarty</a></li>
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements">Common Source Code Element Template Variables</a></li>
+					
+				  				<ul class="toc">
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.page">Procedural Page Conversion</a></li>
+						
+					
+				  																				<ul class="toc">
+							<li><a href="../Converters/tutorial_template.vars.cls.html#elements.page.convertervars">Procedural Page Converter variables</a></li>
+															
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.page.templatevars">Procedural Page template variables</a></li>
+					
+				  								        </ul>
+					</ul>
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.functions">Function template variables</a></li>
+										
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.globals">Global variable template variables</a></li>
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.defines">Define constants template variables</a></li>
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.includes">Include statements template variables</a></li>
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.class">Class Conversion</a></li>
+					
+				  																				<ul class="toc">
+							<li><a href="../Converters/tutorial_template.vars.cls.html#elements.class.convertervars">Class Converter Variables</a></li>
+															
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.class.templatevars">Class Template Variables</a></li>
+					
+				  								        </ul>
+					</ul>
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.vars">Class variable template variables</a></li>
+										
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.methods">Function template variables</a></li>
+					
+					<li><a href="../Converters/tutorial_template.vars.cls.html#elements.tutorials">Tutorial template variables</a></li>
+						</ul>
+		</ul>
+
+ <span><a name="intro"></a><h2 class="title">Introduction to Converter Template Variables</h2><p>As of phpDocumentor version 1.2.0rc1, all Converters share certain template variables in common.  This is made possible by the common use of the Smarty template engine.  Smarty makes it possible to truly separate data from its display, allowing ultimate control of the display through the templates.</p></span>
+ <span><a name="smarty"></a><h2 class="title">Smarty</h2><p>What is Smarty?  This is a versatile compiling template engine, and has its home page at <a href="http://smarty.php.net">http://smarty.php.net</a>, please read the manual and the tutorials if you are unfamiliar with Smarty.  This tutorial only describes how to use the templates, and will be confusing if you have never used Smarty before.  In particular, you must understand fully how to use the {section} and {foreach} tags.  Please read <a href="http://smarty.php.net/manual/en/language.function.section.php">http://smarty.php.net/manual/en/language.function.section.php</a> and <a href="http://smarty.php.net/manual/en/language.function.foreach.php">http://smarty.php.net/manual/en/language.function.foreach.php</a></p>
+  <p>All template files have available to them these smarty variables:
+   <li><p>{$date} string - the current date and time, as formatted by <a href="http://www.php.net/date">date</a>(&quot;r&quot;,<a href="http://www.php.net/time">time</a>)</p></li>
+    <li><p>{$maintitle} string - the contents of the <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.command-line.title">phpDocumentor Tutorial</a> command-line switch</p></li>
+    <li><p>{$package} string - the package of the current template item</p></li>
+    <li><p>{$subpackage} string - the subpackage of the current template item</p></li>
+    <li><p>{$phpdocversion} string - the version number of phpDocumentor</p></li>
+    <li><p>{$phpdocwebsite} string - the official phpDocumentor website (<a href="http://www.phpdoc.org">http://www.phpdoc.org</a>)</p></li></p></span>
+ <span><a name="elements"></a><h2 class="title">Common Source Code Element Template Variables</h2><p>Source code elements are described in <a href="../phpDocumentor/tutorial_elements.pkg.html">Documentable PHP Elements</a>.  For most converters, documented elements are split up into two categories: class and procedural page.  The template variables that contain this information are also grouped in this manner.</p>
+  <p>The source code elements (function, include, global variable, define, class, class variable, method) all have a few template variables in common.  They are:
+   <li><p>{$sdesc} string - Summary from the DocBlock</p></li>
+    <li><p>{$desc} string - Long description from the DocBlock</p></li>
+    <li><p>{$tags} array - Tags found in the DocBlock, array('keyword' =&gt; tagname, 'data' =&gt; description). access in this manner:
+     <li><p>{section name=sec loop=$tags}{$tags[sec].keyword} = {$tags[sec].data}{/section}</p></li>
+      <li><p>or</p></li>
+      <li><p>{foreach from=$tags item=tag}{$tag.keyword} = {$tag.data}{/foreach}</p></li></p></li>
+    <li><p>{$api_tags} array - Tags found in the DocBlock useful in documenting the API, array('keyword' =&gt; tagname, 'data' =&gt; description).  Access in the same manner as {$tags}</p></li>
+    <li><p>{$info_tags} array - Tags found in the DocBlock that are purely informational in nature, offering no particular use in documenting the actual software API, array('keyword' =&gt; tagname, 'data' =&gt; description).  Access in the same manner as {$tags}</p></li>
+    <li><p>{$utags} array - Unknown tags found in the DocBlock, array('keyword' =&gt; tagname, 'data' =&gt; description).  Access in the same manner as {$tags}</p></li>
+    <li><p>{$line_number} integer - The line number in the source code that this element appears</p></li>
+    <li><p>{$id} string - EXCEPT for include, all elements have a unique ID.  This should be used to create a document anchor that will allow hyperlinking to that element's documentation.</p></li></p>
+  <span><a name="elements.page"></a><h3 class="title">Procedural Page Conversion</h3><a name="elements.page.convertervars"></a><h4 class="title">Procedural Page Converter variables</h4><p>The Converter::ConvertPage() method sets up several important variables that are used by the other conversion methods.  These are:
+     <li><p><a href="../Converters/Converter.html#var$page_data">Converter::$page_data</a> - the Smarty template that contains all procedural page contents</p></li>
+      <li><p><a href="../Converters/Converter.html#var$path">Converter::$path</a> - the full path to the procedural page</p></li>
+      <li><p><a href="../Converters/Converter.html#var$page">Converter::$page</a> - the converter-safe name of the procedural page, can be used to uniquely name output</p></li>
+      <li><p><a href="../Converters/Converter.html#var$curpage">Converter::$curpage</a> - the <a href="../phpDocumentor/ParserData/parserPage.html">parserPage</a> representation of the current procedural page</p></li></p><br />
+   <a name="elements.page.templatevars"></a><h4 class="title">Procedural Page template variables</h4><p>There are many template variables assigned to the procedural page template:
+     <li><p>{$name} string - the name of the file &quot;file.php&quot;</p></li>
+      <li><p>{$source_location} string - the relative path of the file, needed for an include statement</p></li>
+      <li><p>{$classes} array - an array of classes defined in the file, see <a href="../Converters/Converter.html#methodgetClassesOnPage">Converter::getClassesOnPage()</a></p></li>
+      <li><p>{$tutorial} string|false - a link to the tutorial associated with this page, or false if none</p></li>
+      <li><p>{$sdesc} string - summary of the procedural page from the Page-level DocBlock</p></li>
+      <li><p>{$desc} string - long description of the procedural page from the Page-level DocBlock</p></li>
+      <li><p>{$tags} array - array of all tags, array('keyword' =&gt; tagname, 'data' =&gt; description)</p></li>
+      <li><p>{$utags} array - array of all unknown tags, array('keyword' =&gt; tagname, 'data' =&gt; description).  This variable is unused in the templates packaged with phpDocumentor, and should be accessed in exactly the same manner that {$tags} is accessed.</p></li>
+      <li><p>functions, includes, defines, globals array - these arrays contain all of the procedural elements defined in the file</p></li></p><br /></span>
+  <span><a name="elements.functions"></a><h3 class="title">Function template variables</h3><p>The function and method template variables are nearly identical.  The only template variable that functions use that methods do not is {$function_conflicts}, as methods cannot have conflicts.  The function template variables are:
+    <li><p>{$function_name} string - simple name of the function</p></li>
+     <li><p>{$params} array - Function parameters, array('var' =&gt; parameter name, 'datatype' =&gt; parameter type, 'data' =&gt; parameter description).  The last two items are pulled from a <a href="../phpDocumentor/tutorial_tags.var.pkg.html">@var</a> tag.</p></li>
+     <li><p>{$function_return} string - data type that the function returns</p></li>
+     <li><p>{$function_conflicts} array - array('conflicttype' =&gt; 'function', 'conflicts' =&gt; array(link to docs of conflicting function 1, ...))</p></li>
+     <li><p>{$function_call} string - pre-formatted function declaration, use as is</p></li>
+     <li><p>{$ifunction_call} array - special unformatted function declaration, use to customize for special purposes.  All of the templates distributed with phpDocumentor use this template variable.  Writing template code for this variable is complex.  It may be best to copy over code from existing templates and modify it as needed.</p></li>
+    The {$ifunction_call} template variable is formatted by <a href="../phpDocumentor/ParserElements/parserFunction.html#methodgetIntricateFunctionCall">parserFunction::getIntricateFunctionCall()</a>, and the documentation for that method describes its format in detail.</p>
+   <p>All functions are appended to the {$functions} template variable of the procedural page that contains them.  In version 2.0, there will be greater flexibility possible with locating template variables.</p></span>
+  <span><a name="elements.globals"></a><h3 class="title">Global variable template variables</h3><p>Global variables templates are pretty simple.  They contain the standard element template variables plus:
+    <li><p>{$global_name} string - Name of the global variable</p></li>
+     <li><p>{$global_type} string - Data type of the global variable</p></li>
+     <li><p>{$global_value} string- Initial value of the global variable as parsed from the source, if any</p></li>
+     <li><p>{$global_conflicts} array|false - array('conflicttype' =&gt; 'global variables', 'conflicts' =&gt; array(link to docs of conflicting global variable 1, ...))</p></li></p>
+   <p>All global variables are appended to the {$globals} template variable of the procedural page that contains them.  In version 2.0, there will be greater flexibility possible with locating template variables.</p></span>
+  <span><a name="elements.defines"></a><h3 class="title">Define constants template variables</h3><p>Define constant templates are also pretty simple.  They contain the standard element template variables plus:
+    <li><p>{$define_name} string- Name of the constant</p></li>
+     <li><p>{$define_value} string- Value of the constant as parsed from the source</p></li>
+     <li><p>{$define_conflicts} array|false - array('conflicttype' =&gt; 'defines', 'conflicts' =&gt; array(link to docs of conflicting define 1, ...))</p></li></p>
+   <p>All define constants are appended to the {$defines} template variable of the procedural page that contains them.  In version 2.0, there will be greater flexibility possible with locating template variables.</p></span>
+  <span><a name="elements.includes"></a><h3 class="title">Include statements template variables</h3><p>Include statement templates are the simplest of all.  They contain the standard element template variables plus:
+    <li><p>{$include_name} string - the kind of include (include/require/include_once/require_once)</p></li>
+     <li><p>{$include_value} string - The file included.  If the file is parsed, a link to its documentation will be passed instead of just the name of the file.</p></li></p>
+   <p>All include statements are appended to the {$includes} template variable of the procedural page that contains them.  In version 2.0, there will be greater flexibility possible with locating template variables.</p></span>
+  <span><a name="elements.class"></a><h3 class="title">Class Conversion</h3><a name="elements.class.convertervars"></a><h4 class="title">Class Converter Variables</h4><p>Like ConvertPage(), the Converter::ConvertClass() method sets up a few important variables that are used by the other conversion methods.  These are:
+     <li><p><a href="../Converters/Converter.html#var$class_data">Converter::$class_data</a> - the Smarty template that contains all class contents for this class</p></li>
+      <li><p><a href="../Converters/Converter.html#var$class">Converter::$class</a> - the name of the current class</p></li></p><br />
+   <a name="elements.class.templatevars"></a><h4 class="title">Class Template Variables</h4><p>There are many template variables assigned to the procedural page template aside from the standard element template variables:
+     <li><p>{$class_name} string - the name of the class</p></li>
+      <li><p>{$package} string - the package of the class</p></li>
+      <li><p>{$source_location} string - the include path to the file that contains this class</p></li>
+      <li><p>{$children} array - array(array('link' =&gt; link to class that extends this class, 'sdesc' =&gt; summary of child class), ...)</p></li>
+      <li><p>{$class_tree} string - fully-formatted class tree (Converter-specific).  Use unmodified.</p></li>
+      <li><p>{$conflict} array - array('conflicttype' =&gt; 'classes', 'conflicts' =&gt; array(link to docs of conflicting class 1, ...))</p></li>
+      <li><p>{$ivars} array - complex array of all inherited variables, see <a href="../Converters/Converter.html#methodgetFormattedInheritedVars">Converter::getFormattedInheritedVars()</a></p></li>
+      <li><p>{$imethods} array - complex array of all inherited variables, see <a href="../Converters/Converter.html#methodgetFormattedInheritedMethods">Converter::getFormattedInheritedMethods()</a></p></li>
+      <li><p>vars, methods array - these template variables will contain each of the class variables and method template variables.</p></li></p><br /></span>
+  <span><a name="elements.vars"></a><h3 class="title">Class variable template variables</h3><p>The Class variable template variables are:
+    <li><p>{$var_name} string - simple name of the class variable</p></li>
+     <li><p>{$var_default} string - Default value of the class variable, if any</p></li>
+     <li><p>{$var_type} string - data type of the variable, from the <a href="../phpDocumentor/tutorial_tags.var.pkg.html">@var</a> tag.</p></li>
+     <li><p>{$var_overrides} array - array('link' =&gt; link to documentation for overridden class variable, 'sdesc' =&gt; summary of overridden class variable)</p></li>
+    The {$ifunction_call} template variable is formatted by <a href="../phpDocumentor/ParserElements/parserFunction.html#methodgetIntricateFunctionCall">parserFunction::getIntricateFunctionCall()</a>, and the documentation for that method describes its format in detail.</p>
+   <p>All class variables are appended to the {$vars} template variable of the class that contains them.  In version 2.0, there will be greater flexibility possible with locating template variables.</p></span>
+  <span><a name="elements.methods"></a><h3 class="title">Function template variables</h3><p>The function and method template variables are nearly identical.  See <a href="../Converters/tutorial_template.vars.cls.html#elements.functions">Function template variables</a> for details.  The template variables that methods use and functions do not use are:
+    <li><p>{$constructor} boolean - true/false, true if the method is a constructor</p></li>
+     <li><p>{$descmethod} array - array(array('link'=&gt;link to documentation for overriding method, 'sdesc'=&gt; summary of the overriding method),...)</p></li>
+     <li><p>{$method_overrides} array - array('link'=&gt;link to documentation for overridden method, 'sdesc'=&gt; summary of the overridden method)</p></li></p>
+   <p>All methods are appended to the {$methods} template variable of the class that contains them.  In version 2.0, there will be greater flexibility possible with locating template variables.</p></span>
+  <span><a name="elements.tutorials"></a><h3 class="title">Tutorial template variables</h3><p><li><p>{$contents} string - Converted contents of the tutorial</p></li>
+     <li><p>{$title} string - Title of the tutorial</p></li>
+     <li><p>{$nav} string - true/false, Whether any navigation links to other tutorials exist</p></li>
+     <li><p>{$up} string - link to the parent tutorial of this tutorial</p></li>
+     <li><p>{$uptitle} string - title of the parent tutorial</p></li>
+     <li><p>{$prev} string - link to the previous tutorial in the tutorial hierarchy</p></li>
+     <li><p>{$prevtitle} string - title of the previous tutorial</p></li>
+     <li><p>{$next} string - link to the next tutorial in the tutorial hierarchy</p></li>
+     <li><p>{$nexttitle} string - title of the next tutorial</p></li></p></span></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../Converters/tutorial_Converter.cls.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+							<a href="../Converters/tutorial_Converter.cls.html" class="nav-button">Up</a>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../Converters/tutorial_Converter.methods.cls.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Writing a New Converter</span>
+					</td>
+		<td style="text-align: center">
+							<span class="detail">Writing a New Converter</span>
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Writing a Converter, Methods</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:59 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

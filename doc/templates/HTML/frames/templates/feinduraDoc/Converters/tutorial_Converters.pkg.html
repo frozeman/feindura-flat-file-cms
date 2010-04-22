@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Converter Manual</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../Converters/tutorial_Converter.methods.cls.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../Converters/PDFdefault/tutorial_PDFParser.cls.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Writing a Converter, Methods</span>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Using the PDFParser XML templating language</span>
+					</td>
+	</tr>
+</table>
+	
+<div><a name=""></a><div class="ref-title-box"><h1 class="ref-title">Converter Manual</h1>
+  <h2 class="ref-purpose">Learn how to use and extend a Converter</h2></div>
+ <div class="ref-synopsis"><span class="author">Gregory Beaver
+   <div class="author-blurb"><a href="mailto:cellog@sourceforge.com">cellog@sourceforge.com</a></div></span></div>
+ <span><a name="intro"></a><h2 class="title"><a href="http://pear.php.net/package/PhpDocumentor">phpDocumentor</a> Converters Documentation</h2><p>Detailed Documentation of the tag specification is available at <a href="../phpDocumentor/tutorial_tags.pkg.html">phpDocumentor tags</a>.  Detailed information on phpDocumentor and a tutorial on basic usage is at: <a href="../phpDocumentor/tutorial_phpDocumentor.howto.pkg.html">phpDocumentor Tutorial</a></p>
+  <p>If you are wondering how to extend the capabilities of phpDocumentor's output, this is the documentation you need.  This documentation does not discuss how to document your code or project, and only deals with the specific requirements of extending phpDocumentor.</p></span>
+ <span><a name="internals"></a><h2 class="title">Internals: how phpDocumentor takes source code and generates documentation</h2><p>phpDocumentor is divided into three logical components: <a href="../phpDocumentor/Parsers/Parser.html">Parser</a>, IntermediateParser and <a href="../Converters/Converter.html">Converter</a>.  These three divisions communicate through special method interfaces.</p>
+  <span><a name="internals.parser"></a><h3 class="title">Parser internals</h3><p>The Parser component does the work of reading the actual files, both source code and tutorial/manual files.  For a detailed discussion of how to write a tutorial, see <a href="../phpDocumentor/tutorial_tutorials.pkg.html">phpDocumentor Tutorials</a>, or read the source files for phpDocumentor's manual in the tutorials/ subdirectory.  The Parser encapsulates input into abstract classes, all of which are defined in seven files:
+    <ul><li><p><a href="../phpDocumentor/DescHTML/_phpDocumentor---DescHTML.inc.html">DescHTML.inc</a></p></li>
+     <li><p><a href="../phpDocumentor/DocBlockTags/_phpDocumentor---DocBlockTags.inc.html">DocBlockTags.inc</a></p></li>
+     <li><p><a href="../phpDocumentor/InlineTags/_phpDocumentor---InlineTags.inc.html">InlineTags.inc</a></p></li>
+     <li><p><a href="../phpDocumentor/ParserData/_phpDocumentor---ParserData.inc.html">ParserData.inc</a></p></li>
+     <li><p><a href="../phpDocumentor/ParserElements/_phpDocumentor---ParserElements.inc.html">ParserElements.inc</a></p></li>
+     <li><p><a href="../phpDocumentor/ParserDocBlock/_phpDocumentor---ParserDocBlock.inc.html">ParserDocBlock.inc</a></p></li>
+     <li><p><a href="../phpDocumentor/Tutorial/_phpDocumentor---PackagePageElements.inc.html">PackagePageElements.inc</a></p></li></ul>
+    The abstract classes are then passed to the Intermediate Parser.</p></span>
+  <span><a name="internals.intermediateparser"></a><p>The IntermediateParser class organizes and processes abstract data passed in with the assistance of the <a href="../phpDocumentor/ProceduralPages.html">ProceduralPages</a> and <a href="../phpDocumentor/Classes.html">Classes</a> classes.  All data is sorted alphabetically and then passed to the converters specified on the command-line one by one.  Traditionally, the next step would be to generate output by passing the abstract data to a template engine.  phpDocumentor has one more layer of separation to accomodate different output formats called &quot;Converters.&quot;</p></span>
+  <span><a name="internals.converters"></a><p>What is a Converter?  To understand this, one must first understand the problem that Converters solve.  Documentation is not always best viewed as a web page.  Sometimes a user may want to print it out, or view it in XML with an interface program that can search or perform other advanced functions.  Printing html does not work very well, and may look very different on different user's screens.  To solve this problem, we need an interface between the parser and the template engine, hence the Converter.</p>
+   <p>On an even more basic level, the linking performed by phpDocumentor requires that the program pass over the data at least twice to set up relationships and create the @see, @tutorial, {@tutorial} and {@link} hyperlinks that make it such an effective tool.  In earlier versions of phpDocumentor, the parser passed over the data twice, with significant redundancy and slow parsing times.  In addition, the linking pass had to be first, and the order of parsing was important.  In other words, if file A contains class B extends foo, and file B contains class foo, if file A is parsed before file B, no inheritance occurs between the classes (you can try this with phpDocumentor 0.4.2a and earlier, it breaks the parser).  The Converter works with temporary data structures (all defined in ParserData.inc, ParserElements.inc, and ParserDocBlock.inc if you want a peek), and allows the linking pass to occur in-memory after parsing, with a significant speedup (almost twice as fast as earlier versions).</p></span></span>
+ <span><a name="templates"></a><h2 class="title">Adding a template</h2><p>In most cases, it is possible to leverage the existing code to create spectacular output simply by writing a new set of templates for one of the existing Converters.  To learn how to write templates for each specific converter, choose from the list below:
+   <ul><li><p><a href="../Converters/HTMLframes/tutorial_HTMLframesConverter.cls.html">Writing templates for the HTMLframes Converter</a></p></li>
+    <li><p><a href="../Converters/HTMLSmarty/tutorial_HTMLSmartyConverter.cls.html">Writing templates for the HTMLSmarty Converter</a></p></li>
+    <li><p><a href="../Converters/PDFdefault/tutorial_PDFdefaultConverter.cls.html">Writing templates for the PDFdefault Converter</a></p></li>
+    <li><p><a href="../Converters/XMLDocBook/tutorial_XMLDocBookConverter.cls.html">Writing templates for the XMLDocBook Converter</a></p></li>
+    <li><p><a href="../Converters/CHMdefault/tutorial_CHMdefaultConverter.cls.html">Writing templates for the CHMdefault Converter</a></p></li></ul></p></span>
+ <span><a name="extending"></a><h2 class="title">Extending an existing Converter by writing your own Converter Class</h2><p>If the existing converters work except for a small detail that could be fixed by adding a small patch to the source code of an output converter, then you need to extend a Converter.  There are several straightforward rules that allow you to easily extend a Converter.</p>
+  <span><a name="extending.rules"></a><h3 class="title">Rules for extending a Converter</h3><p>First, the extended converter must be defined by a single word that would work as a valid filename.  For an example, if the Converter extends the HTMLframesConverter, and provides search functionality in the generated documentation through the insertion of special php code into the generated files, it might be named &quot;Search.&quot;</p>
+   <p>Once a name has been chosen, a subdirectory of the parent converter (HTMLframesConverter is in phpDocumentor/Converters/HTML/frames/) must be created with the same name as the child converter.  So, for our &quot;Search&quot; Converter, the directory phpDocumentor/Converters/HTML/frames/Search/ must be created.  Put your new Converter in a file called <em>&quot;HTMLframes<strong>Search</strong>Converter.inc&quot;</em>.  Note the insertion of our new Converter's name before the word &quot;Converter&quot; in the filename.</p>
+   <p>Next, create a class declaration in the new HTMLframesSearchConverter.inc file as below:</p>
+   <p><div class="src-code"><ol><li><div class="src-line"><span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;HTML&nbsp;output&nbsp;converter.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;This&nbsp;Converter&nbsp;takes&nbsp;output&nbsp;from&nbsp;the&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;Parser}</span><span class="src-doc">&nbsp;and&nbsp;converts&nbsp;it&nbsp;to&nbsp;HTML-ready&nbsp;output&nbsp;for&nbsp;use&nbsp;with&nbsp;</span><span class="src-doc-inlinetag">{@link&nbsp;Smarty}</span><span class="src-doc">.</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;Add&nbsp;any&nbsp;extra&nbsp;documentation&nbsp;about&nbsp;the&nbsp;search&nbsp;capabilities&nbsp;here</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@package</span><span class="src-doc">&nbsp;Converters</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@subpackage</span><span class="src-doc">&nbsp;HTMLframes</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*&nbsp;</span><span class="src-doc-coretag">@author</span><span class="src-doc">&nbsp;Your&nbsp;Name&nbsp;&lt;example@example.com&gt;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;*/</span></div></li>
+<li><div class="src-line"><span class="src-key">class&nbsp;</span><span class="src-id">HTMLframesSearchConverter&nbsp;</span><span class="src-key">extends&nbsp;</span><a href="../Converters/Converter.html">Converter</a></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;frames/Search&nbsp;Converter&nbsp;wants&nbsp;elements&nbsp;sorted&nbsp;by&nbsp;type&nbsp;as&nbsp;well&nbsp;as&nbsp;alphabetically</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@see</span><span class="src-doc">&nbsp;Converter::$sort_page_contents_by_type</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">boolean&nbsp;</span></div></li>
+<li><div class="src-line"><span class="src-doc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$sort_page_contents_by_type&nbsp;</span>=&nbsp;<span class="src-id">true</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc">*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$outputformat&nbsp;</span>=&nbsp;<span class="src-str">'HTML'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-doc">/**&nbsp;</span><span class="src-doc-coretag">@var&nbsp;</span><span class="src-doc-type">string&nbsp;</span><span class="src-doc">*/</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">var&nbsp;</span><span class="src-var">$name&nbsp;</span>=&nbsp;<span class="src-str">'frames/Search'</span><span class="src-sym">;</span></div></li>
+</ol></div></p>
+   <p>Note the var $name is set to the relative subdirectory.  This is very important.  Do not set the name to be &quot;framesSearch&quot;, as the <a href="../Converters/Converter.html#methodsetTemplateDir">Converter::setTemplateDir()</a> method uses this variable to set the template directory.</p>
+   <p>If the existing templates work fine, and there is some other change needed, set the name to be the same as the parent, and phpDocumentor will use the parent templates.</p>
+   <p>After extending the methods the new Search Converter will need, place the templates in a subdirectory named templates/ (as in phpDocumentor/Converters/HTML/frames/Search/templates/), just as they are used in the converters that come with phpDocumentor.</p></span>
+  <span><a name="extending.using"></a><h3 class="title">Using an extended Converter with phpDocumentor</h3><p>After all this complexity of setting up the Converter, using it is straightforward.  simply pass -o HTML:frames/Search:templatename to phpDocumentor's web interface or commandline!</p></span></span>
+ <span><a name="newconverter"></a><h2 class="title">Writing a Converter for a new output format</h2><p>This topic is very large, and a separate manual entry is devoted entirely to this subject, <a href="../Converters/tutorial_Converter.cls.html">Writing a New Converter</a></p></span></div>
+
+	<table class="tutorial-nav-box">
+	<tr>
+		<td style="width: 30%">
+							<a href="../Converters/tutorial_Converter.methods.cls.html" class="nav-button">Previous</a>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<a href="../Converters/PDFdefault/tutorial_PDFParser.cls.html" class="nav-button">Next</a>
+					</td>
+	</tr>
+	<tr>
+		<td style="width: 30%">
+							<span class="detail">Writing a Converter, Methods</span>
+					</td>
+		<td style="text-align: center">
+					</td>
+		<td style="text-align: right; width: 30%">
+							<span class="detail">Using the PDFParser XML templating language</span>
+					</td>
+	</tr>
+</table>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 05 Sep 2009 16:18:59 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
