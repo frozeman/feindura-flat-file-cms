@@ -26,11 +26,13 @@ include_once(dirname(__FILE__)."/../frontend.include.php");
 /**
 * The class for the implimentation of the feindura - Flat File Content Management System in a website.
 * 
-* It's methods provide necessary functions to impliment the cms in a website.\n 
+* It's methods provide necessary functions to impliment the CMS in a website.<br>
 * It contains for example methods for building a menu and place the page content, etc.
 * 
+* @author Fabian Vogelsteller
+* @license http://www.gnu.org/licenses GNU General Public License version 3
 * @version 1.53
-* 
+*
 */
 class feindura {
   
@@ -41,18 +43,20 @@ class feindura {
   // PROTECTED
   // *********
   
-  /**
-   * Contains the session-ID, if cookies are deactivated
-   *      
-   * @var string
-   * @access protected
-   */
+ /**
+  * Contains the session-ID, if cookies are deactivated
+  * 
+  * The session ID is then placed on the end of every link.    
+  *      
+  * @var string
+  * @access protected
+  */
   var $sessionId = null;                  
   
-  /**
-  * Stores the variable names used for the <var>$_GET</var> variables
+ /**
+  * Contains the variable names used for the <var>$_GET</var> variables
   * 
-  * This variable names are configured in the feindura adminstrator settings and set in the {@link feindura()} contructor to the {@link $varNames} <var>property</var>.<br>
+  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} contructor to the {@link $varNames} <var>property</var>.<br>
   * For standard value see above.
   * 
   * Example of a link using the standard variable names  <var>array</var>:
@@ -61,25 +65,21 @@ class feindura {
   * </code>
   * 
   * @var array
-  *     
-  * @see feindura()
+  * @see feindura()  
+  * @access protected
+  *   
   */
   var $varNames = array('page' => 'page', 'category' => 'category', 'modul' =>    'modul');
 
-  
-  
-  
-  
-  
-  
-  var $storedPageIds = null;              /**< \brief \c array -> Stores all page IDs and category IDs on the first loading of a page.
+ /**
+  * Contains all page and category IDs on the first loading of a page.
   * 
-  * On the first loading of a page, in a #feindura \c class instance, 
-  * it goes trough all category folders and look which pages are in which folders and stores it in the #$storedPageIds \c property 
+  * On the first loading of a page, in a #feindura <var>class</var> instance, 
+  * it goes trough all category folders and look which pages are in which folders and saves the IDs in the this <var>property</var>,<br>
   * to speed up the page loading process.
   * 
-  * Example construction of the \c array:
-  * \code
+  * Example construction of the <var>array</var>
+  * <code>
   * array(
   *   [0] => array(
   *           'page' => 1,
@@ -90,17 +90,23 @@ class feindura {
   *           'category' => 1
   *          )
   * );
-  * \endcode
-  */
-  
-  var $storedPages = null;                /**< \brief \c array -> Stores all page content \c array's once a page is loaded.
+  * </code>
   * 
-  * If a page is loaded (\e included) it's page content \c array will be stored in the #$storedPages \c array.\n
-  * If the page is later needed again it's page content will be fetched from this \c property.\n
+  * @var array
+  * @access protected
+  *    
+  */
+  var $storedPageIds = null;              
+  
+ /**
+  * Contains all page content <var>array's</var> once a page is loaded.
+  * 
+  * If a page is loaded (<i>included</i>) it's page content <var>array</var> will be stored in the this <var>array</var>.<br>
+  * If the page is later needed again it's page content will be fetched from this <var>property</var>.<br>
   * It should speed up the page loading process.
   *
-  * Example construction of the \c array:
-  * \code
+  * Example construction of the <var>array</var>
+  * <code>
   * array(
   *   [5] => array(
   *           'id' => 5,
@@ -119,98 +125,161 @@ class feindura {
   *           'content' => '<p>example</p>'      
   *          )
   * );
-  * \endcode
+  * </code>
+  * 
+  * @var array
+  * @access protected
+  *   
   */
+  var $storedPages = null;                
                                  
   // PUBLIC
   // *********
-  var $adminConfig;                       /**< \brief \c array -> Stores the administrator settings set in the CMS backend.
+  
+ /**
+  * Contains the administrator-settings config of the CMS backend
   * 
-  * The file with the administrator settings is situated at \e "feindura-CMS/config/admin.config.php".
+  * The file with the administrator-settings is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
-  * This settings will be set to this \c property in the #feindura constructor.
+  * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
-  * \see feindura()
+  * @var array  
+  * @see feindura()
+  * @access public 
+  *    
   */
+  var $adminConfig;                       
 
-  var $websiteConfig;                     /**< \brief \c array -> Stores the website settings set in the CMS backend.
+ /**
+  * Contains the website-settings config of the CMS backend
   * 
-  * The file with the website settings is situated at \e "feindura-CMS/config/website.config.php".
+  * The file with the website-settings is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
-  * This settings will be set to this \c property in the #feindura constructor.
+  * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
-  * \see feindura()
-  */
-  
-  var $categoryConfig;                    /**< \brief \c array -> Stores the categories settings set in the CMS backend.
-  * 
-  * The file with the categories settings is situated at \e "feindura-CMS/config/category.config.php".
+  * @var array  
+  * @see feindura()
+  * @access public 
   *   
-  * This settings will be set to this \c property in the #feindura constructor.
-  * 
-  * \see feindura()
   */
+  var $websiteConfig;  
   
-  var $generalFunctions;                  /**< \brief \c array -> Stores the #generalFunctions \c class for using in this \c class.
+ /**
+  * Contains the categories-settings config of the CMS backend
   * 
-  * The file with the #generalFunctions \c class is situated at \e "feindura-CMS/library/classes/generalFunctions.class.php".
+  * The file with the categories-settings is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
-  * This \c class will be set to this \c property in the #feindura constructor.
+  * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
-  * \see feindura()
-  */
-  
-  var $statisticFunctions;                /**< \brief \c array -> Stores the #statisticFunctions \c class for using in this \c class.
-  * 
-  * The file with the #statisticFunctions \c class is situated at \e "feindura-CMS/library/classes/statisticFunctions.class.php".
+  * @var array  
+  * @see feindura()
+  * @access public 
   *   
-  * This \c class will be set to this \c property in the #feindura constructor.
-  * 
-  * \see feindura()
   */
+  var $categoryConfig;                    
   
-  var $frontendFunctions;                 /**< \brief \c array -> Stores the #frontendFunctions \c class for using in this \c class.
+ /**
+  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
   * 
-  * The file with the #frontendFunctions \c class is situated at \e "feindura-CMS/library/classes/frontendFunctions.class.php".
+  * The file with the generalFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.
   *   
-  * This \c class will be set to this \c property in the #feindura constructor.
+  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
-  * \see feindura()
+  * @var object  
+  * @see feindura()
+  * @see generalFunctions::generalFunctions()
+  * @access public
+  *   
   */
+  var $generalFunctions;
   
-  var $language = 'de';                    /**< \brief \c string -> A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files.
+ /**
+  * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
   * 
-  * The frontend language file is used when displaying page warnings or errors.\n
-  * This \c property will be set in the #feindura constructor.
+  * The file with the statisticFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.
   * 
-  * The standad value is \a "de" (german).
+  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
+  * 
+  * @var object  
+  * @see feindura()
+  * @see statisticFunctions::statisticFunctions()
+  * @access public
+  *   
+  */
+  var $statisticFunctions;                
+  
+ /**
+  * Contains a <var>instance</var> of the {@link frontendFunctions::frontendFunctions() frontendFunctions} <var>class</var> for using in this <var>class</var>.
+  * 
+  * The file with the frontendFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/frontendFunctions.class.php"</i>.
+  *   
+  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
+  * 
+  * @var object  
+  * @see feindura()
+  * @see frontendFunctions::frontendFunctions()
+  * @access public
+  *   
+  */
+  var $frontendFunctions;
+
+ /**
+  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language files.
+  * 
+  * This country code is used to include the right frontend language-file.
+  * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * 
+  * The standad value is <i>"de"</i> (german).
   *  
-  * \see feindura()
-  */
-
-  var $languageFile = null;                /**< \brief \c array -> Stores the frontend language file \c array.
-  * 
-  * The frontend language file \c array contains texts for displaying page \e warnings or \e errors and additional texts like \e "more", etc.\n
-  * The file is situated at \e "feindura-CMS/library/lang/de.frontend.php".
+  * @var string
+  * @see feindura()
+  * @see $languageFile 
+  * @access public
   *   
-  * It will be \e included and set to this \c property in the #feindura constructor.
+  */  
+  var $language = 'en';                    
+  
+ /**
+  * Contains the frontend language-file <var>array</var>
   * 
-  * \see feindura()
+  * The frontend language file <var>array</var> contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
+  *   
+  * It will be <i>included</i> and set to this <var>property</var> in the {@link feindura} constructor.
+  * 
+  * @var array  
+  * @see feindura()
+  * @access public
+  *   
   */
+  var $languageFile = null;
+  
+  
+  
+  
   
   var $xHtml = true;                      /**< \brief \c boolean -> \c true when the page content should be handled as XHTML.
   *
   * In XHTML standalone tags end with " />" instead of ">".\n
   * When a page content is displayed and #$xHtml is FALSE all " />" will be changed to ">".
+  * 
+  * @var boolean  
+  * @see feindura()
+  * @access public
+  *    
   */
   
   var $page = null;                       /**< \brief \c number -> Stores the current page ID get from the \c $_GET variable.
   *
-  * This \c property is used when a page loading \c method is called (like #showPage()) but no page ID \c parameter is given.
+  * This <var>property</var> is used when a page loading <var>method</var> is called (like #showPage()) but no page ID <var>parameter</var> is given.
   *   
-  * This \c property will be set in the #feindura constructor.
+  * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * \see feindura()  
+  * @var number  
+  * @see feindura()
+  * @access public
+  *   
   */
   
   var $pages = false;                     // [Boolean or Array]     -> Array with page IDs
@@ -219,7 +288,7 @@ class feindura {
   *
   * This \c property is used when a page loading \c method is called (like #showPage()) but no category ID \c parameter is given.
   *   
-  * This \c property will be set in the #feindura constructor.
+  * This \c property will be set in the {@link feindura} constructor.
   * 
   * \see feindura()  
   */
