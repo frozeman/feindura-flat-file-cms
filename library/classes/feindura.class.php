@@ -145,8 +145,7 @@ class feindura {
   * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
   * @var array  
-  * @see feindura()
-  * @access public 
+  * @see feindura::feindura()
   *    
   */
   var $adminConfig;
@@ -159,8 +158,7 @@ class feindura {
   * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
   * @var array  
-  * @see feindura()
-  * @access public 
+  * @see feindura::feindura()
   *   
   */
   var $websiteConfig;
@@ -173,8 +171,7 @@ class feindura {
   * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
   * @var array  
-  * @see feindura()
-  * @access public 
+  * @see feindura::feindura()
   *   
   */
   var $categoryConfig;
@@ -187,9 +184,7 @@ class feindura {
   * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
   * @var object  
-  * @see feindura()
-  * @see generalFunctions::generalFunctions()
-  * @access public
+  * @see feindura::feindura(), generalFunctions::generalFunctions()
   *   
   */
   var $generalFunctions;
@@ -202,24 +197,20 @@ class feindura {
   * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
   * @var object  
-  * @see feindura()
-  * @see statisticFunctions::statisticFunctions()
-  * @access public
+  * @see feindura::feindura(), statisticFunctions::statisticFunctions()
   *   
   */
   var $statisticFunctions;
   
  /**
-  * Contains a <var>instance</var> of the {@link frontendFunctions::frontendFunctions() frontendFunctions} <var>class</var> for using in this <var>class</var>.
+  * Contains a <var>instance</var> of the {@link frontendFunctions::() frontendFunctions} <var>class</var> for using in this <var>class</var>.
   * 
   * The file with the frontendFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/frontendFunctions.class.php"</i>.
   *   
   * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
   * 
   * @var object  
-  * @see feindura()
-  * @see frontendFunctions::frontendFunctions()
-  * @access public
+  * @see feindura::feindura(), frontendFunctions::frontendFunctions()
   *   
   */
   var $frontendFunctions;
@@ -234,9 +225,7 @@ class feindura {
   * The standad value is <i>"de"</i> (german).
   *  
   * @var string
-  * @see $languageFile   
-  * @see feindura()
-  * @access public
+  * @see $languageFile, feindura()
   *   
   */  
   var $language = 'en';
@@ -251,7 +240,6 @@ class feindura {
   * 
   * @var array  
   * @see feindura()
-  * @access public
   *   
   */
   var $languageFile = null;
@@ -262,8 +250,7 @@ class feindura {
   * In XHTML standalone tags end with " />" instead of ">".<br>
   * When a page content is displayed and this <var>property</var> is <i>FALSE</i> all " />" will be changed to ">".
   * 
-  * @var boolean  
-  * @access public
+  * @var boolean
   *    
   */
   var $xHtml = true;
@@ -277,7 +264,6 @@ class feindura {
   * 
   * @var number
   * @see feindura()
-  * @access public
   *   
   */
   var $page = null;
@@ -291,10 +277,7 @@ class feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var number
-  * @see $category  
-  * @see $startPage  
-  * @see feindura()
-  * @access public
+  * @see $category, $startPage, feindura()
   *   
   */
   var $category = null;
@@ -308,10 +291,7 @@ class feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var string
-  * @see $page
-  * @see $startPage  
-  * @see feindura()
-  * @access public
+  * @see $page, $startPage, feindura()
   *   
   */
   var $modul = false;
@@ -325,9 +305,7 @@ class feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var number
-  * @see $page
-  * @see feindura()
-  * @access public
+  * @see $page, feindura()
   *   
   */
   var $startPage = null;
@@ -338,11 +316,8 @@ class feindura {
   * 
   * 
   * @var false|string If no link id-Attribute should be assigned, set it to FALSE.
-  * @see createLink()
-  * @see createMenu()  
-  * @access public
+  * @see createLink(), createMenu()  
   * @example createLink.example.php  
-  *   
   *   
   */
   var $linkId = false;                    // [False or String]      -> the link ID which is used when creating a link (REMEMBER you can only set ONE ID in an HTML Page)
@@ -443,6 +418,23 @@ class feindura {
   
 /** \brief the constructor of the class
   * 
+  *
+  * Type:     function<br>
+ * Name:     html_select_date<br>
+ * Purpose:  Prints the dropdowns for date selection.
+ *
+ * ChangeLog:<br>
+ *           - 1.0 initial release
+ *           - 1.1 added support for +/- N syntax for begin
+ *                and end year values. (Monte)
+ *           - 1.2 added support for yyyy-mm-dd syntax for
+ *                time value. (Jan Rosier)
+ *           - 1.3 added support for choosing format for 
+ *                month values (Gary Loescher)
+ *           - 1.3.1 added support for choosing format for
+ *                day values (Marcus Bointon)
+ * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
+ *      (Smarty online manual)    
   * get the config Arrays\n
   * set the varNames from the admin.config.php
   * get the GET (if existing) and set it to the PROPERTIES
