@@ -38,7 +38,6 @@ $savedForm = false;
 $newPage = false;
 
 
-
 // ->> choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)
 // and includes the langFile

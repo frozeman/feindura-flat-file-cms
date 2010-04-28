@@ -1,59 +1,55 @@
 <?php
-/*
-    feindura - Flat File Content Management System
-    Copyright (C) Fabian Vogelsteller [frozeman.de]
+/**
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ *
+ * library/classes/generalFunctions.functions.php
+ * 
+ * @version 1.12
+ */
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-*
-* library/functions/generalFunctions.functions.php version 1.12
-*
-* FUNCTIONS ----------------------------
-* 
-* getLanguage($useLangPath = false, $returnLangArray = true, $standardLang = 'en')
-* 
-* savePage($category,$page,$contentArray)
-* 
-* readPage($page,$category = false)
-* 
-* loadPages($category = 0,$loadPagesInArray = true)
-* 
-* getPageCategory($page, $allPageIds = '')
-*
-* dateDayBeforeAfter($date,$givenLangFile = false)
-*
-* createHref($pageContent, $sessionId = false)
-*
-* sortPages($pageContentArrays, $sortBy = false)
-*
-* getCharacterNumber($string, $characterLength = false)
-*
-* cleanSpecialChars($string,$replaceSign)
-* 
-* clearTitle($title)
-* 
-* encodeToUrl($string)
-* 
-* showMemoryUsage()
-* 
-*/
-
+/**
+ * Includes sort functions
+ */ 
 include_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
+/**
+ * Contains the basic functions for reading and saving pages
+ * 
+ * And functions which are used both, by the backend and the frontend.
+ */ 
 class generalFunctions {
   
   // PUBLIC
   // *********
-  var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
-  var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
+  
+  /**
+  * Contains the administrator-settings config <var>array</var>
+  * 
+  * @var array
+  * @see generalFunctions()
+  */ 
+  var $adminConfig;
+  
+  /**
+  * Contains the category-settings config <var>array</var>
+  * 
+  * @var array
+  * @see generalFunctions()
+  */ 
+  var $categoryConfig;
+  
   
   // -> START ** constructor *****************************************************************************
   // the class constructor

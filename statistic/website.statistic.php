@@ -1,12 +1,12 @@
 <?php
 
-$websiteStatistic['userVisitCount'] =    '4';
+$websiteStatistic['userVisitCount'] =    '6';
 $websiteStatistic['spiderVisitCount'] =  '0';
 
 $websiteStatistic['firstVisit'] =        '2010-04-05 13:52:15';
-$websiteStatistic['lastVisit'] =         '2010-04-22 15:05:13';
+$websiteStatistic['lastVisit'] =         '2010-04-28 16:13:32';
 
-$websiteStatistic['userBrowsers'] =      'firefox,3';
+$websiteStatistic['userBrowsers'] =      'firefox,5';
 
 return $websiteStatistic;
 ?>

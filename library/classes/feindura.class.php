@@ -57,7 +57,7 @@ class feindura {
  /**
   * Contains the variable names used for the <var>$_GET</var> variables
   * 
-  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} contructor to the {@link $varNames} <var>property</var>.<br>
+  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} constructor to the this <var>property</var>.<br>
   * For standard value see above.
   * 
   * Example of a link using the standard variable names  <var>array</var>:
@@ -90,6 +90,7 @@ class feindura {
   *           'page' => 2,
   *           'category' => 1
   *          )
+  *   ...  
   * );
   * </code>
   * 
@@ -100,10 +101,10 @@ class feindura {
   var $storedPageIds = null;
   
  /**
-  * Contains all page content <var>array's</var> once a page is loaded.
+  * Stores page-content <var>array's</var> in this property if a page is loaded
   * 
-  * If a page is loaded (<i>included</i>) it's page content <var>array</var> will be stored in the this <var>array</var>.<br>
-  * If the page is later needed again it's page content will be fetched from this <var>property</var>.<br>
+  * If a page is loaded (<i>included</i>) it's page-content <var>array</var> will be stored in the this <var>array</var>.<br>
+  * If the page is later needed again it's page-content will be fetched from this <var>property</var>.<br>
   * It should speed up the page loading process.
   *
   * Example construction of the <var>array</var>
@@ -125,6 +126,7 @@ class feindura {
   *           ...  
   *           'content' => '<p>example</p>'      
   *          )
+  *    ...  
   * );
   * </code>
   * 
@@ -203,20 +205,7 @@ class feindura {
   var $statisticFunctions;
   
  /**
-  * Contains a <var>instance</var> of the {@link frontendFunctions::() frontendFunctions} <var>class</var> for using in this <var>class</var>.
-  * 
-  * The file with the frontendFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/frontendFunctions.class.php"</i>.
-  *   
-  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
-  * 
-  * @var object  
-  * @see feindura::feindura(), frontendFunctions::frontendFunctions()
-  *   
-  */
-  var $frontendFunctions;
-
- /**
-  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language files.
+  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files.
   * 
   * This country code is used to include the right frontend language-file.
   * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
@@ -245,7 +234,7 @@ class feindura {
   var $languageFile = null;
 
  /**
-  * <i>TRUE</i> when the page content should be handled as XHTML
+  * <i>TRUE</i> when the pages content should be handled as XHTML
   *
   * In XHTML standalone tags end with " />" instead of ">".<br>
   * When a page content is displayed and this <var>property</var> is <i>FALSE</i> all " />" will be changed to ">".
@@ -482,7 +471,6 @@ class feindura {
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();
     $this->statisticFunctions = new statisticFunctions();
-    $this->frontendFunctions = new frontendFunctions();
     
     // save the website statistics
     // ***************************

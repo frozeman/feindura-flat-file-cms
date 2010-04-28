@@ -1,55 +1,71 @@
 <?php
-/*
-    feindura - Flat File Content Management System
-    Copyright (C) Fabian Vogelsteller [frozeman.de]
+/**
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ *  
+ * library/classes/statisticFunctions.class.php
+ * 
+ * @version 0.55
+ */ 
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-*/
-// library/classes/statisticFunctions.class.php version 0.53
-
-class statisticFunctions {
+/**
+ * Provides functions for the website statistics
+ * 
+ */ 
+class statisticFunctions extends generalFunctions {
   
   // PUBLIC
   // *********
-  var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
-  var $statisticConfig;                   // [Array] the Array with the statisticConfig Data from the feindura CMS
-  var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
   
-  var $generalFunctions;
+ /**
+  * Contains the $websiteStatistic <var>array</var>
+  * 
+  * @var array
+  * @see statisticFunctions()
+  */ 
+  var $websiteStatistics = array();
+  //var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
+  //var $statisticConfig;                   // [Array] the Array with the statisticConfig Data from the feindura CMS
+  //var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
   
   // -> START ** constructor *****************************************************************************
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
-  function statisticFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-    global $adminConfig;
-    global $statisticConfig;
-    global $categories;
+  function statisticFunctions() {
+    global $websiteStatistic;     
+    //global $adminConfig;
+    //global $statisticConfig;
+    //global $categories;
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = $adminConfig;
-    $this->statisticConfig = $statisticConfig;
-    $this->categoryConfig = $categories;
+    $this->generalFunctions();
+    $this->websiteStatistic = $websiteStatistic;
+    //$this->adminConfig = $adminConfig;
+    //$this->statisticConfig = $statisticConfig;
+    //$this->categoryConfig = $categories;
     
     // GET FUNCTIONS
-    $this->generalFunctions = new generalFunctions();
-  
+    //$this->generalFunctions = new generalFunctions();
+    
     return true;
   }
 
   // ** -- getmicrotime ------------------------------------------------------------------------------
   // returns a unix timestamp as float
   // -------------------------------------------------------------------------------------------------
-  function getMicroTime(){
+  function getMicroTime() {
     list($usec, $sec) = explode(" ",microtime());
     return ((float)$usec + (float)$sec);
   }
@@ -124,7 +140,7 @@ class statisticFunctions {
     return number_format($number, $decimalsNumber, ',', ' ');
   }
   
-   // ** -- validateDateFormat ----------------------------------------------------------------------------------
+  // ** -- validateDateFormat ----------------------------------------------------------------------------------
   // checks the date,
   // RETURNs a validated array
   // with the array[0] =text before the date,
@@ -200,12 +216,12 @@ class statisticFunctions {
     // wenn die funktion nichts anderes zurückgegeben hat return false
     return false;
   }
-  
+
   // ** -- showVisitTime -----------------------------------------------------------------------------
   // SHOWs the visitTime as text
   // -------------------------------------------------------------------------------------------------
   function showVisitTime($time) {
-    global $langFile;
+    global $langFile;   
     
     $hour = substr($time,0,2);
     $minute = substr($time,3,2);
@@ -378,11 +394,10 @@ class statisticFunctions {
   // creates a chart to display the browsers, used by the users
   // -----------------------------------------------------------------------------------------------------
   function createBrowserChart() {
-    global $websiteStatistic;
     global $langFile;
     
-    if(isset($websiteStatistic['userBrowsers']) && !empty($websiteStatistic['userBrowsers'])) {
-      foreach(explode('|',$websiteStatistic['userBrowsers']) as $browser) {   
+    if(isset($this->websiteStatistic['userBrowsers']) && !empty($this->websiteStatistic['userBrowsers'])) {
+      foreach(explode('|',$this->websiteStatistic['userBrowsers']) as $browser) {   
         $browsers[] =  explode(',',$browser);
       }
       
@@ -541,8 +556,7 @@ class statisticFunctions {
       echo '<span class="blue" style="font-size:15px;">'.$langFile['log_notags'].'</span>';
     }
   }
-  
-  
+
   // ** -- isSpider ----------------------------------------------------------------------------------
   // checks if the user-agent is bot/spider
   // actual botlist from http://spiderlist.codeforgers.com/
@@ -590,13 +604,12 @@ class statisticFunctions {
           return true; // User-Agent ist ein Bot
         $i++;
       }
-      // User-Agent is no Bot
+      // User-Agent is not a Bot
       return false;
     
     } else return false; // HTTP_USER_AGENT ist nicht vorhanden
   }
 
-  
   // ** -- addDataToString ----------------------------------------------------------------------------------
   // adds to a string like "wordula,1|wordlem,5|wordquer,3" a new word or count up an exisiting word
   // RETURNs a new data String with the words counted up and/or add
@@ -642,7 +655,7 @@ class statisticFunctions {
         $countNewData = -1;
         foreach($givenData as $data) {
           if($encodeSpecialChars === true) {
-            $data = $this->generalFunctions->cleanSpecialChars($data,''); // entfernt Sonderzeichen
+            $data = $this->cleanSpecialChars($data,''); // entfernt Sonderzeichen
             $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
             //$data = str_replace('&amp;','&',$data); // prevent double decoding        
           }
@@ -669,7 +682,7 @@ class statisticFunctions {
       $countNewData = 0;
       foreach($givenData as $data) {
         if($encodeSpecialChars === true) {
-          $data = $this->generalFunctions->cleanSpecialChars($data,''); // entfernt Sonderzeichen
+          $data = $this->cleanSpecialChars($data,''); // entfernt Sonderzeichen
           $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
           //$data = str_replace('&amp;','&',$data); // prevent double decoding
         }
@@ -727,8 +740,6 @@ class statisticFunctions {
   // - logs the last referers
   // -----------------------------------------------------------------------------------------------------
   function saveWebsiteStats() {
-    global $generalFunctions; 
-    global $websiteStatistic;
     global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
     global $HTTP_SESSION_VARS;
     
@@ -743,13 +754,13 @@ class statisticFunctions {
         
         // -> saves the FIRST WEBSITE VISIT
         // -----------------------------
-        if(!isset($websiteStatistic['firstVisit']) ||
-          (isset($websiteStatistic['firstVisit']) && empty($websiteStatistic['firstVisit'])))
-          $websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+        if(!isset($this->websiteStatistic['firstVisit']) ||
+          (isset($this->websiteStatistic['firstVisit']) && empty($this->websiteStatistic['firstVisit'])))
+          $this->websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
         
         // -> saves the LAST WEBSITE VISIT
         // ----------------------------
-        $websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+        $this->websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
         
         // -> saves the HTTP REFERER
         // ----------------------------
@@ -760,28 +771,28 @@ class statisticFunctions {
             ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false) {
           
           // -> COUNT the USER UP
-          if(!isset($websiteStatistic['userVisitCount']) ||
-             (isset($websiteStatistic['userVisitCount']) && $websiteStatistic['userVisitCount'] == ''))
-            $websiteStatistic['userVisitCount'] = '1';
+          if(!isset($this->websiteStatistic['userVisitCount']) ||
+             (isset($this->websiteStatistic['userVisitCount']) && $this->websiteStatistic['userVisitCount'] == ''))
+            $this->websiteStatistic['userVisitCount'] = '1';
           else
-            $websiteStatistic['userVisitCount']++;
+            $this->websiteStatistic['userVisitCount']++;
           
           // -> adds the user BROWSER
           $userBrowser = $this->getBrowser($_SERVER['HTTP_USER_AGENT']);
-          if(isset($websiteStatistic["userBrowsers"]))
-            $websiteStatistic["userBrowsers"] = $this->addDataToString(array($userBrowser),$websiteStatistic["userBrowsers"]);
+          if(isset($this->websiteStatistic["userBrowsers"]))
+            $this->websiteStatistic["userBrowsers"] = $this->addDataToString(array($userBrowser),$this->websiteStatistic["userBrowsers"]);
           else
-            $websiteStatistic["userBrowsers"] = '';
+            $this->websiteStatistic["userBrowsers"] = '';
           
-          if(!isset($websiteStatistic["spiderVisitCount"]))
-            $websiteStatistic["spiderVisitCount"] = '0';
+          if(!isset($this->websiteStatistic["spiderVisitCount"]))
+            $this->websiteStatistic["spiderVisitCount"] = '0';
           
         // ->> COUNT the SPIDER UP
-        } elseif(!isset($websiteStatistic['spiderVisitCount']) ||
-                 (isset($websiteStatistic['spiderVisitCount']) && $websiteStatistic['spiderVisitCount'] == ''))
-          $websiteStatistic['spiderVisitCount'] = '1';
+        } elseif(!isset($this->websiteStatistic['spiderVisitCount']) ||
+                 (isset($this->websiteStatistic['spiderVisitCount']) && $this->websiteStatistic['spiderVisitCount'] == ''))
+          $this->websiteStatistic['spiderVisitCount'] = '1';
         else
-          $websiteStatistic['spiderVisitCount']++;
+          $this->websiteStatistic['spiderVisitCount']++;
 
         
         // ->> OPEN website.statistic.php for writing
@@ -790,13 +801,13 @@ class statisticFunctions {
           flock($statisticFile,2);        
           fwrite($statisticFile,PHPSTARTTAG);  
                 
-          fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
-          fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$websiteStatistic["spiderVisitCount"]."';\n\n");
+          fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$this->websiteStatistic["userVisitCount"]."';\n");
+          fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$this->websiteStatistic["spiderVisitCount"]."';\n\n");
           
-          fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        '".$websiteStatistic["firstVisit"]."';\n");
-          fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         '".$websiteStatistic["lastVisit"]."';\n\n");
+          fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        '".$this->websiteStatistic["firstVisit"]."';\n");
+          fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         '".$this->websiteStatistic["lastVisit"]."';\n\n");
           
-          fwrite($statisticFile,"\$websiteStatistic['userBrowsers'] =      '".$websiteStatistic["userBrowsers"]."';\n\n");
+          fwrite($statisticFile,"\$websiteStatistic['userBrowsers'] =      '".$this->websiteStatistic["userBrowsers"]."';\n\n");
           
           fwrite($statisticFile,"return \$websiteStatistic;");
                 
@@ -816,7 +827,6 @@ class statisticFunctions {
   // -----------------------------------------------------------------------------------------------------
   // $pageContent      [the array, given by the readPage($page,$category) function (Array)]
   function savePageStats($pageContent) {
-      global $generalFunctions;
       global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
       global $HTTP_SESSION_VARS;
       
@@ -828,7 +838,14 @@ class statisticFunctions {
       
       // -------------------------------------------------------------------------------------
       // -->> --------------------------------------------------------------------------------
-      // ->> VISIT TIME
+      // CHECKS if the user is NOT a BOT/SPIDER
+      if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
+          ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false) {
+      
+      
+        // -------------------------------------------------------------------------------------
+        // -->> --------------------------------------------------------------------------------
+        // ->> VISIT TIME
         // --------------
         $newMinVisitTimes = '';
         $newMaxVisitTimes = '';
@@ -899,19 +916,10 @@ class statisticFunctions {
           
           // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
           if(file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].'/'.$_SESSION['log_lastPage']['category'].'/'.$_SESSION['log_lastPage']['id'].'.php')) {
-            $this->generalFunctions->savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
+            $this->savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
             }
         }
-        // stores the time of the LAST PAGE in the session
-        $_SESSION['log_lastPage'] = $pageContent;
-        $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();
-        
-      
-      // -------------------------------------------------------------------------------------
-      // -->> --------------------------------------------------------------------------------
-      // CHECKS if the user is NOT a BOT/SPIDER
-      if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
-          ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false) {
+
         
         // -> saves the FIRST PAGE VISIT
         // -----------------------------
@@ -962,96 +970,20 @@ class statisticFunctions {
             
             // adds the searchwords to the searchword data string
             $pageContent['log_searchwords'] = $this->addDataToString($searchWords,$pageContent['log_searchwords']);
-            
-            /*
-            $exisitingSearchWords = explode('|',$pageContent['log_searchwords']);
-            
-            // -> COUNTS THE EXISTING SEARCHWORDS
-            $countExistingSw = 0;
-            $newSearchString = '';
-            foreach($exisitingSearchWords as $exisitingSearchWord) {          
-              $exisitingSearchWord = explode(',',$exisitingSearchWord);
-              $countExistingSw++; 
-              
-              $countNewSw = -1;
-              foreach($searchWords as $searchWord) {            
-                $searchWord = $generalFunctions->cleanSpecialChars($searchWord,''); // entfernt Sonderzeichen
-                $searchWord = htmlentities($searchWord,ENT_QUOTES, 'UTF-8');
-                $searchWord = strtolower($searchWord);
-                $countNewSw++;
-                
-                // wenn es das Stichwort schon gibt
-                if($exisitingSearchWord[0] == $searchWord) {
-                  // zählt ein die Anzahl des Stichworts höher
-                  $exisitingSearchWord[1]++;
-                  $foundSw[] = $searchWord;
-                }
-              }
-              
-              // adds the old Searchwords (maybe counted up) to the String with the new ones            
-              if(!empty($exisitingSearchWord[0])) {
-                $newSearchString .= $exisitingSearchWord[0].','.$exisitingSearchWord[1];
-                if($countExistingSw < count($exisitingSearchWords))
-                  $newSearchString .= '|';
-              }
-            }
-            
-            // -> ADDS NEW SEARCHWORDS
-            $countNewSw = 0;
-            foreach($searchWords as $searchWord) {
-            
-              $searchWord = $generalFunctions->cleanSpecialChars($searchWord,''); // entfernt Sonderzeichen
-              $searchWord = htmlentities($searchWord,ENT_QUOTES, 'UTF-8');
-              $searchWord = strtolower($searchWord);
-              $countNewSw++;
-              
-              if(isset($foundSw) && is_array($foundSw))
-                $foundSwStr = implode('|',$foundSw);
-           
-              if(!isset($foundSw) || (!empty($searchWord) && strstr($foundSwStr,$searchWord) == false)) {
-                if(!empty($searchWord)) {// verhindert das leere Suchwort strings gespeichert werden
-                  if(substr($newSearchString,-1) != '|')
-                    $newSearchString .= '|';
-                  // fügt ein neues Suchwort in den String mit den Suchwörtern ein                
-                  $newSearchString .= $searchWord.',1';
                   
-                  if($countNewSw < count($searchWords))
-                    $newSearchString .= '|';
-                }
-              }
-            }          
-            //echo $newSearchString.'<br />';
-            
-            // removes the FIRST "|"
-            while(substr($newSearchString,0,1) == '|') {
-              $newSearchString = substr($newSearchString, 1);
-            }
-            // removes the LAST "|"
-            while(substr($newSearchString,-1) == '|') {
-              $newSearchString = substr($newSearchString, 0, -1);
-            }
-            
-            // -> SORTS the NEW SEARCHWORD STRING with THE SEARCHWORD with MOST COUNT at the BEGINNING
-            if($searchWords = explode('|',$newSearchString)) {
-            
-              // sortiert den array, mithilfe der funktion sortArray
-              natsort($searchWords);
-              usort($searchWords, "sortSearchwordString");          
-        
-              // fügt den neugeordneten Suchworte String wieder zu einem Array zusammen
-              $newSearchString = implode('|',$searchWords);
-            }          
-            
-            // replace the SEARCHWORDS var
-            $pageContent['log_searchwords'] = $newSearchString;
-            */       
           }
         }
-  
+        
+        // stores the time of the LAST PAGE in the session
+        $_SESSION['log_lastPage'] = $pageContent;
+        $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();
+        
         // -> SAVE the PAGE STATISTICS
-        return $this->generalFunctions->savePage($pageContent['category'],$pageContent['id'],$pageContent);
-      }
+        return $this->savePage($pageContent['category'],$pageContent['id'],$pageContent);
+      } else return null;
+      
   }
+
 }
 
 ?>
