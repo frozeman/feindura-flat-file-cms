@@ -29,14 +29,23 @@ class statisticFunctions extends generalFunctions {
   // *********
   
  /**
-  * Contains the $websiteStatistic <var>array</var>
+  * Contains the website-statistic <var>array</var>
   * 
   * @var array
   * @see statisticFunctions()
   */ 
   var $websiteStatistics = array();
+  
+ /**
+  * Contains the backend-statistic config <var>array</var>
+  * 
+  * This <var>array</var> contains the number of task logs and referrer logs saved until the last line is droped.
+  * 
+  * @var array
+  * @see statisticFunctions()
+  */ 
+  var $statisticConfig = array();
   //var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
-  //var $statisticConfig;                   // [Array] the Array with the statisticConfig Data from the feindura CMS
   //var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
   
   // -> START ** constructor *****************************************************************************
@@ -44,16 +53,16 @@ class statisticFunctions extends generalFunctions {
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
   function statisticFunctions() {
+    global $statisticConfig; 
     global $websiteStatistic;     
     //global $adminConfig;
-    //global $statisticConfig;
     //global $categories;
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->generalFunctions();
-    $this->websiteStatistic = $websiteStatistic;
-    //$this->adminConfig = $adminConfig;
-    //$this->statisticConfig = $statisticConfig;
+    $this->statisticConfig = $statisticConfig;
+    $this->websiteStatistic = $websiteStatistic;    
+    //$this->adminConfig = $adminConfig;    
     //$this->categoryConfig = $categories;
     
     // GET FUNCTIONS

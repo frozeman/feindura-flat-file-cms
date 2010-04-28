@@ -28,10 +28,10 @@ if(!$adminConfig =      @include_once(dirname(__FILE__)."/../config/admin.config
   $adminConfig =      array();
 if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.config.php"))
   $websiteConfig =    array();
-if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.config.php"))
-  $statisticConfig =  array();
 if(!$categories =       @include_once(dirname(__FILE__)."/../config/category.config.php"))
   $categories =       array();
+if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.config.php"))
+  $statisticConfig =  array();
 if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../statistic/website.statistic.php"))
   $websiteStatistic = array();
 
