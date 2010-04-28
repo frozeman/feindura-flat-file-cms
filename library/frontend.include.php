@@ -23,5 +23,6 @@ require_once(dirname(__FILE__)."/general.include.php");
 require_once(dirname(__FILE__)."/functions/mysql.functions.php");
 
 require_once(dirname(__FILE__)."/classes/feindura.class.php");
+require_once(dirname(__FILE__)."/classes/feinduraPages.class.php");
 
 ?>
