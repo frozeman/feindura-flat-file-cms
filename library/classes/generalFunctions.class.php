@@ -16,7 +16,6 @@
  *
  * library/classes/generalFunctions.functions.php
  * 
- * @version 1.12
  */
 
 /**
@@ -28,11 +27,17 @@ include_once(dirname(__FILE__)."/../functions/sort.functions.php");
  * Contains the basic functions for reading and saving pages
  * 
  * And functions which are used both, by the backend and the frontend.
+ *
+ * @version 1.12
  */ 
 class generalFunctions {
-  
-  // PUBLIC
-  // *********
+ 
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** PROPERTIES */
+ /* **************************************************************************************************************************** */
+ 
+ // PUBLIC
+ // *********
   
   /**
   * Contains the administrator-settings config <var>array</var>
@@ -49,19 +54,20 @@ class generalFunctions {
   * @see generalFunctions()
   */ 
   var $categoryConfig;
-  
-  
+ 
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** METHODS */
+ /* **************************************************************************************************************************** */
+ 
   // -> START ** constructor *****************************************************************************
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
   function generalFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-    global $adminConfig;
-    global $categories;
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = $adminConfig;
-    $this->categoryConfig = $categories;
+    $this->adminConfig = $GLOBALS['adminConfig'];
+    $this->categoryConfig = $GLOBALS['categories'];
   
     return true;
   }  

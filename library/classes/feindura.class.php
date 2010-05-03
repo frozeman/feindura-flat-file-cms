@@ -267,9 +267,9 @@ class feindura {
   *
   * @version 1.0 
   *
-  * @global array the administrator-settings config
-  * @global array the website-settings config
-  * @global array the category-settings config
+  * @global array $GLOBALS["adminConfig"] the administrator-settings config
+  * @global array $GLOBALS["websiteConfig"] the website-settings config
+  * @global array $GLOBALS["categories"] the category-settings config
   *
   * @param string $language (optional) - A country code (example: <i>de, en, ..</i>) to load the right frontend language-file and is also set to the {@link $language} property 
   *
@@ -281,14 +281,11 @@ class feindura {
   * 
   */
   function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-    global $adminConfig;
-    global $websiteConfig;
-    global $categories;    
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = $adminConfig;
-    $this->websiteConfig = $websiteConfig;
-    $this->categoryConfig = $categories;
+    $this->adminConfig = $GLOBALS["adminConfig"];
+    $this->websiteConfig = $GLOBALS["websiteConfig"];
+    $this->categoryConfig = $GLOBALS["categories"];
     
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();

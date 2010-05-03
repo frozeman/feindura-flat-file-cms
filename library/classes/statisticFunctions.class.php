@@ -15,18 +15,22 @@
  * if not,see <http://www.gnu.org/licenses/>.
  *  
  * library/classes/statisticFunctions.class.php
- * 
- * @version 0.55
+ *
  */ 
 
 /**
  * Provides functions for the website statistics
  * 
+ * @version 0.56
  */ 
 class statisticFunctions extends generalFunctions {
-  
-  // PUBLIC
-  // *********
+ 
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** PROPERTIES */
+ /* **************************************************************************************************************************** */
+ 
+ // PUBLIC
+ // *********
   
  /**
   * Contains the website-statistic <var>array</var>
@@ -47,21 +51,21 @@ class statisticFunctions extends generalFunctions {
   var $statisticConfig = array();
   //var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
   //var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
-  
+ 
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** METHODS */
+ /* **************************************************************************************************************************** */
+ 
   // -> START ** constructor *****************************************************************************
   // the class constructor
   // get the config arrays
   // -----------------------------------------------------------------------------------------------------
   function statisticFunctions() {
-    global $statisticConfig; 
-    global $websiteStatistic;     
-    //global $adminConfig;
-    //global $categories;
-    
+
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->generalFunctions();
-    $this->statisticConfig = $statisticConfig;
-    $this->websiteStatistic = $websiteStatistic;    
+    $this->statisticConfig = $GLOBALS["statisticConfig"];
+    $this->websiteStatistic = $GLOBALS["websiteStatistic"];    
     //$this->adminConfig = $adminConfig;    
     //$this->categoryConfig = $categories;
     
@@ -230,7 +234,6 @@ class statisticFunctions extends generalFunctions {
   // SHOWs the visitTime as text
   // -------------------------------------------------------------------------------------------------
   function showVisitTime($time) {
-    global $langFile;   
     
     $hour = substr($time,0,2);
     $minute = substr($time,3,2);
@@ -270,19 +273,19 @@ class statisticFunctions extends generalFunctions {
     // get the time together
     if($hour) {
       if($hour == 1)
-        $time = $time.' <b>'.$langFile['log_hour_single'].'</b>';
+        $time = $time.' <b>'.$GLOBALS['langFile']['log_hour_single'].'</b>';
       else
-        $time = $time.' <b>'.$langFile['log_hour_multiple'].'</b>';
+        $time = $time.' <b>'.$GLOBALS['langFile']['log_hour_multiple'].'</b>';
     } elseif($minute) {
       if($minute == 1)
-        $time = $time.' <b>'.$langFile['log_minute_single'].'</b>';
+        $time = $time.' <b>'.$GLOBALS['langFile']['log_minute_single'].'</b>';
       else
-        $time = $time.' <b>'.$langFile['log_minute_multiple'].'</b>';
+        $time = $time.' <b>'.$GLOBALS['langFile']['log_minute_multiple'].'</b>';
     } elseif($second) {
       if($second == 1)
-        $time = $time.' <b>'.$langFile['log_second_single'].'</b>';
+        $time = $time.' <b>'.$GLOBALS['langFile']['log_second_single'].'</b>';
       else
-        $time = $time.' <b>'.$langFile['log_second_multiple'].'</b>';
+        $time = $time.' <b>'.$GLOBALS['langFile']['log_second_multiple'].'</b>';
     }
     
     
@@ -298,7 +301,6 @@ class statisticFunctions extends generalFunctions {
   // -----------------------------------------------------------------------------------------------------
   function saveTaskLog($task,               // (String) a description of the task which was performed
                        $object = false) {   // (String) the page name or the name of the object on which the task was performed
-    global $langFile;
     
     $maxEntries = $this->statisticConfig['number']['taskLog'];
     $logFile = dirname(__FILE__).'/../../'.'statistic/task.statistic.txt';
@@ -339,7 +341,6 @@ class statisticFunctions extends generalFunctions {
   // SAVE a log file with links where the people are coming from
   // -----------------------------------------------------------------------------------------------------
   function saveRefererLog() {   // (String) the page name or the name of the object on which the task was performed
-    global $langFile;
     
     $maxEntries = $this->statisticConfig['number']['refererLog'];
     $logFile = dirname(__FILE__).'/../../'.'statistic/referer.statistic.txt';
@@ -403,7 +404,6 @@ class statisticFunctions extends generalFunctions {
   // creates a chart to display the browsers, used by the users
   // -----------------------------------------------------------------------------------------------------
   function createBrowserChart() {
-    global $langFile;
     
     if(isset($this->websiteStatistic['userBrowsers']) && !empty($this->websiteStatistic['userBrowsers'])) {
       foreach(explode('|',$this->websiteStatistic['userBrowsers']) as $browser) {   
@@ -473,7 +473,7 @@ class statisticFunctions extends generalFunctions {
           $browserLogo = 'browser_mozilla.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'others') {
-          $browserName = $langFile['log_browser_others'];
+          $browserName = $GLOBALS['langFile']['log_browser_others'];
           $browserColor = 'url(library/image/bg/browserBg_others.png) repeat-x';
           $browserLogo = 'browser_others.png';
           $browserTextColor = '#000000';
@@ -518,13 +518,13 @@ class statisticFunctions extends generalFunctions {
         }
         
         // SHOW the table cell with the right browser and color
-        echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:'.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$langFile['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+        echo '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:'.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
       
       }
       echo '</tr></table>';
       
     } else
-      echo $langFile['home_novisitors']; 
+      echo $GLOBALS['langFile']['home_novisitors']; 
   }
   
   // ** -- createTagCloud --------------------------------------------------------------------------------
@@ -534,7 +534,6 @@ class statisticFunctions extends generalFunctions {
   // $minFontSize              [Die minimal Schriftartgröße (Number)],
   // $maxFontSize              [Die maximale Schriftartgröße (Number)]
   function createTagCloud($searchWordString,$minFontSize = 10,$maxFontSize = 20) {
-    global $langFile;
     
     if(!empty($searchWordString)) {
       foreach(explode('|',$searchWordString) as $searchWord) {   
@@ -558,11 +557,11 @@ class statisticFunctions extends generalFunctions {
         else
           $searchWordHref = urlencode(utf8_encode(html_entity_decode($searchWord[0],ENT_QUOTES,'ISO-8859-15')));
         
-        echo '<a href="?site=search&amp;search='.$searchWordHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$langFile['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$langFile['log_searchwordtothissite_part2'].'::'.$langFile['log_searchwordtothissite_tip'].'">'.$searchWord[0].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
+        echo '<a href="?site=search&amp;search='.$searchWordHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part2'].'::'.$GLOBALS['langFile']['log_searchwordtothissite_tip'].'">'.$searchWord[0].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
       
       }
     } else {
-      echo '<span class="blue" style="font-size:15px;">'.$langFile['log_notags'].'</span>';
+      echo '<span class="blue" style="font-size:15px;">'.$GLOBALS['langFile']['log_notags'].'</span>';
     }
   }
 
@@ -749,11 +748,11 @@ class statisticFunctions extends generalFunctions {
   // - logs the last referers
   // -----------------------------------------------------------------------------------------------------
   function saveWebsiteStats() {
-    global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
     global $HTTP_SESSION_VARS;
     
       //unset($_SESSION);
       
+      // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
       // if its an older php version, set the session var
       if(phpversion() <= '4.1.0')
         $_SESSION = $HTTP_SESSION_VARS;
@@ -836,11 +835,11 @@ class statisticFunctions extends generalFunctions {
   // -----------------------------------------------------------------------------------------------------
   // $pageContent      [the array, given by the readPage($page,$category) function (Array)]
   function savePageStats($pageContent) {
-      global $_SESSION; // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
       global $HTTP_SESSION_VARS;
       
       //unset($_SESSION);
       
+      // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
       // if its an older php version, set the session var
       if(phpversion() <= '4.1.0')
         $_SESSION = $HTTP_SESSION_VARS;    
