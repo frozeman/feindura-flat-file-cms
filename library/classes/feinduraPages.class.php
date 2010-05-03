@@ -43,7 +43,7 @@ class feinduraPages extends feindura {
   * In XHTML standalone tags end with " />" instead of ">".<br>
   * When a page content is displayed and this <var>property</var> is <i>FALSE</i> all " />" will be changed to ">".
   * 
-  * @var boolean
+  * @var bool
   *    
   */
   var $xHtml = true;
@@ -60,7 +60,6 @@ class feinduraPages extends feindura {
   *   
   */
   var $page = null;
-  //var $pages = false;                     // [Boolean or Array]     -> Array with page IDs  
   
  /**
   * Contains the current category ID get from the <var>$_GET</var> variable
@@ -70,11 +69,10 @@ class feinduraPages extends feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var number
-  * @see $category, $startPage, feindura()
+  * @see $category, $startPage, feindura::feindura()
   *   
   */
   var $category = null;
-  //var $categories = false;                // [Boolean or Array]     -> Array with category IDs
    
  /**
   * Contains the startpage ID website-settings config
@@ -85,7 +83,7 @@ class feinduraPages extends feindura {
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
   * @var number
-  * @see $page, feindura()
+  * @see $page, feindura::feindura()
   *   
   */
   var $startPage = null;
@@ -107,12 +105,12 @@ class feinduraPages extends feindura {
   var $linkAfter = false;                 // [False or String]      -> a String which comes AFTER the link </a> tag
   var $linkTextBefore = false;            // [False or String]      -> a String which comes BEFORE the linkText <a> tag
   var $linkTextAfter = false;             // [False or String]      -> a String which comes AFTER the linkText </a> tag
-  var $linkThumbnail = false;             // [Boolean]              -> show the thumbnail in the link
-  var $linkThumbnailAfterText = false;    // [Boolean]              -> show the thumbnail after the linkText
-  var $linkLength = false;                // [Boolean or Number]    -> the number of maximun characters for the link Title, after this length it will be shorten with abc..
-  var $linkShowCategory = false;          // [Boolean]              -> show the category name before the title
+  var $linkThumbnail = false;             // [bool]              -> show the thumbnail in the link
+  var $linkThumbnailAfterText = false;    // [bool]              -> show the thumbnail after the linkText
+  var $linkLength = false;                // [bool or Number]    -> the number of maximun characters for the link Title, after this length it will be shorten with abc..
+  var $linkShowCategory = false;          // [bool]              -> show the category name before the title
   var $linkCategorySpacer = ': ';         // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
-  var $linkShowDate = false;              // [Boolean]              -> show the page date before the title
+  var $linkShowDate = false;              // [bool]              -> show the page date before the title
 
   var $menuId = false;                    // [False or String]      -> the menu ID which is used when creating a menu (REMEMBER you can only set ONE ID in an HTML Page)
   var $menuClass = false;                 // [False or String]      -> the menu CLASS which is used when creating a menu
@@ -196,28 +194,18 @@ class feinduraPages extends feindura {
   *     
   */ 
   
-/** \brief the constructor of the class
-  * 
+/**
+  * The constructor of the class
   *
   * Type:     function<br>
- * Name:     html_select_date<br>
- * Purpose:  Prints the dropdowns for date selection.
- *
- * ChangeLog:<br>
- *           - 1.0 initial release
- *           - 1.1 added support for +/- N syntax for begin
- *                and end year values. (Monte)
- *           - 1.2 added support for yyyy-mm-dd syntax for
- *                time value. (Jan Rosier)
- *           - 1.3 added support for choosing format for 
- *                month values (Gary Loescher)
- *           - 1.3.1 added support for choosing format for
- *                day values (Marcus Bointon)
- * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
- *      (Smarty online manual)    
-  * get the config Arrays\n
-  * set the varNames from the admin.config.php
-  * get the GET (if existing) and set it to the PROPERTIES
+  * Name:     feinduraPages()<br>
+  * Purpose:  runs the parent class constructor
+  *
+  * ChangeLog:<br>
+  *           - 1.0 initial release
+  *
+  * Details:<br> 
+  *	      run the {@link feindura::feindura()} class constructor to set all necessary properties
   * 
   * get the \a frontend \a language \a file for the frontend
   * 

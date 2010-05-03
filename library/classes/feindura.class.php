@@ -22,7 +22,7 @@
 /**
 * The basis class for the implimentation classes
 * 
-* It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} class.
+* It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} classes.
 * 
 * @author Fabian Vogelsteller
 * @copyright Fabian Vogelsteller
@@ -32,12 +32,12 @@
 */
 class feindura {
   
-  // ----------------------------
-  // *** PROPERTIES
-  // ****************************
-  
-  // PROTECTED
-  // *********
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** PROPERTIES */
+ /* **************************************************************************************************************************** */
+
+ // PROTECTED
+ // *********
   
  /**
   * Contains the session-ID, if cookies are deactivated
@@ -135,11 +135,25 @@ class feindura {
   // *********
   
  /**
+  * @var number
+  * @see feinduraPages::$page
+  *   
+  */
+  var $page = null;
+  
+ /**
+  * @var number
+  * @see feinduraPages::$category
+  *   
+  */
+  var $category = null;
+  
+ /**
   * Contains the administrator-settings config of the CMS backend
   * 
   * The file with the administrator-settings is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
-  * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
+  * This settings will be set to this <var>property</var> in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura::feindura()
@@ -152,7 +166,7 @@ class feindura {
   * 
   * The file with the website-settings is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
-  * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
+  * This settings will be set to this <var>property</var> in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura::feindura()
@@ -165,7 +179,7 @@ class feindura {
   * 
   * The file with the categories-settings is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
-  * This settings will be set to this <var>property</var> in the {@link feindura} constructor.
+  * This settings will be set to this <var>property</var> in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura::feindura()
@@ -178,7 +192,7 @@ class feindura {
   * 
   * The file with the generalFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.
   *   
-  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
+  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura()} constructor.
   * 
   * @var object  
   * @see feindura::feindura(), generalFunctions::generalFunctions()
@@ -191,7 +205,7 @@ class feindura {
   * 
   * The file with the statisticFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.
   * 
-  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura} constructor.
+  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura()} constructor.
   * 
   * @var object  
   * @see feindura::feindura(), statisticFunctions::statisticFunctions()
@@ -220,116 +234,50 @@ class feindura {
   * The frontend language file <var>array</var> contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
   * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
   *   
-  * It will be <i>included</i> and set to this <var>property</var> in the {@link feindura} constructor.
+  * It will be <i>included</i> and set to this <var>property</var> in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura()
   *   
   */
   var $languageFile = null;
-
- /**
-  * <i>TRUE</i> when the pages content should be handled as XHTML
-  *
-  * In XHTML standalone tags end with " />" instead of ">".<br>
-  * When a page content is displayed and this <var>property</var> is <i>FALSE</i> all " />" will be changed to ">".
-  * 
-  * @var boolean
-  *    
-  */
-
-
-  // ----------------------------
-  // *** METHODS
-  // ****************************
-  /*
-  *
-  * STRING <- createMetaTags($charset = 'UTF-8', $robotTxt = false, $revisitAfter = '10', $author = false, $publisher = false, $copyright = false)
-  *      
-  *                           
-  * STRING <- createLink($page = false, $category = false, $linkText = true)
-  *   
-  *  
-  * ARRAY <- createMenu($idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false)
-  * 
-  * ARRAY <- createMenuByTags($tags ,$idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false)
-  *    
-  * ARRAY <- createMenuByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false, $flipList = false) 
-  * 
-  *  
-  * STRING <- showPageTitle($page = false, $category = false, $titleTag = true)
-  *    
-  * STRING <- showPage($page = false, $category = false, $shortenText = false, $useHtml = true)             <- also SAVEs the PAGE-STATISTICs
-  *   
-  *  
-  * ARRAY <- listPages($idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false)
-  *  
-  * ARRAY <- listPagesByTags($tags, $idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false)
-  * 
-  * ARRAY <- listPagesByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = true,  $useHtml = true,  $sortingConsiderCategories = false, $flipList = false)
-  * 
-  *  
-  * NUMBER <- getCurrentPage()
-  * 
-  * NUMBER <- getCurrentCategory()    
-  * 
-  * NUMBER <- setCurrentPage($setStartPage = false)
-  * 
-  * NUMBER <- setCurrentCategory()
-  *     
-  */ 
   
-/** \brief the constructor of the class
-  * 
+ 
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** METHODS */
+ /* **************************************************************************************************************************** */
+ 
+ /**
+  * The constructor of the class
   *
   * Type:     function<br>
- * Name:     html_select_date<br>
- * Purpose:  Prints the dropdowns for date selection.
- *
- * ChangeLog:<br>
- *           - 1.0 initial release
- *           - 1.1 added support for +/- N syntax for begin
- *                and end year values. (Monte)
- *           - 1.2 added support for yyyy-mm-dd syntax for
- *                time value. (Jan Rosier)
- *           - 1.3 added support for choosing format for 
- *                month values (Gary Loescher)
- *           - 1.3.1 added support for choosing format for
- *                day values (Marcus Bointon)
- * @link http://smarty.php.net/manual/en/language.function.html.select.date.php {html_select_date}
- *      (Smarty online manual)    
-  * get the config Arrays\n
-  * set the varNames from the admin.config.php
-  * get the GET (if existing) and set it to the PROPERTIES
+  * Name:     feindura()<br>
+  * Purpose:  Sets all necessary properties
+  *
+  * Details:<br> 
+  *	- get the settings config <var>arrays</var><br>
+  *	- set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property<br>
+  *	- get the <var>$_GET</var> (if existing) variable and set it to the {@link $page} and {@link $category} properties<br>
+  *	- check if cookies are activated, otherwise store the session id in the {@link $sessionId} property for use in links<br>
+  *	- get the frontend language-file adn set it to the {@link $languageFile} property
+  *
+  *
+  * ChangeLog:<br>
+  *	- 1.0 initial release
+  *
+  * @version 1.0 
+  *
+  * @global array the administrator-settings config
+  * @global array the website-settings config
+  * @global array the category-settings config
+  *
+  * @param string $language (optional) - A country code (example: <i>de, en, ..</i>) to load the right frontend language-file and is also set to the {@link $language} property 
+  *
+  * @uses $sessionId
   * 
-  * get the \a frontend \a language \a file for the frontend
-  * 
-  * 
-  * \param $language (\c string: \e optional) - A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files and is also set to the #$language \c property.
-  * 
-  * \par used Properties:
-  *   #$sessionId\n
-  *   #$sessionId\n
-  *   #$sessionId\n
-  * 
-  * \retval true
-  * 
+  * @return true
   *    
-  * \see feindura()
-  * 
-  * beispiel hier\n
-  * 
-  * \code
-  * 
-  * < href="sdf">dfgdf</a>
-  * 
-  * \endcode
-  * 
-  * This is an example of how to use the Test class.
-  * More details about this example.
-  * inline {@example createFeindura.example.php}
-  * 
-  * \line (echo)
+  * @see feindura::feindura()
   * 
   */
   function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
@@ -483,7 +431,7 @@ class feindura {
   // and RETURNs the new page PROPERTY
   // RETURNs -> NUMBER
   // -----------------------------------------------------------------------------------------------------
-  function setCurrentPage($setStartPage = false) {  // (Boolean) if TRUE it sets the startPage
+  function setCurrentPage($setStartPage = false) {  // (bool) if TRUE it sets the startPage
     
     // sets the new page PROPERTY
     $this->page = $this->getCurrentPage();
@@ -538,9 +486,9 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   function generatePage($page = false,              // (Number or pageContent Array) the page (id) to show or the pageContent array
                                   $category = false,          // (Number) the category where the page is situated 
-                                  $showErrors = true,         // (Boolean) show warnings (example: 'The page you requested doesn't exist')
-                                  $shortenText = false,       // (Boolean or Number)shorten the content Text
-                                  $useHtml = true) {          // (Boolean) use Html in the content, or strip all tags
+                                  $showErrors = true,         // (bool) show warnings (example: 'The page you requested doesn't exist')
+                                  $shortenText = false,       // (bool or Number)shorten the content Text
+                                  $useHtml = true) {          // (bool) use Html in the content, or strip all tags
 
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
@@ -750,8 +698,8 @@ class feindura {
                                  $titleTag = false,            // the TAG which is used by the title (String)
                                  $titleId = false,             // the ID which is used by the title tag (String)
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
-                                 $titleLength = false,         // if Number, it shortens the title characters to this Length (Boolean or Number)
-                                 $titleAsLink = false,         // if true, it set the title as a link (Boolean)
+                                 $titleLength = false,         // if Number, it shortens the title characters to this Length (bool or Number)
+                                 $titleAsLink = false,         // if true, it set the title as a link (bool)
                                  $titleShowCategory = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
                                  $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
                                  $inLink = false) {            // (Boolean) if TRUE it dont set the titleBefore and titleAfter
