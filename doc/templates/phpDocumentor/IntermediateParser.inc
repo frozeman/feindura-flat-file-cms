@@ -1563,7 +1563,7 @@ class phpDocumentor_IntermediateParser
         ob_start();
         $converter->_createPkgElements($this->pages);
         ob_end_clean();
-        ksort($this->uses);
+        //ksort($this->uses);
         foreach($this->uses as $link => $elements)
         {
             foreach($elements as $element)

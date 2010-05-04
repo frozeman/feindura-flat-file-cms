@@ -13,17 +13,6 @@
 </div>
 {/if}
 {if $tags}
-	{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}{assign var="hasVersion" value="true"}{/if}{/section}
-	{if $hasVersion == 'true'}
-	<div class="method-version">
-	<b>Version</b><br>
-		<ul class="tags">
-{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}
-<li>{$tags[tags].data}</li>
-{/if}{/section}
-		</ul>
-	</div>
-	{/if}
 	<div class="method-tags">
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}{assign var="hasUses" value="true"}{/if}{/section}
 	{if $hasUses == 'true'}
@@ -53,4 +42,16 @@
 		</ul>
 	{/if}
 	</div>
+	
+	{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}{assign var="hasVersion" value="true"}{/if}{/section}
+	{if $hasVersion == 'true'}
+	<div class="method-version">
+	<b>Version</b><br>
+		<ul class="tags">
+{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}
+<li>{$tags[tags].data}</li>
+{/if}{/section}
+		</ul>
+	</div>
+	{/if}
 {/if}
