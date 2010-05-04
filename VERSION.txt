@@ -3,7 +3,7 @@ Version
 1.0 beta
 Build 175
 --------------------------------------------------
-Copyright © Fabian Vogelsteller [frozeman.de]
+Copyright Â© Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -144,11 +144,11 @@ OLD LOG
 1.8	complete redesigned;
 
 
-1.71:	Übungsseite entfernt;
+1.71:	Ãœbungsseite entfernt;
 	Flatfiles werden nicht mehr nach Dateinamen sondern nach ID gespeichert;
 	mootools Drag and Drop sortierfunktion zum anordnen der Seiten;
 
-1.7:  GPL Lizens eingefügt;      
+1.7:  GPL Lizens eingefÃ¼gt;      
 
       library/php/ ordner erstellt;
       library/thumbnail/ ordner erstellt; <- thumbnailupload.php, thumbnailinfo.php, thumbnaildelete.php, thumbupload.php und util.php, config.php (von filemanager/upload/php/) hineinkopiert
@@ -157,22 +157,22 @@ OLD LOG
       functions.php aus dem frontend in library/php/frontend.php umbenannt;
       
       license.txt in version.txt umbenannt;
-      sheets.css: input[readonly] eingefügt und border auf none gesetzt;
-      alle FMS Farbschema css Dateien geändert;
+      sheets.css: input[readonly] eingefÃ¼gt und border auf none gesetzt;
+      alle FMS Farbschema css Dateien geÃ¤ndert;
 
       htmleditor/posteddata.php in library/savePage.php umbenannt; 
 
-      Dateien verändert: savePage.php, search.php, delete.php, editor.php, setup.php, home.php,
+      Dateien verÃ¤ndert: savePage.php, search.php, delete.php, editor.php, setup.php, home.php,
       userSetup.php, download.php, settings.php, index.php, fmsFuntcions.php, frontendFunctions.php,
       thumbinfo.php, thumbnaildelete.php, thumbupload.php.thumbnailupload.php,
 
-      editor/filemanager/upload/php/config.php $upload_ordner in $cfg_uploadPath geändert;
-      editor/filemanager/connectors/php/config.php $upload_ordner in $cfg_uploadPath geändert;
+      editor/filemanager/upload/php/config.php $upload_ordner in $cfg_uploadPath geÃ¤ndert;
+      editor/filemanager/connectors/php/config.php $upload_ordner in $cfg_uploadPath geÃ¤ndert;
 
-      setup.php: $sBasePath wird automatisch über dirname(__FILE__) eingefügt;
+      setup.php: $sBasePath wird automatisch Ã¼ber dirname(__FILE__) eingefÃ¼gt;
 
 
-1.68: fmsfuntion.php: phpTags werden jetzt über dirname(__FILE__)."/style/phptags.txt" geladen;
+1.68: fmsfuntion.php: phpTags werden jetzt Ã¼ber dirname(__FILE__)."/style/phptags.txt" geladen;
 
 1.67: usersetup.php, setup.php: bei der Sprachdatei speichern werden die umlaute in html zeichen umgewandelt;
 
@@ -181,67 +181,67 @@ OLD LOG
 1.65: setup.php: $version in $license umbenannt;
       postdata.php: verbessert
 
-1.64: index.php: module werde in seperaten blöcken und mit name und version angezeigt;
+1.64: index.php: module werde in seperaten blÃ¶cken und mit name und version angezeigt;
       bei allen Dateien FrozeMent System in FrozeMentSystem umbenannt;
       version.txt in license.txt umbenannt;
 
 1.63: index.php: modul/stylesheets werden automatisch geladen, aus _modules/.../css/;
-      styles/ ordner: theme input.buttons geändert;
+      styles/ ordner: theme input.buttons geÃ¤ndert;
 
 1.62: styles/ index.php: menu nach gruppen sortiert
 
 1.61: index.php: module befinden sich jetzt in unterordnern von modules/
-      sheets.css: module sind hervorgehoben gegnüber anderen buttons
+      sheets.css: module sind hervorgehoben gegnÃ¼ber anderen buttons
 
-1.6:  editor.php: überprüft das Datumsfomat
+1.6:  editor.php: Ã¼berprÃ¼ft das Datumsfomat
 
-1.59: fmsfunctions.php: numeratePage() hinzugefüpgt;
+1.59: fmsfunctions.php: numeratePage() hinzugefÃ¼pgt;
       postdata.php: neue_seite.php wird automatisch nummeriert beim vergessen des dateinamens,
       umbenennen auf schon existierende dateien wird auch diese nummeriert
-1.58: setup.php, editor.php: user entermode eingefügt (br,p oder div)
+1.58: setup.php, editor.php: user entermode eingefÃ¼gt (br,p oder div)
       delete.php: automatische weiterleitung wieder aktiviert;
 1.57: thumbnailupload.php, thumbinfo.php: erstellt (umbenannt von editor/fck_thumb.php); 
-      thumbupload.php: dateityp check, überprüft ob es ein jpeg, jpg oder png datei ist, ansonsten -> fehler
+      thumbupload.php: dateityp check, Ã¼berprÃ¼ft ob es ein jpeg, jpg oder png datei ist, ansonsten -> fehler
       editor.php, sheets.css;
-      postdata.php: bei automatischer nummerierung _ eingefügt nach der zahl;
-      fmsfunctions.php: wird jetzt überall mit require_once() eingebunden;
-      delete.php löscht jetzt auch die thumbnails mit;
+      postdata.php: bei automatischer nummerierung _ eingefÃ¼gt nach der zahl;
+      fmsfunctions.php: wird jetzt Ã¼berall mit require_once() eingebunden;
+      delete.php lÃ¶scht jetzt auch die thumbnails mit;
 1.56: search.php, setup.php, usersetup.php, index.php, postdata.php, thumbnailupload, thumbnaildelete, editor.php, fmsfunctions.php:
-      - gruppen werden per array_push und unset hinzugefügt bzw. entfernt ($gruppen_anzahl entfernt)
+      - gruppen werden per array_push und unset hinzugefÃ¼gt bzw. entfernt ($gruppen_anzahl entfernt)
       - fckeditor 2.6.4 installiert
       - sheet.css, layout.css modifiziert, beim speichern der einstellungen verschwinden diese, und erst nachdem fertig gespeichert wurde erscheinen sie wieder
-      - automatische seitennummerierung eingebaut (läßt sich für jede gruppe, ein bzw aus schalten)
+      - automatische seitennummerierung eingebaut (lÃ¤ÃŸt sich fÃ¼r jede gruppe, ein bzw aus schalten)
       - stylsheet und sprachdatei bearbeitung zentral als funktion in fmsfunctions.php integriert
 1.55: setup.php, postdata.php: automatische dateinummerierung eingebaut;
-1.54: fmsfunction.php eingeführt;
-      geändert: postdata.php, thumbnaildelete.php, thumbnailupload.php, editor.php, setup.php, usersetup.php, index.php, home.php, search.php, delete.php,
+1.54: fmsfunction.php eingefÃ¼hrt;
+      geÃ¤ndert: postdata.php, thumbnaildelete.php, thumbnailupload.php, editor.php, setup.php, usersetup.php, index.php, home.php, search.php, delete.php,
       filemanager/php/config.php settings.php rausgenommen;
-      thumbupload.php in den ordner htmleditor verschoben und geändert;
+      thumbupload.php in den ordner htmleditor verschoben und geÃ¤ndert;
 1.53: setup.php, usersetup.php, editor.php: vor alle is_file ein @is_file;
-1.52: editor.php: zuletzt bearbeitet.. neu positioniert, schriftfarbe von aktualisieren geändert;
+1.52: editor.php: zuletzt bearbeitet.. neu positioniert, schriftfarbe von aktualisieren geÃ¤ndert;
       home.php: bearbeite von <strong>autor</strong>;
-      sheet.css: h1 line height eingefügt;
-      usersetup.php, setup.php absolut elemente an neue h1 höhe angepasst;
+      sheet.css: h1 line height eingefÃ¼gt;
+      usersetup.php, setup.php absolut elemente an neue h1 hÃ¶he angepasst;
 1.51: index.php: im seitenmenu der gruppenseite, wird beim mouseover auch noch das publicdate mit angezeigt
 1.5:  editor.php haken bilder eingebaut; home.php haken bilder eingebaut; sheet.css ul.home_in rausgenommen;
-      index.php imt titel vom seitenmenü wird der status mit angezeigt;
+      index.php imt titel vom seitenmenÃ¼ wird der status mit angezeigt;
 1.49: setup.php, usersetup.php, postdata.php: php tags < ?php ? > in extra datei gespeichert (style/phptags.txt);
-1.48.2: postdata.php: speichern der content variable verbessert (überall "test"=>'text');
+1.48.2: postdata.php: speichern der content variable verbessert (Ã¼berall "test"=>'text');
 1.48.1: setup.php FrozeMentSystem Hauptpfad fett gemacht;
-1.48: setup.php: Miniaturansicht name in "Seitenbild" umgeändert
+1.48: setup.php: Miniaturansicht name in "Seitenbild" umgeÃ¤ndert
 1.47-5: setup.php, usersetup.php: design von edit stylesheets und edit sprachdatei angepasst
-1.47: usersetup.php hetmlentities() bei title eingefügt;
-      delete.php automatische weiterleitung eingefügt;
-      thumbnailupload.php, thumbnaildelete.php löschen gibt jetzt fehler aus bei fehlen der datei;
-      editor.php: Miniaturansicht in Vorschaubild umgeändert
+1.47: usersetup.php hetmlentities() bei title eingefÃ¼gt;
+      delete.php automatische weiterleitung eingefÃ¼gt;
+      thumbnailupload.php, thumbnaildelete.php lÃ¶schen gibt jetzt fehler aus bei fehlen der datei;
+      editor.php: Miniaturansicht in Vorschaubild umgeÃ¤ndert
 1.46: sprachdatei und stylesheetdatei bearbeiten eingebaut/verbessert,
-      textänderungen in setup.php; editor.php 1.1 neu thumbnailpic file_exists abfrage;
-      änderung thumbupload.php;
-      closedir änderung in index.php; änderung in der usersetup.php
+      textÃ¤nderungen in setup.php; editor.php 1.1 neu thumbnailpic file_exists abfrage;
+      Ã¤nderung thumbupload.php;
+      closedir Ã¤nderung in index.php; Ã¤nderung in der usersetup.php
 1.45: editor.php bei der testseite den auswahlbutton basic/erweitert weggenommen;
-      sheet.css bei h1 text-align: left eingefügt
-1.44: Farbige Buttons hinzugefügt (sheet.css und buttons_on/off.jpg)
-1.43: close button hinzugefügt und änderungen in der sheet.css
+      sheet.css bei h1 text-align: left eingefÃ¼gt
+1.44: Farbige Buttons hinzugefÃ¼gt (sheet.css und buttons_on/off.jpg)
+1.43: close button hinzugefÃ¼gt und Ã¤nderungen in der sheet.css
 1.42: pageT.php in _testpage.php umbenannt in index.php, postdata.php, editor.php
 1.42: weiterleitungs nach dem speichern option entfernt in postdata.php und setup.php
 1.42: modul funktion eingebaut in die index.php
