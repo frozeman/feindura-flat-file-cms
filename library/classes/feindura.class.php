@@ -51,10 +51,10 @@ class feindura {
  /**
   * Contains the variable names used for the <var>$_GET</var> variables
   * 
-  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} constructor to the this <var>property</var>.<br>
+  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} constructor to the this property.<br>
   * For standard value see above.
   * 
-  * Example of a link using the standard variable names  <var>array</var>:
+  * Example of a link using the standard variable names  array:
   * <code>
   * http://www.examplepage.com/index.php?category=1&page=6
   * </code>
@@ -70,10 +70,10 @@ class feindura {
   * Contains all page and category IDs on the first loading of a page.
   * 
   * On the first loading of a page, in a #feindura <var>class</var> instance, 
-  * it goes trough all category folders and look which pages are in which folders and saves the IDs in the this <var>property</var>,<br>
+  * it goes trough all category folders and look which pages are in which folders and saves the IDs in the this property,<br>
   * to speed up the page loading process.
   * 
-  * Example construction of the <var>array</var>
+  * Example construction of the array
   * <code>
   * array(
   *   [0] => array(
@@ -97,11 +97,11 @@ class feindura {
  /**
   * Stores page-content <var>array's</var> in this property if a page is loaded
   * 
-  * If a page is loaded (<i>included</i>) it's page-content <var>array</var> will be stored in the this <var>array</var>.<br>
-  * If the page is later needed again it's page-content will be fetched from this <var>property</var>.<br>
+  * If a page is loaded (<i>included</i>) it's page-content array will be stored in the this array.<br>
+  * If the page is later needed again it's page-content will be fetched from this property.<br>
   * It should speed up the page loading process.
   *
-  * Example construction of the <var>array</var>
+  * Example construction of the array
   * <code>
   * array(
   *   [5] => array(
@@ -154,12 +154,19 @@ class feindura {
   */
   var $startPage = null;
   
+  /**
+  * @var int
+  * @see feinduraPages::$startCategory
+  *   
+  */
+  var $startCategory = null;
+  
  /**
   * Contains the administrator-settings config of the CMS backend
   * 
   * The file with the administrator-settings is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
-  * This settings will be set to this <var>property</var> in the {@link feindura()} constructor.
+  * This settings will be set to this property in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura::feindura()
@@ -172,7 +179,7 @@ class feindura {
   * 
   * The file with the website-settings is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
-  * This settings will be set to this <var>property</var> in the {@link feindura()} constructor.
+  * This settings will be set to this property in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura::feindura()
@@ -185,7 +192,7 @@ class feindura {
   * 
   * The file with the categories-settings is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
-  * This settings will be set to this <var>property</var> in the {@link feindura()} constructor.
+  * This settings will be set to this property in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura::feindura()
@@ -198,7 +205,7 @@ class feindura {
   * 
   * The file with the generalFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.
   *   
-  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura()} constructor.
+  * The <var>instance</var> will be set to this property in the {@link feindura()} constructor.
   * 
   * @var object  
   * @see feindura::feindura(), generalFunctions::generalFunctions()
@@ -211,7 +218,7 @@ class feindura {
   * 
   * The file with the statisticFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.
   * 
-  * The <var>instance</var> will be set to this <var>property</var> in the {@link feindura()} constructor.
+  * The <var>instance</var> will be set to this property in the {@link feindura()} constructor.
   * 
   * @var object  
   * @see feindura::feindura(), statisticFunctions::statisticFunctions()
@@ -224,7 +231,7 @@ class feindura {
   * 
   * This country code is used to include the right frontend language-file.
   * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
-  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * This property will be set in the {@link feindura} constructor.
   * 
   * The standad value is <i>"de"</i> (german).
   *  
@@ -235,12 +242,12 @@ class feindura {
   var $language = 'en';
   
  /**
-  * Contains the frontend language-file <var>array</var>
+  * Contains the frontend language-file array
   * 
-  * The frontend language file <var>array</var> contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
   * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
   *   
-  * It will be <i>included</i> and set to this <var>property</var> in the {@link feindura()} constructor.
+  * It will be <i>included</i> and set to this property in the {@link feindura()} constructor.
   * 
   * @var array  
   * @see feindura()
@@ -250,16 +257,16 @@ class feindura {
   
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** METHODS */
+ /* *** METHODS *** */
  /* **************************************************************************************************************************** */
  
  /**
   * The constructor of the class, sets all basic properties
   *
-  * Type:     constructor<br>
-  * Name:     feindura()<br>
+  * <b>Type</b>     constructor<br>
+  * <b>Name</b>     feindura()<br>
   *
-  * <b>Details</b><br>
+  * <b>Detailed Description</b><br>
   *    - get the settings config <var>arrays</var>
   *    - set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property
   *    - get the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties
@@ -271,10 +278,6 @@ class feindura {
   *    - <var>$websiteConfig array</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$categories array</var> the categories-settings config (included in the {@link general.include.php})
   *
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
   *
   * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
   *
@@ -290,7 +293,12 @@ class feindura {
   * 
   * @see general.include.php
   * @see feindura::feindura()
-  * 
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
   */
   function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
@@ -344,34 +352,36 @@ class feindura {
       $this->languageFile = include(DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php');
     
   }
-  // -> END -- constructor -------------------------------------------------------------------------------
   
  /**
   * Gets the current page ID from the <var>$_GET</var> variable
   *
-  * Type:     function<br>
-  * Name:     getCurrentPage()<br>
-  * Aliases:  getPage()<br>
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getCurrentPage()<br>
+  * <b>Aliases</b>  getPage()<br>
   *
-  * <b>Details</b><br>
-  *    - gets the current page ID from the <var>$_GET</var> variable and set it to the {@link $page} <var>property</var>
-  *    - if there is no <var>$_GET</var> variable and a start-page is set in the website-settings config,
-  *      this start-page ID will be set to the {@link $page} <var>property</var>
+  * <b>Detailed Description</b><br>
+  *    - gets the current page ID from the <var>$_GET</var> variable
+  *    - if <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and looks for the right page name
+  *      and returns the ID
+  *    - if no <var>$_GET</var> variable exists it trys to return the {@link $startPage} property
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
-  *
+  * 
+  * @uses $varNames                for variable names which the <var>$_GET</var> will use for the page ID
+  * @uses $startPage               if no <var>$_GET</var>variable exists it will try to get the {@link $startPage} property
+  * @uses loadPages()              for loading all pages to get the right page ID, if the <var>$_GET</var> is not a ID but a page name
+  * @uses $adminConfig      to look if set start-page is allowed
+  * 
+  * 
+  * @return int|false the current page ID
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   *
-  * @uses $varNames
-  * @uses $page
-  * @uses $startPage
-  * 
-  * @return int the current page ID
-  * 
   */
   function getCurrentPage() {
     
@@ -402,14 +412,13 @@ class feindura {
           }
         }
       }  
-    } elseif($this->adminConfig['setStartPage'] && !empty($this->startPage)) {
+    } elseif($this->adminConfig['setStartPage'] && is_numeric($this->startPage)) {
       return $this->startPage;
     } else
       return false;
   }
  /**
   * Alias of {@link getCurrentPage()}
-  *
   * @ignore
   */
   function getPage() {
@@ -417,12 +426,35 @@ class feindura {
     return $this->getCurrentPage();
   }
 
-  // -> START -- getCurrentCategory **********************************************************************
-  // RETURNs the current GET category var
-  // RETURNs -> NUMBER
-  // -----------------------------------------------------------------------------------------------------
+ /**
+  * Gets the current category ID from the <var>$_GET</var> variable
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getCurrentCategory()<br>
+  * <b>Aliases</b>  getCategory()<br>
+  *
+  * <b>Detailed Description</b><br>
+  *    - gets the current category ID from the <var>$_GET</var> variable
+  *    - if <var>$_GET</var> is not a ID but a category name, it looks in the {@link $categoryConfig} for the right category ID
+  *    - if no <var>$_GET</var> variable exists it trys to return the {@link $startPage} property
+  *
+  * <b>Used Global Variables</b><br>
+  *    - <var>$_GET</var> to fetch the category ID
+  *
+  * @uses $varNames                for variable names which the <var>$_GET</var> will use for the category ID
+  * @uses $startPage               if no <var>$_GET</var>variable exists it will try to get the {@link $startPage} property
+  * @uses $adminConfig      to look if set start-page is allowed
+  * @uses $categoryConfig          for the right category name, if the <var>$_GET</var> is not a ID but a category name
+  * 
+  * @return int|false the current category ID
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
   function getCurrentCategory() {
-    global $_GET;
     
     // ->> GET CATEGORY is an ID
     // *************************
@@ -445,63 +477,112 @@ class feindura {
         if($this->generalFunctions->encodeToUrl($category['name']) == $transformedCategory) {
           return $category['id'];
         }
-      }      
-    } elseif($this->adminConfig['setStartPage'] && !empty($this->startPage)) {
-      return $this->getPageCategory($this->startPage);
+      }
+    } elseif($this->adminConfig['setStartPage'] && is_numeric($this->startCategory)) {
+	
+      return $this->startCategory;
     } else
       return false;
   }
-  // -> *ALIAS* OF getCurrentCategory ***********************************************************************
+ /**
+  * Alias of {@link getCurrentCategory()}
+  * @ignore
+  */
   function getCategory() {
     // call the right function
     return $this->getCurrentCategory();
   }
   
-  
-  // -> START -- setCurrentPage **************************************************************************
-  // saves the the current GET page var in the page PROPERTY
-  // and RETURNs the new page PROPERTY
-  // RETURNs -> NUMBER
-  // -----------------------------------------------------------------------------------------------------
-  function setCurrentPage($setStartPage = false) {  // (bool) if TRUE it sets the startPage
-    
-    // sets the new page PROPERTY
-    $this->page = $this->getCurrentPage();
+ /**
+  * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     setCurrentPage()<br>
+  * <b>Aliases</b>  setPage()<br>
+  *
+  * <b>Detailed Description</b><br>
+  *    - gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPage}) and set it to the {@link $page} property
+  *    - if parameter <var>$setStartPage</var> is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}
+  *
+  * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
+  *
+  * @uses $adminConfig      to look if set start-page is allowed
+  * @uses $websiteConfig    to get the start-page ID
+  * @uses $page             as the property to set
+  * @uses $startPage        if parameter <var>$setStartPage</var> is TRUE this property will also be set
+  * 
+  * @return int the set page ID
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function setCurrentPage($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
     
     // sets the startPage if it exists
-    if($setStartPage === true && empty($this->page) && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
-      $this->page = $this->websiteConfig['startPage'];
+    if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
       $this->startPage = $this->websiteConfig['startPage'];
-    } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
-      $this->startPage = $this->websiteConfig['startPage'];
+    }
+      
+    // sets the new page PROPERTY
+    $this->page = $this->getCurrentPage();
       
     return $this->page;
   }
-  // -> *ALIAS* OF setCurrentPage ***********************************************************************
+ /**
+  * Alias of {@link setCurrentPage()}
+  * @ignore
+  */
   function setPage($setStartPage = false) {
     // call the right function
     return $this->setCurrentPage($setStartPage);
   }
   
-  // -> START -- setCurrentCategory **********************************************************************
-  // saves the the current GET category var in the category PROPERTY
-  // and RETURNs the new category PROPERTY
-  // RETURNs -> NUMBER
-  // -----------------------------------------------------------------------------------------------------
-  function setCurrentCategory($setStartPage = false) {
+ /**
+  * Sets the current category ID from the <var>$_GET</var> variable to the {@link $category} property
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     setCurrentCategory()<br>
+  * <b>Aliases</b>  setCategory()<br>
+  *
+  * <b>Detailed Description</b><br>
+  *    - gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategory}) and set it to the {@link $category} property
+  *    - if parameter <var>$setStartCategory</var> is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}
+  *
+  * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
+  *
+  * @uses $adminConfig      to look if set start-page is allowed
+  * @uses $websiteConfig    to get the start-page ID
+  * @uses $category         as the property to set
+  * @uses $startCategory    if parameter <var>$setStartCategory</var> is TRUE this property will also be set
+  * @uses getPageCategory() to get the right category ID of the start-page
+  * 
+  * @return int the set category ID
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function setCurrentCategory($setStartCategory = false) {
+    
+    // sets the startPage if it exists
+    if($setStartCategory === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
+      $this->startCategory = $this->getPageCategory($this->websiteConfig['startPage']);
+    }
+    
     // sets the new category PROPERTY
     $this->category = $this->getCurrentCategory();
     
-    // sets the startPage if it exists
-    if($setStartPage === true && empty($this->page) && empty($this->category) && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
-      $this->category = $this->getPageCategory($this->websiteConfig['startPage']);
-      $this->startPage = $this->websiteConfig['startPage'];
-    } elseif($this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']))
-      $this->startPage = $this->websiteConfig['startPage'];
-    
     return $this->category;
   }
-  // -> *ALIAS* OF setCurrentCategory ***********************************************************************
+ /**
+  * Alias of {@link setCurrentCategory()}
+  * @ignore
+  */
   function setCategory() {
     // call the right function
     return $this->setCurrentCategory();

@@ -32,15 +32,15 @@
 */
 class feinduraPages extends feindura {
   
-  // ----------------------------
-  // *** PROPERTIES
-  // ****************************
-                                 
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** PROPERTIES */
+ /* **************************************************************************************************************************** */
+                            
  /**
   * <i>TRUE</i> when the pages content should be handled as XHTML
   *
   * In XHTML standalone tags end with " />" instead of ">".<br>
-  * When a page content is displayed and this <var>property</var> is <i>FALSE</i> all " />" will be changed to ">".
+  * When a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
   *    
@@ -50,11 +50,12 @@ class feinduraPages extends feindura {
  /**
   * Contains the current page ID get from the <var>$_GET</var> variable
   *
-  * This <var>property</var> is used when a page loading <var>method</var> is called (for example: {@link showPage()}) and no page ID <var>parameter</var> is given.
+  * This property is used when a page loading method is called (for example: {@link showPage()}) and no page ID <var>parameter</var> is given.
   *   
-  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * This property will be set in the {@link feindura()} constructor.
   * 
   * @var int
+  *
   * @see feindura()
   *   
   */
@@ -63,29 +64,52 @@ class feinduraPages extends feindura {
  /**
   * Contains the current category ID get from the <var>$_GET</var> variable
   *
-  * This <var>property</var> is used when a page-loading <var>method</var> is called (for example: {@link showPage()}) and no category ID <var>parameter</var> is given.
+  * This property is used when a page-loading method is called (for example: {@link showPage()}) and no category ID <var>parameter</var> is given.
   *   
-  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * This property will be set in the {@link feindura()} constructor.
   * 
   * @var int
-  * @see $category, $startPage, feindura::feindura()
+  *
+  * @see feindura()
   *   
   */
   var $category = null;
    
  /**
-  * Contains the startpage ID website-settings config
+  * Contains the start-page ID from the website-settings config
   *
-  * This <var>property</var> is used a page loading <var>method</var> is called (for example: {@link showPage()}) and no page ID <var>parameter</var> is given<br>
-  * <b> and the {@link page} <var>property</var> is <i>empty</i>.
+  * This property is set to the {@link $page} property when the <var>$_GET</var> page variable is empty<br>
+  * and the {@link $page} property is empty.
   *   
-  * This <var>property</var> will be set in the {@link feindura} constructor.
+  * This property will be set on the first call of the {@link setCurrentPage()} method in the {@link feindura()} constructor.
   * 
   * @var int
-  * @see $page, feindura::feindura()
+  *
+  * @see $page
+  * @see feindura()
+  * @see setCurrentPage()
   *   
   */
   var $startPage = null;
+  
+ /**
+  * Contains the start-category ID
+  *
+  * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br>
+  * This property is set to the {@link $category} property when the <var>$_GET</var> category variable is empty<br>
+  * and the {@link $category} property is empty.
+  *   
+  * This property will be set on the first call of the {@link setCurrentCategory()} method in the {@link feindura()} constructor.
+  * 
+  * @var int
+  *
+  * @see $category
+  * @see $startPage
+  * @see feindura()
+  * @see setCurrentPage()
+  *   
+  */
+  var $startCategory = null;
   
  /**
   * Contains a id-Attribute which will be assigned to any link created by {@link createLink()} or {@link createMenu()}
@@ -153,9 +177,10 @@ class feinduraPages extends feindura {
   var $errorClass = false;              // [False or String]      -> the message CLASS which is used when creating a message
   
 
-  // ----------------------------
-  // *** METHODS
-  // ****************************
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** METHODS *** */
+ /* **************************************************************************************************************************** */
+ 
   /*
   *
   * STRING <- createMetaTags($charset = 'UTF-8', $robotTxt = false, $revisitAfter = '10', $author = false, $publisher = false, $copyright = false)
