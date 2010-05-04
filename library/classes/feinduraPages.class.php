@@ -54,7 +54,7 @@ class feinduraPages extends feindura {
   *   
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * @var number
+  * @var int
   * @see feindura()
   *   
   */
@@ -67,7 +67,7 @@ class feinduraPages extends feindura {
   *   
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * @var number
+  * @var int
   * @see $category, $startPage, feindura::feindura()
   *   
   */
@@ -81,7 +81,7 @@ class feinduraPages extends feindura {
   *   
   * This <var>property</var> will be set in the {@link feindura} constructor.
   * 
-  * @var number
+  * @var int
   * @see $page, feindura::feindura()
   *   
   */

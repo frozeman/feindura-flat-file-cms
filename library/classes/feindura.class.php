@@ -134,18 +134,25 @@ class feindura {
   // *********
   
  /**
-  * @var number
+  * @var int
   * @see feinduraPages::$page
   *   
   */
   var $page = null;
   
  /**
-  * @var number
+  * @var int
   * @see feinduraPages::$category
   *   
   */
   var $category = null;
+  
+  /**
+  * @var int
+  * @see feinduraPages::$startPage
+  *   
+  */
+  var $startPage = null;
   
  /**
   * Contains the administrator-settings config of the CMS backend
@@ -247,11 +254,10 @@ class feindura {
  /* **************************************************************************************************************************** */
  
  /**
-  * The constructor of the class
+  * The constructor of the class, sets all basic properties
   *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     feindura()<br>
-  * <b>Purpose</b>  Sets all basic properties<br>
+  * Type:     constructor<br>
+  * Name:     feindura()<br>
   *
   * <b>Details</b><br>
   *    - get the settings config <var>arrays</var>
@@ -260,22 +266,27 @@ class feindura {
   *    - check if cookies are activated, otherwise store the session id in the {@link $sessionId} property for use in links
   *    - get the frontend language-file adn set it to the {@link $languageFile} property
   *
-  * <b>Uses Global Variables</b><br>
+  * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig array</var> the administrator-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig array</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$categories array</var> the categories-settings config (included in the {@link general.include.php})
   *
+  * @version 1.0
+  * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   *
-  * @version 1.0
-  *
   * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
   *
-  * @uses $sessionId
   * @uses $adminConfig
+  * @uses $websiteConfig
+  * @uses $categoryConfig
+  * @uses $generalFunctions
+  * @uses $statisticFunctions
+  * @uses $varNames
+  * @uses $sessionId
   * 
-  * @return bool sdfsdfsdfsdf
+  * @return void
   * 
   * @see general.include.php
   * @see feindura::feindura()
@@ -335,14 +346,34 @@ class feindura {
   }
   // -> END -- constructor -------------------------------------------------------------------------------
   
-
-
-  // -> START -- getCurrentPage **************************************************************************
-  // RETURNs the current GET page var
-  // RETURNs -> NUMBER
-  // -----------------------------------------------------------------------------------------------------
+ /**
+  * Gets the current page ID from the <var>$_GET</var> variable
+  *
+  * Type:     function<br>
+  * Name:     getCurrentPage()<br>
+  * Aliases:  getPage()<br>
+  *
+  * <b>Details</b><br>
+  *    - gets the current page ID from the <var>$_GET</var> variable and set it to the {@link $page} <var>property</var>
+  *    - if there is no <var>$_GET</var> variable and a start-page is set in the website-settings config,
+  *      this start-page ID will be set to the {@link $page} <var>property</var>
+  *
+  * <b>Used Global Variables</b><br>
+  *    - <var>$_GET</var> to fetch the page ID
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  * @uses $varNames
+  * @uses $page
+  * @uses $startPage
+  * 
+  * @return int the current page ID
+  * 
+  */
   function getCurrentPage() {
-    global $_GET;
     
     // ->> GET PAGE is an ID
     // *********************
@@ -376,7 +407,11 @@ class feindura {
     } else
       return false;
   }
-  // -> *ALIAS* OF getCurrentPage ***********************************************************************
+ /**
+  * Alias of {@link getCurrentPage()}
+  *
+  * @ignore
+  */
   function getPage() {
     // call the right function
     return $this->getCurrentPage();

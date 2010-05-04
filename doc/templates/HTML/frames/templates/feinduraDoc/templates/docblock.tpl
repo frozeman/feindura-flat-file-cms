@@ -16,9 +16,10 @@
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}{assign var="hasVersion" value="true"}{/if}{/section}
 	{if $hasVersion == 'true'}
 	<div class="method-version">
+	<b>Version</b><br>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}
-<li><span class="field">{$tags[tags].keyword}:</span> {$tags[tags].data}</li>
+<li>{$tags[tags].data}</li>
 {/if}{/section}
 		</ul>
 	</div>
