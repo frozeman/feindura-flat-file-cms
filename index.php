@@ -1,24 +1,28 @@
 <?php
-/*
-    feindura - Flat File Content Management System
-    Copyright (C) Fabian Vogelsteller [frozeman.de]
+/**
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ *
+ * index.php
+ *
+ * @version 2.0
+ */
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-*
-* index.php version 1.99
-*/
-
-
-
+/**
+ * Includes all necessary configs and functions
+ */
 include("library/backend.include.php");
 
 // VARs
@@ -91,9 +95,11 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/editor.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/pageThumbnail.css" media="screen" />
   
-  <!-- addons -->
 <?php
-createStyleTags($adminConfig['basePath'].'addons/');
+if($_GET['site'] == 'addons') {
+  echo "  <!-- addons stylesheets -->\n";
+  createStyleTags($adminConfig['basePath'].'addons/');
+}
 ?>
   
   <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  
@@ -184,7 +190,7 @@ createStyleTags($adminConfig['basePath'].'addons/');
           <?php
           // checks if there any modules or plugins, if not dont show the menupoint
           if(!folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
-          <td><a href="" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
+          <td><a href="?site=addons" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
           <?php } ?>
           <td><a href="?site=websiteSetup" class="websiteSetup" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></td>
           <td><a href="?site=search" class="search" title="<?php echo $langFile['btn_search']; ?>"><span><?php echo $langFile['btn_search']; ?></span></a></td>

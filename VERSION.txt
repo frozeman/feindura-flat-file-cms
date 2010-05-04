@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 174
+Build 175
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -18,15 +18,10 @@ You can find it in the license.txt
 if not, see http://www.gnu.org/licenses/. 
 --------------------------------------------------
 
-REQUIREMENTS:
--> PHP >= 4.3.0
--> storedPages Array can have up to 30 000 Pages if the memory limit is 16MB 
 
---------------------------------------------------
-
-
-Changelog:
+ChangeLog:
 	
+	build 175: changes in README.txt VERSION.txt and LICENSE.txt
 	build 174: removed global from classes and replaced with the superglobal $GLOBAL['']
 	build 173: startet to change feindura.class.php and add feinduraPages.class.php
 	build 172: small changes statisticFunctions class 
