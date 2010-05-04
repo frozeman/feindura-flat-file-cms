@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
  * 
@@ -13,16 +13,15 @@
  *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
- * library/classes/feindura.class.php
- * 
- * This file contains the feindura basis class.
+ */ 
+/**
+ * This file contains the {@link feindura} basis <var>class</var>
  */ 
 
 /**
-* The basis class for the implimentation classes
+* The basis <var>class</var> for the implimentation <var>classes</var>
 * 
-* It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} classes.
+* It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} <var>classes</var>.
 * 
 * @author Fabian Vogelsteller
 * @copyright Fabian Vogelsteller
@@ -250,33 +249,35 @@ class feindura {
  /**
   * The constructor of the class
   *
-  * Type:     function<br>
-  * Name:     feindura()<br>
-  * Purpose:  Sets all necessary properties
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     feindura()<br>
+  * <b>Purpose</b>  Sets all basic properties<br>
   *
-  * Details:<br> 
-  *	- get the settings config <var>arrays</var><br>
-  *	- set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property<br>
-  *	- get the <var>$_GET</var> (if existing) variable and set it to the {@link $page} and {@link $category} properties<br>
-  *	- check if cookies are activated, otherwise store the session id in the {@link $sessionId} property for use in links<br>
-  *	- get the frontend language-file adn set it to the {@link $languageFile} property
+  * <b>Details</b><br>
+  *    - get the settings config <var>arrays</var>
+  *    - set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property
+  *    - get the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties
+  *    - check if cookies are activated, otherwise store the session id in the {@link $sessionId} property for use in links
+  *    - get the frontend language-file adn set it to the {@link $languageFile} property
   *
+  * <b>Uses Global Variables</b><br>
+  *    - <var>$adminConfig array</var> the administrator-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteConfig array</var> the website-settings config (included in the {@link general.include.php})
+  *    - <var>$categories array</var> the categories-settings config (included in the {@link general.include.php})
   *
-  * ChangeLog:<br>
-  *	- 1.0 initial release
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
   *
-  * @version 1.0 
+  * @version 1.0
   *
-  * @global array $GLOBALS["adminConfig"] the administrator-settings config
-  * @global array $GLOBALS["websiteConfig"] the website-settings config
-  * @global array $GLOBALS["categories"] the category-settings config
-  *
-  * @param string $language (optional) - A country code (example: <i>de, en, ..</i>) to load the right frontend language-file and is also set to the {@link $language} property 
+  * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
   *
   * @uses $sessionId
+  * @uses $adminConfig
   * 
-  * @return true
-  *    
+  * @return bool sdfsdfsdfsdf
+  * 
+  * @see general.include.php
   * @see feindura::feindura()
   * 
   */
@@ -331,7 +332,6 @@ class feindura {
     if(file_exists(DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php'))
       $this->languageFile = include(DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php');
     
-    return true;
   }
   // -> END -- constructor -------------------------------------------------------------------------------
   

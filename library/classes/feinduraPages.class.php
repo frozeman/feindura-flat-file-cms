@@ -1,8 +1,8 @@
 <?php
-/**
+/*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- * 
+ *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -13,14 +13,13 @@
  *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- * 
- * library/classes/feinduraPages.class.php
- * 
- * This file contains the feindura basis class.
+ */
+/**
+ * This file contains the {@link feinduraPages} <var>class</var> for implementing the CMS in a website
  */ 
  
 /**
-* The class for the implimentation of the feindura - Flat File Content Management System in a website.
+* The <var>class</var> for the implimentation of the feindura - Flat File Content Management System in a website.
 * 
 * It's methods provide necessary functions to impliment the CMS in a website.<br>
 * It contains for example methods for building a menu and place the page content, etc.

@@ -3,12 +3,24 @@
 {if $methods[methods].static}
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
+
+
+	<div class="method-header">
+		static <span class="method-result">{$methods[methods].function_return}</span>
+		<span class="method-title">
+			{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{if $methods[methods].ifunction_call.constructor}Constructor {elseif $methods[methods].ifunction_call.destructor}Destructor {/if}{$methods[methods].function_name}
+		</span>
+		{if count($methods[methods].ifunction_call.params)}
+			({section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $methods[methods].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>]{/if}{/section})
+		{else}
+		()
+		{/if}
+	</div>
 	
+	<!--
 	<div class="method-header">
 		<span class="method-title">static {$methods[methods].function_name}</span> (line <span class="line-number">{if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}</span>)
-	</div> 
-	
-	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags params=$methods[methods].params function=false}
+	</div>
 	
 	<div class="method-signature">
 		static <span class="method-result">{$methods[methods].function_return}</span>
@@ -21,16 +33,20 @@
 		()
 		{/if}
 	</div>
+	-->
 	
 	{if $methods[methods].params}
-		<ul class="parameters">
-		{section name=params loop=$methods[methods].params}
-			<li>
-				<span class="var-type">{$methods[methods].params[params].datatype}</span>
-				<span class="var-name">{$methods[methods].params[params].var}</span>{if $methods[methods].params[params].data}<span class="var-description">: {$methods[methods].params[params].data}</span>{/if}
-			</li>
-		{/section}
-		</ul>
+		<div class="method-parameters">
+			<b>Parameters</b><br>
+			<ul class="parameters">
+			{section name=params loop=$methods[methods].params}
+				<li>
+					<span class="var-type">{$methods[methods].params[params].datatype}</span>
+					<span class="var-name">{$methods[methods].params[params].var}</span>{if $methods[methods].params[params].data}<span class="var-description">: {$methods[methods].params[params].data}</span>{/if}
+				</li>
+			{/section}
+			</ul>
+		</div>
 	{/if}
 	
 	{if $methods[methods].method_overrides}
@@ -70,6 +86,9 @@
 		{/section}
 		</ul>
 	{/if}
+	
+	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags params=$methods[methods].params function=false}
+	
 </div>
 {/if}
 {/section}
@@ -78,12 +97,25 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
+	
+	
+	<div class="method-header">
+		<span class="method-result">{$methods[methods].function_return}</span>
+		<span class="method-title">
+			{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{if $methods[methods].ifunction_call.constructor}Constructor {elseif $methods[methods].ifunction_call.destructor}Destructor {/if}{$methods[methods].function_name}
+		</span>
+		{if count($methods[methods].ifunction_call.params)}
+			({section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $methods[methods].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>]{/if}{/section})
+		{else}
+		()
+		{/if}
+	</div>
+	
+	<!--
 	<div class="method-header">
 		<span class="method-title">{if $methods[methods].ifunction_call.constructor}Constructor {elseif $methods[methods].ifunction_call.destructor}Destructor {/if}{$methods[methods].function_name}</span> (line <span class="line-number">{if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}</span>)
-	</div> 
-	
-	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags params=$methods[methods].params function=false}
-	
+	</div>
+
 	<div class="method-signature">
 		<span class="method-result">{$methods[methods].function_return}</span>
 		<span class="method-name">
@@ -95,16 +127,20 @@
 		()
 		{/if}
 	</div>
+	-->
 	
 	{if $methods[methods].params}
-		<ul class="parameters">
-		{section name=params loop=$methods[methods].params}
-			<li>
-				<span class="var-type">{$methods[methods].params[params].datatype}</span>
-				<span class="var-name">{$methods[methods].params[params].var}</span>{if $methods[methods].params[params].data}<span class="var-description">: {$methods[methods].params[params].data}</span>{/if}
-			</li>
-		{/section}
-		</ul>
+		<div class="method-parameters">
+			<b>Parameters</b><br>
+			<ul class="parameters">
+			{section name=params loop=$methods[methods].params}
+				<li>
+					<span class="var-type">{$methods[methods].params[params].datatype}</span>
+					<span class="var-name">{$methods[methods].params[params].var}</span>{if $methods[methods].params[params].data}<span class="var-description">: {$methods[methods].params[params].data}</span>{/if}
+				</li>
+			{/section}
+			</ul>
+		</div>
 	{/if}
 	
 	{if $methods[methods].method_overrides}
@@ -144,6 +180,9 @@
 		{/section}
 		</ul>
 	{/if}
+	
+	{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags params=$methods[methods].params function=false}
+	
 </div>
 {/if}
 {/section}

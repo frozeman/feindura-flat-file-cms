@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
  *
@@ -13,9 +13,11 @@
  *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- *  
- * library/classes/statisticFunctions.class.php
+ */
+/**
+ * This file contains the {@link statisticFunctions} <var>class</var>
  *
+ * This <var>class</var> provides statistic-functions which will be used by the FRONTEND and the BACKEND.
  */ 
 
 /**
