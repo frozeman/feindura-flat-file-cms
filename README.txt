@@ -19,9 +19,19 @@ if not,see <http://www.gnu.org/licenses/>.
 AUTHOR
    Fabian Vogelsteller [frozeman.de]
 
-DATE
-   released on 15-05-2010
-    
+DESCRIPTION
+feindura is lightweight flat file based content management system for small and medium websites.
+It's main target group is webdesigners who want to create commercial or private websites without looking to much into the backend structure and want to focus more on their design.
+The main goal is to provide a easy to use CMS which dont limit designers in their work and without the need of using a to big CMS system like joomla or wordpress.
+ 
+BACKEND
+The CMS has a simple and easy to use interface with a simple structure, though its possible to create rather big content websites through the category system its uses.
+
+IMPLIMENTATION
+You should have some basic knowledge in PHP so that you can impliment the CMS in your website. But by following the given examples in this documentation it should easy to use feindura.
+It's basic requirements for the implimentation in a website is a Apache server with PHP, however for using the CMS backend its recommend to have Javascript activated.
+
+
 FEATURES
    Easy to install
    Easy to setup on a server
@@ -45,17 +55,3 @@ REQUIREMENTS
 APPROPRIATE USES  
    It's not tested yet, but it should work well on websites with up to 10 000 vistiors per day
    feindura#$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB
-
-
-DESCRIPTION
-  
-feindura is lightweight flat file based content management system for small and medium websites.
-It's main target group is webdesigners who want to create commercial or private websites without looking to much into the backend structure but want to focus more on their design.
-The main goal is to provide a easy to use CMS which dont limit designers in their work and without the need of using a to big CMS system like joomla or wordpress.
- 
-BACKEND
-The CMS has a simple and easy to use interface with a simple structure, though its possible to create rather big content websites through the category system its uses.
-
-IMPLIMENTATION
-You should have some basic knowledge in PHP so that you can impliment the CMS in your website. But by following the given examples in this documentation it should easy to use feindura.
-It's basic requirements for the implimentation in a website is a Apache server with PHP, however for using the CMS backend its recommend to have Javascript activated.
