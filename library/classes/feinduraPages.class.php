@@ -27,7 +27,7 @@
 * @author Fabian Vogelsteller
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.0
+* @version 1.01
 *
 */
 class feinduraPages extends feindura {
@@ -146,6 +146,7 @@ class feinduraPages extends feindura {
   var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
   var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
+  var $titleAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   var $titleLength = false;               // [Boolean or Number]    -> the number of maximun characters for the title, after this length it will be shorten with abc..
   var $titleAsLink = false;               // [Boolean]              -> should the title be a link to the Page (ONLY when listing a Page)
   var $titleShowCategory = false;         // [Boolean]              -> show the category name before the title
@@ -159,15 +160,17 @@ class feinduraPages extends feindura {
   var $contentTag = false;                // [False or String]      -> the content container TAG which is used when creating a page (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set)
   var $contentId = false;                 // [False or String]      -> the content container  ID which is used when creating a page (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $contentClass = false;              // [False or String]      -> the content container  CLASS which is used when creating a page
-  var $contentLength = false;             // [Boolean or Number]    -> the number of maximun characters for the content, after this length it will be shorten with abc..
-  var $contentThumbnail = true;           // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
+  var $contentAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
+  //var $contentLength = false;             // [Boolean or Number]    -> the number of maximun characters for the content, after this length it will be shorten with abc..
+  var $contentShowThumbnail = true;           // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
   var $contentBefore = false;             // [False or String]      -> a String which comes BEFORE the link <$contentTag> tag
   var $contentAfter = false;              // [False or String]      -> a String which comes AFTER the link </$contentTag> tag
   
   
-  var $thumbnailFloat = false;            // [False or String ("left" or "right")]   -> let the thumbnail float to left or right
+  var $thumbnailAlign = false;            // [False or String ("left" or "right")]   -> let the thumbnail float to left or right
   var $thumbnailId = false;               // [False or String]      -> the thumbnail ID which is used when creating a thumbnail (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $thumbnailClass = false;            // [False or String]      -> the thumbnail CLASS which is used when creating a thumbnail
+  var $thumbnailAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   var $thumbnailBefore = false;           // [False or String]      -> a String which comes BEFORE the thumbnail img <$titleTag> tag
   var $thumbnailAfter = false;            // [False or String]      -> a String which comes AFTER the thumbnail img </$titleTag> tag
   
@@ -175,7 +178,7 @@ class feinduraPages extends feindura {
   var $errorTag = false;                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
   var $errorId = false;                 // [False or String]      -> the message ID which is used when creating a message (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $errorClass = false;              // [False or String]      -> the message CLASS which is used when creating a message
-  
+  var $errorAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** METHODS *** */
@@ -189,11 +192,11 @@ class feinduraPages extends feindura {
   * STRING <- createLink($page = false, $category = false, $linkText = true)
   *   
   *  
-  * ARRAY <- createMenu($idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false)
+  * ARRAY <- createMenu($idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false)
   * 
-  * ARRAY <- createMenuByTags($tags ,$idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false)
+  * ARRAY <- createMenuByTags($tags ,$idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false)
   *    
-  * ARRAY <- createMenuByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false, $flipList = false) 
+  * ARRAY <- createMenuByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $flipList = false) 
   * 
   *  
   * STRING <- showPageTitle($page = false, $category = false, $titleTag = true)
@@ -201,11 +204,11 @@ class feinduraPages extends feindura {
   * STRING <- showPage($page = false, $category = false, $shortenText = false, $useHtml = true)             <- also SAVEs the PAGE-STATISTICs
   *   
   *  
-  * ARRAY <- listPages($idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false)
+  * ARRAY <- listPages($idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false)
   *  
-  * ARRAY <- listPagesByTags($tags, $idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false)
+  * ARRAY <- listPagesByTags($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false)
   * 
-  * ARRAY <- listPagesByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = true,  $useHtml = true,  $sortingConsiderCategories = false, $flipList = false)
+  * ARRAY <- listPagesByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false,  $useHtml = true,  $sortByCategories = false, $flipList = false)
   * 
   *  
   * NUMBER <- getCurrentPage()
@@ -426,28 +429,16 @@ class feinduraPages extends feindura {
       // ---------------------------------------->        
       if($pageContent['public'] && $this->publicCategory($pageContent['category']) !== false) {            
         //print_r($page);
+	
         // -> sets the LINK
         // ----------------------------  
         $linkTag = 'a';
         $linkAttributes = '';
-        $linkStartTag = '';
-        $linkEndTag = '';
-        $linkTextBefore = '';
         
         // add HREF
         $linkAttributes .= ' href="'.$this->createHref($pageContent).'"'; // title="'.$pageContent['title'].'"
-
-        // add LINK ID
-        if($this->linkId && $this->linkId !== true)
-          $linkAttributes .= ' id="'.$this->linkId.'"';
-          
-        // add LINK CLASS
-        if($this->linkClass && $this->linkClass !== true)
-          $linkAttributes .= ' class="'.$this->linkClass.'"';
-          
-        // add LINK ATTRIBUTES
-        if($this->linkAttributes && $this->linkAttributes !== true)
-          $linkAttributes .= ' '.$this->linkAttributes;
+	  
+	$linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
                     
         $linkStartTag = '<'.$linkTag.$linkAttributes.'>';
         $linkEndTag = '</'.$linkTag.'>';        
@@ -460,18 +451,13 @@ class feinduraPages extends feindura {
           ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
           ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
           
-          // adds ID and/or Class and/or FLOAT
-          $thumbnailAttributes = '';
-          // thumbnail ID
-          if($this->thumbnailId && $this->thumbnailId !== true)
-            $thumbnailAttributes .= ' id="'.$this->thumbnailId.'"';
-          // thumbnail CLASS
-          if($this->thumbnailClass && $this->thumbnailClass !== true)
-            $thumbnailAttributes .= ' class="'.$this->thumbnailClass.'"';
+          // adds ATTRIBUTES and/or FLOAT  
+	  $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
+	  
           // thumbnail FLOAT
-          if(strtolower($this->thumbnailFloat) === 'left' ||
-             strtolower($this->thumbnailFloat) === 'right')
-            $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailFloat).';"';
+          if(strtolower($this->thumbnailAlign) === 'left' ||
+             strtolower($this->thumbnailAlign) === 'right')
+            $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailAlign).';"';
           
           $linkThumbnail = '<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
         } else $linkThumbnail = '';
@@ -497,6 +483,7 @@ class feinduraPages extends feindura {
                                         false, // $titletag
                                         false, // $titleId
                                         false, // $titleClass
+					false, // $titleAttributes
                                         $this->linkLength,
                                         false, // $titleAsLink
                                         $this->linkShowCategory,
@@ -563,7 +550,7 @@ class feinduraPages extends feindura {
                              $menuTag = false,                            // (Boolean or String or [a Block Element, "ul", "ol" or "table"]) the menu TAG which is used when creating a menu, IF false it RETURNs a Array with the links (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set it RETURNs an Array with all the <a..> tags within a DIV tag with the id and/or class)
                              $linkText = true,                            // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                              $breakAfter = false,                         // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
-                             $sortingConsiderCategories = false) {        // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
+                             $sortByCategories = false) {        // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
     
     // vars
     $menu = array();
@@ -589,33 +576,20 @@ class feinduraPages extends feindura {
     }    
           
     // -> sets the MENU attributes
-    // ----------------------------
-    $menuAttributes = '';
+    // ----------------------------    
     $menuStartTag = '';
     $menuEndTag = '';        
     $menuTagSet = false;
     
-    // add MENU ID, uses the given menuId var, if not set it uses the PROPERTY menuId var
-    if($this->menuId && $this->menuId !== true)
-      $menuAttributes .= ' id="'.$this->menuId.'"';
-      
-    // add MENU CLASS, uses the given menuClass var, if not set it uses the PROPERTY menuClass var
-    if($this->menuClass && $this->menuClass !== true)
-      $menuAttributes .= ' class="'.$this->menuClass.'"';
-      
-    // add LINK ATTRIBUTES
-    if($this->menuAttributes && $this->menuAttributes !== true)
-      $menuAttributes .= ' '.$this->menuAttributes;
+    $menuAttributes = $this->createAttributes($this->menuId, $this->menuClass, $this->menuAttributes);
     
     // -> CREATEs the MENU-TAG (START and END-TAG)
-    if($menuTag && $menuTag !== true) { // || !empty($menuAttributes)
-      // creates standard tag
-      //$menuTagSet = 'div';
-      // eventually overwrites standard tag
-      
-      // -> SET GIVEN $menuTag
-      //if($menuTag !== true)
-      $menuTagSet = strtolower($menuTag);       
+    if($menuTag) { // || !empty($menuAttributes) <- not used because there is no menuTag property, the tag is only set when a $menuTag parameter is given
+
+      // set tag
+      if(is_string($menuTag)) $menuTagSet = strtolower($menuTag);
+      // or uses standard tag
+      else $menuTagSet = 'div';
                 
       $menuStartTag = '<'.$menuTagSet.$menuAttributes.'>'."\n";
       $menuEndTag = '</'.$menuTagSet.'>'."\n";
@@ -625,7 +599,7 @@ class feinduraPages extends feindura {
     $pages = $this->loadPagesByType($idType,$ids);
     
     // -> if pages SORTED BY CATEGORY
-    if($sortingConsiderCategories === true)
+    if($sortByCategories === true)
       $pages = $this->generalFunctions->sortPages($pages);    
     
     // -> STOREs the LINKs in an Array
@@ -767,7 +741,7 @@ class feinduraPages extends feindura {
                                    $menuTag = false,                          // (Boolean or String) the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                                    $linkText = true,                          // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                                    $breakAfter = false,                       // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
-                                   $sortingConsiderCategories = false) {      // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
+                                   $sortByCategories = false) {      // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    
     $idType = strtolower($idType);    
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> GET page var 4. -> false
@@ -790,13 +764,13 @@ class feinduraPages extends feindura {
     
     // check for the tags and CREATE A MENU
     if($ids = $this->hasTags($ids,$idType,$tags)) {
-      return $this->createMenu($idType,$ids,$menuTag,$linkText,$breakAfter,$sortingConsiderCategories); 
+      return $this->createMenu($idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories); 
     } else return false;
   }
   // -> *ALIAS* OF createMenuByTags ****************************************************************************
-  function createMenuByTag($tags, $idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false) {
+  function createMenuByTag($tags, $idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     // call the right function
-    return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$breakAfter,$sortingConsiderCategories);
+    return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories);
   }
   
   // -> START -- createMenuByDate **************************************************************************
@@ -811,15 +785,15 @@ class feinduraPages extends feindura {
                                    $menuTag = false,                      // (Boolean or String) the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
                                    $linkText = true,                      // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                                    $breakAfter = false,                   // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
-                                   $sortingConsiderCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
+                                   $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
                                    
-      return $this->listByDate('menu',$idType,$ids,$monthsInThePast,$monthsInTheFuture,$menuTag,$linkText,$sortingConsiderCategories,$breakAfter,$flipList);
+      return $this->listByDate('menu',$idType,$ids,$monthsInThePast,$monthsInTheFuture,$menuTag,$linkText,$sortByCategories,$breakAfter,$flipList);
   }
   // -> *ALIAS* OF createMenuByDate **********************************************************************
-  function createMenuByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortingConsiderCategories = false, $flipList = false) {
+  function createMenuByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $flipList = false) {
     // call the right function
-    return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortingConsiderCategories, $flipList);
+    return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $flipList);
   }  
   
   // -> START -- showPage ********************************************************************************
@@ -957,9 +931,9 @@ class feinduraPages extends feindura {
   // ------------------------------------------------------------------------------------------------------
   function listPages($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                             $ids = true,                           // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories, -> can also be a Array with pageContent Arrays
-                            $shortenText = true,                  // (Boolean or Number) the Number of characters to shorten the content text
+                            $shortenText = false,                  // (Boolean or Number) the Number of characters to shorten the content text
                             $useHtml = true,                       // (Boolean) use html in the content text
-                            $sortingConsiderCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
+                            $sortByCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
     
     // vars
     $return = array();
@@ -988,16 +962,16 @@ class feinduraPages extends feindura {
     $pages = $this->loadPagesByType($idType,$ids);    
     
     // -> if pages SORTED BY CATEGORY
-    if($sortingConsiderCategories === true)
+    if($sortByCategories === true)
       $pages = $this->generalFunctions->sortPages($pages);
     
     if($pages !== false) {      
       
       // -> list a category(ies)
       // ------------------------------
-      foreach($pages as $page) {
+      foreach($pages as $pageContentArray) {
         // show the pages
-        if($pageContent = $this->generatePage($page,false,false,$shortenText,$useHtml)) {
+        if($pageContent = $this->generatePage($pageContentArray,false,false,$shortenText,$useHtml)) {
           $return[] = $pageContent;
         }
       }
@@ -1007,9 +981,9 @@ class feinduraPages extends feindura {
   }
   // -> END -- listPages ---------------------------------------------------------------------------------  
   // -> *ALIAS* OF listPages *****************************************************************************
-  function listPage($idType, $id = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false) {
+  function listPage($idType, $id = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
-    return $this->listPages($idType, $id, $shortenText, $useHtml, $sortingConsiderCategories);
+    return $this->listPages($idType, $id, $shortenText, $useHtml, $sortByCategories);
   }
   // -> END -- listPage ----------------------------------------------------------------------------------  
   
@@ -1020,9 +994,9 @@ class feinduraPages extends feindura {
   function listPagesByTags($tags,                                 // (String or Array) the tags to select the pages with
                                   $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
                                   $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                  $shortenText = true,                   // (false or Number) the Number of characters to shorten the content text
+                                  $shortenText = false,                   // (false or Number) the Number of characters to shorten the content text
                                   $useHtml = true,                       // (Boolean) use html in the content text
-                                  $sortingConsiderCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
+                                  $sortByCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
      
     $idType = strtolower($idType);
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
@@ -1046,23 +1020,23 @@ class feinduraPages extends feindura {
     // check for the tags and LIST PAGES
     if($ids = $this->hasTags($ids,$idType,$tags)) {
       
-      return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortingConsiderCategories);
+      return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortByCategories);
     } else return false;
   }  
   // -> *ALIAS* OF listPagesByTags ***********************************************************************
-  function listPagesByTag($tags, $idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false) {
+  function listPagesByTag($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortingConsiderCategories);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }
   // -> *ALIAS* OF listPagesByTags ***********************************************************************
-  function listPageByTags($tags, $idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false) {
+  function listPageByTags($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortingConsiderCategories);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }
   // -> *ALIAS* OF listPagesByTags ***********************************************************************
-  function listPageByTag($tags, $idType, $ids = true, $shortenText = true, $useHtml = true, $sortingConsiderCategories = false) {
+  function listPageByTag($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
-    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortingConsiderCategories);
+    return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }  
   
   // -> START -- listPagesByDate **************************************************************************
@@ -1073,27 +1047,27 @@ class feinduraPages extends feindura {
                                   $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
                                   $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
                                   $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY
-                                  $shortenText = true,                   // (Boolean or Number) the Number of characters to shorten the content text
+                                  $shortenText = false,                   // (Boolean or Number) the Number of characters to shorten the content text
                                   $useHtml = true,                       // (Boolean) use html in the content text
-                                  $sortingConsiderCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
+                                  $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
                                   $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
                                     
-      return $this->listByDate('pages',$idType,$ids,$monthsInThePast,$monthsInTheFuture,$shortenText,$useHtml,$sortingConsiderCategories,$flipList);
+      return $this->listByDate('pages',$idType,$ids,$monthsInThePast,$monthsInTheFuture,$shortenText,$useHtml,$sortByCategories,$flipList);
   }
   // -> *ALIAS* OF listPagesByDate ***********************************************************************
-  function listPageByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = true, $useHtml = true,$sortingConsiderCategories = false, $flipList = false) {
+  function listPageByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $flipList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortingConsiderCategories, $flipList);
+    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $flipList);
   }
   // -> *ALIAS* OF listPagesByDate ***********************************************************************
-  function listPageByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = true, $useHtml = true,$sortingConsiderCategories = false, $flipList = false) {
+  function listPageByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $flipList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortingConsiderCategories, $flipList);
+    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $flipList);
   }  
   // -> *ALIAS* OF listPagesByDate ***********************************************************************
-  function listPagesByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = true, $useHtml = true,$sortingConsiderCategories = false, $flipList = false) {
+  function listPagesByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $flipList = false) {
     // call the right function
-    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortingConsiderCategories, $flipList);
+    return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $flipList);
   }  
   
 

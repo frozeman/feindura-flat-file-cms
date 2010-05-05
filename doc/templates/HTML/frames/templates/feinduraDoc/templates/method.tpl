@@ -37,7 +37,7 @@
 	
 	{if $methods[methods].params}
 		<div class="method-parameters">
-			<h2>Parameters</h2>
+			<b>Parameters</b><br>
 			<ul class="parameters">
 			{section name=params loop=$methods[methods].params}
 				<li>
@@ -131,7 +131,7 @@
 	
 	{if $methods[methods].params}
 		<div class="method-parameters">
-			<h2>Parameters</h2>
+			<b>Parameters</b><br>
 			<ul class="parameters">
 			{section name=params loop=$methods[methods].params}
 				<li>

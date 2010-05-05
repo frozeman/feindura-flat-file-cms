@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */ 
 /**
- * This file contains the {@link feindura} basis <var>class</var>
+ * This file contains the {@link feindura} base <var>class</var>
  */ 
 
 /**
@@ -23,10 +23,10 @@
 * 
 * It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} <var>classes</var>.
 * 
-* @author Fabian Vogelsteller
+* @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.55
+* @version 1.56
 *
 */
 class feindura {
@@ -273,7 +273,7 @@ class feindura {
   * Get the frontend language-file adn set it to the {@link $languageFile} property.
   *
   *
-  * <h2>Used Global Variables</h2>
+  * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
   *    - <var>$categories</var> array the categories-settings config (included in the {@link general.include.php})
@@ -503,14 +503,14 @@ class feindura {
   * <b>Aliases</b>  setPage()<br>
   *
   * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPage}) and set it to the {@link $page} property.
-  * If parameter <var>$setStartPage</var> is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}.
+  * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}.
   *
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
   *
   * @uses $adminConfig      to look if set start-page is allowed
   * @uses $websiteConfig    to get the start-page ID
   * @uses $page             as the property to set
-  * @uses $startPage        if the setStartPage parameter is TRUE this property will also be set
+  * @uses $startPage        if the $setStartPage parameter is TRUE this property will also be set
   * 
   * @return int|false the set page ID or FALSE
   * 
@@ -551,7 +551,7 @@ class feindura {
   * <b>Aliases</b>  setCategory()<br>
   *
   * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategory}) and set it to the {@link $category} property.
-  * If parameter <var>$setStartCategory</var> is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}.
+  * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}.
   *
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   *
@@ -593,19 +593,78 @@ class feindura {
   }
   
   
-  // ****************************************************************************************************************
-  // PROTECTED METHODs ----------------------------------------------------------------------------------------------
-  // ****************************************************************************************************************
-  
-  
-  // -> START -- generatePage ****************************************************************************
-  // RETURN a Page with, title, thumbnail and content -> SHOW the page
-  // -----------------------------------------------------------------------------------------------------
-  function generatePage($page = false,              // (Number or pageContent Array) the page (id) to show or the pageContent array
-                                  $category = false,          // (Number) the category where the page is situated 
-                                  $showErrors = true,         // (bool) show warnings (example: 'The page you requested doesn't exist')
-                                  $shortenText = false,       // (bool or Number)shorten the content Text
-                                  $useHtml = true) {          // (bool) use Html in the content, or strip all tags
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** PROTECTED METHODS *** */
+ /* **************************************************************************************************************************** */
+
+ /**
+  * Generates a page
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     generatePage()<br>
+  *
+  * This method is called in descendent classes.<br>
+  * Generates a page by the given page ID and catagory ID.
+  * The page is structured with first the title, the page thumbnail and then the content, depending on the respective properties.
+  * In case the page doesnt exists or is not public a error is shown (depending on the <var>$showError</var> parameter AND the {@link feinduraPages::$showError} property,
+  * otherwise it returns FALSE.
+  * 
+  *
+  * @param int|array $page page ID or a $pageContent array
+  * @param int $category (optional) category ID (not necessary if the $page parameter is a $pageContent array)
+  * @param bool $showError (optional) tells if errors like "The page you requested doesn't exist" will be displayed
+  * @param int|false $shortenText (optional) number of the maximal count of letters, adds a "more" link at the end or FALSE to not shorten
+  * @param bool $useHtml (optional) displays the page content with or without HTML tags
+  *
+  * 
+  * @uses adminConfig                   for the thumbnail upload path
+  * @uses categoryConfig                for checking if the category of the page allows thumbnails
+  * @uses $languageFile                 for the error texts
+  * @uses publicCategory()              checks if the page category is public
+  * @uses createTitle()                 create the page title  
+  * @uses shortenHtmlText()             for shorten the HTML page content
+  * @uses shortenText()                 for shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses feinduraPages::$xHtml                        
+  * @uses feinduraPages::$showError
+  * @uses feinduraPages::$errorTag
+  * @uses feinduraPages::$errorId
+  * @uses feinduraPages::$errorClass
+  * @uses feinduraPages::$errorAttributes
+  * @uses feinduraPages::$showTitle
+  * @uses feinduraPages::$titleTag
+  * @uses feinduraPages::$titleId
+  * @uses feinduraPages::$titleClass
+  * @uses feinduraPages::$titleAttributes
+  * @uses feinduraPages::$titleLength
+  * @uses feinduraPages::$titleAsLink
+  * @uses feinduraPages::$titleShowCategory
+  * @uses feinduraPages::$titleShowDate  
+  * @uses feinduraPages::$thumbnailId
+  * @uses feinduraPages::$thumbnailClass
+  * @uses feinduraPages::$thumbnailAttributes
+  * @uses feinduraPages::$thumbnailAlign
+  * @uses feinduraPages::$thumbnailBefore
+  * @uses feinduraPages::$thumbnailAfter
+  * @uses feinduraPages::$showContent
+  * @uses feinduraPages::$contentShowThumbnail
+  * @uses feinduraPages::$contentTag
+  * @uses feinduraPages::$contentId
+  * @uses feinduraPages::$contentClass
+  * @uses feinduraPages::$contentAttributes
+  * @uses feinduraPages::$contentBefore
+  * @uses feinduraPages::$contentAfter
+  * 
+  * @return string|false the generated page, ready to display in a HTML file or if no page could be loaded FALSE
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function generatePage($page, $category = false, $showError = true, $shortenText = false, $useHtml = true) {
 
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
@@ -618,27 +677,20 @@ class feindura {
     if(!$page)
       return false;
     
-    // -> sets the MESSAGE SETTINGS
+    // -> sets the ERROR SETTINGS
     // ----------------------------
-    if($showErrors && $this->showError) {
-      // adds ID and/or Class    
-      $errorAttributes = '';
+    if($showError && $this->showError) {
+      // adds ATTRIBUTES  
       $errorStartTag = '';
       $errorEndTag = '';
-            
-      // message ID
-      if($this->errorId && $this->errorId !== true)
-        $errorAttributes .= ' id="'.$this->errorId.'"';
-      // message CLASS
-      if($this->errorClass && $this->errorClass !== true)
-        $errorAttributes .= ' class="'.$this->errorClass.'"';
+      $errorAttributes = $this->createAttributes($this->errorId, $this->errorClass, $this->errorAttributes);
       
-      if(($this->errorTag && $this->errorTag !== true) || !empty($errorAttributes)) {
-        // creates standard tag
-        $errorTag = 'span';
-        // eventually overwrites standard tag
-        if($this->errorTag && $this->errorTag !== true)
-          $errorTag = $this->errorTag;  
+      if($this->errorTag || !empty($errorAttributes)) {
+	  
+	// set tag
+        if(is_string($this->errorTag)) $errorTag = $this->errorTag;
+	// or uses standard tag
+        else $errorTag = 'span';
                   
         $errorStartTag = '<'.$errorTag.$errorAttributes.'>';
         $errorEndTag = '</'.$errorTag.'>';
@@ -649,11 +701,13 @@ class feindura {
     // -> checks if $page is an pageContent Array
     if(is_array($page) && array_key_exists('id',$page)) {
       $pageContent = $page;
+      
+    // $page is NUMBER
     } else {
       // -> if not try to load the page
       if(!$pageContent = $this->readPage($page,$category)) {
         // if could not load throw ERROR
-        if($showErrors && $this->showError) {
+        if($showError && $this->showError) {
           return $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
         } else
           return false;
@@ -663,7 +717,7 @@ class feindura {
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
-      if($showErrors && $this->showError) {
+      if($showError && $this->showError) {
         return $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
       } else
         return false;
@@ -681,6 +735,7 @@ class feindura {
                                   $this->titleTag,
                                   $this->titleId,
                                   $this->titleClass,
+				  $this->titleAttributes,
                                   $this->titleLength,
                                   $this->titleAsLink,
                                   $this->titleShowCategory,
@@ -689,24 +744,20 @@ class feindura {
       
     // -> PAGE THUMBNAIL
     // *****************
-    if($this->contentThumbnail &&      
+    if($this->contentShowThumbnail &&      
       !empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
       ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
       ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
       
-      // adds ID and/or Class and/or FLOAT
-      $thumbnailAttributes = '';
-      // thumbnail ID
-      if($this->thumbnailId && $this->thumbnailId !== true)
-        $thumbnailAttributes .= ' id="'.$this->thumbnailId.'"';
-      // thumbnail CLASS
-      if($this->thumbnailClass && $this->thumbnailClass !== true)
-        $thumbnailAttributes .= ' class="'.$this->thumbnailClass.'"';
+      // adds ATTRIBUTES and/or FLOAT
+
+      $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
+      
       // thumbnail FLOAT
-      if(strtolower($this->thumbnailFloat) === 'left' ||
-         strtolower($this->thumbnailFloat) === 'right')
-        $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailFloat).';"';
+      if(strtolower($this->thumbnailAlign) === 'left' ||
+         strtolower($this->thumbnailAlign) === 'right')
+        $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailAlign).';"';
       
       $pageThumbnail = '<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
     } else $pageThumbnail = '';
@@ -716,24 +767,18 @@ class feindura {
     if($this->showContent) {
       $pageContentEdited = $pageContent['content'];
       
-      // -> adds ID and/or Class
+      // -> adds ATTRIBUTES
       // -----------------------
-      $contentAttributes = '';
       $contentStartTag = '';
-      $contentEndTag = '';     
-      // content ID
-      if($this->contentId && $this->contentId !== true)
-        $contentAttributes .= ' id="'.$this->contentId.'"';
-      // content CLASS
-      if($this->contentClass && $this->contentClass !== true)
-        $contentAttributes .= ' class="'.$this->contentClass.'"';
+      $contentEndTag = '';
+      $contentAttributes = $this->createAttributes($this->contentId, $this->contentClass, $this->contentAttributes);
         
-      if(($this->contentTag && $this->contentTag !== true) || !empty($contentAttributes)) {
-        // creates standard tag
-        $contentTag = 'div';
-        // eventually overwrites standard tag
-        if($this->contentTag && $this->contentTag !== true)
-          $contentTag = $this->contentTag;  
+      if($this->contentTag || !empty($contentAttributes)) {
+	  
+	// set tag
+        if(is_string($this->contentTag)) $contentTag = $this->contentTag;
+	// or uses standard tag
+        else $contentTag = 'div';
                   
         $contentStartTag = '<'.$contentTag.$contentAttributes.'>';
         $contentEndTag = '</'.$contentTag.'>';        
@@ -744,10 +789,10 @@ class feindura {
         $pageContentEdited = strip_tags($pageContentEdited);
       
       // -> SHORTEN CONTENT   
-      if($shortenText) {
+      if($shortenText && $shortenText !== true) {
         // -> SET the PROPERTY $contentLength
-        if($shortenText === true)
-          $shortenText = $this->contentLength; // standard preview length
+        //if($shortenText === true)
+          //$shortenText = $this->contentLength; // standard preview length
   
         if($useHtml)
           $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, " ...");
@@ -801,11 +846,10 @@ class feindura {
     // removes double breaks
     $generatedPage = preg_replace("/\\n+/","\n",$generatedPage);
     
-    // -> AFTER all RETURN $pageContentEdited
+    // -> AFTER all RETURN $generatedPage
     // ***************** 
     return $generatedPage;
   }
-  // -> END -- generatePage --------------------------------------------------------------------------------  
   
   
   // -> START -- createTitle ******************************************************************************
@@ -815,7 +859,8 @@ class feindura {
                                  $titleTag = false,            // the TAG which is used by the title (String)
                                  $titleId = false,             // the ID which is used by the title tag (String)
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
-                                 $titleLength = false,         // if Number, it shortens the title characters to this Length (bool or Number)
+                                 $titleAttributes = false,
+				 $titleLength = false,         // if Number, it shortens the title characters to this Length (bool or Number)
                                  $titleAsLink = false,         // if true, it set the title as a link (bool)
                                  $titleShowCategory = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
                                  $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
@@ -886,23 +931,17 @@ class feindura {
       }      
         
       // -------------------------------
-      // adds ID and/or Class
-      $titleTagAttributes = '';
+      // adds ATTRIBUTES
       $titleStartTag = '';
       $titleEndTag = '';
-      // add TITLE ID
-      if($titleId && $titleId !== true)
-        $titleTagAttributes .= ' id="'.$titleId.'"';
-      // add TITLE CLASS
-      if($titleClass && $titleClass !== true)
-        $titleTagAttributes .= ' class="'.$titleClass.'"';        
+      $titleAttributes = $this->createAttributes($titleId, $titleClass, $titleAttributes);
         
-      if($titleTag || !empty($titleTagAttributes)) {
+      if($titleTag || !empty(titleAttributes)) {
+      
         // set tag
-        if($titleTag && $titleTag !== true)
-          $titleTag = $titleTag;
-        else // or uses standard tag          
-          $titleTag = 'span';
+        if(is_string($titleTag)) $titleTag = $titleTag;
+	// or uses standard tag
+        else $titleTag = 'span';
                   
         $titleStartTag = '<'.$titleTag.$titleTagAttributes.'>';
         $titleEndTag = '</'.$titleTag.'>';
@@ -927,6 +966,30 @@ class feindura {
     
   }
   // -> END -- createHref -----------------------------------------------------------------------------------
+  
+  // -> START -- createAttributes ******************************************************************************
+  // generates a string with id class and other attributes out of the given properties
+  // RETURNs a String with all attributes
+  // -----------------------------------------------------------------------------------------------------
+  function createAttributes($id, $class, $attributes) {
+  
+      $attributeString = '';
+      
+      // add ID
+      if($id && $id !== true)
+        $attributeString .= ' id="'.$id.'"';
+	
+      // add CLASS
+      if($class && $class !== true)
+        $attributeString .= ' class="'.$class.'"';
+      
+      // add ATTRIBUTES
+      if($attributes && $attributes !== true)
+	$attributeString .= ' '.$attributes;
+        
+      return $attributeString;    
+  }
+  // -> END -- createAttributes -----------------------------------------------------------------------------------
   
   // -> START -- readPage ********************************************************************************
   // OVERWRITES the readPage() function of the general.functions.php
@@ -1242,7 +1305,7 @@ class feindura {
                                 $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY                                
                                 $shortenTextORlinkText = false,        // (Boolean or Number or String)  the Number of characters to shorten the content text OR the TEXT used for the links, if TRUE it USES the TITLE of the pages
                                 $useHtmlORmenuTag = true,              // (Boolean or String) use html in the content text OR the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
-                                $sortingConsiderCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
+                                $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
                                 $breakAfter = false,                   // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                                 $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
 
@@ -1323,7 +1386,7 @@ class feindura {
       
       // -> SORT the pages BY DATE
       // sort by DATE and GIVEN ARRAY
-      if($sortingConsiderCategories === false)
+      if($sortByCategories === false)
         usort($selectedPages,'sortByDate');
       // sorts by DATE and CATEGORIES
       else
@@ -1336,19 +1399,19 @@ class feindura {
       
       // -> LIST the pages    
       if($type == 'pages') {        
-        return $this->listPages($idType,$selectedPages,$shortenTextORlinkText,$useHtmlORmenuTag,$sortingConsiderCategories);
+        return $this->listPages($idType,$selectedPages,$shortenTextORlinkText,$useHtmlORmenuTag,$sortByCategories);
       
       // OR  
       // -> CREATE MENU of the pages
       } elseif($type == 'menu')  {
-        return $this->createMenu($idType,$selectedPages,$shortenTextORlinkText,$useHtmlORmenuTag,$breakAfter,$sortingConsiderCategories);  
+        return $this->createMenu($idType,$selectedPages,$shortenTextORlinkText,$useHtmlORmenuTag,$breakAfter,$sortByCategories);  
       }  
       
       /*
       foreach($selectedPages as $page) {
         // show the pages, if they have a date which can be sorten
                    
-        if($pageContent = $this->generatePage($page,false,false,$shortenText,$useHtml)) {
+        if($pageContent = $this->generatePage($page,$page['category'],false,$shortenText,$useHtml)) {
           $return[] = $pageContent;
         }
       }
