@@ -266,18 +266,17 @@ class feindura {
   * <b>Type</b>     constructor<br>
   * <b>Name</b>     feindura()<br>
   *
-  * <b>Detailed Description</b><br>
-  *    - get the settings config <var>arrays</var>
-  *    - set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property
-  *    - get the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties
-  *    - check if cookies are activated, otherwise store the session id in the {@link $sessionId} property for use in links
-  *    - get the frontend language-file adn set it to the {@link $languageFile} property
+  * First gets the settings config <var>arrays</var>,<br>
+  * then set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property.<br>
+  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
+  * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
+  * Get the frontend language-file adn set it to the {@link $languageFile} property.
   *
-  * <b>Used Global Variables</b><br>
-  *    - <var>$adminConfig array</var> the administrator-settings config (included in the {@link general.include.php})
-  *    - <var>$websiteConfig array</var> the website-settings config (included in the {@link general.include.php})
-  *    - <var>$categories array</var> the categories-settings config (included in the {@link general.include.php})
   *
+  * <h2>Used Global Variables</h2>
+  *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
+  *    - <var>$categories</var> array the categories-settings config (included in the {@link general.include.php})
   *
   * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
   *
@@ -290,6 +289,8 @@ class feindura {
   * @uses $sessionId              the session ID string will set to this property, if cookies are deactivated
   * 
   * @return void
+  *
+  * @access public
   * 
   * @see general.include.php
   * @see feindura::feindura()
@@ -360,11 +361,9 @@ class feindura {
   * <b>Name</b>     getCurrentPage()<br>
   * <b>Aliases</b>  getPage()<br>
   *
-  * <b>Detailed Description</b><br>
-  *    - gets the current page ID from the <var>$_GET</var> variable
-  *    - if <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name
-  *      and returns the ID
-  *    - if no <var>$_GET</var> variable exists it trys to return the {@link $startPage} property
+  * Gets the current page ID from the <var>$_GET</var> variable.
+  * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
+  * If no <var>$_GET</var> variable exists try to return the {@link $startPage} property.
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
@@ -375,8 +374,10 @@ class feindura {
   * @uses $adminConfig             to look if set start-page is allowed
   * 
   * 
-  * @return int|false the current page ID
+  * @return int|false the current page ID or FALSE
   * 
+  * @access public
+  *
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -433,10 +434,9 @@ class feindura {
   * <b>Name</b>     getCurrentCategory()<br>
   * <b>Aliases</b>  getCategory()<br>
   *
-  * <b>Detailed Description</b><br>
-  *    - gets the current category ID from the <var>$_GET</var> variable
-  *    - if <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID
-  *    - if no <var>$_GET</var> variable exists it trys to return the {@link $startPage} property
+  * Gets the current category ID from the <var>$_GET</var> variable.
+  * If <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID.
+  * If no <var>$_GET</var> variable exists it try to return the {@link $startPage} property.
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the category ID
@@ -446,8 +446,10 @@ class feindura {
   * @uses $adminConfig             to look if set start-page is allowed
   * @uses $categoryConfig          for the right category name, if the $_GET variable is not a ID but a category name
   * 
-  * @return int|false the current category ID
+  * @return int|false the current category ID or FALSE
   * 
+  * @access public
+  *
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -500,9 +502,8 @@ class feindura {
   * <b>Name</b>     setCurrentPage()<br>
   * <b>Aliases</b>  setPage()<br>
   *
-  * <b>Detailed Description</b><br>
-  *    - gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPage}) and set it to the {@link $page} property
-  *    - if parameter <var>$setStartPage</var> is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}
+  * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPage}) and set it to the {@link $page} property.
+  * If parameter <var>$setStartPage</var> is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}.
   *
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
   *
@@ -511,8 +512,10 @@ class feindura {
   * @uses $page             as the property to set
   * @uses $startPage        if the setStartPage parameter is TRUE this property will also be set
   * 
-  * @return int the set page ID
+  * @return int|false the set page ID or FALSE
   * 
+  * @access public
+  *
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -547,9 +550,8 @@ class feindura {
   * <b>Name</b>     setCurrentCategory()<br>
   * <b>Aliases</b>  setCategory()<br>
   *
-  * <b>Detailed Description</b><br>
-  *    - gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategory}) and set it to the {@link $category} property
-  *    - if parameter <var>$setStartCategory</var> is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}
+  * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategory}) and set it to the {@link $category} property.
+  * If parameter <var>$setStartCategory</var> is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}.
   *
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   *
@@ -558,8 +560,10 @@ class feindura {
   * @uses $category         as the property to set
   * @uses $startCategory    if the $setStartCategory parameter is TRUE this property will also be set
   * @uses getPageCategory() to get the right category ID of the start-page
-  * 
-  * @return int the set category ID
+  *
+  * @return int|false the set category ID or FALSE
+  *
+  * @access public
   * 
   * @version 1.0
   * <br>

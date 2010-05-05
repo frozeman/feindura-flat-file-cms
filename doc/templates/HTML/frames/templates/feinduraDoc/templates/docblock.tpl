@@ -3,7 +3,7 @@
 <div class="method-description">
 {/if}
 {if $sdesc}
-<b>Short Description</b><br>
+<h2>Description</h2>
 <p class="short-description">{$sdesc}</p>
 {/if}
 {if $desc}
@@ -17,7 +17,7 @@
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}{assign var="hasUses" value="true"}{/if}{/section}
 	{if $hasUses == 'true'}
 	<div class="insideDockBlock method-properties">
-	<b>Used Properties</b><br>
+	<h2>Used Properties</h2>
 		<ul>
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}
 <li>{$tags[tags].data}</li>		
@@ -28,10 +28,10 @@
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'return'}{assign var="hasReturn" value="true"}{/if}{/section}
 	{if $hasReturn == 'true'}
 	<div class="insideDockBlock method-return">
-	<b>Return Value</b><br>
+	<h2>Return Value</h2>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'return'}
-<li>{$methods[methods].function_return} - {$tags[tags].data}</li>		
+<li><var>{$methods[methods].function_return}</var> - {$tags[tags].data}</li>		
 {/if}{/section}
 		</ul>
         </div>
@@ -39,7 +39,7 @@
 	{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses'}{assign var="hasTags" value="true"}{/if}{/section}
 	{if $hasTags == 'true'}
 	<div class="insideDockBlock method-tags">
-	<b>Additional</b><br>
+	<h2>Additional</h2>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses'}
 <li><span class="field">{$tags[tags].keyword}:</span> {$tags[tags].data}</li>
@@ -50,7 +50,7 @@
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}{assign var="hasVersion" value="true"}{/if}{/section}
 	{if $hasVersion == 'true'}
 	<div class="insideDockBlock method-version">
-	<b>Version</b><br>
+	<h2>Version</h2>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}
 <li>{$tags[tags].data}</li>
