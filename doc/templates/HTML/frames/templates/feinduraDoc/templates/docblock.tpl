@@ -1,9 +1,9 @@
 <!-- ========== DocBlock ========= -->
 {if $sdesc || $desc}
 <div class="method-description">
-<b>Description</b><br>
 {/if}
 {if $sdesc}
+<b>Short Description</b><br>
 <p class="short-description">{$sdesc}</p>
 {/if}
 {if $desc}
@@ -13,39 +13,43 @@
 </div>
 {/if}
 {if $tags}
-	<div class="method-tags">
+	
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}{assign var="hasUses" value="true"}{/if}{/section}
 	{if $hasUses == 'true'}
-		<b>Used Properties</b><br>
-		<ul class="tags">
+	<div class="insideDockBlock method-properties">
+	<b>Used Properties</b><br>
+		<ul>
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}
-<li><span class="field">{$tags[tags].keyword}:</span> {$tags[tags].data}</li>		
+<li>{$tags[tags].data}</li>		
 {/if}{/section}
 		</ul>
+        </div>
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'return'}{assign var="hasReturn" value="true"}{/if}{/section}
 	{if $hasReturn == 'true'}
-		<b>Return Value</b><br>
+	<div class="insideDockBlock method-return">
+	<b>Return Value</b><br>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'return'}
-<li><span class="field">{$tags[tags].keyword}:</span> {$tags[tags].data}</li>		
+<li>{$methods[methods].function_return} - {$tags[tags].data}</li>		
 {/if}{/section}
 		</ul>
+        </div>
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses'}{assign var="hasTags" value="true"}{/if}{/section}
 	{if $hasTags == 'true'}
-		<b>Additional</b><br>
+	<div class="insideDockBlock method-tags">
+	<b>Additional</b><br>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses'}
 <li><span class="field">{$tags[tags].keyword}:</span> {$tags[tags].data}</li>
 {/if}{/section}
 		</ul>
+        </div>
 	{/if}
-	</div>
-	
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}{assign var="hasVersion" value="true"}{/if}{/section}
 	{if $hasVersion == 'true'}
-	<div class="method-version">
+	<div class="insideDockBlock method-version">
 	<b>Version</b><br>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}

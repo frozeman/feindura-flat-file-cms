@@ -162,7 +162,7 @@ class feindura {
   var $startCategory = null;
   
  /**
-  * Contains the administrator-settings config of the CMS backend
+  * Contains the administrator-settings config set in the CMS backend
   * 
   * The file with the administrator-settings is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
@@ -175,7 +175,7 @@ class feindura {
   var $adminConfig;
 
  /**
-  * Contains the website-settings config of the CMS backend
+  * Contains the website-settings config set in the CMS backend
   * 
   * The file with the website-settings is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
@@ -188,7 +188,7 @@ class feindura {
   var $websiteConfig;
   
  /**
-  * Contains the categories-settings config of the CMS backend
+  * Contains the categories-settings config set in the CMS backend
   * 
   * The file with the categories-settings is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
@@ -281,13 +281,13 @@ class feindura {
   *
   * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
   *
-  * @uses $adminConfig
-  * @uses $websiteConfig
-  * @uses $categoryConfig
-  * @uses $generalFunctions
-  * @uses $statisticFunctions
-  * @uses $varNames
-  * @uses $sessionId
+  * @uses $adminConfig            the administrator-settings config array will set to this property
+  * @uses $websiteConfig          the website-settings config array will set to this property
+  * @uses $categoryConfig         the category-settings config array will set to this property
+  * @uses $generalFunctions       a generalFunctions class instance will set to this property
+  * @uses $statisticFunctions     a statisticFunctions class instance will set to this property
+  * @uses $varNames               the variable names from the administrator-settings config will set to this property
+  * @uses $sessionId              the session ID string will set to this property, if cookies are deactivated
   * 
   * @return void
   * 
@@ -362,17 +362,17 @@ class feindura {
   *
   * <b>Detailed Description</b><br>
   *    - gets the current page ID from the <var>$_GET</var> variable
-  *    - if <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and looks for the right page name
+  *    - if <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name
   *      and returns the ID
   *    - if no <var>$_GET</var> variable exists it trys to return the {@link $startPage} property
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
   * 
-  * @uses $varNames                for variable names which the <var>$_GET</var> will use for the page ID
-  * @uses $startPage               if no <var>$_GET</var>variable exists it will try to get the {@link $startPage} property
-  * @uses loadPages()              for loading all pages to get the right page ID, if the <var>$_GET</var> is not a ID but a page name
-  * @uses $adminConfig      to look if set start-page is allowed
+  * @uses $varNames                for variable names which the $_GET will use for the page ID
+  * @uses $startPage               if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses loadPages()              for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
+  * @uses $adminConfig             to look if set start-page is allowed
   * 
   * 
   * @return int|false the current page ID
@@ -435,16 +435,16 @@ class feindura {
   *
   * <b>Detailed Description</b><br>
   *    - gets the current category ID from the <var>$_GET</var> variable
-  *    - if <var>$_GET</var> is not a ID but a category name, it looks in the {@link $categoryConfig} for the right category ID
+  *    - if <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID
   *    - if no <var>$_GET</var> variable exists it trys to return the {@link $startPage} property
   *
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the category ID
   *
-  * @uses $varNames                for variable names which the <var>$_GET</var> will use for the category ID
-  * @uses $startPage               if no <var>$_GET</var>variable exists it will try to get the {@link $startPage} property
-  * @uses $adminConfig      to look if set start-page is allowed
-  * @uses $categoryConfig          for the right category name, if the <var>$_GET</var> is not a ID but a category name
+  * @uses $varNames                for variable names which the $_GET will use for the category ID
+  * @uses $startPage               if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses $adminConfig             to look if set start-page is allowed
+  * @uses $categoryConfig          for the right category name, if the $_GET variable is not a ID but a category name
   * 
   * @return int|false the current category ID
   * 
@@ -509,7 +509,7 @@ class feindura {
   * @uses $adminConfig      to look if set start-page is allowed
   * @uses $websiteConfig    to get the start-page ID
   * @uses $page             as the property to set
-  * @uses $startPage        if parameter <var>$setStartPage</var> is TRUE this property will also be set
+  * @uses $startPage        if the setStartPage parameter is TRUE this property will also be set
   * 
   * @return int the set page ID
   * 
@@ -556,7 +556,7 @@ class feindura {
   * @uses $adminConfig      to look if set start-page is allowed
   * @uses $websiteConfig    to get the start-page ID
   * @uses $category         as the property to set
-  * @uses $startCategory    if parameter <var>$setStartCategory</var> is TRUE this property will also be set
+  * @uses $startCategory    if the $setStartCategory parameter is TRUE this property will also be set
   * @uses getPageCategory() to get the right category ID of the start-page
   * 
   * @return int the set category ID
