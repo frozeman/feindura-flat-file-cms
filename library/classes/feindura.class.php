@@ -654,7 +654,7 @@ class feindura {
   * @uses feinduraPages::$contentBefore
   * @uses feinduraPages::$contentAfter
   * 
-  * @return string|false the generated page, ready to display in a HTML file or if no page could be loaded FALSE
+  * @return string|false the generated page, ready to display in a HTML file or FALSE if no page could be loaded
   *
   * @access protected
   *
@@ -934,9 +934,9 @@ class feindura {
       // adds ATTRIBUTES
       $titleStartTag = '';
       $titleEndTag = '';
-      $titleAttributes = $this->createAttributes($titleId, $titleClass, $titleAttributes);
+      $titleTagAttributes = $this->createAttributes($titleId, $titleClass, $titleAttributes);
         
-      if($titleTag || !empty(titleAttributes)) {
+      if($titleTag || !empty($titleTagAttributes)) {
       
         // set tag
         if(is_string($titleTag)) $titleTag = $titleTag;
