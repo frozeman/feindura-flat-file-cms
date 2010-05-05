@@ -14,9 +14,10 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* FRONTEND feindura functions
 * 
-* library/functions/sort.functions.php version 0.12
+* library/functions/sort.functions.php
+*
+* @version 0.13
 * 
 */
 
@@ -81,8 +82,11 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
     $categoryIds .= $category['id'].' ';
   }
   
-  if($a['category'] == $b['category'] ||
-     (empty($a['category']) && $a['category'] !== 0) || (empty($b['category']) && $b['category'] !== 0)) {
+  if($a['category'] == $b['category']) {
+     // would put the non-category on the end
+     // ||
+     //(empty($a['category']) && $a['category'] !== 0) ||
+     //(empty($b['category']) && $b['category'] !== 0)) {
     return 0;
   }
 

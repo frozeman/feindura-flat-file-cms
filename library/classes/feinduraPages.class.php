@@ -960,7 +960,7 @@ class feinduraPages extends feindura {
         
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);    
-    
+
     // -> if pages SORTED BY CATEGORY
     if($sortByCategories === true)
       $pages = $this->generalFunctions->sortPages($pages);

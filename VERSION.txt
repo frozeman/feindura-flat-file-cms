@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta
-Build 175
+Build 176
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,7 @@ if not, see http://www.gnu.org/licenses/.
 
 ChangeLog:
 	
+	build 176: sort.functions.php: fixes in category sort
 	build 175: changes in README.txt VERSION.txt and LICENSE.txt
 	build 174: removed global from classes and replaced with the superglobal $GLOBAL['']
 	build 173: startet to change feindura.class.php and add feinduraPages.class.php
