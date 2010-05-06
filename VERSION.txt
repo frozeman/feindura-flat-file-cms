@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 178
+Build 179
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see http://www.gnu.org/licenses/.
 ChangeLog:
 	
 1.0 beta 2
+	build 179: feinduraPages.class.php: $showError property renamed in $pageShowError
 	build 178: generatePages(): changes in return value
 	build 177: beta 2 feindura.class.php and feinduraPages.class.php removed content properties, add page properties; removed ..before and ..after in title and menu properties; public functions never ask for catgory ID if page ID is given
 

@@ -157,6 +157,7 @@ class feinduraPages extends feindura {
   var $pageShowTitle = true;
   var $pageShowThumbnail = true;
   var $pageShowContent = true;
+  var $pageShowError = true;
   
   /*
   var $showContent = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
@@ -178,7 +179,7 @@ class feinduraPages extends feindura {
   var $thumbnailBefore = false;           // [False or String]      -> a String which comes BEFORE the thumbnail img <$titleTag> tag
   var $thumbnailAfter = false;            // [False or String]      -> a String which comes AFTER the thumbnail img </$titleTag> tag
   
-  var $showError = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
+  //var $showError = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
   var $errorTag = false;                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
   var $errorId = false;                 // [False or String]      -> the message ID which is used when creating a message (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $errorClass = false;              // [False or String]      -> the message CLASS which is used when creating a message
@@ -912,7 +913,7 @@ class feinduraPages extends feindura {
       
       // ->> load SINGLE PAGE
       // *******************
-      if($generatedPage = $this->generatePage($page,$this->showError,$shortenText,$useHtml)) {
+      if($generatedPage = $this->generatePage($page,$this->pageShowError,$shortenText,$useHtml)) {
         // -> SAVE PAGE STATISTIC
         // **********************
         $this->statisticFunctions->savePageStats($this->readPage($page,$category));

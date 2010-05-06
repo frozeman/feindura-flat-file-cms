@@ -579,7 +579,7 @@ class feindura {
   * Generates a page by the given page ID.
   * The returned page array is structured in this order:<br>
   * title, the page thumbnail and then the content, depending on the respective properties.
-  * In case the page doesnt exists or is not public a error is shown (depending on the <var>$showError</var> parameter AND the {@link feinduraPages::$showError} property,
+  * In case the page doesnt exists or is not public a error is shown (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$pageShowError} property,
   * otherwise it returns FALSE.
   * 
   * Example of the returned array:
@@ -593,7 +593,7 @@ class feindura {
   *
   * @param int|array $page page ID or a $pageContent array
   * @param bool $showError (optional) tells if errors like "The page you requested doesn't exist" will be displayed
-  * @param int|false $shortenText (optional) number of the maximal count of letters, adds a "more" link at the end or FALSE to not shorten
+  * @param int|false $shortenText (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
   * @param bool $useHtml (optional) displays the page content with or without HTML tags
   *
   * 
@@ -602,10 +602,13 @@ class feindura {
   * @uses $languageFile                 for the error texts
   * @uses publicCategory()              checks if the page category is public
   * @uses createTitle()                 create the page title  
-  * @uses shortenHtmlText()             for shorten the HTML page content
-  * @uses shortenText()                 for shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses feinduraPages::$xHtml                        
-  * @uses feinduraPages::$showError
+  * @uses shortenHtmlText()             to shorten the HTML page content
+  * @uses shortenText()                 to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses feinduraPages::$xHtml
+  * @uses feinduraPages::$pageShowTitle
+  * @uses feinduraPages::$pageShowThumbnail
+  * @uses feinduraPages::$pageShowContent
+  * @uses feinduraPages::$pageShowError
   * @uses feinduraPages::$errorTag
   * @uses feinduraPages::$errorId
   * @uses feinduraPages::$errorClass
@@ -617,22 +620,14 @@ class feindura {
   * @uses feinduraPages::$titleLength
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleShowDate  
+  * @uses feinduraPages::$titleShowDate 
   * @uses feinduraPages::$thumbnailId
   * @uses feinduraPages::$thumbnailClass
   * @uses feinduraPages::$thumbnailAttributes
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
-  * @uses feinduraPages::$showContent
-  * @uses feinduraPages::$contentShowTitle
-  * @uses feinduraPages::$contentShowThumbnail
-  * @uses feinduraPages::$contentTag
-  * @uses feinduraPages::$contentId
-  * @uses feinduraPages::$contentClass
-  * @uses feinduraPages::$contentAttributes
-  * @uses feinduraPages::$contentBefore
-  * @uses feinduraPages::$contentAfter
+  
   * 
   * @return array|false the generated page array, ready to display in a HTML file or FALSE if no page could be loaded
   *
@@ -664,7 +659,7 @@ class feindura {
     
     // -> sets the ERROR SETTINGS
     // ----------------------------
-    if($showError && $this->showError) {
+    if($showError && $this->pageShowError) {
       // adds ATTRIBUTES  
       $errorStartTag = '';
       $errorEndTag = '';
@@ -695,7 +690,7 @@ class feindura {
       // -> if not try to load the page
       if(!$pageContent = $this->readPage($page,$category)) {
         // if could not load throw ERROR
-        if($showError && $this->showError) {
+        if($showError && $this->pageShowError) {
 	  $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
           return $return;
         } else
@@ -706,7 +701,7 @@ class feindura {
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
-      if($showError && $this->showError) {
+      if($showError && $this->pageShowError) {
         $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
         return $return; 
       } else
