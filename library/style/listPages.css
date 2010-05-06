@@ -149,14 +149,6 @@ div.listPagesHead {
     height: 27px;
     text-align: right;
     }
-    
-
-/* ----------------------- */	
-/* ---:- MESSAGEBOX */
-
-#sortPagesMessageBox {
-    display: none; /* get activiated in sortPages.js */
-    }
 
 /* ----------------------- */	
 /* ---:- FUNCTION links */

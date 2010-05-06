@@ -65,70 +65,6 @@ class feindura {
   *   
   */
   var $varNames = array('page' => 'page', 'category' => 'category', 'modul' => 'modul');
-
- /**
-  * Contains all page and category IDs on the first loading of a page.
-  * 
-  * On the first loading of a page, in a #feindura <var>class</var> instance, 
-  * it goes trough all category folders and look which pages are in which folders and saves the IDs in the this property,<br>
-  * to speed up the page loading process.
-  * 
-  * Example construction of the array
-  * <code>
-  * array(
-  *   [0] => array(
-  *           'page' => 1,
-  *           'category' => 1
-  *          ),
-  *   [1] => array(
-  *           'page' => 2,
-  *           'category' => 1
-  *          )
-  *   ...  
-  * );
-  * </code>
-  * 
-  * @var array
-  * @access protected
-  *    
-  */
-  var $storedPageIds = null;
-  
- /**
-  * Stores page-content <var>array's</var> in this property if a page is loaded
-  * 
-  * If a page is loaded (<i>included</i>) it's page-content array will be stored in the this array.<br>
-  * If the page is later needed again it's page-content will be fetched from this property.<br>
-  * It should speed up the page loading process.
-  *
-  * Example construction of the array
-  * <code>
-  * array(
-  *   [5] => array(
-  *           'id' => 5,
-  *           'category' => 1,
-  *           'title' => 'First Example Page',
-  *           'public' => 'true',
-  *           ...  
-  *           'content' => '<p>example</p>'      
-  *          ),
-  *   [8] => array(
-  *           'id' => 8,
-  *           'category' => 1,
-  *           'title' => 'Second Example Page',
-  *           'public' => '',
-  *           ...  
-  *           'content' => '<p>example</p>'      
-  *          )
-  *    ...  
-  * );
-  * </code>
-  * 
-  * @var array
-  * @access protected
-  *   
-  */
-  var $storedPages = null;
                                  
   // PUBLIC
   // *********
@@ -1030,162 +966,29 @@ class feindura {
   }
   
  /**
-  * Loads the $pageContent array of a page
+  * Loads the <var>$pageContent</var> array of a page
   *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     readPage()<br>
-  *
-  * Checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
-  * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
-  * and store it in the {@link $storedPages} property.
-  * 
-  *
-  * @param int  $page           a page ID
-  * @param int  $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
-  *
-  * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
-  * @uses generalFunctions::readPage()	to load the $pageContent array of the page
-  *
-  * @return array the $pageContent array of the requested page
-  *
-  * @access protected
-  *
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
+  * @uses generalFunctions::readPage()
+  * @see generalFunctions::readPage()
   *
   */
   function readPage($page, $category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
-   
-    $storedPages = $this->getStoredPages();
 
-    // -> checks if the page is already loaded
-    if(isset($storedPages[$page])) {
-      //echo '<br />->USED STORED '.$page.'<br />';        
-      return $storedPages[$page];
-      
-    // -> if not load the page and store it in the storePages PROPERTY
-    } else {
-      if(($page = $this->generalFunctions->readPage($page,$category)) !== false) {        
-        //echo '<br />->>> LOAD '.$page['id'].'<br />';
-        
-        // add the pageContent Array to the PROPERTY and SESSION
-        return $this->setStoredPages($page);
-      } else return false;
-    }
+    return $this->generalFunctions->readPage($page,$category);
   }
 
  /**
-  * Loads the $pageContent arrays of a pages in a specific category or all categories
+  * Loads the <var>$pageContent</var> arrays of a pages in a specific category or all categories
   *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     loadPages()<br>
+  * @uses generalFunctions::loadPages()
+  * @see generalFunctions::loadPages()
   *
-  * Goes through the {@link $storedPageIds} property and load every $pageContent array of the given category ID.
-  * Before loading the $pageContent array of a page it checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
-  * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
-  * and store it in the {@link $storedPages} property.
-  *
-  * After loading all $pageContent arrays of an category, the array with the containing $pageContent arrays will be sorted.
-  * 
-  *
-  * @param bool|int|array $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
-  * @param bool		  $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
-  *
-  * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
-  * @uses generalFunctions::readPage()	to load the $pageContent array of the page
-  *
-  * @return array the $pageContent array of the requested page
-  *
-  * @access protected
-  *
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */  
-  // -> START -- loadPages *******************************************************************************
-  // OVERWRITES the loadPages() function of the general.functions.php
-  // loads only pages if they are not already in the storedPages PROPERTY Array
-  // RETURNs the pageContent Arrays or false
-  // -----------------------------------------------------------------------------------------------------
-  function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
-                     $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
-    
-    // IF $category FALSE set $category to 0
-    if($category === false)
-      $category = '0';
-    
-    // ->> RETURN $pageContent arrays
-    if($loadPagesInArray === true) {
-      
-      //vars
-      $pagesArray = array();
+  */
+  function loadPages($category = false, $loadPagesInArray = true) {
 
-      // IF $category TRUE create array with non-category and all category IDs
-      if($category === true) {
-	// puts the categories IDs in an array
-	$category = array(0);
-	foreach($this->categoryConfig as $eachCategory) {
-	  $category[] = $eachCategory['id'];
-	}
-      }
-      
-      // change category into array
-      if(is_numeric($category))
-        $category = array($category);
-        
-      // go trough all given CATEGORIES       
-      foreach($category as $categoryId) {
-        
-        // go trough the storedPageIds and open the page in it
-        $newPageContentArrays = array();
-        foreach($this->getStoredPageIds() as $pageIdAndCategory) {
-          // use only pages from the right category
-          if($pageIdAndCategory['category'] == $categoryId) {
-            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
-            $newPageContentArrays[] = $this->readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
-          }
-        }
-        
-        // sorts the category
-        if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-          if($categoryId != 0 && $this->categoryConfig['id_'.$categoryId]['sortbydate'])
-            $newPageContentArrays = $this->generalFunctions->sortPages($newPageContentArrays, 'sortByDate');
-          else
-            $newPageContentArrays = $this->generalFunctions->sortPages($newPageContentArrays, 'sortBySortOrder');
-        }
-      
-        // adds the new sorted category to the return array
-        $pagesArray = array_merge($pagesArray,$newPageContentArrays);
-      }
-
-      return $pagesArray;
-      
-    // ->> RETURN ONLY the page & category IDs
-    } else {      
-      
-      // -> uses the $this->storedPageIds an filters out only the given category ID(s)
-      $pageIds = $this->getStoredPageIds();
-      if($category !== true) {
-	$newPageIds = false;
-	foreach($pageIds as $pageId) {
-	  if((is_array($category) && in_array($pageId['category'],$category)) || 
-	     $category == $pageId['category'])
-	    $newPageIds[] = array('page' => $pageId['page'], 'category' => $pageId['category']);
-        }
-      } else
-	$newPageIds = $pageIds;
-      
-      return $newPageIds;
-    }
+    return $this->generalFunctions->loadPages($category,$loadPagesInArray);
   }
-
   
   // -> START -- loadPagesByType **************************************************************************
   // loads the Pages by the given IDs and the given idType
@@ -1255,7 +1058,7 @@ class feindura {
       // ->> single page ID
       // *************** 
       } elseif($ids && is_numeric($ids)) {
-         
+
         // loads the single page in an array 
         if($pageContent = $this->readPage($ids,$this->getPageCategory($ids))) {
           $return[] = $pageContent;
@@ -1312,20 +1115,19 @@ class feindura {
     } else return false;
   }
   // -> END -- publicCategory ------------------------------------------------------------------------
-  
-  // -> START -- getPageCategory *********************************************************************
-  // gets the category ID of a given page ID
-  // -------------------------------------------------------------------------------------------------
-  function getPageCategory($page) {   // (Number) the page ID, from which to get the category ID
-  
-    // execute the genral function
-    $return = $this->generalFunctions->getPageCategory($page,$this->getStoredPageIds(),true);
-    
-    $this->storedPageIds = $return[1];
-    return $return[0];
+
+ /**
+  * Gets the category ID of a page
+  *
+  * @uses generalFunctions::getPageCategory()
+  * @see generalFunctions::getPageCategory()
+  *
+  */
+  function getPageCategory($page) {
+
+    return $this->generalFunctions->getPageCategory($page);
   }
-  // -> END -- getPageCategory ------------------------------------------------------------------------
-  
+
   // -> START -- prevNextPage *************************************************************************
   // gets the PREVOIUS or NEXT page from the given page ID
   // RETURNs the pageContent Array of the PREVOIUS or NEXT Page
@@ -1621,83 +1423,30 @@ class feindura {
     return $category;
   }
   // -> END -- getPropertyCategory ------------------------------------------------------------------
-  
-  // -> START -- getPropertyCategories **************************************************************
-  // if given categories var is false it sets the CATEGORIES PROPERTY
-  // ------------------------------------------------------------------------------------------------
-  /*
-  function getPropertyCategories($categories = false) { // (false or Array)
-    if($categories === false && is_array($this->categories))
-      $categories = $this->categories;  // set the categories var from PROPERTY var
 
-    return $categories;
-  }
+ /**
+  * Gets the {@link generalFunctions::$storedPageIds} property
+  *
+  * @uses generalFunctions::getStoredPageIds()
+  * @see generalFunctions::getStoredPageIds()
+  *
   */
-  // -> END -- getPropertyCategories ----------------------------------------------------------------
-  
-  // -> START -- getStoredPageIds *******************************************************************
-  // RETURNs the storedPageIDs PROPERTY
-  // ------------------------------------------------------------------------------------------------
-  function getStoredPageIds() { // (false or Array)
-  
-    // load all page ids, if necessary
-    if($this->storedPageIds == null)
-      $this->storedPageIds = $this->generalFunctions->loadPages(true,false);
+  function getStoredPageIds() {
 
-    return $this->storedPageIds;
+    return $this->generalFunctions->getStoredPageIds();
   }
-  // -> END -- getStoredPageIds ---------------------------------------------------------------------
-  
-  // -> START -- getStoredPages ********************************************************************
-  // GET the storedPages Array from SESSION or PROPERTY
-  // to turn the SESSION storedPages OFF, just unset the session in this function
-  // ------------------------------------------------------------------------------------------------
+
+ /**
+  * Gets the {@link generalFunctions::$storedPages} property
+  *
+  * @uses generalFunctions::getStoredPages()
+  * @see generalFunctions::getStoredPages()
+  *
+  */
   function getStoredPages() {
-    global $HTTP_SESSION_VARS;
-    
-    unset($_SESSION['storedPages']);    
-    //echo 'STORED-PAGES -> '.count($this->storedPages);
-    
-    // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;    
-      
-    // -> checks if the SESSION storedPages Array exists
-    if(isset($_SESSION['storedPages']))
-      $this->storedPages = $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
-    else
-      $storedPages = $this->storedPages; // if not get the storedPages from the PROPERTY
 
-    return $this->storedPages;
+    return $this->generalFunctions->getStoredPages();
   }
-  // -> END -- getStoredPages ----------------------------------------------------------------------
-  
-  // -> START -- setStoredPages ********************************************************************
-  // SAVE a new pageContentArray in the storedPages Array from SESSION or PROPERTY
-  // ------------------------------------------------------------------------------------------------
-  function setStoredPages($pageContent = false) { // (false or PageContent Array)
-    global $_SESSION;
-    global $HTTP_SESSION_VARS;
-    
-    unset($_SESSION['storedPages']);
-    
-    // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;  
-    
-    if($pageContent) {    
-      // -> checks if the SESSION storedPages Array exists
-      if(isset($_SESSION['storedPages']))
-        $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
-      else {
-        $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
-        $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
-      }
-
-      return $pageContent;    
-    } else return false;
-  }
-  // -> END -- setStoredPages ----------------------------------------------------------------------
   
   // -> START -- shortenText *******************************************************************************
   // shortens a text by the given length number

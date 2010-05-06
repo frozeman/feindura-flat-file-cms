@@ -84,7 +84,7 @@ foreach($sortOrder as $sort) {
 // -> CHECKs if the category folder is empty,
 // if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
 if(!$generalFunctions->loadPages($_POST['categoryOld'],false))
-  echo '&nbsp;';
+  echo '<span></span>';
   
 echo $status;
 ?>

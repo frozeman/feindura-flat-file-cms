@@ -17,8 +17,7 @@ toolTip.css version 0.54 */
 
 /* --- TOOLTIP in the text */
 
-.toolTip {
-    z-index: 11;
+.toolTip {    
     cursor: help;
     }
 /* textarea toolTip */
@@ -52,6 +51,10 @@ span.toolTip {
 /* --- TOOLTIP BOX */
 
 /* format of the toolTip box */
+.toolTipBox {
+    z-index: 10;
+    }
+
 .toolTipBox .tip-title	{
     z-index: 2;
     position: relative;    

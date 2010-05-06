@@ -5,9 +5,9 @@
 * */
 
 /* ----------------------- */
-/* --- rightSidebar */
+/* --- sortPagesMessageBox */
 
-#rightSidebar .content {
+#rightSidebarMessageBox .content {
     z-index: 2;
     position: relative;
     top: 0px;
@@ -19,7 +19,7 @@
     color: #666666;
     line-height: 18px;
     }
-#rightSidebar .bottom {
+#rightSidebarMessageBox .bottom {
     z-index: 2;
     position: absolute;
     bottom: -25px;
@@ -29,10 +29,9 @@
     background: url(../image/bg/rightSidebar_bgBottom.png) no-repeat;
     }
 
-/* ----------------------- */
-/* --- sidebarMenu */
+/* --- hintIcon */
 
-#rightSidebar .hintIcon {
+#rightSidebarMessageBox .hintIcon {
     position: relative;
     display: block;
     left: 50px;

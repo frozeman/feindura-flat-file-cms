@@ -170,7 +170,7 @@ window.addEvent('domready', function() {
       }
 			
 			// shows a nummeration (not in use)
-      // dreht die reihenfolge um, wenn sortdesc == true      
+			// dreht die reihenfolge um, wenn sortdesc == true      
 			/*if($('reverse' + categoryNew).value)
 			 count_sort = count_sort+1;
 			else
@@ -187,53 +187,52 @@ window.addEvent('domready', function() {
 					//-------------------------------------
           onRequest: function() {
             
-            // -> shows the sortMessageBox
-						$('sortPagesMessageBox').setStyle('display','block');
-						
+					
             // put the save new order - text in the loadingBox AND show the loadingBox
             $$('#loadingBox .content')[0].set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
             $('loadingBox').setStyle('display','block');
             $('loadingBox').fade('hide');
             $('loadingBox').fade('in');
             
-					},
-					//-------------------------------------
-					onSuccess: function(responseText) {
-            	  
-					  // puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
-					  //$('sortPagesMessageBox').set('html',sortablePageList_status[responseText.substr(6,1)]);
-					  $('sortPagesMessageBox').set('html',responseText);
-						
-						// remove prevent clicking the link on sort
-						$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
-						
-						// remove the "no pages notice" li if there is a page put in this category
-            $$('.sortablePageList li').each(function(li) { 
-                if(li.get('id') == null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
-                  li.destroy();
-                }
-            });
-            
-            // adds the "no page - notice" li if the old category is empty
-            if(responseText.substr(0,6) == '&nbsp;') {              
-              $$('.sortablePageList').each(function(ul) {
-                if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
-                  var newLi = new Element('li', {html: '<div>' + sortablePageList_status[1] + '</div>'});
-                  newLi.setStyle('cursor','auto');
-                  ul.grab(newLi,'top');
-                }
-              });
-            }
-            
-            // RELOADS the sidebarMenu
-            requestLeftSidebar(categoryNew,'','pages');
-            
-            // hide the loadingBox
-            //$('loadingBox').setStyle('visibility','hidden');
-            $('loadingBox').fade('show');
-            $('loadingBox').fade('out');
-					}
-				}).send();
+		},
+		//-------------------------------------
+		onSuccess: function(responseText) {
+
+		  // FINAL SORT MESSAGE
+		  //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
+		  //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
+		  $('messageBox_input').set('html','<img src="library/image/sign/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
+			
+			// remove prevent clicking the link on sort
+			$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
+			
+			// remove the "no pages notice" li if there is a page put in this category
+		    $$('.sortablePageList li').each(function(li) { 
+			if(li.get('id') == null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
+			  li.destroy();
+			}
+		    });
+
+		    // adds the "no page - notice" li if the old category is empty
+		    if(responseText.substr(0,13) == '<span></span>') {              
+		      $$('.sortablePageList').each(function(ul) {
+			if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
+			  var newLi = new Element('li', {html: '<div>' + sortablePageList_status[1] + '</div>'});
+			  newLi.setStyle('cursor','auto');
+			  ul.grab(newLi,'top');
+			}
+		      });
+		    }
+
+		    // RELOADS the sidebarMenu
+		    requestLeftSidebar(categoryNew,'','pages');
+
+		    // hide the loadingBox
+		    //$('loadingBox').setStyle('visibility','hidden');
+		    $('loadingBox').fade('show');
+		    $('loadingBox').fade('out');
+		}
+	     }).send();
 
 	   } // <-- SAVE SORT -- END --------------------
 	 }

@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.83
+listPages.php version 0.84
 
 */
 
@@ -85,11 +85,6 @@ if($_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
 startPageWarning();
 
 //<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->
-
-// -> the javascript request of the sortable gets its error messages from this input
-echo '<div id="sortPagesMessageBox" class="messageBox">';
-echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
-echo '</div>';
 
 ?>
 
@@ -184,15 +179,15 @@ foreach($allCategories as $category) {
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
-// list the pages of the categories
-// ----------------------------------------------------------
-if(is_array($pages)) {
+  // list the pages of the categories
+  // ----------------------------------------------------------
+  if(is_array($pages) && !empty($pages)) {
   
-  // create array for the sort_order start input value
-  $sort_order = array();
+    // create array for the sort_order start input value
+    $sort_order = array();
   
-  // zählt die $pages durch
-  foreach ($pages as $pageContent) {
+    // zählt die $pages durch
+    foreach ($pages as $pageContent) {
 
       // vars
       $showDate = '';
@@ -307,13 +302,11 @@ echo '</ul>
 
 
 echo "\n".'<!-- transport the sortorder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories['id_'.$category['id']]['sortascending'].'" /> <!-- absteigede reihenfolge ja/nein -->
-      <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" />             <!-- die neue ordnung der Seiten -->';
+      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories['id_'.$category['id']]['sortascending'].'" /> <!-- reverse order yes/no -->
+      <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" /> <!-- the new page order -->';
 }
 
 unset($pageContent);
 
 ?>
-
-
 </form>
