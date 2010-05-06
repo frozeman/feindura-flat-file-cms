@@ -21,16 +21,11 @@
  */
 
 /**
- * Includes sort functions
- */ 
-include_once(dirname(__FILE__)."/../functions/sort.functions.php");
-
-/**
  * Contains the basic functions for reading and saving pages
  * 
  * And functions which are used both, by the backend and the frontend.
  *
- * @version 1.12
+ * @version 1.13
  */ 
 class generalFunctions {
  

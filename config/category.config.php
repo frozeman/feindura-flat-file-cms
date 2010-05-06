@@ -2,7 +2,7 @@
 
 $categories['id_2']['id'] =              '2';
 $categories['id_2']['name'] =            'rechtes oberes Men&uuml;';
-$categories['id_2']['public'] =          '';
+$categories['id_2']['public'] =          'true';
 $categories['id_2']['sortascending'] =   '';
 $categories['id_2']['createdelete'] =    'true';
 $categories['id_2']['thumbnail'] =       '';
@@ -42,7 +42,7 @@ $categories['id_1']['thumbRatio'] =      'y';
 
 $categories['id_3']['id'] =              '3';
 $categories['id_3']['name'] =            'rechtes unteres Men&uuml;';
-$categories['id_3']['public'] =          '';
+$categories['id_3']['public'] =          'true';
 $categories['id_3']['sortascending'] =   '';
 $categories['id_3']['createdelete'] =    'true';
 $categories['id_3']['thumbnail'] =       '';

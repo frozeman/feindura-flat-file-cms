@@ -300,7 +300,7 @@ class feindura {
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategory(true);           // $_GET['varNameCategory']  // first category to load then the page
+    $this->setCurrentCategory(true);           // $_GET['varNameCategory']  // first load category then the page, because getCurrentPage needs categories
     $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $this->websiteConfig['startPage'] if there is no GET page var
           
     // -> CHECKS if cookies are enabled
@@ -857,15 +857,15 @@ class feindura {
   *
   *
   * @param array   $pageContent                 the $pageContent Array of a page
-  * @param string  $titleTag = false            (optional) the HTML tag which is used to surround the title text
-  * @param string  $titleId = false             (optional) the ID which is used in the title tag
-  * @param string  $titleClass = false          (optional) the CLASS which is used in the title tag
-  * @param string  $titleAttributes = false     (optional) a String with Attributes like: 'key="value" key2="value2"'
-  * @param string  $titleCategorySpacer = false (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
-  * @param int	   $titleLength = false         (optional) number of the maximal text length shown or FALSE to not shorten
-  * @param bool    $titleAsLink = false         (optional) if TRUE, it creates the title as link
-  * @param bool    $titleShowCategory = false   (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
-  * @param bool	   $titleShowDate = false       (optional) if TRUE, it shows the page date before the title text
+  * @param string  $titleTag                    (optional) the HTML tag which is used to surround the title text
+  * @param string  $titleId                     (optional) the ID which is used in the title tag
+  * @param string  $titleClass                  (optional) the CLASS which is used in the title tag
+  * @param string  $titleAttributes             (optional) a String with Attributes like: 'key="value" key2="value2"'
+  * @param string  $titleCategorySpacer         (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
+  * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
+  * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
+  * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
+  * @param bool	   $titleShowDate               (optional) if TRUE, it shows the page date before the title text
   *
   * 
   * @uses adminConfig                   for the thumbnail upload path
@@ -873,7 +873,7 @@ class feindura {
   * @uses languageFile		        for showing "yesterday", "today" or "tomorrow" instead of a page date
   * @uses statisticFunctions	        to check whether the page date is valid and format the page date
   * @uses shortenText()		        to shorten the title text, if the $titleLength parameter is TRUE
-  * @uses createPageHref()		to create the href if the $titleAsLink parameter is TRUE
+  * @uses createHref()			to create the href if the $titleAsLink parameter is TRUE
   * @uses createAttributes()		to create the attributes used in the title tag
   * 
   * @return string the generated title string ready to display in a HTML file
@@ -951,7 +951,7 @@ class feindura {
             
       // create a link for the title
       if($titleAsLink) {        
-        $titleBefore = '<a href="'.$this->createPageHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
+        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
         $titleAfter = $titleAfter.'</a>';
       } else {
         $titleBefore = '<span title="'.$titleTagText.'">'.$titleBefore;
@@ -982,47 +982,27 @@ class feindura {
       // returns the title
       return $title;
   }
-  
+ 
  /**
-  * Generates a href attribute for using in a link tag to a page
+  * Generates a string with a given id, class and other attributes
   *
   * <b>Type</b>     function<br>
-  * <b>Name</b>     createPageHref()<br>
-  * <b>Alias</b>    createHref()<br>
+  * <b>Name</b>     createAttributes()<br>
   *
-  * Generates a href attribute to link to a page.
-  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
-  * If cookies are deactivated it attaches the {@link $sessionId} on the end.
-  *
-  * Examples of the returned href string ("user=xyz123" is the sessionname=sessionid).
-  *
-  * Normal href string: 
+  * Check whether the given parameters are strings or numbers and add them to a string with attributes.
+  * 
+  * Example return:
   * <samp>
-  * ?page=1&user=xyz123
-  * or
-  * ?category=1&page=1&user=xyz123
+  * 'id="exampleId" class="exampleClass" key="value"'
   * </samp>
   *
-  * Speaking URL href string: 
-  * <samp>
-  * /page/page_title.html?user=xyz123
-  * or
-  * /category/category_name/page_title.html?user=xyz123
-  * </samp>
+  * @param string|number  $id           a HTML id attribute value
+  * @param string|number  $class        a HTML class attribute value
+  * @param string|number  $attributes   one or more 'key="values"' attributes
   *
-  *
-  * @param int|array $page          page ID or a $pageContent array
-  * 
-  * @uses getPageCategory()		   to get the category ID if the $page parameter is no $pageContent array
-  * @uses readPage()			   to load the $pageContent array if the $page parameter is a page ID
-  * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
-  *
-  * 
-  * @return string the generated href attribute
+  * @return string the generated attribute string
   *
   * @access protected
-  *
-  * @see generalFunctions::createHref()
   *
   * @version 1.0
   * <br>
@@ -1030,67 +1010,58 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function createPageHref($page) {
-    
-    // IF given $page is an $pageContent array
-    if(is_array($page) && array_key_exists('id',$page))
-	$pageContent = $page;
-	
-    // ELSE $page is page ID
-    else {
-	// gets page category
-        $category = $this->getPageCategory($page);
-	// load pageContent
-	$pageContent = $this->readPage($page,$category);
-    }
-    
-    return $this->generalFunctions->createHref($pageContent,$this->sessionId);
-    
-  }
-  /**
-  * Alias of {@link createPageHref()}
-  * @ignore
-  */
-  function createHref($page) {
-    // call the right function
-    return $this->createPageHref($page);
-  }
-  
-  // -> START -- createAttributes ******************************************************************************
-  // generates a string with id class and other attributes out of the given properties
-  // RETURNs a String with all attributes
-  // -----------------------------------------------------------------------------------------------------
   function createAttributes($id, $class, $attributes) {
   
       $attributeString = '';
       
       // add ID
-      if($id && $id !== true)
+      if(is_string($id) || is_numeric($id))
         $attributeString .= ' id="'.$id.'"';
 	
       // add CLASS
-      if($class && $class !== true)
+      if(is_string($class) || is_numeric($class))
         $attributeString .= ' class="'.$class.'"';
       
       // add ATTRIBUTES
-      if($attributes && $attributes !== true)
+      if(is_string($attributes) || is_numeric($attributes))
 	$attributeString .= ' '.$attributes;
         
       return $attributeString;    
   }
-  // -> END -- createAttributes -----------------------------------------------------------------------------------
   
-  // -> START -- readPage ********************************************************************************
-  // OVERWRITES the readPage() function of the general.functions.php
-  // loads only pages if they are not already in the storedPages PROPERTY Array
-  // RETURNs the pageContent Array or false
-  // -----------------------------------------------------------------------------------------------------
-  function readPage($page,                 // (Number) the page (id) of the page to load
-                              $category = false) {   // (false or Number) the category (id) of the page to load, if false it loads the pages of the non-category
+ /**
+  * Loads the $pageContent array of a page
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     readPage()<br>
+  *
+  * Checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
+  * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
+  * and store it in the {@link $storedPages} property.
+  * 
+  *
+  * @param int  $page           a page ID
+  * @param int  $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
+  *
+  * @uses getStoredPages()		for getting the {@link $storedPages} property
+  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
+  * @uses generalFunctions::readPage()	to load the $pageContent array of the page
+  *
+  * @return array the $pageContent array of the requested page
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function readPage($page, $category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
    
     $storedPages = $this->getStoredPages();
-   
+
     // -> checks if the page is already loaded
     if(isset($storedPages[$page])) {
       //echo '<br />->USED STORED '.$page.'<br />';        
@@ -1106,8 +1077,38 @@ class feindura {
       } else return false;
     }
   }
-  // -> END -- readPage -----------------------------------------------------------------------------------
-  
+
+ /**
+  * Loads the $pageContent arrays of a pages in a specific category or all categories
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     loadPages()<br>
+  *
+  * Goes through the {@link $storedPageIds} property and load every $pageContent array of the given category ID.
+  * Before loading the $pageContent array of a page it checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
+  * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
+  * and store it in the {@link $storedPages} property.
+  *
+  * After loading all $pageContent arrays of an category, the array with the containing $pageContent arrays will be sorted.
+  * 
+  *
+  * @param bool|int|array $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
+  * @param bool		  $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
+  *
+  * @uses getStoredPages()		for getting the {@link $storedPages} property
+  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
+  * @uses generalFunctions::readPage()	to load the $pageContent array of the page
+  *
+  * @return array the $pageContent array of the requested page
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */  
   // -> START -- loadPages *******************************************************************************
   // OVERWRITES the loadPages() function of the general.functions.php
   // loads only pages if they are not already in the storedPages PROPERTY Array
@@ -1115,16 +1116,25 @@ class feindura {
   // -----------------------------------------------------------------------------------------------------
   function loadPages($category = false,           // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
                      $loadPagesInArray = true) {  // (Boolean) if true it loads the pageContentArray in an array, otherwise it stores only the categroy ID and the page ID
-
-    // -> checks if the RETURN should be an Array
+    
+    // IF $category FALSE set $category to 0
+    if($category === false)
+      $category = '0';
+    
+    // ->> RETURN $pageContent arrays
     if($loadPagesInArray === true) {
       
       //vars
-      $pagesArray = array();      
-      
-      // set false category to 0
-      if($category === false)
-        $category = '0';
+      $pagesArray = array();
+
+      // IF $category TRUE create array with non-category and all category IDs
+      if($category === true) {
+	// puts the categories IDs in an array
+	$category = array(0);
+	foreach($this->categoryConfig as $eachCategory) {
+	  $category[] = $eachCategory['id'];
+	}
+      }
       
       // change category into array
       if(is_numeric($category))
@@ -1156,11 +1166,26 @@ class feindura {
       }
 
       return $pagesArray;
-    // -> otherwise just use the loadPages function
-    } else
-      return $this->generalFunctions->loadPages($category,$loadPagesInArray);
+      
+    // ->> RETURN ONLY the page & category IDs
+    } else {      
+      
+      // -> uses the $this->storedPageIds an filters out only the given category ID(s)
+      $pageIds = $this->getStoredPageIds();
+      if($category !== true) {
+	$newPageIds = false;
+	foreach($pageIds as $pageId) {
+	  if((is_array($category) && in_array($pageId['category'],$category)) || 
+	     $category == $pageId['category'])
+	    $newPageIds[] = array('page' => $pageId['page'], 'category' => $pageId['category']);
+        }
+      } else
+	$newPageIds = $pageIds;
+      
+      return $newPageIds;
+    }
   }
-  // -> END -- loadPages ---------------------------------------------------------------------------------- 
+
   
   // -> START -- loadPagesByType **************************************************************************
   // loads the Pages by the given IDs and the given idType
@@ -1171,13 +1196,13 @@ class feindura {
     
     // vars
     $return = false;
-    
+
     // -> category ID(s)
     // ***************
     if($idType == 'category' || $idType == 'categories') {
       if($ids === true || is_array($ids) || is_numeric($ids)) {
         
-        // if its not a pageContent Array -> return this
+        // if its an array with $pageContent arrays -> return this
         if(isset($ids[0]) && is_array($ids[0]) && array_key_exists('id',$ids[0])) {
           return $ids;
         
@@ -1187,13 +1212,11 @@ class feindura {
           $ids = $this->publicCategory($ids);
           
           if($ids !== false) {
- 
-            // loads the pageContent of the pages of the category in an Array
-            // the pages in the returned array also get SORTED
-            $pages = $this->loadPages($ids);
 
-            // returns the loaded pages from the CATEGORY IDs
-            return $pages;
+	    // returns the loaded pages from the CATEGORY IDs
+	    // the pages in the returned array also get SORTED
+            return $this->loadPages($ids);
+
           } else return false;
         }
       } else return false;
@@ -1202,10 +1225,17 @@ class feindura {
     // **************************
     } elseif($idType == 'page' || $idType == 'pages') {
       
+      // -----------------------------------------     
+      // ->> load all pages
+      // *************** 
+      if($ids === true) {
+	
+	return $this->loadPages($ids);
+      
       // -----------------------------------------    
       // ->> pages IDs
       // ***************
-      if($ids && is_array($ids)) {
+      } elseif($ids && is_array($ids)) {
         
         // checks if its an Array with pageContent Arrays
         if(is_array($ids[0]) && array_key_exists('id',$ids[0])) {
@@ -1215,7 +1245,7 @@ class feindura {
         
           // loads all pages in an array
           $pages = array();
-          foreach($ids as $page) {
+          foreach($ids as $page) {		
             if($pageContent = $this->readPage($page,$this->getPageCategory($page))) {
               $return[] = $pageContent;
             }
@@ -1230,8 +1260,10 @@ class feindura {
         if($pageContent = $this->readPage($ids,$this->getPageCategory($ids))) {
           $return[] = $pageContent;
         } else return false;
+      
       } else return false;
     }
+    
     // -> returns an array with the pageContent Arrays
     return $return;
   }
@@ -1406,10 +1438,10 @@ class feindura {
     $idType = strtolower($idType);
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if(!$ids) {
-      if($idType == 'page')
+      if($idType == 'page'|| $idType == 'pages')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category')
+      if($idType == 'page' || $idType == 'pages')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       /*
@@ -1621,7 +1653,6 @@ class feindura {
   // to turn the SESSION storedPages OFF, just unset the session in this function
   // ------------------------------------------------------------------------------------------------
   function getStoredPages() {
-    global $_SESSION;
     global $HTTP_SESSION_VARS;
     
     unset($_SESSION['storedPages']);    
@@ -1695,7 +1726,7 @@ class feindura {
       
       // adds the MORE LINK
       if($endString !== false && $pageContent !== false && is_array($pageContent)) {
-        $shortenString .= ' <a href="'.$this->createPageHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $shortenString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       $shortenString = preg_replace("/ +/", ' ', $shortenString);
@@ -1817,7 +1848,7 @@ class feindura {
       
       // adds the MORE LINK to the $endString
       if($pageContent !== false && is_array($pageContent)) {
-        $endString .= ' <a href="'.$this->createPageHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $endString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       // try to put the endString before the last HTML-Tag

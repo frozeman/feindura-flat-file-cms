@@ -17,7 +17,7 @@
 /**
  * This file includes all necessary <var>classes</var> and configs for the use in the FRONTEND and the BACKEND
  *
- * @version 0.12
+ * @version 0.13
  */
 
 define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
@@ -80,6 +80,11 @@ if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../statistic/website.s
 
 
 // INCLUDES
+/**
+ * Includes the {@link sort.functions.php}
+ */ 
+require_once(dirname(__FILE__)."/functions/sort.functions.php");
+
 /**
  * Includes the {@link generalFunctions} <var>class</var>
  */

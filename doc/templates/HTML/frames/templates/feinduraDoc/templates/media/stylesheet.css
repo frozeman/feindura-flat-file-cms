@@ -89,9 +89,10 @@ dd { margin-left: 0px; padding-left: 1em; }
 .const-title {  }
 .const-name { font-weight: bold; }
 
-/* Syntax highlighting */
+/* Syntax highlighting - code block */
 
 .src-code {  border: 1px solid #999999; padding: 1em;
+             background-color: #FFFFFF;
              font-family: 'Courier New', Courier, monospace; font-weight: normal; }
 .src-line {  font-family: 'Courier New', Courier, monospace; font-weight: normal; }
 .src-comm { color: green; }
@@ -124,7 +125,8 @@ dd { margin-left: 0px; padding-left: 1em; }
 
 /* sample block */
 
-samp {display: block; border: 1px solid #999999; background-color: #FFFFFF; padding: .5em;}
+samp {display: block; border: 1px solid #999999; background-color: #FFFFFF; padding: .5em; margin-bottom: 1px; color: #666666;}
+
 
 /* tutorial */
 

@@ -383,6 +383,75 @@ class feinduraPages extends feindura {
     return $this->createMetaTags($charset, $robotTxt, $revisitAfter, $author, $publisher, $copyright);
   }
   
+ /**
+  * Generates a href attribute for using in a link tag to a page
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     createHref()<br>
+  *
+  * Generates a href attribute to link to a page.
+  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
+  * If cookies are deactivated it attaches the {@link $sessionId} on the end.
+  *
+  * Examples of the returned href string:<br>
+  * ("user=xyz123" stands for: sessionname=sessionid)
+  *
+  * Href with variables for pages without category: 
+  * <samp>
+  * '?page=1&user=xyz123'
+  * </samp>
+  * and pages with category:
+  * <samp>
+  * '?category=1&page=1&user=xyz123'
+  * </samp>
+  *
+  * Speaking URL href for pages without category: 
+  * <samp>
+  * '/page/page_title.html?user=xyz123'
+  * </samp>
+  * and pages with category:
+  * <samp>
+  * '/category/category_name/page_title.html?user=xyz123'
+  * </samp>
+  *
+  *
+  * @param int|array $page          page ID or a $pageContent array
+  * 
+  * @uses feindura::getPageCategory()	   to get the category ID if the $page parameter is not an $pageContent array
+  * @uses feindura::readPage()		   to load the $pageContent array if the $page parameter is an page ID
+  * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
+  *
+  * 
+  * @return string the generated href attribute
+  *
+  * @access public
+  *
+  * @see generalFunctions::createHref()
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function createHref($page) {
+    
+    // IF given $page is an $pageContent array
+    if(is_array($page) && array_key_exists('id',$page))
+	$pageContent = $page;
+	
+    // ELSE $page is page ID
+    else {
+	// gets page category
+        $category = $this->getPageCategory($page);
+	// load pageContent
+	$pageContent = $this->readPage($page,$category);
+    }
+    
+    return $this->generalFunctions->createHref($pageContent,$this->sessionId);
+    
+  }
+  
   // -> START -- createLink ******************************************************************************
   // RETURNs a link created with the page ID
   // RETURNs -> STRING
@@ -440,7 +509,7 @@ class feinduraPages extends feindura {
         $linkAttributes = '';
         
         // add HREF
-        $linkAttributes .= ' href="'.$this->createPageHref($pageContent).'"'; // title="'.$pageContent['title'].'"
+        $linkAttributes .= ' href="'.$this->createHref($pageContent).'"'; // title="'.$pageContent['title'].'"
 	  
 	$linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
                     
@@ -936,10 +1005,10 @@ class feinduraPages extends feindura {
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if(!$ids) {
-      if($idType == 'page')
+      if($idType == 'page' || $idType == 'pages')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category')
+      elseif($idType == 'category' || $idType == 'categories')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       /*
@@ -995,10 +1064,10 @@ class feinduraPages extends feindura {
     $idType = strtolower($idType);
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if(!$ids) {
-      if($idType == 'page')
+      if($idType == 'page' || $idType == 'pages')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category')
+      elseif($idType == 'category' || $idType == 'categories')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory($ids);
       /*
