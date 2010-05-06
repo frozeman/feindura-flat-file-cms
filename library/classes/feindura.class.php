@@ -55,9 +55,9 @@ class feindura {
   * For standard value see above.
   * 
   * Example of a link using the standard variable names:
-  * <code>
+  * <samp>
   * http://www.examplepage.com/index.php?category=1&page=6
-  * </code>
+  * </samp>
   * 
   * @var array
   * @see feindura()  
@@ -479,7 +479,7 @@ class feindura {
   *
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
   *
-  * @uses $adminConfig      to look if set start-page is allowed
+  * @uses $adminConfig      to check if setting a start-page is allowed
   * @uses $websiteConfig    to get the start-page ID
   * @uses $page             as the property to set
   * @uses $startPage        if the $setStartPage parameter is TRUE this property will also be set
@@ -527,7 +527,7 @@ class feindura {
   *
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   *
-  * @uses $adminConfig      to look if set start-page is allowed
+  * @uses $adminConfig      to check if setting a start-page is allowed
   * @uses $websiteConfig    to get the start-page ID
   * @uses $category         as the property to set
   * @uses $startCategory    if the $setStartCategory parameter is TRUE this property will also be set
@@ -579,8 +579,10 @@ class feindura {
   * Generates a page by the given page ID.
   * The returned page array is structured in this order:<br>
   * title, the page thumbnail and then the content, depending on the respective properties.
-  * In case the page doesnt exists or is not public a error is shown (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$pageShowError} property,
-  * otherwise it returns FALSE.
+  *
+  * In case the page doesnt exists or is not public an error is shown (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$pageShowError} property,
+  * otherwise it returns an empty array.<br>
+  * The error will be then displayed in the <var>array['content']</var> variable.
   * 
   * Example of the returned array:
   * <code>
@@ -591,17 +593,17 @@ class feindura {
   *     )
   * </code>
   *
-  * @param int|array $page page ID or a $pageContent array
-  * @param bool $showError (optional) tells if errors like "The page you requested doesn't exist" will be displayed
-  * @param int|false $shortenText (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
-  * @param bool $useHtml (optional) displays the page content with or without HTML tags
+  * @param int|array  $page          page ID or a $pageContent array
+  * @param bool       $showError     (optional) tells if errors like "The page you requested doesn't exist" will be displayed
+  * @param int|false  $shortenText   (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
+  * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
   *
   * 
   * @uses adminConfig                   for the thumbnail upload path
-  * @uses categoryConfig                for checking if the category of the page allows thumbnails
+  * @uses categoryConfig                to check whether the category of the page allows thumbnails
   * @uses $languageFile                 for the error texts
-  * @uses publicCategory()              checks if the page category is public
-  * @uses createTitle()                 create the page title  
+  * @uses publicCategory()              to check whether the category is public
+  * @uses createTitle()                 to create the page title  
   * @uses shortenHtmlText()             to shorten the HTML page content
   * @uses shortenText()                 to shorten the non HTML page content, if the $useHtml parameter is FALSE
   * @uses feinduraPages::$xHtml
@@ -629,7 +631,7 @@ class feindura {
   * @uses feinduraPages::$thumbnailAfter
   
   * 
-  * @return array|false the generated page array, ready to display in a HTML file or FALSE if no page could be loaded
+  * @return array the generated page array, ready to display in a HTML file
   *
   * @access protected
   *
@@ -721,6 +723,7 @@ class feindura {
                                   $this->titleId,
                                   $this->titleClass,
 				  $this->titleAttributes,
+				  $this->titleCategorySpacer,
                                   $this->titleLength,
                                   $this->titleAsLink,
                                   $this->titleShowCategory,
@@ -845,19 +848,59 @@ class feindura {
   }
   
   
-  // -> START -- createTitle ******************************************************************************
-  // RETURN a title, with the given parameters
-  // ------------------------------------------------------------------------------------------------------
+ /**
+  * Generates a page title
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     createTitle()<br>
+  *
+  * Generates a page title from a given <var>$pageContent</var> array by using the given parameters.
+  *
+  *
+  * @param array   $pageContent                 the $pageContent Array of a Page
+  * @param string  $titleTag = false            (optional) the HTML tag which is used to surround the title text
+  * @param string  $titleId = false             (optional) the ID which is used in the title tag
+  * @param string  $titleClass = false          (optional) the CLASS which is used in the title tag
+  * @param string  $titleAttributes = false     (optional) a String with Attributes like: 'key="value" key2="value2"'
+  * @param string  $titleCategorySpacer = false (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
+  * @param int	   $titleLength = false         (optional) number of the maximal text length shown or FALSE to not shorten
+  * @param bool    $titleAsLink = false         (optional) if TRUE, it creates the title as link
+  * @param bool    $titleShowCategory = false   (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
+  * @param bool	   $titleShowDate = false       (optional) if TRUE, it shows the page date before the title text
+  *
+  * 
+  * @uses adminConfig                   for the thumbnail upload path
+  * @uses categoryConfig                to check if showing the page date is allowed and for the category name
+  * @uses languageFile		        for showing "yesterday", "today" or "tomorrow" instead of a page date
+  * @uses statisticFunctions	        to check whether the page date is valid and format the page date
+  * @uses shortenText()		        to shorten the title text, if the $titleLength parameter is TRUE
+  * @uses createPageHref()		to create the href if the $titleAsLink parameter is TRUE
+  * @uses createAttributes()		to create the attributes used in the title tag
+  * 
+  * @return string the generated title string ready to display in a HTML file
+  *
+  * @access protected
+  *
+  * @see feinduraPages::showPageTitle()
+  *
+  * @example showPageTitle.example.php the called showPageTitle() method in this example calls this method with the title properties as parameters
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
   function createTitle($pageContent,                 // the pageContent Array of the Page (String)
                                  $titleTag = false,            // the TAG which is used by the title (String)
                                  $titleId = false,             // the ID which is used by the title tag (String)
                                  $titleClass = false,          // the CLASS which is used by the title tag (String)
                                  $titleAttributes = false,
+				 $titleCategorySpacer = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
 				 $titleLength = false,         // if Number, it shortens the title characters to this Length (bool or Number)
                                  $titleAsLink = false,         // if true, it set the title as a link (bool)
                                  $titleShowCategory = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
-                                 $titleShowDate = false,       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
-                                 $inLink = false) {            // (Boolean) if TRUE it dont set the titleBefore and titleAfter
+				 $titleShowDate = false) {       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
       
       // vars 
       $titleBefore = '';
@@ -889,8 +932,8 @@ class feindura {
         
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
-        if(is_string($this->titleCategorySpacer))
-          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$this->titleCategorySpacer; // adds the Spacer
+        if(is_string($titleCategorySpacer))
+          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySpacer; // adds the Spacer
         else
           $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
       }      
@@ -917,7 +960,7 @@ class feindura {
       $titleTagText = $titleBefore.$fullTitle.$titleAfter;
             
       // create a link for the title
-      if($titleAsLink && is_array($this->varNames)) {        
+      if($titleAsLink) {        
         $titleBefore = '<a href="'.$this->createPageHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
         $titleAfter = $titleAfter.'</a>';
       } else {

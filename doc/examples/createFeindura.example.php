@@ -1,8 +1,9 @@
 <?php
 
-foreach(is_string($fsree)) {
-  echo 'sdfsdfsdf';
-}
+require('cms/feindura.include.php');
+
+// creates a new feindura instance
+$myCms = new feinduraPages();
 
 
 ?>

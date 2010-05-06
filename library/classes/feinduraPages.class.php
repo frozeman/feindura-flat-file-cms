@@ -471,28 +471,18 @@ class feinduraPages extends feindura {
         // *****************
         // -> create the text
         if($linkText === true) {
-        
-          // title with category name (remopved because it will be checked in the createTitle() method
-          /*
-          if($this->linkShowCategory && $pageContent['category']) {
-            if(is_string($this->linkCategorySpacer))
-              $linkCategory = $this->linkCategorySpacer;
-            else
-              $linkCategory = true;
-          } else $linkCategory = false;
-          */
-          
+                 
           // add the TITLE
           $linkText = $this->createTitle($pageContent,
                                         false, // $titletag
                                         false, // $titleId
                                         false, // $titleClass
 					false, // $titleAttributes
+					$this->linkCategorySpacer,
                                         $this->linkLength,
                                         false, // $titleAsLink
                                         $this->linkShowCategory,
-                                        $this->linkShowDate,
-                                        true); // $inLink
+                                        $this->linkShowDate);
         }
              
         // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
@@ -849,6 +839,8 @@ class feinduraPages extends feindura {
                                     $titleTag,
                                     $this->titleId,
                                     $this->titleClass,
+				    $this->titleAttributes,
+				    $this->titleCategorySpacer,
                                     $this->titleLength,
                                     $this->titleAsLink,
                                     $this->titleShowCategory,
