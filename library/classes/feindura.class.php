@@ -41,7 +41,7 @@ class feindura {
  /**
   * Contains the session-ID, if cookies are deactivated
   * 
-  * The session ID is then placed on the end of every link.    
+  * This session ID is then placed on the end of every link.    
   *      
   * @var string
   * @access protected
@@ -54,7 +54,7 @@ class feindura {
   * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} constructor to the this property.<br>
   * For standard value see above.
   * 
-  * Example of a link using the standard variable names  array:
+  * Example of a link using the standard variable names:
   * <code>
   * http://www.examplepage.com/index.php?category=1&page=6
   * </code>
@@ -132,35 +132,7 @@ class feindura {
                                  
   // PUBLIC
   // *********
-  
- /**
-  * @var int
-  * @see feinduraPages::$page
-  *   
-  */
-  var $page = null;
-  
- /**
-  * @var int
-  * @see feinduraPages::$category
-  *   
-  */
-  var $category = null;
-  
-  /**
-  * @var int
-  * @see feinduraPages::$startPage
-  *   
-  */
-  var $startPage = null;
-  
-  /**
-  * @var int
-  * @see feinduraPages::$startCategory
-  *   
-  */
-  var $startCategory = null;
-  
+    
  /**
   * Contains the administrator-settings config set in the CMS backend
   * 
@@ -441,7 +413,7 @@ class feindura {
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the category ID
   *
-  * @uses $varNames                for variable names which the $_GET will use for the category ID
+  * @uses $varNames                for variable names which the $_GET variable will use for the category ID
   * @uses $startPage               if no $_GET variable exists it will try to get the {@link $startPage} property
   * @uses $adminConfig             to look if set start-page is allowed
   * @uses $categoryConfig          for the right category name, if the $_GET variable is not a ID but a category name
@@ -603,15 +575,23 @@ class feindura {
   * <b>Type</b>     function<br>
   * <b>Name</b>     generatePage()<br>
   *
-  * This method is called in descendent classes.<br>
+  * This method is called in descendant classes.<br>
   * Generates a page by the given page ID and catagory ID.
-  * The page is structured with first the title, the page thumbnail and then the content, depending on the respective properties.
+  * The returned page array is structured in this order:<br>
+  * title, the page thumbnail and then the content, depending on the respective properties.
   * In case the page doesnt exists or is not public a error is shown (depending on the <var>$showError</var> parameter AND the {@link feinduraPages::$showError} property,
   * otherwise it returns FALSE.
   * 
+  * Example of the returned array:
+  * <code>
+  * array(
+  *	   ['title'] = 'Title Example',
+  *	   ['thumbnail'] = '<img src="image.png" alt="Image Title" />',
+  *	   ['content'] = '<p>Content Text..</p>'
+  *     )
+  * </code>
   *
   * @param int|array $page page ID or a $pageContent array
-  * @param int $category (optional) category ID (not necessary if the $page parameter is a $pageContent array)
   * @param bool $showError (optional) tells if errors like "The page you requested doesn't exist" will be displayed
   * @param int|false $shortenText (optional) number of the maximal count of letters, adds a "more" link at the end or FALSE to not shorten
   * @param bool $useHtml (optional) displays the page content with or without HTML tags
@@ -630,7 +610,6 @@ class feindura {
   * @uses feinduraPages::$errorId
   * @uses feinduraPages::$errorClass
   * @uses feinduraPages::$errorAttributes
-  * @uses feinduraPages::$showTitle
   * @uses feinduraPages::$titleTag
   * @uses feinduraPages::$titleId
   * @uses feinduraPages::$titleClass
@@ -646,6 +625,7 @@ class feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * @uses feinduraPages::$showContent
+  * @uses feinduraPages::$contentShowTitle
   * @uses feinduraPages::$contentShowThumbnail
   * @uses feinduraPages::$contentTag
   * @uses feinduraPages::$contentId
@@ -654,7 +634,7 @@ class feindura {
   * @uses feinduraPages::$contentBefore
   * @uses feinduraPages::$contentAfter
   * 
-  * @return string|false the generated page, ready to display in a HTML file or FALSE if no page could be loaded
+  * @return array|false the generated page array, ready to display in a HTML file or FALSE if no page could be loaded
   *
   * @access protected
   *
@@ -664,7 +644,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function generatePage($page, $category = false, $showError = true, $shortenText = false, $useHtml = true) {
+  function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
 
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
@@ -704,6 +684,9 @@ class feindura {
       
     // $page is NUMBER
     } else {
+      // gets the category of the page
+      $category = $this->getPageCategory($page);
+      
       // -> if not try to load the page
       if(!$pageContent = $this->readPage($page,$category)) {
         // if could not load throw ERROR
@@ -730,7 +713,7 @@ class feindura {
     // *****************
     
     // shows the TITLE
-    if($this->showTitle)
+    if($this->pageShowTitle)
       $title = $this->createTitle($pageContent,
                                   $this->titleTag,
                                   $this->titleId,
@@ -744,7 +727,7 @@ class feindura {
       
     // -> PAGE THUMBNAIL
     // *****************
-    if($this->contentShowThumbnail &&      
+    if($this->pageShowThumbnail &&      
       !empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
       ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
@@ -764,9 +747,10 @@ class feindura {
     
     // ->> MODIFING pageContent
     // ************************
-    if($this->showContent) {
+    if($this->pageShowContent) {
       $pageContentEdited = $pageContent['content'];
       
+      /*
       // -> adds ATTRIBUTES
       // -----------------------
       $contentStartTag = '';
@@ -782,7 +766,8 @@ class feindura {
                   
         $contentStartTag = '<'.$contentTag.$contentAttributes.'>';
         $contentEndTag = '</'.$contentTag.'>';        
-      } 
+      }
+      */
       
       // clear Html tags?
       if(!$useHtml)
@@ -824,27 +809,33 @@ class feindura {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
     }
-      
+    
+    /* 
     // CHECK if the CONTENT BEFORE & AFTER is !== true
     $contentBefore = false;
-    $contentAfter = false;
+    $contentAfter = false;    
     
     if($this->contentBefore !== true)
       $contentBefore = $this->contentBefore;
     if($this->contentAfter !== true)
       $contentAfter = $this->contentAfter;
+    */
     
     // -> BUILDING the PAGE
     // *******************
-    $generatedPage = $title."\n";
-    $generatedPage .= $thumbnailBefore.$pageThumbnail.$thumbnailAfter."\n";
-    $generatedPage .= $contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+    if($this->pageShowTitle)
+       $generatedPage['title']	   = $title."\n";
+    if($this->pageShowThumbnail)
+       $generatedPage['thumbnail'] = $thumbnailBefore.$pageThumbnail.$thumbnailAfter."\n";
+    if($this->pageShowContent)
+       $generatedPage['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
     
+    /*
     // adds breaks before and after
-    $generatedPage = "\n".$generatedPage."\n";
-    
+    $generatedPage = "\n".$generatedPage."\n";    
     // removes double breaks
     $generatedPage = preg_replace("/\\n+/","\n",$generatedPage);
+    */
     
     // -> AFTER all RETURN $generatedPage
     // ***************** 
@@ -909,6 +900,7 @@ class feindura {
       // generate titleBefore without tags
       $titleBefore = $titleShowCategory.$titleDate;
       
+      /*
       // dont put titleTextBefore/After if $inLink is TRUE
       if($inLink === false) {
         // CHECK if the TITLE BEFORE & AFTER is !== true
@@ -917,13 +909,14 @@ class feindura {
         if($this->titleAfter !== true)
           $titleAfter = $this->titleAfter;
       }
+      */
       
       // generates the title for the title="" tag
       $titleTagText = $titleBefore.$fullTitle.$titleAfter;
             
       // create a link for the title
       if($titleAsLink && is_array($this->varNames)) {        
-        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
+        $titleBefore = '<a href="'.$this->createPageHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
         $titleAfter = $titleAfter.'</a>';
       } else {
         $titleBefore = '<span title="'.$titleTagText.'">'.$titleBefore;
@@ -956,16 +949,35 @@ class feindura {
   }
   // -> END -- createTitle ---------------------------------------------------------------------------------
   
-  // -> START -- createHref ******************************************************************************
+  // -> START -- createPageHref ******************************************************************************
   // generates out of the a pageContent Array a href="" link for this page
   // RETURNs a String for the HREF attribute
   // -----------------------------------------------------------------------------------------------------
-  function createHref($pageContent) {   // (false or Number) the category (id) of the page to load, if false it loads the pages of the non-category
+  function createPageHref($page) {
+    
+    // IF given $page is an $pageContent array
+    if(is_array($page) && array_key_exists('id',$page))
+	$pageContent = $page;
+	
+    // ELSE $page is page ID
+    else {
+	// gets page category
+        $category = $this->getPageCategory($page);
+	// load pageContent
+	$pageContent = $this->readPage($page,$category);
+    }
     
     return $this->generalFunctions->createHref($pageContent,$this->sessionId);
     
   }
-  // -> END -- createHref -----------------------------------------------------------------------------------
+  /**
+  * Alias of {@link createPageHref()}
+  * @ignore
+  */
+  function createHref($page) {
+    // call the right function
+    return $this->createPageHref($page);
+  }
   
   // -> START -- createAttributes ******************************************************************************
   // generates a string with id class and other attributes out of the given properties
@@ -1411,7 +1423,7 @@ class feindura {
       foreach($selectedPages as $page) {
         // show the pages, if they have a date which can be sorten
                    
-        if($pageContent = $this->generatePage($page,$page['category'],false,$shortenText,$useHtml)) {
+        if($pageContent = $this->generatePage($page,false,$shortenText,$useHtml)) {
           $return[] = $pageContent;
         }
       }
@@ -1606,7 +1618,7 @@ class feindura {
       
       // adds the MORE LINK
       if($endString !== false && $pageContent !== false && is_array($pageContent)) {
-        $shortenString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $shortenString .= ' <a href="'.$this->createPageHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       $shortenString = preg_replace("/ +/", ' ', $shortenString);
@@ -1728,7 +1740,7 @@ class feindura {
       
       // adds the MORE LINK to the $endString
       if($pageContent !== false && is_array($pageContent)) {
-        $endString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $endString .= ' <a href="'.$this->createPageHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       // try to put the endString before the last HTML-Tag

@@ -13,7 +13,17 @@
 </div>
 {/if}
 {if $tags}
-	
+	{section name=tags loop=$tags}{if $tags[tags].keyword == 'usedby'}{assign var="hasUsedBy" value="true"}{/if}{/section}
+	{if $hasUsedBy == 'true'}
+	<div class="insideDockBlock method-usedby">
+	<b>Used By</b><br>
+		<ul>
+{section name=tags loop=$tags}{if $tags[tags].keyword == 'usedby'}
+<li>{$tags[tags].data}</li>		
+{/if}{/section}
+		</ul>
+        </div>
+	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}{assign var="hasUses" value="true"}{/if}{/section}
 	{if $hasUses == 'true'}
 	<div class="insideDockBlock method-properties">
@@ -36,12 +46,12 @@
 		</ul>
         </div>
 	{/if}
-	{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses'}{assign var="hasTags" value="true"}{/if}{/section}
+	{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses' && $tags[tags].keyword != 'usedby'}{assign var="hasTags" value="true"}{/if}{/section}
 	{if $hasTags == 'true'}
 	<div class="insideDockBlock method-tags">
 	<b>Additional</b><br>
 		<ul class="tags">
-{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses'}
+{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses' && $tags[tags].keyword != 'usedby'}
 <li><span class="field">{$tags[tags].keyword}:</span> {$tags[tags].data}</li>
 {/if}{/section}
 		</ul>

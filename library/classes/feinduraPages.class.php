@@ -139,10 +139,9 @@ class feinduraPages extends feindura {
   var $menuClass = false;                 // [False or String]      -> the menu CLASS which is used when creating a menu
   var $menuAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   var $menuBefore = false;                // [False or String]      -> a String which comes BEFORE the menu <$menuTag> tag
-  var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
-  var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
+  //var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
+  //var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
   
-  var $showTitle = true;                  // [Boolean]              -> show the title when SHOW Pages and LISTING Pages
   var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
   var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
@@ -152,20 +151,25 @@ class feinduraPages extends feindura {
   var $titleShowCategory = false;         // [Boolean]              -> show the category name before the title
   var $titleCategorySpacer = ': ';        // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
   var $titleShowDate = false;             // [Boolean]              -> show the page date before the title
-  var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
-  var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
+  //var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
+  //var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
   
-
+  var $pageShowTitle = true;
+  var $pageShowThumbnail = true;
+  var $pageShowContent = true;
+  
+  /*
   var $showContent = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
   var $contentTag = false;                // [False or String]      -> the content container TAG which is used when creating a page (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set)
   var $contentId = false;                 // [False or String]      -> the content container  ID which is used when creating a page (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $contentClass = false;              // [False or String]      -> the content container  CLASS which is used when creating a page
   var $contentAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   //var $contentLength = false;             // [Boolean or Number]    -> the number of maximun characters for the content, after this length it will be shorten with abc..
+  var $contentShowTitle = true;
   var $contentShowThumbnail = true;           // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
   var $contentBefore = false;             // [False or String]      -> a String which comes BEFORE the link <$contentTag> tag
   var $contentAfter = false;              // [False or String]      -> a String which comes AFTER the link </$contentTag> tag
-  
+  */
   
   var $thumbnailAlign = false;            // [False or String ("left" or "right")]   -> let the thumbnail float to left or right
   var $thumbnailId = false;               // [False or String]      -> the thumbnail ID which is used when creating a thumbnail (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
@@ -384,7 +388,6 @@ class feinduraPages extends feindura {
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if false it use VAR PRIORITY
-                             $category = false,             // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                              $linkText = true) {            // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
     
     // set TAG ENDING (xHTML or HTML) 
@@ -409,8 +412,8 @@ class feinduraPages extends feindura {
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = $this->getPropertyPage($page);
     
-    // gets the category of the page if it is not given
-    if(is_numeric($page) && $category === false)
+    // gets the category of the page
+    if(is_numeric($page))
       $category = $this->getPageCategory($page);
     
     //echo 'PAGE: '.$page;
@@ -436,7 +439,7 @@ class feinduraPages extends feindura {
         $linkAttributes = '';
         
         // add HREF
-        $linkAttributes .= ' href="'.$this->createHref($pageContent).'"'; // title="'.$pageContent['title'].'"
+        $linkAttributes .= ' href="'.$this->createPageHref($pageContent).'"'; // title="'.$pageContent['title'].'"
 	  
 	$linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
                     
@@ -634,8 +637,9 @@ class feinduraPages extends feindura {
     // -> builds the final MENU
     // ************************
     if(empty($links))
-      return array(false);
+      return array();
     
+    /*
     // CHECK if the LINK BEFORE & AFTER is !== true
     if($this->menuBefore !== true)
       $menuBefore = $this->menuBefore;
@@ -644,6 +648,7 @@ class feinduraPages extends feindura {
     
     if(!is_bool($this->menuBetween))
       $menuBetween = $this->menuBetween;
+    */
     
     // creating the START TR tag
     if($menuTagSet == 'table')
@@ -652,7 +657,7 @@ class feinduraPages extends feindura {
     // SHOW START-TAG
     if($menuStartTag) {
       //echo $menuBefore.$menuStartTag;
-      $menu[] = $menuBefore.$menuStartTag;
+      $menu[] = $menuStartTag; //$menuBefore.$menuStartTag;
     }
     
     $count = 1;
@@ -717,7 +722,7 @@ class feinduraPages extends feindura {
     // SHOW END-TAG
     if($menuStartTag) {
       //echo $menuEndTag.$menuAfter;
-      $menu[] = $menuEndTag.$menuAfter;
+      $menu[] = $menuEndTag; //$menuEndTag.$menuAfter;
     }
     
     // adds breaks before and after
@@ -802,7 +807,6 @@ class feinduraPages extends feindura {
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   function showPageTitle($page = false,              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
-                                $category = false,          // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                                 $titleTag = true) {        // (Boolean or String) the TAG which is used by the title (String), if TRUE it loads the titleTag PROPERTY
     
     // -> PREV or NEXT if given direction
@@ -824,8 +828,7 @@ class feinduraPages extends feindura {
     $page = $this->getPropertyPage($page);
     
     // gets the category of the page if it is not given
-    if($category === false)
-      $category = $this->getPageCategory($page);
+    $category = $this->getPageCategory($page);
 
     
     if($this->publicCategory($category) !== false &&
@@ -859,9 +862,9 @@ class feinduraPages extends feindura {
       return false;    
   }
   // -> *ALIAS* OF showPageTitle **********************************************************************
-  function showTitle($page = false, $category = false, $titleTag = true) {
+  function showTitle($page = false, $titleTag = true) {
     // call the right function
-    return $this->showPageTitle($page, $category, $titleTag);
+    return $this->showPageTitle($page, $titleTag);
   } 
   
   // -> START -- showPage ********************************************************************************
@@ -872,7 +875,6 @@ class feinduraPages extends feindura {
   /**< \brief \c array -> Stores the frontend language file \c array.
   */ 
   function showPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
-                           $category = false,             // (false or Number) the category where the page is situated, if false it looks automaticly for the category ID
                            $shortenText = false,          // (false or Number) the Number of characters to shorten the content text
                            $useHtml = true) {             // (Boolean) use html in the content text
     
@@ -894,9 +896,8 @@ class feinduraPages extends feindura {
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = $this->getPropertyPage($page);
     
-    // gets the category of the page if it is not given
-    if($category === false)
-      $category = $this->getPageCategory($page);
+    // gets the category of the page
+    $category = $this->getPageCategory($page);
     
     //echo '<br />page: '.$page;
     //echo '<br />category: '.$category;    
@@ -911,7 +912,7 @@ class feinduraPages extends feindura {
       
       // ->> load SINGLE PAGE
       // *******************
-      if($generatedPage = $this->generatePage($page,$category,$this->showError,$shortenText,$useHtml)) {
+      if($generatedPage = $this->generatePage($page,$this->showError,$shortenText,$useHtml)) {
         // -> SAVE PAGE STATISTIC
         // **********************
         $this->statisticFunctions->savePageStats($this->readPage($page,$category));
@@ -971,7 +972,7 @@ class feinduraPages extends feindura {
       // ------------------------------
       foreach($pages as $pageContentArray) {
         // show the pages
-        if($pageContent = $this->generatePage($pageContentArray,false,false,$shortenText,$useHtml)) {
+        if($pageContent = $this->generatePage($pageContentArray,false,$shortenText,$useHtml)) {
           $return[] = $pageContent;
         }
       }
