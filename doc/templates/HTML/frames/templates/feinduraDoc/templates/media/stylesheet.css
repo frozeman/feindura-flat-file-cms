@@ -122,6 +122,10 @@ dd { margin-left: 0px; padding-left: 1em; }
 .tute-comment { font-style: italic }
 .tute-inline-tag { color: #636311; font-weight: bold }
 
+/* sample block */
+
+samp {display: block; border: 1px solid #999999; background-color: #FFFFFF; padding: .5em;}
+
 /* tutorial */
 
 .authors {  }

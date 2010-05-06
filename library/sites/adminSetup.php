@@ -57,8 +57,8 @@ RewriteEngine On
 RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
-RewriteRule ^category/([^/]+)/(.*)\.html?$ index.php?category=$1&page=$2$3 [QSA,L]
-RewriteRule ^page/(.*)\.html?$ index.php?page=$1$2 [QSA,L]
+RewriteRule ^category/([^/]+)/(.*)\.html?$ ?category=$1&page=$2$3 [QSA,L]
+RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
 </IfModule>';
     
     $htaccessFile = DOCUMENTROOT.'/.htaccess';

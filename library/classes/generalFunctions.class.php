@@ -452,7 +452,7 @@ class generalFunctions {
         $categoryLink = $this->adminConfig['varName']['category'].'='.$category.'&amp;';
       else $categoryLink = '';
       
-      $getVarHref = 'index.php?'.$categoryLink.$this->adminConfig['varName']['page'].'='.$page;
+      $getVarHref = '?'.$categoryLink.$this->adminConfig['varName']['page'].'='.$page;
       
       if($sessionId)
         $getVarHref .= '&amp;'.$sessionId;

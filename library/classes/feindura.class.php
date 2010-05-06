@@ -331,7 +331,7 @@ class feindura {
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     getCurrentPage()<br>
-  * <b>Aliases</b>  getPage()<br>
+  * <b>Alias</b>    getPage()<br>
   *
   * Gets the current page ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
@@ -404,7 +404,7 @@ class feindura {
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     getCurrentCategory()<br>
-  * <b>Aliases</b>  getCategory()<br>
+  * <b>Alias</b>    getCategory()<br>
   *
   * Gets the current category ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID.
@@ -472,7 +472,7 @@ class feindura {
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     setCurrentPage()<br>
-  * <b>Aliases</b>  setPage()<br>
+  * <b>Alias</b>    setPage()<br>
   *
   * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPage}) and set it to the {@link $page} property.
   * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}.
@@ -520,7 +520,7 @@ class feindura {
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     setCurrentCategory()<br>
-  * <b>Aliases</b>  setCategory()<br>
+  * <b>Alias</b>    setCategory()<br>
   *
   * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategory}) and set it to the {@link $category} property.
   * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}.
@@ -845,8 +845,7 @@ class feindura {
     // -> AFTER all RETURN $return
     // *****************
     return $return;
-  }
-  
+  }  
   
  /**
   * Generates a page title
@@ -857,7 +856,7 @@ class feindura {
   * Generates a page title from a given <var>$pageContent</var> array by using the given parameters.
   *
   *
-  * @param array   $pageContent                 the $pageContent Array of a Page
+  * @param array   $pageContent                 the $pageContent Array of a page
   * @param string  $titleTag = false            (optional) the HTML tag which is used to surround the title text
   * @param string  $titleId = false             (optional) the ID which is used in the title tag
   * @param string  $titleClass = false          (optional) the CLASS which is used in the title tag
@@ -891,16 +890,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function createTitle($pageContent,                 // the pageContent Array of the Page (String)
-                                 $titleTag = false,            // the TAG which is used by the title (String)
-                                 $titleId = false,             // the ID which is used by the title tag (String)
-                                 $titleClass = false,          // the CLASS which is used by the title tag (String)
-                                 $titleAttributes = false,
-				 $titleCategorySpacer = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
-				 $titleLength = false,         // if Number, it shortens the title characters to this Length (bool or Number)
-                                 $titleAsLink = false,         // if true, it set the title as a link (bool)
-                                 $titleShowCategory = false,   // if true, it shows the category name after the title, and uses the given spacer string (Boolean or String)
-				 $titleShowDate = false) {       // (Boolean) if TRUE, it shows the pageContent['sortdate'] var before the title (Boolean or String)
+  function createTitle($pageContent, $titleTag = false, $titleId = false, $titleClass = false, $titleAttributes = false, $titleCategorySpacer = false, $titleLength = false, $titleAsLink = false, $titleShowCategory = false, $titleShowDate = false) {
       
       // vars 
       $titleBefore = '';
@@ -992,12 +982,54 @@ class feindura {
       // returns the title
       return $title;
   }
-  // -> END -- createTitle ---------------------------------------------------------------------------------
   
-  // -> START -- createPageHref ******************************************************************************
-  // generates out of the a pageContent Array a href="" link for this page
-  // RETURNs a String for the HREF attribute
-  // -----------------------------------------------------------------------------------------------------
+ /**
+  * Generates a href attribute for using in a link tag to a page
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     createPageHref()<br>
+  * <b>Alias</b>    createHref()<br>
+  *
+  * Generates a href attribute to link to a page.
+  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
+  * If cookies are deactivated it attaches the {@link $sessionId} on the end.
+  *
+  * Examples of the returned href string ("user=xyz123" is the sessionname=sessionid).
+  *
+  * Normal href string: 
+  * <samp>
+  * ?page=1&user=xyz123
+  * or
+  * ?category=1&page=1&user=xyz123
+  * </samp>
+  *
+  * Speaking URL href string: 
+  * <samp>
+  * /page/page_title.html?user=xyz123
+  * or
+  * /category/category_name/page_title.html?user=xyz123
+  * </samp>
+  *
+  *
+  * @param int|array $page          page ID or a $pageContent array
+  * 
+  * @uses getPageCategory()		   to get the category ID if the $page parameter is no $pageContent array
+  * @uses readPage()			   to load the $pageContent array if the $page parameter is a page ID
+  * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
+  *
+  * 
+  * @return string the generated href attribute
+  *
+  * @access protected
+  *
+  * @see generalFunctions::createHref()
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
   function createPageHref($page) {
     
     // IF given $page is an $pageContent array
