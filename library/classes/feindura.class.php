@@ -576,7 +576,7 @@ class feindura {
   * <b>Name</b>     generatePage()<br>
   *
   * This method is called in descendant classes.<br>
-  * Generates a page by the given page ID and catagory ID.
+  * Generates a page by the given page ID.
   * The returned page array is structured in this order:<br>
   * title, the page thumbnail and then the content, depending on the respective properties.
   * In case the page doesnt exists or is not public a error is shown (depending on the <var>$showError</var> parameter AND the {@link feinduraPages::$showError} property,
@@ -645,7 +645,12 @@ class feindura {
   *
   */
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
-
+    
+    // vars
+    $return['title'] = '';
+    $return['thumbnail'] = '';
+    $return['content'] = '';
+    
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
     else $tagEnding = '>';
@@ -655,7 +660,7 @@ class feindura {
     
     // LOOKS FOR A GIVEN PAGE, IF NOT STOP THE METHOD
     if(!$page)
-      return false;
+      return array();
     
     // -> sets the ERROR SETTINGS
     // ----------------------------
@@ -691,9 +696,10 @@ class feindura {
       if(!$pageContent = $this->readPage($page,$category)) {
         // if could not load throw ERROR
         if($showError && $this->showError) {
-          return $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
+	  $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
+          return $return;
         } else
-          return false;
+          return array();
       }
     }
 
@@ -701,9 +707,10 @@ class feindura {
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
       if($showError && $this->showError) {
-        return $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
+        $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
+        return $return; 
       } else
-        return false;
+        return array();
     }
     
     // ->> BEGINNING TO BUILD THE PAGE
@@ -824,22 +831,22 @@ class feindura {
     // -> BUILDING the PAGE
     // *******************
     if($this->pageShowTitle)
-       $generatedPage['title']	   = $title."\n";
+       $return['title']	   = $title."\n";
     if($this->pageShowThumbnail)
-       $generatedPage['thumbnail'] = $thumbnailBefore.$pageThumbnail.$thumbnailAfter."\n";
+       $return['thumbnail'] = $thumbnailBefore.$pageThumbnail.$thumbnailAfter."\n";
     if($this->pageShowContent)
-       $generatedPage['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+       $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
     
     /*
     // adds breaks before and after
-    $generatedPage = "\n".$generatedPage."\n";    
+    $return = "\n".$return."\n";    
     // removes double breaks
-    $generatedPage = preg_replace("/\\n+/","\n",$generatedPage);
+    $return = preg_replace("/\\n+/","\n",$return);
     */
     
-    // -> AFTER all RETURN $generatedPage
-    // ***************** 
-    return $generatedPage;
+    // -> AFTER all RETURN $return
+    // *****************
+    return $return;
   }
   
   
