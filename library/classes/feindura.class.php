@@ -543,9 +543,6 @@ class feindura {
   * @uses shortenHtmlText()             to shorten the HTML page content
   * @uses shortenText()                 to shorten the non HTML page content, if the $useHtml parameter is FALSE
   * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$pageShowTitle
-  * @uses feinduraPages::$pageShowThumbnail
-  * @uses feinduraPages::$pageShowContent
   * @uses feinduraPages::$pageShowError
   * @uses feinduraPages::$errorTag
   * @uses feinduraPages::$errorId
@@ -558,7 +555,7 @@ class feindura {
   * @uses feinduraPages::$titleLength
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleShowDate 
+  * @uses feinduraPages::$titleShowPageDate 
   * @uses feinduraPages::$thumbnailId
   * @uses feinduraPages::$thumbnailClass
   * @uses feinduraPages::$thumbnailAttributes
@@ -663,15 +660,11 @@ class feindura {
     // *****************
     if(!empty($pageContent['title']))
       $title = $this->createTitle($pageContent,
-                                  $this->titleTag,
-                                  $this->titleId,
-                                  $this->titleClass,
-				  $this->titleAttributes,
 				  $this->titleCategorySpacer,
                                   $this->titleLength,
                                   $this->titleAsLink,
                                   $this->titleShowCategory,
-                                  $this->titleShowDate);      
+                                  $this->titleShowPageDate);      
     else $title = '';
       
     // -> PAGE THUMBNAIL
@@ -819,7 +812,7 @@ class feindura {
   * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
-  * @param bool	   $titleShowDate               (optional) if TRUE, it shows the page date before the title text
+  * @param bool	   $titleShowPageDate               (optional) if TRUE, it shows the page date before the title text
   *
   * 
   * @uses adminConfig                   for the thumbnail upload path
@@ -844,7 +837,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function createTitle($pageContent, $titleTag = false, $titleId = false, $titleClass = false, $titleAttributes = false, $titleCategorySpacer = false, $titleLength = false, $titleAsLink = false, $titleShowCategory = false, $titleShowDate = false) {
+  function createTitle($pageContent, $titleCategorySpacer = false, $titleLength = false, $titleAsLink = false, $titleShowCategory = false, $titleShowPageDate = false) {
       
       // vars 
       $titleBefore = '';
@@ -854,7 +847,7 @@ class feindura {
       $fullTitle = strip_tags($pageContent['title']);
            
       // generate titleDate
-      if($titleShowDate && $pageContent['category'] &&
+      if($titleShowPageDate && $pageContent['category'] &&
          isset($this->categoryConfig['id_'.$pageContent['category']]) &&
          $this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
          !empty($pageContent['pagedate']) &&
@@ -907,11 +900,13 @@ class feindura {
       if($titleAsLink) {        
         $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
         $titleAfter = $titleAfter.'</a>';
-      } else {
+      }/* else {
         $titleBefore = '<span title="'.$titleTagText.'">'.$titleBefore;
         $titleAfter = $titleAfter.'</span>';
-      }      
-        
+      }   
+      */   
+      
+      /*  
       // -------------------------------
       // adds ATTRIBUTES
       $titleStartTag = '';
@@ -928,10 +923,12 @@ class feindura {
         $titleStartTag = '<'.$titleTag.$titleTagAttributes.'>';
         $titleEndTag = '</'.$titleTag.'>';
       }
+      */
  
       // -> builds the title
-      // *******************  
-      $title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
+      // *******************
+      //$title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
+      $title = $titleBefore.$title.$titleAfter;
       
       // returns the title
       return $title;

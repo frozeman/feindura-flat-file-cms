@@ -18,7 +18,7 @@ $myCms->linkThumbnailAfterText = false;
 $myCms->linkLength =             10;
 $myCms->linkShowCategory =       true;
 $myCms->linkCategorySpacer =     ' -> ';
-$myCms->linkShowDate =           true;
+$myCms->linkShowPageDate =       true;
 
 
 // create link of the page with ID "1" using the above set link properties

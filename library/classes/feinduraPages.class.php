@@ -132,9 +132,9 @@ class feinduraPages extends feindura {
   var $linkThumbnailAfterText = false;    // [bool]              -> show the thumbnail after the linkText
   var $linkLength = false;                // [bool or Number]    -> the number of maximun characters for the link Title, after this length it will be shorten with abc..
   var $linkShowCategory = false;          // [bool]              -> show the category name before the title
+  var $linkShowPageDate = false;              // [bool]              -> show the page date before the title
   var $linkCategorySpacer = ': ';         // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
-  var $linkShowDate = false;              // [bool]              -> show the page date before the title
-
+  
   var $menuId = false;                    // [False or String]      -> the menu ID which is used when creating a menu (REMEMBER you can only set ONE ID in an HTML Page)
   var $menuClass = false;                 // [False or String]      -> the menu CLASS which is used when creating a menu
   var $menuAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
@@ -142,15 +142,15 @@ class feinduraPages extends feindura {
   //var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
   //var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
   
-  var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
-  var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
-  var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
-  var $titleAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
+  //var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
+  //var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
+  //var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
+  //var $titleAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   var $titleLength = false;               // [Boolean or Number]    -> the number of maximun characters for the title, after this length it will be shorten with abc..
   var $titleAsLink = false;               // [Boolean]              -> should the title be a link to the Page (ONLY when listing a Page)
-  var $titleShowCategory = false;         // [Boolean]              -> show the category name before the title
   var $titleCategorySpacer = ': ';        // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
-  var $titleShowDate = false;             // [Boolean]              -> show the page date before the title
+  var $titleShowPageDate = false;             // [Boolean]              -> show the page date before the title
+  var $titleShowCategory = false;         // [Boolean]              -> show the category name before the title
   //var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
   //var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
   
@@ -543,15 +543,11 @@ class feinduraPages extends feindura {
                  
           // add the TITLE
           $linkText = $this->createTitle($pageContent,
-                                        false, // $titletag
-                                        false, // $titleId
-                                        false, // $titleClass
-					false, // $titleAttributes
-					$this->linkCategorySpacer,
+    					$this->linkCategorySpacer,
                                         $this->linkLength,
                                         false, // $titleAsLink
                                         $this->linkShowCategory,
-                                        $this->linkShowDate);
+                                        $this->linkShowPageDate);
         }
              
         // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
@@ -866,8 +862,7 @@ class feinduraPages extends feindura {
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
-  function showPageTitle($page = false,              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
-                                $titleTag = true) {        // (Boolean or String) the TAG which is used by the title (String), if TRUE it loads the titleTag PROPERTY
+  function showPageTitle($page = false) {              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
     
     // -> PREV or NEXT if given direction
     $prevNext = false;
@@ -905,15 +900,11 @@ class feinduraPages extends feindura {
       
         // shows the TITLE
         $title = $this->createTitle($pageContent,
-                                    $titleTag,
-                                    $this->titleId,
-                                    $this->titleClass,
-				    $this->titleAttributes,
 				    $this->titleCategorySpacer,
                                     $this->titleLength,
                                     $this->titleAsLink,
                                     $this->titleShowCategory,
-                                    $this->titleShowDate);                                      
+                                    $this->titleShowPageDate);                                      
       
         //echo $title;
         return $title;

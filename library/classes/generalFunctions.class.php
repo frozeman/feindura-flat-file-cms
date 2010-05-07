@@ -715,7 +715,6 @@ class generalFunctions {
   
     else return $date;
   }
-  // -> END -- createTitleDate ----------------------------------------------------------------------------
   
  /**
   * Checks if the page date exists and is activated in the category-settings config
