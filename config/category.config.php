@@ -8,8 +8,8 @@ $categories['id_2']['createdelete'] =    'true';
 $categories['id_2']['thumbnail'] =       '';
 $categories['id_2']['plugins'] =         '';
 $categories['id_2']['showtags'] =        '';
-$categories['id_2']['showsortdate'] =    '';
-$categories['id_2']['sortbydate'] =      '';
+$categories['id_2']['showpagedate'] =    '';
+$categories['id_2']['sortbypagedate'] =      '';
 
 $categories['id_2']['styleFile'] =       '';
 $categories['id_2']['styleId'] =         '';
@@ -28,8 +28,8 @@ $categories['id_1']['createdelete'] =    'true';
 $categories['id_1']['thumbnail'] =       'true';
 $categories['id_1']['plugins'] =         'true';
 $categories['id_1']['showtags'] =        'true';
-$categories['id_1']['showsortdate'] =    'true';
-$categories['id_1']['sortbydate'] =      '';
+$categories['id_1']['showpagedate'] =    'true';
+$categories['id_1']['sortbypagedate'] =      '';
 
 $categories['id_1']['styleFile'] =       '';
 $categories['id_1']['styleId'] =         '';
@@ -48,8 +48,8 @@ $categories['id_3']['createdelete'] =    'true';
 $categories['id_3']['thumbnail'] =       '';
 $categories['id_3']['plugins'] =         '';
 $categories['id_3']['showtags'] =        '';
-$categories['id_3']['showsortdate'] =    '';
-$categories['id_3']['sortbydate'] =      '';
+$categories['id_3']['showpagedate'] =    '';
+$categories['id_3']['sortbypagedate'] =      '';
 
 $categories['id_3']['styleFile'] =       '';
 $categories['id_3']['styleId'] =         '';

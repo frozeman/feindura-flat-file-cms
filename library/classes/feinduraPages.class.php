@@ -839,7 +839,7 @@ class feinduraPages extends feindura {
   }
   
   // -> START -- createMenuByDate **************************************************************************
-  // RETURN a menu created out of the pages IDs or a category ID(s), if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
+  // RETURN a menu created out of the pages IDs or a category ID(s), if they have a pageDate set and pagedate is activated in the category, AND its between the given month Number from now and in the past
   // RETURNs -> ARRAY
   // * MORE OPTIONs in the PROPERTIES
   // ------------------------------------------------------------------------------------------------------  
@@ -1103,7 +1103,7 @@ class feinduraPages extends feindura {
   }  
   
   // -> START -- listPagesByDate **************************************************************************
-  // RETURNs an Array of PAGEs, if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
+  // RETURNs an Array of PAGEs, if they have a pageDate set and pagedate is activated in the category, AND its between the given month Number from now and in the past
   // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // ------------------------------------------------------------------------------------------------------
   function listPagesByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories

@@ -295,7 +295,7 @@ $langFile['sortablePageList_headText3'] = 'Besucher';
 $langFile['sortablePageList_headText4'] = 'Status';
 $langFile['sortablePageList_headText5'] = 'Funktionen';
 
-$langFile['sortablePageList_sortDate'] = 'Seiten-Datum';
+$langFile['sortablePageList_pagedate'] = 'Seiten-Datum';
 $langFile['sortablePageList_tags'] = 'Tags';
 
 $langFile['sortablePageList_sortOrder_manuell'] = 'manuell sortiert';
@@ -624,16 +624,16 @@ $langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte, die mit die
 $langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Stichworte sollten mit [b]Leerzeichen[/b] getrennt werden.';
 $langFile['editor_pageSettings_field3'] = 'Seitendatum';
 $langFile['editor_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Aktualit&auml;t zu sortieren. (z.B. bei Veranstaltungen)';
-$langFile['editor_pageSettings_sortdate_before_inputTip'] = 'Text vor dem Datum::z.B. vom Tag/Monat bis';
-$langFile['editor_pageSettings_sortdate_after_inputTip'] = 'Text nach dem Datum::';
-$langFile['editor_pageSettings_sortdate_day_inputTip'] = 'Tag::';
-$langFile['editor_pageSettings_sortdate_month_inputTip'] = 'Monat::';
-$langFile['editor_pageSettings_sortdate_year_inputTip'] = 'Jahr::[b]Format[/b] JJJJ';
+$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. vom Tag/Monat bis';
+$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Text nach dem Datum::';
+$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'Tag::';
+$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Monat::';
+$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Jahr::[b]Format[/b] JJJJ';
 $langFile['editor_pageSettings_field4'] = 'Status der Seite';
 $langFile['editor_pageSettings_field4_tip'] = '[b]Nur wenn die Seite &ouml;ffentlich ist, wird diese auf der Webseite angezeigt![/b]';
 
-$langFile['editor_pageSettings_sortDate_error'] = 'Fehlerhaftes Datumsformat';
-$langFile['editor_pageSettings_sortDate_error_tip'] = 'Das Datum muss folgendes Format haben:';
+$langFile['editor_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
+$langFile['editor_pageSettings_pagedate_error_tip'] = 'Das Datum muss folgendes Format haben:';
 
 $langFile['editor_advancedpageSettings_h1'] = 'erweiterte Seiten-Einstellungen';
 

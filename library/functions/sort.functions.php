@@ -39,16 +39,16 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
 // -------------------------------------------------------------------------------------
 function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
   
-  $a['sortdate'] = str_replace('-','',$a['sortdate']['date']);
-  $b['sortdate'] = str_replace('-','',$b['sortdate']['date']);
+  $a['pagedate'] = str_replace('-','',$a['pagedate']['date']);
+  $b['pagedate'] = str_replace('-','',$b['pagedate']['date']);
 
-  //echo $a['sortdate'].'<br>';
-  //echo $b['sortdate'].'<br><br>';
+  //echo $a['pagedate'].'<br>';
+  //echo $b['pagedate'].'<br><br>';
   
-  if ($a['sortdate'] == $b['sortdate']) {
+  if ($a['pagedate'] == $b['pagedate']) {
     return 0;
   }
-  return ($a['sortdate'] > $b['sortdate']) ? -1 : 1;
+  return ($a['pagedate'] > $b['pagedate']) ? -1 : 1;
 }
 // ---- sortByDate is used by the function sortPages -----------------------------------
 

@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */ 
 /**
- * This file contains the {@link feindura} base <var>class</var>
+ * This file contains the {@link feindura} base <var>c0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,lass</var>
  */ 
 
 /**
@@ -580,9 +580,10 @@ class feindura {
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
     // vars
-    $return['title'] = '';
-    $return['thumbnail'] = '';
-    $return['content'] = '';
+    $return['title'] = false;
+    $return['pagedate'] = false;
+    $return['thumbnail'] = false;
+    $return['content'] = false;
     
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
@@ -838,15 +839,15 @@ class feindura {
       // generate titleDate
       if($titleShowDate && $pageContent['category'] &&
          isset($this->categoryConfig['id_'.$pageContent['category']]) &&
-         $this->categoryConfig['id_'.$pageContent['category']]['showsortdate'] &&
-         !empty($pageContent['sortdate']) &&
-         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['sortdate']['date'])) {
+         $this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
+         !empty($pageContent['pagedate']) &&
+         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['pagedate']['date'])) {
          $titleDateBefore = '';
          $titleDateAfter = '';
-         if($pageContent['sortdate']['before'])
-          $titleDateBefore = $pageContent['sortdate']['before'].' ';
-         if($pageContent['sortdate']['after'])
-          $titleDateAfter = ' '.$pageContent['sortdate']['after'];
+         if($pageContent['pagedate']['before'])
+          $titleDateBefore = $pageContent['pagedate']['before'].' ';
+         if($pageContent['pagedate']['after'])
+          $titleDateAfter = ' '.$pageContent['pagedate']['after'];
          $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).$titleDateAfter;
       } else $titleDate = false;      
       
@@ -1219,7 +1220,7 @@ class feindura {
   // -> END -- hasTags --------------------------------------------------------------------------------
   
   // -> START -- listByDate *******************************************************************************
-  // RETURNs PAGEs, if they have a sortDate set and sortdate is activated in the category, AND its between the given month Number from now and in the past
+  // RETURNs PAGEs, if they have a pageDate set and pagedate is activated in the category, AND its between the given month Number from now and in the past
   // ------------------------------------------------------------------------------------------------------
   function listByDate($type,                                 // (String ["menu" or "pages"]) set the type of the listByDate
                                 $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
@@ -1289,20 +1290,19 @@ class feindura {
       $selectedPages = array();
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
-        if(!empty($page['sortdate']) &&
-           !empty($page['sortdate']['date']) &&
-           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['showsortdate'])) {
+        if(!empty($page['pagedate']['date']) &&
+           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['showpagedate'])) {
            
            // makes the page sort date compareable
-           $pageSortDate = str_replace('-','',$page['sortdate']['date']);
+           $pageDate = str_replace('-','',$page['pagedate']['date']);
            
-           //echo 'pageSortDate: '.$pageSortDate.'<br /><br />';           
+           //echo 'pageDate: '.$pageDate.'<br /><br />';           
            
            // adds the page to the array, if:
            // -> the currentdate ist between the minus and the plus month or
            // -> mins or plus month are true (means there is no time limit)
-           if(($monthsInThePast === true || $pageSortDate >= $pastDate) &&
-              ($monthsInTheFuture === true || $pageSortDate <= $futureDate))
+           if(($monthsInThePast === true || $pageDate >= $pastDate) &&
+              ($monthsInTheFuture === true || $pageDate <= $futureDate))
              $selectedPages[] = $page;
         }
       }      

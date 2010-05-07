@@ -123,7 +123,7 @@ foreach($allCategories as $category) {
     $hidden = ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  if($category['sortbydate'] == 'true') {
+  if($category['sortbypagedate'] == 'true') {
     $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
   } else {
     $categorySorting = '';
@@ -172,7 +172,7 @@ foreach($allCategories as $category) {
         <div class="content">';
   
   // -> CHECK if pages are sortable
-  if(empty($category['sortbydate']))
+  if(empty($category['sortbypagedate']))
     $listIsSortableClass = ' class="sortablePageList"';
   else
     $listIsSortableClass = '';
@@ -213,15 +213,15 @@ foreach($allCategories as $category) {
       // -> show lastsavedate
       $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
       
-      // -> show sortdate
-      if($category['showsortdate'] &&
-        (!empty($pageContent['sortdate']['before']) || !empty($pageContent['sortdate']['date']) || !empty($pageContent['sortdate']['after']))) {
+      // -> show pagedate
+      if($category['showpagedate'] &&
+        (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after']))) {
         
         // CHECKs the DATE FORMAT
-        if(!empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate']['before'].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_sortDate_error'].':[/span] '.$pageContent['sortdate']['date'].' '.$pageContent['sortdate']['after'];
+        if(!empty($pageContent['pagedate']['date']) && $statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$pageContent['pagedate']['before'].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_pagedate_error'].':[/span] '.$pageContent['pagedate']['date'].' '.$pageContent['pagedate']['after'];
         else
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_sortDate'].'[/b][br /]'.$pageContent['sortdate']['before'].' '.$statisticFunctions->formatDate($pageContent['sortdate']['date']).' '.$pageContent['sortdate']['after'];
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$pageContent['pagedate']['before'].' '.$statisticFunctions->formatDate($pageContent['pagedate']['date']).' '.$pageContent['pagedate']['after'];
         
       } else $showDate = '';
       

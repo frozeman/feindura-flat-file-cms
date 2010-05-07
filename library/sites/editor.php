@@ -97,19 +97,19 @@ if($_POST['save']) {
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
-    // generates sortDate
-    if(!empty($_POST['sortdate']['day']) && !empty($_POST['sortdate']['month']))
-    $generatedSortDate = $_POST['sortdate']['year'].'-'.$_POST['sortdate']['month'].'-'.$_POST['sortdate']['day'];
+    // generates pagedate
+    if(!empty($_POST['pagedate']['day']) && !empty($_POST['pagedate']['month']))
+    $generatedPageDate = $_POST['pagedate']['year'].'-'.$_POST['pagedate']['month'].'-'.$_POST['pagedate']['day'];
     
     // VALIDATE the SORT DATE
-    if(($sortDate = $statisticFunctions->validateDateFormat($generatedSortDate)) === false) {
-      $sortDate = $generatedSortDate;
+    if(($pageDate = $statisticFunctions->validateDateFormat($generatedPageDate)) === false) {
+      $pageDate = $generatedPageDate;
     }
     // set the validated date to the post var
-    $_POST['sortdate']['date'] = $sortDate;
+    $_POST['pagedate']['date'] = $pageDate;
     
-    //echo '<br />'.$_POST['sortdate']['before'];
-    //echo '<br />'.$_POST['sortdate']['date'];
+    //echo '<br />'.$_POST['pagedate']['before'];
+    //echo '<br />'.$_POST['pagedate']['date'];
     
     if(empty($_POST['sortorder']))
       $_POST['sortorder'] = $pageContent['sortorder'];
@@ -203,7 +203,7 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-if($categories['id_'.$_GET['category']]['sortbydate'] == 'true')
+if($categories['id_'.$_GET['category']]['sortbypagedate'] == 'true')
   $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
 else
   $categorySorting = '';
@@ -530,7 +530,7 @@ else $hidden = ' hidden';
       <?php
       
       // shows only if activated
-      if($categories['id_'.$_GET['category']]['showsortdate']) { ?>
+      if($categories['id_'.$_GET['category']]['showpagedate']) { ?>
       
       <!-- ***** SORT DATE -->
       
@@ -538,12 +538,12 @@ else $hidden = ' hidden';
         
       // add the DATE of TODAY, if its a NEW PAGE
       if($newPage) {
-          $pageContent['sortdate']['date'] = date('Y')."-".date('m')."-".date('d');
+          $pageContent['pagedate']['date'] = date('Y')."-".date('m')."-".date('d');
       }
       
       ?>      
       <tr><td class="left">
-      <label for="edit_sortdate">
+      <label for="edit_pagedate">
       <?php
       
       // get date format
@@ -553,67 +553,67 @@ else $hidden = ' hidden';
         $dateFormat = $langFile['date_int'];
       
       // CHECKs the DATE FORMAT
-      if(!empty($pageContent['sortdate']['date']) && $statisticFunctions->validateDateFormat($pageContent['sortdate']['date']) === false)
-        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_sortDate_error'].'::'.$langFile['editor_pageSettings_sortDate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_sortDate_error'].'</b></span>'; 
+      if(!empty($pageContent['pagedate']['date']) && $statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
+        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_pagedate_error'].'::'.$langFile['editor_pageSettings_pagedate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_pagedate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_tip'].'">'.$langFile['editor_pageSettings_field3'].'</span>';
       ?>
       </label>
       
       </td><td class="right">
-        <input name="sortdate[before]" value="<?php echo $pageContent['sortdate']['before']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_sortdate_before_inputTip']; ?>" style="width:130px;" />
+        <input name="pagedate[before]" value="<?php echo $pageContent['pagedate']['before']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
         
         <?php
         
         // -> creates DAY selection
-        $sortDateTags['day'] = '<select name="sortdate[day]" class="toolTip" title="'.$langFile['editor_pageSettings_sortdate_day_inputTip'].'">'."\n";
+        $pageDateTags['day'] = '<select name="pagedate[day]" class="toolTip" title="'.$langFile['editor_pageSettings_pagedate_day_inputTip'].'">'."\n";
         for($i = 1; $i <= 31; $i++) {
           // adds following zero
           if(strlen($i) == 1)
             $countDays = '0'.$i;
           else $countDays = $i;
           // selects the selected month
-          if(substr($pageContent['sortdate']['date'],-2) == $countDays)
+          if(substr($pageContent['pagedate']['date'],-2) == $countDays)
             $selected = ' selected="selected"';
           else $selected = null;
-          $sortDateTags['day'] .= '<option value="'.$countDays.'"'.$selected.'>'.$countDays.'</option>'."\n";
+          $pageDateTags['day'] .= '<option value="'.$countDays.'"'.$selected.'>'.$countDays.'</option>'."\n";
         }
-        $sortDateTags['day'] .= '</select>'."\n";
+        $pageDateTags['day'] .= '</select>'."\n";
 
         // -> creates MONTH selection
-        $sortDateTags['month'] = '<select name="sortdate[month]" class="toolTip" title="'.$langFile['editor_pageSettings_sortdate_month_inputTip'].'">'."\n";
+        $pageDateTags['month'] = '<select name="pagedate[month]" class="toolTip" title="'.$langFile['editor_pageSettings_pagedate_month_inputTip'].'">'."\n";
         for($i = 1; $i <= 12; $i++) {
           // adds following zero
           if(strlen($i) == 1)
             $countMonths = '0'.$i;            
           else $countMonths = $i;
           // selects the selected month
-          if(substr($pageContent['sortdate']['date'],-5,2) == $countMonths)
+          if(substr($pageContent['pagedate']['date'],-5,2) == $countMonths)
             $selected = ' selected="selected"';
           else $selected = null;
-          $sortDateTags['month'] .= '<option value="'.$countMonths.'"'.$selected.'>'.$countMonths.'</option>'."\n";
+          $pageDateTags['month'] .= '<option value="'.$countMonths.'"'.$selected.'>'.$countMonths.'</option>'."\n";
         }
-        $sortDateTags['month'] .= '</select>'."\n";
+        $pageDateTags['month'] .= '</select>'."\n";
         
         // -> creates YEAR selection
-        $year = substr($pageContent['sortdate']['date'],0,4);
+        $year = substr($pageContent['pagedate']['date'],0,4);
         if(preg_match('/[0-9]{4}/',$year))
           $year = $year;
         else $year = null;
-        $sortDateTags['year'] = '<input type="text" class="short toolTip" name="sortdate[year]" title="'.$langFile['editor_pageSettings_sortdate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
+        $pageDateTags['year'] = '<input type="text" class="short toolTip" name="pagedate[year]" title="'.$langFile['editor_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
 
         
         // -> WRITES the SORT DATE TAGS
         if($adminConfig['dateFormat'] == 'eu') {
-          echo $sortDateTags['day'].' . '.$sortDateTags['month'].' . '.$sortDateTags['year'];
+          echo $pageDateTags['day'].' . '.$pageDateTags['month'].' . '.$pageDateTags['year'];
         } elseif($adminConfig['dateFormat'] == 'int') {
-          echo $sortDateTags['year'].' - '.$sortDateTags['month'].' - '.$sortDateTags['day'];
+          echo $pageDateTags['year'].' - '.$pageDateTags['month'].' - '.$pageDateTags['day'];
         }
         
         ?>
         
-        <!--<input id="edit_sortdate" name="sortdate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['sortdate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />-->
-        <input name="sortdate[after]" value="<?php echo $pageContent['sortdate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_sortdate_after_inputTip']; ?>" style="width:120px;" />
+        <!--<input id="edit_pagedate" name="pagedate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['pagedate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />-->
+        <input name="pagedate[after]" value="<?php echo $pageContent['pagedate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
       </td></tr>
       <?php }
       

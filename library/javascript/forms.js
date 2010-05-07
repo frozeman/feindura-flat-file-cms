@@ -78,10 +78,10 @@ window.addEvent('domready', function() {
       var checkboxId = checkbox.get('id');
       // go trough checkboxes with id
       if(checkboxId) {    
-        // -> ** categories[0-9]sortdate
-        if(checkbox.get('id').match(/^categories[0-9]sortbydate$/)) {
+        // -> ** categories[0-9]pagedate
+        if(checkbox.get('id').match(/^categories[0-9]sortbypagedate$/)) {
           var categoryNumber = checkbox.get('id').match(/[0-9]+/);
-          myCfe.addDependencies(checkbox,['categories'+categoryNumber+'showsortdate']);
+          myCfe.addDependencies(checkbox,['categories'+categoryNumber+'showpagedate']);
         }    
       
       }

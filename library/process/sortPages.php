@@ -57,7 +57,7 @@ foreach($sortOrder as $sort) {
         $count++;
         
         // -> saves the task log
-        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categories['id_'.$_POST['categoryNew']]['sortbydate'])) {
+        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categories['id_'.$_POST['categoryNew']]['sortbypagedate'])) {
           if($_POST['categoryOld'] != $_POST['categoryNew'])
             $logText = $langFile['log_listPages_moved'];
           else

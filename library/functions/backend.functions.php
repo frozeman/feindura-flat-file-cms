@@ -170,12 +170,12 @@ function saveCategories($newCategories) {
       // ->> GO TROUGH every catgory adn write it
       foreach($newCategories as $category) {
       
-        // -> CHECK depency of SORTDATE
-        if($category['showsortdate'] == '')
-          $category['sortbydate'] = '';
+        // -> CHECK depency of PAGEDATE
+        if($category['showpagedate'] == '')
+          $category['sortbypagedate'] = '';
         
-        if($category['sortbydate'] == 'true')
-          $category['showsortdate'] = 'true';
+        if($category['sortbypagedate'] == 'true')
+          $category['showpagedate'] = 'true';
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
         if(!isset($category['thumbWidth']))
@@ -202,8 +202,8 @@ function saveCategories($newCategories) {
         fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbnail'] =       '".$category['thumbnail']."';\n");        
         fwrite($categoryConfig,"\$categories['id_".$category['id']."']['plugins'] =         '".$category['plugins']."';\n");
         fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showtags'] =        '".$category['showtags']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showsortdate'] =    '".$category['showsortdate']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['sortbydate'] =      '".$category['sortbydate']."';\n\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showpagedate'] =    '".$category['showpagedate']."';\n");
+        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['sortbypagedate'] =  '".$category['sortbypagedate']."';\n\n");
         
         fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
         fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");
