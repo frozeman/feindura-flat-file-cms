@@ -116,9 +116,9 @@ if($_POST['save']) {
   
     // checks the Pages Styles
     // if the given Styles DONT MATCH the main HTMl editor Styles, or the Category Sytles, than save these
-    if(!empty($categories['id_'.$category]['styleFile'])) { if($_POST['styleFile'] == $categories['id_'.$category]['styleFile']) $_POST['styleFile'] = ''; } elseif($_POST['styleFile'] == $adminConfig['editor']['styleFile']) { $_POST['styleFile'] = ''; }
-    if(!empty($categories['id_'.$category]['styleId'])) { if($_POST['styleId'] == $categories['id_'.$category]['styleId']) $_POST['styleId'] = ''; } elseif($_POST['styleId'] == $adminConfig['editor']['styleId']) { $_POST['styleId'] = ''; }
-    if(!empty($categories['id_'.$category]['styleClass'])) { if($_POST['styleClass'] == $categories['id_'.$category]['styleClass']) $_POST['styleClass'] = ''; } elseif($_POST['styleClass'] == $adminConfig['editor']['styleClass']) { $_POST['styleClass'] = ''; }
+    if(!empty($categoryConfig['id_'.$category]['styleFile'])) { if($_POST['styleFile'] == $categoryConfig['id_'.$category]['styleFile']) $_POST['styleFile'] = ''; } elseif($_POST['styleFile'] == $adminConfig['editor']['styleFile']) { $_POST['styleFile'] = ''; }
+    if(!empty($categoryConfig['id_'.$category]['styleId'])) { if($_POST['styleId'] == $categoryConfig['id_'.$category]['styleId']) $_POST['styleId'] = ''; } elseif($_POST['styleId'] == $adminConfig['editor']['styleId']) { $_POST['styleId'] = ''; }
+    if(!empty($categoryConfig['id_'.$category]['styleClass'])) { if($_POST['styleClass'] == $categoryConfig['id_'.$category]['styleClass']) $_POST['styleClass'] = ''; } elseif($_POST['styleClass'] == $adminConfig['editor']['styleClass']) { $_POST['styleClass'] = ''; }
     
     $_POST['styleId'] = str_replace(array('#','.'),'',$_POST['styleId']);
     $_POST['styleClass'] = str_replace(array('#','.'),'',$_POST['styleClass']);
@@ -203,7 +203,7 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-if($categories['id_'.$_GET['category']]['sortbypagedate'] == 'true')
+if($categoryConfig['id_'.$_GET['category']]['sortbypagedate'] == 'true')
   $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
 else
   $categorySorting = '';
@@ -245,7 +245,7 @@ else
     // -> show the thumbnail upload button if there is no thumbnail yet
     } elseif(!$newPage &&
             (($pageContent['category'] == 0 && $adminConfig['page']['thumbnailUpload']) ||
-            $categories['id_'.$pageContent['category']]['thumbnail'])) {  
+            $categoryConfig['id_'.$pageContent['category']]['thumbnail'])) {  
       
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_title'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
     }
@@ -272,7 +272,7 @@ else
       if($_GET['category'] == 0) // show only if categories exist
         $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_h1_categoryid_noCategory'].'</span>';
       else
-        $categoryName = $_GET['category'].' <span style="color:#A6A6A6;">&rArr; '.$categories['id_'.$_GET['category']]['name'].'</span>';
+        $categoryName = $_GET['category'].' <span style="color:#A6A6A6;">&rArr; '.$categoryConfig['id_'.$_GET['category']]['name'].'</span>';
       
       if(!$newPage)
         echo '<tr>
@@ -295,7 +295,7 @@ else
                 echo '<option value="0">'.$langFile['editor_h1_categoryid_noCategory'].'</option>';
               
               // ->> goes trough categories and list them
-              foreach($categories as $listCategory) {
+              foreach($categoryConfig as $listCategory) {
                 
                 if($listCategory['id'] == $_GET['category'])
                   $selected = ' selected="selected"';
@@ -530,7 +530,7 @@ else $hidden = ' hidden';
       <?php
       
       // shows only if activated
-      if($categories['id_'.$_GET['category']]['showpagedate']) { ?>
+      if($categoryConfig['id_'.$_GET['category']]['showpagedate']) { ?>
       
       <!-- ***** SORT DATE -->
       
@@ -618,7 +618,7 @@ else $hidden = ' hidden';
       <?php }
       
       // shows only if activated
-      if($categories['id_'.$_GET['category']]['showtags']) {
+      if($categoryConfig['id_'.$_GET['category']]['showtags']) {
       ?>      
       <!-- ***** TAGS -->
       
@@ -676,9 +676,9 @@ else $hidden = ' hidden';
 // from the Page, if empty,
 // than from the Category if empty,
 // than from the HTMl-Editor Settings
-if(empty($pageContent['styleFile'])) { if(!empty($categories['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categories['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
-if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categories['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
-if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categories['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
+if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categoryConfig['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
+if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categoryConfig['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
+if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categoryConfig['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
 
 
 // -> CREATES the EDITOR-INSTANCE
@@ -789,20 +789,20 @@ else $hidden = ' hidden';
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field1'].'::'.$langFile['editor_advancedpageSettings_field1_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field1']; ?></span>
       </td><td class="right">
-      <input name="styleFile" value="<?php if(empty($pageContent['styleFile'])) { if(!empty($categories['id_'.$_GET['category']]['styleFile'])) echo $categories['id_'.$_GET['category']]['styleFile']; else echo $adminConfig['editor']['styleFile']; } else echo $pageContent['styleFile']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
+      <input name="styleFile" value="<?php if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) echo $categoryConfig['id_'.$_GET['category']]['styleFile']; else echo $adminConfig['editor']['styleFile']; } else echo $pageContent['styleFile']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
       <span class="hint"><?php echo $langFile['editor_advancedpageSettings_field1_inputTip2']; ?></span>                
       </td></tr>
                   
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3'].'::'.$langFile['editor_advancedpageSettings_field3_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field3']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php if(empty($pageContent['styleId'])) { if(!empty($categories['id_'.$_GET['category']]['styleId'])) echo $categories['id_'.$_GET['category']]['styleId']; else echo $adminConfig['editor']['styleId']; } else echo $pageContent['styleId']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3_inputTip']; ?>" />
+      <input name="styleId" value="<?php if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) echo $categoryConfig['id_'.$_GET['category']]['styleId']; else echo $adminConfig['editor']['styleId']; } else echo $pageContent['styleId']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3_inputTip']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4'].'::'.$langFile['editor_advancedpageSettings_field4_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field4']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php if(empty($pageContent['styleClass'])) { if(!empty($categories['id_'.$_GET['category']]['styleClass'])) echo $categories['id_'.$_GET['category']]['styleClass']; else echo $adminConfig['editor']['styleClass']; } else echo $pageContent['styleClass']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4_inputTip']; ?>" />
+      <input name="styleClass" value="<?php if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) echo $categoryConfig['id_'.$_GET['category']]['styleClass']; else echo $adminConfig['editor']['styleClass']; } else echo $pageContent['styleClass']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4_inputTip']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

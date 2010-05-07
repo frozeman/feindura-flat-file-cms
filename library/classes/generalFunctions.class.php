@@ -128,7 +128,7 @@ class generalFunctions {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $GLOBALS['adminConfig'];
-    $this->categoryConfig = $GLOBALS['categories'];
+    $this->categoryConfig = $GLOBALS['categoryConfig'];
   
     return true;
   }  

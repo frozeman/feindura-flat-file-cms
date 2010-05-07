@@ -69,7 +69,7 @@ class statisticFunctions extends generalFunctions {
     $this->statisticConfig = $GLOBALS["statisticConfig"];
     $this->websiteStatistic = $GLOBALS["websiteStatistic"];    
     //$this->adminConfig = $adminConfig;    
-    //$this->categoryConfig = $categories;
+    //$this->categoryConfig = $categoryConfig;
     
     // GET FUNCTIONS
     //$this->generalFunctions = new generalFunctions();

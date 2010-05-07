@@ -251,7 +251,7 @@ if($_GET['site'] == 'addons') {
       $generallyCreatePages = true;
     // if not check if one category can create pages
     else {
-      foreach($categories as $category) {
+      foreach($categoryConfig as $category) {
         if($category['createdelete'])
           $generallyCreatePages = true;
       }
@@ -260,13 +260,13 @@ if($_GET['site'] == 'addons') {
     if($generallyCreatePages && $_GET['site'] == 'pages' ||
        (!empty($_GET['page']) &&
        ($_GET['category'] == 0 && $adminConfig['page']['createPages']) ||
-        $categories['id_'.$_GET['category']]['createdelete']))
+        $categoryConfig['id_'.$_GET['category']]['createdelete']))
       $showCreatePage = true;
     else
       $showCreatePage = false;
     
     // CHECK 1. pageThumbnailUpload
-    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categories['id_'.$_GET['category']]['thumbnail']))
+    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] == 0 && $adminConfig['page']['thumbnailUpload']) || $categoryConfig['id_'.$_GET['category']]['thumbnail']))
       $showPageThumbnailUpload = true;
     else
       $showPageThumbnailUpload = false;

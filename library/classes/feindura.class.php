@@ -184,7 +184,7 @@ class feindura {
   * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
-  *    - <var>$categories</var> array the categories-settings config (included in the {@link general.include.php})
+  *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
   *
   * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
   *
@@ -214,7 +214,7 @@ class feindura {
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $GLOBALS["adminConfig"];
     $this->websiteConfig = $GLOBALS["websiteConfig"];
-    $this->categoryConfig = $GLOBALS["categories"];
+    $this->categoryConfig = $GLOBALS["categoryConfig"];
     
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();

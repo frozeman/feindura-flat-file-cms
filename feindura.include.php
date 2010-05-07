@@ -21,7 +21,7 @@
 * -> $adminConfig
 * -> $websiteConfig
 * -> $websiteStatistic
-* -> $categories
+* -> $categoryConfig
 */
 
 // -> starts the SESSION; needed to prevent multiple count of the visitor statistics

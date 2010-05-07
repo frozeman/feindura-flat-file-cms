@@ -48,11 +48,11 @@ if($_GET['status'] == 'changeCategoryStatus') {
      
       // change the status
       if($_GET['public'])
-        $categories['id_'.$_GET['category']]['public'] = '';
+        $categoryConfig['id_'.$_GET['category']]['public'] = '';
       else
-        $categories['id_'.$_GET['category']]['public'] = 'true';      
+        $categoryConfig['id_'.$_GET['category']]['public'] = 'true';      
       // save the new status
-      if(saveCategories($categories))
+      if(saveCategories($categoryConfig))
         $documentSaved = true;
       else
         $errorWindow = $langFile['sortablePageList_changeStatusPage_error_save'];
@@ -102,8 +102,8 @@ startPageWarning();
 <?php
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
-// by adding a empty category to the $categories array
-$allCategories= $categories;
+// by adding a empty category to the $categoryConfig array
+$allCategories= $categoryConfig;
 array_unshift($allCategories,array('id' => 0,'name' => $langFile['categories_nocategories_name'].' <span style="font-size:12px;color:#9FA0A0;">('.$langFile['categories_nocategories_hint'].')</span>'));
 
 // -----------------------------------------------------------------------------------------------------------

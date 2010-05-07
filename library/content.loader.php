@@ -41,7 +41,7 @@ if($_GET['site'] != 'pages')
 if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category'])) && !empty($_GET['page'])) {
   
   // set the category 0 if there are no categories in the categoriesSettings.php
-  if(empty($categories))
+  if(empty($categoryConfig))
     $_GET['category'] = 0;
   
   include (dirname(__FILE__).'/sites/editor.php');
@@ -58,7 +58,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // pages
     case 'pages':
-      if(empty($categories))
+      if(empty($categoryConfig))
         $_GET['category'] = 0;
       include (dirname(__FILE__).'/sites/listPages.php');
       break;

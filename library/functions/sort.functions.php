@@ -21,7 +21,7 @@
 * 
 */
 
-$feindura_categories = $categories;
+$feindura_categories = $categoryConfig;
 
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER

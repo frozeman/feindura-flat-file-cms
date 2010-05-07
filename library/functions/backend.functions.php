@@ -24,7 +24,7 @@
 * 
 * getNewCatgoryId()
 * 
-* saveCategories($categories)
+* saveCategories($categoryConfig)
 * 
 * moveCategories($category, $direction)
 * 
@@ -139,12 +139,11 @@ function isAdmin() {
 // get the highest category id and make it one higher
 // -----------------------------------------------------------------------------------------------------
 function getNewCatgoryId() {
-  global $categories;
   
   // gets the highest id
   $highestId = 0;
-  if(is_array($categories)) {
-    foreach($categories as $category) {          
+  if(is_array($GLOBALS['categoryConfig'])) {
+    foreach($GLOBALS['categoryConfig'] as $category) {          
       if($category['id'] > $highestId)
         $highestId = $category['id'];
     }
@@ -156,16 +155,15 @@ function getNewCatgoryId() {
 // ** -- saveCategories ----------------------------------------------------------------------------------
 // open the config/category.config.php and writes the categories array.
 // -----------------------------------------------------------------------------------------------------
-// $categories     [der group array der in der settings.php gespeichert werden soll (Array)],
+// $categoryConfig     [der group array der in der settings.php gespeichert werden soll (Array)],
 function saveCategories($newCategories) {
-  global $categories;
   
   // öffnet die category.config.php zum schreiben
-  if($categoryConfig = @fopen("config/category.config.php","w")) {
+  if($file = @fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
  
     // *** Schreibe CATEGORIES
-    flock($categoryConfig,2); //LOCK_EX
-      fwrite($categoryConfig,PHPSTARTTAG); //< ?php
+    flock($file,2); //LOCK_EX
+      fwrite($file,PHPSTARTTAG); //< ?php
       
       // ->> GO TROUGH every catgory adn write it
       foreach($newCategories as $category) {
@@ -179,9 +177,9 @@ function saveCategories($newCategories) {
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
         if(!isset($category['thumbWidth']))
-          $category['thumbWidth'] = $categories['id_'.$category['id']]['thumbWidth'];
+          $category['thumbWidth'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbWidth'];
         if(!isset($category['thumbHeight']))
-          $category['thumbHeight'] = $categories['id_'.$category['id']]['thumbHeight'];
+          $category['thumbHeight'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbHeight'];
           
       
         // ** adds a "/" on the beginning of all absolute paths
@@ -193,32 +191,32 @@ function saveCategories($newCategories) {
           $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
         } 
         
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['id'] =              '".$category['id']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['name'] =            '".$category['name']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['id'] =              '".$category['id']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['name'] =            '".$category['name']."';\n");
         
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['public'] =          '".$category['public']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['sortascending'] =   '".$category['sortascending']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['createdelete'] =    '".$category['createdelete']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbnail'] =       '".$category['thumbnail']."';\n");        
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['plugins'] =         '".$category['plugins']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showtags'] =        '".$category['showtags']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['showpagedate'] =    '".$category['showpagedate']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['sortbypagedate'] =  '".$category['sortbypagedate']."';\n\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['public'] =          '".$category['public']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   '".$category['sortascending']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['createdelete'] =    '".$category['createdelete']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbnail'] =       '".$category['thumbnail']."';\n");        
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['plugins'] =         '".$category['plugins']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showtags'] =        '".$category['showtags']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showpagedate'] =    '".$category['showpagedate']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortbypagedate'] =  '".$category['sortbypagedate']."';\n\n");
         
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['styleClass'] =      '".str_replace(array('#','.'),'',$category['styleClass'])."';\n\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleClass'] =      '".str_replace(array('#','.'),'',$category['styleClass'])."';\n\n");
         
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbWidth'] =      '".$category['thumbWidth']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbHeight'] =     '".$category['thumbHeight']."';\n");
-        fwrite($categoryConfig,"\$categories['id_".$category['id']."']['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbWidth'] =      '".$category['thumbWidth']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbHeight'] =     '".$category['thumbHeight']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
         
       }    
-      fwrite($categoryConfig,'return $categories;');
+      fwrite($file,'return $categoryConfig;');
       
-      fwrite($categoryConfig,PHPENDTAG); //? >
-    flock($categoryConfig,3); //LOCK_UN
-    fclose($categoryConfig);
+      fwrite($file,PHPENDTAG); //? >
+    flock($file,3); //LOCK_UN
+    fclose($file);
   
     return true;
   } else
@@ -231,15 +229,15 @@ function saveCategories($newCategories) {
 function moveCategories($category,            // the category id to be moved (Number)
                         $direction,           // the direction in wich to move (String "up" or "down")
                         $position = false) {  // the exact position where to put the category (iof not false, the directioon var dosn't matter)
-  global $categories;
+  global $categoryConfig;
   
   $direction = strtolower($direction);
   
   // ->> CHECKS
-  // if they fail it returns the unchanged $categories array
-  if(is_array($categories) &&                         // is categories is array
+  // if they fail it returns the unchanged $categoryConfig array
+  if(is_array($categoryConfig) &&                         // is categories is array
     is_numeric($category) &&                          // have the given category id is a number
-    $category == $categories['id_'.$category]['id'] &&     // dows the category exists in the $categories array
+    $category == $categoryConfig['id_'.$category]['id'] &&     // dows the category exists in the $categoryConfig array
     (!$direction || $direction == 'up' || $direction == 'down') &&
     (!$position || is_numeric($position))) {   // is the right direction is given
     
@@ -248,9 +246,9 @@ function moveCategories($category,            // the category id to be moved (Nu
     $currentPosition = false;
     $dropedCategories = array();
     
-    // -> finds out the position in the $categories array
+    // -> finds out the position in the $categoryConfig array
     // and extract this category from it
-    foreach($categories as $sortCategory) {
+    foreach($categoryConfig as $sortCategory) {
       //echo '>'.$sortCategory['id'].' -> '.$count.'<br />';
       
       if($sortCategory['id'] == $category) {
@@ -338,13 +336,13 @@ function moveCategories($category,            // the category id to be moved (Nu
     }
     
     // -> set back the id as index
-    $categories = array();
+    $categoryConfig = array();
     foreach($sortetCategories as $sortetCategory) {
       echo '';
-      $categories['id_'.$sortetCategory['id']] = $sortetCategory;
+      $categoryConfig['id_'.$sortetCategory['id']] = $sortetCategory;
     }
     
-    return $categories;
+    return $categoryConfig;
   
   } else
     return false;
@@ -732,10 +730,10 @@ function isFolderWarning($folder) {
 // gets the highest ID of all pages in all categories
 // -----------------------------------------------------------------------------------------------------
 function getHighestId() {
-  global $categories;
+  global $categoryConfig;
   global $generalFunctions;
   
-  $cats = $categories;
+  $cats = $categoryConfig;
   array_unshift($cats,array('id' => 0));
   
   // loads the file list in an array

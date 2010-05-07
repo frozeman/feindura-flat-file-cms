@@ -23,7 +23,7 @@ include(dirname(__FILE__)."/../backend.include.php");
 $sortOrder = explode('|',$_POST['sort_order']);
 
 // dreht die reihenfolge um, wenn sortascending == true
-if(!$categories['id_'.$_POST['categoryNew']]['sortascending'])
+if(!$categoryConfig['id_'.$_POST['categoryNew']]['sortascending'])
   $sortOrder = array_reverse($sortOrder);
 
 // MOVE the file if it is sorted in an new category
@@ -35,7 +35,7 @@ if($_POST['categoryOld'] != $_POST['categoryNew']) {
 }
 
 // set Name of the non category
-$categories['id_0']['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
+$categoryConfig['id_0']['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
 
 // go trough the sort_order which has the id of the pages in the new order
 foreach($sortOrder as $sort) {
@@ -57,13 +57,13 @@ foreach($sortOrder as $sort) {
         $count++;
         
         // -> saves the task log
-        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categories['id_'.$_POST['categoryNew']]['sortbypagedate'])) {
+        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categoryConfig['id_'.$_POST['categoryNew']]['sortbypagedate'])) {
           if($_POST['categoryOld'] != $_POST['categoryNew'])
             $logText = $langFile['log_listPages_moved'];
           else
             $logText = $langFile['log_listPages_sorted'];
           // save log
-          $statisticFunctions->saveTaskLog($logText,'<a href="index.php?category='.$_POST['categoryNew'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a><br />'.$langFile['log_listPages_moved_in'].' <a href="index.php?site=pages&amp;category='.$_POST['categoryNew'].'">'.$categories['id_'.$_POST['categoryNew']]['name'].'</a>'); // <- SAVE the task in a LOG FILE
+          $statisticFunctions->saveTaskLog($logText,'<a href="index.php?category='.$_POST['categoryNew'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a><br />'.$langFile['log_listPages_moved_in'].' <a href="index.php?site=pages&amp;category='.$_POST['categoryNew'].'">'.$categoryConfig['id_'.$_POST['categoryNew']]['name'].'</a>'); // <- SAVE the task in a LOG FILE
         }
       // -X ERROR savePage
       } else {

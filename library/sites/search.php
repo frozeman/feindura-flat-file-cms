@@ -64,8 +64,9 @@ $count = '0';
 // STARTS SEARCH
 if(!empty($searchWord)) {
 
-array_unshift($categories,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPages = $generalFunctions->loadPages($categories);
+$categoriesList = $categoryConfig;
+array_unshift($categoriesList,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
+$allPages = $generalFunctions->loadPages($categoriesList);
 
 // SEARCH RESULTS HEADLINE
 echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
@@ -73,11 +74,11 @@ echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchW
 // ------------------------
 // --->> OUTPUT LAYOUT
 function ausgabeblock_start($count,$pageContent) {
-  global $categories;
+  global $categoryConfig;
   
   // set category name
-  if(isset($categories['id_'.$pageContent['category']]['name']))
-    $categoryName = '&rArr; '.$categories['id_'.$pageContent['category']]['name'];
+  if(isset($categoryConfig['id_'.$pageContent['category']]['name']))
+    $categoryName = '&rArr; '.$categoryConfig['id_'.$pageContent['category']]['name'];
   
   // -> RETURN OUTPUT LAYOUT
   return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>'.$categoryName.'</span></h3><p>';
@@ -102,11 +103,11 @@ function ausgabeblock_end() {
       $pageContent['content'] = strip_tags($pageContent['content']);
       
       // -> check for public only in the frontend search
-      //if($categories['id_'.$pageContent['category']]['public'] && $pageContent['public']) {
+      //if($categoryConfig['id_'.$pageContent['category']]['public'] && $pageContent['public']) {
        	$inhalt = strtolower($pageContent['content']);
        	$id = strtolower($pageContent['id']);
         $titel = strtolower($pageContent['title']);
-        $categoryName = strtolower($categories['id_'.$pageContent['category']]['name']);
+        $categoryName = strtolower($categoryConfig['id_'.$pageContent['category']]['name']);
         $beforeDate = strtolower($pageContent['pagedate']['before']);
         $date = $statisticFunctions->formatDate($pageContent['pagedate']['date']);
         $afterDate = strtolower($pageContent['pagedate']['after']);

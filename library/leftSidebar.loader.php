@@ -27,7 +27,7 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') {
  
   // ----  show QUICKMENU for the NONE-CATEGORY PAGES
-  if($_GET['category'] !== 0 || empty($categories)) {
+  if($_GET['category'] !== 0 || empty($categoryConfig)) {
 
     // slide the categories menu IN, when a category is open
     if(empty($_GET['category']))
@@ -60,7 +60,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   }
   
   // ----  show QUICKMENU for the CATEGORIES
-  if(!empty($categories)) {
+  if(!empty($categoryConfig)) {
     
     // SPACER
     echo '<div class="spacer"></div>';
@@ -75,7 +75,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <div class="content blue">
       <ul class="verticalButtons">';      
         
-      foreach($categories as $category) {
+      foreach($categoryConfig as $category) {
         if($_GET['category'] == $category['id'])
             $categorySelected = ' class="active"';
           else
@@ -95,7 +95,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top blue"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categories['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categories['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
+    <div class="top blue"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -221,19 +221,21 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['pageSetup_createCategory'].'::"></a>'; 
       
-      if(!empty($categories)) {
+      if(!empty($categoryConfig)) {
         echo '<div class="sidebarInfo"><div class="content">';
         echo '<a href="#top" class="smoothAnchor" title="'.$langFile['btn_fastUp'].'">'.$langFile['btn_fastUp'].'</a>';
-        echo '<hr />';
-        echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
-        echo '<ul>';      
+        if(is_array($categoryConfig)) {
+	  echo '<hr />';
+          echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
+          echo '<ul>';      
         
-        // -> show a anchor link to each category
-        foreach($categories as $category) {
-          echo '<li><a href="#category'.$category['id'].'" class="standardLink smoothAnchor">'.$category['name'].'</a></li>';
+          // -> show a anchor link to each category
+	  foreach($categoryConfig as $category) {
+            echo '<li><a href="#category'.$category['id'].'" class="standardLink smoothAnchor">'.$category['name'].'</a></li>';
         
-        }
+          }	
         echo '</ul>';
+	}
         echo '</div></div>';
       }
       echo '</div>';

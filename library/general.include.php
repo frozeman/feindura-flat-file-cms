@@ -53,10 +53,10 @@ if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.conf
  *
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/category.config.php"</i>
  *
- * @global array $categories
+ * @global array $categoryConfig
  */
-if(!$categories =       @include_once(dirname(__FILE__)."/../config/category.config.php"))
-  $categories =       array();
+if(!$categoryConfig =       @include_once(dirname(__FILE__)."/../config/category.config.php"))
+  $categoryConfig =       array();
 
 /**
  * The statistic-settings config

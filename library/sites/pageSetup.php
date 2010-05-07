@@ -78,12 +78,12 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
   $newId = getNewCatgoryId();
   
   if($newId == 1)
-    $categories = array();
+    $categoryConfig = array();
   
-  //fügt dem $categories array einen leeren array an
-  array_push($categories, array('id' => $newId)); // gives the new category a id
-  if(saveCategories($categories)) {
-    
+  //fügt dem $categoryConfig array einen leeren array an
+  $categoryConfig['id_'.$newId] = array('id' => $newId); // gives the new category a id
+  if(saveCategories($categoryConfig)) {
+
     $categoryInfo = $langFile['pageSetup_createCategory_created'];
     
     // if there is no category dir, trys to create one
@@ -106,14 +106,14 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
 
 // ****** ---------- DELETE CATEGORY
 if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['deleteCategory'])) ||
-   $_GET['status'] == 'deleteCategory') && isset($categories['id_'.$_GET['category']])) {  
+   $_GET['status'] == 'deleteCategory') && isset($categoryConfig['id_'.$_GET['category']])) {  
   
   // save the name, to put it in the info
-  $storedCategoryName = $categories['id_'.$_GET['category']]['name'];
+  $storedCategoryName = $categoryConfig['id_'.$_GET['category']]['name'];
   
   // deletes the category with the given id from the array and saves the categoriesSettings.php
-  unset($categories['id_'.$_GET['category']]);  
-  if(saveCategories($categories)) {
+  unset($categoryConfig['id_'.$_GET['category']]);  
+  if(saveCategories($categoryConfig)) {
   
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
     $categoryInfo = $langFile['pageSetup_deleteCategory_deleted'].' &quot;<b>'.$storedCategoryName.'</b>&quot;';
@@ -158,14 +158,14 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
   if($_GET['status'] == 'moveCategoryDown')
     $direction = 'down';
     
-  if($categories = moveCategories($_GET['category'],$direction)) {
+  if($categoryConfig = moveCategories($_GET['category'],$direction)) {
   
     $categoryInfo = $langFile['pageSetup_moveCategory_moved'];
     
     // save the categories array
-    if(saveCategories($categories)) {
+    if(saveCategories($categoryConfig)) {
       $documentSaved = true; // set documentSaved status
-      $statisticFunctions->saveTaskLog($langFile['log_pageSetup_move'],$categories['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog($langFile['log_pageSetup_move'],$categoryConfig['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['pageSetup_error_save'];
     
@@ -182,10 +182,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   $catewgoriesCleaned = array();
   foreach($_POST['categories'] as $category) {
       $category['name'] = $generalFunctions->clearTitle($category['name']);
-      $catewgoriesCleaned[$category['id']] = $category;
+      $categoriesCleaned[$category['id']] = $category;
   }
 
-  if(saveCategories($catewgoriesCleaned)) {
+  if(saveCategories($categoriesCleaned)) {
     $documentSaved = true; // set documentSaved status
     $statisticFunctions->saveTaskLog($langFile['log_pageSetup_saved']); // <- SAVE the task in a LOG FILE
   } else
@@ -195,8 +195,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 }
 
 
-@include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved adminConfig again
-@include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
+$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved adminConfig again
+$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
@@ -444,10 +444,10 @@ else $hidden = '';
       
     </table>
     <?php        
-      
+
       // lists the categories
-      if(is_array($categories)) {
-        foreach($categories as $category) {
+      if(is_array($categoryConfig)) {
+        foreach($categoryConfig as $category) {
         
           // prevent using the $check vars from the last category
           unset($checked);
