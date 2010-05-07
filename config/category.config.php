@@ -28,8 +28,8 @@ $categoryConfig['id_3']['createdelete'] =    'true';
 $categoryConfig['id_3']['thumbnail'] =       '';
 $categoryConfig['id_3']['plugins'] =         '';
 $categoryConfig['id_3']['showtags'] =        '';
-$categoryConfig['id_3']['showpagedate'] =    '';
-$categoryConfig['id_3']['sortbypagedate'] =  '';
+$categoryConfig['id_3']['showpagedate'] =    'true';
+$categoryConfig['id_3']['sortbypagedate'] =  'true';
 
 $categoryConfig['id_3']['styleFile'] =       '';
 $categoryConfig['id_3']['styleId'] =         '';

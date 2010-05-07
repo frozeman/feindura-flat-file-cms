@@ -41,6 +41,7 @@ class generalFunctions {
   * 
   * @var array
   * @see generalFunctions()
+  *
   */ 
   var $adminConfig;
   
@@ -49,6 +50,7 @@ class generalFunctions {
   * 
   * @var array
   * @see generalFunctions()
+  *
   */ 
   var $categoryConfig;
   
@@ -75,7 +77,6 @@ class generalFunctions {
   * </code>
   * 
   * @var array
-  * @access public
   *    
   */
   var $storedPageIds = null;
@@ -111,7 +112,6 @@ class generalFunctions {
   * </code>
   * 
   * @var array
-  * @access public
   *   
   */
   var $storedPages = null;
@@ -215,8 +215,6 @@ class generalFunctions {
   *
   * @return array the {@link $storedPageIds) property
   *
-  * @access public
-  *
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -243,8 +241,6 @@ class generalFunctions {
   * @uses $storedPages the property to get
   *
   * @return array the {@link $storedPages) property
-  *
-  * @access public
   *
   * @version 1.0
   * <br>
@@ -284,8 +280,6 @@ class generalFunctions {
   * @uses $storedPages        the property to add the $pageContent array
   *
   * @return array passes through the given $pageContent array
-  *
-  * @access public
   *
   * @version 1.0
   * <br>
@@ -340,8 +334,6 @@ class generalFunctions {
   * @uses getStoredPageIds()            to get the {@link storedPageIds} property
   *
   * @return int|false the right category ID or FALSE if the page ID doesn't exists
-  *
-  * @access public
   *
   * @version 1.0
   * <br>
@@ -458,8 +450,6 @@ class generalFunctions {
   * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
   *
   * @return array the $pageContent array of the requested page
-  *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -624,8 +614,6 @@ class generalFunctions {
   *
   * @return array the $pageContent array of the requested page
   *
-  * @access protected
-  *
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -728,6 +716,32 @@ class generalFunctions {
     else return $date;
   }
   // -> END -- createTitleDate ----------------------------------------------------------------------------
+  
+ /**
+  * Checks if the page date exists and is activated in the category-settings config
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     checkPageDate()<br>
+  *
+  * Returns TRUE if the page date exists and is activated for this category where the page is in.
+  *
+  * @param array $pageContent   the $pageContent array of a page
+  *
+  * @return bool
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */
+  function checkPageDate($pageContent) {
+             
+    if($this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
+       (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after'])))
+       return true;
+    else
+       return false;
+  }
   
   // -> START -- createHref ******************************************************************************
   // generates out of the a pageContent Array a href="" link for this page
@@ -852,27 +866,41 @@ class generalFunctions {
       return $pageContentArrays;
   }
 
-  
-  // ** -- getCharacterNumber ----------------------------------------------------------------------------------
-  // count htmlspecialchars like &amp; etc as 1 character, and returns the right character number
-  // -----------------------------------------------------------------------------------------------------
-  function getCharacterNumber($string,                         // (String) the string to count the characters
-                              $characterLength = false) {      // (Number of False) the number of maximum characters to count
+ /**
+  * Check a string for htmlentities and return the $textLength parameter plus the htmlentities length
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getRealCharacterNumber()<br>
+  *
+  * Shortens the given $string parameter to the given $textLength parameter and counts the contained htmlentities.
+  * Then adds the length of htmlentites to the $textLength and return it.
+  *
+  * @param string    $string       the string to find out the real length for shorting
+  * @param int|bool  $textLength   the number of which the text should be shorten or FALSE to return only the string length
+  *
+  * @return int the real string length
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */ 
+  function getRealCharacterNumber($string, $textLength = false) {
     
     // get the full string length if no maximum characternumber is given
-    if($characterLength === false)
+    if($textLength === false)
       return strlen($string);
       
     // shorten the string to the maximum characternumber
-    $string = substr($string,0,$characterLength);
+    $string = substr($string,0,$textLength);
     
     // find ..ml; and ..lig; etc and adds the number of findings * strlen($finding) (~6) characters to the length
     preg_match_all('/\&[A-Za-z]{1,6}\;/', $string, $entitiesFindings);
     foreach($entitiesFindings[0] as $finding) {
-      $characterLength += (strlen($finding) - 1); // -1 because of double spaces
+      $textLength += (strlen($finding) - 1); // -1 because of double spaces
     }
       
-    return $characterLength;
+    return $textLength;
   }
   
   // ** -- cleanSpecialChars --------------------------------------------------------------------------

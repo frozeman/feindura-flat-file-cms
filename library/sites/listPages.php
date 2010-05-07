@@ -204,18 +204,17 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      if(strlen($pageContent['title']) <= $generalFunctions->getCharacterNumber($pageContent['title'],31)) {
+      if(strlen($pageContent['title']) <= $generalFunctions->getRealCharacterNumber($pageContent['title'],31)) {
         $titleShort = $pageContent['title'];
       } else {
-        $titleShort = substr($pageContent['title'],0,$generalFunctions->getCharacterNumber($pageContent['title'],29)).'..';      // (String) the string to shorten 
+        $titleShort = substr($pageContent['title'],0,$generalFunctions->getRealCharacterNumber($pageContent['title'],29)).'..';      // (String) the string to shorten 
       }
       
       // -> show lastsavedate
       $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
       
       // -> show pagedate
-      if($category['showpagedate'] &&
-        (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after']))) {
+      if($generalFunctions->checkPageDate($pageContent)) {
         
         // CHECKs the DATE FORMAT
         if(!empty($pageContent['pagedate']['date']) && $statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)

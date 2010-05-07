@@ -154,9 +154,9 @@ class feinduraPages extends feindura {
   //var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
   //var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
   
-  var $pageShowTitle = true;
-  var $pageShowThumbnail = true;
-  var $pageShowContent = true;
+  //var $pageShowTitle = true;
+  //var $pageShowThumbnail = true;
+  //var $pageShowContent = true;
   var $pageShowError = true;
   
   /*

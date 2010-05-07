@@ -580,11 +580,13 @@ class feindura {
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
     // vars
+    $returnThumbnail = false;
     $return['pagedate'] = false;
     $return['title'] = false;
     $return['thumbnail'] = false;
     $return['content'] = false;
     $return['tags'] = false;
+    $return['plugins'] = false;    
     
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';
@@ -651,11 +653,15 @@ class feindura {
     // ->> BEGINNING TO BUILD THE PAGE
     // -------------------
     
+    // -> PAGE DATE
+    // *****************
+    if($this->generalFunctions->checkPageDate($pageContent))
+      $pagedate = $pageContent['pagedate']['before'].' '.$this->statisticFunctions->formatDate($pageContent['pagedate']['date']).' '.$pageContent['pagedate']['after'];
+    
+    
     // -> PAGE TITLE
     // *****************
-    
-    // shows the TITLE
-    if($this->pageShowTitle)
+    if(!empty($pageContent['title']))
       $title = $this->createTitle($pageContent,
                                   $this->titleTag,
                                   $this->titleId,
@@ -670,11 +676,12 @@ class feindura {
       
     // -> PAGE THUMBNAIL
     // *****************
-    if($this->pageShowThumbnail &&      
-      !empty($pageContent['thumbnail']) &&
+    if(!empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
       ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
       ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
+      
+      $returnThumbnail = true;
       
       // adds ATTRIBUTES and/or FLOAT
 
@@ -690,7 +697,7 @@ class feindura {
     
     // ->> MODIFING pageContent
     // ************************
-    if($this->pageShowContent) {
+    if(!empty($pageContent['content'])) {
       $pageContentEdited = $pageContent['content'];
       
       /*
@@ -764,14 +771,23 @@ class feindura {
       $contentAfter = $this->contentAfter;
     */
     
-    // -> BUILDING the PAGE
+    // -> RETURNING the PAGE ELEMENTS
     // *******************
-    if($this->pageShowTitle)
-       $return['title']	   = $title."\n";
-    if($this->pageShowThumbnail)
+    if($pagedate)
+       $return['pagedate']  = $pagedate."\n";
+       
+    if(!empty($pageContent['title']))
+       $return['title']	    = $title."\n";
+       
+    if($returnThumbnail)
        $return['thumbnail'] = $thumbnailBefore.$pageThumbnail.$thumbnailAfter."\n";
-    if($this->pageShowContent)
+       
+    if(!empty($pageContent['content']))
        $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+       
+    if(!empty($pageContent['content']))
+       $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+    
     
     /*
     // adds breaks before and after
@@ -1460,7 +1476,7 @@ class feindura {
       // cut string
       if(is_numeric($length)) {
         // gets real length, if there are htmlentities like &auml; &uuml; etc
-        $length = $this->generalFunctions->getCharacterNumber($string,$length);
+        $length = $this->generalFunctions->getRealCharacterNumber($string,$length);
         $shortenString = substr($string,0,$length);
       }
 
