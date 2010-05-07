@@ -580,10 +580,11 @@ class feindura {
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
     // vars
-    $return['title'] = false;
     $return['pagedate'] = false;
+    $return['title'] = false;
     $return['thumbnail'] = false;
     $return['content'] = false;
+    $return['tags'] = false;
     
     // set TAG ENDING (xHTML or HTML) 
     if($this->xHtml === true) $tagEnding = ' />';

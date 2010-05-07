@@ -16,8 +16,7 @@
 */
 // editor.php version 1.94
 
-include_once("library/backend.include.php");
-
+include_once(dirname(__FILE__)."/../backend.include.php");
 
 // VARs
 // -----------------------------------------------------------------------------
@@ -77,10 +76,13 @@ if($_POST['save']) {
     
     $logText = $langFile['log_page_new'];
     
+    $generalFunctions->storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
+    
   // *** SAVE PAGE ----------------------
   } else {
   
-    // wenn die flatfile existiert, lade die content variable (wird für thumbnail benötigt)
+    // if flatfile exists, load $pageContent array
+    // (necessary for: thumbnail, sortorder and logs)
     if(!$pageContent = $generalFunctions->readPage($page,$category))
       $errorWindow = $langFile['file_error_read'];
    
@@ -150,7 +152,6 @@ if($_POST['save']) {
 // show the PAGE CONTENT
 // ------------------------------------------------------------------------------
 
-// -> read PAGE (saved or given)
 // -> CHECK for NEW PAGE
 if($pageContent = $generalFunctions->readPage($page,$category))
   $newPage = false;

@@ -111,7 +111,7 @@ array_unshift($allCategories,array('id' => 0,'name' => $langFile['categories_noc
 foreach($allCategories as $category) {
   
   // -> LOAD the PAGES FROM the CATEGORY
-  $pages = $generalFunctions->loadPages($category['id']);
+  $pages = $generalFunctions->loadPages($category['id'],true);
   //print_r($pages);
 
   // shows after saving the right category open

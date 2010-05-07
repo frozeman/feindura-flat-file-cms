@@ -47,8 +47,6 @@
 * readFolder($folder)
 * 
 * readFolderRecursive($folder)
-*
-* getHighestId()
 * 
 * folderIsEmpty()
 * 
@@ -61,8 +59,6 @@
 * loadCssFiles($folder)***
 * 
 */
-
-include_once(dirname(__FILE__)."/../backend.include.php");
 
 
 // ** -- redirect ----------------------------------------------------------------------------------
@@ -730,17 +726,12 @@ function isFolderWarning($folder) {
 // gets the highest ID of all pages in all categories
 // -----------------------------------------------------------------------------------------------------
 function getHighestId() {
-  global $categoryConfig;
-  global $generalFunctions;
   
-  $cats = $categoryConfig;
+  $cats = $GLOBALS['categoryConfig'];
   array_unshift($cats,array('id' => 0));
   
   // loads the file list in an array
-  if(empty($cats))
-    $pages = $generalFunctions->loadPages(0,false);
-  else
-    $pages = $generalFunctions->loadPages($cats,false);
+  $pages = $GLOBALS['generalFunctions']->getStoredPageIds();
   
   $highestId = 0;
   

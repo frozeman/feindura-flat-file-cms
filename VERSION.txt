@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 183
+Build 184
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see http://www.gnu.org/licenses/.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+	build 184: fixes in editor.php with page saving, because of the adding of $storedPages and $storedPageIds properties; add setStoredPages() to the savePage method in generalFunctions.class.php
 	build 183: changed variable $categories in $categoryConfig and fixes with create new category in pagesSetup.php
 	build 182: sortdate changed to pagedate and sortbydate to sortbypagedate
 	build 181: moved loadPages(), $storedPageIds, $storedPages, getStoredPages..() to generalFunctions(); moved sortPages messageBox output to the rightSidebar; fixed tootlTip  z-index in footer

@@ -121,10 +121,10 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(DOCUMENTROOT.$adminConfig['savePath'].$_GET['category'])) {
     
-      if($pageContent = $generalFunctions->loadPages($_GET['category'])) {
+      if($pageContents = $generalFunctions->loadPages($_GET['category']),true) {
       
         // deletes possible thumbnails before deleting the category
-        foreach($pageContent as $page) {
+        foreach($pageContents as $page) {
           if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
             @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], 0777);          
             // DELETING    

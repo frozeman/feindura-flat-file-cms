@@ -66,7 +66,7 @@ if(!empty($searchWord)) {
 
 $categoriesList = $categoryConfig;
 array_unshift($categoriesList,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPages = $generalFunctions->loadPages($categoriesList);
+$allPageContents = $generalFunctions->loadPages($categoriesList,true);
 
 // SEARCH RESULTS HEADLINE
 echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
@@ -91,10 +91,10 @@ function ausgabeblock_end() {
 // ---------------------------
 
 
-//print_r($allPages);
+//print_r($allPageContents);
 
   // schleife die die einzelnen gruppen öffnet
-  foreach($allPages as $pageContent)  {
+  foreach($allPageContents as $pageContent)  {
          
     	//setzt die priotität der suchergebnisse am anfang auf 0
     	$priority = 0;

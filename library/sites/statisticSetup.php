@@ -45,7 +45,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR PAGES-STATISTICs
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
-     $pages = $generalFunctions->loadPages(true)) {
+     $pages = $generalFunctions->loadPages(true,true)) {
       
     foreach($pages as $page) {
       

@@ -104,7 +104,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '</div>';
     
     // ->> LOAD all PAGES
-    $orgPages = $generalFunctions->loadPages(true);
+    $orgPages = $generalFunctions->loadPages(true,true);
     $pages = $orgPages;
     
     //print_r($orgPages);

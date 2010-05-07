@@ -395,6 +395,8 @@ class generalFunctions {
       fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContentArray['lastsaveauthor']."';\n");      
       fwrite($fp,"\$pageContent['tags'] =               '".$pageContentArray['tags']."';\n\n");
       
+      fwrite($fp,"\$pageContent['plugins'] =            '".$pageContentArray['plugins']."';\n\n");
+      
       fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContentArray['thumbnail']."';\n");
       fwrite($fp,"\$pageContent['styleFile'] =          '".$pageContentArray['styleFile']."';\n");
       fwrite($fp,"\$pageContent['styleId'] =            '".$pageContentArray['styleId']."';\n");
@@ -415,6 +417,9 @@ class generalFunctions {
       
       flock($fp,3);
       fclose($fp);
+      
+      // writes the new saved page to the $storedPages property
+      $this->setStoredPages($pageContentArray);
       
       return true;
     }  
