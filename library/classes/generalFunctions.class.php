@@ -263,23 +263,23 @@ class generalFunctions {
       
     // -> checks if the SESSION storedPages Array exists
     if(isset($_SESSION['storedPages']))
-      $this->storedPages = $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
+      return $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
     else
-      $storedPages = $this->storedPages; // if not get the storedPages from the PROPERTY
-
-    return $this->storedPages;
+      return $this->storedPages; // if not get the storedPages from the PROPERTY  
   }
 
  /**
-  * Adds a $pageContent array to the {@link $storedPages} property
+  * Adds or removes a $pageContent array to or from the {@link $storedPages} property
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     setStoredPages()<br>
   *
-  * Adds the given <var>$pageContent</var> parameter only if its a valid <var>$pageContent</var> array.
+  * Adds a given <var>$pageContent</var> parameter if its a valid <var>$pageContent</var> array.<br>
+  * If the second parameter $remove is TRUE it removes this $pageContent array from the {@link $storedPages} property.
   * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   *
-  * @param int $pageContent   a $pageContent array which should be add to the {@link $storedPages} property
+  * @param int  $pageContent   a $pageContent array which should be add to the {@link $storedPages} property
+  * @param bool $remove        if TRUE it removes the given $pageContent array from the {@link $storedPages} property
   *
   * @uses $storedPages        the property to add the $pageContent array
   *
@@ -292,7 +292,7 @@ class generalFunctions {
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   */
-  function setStoredPages($pageContent) {
+  function setStoredPages($pageContent,$remove = false) {
     global $HTTP_SESSION_VARS;
     
     unset($_SESSION['storedPages']);
@@ -301,14 +301,28 @@ class generalFunctions {
     if(phpversion() <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;  
     
-    // stores the given parameter only if its a $pageContent array
+    // stores the given parameter only if its a valid $pageContent array
     if(is_array($pageContent) && array_key_exists('id',$pageContent)) {
-      // -> checks if the SESSION storedPages Array exists
-      if(isset($_SESSION['storedPages']))
-        $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
-      else {
-        $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
-        $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
+      
+      // ->> ADD
+      if($remove === false) {
+        // -> checks if the SESSION storedPages Array exists
+        if(isset($_SESSION['storedPages']))
+          $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
+        else {
+          $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
+          $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
+        }
+      
+      // ->> REMOVE
+      } elseif($remove === true) {
+	// -> checks if the SESSION storedPages Array exists
+        if(isset($_SESSION['storedPages']))
+          unset($_SESSION['storedPages'][$pageContent['id']]); // if isset, remove from the storedPages in the SESSION
+        else {
+          unset($this->storedPages[$pageContent['id']]); // if not remove from the storedPages in the PROPERTY
+          unset($_SESSION['storedPages'][$pageContent['id']]);
+        }
       }
     }
     

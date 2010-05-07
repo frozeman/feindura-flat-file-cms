@@ -58,12 +58,14 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.
       if(!empty($pageContent['thumbnail'])) {
         @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       }
-        // DELETING FINISH --------------
-        $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
-        <a href="?site=pages&amp;category='.$category.'" class="ok center" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
-        
-        $statisticFunctions->saveTaskLog($langFile['log_page_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
-        
+      
+      $generalFunctions->setStoredPages($pageContent,true) // REMOVES the $pageContent array from the $storedPages property
+      $statisticFunctions->saveTaskLog($langFile['log_page_delete'],$pageContent['title']); // <- SAVE the task in a LOG FILE
+      
+      // DELETING FINISH --------------
+      $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
+      <a href="?site=pages&amp;category='.$category.'" class="ok center" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
+
     } else {
       // DELETING ERROR --------------
       $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>

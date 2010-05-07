@@ -1,3 +1,8 @@
+2010-05-07 17:27:10|-||-|Seite gespeichert|-|<a href="index.php?category=3&amp;page=2">&Uuml;ber uns</a>
+2010-05-07 17:20:41|-||-|Seite gespeichert|-|<a href="index.php?category=3&amp;page=2">&Uuml;ber uns</a>
+2010-05-07 16:54:09|-||-|Seite gel&ouml;scht|-|gerd hammer
+2010-05-07 16:54:02|-||-|Seite neu sortiert|-|<a href="index.php?category=0&amp;page=8">Neue Seite</a><br />in <a href="index.php?site=pages&amp;category=0">Seiten ohne Kategorie</a>
+2010-05-07 16:53:58|-||-|Seite neu sortiert|-|<a href="index.php?category=0&amp;page=8">Neue Seite</a><br />in <a href="index.php?site=pages&amp;category=0">Seiten ohne Kategorie</a>
 2010-05-07 16:51:11|-||-|Seite gel&ouml;scht|-|mnein seite
 2010-05-07 16:50:55|-||-|Seite gespeichert|-|<a href="index.php?category=0&amp;page=8">Neue Seite</a>
 2010-05-07 16:49:56|-||-|Neue Seite erstellt|-|<a href="index.php?category=0&amp;page=8">Neue Seite</a>
@@ -193,8 +198,3 @@
 2010-04-10 16:29:36|-|frozeman|-|Seiten-Einstellungen gespeichert
 2010-04-10 16:29:32|-|frozeman|-|Seiten-Einstellungen gespeichert
 2010-04-10 16:29:19|-|frozeman|-|Administrator-Einstellungen gespeichert
-2010-04-10 16:29:15|-|frozeman|-|Administrator-Einstellungen gespeichert
-2010-04-10 16:29:12|-|frozeman|-|Administrator-Einstellungen gespeichert
-2010-04-10 16:28:43|-|frozeman|-|Administrator-Einstellungen gespeichert
-2010-04-10 16:28:36|-|frozeman|-|Seiten-Einstellungen gespeichert
-2010-04-10 16:28:32|-|frozeman|-|Seiten-Einstellungen gespeichert
