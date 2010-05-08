@@ -148,9 +148,9 @@ class feinduraPages extends feindura {
   //var $titleAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
   var $titleLength = false;               // [Boolean or Number]    -> the number of maximun characters for the title, after this length it will be shorten with abc..
   var $titleAsLink = false;               // [Boolean]              -> should the title be a link to the Page (ONLY when listing a Page)
-  var $titleCategorySpacer = ': ';        // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
   var $titleShowPageDate = false;             // [Boolean]              -> show the page date before the title
   var $titleShowCategory = false;         // [Boolean]              -> show the category name before the title
+  var $titleCategorySpacer = ': ';        // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
   //var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
   //var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
   
