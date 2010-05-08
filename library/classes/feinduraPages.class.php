@@ -35,7 +35,38 @@ class feinduraPages extends feindura {
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
  /* **************************************************************************************************************************** */
-                            
+ 
+ /**
+  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files.
+  * 
+  * This country code is used to include the right frontend language-file.
+  * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * This property will be set in the {@link feindura} constructor.
+  * 
+  * The standard value is <i>"en"</i> (english).
+  *  
+  * @var string
+  * @see $languageFile
+  * @see feindura::feindura()
+  *   
+  */  
+  var $language = 'en';
+  
+ /**
+  * Contains the frontend language-file array
+  * 
+  * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
+  *   
+  * It will be <i>included</i> and set to this property in the {@link feindura()} constructor.
+  * 
+  * @var array
+  * @see $language
+  * @see feindura::feindura()
+  *   
+  */
+  var $languageFile = null;
+    
  /**
   * <i>TRUE</i> when the pages content should be handled as XHTML
   *
@@ -50,7 +81,7 @@ class feinduraPages extends feindura {
  /**
   * Contains the current page ID get from the <var>$_GET</var> variable
   *
-  * This property is used when a page loading method is called (for example: {@link showPage()}) and no page ID <var>parameter</var> is given.
+  * This property is used when a page loading method is called (for example: {@link getPage()}) and no page ID <var>parameter</var> is given.
   *   
   * This property will be set in the {@link feindura()} constructor.
   * 
@@ -64,7 +95,7 @@ class feinduraPages extends feindura {
  /**
   * Contains the current category ID get from the <var>$_GET</var> variable
   *
-  * This property is used when a page-loading method is called (for example: {@link showPage()}) and no category ID <var>parameter</var> is given.
+  * This property is used when a page-loading method is called (for example: {@link getPage()}) and no category ID <var>parameter</var> is given.
   *   
   * This property will be set in the {@link feindura()} constructor.
   * 
@@ -204,9 +235,9 @@ class feinduraPages extends feindura {
   * ARRAY <- createMenuByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $flipList = false) 
   * 
   *  
-  * STRING <- showPageTitle($page = false, $category = false, $titleTag = true)
+  * STRING <- getPageTitle($page = false, $category = false, $titleTag = true)
   *    
-  * STRING <- showPage($page = false, $category = false, $shortenText = false, $useHtml = true)             <- also SAVEs the PAGE-STATISTICs
+  * STRING <- getPage($page = false, $category = false, $shortenText = false, $useHtml = true)             <- also SAVEs the PAGE-STATISTICs
   *   
   *  
   * ARRAY <- listPages($idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false)
@@ -277,7 +308,54 @@ class feinduraPages extends feindura {
     return true;
   }
   // -> END -- constructor -------------------------------------------------------------------------------
-  
+
+
+ /**
+  * The constructor of the class, sets all basic properties
+  *
+  * <b>Type</b>     constructor<br>
+  * <b>Name</b>     feinduraPages()<br>
+  *
+  * Run the {@link feindura::feindura()} class constructor to set all necessary properties
+  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
+  * If there is no page and category ID it sets the start page ID from the website-settings config.
+  *
+  *
+  * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
+  *
+  * @uses feindura::feindura()		  the constructor of the parent class to load all necessary properties
+  * @uses feindura::setCurrentCategory()  to set the fetched category ID from the $_GET variable to the {@link $category} property
+  * @uses feindura::setCurrentPage()      to set the fetched page ID from the $_GET variable to the {@link $page} property
+  * 
+  * @return void
+  *
+  * @access public
+  * 
+  * @see feindura::feindura()
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function feinduraPages($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+    
+    // RUN the feindura constructor
+    $this->feindura($language);
+    
+    // save the website statistics
+    // ***************************
+    $this->statisticFunctions->saveWebsiteStats();
+        
+    
+    // saves the current GET vars in the PROPERTIES
+    // ********************************************
+    $this->setCurrentCategory(true);           // $_GET['category']  // first load category then the page, because getCurrentPage needs categories
+    $this->setCurrentPage(true);           // $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
+    
+  }
+ 
   
   // ****************************************************************************************************************
   // PUBLIC METHODs -------------------------------------------------------------------------------------------------
@@ -604,25 +682,7 @@ class feinduraPages extends feindura {
     // vars
     $menu = array();
     
-    $idType = strtolower($idType);
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if(!$ids) {
-      if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
-        $ids = $this->getPropertyCategory($ids);
-      /*
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
-        $ids = $this->getPropertyCategories($ids);
-      */
-    }    
+    $ids = $this->getIdsByType($idType,$ids);   
           
     // -> sets the MENU attributes
     // ----------------------------    
@@ -794,24 +854,7 @@ class feinduraPages extends feindura {
                                    $breakAfter = false,                       // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                                    $sortByCategories = false) {      // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    
-    $idType = strtolower($idType);    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> GET page var 4. -> false
-    if(!$ids) {
-      if($idType == 'page')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
-        $ids = $this->getPropertyCategory($ids);
-      /*
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
-        $ids = $this->getPropertyCategories($ids);
-      */
-    }
+    $ids = $this->getIdsByType($idType,$ids);
     
     // check for the tags and CREATE A MENU
     if($ids = $this->hasTags($ids,$idType,$tags)) {
@@ -847,12 +890,12 @@ class feinduraPages extends feindura {
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $flipList);
   }  
   
-  // -> START -- showPage ********************************************************************************
+  // -> START -- getPageTitle ********************************************************************************
   // RETURNs the Title of a given Page
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
-  function showPageTitle($page = false) {              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
+  function getPageTitle($page = false) {              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
     
     // -> PREV or NEXT if given direction
     $prevNext = false;
@@ -905,19 +948,19 @@ class feinduraPages extends feindura {
       return false;    
   }
   // -> *ALIAS* OF showPageTitle **********************************************************************
-  function showTitle($page = false, $titleTag = true) {
+  function getTitle($page = false) {
     // call the right function
-    return $this->showPageTitle($page, $titleTag);
+    return $this->getPageTitle($page);
   } 
   
-  // -> START -- showPage ********************************************************************************
+  // -> START -- getPage ********************************************************************************
   // RETURNs a Page, if there is no category set, it opens a page in the non-category
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
   // -----------------------------------------------------------------------------------------------------
   /**< \brief \c array -> Stores the frontend language file \c array.
   */ 
-  function showPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
+  function getPage($page = false,                 // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
                            $shortenText = false,          // (false or Number) the Number of characters to shorten the content text
                            $useHtml = true) {             // (Boolean) use html in the content text
     
@@ -966,7 +1009,7 @@ class feinduraPages extends feindura {
     }    
     return false;
   }
-  // -> END -- showPage -----------------------------------------------------------------------------------
+  // -> END -- getPage -----------------------------------------------------------------------------------
   
   
   // -> START -- listPages ********************************************************************************
@@ -982,25 +1025,7 @@ class feinduraPages extends feindura {
     // vars
     $return = array();
     
-    $idType = strtolower($idType);
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if(!$ids) {
-      if($idType == 'page' || $idType == 'pages')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category' || $idType == 'categories')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
-        $ids = $this->getPropertyCategory($ids);
-      /*
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
-        $ids = $this->getPropertyCategories($ids);
-      */
-    } 
+    $ids = $this->getIdsByType($idType,$ids);
         
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
@@ -1042,24 +1067,7 @@ class feinduraPages extends feindura {
                                   $useHtml = true,                       // (Boolean) use html in the content text
                                   $sortByCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
      
-    $idType = strtolower($idType);
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if(!$ids) {
-      if($idType == 'page' || $idType == 'pages')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPage($ids);      
-      elseif($idType == 'category' || $idType == 'categories')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
-        $ids = $this->getPropertyCategory($ids);
-      /*
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
-        $ids = $this->getPropertyCategories($ids);
-      */
-    }
+    $ids = $this->getIdsByType($idType,$ids);
     
     // check for the tags and LIST PAGES
     if($ids = $this->hasTags($ids,$idType,$tags)) {

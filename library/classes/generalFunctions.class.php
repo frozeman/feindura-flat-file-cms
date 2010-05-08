@@ -141,7 +141,7 @@ class generalFunctions {
   // $useLangPath         [if here is given a ABSOLUT path he scans this folder for lang files, they should end with de or en.. (String or Boolean)],
   // $returnCountryCode   [if false he returns the array from the language File (Boolean)],
   // $standardLang        [standard country name for languages, if no supported ones is found in the browsers lang (String)]
-  function getLanguage($useLangPath = true, $returnLangFile = true, $standardLang = 'de') {  
+  function getLanguage($useLangPath = true, $returnLangFile = true, $standardLang = 'en') {  
      
       // checks if other is a different path given
       // and if its a ABSOLUTE PATH

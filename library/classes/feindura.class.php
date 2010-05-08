@@ -111,9 +111,8 @@ class feindura {
  /**
   * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
   * 
-  * The file with the generalFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.
-  *   
-  * The <var>instance</var> will be set to this property in the {@link feindura()} constructor.
+  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br>   
+  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feindura()} constructor.
   * 
   * @var object  
   * @see feindura::feindura(), generalFunctions::generalFunctions()
@@ -124,9 +123,8 @@ class feindura {
  /**
   * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
   * 
-  * The file with the statisticFunctions <var>class</var> is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.
-  * 
-  * The <var>instance</var> will be set to this property in the {@link feindura()} constructor.
+  * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br>
+  * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feindura()} constructor.
   * 
   * @var object  
   * @see feindura::feindura(), statisticFunctions::statisticFunctions()
@@ -141,10 +139,11 @@ class feindura {
   * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
   * This property will be set in the {@link feindura} constructor.
   * 
-  * The standad value is <i>"de"</i> (german).
+  * The standard value is <i>"en"</i> (english).
   *  
   * @var string
-  * @see $languageFile, feindura()
+  * @see $languageFile
+  * @see feindura()
   *   
   */  
   var $language = 'en';
@@ -174,11 +173,10 @@ class feindura {
   * <b>Type</b>     constructor<br>
   * <b>Name</b>     feindura()<br>
   *
-  * First gets the settings config <var>arrays</var>,<br>
-  * then set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property.<br>
-  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
+  * First gets all settings config <var>arrays</var> and external classes.<br>
+  * Then set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property.<br>
   * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
-  * Get the frontend language-file adn set it to the {@link $languageFile} property.
+  * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
   *
   *
   * <b>Used Global Variables</b><br>
@@ -195,13 +193,13 @@ class feindura {
   * @uses $statisticFunctions     a statisticFunctions class instance will set to this property
   * @uses $varNames               the variable names from the administrator-settings config will set to this property
   * @uses $sessionId              the session ID string will set to this property, if cookies are deactivated
+  * @uses $language		  to set the given $language parameter to, or try to find out the browser language
+  * @uses $languageFile		  set the loaded frontend language-file to this property
   * 
   * @return void
   *
   * @access public
   * 
-  * @see general.include.php
-  * @see feindura::feindura()
   *
   * @version 1.0
   * <br>
@@ -232,13 +230,8 @@ class feindura {
     // category varName
     if(isset($this->adminConfig['varName']['category']) && !empty($this->adminConfig['varName']['category']))
       $this->varNames['category'] = $this->adminConfig['varName']['category'];
-    
-    
-    // saves the current GET vars in the PROPERTIES
-    // ********************************************
-    $this->setCurrentCategory(true);           // $_GET['varNameCategory']  // first load category then the page, because getCurrentPage needs categories
-    $this->setCurrentPage(true);           // $_GET['varNamePage'] <- gets the $this->websiteConfig['startPage'] if there is no GET page var
-          
+
+
     // -> CHECKS if cookies are enabled
     if(!isset($_COOKIE['cookiesEnabled'])) {
       // try to set a cookie, for checking pn the next page
@@ -248,13 +241,14 @@ class feindura {
     }
     
     // sets the language PROPERTY from the session var AND the languageFile Array
-    // **************************************************************************    
-    // if no country code is given
-    if($language === false || strlen($language) != 2) {
-      // gets the BROWSER STANDARD language
-      $this->language = $this->generalFunctions->getLanguage(true,false); // returns a COUNTRY SHORTNAME
-    } else
+    // **************************************************************************
+    // set the given country code
+    if(is_string($language) && strlen($language) == 2) {
       $this->language = $language;
+    // if no country code is given
+    } else
+      // gets the BROWSER STANDARD language
+      $this->language = $this->generalFunctions->getLanguage(true,false,$this->language); // returns a COUNTRY SHORTNAME      
     
     // includes the langFile
     if(file_exists(DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php'))
@@ -513,12 +507,12 @@ class feindura {
   *
   * This method is called in descendant classes.<br>
   * Generates a page by the given page ID.
-  * The returned page array is structured in this order:<br>
-  * title, the page thumbnail and then the content, depending on the respective properties.
+  * An array will be returned with all elements of the page, ready for use in HTML.
   *
-  * In case the page doesnt exists or is not public an error is shown (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$showError} property,
-  * otherwise it returns an empty array.<br>
-  * The error will be then displayed in the <var>array['content']</var> variable.
+  * In case the page doesn't exists or is not public an error
+  * (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$showError} property)
+  * will be placed in the ['content'] part of the returned array.
+  * If errors are deactivated it returns an empty array.<br>
   * 
   * Example of the returned array:
   * <code>
@@ -806,9 +800,9 @@ class feindura {
   *
   * @access protected
   *
-  * @see feinduraPages::showPageTitle()
+  * @see feinduraPages::getPageTitle()
   *
-  * @example showPageTitle.example.php the called showPageTitle() method in this example calls this method with the title properties as parameters
+  * @example getPageTitle.example.php the called getPageTitle() method in this example calls this method with the title properties as parameters
   *
   * @version 1.0
   * <br>
@@ -1039,7 +1033,35 @@ class feindura {
 
     return $this->generalFunctions->loadPages($category,$loadPagesInArray);
   }
-  
+
+
+ /**
+  * Load
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     loadPagesByType()<br>
+  *
+  * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
+  * returns an array with the ready to display tag and the plain thumbnail path.
+  *
+  *
+  * @param array $pageContent           the $pageContent array of a page
+  * 
+  * @uses adminConfig                   for the thumbnail path
+  * @uses categoryConfig                to check if thumbnails are allowed for the th category of this page
+  * @uses createAttributes()		to create the attributes used in the thumbnail <img> tag
+  * 
+  * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
+  *
+  * @access protected
+  *
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */ 
   // -> START -- loadPagesByType **************************************************************************
   // loads the Pages by the given IDs and the given idType
   // RETURNs an Array of pageContent Array(s)
@@ -1049,7 +1071,8 @@ class feindura {
     
     // vars
     $return = false;
-
+    $idType = strtolower($idType);
+    
     // -> category ID(s)
     // ***************
     if($idType == 'category' || $idType == 'categories') {
@@ -1189,20 +1212,20 @@ class feindura {
     if($category === false)
       $category = $this->getPageCategory($page);
     
-    $categoryOfPage = $this->loadPages($category);
+    $categoryWithPages = $this->loadPages($category);
     
-    if($categoryOfPage !== false) {
+    if($categoryWithPages !== false) {
       $count = 0;
-      foreach($categoryOfPage as $categoryPage) {         
+      foreach($categoryWithPages as $eachPage) {         
   
-        if($categoryPage['id'] == $page) {
+        if($eachPage['id'] == $page) {
           
           // NEXT
-          if($direction == 'next' && (($count + 1) < count($categoryOfPage)))
-            return $categoryOfPage[($count + 1)];
+          if($direction == 'next' && (($count + 1) < count($categoryWithPages)))
+            return $categoryWithPages[($count + 1)];
           // PREV
           elseif($direction == 'prev' && (($count - 1) >= 0))
-            return $categoryOfPage[($count - 1)];
+            return $categoryWithPages[($count - 1)];
           else return false;
         }  
             
@@ -1287,25 +1310,7 @@ class feindura {
     if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
       $monthsInTheFuture = round($monthsInTheFuture);
     
-    $idType = strtolower($idType);
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if(!$ids) {
-      if($idType == 'page'|| $idType == 'pages')
-        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
-        $ids = $this->getPropertyPage($ids);      
-      if($idType == 'page' || $idType == 'pages')
-        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
-        $ids = $this->getPropertyCategory($ids);
-      /*
-      elseif($idType == 'pages')
-        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-        $ids = $this->getPropertyPages($ids);
-      elseif($idType == 'categories')
-        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
-        $ids = $this->getPropertyCategories($ids);
-      */
-    }
-    //$return = false;
+    $ids = $this->getIdsByType($idType,$ids);
     
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
@@ -1434,6 +1439,99 @@ class feindura {
   }
   // -> END -- changeMonth -------------------------------------------------------------------------
   
+ /**
+  * If $ids parameter is FALSE it check which type are the IDs and load then the property page or category ID
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getIdsByType()<br>
+  *
+  *
+  * @param string $idType           the ID type can be "page", "pages" or "category", "categories"
+  * @param int|array|bool $ids      the IDs, if there are FALSE it checks for the property IDs
+  * 
+  * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
+  * @uses getPropertyCategory()     to get the right {@link feinduraPages::$category} property
+  * 
+  * @return int|false a page or category property ID or FALSE, if there are no property IDs
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */ 
+  function getIdsByType($idType,$ids) {
+  
+    $idType = strtolower($idType);
+    
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+    if($ids == false) {
+      if($idType == 'page' || $idType == 'pages')
+        // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
+        $ids = $this->getPropertyPage(false);      
+      elseif($idType == 'category' || $idType == 'categories')
+        // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
+        $ids = $this->getPropertyCategory(false);
+      /*
+      elseif($idType == 'pages')
+        // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+        $ids = $this->getPropertyPages($ids);
+      elseif($idType == 'categories')
+        // USES the PRIORITY: 1. -> categories var 2. -> PROPERTY categories var 3. -> false
+        $ids = $this->getPropertyCategories($ids);
+      */
+    }
+    
+    return $ids;
+  }
+  
+ /**
+  * If $ids parameter is FALSE it check which type are the IDs and load then the property page or category ID
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getNextPrevDirection()<br>
+  *
+  *
+  * @param string $idType           the ID type can be "page", "pages" or "category", "categories"
+  * @param int|array|bool $ids      the IDs, if there are FALSE it checks for the property IDs
+  * 
+  * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
+  * @uses getPropertyCategory()     to get the right {@link feinduraPages::$category} property
+  * 
+  * @return int|false a page or category property ID or FALSE, if there are no property IDs
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */ 
+  function getNextPrevDirection($page) {
+    
+    //var
+    $prevNext = false;
+    
+    // check if $page is string
+    if(is_string($page)) {
+      $page = strtolower($page);
+      // PREV
+      if($page == 'prev' || $page == 'previous') {
+        $prevNext = 'prev';
+        $page = false;
+      // NEXT
+      } elseif($page == 'next') {
+        $prevNext = 'next';
+        $page = false;
+      }
+    }
+    
+    return $page;
+  }
+  
   // ****************************************************************************************************************
   // GET PROPERTY ---------------------------------------------------------------------------------------------------
   // ****************************************************************************************************************
@@ -1442,10 +1540,10 @@ class feindura {
   // if given page var is false it sets the PAGE PROPERTY
   // ------------------------------------------------------------------------------------------------
   function getPropertyPage($page = false) { // (false or Number)
-    if($page === false && is_numeric($this->page))
-      $page = $this->page;  // set the page var from PROPERTY var
-
-    return $page;
+    if(is_bool($page) && is_numeric($this->page))
+      return $this->page;  // set the page var from PROPERTY var
+    else
+      return false;
   }
   // -> END -- getPropertyPage ----------------------------------------------------------------------
   
@@ -1466,10 +1564,10 @@ class feindura {
   // if given category var is false it sets the CATEGORY PROPERTY
   // ------------------------------------------------------------------------------------------------
   function getPropertyCategory($category = false) { // (false or Number)
-    if($category === false && is_numeric($this->category))
-      $category = $this->category;  // set the category var from PROPERTY var
-
-    return $category;
+    if(is_bool($category) && is_numeric($this->category))
+      return $this->category;  // set the category var from PROPERTY var
+    else
+      return false;
   }
   // -> END -- getPropertyCategory ------------------------------------------------------------------
 
