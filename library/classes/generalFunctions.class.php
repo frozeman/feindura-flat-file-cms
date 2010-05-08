@@ -296,7 +296,7 @@ class generalFunctions {
       $_SESSION = $HTTP_SESSION_VARS;  
     
     // stores the given parameter only if its a valid $pageContent array
-    if(is_array($pageContent) && array_key_exists('id',$pageContent)) {
+    if($this->isPageContentArray($pageContent)) {
       
       // ->> ADD
       if($remove === false) {
@@ -742,6 +742,31 @@ class generalFunctions {
     else
        return false;
   }
+  
+ /**
+  * Checks a given $page parameter is a valid <var>$pageContent</var> array
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     isPageContentArray()<br>
+  *
+  *
+  * @param int|array $page   the variable to check 
+  *
+  * @return bool
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */
+  function isPageContentArray($page) {
+               
+    if(is_array($page) && array_key_exists('content',$page))
+	return true;
+    else
+	return false;
+  }
+  
   
   // -> START -- createHref ******************************************************************************
   // generates out of the a pageContent Array a href="" link for this page

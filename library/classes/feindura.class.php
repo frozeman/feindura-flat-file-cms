@@ -610,7 +610,7 @@ class feindura {
     
     // ->> LOAD the pageContent ARRAY
     // -> checks if $page is an pageContent Array
-    if(is_array($page) && array_key_exists('id',$page)) {
+    if($this->generalFunctions->isPageContentArray($page)) {
       $pageContent = $page;
       
     // $page is NUMBER
@@ -644,6 +644,7 @@ class feindura {
     
     // -> PAGE DATE
     // *****************
+    $pagedate = false;
     if($this->generalFunctions->checkPageDate($pageContent)) {
 	$titleDateBefore = '';
 	$titleDateAfter = '';
@@ -1079,7 +1080,7 @@ class feindura {
       if($ids === true || is_array($ids) || is_numeric($ids)) {
         
         // if its an array with $pageContent arrays -> return this
-        if(isset($ids[0]) && is_array($ids[0]) && array_key_exists('id',$ids[0])) {
+        if(isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0])) {
           return $ids;
         
         // otherwise load the pages from the category(ies)
@@ -1114,7 +1115,7 @@ class feindura {
       } elseif($ids && is_array($ids)) {
         
         // checks if its an Array with pageContent Arrays
-        if(is_array($ids[0]) && array_key_exists('id',$ids[0])) {
+        if($this->generalFunctions->isPageContentArray($page)) {
           return $ids;          
         //otherwise load the pages from the categories
         } else {
@@ -1170,7 +1171,7 @@ class feindura {
         // goes trough the given category IDs array
         foreach($ids as $id) {
           // checks if the category is public and creates a new array
-          if($id == 0 || (array_key_exists('id_'.$id,$this->categoryConfig) && $this->categoryConfig['id_'.$id]['public']))    
+          if($id == 0 || (isset($this->categoryConfig['id_'.$id]) && $this->categoryConfig['id_'.$id]['public']))    
             $newIds[] = $id;
         }
       }
@@ -1201,37 +1202,102 @@ class feindura {
     return $this->generalFunctions->getPageCategory($page);
   }
 
-  // -> START -- prevNextPage *************************************************************************
-  // gets the PREVOIUS or NEXT page from the given page ID
-  // RETURNs the pageContent Array of the PREVOIUS or NEXT Page
-  // --------------------------------------------------------------------------------------------------
-  function prevNextPage($direction,               // (String ["prev" or "next"]) direction of the page to go
-                                  $page,                    // (Number) the page ID
-                                  $category = false) {      // (false or Number) the category ID    
+
+ /**
+  * Loads a page BUT check first if the given $page parameter is a string with "previous" or "next" and load the right page
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     loadPrevNextPage()<br>
+  *
+  * If the given $page parameter is "previous" or "next" it loads the previous or the next page of the current {@link $page} property.
+  * IMPORTANT! It also checks if the category of the page is public!
+  *
+  * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
+  * 
+  * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
+  * @uses getPageCategory()         to get the category ID of the given page
+  * @uses publicCategory()          to check if the category of the page is poblic
+  * @uses readPage()		    to load the $pageContent array of the page and return it
+  * @uses loadPages()		    to load all pages in a category to find the right previous or next page and return it
+  * 
+  * @return array|false the $pageContent array of the right page or FALSE if no page could be loaded
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */ 
+  function loadPrevNextPage($page) {
     
-    if($category === false)
-      $category = $this->getPageCategory($page);
+    // var
+    $prevNext = false;
     
-    $categoryWithPages = $this->loadPages($category);
-    
-    if($categoryWithPages !== false) {
-      $count = 0;
-      foreach($categoryWithPages as $eachPage) {         
-  
-        if($eachPage['id'] == $page) {
-          
-          // NEXT
-          if($direction == 'next' && (($count + 1) < count($categoryWithPages)))
-            return $categoryWithPages[($count + 1)];
-          // PREV
-          elseif($direction == 'prev' && (($count - 1) >= 0))
-            return $categoryWithPages[($count - 1)];
-          else return false;
-        }  
-            
-        $count++;
+    // -> PREV or NEXT if given direction
+    if(is_string($page)) {
+      $page = strtolower($page);
+      // PREV
+      if($page == 'prev' || $page == 'previous') {
+        $prevNext = 'prev';
+        $page = false;
+      // NEXT
+      } elseif($page == 'next') {
+        $prevNext = 'next';
+        $page = false;
       }
-    } else return false;
+    }
+    
+    // CHECK if its a $pageContent array, set the $page ID to the $page parameter
+    if($this->generalFunctions->isPageContentArray($page))
+      $page = $page['id'];
+    
+    
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+    $page = $this->getPropertyPage($page);
+    
+    // gets the category of the page
+    $category = $this->getPageCategory($page);    
+    
+    //echo '<br />page: '.$page;
+    //echo '<br />category: '.$category;    
+
+    // ->> CHECK if the category is public
+    if($this->publicCategory($category) !== false) {
+      
+      // -> IF only $page ID or $pageContent array is given return loaded page
+      if($prevNext === false) {
+        return $this->readPage($page,$category);
+      
+      // ->> ELSE return the previous or the next $pageContent array in the category
+      } else {
+      
+        // loads all pages in this category
+        $categoryWithPages = $this->loadPages($category);
+    
+        if($categoryWithPages !== false) {
+          $count = 0;
+          foreach($categoryWithPages as $eachPage) {         
+  
+            if($eachPage['id'] == $page) {
+          
+              // NEXT
+              if($prevNext == 'next' && (($count + 1) < count($categoryWithPages)))
+                return $categoryWithPages[($count + 1)];
+              // PREV
+              elseif($prevNext == 'prev' && (($count - 1) >= 0))
+                return $categoryWithPages[($count - 1)];
+              else return false;
+            }  
+            
+            $count++;
+          }
+        } else
+          return false;
+      }
+    } else
+      return false;
   }  
   // -> END -- prevNextPage ---------------------------------------------------------------------
   
@@ -1486,51 +1552,7 @@ class feindura {
     
     return $ids;
   }
-  
- /**
-  * If $ids parameter is FALSE it check which type are the IDs and load then the property page or category ID
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     getNextPrevDirection()<br>
-  *
-  *
-  * @param string $idType           the ID type can be "page", "pages" or "category", "categories"
-  * @param int|array|bool $ids      the IDs, if there are FALSE it checks for the property IDs
-  * 
-  * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
-  * @uses getPropertyCategory()     to get the right {@link feinduraPages::$category} property
-  * 
-  * @return int|false a page or category property ID or FALSE, if there are no property IDs
-  *
-  * @access protected
-  *
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */ 
-  function getNextPrevDirection($page) {
-    
-    //var
-    $prevNext = false;
-    
-    // check if $page is string
-    if(is_string($page)) {
-      $page = strtolower($page);
-      // PREV
-      if($page == 'prev' || $page == 'previous') {
-        $prevNext = 'prev';
-        $page = false;
-      // NEXT
-      } elseif($page == 'next') {
-        $prevNext = 'next';
-        $page = false;
-      }
-    }
-    
-    return $page;
-  }
+
   
   // ****************************************************************************************************************
   // GET PROPERTY ---------------------------------------------------------------------------------------------------
@@ -1543,7 +1565,7 @@ class feindura {
     if(is_bool($page) && is_numeric($this->page))
       return $this->page;  // set the page var from PROPERTY var
     else
-      return false;
+      return $page;
   }
   // -> END -- getPropertyPage ----------------------------------------------------------------------
   
@@ -1567,7 +1589,7 @@ class feindura {
     if(is_bool($category) && is_numeric($this->category))
       return $this->category;  // set the category var from PROPERTY var
     else
-      return false;
+      return $category;
   }
   // -> END -- getPropertyCategory ------------------------------------------------------------------
 

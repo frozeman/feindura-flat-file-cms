@@ -257,59 +257,6 @@ class feinduraPages extends feindura {
   *     
   */ 
   
-/**
-  * The constructor of the class
-  *
-  * Type:     function<br>
-  * Name:     feinduraPages()<br>
-  * Purpose:  runs the parent class constructor
-  *
-  * ChangeLog:<br>
-  *           - 1.0 initial release
-  *
-  * Details:<br> 
-  *	      run the {@link feindura::feindura()} class constructor to set all necessary properties
-  * 
-  * get the \a frontend \a language \a file for the frontend
-  * 
-  * 
-  * \param $language (\c string: \e optional) - A country code (example: \a de, \a en, \a ..) to set the language of the frontend language files and is also set to the #$language \c property.
-  * 
-  * \par used Properties:
-  *   #$sessionId\n
-  *   #$sessionId\n
-  *   #$sessionId\n
-  * 
-  * \retval true
-  * 
-  *    
-  * \see feindura()
-  * 
-  * beispiel hier\n
-  * 
-  * \code
-  * 
-  * < href="sdf">dfgdf</a>
-  * 
-  * \endcode
-  * 
-  * This is an example of how to use the Test class.
-  * More details about this example.
-  * inline {@example createFeindura.example.php}
-  * 
-  * \line (echo)
-  * 
-  */
-  function feinduraPages($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
-    
-    // RUN the feindura constructor
-    $this->feindura($language);
-
-    return true;
-  }
-  // -> END -- constructor -------------------------------------------------------------------------------
-
-
  /**
   * The constructor of the class, sets all basic properties
   *
@@ -515,7 +462,7 @@ class feinduraPages extends feindura {
   function createHref($page) {
     
     // IF given $page is an $pageContent array
-    if(is_array($page) && array_key_exists('id',$page))
+    if($this->generalFunctions->isPageContentArray($page))
 	$pageContent = $page;
 	
     // ELSE $page is page ID
@@ -541,47 +488,15 @@ class feinduraPages extends feindura {
   function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if false it use VAR PRIORITY
                              $linkText = true) {            // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
     
-    // set TAG ENDING (xHTML or HTML) 
-    if($this->xHtml === true) $tagEnding = ' />';
-    else $tagEnding = '>';     
-    
-    // -> PREV or NEXT if given direction
-    $prevNext = false;
-    if(is_string($page)) {
-      $page = strtolower($page);
-      // PREV
-      if($page == 'prev' || $page == 'previous') {
-        $prevNext = 'prev';
-        $page = false;
-      // NEXT
-      } elseif($page == 'next') {
-        $prevNext = 'next';
-        $page = false;
-      }
-    }
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    $page = $this->getPropertyPage($page);
-    
-    // gets the category of the page
-    if(is_numeric($page))
-      $category = $this->getPageCategory($page);
-    
+        
     //echo 'PAGE: '.$page;
     
-    if($page &&
-       ((is_array($page) && array_key_exists('id',$page) && $pageContent = $page) ||              // the $page var is a pageContent Array
-       (is_numeric($page) && $pageContent = $this->readPage($page,$category)))) {    // $the $page var is a page ID
-       
-        // -> if NEXT or PREV
-        // ----------------------------
-        if($prevNext !== false) {          
-          $pageContent = $this->prevNextPage($prevNext,$pageContent['id'],$pageContent['category']);
-        }
+    // LOADS the right $pageContent array
+    if($pageContent = $this->loadPrevNextPage($page)) {
 
       // -> CHECK IF PUBLIC
       // ---------------------------------------->        
-      if($pageContent['public'] && $this->publicCategory($pageContent['category']) !== false) {            
+      if($pageContent['public']) {            
         //print_r($page);
 	
         // -> sets the LINK
@@ -897,30 +812,8 @@ class feinduraPages extends feindura {
   // -----------------------------------------------------------------------------------------------------
   function getPageTitle($page = false) {              // (Number or String ("prev" or "next")) the page ID to show, if false it use VAR PRIORITY
     
-    // -> PREV or NEXT if given direction
-    $prevNext = false;
-    if(is_string($page)) {
-      $page = strtolower($page);
-      // PREV
-      if($page == 'prev' || $page == 'previous') {
-        $prevNext = 'prev';
-        $page = false;
-      // NEXT
-      } elseif($page == 'next') {
-        $prevNext = 'next';
-        $page = false;
-      }
-    }
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    $page = $this->getPropertyPage($page);
-    
-    // gets the category of the page if it is not given
-    $category = $this->getPageCategory($page);
-
-    
-    if($this->publicCategory($category) !== false &&
-       $pageContent = $this->readPage($page,$category)) {  
+   
+    if($pageContent = $this->loadPrevNextPage($page)) {  
       
       if($pageContent['public']) { 
         
@@ -964,44 +857,18 @@ class feinduraPages extends feindura {
                            $shortenText = false,          // (false or Number) the Number of characters to shorten the content text
                            $useHtml = true) {             // (Boolean) use html in the content text
     
-    // -> PREV or NEXT if given direction
-    $prevNext = false;
-    if(is_string($page)) {
-      $page = strtolower($page);
-      // PREV
-      if($page == 'prev' || $page == 'previous') {
-        $prevNext = 'prev';
-        $page = false;
-      // NEXT
-      } elseif($page == 'next') {
-        $prevNext = 'next';
-        $page = false;
-      }
-    }
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    $page = $this->getPropertyPage($page);
-    
-    // gets the category of the page
-    $category = $this->getPageCategory($page);
     
     //echo '<br />page: '.$page;
     //echo '<br />category: '.$category;    
 
-    if($this->publicCategory($category) !== false) {
-      
-      // -> if NEXT or PREV
-      // ----------------------------
-      if($prevNext !== false) {
-        $page = $this->prevNextPage($prevNext,$page);
-      }
-      
+    if($pageContent = $this->loadPrevNextPage($page)) {
+              
       // ->> load SINGLE PAGE
       // *******************
       if($generatedPage = $this->generatePage($page,$this->showError,$shortenText,$useHtml)) {
         // -> SAVE PAGE STATISTIC
         // **********************
-        $this->statisticFunctions->savePageStats($this->readPage($page,$category));
+        $this->statisticFunctions->savePageStats($pageContent);
         
         // returns the UNCHANGED pageContent Array, after showing the page
         return $generatedPage;

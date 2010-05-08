@@ -7,7 +7,7 @@ $websiteConfig['keywords']       = 'stichwort1,stichwort2,stichwort3,dfgdfg';
 $websiteConfig['description']    = 'sdfsdfsd';
 $websiteConfig['contactMail']    = 'fabian@frozeman.de';
 
-$websiteConfig['startPage']      = '2';
+$websiteConfig['startPage']      = '4';
 
 return $websiteConfig;
 ?>
