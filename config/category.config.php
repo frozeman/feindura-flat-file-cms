@@ -25,9 +25,9 @@ $categoryConfig['id_3']['name'] =            'Kategorie 3';
 $categoryConfig['id_3']['public'] =          'true';
 $categoryConfig['id_3']['sortascending'] =   '';
 $categoryConfig['id_3']['createdelete'] =    'true';
-$categoryConfig['id_3']['thumbnail'] =       '';
+$categoryConfig['id_3']['thumbnail'] =       'true';
 $categoryConfig['id_3']['plugins'] =         '';
-$categoryConfig['id_3']['showtags'] =        '';
+$categoryConfig['id_3']['showtags'] =        'true';
 $categoryConfig['id_3']['showpagedate'] =    'true';
 $categoryConfig['id_3']['sortbypagedate'] =  'true';
 

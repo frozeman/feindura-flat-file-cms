@@ -735,7 +735,8 @@ class generalFunctions {
   */
   function checkPageDate($pageContent) {
              
-    if($this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
+    if(isset($this->categoryConfig['id_'.$pageContent['category']]) &&  // to prevent missing index error
+       $this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
        (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after'])))
        return true;
     else

@@ -216,11 +216,17 @@ foreach($allCategories as $category) {
       // -> show pagedate
       if($generalFunctions->checkPageDate($pageContent)) {
         
+	$titleDateBefore = '';
+	$titleDateAfter = '';
+	// adds spaces on before and after
+	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
+	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
+	
         // CHECKs the DATE FORMAT
-        if(!empty($pageContent['pagedate']['date']) && $statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$pageContent['pagedate']['before'].' '.'[span style=color:#950300;]'.$langFile['editor_pageSettings_pagedate_error'].':[/span] '.$pageContent['pagedate']['date'].' '.$pageContent['pagedate']['after'];
+        if($statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300;]'.$langFile['editor_pageSettings_pagedate_error'].':[/span] '.$pageContent['pagedate']['date'].$titleDateAfter;
         else
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$pageContent['pagedate']['before'].' '.$statisticFunctions->formatDate($pageContent['pagedate']['date']).' '.$pageContent['pagedate']['after'];
+          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.$statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$langFile)).$titleDateAfter;
         
       } else $showDate = '';
       

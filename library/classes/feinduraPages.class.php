@@ -157,7 +157,7 @@ class feinduraPages extends feindura {
   //var $pageShowTitle = true;
   //var $pageShowThumbnail = true;
   //var $pageShowContent = true;
-  var $pageShowError = true;
+  //var $pageShowError = true;
   
   /*
   var $showContent = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
@@ -179,8 +179,8 @@ class feinduraPages extends feindura {
   var $thumbnailBefore = false;           // [False or String]      -> a String which comes BEFORE the thumbnail img <$titleTag> tag
   var $thumbnailAfter = false;            // [False or String]      -> a String which comes AFTER the thumbnail img </$titleTag> tag
   
-  //var $showError = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
-  var $errorTag = false;                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
+  var $showError = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
+  var $errorTag = 'span';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
   var $errorId = false;                 // [False or String]      -> the message ID which is used when creating a message (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
   var $errorClass = false;              // [False or String]      -> the message CLASS which is used when creating a message
   var $errorAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
@@ -452,11 +452,14 @@ class feinduraPages extends feindura {
     
   }
   
-  // -> START -- createLink ******************************************************************************
+  /* -> START -- createLink ******************************************************************************
   // RETURNs a link created with the page ID
   // RETURNs -> STRING
   // * MORE OPTIONs in the PROPERTIES
-  // -----------------------------------------------------------------------------------------------------
+  
+  * @uses createThumbnail()		to check to show thumbnails are allowed and create the thumbnail <img> tag
+  
+  */
   function createLink($page = false,                 // (Number or String ("prev" or "next") or pageContent Array) the page ID to show, if false it use VAR PRIORITY
                              $linkText = true) {            // (Boolean or String) the TEXT used for the link, if TRUE it USES the TITLE of the page
     
@@ -518,22 +521,9 @@ class feinduraPages extends feindura {
         
         // -> LINK THUMBNAIL
         // *****************
-        if($this->linkThumbnail &&      
-          !empty($pageContent['thumbnail']) &&
-          @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
-          ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
-          ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
-          
-          // adds ATTRIBUTES and/or FLOAT  
-	  $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
-	  
-          // thumbnail FLOAT
-          if(strtolower($this->thumbnailAlign) === 'left' ||
-             strtolower($this->thumbnailAlign) === 'right')
-            $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailAlign).';"';
-          
-          $linkThumbnail = '<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
-        } else $linkThumbnail = '';
+	$returnThumbnail = false;
+        if($linkThumbnail = $this->createThumbnail($pageContent))
+          $returnThumbnail = $linkThumbnail;
       
         
         // -> LINK TITLE
@@ -584,9 +574,9 @@ class feinduraPages extends feindura {
         
         // CHECK IF THUMBNAIL AFTER TEXT
         if($this->linkThumbnailAfterText === true)
-          $linkString = $linkTextBefore.$linkText.$linkTextAfter.$thumbnailBefore.$linkThumbnail.$thumbnailAfter;
+          $linkString = $linkTextBefore.$linkText.$linkTextAfter.$returnThumbnail;
         else
-          $linkString = $thumbnailBefore.$linkThumbnail.$thumbnailAfter.$linkTextBefore.$linkText.$linkTextAfter;            
+          $linkString = $returnThumbnail.$linkTextBefore.$linkText.$linkTextAfter;            
 
         // -> create the LINK
         // ----------------------------
@@ -965,7 +955,7 @@ class feinduraPages extends feindura {
       
       // ->> load SINGLE PAGE
       // *******************
-      if($generatedPage = $this->generatePage($page,$this->pageShowError,$shortenText,$useHtml)) {
+      if($generatedPage = $this->generatePage($page,$this->showError,$shortenText,$useHtml)) {
         // -> SAVE PAGE STATISTIC
         // **********************
         $this->statisticFunctions->savePageStats($this->readPage($page,$category));

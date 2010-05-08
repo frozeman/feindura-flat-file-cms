@@ -516,16 +516,20 @@ class feindura {
   * The returned page array is structured in this order:<br>
   * title, the page thumbnail and then the content, depending on the respective properties.
   *
-  * In case the page doesnt exists or is not public an error is shown (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$pageShowError} property,
+  * In case the page doesnt exists or is not public an error is shown (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$showError} property,
   * otherwise it returns an empty array.<br>
   * The error will be then displayed in the <var>array['content']</var> variable.
   * 
   * Example of the returned array:
   * <code>
   * array(
+  *	   ['pageDate'] = '2000-12-31', // The page date will be already formated depending on the administrator-settings
   *	   ['title'] = 'Title Example',
-  *	   ['thumbnail'] = '<img src="image.png" alt="Image Title" />',
-  *	   ['content'] = '<p>Content Text..</p>'
+  *	   ['thumbnail'] = '<img src="/path/image.png" alt="Image Title" title="Image Title" />',
+  *	   ['thumbnailPath'] = '<img src="/path/image.png" alt="Image Title" title="Image Title" />',
+  *	   ['content'] = '<p>Content Text..</p>',
+  *	   ['tags'] = 'tag1 tag2 tag3',
+  *	   ['plugins'] = array (?)
   *     )
   * </code>
   *
@@ -535,23 +539,22 @@ class feindura {
   * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
   *
   * 
-  * @uses adminConfig                   for the thumbnail upload path
-  * @uses categoryConfig                to check whether the category of the page allows thumbnails
-  * @uses $languageFile                 for the error texts
-  * @uses publicCategory()              to check whether the category is public
-  * @uses createTitle()                 to create the page title  
-  * @uses shortenHtmlText()             to shorten the HTML page content
-  * @uses shortenText()                 to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses adminConfig				  for the thumbnail upload path
+  * @uses categoryConfig			  to check whether the category of the page allows thumbnails
+  * @uses $languageFile				  for the error texts
+  * @uses publicCategory()			  to check whether the category is public
+  * @uses createTitle()				  to create the page title
+  * @uses createThumbnail()			  to check to show thumbnails are allowed and create the thumbnail <img> tag
+  * @uses shortenHtmlText()			  to shorten the HTML page content
+  * @uses shortenText()				  to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses statisticFunctions::formatDate()	  to format the page date for output
+  * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
   * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$pageShowError
+  * @uses feinduraPages::$showError
   * @uses feinduraPages::$errorTag
   * @uses feinduraPages::$errorId
   * @uses feinduraPages::$errorClass
   * @uses feinduraPages::$errorAttributes
-  * @uses feinduraPages::$titleTag
-  * @uses feinduraPages::$titleId
-  * @uses feinduraPages::$titleClass
-  * @uses feinduraPages::$titleAttributes
   * @uses feinduraPages::$titleLength
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowCategory
@@ -561,8 +564,7 @@ class feindura {
   * @uses feinduraPages::$thumbnailAttributes
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
-  
+  * @uses feinduraPages::$thumbnailAfter  
   * 
   * @return array the generated page array, ready to display in a HTML file
   *
@@ -576,40 +578,35 @@ class feindura {
   */
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
-    // vars
-    $returnThumbnail = false;
-    $return['pagedate'] = false;
+    // vars   
+    $return['pageDate'] = false;
     $return['title'] = false;
     $return['thumbnail'] = false;
+    $return['thumbnailPath'] = false;
     $return['content'] = false;
     $return['tags'] = false;
-    $return['plugins'] = false;    
-    
-    // set TAG ENDING (xHTML or HTML) 
-    if($this->xHtml === true) $tagEnding = ' />';
-    else $tagEnding = '>';
+    $return['plugins'] = false;
 
     // ->> CHECKS
     // -------------------
     
     // LOOKS FOR A GIVEN PAGE, IF NOT STOP THE METHOD
-    if(!$page)
+    if(!is_numeric($page) && !is_array($page))
       return array();
     
     // -> sets the ERROR SETTINGS
     // ----------------------------
-    if($showError && $this->pageShowError) {
+    if($showError && $this->showError) {
       // adds ATTRIBUTES  
       $errorStartTag = '';
       $errorEndTag = '';
       $errorAttributes = $this->createAttributes($this->errorId, $this->errorClass, $this->errorAttributes);
       
-      if($this->errorTag || !empty($errorAttributes)) {
-	  
+      if(is_string($this->errorTag)) { //|| !empty($errorAttributes)
 	// set tag
-        if(is_string($this->errorTag)) $errorTag = $this->errorTag;
+        $errorTag = $this->errorTag;
 	// or uses standard tag
-        else $errorTag = 'span';
+        //else $errorTag = 'span';
                   
         $errorStartTag = '<'.$errorTag.$errorAttributes.'>';
         $errorEndTag = '</'.$errorTag.'>';
@@ -629,7 +626,7 @@ class feindura {
       // -> if not try to load the page
       if(!$pageContent = $this->readPage($page,$category)) {
         // if could not load throw ERROR
-        if($showError && $this->pageShowError) {
+        if($showError && $this->showError) {
 	  $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
           return $return;
         } else
@@ -640,7 +637,7 @@ class feindura {
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
-      if($showError && $this->pageShowError) {
+      if($showError && $this->showError) {
         $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
         return $return; 
       } else
@@ -652,12 +649,18 @@ class feindura {
     
     // -> PAGE DATE
     // *****************
-    if($this->generalFunctions->checkPageDate($pageContent))
-      $pagedate = $pageContent['pagedate']['before'].' '.$this->statisticFunctions->formatDate($pageContent['pagedate']['date']).' '.$pageContent['pagedate']['after'];
-    
-    
+    if($this->generalFunctions->checkPageDate($pageContent)) {
+	$titleDateBefore = '';
+	$titleDateAfter = '';
+	// adds spaces on before and after
+	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
+	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
+	$pagedate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
+    }
+      
     // -> PAGE TITLE
     // *****************
+    $title = '';
     if(!empty($pageContent['title']))
       $title = $this->createTitle($pageContent,
 				  $this->titleCategorySpacer,
@@ -665,28 +668,12 @@ class feindura {
                                   $this->titleAsLink,
                                   $this->titleShowCategory,
                                   $this->titleShowPageDate);      
-    else $title = '';
       
     // -> PAGE THUMBNAIL
     // *****************
-    if(!empty($pageContent['thumbnail']) &&
-      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
-      ((!$pageContent['category'] && $this->adminConfig['page']['thumbnailUpload']) ||
-      ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
-      
-      $returnThumbnail = true;
-      
-      // adds ATTRIBUTES and/or FLOAT
-
-      $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
-      
-      // thumbnail FLOAT
-      if(strtolower($this->thumbnailAlign) === 'left' ||
-         strtolower($this->thumbnailAlign) === 'right')
-        $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailAlign).';"';
-      
-      $pageThumbnail = '<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding."\n";
-    } else $pageThumbnail = '';
+    $returnThumbnail = false;
+    if($pageThumbnail = $this->createThumbnail($pageContent))
+      $returnThumbnail = $pageThumbnail;
     
     // ->> MODIFING pageContent
     // ************************
@@ -742,17 +729,6 @@ class feindura {
       $pageContentEdited = '';
     }
     
-    // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
-    $thumbnailBefore = false;
-    $thumbnailAfter = false;
-    
-    if(!empty($pageThumbnail)) {
-      if($this->thumbnailBefore !== true)
-        $thumbnailBefore = $this->thumbnailBefore;
-      if($this->thumbnailAfter !== true)
-        $thumbnailAfter = $this->thumbnailAfter;
-    }
-    
     /* 
     // CHECK if the CONTENT BEFORE & AFTER is !== true
     $contentBefore = false;
@@ -767,19 +743,21 @@ class feindura {
     // -> RETURNING the PAGE ELEMENTS
     // *******************
     if($pagedate)
-       $return['pagedate']  = $pagedate."\n";
+       $return['pageDate']  = $pagedate."\n";
        
     if(!empty($pageContent['title']))
        $return['title']	    = $title."\n";
        
-    if($returnThumbnail)
-       $return['thumbnail'] = $thumbnailBefore.$pageThumbnail.$thumbnailAfter."\n";
+    if($returnThumbnail) {
+       $return['thumbnail'] = $returnThumbnail['thumbnail']."\n";
+       $return['thumbnailPath'] = $returnThumbnail['thumbnailPath']."\n";
+    }
        
     if(!empty($pageContent['content']))
        $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
        
-    if(!empty($pageContent['content']))
-       $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+    if(!empty($pageContent['tags']))
+       $return['tags']   = $pageContent['tags']."\n";
     
     
     /*
@@ -812,16 +790,16 @@ class feindura {
   * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
-  * @param bool	   $titleShowPageDate               (optional) if TRUE, it shows the page date before the title text
+  * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
   *
   * 
-  * @uses adminConfig                   for the thumbnail upload path
-  * @uses categoryConfig                to check if showing the page date is allowed and for the category name
-  * @uses languageFile		        for showing "yesterday", "today" or "tomorrow" instead of a page date
-  * @uses statisticFunctions	        to check whether the page date is valid and format the page date
-  * @uses shortenText()		        to shorten the title text, if the $titleLength parameter is TRUE
-  * @uses createHref()			to create the href if the $titleAsLink parameter is TRUE
-  * @uses createAttributes()		to create the attributes used in the title tag
+  * @uses categoryConfig			  to check if showing the page date is allowed and for the category name
+  * @uses languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a page date
+  * @uses statisticFunctions			  to check whether the page date is valid and format the page date
+  * @uses shortenText()				  to shorten the title text, if the $titleLength parameter is TRUE
+  * @uses createHref()				  to create the href if the $titleAsLink parameter is TRUE
+  * @uses statisticFunctions::formatDate()	  to format the title date for output
+  * @uses generalFunctions::dateDayBeforeAfter()  check if the title date is "yesterday" "today" or "tomorrow"
   * 
   * @return string the generated title string ready to display in a HTML file
   *
@@ -847,18 +825,13 @@ class feindura {
       $fullTitle = strip_tags($pageContent['title']);
            
       // generate titleDate
-      if($titleShowPageDate && $pageContent['category'] &&
-         isset($this->categoryConfig['id_'.$pageContent['category']]) &&
-         $this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
-         !empty($pageContent['pagedate']) &&
-         $sortedDate = $this->statisticFunctions->validateDateFormat($pageContent['pagedate']['date'])) {
+      if($titleShowPageDate && $this->generalFunctions->checkPageDate($pageContent)) {
          $titleDateBefore = '';
          $titleDateAfter = '';
-         if($pageContent['pagedate']['before'])
-          $titleDateBefore = $pageContent['pagedate']['before'].' ';
-         if($pageContent['pagedate']['after'])
-          $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).$titleDateAfter;
+	 // adds spaces on before and after
+         if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
+         if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
+         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
       
       // shorten the title
@@ -874,10 +847,6 @@ class feindura {
         else
           $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
       }      
- 
-      // show the page date     
-      if($titleDate)
-        $titleDate = $titleDate.' ';
         
       // generate titleBefore without tags
       $titleBefore = $titleShowCategory.$titleDate;
@@ -933,7 +902,72 @@ class feindura {
       // returns the title
       return $title;
   }
- 
+
+ /**
+  * Generates a thumbnail <img> tag
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     createThumbnail()<br>
+  *
+  * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
+  * returns an array with the ready to display tag and the plain thumbnail path.
+  *
+  *
+  * @param array $pageContent           the $pageContent array of a page
+  * 
+  * @uses adminConfig                   for the thumbnail path
+  * @uses categoryConfig                to check if thumbnails are allowed for the th category of this page
+  * @uses createAttributes()		to create the attributes used in the thumbnail <img> tag
+  * 
+  * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
+  *
+  * @access protected
+  *
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function createThumbnail($pageContent) {
+      
+    // ->> CHECK if thumbnail exists and is allowed to show
+    if(!empty($pageContent['thumbnail']) &&
+      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
+      (($pageContent['category'] == '0' && $this->adminConfig['page']['thumbnailUpload']) ||
+      ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
+      
+      // set TAG ENDING (xHTML or HTML) 
+      if($this->xHtml === true) $tagEnding = ' />';
+      else $tagEnding = '>';
+      
+      // adds ATTRIBUTES and/or FLOAT
+
+      $thumbnailAttributes = $this->createAttributes($this->thumbnailId, $this->thumbnailClass, $this->thumbnailAttributes);
+      
+      // thumbnail FLOAT
+      if(strtolower($this->thumbnailAlign) === 'left' ||
+         strtolower($this->thumbnailAlign) === 'right')
+        $thumbnailAttributes .= ' style="float:'.strtolower($this->thumbnailAlign).';"';
+      
+      // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
+      $thumbnailBefore = '';
+      $thumbnailAfter = '';
+
+      if($this->thumbnailBefore !== true)
+	$thumbnailBefore = $this->thumbnailBefore;
+      if($this->thumbnailAfter !== true)
+        $thumbnailAfter = $this->thumbnailAfter;
+      
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
+      
+      return $pageThumbnail;
+    } else 
+      return false;      
+  }
+
  /**
   * Generates a string with a given id, class and other attributes
   *
