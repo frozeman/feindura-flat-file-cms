@@ -26,8 +26,8 @@
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}{assign var="hasUses" value="true"}{/if}{/section}
 	{if $hasUses == 'true'}
-	<div class="insideDockBlock method-properties">
-	<b>Used Properties</b><br>
+	<div class="insideDockBlock method-uses">
+	<b>Uses</b><br>
 		<ul>
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}
 <li>{$tags[tags].data}</li>		

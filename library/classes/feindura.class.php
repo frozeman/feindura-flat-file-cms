@@ -276,10 +276,10 @@ class feindura {
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
   * 
-  * @uses $varNames                for variable names which the $_GET will use for the page ID
-  * @uses $startPage               if no $_GET variable exists it will try to get the {@link $startPage} property
-  * @uses loadPages()              for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
-  * @uses $adminConfig             to look if set start-page is allowed
+  * @uses $varNames                  for variable names which the $_GET will use for the page ID
+  * @uses $adminConfig               to look if set start-page is allowed
+  * @uses loadPages()                for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
+  * @uses feinduraPages::$startPage  if no $_GET variable exists it will try to get the {@link $startPage} property
   * 
   * 
   * @return int|false the current page ID or FALSE
@@ -350,9 +350,9 @@ class feindura {
   *    - <var>$_GET</var> to fetch the category ID
   *
   * @uses $varNames                for variable names which the $_GET variable will use for the category ID
-  * @uses $startPage               if no $_GET variable exists it will try to get the {@link $startPage} property
   * @uses $adminConfig             to look if set start-page is allowed
   * @uses $categoryConfig          for the right category name, if the $_GET variable is not a ID but a category name
+  * @uses feinduraPages::$startPage  if no $_GET variable exists it will try to get the {@link $startPage} property
   * 
   * @return int|false the current category ID or FALSE
   * 
@@ -523,7 +523,7 @@ class feindura {
   * Example of the returned array:
   * <code>
   * array(
-  *	   ['pageDate'] = '2000-12-31', // The page date will be already formated depending on the administrator-settings
+  *	   ['pageDate'] = '2000-12-31', // formated depending on the administrator-settings
   *	   ['title'] = 'Title Example',
   *	   ['thumbnail'] = '<img src="/path/image.png" alt="Image Title" title="Image Title" />',
   *	   ['thumbnailPath'] = '<img src="/path/image.png" alt="Image Title" title="Image Title" />',
@@ -545,6 +545,7 @@ class feindura {
   * @uses publicCategory()			  to check whether the category is public
   * @uses createTitle()				  to create the page title
   * @uses createThumbnail()			  to check to show thumbnails are allowed and create the thumbnail <img> tag
+  * @uses createAttributes()			  to create the attributes used in the error tag
   * @uses shortenHtmlText()			  to shorten the HTML page content
   * @uses shortenText()				  to shorten the non HTML page content, if the $useHtml parameter is FALSE
   * @uses statisticFunctions::formatDate()	  to format the page date for output
