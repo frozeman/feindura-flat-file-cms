@@ -466,21 +466,34 @@ function saveStatisticConfig($givenSettings) {  // (Array) with the settings to 
   } else return false;
 }
 
-// ** -- editFiles ----------------------------------------------------------------------------------
-// open a file like the language files or stylesheets files and edit it
-// -----------------------------------------------------------------------------------------------------
-// $filesPath          [Pfad wo sich die Dateien befinden die bearbeitet werden sollen (String)],
-// $siteName           [variablenname der $site variable die beim abschicken des Fornmular angegeben wird (String)]
-// $status             [status der beim wechsel der Dateien den Dateinamen uebergeben wird (String)],
-// $titleText          [Bezeichnung der Dateien die man bearbieten kann (String)],
-// $anchorName         [name des Ankers der verwendet werden soll (String)],
-// $fileType           [Dateiendung (String)],
-// $varNameFile        [variablenname des Dateinames (String)],
-// $varNameNewFile     [variablenname der neu erstellten Datei (String)],
-// $varNameSendCheck   [variablenname für den sendstatus, ob das formular abgesendet wurde oder nicht (String)],
-// $varNameContent     [variablenname für den Inhalt der Dateien]
-function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType = false) {
-  global $_GET;
+
+ /**
+  * Generates a editable textfield with a file selection and a input for creating new files
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     editFiles()<br>
+  * 
+  *
+  * @param string		$filesPath	the path where all files (also files in subfolders) will be shown for editing
+  * @param string		$siteName	a site name which will be set to the $_GET['site'] variable in the formular action attribute
+  * @param string		$status		a status name which will be set to the $_GET['status'] variable in the formular action attribute
+  * @param string		$titleText	a title text which will be displayed as the title of the edit files textfield
+  * @param string		$anchorName	the name of the anchor which will be added to the formular action attribute
+  * @param string|false		$fileType       (optional) a filetype which will be added to each ne created file
+  * @param string|array|false	$excluded	(optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
+  *
+  * @uses DOCUMENTROOT		for the full path to the files for opening
+  * @uses readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
+  *
+  * @return void displayes the file edit textfield
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
   global $langFile;
   global $savedForm;
   
@@ -515,9 +528,44 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       if(!empty($filesPath) && is_dir($dir)) {
         $files = readFolderRecursive($filesPath);
         $files = $files['files'];
-        natsort($files);
-        $isDir = true;
-        
+	
+	// ->> EXLUDES files or folders
+	if($excluded !== false) {
+	  
+	  // -> is string convert to array
+	  if(is_string($excluded)) {
+	    $excluded = explode(',',$excluded);
+	  }
+	  
+	  if(is_array($excluded)) {
+	    
+	    foreach($files as $file) {
+	      
+	      $foundToExclud = false;
+	      
+	      // looks if any of a excluded file is found
+	      foreach($excluded as $excl) {
+	        if(strstr($file,$excl))
+		  $foundToExclud = true;
+	      }
+
+	      // then exclud them
+	      if($foundToExclud === false)
+	        $newFiles[] = $file;	      
+	    }
+	    // set new files array to the old one
+	    $files = $newFiles;
+	  }
+	  
+	}
+	
+	// only if still are files left
+	if(is_array($files) && !empty($files)) {
+	  $isDir = true;	
+	  // sort the files in a natural way (alphabetical)
+	  natsort($files);
+	}
+      // dont show files but show directory error       
       } else {
         echo '<code>"'.$filesPath.'"</code> <b>'.$langFile['editFilesSettings_noDir'].'</b>';
         $isDir = false;
