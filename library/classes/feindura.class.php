@@ -537,6 +537,7 @@ class feindura {
   * @uses categoryConfig			  to check whether the category of the page allows thumbnails
   * @uses $languageFile				  for the error texts
   * @uses publicCategory()			  to check whether the category is public
+  * @uses isPageContentArray()			  to check if the given array is a $pageContent array
   * @uses createTitle()				  to create the page title
   * @uses createThumbnail()			  to check to show thumbnails are allowed and create the thumbnail <img> tag
   * @uses createAttributes()			  to create the attributes used in the error tag
@@ -1037,22 +1038,27 @@ class feindura {
 
 
  /**
-  * Load
+  * Load pages by given page or category category ID(s)
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     loadPagesByType()<br>
   *
-  * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
-  * returns an array with the ready to display tag and the plain thumbnail path.
+  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
+  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
+  * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
+  * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
   *
   *
-  * @param array $pageContent           the $pageContent array of a page
-  * 
+  * @param string    $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array $ids              the ID(s) of page(s) or category(ies)
+  *  
   * @uses adminConfig                   for the thumbnail path
-  * @uses categoryConfig                to check if thumbnails are allowed for the th category of this page
-  * @uses createAttributes()		to create the attributes used in the thumbnail <img> tag
+  * @uses publicCategory()              to check if the category(ies) or page(s) category(ies) are public
+  * @uses isPageContentArray()		to check if the given array is a $pageContent array, if TRUE it just returns this array
+  * @uses loadPages()			to load pages
+  * @uses readPage()			to load a single page
   * 
-  * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
+  * @return array|false an array with $pageContent array(s)
   *
   * @access protected
   *
@@ -1062,21 +1068,17 @@ class feindura {
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   *
-  */ 
-  // -> START -- loadPagesByType **************************************************************************
-  // loads the Pages by the given IDs and the given idType
-  // RETURNs an Array of pageContent Array(s)
-  // ------------------------------------------------------------------------------------------------------
-  function loadPagesByType($idType,                    // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                     $ids = true) {              // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) to be loaded, if TRUE and $idType = "category", it loads all categories, -> can also be a Array with pageContent Arrays
+  */
+  function loadPagesByType($idType, $ids) {
     
     // vars
     $return = false;
     $idType = strtolower($idType);
+    $shortIdType = substr($idType,0,3);
     
     // -> category ID(s)
     // ***************
-    if($idType == 'category' || $idType == 'categories') {
+    if(shortIdType == 'cat') {
       if($ids === true || is_array($ids) || is_numeric($ids)) {
         
         // if its an array with $pageContent arrays -> return this
@@ -1085,10 +1087,9 @@ class feindura {
         
         // otherwise load the pages from the category(ies)
         } else {
-          // checks if the categories are public
-          $ids = $this->publicCategory($ids);
-          
-          if($ids !== false) {
+	
+          // checks if the categories are public         
+          if(($ids = $this->publicCategory($ids)) !== false) {
 
 	    // returns the loaded pages from the CATEGORY IDs
 	    // the pages in the returned array also get SORTED
@@ -1100,14 +1101,17 @@ class feindura {
       
     // ->> if PAGE ID(s)
     // **************************
-    } elseif($idType == 'page' || $idType == 'pages') {
+    } elseif($shortIdType == 'pag') {
       
       // -----------------------------------------     
       // ->> load all pages
       // *************** 
       if($ids === true) {
 	
-	return $this->loadPages($ids);
+	// checks if the categories are public         
+	if(($ids = $this->publicCategory($ids)) !== false) {
+	  return $this->loadPages($ids);
+	}
       
       // -----------------------------------------    
       // ->> pages IDs
@@ -1121,30 +1125,33 @@ class feindura {
         } else {
         
           // loads all pages in an array
-          $pages = array();
-          foreach($ids as $page) {		
-            if($pageContent = $this->readPage($page,$this->getPageCategory($page))) {
-              $return[] = $pageContent;
-            }
+          foreach($ids as $page) {
+	    // get category
+	    $category = $this->getPageCategory($page);
+	    if(($category = $this->publicCategory($category)) !== false) {
+              if($pageContent = $this->readPage($page,$tcategory)) {
+                $return[] = $pageContent;
+              }
+	    }
           }
         }        
       // -----------------------------------------     
       // ->> single page ID
       // *************** 
       } elseif($ids && is_numeric($ids)) {
-
-        // loads the single page in an array 
-        if($pageContent = $this->readPage($ids,$this->getPageCategory($ids))) {
-          $return[] = $pageContent;
+        $category = $this->getPageCategory($page);
+	if(($category = $this->publicCategory($category)) !== false) {
+          // loads the single page in an array 
+          if($pageContent = $this->readPage($ids,$category)) {
+            $return[] = $pageContent;
+          } else return false;
         } else return false;
-      
       } else return false;
     }
     
     // -> returns an array with the pageContent Arrays
     return $return;
   }
-  // -> END -- loadPagesByType ---------------------------------------------------------------------
   
   
   // -> START -- publicCategory ********************************************************************

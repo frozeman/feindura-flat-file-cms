@@ -215,6 +215,7 @@ content.css version 0.21 */
 /* ----------------------- */	
 /* --- SLIDE H1 links */
 #content h1 a, .slide {
+    z-index: 1;
     position: relative;
     display: block;
     width: 725px;

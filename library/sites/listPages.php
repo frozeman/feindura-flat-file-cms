@@ -155,11 +155,14 @@ foreach($allCategories as $category) {
   echo "\n\n".'<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
           <h1'.$headerColor.' title="ID '.$category['id'].'::"><a href="?site=pages&amp;category='.$category['id'].'" style="font-size:15px; font-weight:bold; line-height:30px;" onclick="return false;"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].' '.$categorySorting.'</a></h1>
           <div class="category">';
-    
-    // show category status only if its a category (0 is none)
-    if($category['id'] != 0)
-      echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'" class="changeStatusCategory toolTip'.$publicClass.'" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkCategory'].'">&nbsp;</a>';
-  
+      
+      // CATEGORY STATUS
+      echo '<div class="status">';
+      // show category status only if its a category (0 is non-category)
+      if($category['id'] != 0)
+        echo '<a href="?site='.$_GET['site'].'&amp;status=changeCategoryStatus&amp;public='.$category['public'].'&amp;category='.$category['id'].'" class="toolTip'.$publicClass.'" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkCategory'].'">&nbsp;</a>';
+      echo '</div>';
+	
       // CATEGORY FUNCTIONS
       echo '<div class="functions">';
       
