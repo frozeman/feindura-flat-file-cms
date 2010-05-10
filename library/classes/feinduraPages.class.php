@@ -338,7 +338,7 @@ class feinduraPages extends feindura {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'" />'."\n\n"; 
       
       // -> create TITLE
-      if($this->getCurrentPage() && $currentPage = $this->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
+      if($this->getCurrentPage() && $currentPage = $this->generalFunctions->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
         $pageNameInTitle = ' - '.$currentPage['title'];
       
       // -> add TITLE
@@ -443,7 +443,7 @@ class feinduraPages extends feindura {
   * @param int|array $page          page ID or a $pageContent array
   * 
   * @uses feindura::getPageCategory()	   to get the category ID if the $page parameter is not an $pageContent array
-  * @uses feindura::readPage()		   to load the $pageContent array if the $page parameter is an page ID
+  * @uses generalFunctions::readPage()	   to load the $pageContent array if the $page parameter is an page ID
   * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
   *
   * 
@@ -470,7 +470,7 @@ class feinduraPages extends feindura {
 	// gets page category
         $category = $this->getPageCategory($page);
 	// load pageContent
-	$pageContent = $this->readPage($page,$category);
+	$pageContent = $this->generalFunctions->readPage($page,$category);
     }
     
     return $this->generalFunctions->createHref($pageContent,$this->sessionId);
@@ -597,7 +597,7 @@ class feinduraPages extends feindura {
     // vars
     $menu = array();
     
-    $ids = $this->getIdsByType($idType,$ids);   
+    $ids = $this->getPropertyIdsByType($idType,$ids);   
           
     // -> sets the MENU attributes
     // ----------------------------    
@@ -769,10 +769,10 @@ class feinduraPages extends feindura {
                                    $breakAfter = false,                       // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                                    $sortByCategories = false) {      // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    
-    $ids = $this->getIdsByType($idType,$ids);
+    $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // check for the tags and CREATE A MENU
-    if($ids = $this->hasTags($ids,$idType,$tags)) {
+    if($ids = $this->hasTags($idType,$ids,$tags)) {
       return $this->createMenu($idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories); 
     } else return false;
   }
@@ -796,8 +796,13 @@ class feinduraPages extends feindura {
                                    $breakAfter = false,                   // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
                                    $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
-                                   
-      return $this->listByDate('menu',$idType,$ids,$monthsInThePast,$monthsInTheFuture,$menuTag,$linkText,$sortByCategories,$breakAfter,$flipList);
+      
+      // gets the right pages and sorted by page date                      
+      $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$flipList);
+      if($pageContents !== false)
+	return $this->createMenu($idType,$pageContents,$menuTag,$linkText,$breakAfter,false);
+      else return array();
+      
   }
   // -> *ALIAS* OF createMenuByDate **********************************************************************
   function createMenuByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $flipList = false) {
@@ -892,7 +897,7 @@ class feinduraPages extends feindura {
     // vars
     $return = array();
     
-    $ids = $this->getIdsByType($idType,$ids);
+    $ids = $this->getPropertyIdsByType($idType,$ids);
         
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
@@ -934,11 +939,10 @@ class feinduraPages extends feindura {
                                   $useHtml = true,                       // (Boolean) use html in the content text
                                   $sortByCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
      
-    $ids = $this->getIdsByType($idType,$ids);
+    $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // check for the tags and LIST PAGES
-    if($ids = $this->hasTags($ids,$idType,$tags)) {
-      
+    if($ids = $this->hasTags($idType,$ids,$tags)) {      
       return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortByCategories);
     } else return false;
   }  
@@ -971,7 +975,13 @@ class feinduraPages extends feindura {
                                   $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
                                   $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
                                     
-      return $this->listByDate('pages',$idType,$ids,$monthsInThePast,$monthsInTheFuture,$shortenText,$useHtml,$sortByCategories,$flipList);
+      
+      // gets the right pages and sorted by page date                      
+      $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$flipList);
+      if($pageContents !== false)
+        return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
+      else return array();
+
   }
   // -> *ALIAS* OF listPagesByDate ***********************************************************************
   function listPageByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $flipList = false) {

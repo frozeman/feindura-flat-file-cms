@@ -270,10 +270,10 @@ class feindura {
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
   * 
-  * @uses $varNames                  for variable names which the $_GET will use for the page ID
-  * @uses $adminConfig               to look if set start-page is allowed
-  * @uses loadPages()                for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
-  * @uses feinduraPages::$startPage  if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses $varNames			for variable names which the $_GET will use for the page ID
+  * @uses $adminConfig			to look if set start-page is allowed
+  * @uses feinduraPages::$startPage	if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses generalFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
   * 
   * @return int|false the current page ID or FALSE
@@ -303,7 +303,7 @@ class feindura {
              !empty($_GET['page'])) {
     
       // load the pages of the category
-      $pages = $this->loadPages($this->category);
+      $pages = $this->generalFunctions->loadPages($this->category);
       //print_r($this->storedPages);
       if($pages) {
         foreach($pages as $page) {
@@ -545,6 +545,7 @@ class feindura {
   * @uses shortenText()				  to shorten the non HTML page content, if the $useHtml parameter is FALSE
   * @uses statisticFunctions::formatDate()	  to format the page date for output
   * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
+  * @uses generalFunctions::readPage()		  to load the page if the $page parameter is an ID
   * @uses feinduraPages::$xHtml
   * @uses feinduraPages::$showError
   * @uses feinduraPages::$errorTag
@@ -620,7 +621,7 @@ class feindura {
       $category = $this->getPageCategory($page);
       
       // -> if not try to load the page
-      if(!$pageContent = $this->readPage($page,$category)) {
+      if(!$pageContent = $this->generalFunctions->readPage($page,$category)) {
         // if could not load throw ERROR
         if($showError && $this->showError) {
 	  $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
@@ -1010,31 +1011,6 @@ class feindura {
         
       return $attributeString;    
   }
-  
- /**
-  * Loads the <var>$pageContent</var> array of a page
-  *
-  * @uses generalFunctions::readPage()
-  * @see generalFunctions::readPage()
-  *
-  */
-  function readPage($page, $category = false) {
-    //echo 'PAGE: '.$page.' -> '.$category.'<br />';
-
-    return $this->generalFunctions->readPage($page,$category);
-  }
-
- /**
-  * Loads the <var>$pageContent</var> arrays of a pages in a specific category or all categories
-  *
-  * @uses generalFunctions::loadPages()
-  * @see generalFunctions::loadPages()
-  *
-  */
-  function loadPages($category = false, $loadPagesInArray = true) {
-
-    return $this->generalFunctions->loadPages($category,$loadPagesInArray);
-  }
 
 
  /**
@@ -1054,8 +1030,8 @@ class feindura {
   *  
   * @uses publicCategory()              to check if the category(ies) or page(s) category(ies) are public
   * @uses isPageContentArray()		to check if the given array is a $pageContent array, if TRUE it just returns this array
-  * @uses loadPages()			to load pages
-  * @uses readPage()			to load a single page
+  * @uses generalFunctions::loadPages()	to load pages
+  * @uses generalFunctions::readPage()	to load a single page
   * 
   * @return array|false an array with $pageContent array(s)
   *
@@ -1077,7 +1053,7 @@ class feindura {
     
     // -> category ID(s)
     // ***************
-    if(shortIdType == 'cat') {
+    if($shortIdType == 'cat') {
       if($ids === true || is_array($ids) || is_numeric($ids)) {
         
         // if its an array with $pageContent arrays -> return this
@@ -1092,7 +1068,7 @@ class feindura {
 
 	    // returns the loaded pages from the CATEGORY IDs
 	    // the pages in the returned array also get SORTED
-            return $this->loadPages($ids);
+            return $this->generalFunctions->loadPages($ids);
 
           } else return false;
         }
@@ -1109,7 +1085,7 @@ class feindura {
 	
 	// checks if the categories are public         
 	if(($ids = $this->publicCategory($ids)) !== false) {
-	  return $this->loadPages($ids);
+	  return $this->generalFunctions->loadPages($ids);
 	}
       
       // -----------------------------------------    
@@ -1128,7 +1104,7 @@ class feindura {
 	    // get category
 	    $category = $this->getPageCategory($page);
 	    if(($category = $this->publicCategory($category)) !== false) {
-              if($pageContent = $this->readPage($page,$tcategory)) {
+              if($pageContent = $this->generalFunctions->readPage($page,$tcategory)) {
                 $return[] = $pageContent;
               }
 	    }
@@ -1141,7 +1117,7 @@ class feindura {
         $category = $this->getPageCategory($page);
 	if(($category = $this->publicCategory($category)) !== false) {
           // loads the single page in an array 
-          if($pageContent = $this->readPage($ids,$category)) {
+          if($pageContent = $this->generalFunctions->readPage($ids,$category)) {
             $return[] = $pageContent;
           } else return false;
         } else return false;
@@ -1229,7 +1205,7 @@ class feindura {
 
 
  /**
-  * Loads a page BUT check first if the given $page parameter is a string with "previous" or "next" and load the right page
+  * Loads a page BUT check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page
   *
   * <b>Type</b>     function<br>
   * <b>Name</b>     loadPrevNextPage()<br>
@@ -1239,11 +1215,11 @@ class feindura {
   *
   * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
   * 
-  * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
-  * @uses getPageCategory()         to get the category ID of the given page
-  * @uses publicCategory()          to check if the category of the page is poblic
-  * @uses readPage()		    to load the $pageContent array of the page and return it
-  * @uses loadPages()		    to load all pages in a category to find the right previous or next page and return it
+  * @uses getPropertyPage()		to get the right {@link feinduraPages::$page} property
+  * @uses getPageCategory()		to get the category ID of the given page
+  * @uses publicCategory()		to check if the category of the page is poblic
+  * @uses generalFunctions::readPage()	to load the $pageContent array of the page and return it
+  * @uses generalFunctions::loadPages()	to load all pages in a category to find the right previous or next page and return it
   * 
   * @return array|false the $pageContent array of the right page or FALSE if no page could be loaded
   *
@@ -1253,7 +1229,6 @@ class feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
   */ 
   function loadPrevNextPage($page) {
     
@@ -1261,17 +1236,18 @@ class feindura {
     $prevNext = false;
     
     // -> PREV or NEXT if given direction
-    if(is_string($page)) {
+    if(is_string($page) && !is_numeric($page)) {
       $page = strtolower($page);
+      $page = substr($page,0,4);
       // PREV
-      if($page == 'prev' || $page == 'previous') {
+      if($page == 'prev') {
         $prevNext = 'prev';
         $page = false;
       // NEXT
       } elseif($page == 'next') {
         $prevNext = 'next';
         $page = false;
-      }
+      } else return false;
     }
     
     // CHECK if its a $pageContent array, set the $page ID to the $page parameter
@@ -1293,13 +1269,13 @@ class feindura {
       
       // -> IF only $page ID or $pageContent array is given return loaded page
       if($prevNext === false) {
-        return $this->readPage($page,$category);
+        return $this->generalFunctions->readPage($page,$category);
       
       // ->> ELSE return the previous or the next $pageContent array in the category
       } else {
       
         // loads all pages in this category
-        $categoryWithPages = $this->loadPages($category);
+        $categoryWithPages = $this->generalFunctions->loadPages($category);
     
         if($categoryWithPages !== false) {
           $count = 0;
@@ -1324,55 +1300,104 @@ class feindura {
     } else
       return false;
   }  
-  // -> END -- prevNextPage ---------------------------------------------------------------------
-  
-  // -> START -- compareTags **************************************************************************
-  // goes trough all TAGs and compares them with the TAGs in the pageContent Array
-  // returns the pageContent Array which have the tags in it, otherwise false
-  // --------------------------------------------------------------------------------------------------
+
+ /**
+  * Compares the given tags with the tags in the given <var>$pageContent</var> array
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     compareTags()<br>
+  *
+  * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
+  * it returns the <var>$pageContent</var> array otherwise it FALSE.
+  *
+  * @param array $pageContent    the $pageContent array of a page
+  * @param array $tags           an array with tags to compare
+  * 
+  * 
+  * @return array|false the $pageContent array or FALSE if the $pageContent['tags'] doesn't match with any of the given tags
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */ 
   function compareTags($pageContent,  // (Array) the pageContent Array, needs the $pageContent['tags'] var
                                  $tags) {       // (Array) with the search TAGs
     
     // CHECKS if the $tags are in an array,
     // and the pageContent['tags'] var exists and is not empty
     if(is_array($tags) && isset($pageContent['tags']) && !empty($pageContent['tags'])) {
-    
+      
+      
+      
       // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
       foreach($tags as $tag) {
         if(strstr(' '.$pageContent['tags'].' ',' '.$tag.' ')) {
           return $pageContent;
-        }            
+        }
       }
     }
+    
+    // if nothing has been found return FALSE
     return false;
   }
-  // -> END -- compareTags -----------------------------------------------------------------------------
-  
-  // -> START -- hasTags ******************************************************************************
-  // looks if the given page ID(s) or category ID(s) have the given TAGs
-  // returns an Array with pageContent Array(s) which have the tags in it
-  // --------------------------------------------------------------------------------------------------
-  function hasTags($ids,          // (Number or Array) with the page ID(s) or category ID(s), where to look for the tags, if TRUE and $idType = "category", it loads all categories
-                             $idType,       // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                             $tags) {       // (String or Array) with the search TAGs
-    // makes sure that the tags are an array
-    // and have not multiple spaces or spaces in an array
-    if(is_array($tags)) {
-      foreach($tags as $tag) {
-        $newTags[] = preg_replace("/ +/", '', $tag); // clear spaces in array
-      }
-      $tags = $newTags;
-    } else {
-      $tags = preg_replace("/ +/", ' ', $tags); // clear multiple spaces
-      $tags = explode(" ", $tags);
-    }
+
+ /**
+  * Loads page(s) or category(ies) by ID and compare the tags of the pages with the given <var>$tags</var> parameter
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     hasTags()<br>
+  *
+  *
+  * @param string    $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array $ids       the ID(s) of page(s) or category(ies)
+  * @param string|array $tags   an string (seperated by "," or ";" or " ") or an array with tags to compare
+  *
+  * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
+  * @uses compareTags()		to compare each tags between two strings
+  * 
+  * @return array|false the $pageContent array of $pageContent arrays or FALSE if no $pageContent array have the any of the given tags
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */   
+  function hasTags($idType, $ids, $tags) {
+    
+    // var
     $return = false;
+    
+    // ->> PREPARE the $tags parameter
+    if(is_string($tags)) {
+      // clear multiple whitespaces
+      $tags = preg_replace("/ +/", ' ', $tags);
+      // look for the right seperation character
+      if(strstr($tags,','))
+        $tags = explode(',',$tags);
+      elseif(strstr($tags,';'))
+        $tags = explode(';',$tags);
+      elseif(strstr($tags,' '))
+        $tags = explode(' ',$tags);
+      else return false;
+      
+    // if array clear whitespaces in array
+    } elseif(is_array($tags)) {
+     foreach($tags as $tag) {
+       $newTags[] = preg_replace("/ +/", '', $tag);
+    }
+      $tags = $newTags;
+    } else return false;
     
     // get the pages and compare them if they have the tags
     if(($pages = $this->loadPagesByType($idType,$ids)) !== false) {
       // goes trough every page and compares the tags
       foreach($pages as $page) {
-        if($page['public'] && $this->compareTags($page, $tags)) {
+        if($this->compareTags($page, $tags)) {
           $return[] = $page;
         }
       }
@@ -1380,28 +1405,49 @@ class feindura {
     // RETURNs only the page who have the tags
     return $return;
   }
-  // -> END -- hasTags --------------------------------------------------------------------------------
-  
-  // -> START -- listByDate *******************************************************************************
-  // RETURNs PAGEs, if they have a pageDate set and pagedate is activated in the category, AND its between the given month Number from now and in the past
-  // ------------------------------------------------------------------------------------------------------
-  function listByDate($type,                                 // (String ["menu" or "pages"]) set the type of the listByDate
-                                $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
-                                $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY                                
-                                $shortenTextORlinkText = false,        // (Boolean or Number or String)  the Number of characters to shorten the content text OR the TEXT used for the links, if TRUE it USES the TITLE of the pages
-                                $useHtmlORmenuTag = true,              // (Boolean or String) use html in the content text OR the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
-                                $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
-                                $breakAfter = false,                   // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
-                                $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
+
+
+ /**
+  * Loads page(s) or category(ies) depending on the given time frame parameters
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     loadPagesByDate()<br>
+  *
+  * Checks if the page(s) or category(ies) to load have a page date, sorting by page date is activated for this category
+  * and the page date fits in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
+  * All time frame parameters are compared against the CURRENT date of TODAY.
+  *
+  *
+  * @param string    $idType			the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array $ids			the ID(s) of page(s) or category(ies)
+  * @param bool|int  $monthsInThePast		if FALSE it shows pages only FROM today on, if TRUE it shows all pages in the past, if number it shows all pages within the number of months in the past
+  * @param bool|int  $monthsInTheFuture		if FALSE it shows pages only UNTIL today, if TRUE it shows all pages in the future, if number it shows all pages within the number of months in the future
+  * @param bool      $sortByCategories		determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
+  * @param bool	     $flipList			if TRUE the pages sorting will be reversed
+  * 
+  * @uses $categoryConfig			to check if in the category is sorting by page date allowed
+  * @uses getPropertyIdsByType()	        to get the property IDs if the $ids parameter is FALSE
+  * @uses loadPagesByType()			load the pages depending on the type
+  * @uses changeDate()				change the current date minus or plus the months from the parameters
+  * @uses gernalFunctions::sortPages()		to sort the pages by page date
+  * 
+  * @return array|false an array with the $pageContent arrays or FALSE if no page has a pagedate or is allowed for sorting
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */     
+  function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $flipList = false) {
 
     if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
       $monthsInThePast = round($monthsInThePast);
     if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
       $monthsInTheFuture = round($monthsInTheFuture);
     
-    $ids = $this->getIdsByType($idType,$ids);
+    $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
@@ -1416,13 +1462,13 @@ class feindura {
        
       // creates the PAST DATE
       if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-        $pastDate = $this->changeMonth($currentDate,$monthsInThePast,false);
+        $pastDate = $this->changeDate($currentDate,$monthsInThePast,false);
       elseif($monthsInThePast === false)
         $pastDate = $currentDate;
                       
       // creates the FUTURE DATE
       if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-        $futureDate = $this->changeMonth($currentDate,$monthsInTheFuture,true);
+        $futureDate = $this->changeDate($currentDate,$monthsInTheFuture,true);
       elseif($monthsInTheFuture === false)
         $futureDate = $currentDate;
       
@@ -1465,37 +1511,38 @@ class feindura {
         $selectedPages = array_reverse($selectedPages);
       
       
-      // -> LIST the pages    
-      if($type == 'pages') {        
-        return $this->listPages($idType,$selectedPages,$shortenTextORlinkText,$useHtmlORmenuTag,$sortByCategories);
-      
-      // OR  
-      // -> CREATE MENU of the pages
-      } elseif($type == 'menu')  {
-        return $this->createMenu($idType,$selectedPages,$shortenTextORlinkText,$useHtmlORmenuTag,$breakAfter,$sortByCategories);  
-      }  
-      
-      /*
-      foreach($selectedPages as $page) {
-        // show the pages, if they have a date which can be sorten
-                   
-        if($pageContent = $this->generatePage($page,false,$shortenText,$useHtml)) {
-          $return[] = $pageContent;
-        }
-      }
-      */   
+      // -> RETURN the pages the pages    
+      if(!empty($selectedPages))
+        return $selectedPages;
+      else
+	return false;
+ 
       
     } else return false;
     //return $return;
   }
-  // -> END -- listByDate -------------------------------------------------------------------------
-  
-  // ** -- changeMonth ********************************************************************************
-  // add or subtracts month from a given date in the FORMAT: YYYYMMDD (without seperation signs)
-  // --------------------------------------------------------------------------------------------------
-  function changeMonth($date,                  // (Number) the date to add and sub months in the FORMAT: YYYYMMDD
-                                  $monthNumber,           // (Number) number of months to add or to sub
-                                  $addMonths = true) {    // (Boolean) the math to use, if TRUE it ADD months if false it SUBTRACT months
+
+ /**
+  * Change add or substract month from a date
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     changeDate()<br>
+  *
+  *
+  * @param string    $date			the date to be changed in fomrat: YYYYMMDD
+  * @param int       $monthNumber		the number of month to add or substract
+  * @param bool      $addMonths			if TRUE it adds the month otherwise i substract them
+  * 
+  * @return string the modified date or if the $monthNumber parameter is a bool the unmodified date
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */   
+  function changeDate($date, $monthNumber, $addMonths = true) {
     
     // CHECKS if the given date and month are numbers and not a boolean
     if(!is_numeric($date) || (is_bool($monthNumber) && !is_numeric($monthNumber)))
@@ -1511,7 +1558,7 @@ class feindura {
       $month += $monthNumber;
     else
       $month -= $monthNumber;  
-    // zählt das jahr hoch oder runter wenn der monat größer 12 oder kleiner 1 sind
+    // counts the year up if month are higher than 12
     while($month > 12) {
         $year++;
         $month -= 12;
@@ -1528,13 +1575,12 @@ class feindura {
   	// returns the new date
   	return $year.$month.$day;
   }
-  // -> END -- changeMonth -------------------------------------------------------------------------
   
  /**
   * If $ids parameter is FALSE it check which type are the IDs and load then the property page or category ID
   *
   * <b>Type</b>     function<br>
-  * <b>Name</b>     getIdsByType()<br>
+  * <b>Name</b>     getPropertyIdsByType()<br>
   *
   *
   * @param string $idType           the ID type can be "page", "pages" or "category", "categories"
@@ -1553,16 +1599,17 @@ class feindura {
   *    - 1.0 initial release
   *
   */ 
-  function getIdsByType($idType,$ids) {
+  function getPropertyIdsByType($idType,$ids) {
   
     $idType = strtolower($idType);
+    $shortIdType = substr($idType,0,3);
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     if($ids == false) {
-      if($idType == 'page' || $idType == 'pages')
+      if($shortIdType == 'pag')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPage(false);      
-      elseif($idType == 'category' || $idType == 'categories')
+      elseif($shortIdType == 'cat')
         // USES the PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
         $ids = $this->getPropertyCategory(false);
       /*
@@ -1578,21 +1625,31 @@ class feindura {
     return $ids;
   }
 
-  
-  // ****************************************************************************************************************
-  // GET PROPERTY ---------------------------------------------------------------------------------------------------
-  // ****************************************************************************************************************
-  
-  // -> START -- getPropertyPage ********************************************************************
-  // if given page var is false it sets the PAGE PROPERTY
-  // ------------------------------------------------------------------------------------------------
+ /**
+  * Gets the {@link $page} property if the given <var>$page</var> parameter is FALSE
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getPropertyPage()<br>
+  *
+  *
+  * @param int|bool $page (optional) a page id or a boolean
+  * 
+  * @return int|true the {@link $page} property or the $page parameter
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */  
   function getPropertyPage($page = false) { // (false or Number)
     if(is_bool($page) && is_numeric($this->page))
       return $this->page;  // set the page var from PROPERTY var
     else
       return $page;
   }
-  // -> END -- getPropertyPage ----------------------------------------------------------------------
+  
   
   // -> START -- getPropertyPages *******************************************************************
   // if given pages var if false it sets the PAGES PROPERTY
@@ -1607,16 +1664,31 @@ class feindura {
   */
   // -> END -- getPropertyPages ---------------------------------------------------------------------
   
-  // -> START -- getPropertyCategory ****************************************************************
-  // if given category var is false it sets the CATEGORY PROPERTY
-  // ------------------------------------------------------------------------------------------------
+  
+ /**
+  * Gets the {@link $category} property if the given <var>$category</var> parameter is FALSE
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     getPropertyCategory()<br>
+  *
+  *
+  * @param int|bool $category (optional) a category id or a boolean
+  * 
+  * @return int|true the {@link $category} property or the $category parameter
+  *
+  * @access protected
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */  
   function getPropertyCategory($category = false) { // (false or Number)
     if(is_bool($category) && is_numeric($this->category))
       return $this->category;  // set the category var from PROPERTY var
     else
       return $category;
   }
-  // -> END -- getPropertyCategory ------------------------------------------------------------------
 
  /**
   * Gets the {@link generalFunctions::$storedPageIds} property
