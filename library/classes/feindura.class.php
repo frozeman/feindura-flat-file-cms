@@ -1052,7 +1052,6 @@ class feindura {
   * @param string    $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array $ids              the ID(s) of page(s) or category(ies)
   *  
-  * @uses adminConfig                   for the thumbnail path
   * @uses publicCategory()              to check if the category(ies) or page(s) category(ies) are public
   * @uses isPageContentArray()		to check if the given array is a $pageContent array, if TRUE it just returns this array
   * @uses loadPages()			to load pages
@@ -1153,18 +1152,38 @@ class feindura {
     return $return;
   }
   
-  
-  // -> START -- publicCategory ********************************************************************
-  // checks if the category ID(s) are public, returns false or a array with the IDs of the public categories
-  // ------------------------------------------------------------------------------------------------
-  function publicCategory($ids) {     // (true or Number or Array) the category ID or a array with the category IDs, if TRUE it returns all categories
+ /**
+  * Checks if a category or categories are public
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     publicCategory()<br>
+  *
+  * Checks whether the given category(ires) are public and returns the ID or an array with IDs of the public ones.
+  *
+  *
+  * @param int|array|true $ids          the ID(s) of category(ies), if TRUE then i checks all categories
+  *  
+  * @uses categoryConfig                to check if a category is public
+  * 
+  * @return array|false an array with ID(s) of the public category(ies)
+  *
+  * @access protected
+  *
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function publicCategory($ids) {
     
-    // -> check an Array of category IDs
-    if($ids === true || is_array($ids)) {
-      $newIds = false;
+    // var
+    $newIds = false;
+    
+    // ->> ALL categories
+    if($ids === true) {
       
-      // goes trough ALL categories
-      if($ids === true) {
         // adds the non-category
         $newIds[] = 0;
         
@@ -1173,20 +1192,17 @@ class feindura {
           if($category['public'])
             $newIds[] = $category['id'];
         }
-      // goes only trough the given ones
-      } else {
-        // goes trough the given category IDs array
-        foreach($ids as $id) {
-          // checks if the category is public and creates a new array
-          if($id == 0 || (isset($this->categoryConfig['id_'.$id]) && $this->categoryConfig['id_'.$id]['public']))    
-            $newIds[] = $id;
-        }
+      // ->> MULITPLE categories
+    } elseif(is_array($ids)) {
+      // goes trough the given category IDs array
+      foreach($ids as $id) {
+        // checks if the category is public and creates a new array
+	if($id == 0 || (isset($this->categoryConfig['id_'.$id]) && $this->categoryConfig['id_'.$id]['public']))    
+	  $newIds[] = $id;
       }
-      // and return the new category IDs array
-      return $newIds;
       
-    // -> check a single category ID
-    } elseif($ids !== true && is_numeric($ids)) {
+    // -> SINGLE category ID
+    } elseif(is_numeric($ids)) {
 
       // checks if the category is public
       if($ids == 0 || $this->categoryConfig['id_'.$ids]['public'])    
@@ -1194,8 +1210,10 @@ class feindura {
       else return false;
     
     } else return false;
+    
+    // and return the new category IDs array
+    return $newIds;
   }
-  // -> END -- publicCategory ------------------------------------------------------------------------
 
  /**
   * Gets the category ID of a page

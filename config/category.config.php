@@ -22,7 +22,7 @@ $categoryConfig['id_2']['thumbRatio'] =      '';
 
 $categoryConfig['id_3']['id'] =              '3';
 $categoryConfig['id_3']['name'] =            'Kategorie 3';
-$categoryConfig['id_3']['public'] =          'true';
+$categoryConfig['id_3']['public'] =          '';
 $categoryConfig['id_3']['sortascending'] =   '';
 $categoryConfig['id_3']['createdelete'] =    'true';
 $categoryConfig['id_3']['thumbnail'] =       'true';
