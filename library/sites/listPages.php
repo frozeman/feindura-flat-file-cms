@@ -142,18 +142,19 @@ foreach($allCategories as $category) {
   // shows ID and different header color if its a CATEGORY
   if($category['id'] != 0) {
     //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
-    $headerColor = ' class="toolTip blue"';
+    $headerColor = ' class="blue"';
     $headerIcon = 'library/image/sign/categoryIcon_small.png';
     $category['name'] = ' '.$category['name'];
   } else {
     //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
-    $headerColor = ' class="toolTip brown"';
+    $headerColor = ' class="brown"';
     $headerIcon = 'library/image/sign/pageIcon_middle.png';
   }
   
   // -> CREATE CATEGORY HEADLINE
-  echo "\n\n".'<div class="block listPages'.$hidden.'" style="margin-top:-20px;">
-          <h1'.$headerColor.' title="ID '.$category['id'].'::"><a href="?site=pages&amp;category='.$category['id'].'" style="font-size:15px; font-weight:bold; line-height:30px;" onclick="return false;"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].' '.$categorySorting.'</a></h1>
+  echo "\n\n".'<div class="block listPages'.$hidden.'" style="margin-top:-20px;">';
+  	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;" style="font-size:15px;"><b class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].'</b> '.$categorySorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS

@@ -70,7 +70,7 @@ div.listPagesHead {
     
 .listPagesHead div.name {    
     width: 300px;
-    padding-left: 15px;
+    padding-left: 15px;    
     }
 .listPagesHead div.lastSaveDate {
     width: 150px;
@@ -96,7 +96,7 @@ div.listPagesHead {
     display: inline-block;
     height: 24px;
     max-height: 24px;
-    padding: 5px 0px;
+    padding: 6px 0px;
     overflow: hidden;
     line-height: 24px;
     white-space: nowrap;
@@ -117,12 +117,7 @@ div.listPagesHead {
     }
 .listPages .content div.status {
     width: 27px;
-    }
-.listPages .content .status.public {     
-    background: url(../image/sign/page_public.png) no-repeat 0px 2px !important;
-    }
-.listPages .content .status.nonpublic {
-    background: url(../image/sign/page_nonpublic.png) no-repeat 0px 2px !important;
+    padding-top: 3px;
     }
 .listPages .content div.functions {
     float: right !important;
@@ -218,21 +213,28 @@ div.listPagesHead {
     }
 
 /* ----------------------- */	
-/* ---:- PUBLI/NON-PUBLIC links */
+/* ---:- PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
 
 /* works for pages status and category status */
 .listPages .status a {
     display: block;
     width: 27px;
     height: 27px;
-    background: none !important;
     text-decoration: none;
     }
 
-
+/* for categories */
 .listPages .category .status a.public {
     background: url(../image/sign/category_public.png) no-repeat !important;
     }
 .listPages .category .status a.nonpublic {
     background: url(../image/sign/category_nonpublic.png) no-repeat !important;
+    }
+
+/* for pages */
+.listPages .content .status.public a {     
+    background: url(../image/sign/page_public.png) no-repeat !important;
+    }
+.listPages .content .status.nonpublic a {
+    background: url(../image/sign/page_nonpublic.png) no-repeat !important;
     }
