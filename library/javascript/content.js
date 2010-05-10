@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.53 (requires mootools-core and mootools-more)
+// java/content.js version 0.54 (requires mootools-core and mootools-more)
 //
 
 
@@ -109,35 +109,36 @@ function blockSlideInOut(givenIdCLass) {
        slideVertical.onComplete = function(el) {
 
           // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-          if(slideVertical.open) {
-            block.toggleClass('hidden'); // hides it
+      
+	  if(slideVertical.open) {
+            block.addClass('hidden');
             slideContent.getParent().fade('hide');
             slideVertical.open = false;
-          } else {              
+          } else {
+	    block.removeClass('hidden');
             slideContent.getParent().setStyle('height','auto');
             slideContent.getParent().fade('show');
             slideVertical.open= true;
           }
-          
           layoutFix();
        }
   
-  	   // sets the SLIDE EFFECT to the buttons
-  	   slideButtonH1.addEvent('click', function(e){  	   
-      		e.stop();
-      		if(!slideVertical.open) {
-      		  block.toggleClass('hidden'); // shows it
+       // sets the SLIDE EFFECT to the buttons
+       slideButtonH1.addEvent('mouseup', function(e){  	   
+      	  e.stop();
+      	  if(!slideVertical.open) {
+      	    block.removeClass('hidden');
           }
           slideVertical.toggle();          
-      	});
+       });
 
       } // <-- end go trough blocks
       
       // hide the Menu if it has class "hidden"
-    	if(block.hasClass('hidden'))  {
-    	  slideVertical.hide();
-    	  slideVertical.open = false;
-    	}
+      if(block.hasClass('hidden'))  {
+        slideVertical.hide();
+	slideVertical.open = false;
+      }
   });
 }
 

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 192
+Build 193
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+	build 193: changed tween time of the listPage functions; fixed double click issue on content slide div
 	build 192: removed loadPages() and readPage() from the feindura class, now only in generalFunctions class; documentation for feindura class almost finished
 	build 191: fixes in publicCategory()
 	build 190: small fixes in category status in listPages.php; small fixes in loadPagesByType()

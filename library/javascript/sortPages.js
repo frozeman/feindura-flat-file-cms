@@ -52,7 +52,7 @@ window.addEvent('domready', function() {
       
       // add fade in and out event on mouseover
       if(functionsDiv != false) {
-        functionsDiv.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
+        functionsDiv.set('tween',{duration: '1500', transition: Fx.Transitions.Pow.easeOut});
         
         li.addEvent('mouseover',function(e) {
           e.stop();
