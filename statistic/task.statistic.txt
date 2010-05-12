@@ -1,3 +1,4 @@
+2010-05-12 17:24:56|-|frozeman|-|Seite in Kategorie verschoben|-|<a href="index.php?category=2&amp;page=3">Logistik</a><br />in <a href="index.php?site=pages&amp;category=2">Kategorie 2</a>
 2010-05-10 21:35:18|-||-|Seite neu sortiert|-|<a href="index.php?category=0&amp;page=8">Neue Seite</a><br />in <a href="index.php?site=pages&amp;category=0">Seiten ohne Kategorie</a>
 2010-05-10 21:33:21|-||-|Seite neu sortiert|-|<a href="index.php?category=0&amp;page=6">Willkommen</a><br />in <a href="index.php?site=pages&amp;category=0">Seiten ohne Kategorie</a>
 2010-05-10 21:33:07|-||-|Seite neu sortiert|-|<a href="index.php?category=0&amp;page=6">Willkommen</a><br />in <a href="index.php?site=pages&amp;category=0">Seiten ohne Kategorie</a>
@@ -197,4 +198,3 @@
 2010-04-10 16:39:23|-|frozeman|-|Seiten-Einstellungen gespeichert
 2010-04-10 16:38:53|-|frozeman|-|Seiten-Einstellungen gespeichert
 2010-04-10 16:38:48|-|frozeman|-|Seiten-Einstellungen gespeichert
-2010-04-10 16:38:44|-|frozeman|-|Seiten-Einstellungen gespeichert

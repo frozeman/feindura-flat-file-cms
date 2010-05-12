@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */ 
 /**
- * This file contains the {@link feindura} base <var>c0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,lass</var>
+ * This file contains the {@link feindura} base <var>class</var>
  */ 
 
 /**
@@ -826,7 +826,7 @@ class feindura {
       if($titleShowPageDate && $this->generalFunctions->checkPageDate($pageContent)) {
          $titleDateBefore = '';
          $titleDateAfter = '';
-	 // adds spaces on before and after
+	       // adds spaces on before and after
          if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
          if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
          $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).$titleDateAfter.' ';
@@ -844,7 +844,8 @@ class feindura {
           $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySpacer; // adds the Spacer
         else
           $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
-      }      
+      } else
+        $titleShowCategory = '';
         
       // generate titleBefore without tags
       $titleBefore = $titleShowCategory.$titleDate;
@@ -1094,7 +1095,7 @@ class feindura {
       } elseif($ids && is_array($ids)) {
         
         // checks if its an Array with pageContent Arrays
-        if($this->generalFunctions->isPageContentArray($page)) {
+        if($this->generalFunctions->isPageContentArray($ids)) {
           return $ids;          
         //otherwise load the pages from the categories
         } else {
@@ -1104,7 +1105,7 @@ class feindura {
 	    // get category
 	    $category = $this->getPageCategory($page);
 	    if(($category = $this->publicCategory($category)) !== false) {
-              if($pageContent = $this->generalFunctions->readPage($page,$tcategory)) {
+              if($pageContent = $this->generalFunctions->readPage($page,$category)) {
                 $return[] = $pageContent;
               }
 	    }

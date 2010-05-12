@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 195
+Build 196
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 196: fix in createTitle() and loadPagesByType()
 	build 195: editFiles() has now parameter $exluded, for file and dir exclusion
 	build 194: removed the id from the lisPages content Blocks header and is now only visible if you go with your mouse over the category name
 	build 193: changed tween time of the listPage functions; fixed double click issue on content slide div

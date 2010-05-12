@@ -498,6 +498,19 @@ class feinduraPages extends feindura {
       // ---------------------------------------->        
       if($pageContent['public']) {            
         //print_r($page);
+        
+        // -> LINK TITLE
+        // *****************
+        // -> create the text
+        if($linkText === true) {
+        // add the TITLE
+        $linkText = $this->createTitle($pageContent,
+      					                       $this->linkCategorySpacer,
+                                       $this->linkLength,
+                                       false, // $titleAsLink
+                                       $this->linkShowCategory,
+                                       $this->linkShowPageDate);
+        }
 	
         // -> sets the LINK
         // ----------------------------  
@@ -505,7 +518,7 @@ class feinduraPages extends feindura {
         $linkAttributes = '';
         
         // add HREF
-        $linkAttributes .= ' href="'.$this->createHref($pageContent).'"'; // title="'.$pageContent['title'].'"
+        $linkAttributes .= ' href="'.$this->createHref($pageContent).'" title="'.$linkText.'"'; // title="'.$pageContent['title'].'"
 	  
 	$linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
                     
@@ -518,20 +531,6 @@ class feinduraPages extends feindura {
         if($linkThumbnail = $this->createThumbnail($pageContent))
           $returnThumbnail = $linkThumbnail;
       
-        
-        // -> LINK TITLE
-        // *****************
-        // -> create the text
-        if($linkText === true) {
-                 
-          // add the TITLE
-          $linkText = $this->createTitle($pageContent,
-    					$this->linkCategorySpacer,
-                                        $this->linkLength,
-                                        false, // $titleAsLink
-                                        $this->linkShowCategory,
-                                        $this->linkShowPageDate);
-        }
              
         // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
         $thumbnailBefore = false;
@@ -548,7 +547,7 @@ class feinduraPages extends feindura {
         $linkTextBefore = false;
         $linkTextAfter = false;
         
-        if(!empty($linkText)) {
+        if($linkText !== false) {
           if($this->linkTextBefore !== true)
             $linkTextBefore = $this->linkTextBefore;
           if($this->linkTextAfter !== true)
@@ -632,7 +631,7 @@ class feinduraPages extends feindura {
       // create a link out of every page in the array
       foreach($pages as $page) {
         // creates the link
-        if($pageLink = $this->createLink($page,$page['category'], $linkText)) {
+        if($pageLink = $this->createLink($page,$linkText)) {
           // adds the link to an array
           $links[] = $pageLink;
         }
