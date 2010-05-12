@@ -510,7 +510,7 @@ class feindura {
   * An array will be returned with all elements of the page, ready for use in HTML.
   *
   * In case the page doesn't exists or is not public an error
-  * (depending on the <var>$showError</var> parameter <b>AND</b> the {@link feinduraPages::$showError} property)
+  * (depending on the <var>$showError</var> parameter)
   * will be placed in the ['content'] part of the returned array.
   * If errors are deactivated it returns an empty array.<br>
   * 
@@ -593,7 +593,7 @@ class feindura {
     
     // -> sets the ERROR SETTINGS
     // ----------------------------
-    if($showError && $this->showError) {
+    if($showError) {
       // adds ATTRIBUTES  
       $errorStartTag = '';
       $errorEndTag = '';
@@ -623,7 +623,7 @@ class feindura {
       // -> if not try to load the page
       if(!$pageContent = $this->generalFunctions->readPage($page,$category)) {
         // if could not load throw ERROR
-        if($showError && $this->showError) {
+        if($showError) {
 	  $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
           return $return;
         } else

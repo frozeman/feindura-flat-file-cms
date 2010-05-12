@@ -866,10 +866,11 @@ class feinduraPages extends feindura {
     //echo '<br />category: '.$category;    
 
     if($pageContent = $this->loadPrevNextPage($page)) {
-              
+
       // ->> load SINGLE PAGE
       // *******************
-      if($generatedPage = $this->generatePage($page,$this->showError,$shortenText,$useHtml)) {
+      if($generatedPage = $this->generatePage($pageContent,$this->showError,$shortenText,$useHtml)) {
+        
         // -> SAVE PAGE STATISTIC
         // **********************
         $this->statisticFunctions->savePageStats($pageContent);

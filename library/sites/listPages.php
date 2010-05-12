@@ -248,12 +248,12 @@ foreach($allCategories as $category) {
       
       // startpage icon before the name
       if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
-        $activeStartPage = ' style="background: url(library/image/key/listPages_startPage.png) no-repeat 0px -27px !important;"';
+        $activeStartPage = ' startPage';
       } else {
         $activeStartPage = '';
       }
       
-      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'"'.$activeStartPage.' class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>';
+      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>';
       if(!empty($pageContent['lastsaveauthor']))
         echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
       else
