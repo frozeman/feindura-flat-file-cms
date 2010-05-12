@@ -1714,14 +1714,38 @@ class feindura {
 
     return $this->generalFunctions->getStoredPages();
   }
-  
-  // -> START -- shortenText *******************************************************************************
-  // shortens a text by the given length number
-  // -------------------------------------------------------------------------------------------------------
-  function shortenText($string,                   // (String) the string which will be shorten
-                                 $length,                   // (Number) the number of characters to which the text will be shorten 
-                                 $pageContent = false,      // (false or Array) the pageContent Array of the Page
-                                 $endString = " ...") {     // (String) the string add to the end of the shorten text
+
+ /**
+  * Shorten a text by to a given length
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     shortenText()<br>
+  *
+  * If the <var>$endString</var> parameter is set and a <var>$pageContent</var> array is given,
+  * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
+  *
+  *
+  * @param string       $string          the string to shorten
+  * @param int          $length          the number of maximal characters
+  * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
+  * @param string|false $endString       a string which will be put after the last character and before the "more" link
+  *  
+  * @uses createHref()                                  create the href for the "more" link  
+  * @uses generalFunctions::getRealCharacterNumber()    to get the real number of characters in the string (adds the multiple characters of htmlentities)
+  * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid
+  * 
+  * @return string the shortened string
+  *
+  * @access protected
+  *
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function shortenText($string, $length, $pageContent = false, $endString = " ...") {
       
       // cut string
       if(is_numeric($length)) {
@@ -1741,7 +1765,7 @@ class feindura {
       }
       
       // adds the MORE LINK
-      if($endString !== false && $pageContent !== false && is_array($pageContent)) {
+      if($endString !== false && $this->generalFunctions->isPageContentArray($pageContent)) {
         $shortenString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
@@ -1749,15 +1773,39 @@ class feindura {
       
       return $shortenString;
   }
-  // -> END -- shortenText -----------------------------------------------------------------------------------
+
+ /**
+  * Shorten a HTML text by to a given length
+  *
+  * <b>Type</b>     function<br>
+  * <b>Name</b>     shortenHtmlText()<br>
+  *
+  * All HTML tags which are contained in the shortend text will be counted and closed on the end.<br>
+  * If the <var>$endString</var> parameter is set and a <var>$pageContent</var> array is given,
+  * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
+  *
+  *
+  * @param string       $string          the string to shorten
+  * @param int          $length          the number of maximal characters
+  * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
+  * @param string|false $endString       a string which will be put after the last character and before the "more" link
+  *  
   
-  // -> START -- shortenHtmlText *****************************************************************************
-  // shorten a HTML text and close all tags which are open
-  // ---------------------------------------------------------------------------------------------------------
-  function shortenHtmlText($input,                    // (String) the string which will be shorten
-                                     $length,                   // (Number) the number of characters to which the text will be shorten
-                                     $pageContent = false,      // (false or Array) the pageContent Array of the Page
-                                     $endString = ' ...') {     // (String) the string add to the end of the shorten text
+  * @uses shortenText()                                 shorten the text
+  * @uses createHref()                                  create the href for the "more" link  
+  * 
+  * @return string the shortened string
+  *
+  * @access protected
+  *
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */  
+  function shortenHtmlText($input, $length, $pageContent = false, $endString = ' ...') {
       
       // gets the raw text
       $rawText = strip_tags($input);
@@ -1810,7 +1858,6 @@ class feindura {
         // checks if there is a unclosed html tag (example: <h1..)
         // and shortens the string from this unclosed tag
         if(strrpos($input, "<") !== false && strrpos($input, "<") > strrpos($input, ">")) {
-          // wenn dann kürzt er den nicht geschlossenen HTML tag weg
           $input = substr($input, 0, strrpos($input, "<"));
         }
       
@@ -1824,12 +1871,13 @@ class feindura {
             //echo 'Tag: '.$tag."<br />\n";        
             $tag = strtolower($tag);
             
-            // schaut ob es ein öffnender oder schliessender HTML tag ist
+            // looks if its a opening or closing tag
             if(substr($tag, 0, 1) != '/') {          
-              // HTMl tags die nicht wieder geschlossen werden sollen
+              // HTML tags which will not be closed
               if($tag != 'br' &&
               $tag != 'hr' &&
               $tag != 'img' &&
+              $tag != 'source' &&
               $tag != 'input' &&
               $tag != 'embed' &&
               $tag != 'param' &&
@@ -1878,6 +1926,6 @@ class feindura {
       // returns the shorten Html-Text
       return $input;
   }
-  // -> END -- shortenHtmlText ----------------------------------------------------------------------------------
+
 }
 ?>
