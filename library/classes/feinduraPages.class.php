@@ -21,13 +21,17 @@
 /**
 * The class for implimenting feindura - Flat File Content Management System in a website.
 * 
-* It's methods provide necessary functions to impliment the CMS in a website.<br>
-* It contains for example methods for building a menu and place the page content, etc.
+* It's methods provide necessary functions for implimenting the CMS in a website.<br>
+* It contains, for example, methods for building a menu and get page contents, etc.
 * 
-* @author Fabian Vogelsteller
+* @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.01
+*
+* @version 1.0
+* <br>
+* <b>ChangeLog</b><br>
+*    - 1.0 initial release
 *
 */
 class feinduraPages extends feindura {
@@ -36,37 +40,8 @@ class feinduraPages extends feindura {
  /* *** PROPERTIES */
  /* **************************************************************************************************************************** */
  
- /**
-  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files.
-  * 
-  * This country code is used to include the right frontend language-file.
-  * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
-  * This property will be set in the {@link feindura} constructor.
-  * 
-  * The standard value is <i>"en"</i> (english).
-  *  
-  * @var string
-  * @see $languageFile
-  * @see feindura::feindura()
-  *   
-  */  
-  var $language = 'en';
-  
- /**
-  * Contains the frontend language-file array
-  * 
-  * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
-  * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
-  *   
-  * It will be <i>included</i> and set to this property in the {@link feindura()} constructor.
-  * 
-  * @var array
-  * @see $language
-  * @see feindura::feindura()
-  *   
-  */
-  var $languageFile = null;
-    
+ /* ->> GENERAL <<- */
+ 
  /**
   * <i>TRUE</i> when the pages content should be handled as XHTML
   *
@@ -74,7 +49,7 @@ class feinduraPages extends feindura {
   * When a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
-  *    
+  * 
   */
   var $xHtml = true;
   
@@ -142,48 +117,351 @@ class feinduraPages extends feindura {
   */
   var $startCategory = null;
   
+  /* ->> LINK <<- */
+  
  /**
-  * Contains a id-Attribute which will be assigned to any link created by {@link createLink()} or {@link createMenu()}
+  * A number of maximal characters visible of the link text,
+  * in any link created by {@link createLink()} or {@link createMenu()}
   * 
+  * The link text will be shorten to the last word.
   * 
+  * Example shorting of "Example Shorting Text" with a given <var>$linkLength</var> of 14 will shorten to
+  * <samp>
+  * "Example..."
+  * </samp>
   * 
-  * @var false|string If no link id-Attribute should be assigned, set it to FALSE.
-  * @see createLink(), createMenu()  
-  * @example createLink.example.php  
-  *   
+  * @var int|false Number of characters or FALSE to don't shorten the link text
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
   */
-  var $linkId = false;                    // [False or String]      -> the link ID which is used when creating a link (REMEMBER you can only set ONE ID in an HTML Page)
-  var $linkClass = false;                 // [False or String]      -> the link CLASS which is used when creating a link
-  var $linkAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
-  var $linkBefore = false;                // [False or String]      -> a String which comes BEFORE the link <a> tag
-  var $linkAfter = false;                 // [False or String]      -> a String which comes AFTER the link </a> tag
-  var $linkTextBefore = false;            // [False or String]      -> a String which comes BEFORE the linkText <a> tag
-  var $linkTextAfter = false;             // [False or String]      -> a String which comes AFTER the linkText </a> tag
-  var $linkThumbnail = false;             // [bool]              -> show the thumbnail in the link
-  var $linkThumbnailAfterText = false;    // [bool]              -> show the thumbnail after the linkText
-  var $linkLength = false;                // [bool or Number]    -> the number of maximun characters for the link Title, after this length it will be shorten with abc..
-  var $linkShowCategory = false;          // [bool]              -> show the category name before the title
-  var $linkShowPageDate = false;              // [bool]              -> show the page date before the title
-  var $linkCategorySpacer = ': ';         // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
+  var $linkLength = false;  
+
+ /**
+  * Contains an id-Attribute which will be add to any <a ...> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page,
+  * if you set this property and call {@link createMenu()} every link will get this id-Attribute.
+  * 
+  * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkId = false;
   
-  var $menuId = false;                    // [False or String]      -> the menu ID which is used when creating a menu (REMEMBER you can only set ONE ID in an HTML Page)
-  var $menuClass = false;                 // [False or String]      -> the menu CLASS which is used when creating a menu
-  var $menuAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
+ /**
+  * Contains an class-Attribute which will be add to any <a ...> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this class-Attribute.
+  * 
+  * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkClass = false;
+  
+ /**
+  * Contains a string with attributes which will be add to any <a ...> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this attributes string.
+  * 
+  * The string should have the following format
+  * <samp>
+  * 'key1="value" key2="value"'
+  * </samp>
+  * 
+  * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkAttributes = false;
+
+ /**
+  * Contains a string which will be add before any <a></a> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.
+  * 
+  * @var string|false If no text should be add before a link, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkBefore = false;
+  
+ /**
+  * Contains a string which will be add after any <a></a> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.
+  * 
+  * @var string|false If no text should be add after a link, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkAfter = false;
+  
+ /**
+  * Contains a string which will be add before the link text but inside any <a></a> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.  
+  * 
+  * @var string|false If no text should be add before a link text, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkTextBefore = false;
+  
+ /**
+  * Contains a string which will be add after the link text but inside any <a></a> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.  
+  * 
+  * @var string|false If no text should be add after a link text, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkTextAfter = false;
+  
+ /**
+  * If TRUE and thumbnails are allowed for this page(s) it adds the thumbnail <img> tag inside the <a></a> tags,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * 
+  * @var bool Set it to TRUE to allow thumbnails in links
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkShowThumbnail = false;
+  
+ /**
+  * If TRUE and thumbnail <img> tag will be placed after the link text but inside the <a></a> tag,
+  * in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * 
+  * @var bool Set it to TRUE to place the thumbnail <img> tag after the link text
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkShowThumbnailAfterText = false;
+  
+ /**
+  * If TRUE, the page date will be add before the link text in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br>
+  * The page date will be added with the page date text before and after from the page editor in the backend.
+  *   
+  * <b>Notice</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
+  * 
+  * Example
+  * <samp>
+  * <a href="?page=2" ...>Catgory Name: 200-12-31 Page Title</a>
+  * </samp>
+  *    
+  * @var bool Set it to TRUE to place the page date before the link text
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkShowPageDate = false;
+
+ /**
+  * If TRUE, the category name of the page will be add before the link text
+  * with the {@link $linkCategorySpacer} property as seperator, in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * The category name will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
+  * 
+  * Example
+  * <samp>
+  * <a href="?page=2" ...>Catgory Name: Page Title</a>
+  * </samp>
+  *     
+  * @var bool Set it to TRUE to place the category name before the link text
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkShowCategory = false;
+  
+ /**
+  * If the {@link $linkShowCategory} property is TRUE,
+  * this string will be used as a seperator between the category name and the link text in any link created by {@link createLink()} or {@link createMenu()}
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will use this seperator.  
+  * 
+  * @var string
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  var $linkCategorySeperator = ': ';
+  
+  /* ->> MENU <<- */
+  
+ /**
+  * Contains an id-Attribute which will be add to the menu tag
+  * 
+  * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
+  * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
+  * 
+  * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @see createMenu()
+  * @example createMenu.example.php
+  * 
+  */
+  var $menuId = false;
+  
+ /**
+  * Contains an class-Attribute which will be add to the menu tag
+  * 
+  * <b>Notice</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
+  * 
+  * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @see createMenu()
+  * @example createMenu.example.php
+  * 
+  */
+  var $menuClass = false;
+  
+ /**
+  * Contains a string with attributes which will be add to the menu tag
+  * 
+  * <b>Notice</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
+  * 
+  * The string should have the following format
+  * <samp>
+  * 'key1="value" key2="value"'
+  * </samp>
+  *    
+  * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @see createMenu()
+  * @example createMenu.example.php
+  * 
+  */
+  var $menuAttributes = false;
+  
+  /* old
   var $menuBefore = false;                // [False or String]      -> a String which comes BEFORE the menu <$menuTag> tag
-  //var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
-  //var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
+  var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
+  var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
+  */
   
-  //var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
-  //var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
-  //var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
-  //var $titleAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
-  var $titleLength = false;               // [Boolean or Number]    -> the number of maximun characters for the title, after this length it will be shorten with abc..
-  var $titleAsLink = false;               // [Boolean]              -> should the title be a link to the Page (ONLY when listing a Page)
-  var $titleShowPageDate = false;             // [Boolean]              -> show the page date before the title
-  var $titleShowCategory = false;         // [Boolean]              -> show the category name before the title
-  var $titleCategorySpacer = ': ';        // [String]               -> the text to be used as a spacer between the category name and the title (example: Category -> Title Text)
-  //var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
-  //var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
+  /* ->> TITLE <<- */
+  
+ /**
+  * A number of maximal characters visible of the page title text
+  * 
+  * The page title will be shorten to the last word.
+  * 
+  * Example shorting of "Example Shorting Text" with a given <var>$titleLength</var> of 18 will shorten to
+  * <samp>
+  * "Example Shorting..."
+  * </samp>
+  * 
+  * @var int|false Number of characters or FALSE to don't shorten the page title
+  * @see getTitle()
+  * @see feindura::createTitle()
+  * @example getPage.example.php
+  * 
+  */
+  var $titleLength = false;
+  
+ /**
+  * If TRUE the page title is also a link to the page
+  * 
+  * 
+  * @var bool
+  * @see getTitle()
+  * @see feindura::createTitle()
+  * @example getPage.example.php
+  * 
+  */
+  var $titleAsLink = false;
+
+ /**
+  * If TRUE, the page date will be add before the page title
+  * 
+  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br>
+  * The page date will be added with the page date text before and after from the page editor in the backend.
+  * 
+  * Example
+  * <samp>
+  * Catgory Name: 200-12-31 Page Title
+  * </samp>
+  *    
+  * @var bool Set it to TRUE to place the page date before the page title
+  * @see getTitle()
+  * @see feindura::createTitle()
+  * @example getPage.example.php
+  * 
+  */
+  var $titleShowPageDate = false;
+  
+ /**
+  * If TRUE, the category name of the page will be add before the page title with the {@link $linkCategorySpacer} property as seperator
+  * 
+  * 
+  * Example
+  * <samp>
+  * Catgory Name: Page Title
+  * </samp>
+  *     
+  * @var bool Set it to TRUE to place the category name before the page title
+  * @see getTitle()
+  * @see feindura::createTitle()
+  * @example getPage.example.php
+  * 
+  */
+  var $titleShowCategory = false;
+  
+ /**
+  * If the {@link $titleShowCategory} property is TRUE, this string will be used as a seperator between the category name and the page title
+  * 
+  * 
+  * @var string
+  * @see getTitle()
+  * @see feindura::createTitle()
+  * @example getPage.example.php
+  * 
+  */
+  var $titleCategorySpacer = ': ';
+  
+  /* old
+  var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
+  var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
+  var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
+  var $titleAttributes = false;           // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
+  var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
+  var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
+  */
+  
+  /* ->> CONTENT <<- */
   
   //var $pageShowTitle = true;
   //var $pageShowThumbnail = true;
@@ -203,59 +481,203 @@ class feinduraPages extends feindura {
   var $contentAfter = false;              // [False or String]      -> a String which comes AFTER the link </$contentTag> tag
   */
   
-  var $thumbnailAlign = false;            // [False or String ("left" or "right")]   -> let the thumbnail float to left or right
-  var $thumbnailId = false;               // [False or String]      -> the thumbnail ID which is used when creating a thumbnail (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
-  var $thumbnailClass = false;            // [False or String]      -> the thumbnail CLASS which is used when creating a thumbnail
-  var $thumbnailAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
-  var $thumbnailBefore = false;           // [False or String]      -> a String which comes BEFORE the thumbnail img <$titleTag> tag
-  var $thumbnailAfter = false;            // [False or String]      -> a String which comes AFTER the thumbnail img </$titleTag> tag
+  /* ->> THUMBAIL <<- */
+
+ /**
+  * Contains the position of the thumbnail picture, the possible values are "left", "right" or FALSE
+  * 
+  * If the values are "left" or "right" a style-attribute will be add to the thumbnail <img> tag with "float:left/right;".
+  * 
+  * <b>Notice</b>: If you set this property, you can't add any style attribute with the {@link $thumbnailAttributes} property anymore, it would not be used by the browser.
+  *
+  * <samp>
+  * <img src="/path/image.png" ... style="float:left;" />
+  * </samp>     
+  *  
+  * @var string|false If no style="float:left/right;" attribute should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $thumbnailAlign = false;
   
-  var $showError = true;                    // [Boolean]              -> show a message when a error or a notification appears (example: 'The page you requested doesn't exist')
+ /**
+  * Contains an id-Attribute which will be add to the thumbnail <img> tag
+  * 
+  * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page.
+  * 
+  * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $thumbnailId = false;
+  
+ /**
+  * Contains an class-Attribute which will be add the thumbnail <img> tag
+  * 
+  * 
+  * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $thumbnailClass = false;
+
+ /**
+  * Contains a string with attributes which will be add the thumbnail <img> tag
+  * 
+  * 
+  * The string should have the following format
+  * <samp>
+  * 'key1="value" key2="value"'
+  * </samp>
+  * 
+  * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $thumbnailAttributes = false;
+  
+ /**
+  * Contains a string which will be add before the thumbnail <img> tag
+  * 
+  * 
+  * @var string|false If no string should be add before the thumbnail <img> tag, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $thumbnailBefore = false;
+  
+ /**
+  * Contains a string which will be add after the thumbnail <img> tag
+  * 
+  * 
+  * @var string|false If no string should be add after the thumbnail <img> tag, set it to FALSE.
+  * @see createLink()
+  * @see createMenu()
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $thumbnailAfter = false;
+  
+  /* ->> ERROR <<- */
+  
+ /**
+  * If TRUE an error will be displayed if the requested page doesn't exists or is currently not public
+  * 
+  * Example
+  * <samp>
+  * <span>The requested page is currently not available.</span>
+  * </span>  
+  * 
+  * @var bool
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $showError = true;
+  
+ /**
+  * The tag which should be used for the error message
+  * 
+  * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add<br>
+  * 
+  * Example
+  * <samp>
+  * <span>The requested page is currently not available.</span>
+  * </samp>
+  *    
+  * @var string|false If no tag should be add, set it to FALSE.
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
   var $errorTag = 'span';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
-  var $errorId = false;                 // [False or String]      -> the message ID which is used when creating a message (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
-  var $errorClass = false;              // [False or String]      -> the message CLASS which is used when creating a message
-  var $errorAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
+ 
+ /**
+  * Contains an id-Attribute which will be add to the error tag
+  * 
+  * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
+  * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
+  * 
+  * Example
+  * <samp>
+  * <span id="exampleId">The requested page is currently not available.</span>
+  * </samp>
+  * 
+  * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $errorId = false;
+  
+ /**
+  * Contains an class-Attribute which will be add to the error tag
+  * 
+  * <b>Notice</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
+  * 
+  * Example
+  * <samp>
+  * <span class="exampleId">The requested page is currently not available.</span>
+  * </samp>
+  *     
+  * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $errorClass = false;
+  
+ /**
+  * Contains a string with attributes which will be add the error tag
+  * 
+  * 
+  * The string should have the following format
+  * <samp>
+  * 'key1="value" key2="value"'
+  * </samp>
+  * 
+  * Example
+  * <samp>
+  * <span key1="value" key2="value">The requested page is currently not available.</span>
+  * </samp>    
+  * 
+  * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @see getPage()
+  * @see feindura:generatePage()
+  * @example getPage.example.php
+  * 
+  */
+  var $errorAttributes = false;
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */
- 
-  /*
-  *
-  * STRING <- createMetaTags($charset = 'UTF-8', $robotTxt = false, $revisitAfter = '10', $author = false, $publisher = false, $copyright = false)
-  *      
-  *                           
-  * STRING <- createLink($page = false, $category = false, $linkText = true)
-  *   
-  *  
-  * ARRAY <- createMenu($idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false)
-  * 
-  * ARRAY <- createMenuByTags($tags ,$idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false)
-  *    
-  * ARRAY <- createMenuByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $flipList = false) 
-  * 
-  *  
-  * STRING <- getPageTitle($page = false, $category = false, $titleTag = true)
-  *    
-  * STRING <- getPage($page = false, $category = false, $shortenText = false, $useHtml = true)             <- also SAVEs the PAGE-STATISTICs
-  *   
-  *  
-  * ARRAY <- listPages($idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false)
-  *  
-  * ARRAY <- listPagesByTags($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false)
-  * 
-  * ARRAY <- listPagesByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false,  $useHtml = true,  $sortByCategories = false, $flipList = false)
-  * 
-  *  
-  * NUMBER <- getCurrentPage()
-  * 
-  * NUMBER <- getCurrentCategory()    
-  * 
-  * NUMBER <- setCurrentPage($setStartPage = false)
-  * 
-  * NUMBER <- setCurrentCategory()
-  *     
-  */ 
   
  /**
   * The constructor of the class, sets all basic properties
@@ -505,11 +927,15 @@ class feinduraPages extends feindura {
         if($linkText === true) {
         // add the TITLE
         $linkText = $this->createTitle($pageContent,
-      					                       $this->linkCategorySpacer,
+      					                       $this->linkCategorySeperator,
                                        $this->linkLength,
                                        false, // $titleAsLink
                                        $this->linkShowCategory,
                                        $this->linkShowPageDate);
+        } elseif(is_string($linkText) &&
+                 is_numeric($this->linkLength) &&
+                 $this->generalFunctions->getRealCharacterNumber($linkText,$this->linkLength) > $this->linkLength) {
+          $linkText = shortenText($linkText, $this->linkLength);
         }
 	
         // -> sets the LINK
@@ -527,21 +953,9 @@ class feinduraPages extends feindura {
         
         // -> LINK THUMBNAIL
         // *****************
-	$returnThumbnail = false;
-        if($linkThumbnail = $this->createThumbnail($pageContent))
-          $returnThumbnail = $linkThumbnail;
-      
-             
-        // CHECK if the THUMBNAIL BEFORE & AFTER is !== true
-        $thumbnailBefore = false;
-        $thumbnailAfter = false;
-        
-        if(!empty($linkThumbnail)) {
-          if($this->thumbnailBefore !== true)
-            $thumbnailBefore = $this->thumbnailBefore;
-          if($this->thumbnailAfter !== true)
-            $thumbnailAfter = $this->thumbnailAfter;          
-        }
+	      $returnThumbnail = false;
+        if($this->linkShowThumbnail && $linkShowThumbnail = $this->createThumbnail($pageContent))
+          $returnThumbnail = $linkShowThumbnail;
         
         // CHECK if the LINKTEXT BEFORE & AFTER is !== true
         $linkTextBefore = false;
@@ -565,7 +979,7 @@ class feinduraPages extends feindura {
         
         
         // CHECK IF THUMBNAIL AFTER TEXT
-        if($this->linkThumbnailAfterText === true)
+        if($this->linkShowThumbnailAfterText === true)
           $linkString = $linkTextBefore.$linkText.$linkTextAfter.$returnThumbnail;
         else
           $linkString = $returnThumbnail.$linkTextBefore.$linkText.$linkTextAfter;            
@@ -621,7 +1035,7 @@ class feinduraPages extends feindura {
     // -> LOADS the PAGES BY TYPE
     $pages = $this->loadPagesByType($idType,$ids);
     
-    // -> if pages SORTED BY CATEGORY
+    // -> if pages should be SORTED BY CATEGORY
     if($sortByCategories === true)
       $pages = $this->generalFunctions->sortPages($pages);    
     
@@ -664,11 +1078,12 @@ class feinduraPages extends feindura {
     if($this->menuBefore !== true)
       $menuBefore = $this->menuBefore;
     if($this->menuAfter !== true)
-      $menuAfter = $this->menuAfter;
+      $menuAfter = $this->menuAfter;    
     
     if(!is_bool($this->menuBetween))
-      $menuBetween = $this->menuBetween;
+      $menuBetween = $this->menuBetween;    
     */
+    $menuBetween = '';
     
     // creating the START TR tag
     if($menuTagSet == 'table')
@@ -683,16 +1098,17 @@ class feinduraPages extends feindura {
     $count = 1;
     foreach($links as $link) {
     
+      /*
       // adds the break after BR
       if($breakAfter === true) {
         if($this->xHtml === true)
           $link .= "<br \>\n";
         else
           $link .= "<br>\n";
+      */
           
       // breaks the CELLs with TR after the given NUMBER of CELLS
-      } elseif($menuTagSet == 'table' &&
-               $breakAfter !== false &&
+      if($menuTagSet == 'table' &&
                is_numeric($breakAfter) &&
                ($breakAfter + 1) == $count) {
         //echo "</tr><tr>\n";
@@ -700,9 +1116,11 @@ class feinduraPages extends feindura {
         $count = 1;
       }
       
+      /*
       // clears the $menuBetween String if its the last tag
       if($count == count($links))
         $menuBetween = false;
+      */
       
       // if menuTag is a LIST ------
       if($menuTagSet == 'ul' || $menuTagSet == 'ol') {
@@ -727,7 +1145,6 @@ class feinduraPages extends feindura {
     
     // fills in the missing TABLE CELLs
     while($menuTagSet == 'table' &&
-          $breakAfter !== false &&
           is_numeric($breakAfter) &&
           $breakAfter >= $count) {
       //echo "<td></td>\n";
@@ -830,7 +1247,7 @@ class feinduraPages extends feindura {
       
         // shows the TITLE
         $title = $this->createTitle($pageContent,
-				    $this->titleCategorySpacer,
+				                            $this->titleCategorySpacer,
                                     $this->titleLength,
                                     $this->titleAsLink,
                                     $this->titleShowCategory,

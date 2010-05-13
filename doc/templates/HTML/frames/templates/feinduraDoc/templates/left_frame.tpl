@@ -4,7 +4,7 @@
 
 	<dl class="tree">
 		
-		<dt class="folder-title">Description</dt>
+		<dt class="folder-title">Indexes</dt>
 		<dd>
 			<a href='{$classtreepage}.html' target='right'>Class trees</a><br />
 			<a href='{$elementindex}.html' target='right'>Index of elements</a><br />

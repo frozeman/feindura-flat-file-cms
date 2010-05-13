@@ -37,6 +37,10 @@
 		{/if}
 	</div>
 	<div class="info-box-body">
+	
+	<pre>{section name=tree loop=$class_tree.classes}{$class_tree.classes[tree]}{$class_tree.distance[tree]}{/section}</pre>	
+	<br />
+	 
         {if $implements}
         <p class="implements">
             Implements interfaces:
@@ -45,7 +49,9 @@
             </ul>
         </p>
         {/if}
+        
 		{include file="docblock.tpl" type="class" sdesc=$sdesc desc=$desc}
+		
 		<p class="notes">
 			Located in <a class="field" href="{$page_link}">{$source_location}</a> (line <span class="field">{if $class_slink}{$class_slink}{else}{$line_number}{/if}</span>)
 		</p>
@@ -54,8 +60,7 @@
 			<hr class="separator" />
 			<div class="notes">Tutorial: <span class="tutorial">{$tutorial}</span></div>
 		{/if}
-		
-		<pre>{section name=tree loop=$class_tree.classes}{$class_tree.classes[tree]}{$class_tree.distance[tree]}{/section}</pre>
+
 	
 		{if $conflicts.conflict_type}
 			<hr class="separator" />

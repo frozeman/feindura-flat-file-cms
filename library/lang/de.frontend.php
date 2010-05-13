@@ -28,8 +28,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // --------- FRONTEND Error texts
 
-$frontendLangFile['error_noPage'] = 'Die Seite existiert nicht';
-$frontendLangFile['error_pageClosed'] = 'Diese Seite ist deaktiviert';
+$frontendLangFile['error_noPage'] = 'Die angeforderte Seite existiert nicht.';
+$frontendLangFile['error_pageClosed'] = 'Diese angeforderte Seite ist deaktiviert.';
 
 
 // ---------------------------------------------------------------------------------------------------------------------

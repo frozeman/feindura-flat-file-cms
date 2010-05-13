@@ -26,8 +26,11 @@
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.57
 *
+* @version 1.57
+* <br>
+* <b>ChangeLog</b><br>
+*    - 1.57 add phpDocumentor documentation
 */
 class feindura {
   
@@ -44,7 +47,6 @@ class feindura {
   * This session ID is then placed on the end of every link.    
   *      
   * @var string
-  * @access protected
   */
   var $sessionId = null;
   
@@ -61,7 +63,6 @@ class feindura {
   * 
   * @var array
   * @see feindura()  
-  * @access protected
   *   
   */
   var $varNames = array('page' => 'page', 'category' => 'category', 'modul' => 'modul');
@@ -202,8 +203,6 @@ class feindura {
   * 
   * @return void
   *
-  * @access public
-  * 
   *
   * @version 1.0
   * <br>
@@ -282,7 +281,6 @@ class feindura {
   * 
   * @return int|false the current page ID or FALSE
   * 
-  * @access public
   *
   * @version 1.0
   * <br>
@@ -354,7 +352,6 @@ class feindura {
   * 
   * @return int|false the current category ID or FALSE
   * 
-  * @access public
   *
   * @version 1.0
   * <br>
@@ -420,7 +417,6 @@ class feindura {
   * 
   * @return int|false the set page ID or FALSE
   * 
-  * @access public
   *
   * @version 1.0
   * <br>
@@ -469,7 +465,6 @@ class feindura {
   *
   * @return int|false the set category ID or FALSE
   *
-  * @access public
   * 
   * @version 1.0
   * <br>
@@ -523,8 +518,8 @@ class feindura {
   * array(
   *	   ['pageDate'] = '2000-12-31', // formated depending on the administrator-settings
   *	   ['title'] = 'Title Example',
-  *	   ['thumbnail'] = '<img src="/path/image.png" alt="Image Title" title="Image Title" />',
-  *	   ['thumbnailPath'] = '<img src="/path/image.png" alt="Image Title" title="Image Title" />',
+  *	   ['thumbnail'] = '<img src="/path/image.png" alt="Page Title" title="Page Title" />',
+  *	   ['thumbnailPath'] = '/path/image.png',
   *	   ['content'] = '<p>Content Text..</p>',
   *	   ['tags'] = 'tag1 tag2 tag3',
   *	   ['plugins'] = array (?)
@@ -569,7 +564,6 @@ class feindura {
   * 
   * @return array the generated page array, ready to display in a HTML file
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -665,7 +659,7 @@ class feindura {
     $title = '';
     if(!empty($pageContent['title']))
       $title = $this->createTitle($pageContent,
-				  $this->titleCategorySpacer,
+				                          $this->titleCategorySeperator,
                                   $this->titleLength,
                                   $this->titleAsLink,
                                   $this->titleShowCategory,
@@ -788,7 +782,7 @@ class feindura {
   * @param string  $titleId                     (optional) the ID which is used in the title tag
   * @param string  $titleClass                  (optional) the CLASS which is used in the title tag
   * @param string  $titleAttributes             (optional) a String with Attributes like: 'key="value" key2="value2"'
-  * @param string  $titleCategorySpacer         (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
+  * @param string  $titleCategorySeperator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
   * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
@@ -797,15 +791,15 @@ class feindura {
   * 
   * @uses categoryConfig			  to check if showing the page date is allowed and for the category name
   * @uses languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a page date
-  * @uses statisticFunctions			  to check whether the page date is valid and format the page date
+  * @uses statisticFunctions    to check whether the page date is valid and format the page date
   * @uses shortenText()				  to shorten the title text, if the $titleLength parameter is TRUE
   * @uses createHref()				  to create the href if the $titleAsLink parameter is TRUE
-  * @uses statisticFunctions::formatDate()	  to format the title date for output
-  * @uses generalFunctions::dateDayBeforeAfter()  check if the title date is "yesterday" "today" or "tomorrow"
+  * @uses statisticFunctions::formatDate()            to format the title date for output
+  * @uses generalFunctions::dateDayBeforeAfter()      check if the title date is "yesterday" "today" or "tomorrow"
+  * @uses generalFunctions::getRealCharacterNumber()  to get the real number of characters of the title (adds the multiple characters of htmlentities) 
   * 
   * @return string the generated title string ready to display in a HTML file
   *
-  * @access protected
   *
   * @see feinduraPages::getPageTitle()
   *
@@ -817,7 +811,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function createTitle($pageContent, $titleCategorySpacer = false, $titleLength = false, $titleAsLink = false, $titleShowCategory = false, $titleShowPageDate = false) {
+  function createTitle($pageContent, $titleCategorySeperator = false, $titleLength = false, $titleAsLink = false, $titleShowCategory = false, $titleShowPageDate = false) {
       
       // vars 
       $titleBefore = '';
@@ -837,15 +831,15 @@ class feindura {
       } else $titleDate = false;      
       
       // shorten the title
-      if(is_numeric($titleLength) && strlen($fullTitle) > $titleLength)
-        $title = $this->shortenText($fullTitle, $titleLength, false, "..");
+      if(is_numeric($titleLength) && $this->generalFunctions->getRealCharacterNumber($fullTitle,$titleLength) > $titleLength)
+        $title = $this->shortenText($fullTitle, $titleLength, false, "...");
       else
         $title = $fullTitle;
         
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
-        if(is_string($titleCategorySpacer))
-          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySpacer; // adds the Spacer
+        if(is_string($titleCategorySeperator))
+          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySeperator; // adds the Spacer
         else
           $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
       } else
@@ -924,8 +918,6 @@ class feindura {
   * 
   * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
   *
-  * @access protected
-  *
   *
   * @version 1.0
   * <br>
@@ -959,7 +951,7 @@ class feindura {
       $thumbnailAfter = '';
 
       if($this->thumbnailBefore !== true)
-	$thumbnailBefore = $this->thumbnailBefore;
+        $thumbnailBefore = $this->thumbnailBefore;
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
@@ -990,7 +982,6 @@ class feindura {
   *
   * @return string the generated attribute string
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1039,8 +1030,6 @@ class feindura {
   * @uses generalFunctions::readPage()	to load a single page
   * 
   * @return array|false an array with $pageContent array(s)
-  *
-  * @access protected
   *
   *
   * @version 1.0
@@ -1148,8 +1137,6 @@ class feindura {
   * 
   * @return array|false an array with ID(s) of the public category(ies)
   *
-  * @access protected
-  *
   *
   * @version 1.0
   * <br>
@@ -1228,7 +1215,6 @@ class feindura {
   * 
   * @return array|false the $pageContent array of the right page or FALSE if no page could be loaded
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1321,7 +1307,6 @@ class feindura {
   * 
   * @return array|false the $pageContent array or FALSE if the $pageContent['tags'] doesn't match with any of the given tags
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1365,7 +1350,6 @@ class feindura {
   * 
   * @return array|false the $pageContent array of $pageContent arrays or FALSE if no $pageContent array have the any of the given tags
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1438,7 +1422,6 @@ class feindura {
   * 
   * @return array|false an array with the $pageContent arrays or FALSE if no page has a pagedate or is allowed for sorting
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1540,7 +1523,6 @@ class feindura {
   * 
   * @return string the modified date or if the $monthNumber parameter is a bool the unmodified date
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1596,7 +1578,6 @@ class feindura {
   * 
   * @return int|false a page or category property ID or FALSE, if there are no property IDs
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1641,7 +1622,6 @@ class feindura {
   * 
   * @return int|true the {@link $page} property or the $page parameter
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1681,7 +1661,6 @@ class feindura {
   * 
   * @return int|true the {@link $category} property or the $category parameter
   *
-  * @access protected
   *
   * @version 1.0
   * <br>
@@ -1735,12 +1714,11 @@ class feindura {
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   *  
   * @uses createHref()                                  create the href for the "more" link  
-  * @uses generalFunctions::getRealCharacterNumber()    to get the real number of characters in the string (adds the multiple characters of htmlentities)
+  * @uses generalFunctions::getRealCharacterNumber()    to get the real number of characters of the string (adds the multiple characters of htmlentities)
   * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid
   * 
   * @return string the shortened string
   *
-  * @access protected
   *
   *
   * @version 1.0
@@ -1749,7 +1727,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function shortenText($string, $length, $pageContent = false, $endString = " ...") {
+  function shortenText($string, $length, $pageContent = false, $endString = "...") {
       
       // cut string
       if(is_numeric($length)) {
@@ -1800,8 +1778,6 @@ class feindura {
   * 
   * @return string the shortened string
   *
-  * @access protected
-  *
   *
   * @version 1.0
   * <br>
@@ -1809,7 +1785,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */  
-  function shortenHtmlText($input, $length, $pageContent = false, $endString = ' ...') {
+  function shortenHtmlText($input, $length, $pageContent = false, $endString = '...') {
       
       // gets the raw text
       $rawText = strip_tags($input);

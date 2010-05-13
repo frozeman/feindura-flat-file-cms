@@ -28,8 +28,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // --------- FRONTEND Error texts
 
-$frontendLangFile['error_noPage'] = 'The page doesn\'t exist';
-$frontendLangFile['error_pageClosed'] = 'The requested page is currently not available';
+$frontendLangFile['error_noPage'] = 'The requested page doesn\'t exist.';
+$frontendLangFile['error_pageClosed'] = 'The requested page is currently not available.';
 
 
 // ---------------------------------------------------------------------------------------------------------------------
