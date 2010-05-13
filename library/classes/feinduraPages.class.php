@@ -690,15 +690,14 @@ class feinduraPages extends feindura {
   * If there is no page and category ID it sets the start page ID from the website-settings config.
   *
   *
-  * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
+  * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link feindura::$language} property 
   *
-  * @uses feindura::feindura()		  the constructor of the parent class to load all necessary properties
+  * @uses feindura::feindura()		        the constructor of the parent class to load all necessary properties
   * @uses feindura::setCurrentCategory()  to set the fetched category ID from the $_GET variable to the {@link $category} property
   * @uses feindura::setCurrentPage()      to set the fetched page ID from the $_GET variable to the {@link $page} property
   * 
   * @return void
   *
-  * @access public
   * 
   * @see feindura::feindura()
   *
