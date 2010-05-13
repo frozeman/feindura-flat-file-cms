@@ -19,7 +19,7 @@
  */ 
  
 /**
-* The <var>class</var> for the implimentation of the feindura - Flat File Content Management System in a website.
+* The class for implimenting feindura - Flat File Content Management System in a website.
 * 
 * It's methods provide necessary functions to impliment the CMS in a website.<br>
 * It contains for example methods for building a menu and place the page content, etc.

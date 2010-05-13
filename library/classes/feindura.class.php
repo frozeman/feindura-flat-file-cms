@@ -19,14 +19,14 @@
  */ 
 
 /**
-* The basis <var>class</var> for the implimentation <var>classes</var>
+* The basis feindura class for the implimentation classes
 * 
 * It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} <var>classes</var>.
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-* @version 1.56
+* @version 1.57
 *
 */
 class feindura {
@@ -108,29 +108,6 @@ class feindura {
   */
   var $categoryConfig;
   
- /**
-  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
-  * 
-  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br>   
-  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feindura()} constructor.
-  * 
-  * @var object  
-  * @see feindura::feindura(), generalFunctions::generalFunctions()
-  *   
-  */
-  var $generalFunctions;
-  
- /**
-  * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
-  * 
-  * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br>
-  * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feindura()} constructor.
-  * 
-  * @var object  
-  * @see feindura::feindura(), statisticFunctions::statisticFunctions()
-  *   
-  */
-  var $statisticFunctions;
   
  /**
   * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files.
@@ -160,7 +137,34 @@ class feindura {
   * @see feindura()
   *   
   */
-  var $languageFile = null;
+  var $languageFile = null;  
+
+ /**
+  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
+  * 
+  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br>   
+  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feindura()} constructor.
+  * 
+  * @var class
+  * @see feindura()
+  * @see generalFunctions::generalFunctions()
+  *   
+  */
+  var $generalFunctions;
+  
+ /**
+  * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
+  * 
+  * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br>
+  * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feindura()} constructor.
+  * 
+  * @var class
+  * @see feindura()
+  * @see statisticFunctions::statisticFunctions()
+  *   
+  */
+  var $statisticFunctions;
+
   
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
