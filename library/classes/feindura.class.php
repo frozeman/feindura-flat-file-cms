@@ -176,7 +176,7 @@ class feindura {
   * The constructor of the class, sets all basic properties
   *
   * First gets all settings config <var>arrays</var> and external classes.<br>
-  * Then set the <var>$_GET</var> variable names from the administrator-settings config to the {@link $varNames} property.<br>
+  * Then set the <var>$_GET</var> variable names from the {@link feindura::$adminConfig administrator-settings config} to the {@link $varNames} property.<br>
   * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
   * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
   *
@@ -273,9 +273,9 @@ class feindura {
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
   * 
-  * @uses $varNames			for variable names which the $_GET will use for the page ID
-  * @uses $adminConfig			to look if set start-page is allowed
-  * @uses feinduraPages::$startPage	if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses $varNames                     for variable names which the $_GET will use for the page ID
+  * @uses $adminConfig                  to look if set start-page is allowed
+  * @uses feinduraPages::$startPage     if no $_GET variable exists it will try to get the {@link $startPage} property
   * @uses generalFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
   * 
@@ -506,7 +506,7 @@ class feindura {
   * (depending on the <var>$showError</var> parameter)
   * will be placed in the ['content'] part of the returned array.
   * If errors are deactivated it returns an empty array.<br>
-  * 
+  *  
   * Example of the returned array:
   * <code>
   * array(
@@ -519,28 +519,28 @@ class feindura {
   *	   ['plugins'] = array (?)
   *     )
   * </code>
-  *
-  * <b>Name</b>     generatePage()<br>
-  *     
+  * 
+  * <b>Name</b>     generatePage()<br>    
+  * 
   * @param int|array  $page          page ID or a $pageContent array
   * @param bool       $showError     (optional) tells if errors like "The page you requested doesn't exist" will be displayed
   * @param int|false  $shortenText   (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
   * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
-  *
   * 
-  * @uses adminConfig				  for the thumbnail upload path
-  * @uses categoryConfig			  to check whether the category of the page allows thumbnails
-  * @uses $languageFile				  for the error texts
-  * @uses publicCategory()			  to check whether the category is public
-  * @uses isPageContentArray()			  to check if the given array is a $pageContent array
-  * @uses createTitle()				  to create the page title
-  * @uses createThumbnail()			  to check to show thumbnails are allowed and create the thumbnail <img> tag
-  * @uses createAttributes()			  to create the attributes used in the error tag
-  * @uses shortenHtmlText()			  to shorten the HTML page content
-  * @uses shortenText()				  to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses statisticFunctions::formatDate()	  to format the page date for output
+  * 
+  * @uses adminConfig                             for the thumbnail upload path
+  * @uses categoryConfig                          to check whether the category of the page allows thumbnails
+  * @uses $languageFile                           for the error texts
+  * @uses publicCategory()                        to check whether the category is public
+  * @uses isPageContentArray()                    to check if the given array is a $pageContent array
+  * @uses createTitle()                           to create the page title
+  * @uses createThumbnail()                       to check to show thumbnails are allowed and create the thumbnail <img> tag
+  * @uses createAttributes()                      to create the attributes used in the error tag
+  * @uses shortenHtmlText()                       to shorten the HTML page content
+  * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses statisticFunctions::formatDate()        to format the page date for output
   * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
-  * @uses generalFunctions::readPage()		  to load the page if the $page parameter is an ID
+  * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
   * @uses feinduraPages::$xHtml
   * @uses feinduraPages::$showError
   * @uses feinduraPages::$errorTag

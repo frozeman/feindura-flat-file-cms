@@ -82,7 +82,7 @@ class feinduraPages extends feindura {
   var $category = null;
    
  /**
-  * Contains the start-page ID from the website-settings config
+  * Contains the start-page ID from the {@link feindura::$websiteConfig website-settings config}
   *
   * This property is set to the {@link $page} property when the <var>$_GET</var> page variable is empty<br>
   * and the {@link $page} property is empty.
@@ -684,13 +684,13 @@ class feinduraPages extends feindura {
   *
   * Run the {@link feindura::feindura()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
-  * If there is no page and category ID it sets the start page ID from the website-settings config.
-  *
+  * If there is no page and category ID it sets the start page ID from the {@link feindura::$websiteConfig website-settings config}.
+  * 
+  *  <b>Type</b>     constructor<br>
+  * <b>Name</b>     feinduraPages()<br>  
+  * 
   * Example
   * {@example includeFeindura.example.php}
-  *    
-  * <b>Type</b>     constructor<br>
-  * <b>Name</b>     feinduraPages()<br>  
   *
   * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
   *
@@ -727,16 +727,16 @@ class feinduraPages extends feindura {
  /**
   * Creates a string with all necessary meta tags
   *
-  * Example
-  * {@example createMetaTags.example.php}    
-  *  
   * <b>Name</b>     createMetaTags()<br>
   * <b>Alias</b>    createMetaTag()<br>
+  *    
+  * Example
+  * {@example createMetaTags.example.php}    
   *
   * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
   * @param string|false $author       (optional) the author of the website
-  * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the website-settings config
-  * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the website-settings config
+  * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link feindura::$websiteConfig website-settings config}
+  * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link feindura::$websiteConfig website-settings config}
   * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
   * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will nopt be created
   *
@@ -846,21 +846,20 @@ class feinduraPages extends feindura {
  /**
   * Generates a href attribute for using in a link tag to a page
   *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     createHref()<br>
-  *
   * Generates a href attribute to link to a page.
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   *
+  * <b>Name</b>     createHref()<br>
+  *     
   * Examples of the returned href string:<br>
-  * ("user=xyz123" stands for: sessionname=sessionid)
+  * <i>("user=xyz123" stands for: sessionname=sessionid)</i>
   *
-  * Href with variables for pages without category: 
+  * Pages without category: 
   * <samp>
   * '?page=1&user=xyz123'
   * </samp>
-  * and pages with category:
+  * Pages with category:
   * <samp>
   * '?category=1&page=1&user=xyz123'
   * </samp>
@@ -869,7 +868,7 @@ class feinduraPages extends feindura {
   * <samp>
   * '/page/page_title.html?user=xyz123'
   * </samp>
-  * and pages with category:
+  * Speaking URL href for pages with category:
   * <samp>
   * '/category/category_name/page_title.html?user=xyz123'
   * </samp>
@@ -894,22 +893,13 @@ class feinduraPages extends feindura {
   *    - 1.0 initial release
   *
   */
-  function createHref($page) {
+  function createHref($page = false) {
     
-    // IF given $page is an $pageContent array
-    if($this->generalFunctions->isPageContentArray($page))
-	$pageContent = $page;
-	
-    // ELSE $page is page ID
-    else {
-	// gets page category
-        $category = $this->getPageCategory($page);
-	// load pageContent
-	$pageContent = $this->generalFunctions->readPage($page,$category);
-    }
+    if($pageContent = $this->loadPrevNextPage($page)) {
     
-    return $this->generalFunctions->createHref($pageContent,$this->sessionId);
-    
+      return $this->generalFunctions->createHref($pageContent,$this->sessionId);  
+        
+    } else return false;    
   }
   
   /* -> START -- createLink ******************************************************************************
@@ -959,7 +949,7 @@ class feinduraPages extends feindura {
         // add HREF
         $linkAttributes .= ' href="'.$this->createHref($pageContent).'" title="'.$linkText.'"'; // title="'.$pageContent['title'].'"
 	  
-	$linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
+	      $linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
                     
         $linkStartTag = '<'.$linkTag.$linkAttributes.'>';
         $linkEndTag = '</'.$linkTag.'>';        
@@ -1290,10 +1280,8 @@ class feinduraPages extends feindura {
         //echo $title;
         return $title;
         
-      } else
-      return false; 
-    } else
-      return false;    
+      } else return false; 
+    } else return false;    
   }
   // -> *ALIAS* OF showPageTitle **********************************************************************
   function getTitle($page = false) {
@@ -1329,8 +1317,7 @@ class feinduraPages extends feindura {
         // returns the UNCHANGED pageContent Array, after showing the page
         return $generatedPage;
       }
-    }    
-    return false;
+    } else return false;
   }
   // -> END -- getPage -----------------------------------------------------------------------------------
   
