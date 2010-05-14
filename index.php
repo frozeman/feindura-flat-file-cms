@@ -16,12 +16,12 @@
  *
  * index.php
  *
- * @version 2.0
+ * @version 2.01
  */
 
 
 /**
- * Includes all necessary configs and functions
+ * Includes all necessary configs, functions and classes
  */
 include("library/backend.include.php");
 
@@ -29,8 +29,10 @@ include("library/backend.include.php");
 // -----------------------------------------------------------------------------------
 // gets the version of the feindura CMS
 $version = file("VERSION.txt");
-$version = str_replace("\n",'',$version);
-$version = str_replace("\r",'',$version);
+$version[2] = str_replace("\n",'',$version[2]);
+$version[2] = str_replace("\r",'',$version[2]);
+$version[3] = str_replace("\n",'',$version[3]);
+$version[3] = str_replace("\r",'',$version[3]);
 
 
 // -----------------------------------------------------------------------------------
