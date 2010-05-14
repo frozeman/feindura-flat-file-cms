@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 203
+Build 204
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 204: add documentation for createMetaTags()
   build 203: moved pluginSetup and modulSetup to the last row in adminSetup; removed slide in on the website statistc in home.php
   build 202: small changes on adminSetup buttons and main menu buttons
   build 201: add check if plugins or modules folder is empty

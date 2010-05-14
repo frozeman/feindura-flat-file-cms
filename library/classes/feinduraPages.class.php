@@ -739,11 +739,11 @@ class feinduraPages extends feindura {
   * @param string|false $author       (optional) the author of the website
   * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the website-settings config
   * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the website-settings config
-  * @param string|bool  $robotTxt     (optional) if TRUE it sets the path of the "robot.txt" in the root dir of the website, if string it uses the string as "path/filename"
+  * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
   * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will nopt be created
   *
-  * @uses feindura::$websiteConfig    for the website title, publisher, copyright, description and keywords
-  * @uses generalFunctions->readPage	to read the page and set the page title
+  * @uses feindura::$websiteConfig      for the website title, publisher, copyright, description and keywords
+  * @uses generalFunctions::readPage()	to read the page and set the page title
   * 
   * @return string with all meta tags ready to display in a HTML page
   * 
@@ -761,18 +761,21 @@ class feinduraPages extends feindura {
       $pageNameInTitle = '';
       
       // -> clear xHTML tags from the content
-      if($this->xHtml === true)        
+      if($this->xHtml === true) {   
         $siteType = 'application/xhtml+xml';
-      else
+        $tagEnding = ' />';
+      } else {
         $siteType = 'text/html';
+        $tagEnding = '>';
+      }
         
       
       // -> add CHARSET
-      $metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'" />'."\n";
+      $metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
       
       // -> add language
       if($this->language)
-        $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'" />'."\n\n"; 
+        $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
       
       // -> create TITLE
       if($this->getCurrentPage() && $currentPage = $this->generalFunctions->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
@@ -785,55 +788,49 @@ class feinduraPages extends feindura {
       
       // -> add robots.txt
       if($robotTxt === true)
-        $metaTags .= '  <meta name="siteinfo" content="robots.txt" />'."\n";
+        $metaTags .= '  <meta name="siteinfo" content="robots.txt"'.$tagEnding."\n";
       elseif(!empty($robotTxt))
-        $metaTags .= '  <meta name="siteinfo" content="'.$robotTxt.'" />'."\n";
+        $metaTags .= '  <meta name="siteinfo" content="'.$robotTxt.'"'.$tagEnding."\n";
       
       if($robotTxt) {
-        $metaTags .= '  <meta name="robots" content="index" />'."\n";
-        $metaTags .= '  <meta name="robots" content="nofollow" />'."\n";
+        $metaTags .= '  <meta name="robots" content="index"'.$tagEnding."\n";
+        $metaTags .= '  <meta name="robots" content="nofollow"'.$tagEnding."\n";
       }
         
       // -> add REVISIT AFTER
       if($robotTxt && $revisitAfter !== false && is_numeric($revisitAfter))
-        $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'" />'."\n\n";
+        $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'"'.$tagEnding."\n\n";
       
       // -> add other META TAGs 
-      $metaTags .= '  <meta http-equiv="pragma" content="no-cache" /> <!-- browser/proxy does not cache -->'."\n";
-      $metaTags .= '  <meta http-equiv="cache-control" content="no-cache" /> <!-- browser/proxy does not cache -->'."\n\n";
+      $metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
+      $metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
       
       // -> add title
-      $metaTags .= '  <meta name="title" content="'.$this->websiteConfig['title'].$pageNameInTitle.'" />'."\n";
+      $metaTags .= '  <meta name="title" content="'.$this->websiteConfig['title'].$pageNameInTitle.'"'.$tagEnding."\n";
       
       // -> add author
       if($author && is_string($author))
-        $metaTags .= '  <meta name="author" content="'.$author.'" />'."\n";
+        $metaTags .= '  <meta name="author" content="'.$author.'"'.$tagEnding."\n";
         
       // -> add puplisher
       if($publisher && is_string($publisher))
-        $metaTags .= '  <meta name="publisher" content="'.$publisher.'" />'."\n";
+        $metaTags .= '  <meta name="publisher" content="'.$publisher.'"'.$tagEnding."\n";
       elseif($publisher === true && !empty($this->websiteConfig['publisher']))
-        $metaTags .= '  <meta name="publisher" content="'.$this->websiteConfig['publisher'].'" />'."\n";
+        $metaTags .= '  <meta name="publisher" content="'.$this->websiteConfig['publisher'].'"'.$tagEnding."\n";
         
       // -> add copyright
       if($copyright && is_string($copyright))
-        $metaTags .= '  <meta name="copyright" content="'.$copyright.'" />'."\n";
+        $metaTags .= '  <meta name="copyright" content="'.$copyright.'"'.$tagEnding."\n";
       elseif($copyright === true && !empty($this->websiteConfig['copyright']))
-        $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'" />'."\n";
+        $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'"'.$tagEnding."\n";
         
       // -> add description
       if($this->websiteConfig['description'])
-        $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'" />'."\n";
+        $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'"'.$tagEnding."\n";
         
       // -> add keywords
       if($this->websiteConfig['keywords'])
-        $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'" />'."\n";
-      
-      
-      
-      // -> clear xHTML tags from the content
-      if($this->xHtml === false)
-        $metaTags = str_replace(' />','>',$metaTags);
+        $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'"'.$tagEnding."\n";
       
       // -> show the metaTags
       //echo $metaTags;
