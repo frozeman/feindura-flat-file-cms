@@ -686,6 +686,9 @@ class feinduraPages extends feindura {
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
   * If there is no page and category ID it sets the start page ID from the website-settings config.
   *
+  * Example
+  * {@example includeFeindura.example.php}
+  *    
   * <b>Type</b>     constructor<br>
   * <b>Name</b>     feinduraPages()<br>  
   *
@@ -697,7 +700,6 @@ class feinduraPages extends feindura {
   * 
   * @return void
   *
-  * 
   * @see feindura::feindura()
   *
   * @version 1.0
@@ -723,11 +725,7 @@ class feinduraPages extends feindura {
   // ****************************************************************************************************************
   
  /**
-  * Creates a string all necessary meta tags
-  *
-  * Run the {@link feindura::feindura()} class constructor to set all necessary properties
-  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
-  * If there is no page and category ID it sets the start page ID from the website-settings config.
+  * Creates a string with all necessary meta tags
   *
   * Example
   * {@example createMetaTags.example.php}    

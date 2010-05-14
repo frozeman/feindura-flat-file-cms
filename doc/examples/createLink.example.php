@@ -1,3 +1,4 @@
+<!-- *** EXAMPLE *** -->
 <?php
 
 require('cms/feindura.include.php');
@@ -26,7 +27,7 @@ echo $myCms->createLink(1);
 
 ?>
 
-<!-- RESULT -->
+<!-- *** RESULT *** -->
 
 text before link 
 <a href="index.php?category=1&amp;page=1" id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">

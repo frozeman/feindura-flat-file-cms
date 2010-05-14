@@ -203,6 +203,7 @@ class feindura {
   * 
   * @return void
   *
+  * @example includeFeindura.example.php    
   *
   * @version 1.0
   * <br>

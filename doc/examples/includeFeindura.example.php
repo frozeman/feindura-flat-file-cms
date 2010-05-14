@@ -1,3 +1,4 @@
+<!-- *** EXAMPLE *** -->
 <?php
 
 require('cms/feindura.include.php');
