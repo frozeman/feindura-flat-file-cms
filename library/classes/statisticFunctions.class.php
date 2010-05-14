@@ -760,7 +760,7 @@ class statisticFunctions extends generalFunctions {
         $_SESSION = $HTTP_SESSION_VARS;
       
       // COUNT if the user/spider isn't already counted
-      if(!isset($_SESSION['log_agentVisited']) || $_SESSION['log_agentVisited'] === false) {
+      if(!isset($_SESSION['log_userVisited']) || $_SESSION['log_userVisited'] === false) {
         
         // -> saves the FIRST WEBSITE VISIT
         // -----------------------------
@@ -826,7 +826,7 @@ class statisticFunctions extends generalFunctions {
           fclose($statisticFile);
           
           // saves the user as visited
-          $_SESSION['log_agentVisited'] = true;
+          $_SESSION['log_userVisited'] = true;
         }
       }  
   }

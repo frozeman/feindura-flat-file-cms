@@ -188,17 +188,18 @@ class feindura {
   *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
   *
-  * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link $language} property 
+  * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and is also set to the {@link $language} property 
   *
-  * @uses $adminConfig            the administrator-settings config array will set to this property
-  * @uses $websiteConfig          the website-settings config array will set to this property
-  * @uses $categoryConfig         the category-settings config array will set to this property
-  * @uses $generalFunctions       a generalFunctions class instance will set to this property
-  * @uses $statisticFunctions     a statisticFunctions class instance will set to this property
-  * @uses $varNames               the variable names from the administrator-settings config will set to this property
-  * @uses $sessionId              the session ID string will set to this property, if cookies are deactivated
-  * @uses $language		  to set the given $language parameter to, or try to find out the browser language
-  * @uses $languageFile		  set the loaded frontend language-file to this property
+  * @uses $adminConfig                            the administrator-settings config array will set to this property
+  * @uses $websiteConfig                          the website-settings config array will set to this property
+  * @uses $categoryConfig                         the category-settings config array will set to this property
+  * @uses $generalFunctions                       a generalFunctions class instance will set to this property
+  * @uses $statisticFunctions                     a statisticFunctions class instance will set to this property
+  * @uses $varNames                               the variable names from the administrator-settings config will set to this property
+  * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
+  * @uses $language                               to set the given $language parameter to, or try to find out the browser language
+  * @uses $languageFile                           set the loaded frontend language-file to this property
+  * @uses statisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit
   * 
   * @return void
   *
@@ -483,9 +484,9 @@ class feindura {
   * Alias of {@link setCurrentCategory()}
   * @ignore
   */
-  function setCategory() {
+  function setCategory($setStartCategory = false) {
     // call the right function
-    return $this->setCurrentCategory();
+    return $this->setCurrentCategory($setStartCategory = false);
   }
   
   

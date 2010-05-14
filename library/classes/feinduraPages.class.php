@@ -682,15 +682,14 @@ class feinduraPages extends feindura {
  /**
   * The constructor of the class, sets all basic properties
   *
-  * <b>Type</b>     constructor<br>
-  * <b>Name</b>     feinduraPages()<br>
-  *
   * Run the {@link feindura::feindura()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
   * If there is no page and category ID it sets the start page ID from the website-settings config.
   *
+  * <b>Type</b>     constructor<br>
+  * <b>Name</b>     feinduraPages()<br>  
   *
-  * @param string $language (optional) A country code (example: de, en, ..) to load the right frontend language-file and is also set to the {@link feindura::$language} property 
+  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
   *
   * @uses feindura::feindura()		        the constructor of the parent class to load all necessary properties
   * @uses feindura::setCurrentCategory()  to set the fetched category ID from the $_GET variable to the {@link $category} property
@@ -710,18 +709,12 @@ class feinduraPages extends feindura {
   function feinduraPages($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
     // RUN the feindura constructor
-    $this->feindura($language);
-    
-    // save the website statistics
-    // ***************************
-    $this->statisticFunctions->saveWebsiteStats();
-        
+    $this->feindura($language);        
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategory(true);           // $_GET['category']  // first load category then the page, because getCurrentPage needs categories
+    $this->setCurrentCategory(true);       // $_GET['category']  // first load category then the page, because getCurrentPage needs categories
     $this->setCurrentPage(true);           // $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
-    
   }
  
   
@@ -729,16 +722,39 @@ class feinduraPages extends feindura {
   // PUBLIC METHODs -------------------------------------------------------------------------------------------------
   // ****************************************************************************************************************
   
-  // -> START -- createMetaTags **************************************************************************
-  // RETURNs the META TAGS at the position
-  // RETURNs -> STRING
-  // -----------------------------------------------------------------------------------------------------
-  function createMetaTags($charset = 'UTF-8',            // (String) the string of the charset used for the metatags
-                                 $robotTxt = false,             // (Boolean or String) if TRUE it sees the robot.txt in the root dir of the website, if STRING it uses this path for the robot.txt file
-                                 $revisitAfter = '10',          // (false or Number) number of days the robot should revisit this page
-                                 $author = false,               // (false or String) the author used in the meta tags
-                                 $publisher = false,            // (false or String) the publisher used in the meta tags
-                                 $copyright = false) {          // (false or String) the copyright used in the meta tags
+ /**
+  * Creates a string all necessary meta tags
+  *
+  * Run the {@link feindura::feindura()} class constructor to set all necessary properties
+  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
+  * If there is no page and category ID it sets the start page ID from the website-settings config.
+  *
+  * Example
+  * {@example createMetaTags.example.php}    
+  *  
+  * <b>Name</b>     createMetaTags()<br>
+  * <b>Alias</b>    createMetaTag()<br>
+  *
+  * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
+  * @param string|false $author       (optional) the author of the website
+  * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the website-settings config
+  * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the website-settings config
+  * @param string|bool  $robotTxt     (optional) if TRUE it sets the path of the "robot.txt" in the root dir of the website, if string it uses the string as "path/filename"
+  * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will nopt be created
+  *
+  * @uses feindura::$websiteConfig    for the website title, publisher, copyright, description and keywords
+  * @uses generalFunctions->readPage	to read the page and set the page title
+  * 
+  * @return string with all meta tags ready to display in a HTML page
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
       
       // vars
       $metaTags = '';
@@ -796,13 +812,13 @@ class feinduraPages extends feindura {
       // -> add puplisher
       if($publisher && is_string($publisher))
         $metaTags .= '  <meta name="publisher" content="'.$publisher.'" />'."\n";
-      elseif(!empty($this->websiteConfig['publisher']))
+      elseif($publisher === true && !empty($this->websiteConfig['publisher']))
         $metaTags .= '  <meta name="publisher" content="'.$this->websiteConfig['publisher'].'" />'."\n";
         
       // -> add copyright
       if($copyright && is_string($copyright))
         $metaTags .= '  <meta name="copyright" content="'.$copyright.'" />'."\n";
-      elseif(!empty($this->websiteConfig['copyright']))
+      elseif($copyright === true && !empty($this->websiteConfig['copyright']))
         $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'" />'."\n";
         
       // -> add description
@@ -823,10 +839,13 @@ class feinduraPages extends feindura {
       //echo $metaTags;
       return $metaTags;
   }
-  // -> *ALIAS* OF createMetaTags ****************************************************************************
-  function createMetaTag($charset = 'UTF-8', $robotTxt = false, $revisitAfter = '10', $author = false, $publisher = false, $copyright = false) {
+ /**
+  * Alias of {@link createMetaTags()}
+  * @ignore
+  */
+  function createMetaTag($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
     // call the right function
-    return $this->createMetaTags($charset, $robotTxt, $revisitAfter, $author, $publisher, $copyright);
+    return $this->createMetaTags($charset, $author, $publisher, $copyright, $robotTxt, $revisitAfter);
   }
   
  /**
@@ -1224,6 +1243,27 @@ class feinduraPages extends feindura {
     // call the right function
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $flipList);
   }  
+  
+ /**
+  * Returns the language country code which was set in the feindura:feindura() constructor
+  *
+  * <b>Name</b>     getLanguage()<br>  
+  *
+  * @uses feindura::$language		        the set language country code like "en", "de", ...
+  * 
+  * @return string the language country code
+  *
+  * @see feindura::feindura()
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function getLanguage() { 
+    return $this->language;
+  }
   
   // -> START -- getPageTitle ********************************************************************************
   // RETURNs the Title of a given Page
