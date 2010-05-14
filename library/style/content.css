@@ -310,7 +310,7 @@ a.down {
     background: url(../image/bg/block_h1_blue.png) no-repeat;
     }
 
-#content h1 a img {
+#content h1 img {
     position: relative;
     top: 8px;
     }

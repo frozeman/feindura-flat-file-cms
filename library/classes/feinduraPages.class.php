@@ -19,9 +19,9 @@
  */ 
  
 /**
-* The class for implimenting feindura - Flat File Content Management System in a website.
+* The class for implementing feindura - Flat File Content Management System in a website.
 * 
-* It's methods provide necessary functions for implimenting the CMS in a website.<br>
+* It's methods provide necessary functions for implementing the CMS in a website.<br>
 * It contains, for example, methods for building a menu and get page contents, etc.
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>

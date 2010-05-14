@@ -19,7 +19,7 @@
  */ 
 
 /**
-* The basis feindura class for the implimentation classes
+* The basis feindura class for the implementation classes
 * 
 * It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} <var>classes</var>.
 * 
