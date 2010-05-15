@@ -46,7 +46,7 @@ class feinduraPages extends feindura {
   * <i>TRUE</i> when the pages content should be handled as XHTML
   *
   * In XHTML standalone tags end with " />" instead of ">".<br>
-  * When a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
+  * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
   * 
@@ -58,11 +58,12 @@ class feinduraPages extends feindura {
   *
   * This property is used when a page loading method is called (for example: {@link getPage()}) and no page ID <var>parameter</var> is given.
   *   
-  * This property will be set in the {@link feindura()} constructor.
+  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentPageId()} method.
   * 
   * @var int
   *
-  * @see feindura()
+  * @see feinduraPages()
+  * @see feindura::getCurrentPageId()
   *   
   */
   var $page = null;
@@ -72,28 +73,29 @@ class feinduraPages extends feindura {
   *
   * This property is used when a page-loading method is called (for example: {@link getPage()}) and no category ID <var>parameter</var> is given.
   *   
-  * This property will be set in the {@link feindura()} constructor.
+  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentCategoryId()} method.
   * 
   * @var int
   *
-  * @see feindura()
-  *   
+  * @see feinduraPages()
+  * @see feindura::getCurrentCategoryId()  
+  * 
   */
   var $category = null;
    
  /**
   * Contains the start-page ID from the {@link feindura::$websiteConfig website-settings config}
   *
-  * This property is set to the {@link $page} property when the <var>$_GET</var> page variable is empty<br>
-  * and the {@link $page} property is empty.
+  * This property is set to the {@link $page} property when the <var>$_GET</var> page variable
+  * and the {@link $page} property is empty and setting a start page is activated in the {@link $adminConfig page-settings}.
   *   
-  * This property will be set on the first call of the {@link setCurrentPage()} method in the {@link feindura()} constructor.
+  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentPageId()} method.
   * 
   * @var int
   *
   * @see $page
-  * @see feindura()
-  * @see setCurrentPage()
+  * @see feinduraPages()
+  * @see setCurrentPageId()
   *   
   */
   var $startPage = null;
@@ -102,17 +104,17 @@ class feinduraPages extends feindura {
   * Contains the start-category ID
   *
   * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br>
-  * This property is set to the {@link $category} property when the <var>$_GET</var> category variable is empty<br>
-  * and the {@link $category} property is empty.
+  * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
+  * and the {@link $category} property is empty and setting a start page is activated in the {@link $adminConfig page-settings}.
   *   
-  * This property will be set on the first call of the {@link setCurrentCategory()} method in the {@link feindura()} constructor.
+  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentCategoryId()} method.
   * 
   * @var int
   *
-  * @see $category
   * @see $startPage
-  * @see feindura()
-  * @see setCurrentPage()
+  * @see $category  
+  * @see feinduraPages()
+  * @see setCurrentCategoryId()
   *   
   */
   var $startCategory = null;
@@ -694,9 +696,9 @@ class feinduraPages extends feindura {
   *
   * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
   *
-  * @uses feindura::feindura()		        the constructor of the parent class to load all necessary properties
-  * @uses feindura::setCurrentCategory()  to set the fetched category ID from the $_GET variable to the {@link $category} property
-  * @uses feindura::setCurrentPage()      to set the fetched page ID from the $_GET variable to the {@link $page} property
+  * @uses feindura::feindura()		          the constructor of the parent class to load all necessary properties
+  * @uses feindura::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
+  * @uses feindura::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
   * 
   * @return void
   *
@@ -715,8 +717,8 @@ class feinduraPages extends feindura {
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategory(true);       // $_GET['category']  // first load category then the page, because getCurrentPage needs categories
-    $this->setCurrentPage(true);           // $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
+    $this->setCurrentCategoryId(true);       // $_GET['category']  // first load category then the page, because getCurrentPageId needs categories
+    $this->setCurrentPageId(true);           // $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
   }
  
   
@@ -776,7 +778,7 @@ class feinduraPages extends feindura {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
       
       // -> create TITLE
-      if($this->getCurrentPage() && $currentPage = $this->generalFunctions->readPage($this->getCurrentPage(),$this->getCurrentCategory()))
+      if($this->getCurrentPageId() && $currentPage = $this->generalFunctions->readPage($this->getCurrentPageId(),$this->getCurrentCategoryId()))
         $pageNameInTitle = ' - '.$currentPage['title'];
       
       // -> add TITLE

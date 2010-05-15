@@ -71,9 +71,9 @@ class feindura {
   // *********
     
  /**
-  * Contains the administrator-settings config set in the CMS backend
+  * Contains the administrator-settings and the page-settings set in the CMS backend
   * 
-  * The file with the administrator-settings is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
+  * The file with the administrator-settings config array is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
   * This settings will be set to this property in the {@link feindura()} constructor.
   * 
@@ -86,7 +86,7 @@ class feindura {
  /**
   * Contains the website-settings config set in the CMS backend
   * 
-  * The file with the website-settings is situated at <i>"feindura-CMS/config/website.config.php"</i>.
+  * The file with the website-settings config array is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
   * This settings will be set to this property in the {@link feindura()} constructor.
   * 
@@ -99,7 +99,7 @@ class feindura {
  /**
   * Contains the categories-settings config set in the CMS backend
   * 
-  * The file with the categories-settings is situated at <i>"feindura-CMS/config/category.config.php"</i>.
+  * The file with the categories-settings config array is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
   * This settings will be set to this property in the {@link feindura()} constructor.
   * 
@@ -267,8 +267,8 @@ class feindura {
   * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
   * If no <var>$_GET</var> variable exists try to return the {@link $startPage} property.
   *
-  * <b>Name</b>     getCurrentPage()<br>
-  * <b>Alias</b>    getPage()<br>
+  * <b>Name</b>     getCurrentPageId()<br>
+  * <b>Alias</b>    getPageId()<br>
   *    
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
@@ -288,7 +288,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function getCurrentPage() {
+  function getCurrentPageId() {
     
     // ->> GET PAGE is an ID
     // *********************
@@ -323,12 +323,12 @@ class feindura {
       return false;
   }
  /**
-  * Alias of {@link getCurrentPage()}
+  * Alias of {@link getCurrentPageId()}
   * @ignore
   */
-  function getPage() {
+  function getPageId() {
     // call the right function
-    return $this->getCurrentPage();
+    return $this->getCurrentPageId();
   }
 
  /**
@@ -338,7 +338,7 @@ class feindura {
   * If <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID.
   * If no <var>$_GET</var> variable exists it try to return the {@link $startPage} property.
   *
-  * <b>Name</b>     getCurrentCategory()<br>
+  * <b>Name</b>     getCurrentCategoryId()<br>
   * <b>Alias</b>    getCategory()<br>
   *     
   * <b>Used Global Variables</b><br>
@@ -358,7 +358,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function getCurrentCategory() {
+  function getCurrentCategoryId() {
     
     // ->> GET CATEGORY is an ID
     // *************************
@@ -389,29 +389,30 @@ class feindura {
       return false;
   }
  /**
-  * Alias of {@link getCurrentCategory()}
+  * Alias of {@link getCurrentCategoryId()}
   * @ignore
   */
-  function getCategory() {
+  function getCategoryId() {
     // call the right function
-    return $this->getCurrentCategory();
+    return $this->getCurrentCategoryId();
   }
   
  /**
   * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property
   *
-  * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPage}) and set it to the {@link $page} property.
+  * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link $page} property.
   * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}.
   *
-  * <b>Name</b>     setCurrentPage()<br>
-  * <b>Alias</b>    setPage()<br>
+  * <b>Name</b>     setCurrentPageId()<br>
+  * <b>Alias</b>    setPageId()<br>
   *     
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
   *
-  * @uses $adminConfig      to check if setting a start-page is allowed
-  * @uses $websiteConfig    to get the start-page ID
-  * @uses $page             as the property to set
-  * @uses $startPage        if the $setStartPage parameter is TRUE this property will also be set
+  * @uses $adminConfig              to check if setting a start-page is allowed
+  * @uses $websiteConfig            to get the start-page ID
+  * @uses feinduraPages::$page      as the property to set
+  * @uses feinduraPages::$startPage if the $setStartPage parameter is TRUE this property will also be set
+  * @uses getCurrentPageId()        to get the {@link $page} property or the {@link $startPage} property  
   * 
   * @return int|false the set page ID or FALSE
   * 
@@ -422,7 +423,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function setCurrentPage($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
+  function setCurrentPageId($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
     
     // sets the startPage if it exists
     if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
@@ -430,35 +431,36 @@ class feindura {
     }
       
     // sets the new page PROPERTY
-    $this->page = $this->getCurrentPage();
+    $this->page = $this->getCurrentPageId();
       
     return $this->page;
   }
  /**
-  * Alias of {@link setCurrentPage()}
+  * Alias of {@link setCurrentPageId()}
   * @ignore
   */
-  function setPage($setStartPage = false) {
+  function setPageId($setStartPage = false) {
     // call the right function
-    return $this->setCurrentPage($setStartPage);
+    return $this->setCurrentPageId($setStartPage);
   }
   
  /**
   * Sets the current category ID from the <var>$_GET</var> variable to the {@link $category} property
   *
-  * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategory}) and set it to the {@link $category} property.
+  * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategoryId}) and set it to the {@link $category} property.
   * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}.
   *
-  * <b>Name</b>     setCurrentCategory()<br>
-  * <b>Alias</b>    setCategory()<br>
+  * <b>Name</b>     setCurrentCategoryId()<br>
+  * <b>Alias</b>    setCategoryId()<br>
   *     
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   *
-  * @uses $adminConfig      to check if setting a start-page is allowed
-  * @uses $websiteConfig    to get the start-page ID
-  * @uses $category         as the property to set
-  * @uses $startCategory    if the $setStartCategory parameter is TRUE this property will also be set
-  * @uses getPageCategory() to get the right category ID of the start-page
+  * @uses $adminConfig                  to check if setting a start-page is allowed
+  * @uses $websiteConfig                to get the start-page ID
+  * @uses feinduraPages::$category      as the property to set
+  * @uses feinduraPages::$startCategory if the $setStartCategory parameter is TRUE this property will also be set
+  * @uses getPageCategoryId()           to get the right category ID of the start-page
+  * @uses getCurrentCategoryId()        to get the {@link $category} property or the {@link $startCategory} property
   *
   * @return int|false the set category ID or FALSE
   *
@@ -469,7 +471,7 @@ class feindura {
   *    - 1.0 initial release
   *
   */
-  function setCurrentCategory($setStartCategory = false) {
+  function setCurrentCategoryId($setStartCategory = false) {
     
     // sets the startPage if it exists
     if($setStartCategory === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
@@ -477,17 +479,17 @@ class feindura {
     }
     
     // sets the new category PROPERTY
-    $this->category = $this->getCurrentCategory();
+    $this->category = $this->getCurrentCategoryId();
     
     return $this->category;
   }
  /**
-  * Alias of {@link setCurrentCategory()}
+  * Alias of {@link setCurrentCategoryId()}
   * @ignore
   */
-  function setCategory($setStartCategory = false) {
+  function setCategoryId($setStartCategory = false) {
     // call the right function
-    return $this->setCurrentCategory($setStartCategory = false);
+    return $this->setCurrentCategoryId($setStartCategory = false);
   }
   
   
