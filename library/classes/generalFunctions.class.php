@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link generalFunctions} <var>class</var>
+ * This file contains the {@link generalFunctions} class
  *
  * This class provides functions which will be used by the FRONTEND and the BACKEND.
  */

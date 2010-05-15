@@ -15,9 +15,9 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link statisticFunctions} <var>class</var>
+ * This file contains the {@link statisticFunctions} class
  *
- * This <var>class</var> provides statistic-functions which will be used by the FRONTEND and the BACKEND.
+ * This class provides statistic-functions which will be used by the FRONTEND and the BACKEND.
  */ 
 
 /**

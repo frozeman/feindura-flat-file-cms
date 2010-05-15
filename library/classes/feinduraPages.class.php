@@ -17,7 +17,6 @@
 /**
  * This file contains the {@link feinduraPages} class for implementing the CMS in a website
  * 
- * @package implementation
  */ 
  
 /**
@@ -29,7 +28,8 @@
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
-*
+* 
+* 
 * @version 1.0
 * <br>
 * <b>ChangeLog</b><br>
