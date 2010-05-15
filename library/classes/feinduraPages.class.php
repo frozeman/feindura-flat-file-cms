@@ -15,7 +15,9 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link feinduraPages} <var>class</var> for implementing the CMS in a website
+ * This file contains the {@link feinduraPages} class for implementing the CMS in a website
+ * 
+ * @package implementation
  */ 
  
 /**
@@ -147,7 +149,7 @@ class feinduraPages extends feindura {
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page,
-  * if you set this property and call {@link createMenu()} every link will get this id-Attribute.
+  * if you set this property and call {@link createMenu()} every link in the menu will get this id-Attribute.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
   * @see createLink()
@@ -161,7 +163,7 @@ class feinduraPages extends feindura {
   * Contains an class-Attribute which will be add to any <a ...> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this class-Attribute.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this class-Attribute.
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
   * @see createLink()
@@ -175,7 +177,7 @@ class feinduraPages extends feindura {
   * Contains a string with attributes which will be add to any <a ...> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this attributes string.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this attributes string.
   * 
   * The string should have the following format
   * <samp>
@@ -194,7 +196,7 @@ class feinduraPages extends feindura {
   * Contains a string which will be add before any <a></a> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
   * 
   * @var string|false If no text should be add before a link, set it to FALSE.
   * @see createLink()
@@ -208,7 +210,7 @@ class feinduraPages extends feindura {
   * Contains a string which will be add after any <a></a> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
   * 
   * @var string|false If no text should be add after a link, set it to FALSE.
   * @see createLink()
@@ -222,7 +224,7 @@ class feinduraPages extends feindura {
   * Contains a string which will be add before the link text but inside any <a></a> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.  
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
   * 
   * @var string|false If no text should be add before a link text, set it to FALSE.
   * @see createLink()
@@ -236,7 +238,7 @@ class feinduraPages extends feindura {
   * Contains a string which will be add after the link text but inside any <a></a> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will get this text.  
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
   * 
   * @var string|false If no text should be add after a link text, set it to FALSE.
   * @see createLink()
@@ -316,7 +318,7 @@ class feinduraPages extends feindura {
   * If the {@link $linkShowCategory} property is TRUE,
   * this string will be used as a seperator between the category name and the link text in any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link will use this seperator.  
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this seperator.  
   * 
   * @var string
   * @see createLink()

@@ -15,7 +15,9 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */ 
 /**
- * This file contains the {@link feindura} base <var>class</var>
+ * This file contains the {@link feindura} base class
+ * 
+ * @package implementation
  */ 
 
 /**
