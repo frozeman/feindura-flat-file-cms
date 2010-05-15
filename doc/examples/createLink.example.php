@@ -11,10 +11,10 @@ $myCms->linkLength =                  10;
 $myCms->linkId =                      'exampleId';
 $myCms->linkClass   =                 'exampleClass';
 $myCms->linkAttributes =              'test="exampleAttribute1" onclick="exampleAttribute2"';
-$myCms->linkBefore =	                'text before link ';
-$myCms->linkAfter =	                  ' text after link';
+$myCms->linkBefore =                  'text before link ';
+$myCms->linkAfter =                   ' text after link';
 $myCms->linkTextBefore =              'text before ';
-$myCms->linkTextAfter =	              ' text after';
+$myCms->linkTextAfter =               ' text after';
 $myCms->linkShowThumbnail =           true;
 $myCms->linkShowThumbnailAfterText =  false;
 $myCms->linkShowPageDate =            true;
@@ -26,11 +26,11 @@ $myCms->linkCategorySeperator =       ' -> ';
 echo $myCms->createLink(1);
 
 ?>
-
 <!-- *** RESULT *** -->
 
 text before link 
-<a href="index.php?category=1&amp;page=1" title="Example Category: 12.12.2010 Example Page" id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">
+<a href="index.php?category=1&amp;page=1" title="Example Category: 12.12.2010 Example Page"
+id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">
 text before Example Category: 12.12.2010 Example.. text after
 </a>
 text after link
