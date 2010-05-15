@@ -236,11 +236,8 @@ class feindura {
       $this->varNames['category'] = $this->adminConfig['varName']['category'];
 
 
-    // -> CHECKS if cookies are enabled
-    if(!isset($_COOKIE['cookiesEnabled'])) {
-      // try to set a cookie, for checking pn the next page
-      setcookie( "cookiesEnabled", 'true');
-      
+    // -> CHECKS if cookies the cookie in the feindura.include.php file was set
+    if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
     
@@ -274,7 +271,7 @@ class feindura {
   *    - <var>$_GET</var> to fetch the page ID
   * 
   * @uses $varNames                     for variable names which the $_GET will use for the page ID
-  * @uses $adminConfig                  to look if set start-page is allowed
+  * @uses $adminConfig                  to look if set startpage is allowed
   * @uses feinduraPages::$startPage     if no $_GET variable exists it will try to get the {@link $startPage} property
   * @uses generalFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
@@ -344,10 +341,10 @@ class feindura {
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the category ID
   *
-  * @uses $varNames                for variable names which the $_GET variable will use for the category ID
-  * @uses $adminConfig             to look if set start-page is allowed
-  * @uses $categoryConfig          for the right category name, if the $_GET variable is not a ID but a category name
-  * @uses feinduraPages::$startPage  if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses $varNames                       for variable names which the $_GET variable will use for the category ID
+  * @uses $adminConfig                    to look if set startpage is allowed
+  * @uses $categoryConfig                 for the right category name, if the $_GET variable is not a ID but a category name
+  * @uses feinduraPages::$startCategory   if no $_GET variable exists it will try to get the {@link $startCategory} property
   * 
   * @return int|false the current category ID or FALSE
   * 
@@ -401,15 +398,15 @@ class feindura {
   * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property
   *
   * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link $page} property.
-  * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the start-page ID from the {@link $websiteConfig}.
+  * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the startpage ID from the {@link $websiteConfig}.
   *
   * <b>Name</b>     setCurrentPageId()<br>
   * <b>Alias</b>    setPageId()<br>
   *     
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
   *
-  * @uses $adminConfig              to check if setting a start-page is allowed
-  * @uses $websiteConfig            to get the start-page ID
+  * @uses $adminConfig              to check if setting a startpage is allowed
+  * @uses $websiteConfig            to get the startpage ID
   * @uses feinduraPages::$page      as the property to set
   * @uses feinduraPages::$startPage if the $setStartPage parameter is TRUE this property will also be set
   * @uses getCurrentPageId()        to get the {@link $page} property or the {@link $startPage} property  
@@ -448,18 +445,18 @@ class feindura {
   * Sets the current category ID from the <var>$_GET</var> variable to the {@link $category} property
   *
   * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategoryId}) and set it to the {@link $category} property.
-  * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the start-page ID from the {@link $websiteConfig}.
+  * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the startpage ID from the {@link $websiteConfig}.
   *
   * <b>Name</b>     setCurrentCategoryId()<br>
   * <b>Alias</b>    setCategoryId()<br>
   *     
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   *
-  * @uses $adminConfig                  to check if setting a start-page is allowed
-  * @uses $websiteConfig                to get the start-page ID
+  * @uses $adminConfig                  to check if setting a startpage is allowed
+  * @uses $websiteConfig                to get the startpage ID
   * @uses feinduraPages::$category      as the property to set
   * @uses feinduraPages::$startCategory if the $setStartCategory parameter is TRUE this property will also be set
-  * @uses getPageCategoryId()           to get the right category ID of the start-page
+  * @uses getPageCategory()             to get the right category ID of the startpage
   * @uses getCurrentCategoryId()        to get the {@link $category} property or the {@link $startCategory} property
   *
   * @return int|false the set category ID or FALSE
@@ -823,7 +820,7 @@ class feindura {
 	       // adds spaces on before and after
          if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
          if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($sortedDate,$this->languageFile)).$titleDateAfter.' ';
+         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
       
       // shorten the title

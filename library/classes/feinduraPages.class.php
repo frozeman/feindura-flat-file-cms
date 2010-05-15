@@ -56,7 +56,7 @@ class feinduraPages extends feindura {
  /**
   * Contains the current page ID get from the <var>$_GET</var> variable
   *
-  * This property is used when a page loading method is called (for example: {@link getPage()}) and no page ID <var>parameter</var> is given.
+  * This property is used when a page loading method is called (for example: {@link getPage()}) and no page ID parameter is given.
   *   
   * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentPageId()} method.
   * 
@@ -71,7 +71,7 @@ class feinduraPages extends feindura {
  /**
   * Contains the current category ID get from the <var>$_GET</var> variable
   *
-  * This property is used when a page-loading method is called (for example: {@link getPage()}) and no category ID <var>parameter</var> is given.
+  * This property is used when a page-loading method is called (for example: {@link getPage()}) and no category ID parameter is given.
   *   
   * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentCategoryId()} method.
   * 
@@ -84,10 +84,10 @@ class feinduraPages extends feindura {
   var $category = null;
    
  /**
-  * Contains the start-page ID from the {@link feindura::$websiteConfig website-settings config}
+  * Contains the startpage ID from the {@link feindura::$websiteConfig website-settings config}
   *
   * This property is set to the {@link $page} property when the <var>$_GET</var> page variable
-  * and the {@link $page} property is empty and setting a start page is activated in the {@link $adminConfig page-settings}.
+  * and the {@link $page} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   *   
   * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentPageId()} method.
   * 
@@ -95,7 +95,8 @@ class feinduraPages extends feindura {
   *
   * @see $page
   * @see feinduraPages()
-  * @see setCurrentPageId()
+  * @see setCurrentPageId()  
+  * @see getCurrentPageId()
   *   
   */
   var $startPage = null;
@@ -105,7 +106,7 @@ class feinduraPages extends feindura {
   *
   * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br>
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
-  * and the {@link $category} property is empty and setting a start page is activated in the {@link $adminConfig page-settings}.
+  * and the {@link $category} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   *   
   * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentCategoryId()} method.
   * 
@@ -114,7 +115,8 @@ class feinduraPages extends feindura {
   * @see $startPage
   * @see $category  
   * @see feinduraPages()
-  * @see setCurrentCategoryId()
+  * @see setCurrentCategoryId()  
+  * @see getCurrentCategoryId()
   *   
   */
   var $startCategory = null;
@@ -122,7 +124,7 @@ class feinduraPages extends feindura {
   /* ->> LINK <<- */
   
  /**
-  * A number of maximal characters visible of the link text,
+  * The number of maximal visible characters in the link text,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
   * The link text will be shorten to the last word.

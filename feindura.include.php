@@ -24,9 +24,15 @@
 * -> $categoryConfig
 */
 
-// -> starts the SESSION; needed to prevent multiple count of the visitor statistics
+// -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
 session_name("user"); 
 session_start();
+
+// -> CHECKS if cookies are enabled
+if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
+    // try to set a cookie, to check in the next webpage whether its set or not
+    setcookie( "checkCookies", 'true');
+}
 
 // -> include all important functions and config vars
 include_once(dirname(__FILE__)."/library/frontend.include.php");

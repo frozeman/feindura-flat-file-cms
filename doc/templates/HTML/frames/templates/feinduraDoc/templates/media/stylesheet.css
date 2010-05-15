@@ -1,6 +1,6 @@
-a { color: #0000C0; text-decoration: underline; }
-a:hover { text-decoration: underline; background-color: #FFFFFF }
-a:active { text-decoration: underline; background-color: #FFFFFF }
+a { color: #0000C0; text-decoration: none; }
+a:hover { text-decoration: none; background-color: #FFFFFF }
+a:active { text-decoration: none; background-color: #FFFFFF }
 
 body, table { background-color: #EEEEEE; font-family: Verdana, Arial, sans-serif; font-size: 10pt }
 p, li { line-height: 140% }
