@@ -391,16 +391,19 @@ class generalFunctions {
       
       fwrite($fp,"\$pageContent['id'] =                 '".$pageContentArray['id']."';\n");
       fwrite($fp,"\$pageContent['category'] =           '".$pageContentArray['category']."';\n");
-      fwrite($fp,"\$pageContent['title'] =              '".$pageContentArray['title']."';\n");
       fwrite($fp,"\$pageContent['public'] =             '".$pageContentArray['public']."';\n");
-      fwrite($fp,"\$pageContent['sortorder'] =          '".$pageContentArray['sortorder']."';\n");
+      fwrite($fp,"\$pageContent['sortorder'] =          '".$pageContentArray['sortorder']."';\n\n");
+      
+      fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContentArray['lastsavedate']."';\n");
+      fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContentArray['lastsaveauthor']."';\n\n"); 
+      
+      fwrite($fp,"\$pageContent['title'] =              '".$pageContentArray['title']."';\n");
+      fwrite($fp,"\$pageContent['description'] =        '".$pageContentArray['description']."';\n\n");      
+      
       fwrite($fp,"\$pageContent['pagedate']['before'] = '".$pageContentArray['pagedate']['before']."';\n");
       fwrite($fp,"\$pageContent['pagedate']['date'] =   '".$pageContentArray['pagedate']['date']."';\n");
-      fwrite($fp,"\$pageContent['pagedate']['after'] =  '".$pageContentArray['pagedate']['after']."';\n");
-      fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContentArray['lastsavedate']."';\n");
-      fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContentArray['lastsaveauthor']."';\n");      
-      fwrite($fp,"\$pageContent['tags'] =               '".$pageContentArray['tags']."';\n\n");
-      
+      fwrite($fp,"\$pageContent['pagedate']['after'] =  '".$pageContentArray['pagedate']['after']."';\n");           
+      fwrite($fp,"\$pageContent['tags'] =               '".$pageContentArray['tags']."';\n");      
       fwrite($fp,"\$pageContent['plugins'] =            '".$pageContentArray['plugins']."';\n\n");
       
       fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContentArray['thumbnail']."';\n");

@@ -38,7 +38,7 @@ window.addEvent('domready', function() {
                 var inputWidthBefore = input.getStyle('width');
                 input.setStyle('width', smallSize + 'px'); //makes the input small
                 
-                input.set('tween',{duration: '700', transition: Fx.Transitions.Bounce.easeOut})
+                input.set('tween',{duration: '700', transition: Fx.Transitions.Sine.easeOut}) //Bounce.easeOut
                 
                 input.addEvents({
                   'mouseover' : function() { // resize on mouseover

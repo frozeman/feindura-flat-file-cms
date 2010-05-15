@@ -6,9 +6,9 @@ $categoryConfig['id_2']['public'] =          'true';
 $categoryConfig['id_2']['sortascending'] =   '';
 $categoryConfig['id_2']['createdelete'] =    'true';
 $categoryConfig['id_2']['thumbnail'] =       '';
-$categoryConfig['id_2']['plugins'] =         '';
-$categoryConfig['id_2']['showtags'] =        '';
-$categoryConfig['id_2']['showpagedate'] =    '';
+$categoryConfig['id_2']['plugins'] =         'true';
+$categoryConfig['id_2']['showtags'] =        'true';
+$categoryConfig['id_2']['showpagedate'] =    'true';
 $categoryConfig['id_2']['sortbypagedate'] =  '';
 
 $categoryConfig['id_2']['styleFile'] =       '';

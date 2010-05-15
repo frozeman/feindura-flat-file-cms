@@ -107,7 +107,7 @@ if($savedForm != 'websiteConfig')
       <label for="description"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5'].'::'.$langFile['websiteSetup_websiteConfig_field5_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field5']; ?></span></label>
       </td><td class="right">
-      <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;margin-bottom: 50px;" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo $websiteConfig['description']; ?></textarea>
+      <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo $websiteConfig['description']; ?></textarea>
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>

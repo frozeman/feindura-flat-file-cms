@@ -49,6 +49,8 @@ if($_POST['save']) {
   
   $_POST['title'] = $generalFunctions->clearTitle($_POST['title']);
   
+  $_POST['description'] = htmlentities($_POST['description'],ENT_QUOTES,'UTF-8');
+  
   //$postArray['FCKeditor'] = str_replace("<br />", "<br>", $postArray['FCKeditor'] );
   //$postArray['FCKeditor'] = str_replace("/>", ">", $postArray['FCKeditor'] );
   //$postArray['FCKeditor'] = str_replace("'", "\'", $postArray['FCKeditor'] ); //&#039;
@@ -521,16 +523,29 @@ else $hidden = ' hidden';
       <!-- ***** PAGE TITLE -->
       
       <tr><td class="left">
-      <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1'].'::'.$langFile['editor_pageSettings_field1_tip'] ?>">
-      <?php echo $langFile['editor_pageSettings_field1'] ?></span></label>
+      <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_title'].'::'.$langFile['editor_pageSettings_title_tip'] ?>">
+      <?php echo $langFile['editor_pageSettings_title'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" style="width:480px;" value="<?php echo $pageContent['title']; ?>" />        
+        <input id="edit_title" name="title" style="width:492px;" value="<?php echo $pageContent['title']; ?>" />        
       </td></tr>
       
-      <tr><td class="spacer"></td><td></td></tr>      
+      <!-- ***** PAGE DESCRIPTION -->
+      
+      <tr><td class="left">
+      <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1'].'::'.$langFile['editor_pageSettings_field1_tip']; ?>">
+      <?php echo $langFile['editor_pageSettings_field1']; ?></span></label>
+      </td><td class="right">
+      <textarea id="edit_description" name="description" cols="50" rows="4" style="white-space:normal;width:480px;height:70px;" class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1_inputTip']; ?>"><?php echo $pageContent['description']; ?></textarea>
+      </td></tr>
       <?php
       
-      // shows only if activated
+      // -> CHECK if page date or tags are activated, show the spacer
+      if($categoryConfig['id_'.$_GET['category']]['showpagedate'] ||
+         $categoryConfig['id_'.$_GET['category']]['showtags']) {
+        echo '<tr><td class="spacer"></td><td></td></tr>';
+      }
+      
+      // ->> CHECK if activated
       if($categoryConfig['id_'.$_GET['category']]['showpagedate']) { ?>
       
       <!-- ***** SORT DATE -->
@@ -618,7 +633,7 @@ else $hidden = ' hidden';
       </td></tr>
       <?php }
       
-      // shows only if activated
+      // ->> CHECK if activated
       if($categoryConfig['id_'.$_GET['category']]['showtags']) {
       ?>      
       <!-- ***** TAGS -->
@@ -627,7 +642,7 @@ else $hidden = ' hidden';
       <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_field2'] ?></span></label>
       </td><td class="right">
-        <input id="edit_tags" name="tags" class="toolTip" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip_inputTip']; ?>" />        
+        <input id="edit_tags" name="tags" class="toolTip" style="width:492px;" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip_inputTip']; ?>" />        
       </td></tr>
       <?php } ?>
       

@@ -124,7 +124,7 @@ function blockSlideInOut(givenIdCLass) {
        }
   
        // sets the SLIDE EFFECT to the buttons
-       slideButtonH1.addEvent('mouseup', function(e){  	   
+       slideButtonH1.addEvent('click', function(e) {
       	  e.stop();
       	  if(!slideVertical.open) {
       	    block.removeClass('hidden');

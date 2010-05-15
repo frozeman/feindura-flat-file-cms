@@ -823,7 +823,9 @@ class feinduraPages extends feindura {
         $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'"'.$tagEnding."\n";
         
       // -> add description
-      if($this->websiteConfig['description'])
+      if($currentPage['description'])
+        $metaTags .= '  <meta name="description" content="'.$currentPage['description'].'"'.$tagEnding."\n";
+      elseif($this->websiteConfig['description'])
         $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'"'.$tagEnding."\n";
         
       // -> add keywords
@@ -856,22 +858,14 @@ class feinduraPages extends feindura {
   * <i>("user=xyz123" stands for: sessionname=sessionid)</i>
   *
   * Pages without category: 
-  * <samp>
-  * '?page=1&user=xyz123'
-  * </samp>
+  * <samp>'?page=1&user=xyz123'</samp>
   * Pages with category:
-  * <samp>
-  * '?category=1&page=1&user=xyz123'
-  * </samp>
+  * <samp>'?category=1&page=1&user=xyz123'</samp>
   *
   * Speaking URL href for pages without category: 
-  * <samp>
-  * '/page/page_title.html?user=xyz123'
-  * </samp>
+  * <samp>'/page/page_title.html?user=xyz123'</samp>
   * Speaking URL href for pages with category:
-  * <samp>
-  * '/category/category_name/page_title.html?user=xyz123'
-  * </samp>
+  * <samp>'/category/category_name/page_title.html?user=xyz123'</samp>
   *
   *
   * @param int|array $page          page ID or a $pageContent array

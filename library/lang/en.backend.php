@@ -403,7 +403,8 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, 
 
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Taste Modus';
-$langFile['adminSetup_editorSettings_field1_tip'] = 'Legt fest, welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]wird.[br /][br /][span class=hint]Mit SHIFT + ENTER wird standard m&auml;&szlig;ig ein &lt;br /&gt; gesetzt.[/span]';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br /&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_tip'] = 'Legt fest, welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Wenn das Feld leer ist, wird keine Id verwendet.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
 
@@ -532,17 +533,17 @@ $langFile['pageSetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/website.config.php';
 
 $langFile['websiteSetup_websiteConfig_h1'] = 'Webseiten-Einstellungen';
-$langFile['websiteSetup_websiteConfig_field1'] = 'Webseiten Titel';
+$langFile['websiteSetup_websiteConfig_field1'] = 'Webseiten-Titel';
 $langFile['websiteSetup_websiteConfig_field1_tip'] = 'Der Titel der Webseite wird oben in der Browserleiste angezeigt.';
 $langFile['websiteSetup_websiteConfig_field2'] = 'Publisher';
 $langFile['websiteSetup_websiteConfig_field2_tip'] = 'Der Name der Organisation/Firma/Person, die diese Seite ver&oumlffentlicht.';
 $langFile['websiteSetup_websiteConfig_field3'] = 'Copyright';
 $langFile['websiteSetup_websiteConfig_field3_tip'] = 'Der Copyright-Besitzer der Webseite.';
 
-$langFile['websiteSetup_websiteConfig_field4'] = 'Suchmaschinen Stichworte';
+$langFile['websiteSetup_websiteConfig_field4'] = 'Suchmaschinen-Stichworte';
 $langFile['websiteSetup_websiteConfig_field4_tip'] = 'Die meisten Suchmaschienen durchsuchen den Seiteninhalt nach Stichworten, jedoch sollte man einige Schl&uuml;sselw&ouml;rter hier auff&uuml;hren.';
 $langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'Die Stichworte m&uuml;ssen mit &quot;,&quot; getrennt werden.::'.$langFile['text_example'].':[br /]stichwort1,stichwort2,etc';
-$langFile['websiteSetup_websiteConfig_field5'] = 'Webseiten Beschreibung';
+$langFile['websiteSetup_websiteConfig_field5'] = 'Webseiten-Beschreibung';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'Ist eine kurze Beschreibung die in den Suchmaschienen ercheint, wenn man nach der Webseiten-Adresse sucht oder keine Stichworte im Webseiten-Text gefunden wurden.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
 $langFile['websiteSetup_websiteConfig_field6'] = 'E-Mail Adresse';
@@ -617,8 +618,11 @@ $langFile['editor_h1_categoryid_noCategory'] = 'keine Kategorie';
 $langFile['editor_pageSettings_h1'] = 'Seiten-Einstellungen';
 $langFile['editor_pagestatistics_h1'] = 'Seiten-Statistik';
 
-$langFile['editor_pageSettings_field1'] = 'Seitentitel';
-$langFile['editor_pageSettings_field1_tip'] = 'Der Titel der Seite';
+$langFile['editor_pageSettings_title'] = 'Seiten-Titel';
+$langFile['editor_pageSettings_title_tip'] = 'Der Titel der Seite';
+$langFile['editor_pageSettings_field1'] = 'Seiten-Beschreibung';
+$langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
+$langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Beschreibung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
 $langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte, die mit dieser Seite verkn&uuml;pft sind.';
 $langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Stichworte sollten mit [b]Leerzeichen[/b] getrennt werden.';
