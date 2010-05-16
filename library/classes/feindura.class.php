@@ -539,8 +539,8 @@ class feindura {
   * @uses createAttributes()                      to create the attributes used in the error tag
   * @uses shortenHtmlText()                       to shorten the HTML page content
   * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses statisticFunctions::formatDate()        to format the page date for output
-  * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
+  * @uses statisticFunctions::formatDate()        to format the pagedate for output
+  * @uses generalFunctions::dateDayBeforeAfter()  check if the pagedate is "yesterday" "today" or "tomorrow"
   * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
   * @uses feinduraPages::$xHtml
   * @uses feinduraPages::$showError
@@ -550,14 +550,15 @@ class feindura {
   * @uses feinduraPages::$errorAttributes
   * @uses feinduraPages::$titleLength
   * @uses feinduraPages::$titleAsLink
+  * @uses feinduraPages::$titleShowPageDate  
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleShowPageDate 
+  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$thumbnailAlign  
   * @uses feinduraPages::$thumbnailId
   * @uses feinduraPages::$thumbnailClass
   * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter  
+  * @uses feinduraPages::$thumbnailAfter
   * 
   * @return array the generated page array, ready to display in a HTML file
   *
@@ -781,12 +782,12 @@ class feindura {
   * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
-  * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
+  * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the pagedate before the title text
   *
   * 
-  * @uses categoryConfig			  to check if showing the page date is allowed and for the category name
-  * @uses languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a page date
-  * @uses statisticFunctions    to check whether the page date is valid and format the page date
+  * @uses categoryConfig			  to check if showing the pagedate is allowed and for the category name
+  * @uses languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a pagedate
+  * @uses statisticFunctions    to check whether the pagedate is valid and format the pagedate
   * @uses shortenText()				  to shorten the title text, if the $titleLength parameter is TRUE
   * @uses createHref()				  to create the href if the $titleAsLink parameter is TRUE
   * @uses statisticFunctions::formatDate()            to format the title date for output
@@ -1013,11 +1014,11 @@ class feindura {
   *
   * <b>Name</b>     loadPagesByType()<br>
   *  
-  * @param string    $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array $ids              the ID(s) of page(s) or category(ies)
+  * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   *  
   * @uses publicCategory()              to check if the category(ies) or page(s) category(ies) are public
-  * @uses isPageContentArray()		to check if the given array is a $pageContent array, if TRUE it just returns this array
+  * @uses isPageContentArray()		      to check if the given array is a $pageContent array, if TRUE it just returns this array
   * @uses generalFunctions::loadPages()	to load pages
   * @uses generalFunctions::readPage()	to load a single page
   * 
@@ -1043,7 +1044,7 @@ class feindura {
       if($ids === true || is_array($ids) || is_numeric($ids)) {
         
         // if its an array with $pageContent arrays -> return this
-        if(isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0])) {
+        if($this->generalFunctions->isPageContentArray($ids) || (isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0]))) {
           return $ids;
         
         // otherwise load the pages from the category(ies)
@@ -1052,8 +1053,8 @@ class feindura {
           // checks if the categories are public         
           if(($ids = $this->publicCategory($ids)) !== false) {
 
-	    // returns the loaded pages from the CATEGORY IDs
-	    // the pages in the returned array also get SORTED
+	          // returns the loaded pages from the CATEGORY IDs
+	          // the pages in the returned array also get SORTED
             return $this->generalFunctions->loadPages($ids);
 
           } else return false;
@@ -1080,20 +1081,20 @@ class feindura {
       } elseif($ids && is_array($ids)) {
         
         // checks if its an Array with pageContent Arrays
-        if($this->generalFunctions->isPageContentArray($ids)) {
+        if($this->generalFunctions->isPageContentArray($ids) || (isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0]))) {
           return $ids;          
         //otherwise load the pages from the categories
         } else {
         
           // loads all pages in an array
           foreach($ids as $page) {
-	    // get category
-	    $category = $this->getPageCategory($page);
-	    if(($category = $this->publicCategory($category)) !== false) {
+      	    // get category
+      	    $category = $this->getPageCategory($page);
+      	    if(($category = $this->publicCategory($category)) !== false) {
               if($pageContent = $this->generalFunctions->readPage($page,$category)) {
                 $return[] = $pageContent;
               }
-	    }
+	          }
           }
         }        
       // -----------------------------------------     
@@ -1117,12 +1118,11 @@ class feindura {
  /**
   * Checks if a category or categories are public
   *
-  *
   * Checks whether the given category(ires) are public and returns the ID or an array with IDs of the public ones.
   *
-  * <b>Name</b>     publicCategory()<br>  
+  * <b>Name</b> publicCategory()<br>  
   *
-  * @param int|array|true $ids          the ID(s) of category(ies), if TRUE then i checks all categories
+  * @param int|array|bool $ids          the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
   *  
   * @uses categoryConfig                to check if a category is public
   * 
@@ -1156,9 +1156,9 @@ class feindura {
       // goes trough the given category IDs array
       foreach($ids as $id) {
         // checks if the category is public and creates a new array
-	if($id == 0 || (isset($this->categoryConfig['id_'.$id]) && $this->categoryConfig['id_'.$id]['public']))    
-	  $newIds[] = $id;
-      }
+      	if($id == 0 || (isset($this->categoryConfig['id_'.$id]) && $this->categoryConfig['id_'.$id]['public']))    
+      	  $newIds[] = $id;
+            }
       
     // -> SINGLE category ID
     } elseif(is_numeric($ids)) {
@@ -1328,9 +1328,9 @@ class feindura {
   *
   * <b>Name</b>     hasTags()<br>
   *
-  * @param string    $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array $ids       the ID(s) of page(s) or category(ies)
-  * @param string|array $tags   an string (seperated by "," or ";" or " ") or an array with tags to compare
+  * @param string         $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids       the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
+  * @param string|array   $tags      an string (seperated by "," or ";" or " ") or an array with tags to compare
   *
   * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
   * @uses compareTags()		to compare each tags between two strings
@@ -1386,24 +1386,24 @@ class feindura {
  /**
   * Loads page(s) or category(ies) depending on the given time frame parameters
   *
-  * Checks if the page(s) or category(ies) to load have a page date, sorting by page date is activated for this category
-  * and the page date fits in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
+  * Checks if the page(s) or category(ies) to load have a pagedate, sorting by pagedate is activated for this category
+  * and the pagedate fits in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
   * All time frame parameters are compared against the CURRENT date of TODAY.
   *
   * <b>Name</b>     loadPagesByDate()<br>  
   *
-  * @param string    $idType			the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array $ids			the ID(s) of page(s) or category(ies)
-  * @param bool|int  $monthsInThePast		if FALSE it shows pages only FROM today on, if TRUE it shows all pages in the past, if number it shows all pages within the number of months in the past
-  * @param bool|int  $monthsInTheFuture		if FALSE it shows pages only UNTIL today, if TRUE it shows all pages in the future, if number it shows all pages within the number of months in the future
-  * @param bool      $sortByCategories		determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
-  * @param bool	     $flipList			if TRUE the pages sorting will be reversed
+  * @param string         $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  * @param bool|int       $monthsInThePast       if FALSE it shows pages only FROM today on, if TRUE it shows all pages in the past, if number it shows all pages within the number of months in the past
+  * @param bool|int       $monthsInTheFuture     if FALSE it shows pages only UNTIL today, if TRUE it shows all pages in the future, if number it shows all pages within the number of months in the future
+  * @param bool           $sortByCategories      determine whether the pages should only by sorted by pagedate or also seperated by categories and sorted by pagedate
+  * @param bool	          $flipList              if TRUE the pages sorting will be reversed
   * 
-  * @uses $categoryConfig			to check if in the category is sorting by page date allowed
+  * @uses $categoryConfig			to check if in the category is sorting by pagedate allowed
   * @uses getPropertyIdsByType()	        to get the property IDs if the $ids parameter is FALSE
   * @uses loadPagesByType()			load the pages depending on the type
   * @uses changeDate()				change the current date minus or plus the months from the parameters
-  * @uses gernalFunctions::sortPages()		to sort the pages by page date
+  * @uses gernalFunctions::sortPages()		to sort the pages by pagedate
   * 
   * @return array|false an array with the $pageContent arrays or FALSE if no page has a pagedate or is allowed for sorting
   *
@@ -1547,12 +1547,12 @@ class feindura {
   }
   
  /**
-  * If $ids parameter is FALSE it check which type are the IDs and load then the property page or category ID
+  * If <var>$ids</var> parameter is FALSE it check of which type is the ID and load the property page or category ID
   *
   * <b>Name</b>     getPropertyIdsByType()<br>
   *
-  * @param string $idType           the ID type can be "page", "pages" or "category", "categories"
-  * @param int|array|bool $ids      the IDs, if there are FALSE it checks for the property IDs
+  * @param string         $idType   the ID type can be "page", "pages" or "category", "categories"
+  * @param int|array|bool $ids      the category or page ID(s), if they are FALSE it returns the property ID, otherwise it passes the ID(s) through
   * 
   * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
   * @uses getPropertyCategory()     to get the right {@link feinduraPages::$category} property

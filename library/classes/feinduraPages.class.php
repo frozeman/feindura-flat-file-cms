@@ -126,8 +126,8 @@ class feinduraPages extends feindura {
   /* ->> LINK <<- */
   
  /**
-  * The number of maximal visible characters in the link text,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * The number of maximal visible characters in the link text
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * The link text will be shorten to the last word.
   * 
@@ -145,12 +145,13 @@ class feinduraPages extends feindura {
   var $linkLength = false;  
 
  /**
-  * Contains an id-Attribute which will be add to any <a ...> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains an id-Attribute which will be add to any <a ...> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page,
   * if you set this property and call {@link createMenu()} every link in the menu will get this id-Attribute.
-  * 
+  *  
+  *    
   * @var string|false If no id-Attribute should be add, set it to FALSE.
   * @see createLink()
   * @see createMenu()
@@ -160,8 +161,8 @@ class feinduraPages extends feindura {
   var $linkId = false;
   
  /**
-  * Contains an class-Attribute which will be add to any <a ...> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains an class-Attribute which will be add to any <a ...> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this class-Attribute.
   * 
@@ -174,8 +175,8 @@ class feinduraPages extends feindura {
   var $linkClass = false;
   
  /**
-  * Contains a string with attributes which will be add to any <a ...> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains a string with attributes which will be add to any <a ...> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this attributes string.
   * 
@@ -193,8 +194,8 @@ class feinduraPages extends feindura {
   var $linkAttributes = false;
 
  /**
-  * Contains a string which will be add before any <a></a> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains a string which will be add before any <a></a> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
   * 
@@ -207,8 +208,8 @@ class feinduraPages extends feindura {
   var $linkBefore = false;
   
  /**
-  * Contains a string which will be add after any <a></a> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains a string which will be add after any <a></a> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
   * 
@@ -221,8 +222,8 @@ class feinduraPages extends feindura {
   var $linkAfter = false;
   
  /**
-  * Contains a string which will be add before the link text but inside any <a></a> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains a string which will be add before the link text but inside any <a></a> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
   * 
@@ -235,8 +236,8 @@ class feinduraPages extends feindura {
   var $linkTextBefore = false;
   
  /**
-  * Contains a string which will be add after the link text but inside any <a></a> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * Contains a string which will be add after the link text but inside any <a></a> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
   * 
@@ -249,8 +250,8 @@ class feinduraPages extends feindura {
   var $linkTextAfter = false;
   
  /**
-  * If TRUE and the page has a thumbnail it adds the thumbnail <img> tag inside the <a></a> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * If TRUE and the page has a thumbnail it places the thumbnail <img> tag inside the <a></a> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * 
   * @var bool Set it to FALSE to don't show the thumbnails in links
@@ -262,8 +263,8 @@ class feinduraPages extends feindura {
   var $linkShowThumbnail = false;
   
  /**
-  * If TRUE and thumbnail <img> tag will be placed after the link text but inside the <a></a> tag,
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * If TRUE and thumbnail <img> tag will be placed after the link text but inside the <a></a> tag
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * 
   * @var bool Set it to TRUE to place the thumbnail <img> tag after the link text
@@ -275,20 +276,20 @@ class feinduraPages extends feindura {
   var $linkShowThumbnailAfterText = false;
   
  /**
-  * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the link text
-  * in any link created by {@link createLink()} or {@link createMenu()}
+  * If TRUE, pagedates are allowed for the pages in this category and the page has a pagedate then it will be add before the link text
+  * of any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br>
-  * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
+  * If the {@link $linkShowCategory} property is TRUE, the pagedate is placed between the category name + seperator and the link text.<br>
+  * The pagedate will be added with the page before-date-text and after-date-text from the page editor in the backend
   *   
-  * <b>Notice</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
+  * <b>Notice</b>: The pagedate will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
   * 
-  * Example
+  * Example:
   * <samp>
   * <a href="?page=2" ...>Catgory Name: 200-12-31 Page Title</a>
   * </samp>
   *    
-  * @var bool Set it to TRUE to place the page date before the link text
+  * @var bool Set it to TRUE to place the pagedate before the link text
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
@@ -298,11 +299,11 @@ class feinduraPages extends feindura {
 
  /**
   * If TRUE, the category name of the page will be add before the link text
-  * with the {@link $linkCategorySpacer} property as seperator, in any link created by {@link createLink()} or {@link createMenu()}
+  * with the {@link $linkCategorySpacer} property as seperator of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * The category name will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
   * 
-  * Example
+  * Example:
   * <samp>
   * <a href="?page=2" ...>Catgory Name: Page Title</a>
   * </samp>
@@ -317,7 +318,7 @@ class feinduraPages extends feindura {
   
  /**
   * If the {@link $linkShowCategory} property is TRUE,
-  * this string will be used as a seperator between the category name and the link text in any link created by {@link createLink()} or {@link createMenu()}
+  * this string will be used as a seperator between the category name and the link text of any link created by {@link createLink()} or {@link createMenu()}
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this seperator.  
   * 
@@ -386,7 +387,7 @@ class feinduraPages extends feindura {
   * 
   * The page title will be shorten to the last word.
   * 
-  * Example shorting of "Example Shorting Text" with a given <var>$titleLength</var> of 18 will shorten to
+  * Example shorting of "Example Shorting Text" with a given <var>$titleLength</var> of 18 will shorten to:
   * <samp>
   * "Example Shorting..."
   * </samp>
@@ -412,17 +413,17 @@ class feinduraPages extends feindura {
   var $titleAsLink = false;
 
  /**
-  * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title
+  * If TRUE, pagedates are allowed for the pages in this category and the page has a pagedate then it will be add before the page title
   * 
-  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br>
-  * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend.
+  * If the {@link $titleShowCategory} property is TRUE, the pagedate is placed between the category name + seperator and the page title.<br>
+  * The pagedate will be added with the page before-date-text and after-date-text from the page editor in the backend.
   * 
-  * Example
+  * Example:
   * <samp>
   * Catgory Name: 200-12-31 Page Title
   * </samp>
   *    
-  * @var bool Set it to TRUE to place the page date before the page title
+  * @var bool Set it to TRUE to place the pagedate before the page title
   * @see getTitle()
   * @see feindura::createTitle()
   * @example getPage.example.php
@@ -434,7 +435,7 @@ class feinduraPages extends feindura {
   * If TRUE, the category name of the page will be add before the page title with the {@link $linkCategorySpacer} property as seperator
   * 
   * 
-  * Example
+  * Example:
   * <samp>
   * Catgory Name: Page Title
   * </samp>
@@ -457,7 +458,7 @@ class feinduraPages extends feindura {
   * @example getPage.example.php
   * 
   */
-  var $titleCategorySpacer = ': ';
+  var $titleCategorySeperator = ': ';
   
   /* old
   var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
@@ -592,7 +593,7 @@ class feinduraPages extends feindura {
  /**
   * If TRUE an error will be displayed if the requested page doesn't exists or is currently not public
   * 
-  * Example
+  * Example:
   * <samp>
   * <span>The requested page is currently not available.</span>
   * </span>  
@@ -610,7 +611,7 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add<br>
   * 
-  * Example
+  * Example:
   * <samp>
   * <span>The requested page is currently not available.</span>
   * </samp>
@@ -629,7 +630,7 @@ class feinduraPages extends feindura {
   * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
-  * Example
+  * Example:
   * <samp>
   * <span id="exampleId">The requested page is currently not available.</span>
   * </samp>
@@ -647,7 +648,7 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
   * 
-  * Example
+  * Example:
   * <samp>
   * <span class="exampleId">The requested page is currently not available.</span>
   * </samp>
@@ -669,7 +670,7 @@ class feinduraPages extends feindura {
   * 'key1="value" key2="value"'
   * </samp>
   * 
-  * Example
+  * Example:
   * <samp>
   * <span key1="value" key2="value">The requested page is currently not available.</span>
   * </samp>    
@@ -696,7 +697,7 @@ class feinduraPages extends feindura {
   *  <b>Type</b>     constructor<br>
   * <b>Name</b>     feinduraPages()<br>  
   * 
-  * Example
+  * Example:
   * {@example includeFeindura.example.php}
   *
   * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
@@ -737,7 +738,7 @@ class feinduraPages extends feindura {
   * <b>Name</b>     createMetaTags()<br>
   * <b>Alias</b>    createMetaTag()<br>
   *    
-  * Example
+  * Example:
   * {@example createMetaTags.example.php}    
   *
   * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
@@ -880,14 +881,14 @@ class feinduraPages extends feindura {
   * @uses feindura::getPageCategory()	   to get the category ID if the $page parameter is not an $pageContent array
   * @uses generalFunctions::readPage()	   to load the $pageContent array if the $page parameter is an page ID
   * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
-  *
+  * 
   * 
   * @return string the generated href attribute
-  *
+  * 
   * @access public
-  *
+  * 
   * @see generalFunctions::createHref()
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -997,15 +998,75 @@ class feinduraPages extends feindura {
       } else return false;
     } else return false;
   }
-  // -> END -- createLink --------------------------------------------------------------------------------
   
+ /**
+  * Creates a menu out of a category or page ID(s)
+  *
+  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary sub tags for this elements.
+  * If its any other tag name it just enclose the links with this tag.
+  *
+  * In case the category or page ID(s) doesn't exist it returns an empty array.
+  *  
+  * Example:
+
+  * 
+  * <b>Name</b>     createMenu()<br>    
+  * 
+  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"  *   
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  * @param int|false      $menuTag            (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
+  * @param bool           $linkText           (optional) displays the page content with or without HTML tags
+  * * @param bool         $breakAfter         (optional) displays the page content with or without HTML tags
+  * * @param bool         $sortByCategories   (optional) displays the page content with or without HTML tags    
+  * 
+  * 
+  * @uses adminConfig                             for the thumbnail upload path
+  * @uses categoryConfig                          to check whether the category of the page allows thumbnails
+  * @uses $languageFile                           for the error texts
+  * @uses publicCategory()                        to check whether the category is public
+  * @uses isPageContentArray()                    to check if the given array is a $pageContent array
+  * @uses createTitle()                           to create the page title
+  * @uses createThumbnail()                       to check to show thumbnails are allowed and create the thumbnail <img> tag
+  * @uses createAttributes()                      to create the attributes used in the error tag
+  * @uses shortenHtmlText()                       to shorten the HTML page content
+  * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses statisticFunctions::formatDate()        to format the pagedate for output
+  * @uses generalFunctions::dateDayBeforeAfter()  check if the pagedate is "yesterday" "today" or "tomorrow"
+  * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
+  * @uses feinduraPages::$xHtml
+  * @uses feinduraPages::$showError
+  * @uses feinduraPages::$errorTag
+  * @uses feinduraPages::$errorId
+  * @uses feinduraPages::$errorClass
+  * @uses feinduraPages::$errorAttributes
+  * @uses feinduraPages::$titleLength
+  * @uses feinduraPages::$titleAsLink
+  * @uses feinduraPages::$titleShowPageDate  
+  * @uses feinduraPages::$titleShowCategory
+  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$thumbnailAlign  
+  * @uses feinduraPages::$thumbnailId
+  * @uses feinduraPages::$thumbnailClass
+  * @uses feinduraPages::$thumbnailAttributes
+  * @uses feinduraPages::$thumbnailBefore
+  * @uses feinduraPages::$thumbnailAfter
+  * 
+  * @return array the generated page array, ready to display in a HTML file
+  *
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
   // -> START -- createMenu ******************************************************************************
   // RETURN an Array with LINKs and the given MENU TAG created out of the pages IDs or a category ID(s)
   // RETURNs -> ARRAY
   // * MORE OPTIONs in the PROPERTIES
   // -----------------------------------------------------------------------------------------------------
   function createMenu($idType = 'categories',                      // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                             $ids = true,                                 // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                             
+                             $ids = false,                                 // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                             
                              $menuTag = false,                            // (Boolean or String or [a Block Element, "ul", "ol" or "table"]) the menu TAG which is used when creating a menu, IF false it RETURNs a Array with the links (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set it RETURNs an Array with all the <a..> tags within a DIV tag with the id and/or class)
                              $linkText = true,                            // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
                              $breakAfter = false,                         // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
@@ -1217,7 +1278,7 @@ class feinduraPages extends feindura {
                                    $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
                                    $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
       
-      // gets the right pages and sorted by page date                      
+      // gets the right pages and sorted by pagedate                      
       $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$flipList);
       if($pageContents !== false)
 	return $this->createMenu($idType,$pageContents,$menuTag,$linkText,$breakAfter,false);
@@ -1272,7 +1333,7 @@ class feinduraPages extends feindura {
       
         // shows the TITLE
         $title = $this->createTitle($pageContent,
-				                            $this->titleCategorySpacer,
+				                            $this->titleCategorySeperator,
                                     $this->titleLength,
                                     $this->titleAsLink,
                                     $this->titleShowCategory,
@@ -1415,7 +1476,7 @@ class feinduraPages extends feindura {
                                   $flipList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
                                     
       
-      // gets the right pages and sorted by page date                      
+      // gets the right pages and sorted by pagedate                      
       $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$flipList);
       if($pageContents !== false)
         return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
