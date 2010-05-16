@@ -104,7 +104,7 @@ class feinduraPages extends feindura {
   var $startPage = null;
   
  /**
-  * Contains the start-category ID
+  * Contains the startcategory ID
   *
   * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br>
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
@@ -131,7 +131,7 @@ class feinduraPages extends feindura {
   * 
   * The link text will be shorten to the last word.
   * 
-  * Example shorting of "Example Shorting Text" with a given <var>$linkLength</var> of 14 will shorten to
+  * Example shorting of "Example Shorting Text" with a given <var>$linkLength</var> of 14 will shorten to:
   * <samp>
   * "Example..."
   * </samp>
@@ -249,11 +249,11 @@ class feinduraPages extends feindura {
   var $linkTextAfter = false;
   
  /**
-  * If TRUE and thumbnails are allowed for this page(s) it adds the thumbnail <img> tag inside the <a></a> tags,
+  * If TRUE and thumbnails are allowed for this page(s) it adds the thumbnail <img> tag inside the <a></a> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
   * 
-  * @var bool Set it to TRUE to allow thumbnails in links
+  * @var bool Set it to FALSE to don't show the thumbnails in links
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php

@@ -1,25 +1,5 @@
 <?php
 
-$categoryConfig['id_2']['id'] =              '2';
-$categoryConfig['id_2']['name'] =            'Kategorie 2';
-$categoryConfig['id_2']['public'] =          'true';
-$categoryConfig['id_2']['sortascending'] =   '';
-$categoryConfig['id_2']['createdelete'] =    'true';
-$categoryConfig['id_2']['thumbnail'] =       '';
-$categoryConfig['id_2']['plugins'] =         'true';
-$categoryConfig['id_2']['showtags'] =        'true';
-$categoryConfig['id_2']['showpagedate'] =    'true';
-$categoryConfig['id_2']['sortbypagedate'] =  '';
-
-$categoryConfig['id_2']['styleFile'] =       '';
-$categoryConfig['id_2']['styleId'] =         '';
-$categoryConfig['id_2']['styleClass'] =      '';
-
-$categoryConfig['id_2']['thumbWidth'] =      '';
-$categoryConfig['id_2']['thumbHeight'] =     '';
-$categoryConfig['id_2']['thumbRatio'] =      '';
-
-
 $categoryConfig['id_3']['id'] =              '3';
 $categoryConfig['id_3']['name'] =            'Kategorie 3';
 $categoryConfig['id_3']['public'] =          '';
@@ -38,6 +18,26 @@ $categoryConfig['id_3']['styleClass'] =      '';
 $categoryConfig['id_3']['thumbWidth'] =      '';
 $categoryConfig['id_3']['thumbHeight'] =     '';
 $categoryConfig['id_3']['thumbRatio'] =      '';
+
+
+$categoryConfig['id_2']['id'] =              '2';
+$categoryConfig['id_2']['name'] =            'Kategorie 2';
+$categoryConfig['id_2']['public'] =          'true';
+$categoryConfig['id_2']['sortascending'] =   '';
+$categoryConfig['id_2']['createdelete'] =    'true';
+$categoryConfig['id_2']['thumbnail'] =       '';
+$categoryConfig['id_2']['plugins'] =         'true';
+$categoryConfig['id_2']['showtags'] =        'true';
+$categoryConfig['id_2']['showpagedate'] =    'true';
+$categoryConfig['id_2']['sortbypagedate'] =  '';
+
+$categoryConfig['id_2']['styleFile'] =       '';
+$categoryConfig['id_2']['styleId'] =         '';
+$categoryConfig['id_2']['styleClass'] =      '';
+
+$categoryConfig['id_2']['thumbWidth'] =      '';
+$categoryConfig['id_2']['thumbHeight'] =     '';
+$categoryConfig['id_2']['thumbRatio'] =      '';
 
 
 $categoryConfig['id_1']['id'] =              '1';

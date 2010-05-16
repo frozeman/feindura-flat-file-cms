@@ -165,9 +165,7 @@ if($pluginFolders) {
                 
                 
                 <tr><td class="left checkboxes">
-                <input type="checkbox" id="plgcfg_active" name="plgcfg_active" value="true"<?php if($pluginConfig['active']) echo ' checked="checked"'; ?> /><br />
-                
-                
+                <input type="checkbox" id="plgcfg_active" name="plgcfg_active" value="true"<?php if($pluginConfig['active']) echo ' checked="checked"'; ?> />                
                 </td><td class="right checkboxes">
                 <label for="plgcfg_active"><?php echo $langFile['pluginSetup_pluginconfig_active']; ?></label><br />
                 </td></tr>

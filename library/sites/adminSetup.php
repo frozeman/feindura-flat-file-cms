@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.33
+* adminSetup.php version 2.34
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -469,15 +469,17 @@ else $hidden = '';
      
       <colgroup>
       <col class="left" />
-      </colgroup>
-      
+      </colgroup>      
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStylesheets']) echo ' checked="checked"'; ?> />
-      
       </td><td class="right checkboxes">
       <label for="cfg_userWebsiteFiles"><?php echo $langFile['adminSetup_userSettings_check1']; ?></label><br />
+      </td></tr>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStylesheets']) echo ' checked="checked"'; ?> />
+      </td><td class="right checkboxes">
       <label for="cfg_userStylesheets"><?php echo $langFile['adminSetup_userSettings_check2']; ?></label>
       </td></tr>
       

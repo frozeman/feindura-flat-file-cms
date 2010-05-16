@@ -349,7 +349,7 @@ else $hidden = '';
         </span>
       </td></tr>
       
-      <tr><td class="leftSpacer"></td><td></td></tr>
+      <tr><td class="spacer"></td><td></td></tr>
       
       <!-- THUMB PATH -->
       <tr><td class="left">
@@ -389,14 +389,25 @@ else $hidden = '';
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check3'].'::'.$langFile['pageSetup_pageConfig_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pagePlugins" name="cfg_pagePlugins" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check5'].'::'.$langFile['pageSetup_pageConfig_check5_tip']; ?>"<?php if($adminConfig['page']['plugins']) echo ' checked="checked"'; ?> /><br />
-      <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check4'].'::'.$langFile['pageSetup_pageConfig_check4_tip']; ?>"<?php if($adminConfig['page']['showtags']) echo ' checked="checked"'; ?> />
-      
       </td><td class="right checkboxes">
       <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check2']; ?></span></label><br />
+      </td></tr>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check3'].'::'.$langFile['pageSetup_pageConfig_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> /><br />
+      </td><td class="right checkboxes">
       <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check3'].'::'.$langFile['pageSetup_pageConfig_check3_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check3']; ?></span></label><br />
+      </td></tr>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_pagePlugins" name="cfg_pagePlugins" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check5'].'::'.$langFile['pageSetup_pageConfig_check5_tip']; ?>"<?php if($adminConfig['page']['plugins']) echo ' checked="checked"'; ?> /><br />
+      </td><td class="right checkboxes">
       <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check5'].'::'.$langFile['pageSetup_pageConfig_check5_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check5']; ?></span></label><br />
+      </td></tr>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check4'].'::'.$langFile['pageSetup_pageConfig_check4_tip']; ?>"<?php if($adminConfig['page']['showtags']) echo ' checked="checked"'; ?> />
+      </td><td class="right checkboxes">
       <label for="cfg_pageTags"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check4'].'::'.$langFile['pageSetup_pageConfig_check4_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check4']; ?></span></label>
       </td></tr> 
       
@@ -529,57 +540,78 @@ else $hidden = '';
                 <input name="categories['.$category['id'].'][name]" value="'.$category['name'].'" />
                 </td></tr>';
           
-          echo '<tr><td class="leftBottom"></td><td></td></tr>';
-          
-          echo '<tr><td class="left checkboxes">';
-          
-               // category settings
-          echo '<input type="checkbox" id="categories'.$category['id'].'public" name="categories['.$category['id'].'][public]" value="true" '.$checked[1].' class="toolTip" title="'.$langFile['pageSetup_check1'].'::'.$langFile['pageSetup_check1_tip'].'" /><br />
-                <br />
-                <input type="checkbox" id="categories'.$category['id'].'createdelete" name="categories['.$category['id'].'][createdelete]" value="true" '.$checked[2].' class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'" /><br />
-                <input type="checkbox" id="categories'.$category['id'].'thumbnail" name="categories['.$category['id'].'][thumbnail]" value="true" '.$checked[3].' class="toolTip" title="'.$langFile['pageSetup_check3'].'::'.$langFile['pageSetup_check3_tip'].'" /><br />                
-                <br />               
-                <input type="checkbox" id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins]" value="true" '.$checked[11].' class="toolTip" title="'.$langFile['pageSetup_check8'].'::'.$langFile['pageSetup_check8_tip'].'" /><br />
-                <input type="checkbox" id="categories'.$category['id'].'showtags" name="categories['.$category['id'].'][showtags]" value="true" '.$checked[4].' class="toolTip" title="'.$langFile['pageSetup_check4'].'::'.$langFile['pageSetup_check4_tip'].'" /><br />
-                <br />
-                <input type="checkbox" id="categories'.$category['id'].'showpagedate" name="categories['.$category['id'].'][showpagedate]" value="true" '.$checked[5].' class="toolTip" title="'.$langFile['pageSetup_check5'].'::'.$langFile['pageSetup_check5_tip'].'" /><br />
-                <input type="checkbox" id="categories'.$category['id'].'sortbypagedate" name="categories['.$category['id'].'][sortbypagedate]" value="true" '.$checked[6].' class="toolTip" title="'.$langFile['pageSetup_check6'].'::'.$langFile['pageSetup_check6_tip'].'" /><br />
-                <br />
-                <input type="checkbox" id="categories'.$category['id'].'sortascending" name="categories['.$category['id'].'][sortascending]" value="true" '.$checked[7].' class="toolTip" title="'.$langFile['pageSetup_check7'].'::'.$langFile['pageSetup_check7_tip'].'" />
-                
-                </td><td class="right checkboxes">';
-        
-              // category up / down
-              //(!!!problem with #category'.$category['id'].' in the link; no ANCHOR possible?)
+          echo '<tr><td class="leftBottom"></td><td>';
+               // category up / down
           echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>
                 <a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
+          echo '</td></tr>';
+                    
+               // category SETTINGS
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'public" name="categories['.$category['id'].'][public]" value="true" '.$checked[1].' class="toolTip" title="'.$langFile['pageSetup_check1'].'::'.$langFile['pageSetup_check1_tip'].'" /><br />
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'public">';          
+                $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';        
+                // shows the public or unpublic picture
+                if($checked[1])
+                  echo '<img src="library/image/sign/category_public.png" alt="public" class="toolTip" title="'.$langFile['status_category_public'].'"'.$publicSignStyle.' />&nbsp;';
+                else
+                  echo '<img src="library/image/sign/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_category_nonpublic'].'"'.$publicSignStyle.' />&nbsp;';
                 
+                echo '<span class="toolTip" title="'.$langFile['pageSetup_check1'].'::'.$langFile['pageSetup_check1_tip'].'">'.$langFile['pageSetup_check1'].'</span></label><br />
+                </td></tr>';
+                          
+          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
                 
-          echo '<label for="categories'.$category['id'].'public">';
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'createdelete" name="categories['.$category['id'].'][createdelete]" value="true" '.$checked[2].' class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'" /><br />
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'createdelete"><span class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'">'.$langFile['pageSetup_check2'].'</span></label><br />  
+                </td></tr>';          
           
-              $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';        
-              // shows the public or unpublic picture
-              if($checked[1])
-                echo '<img src="library/image/sign/category_public.png" alt="public" class="toolTip" title="'.$langFile['status_category_public'].'"'.$publicSignStyle.' />&nbsp;';
-              else
-                echo '<img src="library/image/sign/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_category_nonpublic'].'"'.$publicSignStyle.' />&nbsp;';
-                
-          echo '<span class="toolTip" title="'.$langFile['pageSetup_check1'].'::'.$langFile['pageSetup_check1_tip'].'">'.$langFile['pageSetup_check1'].'</span></label><br />
-                <br />';
-          
-          echo '<label for="categories'.$category['id'].'createdelete"><span class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'">'.$langFile['pageSetup_check2'].'</span></label><br />  
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'thumbnail" name="categories['.$category['id'].'][thumbnail]" value="true" '.$checked[3].' class="toolTip" title="'.$langFile['pageSetup_check3'].'::'.$langFile['pageSetup_check3_tip'].'" /><br />                
+                </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'thumbnail"><span class="toolTip" title="'.$langFile['pageSetup_check3'].'::'.$langFile['pageSetup_check3_tip'].'">'.$langFile['pageSetup_check3'].'</span></label><br />                
-                <br />
+                </td></tr>';
+                
+          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+ 
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins]" value="true" '.$checked[11].' class="toolTip" title="'.$langFile['pageSetup_check8'].'::'.$langFile['pageSetup_check8_tip'].'" /><br />
+                </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['pageSetup_check8'].'::'.$langFile['pageSetup_check8_tip'].'">'.$langFile['pageSetup_check8'].'</span></label><br />
-                <label for="categories'.$category['id'].'showtags"><span class="toolTip" title="'.$langFile['pageSetup_check4'].'::'.$langFile['pageSetup_check4_tip'].'">'.$langFile['pageSetup_check4'].'</span></label><br />
-                <br />
-                <label for="categories'.$category['id'].'showpagedate"><span class="toolTip" title="'.$langFile['pageSetup_check5'].'::'.$langFile['pageSetup_check5_tip'].'">'.$langFile['pageSetup_check5'].'</span></label><br />
-                <label for="categories'.$category['id'].'sortbypagedate"><span class="toolTip" title="'.$langFile['pageSetup_check6'].'::'.$langFile['pageSetup_check6_tip'].'">'.$langFile['pageSetup_check6'].'</span></label><br /> 
-                <br />
-                <label for="categories'.$category['id'].'sortascending"><span class="toolTip" title="'.$langFile['pageSetup_check7'].'::'.$langFile['pageSetup_check7_tip'].'">'.$langFile['pageSetup_check7'].'</span></label>          
                 </td></tr>';
           
-          // finish the TABLE for one category
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'showtags" name="categories['.$category['id'].'][showtags]" value="true" '.$checked[4].' class="toolTip" title="'.$langFile['pageSetup_check4'].'::'.$langFile['pageSetup_check4_tip'].'" /><br />
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'showtags"><span class="toolTip" title="'.$langFile['pageSetup_check4'].'::'.$langFile['pageSetup_check4_tip'].'">'.$langFile['pageSetup_check4'].'</span></label><br />
+                </td></tr>';
+                
+          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'showpagedate" name="categories['.$category['id'].'][showpagedate]" value="true" '.$checked[5].' class="toolTip" title="'.$langFile['pageSetup_check5'].'::'.$langFile['pageSetup_check5_tip'].'" /><br />
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'showpagedate"><span class="toolTip" title="'.$langFile['pageSetup_check5'].'::'.$langFile['pageSetup_check5_tip'].'">'.$langFile['pageSetup_check5'].'</span></label><br />
+                </td></tr>';
+                
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'sortbypagedate" name="categories['.$category['id'].'][sortbypagedate]" value="true" '.$checked[6].' class="toolTip" title="'.$langFile['pageSetup_check6'].'::'.$langFile['pageSetup_check6_tip'].'" /><br />
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'sortbypagedate"><span class="toolTip" title="'.$langFile['pageSetup_check6'].'::'.$langFile['pageSetup_check6_tip'].'">'.$langFile['pageSetup_check6'].'</span></label><br /> 
+                </td></tr>';
+                
+          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+          
+          echo '<tr><td class="left checkboxes">
+                <input type="checkbox" id="categories'.$category['id'].'sortascending" name="categories['.$category['id'].'][sortascending]" value="true" '.$checked[7].' class="toolTip" title="'.$langFile['pageSetup_check7'].'::'.$langFile['pageSetup_check7_tip'].'" />
+                </td><td class="right checkboxes">
+                <label for="categories'.$category['id'].'sortascending"><span class="toolTip" title="'.$langFile['pageSetup_check7'].'::'.$langFile['pageSetup_check7_tip'].'">'.$langFile['pageSetup_check7'].'</span></label>          
+                </td></tr>';
+
+          // end of the TABLE for one category
           echo '</table>';
           
           // -----------------------------------------------

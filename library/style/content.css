@@ -175,8 +175,10 @@ content.css version 0.21 */
    /* checkboxes */
 .block table td.left.checkboxes {
     line-height: 22px;
+    padding: 2px 5px;
     padding-right: 1px !important;
     background: #ffffff !important;
+    vertical-align: top;
     }
  
 /* leftBottom */   
@@ -198,6 +200,7 @@ content.css version 0.21 */
     margin-right: 5px;
     }
 .block table td.right.checkboxes {
+    padding: 1px 5px;
     vertical-align: top;
     }
 

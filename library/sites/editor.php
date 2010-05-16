@@ -654,7 +654,7 @@ else $hidden = ' hidden';
       
       <tr><td class="left checkboxes">    
         <input type="checkbox" id="edit_public" name="public" value="true" <?php if($pageContent['public']) echo 'checked'; ?> />
-      </td><td class="right">
+      </td><td class="right checkboxes">
         <label for="edit_public">
         <?php          
           $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';
