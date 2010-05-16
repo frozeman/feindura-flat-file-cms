@@ -532,16 +532,7 @@ class feindura {
   * @uses $adminConfig                            for the thumbnail upload path
   * @uses $categoryConfig                         to check whether the category of the page allows thumbnails
   * @uses $languageFile                           for the error texts
-  * @uses publicCategory()                        to check whether the category is public
-  * @uses isPageContentArray()                    to check if the given array is a $pageContent array
-  * @uses createTitle()                           to create the page title
-  * @uses createThumbnail()                       to check to show thumbnails are allowed and create the thumbnail <img> tag
-  * @uses createAttributes()                      to create the attributes used in the error tag
-  * @uses shortenHtmlText()                       to shorten the HTML page content
-  * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses statisticFunctions::formatDate()        to format the pagedate for output
-  * @uses generalFunctions::dateDayBeforeAfter()  check if the pagedate is "yesterday" "today" or "tomorrow"
-  * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
+  *
   * @uses feinduraPages::$xHtml
   * @uses feinduraPages::$showError
   * @uses feinduraPages::$errorTag
@@ -559,6 +550,18 @@ class feindura {
   * @uses feinduraPages::$thumbnailAttributes
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
+  * 
+  * @uses publicCategory()                        to check whether the category is public
+  * @uses isPageContentArray()                    to check if the given array is a $pageContent array
+  * @uses createTitle()                           to create the page title
+  * @uses createThumbnail()                       to check to show thumbnails are allowed and create the thumbnail <img> tag
+  * @uses createAttributes()                      to create the attributes used in the error tag
+  * @uses shortenHtmlText()                       to shorten the HTML page content
+  * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses statisticFunctions::formatDate()        to format the pagedate for output
+  * @uses generalFunctions::dateDayBeforeAfter()  check if the pagedate is "yesterday" "today" or "tomorrow"
+  * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
+  *   
   * 
   * @return array the generated page array, ready to display in a HTML file
   *
@@ -1003,7 +1006,7 @@ class feindura {
 
 
  /**
-  * Load pages by given page or category category ID(s)
+  * Load pages from given page or category category ID(s)
   *
   *
   * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
