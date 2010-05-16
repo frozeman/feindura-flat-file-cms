@@ -50,7 +50,7 @@ include_once(dirname(__FILE__).'/../backend.include.php');
 if(preg_match("/MSIE [0-6]/", $_SERVER['HTTP_USER_AGENT']) &&
    !preg_match("/chromeframe/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
-<div class="block info hidden">
+<div class="block warning hidden">
   <h1><a href="#"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
   <div class="content">
     <p><?php echo $langFile['warning_ieOld']; ?></p><!-- needs <p> tags for margin-left:..-->
