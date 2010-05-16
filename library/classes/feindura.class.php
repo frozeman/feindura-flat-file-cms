@@ -513,8 +513,8 @@ class feindura {
   * array(
   *	   ['pageDate'] = '2000-12-31', // formated depending on the administrator-settings
   *	   ['title'] = 'Title Example',
-  *	   ['thumbnail'] = '<img src="/path/image.png" alt="Page Title" title="Page Title" />',
-  *	   ['thumbnailPath'] = '/path/image.png',
+  *	   ['thumbnail'] = '<img src="/path/thumb_cat1page1.png" alt="Thumbnail" title="Page Title" />',
+  *	   ['thumbnailPath'] = '/path/thumb_cat1page1.png',
   *	   ['content'] = '<p>Content Text..</p>',
   *	   ['tags'] = 'tag1 tag2 tag3',
   *	   ['plugins'] = array (?)
@@ -922,9 +922,9 @@ class feindura {
       
     // ->> CHECK if thumbnail exists and is allowed to show
     if(!empty($pageContent['thumbnail']) &&
-      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) &&
-      (($pageContent['category'] == '0' && $this->adminConfig['page']['thumbnailUpload']) ||
-      ($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
+      @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) { //&&
+      //(($pageContent['category'] == '0' && $this->adminConfig['page']['thumbnailUpload']) ||
+      //($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
       
       // set TAG ENDING (xHTML or HTML) 
       if($this->xHtml === true) $tagEnding = ' />';
@@ -948,7 +948,7 @@ class feindura {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="'.$pageContent['title'].'" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;

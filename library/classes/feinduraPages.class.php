@@ -249,7 +249,7 @@ class feinduraPages extends feindura {
   var $linkTextAfter = false;
   
  /**
-  * If TRUE and thumbnails are allowed for this page(s) it adds the thumbnail <img> tag inside the <a></a> tag,
+  * If TRUE and the page has a thumbnail it adds the thumbnail <img> tag inside the <a></a> tag,
   * in any link created by {@link createLink()} or {@link createMenu()}
   * 
   * 
@@ -275,10 +275,11 @@ class feinduraPages extends feindura {
   var $linkShowThumbnailAfterText = false;
   
  /**
-  * If TRUE, the page date will be add before the link text in any link created by {@link createLink()} or {@link createMenu()}
+  * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the link text
+  * in any link created by {@link createLink()} or {@link createMenu()}
   * 
   * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br>
-  * The page date will be added with the page date text before and after from the page editor in the backend.
+  * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
   *   
   * <b>Notice</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
   * 
@@ -411,10 +412,10 @@ class feinduraPages extends feindura {
   var $titleAsLink = false;
 
  /**
-  * If TRUE, the page date will be add before the page title
+  * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title
   * 
   * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br>
-  * The page date will be added with the page date text before and after from the page editor in the backend.
+  * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend.
   * 
   * Example
   * <samp>
@@ -958,7 +959,7 @@ class feinduraPages extends feindura {
         // *****************
 	      $returnThumbnail = false;
         if($this->linkShowThumbnail && $linkShowThumbnail = $this->createThumbnail($pageContent))
-          $returnThumbnail = $linkShowThumbnail;
+          $returnThumbnail = $linkShowThumbnail['thumbnail'];
         
         // CHECK if the LINKTEXT BEFORE & AFTER is !== true
         $linkTextBefore = false;

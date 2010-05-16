@@ -31,6 +31,7 @@ echo $myCms->createLink(1);
 text before link 
 <a href="index.php?category=1&amp;page=1" title="Example Category: 12.12.2010 Example Page"
 id="exampleId" class="exampleClass" test="exampleAttribute1" onclick="exampleAttribute2">
+<img src="/path/thumb_cat1page1.png" alt="Thumbnail" title="Example Page" />
 text before Example Category: 12.12.2010 Example.. text after
 </a>
 text after link
