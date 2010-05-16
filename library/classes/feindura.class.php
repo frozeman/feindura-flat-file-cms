@@ -32,7 +32,7 @@
 * @version 1.57
 * <br>
 * <b>ChangeLog</b><br>
-*    - 1.57 add phpDocumentor documentation
+*    - 1.58 add phpDocumentor documentation
 */
 class feindura {
   
@@ -529,8 +529,8 @@ class feindura {
   * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
   * 
   * 
-  * @uses adminConfig                             for the thumbnail upload path
-  * @uses categoryConfig                          to check whether the category of the page allows thumbnails
+  * @uses $adminConfig                            for the thumbnail upload path
+  * @uses $categoryConfig                         to check whether the category of the page allows thumbnails
   * @uses $languageFile                           for the error texts
   * @uses publicCategory()                        to check whether the category is public
   * @uses isPageContentArray()                    to check if the given array is a $pageContent array
@@ -785,9 +785,8 @@ class feindura {
   * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the pagedate before the title text
   *
   * 
-  * @uses categoryConfig			  to check if showing the pagedate is allowed and for the category name
-  * @uses languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a pagedate
-  * @uses statisticFunctions    to check whether the pagedate is valid and format the pagedate
+  * @uses $categoryConfig			  to check if showing the pagedate is allowed and for the category name
+  * @uses $languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a pagedate
   * @uses shortenText()				  to shorten the title text, if the $titleLength parameter is TRUE
   * @uses createHref()				  to create the href if the $titleAsLink parameter is TRUE
   * @uses statisticFunctions::formatDate()            to format the title date for output
@@ -904,10 +903,10 @@ class feindura {
   *
   * <b>Name</b>     createThumbnail()<br>
   *
-  * @param array $pageContent           the $pageContent array of a page
+  * @param array $pageContent   the $pageContent array of a page
   * 
-  * @uses adminConfig                   for the thumbnail path
-  * @uses categoryConfig                to check if thumbnails are allowed for the th category of this page
+  * @uses $adminConfig          for the thumbnail path
+  * @uses $categoryConfig       to check if thumbnails are allowed for the th category of this page
   * @uses createAttributes()		to create the attributes used in the thumbnail <img> tag
   * 
   * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
@@ -1122,9 +1121,9 @@ class feindura {
   *
   * <b>Name</b> publicCategory()<br>  
   *
-  * @param int|array|bool $ids          the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
+  * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
   *  
-  * @uses categoryConfig                to check if a category is public
+  * @uses $categoryConfig      to check if a category is public
   * 
   * @return array|false an array with ID(s) of the public category(ies)
   *
@@ -1399,10 +1398,10 @@ class feindura {
   * @param bool           $sortByCategories      determine whether the pages should only by sorted by pagedate or also seperated by categories and sorted by pagedate
   * @param bool	          $flipList              if TRUE the pages sorting will be reversed
   * 
-  * @uses $categoryConfig			to check if in the category is sorting by pagedate allowed
-  * @uses getPropertyIdsByType()	        to get the property IDs if the $ids parameter is FALSE
-  * @uses loadPagesByType()			load the pages depending on the type
-  * @uses changeDate()				change the current date minus or plus the months from the parameters
+  * @uses $categoryConfig                 to check if in the category is sorting by pagedate allowed
+  * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
+  * @uses loadPagesByType()               load the pages depending on the type
+  * @uses changeDate()                    change the current date minus or plus the months from the parameters
   * @uses gernalFunctions::sortPages()		to sort the pages by pagedate
   * 
   * @return array|false an array with the $pageContent arrays or FALSE if no page has a pagedate or is allowed for sorting
