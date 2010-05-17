@@ -905,11 +905,11 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a link from a category or page ID useing the link properties
+  * Creates a link from a page ID using the link properties
   *
   * If the given <var>$page</var> parameter is a string with "previous" or "next",
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
-  * If there is no next or previous page in the current category it returns FALSE.  
+  * If there is no current, next or previous page in it returns FALSE.  
   * 
   * <b>Name</b>           createLink()<br>
   * 
@@ -941,16 +941,19 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses loadPrevNextPage()                            to load the current, previous or next page depending of the $page parameter
-  * @uses createHref()                                  to create the href-attribute
-  * @uses createAttributes()                            to create the attributes used by the link <a> tag
-  * @uses createThumbnail()                             to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
+  * @uses createHref()                                  to create the href-attribute  
+  * @uses feindura::loadPrevNextPage()                  to load the current, previous or next page depending of the $page parameter  
+  * @uses feindura::createAttributes()                  to create the attributes used by the link <a> tag
+  * @uses feindura::createThumbnail()                   to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses feindura::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
   * 
   * 
   * @return string the created link, ready to display in a HTML file or FALSE if the page doesn't exists or is not public
   *
+  * @see createMenu()
+  * @see createMenuByTags()
+  * @see createMenuByDate()    
   *
   * @version 1.0
   * <br>
@@ -993,7 +996,7 @@ class feinduraPages extends feindura {
         // ----------------------------  
        
         // add HREF
-        $linkAttributes = ' href="'.$this->createHref($pageContent).'" title="'.$linkText.'"'; // title="'.$pageContent['title'].'"
+        $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.$linkText.'"'; // title="'.$pageContent['title'].'"
 	  
 	      $linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
                     
@@ -1044,12 +1047,12 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a menu from (a) category or page ID(s) useing the menu and link properties
+  * Creates a menu from category or page ID(s) using the menu and link properties
   *
-  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary sub tags for this elements.
-  * If its any other tag name it just enclose the links with this tag.
+  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.
   *
-  * In case the category or page ID(s) doesn't exist it returns an empty array.
+  * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
   * <b>Name</b>           createMenu()<br>
   * 
@@ -1089,15 +1092,17 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses getPropertyIdsByType()              if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses loadPagesByType()                   to load the page $pageContent array(s) from the given ID(s)
-  * @uses createLink()                        to create a link from every $pageContent array
-  * @uses createAttributes()                  to create the attributes used in the menu tag
+  * @uses createLink()                        to create a link from every $pageContent array  
+  * @uses feindura::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feindura::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
+  * @uses feindura::createAttributes()        to create the attributes used in the menu tag
   * @uses generalFunctions::sortPages()       to sort the $pageContent arrays by category
-  *   
   * 
   * @return array the created menu in an array, ready to display in a HTML file
   *
+  * @see createLink()
+  * @see createMenuByTags()
+  * @see createMenuByDate()    
   *
   * @version 1.0
   * <br>
@@ -1260,28 +1265,89 @@ class feinduraPages extends feindura {
     return $menu;
   }
   
-  // -> START -- createMenuByTags ******************************************************************************
-  // RETURN a menu created out of the pages IDs or a category ID(s) and also, but only if the page has one of the given TAGS
-  // RETURNs -> ARRAY
-  // * MORE OPTIONs in the PROPERTIES
-  // -----------------------------------------------------------------------------------------------------
-  function createMenuByTags($tags,                                     // (String or Array) the tags to select the page(s)/category(ies) with
-                                   $idType = 'categories',                    // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                   $ids = true,                               // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories                                   
-                                   $menuTag = false,                          // (Boolean or String) the TAG used for the Menu, if TRUE it uses the menuTag from the PROPERTY
-                                   $linkText = true,                          // (Boolean or String) the TEXT used for the links, if TRUE it USES the TITLE of the pages
-                                   $breakAfter = false,                       // (Boolean or Number) if TRUE it makes a br behind each <a..></a> element, if its a NUMBER AND the menuTag IS "table" it breaks the rows after the given Number 
-                                   $sortByCategories = false) {      // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
+ /**
+  * Creates a menu from category or page ID(s), using the menu and link properties,
+  * but ONLY if the page(s) have one or more of the tags from the given <var>$tags</var> parameter
+  *
+  * Uses {@link createMenu()} method to create a menu, but only from pages which have one or more of the tags from the given <var>$tags</var> parameter.<br>
+  * <b>Notice</b>: the tags will be compared case insensitive.
+  *   
+  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.
+  *
+  * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
+  * 
+  * <b>Name</b>           createMenuByTags()<br>
+  * <b>Alias</b>          createMenuByTag()<br>
+  * 
+  * Example:
+  * {@example createMenuByTags.example.php}
+  * 
+  * 
+  * @param string|array   $tags               a string with tags seperated by "," or whitespaces, or an array with tags
+  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the pagetitles of the pages, if FALSE no linktext will be used
+  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * @uses feinduraPages::$menuId
+  * @uses feinduraPages::$menuClass
+  * @uses feinduraPages::$menuAttributes
+  *   
+  * @uses feinduraPages::$linkLength
+  * @uses feinduraPages::$linkId
+  * @uses feinduraPages::$linkClass
+  * @uses feinduraPages::$linkAttributes
+  * @uses feinduraPages::$linkBefore
+  * @uses feinduraPages::$linkAfter
+  * @uses feinduraPages::$linkTextBefore
+  * @uses feinduraPages::$linkTextAfter
+  * @uses feinduraPages::$linkShowThumbnail
+  * @uses feinduraPages::$linkShowThumbnailAfterText
+  * @uses feinduraPages::$linkShowPageDate
+  * @uses feinduraPages::$linkShowCategory
+  * @uses feinduraPages::$linkCategorySeperator
+  *   
+  * @uses feinduraPages::$thumbnailAlign
+  * @uses feinduraPages::$thumbnailId
+  * @uses feinduraPages::$thumbnailClass
+  * @uses feinduraPages::$thumbnailAttributes
+  * @uses feinduraPages::$thumbnailBefore
+  * @uses feinduraPages::$thumbnailAfter
+  * 
+  * @uses feindura::getPropertyIdsByType()  if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feindura::hasTags()               to get only the pages which have one or more tags from the given $tags parameter
+  * @uses createMenu()                      to create the menu from the pages load by {@link feindura::hasTags()}  
+  * 
+  * 
+  * @return array the created menu in an array, ready to display in a HTML file
+  *
+  * @see createLink()  
+  * @see createMenu()
+  * @see createMenuByDate()
+  *
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  *
+  */
+  function createMenuByTags($tags, $idType = 'categories', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
                                    
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // check for the tags and CREATE A MENU
     if($ids = $this->hasTags($idType,$ids,$tags)) {
       return $this->createMenu($idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories); 
-    } else return false;
+    } else return array();
   }
-  // -> *ALIAS* OF createMenuByTags ****************************************************************************
-  function createMenuByTag($tags, $idType = 'categories', $ids = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+ /**
+  * Alias of {@link createMenuByTags()}
+  * @ignore
+  */
+  function createMenuByTag($tags, $idType = 'categories', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     // call the right function
     return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories);
   }
@@ -1308,7 +1374,10 @@ class feinduraPages extends feindura {
       else return array();
       
   }
-  // -> *ALIAS* OF createMenuByDate **********************************************************************
+ /**
+  * Alias of {@link createMenuByDate()}
+  * @ignore
+  */
   function createMenuByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $flipList = false) {
     // call the right function
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $flipList);

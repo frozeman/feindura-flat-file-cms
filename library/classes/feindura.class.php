@@ -260,7 +260,7 @@ class feindura {
   }
   
  /**
-  * Gets the current page ID from the <var>$_GET</var> variable
+  * Returns the current page ID from the <var>$_GET</var> variable
   *
   * Gets the current page ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
@@ -331,7 +331,7 @@ class feindura {
   }
 
  /**
-  * Gets the current category ID from the <var>$_GET</var> variable
+  * Returns the current category ID from the <var>$_GET</var> variable
   *
   * Gets the current category ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID.
@@ -1006,7 +1006,7 @@ class feindura {
 
 
  /**
-  * Load pages from given page or category category ID(s)
+  * Load pages by ID-type and ID(s)
   *
   *
   * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
@@ -1189,7 +1189,7 @@ class feindura {
 
 
  /**
-  * Loads a page BUT check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page
+  * Loads a page, but check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page
   *
   *
   * If the given $page parameter is "previous" or "next" it loads the previous or the next page of the current {@link $page} property.
@@ -1288,7 +1288,8 @@ class feindura {
   * Compares the given tags with the tags in the given <var>$pageContent</var> array
   *
   * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
-  * it returns the <var>$pageContent</var> array otherwise it FALSE.
+  * it returns the <var>$pageContent</var> array otherwise it FALSE.<br>
+  * <b>Notice</b>: the tags will be compared case insensitive.
   *
   * <b>Name</b>     compareTags()<br>
   *     
@@ -1309,13 +1310,16 @@ class feindura {
     
     // CHECKS if the $tags are in an array,
     // and the pageContent['tags'] var exists and is not empty
-    if(is_array($tags) && isset($pageContent['tags']) && !empty($pageContent['tags'])) {
-      
-      
+    if(is_array($tags) && isset($pageContent['tags']) && !empty($pageContent['tags'])) { 
+      // lowercase
+      $pageTags = strtolower($pageContent['tags']);
       
       // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
       foreach($tags as $tag) {
-        if(strstr(' '.$pageContent['tags'].' ',' '.$tag.' ')) {
+        // lowercase
+        $tag = strtolower($tag);
+        
+        if(strstr(' '.$pageTags.' ',' '.$tag.' ')) {
           return $pageContent;
         }
       }
@@ -1326,20 +1330,22 @@ class feindura {
   }
 
  /**
-  * Loads page(s) or category(ies) by ID and compare the tags of the pages with the given <var>$tags</var> parameter
-  *
+  * Load pages by ID-type and ID(s), but only if the page(s) have one or more tags from the given <var>$tags</var> parameter
+  * 
+  * <b>Notice</b>: the tags will be compared case insensitive.
+  * 
   * <b>Name</b>     hasTags()<br>
-  *
+  * 
   * @param string         $idType    the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids       the category or page ID(s), can be a number or an array with numbers, if TRUE it checks all pages tags
   * @param string|array   $tags      an string (seperated by "," or ";" or " ") or an array with tags to compare
-  *
+  * 
   * @uses loadPagesByType()	to load pages by the given ID(s) for comparision
   * @uses compareTags()		to compare each tags between two strings
   * 
   * @return array|false the $pageContent array of $pageContent arrays or FALSE if no $pageContent array have the any of the given tags
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1386,7 +1392,7 @@ class feindura {
 
 
  /**
-  * Loads page(s) or category(ies) depending on the given time frame parameters
+  * Loads pages by ID-type and ID, depending on the given time frame parameters
   *
   * Checks if the page(s) or category(ies) to load have a pagedate, sorting by pagedate is activated for this category
   * and the pagedate fits in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
@@ -1549,7 +1555,7 @@ class feindura {
   }
   
  /**
-  * If <var>$ids</var> parameter is FALSE it check of which type is the ID and load the property page or category ID
+  * If <var>$ids</var> parameter is FALSE it check the ID-type and returns then the {@link $page} or {@link $category} property
   *
   * <b>Name</b>     getPropertyIdsByType()<br>
   *
@@ -1595,7 +1601,7 @@ class feindura {
   }
 
  /**
-  * Gets the {@link $page} property if the given <var>$page</var> parameter is FALSE
+  * Returns the {@link $page} property if the given <var>$page</var> parameter is FALSE
   *
   * <b>Name</b>     getPropertyPage()<br>
   *
@@ -1632,7 +1638,7 @@ class feindura {
   
   
  /**
-  * Gets the {@link $category} property if the given <var>$category</var> parameter is FALSE
+  * Returns the {@link $category} property if the given <var>$category</var> parameter is FALSE
   *
   * <b>Name</b>     getPropertyCategory()<br>
   *
@@ -1654,7 +1660,7 @@ class feindura {
   }
 
  /**
-  * Gets the {@link generalFunctions::$storedPageIds} property
+  * Returns the {@link generalFunctions::$storedPageIds} property
   *
   * @uses generalFunctions::getStoredPageIds()
   * @see generalFunctions::getStoredPageIds()
@@ -1666,7 +1672,7 @@ class feindura {
   }
 
  /**
-  * Gets the {@link generalFunctions::$storedPages} property
+  * Returns the {@link generalFunctions::$storedPages} property
   *
   * @uses generalFunctions::getStoredPages()
   * @see generalFunctions::getStoredPages()

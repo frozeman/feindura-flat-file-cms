@@ -1,8 +1,8 @@
 <?php
 /*                               *** CODE *** 
 --------------------------------------------------------------------------------
-This example uses almost all possible properties.
-Its also goes much more simple just call createMenu('category',1)
+This example uses all possible properties.
+It's also goes much more simple: just call createMenu('category',1)
 and you have a simple array with links of the pages in this category.
 */
 
@@ -40,7 +40,7 @@ $myCms->thumbnailBefore =             'text before thumbnail ';
 $myCms->thumbnailAfter =              ' text after thumbnail';
 
 // finally create the menu from the category with ID "1" using the above set properties
-echo $myCms->createMenu('category',1,'table',true,2,true);
+$menu = $myCms->createMenu('category',1,'table',true,2,true);
 
 // displays the menu
 foreach($menu as $link) {
