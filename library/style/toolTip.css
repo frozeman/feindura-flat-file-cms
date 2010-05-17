@@ -58,7 +58,7 @@ span.toolTip {
 .toolTipBox .tip-title	{
     z-index: 2;
     position: relative;    
-    margin: 0px 40px;
+    margin: 0px 30px; /* before  0px 40px; */
     /*padding-left: 16px;
     background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;*/
     font-weight:bold;
@@ -73,7 +73,7 @@ span.toolTip {
     z-index: 2;
     position: relative;
     color: #666666;
-    padding: 10px 40px;
+    padding: 8px 35px; /* before  10px 40px; */
     padding-bottom: 0px;
     word-wrap: break-word;    
     }
@@ -82,7 +82,7 @@ span.toolTip {
     position: relative;
     background:url(../image/bg/toolTip_top.png) top left no-repeat;
     width:272px;
-    height:40px;  
+    height:30px; /* org  40px; */
     }
 .toolTipBox .tip {
     z-index: 1;
@@ -102,7 +102,7 @@ span.toolTip {
     margin: 0px;
     }
 .toolTipBox .tip-bottom	{
-    background:url(../image/bg/toolTip_bottom.png) left bottom no-repeat;
-    width:272px;
-    height:35px;
+    background: url(../image/bg/toolTip_bottom.png) left bottom no-repeat;
+    width: 272px;
+    height: 25px; /* org  35px; */
     }
