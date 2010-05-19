@@ -955,7 +955,7 @@ class feinduraPages extends feindura {
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
   * 
   * 
-  * @return string|false the created link, ready to display in a HTML file, or FALSE if the page doesn't exist or is not public
+  * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see createMenu()
   * @see createMenuByTags()
@@ -1107,7 +1107,7 @@ class feinduraPages extends feindura {
   * @uses feindura::createAttributes()        to create the attributes used in the menu tag
   * @uses generalFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
-  * @return array the created menu in an array, ready to display in a HTML file, or an empty array
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @see createLink()
   * @see createMenuByTags()
@@ -1333,7 +1333,7 @@ class feinduraPages extends feindura {
   * @uses createMenu()                      to create the menu from the pages load by {@link feindura::hasTags()}
   * 
   * 
-  * @return array the created menu in an array, ready to display in a HTML file, or an empty array
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @see createLink()  
   * @see createMenu()
@@ -1425,7 +1425,7 @@ class feinduraPages extends feindura {
   * @uses createMenu()                      to create the menu from the pages load by {@link feindura::hasTags()}
   * 
   * 
-  * @return array the created menu in an array, ready to display in a HTML file, or an empty array
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @see createLink()  
   * @see createMenu()
@@ -1502,7 +1502,7 @@ class feinduraPages extends feindura {
   * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter  
   * @uses feindura::createTitle()                  to generate the page title with the right title properties
   * 
-  * @return string the generated page title, ready to display in a HTML file, or FALSE if the page doesn't exist or is not public
+  * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see feindura::createTitle()  
   * 
@@ -1550,7 +1550,7 @@ class feinduraPages extends feindura {
   
   
  /**
-  * Shows a page by a page ID
+  * Returns a page for displaying in a HTML-page
   * 
   * The returned array contains all necessary elements of the requested page.
   * 
@@ -1593,7 +1593,7 @@ class feinduraPages extends feindura {
   * @uses feindura::generatePage()                 to generate the array with the page elements
   * @uses statisticFunctions::savePageStats()      to save the statistic of the page
   * 
-  * @return array with the page elements, ready to display in a HTML file, or FALSE if the page doesn't exist or is not public
+  * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see feindura::generatePage()  
   * 
@@ -1625,45 +1625,39 @@ class feinduraPages extends feindura {
   }
 
  /**
-  * List pages by category or page ID(s)
+  * List pages from given category or page ID(s)
   * 
-  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
-  * If its any other tag name it just enclose the links with this HTML-tag.
+  * Returns an array with multiple pages and their elements for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} property or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           createMenu()<br>
+  * <b>Name</b>           listPages()<br>
+  * <b>Alias</b>          listPage()<br>
   * 
   * Example:
-  * {@example createMenu.example.php}
+  * {@example listPages.example.php}
   * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
-  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
-  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param int|false      $shortenText	      (optional) number of the maximal content text length shown of the pages, adds a "more" link at the end or FALSE to not shorten
+  * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
-  * @uses feinduraPages::$menuId
-  * @uses feinduraPages::$menuClass
-  * @uses feinduraPages::$menuAttributes
+  * @uses feinduraPages::$xHtml
+  * @uses feinduraPages::$showError
+  * @uses feinduraPages::$errorTag
+  * @uses feinduraPages::$errorId
+  * @uses feinduraPages::$errorClass
+  * @uses feinduraPages::$errorAttributes
   * 
-  * @uses feinduraPages::$linkLength
-  * @uses feinduraPages::$linkId
-  * @uses feinduraPages::$linkClass
-  * @uses feinduraPages::$linkAttributes
-  * @uses feinduraPages::$linkBefore
-  * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkTextBefore
-  * @uses feinduraPages::$linkTextAfter
-  * @uses feinduraPages::$linkShowThumbnail
-  * @uses feinduraPages::$linkShowThumbnailAfterText
-  * @uses feinduraPages::$linkShowPageDate
-  * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeperator
+  * @uses feinduraPages::$titleLength
+  * @uses feinduraPages::$titleAsLink
+  * @uses feinduraPages::$titleShowPageDate
+  * @uses feinduraPages::$titleShowCategory
+  * @uses feinduraPages::$titleCategorySeperator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1672,13 +1666,13 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses createLink()                        to create a link from every $pageContent array  
   * @uses feindura::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses feindura::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
   * @uses feindura::createAttributes()        to create the attributes used in the menu tag
+  * @uses feindura::generatePage()            to generate every page which will be listed
   * @uses generalFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
-  * @return array the created menu in an array, ready to display in a HTML file, or an empty array
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @see createLink()
   * @see createMenuByTags()
@@ -1689,16 +1683,8 @@ class feinduraPages extends feindura {
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   *
-  */ 
-  // -> START -- listPages ********************************************************************************
-  // RETURNs an Array of PAGEs, sorted by the categories or by the given array
-  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
-  // ------------------------------------------------------------------------------------------------------
-  function listPages($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                            $ids = true,                           // (false or Number or Array or Array with pageContent Arrays) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories, -> can also be a Array with pageContent Arrays
-                            $shortenText = false,                  // (Boolean or Number) the Number of characters to shorten the content text
-                            $useHtml = true,                       // (Boolean) use html in the content text
-                            $sortByCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
+  */
+  function listPages($idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     
     // vars
     $return = array();
@@ -1724,15 +1710,20 @@ class feinduraPages extends feindura {
       }
     } else // IF there are NO PAGES
       return array();
+      
     return $return;
   }
-  // -> END -- listPages ---------------------------------------------------------------------------------  
-  // -> *ALIAS* OF listPages *****************************************************************************
+ /**
+  * Alias of {@link listPages()}
+  * @ignore
+  */
   function listPage($idType, $id = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPages($idType, $id, $shortenText, $useHtml, $sortByCategories);
   }
-  // -> END -- listPage ----------------------------------------------------------------------------------  
+
+
+
   
   // -> START -- listPagesByTags *************************************************************************
   // RETURNs PAGEs, sorted by the categories or by the given array, but only if the page has one of the given TAGS
