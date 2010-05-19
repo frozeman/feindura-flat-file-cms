@@ -48,7 +48,7 @@ $categoryConfig['id_1']['createdelete'] =    'true';
 $categoryConfig['id_1']['thumbnail'] =       'true';
 $categoryConfig['id_1']['plugins'] =         '';
 $categoryConfig['id_1']['showtags'] =        'true';
-$categoryConfig['id_1']['showpagedate'] =    '';
+$categoryConfig['id_1']['showpagedate'] =    'true';
 $categoryConfig['id_1']['sortbypagedate'] =  '';
 
 $categoryConfig['id_1']['styleFile'] =       '';

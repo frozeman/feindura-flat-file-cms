@@ -139,7 +139,7 @@ if($_POST['save']) {
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchwords'] = $pageContent['log_searchwords'];
       
-    if($generalFunctions->savePage($category,$page,$_POST)) {
+    if($generalFunctions->savePage($_POST)) {
       $documentSaved = true;
       $statisticFunctions->saveTaskLog($logText,'<a href="index.php?category='.$category.'&amp;page='.$page.'">'.$_POST['title'].'</a>'); // <- SAVE the task in a LOG FILE
     } else

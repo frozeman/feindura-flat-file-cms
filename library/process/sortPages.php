@@ -52,7 +52,7 @@ foreach($sortOrder as $sort) {
        
       
       // ->> save the new sorting
-      if($generalFunctions->savePage($_POST['categoryNew'],$pageContent['id'],$pageContent)) {
+      if($generalFunctions->savePage($pageContent)) {
         $status = $langFile['sortablePageList_save_finished'];
         $count++;
         

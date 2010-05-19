@@ -637,7 +637,7 @@ $langFile['editor_pageSettings_field4'] = 'Status der Seite';
 $langFile['editor_pageSettings_field4_tip'] = '[b]Nur wenn die Seite &ouml;ffentlich ist, wird diese auf der Webseite angezeigt![/b]';
 
 $langFile['editor_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'Das Datum muss folgendes Format haben:';
+$langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage,[br /]und das Datum sollte folgendes Format haben:';
 
 $langFile['editor_advancedpageSettings_h1'] = 'erweiterte Seiten-Einstellungen';
 

@@ -31,7 +31,7 @@ if($_GET['status'] == 'changePageStatus') {
       else
         $contentArray['public'] = 'true';      
       // save the new status
-      if($generalFunctions->savePage($_GET['category'],$_GET['page'],$contentArray))
+      if($generalFunctions->savePage($contentArray))
         $documentSaved = true;
       else
         $errorWindow = $langFile['sortablePageList_changeStatusPage_error_save'];

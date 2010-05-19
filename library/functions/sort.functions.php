@@ -109,13 +109,15 @@ function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing v
 // sort an Array with the pageContent Array by MAX VISIT TIME
 // -------------------------------------------------------------------------------------
 function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing value
-  $aMaxVisitTime = substr($a['log_visitTime_max'],0,strpos($a['log_visitTime_max'],'|'));
-  $bMaxVisitTime = substr($b['log_visitTime_max'],0,strpos($b['log_visitTime_max'],'|'));
 
-  if ($aMaxVisitTime == $bMaxVisitTime) {
+ // get highest time
+  $aMaxVisitTime = explode('|',$a['log_visitTime_max']);
+  $bMaxVisitTime = explode('|',$b['log_visitTime_max']);
+
+  if ($aMaxVisitTime[0] == $bMaxVisitTime[0]) {
     return 0;
   }
-  return ($aMaxVisitTime > $bMaxVisitTime) ? -1 : 1;
+  return ($aMaxVisitTime[0] > $bMaxVisitTime[0]) ? -1 : 1;
 }
 
 

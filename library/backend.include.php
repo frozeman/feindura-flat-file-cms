@@ -19,8 +19,9 @@
 
 error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
 
-// -> START SESSION (for the language)
+// -> START SESSION (for the language and storedPages [currently deactivated])
 session_cache_limiter(60);
+session_name("feinduraBackend");
 session_start();
 
 // INCLUDES

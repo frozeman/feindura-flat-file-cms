@@ -172,8 +172,12 @@ if(!empty($adminConfig['user']['info'])) {
       
       $count = 1;
       $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) {        
-        if($pageVisitTime = $statisticFunctions->showVisitTime(substr($page['log_visitTime_max'],0,strpos($page['log_visitTime_max'],'|'))))
+      foreach($pages as $page) {
+        
+        // get highest time
+        $highestTime = explode('|',$page['log_visitTime_max']);
+        
+        if($pageVisitTime = $statisticFunctions->showVisitTime($highestTime[0]))
           echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';

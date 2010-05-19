@@ -15,7 +15,7 @@ $tags = 'winter summer spring';
 // could also be an array like
 // $tags = array(0 => 'winter', 1 => 'summer', 2 => 'spring');
 
-// finally create the menu from the category with ID "1" using the above set properties
+// finally create the menu from the category with ID "1" using the above set tags
 $menu = $myCms->createMenuByTags($tags,'category',1,'table',true,2,true);
 
 // displays the menu

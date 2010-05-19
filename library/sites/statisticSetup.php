@@ -47,17 +47,17 @@ if($_POST['sendClearstatistics']) {
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
      $pages = $generalFunctions->loadPages(true,true)) {
       
-    foreach($pages as $page) {
+    foreach($pages as $pageContent) {
       
       // -> CLEAR the page stats
-      $page['log_visitCount'] = '';
-      $page['log_visitTime_min'] = '';
-      $page['log_visitTime_max'] = '';
-      $page['log_firstVisit'] = '';
-      $page['log_lastVisit'] = '';
-      $page['log_searchwords'] = '';
+      $pageContent['log_visitCount'] = '';
+      $pageContent['log_visitTime_min'] = '';
+      $pageContent['log_visitTime_max'] = '';
+      $pageContent['log_firstVisit'] = '';
+      $pageContent['log_lastVisit'] = '';
+      $pageContent['log_searchwords'] = '';
       
-      if($generalFunctions->savePage($page['category'],$page['id'],$page)) {        
+      if($generalFunctions->savePage($pageContent)) {        
         // set documentSaved status
         $documentSaved = true;
       } else

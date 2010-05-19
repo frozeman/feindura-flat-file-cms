@@ -368,12 +368,15 @@ class generalFunctions {
   // $category         [die gruppe innerhalb der sich die datei befindet (String)],
   // $page          [die seite welche gespeichert werden soll (String)]
   // $contentArray  [Array mit dem Inhalt und den Daten der Seite (Array)]
-  function savePage($categoryId,$pageId,$pageContentArray) {
+  function savePage($pageContent) {
         
     // escaped ",',\,NUL undescapped aber wieder die "
-    $pageContentArray['content'] = stripslashes($pageContentArray['content']);
-    $pageContentArray['content'] = addslashes($pageContentArray['content']); //escaped ",',\,NUL
-    $pageContentArray['content'] = str_replace('\"', '"', $pageContentArray['content'] );
+    $pageContent['content'] = stripslashes($pageContent['content']);
+    $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
+    $pageContent['content'] = str_replace('\"', '"', $pageContent['content'] );
+    
+    $pageId = $pageContent['id'];
+    $categoryId = $pageContent['category'];
     
     // fügt hinter der gruppe ein / an wenn sie nicht leer ist
     if(!empty($categoryId) && $categoryId != 0)
@@ -389,36 +392,36 @@ class generalFunctions {
       
       fwrite($fp,PHPSTARTTAG);
       
-      fwrite($fp,"\$pageContent['id'] =                 '".$pageContentArray['id']."';\n");
-      fwrite($fp,"\$pageContent['category'] =           '".$pageContentArray['category']."';\n");
-      fwrite($fp,"\$pageContent['public'] =             '".$pageContentArray['public']."';\n");
-      fwrite($fp,"\$pageContent['sortorder'] =          '".$pageContentArray['sortorder']."';\n\n");
+      fwrite($fp,"\$pageContent['id'] =                 '".$pageContent['id']."';\n");
+      fwrite($fp,"\$pageContent['category'] =           '".$pageContent['category']."';\n");
+      fwrite($fp,"\$pageContent['public'] =             '".$pageContent['public']."';\n");
+      fwrite($fp,"\$pageContent['sortorder'] =          '".$pageContent['sortorder']."';\n\n");
       
-      fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContentArray['lastsavedate']."';\n");
-      fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContentArray['lastsaveauthor']."';\n\n"); 
+      fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContent['lastsavedate']."';\n");
+      fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContent['lastsaveauthor']."';\n\n"); 
       
-      fwrite($fp,"\$pageContent['title'] =              '".$pageContentArray['title']."';\n");
-      fwrite($fp,"\$pageContent['description'] =        '".$pageContentArray['description']."';\n\n");      
+      fwrite($fp,"\$pageContent['title'] =              '".$pageContent['title']."';\n");
+      fwrite($fp,"\$pageContent['description'] =        '".$pageContent['description']."';\n\n");      
       
-      fwrite($fp,"\$pageContent['pagedate']['before'] = '".$pageContentArray['pagedate']['before']."';\n");
-      fwrite($fp,"\$pageContent['pagedate']['date'] =   '".$pageContentArray['pagedate']['date']."';\n");
-      fwrite($fp,"\$pageContent['pagedate']['after'] =  '".$pageContentArray['pagedate']['after']."';\n");           
-      fwrite($fp,"\$pageContent['tags'] =               '".$pageContentArray['tags']."';\n");      
-      fwrite($fp,"\$pageContent['plugins'] =            '".$pageContentArray['plugins']."';\n\n");
+      fwrite($fp,"\$pageContent['pagedate']['before'] = '".$pageContent['pagedate']['before']."';\n");
+      fwrite($fp,"\$pageContent['pagedate']['date'] =   '".$pageContent['pagedate']['date']."';\n");
+      fwrite($fp,"\$pageContent['pagedate']['after'] =  '".$pageContent['pagedate']['after']."';\n");           
+      fwrite($fp,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n");      
+      fwrite($fp,"\$pageContent['plugins'] =            '".$pageContent['plugins']."';\n\n");
       
-      fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContentArray['thumbnail']."';\n");
-      fwrite($fp,"\$pageContent['styleFile'] =          '".$pageContentArray['styleFile']."';\n");
-      fwrite($fp,"\$pageContent['styleId'] =            '".$pageContentArray['styleId']."';\n");
-      fwrite($fp,"\$pageContent['styleClass'] =         '".$pageContentArray['styleClass']."';\n\n");
+      fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContent['thumbnail']."';\n");
+      fwrite($fp,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n");
+      fwrite($fp,"\$pageContent['styleId'] =            '".$pageContent['styleId']."';\n");
+      fwrite($fp,"\$pageContent['styleClass'] =         '".$pageContent['styleClass']."';\n\n");
       
-      fwrite($fp,"\$pageContent['log_visitCount'] =     '".$pageContentArray['log_visitCount']."';\n");
-      fwrite($fp,"\$pageContent['log_visitTime_min'] =  '".$pageContentArray['log_visitTime_min']."';\n");
-      fwrite($fp,"\$pageContent['log_visitTime_max'] =  '".$pageContentArray['log_visitTime_max']."';\n");
-      fwrite($fp,"\$pageContent['log_firstVisit'] =     '".$pageContentArray['log_firstVisit']."';\n");
-      fwrite($fp,"\$pageContent['log_lastVisit'] =      '".$pageContentArray['log_lastVisit']."';\n");
-      fwrite($fp,"\$pageContent['log_searchwords'] =    '".$pageContentArray['log_searchwords']."';\n\n");
+      fwrite($fp,"\$pageContent['log_visitCount'] =     '".$pageContent['log_visitCount']."';\n");
+      fwrite($fp,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n");
+      fwrite($fp,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n");
+      fwrite($fp,"\$pageContent['log_firstVisit'] =     '".$pageContent['log_firstVisit']."';\n");
+      fwrite($fp,"\$pageContent['log_lastVisit'] =      '".$pageContent['log_lastVisit']."';\n");
+      fwrite($fp,"\$pageContent['log_searchwords'] =    '".$pageContent['log_searchwords']."';\n\n");
       
-      fwrite($fp,"\$pageContent['content'] = \n'".$pageContentArray['content']."';\n\n");
+      fwrite($fp,"\$pageContent['content'] = \n'".$pageContent['content']."';\n\n");
       
       fwrite($fp,"return \$pageContent;");
       
@@ -428,7 +431,7 @@ class generalFunctions {
       fclose($fp);
       
       // writes the new saved page to the $storedPages property
-      $this->setStoredPages($pageContentArray);
+      $this->setStoredPages($pageContent);
       
       return true;
     }  
@@ -446,8 +449,8 @@ class generalFunctions {
   * and store it in the {@link $storedPages} property.
   * 
   *
-  * @param int  $page           a page ID
-  * @param int  $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
+  * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
+  * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
   *
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
@@ -462,9 +465,13 @@ class generalFunctions {
   */
   function readPage($page,$category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
-   
+    
+    // if $page is a valid $pageContent array return it immediately
+    if($this->isPageContentArray($page))
+      return $page;
+       
     $storedPages = $this->getStoredPages();
-
+    
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
       //echo '<br />->USED STORED '.$page.'<br />';        

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 210
+Build 211
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 211: add documentation; fixes in loadPrevNextPage()
   build 210: changed toolTip look
   build 209: add documentation for createLink()
   build 208: every checkbox is now in its own table row

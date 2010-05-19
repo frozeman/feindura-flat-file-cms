@@ -12,7 +12,7 @@ require('cms/feindura.include.php');
 $myCms = new feinduraPages();
 
 // set link properties
-$myCms->linkLength =                  10; // shortens the page title in the link
+$myCms->linkLength =                  50; // shortens the page title in the link
 $myCms->linkId =                      'exampleId';
 $myCms->linkClass   =                 'exampleClass';
 $myCms->linkAttributes =              'test="exampleAttribute1" onclick="exampleAttribute2"';

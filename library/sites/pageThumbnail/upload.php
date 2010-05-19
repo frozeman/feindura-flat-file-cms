@@ -206,7 +206,7 @@ if($_POST['upload']) {
             
             // saves the new thumbnail in the flatfile ---------------------  
             $pageContent['thumbnail'] = $newFileName;
-            if($generalFunctions->savePage($category,$page,$pageContent)) {
+            if($generalFunctions->savePage($pageContent)) {
               $response[] = $langFile['pagethumbnail_upload_response_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.'" />';
               $statisticFunctions->saveTaskLog($langFile['log_pageThumbnail_upload'],'<a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a>'); // <- SAVE the task in a LOG FILE
             }

@@ -253,47 +253,47 @@ class statisticFunctions extends generalFunctions {
     
     // 01:01:01 Stunden
     if($hour !== false && $minute !== false && $second !== false)
-        $time = $hour.':'.$minute.':'.$second;
+        $printTime = $hour.':'.$minute.':'.$second;
     // 01:01 Stunden
     elseif($hour !== false && $minute !== false && $second === false)
-        $time = $hour.':'.$minute;
+        $printTime = $hour.':'.$minute;
     // 01:01 Minuten
     elseif($hour === false && $minute !== false && $second !== false)
-        $time = $minute.':'.$second; 
+        $printTime = $minute.':'.$second; 
     
     // 01 Stunden
     elseif($hour !== false && $minute === false && $second === false)
-        $time = $hour;
+        $printTime = $hour;
     // 01 Minuten
     elseif($hour === false && $minute !== false && $second === false)
-        $time = $minute;
+        $printTime = $minute;
     // 01 Sekunden
     elseif($hour === false && $minute === false && $second !== false)
-        $time = $second;
+        $printTime = $second;
     
     
     // get the time together
     if($hour) {
       if($hour == 1)
-        $time = $time.' <b>'.$GLOBALS['langFile']['log_hour_single'].'</b>';
+        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_hour_single'].'</b>';
       else
-        $time = $time.' <b>'.$GLOBALS['langFile']['log_hour_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_hour_multiple'].'</b>';
     } elseif($minute) {
       if($minute == 1)
-        $time = $time.' <b>'.$GLOBALS['langFile']['log_minute_single'].'</b>';
+        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_minute_single'].'</b>';
       else
-        $time = $time.' <b>'.$GLOBALS['langFile']['log_minute_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_minute_multiple'].'</b>';
     } elseif($second) {
       if($second == 1)
-        $time = $time.' <b>'.$GLOBALS['langFile']['log_second_single'].'</b>';
+        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_second_single'].'</b>';
       else
-        $time = $time.' <b>'.$GLOBALS['langFile']['log_second_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_second_multiple'].'</b>';
     }
     
     
     // RETURN formated time
     if($time != '00:00:00')
-      return $time;
+      return $printTime;
     else
       return false;
   }
@@ -860,9 +860,13 @@ class statisticFunctions extends generalFunctions {
         $newMinVisitTimes = '';
         $newMaxVisitTimes = '';
         $maxCount = 5;
-        
+                
         // -> count the time difference, between the last page and the current
         if(isset($_SESSION['log_lastPage'])) {
+          
+          // load the last page again
+          $lastPage = $this->readPage($_SESSION['log_lastPage'],$this->getPageCategory($_SESSION['log_lastPage']));
+          
           $orgVisitTime = $this->getMicroTime() - $_SESSION['log_lastPage_timestamp'];
           // makes a time out of seconds
           $orgVisitTime = $this->secToTime($orgVisitTime);
@@ -870,9 +874,9 @@ class statisticFunctions extends generalFunctions {
           
           // -> saves the MAX visitTime
           // ****
-          if(!empty($_SESSION['log_lastPage']['log_visitTime_max']) && $visitTime !== false) {
+          if(!empty($lastPage['log_visitTime_max']) && $visitTime !== false) {
           
-            $maxVisitTimes = explode('|',$_SESSION['log_lastPage']['log_visitTime_max']);
+            $maxVisitTimes = explode('|',$lastPage['log_visitTime_max']);
             
             // adds the new time if it is bigger than the highest min time
             if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
@@ -888,16 +892,16 @@ class statisticFunctions extends generalFunctions {
             // make array to string
             $newMaxVisitTimes = implode('|',$newMaxVisitTimes);
             
-          } elseif(!empty($_SESSION['log_lastPage']['log_visitTime_max']))
-            $newMaxVisitTimes = $_SESSION['log_lastPage']['log_visitTime_max'];
+          } elseif(!empty($lastPage['log_visitTime_max']))
+            $newMaxVisitTimes = $lastPage['log_visitTime_max'];
           else
             $newMaxVisitTimes = $orgVisitTime;
           
           // -> saves the MIN visitTime
           // ****
-          if(!empty($_SESSION['log_lastPage']['log_visitTime_min']) && $visitTime !== false) {
+          if(!empty($lastPage['log_visitTime_min']) && $visitTime !== false) {
           
-            $minVisitTimes = explode('|',$_SESSION['log_lastPage']['log_visitTime_min']);
+            $minVisitTimes = explode('|',$lastPage['log_visitTime_min']);
             
             // adds the new time if it is bigger than the highest min time
             if($visitTime > $minVisitTimes[0]) {
@@ -912,8 +916,8 @@ class statisticFunctions extends generalFunctions {
             // make array to string
             $newMinVisitTimes = implode('|',$newMinVisitTimes);
             
-          } elseif(!empty($_SESSION['log_lastPage']['log_visitTime_min']))
-            $newMinVisitTimes = $_SESSION['log_lastPage']['log_visitTime_min'];
+          } elseif(!empty($lastPage['log_visitTime_min']))
+            $newMinVisitTimes = $lastPage['log_visitTime_min'];
           else
             $newMinVisitTimes = '00:00:00';
             
@@ -921,14 +925,18 @@ class statisticFunctions extends generalFunctions {
           //echo '-> '.$newMinVisitTimes.'<br />';
           
           // -> adds the new max times to the pageContent Array
-          $_SESSION['log_lastPage']['log_visitTime_max'] = $newMaxVisitTimes;
-          $_SESSION['log_lastPage']['log_visitTime_min'] = $newMinVisitTimes;        
+          $lastPage['log_visitTime_max'] = $newMaxVisitTimes;
+          $lastPage['log_visitTime_min'] = $newMinVisitTimes;        
           
           // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
-          if(file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].'/'.$_SESSION['log_lastPage']['category'].'/'.$_SESSION['log_lastPage']['id'].'.php')) {
-            $this->savePage($_SESSION['log_lastPage']['category'],$_SESSION['log_lastPage']['id'],$_SESSION['log_lastPage']);
-            }
+          if(@file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].'/'.$lastPage['category'].'/'.$lastPage['id'].'.php')) {
+            $this->savePage($lastPage);
+          }
         }
+        
+        // stores the time of the LAST PAGE in the session
+        $_SESSION['log_lastPage'] = $pageContent['id'];
+        $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();
 
         
         // -> saves the FIRST PAGE VISIT
@@ -984,16 +992,11 @@ class statisticFunctions extends generalFunctions {
           }
         }
         
-        // stores the time of the LAST PAGE in the session
-        $_SESSION['log_lastPage'] = $pageContent;
-        $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();
-        
         // -> SAVE the PAGE STATISTICS
-        return $this->savePage($pageContent['category'],$pageContent['id'],$pageContent);
-      } else return null;
-      
+        return $this->savePage($pageContent);
+        
+      } else return false;      
   }
-
 }
 
 ?>

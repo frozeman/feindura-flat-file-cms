@@ -29,10 +29,11 @@
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
 * 
-* @version 1.57
+* @version 1.58
 * <br>
 * <b>ChangeLog</b><br>
 *    - 1.58 add phpDocumentor documentation
+*    - 1.57 startet documentation
 */
 class feindura {
   
@@ -507,21 +508,12 @@ class feindura {
   * (depending on the <var>$showError</var> parameter)
   * will be placed in the ['content'] part of the returned array.
   * If errors are deactivated it returns an empty array.<br>
-  *  
-  * Example of the returned array:
-  * <code>
-  * array(
-  *	   ['pageDate'] = '2000-12-31', // formated depending on the administrator-settings
-  *	   ['title'] = 'Title Example',
-  *	   ['thumbnail'] = '<img src="/path/thumb_cat1page1.png" alt="Thumbnail" title="Page Title" />',
-  *	   ['thumbnailPath'] = '/path/thumb_cat1page1.png',
-  *	   ['content'] = '<p>Content Text..</p>',
-  *	   ['tags'] = 'tag1 tag2 tag3',
-  *	   ['plugins'] = array (?)
-  *     )
-  * </code>
   * 
-  * <b>Name</b>     generatePage()<br>    
+  * <b>Name</b>     generatePage()<br>
+  * 
+  * Example of the returned array:
+  * {@example generatePage.return.example.php}
+  * 
   * 
   * @param int|array  $page          page ID or a $pageContent array
   * @param bool       $showError     (optional) tells if errors like "The page you requested doesn't exist" will be displayed
@@ -539,12 +531,14 @@ class feindura {
   * @uses feinduraPages::$errorId
   * @uses feinduraPages::$errorClass
   * @uses feinduraPages::$errorAttributes
+  * 
   * @uses feinduraPages::$titleLength
   * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate  
+  * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
   * @uses feinduraPages::$titleCategorySeperator
-  * @uses feinduraPages::$thumbnailAlign  
+  * 
+  * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
   * @uses feinduraPages::$thumbnailClass
   * @uses feinduraPages::$thumbnailAttributes
@@ -558,8 +552,8 @@ class feindura {
   * @uses createAttributes()                      to create the attributes used in the error tag
   * @uses shortenHtmlText()                       to shorten the HTML page content
   * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses statisticFunctions::formatDate()        to format the pagedate for output
-  * @uses generalFunctions::dateDayBeforeAfter()  check if the pagedate is "yesterday" "today" or "tomorrow"
+  * @uses statisticFunctions::formatDate()        to format the page date for output
+  * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
   * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
   *   
   * 
@@ -574,12 +568,13 @@ class feindura {
   */
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
-    // vars   
+    // vars
+    $return['category'] = false;
     $return['pageDate'] = false;
     $return['title'] = false;
     $return['thumbnail'] = false;
     $return['thumbnailPath'] = false;
-    $return['content'] = false;
+    $return['content'] = false;    
     $return['tags'] = false;
     $return['plugins'] = false;
 
@@ -623,7 +618,7 @@ class feindura {
       if(!$pageContent = $this->generalFunctions->readPage($page,$category)) {
         // if could not load throw ERROR
         if($showError) {
-	  $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
+	        $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
           return $return;
         } else
           return array();
@@ -659,12 +654,12 @@ class feindura {
     // *****************
     $title = '';
     if(!empty($pageContent['title']))
-      $title = $this->createTitle($pageContent,
-				                          $this->titleCategorySeperator,
+      $title = $this->createTitle($pageContent,				                          
                                   $this->titleLength,
-                                  $this->titleAsLink,
+                                  $this->titleAsLink,                                  
+                                  $this->titleShowPageDate,
                                   $this->titleShowCategory,
-                                  $this->titleShowPageDate);      
+                                  $this->titleCategorySeperator);      
       
     // -> PAGE THUMBNAIL
     // *****************
@@ -739,22 +734,26 @@ class feindura {
     
     // -> RETURNING the PAGE ELEMENTS
     // *******************
+    if($pageContent['category'] && $pageContent['category'] != '0')
+       $return['category'] = $this->categoryConfig['id_'.$pageContent['category']]['name'];
+    
+    
     if($pagedate)
-       $return['pageDate']  = $pagedate."\n";
+       $return['pageDate']  = $pagedate;
        
     if(!empty($pageContent['title']))
-       $return['title']	    = $title."\n";
+       $return['title']	    = $title;
        
     if($returnThumbnail) {
        $return['thumbnail'] = $returnThumbnail['thumbnail']."\n";
-       $return['thumbnailPath'] = $returnThumbnail['thumbnailPath']."\n";
+       $return['thumbnailPath'] = $returnThumbnail['thumbnailPath'];
     }
        
     if(!empty($pageContent['content']))
        $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
-       
+
     if(!empty($pageContent['tags']))
-       $return['tags']   = $pageContent['tags']."\n";
+       $return['tags']   = $pageContent['tags'];
     
     
     /*
@@ -771,52 +770,45 @@ class feindura {
   
  /**
   * Generates a page title
-  *
+  * 
   * Generates a page title from a given <var>$pageContent</var> array by using the given parameters.
-  *
+  * 
   * <b>Name</b>    createTitle()<br>  
-  *
+  * 
   * @param array   $pageContent                 the $pageContent Array of a page
-  * @param string  $titleTag                    (optional) the HTML tag which is used to surround the title text
-  * @param string  $titleId                     (optional) the ID which is used in the title tag
-  * @param string  $titleClass                  (optional) the CLASS which is used in the title tag
-  * @param string  $titleAttributes             (optional) a String with Attributes like: 'key="value" key2="value2"'
-  * @param string  $titleCategorySeperator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
   * @param int	   $titleLength                 (optional) number of the maximal text length shown or FALSE to not shorten
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
+  * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
-  * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the pagedate before the title text
-  *
+  * @param string  $titleCategorySeperator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
   * 
-  * @uses $categoryConfig			  to check if showing the pagedate is allowed and for the category name
-  * @uses $languageFile				  for showing "yesterday", "today" or "tomorrow" instead of a pagedate
-  * @uses shortenText()				  to shorten the title text, if the $titleLength parameter is TRUE
-  * @uses createHref()				  to create the href if the $titleAsLink parameter is TRUE
+  * @uses $categoryConfig			                        to check if showing the page date is allowed and for the category name
+  * @uses $languageFile				                        for showing "yesterday", "today" or "tomorrow" instead of a page date
+  * @uses shortenText()				                        to shorten the title text, if the $titleLength parameter is TRUE
+  * @uses createHref()				                        to create the href if the $titleAsLink parameter is TRUE
   * @uses statisticFunctions::formatDate()            to format the title date for output
   * @uses generalFunctions::dateDayBeforeAfter()      check if the title date is "yesterday" "today" or "tomorrow"
-  * @uses generalFunctions::getRealCharacterNumber()  to get the real number of characters of the title (adds the multiple characters of htmlentities) 
   * 
   * @return string the generated title string ready to display in a HTML file
-  *
-  *
+  * 
   * @see feinduraPages::getPageTitle()
-  *
-  * @example getPageTitle.example.php the called getPageTitle() method in this example calls this method with the title properties as parameters
-  *
+  * 
+  * @example getPageTitle.example.php the {@link getPageTitle()} method in this example calls this method with the title properties as parameters
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   *
   */
-  function createTitle($pageContent, $titleCategorySeperator = false, $titleLength = false, $titleAsLink = false, $titleShowCategory = false, $titleShowPageDate = false) {
+  function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titleCategorySeperator = false) {
       
       // vars 
       $titleBefore = '';
       $titleAfter = '';
       
       // saves the long version of the title, for the title="" tag
-      $fullTitle = strip_tags($pageContent['title']);
+      //$fullTitle = strip_tags($pageContent['title']);
            
       // generate titleDate
       if($titleShowPageDate && $this->generalFunctions->checkPageDate($pageContent)) {
@@ -828,11 +820,14 @@ class feindura {
          $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
       
+      
+      /*
       // shorten the title
-      if(is_numeric($titleLength) && $this->generalFunctions->getRealCharacterNumber($fullTitle,$titleLength) > $titleLength)
+      if(is_numeric($titleLength))
         $title = $this->shortenText($fullTitle, $titleLength, false, "...");
       else
         $title = $fullTitle;
+      */
         
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
@@ -844,55 +839,27 @@ class feindura {
         $titleShowCategory = '';
         
       // generate titleBefore without tags
-      $titleBefore = $titleShowCategory.$titleDate;
-      
-      /*
-      // dont put titleTextBefore/After if $inLink is TRUE
-      if($inLink === false) {
-        // CHECK if the TITLE BEFORE & AFTER is !== true
-        if($this->titleBefore !== true)
-          $titleBefore = $this->titleBefore.$titleBefore;
-        if($this->titleAfter !== true)
-          $titleAfter = $this->titleAfter;
-      }
-      */
+      //$titleBefore = $titleShowCategory.$titleDate;
+      $title = $titleShowCategory.$titleDate.$pageContent['title'];
       
       // generates the title for the title="" tag
-      $titleTagText = $titleBefore.$fullTitle.$titleAfter;
-            
-      // create a link for the title
-      if($titleAsLink) {        
-        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.$titleTagText.'">'.$titleBefore;
-        $titleAfter = $titleAfter.'</a>';
-      }/* else {
-        $titleBefore = '<span title="'.$titleTagText.'">'.$titleBefore;
-        $titleAfter = $titleAfter.'</span>';
-      }   
-      */   
+      //$titleTagText = $titleBefore.$fullTitle;      
       
-      /*  
-      // -------------------------------
-      // adds ATTRIBUTES
-      $titleStartTag = '';
-      $titleEndTag = '';
-      $titleTagAttributes = $this->createAttributes($titleId, $titleClass, $titleAttributes);
         
-      if($titleTag || !empty($titleTagAttributes)) {
-      
-        // set tag
-        if(is_string($titleTag)) $titleTag = $titleTag;
-	// or uses standard tag
-        else $titleTag = 'span';
-                  
-        $titleStartTag = '<'.$titleTag.$titleTagAttributes.'>';
-        $titleEndTag = '</'.$titleTag.'>';
+      // create a link for the title
+      if($titleAsLink) {
+        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.strip_tags($title).'">'."\n"; //.$titleBefore;
+        $titleAfter = "\n</a>";
       }
-      */
- 
+      
+      // shorten the title
+      if(is_numeric($titleLength))
+        $title = $this->shortenText($title, $titleLength, false, "...");
+        
       // -> builds the title
       // *******************
       //$title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
-      $title = $titleBefore.$title.$titleAfter;
+      $title = $titleBefore.$title.$titleAfter."\n";
       
       // returns the title
       return $title;
@@ -1104,7 +1071,7 @@ class feindura {
       // *************** 
       } elseif($ids && is_numeric($ids)) {
         $category = $this->getPageCategory($page);
-	if(($category = $this->publicCategory($category)) !== false) {
+	      if(($category = $this->publicCategory($category)) !== false) {
           // loads the single page in an array 
           if($pageContent = $this->generalFunctions->readPage($ids,$category)) {
             $return[] = $pageContent;
@@ -1193,7 +1160,6 @@ class feindura {
   *
   *
   * If the given $page parameter is "previous" or "next" it loads the previous or the next page of the current {@link $page} property.
-  * IMPORTANT! It also checks if the category of the page is public!
   *
   * <b>Name</b>     loadPrevNextPage()<br>
   *     
@@ -1205,7 +1171,7 @@ class feindura {
   * @uses generalFunctions::readPage()	to load the $pageContent array of the page and return it
   * @uses generalFunctions::loadPages()	to load all pages in a category to find the right previous or next page and return it
   * 
-  * @return array|false the $pageContent array of the right page or FALSE if no page could be loaded
+  * @return int|array|false the page ID of the right page or FALSE if no page could be loaded (can also return an $pageContent array)
   *
   *
   * @version 1.0
@@ -1235,53 +1201,48 @@ class feindura {
     
     // CHECK if its a $pageContent array, set the $page ID to the $page parameter
     if($this->generalFunctions->isPageContentArray($page))
-      $page = $page['id'];
-    
+      return $page;
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
     $page = $this->getPropertyPage($page);
-    
-    // gets the category of the page
-    $category = $this->getPageCategory($page);    
-    
-    //echo '<br />page: '.$page;
-    //echo '<br />category: '.$category;    
 
-    // ->> CHECK if the category is public
-    if($this->publicCategory($category) !== false) {
+    //echo '<br />page: '.$page;
+    //echo '<br />category: '.$category;
+     
+    // -> IF only $page ID or $pageContent array is given return loaded page
+    if($prevNext === false) {
+      //return $this->generalFunctions->readPage($page,$category);
+      return $page;
       
-      // -> IF only $page ID or $pageContent array is given return loaded page
-      if($prevNext === false) {
-        return $this->generalFunctions->readPage($page,$category);
-      
-      // ->> ELSE return the previous or the next $pageContent array in the category
-      } else {
-      
-        // loads all pages in this category
-        $categoryWithPages = $this->generalFunctions->loadPages($category);
+    // ->> ELSE return the previous or the next $pageContent array in the category
+    } else {
     
-        if($categoryWithPages !== false) {
-          $count = 0;
-          foreach($categoryWithPages as $eachPage) {         
+      // gets the category of the page
+      $category = $this->getPageCategory($page);
+      
+      // loads all pages in this category
+      $categoryWithPages = $this->generalFunctions->loadPages($category);
   
-            if($eachPage['id'] == $page) {
+      if($categoryWithPages !== false) {
+        $count = 0;
+        foreach($categoryWithPages as $eachPage) {         
+
+          if($eachPage['id'] == $page) {
+        
+            // NEXT
+            if($prevNext == 'next' && (($count + 1) < count($categoryWithPages)))
+              return $categoryWithPages[($count + 1)]['id'];
+            // PREV
+            elseif($prevNext == 'prev' && (($count - 1) >= 0))
+              return $categoryWithPages[($count - 1)]['id'];
+            else return false;
+          }  
           
-              // NEXT
-              if($prevNext == 'next' && (($count + 1) < count($categoryWithPages)))
-                return $categoryWithPages[($count + 1)];
-              // PREV
-              elseif($prevNext == 'prev' && (($count - 1) >= 0))
-                return $categoryWithPages[($count - 1)];
-              else return false;
-            }  
-            
-            $count++;
-          }
-        } else
-          return false;
-      }
-    } else
-      return false;
+          $count++;
+        }
+      } else
+        return false;
+    }
   }  
 
  /**
@@ -1375,28 +1336,29 @@ class feindura {
        $newTags[] = preg_replace("/ +/", '', $tag);
     }
       $tags = $newTags;
-    } else return false;
+    } else
+      return false;
     
     // get the pages and compare them if they have the tags
-    if(($pages = $this->loadPagesByType($idType,$ids)) !== false) {
+    if($pages = $this->loadPagesByType($idType,$ids)) {
       // goes trough every page and compares the tags
       foreach($pages as $page) {
         if($this->compareTags($page, $tags)) {
           $return[] = $page;
         }
       }
-    }   
+    }
     // RETURNs only the page who have the tags
     return $return;
   }
 
 
  /**
-  * Loads pages by ID-type and ID, depending on the given time frame parameters
+  * Loads pages by ID-type and ID, which fit in the given time period parameters
   *
-  * Checks if the page(s) or category(ies) to load have a pagedate, sorting by pagedate is activated for this category
-  * and the pagedate fits in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
-  * All time frame parameters are compared against the CURRENT date of TODAY.
+  * Checks if the pages to load have a page date
+  * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
+  * All time period parameters are compared against the date of TODAY.
   *
   * <b>Name</b>     loadPagesByDate()<br>  
   *
@@ -1404,16 +1366,16 @@ class feindura {
   * @param int|array|bool $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   * @param bool|int       $monthsInThePast       if FALSE it shows pages only FROM today on, if TRUE it shows all pages in the past, if number it shows all pages within the number of months in the past
   * @param bool|int       $monthsInTheFuture     if FALSE it shows pages only UNTIL today, if TRUE it shows all pages in the future, if number it shows all pages within the number of months in the future
-  * @param bool           $sortByCategories      determine whether the pages should only by sorted by pagedate or also seperated by categories and sorted by pagedate
-  * @param bool	          $flipList              if TRUE the pages sorting will be reversed
+  * @param bool           $sortByCategories      determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
+  * @param bool	          $reverseList           if TRUE the pages sorting will be reversed
   * 
-  * @uses $categoryConfig                 to check if in the category is sorting by pagedate allowed
+  * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
   * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
   * @uses loadPagesByType()               load the pages depending on the type
   * @uses changeDate()                    change the current date minus or plus the months from the parameters
-  * @uses gernalFunctions::sortPages()		to sort the pages by pagedate
+  * @uses gernalFunctions::sortPages()		to sort the pages by page date
   * 
-  * @return array|false an array with the $pageContent arrays or FALSE if no page has a pagedate or is allowed for sorting
+  * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
   *
   *
   * @version 1.0
@@ -1421,7 +1383,7 @@ class feindura {
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   */     
-  function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $flipList = false) {
+  function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
 
     if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
       $monthsInThePast = round($monthsInThePast);
@@ -1429,11 +1391,9 @@ class feindura {
       $monthsInTheFuture = round($monthsInTheFuture);
     
     $ids = $this->getPropertyIdsByType($idType,$ids);
-    
+        
     // LOADS the PAGES BY TYPE
-    $pages = $this->loadPagesByType($idType,$ids);
-      
-    if($pages !== false) {
+    if($pages = $this->loadPagesByType($idType,$ids)) {
       
       // creates the current date to compare with
       $currentDate = date('Y').date('m').date('d');       
@@ -1487,8 +1447,8 @@ class feindura {
       else
         $selectedPages = $this->generalFunctions->sortPages($selectedPages,'sortByDate');
       
-      // -> flips the sorted array if $flipList === true
-      if($flipList === true)
+      // -> flips the sorted array if $reverseList === true
+      if($reverseList === true)
         $selectedPages = array_reverse($selectedPages);
       
       
@@ -1496,7 +1456,7 @@ class feindura {
       if(!empty($selectedPages))
         return $selectedPages;
       else
-	return false;
+	     return false;
  
       
     } else return false;
@@ -1731,7 +1691,7 @@ class feindura {
       
       // adds the MORE LINK
       if($endString !== false && $this->generalFunctions->isPageContentArray($pageContent)) {
-        $shortenString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $shortenString .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       $shortenString = preg_replace("/ +/", ' ', $shortenString);
@@ -1873,7 +1833,7 @@ class feindura {
       
       // adds the MORE LINK to the $endString
       if($pageContent !== false && is_array($pageContent)) {
-        $endString .= ' <a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $endString .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
       // try to put the endString before the last HTML-Tag

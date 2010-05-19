@@ -17,7 +17,7 @@ $myCms->menuClass =                   'menuClass';
 $myCms->menuAttributes =              'test="menuAttribute1" onclick="menuAttribute2"';
 
 // set link properties
-$myCms->linkLength =                  10; // shortens the page title in the link
+$myCms->linkLength =                  50; // shortens the page title in the link
 $myCms->linkId =                      false; // set no id otherwise it will be repeated
 $myCms->linkClass   =                 'linkClass';
 $myCms->linkAttributes =              'test="linkAttribute1" onclick="linkAttribute2"';
