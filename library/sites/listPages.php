@@ -115,9 +115,9 @@ foreach($allCategories as $category) {
   //print_r($pages);
 
   // shows after saving the right category open
-  if(is_array($pages) &&                                                            // -> slide in the category if EMPTY
-     (!isset($_GET['category']) && $category['id'] == 0) ||                                             // -> slide non-category in if no category is selected
-     ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))   // -> slide out the category if ACTIVE
+  if(is_array($pages) && !empty($pages) &&                                          // -> slide in the category if EMPTY
+     (!isset($_GET['category']) && $category['id'] == '0') ||                       // -> slide non-category in if no category is selected
+     ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))  // -> slide out the category if ACTIVE
     $hidden = '';
   else
     $hidden = ' hidden';
@@ -301,7 +301,7 @@ foreach($allCategories as $category) {
       } 
    
   } else {
-    echo '<li><div>'.$langFile['sortablePageList_categoryEmpty'].'</div></li>';
+    echo '<li><div style="position:relative; top:-2px; left:5px;">'.$langFile['sortablePageList_categoryEmpty'].'</div></li>';
   }
 
 echo '</ul>
