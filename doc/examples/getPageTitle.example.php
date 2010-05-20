@@ -2,7 +2,7 @@
 /*                               *** CODE *** 
 --------------------------------------------------------------------------------
 This example uses all possible properties.
-It's also goes much more simple: just call createLink(1) without setting properties
+It's also works much more simple: just call createLink(1) without setting properties
 and you have a simple link with the page title.
 */
 

@@ -2,7 +2,7 @@
 /*                               *** CODE *** 
 --------------------------------------------------------------------------------
 This example uses all possible properties.
-It's also goes much more simple: just call createMenu('category',1)
+It's also works much more simple: just call createMenu('category',1)
 and you have a simple array with links of the pages in this category.
 */
 

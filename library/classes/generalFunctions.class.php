@@ -932,7 +932,8 @@ class generalFunctions {
     // find ..ml; and ..lig; etc and adds the number of findings * strlen($finding) (~6) characters to the length
     preg_match_all('/\&[A-Za-z]{1,6}\;/', $string, $entitiesFindings);
     foreach($entitiesFindings[0] as $finding) {
-      $textLength += (strlen($finding) - 1); // -1 because of double spaces
+      $finding = preg_replace("/ +/", '', $finding);
+      $textLength += (strlen($finding));
     }
       
     return $textLength;

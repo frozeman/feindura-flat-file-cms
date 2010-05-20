@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 213
+Build 214
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 214: fixes in shortenText() und shortenHtmlText()
   build 213: fixes in listPages.php, no page text is now better placed, and non-category slides in if a other category is activated
   build 212: add listPages() documentation
   build 211: add documentation; fixes in loadPrevNextPage()

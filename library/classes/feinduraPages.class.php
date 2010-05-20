@@ -1061,7 +1061,7 @@ class feinduraPages extends feindura {
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} property or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * <b>Name</b>           createMenu()<br>
   * 
@@ -1286,7 +1286,7 @@ class feinduraPages extends feindura {
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} property or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * <b>Name</b>           createMenuByTags()<br>
   * <b>Alias</b>          createMenuByTag()<br>
@@ -1377,7 +1377,7 @@ class feinduraPages extends feindura {
   * 
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} property or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * <b>Name</b>           createMenuByDate()<br>
   * <b>Alias</b>          createMenuByDates()<br>
@@ -1627,14 +1627,17 @@ class feinduraPages extends feindura {
  /**
   * List pages from given category or page ID(s)
   * 
-  * Returns an array with multiple pages and their elements for displaying in a HTML-page.
+  * Returns an array with multiple pages for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} property or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * <b>Name</b>           listPages()<br>
   * <b>Alias</b>          listPage()<br>
+  * 
+  * Example of the returned array:
+  * {@example lisPages.return.example.php}
   * 
   * Example:
   * {@example listPages.example.php}
@@ -1702,10 +1705,10 @@ class feinduraPages extends feindura {
       
       // -> list a category(ies)
       // ------------------------------
-      foreach($pages as $pageContentArray) {
+      foreach($pages as $pageContent) {
         // show the pages
-        if($pageContent = $this->generatePage($pageContentArray,false,$shortenText,$useHtml)) {
-          $return[] = $pageContent;
+        if($page = $this->generatePage($pageContent,false,$shortenText,$useHtml)) {
+          $return[] = $page;
         }
       }
     } else // IF there are NO PAGES

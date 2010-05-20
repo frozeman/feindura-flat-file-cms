@@ -2,8 +2,8 @@
 /*                               *** CODE *** 
 --------------------------------------------------------------------------------
 This example uses all possible properties.
-It's also goes much more simple: just call createLink(1) without setting properties
-and you have a simple link with the page title.
+It's also works much more simple: just call showPage() without setting properties
+and it shows the current page given by the $_GET variable.
 */
 
 require('cms/feindura.include.php');
@@ -35,7 +35,7 @@ $myCms->thumbnailAfter =         false;
 
 
 // finally return the page with ID "1" using the above set properties
-$page = $myCms->showPage(1,100,true);
+$page = $myCms->showPage(1,100,true,true);
 
 // displays the page
 echo $page['title'];
@@ -51,12 +51,14 @@ echo $page['content'];
 <a href="?page=1" title="2010-12-31 Example Page">
 2010-12-31 Example...
 </a>
-
-<p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus.</p>
-
-<h2>Header 2</h2>
-<p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam ...
-<a href="?page=1">mehr</a></p>
+<img src="/path/thumb_cat1page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
+class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
+<h2>Example Headline</h2>
+<p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
+Stet clita kasd gubergren, no sea takimata sanctus.</p>
+<p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
+<a href="?page=1">mehr</a>
 
 
 /*                              *** RESULT with error *** 

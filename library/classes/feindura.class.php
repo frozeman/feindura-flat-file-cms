@@ -702,11 +702,11 @@ class feindura {
           //$shortenText = $this->contentLength; // standard preview length
   
         if($useHtml)
-          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, " ...");
+          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, "...");
         else {
           // clear string of html tags (except BR)
           $pageContentEdited = strip_tags($pageContentEdited, '<br>,<br />');
-          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent, " ...");
+          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent, "...");
         }
       }
       
@@ -1672,31 +1672,36 @@ class feindura {
   */
   function shortenText($string, $length, $pageContent = false, $endString = "...") {
       
-      // cut string
+      //var
+      $output = $string;
+      
+      // getting length
       if(is_numeric($length)) {
         // gets real length, if there are htmlentities like &auml; &uuml; etc
-        $length = $this->generalFunctions->getRealCharacterNumber($string,$length);
-        $shortenString = substr($string,0,$length);
+        $length = $this->generalFunctions->getRealCharacterNumber($string,$length);        
       }
-
-      // adds $endString only if text was shorten
-      if($length < strlen($string)) {
-        // search last whitespace and cut until there
-        $shortenString = substr($shortenString, 0, strrpos($shortenString, ' '));
       
+      // shorten the string
+      if($length < strlen($string)) {      
+        $output = substr($string,0,$length);
+        
+        // search last whitespace and cut until there
+        if($endPos = strrpos($output, ' '))
+          $output = substr($output, 0, $endPos);
+
         // adds the endString
         if(is_string($endString))
-          $shortenString .= $endString;
+          $output .= $endString;
       }
       
       // adds the MORE LINK
-      if($endString !== false && $this->generalFunctions->isPageContentArray($pageContent)) {
-        $shortenString .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+      if(is_string($endString) && $this->generalFunctions->isPageContentArray($pageContent)) {
+        $output .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
-      $shortenString = preg_replace("/ +/", ' ', $shortenString);
+      $output = preg_replace("/ +/", ' ', $output);
       
-      return $shortenString;
+      return $output;
   }
 
  /**
@@ -1727,9 +1732,16 @@ class feindura {
   *
   */  
   function shortenHtmlText($input, $length, $pageContent = false, $endString = '...') {
+
+      // vars
+      $textWasCut = false;
+      $rawText = strip_tags($input);      
+      $rawText = str_replace("\n", ' ', $rawText);
+      $rawText = str_replace("\r", ' ', $rawText);
+      $rawText = preg_replace("/ +/", ' ', $rawText);
       
-      // gets the raw text
-      $rawText = strip_tags($input);
+      if(is_numeric($length))
+        $length = $this->generalFunctions->getRealCharacterNumber($rawText,$length);
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT
       // ***********************************************
@@ -1745,8 +1757,9 @@ class feindura {
         $currentLength = 0;
         $position = 0;
         $inTag = false;
-           
-        while($currentLength != $length) {        
+        
+        // goes trough the text and find the real position
+        while($currentLength != $length) {
           // get the CURRENT CHAR
           if(substr(phpversion(),0,1) >= 5)
             $actualChar = substr($decodedContent, $position, 1);
@@ -1829,24 +1842,35 @@ class feindura {
           }
         }     
         
+        $textWasCut = true;
       }
       
-      // adds the MORE LINK to the $endString
+      // create the MORE LINK
       if($pageContent !== false && is_array($pageContent)) {
-        $endString .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
-      // try to put the endString before the last HTML-Tag
-      if(substr($input,-1) == '>') {
-        $lastTagPos = strrpos($input, '</');
-        $lastTag = substr($input,$lastTagPos);
-        $input = substr($input,0,$lastTagPos).$endString.$lastTag;
-      } else
-        $input .= $endString;
+      $output = $input;
       
-      // returns the shorten Html-Text
-      return $input;
+      // removes the last \r\n on the end
+      if(substr($output,-1) == "\n")
+        $output = substr($output,0,-2);        
+      if(substr($input,-1) == "\r")
+        $output = substr($output,0,-2);
+      
+      // if string was shorten
+      if($textWasCut) {
+        // try to put the endString before the last HTML-Tag and add the more link
+        if(substr($output,-1) == '>') {
+          $lastTagPos = strrpos($output, '</');
+          $lastTag = substr($output,$lastTagPos);
+          $output = substr($output,0,$lastTagPos).$endString.$lastTag;
+        } else
+          $output .= $endString;
+      }        
+      
+      // returns the shorten HTML-Text
+      return $output.$moreLink;
   }
-
 }
 ?>
