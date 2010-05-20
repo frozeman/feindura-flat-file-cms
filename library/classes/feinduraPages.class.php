@@ -688,14 +688,14 @@ class feinduraPages extends feindura {
  /* **************************************************************************************************************************** */
   
  /**
-  * The constructor of the class, sets all basic properties
+  * <b>Type</b> constructor<br> 
+  * <b>Name</b> feinduraPages()<br>
+  * 
+  * The constructor of the class, sets all basic properties.
   * 
   * Run the {@link feindura::feindura()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
   * If there is no page and category ID it sets the start page ID from the {@link feindura::$websiteConfig website-settings config}.
-  * 
-  * <b>Type</b>     constructor<br>
-  * <b>Name</b>     feinduraPages()<br>  
   * 
   * Example:
   * {@example includeFeindura.example.php}
@@ -733,13 +733,13 @@ class feinduraPages extends feindura {
   // ****************************************************************************************************************
   
  /**
-  * Creates a string with all necessary meta tags
-  * 
   * <b>Name</b>     createMetaTags()<br>
   * <b>Alias</b>    createMetaTag()<br>
   * 
+  * Creates a string with all necessary meta tags.
+  * 
   * Example:
-  * {@example createMetaTags.example.php}    
+  * {@example createMetaTags.example.php}
   * 
   * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
   * @param string|false $author       (optional) the author of the website
@@ -854,15 +854,13 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Generates a href attribute for using in a link tag to a page
+  * <b>Name</b> createHref()<br>
   * 
-  * Generates a href attribute to link to a page.
+  * Generates a href attribute which links to a page.
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.    
-  * 
-  * <b>Name</b>     createHref()<br>
+  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
   * Examples of the returned href string:<br>
   * <i>("user=xyz123" stands for: sessionname=sessionid)</i>
@@ -886,7 +884,6 @@ class feinduraPages extends feindura {
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
   * 
-  * @access public
   * 
   * @see generalFunctions::createHref()
   * 
@@ -909,9 +906,11 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a link from a page ID
+  * <b>Name</b> createLink()<br>
   * 
-  * <b>This method uses the link properties.</b>    
+  * Creates a link from a page ID.
+  * 
+  * <b>This method uses the link properties.</b>
   * 
   * If the given <var>$page</var> parameter is a string with "previous" or "next",
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
@@ -919,11 +918,8 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
-  * <b>Name</b>           createLink()<br>
-  * 
   * Example:
   * {@example createLink.example.php}
-  * 
   * 
   * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
   * @param string|bool            $linkText  (optional) a string with a linktext which the link will use, if TRUE it uses the page title of the page, if FALSE no linktext will be used
@@ -956,12 +952,11 @@ class feinduraPages extends feindura {
   * @uses feindura::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
   * 
-  * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see createMenu()
   * @see createMenuByTags()
-  * @see createMenuByDate()    
+  * @see createMenuByDate()
   * 
   * @version 1.0
   * <br>
@@ -969,8 +964,7 @@ class feinduraPages extends feindura {
   *    - 1.0 initial release
   * 
   */
-  function createLink($page = false, $linkText = true) {
-    
+  function createLink($page = false, $linkText = true) {    
         
     //echo 'PAGE: '.$page;
     
@@ -1056,7 +1050,9 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a menu from category or page ID(s)
+  * <b>Name</b> createMenu()<br>
+  * 
+  * Creates a menu from category or page ID(s).
   * 
   * <b>This method uses the menu and link properties.</b>
   * 
@@ -1067,11 +1063,8 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           createMenu()<br>
-  * 
   * Example:
   * {@example createMenu.example.php}
-  * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
@@ -1279,7 +1272,10 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter
+  * <b>Name</b>     createMenuByTags()<br>
+  * <b>Alias</b>    createMenuByTag()<br>
+  * 
+  * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
   * <b>This method uses the menu and link properties.</b>
   * 
@@ -1292,12 +1288,8 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           createMenuByTags()<br>
-  * <b>Alias</b>          createMenuByTag()<br>
-  * 
   * Example:
   * {@example createMenuByTags.example.php}
-  * 
   * 
   * @param string|array   $tags               a string with tags seperated by "," or whitespaces, or an array with tags
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
@@ -1369,6 +1361,9 @@ class feinduraPages extends feindura {
   }
   
  /**
+  * <b>Name</b>     createMenuByDate()<br>
+  * <b>Alias</b>    createMenuByDates()<br>
+  * 
   * Creates a menu from category or page ID(s) sorted by the page date,
   * with pages which have a page date and the page date fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
@@ -1382,12 +1377,8 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           createMenuByDate()<br>
-  * <b>Alias</b>          createMenuByDates()<br>
-  * 
   * Example:
   * {@example createMenuByDate.example.php}
-  * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
@@ -1427,7 +1418,6 @@ class feinduraPages extends feindura {
   * @uses feindura::loadPagesByDate()       to load the pages which fit in the given time period parameters, sorted by the page date
   * @uses createMenu()                      to create the menu from the pages load by {@link feindura::hasTags()}
   * 
-  * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
   * @see createLink()  
@@ -1459,9 +1449,9 @@ class feinduraPages extends feindura {
   }  
   
  /**
-  * Returns the {@link $language language country code} which was set in the feindura:feindura() constructor
+  * <b>Name</b>     getLanguage()<br>
   * 
-  * <b>Name</b> getLanguage()<br>  
+  * Returns the {@link $language language country code} which was set in the feindura:feindura() constructor.
   * 
   * @uses feindura::$language	the language country code like "en", "de", ... which will be returned
   * 
@@ -1481,18 +1471,16 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Returns the page title of a page
+  * <b>Name</b>     getPageTitle()<br>
+  * <b>Alias</b>    getTitle()<br>
   * 
-  * The page title will be generated using the title properties.
+  * Returns the title of a page.
+  * This page title will be generated using the title properties.
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
-  * <b>Name</b>           getPageTitle()<br>
-  * <b>Alias</b>          getTitle()<br>
-  * 
   * Example:
   * {@example getPageTitle.example.php}
-  * 
   * 
   * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
   * 
@@ -1502,7 +1490,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleShowCategory
   * @uses feinduraPages::$titleCategorySeperator
   * 
-  * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter  
+  * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feindura::createTitle()                  to generate the page title with the right title properties
   * 
   * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
@@ -1553,9 +1541,10 @@ class feinduraPages extends feindura {
   
   
  /**
-  * Returns a page for displaying in a HTML-page
+  * <b>Name</b> showPage()<br>
   * 
-  * An array will be returned with all elements of the page, ready for displaying in a HTML-page.
+  * Returns a page for displaying in a HTML-page.
+  * This array will conatin all elements of the page, ready for displaying in a HTML-page.
   * 
   * In case the page doesn't exists or is not public and the {@link $showError} property is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
@@ -1563,14 +1552,11 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
-  * <b>Name</b>           showPage()<br>
-  * 
   * Example of the returned array:
   * {@example generatePage.return.example.php}
   * 
   * Example usage:
-  * {@example showPage.example.php}    
-  * 
+  * {@example showPage.example.php}
   * 
   * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
   * @param int|false              $shortenText  (optional) number of the maximal content text length shown, adds a "more" link at the end or FALSE to not shorten
@@ -1596,7 +1582,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter  
+  * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feindura::generatePage()                 to generate the array with the page elements
   * @uses statisticFunctions::savePageStats()      to save the statistic of the page
   * 
@@ -1633,7 +1619,10 @@ class feinduraPages extends feindura {
   }
 
  /**
-  * List pages by given category or page ID(s)
+  * <b>Name</b>     listPages()<br>
+  * <b>Alias</b>    listPage()<br>
+  * 
+  * List pages by given category or page ID(s).
   * 
   * <b>This method uses the error, title and thumbnail properties.</b>
   * 
@@ -1642,15 +1631,11 @@ class feinduraPages extends feindura {
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           listPages()<br>
-  * <b>Alias</b>          listPage()<br>
-  * 
   * Example of the returned array:
   * {@example listPages.return.example.php}
   * 
   * Example usage:
   * {@example listPages.example.php}
-  * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
@@ -1735,6 +1720,9 @@ class feinduraPages extends feindura {
   }
 
  /**
+  * <b>Name</b>     listPagesByTags()<br>
+  * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br>
+  * 
   * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
   * <b>This method uses the error, title and thumbnail properties.</b>
@@ -1746,12 +1734,8 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           listPagesByTags()<br>
-  * <b>Aliases</b>        listPagesByTag(), listPageByTags(), listPageByTag()<br>
-  * 
   * Example usage:
   * {@example listPagesByTags.example.php}
-  * 
   * 
   * @param string|array   $tags               a string with tags seperated by "," or whitespaces, or an array with tags    
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
@@ -1832,6 +1816,9 @@ class feinduraPages extends feindura {
   }  
   
  /**
+  * <b>Name</b>     listPagesByDate()<br>
+  * <b>Alias</b>    listPagesByDates(), listPageByDate(), listPageByDates()<br>
+  * 
   * List pages by given category or page ID(s) sorted by the page date which have a page date and it fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
   * 
@@ -1842,12 +1829,8 @@ class feinduraPages extends feindura {
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
-  * <b>Name</b>           listPagesByDate()<br>
-  * <b>Aliases</b>        listPagesByDates(), listPageByDate(), listPageByDates()<br>
-  * 
   * Example usage:
   * {@example listPagesByTags.example.php}
-  * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property

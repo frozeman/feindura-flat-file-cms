@@ -121,21 +121,16 @@ class generalFunctions {
  /* **************************************************************************************************************************** */
   
  /**
+  * <b> Type</b>      constructor<br>
+  * <b> Name</b>      generalFunctions()<br><br>
   * The constructor of the class, gets the settings
   * 
-  * <b>Type</b>     constructor<br>
-  * <b>Name</b>     feinduraPages()<br>  
   * 
-  * 
-  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
-  * 
-  * @uses feindura::feindura()		          the constructor of the parent class to load all necessary properties
-  * @uses feindura::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
-  * @uses feindura::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
+  * <b>Used Global Variables</b><br>
+  *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+  *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
   * 
   * @return void
-  * 
-  * @see feindura::feindura()
   * 
   * @version 1.0
   * <br>
@@ -143,35 +138,52 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  // -> START ** constructor *****************************************************************************
-  // the class constructor
-  // get the config arrays
-  // -----------------------------------------------------------------------------------------------------
-  function generalFunctions() {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function generalFunctions() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $GLOBALS['adminConfig'];
     $this->categoryConfig = $GLOBALS['categoryConfig'];
+
+  }
   
-    return true;
-  }  
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** METHODS *** */
+ /* **************************************************************************************************************************** */
   
-  // ** -- getLanguage ----------------------------------------------------------------------------------
-  // looks for the standard Browser language
-  // AND compares this with the files in the language Dir, which should end with a COUNTRY SHORTNAME
-  // RETURN, the langFile array OR the COUNTRY CODE (like: de, en, fr..)
-  // -----------------------------------------------------------------------------------------------------
-  // $useLangPath         [if here is given a ABSOLUT path he scans this folder for lang files, they should end with de or en.. (String or Boolean)],
-  // $returnCountryCode   [if false he returns the array from the language File (Boolean)],
-  // $standardLang        [standard country name for languages, if no supported ones is found in the browsers lang (String)]
-  function getLanguage($useLangPath = true, $returnLangFile = true, $standardLang = 'en') {  
+ /**
+  * <b>Name</b> checkLanguageFiles()<br><br>
+  * Checks for the browser language and looks if there is a file in the language folder with tha same country code in the filename end
+  * 
+  * If there is a language file which matches the browser language it loads either the language-file or returns the country code,
+  * depending on the <var>$returnLangFile</var> parameter.
+  * 
+  * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
+  * 
+  * @param string|false $useLangPath      a absolut path to look for language files or FALSE to use the "feindura-cms/library/lang" folder
+  * @param bool         $returnLangFile   if TRUE it includes and returns the language-file which matches the browser language
+  * @param bool         $standardLang     a standard language for use if no match was found
+  * 
+  * @uses $adminConfig  for the base path of the CMS
+  * 
+  * @return string|array|false a country code (like: de, en, fr..) or the language-file array or FALSE if the language file could not be opend
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function checkLanguageFiles($useLangPath = false, $returnLangFile = true, $standardLang = 'en') {  
      
-      // checks if other is a different path given
-      // and if its a ABSOLUTE PATH
-      if(is_string($useLangPath) && substr($useLangPath,0,1) == '/')
+      // checks if a path given
+      if(is_string($useLangPath)) {
+        // adds "/" on the beginnging for absolute path
+        if(substr($useLangPath,0,1) != '/')
+          $useLangPath = '/'.$useLangPath;
         $langPath = DOCUMENTROOT.$useLangPath;
-      else
-        $langPath = DOCUMENTROOT.$this->adminConfig['websitefilesPath'];
+      } else
+        $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'; // $this->adminConfig['websitefilesPath']
   
       // opens the lang Dir
       if(!$openlangdir = @opendir($langPath)) {
@@ -209,7 +221,6 @@ class generalFunctions {
       }
       @closedir($mod_openedmodul);      
       
-      
     	// if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
     	if($returnLangFile) {
         if(!empty($langFileSchema)) {
@@ -228,20 +239,20 @@ class generalFunctions {
   
  /**
   * Fetches the {@link $storedPageIds) property
-  *
-  * <b>Type</b>     function<br>
+  * 
   * <b>Name</b>     getStoredPageIds()<br>
-  *
+  * 
   * If the {@link $storedPageIds) property is empty, it loads all page IDs into this property.
-  *
+  * 
   * @uses $storedPageIds the property to get
-  *
+  * 
   * @return array the {@link $storedPageIds) property
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */
   function getStoredPageIds() { // (false or Array)
   
@@ -254,21 +265,20 @@ class generalFunctions {
 
  /**
   * Fetches the {@link $storedPages) property
-  *
-  * <b>Type</b>     function<br>
+  * 
   * <b>Name</b>     getStoredPages()<br>
-  *
+  * 
   * Its also possible to fetch the {@link $storedPages} property from the <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
-  *
-  *
+  * 
   * @uses $storedPages the property to get
-  *
+  * 
   * @return array the {@link $storedPages) property
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  * 
   */
   function getStoredPages() {
     global $HTTP_SESSION_VARS;
@@ -289,25 +299,25 @@ class generalFunctions {
 
  /**
   * Adds or removes a $pageContent array to or from the {@link $storedPages} property
-  *
-  * <b>Type</b>     function<br>
+  * 
   * <b>Name</b>     setStoredPages()<br>
-  *
+  * 
   * Adds a given <var>$pageContent</var> parameter if its a valid <var>$pageContent</var> array.<br>
   * If the second parameter $remove is TRUE it removes this $pageContent array from the {@link $storedPages} property.
   * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
-  *
+  * 
   * @param int  $pageContent   a $pageContent array which should be add to the {@link $storedPages} property
   * @param bool $remove        if TRUE it removes the given $pageContent array from the {@link $storedPages} property
-  *
+  * 
   * @uses $storedPages        the property to add the $pageContent array
-  *
+  * 
   * @return array passes through the given $pageContent array
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  * 
   */
   function setStoredPages($pageContent,$remove = false) {
     global $HTTP_SESSION_VARS;
@@ -348,20 +358,21 @@ class generalFunctions {
   
  /**
   * Gets the category ID of a page
-  *
+  * 
   * <b>Type</b>     function<br>
   * <b>Name</b>     getPageCategory()<br>
-  *
+  * 
   * @param int $page   a page ID from which to get the category ID
-  *
+  * 
   * @uses getStoredPageIds()            to get the {@link storedPageIds} property
-  *
+  * 
   * @return int|false the right category ID or FALSE if the page ID doesn't exists
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */
   function getPageCategory($page) {
              

@@ -48,7 +48,7 @@ $newPage = false;
 
 if(empty($_SESSION['language'])) {
   // gets the BROWSER STANDARD language
-  $_SESSION['language'] = $generalFunctions->getLanguage($adminConfig['basePath'].'library/lang/',false); // returns a COUNTRY SHORTNAME
+  $_SESSION['language'] = $generalFunctions->checkLanguageFiles(false,false); // returns a COUNTRY SHORTNAME
 }
 
 // includes the langFile which is set by the session var
