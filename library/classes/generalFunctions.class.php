@@ -238,7 +238,7 @@ class generalFunctions {
  /**
   * <b>Name</b> getStoredPages()<br>
   * 
-  * Fetches the {@link $storedPages) property.
+  * Fetches the {@link $storedPages} property.
   * 
   * Its also possible to fetch the {@link $storedPages} property from the <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
@@ -274,10 +274,8 @@ class generalFunctions {
  /**
   * <b>Name</b> setStoredPages()<br>
   * 
-  * Adds or removes a $pageContent array to or from the {@link $storedPages} property.
-  * 
-  * Adds a given <var>$pageContent</var> parameter if its a valid <var>$pageContent</var> array.<br>
-  * If the second parameter $remove is TRUE it removes this $pageContent array from the {@link $storedPages} property.
+  * Adds or removes a <var>$pageContent</var> array to or from the {@link $storedPages} property.
+  * If the second parameter <var>$remove</var> is TRUE it removes this $pageContent array from the {@link $storedPages} property.
   * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @param int  $pageContent   a $pageContent array which should be add to the {@link $storedPages} property

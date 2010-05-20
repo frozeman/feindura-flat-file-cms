@@ -29,7 +29,7 @@ array(
       "log_lastVisit" => '2010-12-31 12:01:00',
       "log_searchwords" => 'test,50|example,120|cms,2|open,5',
       "content" => '<p>Example Content</p>'
-    )
+      ),
     
     1 => array(
       "id" => 1,
@@ -59,7 +59,7 @@ array(
       "log_lastVisit" => '2010-12-31 12:01:00',
       "log_searchwords" => 'test,13|example,10',
       "content" => '<p>Example Content</p>'
-    )
+      )
 
     ...
   )

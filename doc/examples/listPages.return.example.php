@@ -11,7 +11,7 @@ array(
     'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
     'tags' => 'tag1 tag2 tag3',
     'plugins' => array (?)
-    )
+    ),
    
    1 => array(
     'category' => 'A Category',
@@ -22,7 +22,7 @@ array(
     'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
     'tags' => 'tag3 tag4',
     'plugins' => array (?)
-    )
+    ),
   
    2 => array(
     'category' => 'Another Category',
