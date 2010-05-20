@@ -6,6 +6,8 @@ It's also works much more simple: just call showPage() without setting propertie
 and it shows the current page given by the $_GET variable.
 */
 
+// the feindura.include.php has to be included BEFORE the header of the HTML page is sent
+// because a session is startet in this file
 require('cms/feindura.include.php');
 
 // creates a new feindura instance
@@ -23,7 +25,7 @@ $myCms->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttri
 $myCms->titleLength =            20;
 $myCms->titleAsLink =            true;
 $myCms->titleShowPageDate =      true;
-$myCms->titleShowCategory =      false; // have no effect, because page with ID "1" is not in a category
+$myCms->titleShowCategory =      false; // has no effect, because page with ID "1" has no category
 $myCms->titleCategorySeperator = ' -> ';
 
 $myCms->thumbnailAlign =         'left';
@@ -37,9 +39,9 @@ $myCms->thumbnailAfter =         false;
 // finally return the page with ID "1" using the above set properties
 $page = $myCms->showPage(1,100,true,true);
 
-// displays the page
-echo $page['title'];
-echo $page['thumbnail'];
+// displays the page (the "\n" creates a line break for a better look)
+echo $page['title']."\n";
+echo $page['thumbnail']."\n";
 echo $page['content'];
 
 
@@ -53,6 +55,7 @@ echo $page['content'];
 </a>
 <img src="/path/thumb_cat1page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
 class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
+
 <h2>Example Headline</h2>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
 Stet clita kasd gubergren, no sea takimata sanctus.</p>

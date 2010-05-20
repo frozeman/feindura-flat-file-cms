@@ -684,37 +684,37 @@ class feinduraPages extends feindura {
   var $errorAttributes = false;
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** METHODS *** */
+ /* *** CONSTRUCTOR *** */
  /* **************************************************************************************************************************** */
   
  /**
   * The constructor of the class, sets all basic properties
-  *
+  * 
   * Run the {@link feindura::feindura()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
   * If there is no page and category ID it sets the start page ID from the {@link feindura::$websiteConfig website-settings config}.
   * 
-  *  <b>Type</b>     constructor<br>
+  * <b>Type</b>     constructor<br>
   * <b>Name</b>     feinduraPages()<br>  
   * 
   * Example:
   * {@example includeFeindura.example.php}
-  *
+  * 
   * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
-  *
+  * 
   * @uses feindura::feindura()		          the constructor of the parent class to load all necessary properties
   * @uses feindura::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
   * @uses feindura::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
   * 
   * @return void
-  *
+  * 
   * @see feindura::feindura()
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function feinduraPages($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
@@ -729,25 +729,25 @@ class feinduraPages extends feindura {
  
   
   // ****************************************************************************************************************
-  // PUBLIC METHODs -------------------------------------------------------------------------------------------------
+  // METHODs -------------------------------------------------------------------------------------------------
   // ****************************************************************************************************************
   
  /**
   * Creates a string with all necessary meta tags
-  *
+  * 
   * <b>Name</b>     createMetaTags()<br>
   * <b>Alias</b>    createMetaTag()<br>
-  *    
+  * 
   * Example:
   * {@example createMetaTags.example.php}    
-  *
+  * 
   * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
   * @param string|false $author       (optional) the author of the website
   * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link feindura::$websiteConfig website-settings config}
   * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link feindura::$websiteConfig website-settings config}
   * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
   * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will nopt be created
-  *
+  * 
   * @uses feindura::$websiteConfig      for the website title, publisher, copyright, description and keywords
   * @uses generalFunctions::readPage()	to read the page and set the page title
   * 
@@ -758,7 +758,7 @@ class feinduraPages extends feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
       
@@ -855,29 +855,29 @@ class feinduraPages extends feindura {
   
  /**
   * Generates a href attribute for using in a link tag to a page
-  *
+  * 
   * Generates a href attribute to link to a page.
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.    
-  *
+  * 
   * <b>Name</b>     createHref()<br>
-  *     
+  * 
   * Examples of the returned href string:<br>
   * <i>("user=xyz123" stands for: sessionname=sessionid)</i>
-  *
+  * 
   * Pages without category: 
   * <samp>'?page=1&user=xyz123'</samp>
   * Pages with category:
   * <samp>'?category=1&page=1&user=xyz123'</samp>
-  *
+  * 
   * Speaking URL href for pages without category: 
   * <samp>'/page/page_title.html?user=xyz123'</samp>
   * Speaking URL href for pages with category:
   * <samp>'/category/category_name/page_title.html?user=xyz123'</samp>
-  *
-  *
+  * 
+  * 
   * @param int $page a page ID
   * 
   * @uses feindura::loadPrevNextPage()	   to load the current, previous or next page depending of the $page parameter 
@@ -894,7 +894,7 @@ class feinduraPages extends feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function createHref($page = false) {
     
@@ -909,8 +909,10 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a link from a page ID using the link properties
-  *
+  * Creates a link from a page ID
+  * 
+  * <b>This method uses the link properties.</b>    
+  * 
   * If the given <var>$page</var> parameter is a string with "previous" or "next",
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
@@ -965,7 +967,7 @@ class feinduraPages extends feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function createLink($page = false, $linkText = true) {
     
@@ -1038,7 +1040,7 @@ class feinduraPages extends feindura {
           
           // CHECK IF THUMBNAIL AFTER TEXT
           if($this->linkShowThumbnailAfterText === true)
-            $linkString = $linkTextBefore.$linkText.$linkTextAfter.$returnThumbnail;
+            $linkString = $linkTextBefore.$linkText.$linkTextAfter."\n".$returnThumbnail;
           else
             $linkString = $returnThumbnail.$linkTextBefore.$linkText.$linkTextAfter;            
   
@@ -1054,7 +1056,9 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a menu from category or page ID(s) using the menu and link properties
+  * Creates a menu from category or page ID(s)
+  * 
+  * <b>This method uses the menu and link properties.</b>
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
@@ -1070,7 +1074,7 @@ class feinduraPages extends feindura {
   * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
@@ -1117,9 +1121,9 @@ class feinduraPages extends feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
-  function createMenu($idType = 'categories', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     
     // vars
     $menu = array();
@@ -1275,10 +1279,10 @@ class feinduraPages extends feindura {
   }
   
  /**
-  * Creates a menu from category or page ID(s), using the menu and link properties,
-  * but ONLY from pages which have one or more of the tags from the given <var>$tags</var> parameter
+  * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter
   * 
-  * Uses {@link createMenu()} method to create a menu, but only with pages which have one or more of the tags from the given <var>$tags</var> parameter.<br>
+  * <b>This method uses the menu and link properties.</b>
+  * 
   * <b>Notice</b>: the tags will be compared case insensitive.
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
@@ -1297,7 +1301,7 @@ class feinduraPages extends feindura {
   * 
   * @param string|array   $tags               a string with tags seperated by "," or whitespaces, or an array with tags
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
@@ -1345,7 +1349,7 @@ class feinduraPages extends feindura {
   *    - 1.0 initial release
   * 
   */
-  function createMenuByTags($tags, $idType = 'categories', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
                                    
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
@@ -1359,18 +1363,17 @@ class feinduraPages extends feindura {
   * Alias of {@link createMenuByTags()}
   * @ignore
   */
-  function createMenuByTag($tags, $idType = 'categories', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     // call the right function
     return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories);
   }
   
  /**
-  * Creates a menu from category or page ID(s), using the menu and link properties,
-  * but ONLY from pages which fit in the given time period parameters
+  * Creates a menu from category or page ID(s) sorted by the page date,
+  * with pages which have a page date and the page date fit in the time period
+  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
   * 
-  * Uses {@link createMenu()} method to create a menu sorted by the page date,
-  * but only with pages which have a page date and the page date fit in the time period
-  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from today.
+  * <b>This method uses the menu and link properties.</b> 
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
@@ -1387,7 +1390,7 @@ class feinduraPages extends feindura {
   * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
   * @param int|bool       $monthsInThePast    (optional) number of months before today, if TRUE it loads all pages in the past, if FALSE it loads only pages starting from today
   * @param int|bool       $monthsInTheFuture  (optional) number of months after today, if TRUE it loads all pages in the future, if FALSE it loads only pages until today
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
@@ -1437,7 +1440,7 @@ class feinduraPages extends feindura {
   *    - 1.0 initial release
   * 
   */
-  function createMenuByDate($idType = 'categories', $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  function createMenuByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
       
       // gets the right pages and sorted by page date                      
       if($pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList))
@@ -1450,28 +1453,28 @@ class feinduraPages extends feindura {
   * Alias of {@link createMenuByDate()}
   * @ignore
   */
-  function createMenuByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  function createMenuByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
   }  
   
  /**
   * Returns the {@link $language language country code} which was set in the feindura:feindura() constructor
-  *
+  * 
   * <b>Name</b> getLanguage()<br>  
-  *
+  * 
   * @uses feindura::$language	the language country code like "en", "de", ... which will be returned
   * 
   * @return string the {@link $language language country code}
-  *
+  * 
   * @see feinduraPages()  
   * @see feindura::feindura()
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function getLanguage() { 
     return $this->language;
@@ -1552,7 +1555,11 @@ class feinduraPages extends feindura {
  /**
   * Returns a page for displaying in a HTML-page
   * 
-  * The returned array contains all necessary elements of the requested page.
+  * An array will be returned with all elements of the page, ready for displaying in a HTML-page.
+  * 
+  * In case the page doesn't exists or is not public and the {@link $showError} property is TRUE, 
+  * an error will be placed in the ['content'] part of the returned array,
+  * otherwiese it returns an empty array.<br>
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
@@ -1595,7 +1602,8 @@ class feinduraPages extends feindura {
   * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
-  * @see feindura::generatePage()  
+  * @see getPageTitle()
+  * @see feindura::generatePage()
   * 
   * @version 1.0
   * <br>
@@ -1625,26 +1633,27 @@ class feinduraPages extends feindura {
   }
 
  /**
-  * List pages from given category or page ID(s)
+  * List pages by given category or page ID(s)
+  * 
+  * <b>This method uses the error, title and thumbnail properties.</b>
   * 
   * Returns an array with multiple pages for displaying in a HTML-page.
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
-  * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
   * 
   * <b>Name</b>           listPages()<br>
   * <b>Alias</b>          listPage()<br>
   * 
   * Example of the returned array:
-  * {@example lisPages.return.example.php}
+  * {@example listPages.return.example.php}
   * 
-  * Example:
+  * Example usage:
   * {@example listPages.example.php}
   * 
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
   * @param int|false      $shortenText	      (optional) number of the maximal content text length shown of the pages, adds a "more" link at the end or FALSE to not shorten
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -1677,17 +1686,17 @@ class feinduraPages extends feindura {
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
-  * @see createLink()
-  * @see createMenuByTags()
-  * @see createMenuByDate()    
+  * @see showPage()
+  * @see listPagesByTags()
+  * @see listPagesByDate() 
   * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
-  function listPages($idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     
     // vars
     $return = array();
@@ -1720,85 +1729,202 @@ class feinduraPages extends feindura {
   * Alias of {@link listPages()}
   * @ignore
   */
-  function listPage($idType, $id = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPages($idType, $id, $shortenText, $useHtml, $sortByCategories);
   }
 
-
-
-  
-  // -> START -- listPagesByTags *************************************************************************
-  // RETURNs PAGEs, sorted by the categories or by the given array, but only if the page has one of the given TAGS
-  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
-  // -----------------------------------------------------------------------------------------------------
-  function listPagesByTags($tags,                                 // (String or Array) the tags to select the pages with
-                                  $idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                  $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                  $shortenText = false,                   // (false or Number) the Number of characters to shorten the content text
-                                  $useHtml = true,                       // (Boolean) use html in the content text
-                                  $sortByCategories = false) {  // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the backend
+ /**
+  * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
+  * 
+  * <b>This method uses the error, title and thumbnail properties.</b>
+  * 
+  * <b>Notice</b>: the tags will be compared case insensitive.
+  * 
+  * Returns an array with multiple pages for displaying in a HTML-page. 
+  * In case no page with the given category or page ID(s) exist it returns an empty array.
+  * 
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * 
+  * <b>Name</b>           listPagesByTags()<br>
+  * <b>Aliases</b>        listPagesByTag(), listPageByTags(), listPageByTag()<br>
+  * 
+  * Example usage:
+  * {@example listPagesByTags.example.php}
+  * 
+  * 
+  * @param string|array   $tags               a string with tags seperated by "," or whitespaces, or an array with tags    
+  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
+  * @param int|false      $shortenText	      (optional) number of the maximal content text length shown of the pages, adds a "more" link at the end or FALSE to not shorten
+  * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
+  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * @uses feinduraPages::$xHtml
+  * @uses feinduraPages::$showError
+  * @uses feinduraPages::$errorTag
+  * @uses feinduraPages::$errorId
+  * @uses feinduraPages::$errorClass
+  * @uses feinduraPages::$errorAttributes
+  * 
+  * @uses feinduraPages::$titleLength
+  * @uses feinduraPages::$titleAsLink
+  * @uses feinduraPages::$titleShowPageDate
+  * @uses feinduraPages::$titleShowCategory
+  * @uses feinduraPages::$titleCategorySeperator
+  * 
+  * @uses feinduraPages::$thumbnailAlign
+  * @uses feinduraPages::$thumbnailId
+  * @uses feinduraPages::$thumbnailClass
+  * @uses feinduraPages::$thumbnailAttributes
+  * @uses feinduraPages::$thumbnailBefore
+  * @uses feinduraPages::$thumbnailAfter
+  *   
+  * @uses feindura::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feindura::hasTags()                 to get only the pages which have one or more tags from the given $tags parameter
+  * @uses listPages()                         to list the pages  
+  * 
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * 
+  * @see showPage()
+  * @see listPages()
+  * @see listPagesByDate()
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
      
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
-    // check for the tags and LIST PAGES
+    // check for the tags and LIST the PAGES
     if($ids = $this->hasTags($idType,$ids,$tags)) {      
       return $this->listPages($idType,$ids,$shortenText,$useHtml,$sortByCategories);
-    } else return false;
+    } else
+      return array();
   }  
-  // -> *ALIAS* OF listPagesByTags ***********************************************************************
-  function listPagesByTag($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+ /**
+  * Alias of {@link listPagesByTags()}
+  * @ignore
+  */
+  function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }
-  // -> *ALIAS* OF listPagesByTags ***********************************************************************
-  function listPageByTags($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+ /**
+  * Alias of {@link listPagesByTags()}
+  * @ignore
+  */
+  function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }
-  // -> *ALIAS* OF listPagesByTags ***********************************************************************
-  function listPageByTag($tags, $idType, $ids = true, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+ /**
+  * Alias of {@link listPagesByTags()}
+  * @ignore
+  */
+  function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }  
   
-  // -> START -- listPagesByDate **************************************************************************
-  // RETURNs an Array of PAGEs, if they have a pageDate set and page date is activated in the category, AND its between the given month Number from now and in the past
-  // * MORE OPTIONs in the PROPERTIES (TITLE and CONTENT layout)
-  // ------------------------------------------------------------------------------------------------------
-  function listPagesByDate($idType,                               // (String ["page", "pages" or "category", "categories"]) uses the given IDs for looking in the pages or categories
-                                  $ids = true,                           // (false or Number or Array) the pages ID(s) or category ID(s) for the menu, if false it use VAR PRIORITY, if TRUE and $idType = "category", it loads all categories
-                                  $monthsInThePast = true,               // (Boolean or Number) number of month BEFORE today, if TRUE it shows ALL PAGES FROM the PAST, if false it shows ONLY pages FROM TODAY
-                                  $monthsInTheFuture = true,             // (Boolean or Number) number of month AFTER today, if TRUE it shows ALL PAGES IN the FUTURE, if false it shows ONLY pages UNTIL TODAY
-                                  $shortenText = false,                   // (Boolean or Number) the Number of characters to shorten the content text
-                                  $useHtml = true,                       // (Boolean) use html in the content text
-                                  $sortByCategories = false,    // (Boolean) if TRUE it sorts the pages by categories and the sorting like in the feindura cms
-                                  $reverseList = false) {                   // (Boolean) if TRUE it flips the array with the listet pages
-                                    
+ /**
+  * List pages by given category or page ID(s) sorted by the page date which have a page date and it fit in the time period
+  * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
+  * 
+  * <b>This method uses the error, title and thumbnail properties.</b>
+  * 
+  * Returns an array with multiple pages for displaying in a HTML-page. 
+  * In case no page with the given category or page ID(s) exist it returns an empty array.
+  * 
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * 
+  * <b>Name</b>           listPagesByDate()<br>
+  * <b>Aliases</b>        listPagesByDates(), listPageByDate(), listPageByDates()<br>
+  * 
+  * Example usage:
+  * {@example listPagesByTags.example.php}
+  * 
+  * 
+  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
+  * @param int|bool       $monthsInThePast    (optional) number of months before today, if TRUE it loads all pages in the past, if FALSE it loads only pages starting from today
+  * @param int|bool       $monthsInTheFuture  (optional) number of months after today, if TRUE it loads all pages in the future, if FALSE it loads only pages until today
+  * @param int|false      $shortenText	      (optional) number of the maximal content text length shown of the pages, adds a "more" link at the end or FALSE to not shorten
+  * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
+  * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
+  * 
+  * @uses feinduraPages::$xHtml
+  * @uses feinduraPages::$showError
+  * @uses feinduraPages::$errorTag
+  * @uses feinduraPages::$errorId
+  * @uses feinduraPages::$errorClass
+  * @uses feinduraPages::$errorAttributes
+  * 
+  * @uses feinduraPages::$titleLength
+  * @uses feinduraPages::$titleAsLink
+  * @uses feinduraPages::$titleShowPageDate
+  * @uses feinduraPages::$titleShowCategory
+  * @uses feinduraPages::$titleCategorySeperator
+  * 
+  * @uses feinduraPages::$thumbnailAlign
+  * @uses feinduraPages::$thumbnailId
+  * @uses feinduraPages::$thumbnailClass
+  * @uses feinduraPages::$thumbnailAttributes
+  * @uses feinduraPages::$thumbnailBefore
+  * @uses feinduraPages::$thumbnailAfter
+  * 
+  * @uses feindura::loadPagesByDate()   to load the pages which fit in the given time period parameters, sorted by the page date
+  * @uses listPages()                   to list the pages  
+  * 
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * 
+  * @see showPage()
+  * @see listPages()
+  * @see listPagesByTags()
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function listPagesByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true, $sortByCategories = false, $reverseList = false) {
       
       // gets the right pages and sorted by page date                      
       $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList);
       if($pageContents !== false)
         return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
-      else return array();
-
+      else
+        return array();
   }
-  // -> *ALIAS* OF listPagesByDate ***********************************************************************
-  function listPageByDate($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+ /**
+  * Alias of {@link listPagesByDate()}
+  * @ignore
+  */
+  function listPageByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }
-  // -> *ALIAS* OF listPagesByDate ***********************************************************************
-  function listPageByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+ /**
+  * Alias of {@link listPagesByDate()}
+  * @ignore
+  */
+  function listPageByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }  
-  // -> *ALIAS* OF listPagesByDate ***********************************************************************
-  function listPagesByDates($idType, $ids = true, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+ /**
+  * Alias of {@link listPagesByDate()}
+  * @ignore
+  */
+  function listPagesByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
-  }  
-  
+  }
 
 }
 ?>

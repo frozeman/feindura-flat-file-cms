@@ -6,6 +6,8 @@ It's also works much more simple: just call createLink(1) without setting proper
 and you have a simple link with the page title.
 */
 
+// the feindura.include.php has to be included BEFORE the header of the HTML page is sent
+// because a session is startet in this file
 require('cms/feindura.include.php');
 
 // creates a new feindura instance

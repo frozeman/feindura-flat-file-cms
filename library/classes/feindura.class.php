@@ -172,17 +172,17 @@ class feindura {
   
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** METHODS *** */
+ /* *** CONSTRUCTOR *** */
  /* **************************************************************************************************************************** */
  
  /**
   * The constructor of the class, sets all basic properties
-  *
+  * 
   * First gets all settings config <var>arrays</var> and external classes.<br>
   * Then set the <var>$_GET</var> variable names from the {@link feindura::$adminConfig administrator-settings config} to the {@link $varNames} property.<br>
   * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
   * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
-  *
+  * 
   * <b>Type</b>     constructor<br>
   * <b>Name</b>     feindura()<br>
   *  
@@ -190,9 +190,9 @@ class feindura {
   *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
-  *
+  * 
   * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and is also set to the {@link $language} property 
-  *
+  * 
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
   * @uses $categoryConfig                         the category-settings config array will set to this property
@@ -205,14 +205,14 @@ class feindura {
   * @uses statisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit
   * 
   * @return void
-  *
+  * 
   * @example includeFeindura.example.php    
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
@@ -260,16 +260,20 @@ class feindura {
     
   }
   
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** METHODS *** */
+ /* **************************************************************************************************************************** */
+  
  /**
   * Returns the current page ID from the <var>$_GET</var> variable
-  *
+  * 
   * Gets the current page ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
   * If no <var>$_GET</var> variable exists try to return the {@link $startPage} property.
-  *
+  * 
   * <b>Name</b>     getCurrentPageId()<br>
   * <b>Alias</b>    getPageId()<br>
-  *    
+  * 
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the page ID
   * 
@@ -281,12 +285,12 @@ class feindura {
   * 
   * @return int|false the current page ID or FALSE
   * 
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function getCurrentPageId() {
     
@@ -333,17 +337,17 @@ class feindura {
 
  /**
   * Returns the current category ID from the <var>$_GET</var> variable
-  *
+  * 
   * Gets the current category ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID.
   * If no <var>$_GET</var> variable exists it try to return the {@link $startPage} property.
-  *
+  * 
   * <b>Name</b>     getCurrentCategoryId()<br>
   * <b>Alias</b>    getCategory()<br>
-  *     
+  * 
   * <b>Used Global Variables</b><br>
   *    - <var>$_GET</var> to fetch the category ID
-  *
+  * 
   * @uses $varNames                       for variable names which the $_GET variable will use for the category ID
   * @uses $adminConfig                    to look if set startpage is allowed
   * @uses $categoryConfig                 for the right category name, if the $_GET variable is not a ID but a category name
@@ -351,12 +355,12 @@ class feindura {
   * 
   * @return int|false the current category ID or FALSE
   * 
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function getCurrentCategoryId() {
     
@@ -399,15 +403,15 @@ class feindura {
   
  /**
   * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property
-  *
+  * 
   * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link $page} property.
   * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the startpage ID from the {@link $websiteConfig}.
-  *
+  * 
   * <b>Name</b>     setCurrentPageId()<br>
   * <b>Alias</b>    setPageId()<br>
-  *     
+  * 
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
-  *
+  * 
   * @uses $adminConfig              to check if setting a startpage is allowed
   * @uses $websiteConfig            to get the startpage ID
   * @uses feinduraPages::$page      as the property to set
@@ -416,12 +420,12 @@ class feindura {
   * 
   * @return int|false the set page ID or FALSE
   * 
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function setCurrentPageId($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
     
@@ -446,30 +450,30 @@ class feindura {
   
  /**
   * Sets the current category ID from the <var>$_GET</var> variable to the {@link $category} property
-  *
+  * 
   * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategoryId}) and set it to the {@link $category} property.
   * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the startpage ID from the {@link $websiteConfig}.
-  *
+  * 
   * <b>Name</b>     setCurrentCategoryId()<br>
   * <b>Alias</b>    setCategoryId()<br>
-  *     
+  * 
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
-  *
+  * 
   * @uses $adminConfig                  to check if setting a startpage is allowed
   * @uses $websiteConfig                to get the startpage ID
   * @uses feinduraPages::$category      as the property to set
   * @uses feinduraPages::$startCategory if the $setStartCategory parameter is TRUE this property will also be set
   * @uses getPageCategory()             to get the right category ID of the startpage
   * @uses getCurrentCategoryId()        to get the {@link $category} property or the {@link $startCategory} property
-  *
+  * 
   * @return int|false the set category ID or FALSE
-  *
+  * 
   * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function setCurrentCategoryId($setStartCategory = false) {
     
@@ -491,23 +495,17 @@ class feindura {
     // call the right function
     return $this->setCurrentCategoryId($setStartCategory = false);
   }
-  
-  
- /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** PROTECTED METHODS *** */
- /* **************************************************************************************************************************** */
 
  /**
   * Generates a page
-  *
+  * 
   * This method is called in descendant classes.<br>
   * Generates a page by the given page ID.
-  * An array will be returned with all elements of the page, ready for use in HTML.
-  *
-  * In case the page doesn't exists or is not public an error
-  * (depending on the <var>$showError</var> parameter)
-  * will be placed in the ['content'] part of the returned array.
-  * If errors are deactivated it returns an empty array.<br>
+  * An array will be returned with all elements of the page, ready for displaying in a HTML-page.
+  * 
+  * In case the page doesn't exists or is not public and the <var>$showError</var> parameter is TRUE, 
+  * an error will be placed in the ['content'] part of the returned array,
+  * otherwiese it returns an empty array.<br>  
   * 
   * <b>Name</b>     generatePage()<br>
   * 
@@ -524,7 +522,7 @@ class feindura {
   * @uses $adminConfig                            for the thumbnail upload path
   * @uses $categoryConfig                         to check whether the category of the page allows thumbnails
   * @uses $languageFile                           for the error texts
-  *
+  * 
   * @uses feinduraPages::$xHtml
   * @uses feinduraPages::$showError
   * @uses feinduraPages::$errorTag
@@ -545,8 +543,7 @@ class feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses publicCategory()                        to check whether the category is public
-  * @uses isPageContentArray()                    to check if the given array is a $pageContent array
+  * @uses publicCategory()                        to check whether the category is public  
   * @uses createTitle()                           to create the page title
   * @uses createThumbnail()                       to check to show thumbnails are allowed and create the thumbnail <img> tag
   * @uses createAttributes()                      to create the attributes used in the error tag
@@ -554,17 +551,19 @@ class feindura {
   * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
   * @uses statisticFunctions::formatDate()        to format the page date for output
   * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
+  * @uses generalFunctions::isPageContentArray()  to check if the given array is a $pageContent array  
   * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
-  *   
+  * 
   * 
   * @return array the generated page array, ready to display in a HTML file
-  *
-  *
+  * 
+  * @example showPage.example.php the called showPage method in this example uses the generatePage() method
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
@@ -628,7 +627,7 @@ class feindura {
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
-      if($showError && $this->showError) {
+      if($showError) {
         $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
         return $return; 
       } else
@@ -745,12 +744,12 @@ class feindura {
        $return['title']	    = $title;
        
     if($returnThumbnail) {
-       $return['thumbnail'] = $returnThumbnail['thumbnail']."\n";
+       $return['thumbnail'] = $returnThumbnail['thumbnail'];
        $return['thumbnailPath'] = $returnThumbnail['thumbnailPath'];
     }
        
     if(!empty($pageContent['content']))
-       $return['content']   = $pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
+       $return['content']   = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
 
     if(!empty($pageContent['tags']))
        $return['tags']   = $pageContent['tags'];
@@ -799,7 +798,7 @@ class feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titleCategorySeperator = false) {
       
@@ -859,7 +858,7 @@ class feindura {
       // -> builds the title
       // *******************
       //$title = $titleStartTag.$titleBefore.$title.$titleAfter.$titleEndTag;
-      $title = $titleBefore.$title.$titleAfter."\n";
+      $title = $titleBefore.$title.$titleAfter;
       
       // returns the title
       return $title;
@@ -867,12 +866,12 @@ class feindura {
 
  /**
   * Generates a thumbnail
-  *
+  * 
   * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
   * returns an array with the ready to display tag and the plain thumbnail path.
-  *
+  * 
   * <b>Name</b>     createThumbnail()<br>
-  *
+  * 
   * @param array $pageContent   the $pageContent array of a page
   * 
   * @uses $adminConfig          for the thumbnail path
@@ -880,13 +879,13 @@ class feindura {
   * @uses createAttributes()		to create the attributes used in the thumbnail <img> tag
   * 
   * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function createThumbnail($pageContent) {
       
@@ -928,29 +927,28 @@ class feindura {
 
  /**
   * Generates a string with a given id, class and other attributes
-  *
-  *
+  * 
   * Check whether the given parameters are strings or numbers and add them to a string with attributes.
   * 
   * Example return:
   * <samp>
   * 'id="exampleId" class="exampleClass" key="value"'
   * </samp>
-  *
+  * 
   * <b>Name</b>     createAttributes()<br>
-  *     
+  * 
   * @param string|number  $id           a HTML id attribute value
   * @param string|number  $class        a HTML class attribute value
   * @param string|number  $attributes   one or more 'key="values"' attributes
-  *
+  * 
   * @return string the generated attribute string
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function createAttributes($id, $class, $attributes) {
   
@@ -974,31 +972,30 @@ class feindura {
 
  /**
   * Load pages by ID-type and ID(s)
-  *
-  *
+  * 
   * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
   * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
   * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
   * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
-  *
+  * 
   * <b>Name</b>     loadPagesByType()<br>
-  *  
+  * 
   * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  *  
+  * 
   * @uses publicCategory()              to check if the category(ies) or page(s) category(ies) are public
   * @uses isPageContentArray()		      to check if the given array is a $pageContent array, if TRUE it just returns this array
   * @uses generalFunctions::loadPages()	to load pages
   * @uses generalFunctions::readPage()	to load a single page
   * 
   * @return array|false an array with $pageContent array(s)
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function loadPagesByType($idType, $ids) {
     
@@ -1086,23 +1083,23 @@ class feindura {
   
  /**
   * Checks if a category or categories are public
-  *
+  * 
   * Checks whether the given category(ires) are public and returns the ID or an array with IDs of the public ones.
-  *
+  * 
   * <b>Name</b> publicCategory()<br>  
-  *
+  * 
   * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
-  *  
+  * 
   * @uses $categoryConfig      to check if a category is public
   * 
   * @return array|false an array with ID(s) of the public category(ies)
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function publicCategory($ids) {
     
@@ -1145,10 +1142,10 @@ class feindura {
 
  /**
   * Gets the category ID of a page
-  *
+  * 
   * @uses generalFunctions::getPageCategory()
   * @see generalFunctions::getPageCategory()
-  *
+  * 
   */
   function getPageCategory($page) {
     return $this->generalFunctions->getPageCategory($page);
@@ -1157,12 +1154,12 @@ class feindura {
 
  /**
   * Loads a page, but check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page
-  *
-  *
+  * 
+  * 
   * If the given $page parameter is "previous" or "next" it loads the previous or the next page of the current {@link $page} property.
-  *
+  * 
   * <b>Name</b>     loadPrevNextPage()<br>
-  *     
+  * 
   * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
   * 
   * @uses getPropertyPage()		to get the right {@link feinduraPages::$page} property
@@ -1172,12 +1169,13 @@ class feindura {
   * @uses generalFunctions::loadPages()	to load all pages in a category to find the right previous or next page and return it
   * 
   * @return int|array|false the page ID of the right page or FALSE if no page could be loaded (can also return an $pageContent array)
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */ 
   function loadPrevNextPage($page) {
     
@@ -1247,24 +1245,25 @@ class feindura {
 
  /**
   * Compares the given tags with the tags in the given <var>$pageContent</var> array
-  *
+  * 
   * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
   * it returns the <var>$pageContent</var> array otherwise it FALSE.<br>
   * <b>Notice</b>: the tags will be compared case insensitive.
-  *
+  * 
   * <b>Name</b>     compareTags()<br>
-  *     
+  * 
   * @param array $pageContent    the $pageContent array of a page
   * @param array $tags           an array with tags to compare
   * 
   * 
   * @return array|false the $pageContent array or FALSE if the $pageContent['tags'] doesn't match with any of the given tags
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */ 
   function compareTags($pageContent,  // (Array) the pageContent Array, needs the $pageContent['tags'] var
                                  $tags) {       // (Array) with the search TAGs
@@ -1311,6 +1310,7 @@ class feindura {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */   
   function hasTags($idType, $ids, $tags) {
     
@@ -1355,13 +1355,13 @@ class feindura {
 
  /**
   * Loads pages by ID-type and ID, which fit in the given time period parameters
-  *
+  * 
   * Checks if the pages to load have a page date
   * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
   * All time period parameters are compared against the date of TODAY.
-  *
+  * 
   * <b>Name</b>     loadPagesByDate()<br>  
-  *
+  * 
   * @param string         $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   * @param bool|int       $monthsInThePast       if FALSE it shows pages only FROM today on, if TRUE it shows all pages in the past, if number it shows all pages within the number of months in the past
@@ -1376,12 +1376,13 @@ class feindura {
   * @uses gernalFunctions::sortPages()		to sort the pages by page date
   * 
   * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */     
   function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
 
@@ -1465,20 +1466,21 @@ class feindura {
 
  /**
   * Change add or substract month from a date
-  *
+  * 
   * <b>Name</b>     changeDate()<br>
-  *
+  * 
   * @param string    $date			the date to be changed in fomrat: YYYYMMDD
   * @param int       $monthNumber		the number of month to add or substract
   * @param bool      $addMonths			if TRUE it adds the month otherwise i substract them
   * 
   * @return string the modified date or if the $monthNumber parameter is a bool the unmodified date
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */   
   function changeDate($date, $monthNumber, $addMonths = true) {
     
@@ -1516,9 +1518,9 @@ class feindura {
   
  /**
   * If <var>$ids</var> parameter is FALSE it check the ID-type and returns then the {@link $page} or {@link $category} property
-  *
+  * 
   * <b>Name</b>     getPropertyIdsByType()<br>
-  *
+  * 
   * @param string         $idType   the ID type can be "page", "pages" or "category", "categories"
   * @param int|array|bool $ids      the category or page ID(s), if they are FALSE it returns the property ID, otherwise it passes the ID(s) through
   * 
@@ -1526,13 +1528,13 @@ class feindura {
   * @uses getPropertyCategory()     to get the right {@link feinduraPages::$category} property
   * 
   * @return int|false a page or category property ID or FALSE, if there are no property IDs
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */ 
   function getPropertyIdsByType($idType,$ids) {
   
@@ -1562,18 +1564,19 @@ class feindura {
 
  /**
   * Returns the {@link $page} property if the given <var>$page</var> parameter is FALSE
-  *
+  * 
   * <b>Name</b>     getPropertyPage()<br>
-  *
+  * 
   * @param int|bool $page (optional) a page id or a boolean
   * 
   * @return int|true the {@link $page} property or the $page parameter
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */  
   function getPropertyPage($page = false) { // (false or Number)
     if(is_bool($page) && is_numeric($this->page))
@@ -1599,18 +1602,19 @@ class feindura {
   
  /**
   * Returns the {@link $category} property if the given <var>$category</var> parameter is FALSE
-  *
+  * 
   * <b>Name</b>     getPropertyCategory()<br>
-  *
+  * 
   * @param int|bool $category (optional) a category id or a boolean
   * 
   * @return int|true the {@link $category} property or the $category parameter
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */  
   function getPropertyCategory($category = false) { // (false or Number)
     if(is_bool($category) && is_numeric($this->category))
@@ -1621,10 +1625,10 @@ class feindura {
 
  /**
   * Returns the {@link generalFunctions::$storedPageIds} property
-  *
+  * 
   * @uses generalFunctions::getStoredPageIds()
   * @see generalFunctions::getStoredPageIds()
-  *
+  * 
   */
   function getStoredPageIds() {
 
@@ -1633,10 +1637,10 @@ class feindura {
 
  /**
   * Returns the {@link generalFunctions::$storedPages} property
-  *
+  * 
   * @uses generalFunctions::getStoredPages()
   * @see generalFunctions::getStoredPages()
-  *
+  * 
   */
   function getStoredPages() {
 
@@ -1645,30 +1649,30 @@ class feindura {
 
  /**
   * Shorten a text by to a given length
-  *
+  * 
   * If the <var>$endString</var> parameter is set and a <var>$pageContent</var> array is given,
   * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
-  *
+  * 
   * <b>Name</b>     shortenText()<br>  
-  *
+  * 
   * @param string       $string          the string to shorten
   * @param int          $length          the number of maximal characters
   * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
-  *  
+  * 
   * @uses createHref()                                  create the href for the "more" link  
   * @uses generalFunctions::getRealCharacterNumber()    to get the real number of characters of the string (adds the multiple characters of htmlentities)
   * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid
   * 
   * @return string the shortened string
-  *
-  *
-  *
+  * 
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
+  *    - 1.0 initial release  
+  * 
   */
   function shortenText($string, $length, $pageContent = false, $endString = "...") {
       
@@ -1706,30 +1710,29 @@ class feindura {
 
  /**
   * Shorten a HTML text by to a given length
-  *
+  * 
   * All HTML tags which are contained in the shortend text will be counted and closed on the end.<br>
   * If the <var>$endString</var> parameter is set and a <var>$pageContent</var> array is given,
   * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
-  *
+  * 
   * <b>Name</b>     shortenHtmlText()<br>  
-  *
+  * 
   * @param string       $string          the string to shorten
   * @param int          $length          the number of maximal characters
   * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
-  *  
-  
+  * 
   * @uses shortenText()                                 shorten the text
   * @uses createHref()                                  create the href for the "more" link  
   * 
   * @return string the shortened string
-  *
-  *
+  * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */  
   function shortenHtmlText($input, $length, $pageContent = false, $endString = '...') {
 

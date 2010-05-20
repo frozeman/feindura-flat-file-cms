@@ -117,9 +117,32 @@ class generalFunctions {
   var $storedPages = null;
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** METHODS *** */
+ /* *** CONSTRUCTOR *** */
  /* **************************************************************************************************************************** */
- 
+  
+ /**
+  * The constructor of the class, gets the settings
+  * 
+  * <b>Type</b>     constructor<br>
+  * <b>Name</b>     feinduraPages()<br>  
+  * 
+  * 
+  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
+  * 
+  * @uses feindura::feindura()		          the constructor of the parent class to load all necessary properties
+  * @uses feindura::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
+  * @uses feindura::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
+  * 
+  * @return void
+  * 
+  * @see feindura::feindura()
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */ 
   // -> START ** constructor *****************************************************************************
   // the class constructor
   // get the config arrays

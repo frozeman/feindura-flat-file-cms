@@ -3,12 +3,13 @@
 --------------------------------------------------------------------------------
 This example uses all possible properties.
 It's also works much more simple: just call createMenu('category',1)
-and you have a simple array with links of the pages in this category.
+and you have a simple array with links of the pages from this category.
 */
 
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
+// the feindura.include.php has to be included BEFORE the header of the HTML page is sent
+// because a session is startet in this file
 $myCms = new feinduraPages();
 
 // set menu properties
