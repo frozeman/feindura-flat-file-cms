@@ -157,18 +157,28 @@ function saveCategories($newCategories) {
   // öffnet die category.config.php zum schreiben
   if($file = @fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
  
-    // *** Schreibe CATEGORIES
-    flock($file,2); //LOCK_EX
+      // *** write CATEGORIES
+      flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
       
-      // ->> GO TROUGH every catgory adn write it
+      // ->> GO through EVERY catgory and write it
       foreach($newCategories as $category) {
-      
-        // -> CHECK depency of PAGEDATE
-        if($category['showpagedate'] == '')
-          $category['sortbypagedate'] = '';
+
+        // CHECK BOOL VALUES and change to FALSE
+        $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';
+        $category['sortascending'] = (isset($category['sortascending']) && $category['sortascending']) ? 'true' : 'false';
+        $category['createdelete'] = (isset($category['createdelete']) && $category['createdelete']) ? 'true' : 'false';
+        $category['thumbnail'] = (isset($category['thumbnail']) && $category['thumbnail']) ? 'true' : 'false';
+        $category['plugins'] = (isset($category['plugins']) && $category['plugins']) ? 'true' : 'false';
+        $category['showtags'] = (isset($category['showtags']) && $category['showtags']) ? 'true' : 'false';
+        $category['showpagedate'] = (isset($category['showpagedate']) && $category['showpagedate']) ? 'true' : 'false';
+        $category['sortbypagedate'] = (isset($category['sortbypagedate']) && $category['sortbypagedate']) ? 'true' : 'false';
         
-        if($category['sortbypagedate'] == 'true')
+        // -> CHECK depency of PAGEDATE
+        if($category['showpagedate'] === false)
+          $category['sortbypagedate'] = 'false';
+        
+        if($category['sortbypagedate'])
           $category['showpagedate'] = 'true';
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
@@ -187,17 +197,18 @@ function saveCategories($newCategories) {
           $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
         } 
         
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['id'] =              '".$category['id']."';\n");
+        // WRITE
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['id'] =              ".$category['id'].";\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['name'] =            '".$category['name']."';\n");
         
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['public'] =          '".$category['public']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   '".$category['sortascending']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['createdelete'] =    '".$category['createdelete']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbnail'] =       '".$category['thumbnail']."';\n");        
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['plugins'] =         '".$category['plugins']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showtags'] =        '".$category['showtags']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showpagedate'] =    '".$category['showpagedate']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortbypagedate'] =  '".$category['sortbypagedate']."';\n\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['public'] =          ".$category['public'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   ".$category['sortascending'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['createdelete'] =    ".$category['createdelete'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbnail'] =       ".$category['thumbnail'].";\n");        
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['plugins'] =         ".$category['plugins'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showtags'] =        ".$category['showtags'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showpagedate'] =    ".$category['showpagedate'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortbypagedate'] =  ".$category['sortbypagedate'].";\n\n");
         
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");
@@ -347,45 +358,55 @@ function moveCategories($category,            // the category id to be moved (Nu
 // ** -- saveAdminConfig ----------------------------------------------------------------------------------
 // open the config/admin.config.php
 // -----------------------------------------------------------------------------------------------------
-function saveAdminConfig($givenSettings) {  // (Array) with the settings to save
+function saveAdminConfig($adminConfig) {  // (Array) with the settings to save
 
   // **** opens admin.config.php for writing
   if($file = @fopen("config/admin.config.php","w")) {
+    
+    // CHECK BOOL VALUES and change to FALSE
+    $adminConfig['user']['editWebsiteFiles'] = (isset($adminConfig['user']['editWebsiteFiles']) && $adminConfig['user']['editWebsiteFiles']) ? 'true' : 'false';
+    $adminConfig['user']['editStylesheets'] = (isset($adminConfig['user']['editStylesheets']) && $adminConfig['user']['editStylesheets']) ? 'true' : 'false';
+    $adminConfig['setStartPage'] = (isset($adminConfig['setStartPage']) && $adminConfig['setStartPage']) ? 'true' : 'false';
+    $adminConfig['page']['createPages'] = (isset($adminConfig['page']['createPages']) && $adminConfig['page']['createPages']) ? 'true' : 'false';
+    $adminConfig['page']['thumbnailUpload'] = (isset($adminConfig['page']['thumbnailUpload']) && $adminConfig['page']['thumbnailUpload']) ? 'true' : 'false';
+    $adminConfig['page']['plugins'] = (isset($adminConfig['page']['plugins']) && $adminConfig['page']['plugins']) ? 'true' : 'false';
+    $adminConfig['page']['showtags'] = (isset($adminConfig['page']['showtags']) && $adminConfig['page']['showtags']) ? 'true' : 'false';
+
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
     
-    fwrite($file,"\$adminConfig['url'] =              '".$givenSettings['url']."';\n");
-    fwrite($file,"\$adminConfig['basePath'] =         '".$givenSettings['basePath']."';\n");
-    fwrite($file,"\$adminConfig['savePath'] =         '".$givenSettings['savePath']."';\n");
-    fwrite($file,"\$adminConfig['uploadPath'] =       '".$givenSettings['uploadPath']."';\n");  
-    fwrite($file,"\$adminConfig['websitefilesPath'] = '".$givenSettings['websitefilesPath']."';\n");
-    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$givenSettings['stylesheetPath']."';\n");    
-    fwrite($file,"\$adminConfig['dateFormat'] =       '".$givenSettings['dateFormat']."';\n");
-    fwrite($file,"\$adminConfig['speakingUrl'] =      '".$givenSettings['speakingUrl']."';\n\n");
+    fwrite($file,"\$adminConfig['url'] =              '".$adminConfig['url']."';\n");
+    fwrite($file,"\$adminConfig['basePath'] =         '".$adminConfig['basePath']."';\n");
+    fwrite($file,"\$adminConfig['savePath'] =         '".$adminConfig['savePath']."';\n");
+    fwrite($file,"\$adminConfig['uploadPath'] =       '".$adminConfig['uploadPath']."';\n");  
+    fwrite($file,"\$adminConfig['websitefilesPath'] = '".$adminConfig['websitefilesPath']."';\n");
+    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$adminConfig['stylesheetPath']."';\n");    
+    fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
+    fwrite($file,"\$adminConfig['speakingUrl'] =      '".$adminConfig['speakingUrl']."';\n\n");
     
-    fwrite($file,"\$adminConfig['varName']['page'] =     '".$givenSettings['varName']['page']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['category'] = '".$givenSettings['varName']['category']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$givenSettings['varName']['modul']."';\n\n");
+    fwrite($file,"\$adminConfig['varName']['page'] =     '".$adminConfig['varName']['page']."';\n");  
+    fwrite($file,"\$adminConfig['varName']['category'] = '".$adminConfig['varName']['category']."';\n");  
+    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$adminConfig['varName']['modul']."';\n\n");
     
-    fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] =    '".$givenSettings['user']['editWebsiteFiles']."';\n");
-    fwrite($file,"\$adminConfig['user']['editStylesheets'] =     '".$givenSettings['user']['editStylesheets']."';\n");  
-    fwrite($file,"\$adminConfig['user']['info'] =                '".$givenSettings['user']['info']."';\n\n");
+    fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] =    ".$adminConfig['user']['editWebsiteFiles'].";\n");
+    fwrite($file,"\$adminConfig['user']['editStylesheets'] =     ".$adminConfig['user']['editStylesheets'].";\n");  
+    fwrite($file,"\$adminConfig['user']['info'] =                '".$adminConfig['user']['info']."';\n\n");
     
-    fwrite($file,"\$adminConfig['setStartPage'] =            '".$givenSettings['setStartPage']."';\n");
-    fwrite($file,"\$adminConfig['page']['createPages'] =     '".$givenSettings['page']['createPages']."';\n");
-    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = '".$givenSettings['page']['thumbnailUpload']."';\n");    
-    fwrite($file,"\$adminConfig['page']['plugins'] =         '".$givenSettings['page']['plugins']."';\n");
-    fwrite($file,"\$adminConfig['page']['showtags'] =            '".$givenSettings['page']['showtags']."';\n\n");
+    fwrite($file,"\$adminConfig['setStartPage'] =            ".$adminConfig['setStartPage'].";\n");
+    fwrite($file,"\$adminConfig['page']['createPages'] =     ".$adminConfig['page']['createPages'].";\n");
+    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = ".$adminConfig['page']['thumbnailUpload'].";\n");    
+    fwrite($file,"\$adminConfig['page']['plugins'] =         ".$adminConfig['page']['plugins'].";\n");
+    fwrite($file,"\$adminConfig['page']['showtags'] =        ".$adminConfig['page']['showtags'].";\n\n");
     
-    fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".$givenSettings['editor']['enterMode']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$givenSettings['editor']['styleFile']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleId'] =     '".$givenSettings['editor']['styleId']."';\n");  
-    fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".$givenSettings['editor']['styleClass']."';\n\n");  
+    fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".$adminConfig['editor']['enterMode']."';\n");
+    fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$adminConfig['editor']['styleFile']."';\n");
+    fwrite($file,"\$adminConfig['editor']['styleId'] =     '".$adminConfig['editor']['styleId']."';\n");  
+    fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".$adminConfig['editor']['styleClass']."';\n\n");  
   
-    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =      '".$givenSettings['pageThumbnail']['width']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['height'] =     '".$givenSettings['pageThumbnail']['height']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =      '".$givenSettings['pageThumbnail']['ratio']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =       '".$givenSettings['pageThumbnail']['path']."';\n\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =      '".$adminConfig['pageThumbnail']['width']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['height'] =     '".$adminConfig['pageThumbnail']['height']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =      '".$adminConfig['pageThumbnail']['ratio']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =       '".$adminConfig['pageThumbnail']['path']."';\n\n");
     
     fwrite($file,"return \$adminConfig;");
        
@@ -401,69 +422,78 @@ function saveAdminConfig($givenSettings) {  // (Array) with the settings to save
 // ** -- saveWebsiteConfig ----------------------------------------------------------------------------------
 // open the config/website.config.php
 // -----------------------------------------------------------------------------------------------------
-function saveWebsiteConfig($givenSettings) {  // (Array) with the settings to save
+function saveWebsiteConfig($websiteConfig) {  // (Array) with the settings to save
    
   // opens the file for writing
-  if($websiteConfig = @fopen("config/website.config.php","w")) {
+  if($file = @fopen("config/website.config.php","w")) {
+    
+    // CHECK BOOL VALUES and change to FALSE
+    //$websiteConfig['noname'] = (isset($websiteConfig['noname']) && $websiteConfig['noname']) ? 'true' : 'false';
+    
     
     // format keywords
-    $keywords = preg_replace("/ +/", ' ', $givenSettings['keywords']);
+    $keywords = preg_replace("/ +/", ' ', $websiteConfig['keywords']);
     $keywords = preg_replace("/,+/", ',', $keywords);
     $keywords = str_replace(', ',',', $keywords);
     $keywords = str_replace(' ,',',', $keywords);
     $keywords = str_replace(' ',',', $keywords);
     
     // *** write
-    flock($websiteConfig,2); //LOCK_EX
-      fwrite($websiteConfig,PHPSTARTTAG); //< ?php
+    flock($file,2); //LOCK_EX
+      fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($websiteConfig,"\$websiteConfig['title']          = '".htmlentities($givenSettings['title'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['publisher']      = '".htmlentities($givenSettings['publisher'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['copyright']      = '".htmlentities($givenSettings['copyright'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['keywords']       = '".htmlentities($keywords,ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['description']    = '".htmlentities($givenSettings['description'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($websiteConfig,"\$websiteConfig['contactMail']    = '".$givenSettings['contactMail']."';\n\n");
+      fwrite($file,"\$websiteConfig['title']          = '".htmlentities($websiteConfig['title'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['publisher']      = '".htmlentities($websiteConfig['publisher'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['copyright']      = '".htmlentities($websiteConfig['copyright'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['keywords']       = '".htmlentities($keywords,ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['description']    = '".htmlentities($websiteConfig['description'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['contactMail']    = '".$websiteConfig['contactMail']."';\n\n");
       
-      fwrite($websiteConfig,"\$websiteConfig['startPage']      = '".$givenSettings['startPage']."';\n\n");
+      fwrite($file,"\$websiteConfig['startPage']      = '".$websiteConfig['startPage']."';\n\n");
       
-      fwrite($websiteConfig,"return \$websiteConfig;");
+      fwrite($file,"return \$websiteConfig;");
     
-      fwrite($websiteConfig,PHPENDTAG); //? >
-    flock($websiteConfig,3); //LOCK_UN
-    fclose($websiteConfig);
+      fwrite($file,PHPENDTAG); //? >
+    flock($file,3); //LOCK_UN
+    fclose($file);
   
     return true;
-  } else return false;
+  } else
+    return false;
 }
 
 // ** -- saveStatisticConfig ----------------------------------------------------------------------------------
 // open the config/statistic.config.php
 // -----------------------------------------------------------------------------------------------------
-function saveStatisticConfig($givenSettings) {  // (Array) with the settings to save
+function saveStatisticConfig($statisticConfig) {  // (Array) with the settings to save
    
   // opens the file for writing
-  if($statisticConfig = @fopen("config/statistic.config.php","w")) {
-        
-    // *** write
-    flock($statisticConfig,2); //LOCK_EX
-      fwrite($statisticConfig,PHPSTARTTAG); //< ?php
-  
-      fwrite($statisticConfig,"\$statisticConfig['number']['mostVisitedPages']        = '".$givenSettings['number']['mostVisitedPages']."';\n");
-      fwrite($statisticConfig,"\$statisticConfig['number']['longestVisitedPages']     = '".$givenSettings['number']['longestVisitedPages']."';\n");
-      fwrite($statisticConfig,"\$statisticConfig['number']['lastEditedPages']         = '".$givenSettings['number']['lastEditedPages']."';\n\n");
-      
-      fwrite($statisticConfig,"\$statisticConfig['number']['refererLog']    = '".$givenSettings['number']['refererLog']."';\n");
-      fwrite($statisticConfig,"\$statisticConfig['number']['taskLog']       = '".$givenSettings['number']['taskLog']."';\n\n");
-      
-      
-      fwrite($statisticConfig,"return \$statisticConfig;");
+  if($file = @fopen("config/statistic.config.php","w")) {
     
-      fwrite($statisticConfig,PHPENDTAG); //? >
-    flock($statisticConfig,3); //LOCK_UN
-    fclose($statisticConfig);
+    // CHECK BOOL VALUES and change to FALSE
+    //$statisticConfig['noname'] = (isset($statisticConfig['noname']) && $statisticConfig['noname']) ? 'true' : 'false';
+    
+    // WRITE
+    flock($file,2); //LOCK_EX
+      fwrite($file,PHPSTARTTAG); //< ?php
+  
+      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".$statisticConfig['number']['mostVisitedPages']."';\n");
+      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".$statisticConfig['number']['longestVisitedPages']."';\n");
+      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".$statisticConfig['number']['lastEditedPages']."';\n\n");
+      
+      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".$statisticConfig['number']['refererLog']."';\n");
+      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".$statisticConfig['number']['taskLog']."';\n\n");
+      
+      
+      fwrite($file,"return \$statisticConfig;");
+    
+      fwrite($file,PHPENDTAG); //? >
+    flock($file,3); //LOCK_UN
+    fclose($file);
   
     return true;
-  } else return false;
+  } else
+    return false;
 }
 
 

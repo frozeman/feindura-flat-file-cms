@@ -206,7 +206,7 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-if($categoryConfig['id_'.$_GET['category']]['sortbypagedate'] == 'true')
+if($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
   $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
 else
   $categorySorting = '';

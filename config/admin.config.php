@@ -13,15 +13,15 @@ $adminConfig['varName']['page'] =     'page';
 $adminConfig['varName']['category'] = 'category';
 $adminConfig['varName']['modul'] =    'modul';
 
-$adminConfig['user']['editWebsiteFiles'] =    'true';
-$adminConfig['user']['editStylesheets'] =     'true';
+$adminConfig['user']['editWebsiteFiles'] =    true;
+$adminConfig['user']['editStylesheets'] =     true;
 $adminConfig['user']['info'] =                '';
 
-$adminConfig['setStartPage'] =            'true';
-$adminConfig['page']['createPages'] =     'true';
-$adminConfig['page']['thumbnailUpload'] = 'true';
-$adminConfig['page']['plugins'] =         'true';
-$adminConfig['page']['showtags'] =            '';
+$adminConfig['setStartPage'] =            true;
+$adminConfig['page']['createPages'] =     true;
+$adminConfig['page']['thumbnailUpload'] = true;
+$adminConfig['page']['plugins'] =         true;
+$adminConfig['page']['showtags'] =        true;
 
 $adminConfig['editor']['enterMode'] =   'p';
 $adminConfig['editor']['styleFile'] =   '/_feindura10/library/style/layout.css';

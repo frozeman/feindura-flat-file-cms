@@ -20,60 +20,69 @@
  * @version 0.13
  */
 
+/**
+ * The absolut path of the webserver
+ */ 
 define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
 
 $phpTags = file(dirname(__FILE__)."/process/phptags.txt"); 
+/**
+ * The php start tag for us in saveing functions
+ */ 
 define('PHPSTARTTAG',$phpTags[0]."\n");
+/**
+ * The php end tag for us in saveing functions
+ */ 
 define('PHPENDTAG',"\n".$phpTags[1]);
 
 // get SETTINGS
 
 /**
  * The administrator-settings config
- *
+ * 
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/admin.config.php"</i>
- *
- * @global array $adminConfig
+ * 
+ * @global array $GLOBALS['adminConfig']
  */
 if(!$adminConfig =      @include_once(dirname(__FILE__)."/../config/admin.config.php"))
   $adminConfig =      array();
 
 /**
  * The website-settings config
- *
+ * 
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/website.config.php"</i>
- *
- * @global array $websiteConfig
+ * 
+ * @global array $GLOBALS['websiteConfig']
  */
 if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.config.php"))
   $websiteConfig =    array();
 
 /**
  * The categories-settings config
- *
+ * 
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/category.config.php"</i>
- *
- * @global array $categoryConfig
+ * 
+ * @global array $GLOBALS['categoryConfig']
  */
 if(!$categoryConfig =       @include_once(dirname(__FILE__)."/../config/category.config.php"))
   $categoryConfig =       array();
 
 /**
  * The statistic-settings config
- *
+ * 
  * This config <var>array</var> is included from: <i>"feindura-CMS/config/statistic.config.php"</i>
- *
- * @global array $statisticConfig
+ * 
+ * @global array $GLOBALS['statisticConfig']
  */
 if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.config.php"))
   $statisticConfig =  array();
 
 /**
  * The website-statistics
- *
+ * 
  * This statistics <var>array</var> is included from: <i>"feindura-CMS/config/website.statistic.php"</i>
- *
- * @global array $websiteStatistic
+ * 
+ * @global array $GLOBALS['websiteStatistic']
  */
 if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../statistic/website.statistic.php"))
   $websiteStatistic = array();

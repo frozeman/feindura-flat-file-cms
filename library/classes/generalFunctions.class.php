@@ -41,7 +41,7 @@ class generalFunctions {
   * 
   * @var array
   * @see generalFunctions()
-  *
+  * 
   */ 
   var $adminConfig;
   
@@ -50,7 +50,7 @@ class generalFunctions {
   * 
   * @var array
   * @see generalFunctions()
-  *
+  * 
   */ 
   var $categoryConfig;
   
@@ -61,23 +61,11 @@ class generalFunctions {
   * it goes trough all category folders and look which pages are in which folders and saves the IDs in the this property,<br>
   * to speed up the page loading process.
   * 
-  * Example construction of the array
-  * <code>
-  * array(
-  *   [0] => array(
-  *           'page' => 1,
-  *           'category' => 1
-  *          ),
-  *   [1] => array(
-  *           'page' => 2,
-  *           'category' => 1
-  *          )
-  *   ...  
-  * );
-  * </code>
+  * Example of the returned array:
+  * {@example loadPageIds.return.example.php}
   * 
   * @var array
-  *    
+  * 
   */
   var $storedPageIds = null;
   
@@ -87,32 +75,11 @@ class generalFunctions {
   * If a page is loaded (<i>included</i>) it's page-content array will be stored in the this array.<br>
   * If the page is later needed again it's page-content will be fetched from this property.<br>
   * It should speed up the page loading process.
-  *
-  * Example construction of the array
-  * <code>
-  * array(
-  *   [5] => array(
-  *           'id' => 5,
-  *           'category' => 1,
-  *           'title' => 'First Example Page',
-  *           'public' => 'true',
-  *           ...  
-  *           'content' => '<p>example</p>'      
-  *          ),
-  *   [8] => array(
-  *           'id' => 8,
-  *           'category' => 1,
-  *           'title' => 'Second Example Page',
-  *           'public' => '',
-  *           ...  
-  *           'content' => '<p>example</p>'      
-  *          )
-  *    ...  
-  * );
-  * </code>
+  * 
+  * @example loadPages.return.example.php of the returned array
   * 
   * @var array
-  *   
+  * 
   */
   var $storedPages = null;
  
@@ -124,7 +91,6 @@ class generalFunctions {
   * <b> Type</b>      constructor<br>
   * <b> Name</b>      generalFunctions()<br><br>
   * The constructor of the class, gets the settings
-  * 
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
@@ -151,8 +117,9 @@ class generalFunctions {
  /* **************************************************************************************************************************** */
   
  /**
-  * <b>Name</b> checkLanguageFiles()<br><br>
-  * Checks for the browser language and looks if there is a file in the language folder with tha same country code in the filename end
+  * <b>Name</b> checkLanguageFiles()<br>
+  * 
+  * Checks for the browser language and looks if there is a file in the language folder with tha same country code in the filename end.
   * 
   * If there is a language file which matches the browser language it loads either the language-file or returns the country code,
   * depending on the <var>$returnLangFile</var> parameter.
@@ -238,21 +205,25 @@ class generalFunctions {
   }
   
  /**
-  * Fetches the {@link $storedPageIds) property
+  * <b>Name</b> getStoredPageIds()<br>
   * 
-  * <b>Name</b>     getStoredPageIds()<br>
+  * Fetches the {@link $storedPageIds) property.
   * 
   * If the {@link $storedPageIds) property is empty, it loads all page IDs into this property.
+  * 
+  * Example of the returned {@link $storedPageIds) property:
+  * {@example loadPageIds.return.example.php}
   * 
   * @uses $storedPageIds the property to get
   * 
   * @return array the {@link $storedPageIds) property
   * 
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *   
+  * 
   */
   function getStoredPageIds() { // (false or Array)
   
@@ -264,15 +235,17 @@ class generalFunctions {
   }
 
  /**
-  * Fetches the {@link $storedPages) property
+  * <b>Name</b> getStoredPages()<br>
   * 
-  * <b>Name</b>     getStoredPages()<br>
+  * Fetches the {@link $storedPages) property.
   * 
   * Its also possible to fetch the {@link $storedPages} property from the <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @uses $storedPages the property to get
   * 
   * @return array the {@link $storedPages) property
+  * 
+  * @example loadPages.return.example.php of the returned array
   * 
   * @version 1.0
   * <br>
@@ -298,9 +271,9 @@ class generalFunctions {
   }
 
  /**
-  * Adds or removes a $pageContent array to or from the {@link $storedPages} property
+  * <b>Name</b> setStoredPages()<br>
   * 
-  * <b>Name</b>     setStoredPages()<br>
+  * Adds or removes a $pageContent array to or from the {@link $storedPages} property.
   * 
   * Adds a given <var>$pageContent</var> parameter if its a valid <var>$pageContent</var> array.<br>
   * If the second parameter $remove is TRUE it removes this $pageContent array from the {@link $storedPages} property.
@@ -312,6 +285,7 @@ class generalFunctions {
   * @uses $storedPages        the property to add the $pageContent array
   * 
   * @return array passes through the given $pageContent array
+  * 
   * 
   * @version 1.0
   * <br>
@@ -357,10 +331,9 @@ class generalFunctions {
   }
   
  /**
-  * Gets the category ID of a page
+  * <b>Name</b> getPageCategory()<br>
   * 
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     getPageCategory()<br>
+  * Return the category ID of a page.
   * 
   * @param int $page   a page ID from which to get the category ID
   * 
@@ -372,7 +345,7 @@ class generalFunctions {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *   
+  * 
   */
   function getPageCategory($page) {
              
@@ -395,13 +368,29 @@ class generalFunctions {
       } else return false;
     } else return false;
   }
-  
-  // ** -- savePage ----------------------------------------------------------------------------------
-  // speichert den inhalt in der jeweiligen _page/group/seite.php
-  // -----------------------------------------------------------------------------------------------------
-  // $category         [die gruppe innerhalb der sich die datei befindet (String)],
-  // $page          [die seite welche gespeichert werden soll (String)]
-  // $contentArray  [Array mit dem Inhalt und den Daten der Seite (Array)]
+
+ /**
+  * <b>Name</b> savePage()<br>
+  * 
+  * Save a page to it's flatfile.
+  * 
+  * @param array $pageContent the $pageContent array of the page to save
+  * 
+  * <b>Used Global Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  *    - <var>PHPSTARTTAG</var> the php start tag
+  *    - <var>PHPENDTAG</var> the php start tag
+  * 
+  * @uses $adminConfig for the save path of the flatfiles
+  * 
+  * @return bool TRUE if the page was succesfull saved, otherwise FALSE
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function savePage($pageContent) {
         
     // escaped ",',\,NUL undescapped aber wieder die "
@@ -417,19 +406,20 @@ class generalFunctions {
       $categoryId = $categoryId.'/';
     
     //öffnet oder erstellt die flatfile
-    if((($categoryId === false || $categoryId == 0) &&
-        $fp = fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
-        $fp = fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
-
-
-      flock($fp,2);
+    if((($categoryId === false || $categoryId == 0) && $fp = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
+        $fp = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
+        
+      // CHECK BOOL VALUES and change to FALSE
+      $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
       
+      // WRITE
+      flock($fp,2);            
       fwrite($fp,PHPSTARTTAG);
       
-      fwrite($fp,"\$pageContent['id'] =                 '".$pageContent['id']."';\n");
-      fwrite($fp,"\$pageContent['category'] =           '".$pageContent['category']."';\n");
-      fwrite($fp,"\$pageContent['public'] =             '".$pageContent['public']."';\n");
-      fwrite($fp,"\$pageContent['sortorder'] =          '".$pageContent['sortorder']."';\n\n");
+      fwrite($fp,"\$pageContent['id'] =                 ".$pageContent['id'].";\n");
+      fwrite($fp,"\$pageContent['category'] =           ".$pageContent['category'].";\n");
+      fwrite($fp,"\$pageContent['public'] =             ".$pageContent['public'].";\n");
+      fwrite($fp,"\$pageContent['sortorder'] =          ".$pageContent['sortorder'].";\n\n");
       
       fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContent['lastsavedate']."';\n");
       fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContent['lastsaveauthor']."';\n\n"); 
@@ -440,7 +430,7 @@ class generalFunctions {
       fwrite($fp,"\$pageContent['pagedate']['before'] = '".$pageContent['pagedate']['before']."';\n");
       fwrite($fp,"\$pageContent['pagedate']['date'] =   '".$pageContent['pagedate']['date']."';\n");
       fwrite($fp,"\$pageContent['pagedate']['after'] =  '".$pageContent['pagedate']['after']."';\n");           
-      fwrite($fp,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n");      
+      fwrite($fp,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n");
       fwrite($fp,"\$pageContent['plugins'] =            '".$pageContent['plugins']."';\n\n");
       
       fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContent['thumbnail']."';\n");
@@ -459,8 +449,7 @@ class generalFunctions {
       
       fwrite($fp,"return \$pageContent;");
       
-      fwrite($fp,PHPENDTAG);
-      
+      fwrite($fp,PHPENDTAG);      
       flock($fp,3);
       fclose($fp);
       
@@ -473,29 +462,30 @@ class generalFunctions {
   }
   
  /**
-  * Loads the $pageContent array of a page
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     readPage()<br>
-  *
+  * <b>Name</b> readPage()<br>
+  * 
+  * Loads the $pageContent array of a page.
+  * 
   * Checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
   * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
   * 
-  *
+  * <b>Used Global Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
   * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
   * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
-  *
+  * 
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
-  *
+  * 
   * @return array the $pageContent array of the requested page
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */
   function readPage($page,$category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
@@ -540,11 +530,30 @@ class generalFunctions {
     }
   }
   
-  // ** -- loadPageIds ----------------------------------------------------------------------------------
-  // go trough the category folders and loads the pageContent Array in an Array
-  // RETURNs a Array with the pageContent Array in it OR an Array with an Array with the page ID and the category ID
-  // -----------------------------------------------------------------------------------------------------
-  function loadPageIds($category = false) {                // (Boolean, Number or Array with IDs or the $this->categoryConfig Array) the category or categories, which to load in an array, if TRUE it loads all categories
+ /**
+  * <b>Name</b> loadPageIds()<br>
+  * 
+  * Goes through the flatfiles folder and looks in which category is which page, it then returns an array with all IDs.
+  * 
+  * Example of the returned array:
+  * {@example loadPageIds.return.example.php}
+  * 
+  * <b>Used Global Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param int|bool $category   the category ID to check the containing page IDs, if FALSE its checks the non-category, if TRUE it checks all categories including the non-category (can also be the {@link $categoryConfig} property)
+  * 
+  * @uses $adminConfig          for the save path of the flatfiles
+  * 
+  * @return array|false an array with page IDs and the affiliated category IDs or empty array if the category had no pages
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function loadPageIds($category = false) {
                     
     // vars
     $pagesArray = array();
@@ -628,41 +637,40 @@ class generalFunctions {
         $pagesArray = array_merge($pagesArray,$pages);
       }
     }
-    
-    if(!empty($pagesArray))
-      return $pagesArray;
-    else
-      return false;
+
+    // return the page and category ID(s)
+    return $pagesArray;
   }
   
-  /**
-  * Loads the $pageContent arrays of a pages in a specific category or all categories
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     loadPages()<br>
-  *
-  * Goes through the {@link $storedPageIds} property and load every $pageContent array of the given category ID.
-  * Before loading the $pageContent array of a page it checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
+ /**
+  * <b>Name</b> loadPages()<br>
+  * 
+  * Loads the $pageContent arrays from pages in a specific category(ies) or all categories.
+  * 
+  * Loads all $pageContent arrays of a given category, by going through the {@link $storedPageIds} property.
+  * It check first whether the current $pageContent array was not already loaded and is contained in the {@link $storedPages} property.
   * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
-  *
-  * After loading all $pageContent arrays of an category, the array with the containing $pageContent arrays will be sorted.
   * 
-  *
-  * @param bool|int|array $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
-  * @param bool		  $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
-  *
+  * <b>Notice</b>: after loading all $pageContent arrays of a category, the array with the containing $pageContent arrays will be sorted.
+  * 
+  * Example of the returned array:
+  * {@example loadPages.return.example.php}
+  * 
+  * @param bool|int|array  $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
+  * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
+  * 
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
   * @uses readPage()			to load the $pageContent array of the page
-  *
-  * @return array the $pageContent array of the requested page
-  *
+  * 
+  * @return array the $pageContent array of the requested pages
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *
+  * 
   */  
   function loadPages($category = false, $loadPagesInArray = true) {
     
@@ -713,7 +721,7 @@ class generalFunctions {
         // adds the new sorted category to the return array
         $pagesArray = array_merge($pagesArray,$newPageContentArrays);
       }
-
+      //print_r($pagesArray);
       return $pagesArray;
       
     // ->> RETURN ONLY the page & category IDs

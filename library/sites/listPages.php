@@ -27,9 +27,9 @@ if($_GET['status'] == 'changePageStatus') {
     if($contentArray = $generalFunctions->readPage($_GET['page'],$_GET['category'])) {      
       // change the status
       if($_GET['public'])
-        $contentArray['public'] = '';
+        $contentArray['public'] = 'false';
       else
-        $contentArray['public'] = 'true';      
+        $contentArray['public'] = 'true';
       // save the new status
       if($generalFunctions->savePage($contentArray))
         $documentSaved = true;
@@ -48,7 +48,7 @@ if($_GET['status'] == 'changeCategoryStatus') {
      
       // change the status
       if($_GET['public'])
-        $categoryConfig['id_'.$_GET['category']]['public'] = '';
+        $categoryConfig['id_'.$_GET['category']]['public'] = 'false';
       else
         $categoryConfig['id_'.$_GET['category']]['public'] = 'true';      
       // save the new status
@@ -123,7 +123,7 @@ foreach($allCategories as $category) {
     $hidden = ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  if($category['sortbypagedate'] == 'true') {
+  if($category['sortbypagedate']) {
     $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
   } else {
     $categorySorting = '';

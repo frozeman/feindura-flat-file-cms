@@ -192,7 +192,10 @@ class feindura {
   *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
   * 
-  * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and is also set to the {@link $language} property 
+  * <b>Used Global Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and will be set to the {@link $language} property 
   * 
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
@@ -871,6 +874,9 @@ class feindura {
   * 
   * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
   * returns an array with the ready to display tag and the plain thumbnail path.
+  * 
+  * <b>Used Global Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param array $pageContent   the $pageContent array of a page
   * 
