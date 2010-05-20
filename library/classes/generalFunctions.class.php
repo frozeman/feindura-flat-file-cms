@@ -16,8 +16,9 @@
  */
 /**
  * This file contains the {@link generalFunctions} class
- *
+ * 
  * This class provides functions which will be used by the FRONTEND and the BACKEND.
+ * 
  */
 
 /**
@@ -243,7 +244,7 @@ class generalFunctions {
   * 
   * @uses $storedPages the property to get
   * 
-  * @return array the {@link $storedPages) property
+  * @return array the {@link $storedPages} property
   * 
   * @example loadPages.return.example.php of the returned array
   * 
@@ -335,7 +336,7 @@ class generalFunctions {
   * 
   * Return the category ID of a page.
   * 
-  * @param int $page   a page ID from which to get the category ID
+  * @param int $page a page ID from which to get the category ID
   * 
   * @uses getStoredPageIds()            to get the {@link storedPageIds} property
   * 
@@ -374,14 +375,15 @@ class generalFunctions {
   * 
   * Save a page to it's flatfile.
   * 
-  * @param array $pageContent the $pageContent array of the page to save
-  * 
   * <b>Used Global Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   *    - <var>PHPSTARTTAG</var> the php start tag
-  *    - <var>PHPENDTAG</var> the php start tag
+  *    - <var>PHPENDTAG</var> the php end tag
   * 
-  * @uses $adminConfig for the save path of the flatfiles
+  * @param array $pageContent the $pageContent array of the page to save    
+  * 
+  * @uses $adminConfig      for the save path of the flatfiles
+  * @uses setStoredPages()  to store the saved file agiain, and overwrite th old stored page
   * 
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
@@ -406,52 +408,52 @@ class generalFunctions {
       $categoryId = $categoryId.'/';
     
     //öffnet oder erstellt die flatfile
-    if((($categoryId === false || $categoryId == 0) && $fp = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
-        $fp = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
+    if((($categoryId === false || $categoryId == 0) && $file = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
+       $file = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
         
       // CHECK BOOL VALUES and change to FALSE
       $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
       
       // WRITE
-      flock($fp,2);            
-      fwrite($fp,PHPSTARTTAG);
+      flock($file,2);            
+      fwrite($file,PHPSTARTTAG);
       
-      fwrite($fp,"\$pageContent['id'] =                 ".$pageContent['id'].";\n");
-      fwrite($fp,"\$pageContent['category'] =           ".$pageContent['category'].";\n");
-      fwrite($fp,"\$pageContent['public'] =             ".$pageContent['public'].";\n");
-      fwrite($fp,"\$pageContent['sortorder'] =          ".$pageContent['sortorder'].";\n\n");
+      fwrite($file,"\$pageContent['id'] =                 ".$pageContent['id'].";\n");
+      fwrite($file,"\$pageContent['category'] =           ".$pageContent['category'].";\n");
+      fwrite($file,"\$pageContent['public'] =             ".$pageContent['public'].";\n");
+      fwrite($file,"\$pageContent['sortorder'] =          ".$pageContent['sortorder'].";\n\n");
       
-      fwrite($fp,"\$pageContent['lastsavedate'] =       '".$pageContent['lastsavedate']."';\n");
-      fwrite($fp,"\$pageContent['lastsaveauthor'] =     '".$pageContent['lastsaveauthor']."';\n\n"); 
+      fwrite($file,"\$pageContent['lastsavedate'] =       '".$pageContent['lastsavedate']."';\n");
+      fwrite($file,"\$pageContent['lastsaveauthor'] =     '".$pageContent['lastsaveauthor']."';\n\n"); 
       
-      fwrite($fp,"\$pageContent['title'] =              '".$pageContent['title']."';\n");
-      fwrite($fp,"\$pageContent['description'] =        '".$pageContent['description']."';\n\n");      
+      fwrite($file,"\$pageContent['title'] =              '".$pageContent['title']."';\n");
+      fwrite($file,"\$pageContent['description'] =        '".$pageContent['description']."';\n\n");      
       
-      fwrite($fp,"\$pageContent['pagedate']['before'] = '".$pageContent['pagedate']['before']."';\n");
-      fwrite($fp,"\$pageContent['pagedate']['date'] =   '".$pageContent['pagedate']['date']."';\n");
-      fwrite($fp,"\$pageContent['pagedate']['after'] =  '".$pageContent['pagedate']['after']."';\n");           
-      fwrite($fp,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n");
-      fwrite($fp,"\$pageContent['plugins'] =            '".$pageContent['plugins']."';\n\n");
+      fwrite($file,"\$pageContent['pagedate']['before'] = '".$pageContent['pagedate']['before']."';\n");
+      fwrite($file,"\$pageContent['pagedate']['date'] =   '".$pageContent['pagedate']['date']."';\n");
+      fwrite($file,"\$pageContent['pagedate']['after'] =  '".$pageContent['pagedate']['after']."';\n");           
+      fwrite($file,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n");
+      fwrite($file,"\$pageContent['plugins'] =            '".$pageContent['plugins']."';\n\n");
       
-      fwrite($fp,"\$pageContent['thumbnail'] =          '".$pageContent['thumbnail']."';\n");
-      fwrite($fp,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n");
-      fwrite($fp,"\$pageContent['styleId'] =            '".$pageContent['styleId']."';\n");
-      fwrite($fp,"\$pageContent['styleClass'] =         '".$pageContent['styleClass']."';\n\n");
+      fwrite($file,"\$pageContent['thumbnail'] =          '".$pageContent['thumbnail']."';\n");
+      fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n");
+      fwrite($file,"\$pageContent['styleId'] =            '".$pageContent['styleId']."';\n");
+      fwrite($file,"\$pageContent['styleClass'] =         '".$pageContent['styleClass']."';\n\n");
       
-      fwrite($fp,"\$pageContent['log_visitCount'] =     '".$pageContent['log_visitCount']."';\n");
-      fwrite($fp,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n");
-      fwrite($fp,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n");
-      fwrite($fp,"\$pageContent['log_firstVisit'] =     '".$pageContent['log_firstVisit']."';\n");
-      fwrite($fp,"\$pageContent['log_lastVisit'] =      '".$pageContent['log_lastVisit']."';\n");
-      fwrite($fp,"\$pageContent['log_searchwords'] =    '".$pageContent['log_searchwords']."';\n\n");
+      fwrite($file,"\$pageContent['log_visitCount'] =     '".$pageContent['log_visitCount']."';\n");
+      fwrite($file,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n");
+      fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n");
+      fwrite($file,"\$pageContent['log_firstVisit'] =     '".$pageContent['log_firstVisit']."';\n");
+      fwrite($file,"\$pageContent['log_lastVisit'] =      '".$pageContent['log_lastVisit']."';\n");
+      fwrite($file,"\$pageContent['log_searchwords'] =    '".$pageContent['log_searchwords']."';\n\n");
       
-      fwrite($fp,"\$pageContent['content'] = \n'".$pageContent['content']."';\n\n");
+      fwrite($file,"\$pageContent['content'] = \n'".$pageContent['content']."';\n\n");
       
-      fwrite($fp,"return \$pageContent;");
+      fwrite($file,"return \$pageContent;");
       
-      fwrite($fp,PHPENDTAG);      
-      flock($fp,3);
-      fclose($fp);
+      fwrite($file,PHPENDTAG);
+      flock($file,3);
+      fclose($file);
       
       // writes the new saved page to the $storedPages property
       $this->setStoredPages($pageContent);
