@@ -20,7 +20,7 @@ home.php version 0.86
 include_once(dirname(__FILE__).'/../backend.include.php');
 
 //echo '->'.$_SERVER['HTTP_USER_AGENT'].'<br />';
-//echo '->'.$statisticFunctions->getBrowser($_SERVER['HTTP_USER_AGENT']);  
+//echo '->'.$statisticFunctions->getBrowser();  
 
 ?>
 
@@ -209,7 +209,10 @@ if(!empty($adminConfig['user']['info'])) {
     // SHOW tag CLOUD
     echo '<h3>'.$langFile['log_tags_description'].'</h3>';
     echo '<div class="tagCloud">';
-    $statisticFunctions->createTagCloud($allSearchwords);
+    if($tagCloud = $statisticFunctions->createTagCloud($allSearchwords))
+      echo $tagCloud;
+    else
+      echo '<span class="blue" style="font-size:15px;">'.$GLOBALS['langFile']['log_notags'].'</span>';
     echo '</div>';
     
     echo '<br /><br /><hr class="small" /><br />';
@@ -217,7 +220,10 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> BROWSER CHART
     echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
-    $statisticFunctions->createBrowserChart();
+    if($browserChart = $statisticFunctions->createBrowserChart($websiteStatistic['browser']))
+      echo $browserChart;
+    else
+      echo $GLOBALS['langFile']['home_novisitors'];
     
     echo '<br /><hr class="small" /><br />';
     

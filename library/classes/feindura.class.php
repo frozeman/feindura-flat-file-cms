@@ -255,7 +255,7 @@ class feindura {
     if(is_string($language) && strlen($language) == 2) {
       $this->language = $language;
       
-    // if no country code is given, try to get the BROWSER STANDARD language
+    // if no country code is given, try to get the BROWSER LANGUAGE
     } else
       $this->language = $this->generalFunctions->checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME      
     

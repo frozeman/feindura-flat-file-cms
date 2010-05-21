@@ -47,7 +47,7 @@ $newPage = false;
 //$_SESSION['language'] = 'de';
 
 if(empty($_SESSION['language'])) {
-  // gets the BROWSER STANDARD language
+  // gets the BROWSER LANGUAGE
   $_SESSION['language'] = $generalFunctions->checkLanguageFiles(false,false); // returns a COUNTRY SHORTNAME
 }
 
