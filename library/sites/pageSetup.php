@@ -165,7 +165,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     // save the categories array
     if(saveCategories($categoryConfig)) {
       $documentSaved = true; // set documentSaved status
-      $statisticFunctions->saveTaskLog($langFile['log_pageSetup_move'],$categoryConfig['id_'.$_GET['category']]['name']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog($langFile['log_pageSetup_move'],'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['pageSetup_error_save'];
     

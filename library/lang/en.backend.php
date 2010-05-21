@@ -104,7 +104,7 @@ $langFile['log_page_new'] = 'Neue Seite erstellt';
 $langFile['log_page_delete'] = 'Seite gel&ouml;scht';
 
 $langFile['log_listPages_moved'] = 'Seite in Kategorie verschoben';
-$langFile['log_listPages_moved_in'] = 'in'; // Page in Category
+$langFile['log_listPages_moved_in'] = 'in'; // Example Page in Category
 $langFile['log_listPages_sorted'] = 'Seite neu sortiert';
 
 $langFile['log_pageThumbnail_upload'] = 'Neues Thumbnail hochgeladen';

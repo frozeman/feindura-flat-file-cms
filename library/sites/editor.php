@@ -141,7 +141,7 @@ if($_POST['save']) {
       
     if($generalFunctions->savePage($_POST)) {
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog($logText,'<a href="index.php?category='.$category.'&amp;page='.$page.'">'.$_POST['title'].'</a>'); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['editor_savepage_error_save'];
   }
@@ -425,7 +425,7 @@ $hidden = ' hidden';
         // -> VISIT TIME MAX
         $showTimeHead = true;
         foreach($visitTimes_max as $visitTime_max) {          
-          if($visitTime_max_formated = $statisticFunctions->showVisitTime($visitTime_max)) {
+          if($visitTime_max_formated = $statisticFunctions->showVisitTime($visitTime_max,$langFile)) {
             if($showTimeHead)
               echo '<span class="blue" id="visitTimeMax" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />
               <div id="visitTimeMaxContainer">';
@@ -448,7 +448,7 @@ $hidden = ' hidden';
         $showTimeHead = true;
         $visitTimes_min = array_reverse($visitTimes_min);
         foreach($visitTimes_min as $visitTime_min) {          
-          if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min)) {
+          if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min,$langFile)) {
             if($showTimeHead)
               echo '<span class="blue" id="visitTimeMin" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />
               <div id="visitTimeMinContainer">';

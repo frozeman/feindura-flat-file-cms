@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// sidebar.loader.php version 0.59
+// sidebar.loader.php version 0.60
 
 // -> GET FUNCTIONS
 require_once(dirname(__FILE__)."/backend.include.php");
@@ -136,20 +136,12 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/task.statistic.txt')) {
          
          echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
-         echo '<div id="sidebarTaskLog"><br />
-              <ul>
-              <br />';
-         foreach($logContent as $logRow) {
-          $logRow = explode('|-|',$logRow);
-          $logDate = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($logRow[0]));
-          $logTime = $statisticFunctions->formatTime($logRow[0]);
-          // finds the "<br />" in the log row
-          if(isset($logRow[3]))            
-            echo '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span>'.$logRow[3].'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span></li>';         
-          else
-            echo '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span></li>';
-         }
-         echo '</ul>
+         echo '<div id="sidebarTaskLog"><br /><br />';
+         
+              // ->> LIST the tasks
+              include(dirname(__FILE__).'/process/showTaskLog.php');
+              
+         echo '<br />
               <br /></div>';
          echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
       // no log
@@ -190,7 +182,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       echo '<div class="sidebarInfo"><div class="content">';
       
-      // FMS INFO
+      // FEINDURA INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
             <p>'.$version[2].' - '.$version[3].'</p>';
       echo '<a href="VERSION.txt" class="standardLink">changelog</a>';

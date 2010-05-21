@@ -208,7 +208,7 @@ if($_POST['upload']) {
             $pageContent['thumbnail'] = $newFileName;
             if($generalFunctions->savePage($pageContent)) {
               $response[] = $langFile['pagethumbnail_upload_response_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.'" />';
-              $statisticFunctions->saveTaskLog($langFile['log_pageThumbnail_upload'],'<a href="index.php?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a>'); // <- SAVE the task in a LOG FILE
+              $statisticFunctions->saveTaskLog($langFile['log_pageThumbnail_upload'],'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
             }
             
             // call this javascript, on the succesfull finish of the upload

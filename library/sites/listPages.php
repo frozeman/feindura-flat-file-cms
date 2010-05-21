@@ -197,9 +197,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $titleShort = (strlen($pageContent['title']) <= $generalFunctions->getRealCharacterNumber($pageContent['title'],31))
-      ? $pageContent['title']
-      : substr($pageContent['title'],0,$generalFunctions->getRealCharacterNumber($pageContent['title'],29)).'..';
+      $title = $generalFunctions->shortenTitle($pageContent['title'],31);
       
       // -> show lastsavedate
       $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
@@ -239,7 +237,7 @@ foreach($allCategories as $category) {
         $activeStartPage = '';
       }
       
-      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$titleShort.'</b></a></div>';
+      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$title.'</b></a></div>';
       if(!empty($pageContent['lastsaveauthor']))
         echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
       else

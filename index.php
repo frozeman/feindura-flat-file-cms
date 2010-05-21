@@ -29,10 +29,10 @@ include("library/backend.include.php");
 // -----------------------------------------------------------------------------------
 // gets the version of the feindura CMS
 $version = file("VERSION.txt");
-$version[2] = str_replace("\n",'',$version[2]);
-$version[2] = str_replace("\r",'',$version[2]);
-$version[3] = str_replace("\n",'',$version[3]);
-$version[3] = str_replace("\r",'',$version[3]);
+$version[2] = $generalFunctions->cleanSpecialChars($version[2]);
+$version[3] = $generalFunctions->cleanSpecialChars($version[3]);
+//$version[2] = str_replace(array("\n","\n"),'',$version[2]);
+//$version[3] = str_replace(array("\n","\n"),'',$version[3]);
 
 
 // -----------------------------------------------------------------------------------

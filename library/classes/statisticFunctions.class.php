@@ -98,18 +98,37 @@ class statisticFunctions extends generalFunctions {
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */
   
-
-  // ** -- getmicrotime ------------------------------------------------------------------------------
-  // returns a unix timestamp as float
-  // -------------------------------------------------------------------------------------------------
+ /**
+  * <b>Name</b> getMicroTime()<br>
+  * 
+  * Returns a unix timestamp as float
+  * 
+  * @return float the unix timestamp
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function getMicroTime() {
     list($usec, $sec) = explode(" ",microtime());
     return ((float)$usec + (float)$sec);
   }
   
-  // ** -- secToMin ----------------------------------------------------------------------------------
-  // changes seconds in minutes
-  // -------------------------------------------------------------------------------------------------
+ /**
+  * <b>Name</b> secToTime()<br>
+  * 
+  * Converts seconds into a readable time
+  * 
+  * @return string the seconds in a readable time
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function secToTime($sec) {
     $hours = floor($sec / 3600);
     $mins = floor(($sec -= ($hours * 3600)) / 60);  
@@ -126,13 +145,25 @@ class statisticFunctions extends generalFunctions {
     return $hours.':'.$mins.':'.$seconds;
   }
   
-    // ** -- formatDate ----------------------------------------------------------------------------------
-  // returns the date out of a database-date-format in the choosen format
-  // -------------------------------------------------------------------------------------------------
-  // $givenDate       [],
-  // $format          [the format of the date, "de" = dd.mm.yyyy or "int" = yyyy.mm.dd (String)]
-  function formatDate($givenDate,               // (String like: yyyy-mm-dd hh:mm:ss) the date given in a database-date-format like: yyyy-mm-dd hh:mm:ss
-                      $format = false) {        // (false or String) the format to use ("eu" or "int")
+ /**
+  * <b>Name</b> formatDate()<br>
+  * 
+  * Converst a given date into the given format type.
+  * 
+  * @param string $givenDate the given date with following format: "YYYY-MM-DD HH:MM:SS" or "YYYY-MM-DD"
+  * @param string $format    (optional) the format type can be "eu" to format into: "DD-MM-YYYY", or "int" to format into: "YYYYY-MM-DD", if FALSE it uses the format set in the administrator-settings config
+  * 
+  * @uses $adminConfig  to get the right date format, if no format is given
+  * 
+  * @return string the formated date, if the given forrmat or date is not valid it just returns the unchaged date
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function formatDate($givenDate, $format = false) {
                               
       $year = substr($givenDate,0,4);
       $month = substr($givenDate,5,2);
@@ -148,15 +179,28 @@ class statisticFunctions extends generalFunctions {
         } elseif($format == 'int') {
             return $year.'-'.$month.'-'.$day;
         } else
-            return false;
-      } else return $givenDate;
+            return $givenDate;
+            
+      } else
+        return $givenDate;
   }
   
-  // ** -- formatTime ----------------------------------------------------------------------------------
-  // returns the time out of a database-date-format with or without seconds
-  // -------------------------------------------------------------------------------------------------
-  // $givenDate       [the date given in a database-date-format like: yyyy-mm-dd hh:mm:ss],
-  // $showSeconds     [if true the secondes in the time will also be returned (Boolean)]
+ /**
+  * <b>Name</b> formatTime()<br>
+  * 
+  * Converts a given date-time into the following format "12:60" or "12:60:00", if the <var>$showSeconds</var> parameter is TRUE.
+  * 
+  * @param string $givenDate      the given date with following format: "YYYY-MM-DD HH:MM:SS" or "HH:MM:SS"
+  * @param bool   $showSeconds    (optional) whether seconds are shown in the time string
+  * 
+  * @return string the formated time with or without seconds
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function formatTime($givenDate,$showSeconds = false) {
       $hour = substr($givenDate,-8,2);
       $minute = substr($givenDate,-5,2);
@@ -169,9 +213,28 @@ class statisticFunctions extends generalFunctions {
       return $hour.':'.$minute.$second;
   }
   
-  // ** -- formatHighNumber ----------------------------------------------------------------------------------
-  // format a high number to 1 000 000,00
-  // -------------------------------------------------------------------------------------------------
+ /**
+  * <b>Name</b> formatHighNumber()<br>
+  * 
+  * Seperates the thouseds in a number with whitespaces.
+  * 
+  * Example
+  * <samp>
+  * 12 050 125
+  * </samp>
+  * 
+  * @param float $number          the number to convert
+  * @param int   $decimalsNumber  (optional) the number of decimal places, like "1 250,25"
+  * 
+  * @return float the converted number
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function formatHighNumber($number,$decimalsNumber = 0) {
     $number = floatval($number);
     return number_format($number, $decimalsNumber, ',', ' ');
@@ -183,7 +246,7 @@ class statisticFunctions extends generalFunctions {
   * Replaces the given <var>$date<var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
   * 
   * <b>Used Global Variables</b><br>
-  *    - <var>$langFile</var> the backend language-file array set in the "backend.include.php"
+  *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
   * 
   * @param string       $date           the date which will be checked, with the format: "YYYY-MM-DD HH:MM"
   * @param array|false  $givenLangFile  the languageFile which contains the ['date_yesterday'], ['date_today'] and ['date_tomorrow'] texts, if FALSE it loads the backend language-file
@@ -246,21 +309,30 @@ class statisticFunctions extends generalFunctions {
        return false;
   }  
 
-  // ** -- validateDateFormat ----------------------------------------------------------------------------------
-  // checks the date,
-  // RETURNs a validated array
-  // with the array[0] =text before the date,
-  // and array[1] = the date (in FORMAT YYYY-MM-DD), or false
-  // -----------------------------------------------------------------------------------------------------
-  function validateDateFormat($dateString) {       // (String) the given string with an date on the end
+ /**
+  * <b>Name</b> validateDateFormat()<br>
+  * 
+  * Check if a date is valid and returns the date in the following format: "YYYY-MM-DD".
+  * 
+  * @param string $dateString the date to validate can have the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing seperators ".", "-", "/", " ", '", "," or ";"
+  * 
+  * @return string|false the checked date or FALSE if the date is not valid
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function validateDateFormat($dateString) {
     
-    if(!is_string($dateString))
+    if(!is_string($dateString) || !is_numeric($dateString))
       return false;
       
     // get the date out of the $dateString
     //$date = substr($dateString, -10);
     //$beforeDate = substr($dateString,0, -10);
-    $date = str_replace(array('\'', ';', '-', '.', ','), '/', $dateString);
+    $date = str_replace(array('\'', ';', ' ', '-', '.', ','), '/', $dateString);
     
     $date = explode('/', $date);
   
@@ -310,23 +382,29 @@ class statisticFunctions extends generalFunctions {
       else
         return false;
     }
-    
-    // check if it is a date format 'de' or 'int'
-    /*
-    if (($format == 'eu' && !preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', trim($date), $matches)) ||
-        ($format == 'int' && !preg_match('/^(\d{4})\/(\d{2})\/(\d{2})$/', trim($date), $matches))) {
-        return false;
-    }
-    */
    
-    // wenn die funktion nichts anderes zurückgegeben hat return false
+    // if the function doesn't return something, return false
     return false;
   }
 
-  // ** -- showVisitTime -----------------------------------------------------------------------------
-  // SHOWs the visitTime as text
-  // -------------------------------------------------------------------------------------------------
-  function showVisitTime($time) {
+ /**
+  * <b>Name</b> showVisitTime()<br>
+  * 
+  * Converts a given time into "12 Seconds", "01:15 Minutes" or "01:30:20 Hours".
+  * 
+  * @param string $time     the time in the following format: "HH:MM:SS"
+  * @param string $langFile the backend language-file
+  * 
+  * @return string the formated time
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function showVisitTime($time,$langFile) {
     
     $hour = substr($time,0,2);
     $minute = substr($time,3,2);
@@ -366,21 +444,20 @@ class statisticFunctions extends generalFunctions {
     // get the time together
     if($hour) {
       if($hour == 1)
-        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_hour_single'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['log_hour_single'].'</b>';
       else
-        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_hour_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['log_hour_multiple'].'</b>';
     } elseif($minute) {
       if($minute == 1)
-        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_minute_single'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['log_minute_single'].'</b>';
       else
-        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_minute_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['log_minute_multiple'].'</b>';
     } elseif($second) {
       if($second == 1)
-        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_second_single'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['log_second_single'].'</b>';
       else
-        $printTime = $printTime.' <b>'.$GLOBALS['langFile']['log_second_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['log_second_multiple'].'</b>';
     }
-    
     
     // RETURN formated time
     if($time != '00:00:00')
@@ -389,23 +466,42 @@ class statisticFunctions extends generalFunctions {
       return false;
   }
   
-  // ** -- saveTaskLog --------------------------------------------------------------------------------
-  // SAVE a log file with time and task which was done
-  // -----------------------------------------------------------------------------------------------------
-  function saveTaskLog($task,               // (String) a description of the task which was performed
-                       $object = false) {   // (String) the page name or the name of the object on which the task was performed
+ /**
+  * <b>Name</b> saveTaskLog()<br>
+  * 
+  * Adds a entry to the task log-file with time and task which was performed.
+  * 
+  * Example entry:
+  * <samp>
+  * 2010-12-31 12:00:00|-|Username|-|Page saved|-|page=5
+  * </samp>
+  * 
+  * @param string $task     a description of the task which was performed
+  * @param string $object   (optional) the page name or the name of the object on which the task was performed
+  * 
+  * @uses $statisticConfig to get the number of maxmial task log entries
+  * 
+  * @return bool
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function saveTaskLog($task, $object = false) {
     
     $maxEntries = $this->statisticConfig['number']['taskLog'];
-    $logFile = dirname(__FILE__).'/../../'.'statistic/task.statistic.txt';
+    $logFilePath = dirname(__FILE__).'/../../'.'statistic/task.statistic.txt';
     
-    if(file_exists($logFile))
-      $oldLog = file($logFile);
+    if(file_exists($logFilePath))
+      $oldLog = file($logFilePath);
       
-    if($logFile = @fopen($logFile,"w")) {
+    if($logFile = @fopen($logFilePath,"w")) {
       
       // adds the Object
-      if($object)
-        $object = '|-|'.$object;
+      $object = ($object) ? '|-|'.$object : false;
       
       // -> create the new log string
       $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
@@ -427,9 +523,26 @@ class statisticFunctions extends generalFunctions {
       fclose($logFile);
       
       return true;
-    } else return false;
+    } else
+      return false;
   }
   
+ /**
+  * <b>Name</b> saveRefererLog()<br>
+  * 
+  * Adds a entry to the referer log-file.
+  * 
+  * @uses $statisticConfig to get the number of maxmial task log entries
+  * 
+  * @return bool
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   // ** -- saveRefererLog --------------------------------------------------------------------------------
   // SAVE a log file with links where the people are coming from
   // -----------------------------------------------------------------------------------------------------

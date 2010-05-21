@@ -354,12 +354,12 @@ class generalFunctions {
   * 
   */
   function getPageCategory($page) {
-             
+
     if($page !== false && is_numeric($page)) {
       // loads only the page IDs and category IDs in an array
       // but only if it hasn't done this yet
       $allPageIds = $this->getStoredPageIds();
-        
+
       if($allPageIds) {
         // gets the category id of the given page
         foreach($allPageIds as $everyPage) {
@@ -1028,11 +1028,40 @@ class generalFunctions {
   }
   
  /**
+  * <b>Name</b> shortenTitle()<br>
+  * 
+  * Shortens a string to its letter numbers (conciders htmlentities as multiple characters).
+  * 
+  * @param string $title  the title string to shorten
+  * @param int    $length the number of letters the string should have after 
+  * 
+  * @return string the shortend title or the unchanged title, if shorten is not necessary
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function shortenTitle($title, $length) {
+      
+      //vars
+      $realLength =  $this->getRealCharacterNumber($title,$length);
+      
+      // chek if shorting is necessary
+      if(strlen($title) <= $realLength)
+        return $title;
+      // shorten the title
+      else
+        return substr($title,0,($realLength - 2)).'..'; // -2 because of the add ".."
+  }
+  
+ /**
   * <b>Name</b> encodeToUrl()<br>
   * 
-  * Encode a String so that it can be used in an URL.
+  * Converts a String so that it can be used in an URL.
   * 
-  * @param string $string the strign which should be encoded
+  * @param string $string the strign which should be converted
   * 
   * @return string ready to use in an URL
   * 
