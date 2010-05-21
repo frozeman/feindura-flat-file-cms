@@ -784,7 +784,7 @@ class feinduraPages extends feindura {
       // -> add language
       if($this->language)
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
-      
+
       // -> create TITLE
       if($this->getCurrentPageId() && $currentPage = $this->generalFunctions->readPage($this->getCurrentPageId(),$this->getCurrentCategoryId()))
         $pageNameInTitle = ' - '.$currentPage['title'];
@@ -833,7 +833,7 @@ class feinduraPages extends feindura {
         $metaTags .= '  <meta name="copyright" content="'.$this->websiteConfig['copyright'].'"'.$tagEnding."\n";
         
       // -> add description
-      if($currentPage['description'])
+      if(isset($currentPage) && $currentPage['description'])
         $metaTags .= '  <meta name="description" content="'.$currentPage['description'].'"'.$tagEnding."\n";
       elseif($this->websiteConfig['description'])
         $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'"'.$tagEnding."\n";

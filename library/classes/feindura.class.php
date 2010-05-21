@@ -244,7 +244,6 @@ class feindura {
     if(isset($this->adminConfig['varName']['category']) && !empty($this->adminConfig['varName']['category']))
       $this->varNames['category'] = $this->adminConfig['varName']['category'];
 
-
     // -> CHECKS if cookies the cookie in the feindura.include.php file was set
     if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID

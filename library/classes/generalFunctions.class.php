@@ -134,9 +134,9 @@ class generalFunctions {
   * 
   * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
   * 
-  * @param string|false $useLangPath      a absolut path to look for language files or FALSE to use the "feindura-cms/library/lang" folder
-  * @param bool         $returnLangFile   if TRUE it includes and returns the language-file which matches the browser language
-  * @param bool         $standardLang     a standard language for use if no match was found
+  * @param string|false $useLangPath      (optional) a absolut path to look for language files or FALSE to use the "feindura-cms/library/lang" folder
+  * @param bool         $returnLangFile   (optional) if TRUE it includes and returns the language-file which matches the browser language
+  * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
   * @uses $adminConfig  for the base path of the CMS
   * 
@@ -286,7 +286,7 @@ class generalFunctions {
   * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @param int  $pageContent   a $pageContent array which should be add to the {@link $storedPages} property
-  * @param bool $remove        if TRUE it removes the given $pageContent array from the {@link $storedPages} property
+  * @param bool $remove        (optional) if TRUE it removes the given $pageContent array from the {@link $storedPages} property
   * 
   * @uses $storedPages        the property to add the $pageContent array
   * 
@@ -343,7 +343,7 @@ class generalFunctions {
   * 
   * @param int $page a page ID from which to get the category ID
   * 
-  * @uses getStoredPageIds()            to get the {@link storedPageIds} property
+  * @uses getStoredPageIds() to get the {@link storedPageIds} property
   * 
   * @return int|false the right category ID or FALSE if the page ID doesn't exists
   * 
@@ -477,6 +477,9 @@ class generalFunctions {
   * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
   * 
+  * Example of the returned $pageContent array:
+  * {@example readPage.return.example.php}
+  * 
   * <b>Used Global Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
@@ -548,7 +551,7 @@ class generalFunctions {
   * <b>Used Global Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
-  * @param int|bool $category   the category ID to check the containing page IDs, if FALSE its checks the non-category, if TRUE it checks all categories including the non-category (can also be the {@link $categoryConfig} property)
+  * @param int|bool $category   (optional) the category ID to check the containing page IDs, if FALSE its checks the non-category, if TRUE it checks all categories including the non-category (can also be the {@link $categoryConfig} property)
   * 
   * @uses $adminConfig          for the save path of the flatfiles
   * 
@@ -661,7 +664,7 @@ class generalFunctions {
   * 
   * <b>Notice</b>: after loading all $pageContent arrays of a category, the array with the containing $pageContent arrays will be sorted.
   * 
-  * Example of the returned array:
+  * Example of the returned $pageContent arrays:
   * {@example loadPages.return.example.php}
   * 
   * @param bool|int|array  $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
@@ -774,24 +777,27 @@ class generalFunctions {
  /**
   * <b>Name</b> createHref()<br>
   * 
-  * Checks the given <var>$page</var> parameter is a valid <var>$pageContent</var> array.
-  *
-  * @param int|array $page   the variable to check 
-  *
-  * @return bool
-  *
+  * Creates a href-attribute from the given <var>$pageContent</var> parameter,
+  * if the <var>sessionId</var> parameter is given it adds them on the end of the href string.
+  * 
+  * @param array        $pageContent  the $pageContent array of a page
+  * @param string|false $sessionId    (optional) the session ID string in the following format: "sessionName=sessionId"
+  * 
+  * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page
+  * @uses $categoryConfig for the category name if speaking URLs i activated
+  * @uses encodeToUrl()   to encode the category and page name to a string useable in URLs
+  *  
+  * @return string the href string ready to use in a href attribute
+  * 
+  * @see feinduraPages::createHref()
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
-  *   
+  * 
   */
-  // -> START -- createHref ******************************************************************************
-  // generates out of the a pageContent Array a href="" link for this page
-  // RETURNs a String for the HREF attribute
-  // -----------------------------------------------------------------------------------------------------
-  function createHref($pageContent,               // (pageContent Array) the pageContent Array of the page
-                             $sessionId = null) {
+  function createHref($pageContent, $sessionId = false) {
     
     // vars
     $page = $pageContent['id'];
@@ -816,9 +822,8 @@ class generalFunctions {
       $speakingUrlHref .= '.html';
       
       if($sessionId)
-        $speakingUrlHref .= '?'.$sessionId;   
+        $speakingUrlHref .= '?'.$sessionId;
       
-        
       return $speakingUrlHref;
     
     // ->> create HREF with varNames und Ids
@@ -839,17 +844,43 @@ class generalFunctions {
       return $getVarHref;
     }  
   }
-  // -> END -- createHref -----------------------------------------------------------------------------------
   
-  // ** -- sortPages ----------------------------------------------------------------------------------
-  // sort an Array with the pageContent Arrays by the given sort function
-  // --------------------------------------------------------------------------------------------------
-  // $pagesArray   [the array with the pageContent array (Array with pageContent Array)],
-  // $category     [gruppe in der sich die Seiten befinden (String)]
-  function sortPages($pageContentArrays,    // the ARRAY with the PAGECONTENT ARRAY (Array with pageContent Array)
-                            $sortBy = false) {     // (Boolean or String) the sortfunction to be used ('sortBySortOrder' OR 'sortByCategory' OR 'sortByDate' OR 'sortByVisitedCount' OR 'sortByVisitTimeMax'), if false it detects the sortfunction by the category
+ /**
+  * <b>Name</b> sortPages()<br>
+  * 
+  * Sort an array with the <var>$pageContent</var> arrays by a given sort-function.
+  * The following sort functions can be used for the <var>$sortBy</var> parameter:<br>
+  *   - "sortBySortOrder"
+  *   - "sortByCategory"
+  *   - "sortByDate"
+  *   - "sortByVisitedCount"
+  *   - "sortByVisitTimeMax"  
+  * 
+  * @param array        $pageContentArrays  the $pageContent array of a page
+  * @param string|false $sortBy             (optional) the name of the sort function, if FALSE it uses automaticly the right sort-function of the category
+  * 
+  * @uses $categoryConfig        to find the right sort function for every category
+  * @uses isPageContentArray()   to check if the given $pageContent arrays are valid
+  * 
+  * @return array the sorted array with the $pageContent arrays
+  * 
+  * @see sort.functions.php
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function sortPages($pageContentArrays, $sortBy = false) {
     
     if(is_array($pageContentArrays)) {
+    
+      // CHECK if the arrays are valid $pageContent arrays
+      // otherwise return the unchanged array
+      if(!$this->isPageContentArray($pageContentArrays[0]))
+        return $pageContentArrays;
+      
       // sorts the array with the given sort function
       //natsort($pagesArray);
       
@@ -910,18 +941,15 @@ class generalFunctions {
   }
 
  /**
-  * Check a string for htmlentities and return the $textLength parameter plus the htmlentities length
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     getRealCharacterNumber()<br>
-  *
-  * Shortens the given $string parameter to the given $textLength parameter and counts the contained htmlentities.
+  * <b>Name</b> getRealCharacterNumber()<br>
+  * 
+  * Shortens the given <var>$string</var> parameter to the given <var>$textLength</var> parameter and counts the contained htmlentities.
   * Then adds the length of htmlentites to the $textLength and return it.
   *
   * @param string    $string       the string to find out the real length for shorting
-  * @param int|bool  $textLength   the number of which the text should be shorten or FALSE to return only the string length
+  * @param int|bool  $textLength   (optional) the number of which the text should be shorten or FALSE to return only the string length
   *
-  * @return int the real string length
+  * @return int the numbger of characters plus htmlentities characters
   *
   * @version 1.0
   * <br>
@@ -947,11 +975,22 @@ class generalFunctions {
     return $textLength;
   }
   
-  // ** -- cleanSpecialChars --------------------------------------------------------------------------
-  // removes all special chars
-  // --------------------------------------------------------------------------------------------------
-  // $string         [the string where the special chars should be removed  (String)],
-  // $replaceString    [the string with which they should be replaced (String)]
+ /**
+  * <b>Name</b> cleanSpecialChars()<br>
+  * 
+  * Removes all special chars from a string.
+  * 
+  * @param string    $string          the string to clear
+  * @param string    $replaceString   (optional) the string which replaces all special chars found
+  * 
+  * @return string the cleaned string
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function cleanSpecialChars($string,$replaceString = '') {
     
     // removes multiple spaces
@@ -963,10 +1002,21 @@ class generalFunctions {
     return $string;
   }
   
-  
-  // ** -- clearTitle ----------------------------------------------------------------------------------
-  // clears the title string from not allowed chars and change the speial chars into htmlentities
-  // -----------------------------------------------------------------------------------------------------
+ /**
+  * <b>Name</b> clearTitle()<br>
+  * 
+  * Clears the title string from not allowed chars and change the speial chars into htmlentities.
+  * 
+  * @param string $title the title string to clean
+  * 
+  * @return string the cleaned title string
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function clearTitle($title) {
       
       // format title
@@ -977,9 +1027,21 @@ class generalFunctions {
       return $title;
   }
   
-  // ** -- encodeToUrl ----------------------------------------------------------------------------------
-  // encode a String so that it can be used as url
-  // -----------------------------------------------------------------------------------------------------
+ /**
+  * <b>Name</b> encodeToUrl()<br>
+  * 
+  * Encode a String so that it can be used in an URL.
+  * 
+  * @param string $string the strign which should be encoded
+  * 
+  * @return string ready to use in an URL
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function encodeToUrl($string) {
       
       // makes the string to lower
@@ -1007,10 +1069,19 @@ class generalFunctions {
       return $string;
   }
 
-  
-  // ** -- showMemoryUsage -------------------------------------------------------------------------------
-  // display the usage of memory of the script
-  // -----------------------------------------------------------------------------------------------------
+ /**
+  * <b>Name</b> showMemoryUsage()<br>
+  * 
+  * Shows the memory usage at the point of the script where this function is called.
+  * 
+  * @return void
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
   function showMemoryUsage() {
       $mem_usage = memory_get_usage(true);
       

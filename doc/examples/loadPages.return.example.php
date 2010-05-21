@@ -15,7 +15,6 @@ array(
                     "date" => '2010-12-31',
                     "after" => 'text after date'
                   ),
-
       "tags" => 'winter summer',
       "plugins" => '',
       "thumbnail" => 'thumb_cat1page2.jpg',
@@ -45,7 +44,6 @@ array(
                     "date" => '2010-12-31',
                     "after" => 'text after date'
                   ),
-
       "tags" => 'winter spring',
       "plugins" => '',
       "thumbnail" => 'thumb_cat1page2.jpg',
