@@ -29,7 +29,7 @@ if($_GET['site'] != 'adminSetup')
 // ***********************************************************************
 // CHECKs if a STARTPAGE is SET and if this page exists
 // if not throw a warning
-if($_GET['site'] != 'pages')
+if($_GET['site'] != 'pages' && $_GET['site'] != 'adminSetup')
   startPageWarning();
 
 

@@ -15,9 +15,9 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link feinduraPages} class for implementing the CMS in a website
+ * This file contains the {@link feinduraPages} class for implementing the CMS in a website.
  * 
- * @package feindura-CMS
+ * @package Implementation
  */
 /**
 * The class for implementing feindura - Flat File Content Management System in a website.
@@ -29,8 +29,7 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
-* @package feindura-CMS
-* @subpackage Implementation Classes
+* @package Implementation
 * 
 * @version 1.0
 * <br>

@@ -78,8 +78,7 @@ if($_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
 
 
 // ***********************************************************************
-// CHECKs if a STARTPAGE is SET and if this page exists
-// if not throw a warning
+// CHECKs if a STARTPAGE is SET and if this page exists, if not throw a warning
 startPageWarning();
 
 //<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->

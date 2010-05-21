@@ -15,20 +15,19 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link generalFunctions} class
+ * This file contains the {@link generalFunctions} class.
  * 
- * This class provides functions which will be used by the FRONTEND and the BACKEND.
- * 
- * @package feindura-CMS
+ * @package Implementation|feindura-CMS
  */
 /**
+* <b>Classname</b> generalFunctions<br>
+* 
 * Contains the basic functions for reading and saving pages
 * 
-* These functions are used by the FRONTEND and the BACKEND.
+* <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
-* @package feindura-CMS
-* @subpackage Functions
-*    
+* @package Implementation|feindura-CMS
+* 
 * @version 1.16
 * <br>
 *  <b>ChangeLog</b><br>
@@ -234,7 +233,7 @@ class generalFunctions {
   * 
   */
   function getStoredPageIds() { // (false or Array)
-  
+    
     // load all page ids, if necessary
     if($this->storedPageIds === null)
       $this->storedPageIds = $this->loadPageIds(true);
@@ -357,9 +356,9 @@ class generalFunctions {
 
     if($page !== false && is_numeric($page)) {
       // loads only the page IDs and category IDs in an array
-      // but only if it hasn't done this yet
+      // but only if it hasn't done this yet      
       $allPageIds = $this->getStoredPageIds();
-
+      
       if($allPageIds) {
         // gets the category id of the given page
         foreach($allPageIds as $everyPage) {
@@ -371,8 +370,10 @@ class generalFunctions {
         // if it found nothing
         return false;
         
-      } else return false;
-    } else return false;
+      } else
+        return false;
+    } else
+      return false;
   }
 
  /**
@@ -380,7 +381,7 @@ class generalFunctions {
   * 
   * Save a page to it's flatfile.
   * 
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
@@ -480,7 +481,7 @@ class generalFunctions {
   * Example of the returned $pageContent array:
   * {@example readPage.return.example.php}
   * 
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
@@ -548,7 +549,7 @@ class generalFunctions {
   * Example of the returned array:
   * {@example loadPageIds.return.example.php}
   * 
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param int|bool $category   (optional) the category ID to check the containing page IDs, if FALSE its checks the non-category, if TRUE it checks all categories including the non-category (can also be the {@link $categoryConfig} property)

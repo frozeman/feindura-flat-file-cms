@@ -15,19 +15,20 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link statisticFunctions} class
+ * This file contains the {@link statisticFunctions} class.
  * 
- * This class provides statistic-functions which will be used by the FRONTEND and the BACKEND.
- * 
- * @package feindura-CMS
+ * @package Implementation|feindura-CMS
  * 
  */
 
 /**
-* Provides functions for the website statistics
+* <b>Classname</b> statisticFunctions<br>
 * 
-* @package feindura-CMS
-* @subpackage Functions
+* Provides functions for the website statistics.
+* 
+* <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
+* 
+* @package Implementation|feindura-CMS
 * 
 * @version 0.56
 * <br>
@@ -1036,7 +1037,7 @@ class statisticFunctions extends generalFunctions {
   * <b>Used Global Variables</b><br>
   *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting
   * 
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
   * 
@@ -1154,7 +1155,7 @@ class statisticFunctions extends generalFunctions {
   * <b>Used Global Variables</b><br>
   *    - <var>$_SESSION</var> to store whether the user is a spider and save the time and ID of the last page to calculate the time viewed the pages
   *     
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag  
   * 

@@ -1,64 +1,27 @@
-<?php 
+<?php
 /*
-    feindura - Flat File Content Management System
-    Copyright (C) Fabian Vogelsteller [frozeman.de]
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ */
+/**
+ * This file contains the main functions used by the backend of the feindura-CMS.
+ * 
+ * @package feindura-CMS
+ * 
+ * @version 1.28
+ */
 
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty ;page= MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-*
-* library/functions/backend.functions.php version 1.28
-*
-* FUNCTIONS -----------------------------------
-* 
-* redirect($goToCategory, $goToPage, $time = 2)
-* 
-* isAdmin()
-* 
-* getNewCatgoryId()
-* 
-* saveCategories($categoryConfig)
-* 
-* moveCategories($category, $direction)
-* 
-* saveWebsiteConfig();
-* 
-* editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType)
-* 
-* saveEditedFiles($post)
-* 
-* delDir($dir)
-* 
-* movePage($page, $fromCategory, $toCategory)
-* 
-* fileFolderIsWritableWarning($fileFolder)
-* 
-* isFolderWarning($folder)
-*
-* getHighestId();
-*
-* readFolder($folder)
-* 
-* readFolderRecursive($folder)
-* 
-* folderIsEmpty()
-* 
-* checkBasePath()
-* 
-* basePathWarning()
-* 
-* startPageWarning()
-* 
-* loadCssFiles($folder)***
-* 
-*/
 
 
 // ** -- redirect ----------------------------------------------------------------------------------
@@ -67,23 +30,43 @@
 // $goToPage      [seite auf die weitergeleitet werden soll (String)],
 // $goToCategory  [the category in which to redirect (String)],
 // $time          [the time in seconds after which it will redirect (Number)]
-function redirect($goToCategory, $goToPage, $time = 2) {
-  global $adminConfig;
+//function redirect($goToCategory, $goToPage, $time = 2) {
+  //global $adminConfig;
   
-  echo '<meta http-equiv="refresh" content="'.$time.'; URL='.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">';
-  echo '<script type="text/javascript">
+  //echo '<meta http-equiv="refresh" content="'.$time.'; URL='.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">';
+  //echo '<script type="text/javascript">
     /* <![CDATA[ */
-      document.location.href = "'.$adminConfig['basePath'].'?category='.$goToCategory.'&page='.$goToPage.'"
+      //document.location.href = "'.$adminConfig['basePath'].'?category='.$goToCategory.'&page='.$goToPage.'"
     /* ]]> */
-    </script>';
-  echo 'You should be automatically redirected, if not click <a href="'.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">here</a>.';
-}
+    //</script>';
+  //echo 'You should be automatically redirected, if not click <a href="'.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">here</a>.';
+//}
 
-// ** -- isAdmin ----------------------------------------------------------------------------------
-// open the .htpasswd file and checks the username for: is "admin", "adminstrator", "superuser" or "root" and return true, if no one exists also return true
-// -----------------------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> isAdmin()<br>
+ * 
+ * Open the .htpasswd file and check if one of the usernames is:
+ * "admin", "adminstrator", "superuser", "root" or "frozeman".
+ * If one of the above usernames exist and the current user has one of this usernames it returns TRUE,
+ * otherwise FALSE.<br>
+ * If no user with the above usernames exists it assume that there is no admin and returns TRUE.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ *    
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})    
+ *     
+ * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function isAdmin() {
-  global $adminConfig;
 
   $currentUser = strtolower($_SERVER["REMOTE_USER"]);
   
@@ -92,7 +75,7 @@ function isAdmin() {
     return true;
   } else { // otherwise it checks if in the htpasswd is one of the above usernames, if not return true
     // checks for userfile
-    if($getHtaccess = @file(DOCUMENTROOT.$adminConfig['basePath'].'.htaccess')) {      
+    if($getHtaccess = @file(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'.htaccess')) {      
 
       // try to find the .htpasswd path
       foreach($getHtaccess as $htaccessLine) {
@@ -131,9 +114,23 @@ function isAdmin() {
   } return true;  
 }
 
-// ** -- getNewCatgoryId ----------------------------------------------------------------------------------
-// get the highest category id and make it one higher
-// -----------------------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> getNewCatgoryId()<br>
+ * 
+ * Returns a new category ID, which is the highest category ID + 1.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+ *     
+ * @return int a new category ID
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function getNewCatgoryId() {
   
   // gets the highest id
@@ -148,10 +145,27 @@ function getNewCatgoryId() {
     return 1;
 }
 
-// ** -- saveCategories ----------------------------------------------------------------------------------
-// open the config/category.config.php and writes the categories array.
-// -----------------------------------------------------------------------------------------------------
-// $categoryConfig     [der group array der in der settings.php gespeichert werden soll (Array)],
+/**
+ * <b>Name</b> saveCategories()<br>
+ * 
+ * Saves the category-settings config array to the "config/category.config.php" file.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>PHPSTARTTAG</var> the php start tag
+ *    - <var>PHPENDTAG</var> the php end tag  
+ * 
+ * @param array $newCategories a $categoryConfig array
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @example backend/categoryConfig.array.example.php of the $categoryConfig array
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function saveCategories($newCategories) {
   
   // öffnet die category.config.php zum schreiben
@@ -355,13 +369,31 @@ function moveCategories($category,            // the category id to be moved (Nu
     return false;
 }
 
-// ** -- saveAdminConfig ----------------------------------------------------------------------------------
-// open the config/admin.config.php
-// -----------------------------------------------------------------------------------------------------
-function saveAdminConfig($adminConfig) {  // (Array) with the settings to save
+/**
+ * <b>Name</b> saveAdminConfig()<br>
+ * 
+ * Saves the administrator-settings config array to the "config/admin.config.php" file.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>PHPSTARTTAG</var> the php start tag
+ *    - <var>PHPENDTAG</var> the php end tag  
+ * 
+ * @param array $adminConfig a $adminConfig array
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @example backend/adminConfig.array.example.php of the $adminConfig array
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function saveAdminConfig($adminConfig) {
 
   // **** opens admin.config.php for writing
-  if($file = @fopen("config/admin.config.php","w")) {
+  if($file = @fopen(dirname(__FILE__)."/../../config/admin.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE
     $adminConfig['user']['editWebsiteFiles'] = (isset($adminConfig['user']['editWebsiteFiles']) && $adminConfig['user']['editWebsiteFiles']) ? 'true' : 'false';
@@ -988,13 +1020,16 @@ function startPageWarning() {
   global $websiteConfig;
   global $generalFunctions;
   global $langFile;
-  global $_GET;
+  
+  // reset the storedPageIds to get the right category of the page
+  $generalFunctions->adminConfig = $adminConfig;
+  $generalFunctions->storedPageIds = null;
   
   if($adminConfig['setStartPage'] && $websiteConfig['startPage'] && ($startPageCategory = $generalFunctions->getPageCategory($websiteConfig['startPage'])) != 0)
     $startPageCategory .= '/';
   else
     $startPageCategory = '';
-
+  
   if($adminConfig['setStartPage'] && (!$websiteConfig['startPage'] || !file_exists(DOCUMENTROOT.$adminConfig['savePath'].$startPageCategory.$websiteConfig['startPage'].'.php'))) {
     echo '<div class="block info">
             <h1>'.$langFile['warning_startPageWarning_h1'].'</h1>

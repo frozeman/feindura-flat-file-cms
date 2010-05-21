@@ -15,9 +15,9 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link feindura} base class
+ * This file contains the {@link feindura} base class.
  * 
- * @package feindura-CMS 
+ * @package Implementation 
  */ 
 /**
 * The basis feindura class for the implementation classes
@@ -28,8 +28,7 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
-* @package feindura-CMS
-* @subpackage Implementation Classes
+* @package Implementation
 * 
 * @version 1.58
 * <br>
@@ -194,7 +193,7 @@ class feindura {
   *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
   * 
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and will be set to the {@link $language} property 
@@ -876,7 +875,7 @@ class feindura {
   * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
   * returns an array with the ready to display tag and the plain thumbnail path.
   * 
-  * <b>Used Global Constants</b><br>
+  * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param array $pageContent   the $pageContent array of a page

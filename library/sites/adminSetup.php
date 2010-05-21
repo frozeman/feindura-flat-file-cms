@@ -240,14 +240,15 @@ if(isset($_POST['saveFckStyleFile'])) {
 include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
-@include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved settings again
-@include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
+$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved settings again
+$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
-
-
 // didnt show the Setup for non-adminstrators
 if(isAdmin()) {
+
+// CHECKs if a STARTPAGE is SET and if this page exists, if not throw a warning
+startPageWarning();
 
 // show basePath warning if necessary
 basePathWarning();
