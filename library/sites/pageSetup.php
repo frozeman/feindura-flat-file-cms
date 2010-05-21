@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* pageSetup.php version 1.18
+* pageSetup.php version 1.19
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -237,15 +237,8 @@ if($unwriteableList) {
 <!-- GENERAL PAGE CONFIG -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'generalPageConfig') $hidden = ' hidden';
-else $hidden = '';
-?>
-
-<form action="?site=pageSetup#top" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-  <div>
-  <input type="hidden" name="send" value="pageConfig" />
-  </div>
-  
+$hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
+?>  
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="pageConfig" name="pageConfig"><?php echo $langFile['pageSetup_pageConfig_h1']; ?></a></h1>
   <div class="content">
@@ -272,8 +265,7 @@ else $hidden = '';
 <!-- THUMBNAIL SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'thumbnailConfig')  $hidden = ' hidden';
-else $hidden = '';  
+$hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="thumbnailSettings" name="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
@@ -374,10 +366,8 @@ else $hidden = '';
 <!-- NON CATEGORY PAGES CONFIG -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm !== false && $savedForm != 'nonCategoryPages') $hidden = ' hidden';
-else $hidden = '';
-?>
-  
+$hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden' : '';
+?>  
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="pageConfig" name="pageConfig"><?php echo $langFile['pageSetup_pageConfig_noncategorypages_h1']; ?></a></h1>
   <div class="content">
@@ -464,32 +454,23 @@ else $hidden = '';
           unset($checked);
           
           // checks the category settings
-          if($category['public'])
-            $checked[1] = 'checked="checked"';
+          $checked[1] = ($category['public']) ? 'checked="checked"' : '';
 
-          if($category['createdelete'])
-            $checked[2] = 'checked="checked"';
+          $checked[2] = ($category['createdelete']) ? 'checked="checked"' : '';
             
-          if($category['thumbnail'])
-            $checked[3] = 'checked="checked"';
+          $checked[3] = ($category['thumbnail']) ? 'checked="checked"' : '';
             
-          if($category['plugins'])
-            $checked[11] = 'checked="checked"';
+          $checked[11] = ($category['plugins']) ? 'checked="checked"' : '';
           
-          if($category['showtags'])
-            $checked[4] = 'checked="checked"';  
+          $checked[4] = ($category['showtags']) ? 'checked="checked"' : ''; 
           
-          if($category['showpagedate'])
-            $checked[5] = 'checked="checked"';
+          $checked[5] = ($category['showpagedate']) ? 'checked="checked"' : '';
             
-          if($category['sortbypagedate'])
-            $checked[6] = 'checked="checked"';
+          $checked[6] = ($category['sortbypagedate']) ? 'checked="checked"' : '';
           
-          if($category['sortascending'])
-            $checked[7] = 'checked="checked"';
+          $checked[7] = ($category['sortascending']) ? 'checked="checked"' : '';
             
-          if($category['thumbRatio'] == '')
-            $checked[8] = 'checked="checked"';
+          $checked[8] = ($category['thumbRatio']) ? 'checked="checked"' : '';
             
           if($category['thumbRatio'] == 'x') {
             $checked[9] = 'checked="checked"';
@@ -616,10 +597,7 @@ else $hidden = '';
           
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
-          if($_POST['savedCategory'] != $category['id'])
-            $hidden = ' class="hidden"';
-          else
-            $hidden = '';
+          $hidden = ($_POST['savedCategory'] != $category['id']) ? ' class="hidden"' : '';
           
           echo '<table id="advancedConfigTable'.$category['id'].'"'.$hidden.'>     
                 <colgroup>

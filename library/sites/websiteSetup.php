@@ -57,10 +57,7 @@ include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'websiteConfig')
-    $hidden = ' hidden';
-  else
-    $hidden = '';  
+$hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
 ?>
 <div class="block<?php /*echo $hidden;*/ ?>">
   <h1><a href="#" id="websiteSettings" name="websiteSettings"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>

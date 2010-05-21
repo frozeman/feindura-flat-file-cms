@@ -315,8 +315,7 @@ if($unwriteableList && checkBasePath()) {
 <!-- FMS SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'fmsSettings')  $hidden = ' hidden';
-else $hidden = '';  
+$hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="fmsSettings" name="fmsSettings"><?php echo $langFile['adminSetup_fmsSettings_h1']; ?></a></h1>
@@ -459,8 +458,7 @@ else $hidden = '';
 <!-- USER SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'userSettings')  $hidden = ' hidden';
-else $hidden = '';  
+$hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
 <h1><a href="#" id="userSettings" name="userSettings"><?php echo $langFile['adminSetup_userSettings_h1']; ?></a></h1>
@@ -504,8 +502,7 @@ else $hidden = '';
 <!-- EDITOR SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'editorSettings')  $hidden = ' hidden';
-else $hidden = '';  
+$hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="editorSettings" name="editorSettings"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
@@ -580,10 +577,7 @@ $htmlEditorStyleContent = @fread($htmlEditorStyleFile,filesize($htmlEditorStyleF
 
 
 // shows the block below if it is the ones which is saved before
-if($savedForm != 'fckStyleFile')
-    $hidden = ' hidden';
-  else
-    $hidden = '';    
+$hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" name="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>

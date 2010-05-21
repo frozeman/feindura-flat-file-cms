@@ -17,8 +17,8 @@
 /**
  * This file contains the {@link feinduraPages} class for implementing the CMS in a website
  * 
- */ 
- 
+ * @package feindura-CMS
+ */
 /**
 * The class for implementing feindura - Flat File Content Management System in a website.
 * 
@@ -29,6 +29,8 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
+* @package feindura-CMS
+* @subpackage Implementation Classes
 * 
 * @version 1.0
 * <br>
@@ -596,7 +598,7 @@ class feinduraPages extends feindura {
   * Example:
   * <samp>
   * <span>The requested page is currently not available.</span>
-  * </span>  
+  * </samp>  
   * 
   * @var bool
   * @see showPage()

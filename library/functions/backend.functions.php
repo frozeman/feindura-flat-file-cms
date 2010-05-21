@@ -531,11 +531,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   $fileTypeText = null;
   
   // shows the block below if it is the ones which is saved before
-  
-  if($_GET['status'] == $status || $savedForm === $status) {
-    $hidden = '';
-  } else
-    $hidden = ' hidden';
+  $hidden = ($_GET['status'] == $status || $savedForm === $status) ? '' : ' hidden';
 
   echo '<form action="?site='.$siteName.'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>

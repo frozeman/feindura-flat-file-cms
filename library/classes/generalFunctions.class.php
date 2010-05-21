@@ -19,15 +19,21 @@
  * 
  * This class provides functions which will be used by the FRONTEND and the BACKEND.
  * 
+ * @package feindura-CMS
  */
-
 /**
- * Contains the basic functions for reading and saving pages
- * 
- * These functions are used by the FRONTEND and the BACKEND.
- *
- * @version 1.16
- */ 
+* Contains the basic functions for reading and saving pages
+* 
+* These functions are used by the FRONTEND and the BACKEND.
+* 
+* @package feindura-CMS
+* @subpackage Functions
+*    
+* @version 1.16
+* <br>
+*  <b>ChangeLog</b><br>
+*    - 1.16 started documentation
+*/ 
 class generalFunctions {
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -90,8 +96,9 @@ class generalFunctions {
   
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      generalFunctions()<br><br>
-  * The constructor of the class, gets the settings
+  * <b> Name</b>      generalFunctions()<br>
+  * 
+  * The constructor of the class, gets the settings.
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
@@ -208,16 +215,16 @@ class generalFunctions {
  /**
   * <b>Name</b> getStoredPageIds()<br>
   * 
-  * Fetches the {@link $storedPageIds) property.
+  * Fetches the {@link $storedPageIds} property.
   * 
-  * If the {@link $storedPageIds) property is empty, it loads all page IDs into this property.
+  * If the {@link $storedPageIds} property is empty, it loads all page IDs into this property.
   * 
-  * Example of the returned {@link $storedPageIds) property:
+  * Example of the returned {@link $storedPageIds} property:
   * {@example loadPageIds.return.example.php}
   * 
   * @uses $storedPageIds the property to get
   * 
-  * @return array the {@link $storedPageIds) property
+  * @return array the {@link $storedPageIds} property
   * 
   * 
   * @version 1.0
@@ -660,9 +667,9 @@ class generalFunctions {
   * @param bool|int|array  $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
   * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
   * 
+  * @uses $categoryConfig     to get the sorting of the category
   * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
-  * @uses readPage()			to load the $pageContent array of the page
+  * @uses readPage()			    to load the $pageContent array of the page
   * 
   * @return array the $pageContent array of the requested pages
   * 
@@ -686,11 +693,11 @@ class generalFunctions {
 
       // IF $category TRUE create array with non-category and all category IDs
       if($category === true) {
-	// puts the categories IDs in an array
-	$category = array(0);
-	foreach($this->categoryConfig as $eachCategory) {
-	  $category[] = $eachCategory['id'];
-	}
+      	// puts the categories IDs in an array
+      	$category = array(0);
+      	foreach($this->categoryConfig as $eachCategory) {
+      	  $category[] = $eachCategory['id'];
+      	}
       }
       
       // change category into array
@@ -725,82 +732,49 @@ class generalFunctions {
       return $pagesArray;
       
     // ->> RETURN ONLY the page & category IDs
-    } else {      
+    } else {
       
       // -> uses the $this->storedPageIds an filters out only the given category ID(s)
       $pageIds = $this->getStoredPageIds();
+      
       if($category !== true) {
-	$newPageIds = false;
-	foreach($pageIds as $pageId) {
-	  if((is_array($category) && in_array($pageId['category'],$category)) || 
-	     $category == $pageId['category'])
-	    $newPageIds[] = array('page' => $pageId['page'], 'category' => $pageId['category']);
-        }
+      	 $newPageIds = false;
+      	 foreach($pageIds as $pageId) {
+        	  if((is_array($category) && in_array($pageId['category'],$category)) || 
+        	     $category == $pageId['category'])
+        	    $newPageIds[] = array('page' => $pageId['page'], 'category' => $pageId['category']);
+         }
       } else
-	$newPageIds = $pageIds;
+	      $newPageIds = $pageIds;
       
       return $newPageIds;
     }
   }
-
-  
-  // -> START -- dateDayBeforeAfter ***************************************************************************
-  // replace the date with "tomorrow" and "today", if it is one day before or the same day
-  // -------------------------------------------------------------------------------------------------------
-  function dateDayBeforeAfter($date,$givenLangFile = false) { // (String with the format YYYY-MM-DD HH:MM) date which will be check for is today or tomorrow
-    global $langFile;
-    
-    if($givenLangFile === false)
-      $givenLangFile = $langFile;
-    
-    // if the date is TODAY
-    if(substr($date,0,10) == date('Y')."-".date('m')."-".date('d'))
-      return $givenLangFile['date_today'];
-    
-    // if the date is YESTERDAY
-    elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')-1)))
-      return $givenLangFile['date_yesterday'];
-    
-    // if the date is TOMORROW
-    elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')+1)))
-      return $givenLangFile['date_tomorrow'];
-  
-    else return $date;
-  }
   
  /**
-  * Checks if the page date exists and is activated in the category-settings config
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     checkPageDate()<br>
-  *
-  * Returns TRUE if the page date exists and is activated for this category where the page is in.
-  *
-  * @param array $pageContent   the $pageContent array of a page
-  *
+  * <b>Name</b> isPageContentArray()<br>
+  * 
+  * Checks the given <var>$page</var> parameter is a valid <var>$pageContent</var> array.
+  * 
+  * @param int|array $page   the variable to check 
+  * 
   * @return bool
-  *
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  * 
   */
-  function checkPageDate($pageContent) {
-             
-    if(isset($this->categoryConfig['id_'.$pageContent['category']]) &&  // to prevent missing index error
-       $this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
-       (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after'])))
-       return true;
-    else
-       return false;
+  function isPageContentArray($page) {
+               
+    return (is_array($page) && array_key_exists('content',$page)) ? true : false;
   }
   
  /**
-  * Checks a given $page parameter is a valid <var>$pageContent</var> array
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     isPageContentArray()<br>
-  *
+  * <b>Name</b> createHref()<br>
+  * 
+  * Checks the given <var>$page</var> parameter is a valid <var>$pageContent</var> array.
   *
   * @param int|array $page   the variable to check 
   *
@@ -810,16 +784,8 @@ class generalFunctions {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
+  *   
   */
-  function isPageContentArray($page) {
-               
-    if(is_array($page) && array_key_exists('content',$page))
-	return true;
-    else
-	return false;
-  }
-  
-  
   // -> START -- createHref ******************************************************************************
   // generates out of the a pageContent Array a href="" link for this page
   // RETURNs a String for the HREF attribute

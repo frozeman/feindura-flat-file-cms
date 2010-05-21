@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.84
+listPages.php version 0.85
 
 */
 
@@ -47,10 +47,8 @@ if($_GET['status'] == 'changePageStatus') {
 if($_GET['status'] == 'changeCategoryStatus') {    
      
       // change the status
-      if($_GET['public'])
-        $categoryConfig['id_'.$_GET['category']]['public'] = 'false';
-      else
-        $categoryConfig['id_'.$_GET['category']]['public'] = 'true';      
+      $categoryConfig['id_'.$_GET['category']]['public'] = ($_GET['public']) ? false : true;
+  
       // save the new status
       if(saveCategories($categoryConfig))
         $documentSaved = true;
@@ -115,20 +113,14 @@ foreach($allCategories as $category) {
   //print_r($pages);
 
   // shows after saving the right category open
-  if(is_array($pages) && !empty($pages) &&                                          // -> slide in the category if EMPTY
-     (!isset($_GET['category']) && $category['id'] == '0') ||                       // -> slide non-category in if no category is selected
-     ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))  // -> slide out the category if ACTIVE
-    $hidden = '';
-  else
-    $hidden = ' hidden';
+  $hidden = (is_array($pages) && !empty($pages) &&                                          // -> slide in the category if EMPTY
+             (!isset($_GET['category']) && $category['id'] == '0') ||                       // -> slide non-category in if no category is selected
+             ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))  // -> slide out the category if ACTIVE
+  ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  if($category['sortbypagedate']) {
-    $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
-  } else {
-    $categorySorting = '';
-    //$categorySorting = '<span style="font-size: 12px; font-weight: normal;">('.$langFile['sortablePageList_sortOrder_manuell'].')</span>';
-  }
+  $categorySorting = ($category['sortbypagedate'])? '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
+  //else $categorySorting = '<span style="font-size: 12px; font-weight: normal;">('.$langFile['sortablePageList_sortOrder_manuell'].')</span>';
   
   // show whether the category is public or nonpublic
   if($category['public']) {
@@ -176,10 +168,7 @@ foreach($allCategories as $category) {
         <div class="content">';
   
   // -> CHECK if pages are sortable
-  if(empty($category['sortbypagedate']))
-    $listIsSortableClass = ' class="sortablePageList"';
-  else
-    $listIsSortableClass = '';
+  $listIsSortableClass = (empty($category['sortbypagedate'])) ? ' class="sortablePageList"' : '';
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
@@ -208,29 +197,26 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      if(strlen($pageContent['title']) <= $generalFunctions->getRealCharacterNumber($pageContent['title'],31)) {
-        $titleShort = $pageContent['title'];
-      } else {
-        $titleShort = substr($pageContent['title'],0,$generalFunctions->getRealCharacterNumber($pageContent['title'],29)).'..';      // (String) the string to shorten 
-      }
+      $titleShort = (strlen($pageContent['title']) <= $generalFunctions->getRealCharacterNumber($pageContent['title'],31))
+      ? $pageContent['title']
+      : substr($pageContent['title'],0,$generalFunctions->getRealCharacterNumber($pageContent['title'],29)).'..';
       
       // -> show lastsavedate
       $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
       
       // -> show pagedate
-      if($generalFunctions->checkPageDate($pageContent)) {
+      if($statisticFunctions->checkPageDate($pageContent)) {
         
-	$titleDateBefore = '';
-	$titleDateAfter = '';
-	// adds spaces on before and after
-	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
-	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
+      	$titleDateBefore = '';
+      	$titleDateAfter = '';
+      	// adds spaces on before and after
+      	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
+      	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
 	
         // CHECKs the DATE FORMAT
-        if($statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300;]'.$langFile['editor_pageSettings_pagedate_error'].':[/span] '.$pageContent['pagedate']['date'].$titleDateAfter;
-        else
-          $showDate = '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.$statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$langFile)).$titleDateAfter;
+        $showDate = ($statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
+        ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300;]'.$langFile['editor_pageSettings_pagedate_error'].':[/span] '.$pageContent['pagedate']['date'].$titleDateAfter
+        : '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$langFile)).$titleDateAfter;
         
       } else $showDate = '';
       

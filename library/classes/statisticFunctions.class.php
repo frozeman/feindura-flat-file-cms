@@ -16,15 +16,25 @@
  */
 /**
  * This file contains the {@link statisticFunctions} class
- *
+ * 
  * This class provides statistic-functions which will be used by the FRONTEND and the BACKEND.
- */ 
+ * 
+ * @package feindura-CMS
+ * 
+ */
 
 /**
- * Provides functions for the website statistics
- * 
- * @version 0.56
- */ 
+* Provides functions for the website statistics
+* 
+* @package feindura-CMS
+* @subpackage Functions
+* 
+* @version 0.56
+* <br>
+*  <b>ChangeLog</b><br>
+*    - 0.56 started documentation
+* 
+*/ 
 class statisticFunctions extends generalFunctions {
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -51,31 +61,43 @@ class statisticFunctions extends generalFunctions {
   * @see statisticFunctions()
   */ 
   var $statisticConfig = array();
-  //var $adminConfig;                       // [Array] the Array with the adminConfig Data from the feindura CMS
-  //var $categoryConfig;                    // [Array] the Array with the categoryConfig Data from the feindura CMS
+  
  
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** CONSTRUCTOR *** */
+ /* **************************************************************************************************************************** */
+  
+ /**
+  * <b> Type</b>      constructor<br>
+  * <b> Name</b>      statisticFunctions()<br><br>
+  * The constructor of the class, runs the gerneralFunctions constructor and gets the settings.
+  * 
+  * <b>Used Global Variables</b><br>
+  *    - <var>$websiteStatistic</var> array the website-settings config (included in the {@link general.include.php})
+  *    - <var>$statisticConfig</var> array the statistic-settings config (included in the {@link general.include.php})
+  * 
+  * @return void
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */ 
+  function statisticFunctions() {
+
+    // run the parent class constructor
+    $this->generalFunctions();
+    
+    // GET CONFIG FILES and SET CONFIG PROPERTIES
+    $this->websiteStatistic = $GLOBALS["websiteStatistic"];
+    $this->statisticConfig = $GLOBALS["statisticConfig"];
+  }
+  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */
- 
-  // -> START ** constructor *****************************************************************************
-  // the class constructor
-  // get the config arrays
-  // -----------------------------------------------------------------------------------------------------
-  function statisticFunctions() {
-
-    // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->generalFunctions();
-    $this->statisticConfig = $GLOBALS["statisticConfig"];
-    $this->websiteStatistic = $GLOBALS["websiteStatistic"];    
-    //$this->adminConfig = $adminConfig;    
-    //$this->categoryConfig = $categoryConfig;
-    
-    // GET FUNCTIONS
-    //$this->generalFunctions = new generalFunctions();
-    
-    return true;
-  }
+  
 
   // ** -- getmicrotime ------------------------------------------------------------------------------
   // returns a unix timestamp as float
@@ -155,6 +177,75 @@ class statisticFunctions extends generalFunctions {
     return number_format($number, $decimalsNumber, ',', ' ');
   }
   
+ /**
+  * <b>Name</b> dateDayBeforeAfter()<br>
+  * 
+  * Replaces the given <var>$date<var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
+  * 
+  * <b>Used Global Variables</b><br>
+  *    - <var>$langFile</var> the backend language-file array set in the "backend.include.php"
+  * 
+  * @param string       $date           the date which will be checked, with the format: "YYYY-MM-DD HH:MM"
+  * @param array|false  $givenLangFile  the languageFile which contains the ['date_yesterday'], ['date_today'] and ['date_tomorrow'] texts, if FALSE it loads the backend language-file
+  * 
+  * @return string a string with "yesterday", "today" or "tomorrow" or the unchanged date
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */ 
+  function dateDayBeforeAfter($date,$givenLangFile = false) {
+    
+    if($givenLangFile === false)
+      $givenLangFile = $GLOBAL['langFile'];
+    
+    // if the date is TODAY
+    if(substr($date,0,10) == date('Y')."-".date('m')."-".date('d'))
+      return $givenLangFile['date_today'];
+    
+    // if the date is YESTERDAY
+    elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')-1)))
+      return $givenLangFile['date_yesterday'];
+    
+    // if the date is TOMORROW
+    elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')+1)))
+      return $givenLangFile['date_tomorrow'];
+  
+    else return $date;
+  }
+  
+ /**
+  * <b>Name</b> checkPageDate()<br>
+  * 
+  * Checks if the page date exists and is activated in the category-settings config.
+  * Returns TRUE if the page date exists and is activated for this category which contains the page.
+  * 
+  * @param array $pageContent the $pageContent array of a page
+  * 
+  * @uses generalFunctions::$categoryConfig to check if in the category the page date is activated
+  * 
+  * @return bool
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function checkPageDate($pageContent) {
+             
+    if(isset($this->categoryConfig['id_'.$pageContent['category']]) &&  // to prevent missing index error
+       $this->categoryConfig['id_'.$pageContent['category']]['showpagedate'] &&
+       (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after'])))
+       return true;
+    else
+       return false;
+  }  
+
   // ** -- validateDateFormat ----------------------------------------------------------------------------------
   // checks the date,
   // RETURNs a validated array

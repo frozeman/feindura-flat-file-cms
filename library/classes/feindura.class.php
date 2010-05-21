@@ -17,8 +17,8 @@
 /**
  * This file contains the {@link feindura} base class
  * 
- */
- 
+ * @package feindura-CMS 
+ */ 
 /**
 * The basis feindura class for the implementation classes
 * 
@@ -28,6 +28,8 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
+* @package feindura-CMS
+* @subpackage Implementation Classes
 * 
 * @version 1.58
 * <br>
@@ -550,16 +552,16 @@ class feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses publicCategory()                        to check whether the category is public  
-  * @uses createTitle()                           to create the page title
-  * @uses createThumbnail()                       to check to show thumbnails are allowed and create the thumbnail <img> tag
-  * @uses createAttributes()                      to create the attributes used in the error tag
-  * @uses shortenHtmlText()                       to shorten the HTML page content
-  * @uses shortenText()                           to shorten the non HTML page content, if the $useHtml parameter is FALSE
-  * @uses statisticFunctions::formatDate()        to format the page date for output
-  * @uses generalFunctions::dateDayBeforeAfter()  check if the page date is "yesterday" "today" or "tomorrow"
-  * @uses generalFunctions::isPageContentArray()  to check if the given array is a $pageContent array  
-  * @uses generalFunctions::readPage()		        to load the page if the $page parameter is an ID
+  * @uses publicCategory()                         to check whether the category is public  
+  * @uses createTitle()                            to create the page title
+  * @uses createThumbnail()                        to check to show thumbnails are allowed and create the thumbnail <img> tag
+  * @uses createAttributes()                       to create the attributes used in the error tag
+  * @uses shortenHtmlText()                        to shorten the HTML page content
+  * @uses shortenText()                            to shorten the non HTML page content, if the $useHtml parameter is FALSE
+  * @uses statisticFunctions::formatDate()         to format the page date for output
+  * @uses statisticFunctions::dateDayBeforeAfter() check if the page date is "yesterday" "today" or "tomorrow"
+  * @uses generalFunctions::isPageContentArray()   to check if the given array is a $pageContent array  
+  * @uses generalFunctions::readPage()		         to load the page if the $page parameter is an ID
   * 
   * 
   * @return array the generated page array, ready to display in a HTML file
@@ -647,13 +649,13 @@ class feindura {
     // -> PAGE DATE
     // *****************
     $pagedate = false;
-    if($this->generalFunctions->checkPageDate($pageContent)) {
+    if($this->statisticFunctions->checkPageDate($pageContent)) {
 	$titleDateBefore = '';
 	$titleDateAfter = '';
 	// adds spaces on before and after
 	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
 	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-	$pagedate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
+	$pagedate = $titleDateBefore.$this->statisticFunctions->formatDate($this->statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
@@ -791,7 +793,7 @@ class feindura {
   * @uses shortenText()				                        to shorten the title text, if the $titleLength parameter is TRUE
   * @uses createHref()				                        to create the href if the $titleAsLink parameter is TRUE
   * @uses statisticFunctions::formatDate()            to format the title date for output
-  * @uses generalFunctions::dateDayBeforeAfter()      check if the title date is "yesterday" "today" or "tomorrow"
+  * @uses statisticFunctions::dateDayBeforeAfter()    check if the title date is "yesterday" "today" or "tomorrow"
   * 
   * @return string the generated title string ready to display in a HTML file
   * 
@@ -815,13 +817,13 @@ class feindura {
       //$fullTitle = strip_tags($pageContent['title']);
            
       // generate titleDate
-      if($titleShowPageDate && $this->generalFunctions->checkPageDate($pageContent)) {
+      if($titleShowPageDate && $this->statisticFunctions->checkPageDate($pageContent)) {
          $titleDateBefore = '';
          $titleDateAfter = '';
 	       // adds spaces on before and after
          if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
          if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->generalFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
+         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
       
       

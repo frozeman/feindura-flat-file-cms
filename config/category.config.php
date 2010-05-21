@@ -2,7 +2,7 @@
 
 $categoryConfig['id_3']['id'] =              3;
 $categoryConfig['id_3']['name'] =            'Kategorie 3';
-$categoryConfig['id_3']['public'] =          false;
+$categoryConfig['id_3']['public'] =          true;
 $categoryConfig['id_3']['sortascending'] =   false;
 $categoryConfig['id_3']['createdelete'] =    true;
 $categoryConfig['id_3']['thumbnail'] =       true;
@@ -57,7 +57,7 @@ $categoryConfig['id_1']['styleClass'] =      '';
 
 $categoryConfig['id_1']['thumbWidth'] =      '200';
 $categoryConfig['id_1']['thumbHeight'] =     '100';
-$categoryConfig['id_1']['thumbRatio'] =      'y';
+$categoryConfig['id_1']['thumbRatio'] =      '';
 
 
 return $categoryConfig;

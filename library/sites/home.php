@@ -147,7 +147,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) { 
-        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:left;"><b>'.$statisticFunctions->formatDate($generalFunctions->dateDayBeforeAfter($page['lastsavedate'])).'</b> '.$statisticFunctions->formatTime($page['lastsavedate']).'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:left;"><b>'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($page['lastsavedate'])).'</b> '.$statisticFunctions->formatTime($page['lastsavedate']).'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
         // change row color
         if($rowColor == 'light') $rowColor = 'dark';
         else $rowColor = 'light';        
