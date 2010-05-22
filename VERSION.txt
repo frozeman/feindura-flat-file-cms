@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 221
+Build 222
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 222: fix in startPageWarning(); now after saved setup and re-include of the configs it stores these new configs also in the classes
   build 221: started documentation for backend.functions.php
   build 220: finished statisticFunctions.class.php documentation; also made some fixes in its methods
   build 219: add showTaskLog.php and modified the task log; now it generates the page and category links on the fly, when generating the task log

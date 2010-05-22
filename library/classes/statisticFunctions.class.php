@@ -51,7 +51,7 @@ class statisticFunctions extends generalFunctions {
   * @var array
   * @see statisticFunctions()
   */ 
-  var $websiteStatistics = array();
+  var $websiteStatistic = array();
   
  /**
   * Contains the backend-statistic config <var>array</var>

@@ -195,8 +195,16 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 }
 
 
-$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved adminConfig again
-$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
+// RE-INCLUDE
+$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
+$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+// RESET of the vars in the classes
+$generalFunctions->adminConfig = $adminConfig;
+$statisticFunctions->adminConfig = $adminConfig;
+$generalFunctions->categoryConfig = $categoryConfig;
+$statisticFunctions->categoryConfig = $categoryConfig;
+$generalFunctions->storedPageIds = null;
+$generalFunctions->storedPages = null;
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 

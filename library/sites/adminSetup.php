@@ -239,9 +239,17 @@ if(isset($_POST['saveFckStyleFile'])) {
 // ---------- SAVE the editFiles
 include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
 
+// RE-INCLUDE
+$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
+$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+// RESET of the vars in the classes
+$generalFunctions->adminConfig = $adminConfig;
+$statisticFunctions->adminConfig = $adminConfig;
+$generalFunctions->categoryConfig = $categoryConfig;
+$statisticFunctions->categoryConfig = $categoryConfig;
+$generalFunctions->storedPageIds = null;
+$generalFunctions->storedPages = null;
 
-$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php"); // loads the saved settings again
-$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php"); // loads the saved categories again
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 // didnt show the Setup for non-adminstrators

@@ -376,7 +376,7 @@ function moveCategories($category,            // the category id to be moved (Nu
  * 
  * <b>Used Constants</b><br>
  *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag  
+ *    - <var>PHPENDTAG</var> the php end tag
  * 
  * @param array $adminConfig a $adminConfig array
  * 
@@ -1020,10 +1020,6 @@ function startPageWarning() {
   global $websiteConfig;
   global $generalFunctions;
   global $langFile;
-  
-  // reset the storedPageIds to get the right category of the page
-  $generalFunctions->adminConfig = $adminConfig;
-  $generalFunctions->storedPageIds = null;
   
   if($adminConfig['setStartPage'] && $websiteConfig['startPage'] && ($startPageCategory = $generalFunctions->getPageCategory($websiteConfig['startPage'])) != 0)
     $startPageCategory .= '/';

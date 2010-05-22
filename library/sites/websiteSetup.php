@@ -46,7 +46,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 
-$websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php"); // loads the saved settings again
+// RE-INCLUDE
+$websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
+// RESET of the vars in the classes
+$generalFunctions->websiteConfig = $websiteConfig;
+$generalFunctions->storedPageIds = null;
+$generalFunctions->storedPages = null;
+
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 ?>

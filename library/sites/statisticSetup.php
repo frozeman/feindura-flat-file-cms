@@ -72,7 +72,7 @@ if($_POST['sendClearstatistics']) {
   }  
   
   // ->> CLEAR WEBSITE-STATISTIC
-  if($_POST['clearStatistics_websiteStatistics'] == 'true' &&
+  if($_POST['clearStatistics_websiteStatistic'] == 'true' &&
      file_exists(dirname(__FILE__)."/../../statistic/website.statistic.php") &&
      unlink(dirname(__FILE__)."/../../statistic/website.statistic.php")) {
     
@@ -114,7 +114,10 @@ if($_POST['sendClearstatistics']) {
   $savedForm = 'clearStatistics';
 }
 
-@include (dirname(__FILE__)."/../../config/statistic.config.php"); // loads the saved settings again
+// RE-INCLUDE
+$statisticConfig = @include (dirname(__FILE__)."/../../config/statistic.config.php");
+// RESET of the vars in the classes
+$statisticFunctions->statisticConfig = $statisticConfig;
 
 // ------------------------------- ENDE DES SCRIPTs ZUM SPEICHERN DER VARIABLEN ----------------------------------
 
@@ -214,9 +217,9 @@ if($savedForm == 'clearStatistics')
     <table>
           
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="clearStatistics_websiteStatistics" name="clearStatistics_websiteStatistics" value="true" class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic'].'::'.$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>" />
+      <input type="checkbox" id="clearStatistics_websiteStatistic" name="clearStatistics_websiteStatistic" value="true" class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic'].'::'.$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>" />
       </td><td class="right checkboxes">
-      <label for="clearStatistics_websiteStatistics"><span class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic'].'::'.$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic']; ?></span></label>
+      <label for="clearStatistics_websiteStatistic"><span class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic'].'::'.$langFile['statisticSetup_clearStatistics_websiteStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_websiteStatistic']; ?></span></label>
       </td></tr>
       
       <tr><td class="left checkboxes">

@@ -17,6 +17,7 @@ listPages.php version 0.85
 
 */
 
+// RE-INCLUDE
 include_once(dirname(__FILE__).'/../backend.include.php');
 
 $opendCategory = false;
