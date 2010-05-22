@@ -261,10 +261,8 @@ startPageWarning();
 // show basePath warning if necessary
 basePathWarning();
 
-// CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
+// CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 // ----------------------------------------------------------------------------------------
-$unwriteableList = '';
-
 $checkFolders[] = $adminConfig['basePath'].'config/';
 $checkFolders[] = $adminConfig['basePath'].'statistic/';
 $checkFolders[] = $adminConfig['basePath'].'plugins/';
@@ -273,31 +271,8 @@ $checkFolders[] = $adminConfig['websitefilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
 
-foreach($checkFolders as $checkFolder) {
-  if(!empty($checkFolder)) {
-    if($isFolder = isFolderWarning($checkFolder)) {
-      $unwriteableList .= $isFolder;
-    } else {
-      $unwriteableList .= fileFolderIsWritableWarning($checkFolder);
-      if($readFolder = readFolderRecursive($checkFolder)) {
-        if(is_array($readFolder['folders'])) {
-          foreach($readFolder['folders'] as $folder) {
-            $unwriteableList .= fileFolderIsWritableWarning($folder);
-          }
-        }
-        if(is_array($readFolder['files'])) {
-          foreach($readFolder['files'] as $files) {
-            $unwriteableList .= fileFolderIsWritableWarning($files);
-          }
-        }
-      }
-    }
-  }
-}
-
-
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePath()) {
+if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePath()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
@@ -308,7 +283,6 @@ if($unwriteableList && checkBasePath()) {
   
   echo '<div class="blockSpacer"></div>';
 }
-// ------------------------------------------------------------------------------------------- end WRITEABLE CHECK
 
 ?>
 

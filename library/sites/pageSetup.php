@@ -211,17 +211,13 @@ $generalFunctions->storedPages = null;
 
 // CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
-$unwriteableList = '';
 
 // check config files
-$unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/admin.config.php'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/admin.config.php');
-if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'config/category.config.php'))
-  $unwriteableList .= fileFolderIsWritableWarning($adminConfig['basePath'].'config/category.config.php');
+$unwriteableList .= isWritableWarning($adminConfig['basePath'].'config/admin.config.php');
+$unwriteableList .= isWritableWarning($adminConfig['basePath'].'config/category.config.php');
 
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList) {
+if($unwriteableList && checkBasePath()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_writeAccess'].'</h1>
     <div class="content">

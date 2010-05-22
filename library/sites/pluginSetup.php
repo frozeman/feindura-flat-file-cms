@@ -47,37 +47,13 @@ include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
-// CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
-// ----------------------------------------------------------------------------------------
-$unwriteableList = '';
 
+// CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
+// ----------------------------------------------------------------------------------------
 $checkFolders[] = $adminConfig['basePath'].'plugins/';
 
-foreach($checkFolders as $checkFolder) {
-  if(!empty($checkFolder)) {
-    if($isFolder = isFolderWarning($checkFolder)) {
-      $unwriteableList .= $isFolder;
-    } else {
-      $unwriteableList .= fileFolderIsWritableWarning($checkFolder);
-      if($readFolder = readFolderRecursive($checkFolder)) {
-        if(is_array($readFolder['folders'])) {
-          foreach($readFolder['folders'] as $folder) {
-            $unwriteableList .= fileFolderIsWritableWarning($folder);
-          }
-        }
-        if(is_array($readFolder['files'])) {
-          foreach($readFolder['files'] as $files) {
-            $unwriteableList .= fileFolderIsWritableWarning($files);
-          }
-        }
-      }
-    }
-  }
-}
-
-
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePath()) {
+if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePath()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
@@ -88,7 +64,6 @@ if($unwriteableList && checkBasePath()) {
   
   echo '<div class="blockSpacer"></div>';
 }
-// ------------------------------------------------------------------------------------------- end WRITEABLE CHECK
 
 
 // ->> GOES TROUGH every PLUGIN

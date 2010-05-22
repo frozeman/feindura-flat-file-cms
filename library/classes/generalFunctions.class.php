@@ -463,6 +463,8 @@ class generalFunctions {
       
       // writes the new saved page to the $storedPages property
       $this->setStoredPages($pageContent);
+      // reset the stored page ids
+      $this->storedPagesIds = null;
       
       return true;
     }  
@@ -573,7 +575,7 @@ class generalFunctions {
 
     // if $category === true,
     // load ALL CATEGORIES and the NON-CATEGORY
-    if($category === true) {
+    if($category === true && is_array($categoryArray)) {
       array_unshift($categoryArray,array('id' => 0));
       $category = $categoryArray;
     }

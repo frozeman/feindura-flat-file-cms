@@ -55,7 +55,7 @@
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  *    
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})    
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
  *     
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
  * 
@@ -152,7 +152,10 @@ function getNewCatgoryId() {
  * 
  * <b>Used Constants</b><br>
  *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag  
+ *    - <var>PHPENDTAG</var> the php end tag
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
  * 
  * @param array $newCategories a $categoryConfig array to save
  * 
@@ -238,7 +241,10 @@ function saveCategories($newCategories) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
-  
+    
+    // reset the stored page ids
+    $GLOBALS['generalFunctions']->storedPagesIds = null;
+    
     return true;
   } else
     return false;
@@ -579,6 +585,85 @@ function saveStatisticConfig($statisticConfig) {
     return false;
 }
 
+/**
+ * <b>Name</b> movePage()<br>
+ * 
+ * Moves a file into a new category directory.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
+ * 
+ * @param int $page         the page ID
+ * @param int $fromCategory the ID of the category where the page is situated
+ * @param int $toCategory   the ID of the category where the file will be moved to 
+ * 
+ * @return bool TRUE if the page was succesfull moved, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function movePage($page, $fromCategory, $toCategory) {
+  
+  // if there are pages not in a category set the category to empty
+  if($fromCategory === false || $fromCategory == 0)
+    $fromCategory = '';
+  if($toCategory === false || $toCategory == 0)
+    $toCategory = '';
+    
+  // MOVE categories
+  if(@copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
+    DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$toCategory.'/'.$page.'.php') &&
+    @unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
+    // reset the stored page ids
+    $GLOBALS['generalFunctions']->storedPagess = null;
+    $GLOBALS['generalFunctions']->storedPagesIds = null;
+    
+    return true;
+  } else
+    return false;
+}
+
+/**
+ * <b>Name</b> getNewPageId()<br>
+ * 
+ * Returns a new page ID, which is the highest page ID + 1.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$generalFunctions</var> for the {@link getStoredPagesIds} (included in the {@link general.include.php})
+ * 
+ * @return int a new page ID
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function getNewPageId() {
+  
+  // loads the file list in an array
+  $pages = $GLOBALS['generalFunctions']->getStoredPageIds();
+  
+  $highestId = 0;
+  
+  // go trough the file list and look for the highest number
+  if(is_array($pages)) {
+    foreach($pages as $page) {
+      $pageId = $page['page'];
+          
+      if($pageId > $highestId)
+        $highestId = $pageId;
+    }
+  }
+  $highestId++;
+  
+  return $highestId;
+}
 
 /**
  * <b>Name</b> editFiles()<br>
@@ -826,10 +911,21 @@ function saveEditedFiles(&$savedForm) {
   return false;
 }
 
-// ** -- delDir ----------------------------------------------------------------------------------------
-// deletes a dir, with files in it
-// -----------------------------------------------------------------------------------------------------
-// $dir            [the directory to be deleted, must end with a slash "/" (array)]
+/**
+ * <b>Name</b> delDir()<br>
+ * 
+ * Deletes a directory and all files in it.
+ * 
+ * @param string $dir the absolute path to the directory which will be deleted, must end with a "/"  
+ * 
+ * @return bool TRUE if the directory was succesfull deleted, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function delDir($dir) {
     $files = glob( $dir . '*', GLOB_MARK );
     foreach( $files as $file ){
@@ -844,84 +940,113 @@ function delDir($dir) {
       return false;
 }
 
-// ** -- movePage ----------------------------------------------------------------------------------
-// move a file to a new destination
-// -----------------------------------------------------------------------------------------------------
-// $page            [page id wich will be moved (String)],
-// $fromCategory    [category id where the file is situated (String)]
-// $toCategory      [category id where it will be moved in (String)]
-function movePage($page, $fromCategory, $toCategory) {
-  global $adminConfig;
-  
-  // if there are pages not in a category set the category to empty
-  if($fromCategory === false || $fromCategory == 0)
-    $fromCategory = '';
-  if($toCategory === false || $toCategory == 0)
-    $toCategory = '';
-    
-  // MOVE categories
-  if(@copy(DOCUMENTROOT.$adminConfig['savePath'].$fromCategory.'/'.$page.'.php',
-    DOCUMENTROOT.$adminConfig['savePath'].$toCategory.'/'.$page.'.php') &&
-    @unlink(DOCUMENTROOT.$adminConfig['savePath'].$fromCategory.'/'.$page.'.php'))
-    return true;
-  else
-    return false;
-}
-
-// ** -- fileFolderIsWritableWarning ----------------------------------------------------------------------------------
-// checks the file/folder if it is writeable, and gives back an error text if not (made for the admin.config.php)
-// -----------------------------------------------------------------------------------------------------
-// $fileFolder  [the File or Folder which is checked for writeability, must beginn with a "/" (String)]
-function fileFolderIsWritableWarning($fileFolder) {
-  global $langFile;
-  
-  if(substr($fileFolder,0,1) != '/')
-    $fileFolder = '/'.$fileFolder;
-  
-  if(is_writable(DOCUMENTROOT.$fileFolder) === false) {
-      return '<span class="warning toolTip" title="'.$fileFolder.'::'.$langFile['adminSetup_error_writeAccess_tip'].'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$langFile['adminSetup_error_writeAccess'].'</span><br />';
-  } else return false;
-}
-
-// ** -- isFolderWarning ----------------------------------------------------------------------------------
-// checks the folder exists, and gives back an error text if not (made for the admin.config.php)
-// -----------------------------------------------------------------------------------------------------
-// $folder  [the File or Folder which is checked for writeability, must beginn with a "/" (String)]
+/**
+ * <b>Name</b> isFolderWarning()<br>
+ * 
+ * Check if the <var>$folder</var> parameter is a directory, otherwise it return a warning text.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    
+ * 
+ * @param string $folder the absolut path of the folder to check
+ * 
+ * @return string|false a warning text if it's not a directory, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function isFolderWarning($folder) {
-  global $langFile;
   
   if(substr($folder,0,1) != '/')
     $folder = '/'.$folder;
 
   if(is_dir(DOCUMENTROOT.$folder) === false) {
-      return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$langFile['adminSetup_error_isFolder'].'</span><br />';
-  } else return false;
+      return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_isFolder'].'</span><br />';
+  } else
+    return false;
 }
 
-// ** -- getHighestId ----------------------------------------------------------------------------------
-// gets the highest ID of all pages in all categories
-// -----------------------------------------------------------------------------------------------------
-function getHighestId() {
+/**
+ * <b>Name</b> isWritableWarning()<br>
+ * 
+ * Check if a file/folder is writeable, otherwise it return a warning text.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    
+ * 
+ * @param string $fileFolder the absolut path of a file/folder to check
+ * 
+ * @return string|false a warning text if it's not writable, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function isWritableWarning($fileFolder) {
   
-  $cats = $GLOBALS['categoryConfig'];
-  array_unshift($cats,array('id' => 0));
+  if(substr($fileFolder,0,1) != '/')
+    $fileFolder = '/'.$fileFolder;
   
-  // loads the file list in an array
-  $pages = $GLOBALS['generalFunctions']->getStoredPageIds();
+  if(file_exists(DOCUMENTROOT.$fileFolder) && is_writable(DOCUMENTROOT.$fileFolder) === false) {
+    return '<span class="warning toolTip" title="'.$fileFolder.'::'.$GLOBALS['langFile']['adminSetup_error_writeAccess_tip'].'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_writeAccess'].'</span><br />';
+  } else
+    return false;
+}
+
+/**
+ * <b>Name</b> isWritableWarningRecursive()<br>
+ * 
+ * Check if folders and it's containing files are writeable, otherwise it return a warning text.
+ * 
+ * @param array $folders an array with absolut paths of folders to check
+ * 
+ * @uses isWritableWarning() to check every file/folder and return a warning
+ * 
+ * @return string|false warning texts if they are not writable, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function isWritableWarningRecursive($folders) {
   
-  $highestId = 0;
+  //var
+  $return = false;
   
-  // go trough the file list and look for the highest number
-  if(is_array($pages)) {
-    foreach($pages as $page) {
-      $pageId = $page['page'];
-          
-      if($pageId > $highestId)
-        $highestId = $pageId;
+  foreach($folders as $folder) {
+    if(!empty($folder)) {
+      if($isFolder = isFolderWarning($folder)) {
+        $return .= $isFolder;
+      } else {
+        $return .= isWritableWarning($folder);
+        if($readFolder = readFolderRecursive($folder)) {
+          if(is_array($readFolder['folders'])) {
+            foreach($readFolder['folders'] as $folder) {
+              $return .= isWritableWarning($folder);
+            }
+          }
+          if(is_array($readFolder['files'])) {
+            foreach($readFolder['files'] as $files) {
+              $return .= isWritableWarning($files);
+            }
+          }
+        }
+      }
     }
   }
-  return $highestId;
+  
+  return $return;
 }
+
+
+
 
 // ** -- readFolder ----------------------------------------------------------------------------------
 // OPENS a Folder and RETURNs an Hash with $return['folders'][0] ,.. and $return['files'][0] ,..

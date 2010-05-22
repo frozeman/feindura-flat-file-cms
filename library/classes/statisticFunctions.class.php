@@ -327,7 +327,7 @@ class statisticFunctions extends generalFunctions {
   */
   function validateDateFormat($dateString) {
     
-    if(!is_string($dateString) || !is_numeric($dateString))
+    if(!is_string($dateString) && !is_numeric($dateString))
       return false;
       
     // get the date out of the $dateString

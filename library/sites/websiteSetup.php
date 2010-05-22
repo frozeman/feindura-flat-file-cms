@@ -55,6 +55,32 @@ $generalFunctions->storedPages = null;
 
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
+
+// CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
+// ----------------------------------------------------------------------------------------
+$checkFolders = $adminConfig['basePath'].'config/website.config.php';
+$unwriteableList = isWritableWarning($checkFolders);
+
+// check also website files if allowed
+if($adminConfig['user']['editWebsiteFiles'])
+  $unwriteableList .= isWritableWarningRecursive(array($adminConfig['websitefilesPath']));
+// check also stylesheet files if allowed
+if($adminConfig['user']['editStylesheets'])
+  $unwriteableList .= isWritableWarningRecursive(array($adminConfig['stylesheetPath']));
+
+// gives the error OUTPUT if one of these files in unwriteable
+if($unwriteableList && checkBasePath()) {
+  echo '<div class="block warning">
+    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <div class="content">
+      <p>'.$unwriteableList.'</p><!-- needs <p> tags for margin-left:..-->
+    </div>
+    <div class="bottom"></div>  
+  </div>'; 
+  
+  echo '<div class="blockSpacer"></div>';
+}
+
 ?>
 <form action="?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div><input type="hidden" name="send" value="websiteSetup" /></div>
