@@ -259,13 +259,12 @@ if(isAdmin()) {
 startPageWarning();
 
 // show basePath warning if necessary
-basePathWarning();
+echo basePathWarning();
 
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 // ----------------------------------------------------------------------------------------
 $checkFolders[] = $adminConfig['basePath'].'config/';
 $checkFolders[] = $adminConfig['basePath'].'statistic/';
-$checkFolders[] = $adminConfig['basePath'].'plugins/';
 $checkFolders[] = $adminConfig['savePath'];
 $checkFolders[] = $adminConfig['websitefilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];

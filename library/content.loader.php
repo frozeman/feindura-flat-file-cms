@@ -23,7 +23,7 @@
 // CHECKs if the current basePath is matching the real basePath
 // if not throw an warning
 if($_GET['site'] != 'adminSetup')
-  basePathWarning();
+echo basePathWarning();
 
 
 // ***********************************************************************

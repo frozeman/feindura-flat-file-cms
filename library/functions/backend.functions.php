@@ -253,7 +253,7 @@ function saveCategories($newCategories) {
 /**
  * <b>Name</b> moveCategories()<br>
  * 
- * Change the order of the $categoryConfig array.
+ * Change the order of the <var>$categoryConfig</var> array.
  * 
  * @param array       &$categoryConfig the $categoryConfig array (will also be changed global)
  * @param int         $category        the ID of the category to move
@@ -671,7 +671,7 @@ function getNewPageId() {
  * Generates a editable textfield with a file selection and a input for creating new files.
  * 
  * <b>Used Constants</b><br>
- *    - <var>DOCUMENTROOT</var>  the absolut path of the webserver
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
  * <b>Used Global Variables</b><br>
  *    - <var>$_POST</var> to get which form is open
@@ -838,6 +838,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
  * 
  * <b>Used Constants</b><br>
  *    - <var>$_POST</var> for the file data
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver 
  * 
  * @param string &$savedForm	to set which form was is saved
  * 
@@ -945,6 +946,9 @@ function delDir($dir) {
  * 
  * Check if the <var>$folder</var> parameter is a directory, otherwise it return a warning text.
  * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ * 
  * <b>Used Global Variables</b><br>
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    
  * 
@@ -974,8 +978,11 @@ function isFolderWarning($folder) {
  * 
  * Check if a file/folder is writeable, otherwise it return a warning text.
  * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ * 
  * <b>Used Global Variables</b><br>
- *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  * 
  * @param string $fileFolder the absolut path of a file/folder to check
  * 
@@ -1005,7 +1012,9 @@ function isWritableWarning($fileFolder) {
  * 
  * @param array $folders an array with absolut paths of folders to check
  * 
- * @uses isWritableWarning() to check every file/folder and return a warning
+ * @uses isFolderWarning()      to check if the folder is a valid directory, if not return a warning
+ * @uses isWritableWarning()    to check every file/folder if it's writable, if not return a warning
+ * @uses readFolderRecursive()  to read all subfolders and files in a directory
  * 
  * @return string|false warning texts if they are not writable, otherwise FALSE
  * 
@@ -1045,12 +1054,39 @@ function isWritableWarningRecursive($folders) {
   return $return;
 }
 
-
-
-
-// ** -- readFolder ----------------------------------------------------------------------------------
-// OPENS a Folder and RETURNs an Hash with $return['folders'][0] ,.. and $return['files'][0] ,..
-// -----------------------------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> readFolder()<br>
+ * 
+ * Reads a folder and return it's subfolders and files.
+ * 
+ * Example of the returned array:
+ * <code>
+ * array(
+ *    "files" => array(
+ *                   0 => '/path/file1.php',
+ *                   1 => '/path/file2.php',
+ *                   ),
+ *    "folders" => array(
+ *                   0 => '/path/subfolder1',
+ *                   1 => '/path/subfolder2',
+ *                   2 => '/path/subfolder3'
+ *                   )
+ *    )
+ * </code>
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ * 
+ * @param string $folder the absolute path of an folder to read
+ * 
+ * @return array|false an array with the folder elements, FALSE if the folder not a directory
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function readFolder($folder) {
   
   if(empty($folder))
@@ -1096,9 +1132,39 @@ function readFolder($folder) {
   return $return;  
 }
 
-// ** -- readFolderRecursive ----------------------------------------------------------------------------------
-// OPENS a Folder and ALL SUBFOLDERS and RETURNs an Array with $return['folders'][0] ,.. and $return['files'][0] ,..
-// -----------------------------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> readFolderRecursive()<br>
+ * 
+ * Reads a folder recursive and return it's subfolders and files, opens then also the subfolders and read them, etc.
+ * 
+ * Example of the returned array:
+ * <code>
+ * array(
+ *    "files" => array(
+ *                   0 => '/path/file1.php',
+ *                   1 => '/path/subfolder1/file2.php',
+ *                   ),
+ *    "folders" => array(
+ *                   0 => '/path/subfolder1',
+ *                   1 => '/path/subfolder2/subsubfolder1',
+ *                   2 => '/path/subfolder2/subsubfolder2'
+ *                   )
+ *    )
+ * </code>
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ * 
+ * @param string $folder the absolute path of an folder to read
+ * 
+ * @return array|false an array with the folder elements, FALSE if the folder not a directory
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function readFolderRecursive($folder) {
   
   if(empty($folder))
@@ -1158,85 +1224,58 @@ function readFolderRecursive($folder) {
   return $return;
 } 
 
+/**
+ * <b>Name</b> folderIsEmpty()<br>
+ * 
+ * Check if a folder is empty.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ * 
+ * @param string $folder the absolute path of an folder to check
+ * 
+ * @return bool TRUE if its empty, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 
-// ** -- showModulesPlugins ----------------------------------------------------------------------------------
-// opens the modules and plugin folder and return tru if there something in
-// -----------------------------------------------------------------------------------------------------------
-// $folder    [the ABSOLUTE PATH of the Folder which will be checked (String)]
 function folderIsEmpty($folder) {
   
-  if(readFolder($folder) === false)
+  if(readFolder(DOCUMENTROOT.$folder) === false)
     return true;
   else
     return false;
 
 }
 
-// ** -- checkBasePath ----------------------------------------------------------------------------------
-// CHECKs if the current basePath is matching the real basePath
-// RETURNs TRUE if the basePath is correct, otherwise false
-// -----------------------------------------------------------------------------------------------------------
-function checkBasePath() {
-  global $adminConfig;
-  
-  $basePath = str_replace('www.','',$adminConfig['url']);
-  $checkPath = str_replace('www.','',$_SERVER["HTTP_HOST"]);
-  
-  if($adminConfig['basePath'] !=  dirname($_SERVER['PHP_SELF']).'/' ||
-     $basePath != $checkPath)
-    return false;
-  else return true;
-}
-
-// ** -- basePathWarning ----------------------------------------------------------------------------------
-// CHECKs if the current basePath is matching the real basePath, if not throw a warning
-// SHOWs a warning, if the basePath is incorrect
-// -----------------------------------------------------------------------------------------------------------
-function basePathWarning() {
-  global $langFile;
-  
-  if(checkBasePath() === false) {
-    echo '<div class="block warning">
-            <h1>'.$langFile['warning_fmsConfWarning_h1'].'</h1>
-            <div class="content">
-              <p>'.$langFile['warning_fmsConfWarning'].'</p><!-- needs <p> tags for margin-left:..--> 
-            </div> 
-            <div class="bottom"></div> 
-          </div>';
-  }
-}
-
-// ** -- startPageWarning ----------------------------------------------------------------------------------
-// CHECKs if a STARTPAGE is SET and if this page exists
-// SHOWs a warning, if the basePath is incorrect
-// -----------------------------------------------------------------------------------------------------------
-function startPageWarning() {
-  global $adminConfig;
-  global $websiteConfig;
-  global $generalFunctions;
-  global $langFile;
-  
-  if($adminConfig['setStartPage'] && $websiteConfig['startPage'] && ($startPageCategory = $generalFunctions->getPageCategory($websiteConfig['startPage'])) != 0)
-    $startPageCategory .= '/';
-  else
-    $startPageCategory = '';
-  
-  if($adminConfig['setStartPage'] && (!$websiteConfig['startPage'] || !file_exists(DOCUMENTROOT.$adminConfig['savePath'].$startPageCategory.$websiteConfig['startPage'].'.php'))) {
-    echo '<div class="block info">
-            <h1>'.$langFile['warning_startPageWarning_h1'].'</h1>
-            <div class="content">
-              <p>'.$langFile['warning_startPageWarning'].'</p><!-- needs <p> tags for margin-left:..--> 
-            </div> 
-            <div class="bottom"></div> 
-          </div>';
-  }
-}
-
-// ** -- createStyleTags ----------------------------------------------------------------------------------
-// GOs trough a Folder and its Sub-Folders and creates a HTML-Style-Tag out of every CSS-File
-// -----------------------------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> createStyleTags()<br>
+ * 
+ * Goes through a folder recursive and creates a HTML <link> tag for every stylesheet-file found.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $folder the absolute path of the folder to look for stylesheet files
+ * 
+ * @uses readFolderRecursive() to read the folder
+ * 
+ * @return string|false the HTML <link> tags or FALSE if no stylesheet-file was found
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function createStyleTags($folder) {
-  global $adminConfig;
+  
+  //var
+  $return = false;
   
   // ->> goes trough all folder and subfolders
   $filesInFolder = readFolderRecursive($folder);
@@ -1245,13 +1284,115 @@ function createStyleTags($folder) {
       // -> check for CSS FILES
       if(substr($file,-4) == '.css') {
         // -> removes the $adminConfig('basePath')
-        $file = str_replace($adminConfig['basePath'],'',$file);
+        $file = str_replace($GLOBALS['adminConfig']['basePath'],'',$file);
         // -> WRITES the HTML-Style-Tags
-        echo '  <link rel="stylesheet" type="text/css" href="'.$file.'" media="screen" />'."\n";
+        $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'" />'."\n";
       }
     }
   }
   
+  return $return;
+}
+
+/**
+ * <b>Name</b> checkBasePath()<br>
+ * 
+ * Check if the current path of the CMS is matching the <var>$adminConfig['basePath']</var>
+ * And if the current URL is matching the <var>$adminConfig['url']</var>.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ * 
+ * @return bool TRUE if there are matching, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function checkBasePath() {
+  
+  $baseUrl = str_replace('www.','',$GLOBALS['adminConfig']['url']);
+  $checkUrl = str_replace('www.','',$_SERVER["HTTP_HOST"]);
+  
+  if($GLOBALS['adminConfig']['basePath'] ==  dirname($_SERVER['PHP_SELF']).'/' ||
+     $baseUrl == $checkUrl)
+    return true;
+  else
+    return false;
+}
+
+/**
+ * <b>Name</b> checkBasePath()<br>
+ * 
+ * Retruns a warning if the current path of the CMS and the current URL is not matching with the ones set in the <var>$adminConfig</var>.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
+ * 
+ * @uses checkBasePath() to check if the current pathand URL are matching
+ * 
+ * @return string|false a warining if there are not matching, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function basePathWarning() {
+  
+  if(checkBasePath() === false) {
+    return '<div class="block warning">
+            <h1>'.$GLOBALS['langFile']['warning_fmsConfWarning_h1'].'</h1>
+            <div class="content">
+              <p>'.$GLOBALS['langFile']['warning_fmsConfWarning'].'</p><!-- needs <p> tags for margin-left:..--> 
+            </div> 
+            <div class="bottom"></div> 
+          </div>';
+  } else
+    return false;
+}
+
+/**
+ * <b>Name</b> checkBasePath()<br>
+ * 
+ * Retruns a warning if the current set start page is existing.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
+ *    - <var>$generalFunctions</var> for the {@link generalFunctions::getPageCategory()} method (included in the {@link general.include.php})
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
+ * 
+ * @uses generalFunctions::getPageCategory() to get the category of the start page
+ * 
+ * @return string|false a warining if the start page doesn't exist, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function startPageWarning() {
+  
+  if($GLOBALS['adminConfig']['setStartPage'] && $GLOBALS['websiteConfig']['startPage'] && ($startPageCategory = $GLOBALS['generalFunctions']->getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
+    $startPageCategory .= '/';
+  else
+    $startPageCategory = '';
+  
+  if($GLOBALS['adminConfig']['setStartPage'] && (!$GLOBALS['websiteConfig']['startPage'] || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
+    return '<div class="block info">
+            <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>
+            <div class="content">
+              <p>'.$GLOBALS['langFile']['warning_startPageWarning'].'</p><!-- needs <p> tags for margin-left:..--> 
+            </div> 
+            <div class="bottom"></div> 
+          </div>';
+  } else
+    return false;
 }
 
 ?>

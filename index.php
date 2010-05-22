@@ -100,7 +100,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
 <?php
 if($_GET['site'] == 'addons') {
   echo "  <!-- addons stylesheets -->\n";
-  createStyleTags($adminConfig['basePath'].'addons/');
+  echo createStyleTags($adminConfig['basePath'].'addons/');
 }
 ?>
   
