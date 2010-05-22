@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link feindura} base class.
  * 
- * @package Implementation 
+ * @package [Implementation] 
  */ 
 /**
 * The basis feindura class for the implementation classes
@@ -28,7 +28,7 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
-* @package Implementation
+* @package [Implementation]
 * 
 * @version 1.58
 * <br>

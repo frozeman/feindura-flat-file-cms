@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link generalFunctions} class.
  * 
- * @package Implementation|feindura-CMS
+ * @package [Implementation]|[feindura-CMS]
  */
 /**
 * <b>Classname</b> generalFunctions<br>
@@ -26,7 +26,7 @@
 * 
 * <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
-* @package Implementation|feindura-CMS
+* @package [Implementation]|[feindura-CMS]
 * 
 * @version 1.16
 * <br>

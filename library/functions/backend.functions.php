@@ -17,9 +17,9 @@
 /**
  * This file contains the main functions used by the backend of the feindura-CMS.
  * 
- * @package feindura-CMS
+ * @package [feindura-CMS]
  * 
- * @version 1.28
+ * @version 1.30
  */
 
 
@@ -1368,7 +1368,7 @@ function basePathWarning() {
  * 
  * @uses generalFunctions::getPageCategory() to get the category of the start page
  * 
- * @return string|false a warining if the start page doesn't exist, otherwise FALSE
+ * @return string|false a warning if the start page doesn't exist, otherwise FALSE
  * 
  * @version 1.0
  * <br>

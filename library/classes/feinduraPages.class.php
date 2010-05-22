@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link feinduraPages} class for implementing the CMS in a website.
  * 
- * @package Implementation
+ * @package [Implementation]
  */
 /**
 * The class for implementing feindura - Flat File Content Management System in a website.
@@ -29,7 +29,7 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
-* @package Implementation
+* @package [Implementation]
 * 
 * @version 1.0
 * <br>

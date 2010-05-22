@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link statisticFunctions} class.
  * 
- * @package Implementation|feindura-CMS
+ * @package [Implementation]|[feindura-CMS]
  * 
  */
 
@@ -28,7 +28,7 @@
 * 
 * <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
-* @package Implementation|feindura-CMS
+* @package [Implementation]|[feindura-CMS]
 * 
 * @version 0.56
 * <br>

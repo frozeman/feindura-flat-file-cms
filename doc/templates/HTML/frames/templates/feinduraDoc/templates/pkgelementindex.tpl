@@ -1,6 +1,6 @@
 {include file="header.tpl"}
 <a name="top"></a>
-<h2>[{$package}] element index</h2>
+<h2>{$package} element index</h2>
 {if count($packageindex) > 1}
 	<h3>Package indexes</h3>
 	<ul>
