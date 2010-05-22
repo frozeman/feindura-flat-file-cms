@@ -31,24 +31,19 @@ html,body {
 /* ----------------------- */	
 /* ---:- PROLOG */
 
-/* generelle Nullstellung */
+/* general margins */
 *   {
     margin: 0px;
     padding: 0px;
     }
 
-/* Abstände restaurieren */
+/* reset margins */
 h1, h2, h3, h4, h5, h6, p, blockquote, address, pre, ul, ol, dl, table {
-    margin: 0px;
-    padding: 0px;
     margin-bottom: 1em;
     line-height: 1.5em;
     }
-    
-/* Überschriften*/
-h1, h2, h3, h4, h5, h6 { padding-top: 1em; }
 
-/* Zitate einrücken */
+/* quotes */
 blockquote { margin: 1em 2em; }
 
 /* Auswahl in Auswahllisten (select)durch padding:0 schlecht lesbar */

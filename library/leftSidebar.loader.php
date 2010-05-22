@@ -217,17 +217,17 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         echo '<div class="sidebarInfo"><div class="content">';
         echo '<a href="#top" class="smoothAnchor" title="'.$langFile['btn_fastUp'].'">'.$langFile['btn_fastUp'].'</a>';
         if(is_array($categoryConfig)) {
-	  echo '<hr />';
-          echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
-          echo '<ul>';      
-        
-          // -> show a anchor link to each category
-	  foreach($categoryConfig as $category) {
-            echo '<li><a href="#category'.$category['id'].'" class="standardLink smoothAnchor">'.$category['name'].'</a></li>';
-        
-          }	
-        echo '</ul>';
-	}
+  	      echo '<hr />';
+            echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
+            echo '<ul>';      
+          
+            // -> show a anchor link to each category
+  	        foreach($categoryConfig as $category) {
+              echo '<li><a href="#category'.$category['id'].'" class="standardLink smoothAnchor">'.$category['name'].'</a></li>';
+          
+            }	
+          echo '</ul>';
+	      }
         echo '</div></div>';
       }
       echo '</div>';

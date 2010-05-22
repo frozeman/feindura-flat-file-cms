@@ -15,6 +15,14 @@
 
 statistic.css version 0.1 */
 
+
+/* --------------------- */
+/* -------> TASK LOKG */
+#sidebarTaskLog {
+  font-size: 9px;
+  }
+
+
 /* --------------------- */
 /* -------> TABLE CHART */
 
@@ -56,6 +64,13 @@ table.tableChart td {
     }
     
 /* COLORED LIST in an UL or TABLE with two colors */
+.coloredList {
+    font-size: 11px;
+    }
+.coloredList a {
+    background-position: 1px 1px;
+    }
+
 ul.coloredList {
     padding: 0px;
     margin: 0px; 
