@@ -154,7 +154,7 @@ function getNewCatgoryId() {
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag  
  * 
- * @param array $newCategories a $categoryConfig array
+ * @param array $newCategories a $categoryConfig array to save
  * 
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  * 
@@ -244,13 +244,27 @@ function saveCategories($newCategories) {
     return false;
 }
 
-// ** -- moveCategories ----------------------------------------------------------------------------------
-// moves a category UP or DOWN in the categories array
-// -----------------------------------------------------------------------------------------------------
-function moveCategories($category,            // the category id to be moved (Number)
-                        $direction,           // the direction in wich to move (String "up" or "down")
-                        $position = false) {  // the exact position where to put the category (iof not false, the directioon var dosn't matter)
-  global $categoryConfig;
+/**
+ * <b>Name</b> moveCategories()<br>
+ * 
+ * Change the order of the $categoryConfig array.
+ * 
+ * @param array       &$categoryConfig the $categoryConfig array (will also be changed global)
+ * @param int         $category        the ID of the category to move
+ * @param string      $direction       the direction to move, can be "up" or "down"
+ * @param false|int   $position        (optional) the exact position where the category should be moved ("1" is top), if is number the $direction paramter doesn't count
+ * 
+ * @return bool TRUE if the category was succesfull moved, otherwise FALSE
+ * 
+ * @example backend/categoryConfig.array.example.php of the $categoryConfig array
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function moveCategories(&$categoryConfig, $category, $direction, $position = false) {
   
   $direction = strtolower($direction);
   
@@ -363,7 +377,7 @@ function moveCategories($category,            // the category id to be moved (Nu
       $categoryConfig['id_'.$sortetCategory['id']] = $sortetCategory;
     }
     
-    return $categoryConfig;
+    return true;
   
   } else
     return false;
@@ -378,7 +392,7 @@ function moveCategories($category,            // the category id to be moved (Nu
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag
  * 
- * @param array $adminConfig a $adminConfig array
+ * @param array $adminConfig a $adminConfig array to save
  * 
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  * 
@@ -396,6 +410,7 @@ function saveAdminConfig($adminConfig) {
   if($file = @fopen(dirname(__FILE__)."/../../config/admin.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE
+    $adminConfig['speakingUrl'] = (isset($adminConfig['speakingUrl']) && $adminConfig['speakingUrl']) ? 'true' : 'false';
     $adminConfig['user']['editWebsiteFiles'] = (isset($adminConfig['user']['editWebsiteFiles']) && $adminConfig['user']['editWebsiteFiles']) ? 'true' : 'false';
     $adminConfig['user']['editStylesheets'] = (isset($adminConfig['user']['editStylesheets']) && $adminConfig['user']['editStylesheets']) ? 'true' : 'false';
     $adminConfig['setStartPage'] = (isset($adminConfig['setStartPage']) && $adminConfig['setStartPage']) ? 'true' : 'false';
@@ -414,15 +429,15 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['websitefilesPath'] = '".$adminConfig['websitefilesPath']."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$adminConfig['stylesheetPath']."';\n");    
     fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
-    fwrite($file,"\$adminConfig['speakingUrl'] =      '".$adminConfig['speakingUrl']."';\n\n");
+    fwrite($file,"\$adminConfig['speakingUrl'] =      ".$adminConfig['speakingUrl'].";\n\n");
     
     fwrite($file,"\$adminConfig['varName']['page'] =     '".$adminConfig['varName']['page']."';\n");  
     fwrite($file,"\$adminConfig['varName']['category'] = '".$adminConfig['varName']['category']."';\n");  
     fwrite($file,"\$adminConfig['varName']['modul'] =    '".$adminConfig['varName']['modul']."';\n\n");
     
-    fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] =    ".$adminConfig['user']['editWebsiteFiles'].";\n");
-    fwrite($file,"\$adminConfig['user']['editStylesheets'] =     ".$adminConfig['user']['editStylesheets'].";\n");  
-    fwrite($file,"\$adminConfig['user']['info'] =                '".$adminConfig['user']['info']."';\n\n");
+    fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".$adminConfig['user']['editWebsiteFiles'].";\n");
+    fwrite($file,"\$adminConfig['user']['editStylesheets'] =  ".$adminConfig['user']['editStylesheets'].";\n");  
+    fwrite($file,"\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n");
     
     fwrite($file,"\$adminConfig['setStartPage'] =            ".$adminConfig['setStartPage'].";\n");
     fwrite($file,"\$adminConfig['page']['createPages'] =     ".$adminConfig['page']['createPages'].";\n");
@@ -430,15 +445,15 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['page']['plugins'] =         ".$adminConfig['page']['plugins'].";\n");
     fwrite($file,"\$adminConfig['page']['showtags'] =        ".$adminConfig['page']['showtags'].";\n\n");
     
-    fwrite($file,"\$adminConfig['editor']['enterMode'] =   '".$adminConfig['editor']['enterMode']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleFile'] =   '".$adminConfig['editor']['styleFile']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleId'] =     '".$adminConfig['editor']['styleId']."';\n");  
-    fwrite($file,"\$adminConfig['editor']['styleClass'] =  '".$adminConfig['editor']['styleClass']."';\n\n");  
+    fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".$adminConfig['editor']['enterMode']."';\n");
+    fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n");
+    fwrite($file,"\$adminConfig['editor']['styleId'] =    '".$adminConfig['editor']['styleId']."';\n");  
+    fwrite($file,"\$adminConfig['editor']['styleClass'] = '".$adminConfig['editor']['styleClass']."';\n\n");  
   
-    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =      '".$adminConfig['pageThumbnail']['width']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['height'] =     '".$adminConfig['pageThumbnail']['height']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =      '".$adminConfig['pageThumbnail']['ratio']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =       '".$adminConfig['pageThumbnail']['path']."';\n\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =  '".$adminConfig['pageThumbnail']['width']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['height'] = '".$adminConfig['pageThumbnail']['height']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =  '".$adminConfig['pageThumbnail']['ratio']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".$adminConfig['pageThumbnail']['path']."';\n\n");
     
     fwrite($file,"return \$adminConfig;");
        
@@ -451,24 +466,42 @@ function saveAdminConfig($adminConfig) {
     return false;
 }
 
-// ** -- saveWebsiteConfig ----------------------------------------------------------------------------------
-// open the config/website.config.php
-// -----------------------------------------------------------------------------------------------------
-function saveWebsiteConfig($websiteConfig) {  // (Array) with the settings to save
+/**
+ * <b>Name</b> saveWebsiteConfig()<br>
+ * 
+ * Saves the website-settings config array to the "config/website.config.php" file.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>PHPSTARTTAG</var> the php start tag
+ *    - <var>PHPENDTAG</var> the php end tag
+ * 
+ * @param array $websiteConfig a $websiteConfig array to save
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @example backend/websiteConfig.array.example.php of the $websiteConfig array
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function saveWebsiteConfig($websiteConfig) {
    
   // opens the file for writing
-  if($file = @fopen("config/website.config.php","w")) {
+  if($file = @fopen(dirname(__FILE__)."/../../config/website.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE
     //$websiteConfig['noname'] = (isset($websiteConfig['noname']) && $websiteConfig['noname']) ? 'true' : 'false';
-    
-    
+        
     // format keywords
     $keywords = preg_replace("/ +/", ' ', $websiteConfig['keywords']);
     $keywords = preg_replace("/,+/", ',', $keywords);
     $keywords = str_replace(', ',',', $keywords);
     $keywords = str_replace(' ,',',', $keywords);
     $keywords = str_replace(' ',',', $keywords);
+    $websiteConfig['keywords'] = htmlentities($keywords,ENT_QUOTES,'UTF-8');
     
     // *** write
     flock($file,2); //LOCK_EX
@@ -477,7 +510,7 @@ function saveWebsiteConfig($websiteConfig) {  // (Array) with the settings to sa
       fwrite($file,"\$websiteConfig['title']          = '".htmlentities($websiteConfig['title'],ENT_QUOTES,'UTF-8')."';\n");
       fwrite($file,"\$websiteConfig['publisher']      = '".htmlentities($websiteConfig['publisher'],ENT_QUOTES,'UTF-8')."';\n");
       fwrite($file,"\$websiteConfig['copyright']      = '".htmlentities($websiteConfig['copyright'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($file,"\$websiteConfig['keywords']       = '".htmlentities($keywords,ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['keywords']       = '".$websiteConfig['keywords']."';\n");
       fwrite($file,"\$websiteConfig['description']    = '".htmlentities($websiteConfig['description'],ENT_QUOTES,'UTF-8')."';\n");
       fwrite($file,"\$websiteConfig['contactMail']    = '".$websiteConfig['contactMail']."';\n\n");
       
@@ -494,10 +527,28 @@ function saveWebsiteConfig($websiteConfig) {  // (Array) with the settings to sa
     return false;
 }
 
-// ** -- saveStatisticConfig ----------------------------------------------------------------------------------
-// open the config/statistic.config.php
-// -----------------------------------------------------------------------------------------------------
-function saveStatisticConfig($statisticConfig) {  // (Array) with the settings to save
+/**
+ * <b>Name</b> saveStatisticConfig()<br>
+ * 
+ * Saves the statiostic-settings config array to the "config/statistic.config.php" file.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>PHPSTARTTAG</var> the php start tag
+ *    - <var>PHPENDTAG</var> the php end tag
+ * 
+ * @param array $statisticConfig a $statisticConfig array to save
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @example backend/statisticConfig.array.example.php of the $statisticConfig array
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function saveStatisticConfig($statisticConfig) {
    
   // opens the file for writing
   if($file = @fopen("config/statistic.config.php","w")) {
@@ -529,41 +580,44 @@ function saveStatisticConfig($statisticConfig) {  // (Array) with the settings t
 }
 
 
- /**
-  * Generates a editable textfield with a file selection and a input for creating new files
-  *
-  * <b>Type</b>     function<br>
-  * <b>Name</b>     editFiles()<br>
-  * 
-  *
-  * @param string		$filesPath	the path where all files (also files in subfolders) will be shown for editing
-  * @param string		$siteName	a site name which will be set to the $_GET['site'] variable in the formular action attribute
-  * @param string		$status		a status name which will be set to the $_GET['status'] variable in the formular action attribute
-  * @param string		$titleText	a title text which will be displayed as the title of the edit files textfield
-  * @param string		$anchorName	the name of the anchor which will be added to the formular action attribute
-  * @param string|false		$fileType       (optional) a filetype which will be added to each ne created file
-  * @param string|array|false	$excluded	(optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
-  *
-  * @uses DOCUMENTROOT		for the full path to the files for opening
-  * @uses readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
-  *
-  * @return void displayes the file edit textfield
-  *
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  *
-  */
+/**
+ * <b>Name</b> editFiles()<br>
+ * 
+ * Generates a editable textfield with a file selection and a input for creating new files.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>DOCUMENTROOT</var>  the absolut path of the webserver
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$_POST</var> to get which form is open
+ *    - <var>$langFile</var> array the backend language-file (included in the {@link general.include.php})
+ *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
+ * 
+ * @param string		$filesPath	         the path where all files (also files in subfolders) will be shown for editing
+ * @param string		$siteName	           a site name which will be set to the $_GET['site'] variable in the formular action attribute
+ * @param string		$status		           a status name which will be set to the $_GET['status'] variable in the formular action attribute
+ * @param string		$titleText	         a title text which will be displayed as the title of the edit files textfield
+ * @param string		$anchorName	         the name of the anchor which will be added to the formular action attribute
+ * @param string|false		$fileType      (optional) a filetype which will be added to each ne created file
+ * @param string|array|false	$excluded	 (optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
+ * 
+ * @uses readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
+ * 
+ * @return void displayes the file edit textfield
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
 function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
-  global $langFile;
-  global $savedForm;
   
   // var
   $fileTypeText = null;
   
   // shows the block below if it is the ones which is saved before
-  $hidden = ($_GET['status'] == $status || $savedForm === $status) ? '' : ' hidden';
+  $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
 
   echo '<form action="?site='.$siteName.'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>
@@ -578,113 +632,113 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
           <h1><a href="#" name="'.$anchorName.'">'.$titleText.'</a></h1>
           <div class="content"><br />';
       
-      //echo $filesPath.'<br />';      
-      // gets the files out of the directory --------------
-      // adds the DOCUMENTROOT  
-      $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);  
-      $dir = DOCUMENTROOT.$filesPath;
-      if(!empty($filesPath) && is_dir($dir)) {
-        $files = readFolderRecursive($filesPath);
-        $files = $files['files'];
-	
-	// ->> EXLUDES files or folders
-	if($excluded !== false) {
-	  
-	  // -> is string convert to array
-	  if(is_string($excluded)) {
-	    $excluded = explode(',',$excluded);
-	  }
-	  
-	  if(is_array($excluded)) {
-	    
-	    foreach($files as $file) {
-	      
-	      $foundToExclud = false;
-	      
-	      // looks if any of a excluded file is found
-	      foreach($excluded as $excl) {
-	        if(strstr($file,$excl))
-		  $foundToExclud = true;
-	      }
+  //echo $filesPath.'<br />';      
+  // gets the files out of the directory --------------
+  // adds the DOCUMENTROOT  
+  $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);  
+  $dir = DOCUMENTROOT.$filesPath;
+  if(!empty($filesPath) && is_dir($dir)) {
+    $files = readFolderRecursive($filesPath);
+    $files = $files['files'];
 
-	      // then exclud them
-	      if($foundToExclud === false)
-	        $newFiles[] = $file;	      
-	    }
-	    // set new files array to the old one
-	    $files = $newFiles;
-	  }
-	  
-	}
-	
-	// only if still are files left
-	if(is_array($files) && !empty($files)) {
-	  $isDir = true;	
-	  // sort the files in a natural way (alphabetical)
-	  natsort($files);
-	}
-      // dont show files but show directory error       
-      } else {
-        echo '<code>"'.$filesPath.'"</code> <b>'.$langFile['editFilesSettings_noDir'].'</b>';
-        $isDir = false;
-      }
-      
-      
-      // GETS ACTUAL FILE ----------------------------------
-      if($_GET['status'] == $status)
-        $editFile = $_GET['file'];
-      
-      // wenn noch nicht per Dateiauswahl $editfile kreiert wurde
-      if(empty($editFile) && isset($files)) {
-        $editFile = $files[0];
-      }
-      
-      if($isDir) {
+  	// ->> EXLUDES files or folders
+  	if($excluded !== false) {
+  	  
+  	  // -> is string convert to array
+  	  if(is_string($excluded)) {
+  	    $excluded = explode(',',$excluded);
+  	  }
+  	  
+  	  if(is_array($excluded)) {
+  	    
+  	    foreach($files as $file) {
+  	      
+  	      $foundToExclud = false;
+  	      
+  	      // looks if any of a excluded file is found
+  	      foreach($excluded as $excl) {
+  	        if(strstr($file,$excl))
+  		        $foundToExclud = true;
+  	      }
+  
+  	      // then exclud them
+  	      if($foundToExclud === false)
+  	        $newFiles[] = $file;	      
+  	    }
+  	    // set new files array to the old one
+  	    $files = $newFiles;
+  	  }
+  	  
+  	}
+  	
+  	// only if still are files left
+  	if(is_array($files) && !empty($files)) {
+  	  $isDir = true;	
+  	  // sort the files in a natural way (alphabetical)
+  	  natsort($files);
+  	}
+  // dont show files but show directory error       
+  } else {
+    echo '<code>"'.$filesPath.'"</code> <b>'.$GLOBALS['langFile']['editFilesSettings_noDir'].'</b>';
+    $isDir = false;
+  }
+  
+  
+  // GETS ACTUAL FILE ----------------------------------
+  if($_GET['status'] == $status)
+    $editFile = $_GET['file'];
+  
+  // wenn noch nicht per Dateiauswahl $editfile kreiert wurde
+  if(empty($editFile) && isset($files)) {
+    $editFile = $files[0];
+  }
+  
+  if($isDir) {
 
-        // FILE SELECTION ------------------------------------
-        if(isset($files)) {
-          echo '<div class="editFiles left">
-                <h2>'.$langFile['editFilesSettings_chooseFile'].'</h2>
-                <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
-          echo '<select onchange="changeFile(\''.$siteName.'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
-     
-                // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
-                foreach($files as $cFile) {
-                  $onlyFile = str_replace($filesPath,'',$cFile);
-                  if($editFile == $cFile)
-                    echo '<option value="'.$cFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
-                  else
-                    echo '<option value="'.$cFile.'">'.$onlyFile.'</option>'."\n";    
-                }
-          echo '</select></div>'."\n\n";
-        } // -------------------------------------------------
-        
-        // create a NEW FILE ---------------------------------
-        if($fileType)
-          $fileTypeText = '<b>.'.$fileType.'</b>';
-        echo '<div class="editFiles right">
-              <h2>'.$langFile['editFilesSettings_createFile'].'</h2>
-              <input name="newFile" style="width:200px;" class="toolTip" title="'.$langFile['editFilesSettings_createFile'].'::'.$langFile['editFilesSettings_createFile_inputTip'].'" /> '.$fileTypeText.'
-              </div>';
-      }
-      
-      // OPEN THE FILE -------------------------------------
-      if(@is_file(DOCUMENTROOT.$editFile)) {
-        $editFileOpen = fopen(DOCUMENTROOT.$editFile,"r");  
-        $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$editFile));
-        fclose($editFileOpen);
-        
-        echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
+    // FILE SELECTION ------------------------------------
+    if(isset($files)) {
+      echo '<div class="editFiles left">
+            <h2>'.$GLOBALS['langFile']['editFilesSettings_chooseFile'].'</h2>
+            <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
+      echo '<select onchange="changeFile(\''.$siteName.'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
+ 
+            // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
+            foreach($files as $cFile) {
+              $onlyFile = str_replace($filesPath,'',$cFile);
+              if($editFile == $cFile)
+                echo '<option value="'.$cFile.'" selected="selected">'.$onlyFile.'</option>'."\n";
+              else
+                echo '<option value="'.$cFile.'">'.$onlyFile.'</option>'."\n";    
+            }
+      echo '</select></div>'."\n\n";
+    } // -------------------------------------------------
+    
+    // create a NEW FILE ---------------------------------
+    if($fileType)
+      $fileTypeText = '<b>.'.$fileType.'</b>';
+    echo '<div class="editFiles right">
+          <h2>'.$GLOBALS['langFile']['editFilesSettings_createFile'].'</h2>
+          <input name="newFile" style="width:200px;" class="toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_createFile'].'::'.$GLOBALS['langFile']['editFilesSettings_createFile_inputTip'].'" /> '.$fileTypeText.'
+          </div>';
+  }
+  
+  // OPEN THE FILE -------------------------------------
+  if(@is_file(DOCUMENTROOT.$editFile)) {
+    $editFileOpen = fopen(DOCUMENTROOT.$editFile,"r");  
+    $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$editFile));
+    fclose($editFileOpen);
+    
+    echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
 
-        $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
-        
-        echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles">'.$file.'</textarea>';
-      }  
+    $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
+    
+    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles">'.$file.'</textarea>';
+  }  
   
   
   if($isDir) {
-    echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$langFile['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$langFile['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
-    echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit right" title="'.$langFile['form_submit'].'" />';
+    echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
+    echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit right" title="'.$GLOBALS['langFile']['form_submit'].'" />';
   }
   echo '</div>
       <div class="bottom"></div>
@@ -692,68 +746,84 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
     </form>';
 }
 
-// ** -- saveEditedFiles ----------------------------------------------------------------------------------
-// save the files which where edited with editFiles()
-// -----------------------------------------------------------------------------------------------------
-// $post            [postvariable with the filename and filecontent (array)]
-function saveEditedFiles($post) {
-    global $_POST;
+/**
+ * <b>Name</b> saveEditedFiles()<br>
+ * 
+ * Save the files edited in {@link editFiles()}.
+ * 
+ * <b>Used Constants</b><br>
+ *    - <var>$_POST</var> for the file data
+ * 
+ * @param string &$savedForm	to set which form was is saved
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function saveEditedFiles(&$savedForm) {
     
-    // add DOCUMENTROOT
-    $post['file'] = str_replace(DOCUMENTROOT,'',$post['file']);  
-    $post['file'] = DOCUMENTROOT.$post['file'];    
-    $post['filesPath'] = str_replace(DOCUMENTROOT,'',$post['filesPath']);  
-    $post['filesPath'] = DOCUMENTROOT.$post['filesPath'];    
-    
-    
-    // ->> SAVE FILE
-    if(@is_file($post['file']) && empty($post['newFile'])) {
+  // add DOCUMENTROOT
+  $file = str_replace(DOCUMENTROOT,'',$_POST['file']);  
+  $file = DOCUMENTROOT.$file;    
+  $_POST['filesPath'] = str_replace(DOCUMENTROOT,'',$_POST['filesPath']);  
+  $_POST['filesPath'] = DOCUMENTROOT.$_POST['filesPath'];    
+  
+  
+  // ->> SAVE FILE
+  if(@is_file($file) && empty($_POST['newFile'])) {
 
-      $post['fileContent'] = str_replace('\"', '"', $post['fileContent']);
-      $post['fileContent'] = str_replace("\'", "'", $post['fileContent']);
-      //$post['fileContent'] 	= str_replace("<br />", "", $post['fileContent']);
-      $post['fileContent'] = stripslashes($post['fileContent']);
-      
-      // wandelt umlaut in HTML zeichen um
-      $post['fileContent'] = htmlentities($post['fileContent'],ENT_NOQUOTES,'UTF-8');      
-      // changes & back, because of the $auml;
-      $post['fileContent'] = str_replace("&amp;", "&", $post['fileContent']);
-      // wandelt die php einleitungstags wieder in zeichen um
-      $post['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$post['fileContent']);
-      
-      if($file = fopen($post['file'],"w")) {
-      flock($file,2);
-      fwrite($file,$post['fileContent']);
-      flock($file,3);
-      fclose($file);      
-      
-      $_GET['status'] = $_POST['status'];
-      $_GET['file'] = $_POST['file'];
-      return true;      
-      }
-      
-    // ->> NEW FILE
-    } else { // erstellt eine neue datei wenn etwas ins das neu erstellen Feld eingetragen wurde
-      
-      $post['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $post['newFile'] ) ;
-      $post['newFile'] = str_replace( array("ä","ü","ö","ß",'\"'), array("ae","ue","oe","ss","-"), $post['newFile'] ) ;
-      
-      $post['newFile'] = str_replace($post['fileType'],'',$post['newFile']);
-      
-      $fullFilePath = $post['filesPath'].'/'.$post['newFile'].$post['fileType'];
-      
-      //clean vars
-      $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
-      
-      if($file = @fopen($fullFilePath,"w")) {
-        
-        $_GET['status'] = $_POST['status'];
-        $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);
-        
-        return true;
-      }
+    $_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
+    $_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
+    //$_POST['fileContent'] 	= str_replace("<br />", "", $_POST['fileContent']);
+    $_POST['fileContent'] = stripslashes($_POST['fileContent']);
+    
+    // wandelt umlaut in HTML zeichen um
+    $_POST['fileContent'] = htmlentities($_POST['fileContent'],ENT_NOQUOTES,'UTF-8');      
+    // changes & back, because of the $auml;
+    $_POST['fileContent'] = str_replace("&amp;", "&", $_POST['fileContent']);
+    // wandelt die php einleitungstags wieder in zeichen um
+    $_POST['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$_POST['fileContent']);
+    
+    if($file = fopen($file,"w")) {
+    flock($file,2);
+    fwrite($file,$_POST['fileContent']);
+    flock($file,3);
+    fclose($file);      
+    
+    $_GET['file'] = $_POST['file'];
+    $_GET['status'] = $_POST['status'];
+    $savedForm = $_POST['status'];
+    
+    return true;      
     }
-    return false;
+    
+  // ->> NEW FILE
+  } else { // erstellt eine neue datei wenn etwas ins das neu erstellen Feld eingetragen wurde
+    
+    $_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile'] ) ;
+    $_POST['newFile'] = str_replace( array("ä","ü","ö","ß",'\"'), array("ae","ue","oe","ss","-"), $_POST['newFile'] ) ;
+    
+    $_POST['newFile'] = str_replace($_POST['fileType'],'',$_POST['newFile']);
+    
+    $fullFilePath = $_POST['filesPath'].'/'.$_POST['newFile'].$_POST['fileType'];
+    
+    //clean vars
+    $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
+    
+    if($file = @fopen($fullFilePath,"w")) {
+      
+      $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);       
+      $_GET['status'] = $_POST['status'];
+      $savedForm = $_POST['status'];
+      
+      return true;
+    }
+  }
+  return false;
 }
 
 // ** -- delDir ----------------------------------------------------------------------------------------

@@ -20,13 +20,12 @@
 // ->> SAVE the editFiles
 if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
   
-  if(saveEditedFiles($_POST)) {
+  if(saveEditedFiles($savedForm)) {
     $documentSaved = true; // give documentSaved status
     $statisticFunctions->saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow = $langFile['editFilesSettings_error_save'].' '.$_POST['newFile'].'.'.$post['fileType'];
-  
-  $savedForm = $_POST['status'];
+
 }
 
 // ->> DELETE editFiles File

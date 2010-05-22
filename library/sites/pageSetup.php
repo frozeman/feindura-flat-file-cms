@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* pageSetup.php version 1.19
+* pageSetup.php version 1.20
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -158,7 +158,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
   if($_GET['status'] == 'moveCategoryDown')
     $direction = 'down';
     
-  if($categoryConfig = moveCategories($_GET['category'],$direction)) {
+  if(moveCategories($categoryConfig,$_GET['category'],$direction)) {
   
     $categoryInfo = $langFile['pageSetup_moveCategory_moved'];
     
@@ -531,8 +531,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           echo '<tr><td class="leftBottom"></td><td>';
                // category up / down
-          echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>
-                <a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
+          echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>
+                <a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
           echo '</td></tr>';
                     
                // category SETTINGS
