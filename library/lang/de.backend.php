@@ -1,32 +1,34 @@
 <?php
 /*
-feindura - Flat File Content Management System
-Copyright (C) Fabian Vogelsteller [frozeman.de]
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ *
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ */
+/**
+ * GERMAN (DE) language-file for the feindura CMS (BACKEND)
+ * 
+ * IMPORTANT:<br>
+ * if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
+ * use only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " this would end the title="" tag where the toolTip text is in.
+ * 
+ * 
+ * NEEDS a RETURN $langFile; at the END
+ */
 
-This program is free software;
-you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program;
-if not,see <http://www.gnu.org/licenses/>.
-
-* DE german languagefile for the feindura CMS (BACKEND)
-*
-* IMPORTANT:
-* if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
-* use only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " this would end the title="" tag where the toolTip text is in.
-*
-*
-* NEEDS a RETURN $langFile; at the END*/
-
-
-
-// ---------------------------------------------------------------------------------------------------------------------
-// --- GENERAL
+/* ----------------------------------------------------------------------------------------------
+* --- GENERAL
+*/
 
 // ---------- thumbnail
 $langFile['thumbSize_unit'] = 'Pixel';
@@ -52,9 +54,9 @@ $langFile['stylesheet_name_styleFile'] = 'Stylesheet-Datei';
 $langFile['stylesheet_name_styleId'] = 'Stylesheet-Id';
 $langFile['stylesheet_name_styleClass'] = 'Stylesheet-Klasse';
 
-$langFile['stylesheet_styleFile_tip'] = 'Hier kann eine Stylesheet-Datei angegeben werden, die im HTML-Editor verwendet wird um den Inhalt zu stylen.';
-$langFile['stylesheet_styleId_tip'] = 'Hier kann eine Stylesheet-Id angegeben werden, die im HTML-Editor verwendet wird um den Inhalt zu stylen.';
-$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine Stylesheet-Klasse angegeben werden, die im HTML-Editor verwendet wird um den Inhalt zu stylen.';
+$langFile['stylesheet_styleFile_tip'] = 'Hier kann eine Stylesheet-Datei angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
+$langFile['stylesheet_styleId_tip'] = 'Hier kann eine Stylesheet-Id angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
+$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine Stylesheet-Klasse angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
 
 $langFile['stylesheet_styleFile_example'] = '<b>Beispiel</b> &quot;/style/layout.css&quot;';
 
@@ -96,8 +98,9 @@ $langFile['log_second_multiple'] = 'Sekunden';
 
 $langFile['log_browser_others'] = 'Sonstige';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------- LOG TEXTs
+/* ----------------------------------------------------------------------------------------------
+* ---------- LOG TEXTs
+*/
 
 $langFile['log_page_saved'] = 'Seite gespeichert';
 $langFile['log_page_new'] = 'Neue Seite erstellt';
@@ -155,21 +158,25 @@ $langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
 $langFile['user_nousers'] = 'Es sind keine Benutzer vorhanden';
 $langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------- GENERAL TEXTs
+/* ----------------------------------------------------------------------------------------------
+* ---------- GENERAL TEXTs
+*/
 
 $langFile['txt_logo'] = 'feindura CMS, Version ';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------- FRONTEND shared TEXTs
+/* ----------------------------------------------------------------------------------------------
+* ---------- FRONTEND shared TEXTs
+*/
 
 $langFile['date_yesterday'] = 'Gestern';
 $langFile['date_today'] = 'Heute';
 $langFile['date_tomorrow'] = 'Morgen';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// --------- BUTTON-TEXT (index.php)
+/* ----------------------------------------------------------------------------------------------
+* --------- BUTTON-TEXT (index.php)
+*/
+
 // --- mainMenu
 $langFile['btn_home'] = '&Uuml;bersicht';
 $langFile['btn_pages'] = 'Kategorien und Seiten';
@@ -205,8 +212,9 @@ $langFile['categories_nocategories_name'] = 'Seiten';
 $langFile['categories_nocategories_hint'] = 'ohne Kategorie';
 $langFile['text_example'] = 'Beispiel';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------- ERROR TEXTs
+/* ----------------------------------------------------------------------------------------------
+* ---------- ERROR TEXTs
+*/
 
 $langFile['error_save_settings'] = '<b>Die Einstellungen konnten nicht gespeichert werden.</b>';
 $langFile['error_save_file'] = '<br /><br />Bitte &uuml;berpr&uuml;fe die Schreibrechte der Datei: ';
@@ -219,9 +227,9 @@ $langFile['error_folderDatabase_end'] = '&quot; Ordners dessen Unterordner und D
 
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-//
-// ---------- WARNINGs
+/* ----------------------------------------------------------------------------------------------
+* ---------- WARNINGs
+*/
 
 $langFile['warning_startPageWarning_h1'] = 'Die Startseite ist nicht festgelegt!';
 $langFile['warning_startPageWarning'] = 'Bitte lege eine Seite als Startseite fest.<br />Gehe zu <a href="?site=pages">'.$langFile['btn_pages'].'</a> und klicke bei der gew&uuml;nschten Seite auf das <span class="startPageIcon"></span> Symbol';
@@ -249,20 +257,20 @@ Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&
 $langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> ist nicht f&uuml;r &auml;ltere Versionen des Internet Explorers ausgelegt';
 $langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollst&auml;ndig nutzen zu k&ouml;nnen ist mindestens der Internet Explorer 7 n&ouml;tig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> f&uuml;r den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox Browser</a> herunter.';
 
+/* ----------------------------------------------------------------------------------------------
+* leftSidebar.loader.php
+*/
 
-// ---------------------------------------------------------------------------------------------------------------------
-// sidebar.loader.php
-//
 // ---------- QUICKMENU
 
 $langFile['btn_quickmenu_categories'] = 'Kategorien';
 $langFile['btn_quickmenu_pages'] = 'Seiten von';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// home.php
-//
-// ---------- HOME
+/* ----------------------------------------------------------------------------------------------
+* home.php
+*/
 
+// ---------- HOME
 $langFile['home_userInfo_h1'] = 'Benutzer Information';
 
 $langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span><br />dem Content Management System deiner Webseite.';
@@ -283,11 +291,11 @@ $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher geko
 $langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese Seite gekommen.';
 $langFile['home_novisitors'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// listPages.php
-//
-// ---------- PAGES SORTABLE LIST
+/* ----------------------------------------------------------------------------------------------
+* listPages.php
+*/
 
+// ---------- PAGES SORTABLE LIST
 $langFile['sortablePageList_h1'] = 'Der Inhalt deiner Webseite';
 $langFile['sortablePageList_headText1'] = '';
 $langFile['sortablePageList_headText2'] = 'zuletzt bearbeitet';
@@ -328,11 +336,11 @@ $langFile['form_cancel'] = 'Alle Eingaben l&ouml;schen';
 $langFile['form_errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-// adminSetup.php
-//
-// ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
+/* ----------------------------------------------------------------------------------------------
+* adminSetup.php
+*/
 
+// ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
 $langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> Version';
 $langFile['adminSetup_phpVersion'] = 'PHP Version';
 $langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
@@ -386,11 +394,9 @@ $langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format, welches f
 $langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gel&ouml;scht werden.[/span][br /][br /](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
 
 // ---------- speaking url ERRORs
-
 $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URL</b> konnte nicht aktiviert werden'.$langFile['error_save_file'].'/.htaccess';
 
 // ---------- user Settings
-
 $langFile['adminSetup_userSettings_h1'] = 'Benutzer-Einstellungen';
 $langFile['adminSetup_userSettings_check1'] = 'Webseitendateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
 $langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
@@ -400,7 +406,6 @@ $langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Die
 $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
 
 // ---------- editor Settings
-
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Taste Modus';
 $langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br /&gt;&quot;';
@@ -409,7 +414,6 @@ $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Wenn das Feld leer ist
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
 
 // ---------- thumbnail Settings
-
 $langFile['adminSetup_thumbnailSettings_h1'] = 'Seiten-Thumbnail-Einstellungen';
 $langFile['adminSetup_thumbnailSettings_field3'] = 'Speicherpfad'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip'] = 'Der Pfad oder Verzeichnisname innerhalb des Daten-Upload Pfads';
@@ -418,12 +422,10 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relativer Pfad::Re
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-
 $langFile['adminSetup_styleFileSettings_h1'] = '&quot;Stil-Auswahl&quot; des HTML-Editors bearbeiten';
 $langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei &quot;htmlEditorStyles.xml&quot; konnte nicht gespeichert werden.</b>'.$langFile['error_save_file'];
 
 // ---------- editFiles Settings
-
 $langFile['editFilesSettings_error_save'] = '<b>Die Datei konnte nicht gespeichert werden.</b>'.$langFile['error_save_file'];
 
 $langFile['editFilesSettings_h1_style'] = 'Stylesheetdateien bearbeiten';
@@ -443,15 +445,14 @@ $langFile['editFilesSettings_deleteFile_question_cancel'] = 'Nicht l&ouml;schen'
 
 $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'];
 
-// ---------------------------------------------------------------------------------------------------------------------
-// pageSetup.php
-//
-// ---------- CATEGORY SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
+/* ----------------------------------------------------------------------------------------------
+* pageSetup.php
+*/
 
+// ---------- CATEGORY SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
 $langFile['pageSetup_general_tag_tip'] = 'Tags k&ouml;nnen dazu verwendet werden Seiten untereinander in Beziehung zu setzen (abh&auml;ngig von der Programmierung der Webseite)';
 
 // ---------- page settings
-
 $langFile['pageSetup_pageConfig_h1'] = 'Seiten-Einstellungen';
 $langFile['pageSetup_pageConfig_check1'] = 'Startseite ist einstellbar';
 $langFile['pageSetup_pageConfig_check1_tip'] = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
@@ -467,7 +468,6 @@ $langFile['pageSetup_pageConfig_check5'] = 'Plugins erlauben';
 $langFile['pageSetup_pageConfig_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
 
 // ---------- category settings
-
 $langFile['pageSetup_h1'] = 'Kategorien-Verwaltung';
 $langFile['pageSetup_createCategory'] = 'Neue Kategorie erstellen';
 $langFile['pageSetup_createCategory_created'] = 'Neue Kategorie erstellt';
@@ -518,18 +518,17 @@ $langFile['pageSetup_check7_tip'] = 'Sortiert die Seiten automatisch [b]aufsteig
 
 
 // ---------- deleting category
-
 $langFile['pageSetup_deletCategory_question_part1'] = 'Kategorie'; // Kategorie "test" löschen?
 $langFile['pageSetup_deletCategory_question_part2'] = 'l&ouml;schen?';
 
 $langFile['pageSetup_deletCategory_question_ok'] = 'Ja bitte l&ouml;schen!';
 $langFile['pageSetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// websiteSetup.php
-//
-// ---------- WEBSITE SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
+/* ----------------------------------------------------------------------------------------------
+* websiteSetup.php
+*/
 
+// ---------- WEBSITE SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/website.config.php';
 
 $langFile['websiteSetup_websiteConfig_h1'] = 'Webseiten-Einstellungen';
@@ -551,11 +550,11 @@ $langFile['websiteSetup_websiteConfig_field6_tip'] = 'Diese E-Mail Adresse wird 
 $langFile['websiteSetup_websiteConfig_field6_inputTip'] = $langFile['text_example'].'::name@providor.de';
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-// statisticSetup.php
-//
-// ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
+/* ----------------------------------------------------------------------------------------------
+* statisticSetup.php
+*/
 
+// ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 $langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/statistic.config.php';
 
 $langFile['statisticSetup_statisticConfig_h1'] = 'Statistik-Einstellungen';
@@ -588,24 +587,21 @@ $langFile['statisticSetup_clearStatistics_question_cancel'] = 'Nicht l&ouml;sche
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
-// ---------------------------------------------------------------------------------------------------------------------
-// pluginSetup.php
-//
+/* ----------------------------------------------------------------------------------------------
+* pluginSetup.php
+*/
+
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-
-
 $langFile['pluginSetup_editFiles_h1'] = 'Dateien bearbeiten';
-
 $langFile['pluginSetup_pluginconfig_active'] = 'Plugin aktiviert';
-
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-// editor.php
-//
-// ---------- EDITOR
+/* ----------------------------------------------------------------------------------------------
+* editor.php
+*/
 
+// ---------- page data
 $langFile['editor_h1_lastsavedate'] = 'zuletzt bearbeitet am';
 $langFile['editor_h1_lastsaveauthor'] = 'von';
 $langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
@@ -615,6 +611,7 @@ $langFile['editor_h1_id_tip'] = 'Unter der Seiten ID wird die Seite auf dem Serv
 $langFile['editor_h1_categoryid'] = 'Kategorie ID';
 $langFile['editor_h1_categoryid_noCategory'] = 'keine Kategorie';
 
+// ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'Seiten-Einstellungen';
 $langFile['editor_pagestatistics_h1'] = 'Seiten-Statistik';
 
@@ -639,6 +636,7 @@ $langFile['editor_pageSettings_field4_tip'] = '[b]Nur wenn die Seite &ouml;ffent
 $langFile['editor_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
 $langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage,[br /]und das Datum sollte folgendes Format haben:';
 
+// ---------- page advanced settings
 $langFile['editor_advancedpageSettings_h1'] = 'erweiterte Seiten-Einstellungen';
 
 $langFile['editor_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
@@ -666,11 +664,11 @@ $langFile['editor_htmleditor_hotkeys_or'] = 'oder';
 
 $langFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
-// ---------------------------------------------------------------------------------------------------------------------
-// deletePage.php
-//
-// ---------- DELETE PAGE
+/* ----------------------------------------------------------------------------------------------
+* deletePage.php
+*/
 
+// ---------- DELETE PAGE
 $langFile['deletePage_question_part1'] = 'M&ouml;chtest du die Seite';
 $langFile['deletePage_question_part2'] = 'wirklich l&ouml;schen?';
 
@@ -680,11 +678,11 @@ $langFile['deletePage_notexisting_part2'] = 'existiert nicht';
 
 $langFile['deletePage_finish_error'] = 'FEHLER: Die Seite konnte nicht gel&ouml;scht werden!';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// pageThumbnailDelete.php
-//
-// ---------- PAGE THUMBNAIL DELETE
+/* ----------------------------------------------------------------------------------------------
+* pageThumbnailDelete.php
+*/
 
+// ---------- PAGE THUMBNAIL DELETE
 $langFile['pageThumbnailDelete_question_part1'] = 'M&ouml;chtest du das Thumbnail von der Seite';
 $langFile['pageThumbnailDelete_question_part2'] = 'wirklich l&ouml;schen?';
 
@@ -695,11 +693,11 @@ $langFile['pageThumbnailDelete_notexisting_part2'] = 'existiert nicht';
 $langFile['pageThumbnailDelete_finish_error'] = 'FEHLER: Das Thumbnail konnte nicht gel&ouml;scht werden!';
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-// pageThumbnailUpload.php
-//
-// ---------- PAGE THUMBNAIL UPLOAD
+/* ----------------------------------------------------------------------------------------------
+* pageThumbnailUpload.php
+*/
 
+// ---------- PAGE THUMBNAIL UPLOAD
 $langFile['pagethumbnail_h1_part1'] = 'Seiten-Thumbnail f&uuml;r';
 $langFile['pagethumbnail_h1_part2'] = 'hochladen';
 $langFile['pagethumbnail_field1'] = 'Bild ausw&auml;hlen';
@@ -727,11 +725,11 @@ $langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Das alte Thumbnail-Bild
 $langFile['pagethumbnail_upload_response_fileexists'] = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
 $langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich hochgeladen.';
 
-// ---------------------------------------------------------------------------------------------------------------------
-// search.php
-//
-// ---------- SEARCH
+/* ----------------------------------------------------------------------------------------------
+* search.php
+*/
 
+// ---------- SEARCH
 $langFile['search_h1'] = 'Seiten durchsuchen';
 $langFile['search_results_h1'] = 'Suchergebnisse f&uuml;r';
 $langFile['search_results_text1'] = '&Uuml;bereinstimmungen im Titel';
@@ -747,10 +745,10 @@ $langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden
 $langFile['search_results_time_part2'] = 'Sekunden';
 
 
-// ---------------------------------------------------------------------------------------------------------------------
-// *********************************************************************************************************************
-// ---------------------------------------------------------------------------------------------------------------------
-// returns the $langFile var, if its included in an if
+// -----------------------------------------------------------------------------------------------
+// RETURN ****************************************************************************************
+// -----------------------------------------------------------------------------------------------
+// returns the $langFile var
 return $langFile;
 
 ?>
