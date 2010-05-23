@@ -329,7 +329,7 @@ class feinduraPages extends feindura {
   * @example createLink.example.php
   * 
   */
-  var $linkCategorySeperator = ': ';
+  var $linkCategorySeparator = ': ';
   
   /* ->> MENU <<- */
   
@@ -459,7 +459,7 @@ class feinduraPages extends feindura {
   * @example showPage.example.php
   * 
   */
-  var $titleCategorySeperator = ': ';
+  var $titleCategorySeparator = ': ';
   
   /* old
   var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
@@ -937,7 +937,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
   * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeperator
+  * @uses feinduraPages::$linkCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -988,7 +988,7 @@ class feinduraPages extends feindura {
                                          false, // $titleAsLink
                                          $this->linkShowPageDate,
                                          $this->linkShowCategory,                                       
-                                         $this->linkCategorySeperator);
+                                         $this->linkCategorySeparator);
           } elseif(is_string($linkText) &&
                    is_numeric($this->linkLength)) {
                    
@@ -1090,7 +1090,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
   * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeperator
+  * @uses feinduraPages::$linkCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1316,7 +1316,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
   * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeperator
+  * @uses feinduraPages::$linkCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1407,7 +1407,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
   * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeperator
+  * @uses feinduraPages::$linkCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1489,7 +1489,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$titleCategorySeparator
   * 
   * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feindura::createTitle()                  to generate the page title with the right title properties
@@ -1523,7 +1523,7 @@ class feinduraPages extends feindura {
                                       $this->titleAsLink,                                    
                                       $this->titleShowPageDate,
                                       $this->titleShowCategory,
-                                      $this->titleCategorySeperator);                                      
+                                      $this->titleCategorySeparator);                                      
         
           return $title;
           
@@ -1574,7 +1574,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$titleCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1655,7 +1655,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$titleCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1756,7 +1756,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$titleCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -1852,7 +1852,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$titleCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId

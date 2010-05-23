@@ -541,7 +541,7 @@ class feindura {
   * @uses feinduraPages::$titleAsLink
   * @uses feinduraPages::$titleShowPageDate
   * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeperator
+  * @uses feinduraPages::$titleCategorySeparator
   * 
   * @uses feinduraPages::$thumbnailAlign
   * @uses feinduraPages::$thumbnailId
@@ -665,7 +665,7 @@ class feindura {
                                   $this->titleAsLink,                                  
                                   $this->titleShowPageDate,
                                   $this->titleShowCategory,
-                                  $this->titleCategorySeperator);      
+                                  $this->titleCategorySeparator);      
       
     // -> PAGE THUMBNAIL
     // *****************
@@ -784,7 +784,7 @@ class feindura {
   * @param bool    $titleAsLink                 (optional) if TRUE, it creates the title as link
   * @param bool	   $titleShowPageDate           (optional) if TRUE, it shows the page date before the title text
   * @param bool    $titleShowCategory           (optional) if TRUE, it shows the category name before the title text, and uses the $titleShowCategory parameter string between both
-  * @param string  $titleCategorySeperator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
+  * @param string  $titleCategorySeparator      (optional) string to seperate the category name and the title text, if the $titleShowCategory parameter is TRUE
   * 
   * @uses $categoryConfig			                        to check if showing the page date is allowed and for the category name
   * @uses $languageFile				                        for showing "yesterday", "today" or "tomorrow" instead of a page date
@@ -805,7 +805,7 @@ class feindura {
   *    - 1.0 initial release
   * 
   */
-  function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titleCategorySeperator = false) {
+  function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titleCategorySeparator = false) {
       
       // vars 
       $titleBefore = '';
@@ -835,8 +835,8 @@ class feindura {
         
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
-        if(is_string($titleCategorySeperator))
-          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySeperator; // adds the Spacer
+        if(is_string($titleCategorySeparator))
+          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySeparator; // adds the Spacer
         else
           $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
       } else
