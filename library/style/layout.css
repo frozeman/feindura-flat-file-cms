@@ -187,8 +187,8 @@ span.red {
 #version {
     z-index: 2;
     position: absolute;
-    top: 43px;
-    left: 115px;
+    top: 45px;
+    left: 130px;
     width: 60px;
     font-size: 11px;
     color: #3979A5;
