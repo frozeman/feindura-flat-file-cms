@@ -7,12 +7,12 @@ $categoryConfig['id_1']['createdelete'] =    true;
 $categoryConfig['id_1']['thumbnail'] =       false;
 $categoryConfig['id_1']['plugins'] =         false;
 $categoryConfig['id_1']['showtags'] =        false;
-$categoryConfig['id_1']['showpagedate'] =    true;
-$categoryConfig['id_1']['sortbypagedate'] =  true;
+$categoryConfig['id_1']['showpagedate'] =    false;
+$categoryConfig['id_1']['sortbypagedate'] =  false;
 $categoryConfig['id_1']['sortascending'] =   false;
 
 $categoryConfig['id_1']['styleFile'] =       '';
-$categoryConfig['id_1']['styleId'] =         '';
+$categoryConfig['id_1']['styleId'] =         'footerBox';
 $categoryConfig['id_1']['styleClass'] =      '';
 
 $categoryConfig['id_1']['thumbWidth'] =      '';

@@ -55,8 +55,8 @@ $langFile['stylesheet_name_styleId'] = 'Stylesheet-Id';
 $langFile['stylesheet_name_styleClass'] = 'Stylesheet-Klasse';
 
 $langFile['stylesheet_styleFile_tip'] = 'Hier kann eine Stylesheet-Datei angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
-$langFile['stylesheet_styleId_tip'] = 'Hier kann eine Stylesheet-Id angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
-$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine Stylesheet-Klasse angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
+$langFile['stylesheet_styleId_tip'] = 'Hier kann eine Id-Attribut angegeben werden, das dem HTML-Editor &lt;body&gt; Tag zugewiesen wird.';
+$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine Class-Attribut angegeben werden, das dem HTML-Editor &lt;body&gt; Tag zugewiesen wird.';
 
 $langFile['stylesheet_styleFile_example'] = '<b>Beispiel</b> &quot;/style/layout.css&quot;';
 

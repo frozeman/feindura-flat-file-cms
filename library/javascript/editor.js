@@ -27,10 +27,10 @@ window.addEvent('domready', function() {
     CKEDITOR.config.width                         = '792';
     CKEDITOR.config.resize_minWidth               = '780';
     CKEDITOR.config.height                        = '450';
-    CKEDITOR.config.resize_minHeight              = '400';
+    CKEDITOR.config.resize_minHeight              = '400';    
+    CKEDITOR.config.scayt_autoStartup             = false;
     
-    //HTMLEditor.config.scayt_autoStartup         = true;
-    //HTMLEditor.config.disableNativeSpellChecker = false;
+    //CKEDITOR.config.disableNativeSpellChecker = false;
     
     CKEDITOR.config.toolbar               = [['Save','Preview','Maximize','-','Source'],
                                             ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],

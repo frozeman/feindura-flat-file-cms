@@ -44,6 +44,10 @@ listPages.css version 0.16
     cursor: move;
     }
 
+.listPages h1 img {
+    top: 8px !important;
+    }
+
 /* ----------------------- */	
 /* ---:- listPages HEAD */
 

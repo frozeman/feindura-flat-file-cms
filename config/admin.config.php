@@ -3,7 +3,7 @@
 $adminConfig['url'] =              'localhost';
 $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura10/_page/';
-$adminConfig['uploadPath'] =       '/_feindura10/_upload/';
+$adminConfig['uploadPath'] =       '/_feindura.org/upload/';
 $adminConfig['websitefilesPath'] = '/_feindura10/library/lang/';
 $adminConfig['stylesheetPath'] =   '/_feindura10/library/style/';
 $adminConfig['dateFormat'] =       'eu';
@@ -24,7 +24,7 @@ $adminConfig['page']['plugins'] =         true;
 $adminConfig['page']['showtags'] =        true;
 
 $adminConfig['editor']['enterMode'] =  'p';
-$adminConfig['editor']['styleFile'] =  '/_feindura10/library/style/layout.css';
+$adminConfig['editor']['styleFile'] =  '/_feindura.org/style/layout.css';
 $adminConfig['editor']['styleId'] =    '';
 $adminConfig['editor']['styleClass'] = '';
 
