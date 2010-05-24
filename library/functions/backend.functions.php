@@ -182,20 +182,20 @@ function saveCategories($newCategories) {
       foreach($newCategories as $category) {
 
         // CHECK BOOL VALUES and change to FALSE
-        $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';
-        $category['sortascending'] = (isset($category['sortascending']) && $category['sortascending']) ? 'true' : 'false';
+        $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';        
         $category['createdelete'] = (isset($category['createdelete']) && $category['createdelete']) ? 'true' : 'false';
         $category['thumbnail'] = (isset($category['thumbnail']) && $category['thumbnail']) ? 'true' : 'false';
         $category['plugins'] = (isset($category['plugins']) && $category['plugins']) ? 'true' : 'false';
         $category['showtags'] = (isset($category['showtags']) && $category['showtags']) ? 'true' : 'false';
         $category['showpagedate'] = (isset($category['showpagedate']) && $category['showpagedate']) ? 'true' : 'false';
         $category['sortbypagedate'] = (isset($category['sortbypagedate']) && $category['sortbypagedate']) ? 'true' : 'false';
+        $category['sortascending'] = (isset($category['sortascending']) && $category['sortascending']) ? 'true' : 'false';
         
         // -> CHECK depency of PAGEDATE
-        if($category['showpagedate'] === false)
+        if($category['showpagedate'] == 'false')
           $category['sortbypagedate'] = 'false';
         
-        if($category['sortbypagedate'])
+        if($category['sortbypagedate'] == 'true')
           $category['showpagedate'] = 'true';
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
@@ -218,14 +218,14 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['id'] =              ".$category['id'].";\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['name'] =            '".$category['name']."';\n");
         
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['public'] =          ".$category['public'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   ".$category['sortascending'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['public'] =          ".$category['public'].";\n");        
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['createdelete'] =    ".$category['createdelete'].";\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbnail'] =       ".$category['thumbnail'].";\n");        
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['plugins'] =         ".$category['plugins'].";\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['showtags'] =        ".$category['showtags'].";\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['showpagedate'] =    ".$category['showpagedate'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortbypagedate'] =  ".$category['sortbypagedate'].";\n\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortbypagedate'] =  ".$category['sortbypagedate'].";\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   ".$category['sortascending'].";\n\n");
         
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");

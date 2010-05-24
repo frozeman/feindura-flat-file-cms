@@ -71,19 +71,38 @@ window.addEvent('domready', function() {
     cfe.spacer = "library/thirdparty/customformelements/gfx/spacer.gif";
     
     // create a cfe replacement instance
-    myCfe = new cfe.replace();
+    myCfe =  new cfe.replace();
+
     
     // ->> create CHECKBOX DEPENDENCIES
     $$('input[type=checkbox]').each(function(checkbox) {
       var checkboxId = checkbox.get('id');
-      // go trough checkboxes with id
-      if(checkboxId) {    
-        // -> ** categories[0-9]pagedate
-        if(checkbox.get('id').match(/^categories[0-9]sortbypagedate$/)) {
-          var categoryNumber = checkbox.get('id').match(/[0-9]+/);
-          myCfe.addDependencies(checkbox,['categories'+categoryNumber+'showpagedate']);
-        }    
+      var categoryNumber;
+      var sortbypagedateCheckbox = new Array();
       
+      // go trough checkboxes with id
+      if(checkboxId) {
+        // -> ** categories[0-9]sortbypagedate
+        if(checkboxId.match(/^categories[0-9]sortbypagedate$/)) {
+          categoryNumber = checkboxId.match(/[0-9]+/);
+          myCfe.addDependency(checkbox,'categories'+categoryNumber+'showpagedate');
+          
+        }
+        
+        /*
+        // -> ** categories[0-9]showpagedate
+        if(checkboxId.match(/^categories[0-9]showpagedate$/)) {
+          checkbox.addEvent('click',function(){
+            categoryNumber = checkboxId.match(/[0-9]+/);
+
+            if($('categories'+categoryNumber+'sortbypagedate').getProperty('checked')) {
+              $('categories'+categoryNumber+'sortbypagedate').removeProperty('checked');
+              //alert(myCfe($('categories'+categoryNumber+'sortbypagedate')));
+            }            
+          
+          })
+        }
+        */
       }
     });
     

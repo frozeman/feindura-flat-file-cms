@@ -63,12 +63,12 @@ ul ul, ul ol, ul dl, ol ul, ol ol, ol dl, dl ul, dl ol, dl dl {
     margin-top: 0;
     margin-bottom: 0;
     }
-/* delete borde from images in links */
+/* remove borders from images in links */
 a img {
     border: none;
     }
 
-/* removing the border after click in firefox 3 */
+/* removing the border after click in firefox */
 a:active, a:focus { outline:none; }
 
 /* ----------------------- */	

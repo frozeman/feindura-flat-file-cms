@@ -747,7 +747,7 @@ class feinduraPages extends feindura {
   * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link feindura::$websiteConfig website-settings config}
   * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link feindura::$websiteConfig website-settings config}
   * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
-  * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will nopt be created
+  * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will not be set
   * 
   * @uses feindura::$websiteConfig      for the website title, publisher, copyright, description and keywords
   * @uses generalFunctions::readPage()	to read the page and set the page title

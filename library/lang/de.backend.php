@@ -507,10 +507,10 @@ $langFile['pageSetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in 
 $langFile['pageSetup_check8'] = 'Plugins erlauben';
 $langFile['pageSetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie erlauben';
 
-$langFile['pageSetup_check5'] = 'Datum einstellbar';
-$langFile['pageSetup_check5_tip'] = 'Das Datum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
+$langFile['pageSetup_check5'] = 'Seitendatum bearbeiten';
+$langFile['pageSetup_check5_tip'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
-$langFile['pageSetup_check6'] = 'nach Datum sortieren';
+$langFile['pageSetup_check6'] = 'nach Seitendatum sortieren';
 $langFile['pageSetup_check6_tip'] = 'Die Seiten werden nach dem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
 
 $langFile['pageSetup_check7'] = 'Neueste Seite immer unten anzeigen';

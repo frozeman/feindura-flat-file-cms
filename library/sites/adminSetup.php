@@ -53,7 +53,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
     $speakingUrlCode = '<IfModule mod_rewrite.c>
-RewriteEngine On
+RewriteEngine on
 RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 228
+Build 229
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 229: small changes in language
   build 228: changed logo
   build 227: fixes in font sizes
   build 226: changed feinduraDoc template for functions
