@@ -117,17 +117,23 @@ if($_POST['save']) {
     if(empty($_POST['sortorder']))
       $_POST['sortorder'] = $pageContent['sortorder'];
   
-    // checks the Pages Styles
-    // if the given Styles DONT MATCH the main HTMl editor Styles, or the Category Sytles, than save these
+    // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
+    $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
+    $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
+    $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
+    
+    /*
     if(!empty($categoryConfig['id_'.$category]['styleFile'])) { if($_POST['styleFile'] == $categoryConfig['id_'.$category]['styleFile']) $_POST['styleFile'] = ''; } elseif($_POST['styleFile'] == $adminConfig['editor']['styleFile']) { $_POST['styleFile'] = ''; }
     if(!empty($categoryConfig['id_'.$category]['styleId'])) { if($_POST['styleId'] == $categoryConfig['id_'.$category]['styleId']) $_POST['styleId'] = ''; } elseif($_POST['styleId'] == $adminConfig['editor']['styleId']) { $_POST['styleId'] = ''; }
     if(!empty($categoryConfig['id_'.$category]['styleClass'])) { if($_POST['styleClass'] == $categoryConfig['id_'.$category]['styleClass']) $_POST['styleClass'] = ''; } elseif($_POST['styleClass'] == $adminConfig['editor']['styleClass']) { $_POST['styleClass'] = ''; }
     
     $_POST['styleId'] = str_replace(array('#','.'),'',$_POST['styleId']);
     $_POST['styleClass'] = str_replace(array('#','.'),'',$_POST['styleClass']);
+   
     
     if(!empty($_POST['styleFile']) && substr($_POST['styleFile'],0,1) !== '/')
           $_POST['styleFile'] = '/'.$_POST['styleFile'];
+    */
     
     // gets the visit status
     $_POST['log_visitCount'] = $pageContent['log_visitCount'];
@@ -802,22 +808,22 @@ else $hidden = ' hidden';
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field1'].'::'.$langFile['editor_advancedpageSettings_field1_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field1']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleFile']; ?></span>
       </td><td class="right">
-      <input name="styleFile" value="<?php if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) echo $categoryConfig['id_'.$_GET['category']]['styleFile']; else echo $adminConfig['editor']['styleFile']; } else echo $pageContent['styleFile']; ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
-      <span class="hint"><?php echo $langFile['editor_advancedpageSettings_field1_inputTip2']; ?></span>                
+      <input name="styleFile" value="<?php echo getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
+      <span class="hint"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>                
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3'].'::'.$langFile['editor_advancedpageSettings_field3_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field3']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleId']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) echo $categoryConfig['id_'.$_GET['category']]['styleId']; else echo $adminConfig['editor']['styleId']; } else echo $pageContent['styleId']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field3_inputTip']; ?>" />
+      <input name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4'].'::'.$langFile['editor_advancedpageSettings_field4_tip']; ?>"><?php echo $langFile['editor_advancedpageSettings_field4']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleClass']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) echo $categoryConfig['id_'.$_GET['category']]['styleClass']; else echo $adminConfig['editor']['styleClass']; } else echo $pageContent['styleClass']; ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_field4_inputTip']; ?>" />
+      <input name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

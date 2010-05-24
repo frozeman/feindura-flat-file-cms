@@ -12,7 +12,7 @@ $categoryConfig['id_1']['sortbypagedate'] =  false;
 $categoryConfig['id_1']['sortascending'] =   false;
 
 $categoryConfig['id_1']['styleFile'] =       '';
-$categoryConfig['id_1']['styleId'] =         'footerBox';
+$categoryConfig['id_1']['styleId'] =         '';
 $categoryConfig['id_1']['styleClass'] =      '';
 
 $categoryConfig['id_1']['thumbWidth'] =      '';

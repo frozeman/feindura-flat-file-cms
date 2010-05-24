@@ -205,9 +205,10 @@ function saveCategories($newCategories) {
           $category['thumbHeight'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbHeight'];
           
       
-        // ** adds a "/" on the beginning of all absolute paths
-        if(!empty($category['styleFile']) && substr($category['styleFile'],0,1) !== '/')
-              $category['styleFile'] = '/'.$category['styleFile'];  
+        // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
+        $category['styleFile'] = setStylesByPriority($category['styleFile'],'styleFile',true);
+        $category['styleId'] = setStylesByPriority($category['styleId'],'styleId',true);
+        $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',true);
         
         // -> CLEAN all " out of the strings
         foreach($category as $postKey => $post) {    
@@ -228,8 +229,8 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   ".$category['sortascending'].";\n\n");
         
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleId'] =         '".str_replace(array('#','.'),'',$category['styleId'])."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleClass'] =      '".str_replace(array('#','.'),'',$category['styleClass'])."';\n\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleId'] =         '".$category['styleId']."';\n");
+        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleClass'] =      '".$category['styleClass']."';\n\n");
         
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbWidth'] =      '".$category['thumbWidth']."';\n");
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbHeight'] =     '".$category['thumbHeight']."';\n");
@@ -424,7 +425,13 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['page']['thumbnailUpload'] = (isset($adminConfig['page']['thumbnailUpload']) && $adminConfig['page']['thumbnailUpload']) ? 'true' : 'false';
     $adminConfig['page']['plugins'] = (isset($adminConfig['page']['plugins']) && $adminConfig['page']['plugins']) ? 'true' : 'false';
     $adminConfig['page']['showtags'] = (isset($adminConfig['page']['showtags']) && $adminConfig['page']['showtags']) ? 'true' : 'false';
-
+    
+    // prepare style strings
+    $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$adminConfig['editor']['styleId']);
+    $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$adminConfig['editor']['styleClass']);
+    if(!empty($adminConfig['editor']['styleFile']) && substr($adminConfig['editor']['styleFile'],0,1) !== '/')
+      $adminConfig['editor']['styleFile'] = '/'.$adminConfig['editor']['styleFile'];
+    
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
     
@@ -663,6 +670,99 @@ function getNewPageId() {
   $highestId++;
   
   return $highestId;
+}
+
+/**
+ * <b>Name</b> getStylesByPriority()<br>
+ * 
+ * Returns the right stylesheet-file path, ID or class-attribute.
+ * If the <var>$givenStyle</var> parameter is empty,
+ * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $givenStyle the string with the stylesheet-file path, id or class
+ * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * @param int    $category   the ID of the category to bubble through
+ * 
+ * @return string the right stylesheet-file, ID or class
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function getStylesByPriority($givenStyle,$styleType,$category) {
+  
+  // check if the $givenStyle is empty
+  if(empty($givenStyle)) {
+  
+    return (!empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]))
+    ? $GLOBALS['categoryConfig']['id_'.$category][$styleType]
+    : $GLOBALS['adminConfig']['editor'][$styleType];
+  
+  // otherwise it passes through the $givenStyle parameter
+  } else
+    return $givenStyle;
+  
+}
+
+/**
+ * <b>Name</b> setStylesByPriority()<br>
+ * 
+ * Bubbles through the stylesheet-file path, ID or class-attribute
+ * of the page, category and adminSetup and check if the stylesheet-file path, ID or class-attribute already exist.
+ * Ff the <var>$givenStyle</var> parameter is empty,
+ * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
+ * 
+ * <b>Used Global Variables</b><br>
+ *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+ * 
+ * @param string   $givenStyle the string with the stylesheet-file path, id or class
+ * @param string   $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * @param int|true $category   the ID of the category to bubble through or TRUE when the stylesheet-file path, id or class is from a category
+ * 
+ * @return string an empty string or the $givenStyle parameter if it was not found through while bubbleing up
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function setStylesByPriority($givenStyle,$styleType,$category) {
+  
+  // prepare string
+  if($styleType != 'styleFile')
+    $givenStyle = str_replace(array('#','.'),'',$givenStyle);
+  elseif($styleType == 'styleFile' && !empty($givenStyle) && substr($givenStyle,0,1) !== '/')
+    $givenStyle = '/'.$givenStyle;
+    
+  // compare string with category
+  if($category !== true && !empty($GLOBALS['categoryConfig']['id_'.$category][$styleType])) {      
+    if($givenStyle == $GLOBALS['categoryConfig']['id_'.$category][$styleType]) 
+      $givenStyle = '';
+      
+  //  or adminConfig
+  } elseif($givenStyle == $GLOBALS['adminConfig']['editor'][$styleType]) {
+    $givenStyle = '';
+  }  
+  
+  /*
+  $givenStyle = ((!empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) && $givenStyle == $GLOBALS['categoryConfig']['id_'.$category][$styleType]) ||
+                 (empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) && $givenStyle == $GLOBALS['adminConfig']['editor'][$styleType])) 
+  ? $givenStyle
+  : '';
+  
+  */
+  
+  return $givenStyle;
 }
 
 /**

@@ -492,7 +492,7 @@ $langFile['pageSetup_advancedSettings'] = 'Erweiterte-Einstellungen';
 $langFile['pageSetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die HTML-Editor-Einstellungen in den <a href="?site=adminSetup">Administrator-Einstellungen</a>';
 
 $langFile['pageSetup_field1'] = 'Name';
-$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Standard Stylesheet-Einstellungen aus den HTML-Editor-Einstellungen verwendet.';
+$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Stylesheet-Einstellungen aus den HTML-Editor-Einstellungen verwendet.';
 
 $langFile['pageSetup_check1'] = 'Status der Kategorie';
 $langFile['pageSetup_check1_tip'] = 'Legt fest, ob die Kategorie auf der Webseite sichtbar ist.';
@@ -619,6 +619,7 @@ $langFile['editor_pageSettings_title'] = 'Seiten-Titel';
 $langFile['editor_pageSettings_title_tip'] = 'Der Titel der Seite';
 $langFile['editor_pageSettings_field1'] = 'Seiten-Beschreibung';
 $langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
+$langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
 $langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Beschreibung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
 $langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte, die mit dieser Seite verkn&uuml;pft sind.';
@@ -640,14 +641,7 @@ $langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuel
 $langFile['editor_advancedpageSettings_h1'] = 'erweiterte Seiten-Einstellungen';
 
 $langFile['editor_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
-$langFile['editor_advancedpageSettings_field1_tip'] = $langFile['stylesheet_styleFile_tip'].'[br /][br /]Wenn das Feld leer ist dann wird die Standard Stylesheet-Datei aus den HTML-Editor-Einstellungen verwendet.';
-$langFile['editor_advancedpageSettings_field1_inputTip2'] = '<b>'.$langFile['text_example'].'</b> &quot;/style/layout.css&quot; ';
-$langFile['editor_advancedpageSettings_field3'] = 'Seiten Stylesheet-Id';
-$langFile['editor_advancedpageSettings_field3_tip'] = $langFile['stylesheet_styleId_tip'];
-$langFile['editor_advancedpageSettings_field3_inputTip'] = 'Wenn das Feld leer ist, dann wird die Standard Stylesheet-Id aus den HTML-Editor-Einstellungen verwendet.';
-$langFile['editor_advancedpageSettings_field4'] = 'Seiten Stylesheet-Klasse';
-$langFile['editor_advancedpageSettings_field4_tip'] = $langFile['stylesheet_styleClass_tip'];
-$langFile['editor_advancedpageSettings_field4_inputTip'] = 'Wenn das Feld leer ist, dann wird die Standard Stylesheet-Klasse aus den HTML-Editor-Einstellungen verwendet.';
+$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn das Feld leer bleibt dann werden zuerst die Stylesheet-Einstellungen der Kategorie oder dann aus den HTML-Editor-Einstellungen verwendet.';
 
 $langFile['editor_htmleditor_hotkeys_h1'] = 'Tastenk&uuml;rzel';
 $langFile['editor_htmleditor_hotkeys_field1'] = 'Alles markieren';
