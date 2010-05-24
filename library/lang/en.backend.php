@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * GERMAN (DE) language-file for the feindura CMS (BACKEND)
+ * ENGLISH (EN) language-file for the feindura CMS (BACKEND)
  * 
  * IMPORTANT:<br>
  * if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
@@ -31,186 +31,186 @@
 */
 
 // ---------- thumbnail
-$langFile['thumbSize_unit'] = 'Pixel';
+$langFile['thumbSize_unit'] = 'pixel';
 
-$langFile['thumbnail_name'] = 'Seiten-Thumbnail';
-$langFile['thumbnail_name_width'] = 'Standard <b>Breite</b>';
-$langFile['thumbnail_name_height'] = 'Standard <b>H&ouml;he</b>';
+$langFile['thumbnail_name'] = 'Page-Thumbnail';
+$langFile['thumbnail_name_width'] = 'Standard <b>Width</b>';
+$langFile['thumbnail_name_height'] = 'Standard <b>Height</b>';
 
-$langFile['thumbnail_tip'] = 'M&ouml;glicherweise ist nach dem Upload noch das vorherige Bild zu sehen, dies ist bedingt durch den Browser-Cache.[br /][br /]Um das aktuelle Bild zu sehen musst du die Seite aktualisieren (F5).';
+$langFile['thumbnail_tip'] = 'It\'s possible that you still see the previous image after the upload, that due to the browser cache.[br /][br /]Um da To update the current image you have refresh the page (F5).';
 
-$langFile['thumbnail_width_tip'] = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Gr&ouml;&szlig;e skaliert.';
-$langFile['thumbnail_height_tip'] = 'Standardh&ouml;he::Die H&ouml;he des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Gr&ouml;&szlig;e skaliert.';
+$langFile['thumbnail_width_tip'] = 'Standardwidth::The width of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
+$langFile['thumbnail_height_tip'] = 'Standardheight::The height of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
 
-$langFile['thumbnail_ratio_name'] = 'Seitenverh&auml;ltnis';
-$langFile['thumbnail_ratio_fieldText'] = 'Seitenverh&auml;ltnis beibehalten';
-$langFile['thumbnail_ratio_noRatio'] = 'festes Seitenverh&auml;ltnis';
-$langFile['thumbnail_ratio_noRatio_tip'] = 'H&ouml;he und Breite ist fest einstellbar.';
-$langFile['thumbnail_ratio_x_tip'] = 'Wird an der [b]Breite[/b] ausgerichtet.';
-$langFile['thumbnail_ratio_y_tip'] = 'Wird an der [b]H&ouml;he[/b] ausgerichtet.';
+$langFile['thumbnail_ratio_name'] = 'Ratio';
+$langFile['thumbnail_ratio_fieldText'] = 'keep ratio';
+$langFile['thumbnail_ratio_noRatio'] = 'fixed ratio';
+$langFile['thumbnail_ratio_noRatio_tip'] = 'Height and width is set manually';
+$langFile['thumbnail_ratio_x_tip'] = 'Will be aligned by the [i]width[/i].';
+$langFile['thumbnail_ratio_y_tip'] = 'Will be aligned by the [i]height[/i].';
 
 // ---------- stylesheet
-$langFile['stylesheet_name_styleFile'] = 'Stylesheet-Datei';
+$langFile['stylesheet_name_styleFile'] = 'Stylesheet-File';
 $langFile['stylesheet_name_styleId'] = 'Stylesheet-Id';
-$langFile['stylesheet_name_styleClass'] = 'Stylesheet-Klasse';
+$langFile['stylesheet_name_styleClass'] = 'Stylesheet-Class';
 
-$langFile['stylesheet_styleFile_tip'] = 'Hier kann eine Stylesheet-Datei angegeben werden, die im HTML-Editor verwendet wird um den Inhalt darzustellen.';
-$langFile['stylesheet_styleId_tip'] = 'Hier kann eine Id-Attribut angegeben werden, das dem HTML-Editor &lt;body&gt; Tag zugewiesen wird.';
-$langFile['stylesheet_styleClass_tip'] = 'Hier kann eine Class-Attribut angegeben werden, das dem HTML-Editor &lt;body&gt; Tag zugewiesen wird.';
+$langFile['stylesheet_styleFile_tip'] = 'Here you can specify a stylesheet-file, which will be used to style the HTML editor content.';
+$langFile['stylesheet_styleId_tip'] = 'Here you can specify an Id-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
+$langFile['stylesheet_styleClass_tip'] = 'Here you can specify an Class-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
 
-$langFile['stylesheet_styleFile_example'] = '<b>Beispiel</b> &quot;/style/layout.css&quot;';
+$langFile['stylesheet_styleFile_example'] = '<b>Example</b> &quot;/style/layout.css&quot;';
 
 // ---------- paths
 
-$langFile['path_absolutepath'] = 'Absoluter Pfad';
-$langFile['path_relativepath'] = 'Relativer Pfad';
-$langFile['path_absolutepath_tip'] = 'Absoluter Pfad::Beginnt mit einem &quot;/&quot;';
-$langFile['path_relativepath_tip'] = 'Relativer Pfad::Beginnt ohne &quot;/&quot;';
+$langFile['path_absolutepath'] = 'absolute path';
+$langFile['path_relativepath'] = 'relative path';
+$langFile['path_absolutepath_tip'] = 'Absolute Path::Starts with a &quot;/&quot;';
+$langFile['path_relativepath_tip'] = 'Relative Path::Starts without &quot;/&quot;';
 
 // ---------- STATISTIC
 
-$langFile['home_browser_h1'] = 'Browserverteilung der Besucher';
+$langFile['home_browser_h1'] = 'Browser Usage of the Users';
 $langFile['log_spiderCount'] = 'Spider';
-$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt sind Computer-programme von Suchmaschienen, die Seiten analysieren und indizieren.';
+$langFile['log_spiderCount_tip'] = 'Spider::Or webcrawler are programs of search engines which analyse and index websites.';
 
-$langFile['log_searchwordtothissite_part1'] = 'hat'; // "wort" hat 20 mal auf diese Seite geführt
-$langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt';
-$langFile['log_searchwordtothissite_tip'] = 'Anklicken um dieses Suchwort in allen Seiten zu suchen.';
+$langFile['log_searchwordtothissite_part1'] = 'has'; // "wort" hat 20 mal auf diese Seite geführt
+$langFile['log_searchwordtothissite_part2'] = 'times led to this site';
+$langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in all pages.';
 
-$langFile['log_visitCount'] = 'Besucher';
-$langFile['log_visitTime_max'] = 'l&auml;ngste Verweildauer';
-$langFile['log_visitTime_min'] = 'k&uuml;rzeste Verweildauer';
-$langFile['log_firstVisit'] = 'seit dem';
-$langFile['log_lastVisit'] = 'letzter Besuch';
-$langFile['log_novisit'] = 'Es hat noch niemand diese Seite besucht.';
-$langFile['log_tags_description'] = 'Suchworte die von
+$langFile['log_visitCount'] = 'Visitors';
+$langFile['log_visitTime_max'] = 'longest retention';
+$langFile['log_visitTime_min'] = 'shortest retention';
+$langFile['log_firstVisit'] = 'since';
+$langFile['log_lastVisit'] = 'last visit';
+$langFile['log_novisit'] = 'Nobody visit this website yet.';
+$langFile['log_tags_description'] = 'Serchwords which led from
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> oder
-<a href="http://www.bing.com">Bing (MSN)</a> auf diese Seite gef&uuml;hrt haben';
-$langFile['log_notags'] = 'Es haben noch keine Suchworte auf diese Seite gef&uuml;hrt.';
+<a href="http://www.bing.com">Bing (MSN)</a> to this website.';
+$langFile['log_notags'] = 'No searchwords led to this website yet.';
 
-$langFile['log_hour_single'] = 'Stunde';
-$langFile['log_hour_multiple'] = 'Stunden';
-$langFile['log_minute_single'] = 'Minute';
-$langFile['log_minute_multiple'] = 'Minuten';
-$langFile['log_second_single'] = 'Sekunde';
-$langFile['log_second_multiple'] = 'Sekunden';
+$langFile['log_hour_single'] = 'hour';
+$langFile['log_hour_multiple'] = 'hours';
+$langFile['log_minute_single'] = 'minute';
+$langFile['log_minute_multiple'] = 'minutes';
+$langFile['log_second_single'] = 'second';
+$langFile['log_second_multiple'] = 'seconds';
 
-$langFile['log_browser_others'] = 'Sonstige';
+$langFile['log_browser_others'] = 'other';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- LOG TEXTs
 */
 
-$langFile['log_page_saved'] = 'Seite gespeichert';
-$langFile['log_page_new'] = 'Neue Seite erstellt';
-$langFile['log_page_delete'] = 'Seite gel&ouml;scht';
+$langFile['log_page_saved'] = 'Page saved';
+$langFile['log_page_new'] = 'Created new page';
+$langFile['log_page_delete'] = 'Deleted Page';
 
-$langFile['log_listPages_moved'] = 'Seite in Kategorie verschoben';
+$langFile['log_listPages_moved'] = 'Moved page in category';
 $langFile['log_listPages_moved_in'] = 'in'; // Example Page in Category
-$langFile['log_listPages_sorted'] = 'Seite neu sortiert';
+$langFile['log_listPages_sorted'] = 'Resorted page';
 
-$langFile['log_pageThumbnail_upload'] = 'Neues Thumbnail hochgeladen';
-$langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
+$langFile['log_pageThumbnail_upload'] = 'Uploaded new thumbnail';
+$langFile['log_pageThumbnail_delete'] = 'Deleted thumbnail';
 
-$langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
+$langFile['log_userSetup_useradd'] = 'Created new user';
 
-$langFile['log_adminSetup_saved'] = 'Administrator-Einstellungen gespeichert';
-$langFile['log_adminSetup_ckstyles'] = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
+$langFile['log_adminSetup_saved'] = 'Saved Administrator-Settings';
+$langFile['log_adminSetup_ckstyles'] = 'Saved &quot;Formatting-Styles&quot; of the HTML-Editor';
 
-$langFile['log_websiteSetup_saved'] = 'Webseiten-Einstellungen gespeichert';
+$langFile['log_websiteSetup_saved'] = 'Saved Website-Settings';
 
-$langFile['log_statisticSetup_saved'] = 'Statistik-Einstellungen gespeichert';
-$langFile['log_clearStatistic_websiteStatistic'] = 'Webseiten-Statistik gel&ouml;scht';
-$langFile['log_clearStatistic_pagesStatistics'] = 'Seiten-Statistiken gel&ouml;scht';
-$langFile['log_clearStatistic_refererLog'] = 'Referrer-URLs Log gel&ouml;scht';
-$langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten Log gel&ouml;scht';
+$langFile['log_statisticSetup_saved'] = 'SavedStatistikc-Settings';
+$langFile['log_clearStatistic_websiteStatistic'] = 'Deleted Website-Statistic';
+$langFile['log_clearStatistic_pagesStatistics'] = 'Deleted Page-Statistics';
+$langFile['log_clearStatistic_refererLog'] = 'Deleted Referrer-Log';
+$langFile['log_clearStatistic_taskLog'] = 'Deleted last Activities-Log';
 
-$langFile['log_pageSetup_saved'] = 'Seiten-Einstellungen gespeichert';
+$langFile['log_pageSetup_saved'] = 'Saved Page-Settings';
 
-$langFile['log_pageSetup_saved'] = 'Kategorien gespeichert';
-$langFile['log_pageSetup_new'] = 'Neue Kategorie erstellt';
-$langFile['log_pageSetup_delete'] = 'Kategorie gel&ouml;scht';
-$langFile['log_pageSetup_move'] = 'Kategorie verschoben';
+$langFile['log_pageSetup_saved'] = 'Saved Category-Settings';
+$langFile['log_pageSetup_new'] = 'Created new category';
+$langFile['log_pageSetup_delete'] = 'Deleted category';
+$langFile['log_pageSetup_move'] = 'Moved category';
 
-$langFile['log_pluginSetup_saved'] = 'Plugin-Einstellungen gespeichert';
+$langFile['log_pluginSetup_saved'] = 'Saved Plugin-Settings';
 
-$langFile['log_file_saved'] = 'Datei gespeichert';
+$langFile['log_file_saved'] = 'Saved file';
 
-$langFile['log_file_deleted'] = 'Datei gel&ouml;scht';
+$langFile['log_file_deleted'] = 'Deleted file';
 
 // ---------- deleting (entfernt)
 /*
-$langFile['delete_question_submit'] = 'Ja, bitte l&ouml;schen!';
-$langFile['delete_question_cancel'] = 'Nein, doch nicht';
+$langFile['delete_question_submit'] = 'Yes, please!';
+$langFile['delete_question_cancel'] = 'No, better not';
 */
 
 // ----------- page/category public/nonpuplic
 
-$langFile['status_page_public'] = 'Seite ist &ouml;ffentlich';
-$langFile['status_page_nonpublic'] = 'Seite ist versteckt';
+$langFile['status_page_public'] = 'Page is public';
+$langFile['status_page_nonpublic'] = 'Page is hidden';
 
-$langFile['status_category_public'] = 'Kategorie ist &ouml;ffentlich';
-$langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
+$langFile['status_category_public'] = 'Category is public';
+$langFile['status_category_nonpublic'] = 'Category is hidden';
 
 // ----------- sidebar.include.php
 
-$langFile['user_nousers'] = 'Es sind keine Benutzer vorhanden';
-$langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
+$langFile['user_nousers'] = 'No users';
+$langFile['user_currentuser'] = 'The user under which you\'re logged';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- GENERAL TEXTs
 */
 
-$langFile['txt_logo'] = 'feindura CMS, Version ';
-$langFile['txt_loading'] = 'Seite wird geladen..';
+$langFile['txt_logo'] = 'feindura, Version ';
+$langFile['txt_loading'] = 'Page is loading..';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- FRONTEND shared TEXTs
 */
 
-$langFile['date_yesterday'] = 'Gestern';
-$langFile['date_today'] = 'Heute';
-$langFile['date_tomorrow'] = 'Morgen';
+$langFile['date_yesterday'] = 'Yesterday';
+$langFile['date_today'] = 'Today';
+$langFile['date_tomorrow'] = 'Tomorrow';
 
 /* ----------------------------------------------------------------------------------------------
 * --------- BUTTON-TEXT (index.php)
 */
 
 // --- mainMenu
-$langFile['btn_home'] = '&Uuml;bersicht';
-$langFile['btn_pages'] = 'Kategorien und Seiten';
+$langFile['btn_home'] = 'Overview';
+$langFile['btn_pages'] = 'Pages';
 $langFile['btn_addons'] = 'Addons';
-$langFile['btn_settings'] = 'Webseiten Einstellungen';
-$langFile['btn_search'] = 'Seiten durchsuchen';
+$langFile['btn_settings'] = 'Website Settings';
+$langFile['btn_search'] = 'Search Pages';
 
 // --- adminMenu
 $langFile['title_adminMenu'] = 'Administration';
-$langFile['btn_adminSetup'] = 'Administrator Einstellungen';
-$langFile['btn_pageSetup'] = 'Seiten Einstellungen';
-$langFile['btn_pluginSetup'] = 'Plugins Einstellungen';
-$langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
-$langFile['btn_userSetup'] = 'Benutzer Verwaltung';
+$langFile['btn_adminSetup'] = 'Administrator Settings';
+$langFile['btn_pageSetup'] = 'Pages Settings';
+$langFile['btn_pluginSetup'] = 'Plugins Settings';
+$langFile['btn_statisticSetup'] = 'Statistic Settings';
+$langFile['btn_userSetup'] = 'User Management';
 
 // --- subMenu/footer
-$langFile['btn_createPage'] = 'Neue Seite';
-$langFile['btn_createPage_title'] = 'Neue Seite erstellen';
-$langFile['btn_deletePage'] = 'Seite l&ouml;schen';
-$langFile['btn_deletePage_title'] = 'Diese Seite l&ouml;schen';
-$langFile['btn_pageThumbnailUpload'] = 'Seiten-Thumbnail hochladen';
-$langFile['btn_pageThumbnailUpload_title'] = 'Thumbnail f&uuml;r diese Seite hochladen/&auml;ndern';
-$langFile['btn_pageThumbnailDelete'] = 'Seiten-Thumbnail l&ouml;schen';
-$langFile['btn_pageThumbnailDelete_title'] = 'Thumbnail von dieser Seite l&ouml;schen';
-$langFile['btn_startPage_title'] = 'Diese Seite als Startseite festlegen';
-$langFile['btn_startPage_set'] = 'Diese Seite ist die Startseite';
+$langFile['btn_createPage'] = 'New Page';
+$langFile['btn_createPage_tip'] = 'Create new page';
+$langFile['btn_deletePage'] = 'Delete Page';
+$langFile['btn_deletePage_tip'] = 'Delete this page';
+$langFile['btn_pageThumbnailUpload'] = 'Upload a page thumbnail';
+$langFile['btn_pageThumbnailUpload_tip'] = 'Upload a thumbnail for this page';
+$langFile['btn_pageThumbnailDelete'] = 'Delete a page thumbnail';
+$langFile['btn_pageThumbnailDelete_tip'] = 'Delete the thumbnail of this page';
+$langFile['btn_startPage_tip'] = 'Set this page as start page';
+$langFile['btn_startPage_set'] = 'This page is the start page';
 
 // --- other
-$langFile['btn_fastUp'] = 'Nach oben';
-$langFile['date_int'] = 'JJJJ-MM-TT';
-$langFile['date_eu'] = 'TT.MM.JJJJ';
-$langFile['categories_nocategories_name'] = 'Seiten';
-$langFile['categories_nocategories_hint'] = 'ohne Kategorie';
-$langFile['text_example'] = 'Beispiel';
+$langFile['btn_fastUp'] = 'Up';
+$langFile['date_int'] = 'YYYY-MM-DD';
+$langFile['date_eu'] = 'DD.MM.YYYY';
+$langFile['categories_noncategory_name'] = 'Pages';
+$langFile['categories_noncategory_tip'] = 'Pages without a category';
+$langFile['text_example'] = 'Example';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- ERROR TEXTs
@@ -310,7 +310,6 @@ $langFile['sortablePageList_sortOrder_manuell'] = 'manuell sortiert';
 $langFile['sortablePageList_sortOrder_date'] = 'nach Datum sortiert';
 
 $langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
-$langFile['sortablePageList_functions_deletePage'] = 'Seite l&ouml;schen';
 
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Status f&uuml;r Seite zu &auml;ndern.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';

@@ -123,12 +123,12 @@ $langFile['log_websiteSetup_saved'] = 'Webseiten-Einstellungen gespeichert';
 $langFile['log_statisticSetup_saved'] = 'Statistik-Einstellungen gespeichert';
 $langFile['log_clearStatistic_websiteStatistic'] = 'Webseiten-Statistik gel&ouml;scht';
 $langFile['log_clearStatistic_pagesStatistics'] = 'Seiten-Statistiken gel&ouml;scht';
-$langFile['log_clearStatistic_refererLog'] = 'Referrer-URLs Log gel&ouml;scht';
-$langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten Log gel&ouml;scht';
+$langFile['log_clearStatistic_refererLog'] = 'Referrer-Log gel&ouml;scht';
+$langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten-Log gel&ouml;scht';
 
 $langFile['log_pageSetup_saved'] = 'Seiten-Einstellungen gespeichert';
 
-$langFile['log_pageSetup_saved'] = 'Kategorien gespeichert';
+$langFile['log_pageSetup_saved'] = 'Kategorien-Verwaltung gespeichert';
 $langFile['log_pageSetup_new'] = 'Neue Kategorie erstellt';
 $langFile['log_pageSetup_delete'] = 'Kategorie gel&ouml;scht';
 $langFile['log_pageSetup_move'] = 'Kategorie verschoben';
@@ -162,7 +162,7 @@ $langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
 * ---------- GENERAL TEXTs
 */
 
-$langFile['txt_logo'] = 'feindura CMS, Version ';
+$langFile['txt_logo'] = 'feindura, Version ';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
 /* ----------------------------------------------------------------------------------------------
@@ -179,7 +179,7 @@ $langFile['date_tomorrow'] = 'Morgen';
 
 // --- mainMenu
 $langFile['btn_home'] = '&Uuml;bersicht';
-$langFile['btn_pages'] = 'Kategorien und Seiten';
+$langFile['btn_pages'] = 'Seiten';
 $langFile['btn_addons'] = 'Addons';
 $langFile['btn_settings'] = 'Webseiten Einstellungen';
 $langFile['btn_search'] = 'Seiten durchsuchen';
@@ -194,22 +194,22 @@ $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
 
 // --- subMenu/footer
 $langFile['btn_createPage'] = 'Neue Seite';
-$langFile['btn_createPage_title'] = 'Neue Seite erstellen';
+$langFile['btn_createPage_tip'] = 'Neue Seite erstellen';
 $langFile['btn_deletePage'] = 'Seite l&ouml;schen';
-$langFile['btn_deletePage_title'] = 'Diese Seite l&ouml;schen';
+$langFile['btn_deletePage_tip'] = 'Diese Seite l&ouml;schen';
 $langFile['btn_pageThumbnailUpload'] = 'Seiten-Thumbnail hochladen';
-$langFile['btn_pageThumbnailUpload_title'] = 'Thumbnail f&uuml;r diese Seite hochladen/&auml;ndern';
+$langFile['btn_pageThumbnailUpload_tip'] = 'Thumbnail f&uuml;r diese Seite hochladen';
 $langFile['btn_pageThumbnailDelete'] = 'Seiten-Thumbnail l&ouml;schen';
-$langFile['btn_pageThumbnailDelete_title'] = 'Thumbnail von dieser Seite l&ouml;schen';
-$langFile['btn_startPage_title'] = 'Diese Seite als Startseite festlegen';
+$langFile['btn_pageThumbnailDelete_tip'] = 'Thumbnail von dieser Seite l&ouml;schen';
+$langFile['btn_startPage_tip'] = 'Diese Seite als Startseite festlegen';
 $langFile['btn_startPage_set'] = 'Diese Seite ist die Startseite';
 
 // --- other
 $langFile['btn_fastUp'] = 'Nach oben';
 $langFile['date_int'] = 'JJJJ-MM-TT';
 $langFile['date_eu'] = 'TT.MM.JJJJ';
-$langFile['categories_nocategories_name'] = 'Seiten';
-$langFile['categories_nocategories_hint'] = 'ohne Kategorie';
+$langFile['categories_noncategory_name'] = 'Seiten';
+$langFile['categories_noncategory_tip'] = 'Seiten ohne Kategorie';
 $langFile['text_example'] = 'Beispiel';
 
 /* ----------------------------------------------------------------------------------------------
@@ -310,7 +310,6 @@ $langFile['sortablePageList_sortOrder_manuell'] = 'manuell sortiert';
 $langFile['sortablePageList_sortOrder_date'] = 'nach Datum sortiert';
 
 $langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
-$langFile['sortablePageList_functions_deletePage'] = 'Seite l&ouml;schen';
 
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Status f&uuml;r Seite zu &auml;ndern.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';

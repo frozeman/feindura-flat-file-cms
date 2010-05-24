@@ -35,7 +35,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = ' hidden';
     
     echo '<div class="sidebarMenu fixed'.$hidden.'">
-    <div class="top brown"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['categories_nocategories_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_nocategories_name'].'::'.$langFile['categories_nocategories_hint'].'">&nbsp;</a></div>
+    <div class="top brown"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['categories_noncategory_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_noncategory_tip'].'::">&nbsp;</a></div>
     <div class="content brown">
       <ul class="verticalButtons">';
             

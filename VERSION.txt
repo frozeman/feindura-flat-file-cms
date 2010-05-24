@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 231
+Build 232
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 232: started translating to english
   build 231: fixes in language file; add getStylesByPriority() and setStylesByPriority()
   build 230: add CKEditor 3.2.2; fixes in language file; fixes in icon position of .block h1
   build 229: small changes in language
@@ -58,130 +59,130 @@ ChangeLog:
   build 198: changed createdBy
   build 197: small fixes on startPage icon in listPages.php;
   build 196: fix in createTitle() and loadPagesByType()
-	build 195: editFiles() has now parameter $exluded, for file and dir exclusion
-	build 194: removed the id from the lisPages content Blocks header and is now only visible if you go with your mouse over the category name
-	build 193: changed tween time of the listPage functions; fixed double click issue on content slide div
-	build 192: removed loadPages() and readPage() from the feindura class, now only in generalFunctions class; documentation for feindura class almost finished
-	build 191: fixes in publicCategory()
-	build 190: small fixes in category status in listPages.php; small fixes in loadPagesByType()
-	build 189: changed prevNextPage() to loadPrevNextPage() and included there the whole page loading process;
-	build 188: cleanup of feindura.class.php
-	build 187: removed titleTag and title attributes; title will now returned plain without tags
-	build 186: changed getCharacterNumber() to getRealCharacterNumber() and add description
-	build 185: small fixes in setStoredPages()
-	build 184: fixes in editor.php with page saving, because of the adding of $storedPages and $storedPageIds properties; add setStoredPages() to the savePage method in generalFunctions.class.php
-	build 183: changed variable $categories in $categoryConfig and fixes with create new category in pagesSetup.php
-	build 182: sortdate changed to pagedate and sortbydate to sortbypagedate
-	build 181: moved loadPages(), $storedPageIds, $storedPages, getStoredPages..() to generalFunctions(); moved sortPages messageBox output to the rightSidebar; fixed tootlTip  z-index in footer
-	build 180: feindura.class.php: some fixes in loadPages() and loadPagesByType()
-	build 179: feinduraPages.class.php: $showError property renamed in $pageShowError
-	build 178: generatePages(): changes in return value
-	build 177: beta 2 feindura.class.php and feinduraPages.class.php removed content properties, add page properties; removed ..before and ..after in title and menu properties; public functions never ask for catgory ID if page ID is given
+  build 195: editFiles() has now parameter $exluded, for file and dir exclusion
+  build 194: removed the id from the lisPages content Blocks header and is now only visible if you go with your mouse over the category name
+  build 193: changed tween time of the listPage functions; fixed double click issue on content slide div
+  build 192: removed loadPages() and readPage() from the feindura class, now only in generalFunctions class; documentation for feindura class almost finished
+  build 191: fixes in publicCategory()
+  build 190: small fixes in category status in listPages.php; small fixes in loadPagesByType()
+  build 189: changed prevNextPage() to loadPrevNextPage() and included there the whole page loading process;
+  build 188: cleanup of feindura.class.php
+  build 187: removed titleTag and title attributes; title will now returned plain without tags
+  build 186: changed getCharacterNumber() to getRealCharacterNumber() and add description
+  build 185: small fixes in setStoredPages()
+  build 184: fixes in editor.php with page saving, because of the adding of $storedPages and $storedPageIds properties; add setStoredPages() to the savePage method in generalFunctions.class.php
+  build 183: changed variable $categories in $categoryConfig and fixes with create new category in pagesSetup.php
+  build 182: sortdate changed to pagedate and sortbydate to sortbypagedate
+  build 181: moved loadPages(), $storedPageIds, $storedPages, getStoredPages..() to generalFunctions(); moved sortPages messageBox output to the rightSidebar; fixed tootlTip  z-index in footer
+  build 180: feindura.class.php: some fixes in loadPages() and loadPagesByType()
+  build 179: feinduraPages.class.php: $showError property renamed in $pageShowError
+  build 178: generatePages(): changes in return value
+  build 177: beta 2 feindura.class.php and feinduraPages.class.php removed content properties, add page properties; removed ..before and ..after in title and menu properties; public functions never ask for catgory ID if page ID is given
 
 1.0 beta 1	
-	build 176: sort.functions.php: fixes in category sort
-	build 175: changes in README.txt VERSION.txt and LICENSE.txt
-	build 174: removed global from classes and replaced with the superglobal $GLOBAL['']
-	build 173: startet to change feindura.class.php and add feinduraPages.class.php
-	build 172: small changes statisticFunctions class 
-	build 171: removed frontendFunctions.class.php; statisticFunctions class extends now generalFunctions class
-	build 170: feindura.class.php changed $page and $category property standard value from "false" to "null"; add some doxygen comments
-	build 169: changed the index of the storedPageIds property, the array structure is now array(array('page' => 0, 'category' => '0'));
-	build 168: savePage is now saving in the style of the admin.config.php and category.config.php; changed $category['tags'] -> $category['showtags'] and $category['sortdate'] -> $category['showsortdate']
-	build 167: changed name "categorySetup" in "pageSetup"
-	build 166: add adminMenu button for pluginSetup
-	build 165: categorySetup.php: moved thumbnail config from adminSetup.php and split page config and non category pages config
-	build 164: setup.js: fixed slide in of advanced category config in IE 7, now hides when has class hidden
-	build 163: setup.js: fixed submitAnchor() problem in IE
-	build 162: editor.php: pageContent['content'] get converted with htmlspecialchars before put into the html code, ckeditor handles it right :-)
-	build 161: license.txt and version.txt changed in LICENSE.txt and VERSION.txt
-	build 160: add CKEditor 3.2.1 build 5372 and add to git
-	build 159: editor sortdate is now an selection instead of an input field
-	build 158: fixed slide advancedCategorySetup in IE7
-	build 157: !!! TOOLTIPS IN IE DEACTIVATED, WAITING FOR mootools UPDATE !!!
-	build 156: add saveAdminConfig() to backend.functions.php; moved page settings to categorySetup.php; changeg saveprcess of the admin.config.php; add input field in editFiles()
-	build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off 
-	build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
-	build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png
-	build 152: editFiles() delete button position fixed with float: left;
-	build 151: userSetup.php fixed start session issue
-	build 150: even if config folder is missing there are now no errors thrown
-	build 149: reorganized all *.include.php
-	build 148: add pluginSetup.php
-	build 147: changed statiostic file names to *.statistic.php
-	build 146: changed config file names to *.config.php
-	build 145: add deleteEditFiles.php, editFiles() are now deleteable
-	build 144: started to build pluginSetup.php, made changes in $_POST['send'] in the forms, no contains the form name (before only true), fixes in editFiles()
-	build 143: removed old mootools.js and add the new to git
-	build 142: listPages.php: dont show toolTip if there is no "lastsaveauthor" for the page
-	build 141: content.css picture of blockSpacer and bottom-margin changed
-	build 140: adminConfig['savePath'] is now an absolute path
-	build 139: add the thirdparty ckfinder config.php and the customformelements folder to git
-	build 138: add "lastsaveauthor" to the pages variables and changed "savedate" in "lastsavedate", made the content box shadows lighter
-	build 137: changed version to beta status
-	build 136: statisticFunctions.class.php: change $number with floatval() before make formatHighNumber(), changed all file permissions in linux to 755
-	build 135: error_reporting(E_ALL) is now only in the backend.include.php, add is_dir($fullFolder) check in readFolder()
-	build 134: backend.functions.php: editFiles() edit files even in subfolders, and there are now sorted naturally in the file selection
-	build 133: backend.functions.php: add readFolderRecursive() annd modified createStyleTags()
-	build 132: adminSetup.php: check if files/folders are readable go now recursive trough folders and check them
-	build 131: add stylefile files/folder to the check read/write list
-	build 130: leftSidbar.loader.php: add changelog link in the admin setup sidebar
-	build 129: adminSetup.php: enter key mode in html editor is now a selection instead of an textfield
-	build 128: add ckeditor 3.2.1 build 5302, and ckfinder 1.4.3, and fixed htmlEditorStyles.js link in editor.php
-	build 127: feindura.class.php: category will also be set if there is setStartPage allowed
-	build 126: deletePage.php: moved the ok button after deleting in the center
-	build 125: toolTips.js: removed arrow like corner of the toolTip an repositioned the toolTip box
-	build 124: editor.php: add category selection at creating a page
-	build 123: editor.php: fixed thumbnail resize bug (small thumbnail were resized to 200px)
-	build 122: pageThumbnailUpload.php: fixed thumbsize none ratio bug
-	build 121: fixed error text issue, now returns false if showError == false; title renamed in showTitle; content renamed in showContent; error renamed in showError
-	build 120: changed text and var: sprachdateien in websitefiles
-	build 119: removed toolTip from editor.php show max/min time visit
-	build 118: GoogleChrome-Frame integrated
-	build 117: changed speaking url folders from from /pages/ to /page/
-	build 116: edit tags, can now be disabled in the categorySetup.php
-	build 115: fixed UTF-8 issue, every form is now only set to UTF-8
-	build 114: feindura.class.php: createMenu() if no menuTag als menuBefore and MenuBetween and menuAfter are integrated (removed line 625)
-	build 113: upload.php: add filesize error
-	build 112: backend.functions.php: loadCssFiles() fixes
-	build 111: generalFunctions.class.php: add getCharacterNumber(), and renamed: general.class.php in generalFunctions.class.php, statistic.class.php in statisticFunctions.class.php and frontend.class.php in frontendFunctions.class.php
-	build 110: backend.functions.php: add readFolder() and loadCssFiles()
-	build 109: leftSidebar.loader.php: #top anchor add in categorySetup
-	build 108: CKFinder 1.4.2 add
-	build 107: backend.functions.php: editFilesInFolders() on saving new file, it opens this file after saving
-	build 106: backend.functions.php: delete filetype of editFilesInFolders() if there is one set, to prevent double filetype
-	build 105: loading.js: fixed small IE issue, asks now if the loading box container  is not null
-	build 104: feindura.class.php: textShorten, now adds 6 chars if ther is a speacial char like "&auml;"
-	build 103: ckeditor 3.1 add (build 4937)
-	build 102: backend.functions.php: saveWebseiteSetup() htmlentities add UTF-8 coding
-	build 101: feindura.class.php: load de.frontend.php language file, checks before if file exists
-	build 100: feindura.class.php: PROPERTY ->startPage add;
-	build 99: categorySetup.php: anchor now also on category up/down; if saved with advancedConfig open it stays open; ALL inputs are now save to insert " or ' (" will be deleted and ' escaped)
-	build 98: editor.php: submitAnchor add to the submit buttons;
-	build 97: editor.php: embeded CKEditor 3.1, now has also config.bodyId and config.bodyClass, fixed some editor size issues
-	build 96: feindura.class.php: listPages RETURNs an empty Array if there are no Pages
-	build 95: backend.functions.php: editFilesInFolders() fixed new file input issue (input doesn't resize)
-	build 94: feindura.class.php: all methods ONLY RETURN values now, and DON'T echo them directly in the methods!
-	build 93: feindura.class.php: createLink() SHOWs now also the link and not only returns them
-	build 92: add statisticSetup.php -> can delete statistics and setup them; fixed some issues; old IE show now a info to update
-	build 91: loading box now loaded at the start of the page
-	build 90: sort user on home alphabetical; change padding in the table.td.coloredList
-	build 89: add seperate browser statistic for IE 1-6
-	build 88: fixed some safari ajax problems (needs a space at the beginning of every ajax loaded page); corrected the de.backend.php
-	build 87: sortbydate deactivates the sorting of the category; some fixes in the toolTip -> showSortDate
-	build 86: task log logs also the page sortings now
-	build 85: if there is an thumbnail size ratio set, then dont show the height or width in the thumbnail upload
-	build 84: createTagCloud: tags link to the searchpage with the tag as searchword
-	build 83: sidebarMenu: reloads if pages are sorted; categories in listpages can now be opend without javascript
-	build 82: layout.css: ck_editor dialog background set to the one in from the windowBox to: #cke_dialog_background_cover
-	build 81: statistic.class: taskLog shows also the user now
-	build 80: adminSetup/categorySetup: add size-ratio for the pageThumbnail 
-	build 79: ajax.js: with click on a category in the leftSidebar Menu a ajax request loads the leftSideBar.loader.php new, with new GET vars
-	build 78: adminSetup: warning add to Speaking URLs
-	build 77: general.class: speaking url are now lower-case
-	build 76: statistics.class: dont save referrer with the own url  in it
-	build 75: add searchword cloud on the overview page
-	build 74: slide in the non-category if empty
+  build 176: sort.functions.php: fixes in category sort
+  build 175: changes in README.txt VERSION.txt and LICENSE.txt
+  build 174: removed global from classes and replaced with the superglobal $GLOBAL['']
+  build 173: startet to change feindura.class.php and add feinduraPages.class.php
+  build 172: small changes statisticFunctions class 
+  build 171: removed frontendFunctions.class.php; statisticFunctions class extends now generalFunctions class
+  build 170: feindura.class.php changed $page and $category property standard value from "false" to "null"; add some doxygen comments
+  build 169: changed the index of the storedPageIds property, the array structure is now array(array('page' => 0, 'category' => '0'));
+  build 168: savePage is now saving in the style of the admin.config.php and category.config.php; changed $category['tags'] -> $category['showtags'] and $category['sortdate'] -> $category['showsortdate']
+  build 167: changed name "categorySetup" in "pageSetup"
+  build 166: add adminMenu button for pluginSetup
+  build 165: categorySetup.php: moved thumbnail config from adminSetup.php and split page config and non category pages config
+  build 164: setup.js: fixed slide in of advanced category config in IE 7, now hides when has class hidden
+  build 163: setup.js: fixed submitAnchor() problem in IE
+  build 162: editor.php: pageContent['content'] get converted with htmlspecialchars before put into the html code, ckeditor handles it right :-)
+  build 161: license.txt and version.txt changed in LICENSE.txt and VERSION.txt
+  build 160: add CKEditor 3.2.1 build 5372 and add to git
+  build 159: editor sortdate is now an selection instead of an input field
+  build 158: fixed slide advancedCategorySetup in IE7
+  build 157: !!! TOOLTIPS IN IE DEACTIVATED, WAITING FOR mootools UPDATE !!!
+  build 156: add saveAdminConfig() to backend.functions.php; moved page settings to categorySetup.php; changeg saveprcess of the admin.config.php; add input field in editFiles()
+  build 155: adminSetup.php: add tags and plugins on/off to page settings, categorySetup.php: add plugins on/off 
+  build 154: pluginSetup.php: write plugin config add, forms.css: submit and cancel position changed
+  build 153: editor.css changed .pageHead to .open and changed the name of content_block_pageHead.png -> content_block_open.png
+  build 152: editFiles() delete button position fixed with float: left;
+  build 151: userSetup.php fixed start session issue
+  build 150: even if config folder is missing there are now no errors thrown
+  build 149: reorganized all *.include.php
+  build 148: add pluginSetup.php
+  build 147: changed statiostic file names to *.statistic.php
+  build 146: changed config file names to *.config.php
+  build 145: add deleteEditFiles.php, editFiles() are now deleteable
+  build 144: started to build pluginSetup.php, made changes in $_POST['send'] in the forms, no contains the form name (before only true), fixes in editFiles()
+  build 143: removed old mootools.js and add the new to git
+  build 142: listPages.php: dont show toolTip if there is no "lastsaveauthor" for the page
+  build 141: content.css picture of blockSpacer and bottom-margin changed
+  build 140: adminConfig['savePath'] is now an absolute path
+  build 139: add the thirdparty ckfinder config.php and the customformelements folder to git
+  build 138: add "lastsaveauthor" to the pages variables and changed "savedate" in "lastsavedate", made the content box shadows lighter
+  build 137: changed version to beta status
+  build 136: statisticFunctions.class.php: change $number with floatval() before make formatHighNumber(), changed all file permissions in linux to 755
+  build 135: error_reporting(E_ALL) is now only in the backend.include.php, add is_dir($fullFolder) check in readFolder()
+  build 134: backend.functions.php: editFiles() edit files even in subfolders, and there are now sorted naturally in the file selection
+  build 133: backend.functions.php: add readFolderRecursive() annd modified createStyleTags()
+  build 132: adminSetup.php: check if files/folders are readable go now recursive trough folders and check them
+  build 131: add stylefile files/folder to the check read/write list
+  build 130: leftSidbar.loader.php: add changelog link in the admin setup sidebar
+  build 129: adminSetup.php: enter key mode in html editor is now a selection instead of an textfield
+  build 128: add ckeditor 3.2.1 build 5302, and ckfinder 1.4.3, and fixed htmlEditorStyles.js link in editor.php
+  build 127: feindura.class.php: category will also be set if there is setStartPage allowed
+  build 126: deletePage.php: moved the ok button after deleting in the center
+  build 125: toolTips.js: removed arrow like corner of the toolTip an repositioned the toolTip box
+  build 124: editor.php: add category selection at creating a page
+  build 123: editor.php: fixed thumbnail resize bug (small thumbnail were resized to 200px)
+  build 122: pageThumbnailUpload.php: fixed thumbsize none ratio bug
+  build 121: fixed error text issue, now returns false if showError == false; title renamed in showTitle; content renamed in showContent; error renamed in showError
+  build 120: changed text and var: sprachdateien in websitefiles
+  build 119: removed toolTip from editor.php show max/min time visit
+  build 118: GoogleChrome-Frame integrated
+  build 117: changed speaking url folders from from /pages/ to /page/
+  build 116: edit tags, can now be disabled in the categorySetup.php
+  build 115: fixed UTF-8 issue, every form is now only set to UTF-8
+  build 114: feindura.class.php: createMenu() if no menuTag als menuBefore and MenuBetween and menuAfter are integrated (removed line 625)
+  build 113: upload.php: add filesize error
+  build 112: backend.functions.php: loadCssFiles() fixes
+  build 111: generalFunctions.class.php: add getCharacterNumber(), and renamed: general.class.php in generalFunctions.class.php, statistic.class.php in statisticFunctions.class.php and frontend.class.php in frontendFunctions.class.php
+  build 110: backend.functions.php: add readFolder() and loadCssFiles()
+  build 109: leftSidebar.loader.php: #top anchor add in categorySetup
+  build 108: CKFinder 1.4.2 add
+  build 107: backend.functions.php: editFilesInFolders() on saving new file, it opens this file after saving
+  build 106: backend.functions.php: delete filetype of editFilesInFolders() if there is one set, to prevent double filetype
+  build 105: loading.js: fixed small IE issue, asks now if the loading box container  is not null
+  build 104: feindura.class.php: textShorten, now adds 6 chars if ther is a speacial char like "&auml;"
+  build 103: ckeditor 3.1 add (build 4937)
+  build 102: backend.functions.php: saveWebseiteSetup() htmlentities add UTF-8 coding
+  build 101: feindura.class.php: load de.frontend.php language file, checks before if file exists
+  build 100: feindura.class.php: PROPERTY ->startPage add;
+  build 99: categorySetup.php: anchor now also on category up/down; if saved with advancedConfig open it stays open; ALL inputs are now save to insert " or ' (" will be deleted and ' escaped)
+  build 98: editor.php: submitAnchor add to the submit buttons;
+  build 97: editor.php: embeded CKEditor 3.1, now has also config.bodyId and config.bodyClass, fixed some editor size issues
+  build 96: feindura.class.php: listPages RETURNs an empty Array if there are no Pages
+  build 95: backend.functions.php: editFilesInFolders() fixed new file input issue (input doesn't resize)
+  build 94: feindura.class.php: all methods ONLY RETURN values now, and DON'T echo them directly in the methods!
+  build 93: feindura.class.php: createLink() SHOWs now also the link and not only returns them
+  build 92: add statisticSetup.php -> can delete statistics and setup them; fixed some issues; old IE show now a info to update
+  build 91: loading box now loaded at the start of the page
+  build 90: sort user on home alphabetical; change padding in the table.td.coloredList
+  build 89: add seperate browser statistic for IE 1-6
+  build 88: fixed some safari ajax problems (needs a space at the beginning of every ajax loaded page); corrected the de.backend.php
+  build 87: sortbydate deactivates the sorting of the category; some fixes in the toolTip -> showSortDate
+  build 86: task log logs also the page sortings now
+  build 85: if there is an thumbnail size ratio set, then dont show the height or width in the thumbnail upload
+  build 84: createTagCloud: tags link to the searchpage with the tag as searchword
+  build 83: sidebarMenu: reloads if pages are sorted; categories in listpages can now be opend without javascript
+  build 82: layout.css: ck_editor dialog background set to the one in from the windowBox to: #cke_dialog_background_cover
+  build 81: statistic.class: taskLog shows also the user now
+  build 80: adminSetup/categorySetup: add size-ratio for the pageThumbnail 
+  build 79: ajax.js: with click on a category in the leftSidebar Menu a ajax request loads the leftSideBar.loader.php new, with new GET vars
+  build 78: adminSetup: warning add to Speaking URLs
+  build 77: general.class: speaking url are now lower-case
+  build 76: statistics.class: dont save referrer with the own url  in it
+  build 75: add searchword cloud on the overview page
+  build 74: slide in the non-category if empty
 
 1.0 alpha
 	-> name changed from FrozeMentSystem to feindura - Flat File Content Management System

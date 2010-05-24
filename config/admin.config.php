@@ -3,7 +3,7 @@
 $adminConfig['url'] =              'localhost';
 $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura10/_page/';
-$adminConfig['uploadPath'] =       '/_feindura.org/upload/';
+$adminConfig['uploadPath'] =       '/_feindura10/_upload/';
 $adminConfig['websitefilesPath'] = '/_feindura10/library/lang/';
 $adminConfig['stylesheetPath'] =   '/_feindura10/library/style/';
 $adminConfig['dateFormat'] =       'eu';

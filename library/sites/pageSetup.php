@@ -290,7 +290,7 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
         <input id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?> />
         <?php echo $langFile['thumbSize_unit']; ?>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_x_tip']; ?>">
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_x_tip']; ?>::">
           <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?> />
           <label for="ratioX"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
         </span>
@@ -318,7 +318,7 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
         <input id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?> />
         <?php echo $langFile['thumbSize_unit']; ?>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_y_tip']; ?>">
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_y_tip']; ?>::">
           <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?> />
           <label for="ratioY"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
         </span>
@@ -340,7 +340,7 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       <tr><td class="left">
       <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?> />
       </td><td class="right">
-        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_noRatio_tip']; ?>">
+        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_noRatio_tip']; ?>::">
           <label for="noRatio"> <?php echo $langFile['thumbnail_ratio_noRatio']; ?></label>
         </span>
       </td></tr>
