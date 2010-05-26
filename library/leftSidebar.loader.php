@@ -21,6 +21,9 @@ require_once(dirname(__FILE__)."/backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
+// to activate toolTips after reloading with ajax (dowesn't work)
+echo '<script type="text/javascript" src="javascript/toolTips.js"></script>';
+
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
 // or if $_GET['site'] == 'pages'

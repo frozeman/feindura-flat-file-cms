@@ -211,19 +211,18 @@ $langFile['date_eu'] = 'DD.MM.YYYY';
 $langFile['categories_noncategory_name'] = 'Pages';
 $langFile['categories_noncategory_tip'] = 'Pages without a category';
 $langFile['text_example'] = 'Example';
-
 /* ----------------------------------------------------------------------------------------------
 * ---------- ERROR TEXTs
 */
 
-$langFile['error_save_settings'] = '<b>Die Einstellungen konnten nicht gespeichert werden.</b>';
-$langFile['error_save_file'] = '<br /><br />Bitte &uuml;berpr&uuml;fe die Schreibrechte der Datei: ';
+$langFile['error_save_settings'] = '<b>The settings could not be saved</b>';
+$langFile['error_save_file'] = '<br /><br />Please check the  read- and write permissions of the file: ';
 
-$langFile['error_read_folder_part1'] = '<br /><br />Bitte &uuml;berpr&uuml;fe die Leserechte des &quot;';
-$langFile['error_save_folder_part1'] = '<br /><br />Bitte &uuml;berpr&uuml;fe die Schreibrechte des &quot;';
+$langFile['error_read_folder_part1'] = '<br /><br />Please check the read permissions of the &quot;';
+$langFile['error_save_folder_part1'] = '<br /><br />Please check the write permissions of the &quot;';
 
-$langFile['error_folder_end'] = '&quot; Ordners dessen Unterordner und Dateien.';
-$langFile['error_folderDatabase_end'] = '&quot; Ordners dessen Unterordner und Dateien oder die Datenbank.';
+$langFile['error_folder_end'] = '&quot; Folder, it\'s subfolders and files.';
+$langFile['error_folderDatabase_end'] = '&quot; Folder, it\'s subfolders and files.'; // (or the database)
 
 
 
@@ -231,31 +230,31 @@ $langFile['error_folderDatabase_end'] = '&quot; Ordners dessen Unterordner und D
 * ---------- WARNINGs
 */
 
-$langFile['warning_startPageWarning_h1'] = 'Die Startseite ist nicht festgelegt!';
-$langFile['warning_startPageWarning'] = 'Bitte lege eine Seite als Startseite fest.<br />Gehe zu <a href="?site=pages">'.$langFile['btn_pages'].'</a> und klicke bei der gew&uuml;nschten Seite auf das <span class="startPageIcon"></span> Symbol';
+$langFile['warning_startPageWarning_h1'] = 'The start page is not set!';
+$langFile['warning_startPageWarning'] = 'Please set a page as start page.<br />Go to <a href="?site=pages">'.$langFile['btn_pages'].'</a> and click on the <span class="startPageIcon"></span> icon on the desired page.';
 
 
-$langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> wurde noch nicht konfiguriert!';
-$langFile['warning_fmsConfWarning'] = 'Der <i>Basispfad</i> stimmt nicht mit dem in den Administrator-Einstellungen angegebenen Pfad &uuml;berein.<br />
-Bitte gehe in die <a href="?site=adminSetup">Administrator-Einstellungen</a> und konfiguriere dein <span class="logoname">fein<span>dura</span></span> CMS';
+$langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> is not configurated!';
+$langFile['warning_fmsConfWarning'] = 'The <i>base path</i> of the CMS doesn\'t match the one in the administrator-settings.<br />
+Please go to the <a href="?site=adminSetup">administrator-settings</a> and configure your <span class="logoname">fein<span>dura</span></span> CMS';
 
-$langFile['warning_jsWarning_h1'] = 'Bitte aktiviere Javascript';
+$langFile['warning_jsWarning_h1'] = 'Please activate Javascript';
 // no <p> tag on the start and the end, its already in the home.php
-$langFile['warning_jsWarning'] = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu k&ouml;nnen, muss Javascript aktiviert sein!</strong></p>
-<h2>im Firefox</h2>
-<p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Einstellungen&quot;. Unter Inhalt aktivierst du den Punkt &quot;JavaScript aktivieren&quot; und best&auml;tigst dann mit OK.</p>
-<h2>im Internet Explorer</h2>
-<p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Internetoptionen&quot;.<br />
-Dort klickst du unter Sicherheit entweder auf &quot;Standardstufe&quot;, oder w&auml;hle &quot;Stufe anpassen&quot; und aktiviere dann unter Scripting den Punkt &quot;Active Scripting Aktivieren&quot;. Best&auml;tige mit OK.</p>
-<h2>im Safari</h2>
-<p>Klicke in der obersten Men&uuml;leiste auf das Symbol ganz rechts, w&auml;hle &quot;Einstellungen&quot;. Unter &quot;Sicherheit&quot; aktivierst du den Punkt &quot;JavaScript aktivieren&quot; und klicke zum best&auml;tigen auf OK.</p>
-<h2>im Mozilla</h2>
-<p>Klicke in der obersten Men&uuml;leiste auf &quot;Edit&quot; &gt; &quot;Preferences&quot;. Unter dem Punkt &quot;Advanced&quot; &gt; &quot;Scripts &amp; Plugins&quot; kreuze &quot;Navigator&quot; an. Best&auml;tige mit OK.</p>
-<h2>im Opera</h2>
-<p>Klicke in der obersten Men&uuml;leiste auf &quot;Extras&quot; &gt; &quot;Einstellungen&quot;. Unter &quot;Erweitert&quot; &gt; &quot;Inhalte&quot; setze ein Haken bei &quot;JavaScript aktivieren&quot; und klicke dann OK.';
+$langFile['warning_jsWarning'] = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong></p>
+<h2>in Firefox</h2>
+<p>Click on &quot;Edit&quot; &gt; &quot;Preferences&quot; and under content chedck the box &quot;activate JavaScript&quot; and finish with OK.</p>
+<h2>in Internet Explorer</h2>
+<p>Click on &quot;Extras&quot; &gt; &quot;Internetoptionens&quot;.<br />
+There you set under &quote;Security&quote; &gt; &quote;Standardlevel&quote; choose &quot;adjust Level&quot; and activate under &quote;Scripting&quote; the piont &quot;activate Active Scripting&quot;.</p>
+<h2>in Safari</h2>
+<p>Click in the top menu bar on the icon on the right, choose &quot;Preferences&quot;. Activate under &quot;Security&quot; the point &quot;activate JavaScript&quot; and click OK to finish.</p>
+<h2>in Mozilla</h2>
+<p>Click on &quot;Edit&quot; &gt; &quot;Preferences&quot;. Under the point &quot;Advanced&quot; &gt; &quot;Scripts &amp; Plugins&quot; check &quot;Navigator&quot; and finish with OK.</p>
+<h2>in Opera</h2>
+<p>Click on &quot;Extras&quot; &gt; &quot;Preferences&quot;. Under &quot;Advanced&quot; &gt; &quot;Content&quot; check &quot;activate JavaScript&quot; and click OK to finsih.';
 
-$langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> ist nicht f&uuml;r &auml;ltere Versionen des Internet Explorers ausgelegt';
-$langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollst&auml;ndig nutzen zu k&ouml;nnen ist mindestens der Internet Explorer 7 n&ouml;tig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> f&uuml;r den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox Browser</a> herunter.';
+$langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
+$langFile['warning_ieOld'] = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 7.<br /><br />Please install a newer version of the Internet Explorer,<br /> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br />or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox Browser</a>.';
 
 /* ----------------------------------------------------------------------------------------------
 * leftSidebar.loader.php
@@ -263,76 +262,76 @@ $langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span
 
 // ---------- QUICKMENU
 
-$langFile['btn_quickmenu_categories'] = 'Kategorien';
-$langFile['btn_quickmenu_pages'] = 'Seiten von';
+$langFile['btn_quickmenu_categories'] = 'Categories';
+$langFile['btn_quickmenu_pages'] = 'Pages of';
 
 /* ----------------------------------------------------------------------------------------------
 * home.php
 */
 
 // ---------- HOME
-$langFile['home_userInfo_h1'] = 'Benutzer Information';
+$langFile['home_userInfo_h1'] = 'User information';
 
-$langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span><br />dem Content Management System deiner Webseite.';
-$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flatfiles::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flatfiles</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['home_welcome_h1'] = 'Welcome in <span class="logoname">fein<span>dura</span></span><br />the Content Management System of your website.';
+$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
 
-$langFile['home_statistic_h1'] = 'Webseiten-Statistik';
+$langFile['home_statistic_h1'] = 'Website-Statistic';
 
-$langFile['home_user_h1'] = 'Benutzer';
-$langFile['home_taskLog_h1'] = 'letzte T&auml;tigkeiten';
-$langFile['home_taskLog_nolog'] = 'keine';
+$langFile['home_user_h1'] = 'User';
+$langFile['home_taskLog_h1'] = 'last activities';
+$langFile['home_taskLog_nolog'] = 'none';
 
-$langFile['home_h1_article'] = 'die';
-$langFile['home_mostVisitedPages_h1'] = 'meist besuchten Seiten';
-$langFile['home_lastEditedPages_h1'] = 'zuletzt bearbeitete Seiten';
-$langFile['home_longestViewedPages_h1'] = 'am l&auml;ngsten betrachteten Seiten';
+$langFile['home_h1_article'] = 'the';
+$langFile['home_mostVisitedPages_h1'] = 'most visted pages';
+$langFile['home_lastEditedPages_h1'] = 'last visited pages';
+$langFile['home_longestViewedPages_h1'] = 'longest viewed pages';
 
-$langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
-$langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese Seite gekommen.';
-$langFile['home_novisitors'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
+$langFile['home_refererLog_h1'] = 'Websites from which visitors came';
+$langFile['home_refererLog_nolog'] = 'There are no visitors which came from other websites yet.';
+$langFile['home_novisitors'] = 'There are no visitors yet';
 
 /* ----------------------------------------------------------------------------------------------
 * listPages.php
 */
 
 // ---------- PAGES SORTABLE LIST
-$langFile['sortablePageList_h1'] = 'Der Inhalt deiner Webseite';
+$langFile['sortablePageList_h1'] = 'The content of your website';
 $langFile['sortablePageList_headText1'] = '';
-$langFile['sortablePageList_headText2'] = 'zuletzt bearbeitet';
-$langFile['sortablePageList_headText3'] = 'Besucher';
+$langFile['sortablePageList_headText2'] = 'last edited';
+$langFile['sortablePageList_headText3'] = 'Visitors';
 $langFile['sortablePageList_headText4'] = 'Status';
-$langFile['sortablePageList_headText5'] = 'Funktionen';
+$langFile['sortablePageList_headText5'] = 'Functions';
 
-$langFile['sortablePageList_pagedate'] = 'Seiten-Datum';
+$langFile['sortablePageList_pagedate'] = 'Page date';
 $langFile['sortablePageList_tags'] = 'Tags';
 
-$langFile['sortablePageList_sortOrder_manuell'] = 'manuell sortiert';
-$langFile['sortablePageList_sortOrder_date'] = 'nach Datum sortiert';
+$langFile['sortablePageList_sortOrder_manuell'] = 'manuell sorting';
+$langFile['sortablePageList_sortOrder_date'] = 'sort by page date';
 
-$langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
+$langFile['sortablePageList_functions_editPage'] = 'Edit page';
 
-$langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Status f&uuml;r Seite zu &auml;ndern.';
-$langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';
+$langFile['sortablePageList_changeStatus_linkPage'] = 'Click here to change the status of the page.';
+$langFile['sortablePageList_changeStatus_linkCategory'] = 'Click here to change the status of the category.';
 
-$langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>'.$langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;';
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['sortablePageList_setStartPage_error_save'] = '<b>Could not set the start page.</b>'.$langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;';
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
-$langFile['sortablePageList_info'] = 'Du kannst die <b>Seiten-Anordnung</b> per <b>Drag and Drop</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
-$langFile['sortablePageList_save'] = 'Speichere die neue Anordnung ...';
-$langFile['sortablePageList_save_finished'] = 'Neu Anordnung erfolgreich gespeichert!';
-$langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_error_read'] = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_error_move'] = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_categoryEmpty'] = 'Keine Seiten vorhanden';
+$langFile['sortablePageList_info'] = 'You can change the <b>sorting</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
+$langFile['sortablePageList_save'] = 'Save new sorting ...';
+$langFile['sortablePageList_save_finished'] = 'New sorting successfully saved!';
+$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_categoryEmpty'] = 'No pages available';
 
 // ---------- FORMULAR
-$langFile['form_submit'] = 'Speichern';
-$langFile['form_cancel'] = 'Alle Eingaben l&ouml;schen';
+$langFile['form_submit'] = 'Save';
+$langFile['form_cancel'] = 'Reset all input';
 
 // ---------- ERRORWINDOW
-$langFile['form_errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
+$langFile['form_errorWindow_h1'] = 'An error occured!';
 
 
 /* ----------------------------------------------------------------------------------------------
@@ -340,109 +339,110 @@ $langFile['form_errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
 */
 
 // ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
-$langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> Version';
-$langFile['adminSetup_phpVersion'] = 'PHP Version';
+$langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> version';
+$langFile['adminSetup_phpVersion'] = 'PHP version';
 $langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
-$langFile['adminSetup_srvRootPath'] = 'Server-Root-Pfad';
+$langFile['adminSetup_srvRootPath'] = 'Server-Root-Path';
 
-$langFile['adminSetup_error_title'] = 'Es sind Fehler aufgetreten';
-$langFile['adminSetup_error_writeAccess_tip'] = 'Bei Dateien und Verzeichnissen m&uuml;ssen die Schreibrechte auf 777 gesetzt werden.';
-//$langFile['adminSetup_writeAccess'] = 'Bei folgenden Dateien und Verzeichnissen m&uuml;ssen die Schreibrechte auf <span class="toolTip" title="Schreibrechte::Besitzer[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small][br /]Gruppen[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small][br /]&Ouml;ffentlich[br /][small]Lesen/Schreiben/Ausf&uuml;hren[/small]" style="text-decoration: underline;">777</span> gesetzt werden';
+$langFile['adminSetup_error_title'] = 'Errors occured';
+$langFile['adminSetup_error_writeAccess_tip'] = 'For files and directories have need to set the permissions to 777.';
 
-$langFile['adminSetup_error_writeAccess'] = 'ist nicht beschreibbar';
-$langFile['adminSetup_error_isFolder'] = 'ist kein Verzeichnis';
+$langFile['adminSetup_error_writeAccess'] = 'is not writeable';
+$langFile['adminSetup_error_isFolder'] = 'is not a directory';
 
 // ---------- FMS Settings
 $langFile['adminSetup_fmsSettings_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/admin.config.php';
 
-$langFile['adminSetup_fmsSettings_h1'] = 'Grund-Einstellungen';
+$langFile['adminSetup_fmsSettings_h1'] = 'Basic-Settings';
 
-$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'] = '[span class=hint]Der Pfad sollte au&szlig;erhalb des feindura Ordners liegen, wenn der feindura Ordner passwortgesch&uuml;zt ist.[/span]';
+$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'] = '[span class=hint]The path should be outside of the CMS folder, if the CMS folder is password protected.[/span]';
 
-$langFile['adminSetup_fmsSettings_field1'] = 'Webseiten URL';
-$langFile['adminSetup_fmsSettings_field1_tip'] = 'Die URL ihrer Webseite wird automatisch eingef&uuml;gt.';
-$langFile['adminSetup_fmsSettings_field1_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
-$langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Bitte speichere die Einstellungen!';
-$langFile['adminSetup_fmsSettings_field2'] = 'Hauptpfad';
-$langFile['adminSetup_fmsSettings_field2_tip'] = 'Der Hauptpfad wird automatisch ermittelt und beim Speichern der Einstellungen &uuml;bernommen.';
-$langFile['adminSetup_fmsSettings_field2_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
-$langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
-$langFile['adminSetup_fmsSettings_field3'] = 'Speicherpfad';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
-$langFile['adminSetup_fmsSettings_field4'] = 'Daten-Upload Pfad';
-$langFile['adminSetup_fmsSettings_field4_tip'] = '[b]Absoluter Pfad[/b][br /]Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /]Es werden automatisch Unterordner f&uuml;r die Dateitypen erstellt[br /](images, flash, files)[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
-$langFile['adminSetup_fmsSettings_field5'] = 'Dateipfad f&uuml;r Webseitendateien';
-$langFile['adminSetup_fmsSettings_field5_tip'] = 'Diese Dateien k&ouml;nnen verwendet werden z.B. um eine Webseite mehrsprachig zu gestalten.[br /][br /]Diese Dateien k&ouml;nnen dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werde (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
-$langFile['adminSetup_fmsSettings_field6'] = 'Dateipfad f&uuml;r Stylesheetdateien';
-$langFile['adminSetup_fmsSettings_field6_tip'] = 'Der [b]absolute Pfad[/b], in dem sich die Stylesheet-Dateien der Webseite befinden.[br /][br /]Die Stylesheet-Dateien kann man dann weiter unten oder in den Webseiten-Einstellungen bearbeiten (sollte dies in den Benutzer-Einstellungen aktiviert sein).';
-$langFile['adminSetup_fmsSettings_varName1'] = 'Seiten Variablenname';
-$langFile['adminSetup_fmsSettings_varName1_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]page[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName2'] = 'Kategorie Variablenname';
-$langFile['adminSetup_fmsSettings_varName2_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]category[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName3'] = 'Modul Variablenname';
-$langFile['adminSetup_fmsSettings_varName3_inputTip'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: &quot;[b]modul[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
-$langFile['adminSetup_fmsSettings_field7'] = 'Datumsformat';
-$langFile['adminSetup_fmsSettings_field7_tip'] = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
-$langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL Format';
-$langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URL';
-$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example/example.html';
-$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL mit Variablen';
+$langFile['adminSetup_fmsSettings_field1'] = 'Website URL';
+$langFile['adminSetup_fmsSettings_field1_tip'] = 'The URL of your website will be added automatically.';
+$langFile['adminSetup_fmsSettings_field1_inputTip'] = 'The URL will be added automatically';
+$langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Please save the settings!';
+$langFile['adminSetup_fmsSettings_field2'] = 'Base path';
+$langFile['adminSetup_fmsSettings_field2_tip'] = 'The base path will be determined automatically and saved, the first time the settings are saved.';
+$langFile['adminSetup_fmsSettings_field2_inputTip'] = 'The path will be added automatically';
+$langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Please save the settings!';
+$langFile['adminSetup_fmsSettings_field3'] = 'Save path';
+$langFile['adminSetup_fmsSettings_field3_tip'] = 'The [b]absolute path[/b] where the flat files with the page content will be saved.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field4'] = 'Upload path';
+$langFile['adminSetup_fmsSettings_field4_tip'] = '[b]Absolute path[/b][br /]Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /]Subfolders for each filetyp will be created automatically[br /](images, flash, files)[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]This files can be edited further down or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
+$langFile['adminSetup_fmsSettings_field5'] = 'File path for website files';
+$langFile['adminSetup_fmsSettings_field5_tip'] = 'This files can be usefull, for Example, to make a website multi-language.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'].$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field6'] = 'File path for stylesheets';
+$langFile['adminSetup_fmsSettings_field6_tip'] = 'The [b]absolute path[/b], where the stylesheet files of the website are.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
+$langFile['adminSetup_fmsSettings_varName_ifempty'] = 'If the field is empty the standard name for the GET-Variablen will be used: ';
+$langFile['adminSetup_fmsSettings_varName1'] = 'Page variable name';
+$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]page[/b]&quot;';
+$langFile['adminSetup_fmsSettings_varName2'] = 'Category variable name';
+$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]category[/b]&quot;';
+$langFile['adminSetup_fmsSettings_varName3'] = 'Modul variable name';
+$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
+$langFile['adminSetup_fmsSettings_varName_tip'] = 'The name of the [b]$_GET Variable[/b] which will be used to link the pages.';
+$langFile['adminSetup_fmsSettings_field7'] = 'Date format';
+$langFile['adminSetup_fmsSettings_field7_tip'] = 'Will be used in [span class=logoname]fein[span]dura[/span][/span] and the website.[br /]Can be:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
+$langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL format';
+$langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URLs';
+$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example_category/example.html';
+$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URLs with variables';
 $langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
-$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'Das URL Format, welches f&uuml;r die Seiten-Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul aktiviert ist.';
-$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gel&ouml;scht werden.[/span][br /][br /](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
+$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'The URL format, which will be used to link the pages.[br /][br /]Speaking URLs only work if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
+$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br /][br /](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
 // ---------- speaking url ERRORs
-$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URL</b> konnte nicht aktiviert werden'.$langFile['error_save_file'].'/.htaccess';
+$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> could not be activated'.$langFile['error_save_file'].'/.htaccess';
 
 // ---------- user Settings
-$langFile['adminSetup_userSettings_h1'] = 'Benutzer-Einstellungen';
-$langFile['adminSetup_userSettings_check1'] = 'Webseitendateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
-$langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien bearbeiten, in den Webseiten-Einstellungen anzeigen';
+$langFile['adminSetup_userSettings_h1'] = 'User-Settings';
+$langFile['adminSetup_userSettings_check1'] = 'Edit website files in the website-settings';
+$langFile['adminSetup_userSettings_check2'] = 'Edit stylesheet files in the website-settings';
 
-$langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> auf der <a href="?site=home">Startseite</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Diese zus&auml;tzlichen Informationen werden auf der [span class=logoname]fein[span]dura[/span][/span] Startseite angezeigt.';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
+$langFile['adminSetup_userSettings_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['btn_home'].'</a>';
+$langFile['adminSetup_userSettings_textarea1_tip'] = 'User information::This text will be shown in the '.$langFile['btn_home'].' page of [span class=logoname]fein[span]dura[/span][/span].';
+$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Let this field empty to don\'t show an information for the user';
 
 // ---------- editor Settings
-$langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
-$langFile['adminSetup_editorSettings_field1'] = 'ENTER-Taste Modus';
-$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br /&gt;&quot;';
-$langFile['adminSetup_editorSettings_field1_tip'] = 'Legt fest, welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
-$langFile['adminSetup_editorSettings_field3_inputTip'] = 'Wenn das Feld leer ist, wird keine Id verwendet.';
-$langFile['adminSetup_editorSettings_field4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
+$langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Settings';
+$langFile['adminSetup_editorSettings_field1'] = 'ENTER-Key mode';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER always generates a &quot;&lt;br /&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_tip'] = 'Sets which HTML-Tag will be add when pressing the ENTER-Key in the HTML-Editor.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
+$langFile['adminSetup_editorSettings_field3_inputTip'] = 'If empty no Id-attribute will be used.';
+$langFile['adminSetup_editorSettings_field4_inputTip'] = 'If empty no Class-attribute will be used.';
 
 // ---------- thumbnail Settings
-$langFile['adminSetup_thumbnailSettings_h1'] = 'Seiten-Thumbnail-Einstellungen';
-$langFile['adminSetup_thumbnailSettings_field3'] = 'Speicherpfad'; // Thumbnail-Speicherpfad
-$langFile['adminSetup_thumbnailSettings_field3_tip'] = 'Der Pfad oder Verzeichnisname innerhalb des Daten-Upload Pfads';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'Der Daten-Upload Pfad';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relativer Pfad::Relativ zum &quot;[b]'.$adminConfig['uploadPath'].'image/[/b]&quot; Ordner.[br /][br /]Beginnt ohne &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_h1'] = 'Page-Thumbnail-Settings';
+$langFile['adminSetup_thumbnailSettings_field3'] = 'Save path'; // Thumbnail-Speicherpfad
+$langFile['adminSetup_thumbnailSettings_field3_tip'] = 'The path inside the upload path which will be used to save the thumbanils.';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'The upload path';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relative path::Relative to the &quot;[b]'.$adminConfig['uploadPath'].'image/[/b]&quot; path.[br /][br /]Starts without &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-$langFile['adminSetup_styleFileSettings_h1'] = '&quot;Stil-Auswahl&quot; des HTML-Editors bearbeiten';
-$langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei &quot;htmlEditorStyles.xml&quot; konnte nicht gespeichert werden.</b>'.$langFile['error_save_file'];
+$langFile['adminSetup_styleFileSettings_h1'] = 'Edit &quot;Style Formatting&quot; of the HTML-Editors';
+$langFile['adminSetup_styleFileSettings_error_save'] = '<b>The &quot;htmlEditorStyles.xml&quot; file could no be saved.</b>'.$langFile['error_save_file'];
 
 // ---------- editFiles Settings
-$langFile['editFilesSettings_error_save'] = '<b>Die Datei konnte nicht gespeichert werden.</b>'.$langFile['error_save_file'];
+$langFile['editFilesSettings_error_save'] = '<b>The file could not be saved.</b>'.$langFile['error_save_file'];
 
-$langFile['editFilesSettings_h1_style'] = 'Stylesheetdateien bearbeiten';
-$langFile['editFilesSettings_h1_websitefiles'] = 'Webseitendateien bearbeiten';
-$langFile['editFilesSettings_noDir'] = 'ist kein g&uuml;ltiges Verzeichnis!';
-$langFile['editFilesSettings_chooseFile'] = 'Datei ausw&auml;hlen';
-$langFile['editFilesSettings_createFile'] = 'Neue Datei anlegen';
-$langFile['editFilesSettings_createFile_inputTip'] = 'Wenn hier ein Dateiname eingetragen wird, dann wird eine Neue Datei erstellt,[br /]und [b]die derzeit ausgew&auml;hlte Datei wird nicht gespeichert![/b]';
-$langFile['editFilesSettings_noFile'] = 'Es sind noch keine Dateien vorhanden';
+$langFile['editFilesSettings_h1_style'] = 'Edit stylesheet files';
+$langFile['editFilesSettings_h1_websitefiles'] = 'Edit website files';
+$langFile['editFilesSettings_noDir'] = 'is not a valid directory!';
+$langFile['editFilesSettings_chooseFile'] = 'Choose a file';
+$langFile['editFilesSettings_createFile'] = 'Create a new file';
+$langFile['editFilesSettings_createFile_inputTip'] = 'If you type a filename in here, a new file created and [b]the currently selected file will not be saved![/b]';
+$langFile['editFilesSettings_noFile'] = 'No files available';
 
-$langFile['editFilesSettings_deleteFile'] = 'Datei l&ouml;schen';
-$langFile['editFilesSettings_deleteFile_question_part1'] = 'Datei'; // Kategorie "test" löschen?
-$langFile['editFilesSettings_deleteFile_question_part2'] = 'wirklich l&ouml;schen?';
+$langFile['editFilesSettings_deleteFile'] = 'Delete this file';
+$langFile['editFilesSettings_deleteFile_question_part1'] = 'You really want to delete the file'; // Kategorie "test" löschen?
+$langFile['editFilesSettings_deleteFile_question_part2'] = '?';
 
-$langFile['editFilesSettings_deleteFile_question_ok'] = 'Ja bitte l&ouml;schen!';
-$langFile['editFilesSettings_deleteFile_question_cancel'] = 'Nicht l&ouml;schen';
+$langFile['editFilesSettings_deleteFile_question_ok'] = 'Yes, please delete this file';
+$langFile['editFilesSettings_deleteFile_question_cancel'] = 'No don\'t delete this file';
 
-$langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'];
+$langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Could not delete the file.</b>'.$langFile['error_save_file'];
 
 /* ----------------------------------------------------------------------------------------------
 * pageSetup.php
