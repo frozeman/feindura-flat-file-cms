@@ -25,6 +25,6 @@ echo '<h1>'.$langFile['editFilesSettings_deleteFile_question_part1'].' &quot;<sp
 
 ?>
 <div>
-<a href="<?php echo '?site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>" class="toolTip ok left" title="<?php echo $langFile['editFilesSettings_deleteFile_question_ok']; ?>::" onclick="closeWindowBox('index.php?<?php echo 'site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>');return false;">&nbsp;</a>
-<a href="?site=<?php echo $_GET['site']; ?>" class="toolTip cancel" title="<?php echo $langFile['editFilesSettings_deleteFile_question_cancel']; ?>::" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="<?php echo '?site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>" class="ok left" onclick="closeWindowBox('index.php?<?php echo 'site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>');return false;">&nbsp;</a>
+<a href="?site=<?php echo $_GET['site']; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

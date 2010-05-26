@@ -139,12 +139,6 @@ $langFile['log_file_saved'] = 'Datei gespeichert';
 
 $langFile['log_file_deleted'] = 'Datei gel&ouml;scht';
 
-// ---------- deleting (entfernt)
-/*
-$langFile['delete_question_submit'] = 'Ja, bitte l&ouml;schen!';
-$langFile['delete_question_cancel'] = 'Nein, doch nicht';
-*/
-
 // ----------- page/category public/nonpuplic
 
 $langFile['status_page_public'] = 'Seite ist &ouml;ffentlich';
@@ -440,9 +434,6 @@ $langFile['editFilesSettings_deleteFile'] = 'Datei l&ouml;schen';
 $langFile['editFilesSettings_deleteFile_question_part1'] = 'Datei'; // Kategorie "test" löschen?
 $langFile['editFilesSettings_deleteFile_question_part2'] = 'wirklich l&ouml;schen?';
 
-$langFile['editFilesSettings_deleteFile_question_ok'] = 'Ja bitte l&ouml;schen!';
-$langFile['editFilesSettings_deleteFile_question_cancel'] = 'Nicht l&ouml;schen';
-
 $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'];
 
 /* ----------------------------------------------------------------------------------------------
@@ -459,22 +450,24 @@ $langFile['pageSetup_pageConfig_check1_tip'] = 'Startseite ist vom Benutzer selb
 
 $langFile['pageSetup_pageConfig_noncategorypages_h1'] = 'Seiten ohne Kategorie';
 $langFile['pageSetup_pageConfig_check2'] = 'Seiten erstellen/l&ouml;schen';
-$langFile['pageSetup_pageConfig_check2_tip'] = 'Legt fest, ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten erstellen und l&ouml;schen kann.';
-$langFile['pageSetup_pageConfig_check3'] = 'Thumbnail hochladen';
+$langFile['pageSetup_pageConfig_check2_tip'] = 'Legt fest ob der Benutzer Seiten ohne Kategorie erstellen und l&ouml;schen kann.';
+$langFile['pageSetup_pageConfig_check3'] = 'Thumbnails hochladen';
 $langFile['pageSetup_pageConfig_check3_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
 $langFile['pageSetup_pageConfig_check4'] = 'Tags bearbeiten';
 $langFile['pageSetup_pageConfig_check4_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['pageSetup_general_tag_tip'];
-$langFile['pageSetup_pageConfig_check5'] = 'Plugins erlauben';
-$langFile['pageSetup_pageConfig_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins einstellen kann.';
+$langFile['pageSetup_pageConfig_check5'] = 'Plugins aktivieren';
+$langFile['pageSetup_pageConfig_check5_tip'] = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins verwenden kann.';
 
 // ---------- category settings
 $langFile['pageSetup_h1'] = 'Kategorien-Verwaltung';
+$langFile['pageSetup_field1'] = 'Name';
+
 $langFile['pageSetup_createCategory'] = 'Neue Kategorie erstellen';
 $langFile['pageSetup_createCategory_created'] = 'Neue Kategorie erstellt';
 $langFile['pageSetup_createCategory_unnamed'] = 'Unbenannte Kategorie';
 
 $langFile['pageSetup_deleteCategory'] = 'Kategorie l&ouml;schen';
-$langFile['pageSetup_deleteCategory_warning'] = 'ACHTUNG: Es werden auch alle Seiten innerhalb dieser Kategorie gel&ouml;scht!';
+$langFile['pageSetup_deleteCategory_warning'] = 'WARNUNG: Es werden auch alle Seiten innerhalb dieser Kategorie gel&ouml;scht!';
 $langFile['pageSetup_deleteCategory_deleted'] = 'Kategorie gel&ouml;scht';
 
 $langFile['pageSetup_moveCategory_moved'] = 'Kategorie verschoben';
@@ -489,40 +482,34 @@ $langFile['pageSetup_error_save'] = $langFile['error_save_settings'].$langFile['
 
 
 $langFile['pageSetup_advancedSettings'] = 'Erweiterte-Einstellungen';
-$langFile['pageSetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die HTML-Editor-Einstellungen in den <a href="?site=adminSetup">Administrator-Einstellungen</a>';
+$langFile['pageSetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die '.$langFile['adminSetup_editorSettings_h1'].' in den <a href="?site=adminSetup">Administrator-Einstellungen</a>.';
 
-$langFile['pageSetup_field1'] = 'Name';
-$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Stylesheet-Einstellungen aus den HTML-Editor-Einstellungen verwendet.';
+$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Stylesheet-Einstellungen aus den '.$langFile['adminSetup_editorSettings_h1'].' verwendet.';
 
 $langFile['pageSetup_check1'] = 'Status der Kategorie';
-$langFile['pageSetup_check1_tip'] = 'Legt fest, ob die Kategorie auf der Webseite sichtbar ist.';
+$langFile['pageSetup_check1_tip'] = 'Legt fest ob die Kategorie auf der Webseite sichtbar ist.';
 $langFile['pageSetup_check2'] = 'Seiten erstellen/l&ouml;schen';
-$langFile['pageSetup_check2_tip'] = 'Der Benutzer kann in dieser Kategorie Seiten erstellen und l&ouml;schen.';
-$langFile['pageSetup_check3'] = 'Thumbnail hochladen';
-$langFile['pageSetup_check3_tip'] = 'Der Benutzer hat die M&ouml;glichkeit ein Thumbnail f&uuml;r jede Seite in dieser Kategorie hochzuladen.';
-
+$langFile['pageSetup_check2_tip'] = 'Legt fest ob der Benutzer kann in dieser Kategorie Seiten erstellen und l&ouml;schen kann.';
+$langFile['pageSetup_check3'] = 'Thumbnails hochladen';
+$langFile['pageSetup_check3_tip'] = 'Legt fest ob der Benutzer Thumbnails f&uuml;r jede Seite in dieser Kategorie hochzuladen kann.';
 $langFile['pageSetup_check4'] = 'Tags bearbeiten';
 $langFile['pageSetup_check4_tip'] = 'Es k&ouml;nnen Tags f&uuml;r die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['pageSetup_general_tag_tip'];
-
-$langFile['pageSetup_check8'] = 'Plugins erlauben';
-$langFile['pageSetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie erlauben';
+$langFile['pageSetup_check8'] = 'Plugins aktivieren';
+$langFile['pageSetup_check8_tip'] = 'Plugins f&uuml;r die Seiten in dieser Kategorie aktivieren';
 
 $langFile['pageSetup_check5'] = 'Seitendatum bearbeiten';
 $langFile['pageSetup_check5_tip'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
-$langFile['pageSetup_check6'] = 'nach Seitendatum sortieren';
-$langFile['pageSetup_check6_tip'] = 'Die Seiten werden nach dem angegeben Datum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
+$langFile['pageSetup_check6'] = 'Nach Seitendatum sortieren';
+$langFile['pageSetup_check6_tip'] = 'Die Seiten werden nach dem Seitendatum sortiert.[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr m&ouml;glich.[/span]';
 
-$langFile['pageSetup_check7'] = 'Neueste Seite immer unten anzeigen';
-$langFile['pageSetup_check7_tip'] = 'Sortiert die Seiten automatisch [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
+$langFile['pageSetup_check7'] = 'Neueste Seite immer unten';
+$langFile['pageSetup_check7_tip'] = 'Sortiert die Seiten [b]aufsteigend[/b].[br /][br /][span class=hint]Manuelles Sortieren &uuml;berschreibt diese Einstellung f&uuml;r die jeweilige Seite.[/span]';
 
 
 // ---------- deleting category
 $langFile['pageSetup_deletCategory_question_part1'] = 'Kategorie'; // Kategorie "test" löschen?
 $langFile['pageSetup_deletCategory_question_part2'] = 'l&ouml;schen?';
-
-$langFile['pageSetup_deletCategory_question_ok'] = 'Ja bitte l&ouml;schen!';
-$langFile['pageSetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 
 /* ----------------------------------------------------------------------------------------------
 * websiteSetup.php
@@ -532,7 +519,7 @@ $langFile['pageSetup_deletCategory_question_cancel'] = 'Nicht l&ouml;schen';
 $langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/website.config.php';
 
 $langFile['websiteSetup_websiteConfig_h1'] = 'Webseiten-Einstellungen';
-$langFile['websiteSetup_websiteConfig_field1'] = 'Webseiten-Titel';
+$langFile['websiteSetup_websiteConfig_field1'] = 'Webseitentitel';
 $langFile['websiteSetup_websiteConfig_field1_tip'] = 'Der Titel der Webseite wird oben in der Browserleiste angezeigt.';
 $langFile['websiteSetup_websiteConfig_field2'] = 'Publisher';
 $langFile['websiteSetup_websiteConfig_field2_tip'] = 'Der Name der Organisation/Firma/Person, die diese Seite ver&oumlffentlicht.';
@@ -540,13 +527,13 @@ $langFile['websiteSetup_websiteConfig_field3'] = 'Copyright';
 $langFile['websiteSetup_websiteConfig_field3_tip'] = 'Der Copyright-Besitzer der Webseite.';
 
 $langFile['websiteSetup_websiteConfig_field4'] = 'Suchmaschinen-Stichworte';
-$langFile['websiteSetup_websiteConfig_field4_tip'] = 'Die meisten Suchmaschienen durchsuchen den Seiteninhalt nach Stichworten, jedoch sollte man einige Schl&uuml;sselw&ouml;rter hier auff&uuml;hren.';
-$langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'Die Stichworte m&uuml;ssen mit &quot;,&quot; getrennt werden.::'.$langFile['text_example'].':[br /]stichwort1,stichwort2,etc';
-$langFile['websiteSetup_websiteConfig_field5'] = 'Webseiten-Beschreibung';
-$langFile['websiteSetup_websiteConfig_field5_tip'] = 'Ist eine kurze Beschreibung die in den Suchmaschienen ercheint, wenn man nach der Webseiten-Adresse sucht oder keine Stichworte im Webseiten-Text gefunden wurden.';
+$langFile['websiteSetup_websiteConfig_field4_tip'] = 'Die meisten Suchmaschienen durchsuchen den Seiteninhalt nach Stichworten, jedoch sollte man hier einige Schl&uuml;sselw&ouml;rter angeben, welche in den &lt;meta&gt; Tags der webseite verwendet werden.';
+$langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'Die Stichworte m&uuml;ssen mit &quot;,&quot; getrennt werden::'.$langFile['text_example'].':[br /]stichwort1,stichwort2,etc';
+$langFile['websiteSetup_websiteConfig_field5'] = 'Webseitenbeschreibung';
+$langFile['websiteSetup_websiteConfig_field5_tip'] = 'Eine kurze Beschreibung die von den Suchmaschienen verwendet wird wenn Stichworte in der Webseiten-URL gefunden wurden aber nicht im inhalt.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
 $langFile['websiteSetup_websiteConfig_field6'] = 'E-Mail Adresse';
-$langFile['websiteSetup_websiteConfig_field6_tip'] = 'Diese E-Mail Adresse wird f&uuml;r alle wichtigen Kontaktm&ouml;glichkeiten verwendet[br /](z.B. Kontaktformulare etc.)';
+$langFile['websiteSetup_websiteConfig_field6_tip'] = 'Diese E-Mail Adresse wird f&uuml;r alle wichtigen Kontaktm&ouml;glichkeiten verwendet.[br /](z.B. Kontaktformulare etc.)';
 $langFile['websiteSetup_websiteConfig_field6_inputTip'] = $langFile['text_example'].'::name@providor.de';
 
 
@@ -582,8 +569,6 @@ $langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs der letzten T&auml;t
 $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste der letzten T&auml;tigkeiten.';
 
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
-$langFile['statisticSetup_clearStatistics_question_ok'] = 'Ja bitte l&ouml;schen!';
-$langFile['statisticSetup_clearStatistics_question_cancel'] = 'Nicht l&ouml;schen';
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 

@@ -25,6 +25,6 @@ echo '<h1>'.$langFile['statisticSetup_clearStatistics_question_h1'].'</h1>';
 
 ?>
 <div>
-<a href="?site=statisticSetup#clearStatistics" class="toolTip ok left" title="<?php echo $langFile['statisticSetup_clearStatistics_question_ok']; ?>::" onclick="$('clearStatisticsForm').submit();return false;">&nbsp;</a>
-<a href="?site=statisticSetup#clearStatistics" class="toolTip cancel" title="<?php echo $langFile['statisticSetup_clearStatistics_question_cancel']; ?>::" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=statisticSetup#clearStatistics" class="ok left" onclick="$('clearStatisticsForm').submit();return false;">&nbsp;</a>
+<a href="?site=statisticSetup#clearStatistics" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

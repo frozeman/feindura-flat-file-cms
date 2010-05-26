@@ -26,6 +26,6 @@ echo '<h2 style="color:#960000; text-align:center;">'.$langFile['pageSetup_delet
 
 ?>
 <div>
-<a href="?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>" class="toolTip ok left" title="<?php echo $langFile['pageSetup_deletCategory_question_ok']; ?>::" onclick="closeWindowBox('index.php?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>');return false;">&nbsp;</a>
-<a href="?site=pageSetup" class="toolTip cancel" title="<?php echo $langFile['pageSetup_deletCategory_question_cancel']; ?>::" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>" class="ok left" onclick="closeWindowBox('index.php?site=pageSetup&amp;status=<?php echo $_GET['status']; ?>&amp;category=<?php echo $_GET['category']; ?>');return false;">&nbsp;</a>
+<a href="?site=pageSetup" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

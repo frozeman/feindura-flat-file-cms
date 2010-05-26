@@ -412,10 +412,10 @@ class feindura {
   * <b>Name</b>     setCurrentPageId()<br>
   * <b>Alias</b>    setPageId()<br>
   * 
-  *  Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property.
+  * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property.
   * 
   * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link $page} property.
-  * If the <var>$setStartPage</var> parameter is TRUE the {@link $startPage} property will also be set with the startpage ID from the {@link $websiteConfig}.
+  * If the <var>$setStartPage</var> parameter is TRUE and the {@link $category} is empty, the {@link $startPage} property will also be set with the start page ID from the {@link $websiteConfig}.
   * 
   * 
   * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
@@ -438,7 +438,7 @@ class feindura {
   function setCurrentPageId($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {
+    if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && empty($this->category)) {
       $this->startPage = $this->websiteConfig['startPage'];
     }
       
@@ -521,7 +521,7 @@ class feindura {
   * {@example generatePage.return.example.php}
   * 
   * @param int|array  $page          page ID or a $pageContent array
-  * @param bool       $showError     (optional) tells if errors like "The page you requested doesn't exist" will be displayed
+  * @param bool       $showError     (optional) says if errors like "The page you requested doesn't exist" will be displayed
   * @param int|false  $shortenText   (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
   * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
   * 
