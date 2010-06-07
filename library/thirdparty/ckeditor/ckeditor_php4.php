@@ -21,12 +21,12 @@ class CKEditor
 	 * The version of %CKEditor.
 	 * \private
 	 */
-	var $version = '3.2.2 SVN';
+	var $version = '3.3.1 SVN';
 	/**
 	 * A constant string unique for each release of %CKEditor.
 	 * \private
 	 */
-	var $_timestamp = 'A4O7496';
+	var $_timestamp = 'A5774AJ';
 
 	/**
 	 * URL to the %CKEditor installation directory (absolute or relative to document root).
@@ -80,7 +80,7 @@ class CKEditor
 	 * A string indicating the creation date of %CKEditor.
 	 * Do not change it unless you want to force browsers to not use previously cached version of %CKEditor.
 	 */
-	var $timestamp = "A4O7496";
+	var $timestamp = "A5774AJ";
 	/**
 	 * An array that holds event listeners.
 	 * \private

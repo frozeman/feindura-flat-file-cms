@@ -205,6 +205,7 @@ $langFile['date_eu'] = 'DD.MM.YYYY';
 $langFile['categories_noncategory_name'] = 'Pages';
 $langFile['categories_noncategory_tip'] = 'Pages without category';
 $langFile['text_example'] = 'Example';
+
 /* ----------------------------------------------------------------------------------------------
 * ---------- ERROR TEXTs
 */
