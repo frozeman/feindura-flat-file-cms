@@ -1542,7 +1542,8 @@ class feinduraPages extends feindura {
   
   
  /**
-  * <b>Name</b> showPage()<br>
+  * <b>Name</b>  showPage()<br>
+  * <b>Alias</b> showPages()<br>  
   * 
   * Returns a page for displaying in a HTML-page.
   * This array will conatin all elements of the page, ready for displaying in a HTML-page.
@@ -1617,6 +1618,14 @@ class feinduraPages extends feindura {
           return $generatedPage;
         }        
     } else return false;
+  }
+ /**
+  * Alias of {@link showPage()}
+  * @ignore
+  */
+  function showPages($page = false, $shortenText = false, $useHtml = true) {
+    // call the right function
+    return $this->showPage($page, $shortenText, $useHtml);
   }
 
  /**
