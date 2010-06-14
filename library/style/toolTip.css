@@ -59,6 +59,7 @@ span.toolTip {
     z-index: 2;
     position: relative;    
     margin: 0px 30px; /* before  0px 40px; */
+    padding-bottom: 3px;
     /*padding-left: 16px;
     background: url(../image/sign/hinweis.gif) no-repeat 0px 5px;*/
     font-weight:bold;
@@ -73,7 +74,7 @@ span.toolTip {
     z-index: 2;
     position: relative;
     color: #666666;
-    padding: 8px 35px; /* before  10px 40px; */
+    padding: 4px 35px; /* before  10px 40px; */
     padding-bottom: 0px;
     word-wrap: break-word;    
     }

@@ -69,7 +69,7 @@ $langFile['path_relativepath_tip'] = 'Relativer Pfad::Beginnt ohne &quot;/&quot;
 
 // ---------- STATISTIC
 
-$langFile['home_browser_h1'] = 'Browserverteilung der Besucher';
+$langFile['home_browser_h1'] = 'Browserspektrum der Besucher';
 $langFile['log_spiderCount'] = 'Spider';
 $langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt sind Computer-programme von Suchmaschienen, die Seiten analysieren und indizieren.';
 
@@ -552,19 +552,19 @@ $langFile['statisticSetup_statisticConfig_field2_tip'] = 'Gibt an wieviele am l&
 $langFile['statisticSetup_statisticConfig_field3'] = 'Anzahl der sichtbaren <b>zuletzt bearbeiteten</b> Seiten';
 $langFile['statisticSetup_statisticConfig_field3_tip'] = 'Gibt an wieviele zuletzt bearbeitete Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
 
-$langFile['statisticSetup_statisticConfig_field4'] = 'maximale Anzahl der zu speichernden <b>Referrer-URLs</b>';
+$langFile['statisticSetup_statisticConfig_field4'] = 'maximale Anzahl der <b>Referrer-URLs</b>';
 $langFile['statisticSetup_statisticConfig_field4_tip'] = 'Gibt an wieviele Referrer-URLs ([i]URLs die auf diese Webseite gef&uuml;hrt haben[/i]) maximal gespeichert werden.';
-$langFile['statisticSetup_statisticConfig_field5'] = 'maximale Anzahl der zu speichernden <b>T&auml;tigkeiten-Logs</b>';
+$langFile['statisticSetup_statisticConfig_field5'] = 'maximale Anzahl der <b>T&auml;tigkeiten-Logs</b>';
 $langFile['statisticSetup_statisticConfig_field5_tip'] = 'Gibt an wieviele T&auml;tigkeiten-Logs maximal gespeichert werden.';
 
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'Statistiken l&ouml;schen';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Webseiten-Statistik';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserverteilung[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Seiten-Statistiken';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]k&uuml;rzeste Verweildauer[/li][li]l&auml;ngste Verweildauer[/li][li]Suchmaschienen-Stichworte die auf diese Seite gef&uuml;hrt haben[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]k&uuml;rzeste Verweildauer[/li][li]l&auml;ngste Verweildauer[/li][li]Suchmaschienen-Stichworte welche auf diese Seite gef&uuml;hrt haben[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_refererLog'] = 'Referrer-URLs Log'; // engl.: referer
-$langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Beinhaltet eine Liste mit allen Referrer-URLs die auf diese Webseite gef&uuml;hrt haben.';
+$langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Eine Liste mit allen URLs welche auf diese Webseite gef&uuml;hrt haben.';
 $langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs der letzten T&auml;tigkeiten';
 $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste der letzten T&auml;tigkeiten.';
 
@@ -592,26 +592,25 @@ $langFile['editor_h1_lastsaveauthor'] = 'von';
 $langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
 $langFile['editor_h1_linktothispage'] = 'Link zu dieser Seite';
 $langFile['editor_h1_id'] = 'Seiten ID';
-$langFile['editor_h1_id_tip'] = 'Unter der Seiten ID wird die Seite auf dem Server oder in der Datenbank gespeichert.';
+$langFile['editor_h1_id_tip'] = 'Unter dieser ID wird die Seite auf dem Server gespeichert.';
 $langFile['editor_h1_categoryid'] = 'Kategorie ID';
 $langFile['editor_h1_categoryid_noCategory'] = 'keine Kategorie';
 
 // ---------- page settings
-$langFile['editor_pageSettings_h1'] = 'Seiten-Einstellungen';
-$langFile['editor_pagestatistics_h1'] = 'Seiten-Statistik';
+$langFile['editor_pageSettings_h1'] = 'Einstellungen';
+$langFile['editor_pagestatistics_h1'] = 'Statistik';
 
-$langFile['editor_pageSettings_title'] = 'Seiten-Titel';
+$langFile['editor_pageSettings_title'] = 'Titel';
 $langFile['editor_pageSettings_title_tip'] = 'Der Titel der Seite';
-$langFile['editor_pageSettings_field1'] = 'Seiten-Beschreibung';
+$langFile['editor_pageSettings_field1'] = 'Kurzbeschreibung';
 $langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
-$langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
-$langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Beschreibung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
+$langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
-$langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte, die mit dieser Seite verkn&uuml;pft sind.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Stichworte sollten mit [b]Leerzeichen[/b] getrennt werden.';
+$langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte f&uuml;r diese Seite.';
+$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Tags sollten mit [b]Leerzeichen[/b] getrennt werden.';
 $langFile['editor_pageSettings_field3'] = 'Seitendatum';
-$langFile['editor_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Aktualit&auml;t zu sortieren. (z.B. bei Veranstaltungen)';
-$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. vom Tag/Monat bis';
+$langFile['editor_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Datum zu sortieren. (z.B. bei Veranstaltungen)';
+$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. vom 31. Juni bis';
 $langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Text nach dem Datum::';
 $langFile['editor_pageSettings_pagedate_day_inputTip'] = 'Tag::';
 $langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Monat::';
@@ -620,13 +619,13 @@ $langFile['editor_pageSettings_field4'] = 'Status der Seite';
 $langFile['editor_pageSettings_field4_tip'] = '[b]Nur wenn die Seite &ouml;ffentlich ist, wird diese auf der Webseite angezeigt![/b]';
 
 $langFile['editor_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage,[br /]und das Datum sollte folgendes Format haben:';
+$langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage.[br /]Das Datum sollte folgendes Format haben:';
 
 // ---------- page advanced settings
-$langFile['editor_advancedpageSettings_h1'] = 'erweiterte Seiten-Einstellungen';
+$langFile['editor_advancedpageSettings_h1'] = 'Erweiterte Einstellungen';
 
 $langFile['editor_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn das Feld leer bleibt dann werden zuerst die Stylesheet-Einstellungen der Kategorie oder dann aus den HTML-Editor-Einstellungen verwendet.';
+$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn das Feld leer bleibt dann werden zuerst die Stylesheet-Einstellungen der Kategorie verwendet, wenn diese auch leer sind dann die aus den HTML-Editor-Einstellungen.';
 
 $langFile['editor_htmleditor_hotkeys_h1'] = 'Tastenk&uuml;rzel';
 $langFile['editor_htmleditor_hotkeys_field1'] = 'Alles markieren';
@@ -715,9 +714,6 @@ $langFile['search_results_text1'] = '&Uuml;bereinstimmungen im Titel';
 $langFile['search_results_text2'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
 $langFile['search_results_text3'] = '&Uuml;bereinstimmende W&ouml;rter:';
 $langFile['search_results_text4'] = '&Uuml;bereinstimmenden Satz gefunden';
-$langFile['search_results_text5'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
-$langFile['search_results_text6'] = '&Uuml;bereinstimmenden Satz gefunden';
-$langFile['search_results_text7'] = '&Uuml;bereinstimmungen im Text';
 $langFile['search_results_text8'] = '&Uuml;bereinstimmung mit der Seiten ID';
 $langFile['search_results_count'] = 'Treffer';
 $langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden

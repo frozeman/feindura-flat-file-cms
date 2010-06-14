@@ -1,7 +1,7 @@
 <?php
 /*
  * feindura - Flat File Content Management System
- * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ * Copyright (C) Fabian Vogels$adminConfig['savePath']er [frozeman.de]
  *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
@@ -450,13 +450,13 @@ $langFile['pageSetup_pageConfig_check1_tip'] = 'The user can set a page as the s
 
 $langFile['pageSetup_pageConfig_noncategorypages_h1'] = 'Pages without category';
 $langFile['pageSetup_pageConfig_check2'] = 'Create/delete pages';
-$langFile['pageSetup_pageConfig_check2_tip'] = 'Says if the user can create and delete pages without category.';
+$langFile['pageSetup_pageConfig_check2_tip'] = 'Specifies if the user can create and delete pages without category.';
 $langFile['pageSetup_pageConfig_check3'] = 'Upload thumbnails';
-$langFile['pageSetup_pageConfig_check3_tip'] = 'Says if the user can upload thumbnails for pages without category.';
+$langFile['pageSetup_pageConfig_check3_tip'] = 'Specifies if the user can upload thumbnails for pages without category.';
 $langFile['pageSetup_pageConfig_check4'] = 'Edit tags';
-$langFile['pageSetup_pageConfig_check4_tip'] = 'Says if the user can edit tags in pages without category.[br /]'.$langFile['pageSetup_general_tag_tip'];
+$langFile['pageSetup_pageConfig_check4_tip'] = 'Specifies if the user can edit tags in pages without category.[br /]'.$langFile['pageSetup_general_tag_tip'];
 $langFile['pageSetup_pageConfig_check5'] = 'Activate plugins';
-$langFile['pageSetup_pageConfig_check5_tip'] = 'Says if the user can use plugins in pages without category.';
+$langFile['pageSetup_pageConfig_check5_tip'] = 'Specifies if the user can use plugins in pages without category.';
 
 // ---------- category settings
 $langFile['pageSetup_h1'] = 'Manage-Categories';
@@ -487,15 +487,15 @@ $langFile['pageSetup_advancedSettings_hint'] = 'If this settings are set, they o
 $langFile['pageSetup_stylesheet_ifempty'] = 'If this field is empty, it uses the stylesheet settings from the '.$langFile['adminSetup_editorSettings_h1'].'.';
 
 $langFile['pageSetup_check1'] = 'Status of the category';
-$langFile['pageSetup_check1_tip'] = 'Says if the category is visible on the website.';
+$langFile['pageSetup_check1_tip'] = 'Specifies if the category is visible on the website.';
 $langFile['pageSetup_check2'] = 'Create/delete pages';
-$langFile['pageSetup_check2_tip'] = 'Says if the user can create and delete pages in this category.';
+$langFile['pageSetup_check2_tip'] = 'Specifies if the user can create and delete pages in this category.';
 $langFile['pageSetup_check3'] = 'Upload Thumbnails';
-$langFile['pageSetup_check3_tip'] = 'Says if the user can upload thumbnails for pages in this category.';
+$langFile['pageSetup_check3_tip'] = 'Specifies if the user can upload thumbnails for pages in this category.';
 $langFile['pageSetup_check4'] = 'Edit tags';
-$langFile['pageSetup_check4_tip'] = 'Says if the user can edit tags in pages in this category.[br /]'.$langFile['pageSetup_general_tag_tip'];
+$langFile['pageSetup_check4_tip'] = 'Specifies if the user can edit tags in pages in this category.[br /]'.$langFile['pageSetup_general_tag_tip'];
 $langFile['pageSetup_check8'] = 'Activate plugins';
-$langFile['pageSetup_check8_tip'] = 'Says if the user can use plugins in pages in this category.';
+$langFile['pageSetup_check8_tip'] = 'Specifies if the user can use plugins in pages in this category.';
 
 $langFile['pageSetup_check5'] = 'Edit page date';
 $langFile['pageSetup_check5_tip'] = 'The page date can be used to sort pages by date';
@@ -544,41 +544,41 @@ $langFile['websiteSetup_websiteConfig_field6_inputTip'] = $langFile['text_exampl
 // ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 $langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/statistic.config.php';
 
-$langFile['statisticSetup_statisticConfig_h1'] = 'Statistik-Einstellungen';
-$langFile['statisticSetup_statisticConfig_field1'] = 'Anzahl der sichtbaren <b>meist besuchten</b> Seiten';
-$langFile['statisticSetup_statisticConfig_field1_tip'] = 'Gibt an wieviele meist besuchte Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
-$langFile['statisticSetup_statisticConfig_field2'] = 'Anzahl der sichtbaren <b>am l&auml;ngsten betrachteten</b> Seiten';
-$langFile['statisticSetup_statisticConfig_field2_tip'] = 'Gibt an wieviele am l&auml;ngsten betrachtete Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
-$langFile['statisticSetup_statisticConfig_field3'] = 'Anzahl der sichtbaren <b>zuletzt bearbeiteten</b> Seiten';
-$langFile['statisticSetup_statisticConfig_field3_tip'] = 'Gibt an wieviele zuletzt bearbeitete Seiten auf der &Uuml;bersicht-Seite angezeigt werden.';
+$langFile['statisticSetup_statisticConfig_h1'] = 'Statistic-Settings';
+$langFile['statisticSetup_statisticConfig_field1'] = 'Number of the visible <b>most visited</b> pages';
+$langFile['statisticSetup_statisticConfig_field1_tip'] = 'Specifies how much most visted pages will be displayed on the overview page.';
+$langFile['statisticSetup_statisticConfig_field2'] = 'Number of the visible <b>longest viewed</b> pages';
+$langFile['statisticSetup_statisticConfig_field2_tip'] = 'Specifies how much longest viewed pages will be displayed on the overview page.';
+$langFile['statisticSetup_statisticConfig_field3'] = 'Number of the visible <b>last edited</b> pages';
+$langFile['statisticSetup_statisticConfig_field3_tip'] = 'Specifies how much last edited pages will be displayed on the overview page.';
 
-$langFile['statisticSetup_statisticConfig_field4'] = 'maximale Anzahl der zu speichernden <b>Referrer-URLs</b>';
-$langFile['statisticSetup_statisticConfig_field4_tip'] = 'Gibt an wieviele Referrer-URLs ([i]URLs die auf diese Webseite gef&uuml;hrt haben[/i]) maximal gespeichert werden.';
-$langFile['statisticSetup_statisticConfig_field5'] = 'maximale Anzahl der zu speichernden <b>T&auml;tigkeiten-Logs</b>';
-$langFile['statisticSetup_statisticConfig_field5_tip'] = 'Gibt an wieviele T&auml;tigkeiten-Logs maximal gespeichert werden.';
+$langFile['statisticSetup_statisticConfig_field4'] = 'maximal number of <b>Referrer-URLs</b>';
+$langFile['statisticSetup_statisticConfig_field4_tip'] = 'Specifies how much Referrer-URLs ([i]URLs which lead to the website[/i]) will be saved and displayed.';
+$langFile['statisticSetup_statisticConfig_field5'] = 'maximal number of <b>Activities-Log</b>';
+$langFile['statisticSetup_statisticConfig_field5_tip'] = 'Specifies how much Activities-Log will be saved and displayed.';
 
 
-$langFile['statisticSetup_clearStatistic_h1'] = 'Statistiken l&ouml;schen';
-$langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Webseiten-Statistik';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserverteilung[/li][/ul]';
-$langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Seiten-Statistiken';
-$langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]k&uuml;rzeste Verweildauer[/li][li]l&auml;ngste Verweildauer[/li][li]Suchmaschienen-Stichworte die auf diese Seite gef&uuml;hrt haben[/li][/ul]';
+$langFile['statisticSetup_clearStatistic_h1'] = 'Delete statistics';
+$langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Website-Statistic';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contains[/b][ul][li]Total number of visitors[/li][li]Total number of Spiders[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Page-Statistics';
+$langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Contains[/b][ul][li]Number of page visitors[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest retention[/li][li]longest retention[/li][li]Keywords which led to this site[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_refererLog'] = 'Referrer-URLs Log'; // engl.: referer
-$langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Beinhaltet eine Liste mit allen Referrer-URLs die auf diese Webseite gef&uuml;hrt haben.';
-$langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs der letzten T&auml;tigkeiten';
-$langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste der letzten T&auml;tigkeiten.';
+$langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'A list of all URLs which led top this website.';
+$langFile['statisticSetup_clearStatistics_taskLog'] = 'Activities-Log';
+$langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'A list of the last activities.';
 
-$langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
+$langFile['statisticSetup_clearStatistics_question_h1'] = 'Are you sure you want to delete these statistics?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 /* ----------------------------------------------------------------------------------------------
 * pluginSetup.php
 */
 
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-$langFile['pluginSetup_editFiles_h1'] = 'Dateien bearbeiten';
-$langFile['pluginSetup_pluginconfig_active'] = 'Plugin aktiviert';
+$langFile['pluginSetup_editFiles_h1'] = 'Edit files';
+$langFile['pluginSetup_pluginconfig_active'] = 'activate Plugin';
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
 
 
@@ -587,89 +587,88 @@ $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_setting
 */
 
 // ---------- page data
-$langFile['editor_h1_lastsavedate'] = 'zuletzt bearbeitet am';
-$langFile['editor_h1_lastsaveauthor'] = 'von';
-$langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
-$langFile['editor_h1_linktothispage'] = 'Link zu dieser Seite';
-$langFile['editor_h1_id'] = 'Seiten ID';
-$langFile['editor_h1_id_tip'] = 'Unter der Seiten ID wird die Seite auf dem Server oder in der Datenbank gespeichert.';
-$langFile['editor_h1_categoryid'] = 'Kategorie ID';
-$langFile['editor_h1_categoryid_noCategory'] = 'keine Kategorie';
+$langFile['editor_h1_lastsavedate'] = 'last edit on';
+$langFile['editor_h1_lastsaveauthor'] = 'by';
+$langFile['editor_h1_createpage'] = 'Create new page';
+$langFile['editor_h1_linktothispage'] = 'Link to this page';
+$langFile['editor_h1_id'] = 'Page ID';
+$langFile['editor_h1_id_tip'] = 'The page will be saved under this ID on the server.';
+$langFile['editor_h1_categoryid'] = 'Category ID';
+$langFile['editor_h1_categoryid_noCategory'] = 'no category';
 
 // ---------- page settings
-$langFile['editor_pageSettings_h1'] = 'Seiten-Einstellungen';
-$langFile['editor_pagestatistics_h1'] = 'Seiten-Statistik';
+$langFile['editor_pageSettings_h1'] = 'Settings';
+$langFile['editor_pagestatistics_h1'] = 'Statistic';
 
-$langFile['editor_pageSettings_title'] = 'Seiten-Titel';
-$langFile['editor_pageSettings_title_tip'] = 'Der Titel der Seite';
-$langFile['editor_pageSettings_field1'] = 'Seiten-Beschreibung';
-$langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
-$langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
-$langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Beschreibung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
+$langFile['editor_pageSettings_title'] = 'Title';
+$langFile['editor_pageSettings_title_tip'] = 'The title of the page';
+$langFile['editor_pageSettings_field1'] = 'Short description';
+$langFile['editor_pageSettings_field1_inputTip'] = 'If empty it uses the description of the website from the Website-Settings.';
+$langFile['editor_pageSettings_field1_tip'] = 'A short summary of the page content. This description will be used in the META-Tags of the page.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
-$langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte, die mit dieser Seite verkn&uuml;pft sind.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Stichworte sollten mit [b]Leerzeichen[/b] getrennt werden.';
-$langFile['editor_pageSettings_field3'] = 'Seitendatum';
-$langFile['editor_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Aktualit&auml;t zu sortieren. (z.B. bei Veranstaltungen)';
-$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. vom Tag/Monat bis';
-$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Text nach dem Datum::';
-$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'Tag::';
-$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Monat::';
-$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Jahr::[b]Format[/b] JJJJ';
-$langFile['editor_pageSettings_field4'] = 'Status der Seite';
-$langFile['editor_pageSettings_field4_tip'] = '[b]Nur wenn die Seite &ouml;ffentlich ist, wird diese auf der Webseite angezeigt![/b]';
+$langFile['editor_pageSettings_field2_tip'] = 'Tags are keywords for this page.';
+$langFile['editor_pageSettings_field2_tip_inputTip'] = 'The Tags should separated by [b]whitespaces[/b].';
+$langFile['editor_pageSettings_field3'] = 'Pagedate';
+$langFile['editor_pageSettings_field3_tip'] = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
+$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text before the date::e.g. from 31st June until';
+$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Text after the date::';
+$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'Day::';
+$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Month::';
+$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Year::[b]Format[/b] YYYY';
+$langFile['editor_pageSettings_field4'] = 'Status of the page';
+$langFile['editor_pageSettings_field4_tip'] = '[b]Only if the page is public, it will be shown on the website![/b]';
 
-$langFile['editor_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage,[br /]und das Datum sollte folgendes Format haben:';
+$langFile['editor_pageSettings_pagedate_error'] = 'Erratic date format';
+$langFile['editor_pageSettings_pagedate_error_tip'] = 'This month has eventually no 31 days.[br /]The date should have the follwing format:';
 
 // ---------- page advanced settings
-$langFile['editor_advancedpageSettings_h1'] = 'erweiterte Seiten-Einstellungen';
+$langFile['editor_advancedpageSettings_h1'] = 'Advanced Settings';
 
-$langFile['editor_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn das Feld leer bleibt dann werden zuerst die Stylesheet-Einstellungen der Kategorie oder dann aus den HTML-Editor-Einstellungen verwendet.';
+$langFile['editor_advancedpageSettings_field1'] = 'Page stylesheet-file';
+$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'If the field is empty then the Stylesheet-Settings of the category will be used, or if also empty the one from the HTML-Editor-Settings.';
 
-$langFile['editor_htmleditor_hotkeys_h1'] = 'Tastenk&uuml;rzel';
-$langFile['editor_htmleditor_hotkeys_field1'] = 'Alles markieren';
-$langFile['editor_htmleditor_hotkeys_field2'] = 'Kopieren';
-$langFile['editor_htmleditor_hotkeys_field3'] = 'Einf&uuml;gen';
-$langFile['editor_htmleditor_hotkeys_field4'] = 'Ausschneiden';
-$langFile['editor_htmleditor_hotkeys_field5'] = 'R&uuml;ckg&auml;ngig';
-$langFile['editor_htmleditor_hotkeys_field6'] = 'Wiederherstellen';
-$langFile['editor_htmleditor_hotkeys_field7'] = 'Link setzen';
-$langFile['editor_htmleditor_hotkeys_field8'] = 'Fett';
-$langFile['editor_htmleditor_hotkeys_field9'] = 'Kursiv';
-$langFile['editor_htmleditor_hotkeys_field10'] = 'Unterstrichen';
-$langFile['editor_htmleditor_hotkeys_or'] = 'oder';
+$langFile['editor_htmleditor_hotkeys_h1'] = 'Shortcut keys';
+$langFile['editor_htmleditor_hotkeys_field1'] = 'select all';
+$langFile['editor_htmleditor_hotkeys_field2'] = 'copy';
+$langFile['editor_htmleditor_hotkeys_field3'] = 'paste';
+$langFile['editor_htmleditor_hotkeys_field4'] = 'cut';
+$langFile['editor_htmleditor_hotkeys_field5'] = 'undo';
+$langFile['editor_htmleditor_hotkeys_field6'] = 'redo';
+$langFile['editor_htmleditor_hotkeys_field7'] = 'set link';
+$langFile['editor_htmleditor_hotkeys_field8'] = 'bold';
+$langFile['editor_htmleditor_hotkeys_field9'] = 'italic';
+$langFile['editor_htmleditor_hotkeys_field10'] = 'underline';
+$langFile['editor_htmleditor_hotkeys_or'] = 'or';
 
-$langFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['editor_savepage_error_save'] = '<b>The page could not be saved.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php
 */
 
 // ---------- DELETE PAGE
-$langFile['deletePage_question_part1'] = 'M&ouml;chtest du die Seite';
-$langFile['deletePage_question_part2'] = 'wirklich l&ouml;schen?';
+$langFile['deletePage_question_part1'] = 'You really want to delete the page';
+$langFile['deletePage_question_part2'] = '?';
 
-$langFile['deletePage_finishnotexisting_part1'] = 'Die Seite';
-$langFile['deletePage_finish_part2'] = 'wurde erfolgreich gel&ouml;scht';
-$langFile['deletePage_notexisting_part2'] = 'existiert nicht';
+$langFile['deletePage_finishnotexisting_part1'] = 'The page';
+$langFile['deletePage_finish_part2'] = 'was successfully deleted';
+$langFile['deletePage_notexisting_part2'] = 'doesn \'t exist';
 
-$langFile['deletePage_finish_error'] = 'FEHLER: Die Seite konnte nicht gel&ouml;scht werden!';
+$langFile['deletePage_finish_error'] = 'ERROR: The page could not be deleted!';
 
 /* ----------------------------------------------------------------------------------------------
 * pageThumbnailDelete.php
 */
 
 // ---------- PAGE THUMBNAIL DELETE
-$langFile['pageThumbnailDelete_question_part1'] = 'M&ouml;chtest du das Thumbnail von der Seite';
-$langFile['pageThumbnailDelete_question_part2'] = 'wirklich l&ouml;schen?';
+$langFile['pageThumbnailDelete_question_part1'] = 'You really want to delete the thumbnail of the page';
+$langFile['pageThumbnailDelete_question_part2'] = '?';
 
-$langFile['pageThumbnailDelete_name'] = 'Der Thumbnail';
-$langFile['pageThumbnailDelete_finish_part2'] = 'wurde erfolgreich gel&ouml;scht';
-$langFile['pageThumbnailDelete_notexisting_part2'] = 'existiert nicht';
+$langFile['pageThumbnailDelete_name'] = 'The thumbnail';
+$langFile['pageThumbnailDelete_finish_part2'] = 'was successfully deleted';
+$langFile['pageThumbnailDelete_notexisting_part2'] = 'doesn \'t exist';
 
-$langFile['pageThumbnailDelete_finish_error'] = 'FEHLER: Das Thumbnail konnte nicht gel&ouml;scht werden!';
+$langFile['pageThumbnailDelete_finish_error'] = 'ERROR: The thumbnail could not be deleted!';
 
 
 /* ----------------------------------------------------------------------------------------------
@@ -677,51 +676,48 @@ $langFile['pageThumbnailDelete_finish_error'] = 'FEHLER: Das Thumbnail konnte ni
 */
 
 // ---------- PAGE THUMBNAIL UPLOAD
-$langFile['pagethumbnail_h1_part1'] = 'Seiten-Thumbnail f&uuml;r';
-$langFile['pagethumbnail_h1_part2'] = 'hochladen';
-$langFile['pagethumbnail_field1'] = 'Bild ausw&auml;hlen';
+$langFile['pagethumbnail_h1_part1'] = 'Upload page thumbnail of';
+$langFile['pagethumbnail_h1_part2'] = '';
+$langFile['pagethumbnail_field1'] = 'Select image';
 
-$langFile['pagethumbnail_thumbinfo_formats'] = 'Nur folgende Dateiformate sind erlaubt<br /><b>JPG</b>, <b>JPEG</b> oder <b>PNG</b>';
-$langFile['pagethumbnail_thumbinfo_filesize'] = 'maximale Dateigr&ouml;&szlig;e';
-$langFile['pagethumbnail_thumbinfo_standardthumbsize'] = 'Standardbildgr&ouml;&szlig;e';
+$langFile['pagethumbnail_thumbinfo_formats'] = 'Only the following file formats are allowed<br /><b>JPG</b>, <b>JPEG</b> or <b>PNG</b>';
+$langFile['pagethumbnail_thumbinfo_filesize'] = 'maximum filesize';
+$langFile['pagethumbnail_thumbinfo_standardthumbsize'] = 'Standard image size';
 
-$langFile['pagethumbnail_thumbsize_h1'] = 'Bildgr&ouml;&szlig;e selbst festlegen';
-$langFile['pagethumbnail_thumbsize_width'] = 'Bildbreite';
-$langFile['pagethumbnail_thumbsize_height'] = 'Bildh&ouml;he';
+$langFile['pagethumbnail_thumbsize_h1'] = 'Set image size yourself';
+$langFile['pagethumbnail_thumbsize_width'] = 'Width';
+$langFile['pagethumbnail_thumbsize_height'] = 'Height';
 
-$langFile['pagethumbnail_submit_tip'] = 'Bild hochladen';
+$langFile['pagethumbnail_submit_tip'] = 'Upload image';
 
-$langFile['pagethumbnail_upload_error_nofile'] = 'Du hast keine Datei ausgew&auml;hlt.';
-$langFile['pagethumbnail_upload_error_nouploadedfile'] = 'Es wurde keine Datei hochgeladen.';
-$langFile['pagethumbnail_upload_error_filesize'] = 'Wahrscheinlich ist die hochgeladene Datei zu gro&szlig;.<br />Die maximal erlaubte Dateigr&ouml;&szlig;e betr&auml;gt';
-$langFile['pagethumbnail_upload_error_wrongformat'] = 'Die ausgew&auml;hlte Datei hat ein nicht unterst&uuml;tztes Format';
-$langFile['pagethumbnail_upload_error_nodir_part1'] = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_nodir_part2'] = 'existiert nicht oder konnte nicht erstellt werden.';
-$langFile['pagethumbnail_upload_error_couldntmovefile_part1'] = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_couldntmovefile_part2'] = 'verschieben.';
-$langFile['pagethumbnail_upload_error_changeimagesize'] = 'Die Bildgr&ouml;&szlig;e konnt nicht ge&auml;ndert werden.';
-$langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Das alte Thumbnail-Bild konnte nicht gel&ouml;scht werden.';
-$langFile['pagethumbnail_upload_response_fileexists'] = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
-$langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich hochgeladen.';
+$langFile['pagethumbnail_upload_error_nofile'] = 'You didn\'t select any file.';
+$langFile['pagethumbnail_upload_error_nouploadedfile'] = 'No file was uploaded.';
+$langFile['pagethumbnail_upload_error_filesize'] = 'The filesize of the uploaded image is probably to big.<br />The maximum filesize is';
+$langFile['pagethumbnail_upload_error_wrongformat'] = 'The selecet file has a not supported format';
+$langFile['pagethumbnail_upload_error_nodir_part1'] = 'The thumbnail folder'; // The thumbnail-folder..
+$langFile['pagethumbnail_upload_error_nodir_part2'] = 'doesn\'t exist or couldn\'t be created.';
+$langFile['pagethumbnail_upload_error_couldntmovefile_part1'] = 'Could not move the uploaded file in the thumbnail folder'; // ..thumbnail-folder..
+$langFile['pagethumbnail_upload_error_couldntmovefile_part2'] = '.';
+$langFile['pagethumbnail_upload_error_changeimagesize'] = 'Couldn\'t resize the image.';
+$langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Couldn\'t delete the old thumbnail.';
+$langFile['pagethumbnail_upload_response_fileexists'] = 'A image with this filename already exists.<br />The uploaded file was renamed to';
+$langFile['pagethumbnail_upload_response_finish'] = 'Succesfully uploaded the image.';
 
 /* ----------------------------------------------------------------------------------------------
 * search.php
 */
 
 // ---------- SEARCH
-$langFile['search_h1'] = 'Seiten durchsuchen';
-$langFile['search_results_h1'] = 'Suchergebnisse f&uuml;r';
-$langFile['search_results_text1'] = '&Uuml;bereinstimmungen im Titel';
-$langFile['search_results_text2'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
-$langFile['search_results_text3'] = '&Uuml;bereinstimmende W&ouml;rter:';
-$langFile['search_results_text4'] = '&Uuml;bereinstimmenden Satz gefunden';
-$langFile['search_results_text5'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
-$langFile['search_results_text6'] = '&Uuml;bereinstimmenden Satz gefunden';
-$langFile['search_results_text7'] = '&Uuml;bereinstimmungen im Text';
-$langFile['search_results_text8'] = '&Uuml;bereinstimmung mit der Seiten ID';
-$langFile['search_results_count'] = 'Treffer';
+$langFile['search_h1'] = 'Search pages';
+$langFile['search_results_h1'] = 'Search results for';
+$langFile['search_results_text1'] = 'Matches in the title';
+$langFile['search_results_text2'] = 'Matches in the date or the category';
+$langFile['search_results_text3'] = 'Matching words:';
+$langFile['search_results_text4'] = 'Matching sentence';
+$langFile['search_results_text8'] = 'Matching with the page ID';
+$langFile['search_results_count'] = 'Results';
 $langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden
-$langFile['search_results_time_part2'] = 'Sekunden';
+$langFile['search_results_time_part2'] = 'seconds';
 
 
 // -----------------------------------------------------------------------------------------------

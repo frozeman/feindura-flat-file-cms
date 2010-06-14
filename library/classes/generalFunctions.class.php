@@ -149,7 +149,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function checkLanguageFiles($useLangPath = false, $returnLangFile = true, $standardLang = 'en') {  
+  function checkLanguageFiles($useLangPath = false, $returnLangFile = true, $standardLang = 'en') {
      
       // checks if a path given
       if(is_string($useLangPath)) {
@@ -159,14 +159,14 @@ class generalFunctions {
         $langPath = DOCUMENTROOT.$useLangPath;
       } else
         $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'; // $this->adminConfig['websitefilesPath']
-  
+      
       // opens the lang Dir
       if(!$openlangdir = @opendir($langPath)) {
         if(!$returnLangFile)
           return $standardLang;
         else
           return false;
-      }   
+      }
       
       // go trough the lang Dir
       while(false !== ($lang_file = @readdir($openlangdir))) {

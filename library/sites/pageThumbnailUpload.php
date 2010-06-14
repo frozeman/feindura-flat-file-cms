@@ -123,8 +123,8 @@ if($categoryRatio) {
   if($thumbRatioY) {
   ?>
   <tr><td style="width: 80px">
-  <label for="windowBox_thumbWidth"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_width'].'::'.$langFile['adminSetup_thumbnailSettings_field1_tip'] ?>">
-  <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></span></label>
+  <label for="windowBox_thumbWidth">
+  <?php echo $langFile['pagethumbnail_thumbsize_width'] ?></label>
   </td><td>
   <input id="windowBox_thumbWidth" name="thumbWidth" class="short" value="<?php echo $thumbWidth; ?>"<?php echo $thumbRatioX; ?> />
   <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
@@ -147,8 +147,8 @@ if($categoryRatio) {
   if($thumbRatioX) {
   ?>  
   <tr><td style="width: 80px">
-  <label for="windowBox_thumbHeight"><span class="toolTip" title="<?php echo $langFile['pagethumbnail_thumbsize_height'].'::'.$langFile['adminSetup_thumbnailSettings_field2_tip'] ?>">
-  <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></span></label>
+  <label for="windowBox_thumbHeight">
+  <?php echo $langFile['pagethumbnail_thumbsize_height'] ?></label>
   </td><td>
   <input id="windowBox_thumbHeight" name="thumbHeight" class="short" value="<?php echo $thumbHeight; ?>"<?php echo $thumbRatioY; ?> />
   <?php echo $langFile['pagethumbnail_thumbsize_unit']; ?>
