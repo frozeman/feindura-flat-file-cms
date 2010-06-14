@@ -28,9 +28,10 @@
 * 
 * @package [Implementation]|[feindura-CMS]
 * 
-* @version 1.16
+* @version 1.17
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.17 add chmod to savePage()
 *    - 1.16 started documentation
 */ 
 class generalFunctions {
@@ -322,7 +323,7 @@ class generalFunctions {
       
       // ->> REMOVE
       } elseif($remove === true) {
-	// -> checks if the SESSION storedPages Array exists
+	    // -> checks if the SESSION storedPages Array exists
         if(isset($_SESSION['storedPages']))
           unset($_SESSION['storedPages'][$pageContent['id']]); // if isset, remove from the storedPages in the SESSION
         else {
@@ -393,15 +394,16 @@ class generalFunctions {
   * 
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 add chmod  
   *    - 1.0 initial release
   * 
   */
   function savePage($pageContent) {
         
-    // escaped ",',\,NUL undescapped aber wieder die "
+    // escaps ",',\,NULL but undescappes the double quotes again
     $pageContent['content'] = stripslashes($pageContent['content']);
     $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
     $pageContent['content'] = str_replace('\"', '"', $pageContent['content'] );
@@ -409,13 +411,17 @@ class generalFunctions {
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];
     
-    // fügt hinter der gruppe ein / an wenn sie nicht leer ist
+    // adds a slash after the category
     if(!empty($categoryId) && $categoryId != 0)
       $categoryId = $categoryId.'/';
     
-    //öffnet oder erstellt die flatfile
-    if((($categoryId === false || $categoryId == 0) && $file = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php',"w")) ||
-       $file = @fopen(DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php',"w")) {
+    // get path
+    $filePath = ($categoryId === false || $categoryId == 0)
+    ? DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php'
+    : DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php';
+    
+    // open the flatfile
+    if($file = @fopen($filePath,"w")) {
         
       // CHECK BOOL VALUES and change to FALSE
       $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
@@ -461,7 +467,11 @@ class generalFunctions {
       flock($file,3);
       fclose($file);
       
-      // writes the new saved page to the $storedPages property
+      @chmod($filePath, 0777);
+      
+      // writes the new saved page to the $storedPages property      
+      $this->setStoredPages($pageContent,true); // remove the old one
+      $pageContent = include($filePath);
       $this->setStoredPages($pageContent);
       // reset the stored page ids
       $this->storedPagesIds = null;

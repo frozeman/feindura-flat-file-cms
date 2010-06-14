@@ -49,8 +49,8 @@ FEATURES
    addon system, build your own application running in the feindura-CMS backend
  
 REQUIREMENTS
-   PHP >= 4.3.0
-   Javascript  
+   PHP >= 4.3.0 (SafeMode OFF)
+   Javascript
 
 APPROPRIATE USES  
    It's not tested yet, but it should work well on websites with up to 10 000 vistiors per day

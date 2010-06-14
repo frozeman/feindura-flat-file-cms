@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.85
+listPages.php version 0.86
 
 */
 
@@ -26,11 +26,10 @@ $opendCategory = false;
 if($_GET['status'] == 'changePageStatus') {
     
     if($contentArray = $generalFunctions->readPage($_GET['page'],$_GET['category'])) {      
+         
       // change the status
-      if($_GET['public'])
-        $contentArray['public'] = 'false';
-      else
-        $contentArray['public'] = 'true';
+      $contentArray['public'] = ($_GET['public']) ? false : true;
+      
       // save the new status
       if($generalFunctions->savePage($contentArray))
         $documentSaved = true;
@@ -188,6 +187,7 @@ foreach($allCategories as $category) {
       $sort_order[] = $pageContent['sortorder'];
     
       // show whether the page is public or nonpublic
+
       if($pageContent['public']) {
         $publicClass = ' public';
         $publicText = $langFile['status_page_public'];
@@ -292,7 +292,6 @@ echo '</ul>
      </div>
      <div class="bottom"></div>
   </div>';
-
 
 echo "\n".'<!-- transport the sortorder to the javascript -->
       <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories['id_'.$category['id']]['sortascending'].'" /> <!-- reverse order yes/no -->

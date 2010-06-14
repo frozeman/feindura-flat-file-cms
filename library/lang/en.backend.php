@@ -85,7 +85,7 @@ $langFile['log_lastVisit'] = 'last visit';
 $langFile['log_novisit'] = 'Nobody visit this website yet.';
 $langFile['log_tags_description'] = 'Serchwords which led from
 <a href="http://www.google.de">Google</a>,
-<a href="http://www.yahoo.de">Yahoo</a> oder
+<a href="http://www.yahoo.de">Yahoo</a> or
 <a href="http://www.bing.com">Bing (MSN)</a> to this website.';
 $langFile['log_notags'] = 'No searchwords led to this website yet.';
 
@@ -308,17 +308,17 @@ $langFile['sortablePageList_functions_editPage'] = 'Edit page';
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Click here to change the status of the page.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Click here to change the status of the category.';
 
-$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['error_read_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 $langFile['sortablePageList_setStartPage_error_save'] = '<b>Could not set the start page.</b>'.$langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;';
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 $langFile['sortablePageList_info'] = 'You can change the <b>sorting</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
 $langFile['sortablePageList_save'] = 'Save new sorting ...';
 $langFile['sortablePageList_save_finished'] = 'New sorting successfully saved!';
-$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['error_read_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['error_read_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
 $langFile['sortablePageList_categoryEmpty'] = 'No pages available';
 
 // ---------- FORMULAR
@@ -475,9 +475,9 @@ $langFile['pageSetup_moveCategory_up_tip'] = 'Move category upwards';
 $langFile['pageSetup_moveCategory_down_tip'] = 'Move category downwards';
 
 $langFile['pageSetup_error_create'] = '<b>Could not create new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].'config/'.$langFile['error_folderDatabase_end'];
-$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].'&quot; Ordners.';
+$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].'&quot; Ordners.';
 $langFile['pageSetup_error_delete'] = '<b>Could not delete the category</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
 $langFile['pageSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
 
 
@@ -570,7 +570,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste
 
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 /* ----------------------------------------------------------------------------------------------
 * pluginSetup.php
@@ -641,7 +641,7 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'Kursiv';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'Unterstrichen';
 $langFile['editor_htmleditor_hotkeys_or'] = 'oder';
 
-$langFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php

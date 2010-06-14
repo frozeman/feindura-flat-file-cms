@@ -271,13 +271,17 @@ h1 img.sortIcon {
     
 
 /* ----------------------- */	
-/* - slide down link */  
+/* - SLIDE DOWN/UP LINK */  
 a.down {
-    font-size:15px;
-    font-weight:bold;
+    font-weight: bold;
     padding-left: 18px;
     background: url(../image/key/down.gif) no-repeat 0px 3px !important;
-    color: #E19F68;
+    }
+    
+a.up {
+    font-weight: bold;
+    padding-left: 18px;
+    background: url(../image/key/up.gif) no-repeat 0px 3px !important;
     }
 
 /* ----------------------- */	

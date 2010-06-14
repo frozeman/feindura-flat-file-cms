@@ -182,7 +182,7 @@ function saveCategories($newCategories) {
       foreach($newCategories as $category) {
 
         // CHECK BOOL VALUES and change to FALSE
-        $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';        
+        $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';
         $category['createdelete'] = (isset($category['createdelete']) && $category['createdelete']) ? 'true' : 'false';
         $category['thumbnail'] = (isset($category['thumbnail']) && $category['thumbnail']) ? 'true' : 'false';
         $category['plugins'] = (isset($category['plugins']) && $category['plugins']) ? 'true' : 'false';
@@ -622,7 +622,7 @@ function movePage($page, $fromCategory, $toCategory) {
     $toCategory = '';
     
   // MOVE categories
-  if(@copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
+  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
     DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$toCategory.'/'.$page.'.php') &&
     @unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
     // reset the stored page ids
@@ -1028,13 +1028,16 @@ function saveEditedFiles(&$savedForm) {
  * 
  */
 function delDir($dir) {
-    $files = glob( $dir . '*', GLOB_MARK );
-    foreach( $files as $file ){
-        if( substr( $file, -1 ) == '/' )
-            delTree( $file );
-        else
-            unlink( $file );
+    $files = glob($dir.'*', GLOB_MARK );
+    if(is_array($files)) {
+      foreach( $files as $file ){
+          if( substr( $file, -1 ) == '/' )
+              delTree( $file );
+          else
+              unlink( $file );
+      }
     }
+    
     if(rmdir( $dir ))
       return true;
     else
