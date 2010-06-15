@@ -206,7 +206,7 @@ if($newPage) {
 
 // -> checks for startpage, and show STARTPAGE ICON
 if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
-  $startPageIcon = '<img src="library/image/sign/startPageIcon_middle.png" style="float:left;" />';
+  $startPageIcon = '<img src="library/image/sign/startPageIcon_middle.png" />';
   $startPageTitle = ' toolTip" title="'.$langFile['btn_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 

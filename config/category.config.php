@@ -1,7 +1,7 @@
 <?php
 
 $categoryConfig['id_1']['id'] =              1;
-$categoryConfig['id_1']['name'] =            'Footer-Boxen';
+$categoryConfig['id_1']['name'] =            'Layoutelemente';
 $categoryConfig['id_1']['public'] =          true;
 $categoryConfig['id_1']['createdelete'] =    true;
 $categoryConfig['id_1']['thumbnail'] =       true;
