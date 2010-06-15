@@ -248,7 +248,7 @@ content.css version 0.21 */
 
 h1 img.sortIcon {
     position: relative;
-    top: 7px;
+    top: 7px !important;
     left: -2px;
     }
 
