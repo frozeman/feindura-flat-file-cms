@@ -800,6 +800,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   // var
   $fileTypeText = null;
+  $isFiles = false;
   
   // shows the block below if it is the ones which is saved before
   $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
@@ -855,10 +856,12 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   	  }
   	  
   	}
+  	$isDir = true;
+  	
   	
   	// only if still are files left
   	if(is_array($files) && !empty($files)) {
-  	  $isDir = true;	
+  	  $isFiles = true;
   	  // sort the files in a natural way (alphabetical)
   	  natsort($files);
   	}
@@ -881,7 +884,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   if($isDir) {
 
     // FILE SELECTION ------------------------------------
-    if(isset($files)) {
+    if($isFiles && isset($files)) {
       echo '<div class="editFiles left">
             <h2>'.$GLOBALS['langFile']['editFilesSettings_chooseFile'].'</h2>
             <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
@@ -922,7 +925,8 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   
   if($isDir) {
-    echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
+    if($isFiles)
+      echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
     echo '<br /><br /><br /><input type="submit" value="" name="saveEditedFiles" class="toolTip button submit right" title="'.$GLOBALS['langFile']['form_submit'].'" />';
   }
   echo '</div>
