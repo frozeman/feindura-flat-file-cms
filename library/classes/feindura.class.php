@@ -580,7 +580,8 @@ class feindura {
     $return['title'] = false;
     $return['thumbnail'] = false;
     $return['thumbnailPath'] = false;
-    $return['content'] = false;    
+    $return['content'] = false;
+    $return['description'] = false;  
     $return['tags'] = false;
     $return['plugins'] = false;
 
@@ -757,7 +758,10 @@ class feindura {
        
     if(!empty($pageContent['content']))
        $return['content']   = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
-
+    
+    if(!empty($pageContent['description']))
+       $return['description'] = $pageContent['content'];
+    
     if(!empty($pageContent['tags']))
        $return['tags']   = $pageContent['tags'];
     

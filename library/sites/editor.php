@@ -47,9 +47,9 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
-  $_POST['title'] = $generalFunctions->clearTitle($_POST['title']);
+  $_POST['title'] = $generalFunctions->clearText($_POST['title']);
   
-  $_POST['description'] = htmlentities($_POST['description'],ENT_QUOTES,'UTF-8');
+  $_POST['description'] = $generalFunctions->clearText($_POST['description']);
   
   //$postArray['FCKeditor'] = str_replace("<br />", "<br>", $postArray['FCKeditor'] );
   //$postArray['FCKeditor'] = str_replace("/>", ">", $postArray['FCKeditor'] );

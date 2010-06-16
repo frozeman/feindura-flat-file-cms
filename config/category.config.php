@@ -20,5 +20,25 @@ $categoryConfig['id_1']['thumbHeight'] =     '';
 $categoryConfig['id_1']['thumbRatio'] =      '';
 
 
+$categoryConfig['id_2']['id'] =              2;
+$categoryConfig['id_2']['name'] =            'News';
+$categoryConfig['id_2']['public'] =          true;
+$categoryConfig['id_2']['createdelete'] =    true;
+$categoryConfig['id_2']['thumbnail'] =       false;
+$categoryConfig['id_2']['plugins'] =         false;
+$categoryConfig['id_2']['showtags'] =        false;
+$categoryConfig['id_2']['showpagedate'] =    true;
+$categoryConfig['id_2']['sortbypagedate'] =  true;
+$categoryConfig['id_2']['sortascending'] =   false;
+
+$categoryConfig['id_2']['styleFile'] =       '';
+$categoryConfig['id_2']['styleId'] =         '';
+$categoryConfig['id_2']['styleClass'] =      '';
+
+$categoryConfig['id_2']['thumbWidth'] =      '';
+$categoryConfig['id_2']['thumbHeight'] =     '';
+$categoryConfig['id_2']['thumbRatio'] =      '';
+
+
 return $categoryConfig;
 ?>

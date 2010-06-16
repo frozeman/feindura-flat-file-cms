@@ -1016,7 +1016,7 @@ class generalFunctions {
   }
   
  /**
-  * <b>Name</b> clearTitle()<br>
+  * <b>Name</b> clearText()<br>
   * 
   * Clears the title string from not allowed chars and change the speial chars into htmlentities.
   * 
@@ -1030,14 +1030,14 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function clearTitle($title) {
+  function clearText($text) {
       
       // format title
-      $title = preg_replace("/ +/", ' ', $title);
-      $title = str_replace('\\', '', $title);
-      $title = htmlentities($title,ENT_QUOTES,'UTF-8');
+      $text = preg_replace("/ +/", ' ', $text);
+      $text = str_replace('\\', '', $text);
+      $text = htmlentities($text,ENT_QUOTES,'UTF-8');
       
-      return $title;
+      return $text;
   }
   
  /**
