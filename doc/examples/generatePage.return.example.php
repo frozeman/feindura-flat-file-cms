@@ -1,6 +1,7 @@
 <?php
 
 array(
+  'id' => 1,
   'category' => 'Example Category',
   'pageDate' => '2000-12-31', // formated depending on the administrator-settings
   'title' => 'Title Example',

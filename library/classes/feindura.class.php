@@ -575,6 +575,7 @@ class feindura {
   function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
     
     // vars
+    $return['id'] = false;
     $return['category'] = false;
     $return['pageDate'] = false;
     $return['title'] = false;
@@ -741,9 +742,11 @@ class feindura {
     
     // -> RETURNING the PAGE ELEMENTS
     // *******************
-    if($pageContent['category'] && $pageContent['category'] != '0')
-       $return['category'] = $this->categoryConfig['id_'.$pageContent['category']]['name'];
+    if(!empty($pageContent['id']))
+       $return['id'] = $pageContent['id'];
     
+    if($pageContent['category'] && $pageContent['category'] != '0')
+       $return['category'] = $this->categoryConfig['id_'.$pageContent['category']]['name'];    
     
     if($pagedate)
        $return['pageDate']  = $pagedate;
