@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 242
+Build 243
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implimentation changed)
+  build 243: changed linkTextAfter to linkAfterText
   build 242: add id to the ouptut of a page
   build 241: fixes in editor.php; add short description to the page output
   build 240: fix in editFiles()

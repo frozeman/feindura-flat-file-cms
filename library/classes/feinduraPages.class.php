@@ -234,7 +234,7 @@ class feinduraPages extends feindura {
   * @example createLink.example.php
   * 
   */
-  var $linkTextBefore = false;
+  var $linkBeforeText = false;
   
  /**
   * Contains a string which will be add after the link text but inside any <a></a> tag
@@ -248,7 +248,7 @@ class feinduraPages extends feindura {
   * @example createLink.example.php
   * 
   */
-  var $linkTextAfter = false;
+  var $linkAfterText = false;
   
  /**
   * If TRUE and the page has a thumbnail it places the thumbnail <img> tag inside the <a></a> tag
@@ -931,8 +931,8 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkAttributes
   * @uses feinduraPages::$linkBefore
   * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkTextBefore
-  * @uses feinduraPages::$linkTextAfter
+  * @uses feinduraPages::$linkBeforeText
+  * @uses feinduraPages::$linkAfterText
   * @uses feinduraPages::$linkShowThumbnail
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
@@ -1013,14 +1013,14 @@ class feinduraPages extends feindura {
             $returnThumbnail = $linkShowThumbnail['thumbnail']."\n";
           
           // CHECK if the LINKTEXT BEFORE & AFTER is !== true
-          $linkTextBefore = false;
-          $linkTextAfter = false;
+          $linkBeforeText = false;
+          $linkAfterText = false;
           
           if($linkText !== false) {
-            if($this->linkTextBefore !== true)
-              $linkTextBefore = $this->linkTextBefore;
-            if($this->linkTextAfter !== true)
-              $linkTextAfter = $this->linkTextAfter;
+            if($this->linkBeforeText !== true)
+              $linkBeforeText = $this->linkBeforeText;
+            if($this->linkAfterText !== true)
+              $linkAfterText = $this->linkAfterText;
           }
           
           // CHECK if the LINK BEFORE & AFTER is !== true
@@ -1035,9 +1035,9 @@ class feinduraPages extends feindura {
           
           // CHECK IF THUMBNAIL AFTER TEXT
           if($this->linkShowThumbnailAfterText === true)
-            $linkString = $linkTextBefore.$linkText.$linkTextAfter."\n".$returnThumbnail;
+            $linkString = $linkBeforeText.$linkText.$linkAfterText."\n".$returnThumbnail;
           else
-            $linkString = $returnThumbnail.$linkTextBefore.$linkText.$linkTextAfter;            
+            $linkString = $returnThumbnail.$linkBeforeText.$linkText.$linkAfterText;            
   
           // -> create the LINK
           // ----------------------------
@@ -1084,8 +1084,8 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkAttributes
   * @uses feinduraPages::$linkBefore
   * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkTextBefore
-  * @uses feinduraPages::$linkTextAfter
+  * @uses feinduraPages::$linkBeforeText
+  * @uses feinduraPages::$linkAfterText
   * @uses feinduraPages::$linkShowThumbnail
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
@@ -1310,8 +1310,8 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkAttributes
   * @uses feinduraPages::$linkBefore
   * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkTextBefore
-  * @uses feinduraPages::$linkTextAfter
+  * @uses feinduraPages::$linkBeforeText
+  * @uses feinduraPages::$linkAfterText
   * @uses feinduraPages::$linkShowThumbnail
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
@@ -1401,8 +1401,8 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$linkAttributes
   * @uses feinduraPages::$linkBefore
   * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkTextBefore
-  * @uses feinduraPages::$linkTextAfter
+  * @uses feinduraPages::$linkBeforeText
+  * @uses feinduraPages::$linkAfterText
   * @uses feinduraPages::$linkShowThumbnail
   * @uses feinduraPages::$linkShowThumbnailAfterText
   * @uses feinduraPages::$linkShowPageDate
