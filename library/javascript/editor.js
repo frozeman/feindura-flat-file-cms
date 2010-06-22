@@ -51,7 +51,7 @@ window.addEvent('domready', function() {
     // ----------------------------------------------------------------------
     // CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
   	CKEDITOR.replace('HTMLEditor',{
-      filebrowserBrowseUrl: 'library/thirdparty/filemanager/index.html', // adds filemanager
+      filebrowserBrowseUrl: 'library/thirdparty/filemanager/index.php', // adds filemanager
     });
 
     

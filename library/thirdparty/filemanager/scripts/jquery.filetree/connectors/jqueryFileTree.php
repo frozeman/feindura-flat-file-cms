@@ -17,6 +17,8 @@
 //
 
 $_POST['dir'] = urldecode($_POST['dir']);
+$root = $_SERVER['DOCUMENT_ROOT'];
+
 
 if( file_exists($root . $_POST['dir']) ) {
 	$files = scandir($root . $_POST['dir']);

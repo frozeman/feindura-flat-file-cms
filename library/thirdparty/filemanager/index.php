@@ -42,6 +42,11 @@
 		<script type="text/javascript" src="scripts/jquery.impromptu-1.5.js"></script>
 		<script type="text/javascript" src="scripts/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="scripts/filemanager.config.js"></script>
+		<script type="text/javascript">
+		
+		  // Set this to the directory you wish to manage.
+      fileRoot = '<?php $adminConfig = include(dirname(__FILE__).'/../../../config/admin.config.php'); echo $adminConfig['uploadPath']; ?>';
+    </script>
 		<script type="text/javascript" src="scripts/filemanager.js"></script>
 	</body>
 </html>

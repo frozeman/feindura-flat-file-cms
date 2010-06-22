@@ -31,45 +31,8 @@ html,body {
 /* ----------------------- */	
 /* ---:- PROLOG */
 
-/* general margins */
-*   {
-    margin: 0px;
-    padding: 0px;
-    }
-
-/* reset margins */
-h1, h2, h3, h4, h5, h6, p, blockquote, address, pre, ul, ol, dl, table {
-    margin-bottom: 1em;
-    line-height: 1.5em;
-    }
-
 /* quotes */
 blockquote { margin: 1em 2em; }
-
-/* Auswahl in Auswahllisten (select)durch padding:0 schlecht lesbar */
-option { padding-left: 0.2em; padding-right: 0.3em; }
-
-/* Alle Listen einrücken */
-ul, ol, dl { margin-left: 1em; }
-
-/* Listenelemente mehr einrücken */
-li { margin-left: 1em; }
-
-/* Definitionen in Definitionslisten mehr einrücken */
-dd { margin-left: 2em; }
-
-/* Verschachtelte Listen ohne Außenabstand oben/unten */
-ul ul, ul ol, ul dl, ol ul, ol ol, ol dl, dl ul, dl ol, dl dl {
-    margin-top: 0;
-    margin-bottom: 0;
-    }
-/* remove borders from images in links */
-a img {
-    border: none;
-    }
-
-/* removing the border after click in firefox */
-a:active, a:focus { outline:none; }
 
 /* ----------------------- */	
 /* ---:- GENERAL ELEMENTs FORMAT  */
