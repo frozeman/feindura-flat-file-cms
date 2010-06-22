@@ -50,11 +50,16 @@ window.addEvent('domready', function() {
     
     // ----------------------------------------------------------------------
     // CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
-  	CKEDITOR.replace( 'HTMLEditor' );
+  	CKEDITOR.replace('HTMLEditor',{
+      filebrowserBrowseUrl: 'library/thirdparty/filemanager/index.html', // adds filemanager
+    });
 
     
     // ADDS the CKFinder as filemanager to the CKEditor
-    CKFinder.SetupCKEditor(CKEDITOR, 'library/thirdparty/ckfinder/');    
+    //CKFinder.SetupCKEditor(CKEDITOR, 'library/thirdparty/ckfinder/');
+    
+    
+     
   }
   
   // -----------------------------------------
