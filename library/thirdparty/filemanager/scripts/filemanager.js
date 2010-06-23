@@ -357,7 +357,9 @@ var getFileInfo = function(file){
 	// Include the template.
 	var template = '<div id="preview"><img /><h1></h1><dl></dl></div>';
 	template += '<form id="toolbar">';
-	template += '<button id="select" name="select" type="button" value="Select">Select</button>';
+	// blend out if filemanager was not load in a CKEditor instance
+	if(window.opener)
+	 template += '<button id="select" name="select" type="button" value="Select">Select</button>';
 	template += '<button id="download" name="download" type="button" value="Download">Download</button>';
 	template += '<button id="rename" name="rename" type="button" value="Rename">Rename</button>';
 	template += '<button id="delete" name="delete" type="button" value="Delete">Delete</button>';

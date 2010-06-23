@@ -28,7 +28,12 @@
 		</div>
 
 		<ul id="itemOptions" class="contextMenu">
-			<li class="select"><a href="#select">Select</a></li>
+			<?php
+      
+      // blend out if filemanager was not load in a CKEditor instance
+      if(isset($_GET['CKEditor']))
+        echo '<li class="select"><a href="#select">Select</a></li>';
+      ?>
 			<li class="download"><a href="#download">Download</a></li>
 			<li class="rename"><a href="#rename">Rename</a></li>
 			<li class="delete separator"><a href="#delete">Delete</a></li>
