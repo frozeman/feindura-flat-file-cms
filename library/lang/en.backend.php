@@ -365,7 +365,7 @@ $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Please save the s
 $langFile['adminSetup_fmsSettings_field3'] = 'Save path';
 $langFile['adminSetup_fmsSettings_field3_tip'] = 'The [b]absolute path[/b] where the flat files with the page content will be saved.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_field4'] = 'Upload path';
-$langFile['adminSetup_fmsSettings_field4_tip'] = '[b]Absolute path[/b][br /]Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /]Subfolders for each filetyp will be created automatically[br /](images, flash, files)[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]This files can be edited further down or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
 $langFile['adminSetup_fmsSettings_field5'] = 'File path for website files';
 $langFile['adminSetup_fmsSettings_field5_tip'] = 'This files can be usefull, for Example, to make a website multi-language.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'].$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
