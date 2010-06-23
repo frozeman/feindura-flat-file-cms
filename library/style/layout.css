@@ -131,6 +131,7 @@ span.red {
 #adminMenu h1 {
     display: inline-block;
     width: 120px;
+    padding-top: 10px;
     padding-bottom: 5px;
     margin-bottom: 3px;
     font-size: 12px;
@@ -218,6 +219,9 @@ a#createdBy:hover {
     padding: 10px 20px;
     padding-bottom: 1px;
     background-color: #ffffff;
+    }
+#content.hasSubMenu {
+    padding-top: 60px;
     }
 
 /* ----------------------- */

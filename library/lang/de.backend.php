@@ -187,6 +187,8 @@ $langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
 $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
 
 // --- subMenu/footer
+$langFile['btn_fileManager'] = 'Dateimanager';
+$langFile['btn_fileManager_tip'] = 'Dateien und Bilder verwalten';
 $langFile['btn_createPage'] = 'Neue Seite';
 $langFile['btn_createPage_tip'] = 'Neue Seite erstellen';
 $langFile['btn_deletePage'] = 'Seite l&ouml;schen';
@@ -394,6 +396,7 @@ $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</
 $langFile['adminSetup_userSettings_h1'] = 'Benutzer-Einstellungen';
 $langFile['adminSetup_userSettings_check1'] = 'Webseitendateien in den Webseiten-Einstellungen bearbeiten';
 $langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien in den Webseiten-Einstellungen bearbeiten';
+$langFile['adminSetup_userSettings_check3'] = 'Dateimanager aktivieren';
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=home">'.$langFile['btn_home'].'</a>';
 $langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['btn_home'].' angezeigt.';

@@ -90,6 +90,7 @@ if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['pag
   <link rel="stylesheet" type="text/css" href="library/style/footerMenu.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/loading.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/windowBox.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/style/fileManager.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/errorWindow.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/listPages.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="library/style/notifications.css" media="screen" />
@@ -106,7 +107,8 @@ if($_GET['site'] == 'addons') {
 ?>
   
   <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  
-  <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie.css" /><![endif]-->
+  <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie6.css" /><![endif]-->
+  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/style/ie7.css" /><![endif]-->
   
   <noscript>
   <link rel="stylesheet" type="text/css" href="library/style/noJavascript.css" media="screen" />
@@ -294,8 +296,8 @@ if($_GET['site'] == 'addons') {
     if(//$_GET['status'] != 'changePageStatus' &&
        //$_GET['status'] != 'changeCategoryStatus' &&
        //$_GET['category'] != '' &&
-       //($_GET['site'] == 'pages' || !empty($_GET['page'])) &&       
-       $showPageThumbnailUpload || $showCreatePage)
+       ($_GET['site'] == 'pages' || !empty($_GET['page'])) && 
+       ($showPageThumbnailUpload || $showCreatePage || $adminConfig['user']['fileManager']))
       $showSubFooterMenu = true;
     else
       $showSubFooterMenu = false;          
@@ -303,7 +305,7 @@ if($_GET['site'] == 'addons') {
     ?>
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if($showSubFooterMenu) echo ' style="padding-top: 70px;"'; ?>>      
+    <div id="content"<?php if($showSubFooterMenu) echo 'class="hasSubMenu"'; ?>>      
       <?php
       
       include('library/content.loader.php');
@@ -335,7 +337,8 @@ if($_GET['site'] == 'addons') {
       
     // ---------------------------------------------------------------
     // CHECK 2. SHOW SUB- FOOTERMENU
-    if($showSubFooterMenu && ($showCreatePage || $showPageThumbnailUpload))
+    if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && 
+       (($showSubFooterMenu && ($showCreatePage || $showPageThumbnailUpload)) || $adminConfig['user']['fileManager']))
       $showSubFooterMenu = true;
     else
       $showSubFooterMenu = false;
@@ -347,9 +350,22 @@ if($_GET['site'] == 'addons') {
     <div class="subMenu">
       <div class="left"></div>
       <div class="content">
-        <ul class="horizontalButtons">
+        <ul class="horizontalButtons">         
           <?php
           $showSpacer = false;
+          
+          // file manager
+          if($adminConfig['user']['fileManager']) { ?>
+          <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::">&nbsp;</a></li>
+          <?php
+            $showSpacer = true;
+          }
+          
+          if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+          <li class="spacer">&nbsp;</li>
+          <?php 
+            $showSpacer = false;
+          } 
           
           // create new page
           if($showCreatePage) { ?>
@@ -360,7 +376,7 @@ if($_GET['site'] == 'addons') {
           <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\',true);return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
           <?php }          
             $showSpacer = true;
-          }          
+          }
           
           if($showSpacer && $showPageThumbnailUpload) { ?>
           <li class="spacer">&nbsp;</li>
@@ -436,6 +452,19 @@ if($_GET['site'] == 'addons') {
         <ul class="horizontalButtons">
           <?php
           $showSpacer = false;
+          
+          // file manager
+          if($adminConfig['user']['fileManager']) { ?>
+          <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>');return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::"><span><?php echo $langFile['btn_fileManager']; ?></span></a></li>
+          <?php
+            $showSpacer = true;
+          }
+          
+          if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+          <li class="spacer">&nbsp;</li>
+          <?php 
+            $showSpacer = false;
+          }
           
           // create new page
           if($showCreatePage) { ?>

@@ -25,7 +25,7 @@ var setDimensions = function(){
 // whenever a new directory is selected.
 var setUploader = function(path){
 	$('#currentpath').val(path);
-	$('#uploader h1').text('Current Folder: ' + path);
+	$('#uploader h1').text('Path: ' + path);
 
 	$('#newfolder').unbind().click(function(){
 		// var foldername = prompt('Enter the name of the new folder:', 'My Folder');
@@ -216,6 +216,7 @@ var deleteItem = function(data){
 			success: function(result){
 				if(result['Code'] == 0){
 					removeNode(result['Path']);
+					$('#fileinfo').html('<h1>Select an item from the left.</h1>');
 					isDeleted = true;
 					$.prompt('Delete successful.');
 				} else {

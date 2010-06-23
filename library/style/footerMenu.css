@@ -63,6 +63,13 @@
     vertical-align: middle;
     }
 
+/* fileManager */ 
+#footerMenu a.fileManager {
+    background: url(../image/key/footerMenu_fileManager.png) no-repeat;
+    }
+#footerMenu a.fileManager:hover {
+    background-position: -100px 0px;
+    }
 /* createPage */ 
 #footerMenu a.createPage {
     background: url(../image/key/footerMenu_createPage.png) no-repeat;

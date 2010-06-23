@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 2
-Build 246
+Build 247
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 	
 1.0 beta 2 (implementation changed)
+  build 247: add filemanager to sub and footermenu
   build 246: changes in filemanager
   build 245: fixed filemanager directory
   build 244: add filemanager removed CKFinder

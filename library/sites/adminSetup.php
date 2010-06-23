@@ -174,7 +174,8 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   $adminConfig['varName']['page'] = $_POST['cfg_varNamePage'];  
   $adminConfig['varName']['category'] = $_POST['cfg_varNameCategory'];  
   $adminConfig['varName']['modul'] = $_POST['cfg_varNameModul'];
-    
+  
+  $adminConfig['user']['fileManager'] = $_POST['cfg_userFileManager'];
   $adminConfig['user']['editWebsiteFiles'] = $_POST['cfg_userWebsiteFiles'];
   $adminConfig['user']['editStylesheets'] = $_POST['cfg_userStylesheets'];  
   $adminConfig['user']['info'] = $_POST['cfg_userInfo'];
@@ -450,6 +451,12 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       <colgroup>
       <col class="left" />
       </colgroup>      
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; ?> /><br />
+      </td><td class="right checkboxes">
+      <label for="cfg_userFileManager"><?php echo $langFile['adminSetup_userSettings_check3']; ?></label><br />
+      </td></tr>
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?> /><br />

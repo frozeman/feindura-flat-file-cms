@@ -85,6 +85,7 @@ startPageWarning();
 
 ?>
 
+<div class="block open">
 <h1><?php echo $langFile['sortablePageList_h1']; ?></h1>
 
 <div class="listPagesHead">
@@ -302,3 +303,4 @@ unset($pageContent);
 
 ?>
 </form>
+</div>

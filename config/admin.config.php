@@ -13,6 +13,7 @@ $adminConfig['varName']['page'] =     'page';
 $adminConfig['varName']['category'] = 'category';
 $adminConfig['varName']['modul'] =    'modul';
 
+$adminConfig['user']['fileManager'] =      true;
 $adminConfig['user']['editWebsiteFiles'] = true;
 $adminConfig['user']['editStylesheets'] =  true;
 $adminConfig['user']['info'] =             '';

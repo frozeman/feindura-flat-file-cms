@@ -44,6 +44,9 @@
     z-index: -1;
     bottom: -10px;
     }
+#content.hasSubMenu {
+    padding-top: 90px;
+    }
     
 /* h1 slide in button */
 #content h1 a {

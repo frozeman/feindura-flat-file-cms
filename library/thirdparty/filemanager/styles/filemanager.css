@@ -15,15 +15,17 @@ body {
 #uploader {
 	display: block;
 	text-align: right;
-	height: 30px;
-	max-height: 30px;
+	min-height: 30px;
+	max-height: 80px;
 	overflow: hidden;
 }
 
 #uploader h1 {
 	display: block;
+	padding-top: 5px;
 	float: left;
 	text-align: left;
+	font-size: 12px;
 }
 
 #uploadresponse {

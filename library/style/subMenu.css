@@ -64,7 +64,7 @@
 /* ----------------------- */
 /* --- buttons */
 
-.subMenu a {
+.subMenu li a {
     display: block;
     width: 45px;
     height: 48px;
@@ -72,6 +72,14 @@
     text-decoration: none;
     }
 
+/* fileManager */ 
+.subMenu a.fileManager {
+    width: 50px;
+    background: url(../image/key/subMenu_fileManager.png) no-repeat;
+    }
+.subMenu a.fileManager:hover {
+    background-position: -50px 0px;
+    }
 /* createPage */ 
 .subMenu a.createPage {
     background: url(../image/key/subMenu_createPage.png) no-repeat;

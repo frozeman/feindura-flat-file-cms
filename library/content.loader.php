@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// content.loader.php version 0.31
+// content.loader.php version 0.32
 
 
 
@@ -94,6 +94,10 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'search':
       include (dirname(__FILE__).'/sites/search.php');
       break;
+    // fileManager
+    case 'fileManager':
+      include (dirname(__FILE__).'/sites/fileManager.php');
+      break; 
     // deletePage
     case 'deletePage':
       include (dirname(__FILE__).'/sites/deletePage.php');
@@ -101,7 +105,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     // pageThumbnail
     case 'pageThumbnailUpload':
       include (dirname(__FILE__).'/sites/pageThumbnailUpload.php');
-      break;  
+      break;
   } //switch END
 
 }

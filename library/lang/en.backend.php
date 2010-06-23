@@ -187,6 +187,8 @@ $langFile['btn_statisticSetup'] = 'Statistic Settings';
 $langFile['btn_userSetup'] = 'User Management';
 
 // --- subMenu/footer
+$langFile['btn_fileManager'] = 'File manager';
+$langFile['btn_fileManager_tip'] = 'manage files and pictures';
 $langFile['btn_createPage'] = 'New Page';
 $langFile['btn_createPage_tip'] = 'Create new page';
 $langFile['btn_deletePage'] = 'Delete Page';
@@ -394,6 +396,7 @@ $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</
 $langFile['adminSetup_userSettings_h1'] = 'User-Settings';
 $langFile['adminSetup_userSettings_check1'] = 'Edit website files in the website-settings';
 $langFile['adminSetup_userSettings_check2'] = 'Edit stylesheet files in the website-settings';
+$langFile['adminSetup_userSettings_check3'] = 'activate File manager';
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['btn_home'].'</a>';
 $langFile['adminSetup_userSettings_textarea1_tip'] = 'User information::This text will be shown in the '.$langFile['btn_home'].' page of [span class=logoname]fein[span]dura[/span][/span].';

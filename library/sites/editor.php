@@ -189,7 +189,7 @@ echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$
       </div>';
 
 ?>
-<div class="block open">  
+<div class="block open">
 <?php
 
 // shows ID and differtnet header color if its a CATEGORY
