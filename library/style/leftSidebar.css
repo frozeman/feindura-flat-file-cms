@@ -119,8 +119,8 @@
 /* - buttons */
 #leftSidebar .sidebarMenu .content a {
     display: block;
-    height: 19px; /* original 35px */
-    padding: 8px 0px;
+    height: 15px; /* original 35px */
+    padding: 10px 0px;
     padding-left: 18px;
     font-weight: bold;
     font-size: 11px;    
