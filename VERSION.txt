@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.0 beta 2
-Build 249
+1.0 beta 3
+Build 250
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -20,8 +20,11 @@ if not, see <http://www.gnu.org/licenses>.
 
 
 ChangeLog:
-	
-1.0 beta 2 (implementation changed)
+
+1.0 beta 3
+  build 250: add staticScroller to the category selection in pageSetup
+
+1.0 beta 2 (implementation changed)  
   build 249: add CodeMirror for code highlighting in editFiles textareas
   build 248: deactivation of the filemanager deactivates it now completely
   build 247: add filemanager to sub and footermenu

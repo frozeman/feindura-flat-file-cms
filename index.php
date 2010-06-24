@@ -132,6 +132,10 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4-core.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
   
+  <!-- thirdparty/StaticScroller (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Source/StaticScroller.js"></script>
+	<script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Requires/Element.Pin.js"></script>
+  
   <!-- thirdparty/EditArea -->
   <script type="text/javascript" src="library/thirdparty/javascript/edit_area/edit_area_full.js"></script>
   

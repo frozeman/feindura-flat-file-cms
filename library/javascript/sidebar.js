@@ -64,4 +64,15 @@ window.addEvent('domready', function() {
   	$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller));
 
    }
+  
+  // ->> PAGESETUP CATEGORY MENU
+  // ---------------------------
+  
+  if($('sidebarCategorySelection') != null) {
+    // adds static scroller
+    new StaticScroller('sidebarCategorySelection',{
+      offset: 0
+    });
+  }  
+  
 });
