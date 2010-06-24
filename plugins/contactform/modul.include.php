@@ -10,20 +10,20 @@
 /* CHAPTA */
 /*
 .s {
-	color: #666666;
-	background-color: #666666;
-	font: 5px Arial, Verdana, Sans-serif, Serif !important;
-	line-height: 5px;
+  color: #666666;
+  background-color: #666666;
+  font: 5px Arial, Verdana, Sans-serif, Serif !important;
+  line-height: 5px;
 }
 .w {
-	background-color: transparent;
-	font: 5px Arial, Verdana, Sans-serif, Serif !important;
-	line-height: 5px;
+  background-color: transparent;
+  font: 5px Arial, Verdana, Sans-serif, Serif !important;
+  line-height: 5px;
 }
 */
 /*
 
-  ben�tigt SPRACHDATEIVARIABLEN:*/
+  ben&ouml;tigt SPRACHDATEIVARIABLEN:*/
 $langText['kontakt_h1'] = 'Kontaktformular';
 $langText['kontakt_back'] = 'Zur&uuml;ck';
 $langText['kontakt_sendfinish'] = 'Ihre Nachricht wurde erfolgreich versendet!';
@@ -96,11 +96,11 @@ $_SESSION['fax'] = @$_POST['fax'];
 $_SESSION['nachricht_org'] = stripslashes($_POST['nachricht']);
 $nachricht = str_replace("\n", '<br>', $_POST['nachricht']);
 
-// CHAPTA CHECK (wird �ber url �bertragen)
+// CHAPTA CHECK (wird über url übertragen)
 if(isset($_SESSION['chaptacheck']) && $_POST['chapta'] == $_SESSION['chaptacheck']) {
   unset($_SESSION['chaptacheck']);  
 
-  //�berpr�ft die PFLICHTFELDER
+  //Überprüft die PFLICHTFELDER
   $pflichtfelderOk = true;
   foreach($kontaktConfig as $key => $wert) {  
     // wenn das Feld NICHT aktiviert ist ODER
@@ -119,7 +119,7 @@ if(isset($_SESSION['chaptacheck']) && $_POST['chapta'] == $_SESSION['chaptacheck
   if($pflichtfelderOk && !empty($_POST['nachricht'])) {
   
   $timestamp = time();
-  $senddate	= date(d).".".date(m).".".date(Y);
+  $senddate  = date(d).".".date(m).".".date(Y);
   $sendtime = date("H:i",$timestamp);
   
   
@@ -182,7 +182,7 @@ Gesendet am '.$senddate.' um '.$sendtime.'<br>
 -------------------------------------------------<br>
 </body></html>';
   
-    // verwendet Rmail, wenn die php version gr��er 5 ist
+    // verwendet Rmail, wenn die php version größer 5 ist
   if(substr(phpversion(),0,1) >= 5 && include_once('thirdparty/Rmail/Rmail.php')) {
     
     $mail = new Rmail();
@@ -418,9 +418,9 @@ echo '<label for="nachricht_label"'.$notFilled.'><b>'.$langText['kontakt_field_n
 <b><?php echo $langText['kontakt_field_chapta'].$pflichtStern ?></b>
 <div style="margin: 0px 10px; line-height: 0px !important;">
 <?php
-	$n = new Number(rand(1000,9999));
-	$n->printNumber();
-  $_SESSION['chaptacheck'] = $n->getNum();	
+  $n = new Number(rand(1000,9999));
+  $n->printNumber();
+  $_SESSION['chaptacheck'] = $n->getNum();  
 ?>
 <input style="position:relative;top:-25px;left:50px;width:31px;" name="chapta" size="4" autocomplete="off" type="text" maxlength="4" />
 </div>

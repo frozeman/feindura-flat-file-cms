@@ -18,13 +18,13 @@ forms.css version 0.1 */
 /* ----------------------- */	
 /* ---:- INPUT */
 
-input, textarea, select {
+input, textarea, select, div.CodeMirror-wrapping {
     background: url(../image/bg/formularBg.jpg) no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
     font: 13px Verdana, Arial, Helvetica;
     }
-input:hover, textarea:hover, select:hover {
+input:hover, textarea:hover, select:hover, div.CodeMirror-wrapping:hover {
     border: 1px dotted #CF974D;
     } 
 input:focus, textarea:focus, select:focus {
@@ -43,7 +43,7 @@ select {
     padding: 1px 4px;
     }
 
-textarea {
+textarea, div.CodeMirror-wrapping {
     line-height: 20px;
     padding: 10px;
     }
@@ -75,12 +75,11 @@ input[type="file"]{ /* works only in safari*/
 /* ----------------------- */	
 /* ---:- TEXTAREA */
 
-textarea.editFiles {
+textarea.editFiles, div.CodeMirror-wrapping {
     width:743px;
     height:500px;
     margin-top: 15px;
     }
-
   
 /* ----------------------- */	
 /* ---:- BUTTONS */

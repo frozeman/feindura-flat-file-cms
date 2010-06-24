@@ -15,7 +15,7 @@
 
 content.css version 0.21 */
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* ---:- BLOCK */
 
 #content .block {
@@ -103,7 +103,7 @@ content.css version 0.21 */
     }
 
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* --- INNER BLOCKs */
 
 #content .block div.innerBlockLeft {
@@ -139,7 +139,7 @@ content.css version 0.21 */
     overflow: auto;
     }
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* --- BLOCK-TABLE */
 
 .block table {
@@ -215,7 +215,7 @@ content.css version 0.21 */
     background: #ffffff !important;
     }
     
-/* ----------------------- */	
+/* ----------------------- */  
 /* --- SLIDE H1 links */
 #content h1 a, .slide {
     z-index: 1;
@@ -243,7 +243,7 @@ content.css version 0.21 */
     background: url(../image/key/content_h1_down_on.png) no-repeat right top;
     }
     
-/* ----------------------- */	
+/* ----------------------- */  
 /* ---:- category SORT ICON */
 
 h1 img.sortIcon {
@@ -252,7 +252,7 @@ h1 img.sortIcon {
     left: -2px;
     }
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* - CONTENT FASTUP link */  
 #content a.fastUp {
     z-index: 4;
@@ -270,7 +270,7 @@ h1 img.sortIcon {
     }
     
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* - SLIDE DOWN/UP LINK */  
 a.down {
     font-weight: bold;
@@ -284,18 +284,18 @@ a.up {
     background: url(../image/key/up.gif) no-repeat 0px 3px !important;
     }
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* - INLINE HINT modification (look notifications.css) */
 
 .block table span.hint {
     background-position: 0px 5px !important;
     }
 
-/* --------------------------------------------- */	
+/* --------------------------------------------- */  
 /* ---:- ELEMENTS */
-/* --------------------------------------------- */	
+/* --------------------------------------------- */  
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* ---:- HEADLINES */
 
 #content h1 {
@@ -344,7 +344,7 @@ a.up {
   color: #536068;
   }
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* ---:- TEXT */
 #content {
     font-size: 14px;
@@ -356,7 +356,7 @@ a.up {
     color: #536068;
     }
 
-/* ----------------------- */	
+/* ----------------------- */  
 /* ---:- HR */
 
  hr {
@@ -384,7 +384,7 @@ a.up {
     background: url(../image/bg/content_blockSpacer.png) no-repeat;
     }
     
-/* ----------------------- */	
+/* ----------------------- */  
 /* - BLOCK and WINDOBOX Standard Links */  
 a.standardLink, .block a, #windowBox a {
     padding-left: 18px;

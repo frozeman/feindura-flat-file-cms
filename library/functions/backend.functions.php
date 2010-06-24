@@ -922,7 +922,9 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
 
     $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
     
-    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles">'.$file.'</textarea>';
+    $idType = (strtolower($fileType) == 'css') ? 'css' : 'editFiles';      
+    
+    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles" id="'.$idType.rand(1,999).'">'.$file.'</textarea>';
   }  
   
   

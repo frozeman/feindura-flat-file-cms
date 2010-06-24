@@ -38,7 +38,11 @@ $version[3] = $generalFunctions->cleanSpecialChars($version[3]);
 // -----------------------------------------------------------------------------------
 // generates the DOCUMENT TYPE
 // kind of hack, because i use iframes for uploading the thumbnail
-if($_GET['site'] == 'pages' || $_GET['site'] == 'userSetup' || !empty($_GET['page'])) {
+if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
+   $_GET['site'] == 'userSetup' ||
+   $_GET['site'] == 'adminSetup' ||
+   $_GET['site'] == 'websiteSetup' ||
+   $_GET['site'] == 'pluginSetup') {
   echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 ';
@@ -125,8 +129,14 @@ if($_GET['site'] == 'addons') {
   <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
   
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/mootools-1.2.4-core.js"></script>
-  <script type="text/javascript" src="library/thirdparty/mootools-1.2.4.4-more.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4-core.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
+  
+  <!-- thirdparty/EditArea -->
+  <script type="text/javascript" src="library/thirdparty/javascript/edit_area/edit_area_full.js"></script>
+  
+  <!-- thirdparty/CodeMirror -->
+  <script type="text/javascript" src="library/thirdparty/javascript/CodeMirror/js/codemirror.js"></script>
   
   <!-- thirdparty/CustomFormElements -->
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
@@ -137,7 +147,6 @@ if($_GET['site'] == 'addons') {
   
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
-  <script type="text/javascript" src="library/thirdparty/ckfinder/ckfinder.js"></script>
  
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascript/divScroller.js"></script>
@@ -154,6 +163,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascript/toolTips.js"></script>
   <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
   <script type="text/javascript" src="library/javascript/editor.js"></script>
+  <script type="text/javascript" src="library/javascript/editFiles.js"></script>
   <script type="text/javascript" src="library/javascript/pageThumbnail.js"></script>
     
 </head>

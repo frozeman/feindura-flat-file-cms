@@ -1,6 +1,6 @@
 <?php
 
-$adminConfig['url'] =              'localhost';
+$adminConfig['url'] =              '192.168.178.22';
 $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura.org/pages/';
 $adminConfig['uploadPath'] =       '/_feindura.org/upload/';
