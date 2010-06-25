@@ -31,9 +31,10 @@
 * 
 * @package [Implementation]
 * 
-* @version 1.0
+* @version 1.01
 * <br>
 * <b>ChangeLog</b><br>
+*    - 1.01 add setStartPage()
 *    - 1.0 initial release
 * 
 */
@@ -732,6 +733,56 @@ class feinduraPages extends feindura {
   // ****************************************************************************************************************
   // METHODs -------------------------------------------------------------------------------------------------
   // ****************************************************************************************************************
+  
+ /**
+  * <b>Name</b>     setStartPage()<br>
+  * 
+  * Set a page ID to the {@link $startPage} and {@link $page} property.
+  * 
+  * 
+  * @param int $pageId the page ID to set
+  *
+  * @uses $startPage
+  * @uses $page
+  * 
+  * @return void
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function setStartPage($pageId) {
+    
+    if(is_numeric($pageId)) {
+      $this->page = $pageId;
+      $this->startPage = $pageId;
+    }  
+  }
+  
+ /**
+  * <b>Name</b>     getLanguage()<br>
+  * 
+  * Returns the {@link $language language country code} which was set in the feindura:feindura() constructor.
+  * 
+  * @uses feindura::$language	the language country code like "en", "de", ... which will be returned
+  * 
+  * @return string the {@link $language language country code}
+  * 
+  * @see feinduraPages()  
+  * @see feindura::feindura()
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function getLanguage() { 
+    return $this->language;
+  }
   
  /**
   * <b>Name</b>     createMetaTags()<br>
@@ -1448,28 +1499,6 @@ class feinduraPages extends feindura {
     // call the right function
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
   }  
-  
- /**
-  * <b>Name</b>     getLanguage()<br>
-  * 
-  * Returns the {@link $language language country code} which was set in the feindura:feindura() constructor.
-  * 
-  * @uses feindura::$language	the language country code like "en", "de", ... which will be returned
-  * 
-  * @return string the {@link $language language country code}
-  * 
-  * @see feinduraPages()  
-  * @see feindura::feindura()
-  * 
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  function getLanguage() { 
-    return $this->language;
-  }
   
  /**
   * <b>Name</b>     getPageTitle()<br>

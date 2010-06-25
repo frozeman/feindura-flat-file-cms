@@ -1,6 +1,6 @@
 <?php
 
-$adminConfig['url'] =              '192.168.178.22';
+$adminConfig['url'] =              'localhost';
 $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura.org/pages/';
 $adminConfig['uploadPath'] =       '/_feindura.org/upload/';
@@ -19,7 +19,7 @@ $adminConfig['user']['editStylesheets'] =  true;
 $adminConfig['user']['info'] =             '';
 
 $adminConfig['setStartPage'] =            true;
-$adminConfig['page']['createPages'] =     false;
+$adminConfig['page']['createPages'] =     true;
 $adminConfig['page']['thumbnailUpload'] = false;
 $adminConfig['page']['plugins'] =         true;
 $adminConfig['page']['showtags'] =        true;
