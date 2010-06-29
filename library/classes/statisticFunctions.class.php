@@ -264,8 +264,8 @@ class statisticFunctions extends generalFunctions {
   function dateDayBeforeAfter($date,$givenLangFile = false) {
     
     if($givenLangFile === false)
-      $givenLangFile = $GLOBAL['langFile'];
-    
+      $givenLangFile = $GLOBALS['langFile'];
+
     // if the date is TODAY
     if(substr($date,0,10) == date('Y')."-".date('m')."-".date('d'))
       return $givenLangFile['date_today'];

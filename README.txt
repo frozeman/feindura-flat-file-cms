@@ -21,8 +21,7 @@ AUTHOR
 
 DESCRIPTION
   feindura is lightweight flat file based content management system for small and medium websites.
-  It's main target group is webdesigners who want to create commercial or private websites without looking to much into the backend structure and want to focus more on their design.
-  The main goal is to provide a easy to use CMS which dont limit designers in their work and without the need of using a to big CMS system like joomla or wordpress.
+  It's main target is to provide a easy to integrate content management system for webdesigners who want to  focus on their design rather than the backend structure.
  
 BACKEND
   The CMS has a simple and easy to use interface with a simple structure, though its possible to create rather big content websites through the category system its uses.
