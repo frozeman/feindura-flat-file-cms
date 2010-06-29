@@ -15,8 +15,8 @@ body {
 #uploader {
 	display: block;
 	text-align: right;
-	min-height: 30px;
-	max-height: 80px;
+	min-height: 30px !important;
+	max-height: 80px !important;
 	overflow: hidden;
 }
 

@@ -67,7 +67,6 @@ window.addEvent('domready', function() {
   
   // ->> PAGESETUP CATEGORY MENU
   // ---------------------------
-  
   if($('sidebarCategorySelection') != null) {
     // adds static scroller
     new StaticScroller('sidebarCategorySelection',{

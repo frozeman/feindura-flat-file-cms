@@ -299,7 +299,14 @@
     color: #888888;
     list-style: circle;
     }
-    
+
+/* ------------------------- */
+/* - SIDEBAR CATEGORY SELECTION */
+
+#sidebarCategorySelection {
+    position: fixed;
+    }    
+
 /* ------------------------- */
 /* - SIDEBAR LOG */
 

@@ -757,8 +757,8 @@ class feinduraPages extends feindura {
   function setStartPage($pageId) {
     
     if(is_numeric($pageId)) {
-      $this->page = $pageId;
       $this->startPage = $pageId;
+      $this->setCurrentPageId($pageId);
     }  
   }
   
