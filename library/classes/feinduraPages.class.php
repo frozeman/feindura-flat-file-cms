@@ -826,11 +826,14 @@ class feinduraPages extends feinduraBase {
     $langFilesPath = str_replace(DOCUMENTROOT,'',$langFilesPath);  
     $langFilesPath = DOCUMENTROOT.$langFilesPath; 
     
+    // GET the right country code if its not in the SESSION variable
     if(empty($_SESSION['language'])) {
       // gets the BROWSER LANGUAGE
       $_SESSION['language'] = $this->generalFunctions->checkLanguageFiles($langFilesPath,false,$this->language); // returns a COUNTRY SHORTNAME
-      $this->language = $_SESSION['language'];
     }
+    
+    // SET the country code to the language property
+    $this->language = $_SESSION['language'];
         
     // includes the langFile and returns it
     if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))
