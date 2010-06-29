@@ -74,8 +74,8 @@ class statisticFunctions extends generalFunctions {
   * The constructor of the class, runs the gerneralFunctions constructor and gets the settings.
   * 
   * <b>Used Global Variables</b><br>
-  *    - <var>$websiteStatistic</var> array the website-settings config (included in the {@link general.include.php})
-  *    - <var>$statisticConfig</var> array the statistic-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteStatistic</var> the website-settings config (included in the {@link general.include.php})
+  *    - <var>$statisticConfig</var> the statistic-settings config (included in the {@link general.include.php})
   * 
   * @return void
   * 

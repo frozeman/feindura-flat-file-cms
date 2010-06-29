@@ -189,9 +189,9 @@ class feinduraBase {
   * 
   * 
   * <b>Used Global Variables</b><br>
-  *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
-  *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
-  *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
   * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver

@@ -794,6 +794,12 @@ class feinduraPages extends feinduraBase {
   * Example of a language file
   * @example languageFile.array.example.php
   * 
+  * <b>Used Global Variables</b><br>
+  *    - <var>$_SESSION['language']</var> the country code will be stored in this SESSION variable
+  * 
+  * <b>Used Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
   * @param string $langFilesPath a absolute path where the language files are situated
   * 
   * @uses feinduraBase::$language                     the language country code like "en", "de", ... which will be returned
@@ -825,6 +831,7 @@ class feinduraPages extends feinduraBase {
       $_SESSION['language'] = $this->generalFunctions->checkLanguageFiles($langFilesPath,false,$this->language); // returns a COUNTRY SHORTNAME
       $this->language = $_SESSION['language'];
     }
+        
     // includes the langFile and returns it
     if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))
       return $langFile;

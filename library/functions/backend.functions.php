@@ -55,7 +55,7 @@
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  *    
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *     
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
  * 
@@ -120,7 +120,7 @@ function isAdmin() {
  * Returns a new category ID, which is the highest category ID + 1.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *     
  * @return int a new category ID
  * 
@@ -600,7 +600,7 @@ function saveStatisticConfig($statisticConfig) {
  * Moves a file into a new category directory.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
  * 
  * @param int $page         the page ID
@@ -682,8 +682,8 @@ function getNewPageId() {
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php}) 
- *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  * 
  * @param string $givenStyle the string with the stylesheet-file path, id or class
  * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
@@ -722,8 +722,8 @@ function getStylesByPriority($givenStyle,$styleType,$category) {
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php}) 
- *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  * 
  * @param string   $givenStyle the string with the stylesheet-file path, id or class
  * @param string   $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
@@ -777,7 +777,7 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
  * 
  * <b>Used Global Variables</b><br>
  *    - <var>$_POST</var> to get which form is open
- *    - <var>$langFile</var> array the backend language-file (included in the {@link general.include.php})
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
  * 
  * @param string		$filesPath	         the path where all files (also files in subfolders) will be shown for editing
@@ -1369,7 +1369,7 @@ function folderIsEmpty($folder) {
  * Goes through a folder recursive and creates a HTML <link> tag for every stylesheet-file found.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  * 
  * @param string $folder the absolute path of the folder to look for stylesheet files
  * 
@@ -1412,7 +1412,7 @@ function createStyleTags($folder) {
  * And if the current URL is matching the <var>$adminConfig['url']</var>.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  * 
  * @return bool TRUE if there are matching, otherwise FALSE
  * 
@@ -1472,8 +1472,8 @@ function basePathWarning() {
  * Retruns a warning if the current set start page is existing.
  * 
  * <b>Used Global Variables</b><br>
- *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
- *    - <var>$websiteConfig</var> array the website-settings config (included in the {@link general.include.php})
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
  *    - <var>$generalFunctions</var> for the {@link generalFunctions::getPageCategory()} method (included in the {@link general.include.php})
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  * 

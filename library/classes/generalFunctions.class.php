@@ -101,8 +101,8 @@ class generalFunctions {
   * The constructor of the class, gets the settings.
   * 
   * <b>Used Global Variables</b><br>
-  *    - <var>$adminConfig</var> array the administrator-settings config (included in the {@link general.include.php})
-  *    - <var>$categoryConfig</var> array the categories-settings config (included in the {@link general.include.php})
+  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
   * @return void
   * 
