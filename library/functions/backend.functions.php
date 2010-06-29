@@ -17,7 +17,7 @@
 /**
  * This file contains the main functions used by the backend of the feindura-CMS.
  * 
- * @package [feindura-CMS]
+ * @package [backend]
  * 
  * @version 1.30
  */

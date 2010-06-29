@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link generalFunctions} class.
  * 
- * @package [Implementation]|[feindura-CMS]
+ * @package [Implementation]|[backend]
  */
 /**
 * <b>Classname</b> generalFunctions<br>
@@ -26,7 +26,7 @@
 * 
 * <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
-* @package [Implementation]|[feindura-CMS]
+* @package [Implementation]|[backend]
 * 
 * @version 1.17
 * <br>
@@ -64,8 +64,8 @@ class generalFunctions {
    /**
   * Contains all page and category IDs on the first loading of a page.
   * 
-  * On the first loading of a page, in a #feindura <var>class</var> instance, 
-  * it goes trough all category folders and look which pages are in which folders and saves the IDs in the this property,<br>
+  * Run on the first loading of a page.
+  * Goes trough all category folders and look which pages are in which folders and saves the IDs in the this property,<br>
   * to speed up the page loading process.
   * 
   * Example of the returned array:
@@ -156,7 +156,11 @@ class generalFunctions {
         // adds "/" on the beginnging for absolute path
         if(substr($useLangPath,0,1) != '/')
           $useLangPath = '/'.$useLangPath;
-        $langPath = DOCUMENTROOT.$useLangPath;
+          
+        // adds the DOCUMENTROOT  
+        $useLangPath = str_replace(DOCUMENTROOT,'',$useLangPath);  
+        $useLangPath = DOCUMENTROOT.$useLangPath;
+        
       } else
         $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'; // $this->adminConfig['websitefilesPath']
       

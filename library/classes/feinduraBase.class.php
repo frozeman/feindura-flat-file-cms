@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link feindura} base class.
  * 
- * @package [Implementation] 
+ * @package [Implementation]
  */ 
 /**
 * The basis feindura class for the implementation classes
@@ -36,7 +36,7 @@
 *    - 1.58 add phpDocumentor documentation
 *    - 1.57 startet documentation
 */
-class feindura {
+class feinduraBase {
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
@@ -57,7 +57,7 @@ class feindura {
  /**
   * Contains the variable names used for the <var>$_GET</var> variables
   * 
-  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feindura()} constructor to the this property.<br>
+  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feinduraBase()} constructor to the this property.<br>
   * For standard value see above.
   * 
   * Example of a link using the standard variable names:
@@ -66,7 +66,7 @@ class feindura {
   * </samp>
   * 
   * @var array
-  * @see feindura()  
+  * @see feinduraBase()  
   *   
   */
   var $varNames = array('page' => 'page', 'category' => 'category', 'modul' => 'modul');
@@ -79,10 +79,10 @@ class feindura {
   * 
   * The file with the administrator-settings config array is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feindura()} constructor.
+  * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var array  
-  * @see feindura::feindura()
+  * @see feinduraBase::feinduraBase()
   *    
   */
   var $adminConfig;
@@ -92,10 +92,10 @@ class feindura {
   * 
   * The file with the website-settings config array is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feindura()} constructor.
+  * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var array  
-  * @see feindura::feindura()
+  * @see feinduraBase::feinduraBase()
   *   
   */
   var $websiteConfig;
@@ -105,10 +105,10 @@ class feindura {
   * 
   * The file with the categories-settings config array is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feindura()} constructor.
+  * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var array  
-  * @see feindura::feindura()
+  * @see feinduraBase::feinduraBase()
   *   
   */
   var $categoryConfig;
@@ -125,7 +125,7 @@ class feindura {
   *  
   * @var string
   * @see $languageFile
-  * @see feindura()
+  * @see feinduraBase()
   *   
   */  
   var $language = 'en';
@@ -136,10 +136,10 @@ class feindura {
   * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
   * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
   *   
-  * It will be <i>included</i> and set to this property in the {@link feindura()} constructor.
+  * It will be <i>included</i> and set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var array  
-  * @see feindura()
+  * @see feinduraBase()
   *   
   */
   var $languageFile = null;  
@@ -148,10 +148,10 @@ class feindura {
   * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
   * 
   * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br>   
-  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feindura()} constructor.
+  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var class
-  * @see feindura()
+  * @see feinduraBase()
   * @see generalFunctions::generalFunctions()
   *   
   */
@@ -161,10 +161,10 @@ class feindura {
   * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
   * 
   * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br>
-  * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feindura()} constructor.
+  * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var class
-  * @see feindura()
+  * @see feinduraBase()
   * @see statisticFunctions::statisticFunctions()
   *   
   */
@@ -178,12 +178,12 @@ class feindura {
  
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      feindura()<br>
+  * <b> Name</b>      feinduraBase()<br>
   * 
   * The constructor of the class, sets all basic properties.
   * 
   * First gets all settings config <var>arrays</var> and external classes.<br>
-  * Then set the <var>$_GET</var> variable names from the {@link feindura::$adminConfig administrator-settings config} to the {@link $varNames} property.<br>
+  * Then set the <var>$_GET</var> variable names from the {@link feinduraBase::$adminConfig administrator-settings config} to the {@link $varNames} property.<br>
   * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
   * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
   * 
@@ -219,7 +219,7 @@ class feindura {
   *    - 1.0 initial release
   * 
   */
-  function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function feinduraBase($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $GLOBALS["adminConfig"];

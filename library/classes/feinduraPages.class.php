@@ -38,7 +38,7 @@
 *    - 1.0 initial release
 * 
 */
-class feinduraPages extends feindura {
+class feinduraPages extends feinduraBase {
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
@@ -67,7 +67,7 @@ class feinduraPages extends feindura {
   * @var int
   *
   * @see feinduraPages()
-  * @see feindura::getCurrentPageId()
+  * @see feinduraBase::getCurrentPageId()
   *   
   */
   var $page = null;
@@ -82,13 +82,13 @@ class feinduraPages extends feindura {
   * @var int
   *
   * @see feinduraPages()
-  * @see feindura::getCurrentCategoryId()  
+  * @see feinduraBase::getCurrentCategoryId()  
   * 
   */
   var $category = null;
    
  /**
-  * Contains the startpage ID from the {@link feindura::$websiteConfig website-settings config}
+  * Contains the startpage ID from the {@link feinduraBase::$websiteConfig website-settings config}
   *
   * This property is set to the {@link $page} property when the <var>$_GET</var> page variable
   * and the {@link $page} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
@@ -396,7 +396,7 @@ class feinduraPages extends feindura {
   * 
   * @var int|false Number of characters or FALSE to don't shorten the page title
   * @see getTitle()
-  * @see feindura::createTitle()
+  * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
@@ -408,7 +408,7 @@ class feinduraPages extends feindura {
   * 
   * @var bool
   * @see getTitle()
-  * @see feindura::createTitle()
+  * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
@@ -427,7 +427,7 @@ class feinduraPages extends feindura {
   *    
   * @var bool Set it to TRUE to place the page date before the page title
   * @see getTitle()
-  * @see feindura::createTitle()
+  * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
@@ -444,7 +444,7 @@ class feinduraPages extends feindura {
   *     
   * @var bool Set it to TRUE to place the category name before the page title
   * @see getTitle()
-  * @see feindura::createTitle()
+  * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
@@ -456,7 +456,7 @@ class feinduraPages extends feindura {
   * 
   * @var string
   * @see getTitle()
-  * @see feindura::createTitle()
+  * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
@@ -695,22 +695,22 @@ class feinduraPages extends feindura {
   * 
   * The constructor of the class, sets all basic properties.
   * 
-  * Run the {@link feindura::feindura()} class constructor to set all necessary properties
+  * Run the {@link feinduraBase::feinduraBase()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
-  * If there is no page and category ID it sets the start page ID from the {@link feindura::$websiteConfig website-settings config}.
+  * If there is no page and category ID it sets the start page ID from the {@link feinduraBase::$websiteConfig website-settings config}.
   * 
   * Example:
   * {@example includeFeindura.example.php}
   * 
-  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feindura::$language} property 
+  * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feinduraBase::$language} property 
   * 
-  * @uses feindura::feindura()		          the constructor of the parent class to load all necessary properties
-  * @uses feindura::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
-  * @uses feindura::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
+  * @uses feinduraBase::feinduraBase()		          the constructor of the parent class to load all necessary properties
+  * @uses feinduraBase::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
+  * @uses feinduraBase::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
   * 
   * @return void
   * 
-  * @see feindura::feindura()
+  * @see feinduraBase::feinduraBase()
   * 
   * @version 1.0
   * <br>
@@ -720,8 +720,8 @@ class feinduraPages extends feindura {
   */
   function feinduraPages($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
-    // RUN the feindura constructor
-    $this->feindura($language);        
+    // RUN the feinduraBase constructor
+    $this->feinduraBase($language);        
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
@@ -765,14 +765,14 @@ class feinduraPages extends feindura {
  /**
   * <b>Name</b>     getLanguage()<br>
   * 
-  * Returns the {@link $language language country code} which was set in the feindura:feindura() constructor.
+  * Returns the {@link $language language country code} which was set in the feindura:feinduraBase() constructor.
   * 
-  * @uses feindura::$language	the language country code like "en", "de", ... which will be returned
+  * @uses feinduraBase::$language	the language country code like "en", "de", ... which will be returned
   * 
   * @return string the {@link $language language country code}
   * 
   * @see feinduraPages()  
-  * @see feindura::feindura()
+  * @see feinduraBase::feinduraBase()
   * 
   * @version 1.0
   * <br>
@@ -780,8 +780,56 @@ class feinduraPages extends feindura {
   *    - 1.0 initial release
   * 
   */
-  function getLanguage() { 
+  function getLanguage() {
     return $this->language;
+  }
+  
+  /**
+  * <b>Name</b>     getLanguageFile()<br>
+  * 
+  * Check a specific directory for files beginning or ending with a country code (e.g. "en", "de", ...) and compare these with the browser language.
+  * If a match is found it set the country code to the {@link feinduraBase::$language} property and returns the included language file.
+  * If no match could be found it returns an empty array.
+  * 
+  * Example of a language file
+  * @example languageFile.array.example.php
+  * 
+  * @param string $langFilesPath a absolute path where the language files are situated
+  * 
+  * @uses feinduraBase::$language                     the language country code like "en", "de", ... which will be returned
+  * @uses generalFunctions::checkLanguageFiles()  check the browser language and returns the country code
+  * 
+  * 
+  * @return array the right language file or and empty array
+  * 
+  * @see generalFunctions::checkLanguageFiles()
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function getLanguageFile($langFilesPath) {
+    
+    // add slash on the end
+    if(substr($langFilesPath,-1) != '/')
+      $langFilesPath .= '/';
+      
+    // adds the DOCUMENTROOT  
+    $langFilesPath = str_replace(DOCUMENTROOT,'',$langFilesPath);  
+    $langFilesPath = DOCUMENTROOT.$langFilesPath; 
+    
+    if(empty($_SESSION['language'])) {
+      // gets the BROWSER LANGUAGE
+      $_SESSION['language'] = $this->generalFunctions->checkLanguageFiles($langFilesPath,false,$this->language); // returns a COUNTRY SHORTNAME
+      $this->language = $_SESSION['language'];
+    }
+    // includes the langFile and returns it
+    if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))
+      return $langFile;
+    else
+      return array();
   }
   
  /**
@@ -795,12 +843,12 @@ class feinduraPages extends feindura {
   * 
   * @param string       $charset      (optional) the charset used in the website like "UTF-8", "iso-8859-1", ...
   * @param string|false $author       (optional) the author of the website
-  * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link feindura::$websiteConfig website-settings config}
-  * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link feindura::$websiteConfig website-settings config}
+  * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link feinduraBase::$websiteConfig website-settings config}
+  * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link feinduraBase::$websiteConfig website-settings config}
   * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
   * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will not be set
   * 
-  * @uses feindura::$websiteConfig      for the website title, publisher, copyright, description and keywords
+  * @uses feinduraBase::$websiteConfig      for the website title, publisher, copyright, description and keywords
   * @uses generalFunctions::readPage()	to read the page and set the page title
   * 
   * @return string with all meta tags ready to display in a HTML page
@@ -930,7 +978,7 @@ class feinduraPages extends feindura {
   * 
   * @param int $page a page ID
   * 
-  * @uses feindura::loadPrevNextPage()	   to load the current, previous or next page depending of the $page parameter 
+  * @uses feinduraBase::loadPrevNextPage()	   to load the current, previous or next page depending of the $page parameter 
   * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
   * 
   * 
@@ -998,10 +1046,10 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailAfter
   * 
   * @uses createHref()                                  to create the href-attribute
-  * @uses feindura::loadPrevNextPage()                  to load the current, previous or next page depending of the $page parameter
-  * @uses feindura::createAttributes()                  to create the attributes used by the link <a> tag
-  * @uses feindura::createThumbnail()                   to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
-  * @uses feindura::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
+  * @uses feinduraBase::loadPrevNextPage()                  to load the current, previous or next page depending of the $page parameter
+  * @uses feinduraBase::createAttributes()                  to create the attributes used by the link <a> tag
+  * @uses feinduraBase::createThumbnail()                   to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
+  * @uses feinduraBase::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
@@ -1151,9 +1199,9 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailAfter
   * 
   * @uses createLink()                        to create a link from every $pageContent array  
-  * @uses feindura::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses feindura::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
-  * @uses feindura::createAttributes()        to create the attributes used in the menu tag
+  * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
+  * @uses feinduraBase::createAttributes()        to create the attributes used in the menu tag
   * @uses generalFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -1376,9 +1424,9 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses feindura::getPropertyIdsByType()  if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses feindura::hasTags()               to get only the pages which have one or more tags from the given $tags parameter
-  * @uses createMenu()                      to create the menu from the pages load by {@link feindura::hasTags()}
+  * @uses feinduraBase::getPropertyIdsByType()  if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feinduraBase::hasTags()               to get only the pages which have one or more tags from the given $tags parameter
+  * @uses createMenu()                      to create the menu from the pages load by {@link feinduraBase::hasTags()}
   * 
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -1467,8 +1515,8 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses feindura::loadPagesByDate()       to load the pages which fit in the given time period parameters, sorted by the page date
-  * @uses createMenu()                      to create the menu from the pages load by {@link feindura::hasTags()}
+  * @uses feinduraBase::loadPagesByDate()       to load the pages which fit in the given time period parameters, sorted by the page date
+  * @uses createMenu()                      to create the menu from the pages load by {@link feinduraBase::hasTags()}
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
   * 
@@ -1520,12 +1568,12 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$titleShowCategory
   * @uses feinduraPages::$titleCategorySeparator
   * 
-  * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
-  * @uses feindura::createTitle()                  to generate the page title with the right title properties
+  * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses feinduraBase::createTitle()                  to generate the page title with the right title properties
   * 
   * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
-  * @see feindura::createTitle()  
+  * @see feinduraBase::createTitle()  
   * 
   * @version 1.0
   * <br>
@@ -1613,14 +1661,14 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses feindura::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
-  * @uses feindura::generatePage()                 to generate the array with the page elements
+  * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses feinduraBase::generatePage()                 to generate the array with the page elements
   * @uses statisticFunctions::savePageStats()      to save the statistic of the page
   * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see getPageTitle()
-  * @see feindura::generatePage()
+  * @see feinduraBase::generatePage()
   * 
   * @version 1.0
   * <br>
@@ -1702,10 +1750,10 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses feindura::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses feindura::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
-  * @uses feindura::createAttributes()        to create the attributes used in the menu tag
-  * @uses feindura::generatePage()            to generate every page which will be listed
+  * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
+  * @uses feinduraBase::createAttributes()        to create the attributes used in the menu tag
+  * @uses feinduraBase::generatePage()            to generate every page which will be listed
   * @uses generalFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -1803,8 +1851,8 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   *   
-  * @uses feindura::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
-  * @uses feindura::hasTags()                 to get only the pages which have one or more tags from the given $tags parameter
+  * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feinduraBase::hasTags()                 to get only the pages which have one or more tags from the given $tags parameter
   * @uses listPages()                         to list the pages  
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
@@ -1899,7 +1947,7 @@ class feinduraPages extends feindura {
   * @uses feinduraPages::$thumbnailBefore
   * @uses feinduraPages::$thumbnailAfter
   * 
-  * @uses feindura::loadPagesByDate()   to load the pages which fit in the given time period parameters, sorted by the page date
+  * @uses feinduraBase::loadPagesByDate()   to load the pages which fit in the given time period parameters, sorted by the page date
   * @uses listPages()                   to list the pages  
   * 
   * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
