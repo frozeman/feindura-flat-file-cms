@@ -38,7 +38,9 @@ table.tableChart {
 table.tableChart td {
     padding: 0px 5px;
     border-left: 1px solid #cccccc;
+    height: 40px;
     }
+
 
 /* --------------------- */
 /* -------> TABLE CHART */

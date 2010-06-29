@@ -3,6 +3,7 @@
 array(
 
   0 => array(
+    'id' => 1,
     'category' => 'A Category',
     'pageDate' => '2010-12-31',
     'title' => 'Title Example 1',
@@ -14,6 +15,7 @@ array(
     ),
    
    1 => array(
+    'id' => 5,
     'category' => 'A Category',
     'pageDate' => '2009-12-31',
     'title' => 'Title Example 2',
@@ -25,6 +27,7 @@ array(
     ),
   
    2 => array(
+    'id' => 8,
     'category' => 'Another Category',
     'pageDate' => false, // page has no pagedate
     'title' => 'Title Example 3',

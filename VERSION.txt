@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 3
-Build 252
+Build 253
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 beta 3
+  build 253: fix browserchart
   build 252: add setStartPage() to the feinduraPages.class
   build 251: add CKEditor nightly build 5632
   build 250: add staticScroller to the category selection in pageSetup

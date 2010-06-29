@@ -702,22 +702,22 @@ class statisticFunctions extends generalFunctions {
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'lynx') {
           $browserName = 'Lynx';
-          $browserColor = 'url(library/image/bg/browserBg_lynx.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_lynx.png) no-repeat';
           $browserLogo = 'browser_lynx.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'safari') {
           $browserName = 'Safari';
-          $browserColor = 'url(library/image/bg/browserBg_safari.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_safari.png) no-repeat';
           $browserLogo = 'browser_safari.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'mozilla') {
           $browserName = 'Mozilla';
-          $browserColor = 'url(library/image/bg/browserBg_mozilla.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_mozilla.png) no-repeat';
           $browserLogo = 'browser_mozilla.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'others') {
           $browserName = $GLOBALS['langFile']['log_browser_others'];
-          $browserColor = 'url(library/image/bg/browserBg_others.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_others.png) no-repeat';
           $browserLogo = 'browser_others.png';
           $browserTextColor = '#000000';
         }  
@@ -739,14 +739,14 @@ class statisticFunctions extends generalFunctions {
             
             // change logo size
             if($cellWidth <= 0)
-              $logoSize = 'width:0px;';
+              $logoSize = 'width: 0px;';
             else
-              $logoSize = 'width:'.$cellWidth.'px;';
+              $logoSize = 'width: '.$cellWidth.'px;';
             
             // change cellpadding
             $createPadding = round(($cellWidth / 40) * 10);
             if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
-              $cellpadding = 'padding: '.$createPadding.'px 5px;';
+              $cellpadding = $createPadding.'px 5px;';
             else
               $cellpadding = 'padding: 0px 5px;';
     
@@ -754,14 +754,18 @@ class statisticFunctions extends generalFunctions {
             
           $bigLogo = false;
         } else {      
-          $cellText = '&nbsp;&nbsp;<span style="position:relative; top:12px;"><b>'.$browserName.'</b> ('.$browser[1].')</span>';
+          $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$browserName.'</b> ('.$browser[1].')</span>';
           $logoSize = '';
           $bigLogo = true;
           $cellpadding = '';
         }
         
         // SHOW the table cell with the right browser and color
-        $return .= '<td style="'.$cellpadding.';color:'.$browserTextColor.';width:'.$tablePercent.'%;background:'.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'"><img src="library/image/sign/'.$browserLogo.'" style="float:left;'.$logoSize.'" alt="browser logo" />'.$cellText.'</td>';
+        $return .= '<td style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'">
+                    <div style="position: relative;">
+                    <img src="library/image/sign/'.$browserLogo.'" style="float: left; '.$logoSize.'" alt="browser logo" />'.$cellText.'
+                    </div>
+                    </td>';
       
       }
       $return .= '</tr></table>';      
