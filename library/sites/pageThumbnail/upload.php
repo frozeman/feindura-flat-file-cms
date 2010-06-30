@@ -77,7 +77,7 @@ if($_POST['upload']) {
     // deletes all special chars
     $fileName = preg_replace("/[^a-zA-Z0-9\.]/", '', $fileName);
     // Replace dots in the name with underscores (only one dot can be there... security issue).
-    $fileName = preg_replace( '/\\.(?![^.]*$)/', '_', $fileName );
+    $fileName = preg_replace( '/\\\\.(?![^.]*$)/', '_', $fileName );
   
     $originalFileName = $fileName;
     

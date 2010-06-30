@@ -773,7 +773,7 @@ class feinduraBase {
     // adds breaks before and after
     $return = "\n".$return."\n";    
     // removes double breaks
-    $return = preg_replace("/\\n+/","\n",$return);
+    $return = preg_replace("/\\\\n+/","\n",$return);
     */
     
     // -> AFTER all RETURN $return

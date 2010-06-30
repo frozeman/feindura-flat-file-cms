@@ -398,19 +398,26 @@ class generalFunctions {
   * 
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
-  * @version 1.01
+  * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.02 add preg_replace removing multiple slahses  
   *    - 1.01 add chmod  
   *    - 1.0 initial release
   * 
   */
   function savePage($pageContent) {
-        
+    
+    
+    
     // escaps ",',\,NULL but undescappes the double quotes again
+    //echo '---1>'.$pageContent['content'];
+    $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
+    //echo '---2>'.$pageContent['content'];
     $pageContent['content'] = stripslashes($pageContent['content']);
     $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
-    $pageContent['content'] = str_replace('\"', '"', $pageContent['content'] );
+    $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );
+    //echo '---3>'.$pageContent['content'];
     
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];

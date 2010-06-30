@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 3
-Build 258
+Build 259
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 beta 3
+  build 259: savePage() add preg_replace removing multiple slahses; fix preg_replace() issue (add //// double slahses)
   build 258: add CKEditor build 5644
   build 257: fixes in getLanguageFile()
   build 256: fixes in documentation

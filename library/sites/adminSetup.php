@@ -117,7 +117,7 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
       } elseif(strstr($currrentHtaccess,$speakingUrlCode)) {
         $newHtaccess = str_replace($speakingUrlCode,'',$currrentHtaccess);
         $newHtaccess = preg_replace("/ +/", ' ', $newHtaccess);
-        $newHtaccess = preg_replace("/\n+/", "\n", $newHtaccess);
+        $newHtaccess = preg_replace("/\\\\n+/", "\n", $newHtaccess);
         
         if($htaccess = @fopen($htaccessFile,"w")) {
           flock($htaccess,2); // LOCK_EX
