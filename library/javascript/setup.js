@@ -13,10 +13,24 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/setup.js version 0.23 (requires mootools-core and mootools-more)
+// java/setup.js version 0.24 (requires mootools-core and mootools-more)
 
-
+// vars
 var deactivateType = 'disabled'; // disabled/readonly
+
+
+// ------------------------------------------------------------------------------
+// ADD a INPUT FIELD
+function addField(containerId,inputName,inputClass) {
+  
+  var newInput = new Element('input', {name: inputName, class: inputClass });
+  
+  if($(containerId) != null) {
+		$(containerId).grab(newInput,'bottom');
+		return newInput;
+  } else
+    return false;
+}
 
 // ------------------------------------------------------------------------------
 // SET UP the REALTIME THUMBNAIL SIZE SCALE, all given vars are the object IDs
@@ -69,14 +83,58 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
 // ->> LOADED ON STARTUP
 window.addEvent('domready', function() {
   
-  // adds realtime THUMBSCALE to the thumbnail Settings
+  // ->> ADMIN SETUP
+  // ---------------
+  
+  // -> adds realtime THUMBSCALE to the thumbnail Settings
   setThumbScale('cfg_thumbWidth','thumbWidthScale','cfg_thumbHeight','thumbHeightScale');
   
-  // adds THUMBRATIO deactivation
-  setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio'); 
+  // -> adds THUMBRATIO deactivation
+  setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio');
   
-  // -----------------------------------------
-  // GO TROUGH every CATEGORY
+  // -> adds Fields to styleSheetsFilePaths
+  $$('.addStyleFilePath').each(function(addButton){    
+    if(addButton != null) {
+      var containerId = addButton.getParent().getElement('div').getProperty('id');
+      var inputName = addButton.getParent().getElement('div').getElement('input').getProperty('name');
+      
+      addButton.addEvent('click', function(e) {
+        e.stop();
+  			addField(containerId,inputName);  			
+  		});
+    }
+  });
+    
+  // -> DISABLE varNames if SPEAKING URL is selected
+  if($('cfg_speakingUrl') != null) {
+    var smallSize = '50px';
+    
+    $('cfg_speakingUrl').addEvent('change',function() {      
+      // disables all varNames fields is option value == true; speaking url
+      if($('cfg_speakingUrl')[$('cfg_speakingUrl').selectedIndex].value == 'true') {
+        $('cfg_varNamePage').setProperty(deactivateType,deactivateType);
+        $('cfg_varNamePage').tween('width',smallSize);
+        $('cfg_varNameCategory').setProperty(deactivateType,deactivateType);
+        $('cfg_varNameCategory').tween('width',smallSize);
+        $('cfg_varNameModul').setProperty(deactivateType,deactivateType);
+        $('cfg_varNameModul').tween('width',smallSize);
+      // activates thema if link with vars
+      } else {
+        $('cfg_varNamePage').removeProperty(deactivateType);
+        $('cfg_varNamePage').tween('width','300px');
+        $('cfg_varNameCategory').removeProperty(deactivateType);
+        $('cfg_varNameCategory').tween('width','300px');
+        $('cfg_varNameModul').removeProperty(deactivateType);
+        $('cfg_varNameModul').tween('width','300px');
+      }      
+    });
+  }
+  
+  
+  // ->> PAGE SETUP
+  // ---------------
+  
+  // -> GO TROUGH every CATEGORY
   if($$('.advancedcategoryConfig') != null) {
     
     var countCategories = 0;
@@ -134,39 +192,11 @@ window.addEvent('domready', function() {
       setThumbRatio('categories'+countCategories+'thumbWidth','categories'+countCategories+'ratioX','categories'+countCategories+'thumbHeight','categories'+countCategories+'ratioY','categories'+countCategories+'noRatio'); 
     });
   }
-  
-  // -> DISABLE varNames if SPEAKING URL is selected
-  if($('cfg_speakingUrl') != null) {
-    var smallSize = '50px';
-    
-    $('cfg_speakingUrl').addEvent('change',function() {
-      
-      // disables all varNames fields is option value == true; speaking url
-      if($('cfg_speakingUrl')[$('cfg_speakingUrl').selectedIndex].value == 'true') {
-        $('cfg_varNamePage').setProperty(deactivateType,deactivateType);
-        $('cfg_varNamePage').tween('width',smallSize);
-        $('cfg_varNameCategory').setProperty(deactivateType,deactivateType);
-        $('cfg_varNameCategory').tween('width',smallSize);
-        $('cfg_varNameModul').setProperty(deactivateType,deactivateType);
-        $('cfg_varNameModul').tween('width',smallSize);
-      // activates thema if link with vars
-      } else {
-        $('cfg_varNamePage').removeProperty(deactivateType);
-        $('cfg_varNamePage').tween('width','300px');
-        $('cfg_varNameCategory').removeProperty(deactivateType);
-        $('cfg_varNameCategory').tween('width','300px');
-        $('cfg_varNameModul').removeProperty(deactivateType);
-        $('cfg_varNameModul').tween('width','300px');
-      }      
-    });
-  }
-  
-  
-  
+
 });
 
 // -> editFiles
-function changeFile( site, fileName, status, anchorName )
+function changeEditFile( site, fileName, status, anchorName )
 {
   window.location.href = window.location.pathname + "?site=" + site + "&status=" + status + "&file=" + fileName + "#" + anchorName ;
 }

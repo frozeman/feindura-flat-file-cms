@@ -22,6 +22,7 @@ input, textarea, select, div.CodeMirror-wrapping {
     background: url(../image/bg/formularBg.jpg) no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
+    margin: 1px 0px;
     font: 13px Verdana, Arial, Helvetica;
     }
 input:hover, textarea:hover, select:hover, div.CodeMirror-wrapping:hover {
@@ -80,7 +81,28 @@ textarea.editFiles, div.CodeMirror-wrapping {
     height:500px;
     margin-top: 15px;
     }
-  
+
+.multipleFields {
+    min-height: 25px;
+    width: 330px;
+    float: left;
+    }
+    
+a.addStyleFilePath {
+    position: relative;
+    display: block;
+    left: 325px;
+    width: 24px;
+    height: 24px;
+    background: url(../image/key/addStyleFilePath.png) no-repeat;
+    }
+a.addStyleFilePath:hover {
+    background-position: 0px -24px;
+    }
+a.addStyleFilePath:active {
+    background-position: 0px -48px;
+    }
+
 /* ----------------------- */	
 /* ---:- BUTTONS */
 

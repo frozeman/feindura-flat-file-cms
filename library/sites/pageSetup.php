@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* pageSetup.php version 1.20
+* pageSetup.php version 1.21
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -615,8 +615,15 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'styleFile"><span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleFile'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile]" value="'.getStylesByPriority($category['styleFile'],'styleFile',$category['id']).'" class="toolTip" title="'.$langFile['path_absolutepath_tip'].'" />
-                <span class="hint">'.$langFile['stylesheet_styleFile_example'].'</span>                
+                <div id="categoryStyleFilesInputs'.$category['id'].'" class="multipleFields toolTip" title="'.$langFile['path_absolutepath_tip'].'">';
+                $styleFileInputs = explode('|',getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']));
+      
+                foreach($styleFileInputs as $styleFileInput) {
+                  echo '<input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile][]" value="'.$styleFileInput.'" />';
+                }
+          echo '</div>
+                <span class="hint">'.$langFile['stylesheet_styleFile_example'].'</span>
+                <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['stylesheet_styleFile_addButton_tip'].'::"></a>              
                 </td></tr>';
                 
           echo '<tr><td class="left">

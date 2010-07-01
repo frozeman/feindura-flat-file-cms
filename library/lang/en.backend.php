@@ -50,14 +50,16 @@ $langFile['thumbnail_ratio_x_tip'] = 'Will be aligned by the [i]width[/i].';
 $langFile['thumbnail_ratio_y_tip'] = 'Will be aligned by the [i]height[/i].';
 
 // ---------- stylesheet
-$langFile['stylesheet_name_styleFile'] = 'Stylesheet-File';
+$langFile['stylesheet_name_styleFile'] = 'Stylesheet files';
 $langFile['stylesheet_name_styleId'] = 'Stylesheet-Id';
 $langFile['stylesheet_name_styleClass'] = 'Stylesheet-Class';
 
-$langFile['stylesheet_styleFile_tip'] = 'Here you can specify a stylesheet-file, which will be used to style the HTML editor content.';
+$langFile['stylesheet_styleFile_tip'] = 'Here you can specify stylesheet files, which will be used to style the HTML editor content.';
 $langFile['stylesheet_styleId_tip'] = 'Here you can specify an Id-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
 $langFile['stylesheet_styleClass_tip'] = 'Here you can specify an Class-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
 
+
+$langFile['stylesheet_styleFile_addButton_tip'] = 'add stylesheet file';
 $langFile['stylesheet_styleFile_example'] = '<b>Example</b> &quot;/style/layout.css&quot;';
 
 // ---------- paths

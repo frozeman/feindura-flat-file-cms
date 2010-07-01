@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.94
+// editor.php version 1.95
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
@@ -116,7 +116,10 @@ if($_POST['save']) {
     
     if(empty($_POST['sortorder']))
       $_POST['sortorder'] = $pageContent['sortorder'];
-  
+    
+    // adds absolute path slash on the beginning and implode the stylefiles
+    $_POST['styleFile'] = prepareStyleFilePaths($_POST['styleFile']);
+    
     // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
     $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
     $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
@@ -697,10 +700,13 @@ else $hidden = ' hidden';
 // from the Page, if empty,
 // than from the Category if empty,
 // than from the HTMl-Editor Settings
-if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categoryConfig['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
-if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categoryConfig['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
-if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categoryConfig['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
 
+//if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categoryConfig['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
+//if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categoryConfig['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
+//if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categoryConfig['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
+$editorStyleFile = getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+$editorStyleId = getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
+$editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
 
 // -> CREATES the EDITOR-INSTANCE
 // ------------------------------
@@ -716,7 +722,7 @@ if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['c
   // set the CONFIGs of the editor
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["language"]; ?>';
-  CKEDITOR.config.contentsCss               = '<?php echo $editorStyleFile; ?>';
+  CKEDITOR.config.contentsCss               = [<?php echo "'".str_replace('|',"','",$editorStyleFile)."'"; ?>];
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
@@ -812,8 +818,18 @@ else $hidden = ' hidden';
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleFile']; ?></span>
       </td><td class="right">
-      <input name="styleFile" value="<?php echo getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
+      <div id="pageStyleFilesInputs" class="multipleFields toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>">
+      <?php      
+      $styleFileInputs = explode('|',getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']));
+      
+      foreach($styleFileInputs as $styleFileInput) {
+        echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';
+      }      
+      ?>
+      </div>
+      <!--<input name="styleFile" value="<?php echo getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />-->
       <span class="hint"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>                
+      <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
       </td></tr>
                   
       <tr><td class="left">

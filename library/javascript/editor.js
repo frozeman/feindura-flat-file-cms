@@ -29,6 +29,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.height                        = '450';
     CKEDITOR.config.resize_minHeight              = '400';    
     CKEDITOR.config.scayt_autoStartup             = false;
+    CKEDITOR.config.colorButton_enableMore        = true;
     
     //CKEDITOR.config.disableNativeSpellChecker = false;
     

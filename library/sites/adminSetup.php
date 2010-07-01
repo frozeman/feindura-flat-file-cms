@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.34
+* adminSetup.php version 2.35
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -29,11 +29,12 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
-  foreach($_POST as $postKey => $post) {    
+  foreach($_POST as $postKey => $post) {
     
-    if(strstr($postKey,'Path'))
+    if(strstr($postKey,'Path')) {
       if(!empty($post) && substr($post,-1) !== '/')
         $_POST[$postKey] = $post.'/';
+    }
   }
   
   // ** adds a "/" on the beginning of all absolute paths
@@ -44,11 +45,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(!empty($_POST['cfg_websitefilesPath']) && substr($_POST['cfg_websitefilesPath'],0,1) !== '/')
         $_POST['cfg_websitefilesPath'] = '/'.$_POST['cfg_websitefilesPath'];
   if(!empty($_POST['cfg_stylesheetPath']) && substr($_POST['cfg_stylesheetPath'],0,1) !== '/')
-        $_POST['cfg_stylesheetPath'] = '/'.$_POST['cfg_stylesheetPath'];
-        
-  if(!empty($_POST['cfg_editorStyleFile']) && substr($_POST['cfg_editorStyleFile'],0,1) !== '/')
-        $_POST['cfg_editorStyleFile'] = '/'.$_POST['cfg_editorStyleFile'];
-
+        $_POST['cfg_stylesheetPath'] = '/'.$_POST['cfg_stylesheetPath'];  
   
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
@@ -186,9 +183,9 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   //$adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];  
   //$adminConfig['page']['plugins'] = $_POST['cfg_pagePlugins'];
   //$adminConfig['page']['showtags'] = $_POST['cfg_pageTags'];
-    
+
   $adminConfig['editor']['enterMode'] = strtolower($_POST['cfg_editorEnterMode']);
-  $adminConfig['editor']['styleFile'] = $_POST['cfg_editorStyleFile'];
+  $adminConfig['editor']['styleFile'] = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
   $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
   $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
   
@@ -519,8 +516,17 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       <label for="cfg_editorStyleFile"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'] ?>">
       <?php echo $langFile['stylesheet_name_styleFile'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_editorStyleFile" name="cfg_editorStyleFile" class="toolTip" value="<?php echo $adminConfig['editor']['styleFile']; ?>" title="<?php echo $langFile['path_absolutepath_tip']; ?>" />
+      <div id="adminStyleFilesInputs" class="multipleFields toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>">
+      <?php      
+      $styleFileInputs = explode('|',$adminConfig['editor']['styleFile']);
+      
+      foreach($styleFileInputs as $styleFileInput) {
+        echo '<input id="cfg_editorStyleFile" name="cfg_editorStyleFile[]" value="'.$styleFileInput.'" />';
+      }      
+      ?>
+      </div>
       <span class="hint"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
+      <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
       </td></tr>
       
       <tr><td class="left">

@@ -25,7 +25,7 @@ $adminConfig['page']['plugins'] =         true;
 $adminConfig['page']['showtags'] =        true;
 
 $adminConfig['editor']['enterMode'] =  'p';
-$adminConfig['editor']['styleFile'] =  '/_feindura.org/style/layout.css';
+$adminConfig['editor']['styleFile'] =  '/style/layout.css|/wwww|/ererte';
 $adminConfig['editor']['styleId'] =    'content';
 $adminConfig['editor']['styleClass'] = '';
 

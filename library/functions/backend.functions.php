@@ -19,9 +19,12 @@
  * 
  * @package [backend]
  * 
- * @version 1.30
+ * @version 1.31
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.31 add checkStyleFiles()
+ * 
  */
-
 
 
 // ** -- redirect ----------------------------------------------------------------------------------
@@ -203,7 +206,9 @@ function saveCategories($newCategories) {
           $category['thumbWidth'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbWidth'];
         if(!isset($category['thumbHeight']))
           $category['thumbHeight'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbHeight'];
-          
+        
+        // adds absolute path slash on the beginning and implode the stylefiles
+        $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
       
         // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
         $category['styleFile'] = setStylesByPriority($category['styleFile'],'styleFile',true);
@@ -675,6 +680,50 @@ function getNewPageId() {
 }
 
 /**
+ * <b>Name</b> prepareStyleFilePaths()<br>
+ * 
+ * Check the array with stylesheet files if they have a slash on the beginnging and if there are not empty.
+ * Then implodes the array to a string like:
+ * 
+ * <samp>
+ * /style/header.css|/style/content.css|/style/footer.css
+ * </samp>
+ * 
+ * If the $givenStyleFiles parameter is already a string it passes it trough.
+ * 
+ * @param array $givenStyleFiles the array with stylesheetfile paths
+ * 
+ * @return array the cleaned stylesheet files array
+ * 
+ * 
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function prepareStyleFilePaths($givenStyleFiles) {
+  
+  //vars
+  $styleFiles = array();
+  
+  if(is_string($givenStyleFiles))
+    return $givenStyleFiles;
+  
+  foreach($givenStyleFiles as $styleFile) {
+    // ** adds a "/" on the beginning of all absolute paths
+    if(!empty($styleFile) && substr($styleFile,0,1) !== '/')
+        $styleFile = '/'.$styleFile;
+    
+    // adds back to the string only if its not empty
+    if(!empty($styleFile))
+      $styleFiles[] = $styleFile;
+  }
+  
+  return implode('|',$styleFiles);
+}
+
+/**
  * <b>Name</b> getStylesByPriority()<br>
  * 
  * Returns the right stylesheet-file path, ID or class-attribute.
@@ -890,7 +939,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       echo '<div class="editFiles left">
             <h2>'.$GLOBALS['langFile']['editFilesSettings_chooseFile'].'</h2>
             <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
-      echo '<select onchange="changeFile(\''.$siteName.'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
+      echo '<select onchange="changeEditFile(\''.$siteName.'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
  
             // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
             foreach($files as $cFile) {
