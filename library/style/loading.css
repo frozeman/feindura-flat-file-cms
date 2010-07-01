@@ -50,10 +50,15 @@
 
 #loadingCircle {
   display: block;
-  position: relative;  
-  width: 100%;
+  position: relative;
+  
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  /*width: 100%;
   height: 48px;
-  background: url(../image/sign/loadingCircle.gif) no-repeat top center;
+  background: url(../image/sign/loadingCircle.gif) no-repeat top center;*/
   }
 
 /* ----------------------- */

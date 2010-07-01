@@ -53,4 +53,4 @@ REQUIREMENTS
 
 APPROPRIATE USES  
   It's not tested yet, but it should work well on websites with up to 10 000 vistiors per day
-  feindura#$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB
+  feinduraPages::$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB

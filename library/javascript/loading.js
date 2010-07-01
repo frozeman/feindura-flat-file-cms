@@ -17,6 +17,52 @@
 * loading.php version 0.3 (require mootools-core AND mootools-more)  */
 
 
+// create the JS LOADING-CIRCLE
+function loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
+    var sectorsCount = count || 12,
+        color = colour || "#fff",
+        width = stroke_width || 15,
+        r1 = Math.min(R1, R2) || 35,
+        r2 = Math.max(R1, R2) || 60,
+        cx = r2 + width,
+        cy = r2 + width,
+        r = Raphael(holderid, r2 * 2 + width * 2, r2 * 2 + width * 2),
+        
+        sectors = [],
+        opacity = [],
+        beta = 2 * Math.PI / sectorsCount,
+
+        pathParams = {stroke: color, "stroke-width": width, "stroke-linecap": "round"};
+        Raphael.getColor.reset();
+    for (var i = 0; i < sectorsCount; i++) {
+        var alpha = beta * i - Math.PI / 2,
+            cos = Math.cos(alpha),
+            sin = Math.sin(alpha);
+        opacity[i] = 1 / sectorsCount * i;
+        sectors[i] = r.path([["M", cx + r1 * cos, cy + r1 * sin], ["L", cx + r2 * cos, cy + r2 * sin]]).attr(pathParams);
+        if (color == "rainbow") {
+            sectors[i].attr("stroke", Raphael.getColor());
+        }
+    }
+    var tick;
+    (function ticker() {
+        opacity.unshift(opacity.pop());
+        for (var i = 0; i < sectorsCount; i++) {
+            sectors[i].attr("opacity", opacity[i]);
+        }
+        r.safari();
+        tick = setTimeout(ticker, 1000 / sectorsCount);
+    })();
+    return function () {
+        clearTimeout(tick);
+        r.remove();
+    };
+}
+
+// create loading circle element
+var jsLoadingCircleContent = new Element('div', {id: 'loadingCircleContent'});
+
+
 // create the LOADING-CIRCLE
 if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
   var loadingCircleContent = new Element('div', {id: 'loadingCircleContent', style: 'z-index: 4; display: block; position: relative; width: 48px; height: 48px; background: url(library/image/sign/loadingCircle.gif) no-repeat;'});
@@ -26,16 +72,19 @@ if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
 
 /* LOADING-CIRCLE when the DOM is loading
 *
-* creates loadingCircle and disappears when domready*/
+* creates loadingCircle and disappears when domready
+*/
 window.addEvent('load', function() {
   //loadingCircle(false);
   
-   var lastLoadingTween = false;    
-    
+  var lastLoadingTween = false;    
+  var loadingBox = $$('#loadingBox .content')[0];
+  
   // add the loading circle to the #content div
-  if($('content') != null && $$('#loadingBox .content')[0] != null)
-    //$('content').grab(loadingCircleContent,'top');
-    $$('#loadingBox .content')[0].grab(loadingCircleContent,'top');
+  if($('content') != null && loadingBox != null) {
+    loadingBox.grab(loadingCircleContent,'top');
+    //var removeLoadingCircle = loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
+  }
 
   // show the loadingCircle
   $('loadingBox').fade('in');
@@ -43,6 +92,8 @@ window.addEvent('load', function() {
   // disply none the documentsaved, after blending in and out
   $('loadingBox').get('tween').addEvent('complete', function() {   
       if(lastLoadingTween) {
+        //removeLoadingCircle();
+        loadingBox.set('html','');
         $('loadingBox').setStyle('display','none');
         $('loadingBox').setStyle('opacity','1');
         $('loadingBox').removeEvents();
@@ -58,28 +109,28 @@ window.addEvent('load', function() {
 
 /* LOADING-CIRCLE when the DOM is unloading
 *
-* creates a loadingCircle and disappears new site is loaded and site will change*/
+* creates a loadingCircle and disappears new site is loaded and site will change
+*/
 window.addEvent('unload',  function() {
   //loadingCircle(true);
   
+  var loadingBox = $$('#loadingBox .content')[0];
+  
   // empties the loadingBox, and refill with the loadingCircle
-  if($$('#loadingBox .content')[0] != null) {
-    $$('#loadingBox .content')[0].set('html','');
-    $$('#loadingBox .content')[0].grab(loadingCircleContent,'top');
+  if(loadingBox != null) {    
+    loadingBox.set('html','');
+    loadingBox.grab(loadingCircleContent,'top');
+    //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
   }
   
-  $('loadingBox').setStyle('display','block'); 
-  //loadingCircleContent.setStyle('opacity','0');
-  //loadingCircleContent.setStyle('opacity','1');
-  //loadingCircleContent.fade('show');
+  $('loadingBox').setStyle('display','block');
 });
 
 
-
 /* ---------------------------------------------------------------------------------
-* when the DOM is ready */
+* when the DOM is ready
+*/
 window.addEvent('domready', function() {
-    
     
     // SHOWS UP IF THE PAGE HAS BEEN SAVED!
     var lastTween = false;    

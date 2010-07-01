@@ -37,6 +37,8 @@ function requestSite(site,siteTitle,formId) {
         // shows the LOADING on the top left
         if(!newWindow) {
           $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
+        } else {
+          var removeLoadingCircle = loadingCircle('loadingCircle', 20, 30, 12, 3, "#000");
         }
     },
     //-----------------------------------------------------------------------------

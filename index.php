@@ -136,8 +136,8 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Source/StaticScroller.js"></script>
 	<script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Requires/Element.Pin.js"></script>
   
-  <!-- thirdparty/EditArea -->
-  <script type="text/javascript" src="library/thirdparty/javascript/edit_area/edit_area_full.js"></script>
+  <!-- thirdparty/Raphael -->
+  <script type="text/javascript" src="library/thirdparty/javascript/raphael-1.4.3.js"></script>
   
   <!-- thirdparty/CodeMirror -->
   <script type="text/javascript" src="library/thirdparty/javascript/CodeMirror/js/codemirror.js"></script>
@@ -153,6 +153,8 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
  
   <!-- javascripts -->
+  <script type="text/javascript" src="library/javascript/loading.js"></script>
+  <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
   <script type="text/javascript" src="library/javascript/divScroller.js"></script>
   <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  
   <script type="text/javascript" src="library/javascript/sidebar.js"></script>
@@ -160,12 +162,10 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascript/sortPages.js"></script>
   <script type="text/javascript" src="library/javascript/setup.js"></script>
   <script type="text/javascript" src="library/javascript/content.js"></script>
-  <script type="text/javascript" src="library/javascript/forms.js"></script>
-  <script type="text/javascript" src="library/javascript/loading.js"></script>
+  <script type="text/javascript" src="library/javascript/forms.js"></script>  
   <script type="text/javascript" src="library/javascript/ajax.js"></script>
   <script type="text/javascript" src="library/javascript/windowBox.js"></script>
   <script type="text/javascript" src="library/javascript/toolTips.js"></script>
-  <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
   <script type="text/javascript" src="library/javascript/editor.js"></script>
   <script type="text/javascript" src="library/javascript/editFiles.js"></script>
   <script type="text/javascript" src="library/javascript/pageThumbnail.js"></script>
@@ -174,6 +174,8 @@ if($_GET['site'] == 'addons') {
 <body>
   <div id="dimmContainer">
   </div>
+  
+  <div id="tester"></div>
   
   <!-- loadingBox -->
   <div id="loadingBox">
