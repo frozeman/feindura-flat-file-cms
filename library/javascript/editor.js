@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/editor.js version 0.12 (requires ckeditor)
+// java/editor.js version 0.13 (requires CKEditor)
 
 
 window.addEvent('domready', function() {
@@ -33,19 +33,22 @@ window.addEvent('domready', function() {
     
     //CKEDITOR.config.disableNativeSpellChecker = false;
     
-    CKEDITOR.config.toolbar               = [['Save','Preview','Maximize','-','Source'],
-                                            ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print','SpellChecker', 'Scayt'],
-                                            ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-                                             '/',
-                                            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],	                                               
-                                            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-                                            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-                                          	['Link','Unlink','Anchor'],
-                                          	['Image','Flash','Table','HorizontalRule','SpecialChar'],
-                                             '/',
-                                          	['Styles','Format','FontSize'], // 'Font','FontName',
-                                          	['TextColor','BGColor','-'],
-                                          	['ShowBlocks','-','About']];		// No comma for the last row.
+    CKEDITOR.config.toolbar = [
+                              ['Save','Preview','-','Maximize','-','Source'],
+                              ['Undo','Redo','-','RemoveFormat','SelectAll'],
+                              ['Cut','Copy','Paste','PasteText','PasteFromWord'],
+                              ['Find','Replace','-','Print','SpellChecker', 'Scayt'],
+                               '/',
+                              ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],	                                               
+                              ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                              ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                              ['Link','Unlink','Anchor'],
+                              ['Image','Flash','Table','HorizontalRule','SpecialChar'],
+                               '/',
+                              ['Styles','Format','FontSize'], // 'Font','FontName',
+                              ['TextColor','BGColor','-'],
+                              ['ShowBlocks','-','About']
+                              ];		// No comma for the last row.
   
       
     
