@@ -192,7 +192,7 @@ echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$
       </div>';
 
 ?>
-<div class="block open">
+<div class="block open pageHead">
 <?php
 
 // shows ID and differtnet header color if its a CATEGORY
@@ -255,7 +255,7 @@ else
     
     // -> show the thumbnail upload button if there is no thumbnail yet
     } elseif(!$newPage &&
-            (($pageContent['category'] == 0 && $adminConfig['page']['thumbnailUpload']) ||
+            (($pageContent['category'] == 0 && $adminConfig['page']['thumbnails']) ||
             $categoryConfig['id_'.$pageContent['category']]['thumbnail'])) {  
       
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
@@ -302,7 +302,7 @@ else
               <select name="categoryId">';
               
               // -> shows non-category selection if create pages is allowed
-              if($adminConfig['page']['createPages'])
+              if($adminConfig['page']['createdelete'])
                 echo '<option value="0">'.$langFile['editor_h1_categoryid_noCategory'].'</option>';
               
               // ->> goes trough categories and list them

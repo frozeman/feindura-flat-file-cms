@@ -59,7 +59,7 @@ editor.css version 0.11 */
 /* ----------------------- */	
 /* - PAGE-THUMBNAIL UPLOAD */  
 
-#content .block.open a.pageThumbnailUpload {
+#content .block.pageHead a.pageThumbnailUpload {
     display: block;
     position: absolute;
     top: 50px;
@@ -69,7 +69,7 @@ editor.css version 0.11 */
     text-decoration: none;
     background: url(../image/key/content_pageThumbnailUpload.png) no-repeat;  
     }
-#content .block.open a.pageThumbnailUpload:hover {
+#content .block.pageHead a.pageThumbnailUpload:hover {
     background-position: 0px -76px;
     }
 

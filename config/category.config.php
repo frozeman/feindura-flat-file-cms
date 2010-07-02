@@ -22,7 +22,7 @@ $categoryConfig['id_1']['thumbRatio'] =      '';
 
 $categoryConfig['id_2']['id'] =              2;
 $categoryConfig['id_2']['name'] =            'News';
-$categoryConfig['id_2']['public'] =          true;
+$categoryConfig['id_2']['public'] =          false;
 $categoryConfig['id_2']['createdelete'] =    true;
 $categoryConfig['id_2']['thumbnail'] =       true;
 $categoryConfig['id_2']['plugins'] =         false;

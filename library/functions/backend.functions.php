@@ -427,8 +427,8 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['user']['editWebsiteFiles'] = (isset($adminConfig['user']['editWebsiteFiles']) && $adminConfig['user']['editWebsiteFiles']) ? 'true' : 'false';
     $adminConfig['user']['editStylesheets'] = (isset($adminConfig['user']['editStylesheets']) && $adminConfig['user']['editStylesheets']) ? 'true' : 'false';
     $adminConfig['setStartPage'] = (isset($adminConfig['setStartPage']) && $adminConfig['setStartPage']) ? 'true' : 'false';
-    $adminConfig['page']['createPages'] = (isset($adminConfig['page']['createPages']) && $adminConfig['page']['createPages']) ? 'true' : 'false';
-    $adminConfig['page']['thumbnailUpload'] = (isset($adminConfig['page']['thumbnailUpload']) && $adminConfig['page']['thumbnailUpload']) ? 'true' : 'false';
+    $adminConfig['page']['createdelete'] = (isset($adminConfig['page']['createdelete']) && $adminConfig['page']['createdelete']) ? 'true' : 'false';
+    $adminConfig['page']['thumbnails'] = (isset($adminConfig['page']['thumbnails']) && $adminConfig['page']['thumbnails']) ? 'true' : 'false';
     $adminConfig['page']['plugins'] = (isset($adminConfig['page']['plugins']) && $adminConfig['page']['plugins']) ? 'true' : 'false';
     $adminConfig['page']['showtags'] = (isset($adminConfig['page']['showtags']) && $adminConfig['page']['showtags']) ? 'true' : 'false';
     
@@ -460,8 +460,8 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n");
     
     fwrite($file,"\$adminConfig['setStartPage'] =            ".$adminConfig['setStartPage'].";\n");
-    fwrite($file,"\$adminConfig['page']['createPages'] =     ".$adminConfig['page']['createPages'].";\n");
-    fwrite($file,"\$adminConfig['page']['thumbnailUpload'] = ".$adminConfig['page']['thumbnailUpload'].";\n");    
+    fwrite($file,"\$adminConfig['page']['createdelete'] =    ".$adminConfig['page']['createdelete'].";\n");
+    fwrite($file,"\$adminConfig['page']['thumbnails'] =      ".$adminConfig['page']['thumbnails'].";\n");    
     fwrite($file,"\$adminConfig['page']['plugins'] =         ".$adminConfig['page']['plugins'].";\n");
     fwrite($file,"\$adminConfig['page']['showtags'] =        ".$adminConfig['page']['showtags'].";\n\n");
     

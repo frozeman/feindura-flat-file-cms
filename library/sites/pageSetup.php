@@ -44,8 +44,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   
   // -> PREPARE CONFIG VARs
   $adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  $adminConfig['page']['createPages'] = $_POST['cfg_pageCreatePages'];
-  $adminConfig['page']['thumbnailUpload'] = $_POST['cfg_pageThumbnailUpload'];  
+  $adminConfig['page']['createdelete'] = $_POST['cfg_pageCreatePages'];
+  $adminConfig['page']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
   $adminConfig['page']['plugins'] = $_POST['cfg_pagePlugins'];
   $adminConfig['page']['showtags'] = $_POST['cfg_pageTags'];
   
@@ -383,13 +383,13 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       </colgroup>  
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['page']['createPages']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['page']['createdelete']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
       <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check2']; ?></span></label><br />
       </td></tr>
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check3'].'::'.$langFile['pageSetup_pageConfig_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnailUpload']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pageThumbnailUpload" name="cfg_pageThumbnailUpload" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check3'].'::'.$langFile['pageSetup_pageConfig_check3_tip']; ?>"<?php if($adminConfig['page']['thumbnails']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
       <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check3'].'::'.$langFile['pageSetup_pageConfig_check3_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check3']; ?></span></label><br />
       </td></tr>

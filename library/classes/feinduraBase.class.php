@@ -905,7 +905,7 @@ class feinduraBase {
     // ->> CHECK if thumbnail exists and is allowed to show
     if(!empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) { //&&
-      //(($pageContent['category'] == '0' && $this->adminConfig['page']['thumbnailUpload']) ||
+      //(($pageContent['category'] == '0' && $this->adminConfig['page']['thumbnails']) ||
       //($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
       
       // set TAG ENDING (xHTML or HTML) 

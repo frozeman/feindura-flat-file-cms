@@ -18,8 +18,8 @@ $adminConfig['user']['editStylesheets'] =  false;
 $adminConfig['user']['info'] =             '';
 
 $adminConfig['setStartPage'] =            true;
-$adminConfig['page']['createPages'] =     true;
-$adminConfig['page']['thumbnailUpload'] = true;
+$adminConfig['page']['createdelete'] =     true;
+$adminConfig['page']['thumbnails'] = true;
 $adminConfig['page']['plugins'] =         false;
 $adminConfig['page']['showtags'] =        false;
 
