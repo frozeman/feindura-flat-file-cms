@@ -488,7 +488,7 @@ $langFile['pageSetup_error_save'] = $langFile['error_save_settings'].$langFile['
 $langFile['pageSetup_advancedSettings'] = 'Erweiterte-Einstellungen';
 $langFile['pageSetup_advancedSettings_hint'] = 'Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die '.$langFile['adminSetup_editorSettings_h1'].' in den <a href="?site=adminSetup">Administrator-Einstellungen</a>.';
 
-$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn das Feld leer ist, dann werden die Stylesheet-Einstellungen aus den '.$langFile['adminSetup_editorSettings_h1'].' verwendet.';
+$langFile['pageSetup_stylesheet_ifempty'] = 'Wenn alle Felder leer sind, dann werden die Stylesheet-Einstellungen aus den '.$langFile['adminSetup_editorSettings_h1'].' verwendet.';
 
 $langFile['pageSetup_check1'] = 'Status der Kategorie';
 $langFile['pageSetup_check1_tip'] = 'Legt fest ob die Kategorie auf der Webseite sichtbar ist.';
@@ -629,7 +629,7 @@ $langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuel
 $langFile['editor_advancedpageSettings_h1'] = 'Erweiterte Einstellungen';
 
 $langFile['editor_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn das Feld leer bleibt dann werden zuerst die Stylesheet-Einstellungen der Kategorie verwendet, wenn diese auch leer sind dann die aus den HTML-Editor-Einstellungen.';
+$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn alle Felder leer sind, dann werden zuerst die Stylesheet-Einstellungen der Kategorie verwendet, wenn diese auch leer sind dann die aus den HTML-Editor-Einstellungen.';
 
 $langFile['editor_htmleditor_hotkeys_h1'] = 'Tastenk&uuml;rzel';
 $langFile['editor_htmleditor_hotkeys_field1'] = 'Alles markieren';

@@ -489,7 +489,7 @@ $langFile['pageSetup_error_save'] = $langFile['error_save_settings'].$langFile['
 $langFile['pageSetup_advancedSettings'] = 'Advanced-Settings';
 $langFile['pageSetup_advancedSettings_hint'] = 'If this settings are set, they overwrite the thumbnail-settings above and the '.$langFile['adminSetup_editorSettings_h1'].' in the <a href="?site=adminSetup">administrator-settings</a>.';
 
-$langFile['pageSetup_stylesheet_ifempty'] = 'If this field is empty, it uses the stylesheet settings from the '.$langFile['adminSetup_editorSettings_h1'].'.';
+$langFile['pageSetup_stylesheet_ifempty'] = 'If all fields are empty, then the stylesheet settings from the '.$langFile['adminSetup_editorSettings_h1'].' will be used.';
 
 $langFile['pageSetup_check1'] = 'Status of the category';
 $langFile['pageSetup_check1_tip'] = 'Specifies if the category is visible on the website.';
@@ -630,7 +630,7 @@ $langFile['editor_pageSettings_pagedate_error_tip'] = 'This month has eventually
 $langFile['editor_advancedpageSettings_h1'] = 'Advanced Settings';
 
 $langFile['editor_advancedpageSettings_field1'] = 'Page stylesheet-file';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'If the field is empty then the Stylesheet-Settings of the category will be used, or if also empty the one from the HTML-Editor-Settings.';
+$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'If the fields are empty, then the Stylesheet-Settings of the category will be used and if they are also empty then the one from the HTML-Editor-Settings.';
 
 $langFile['editor_htmleditor_hotkeys_h1'] = 'Shortcut keys';
 $langFile['editor_htmleditor_hotkeys_field1'] = 'select all';
