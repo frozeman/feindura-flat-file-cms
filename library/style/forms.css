@@ -81,19 +81,14 @@ textarea.editFiles, div.CodeMirror-wrapping {
     height:500px;
     margin-top: 15px;
     }
-
-.multipleFields {
-    min-height: 25px;
-    width: 330px;
-    float: left;
-    }
     
 a.addStyleFilePath {
     position: relative;
-    display: block;
-    left: 325px;
+    display: block;    
     width: 24px;
     height: 24px;
+    top: 5px;
+    left: 1px;
     background: url(../image/key/addStyleFilePath.png) no-repeat;
     }
 a.addStyleFilePath:hover {

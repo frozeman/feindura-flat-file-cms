@@ -516,16 +516,16 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       <label for="cfg_editorStyleFile"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'] ?>">
       <?php echo $langFile['stylesheet_name_styleFile'] ?></span></label>
       </td><td class="right">
-      <div id="adminStyleFilesInputs" class="multipleFields toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>">
+      <div id="adminStyleFilesInputs" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>">
       <?php      
       $styleFileInputs = explode('|',$adminConfig['editor']['styleFile']);
       
       foreach($styleFileInputs as $styleFileInput) {
-        echo '<input id="cfg_editorStyleFile" name="cfg_editorStyleFile[]" value="'.$styleFileInput.'" />';
+        echo '<input id="cfg_editorStyleFile" name="cfg_editorStyleFile[]" value="'.$styleFileInput.'" />
+              <span class="hint">'.$langFile['stylesheet_styleFile_example'].'</span>';
       }      
       ?>
       </div>
-      <span class="hint"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
       </td></tr>
       

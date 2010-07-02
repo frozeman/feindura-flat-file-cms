@@ -615,14 +615,14 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'styleFile"><span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleFile'].'</span></label>
                 </td><td class="right">
-                <div id="categoryStyleFilesInputs'.$category['id'].'" class="multipleFields toolTip" title="'.$langFile['path_absolutepath_tip'].'">';
+                <div id="categoryStyleFilesInputs'.$category['id'].'" class="toolTip" title="'.$langFile['path_absolutepath_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">';
                 $styleFileInputs = explode('|',getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']));
       
                 foreach($styleFileInputs as $styleFileInput) {
-                  echo '<input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile][]" value="'.$styleFileInput.'" />';
+                  echo '<input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile][]" value="'.$styleFileInput.'" />
+                        <span class="hint">'.$langFile['stylesheet_styleFile_example'].'</span>';
                 }
           echo '</div>
-                <span class="hint">'.$langFile['stylesheet_styleFile_example'].'</span>
                 <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['stylesheet_styleFile_addButton_tip'].'::"></a>              
                 </td></tr>';
                 
