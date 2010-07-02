@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// setup.php version 2.43 (BACKEND)
+// setup.php version 2.44 (BACKEND)
 
 
 /* LANGUAGE-VARS
@@ -61,9 +61,9 @@ $count = '0';
 // STARTS SEARCH
 if(!empty($searchWord)) {
 
-$categoriesList = $categoryConfig;
-array_unshift($categoriesList,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPageContents = $generalFunctions->loadPages($categoriesList,true);
+//$categoriesList = $categoryConfig;
+//array_unshift($categoriesList,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
+$allPageContents = $generalFunctions->loadPages(true,true);
 
 // SEARCH RESULTS HEADLINE
 echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
@@ -76,6 +76,8 @@ function ausgabeblock_start($count,$pageContent) {
   // set category name
   if(isset($categoryConfig['id_'.$pageContent['category']]['name']))
     $categoryName = '&rArr; '.$categoryConfig['id_'.$pageContent['category']]['name'];
+  elseif($pageContent['category'] == 0)
+    $categoryName = '&rArr; '.$GLOBALS['langFile']['categories_noncategory_tip'];
   
   // -> RETURN OUTPUT LAYOUT
   return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>'.$categoryName.'</span></h3><p>';
@@ -92,7 +94,7 @@ function ausgabeblock_end() {
 
   // schleife die die einzelnen gruppen öffnet
   foreach($allPageContents as $pageContent)  {
-         
+      
     	//setzt die priotität der suchergebnisse am anfang auf 0
     	$priority = 0;
             
@@ -171,6 +173,8 @@ function ausgabeblock_end() {
 				}
 				
 				if($if_find) {
+				  
+				
         	// -> CREATE FINDINGS ARRAY
           $findings[$zaehl] = array("stelle" => $stellen[$zaehl], "wortlaenge" => $wortlaenge[$zaehl], "findtext" => $findtext);
           $zaehl++;

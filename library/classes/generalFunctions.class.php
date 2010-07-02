@@ -691,7 +691,7 @@ class generalFunctions {
   * Example of the returned $pageContent arrays:
   * {@example loadPages.return.example.php}
   * 
-  * @param bool|int|array  $category           (optional) a category ID, and array with category IDs, TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
+  * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
   * @param bool		         $loadPagesInArray   (optional) if TRUE it returns the $pageContent arrays of the pages in the categories, if FALSE it only returns the page IDs of the requested category(ies)
   * 
   * @uses $categoryConfig     to get the sorting of the category
