@@ -37,9 +37,10 @@ editor.css version 0.11 */
     }    
 
 #content .editor textarea {
-    width: 746px !important;
+    width: 750px !important;
     height: 437px !important;
-    padding: 7px;
+    background: url(../image/bg/formularBg.jpg) no-repeat #ffffff !important;
+    padding: 10px;
     }
 #content .editor textarea:hover {
     border: none !important;

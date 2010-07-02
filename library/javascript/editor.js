@@ -26,8 +26,10 @@ window.addEvent('domready', function() {
     CKEDITOR.config.uiColor                       = '#cccccc';
     CKEDITOR.config.width                         = '792';
     CKEDITOR.config.resize_minWidth               = '780';
+    CKEDITOR.config.resize_maxWidth               = '1400';
     CKEDITOR.config.height                        = '450';
-    CKEDITOR.config.resize_minHeight              = '400';    
+    CKEDITOR.config.resize_minHeight              = '400';
+    CKEDITOR.config.resize_maxHeight              = '900';   
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
     
