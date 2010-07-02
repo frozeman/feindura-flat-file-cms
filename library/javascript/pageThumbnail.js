@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/pageThumbnail.js version 0.21
+// java/pageThumbnail.js version 0.22
 
 
 var startUploadAnimationElement = null;
@@ -22,9 +22,15 @@ var startUploadAnimationElement = null;
 // called on the beginning of the upload
 function startUploadAnimation() {
   
-  startUploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
+  // shows the LOADING
+  if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
+    $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
+    startUploadAnimationElement = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
+  } else {
+    startUploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
+    $('windowRequestBox').grab(startUploadAnimationElement,'top'); 
+  }
   
-  $('windowRequestBox').grab(startUploadAnimationElement,'top');  
   return true;
 
 }
@@ -38,7 +44,16 @@ function stopUploadAnimation() {
   
   // removes the loading animation
   if(startUploadAnimationElement != null) {
-    startUploadAnimationElement.destroy();
+  
+    if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
+      startUploadAnimationElement();
+      $('windowBoxDimmer').setStyle('padding',0);
+      $('windowBoxDimmer').tween('height',0);
+      
+    } else {
+      startUploadAnimationElement.destroy();
+    } 
+    
     return true;
   }
   return false;
