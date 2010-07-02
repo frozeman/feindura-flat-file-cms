@@ -162,9 +162,9 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascript/sortPages.js"></script>
   <script type="text/javascript" src="library/javascript/setup.js"></script>
   <script type="text/javascript" src="library/javascript/content.js"></script>
-  <script type="text/javascript" src="library/javascript/forms.js"></script>  
-  <script type="text/javascript" src="library/javascript/ajax.js"></script>
+  <script type="text/javascript" src="library/javascript/forms.js"></script>
   <script type="text/javascript" src="library/javascript/windowBox.js"></script>
+  <script type="text/javascript" src="library/javascript/ajax.js"></script>
   <script type="text/javascript" src="library/javascript/toolTips.js"></script>
   <script type="text/javascript" src="library/javascript/editor.js"></script>
   <script type="text/javascript" src="library/javascript/editFiles.js"></script>
@@ -174,8 +174,6 @@ if($_GET['site'] == 'addons') {
 <body>
   <div id="dimmContainer">
   </div>
-  
-  <div id="tester"></div>
   
   <!-- loadingBox -->
   <div id="loadingBox">
@@ -188,7 +186,7 @@ if($_GET['site'] == 'addons') {
   <div id="windowBoxContainer">
     <div id="windowBox">
       <div class="boxTop"><?php echo $langFile['txt_loading']; ?><a href="#" onclick="closeWindowBox(false);return false;"></a></div>
-      <div id="windowRequestBox"><div id="loadingCircle"></div></div>
+      <div id="windowRequestBox"></div>
       <div class="boxBottom"></div>
     </div>
   </div>

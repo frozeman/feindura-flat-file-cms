@@ -21,9 +21,5 @@ filemanager.css version 0.1 */
 iframe#fileManagerFrame {
     width: 732px;
     height: 500px;
-    margin: 0px -25px;
-    margin-top: -20px;
-    margin-bottom: 1px;   
-    border: 1px solid #999999;
-    border-top: 0px;
+    margin: -20px -24px;
     }

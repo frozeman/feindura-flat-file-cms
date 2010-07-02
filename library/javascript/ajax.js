@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/ajax.js version 0.33 (requires mootools-core)
+// java/ajax.js version 0.34 (requires mootools-core)
 
 /* ---------------------------------------------------------------------------------- */
 // send a HTML request and put the outcome in the windowRequestBox
@@ -21,86 +21,96 @@ function requestSite(site,siteTitle,formId) {
 
   var formular = $(formId);
   var newWindow = true;
+  var removeLoadingCircle;
   
   // creates the request Object
   var requestSite = new Request.HTML({url:site,
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
         
-        //Clear the boxTop <div>
-    		$$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
-        
         // checks if the windowRequestBox is empty, means that an new window is opend
   		  if($('windowRequestBox').get('text') != '')
   		    newWindow = false;
         
-        // shows the LOADING on the top left
-        if(!newWindow) {
-          $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
+        // shows the LOADING
+        if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
+          $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
+          removeLoadingCircle = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
         } else {
-          var removeLoadingCircle = loadingCircle('loadingCircle', 20, 30, 12, 3, "#000");
+          $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle'}),'top');
         }
     },
     //-----------------------------------------------------------------------------
-		onSuccess: function(html) { //-------------------------------------------------
-
-			// then fill in the content
-			if(site) {
-  			//Clear the text currently inside the results div.
-  			$('windowRequestBox').set('text', '');
-  			//Inject the new DOM elements into the results div.
-  			$('windowRequestBox').adopt(html);
-			}
-			
-			// fire a event if the page is loaded
-			$('windowBox').fireEvent('loaded',$('windowRequestBox'));
-		
-			// resize the box by a slide; set the slide
-			$('windowRequestBox').set('slide', {duration: '300', transition: Fx.Transitions.Pow.easeOut});
+		onSuccess: function(html) { //-------------------------------------------------      
       
-      // sets the height of the wrapper to auto after the slide,
-      // so that the windowRequestBox, resizes automaticly when content is changing
-      $('windowRequestBox').get('slide').addEvent('complete', function() {
-        if($('windowRequestBox').get('slide').wrapper.offsetHeight != 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-          $('windowRequestBox').get('slide').wrapper.setStyle('height','auto');
-      });
-			
-			// only when the a new window is opend slide in ------------
-			if(newWindow) {
-			
-  		  // first fill in the title
-  		  if(siteTitle) {  		  
-    			//Inject the new DOM elements into the boxTop div.
-    			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();return false;"></a>');
-  			}			   
-  
-        // slides in
-        $('windowRequestBox').slide('hide');
-        $('windowRequestBox').slide('in');
+      // resize the box by a slide; set the slide
+		  $('windowRequestBox').set('slide', {duration: '300', transition: Fx.Transitions.Pow.easeOut});      
+      $('windowRequestBox').slide('out');
+      
+      if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
+        removeLoadingCircle();
+      
+      // ->> on complete fade out, put content
+      $('windowRequestBox').get('slide').addEvent('complete',function(e) {
         
-          
-        // IE HACK, wont bring the bottom div to the bottom
-  			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-    			$$('#windowBox .boxBottom')[0].setStyle('top','68px');
-    			$$('#windowBox .boxBottom')[0].set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
-    			$$('#windowBox .boxBottom')[0].tween('top',$('windowRequestBox').getSize().y);
+        $('windowRequestBox').get('slide').removeEvents();
+        
+        // fill in the content
+  			if(site) {
+    			//Clear the text currently inside the results div.
+    			$('windowRequestBox').set('html', '');
+    			//Inject the new DOM elements into the results div.
+    			$('windowRequestBox').adopt(html);
   			}
-  		
-  		// else RESIZE ------------
-			} else {
-			   
-			  // slides out
-        $('windowRequestBox').slide('show');
-          
-        // IE HACK, wont bring the bottom div to the bottom
-  			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-    			$$('#windowBox .boxBottom')[0].setStyle('top',$('windowRequestBox').getSize().y);
-  			}	
-      
-      }			
+  			
+  			// fire a event if the page is loaded
+  			$('windowBox').fireEvent('loaded',$('windowRequestBox'));
+        
+        // sets the height of the wrapper to auto after the slide,
+        // so that the windowRequestBox, resizes automaticly when content is changing
+        $('windowRequestBox').get('slide').addEvent('complete', function() {
+          if($('windowRequestBox').get('slide').wrapper.offsetHeight != 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+            $('windowRequestBox').get('slide').wrapper.setStyle('height','auto');
+        });
+			  
+  			// only when the a new window is opend slide in ------------
+  			if(newWindow) {
+  			
+    		  // first fill in the title
+    		  if(siteTitle) {
+      			//Inject the new DOM elements into the boxTop div.
+      			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();return false;"></a>');
+    			} else {
+            //Clear the boxTop <div>
+      		  $$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
+          }
+            
+          // IE HACK, wont bring the bottom div to the bottom
+    			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+      			$$('#windowBox .boxBottom')[0].setStyle('top','68px');
+      			$$('#windowBox .boxBottom')[0].set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
+      			$$('#windowBox .boxBottom')[0].tween('top',$('windowRequestBox').getSize().y);
+    			}
+    		
+    		// else RESIZE ------------
+  			} else {
+  			   
+  			  // slides out
+          //$('windowRequestBox').slide('show');
+            
+          // IE HACK, wont bring the bottom div to the bottom
+    			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+      			$$('#windowBox .boxBottom')[0].setStyle('top',$('windowRequestBox').getSize().y);
+    			}
+        }			
+  			
+  			// slides in again
+        $('windowRequestBox').slide('in');
+  			
+  			/* set toolTips to all objects with a toolTip class */
+  			setToolTips();
 			
-			/* set toolTips to all objects with a toolTip class */
-			setToolTips();
+			});
 		},
 		//-----------------------------------------------------------------------------
 		//Our request will most likely succeed, but just in case, we'll add an

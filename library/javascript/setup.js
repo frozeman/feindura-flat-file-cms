@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/setup.js version 0.24 (requires mootools-core and mootools-more)
+// java/setup.js version 0.25 (requires mootools-core and mootools-more)
 
 // vars
 var deactivateType = 'disabled'; // disabled/readonly
@@ -21,13 +21,14 @@ var deactivateType = 'disabled'; // disabled/readonly
 
 // ------------------------------------------------------------------------------
 // ADD a INPUT FIELD
-function addField(containerId,inputName,inputClass) {
+function addField(containerId,inputName) {
   
-  var newInput = new Element('input', {name: inputName, class: inputClass });
+  //var newInput = new Element('input', {name: inputName});
   
-  if($(containerId) != null) {
-		$(containerId).grab(newInput,'bottom');
-		return newInput;
+  if(containerId && $(containerId) != null) {
+    $(containerId).set('html',$(containerId).get('html') + ' <input name="'+ inputName +'" />');
+		//$(containerId).grab(newInput,'bottom');
+		return true;
   } else
     return false;
 }
@@ -100,7 +101,7 @@ window.addEvent('domready', function() {
       
       addButton.addEvent('click', function(e) {
         e.stop();
-  			addField(containerId,inputName);  			
+  			addField(containerId,inputName);
   		});
     }
   });

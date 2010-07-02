@@ -68,10 +68,15 @@ window.addEvent('domready', function() {
   // ->> PAGESETUP CATEGORY MENU
   // ---------------------------
   if($('sidebarCategorySelection') != null) {
-    // adds static scroller
-    new StaticScroller('sidebarCategorySelection',{
-      offset: 0
-    });
-  }  
+  
+    if(navigator.appVersion.match(/MSIE ([0-8]\.\d)/)) {
+      $('sidebarCategorySelection').setStyle('position','fixed');
+    } else {
+      // adds static scroller
+      new StaticScroller('sidebarCategorySelection',{
+        offset: 1
+      });
+    }
+  }
   
 });

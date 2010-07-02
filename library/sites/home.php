@@ -47,7 +47,7 @@ include_once(dirname(__FILE__).'/../backend.include.php');
 <?php
 
 // SHOW the BROWSER HINT
-if(preg_match("/MSIE [0-6]/", $_SERVER['HTTP_USER_AGENT']) &&
+if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
    !preg_match("/chromeframe/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
 <div class="block warning hidden">

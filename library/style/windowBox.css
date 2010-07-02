@@ -27,7 +27,7 @@ windowBox.css version 0.1 */
     height: 100%;
     }
 
-#windowBox {    
+#windowBox {
     position: fixed;
     top: 20%;
     width: 780px;
@@ -35,6 +35,7 @@ windowBox.css version 0.1 */
     margin-right: auto;*/
     left: 50%;
     margin-left: -390px;
+    padding-bottom: 50px;
     }
 #windowBox .boxTop {
     z-index: 2;
@@ -42,8 +43,8 @@ windowBox.css version 0.1 */
     top: -60px;
     left: 0px;
     width: 780px;
-    height: 4px; /*org: 60px */
-    padding: 28px 0px;
+    height: 2px; /*org: 60px */
+    padding: 29px 0px;
     background: url(../image/bg/windowBox_top.png) no-repeat;
     text-align: center;
     font-size: 18px;
@@ -53,21 +54,36 @@ windowBox.css version 0.1 */
 #windowRequestBox {
     z-index: 1;
     position: relative;
-    width: 680px;    
-    padding: 0px 50px;
-    padding-top: 20px;
+    width: 680px;
+    min-height: 180px;
+    padding: 20px 50px;
     background: url(../image/bg/windowBox_middle.png) repeat-y;
     overflow: hidden;
     }
 #windowBox .boxBottom {
     z-index: 2;
     position: relative;
-    bottom: 1px; /* before -55px */
+    bottom: 0px; /* before -55px */
     width: 780px;
-    height: 100px; /* org: 55px */
+    height: 60px; /* org: 60px */
     background: url(../image/bg/windowBox_bottom.png) no-repeat;
     }
-    
+
+#windowBoxDimmer {
+    z-index: 3;
+    position: absolute;
+    width: 736px;    
+    height: 100%;
+    margin: 0px -26px;
+    margin-top: -21px;
+    /*margin-bottom: -80px;*/
+    padding: 50px 0px;
+    text-align: center;
+    background: url(../image/bg/dimmContainer.png) repeat;
+    -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
+    filter:Alpha(opacity=50, finishopacity=50, style=0);
+    }
+
 /* ----------------------- */	
 /* ---:- HEADLINES */
 
@@ -96,7 +112,7 @@ windowBox.css version 0.1 */
 
 #windowBox .boxTop a {
     position: absolute;
-    top: 22px;
+    top: 23px;
     right: 25px;
     width: 35px;
     height: 35px;

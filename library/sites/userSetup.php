@@ -14,7 +14,7 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 0.53
+verion 0.54
 
 */
 
@@ -1276,7 +1276,7 @@ function disablepasses(&$status)
 .arial2bold { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; color: #000000 }
 .arial12 { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; color: #000000; padding: 2px 0px;}
 .inputwidth150 { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; color: #000000 ; width: 150px; border : 1px solid black}
-.arial12weiss { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; color: #ffffff; font-style: normal; text-decoration: none; padding: 2px 5px;}
+.arial12weiss { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; color: #ffffff; font-style: normal; text-decoration: none; padding: 2px 5px;background:#999999;}
 
 .languageselect {
 	font-family: Arial, Helvetica, sans-serif; font-size: 10px; font-weight: normal; color: #000000; width: 205px; border: 1px solid  black; background-color: #ffffff;
@@ -1298,6 +1298,10 @@ function disablepasses(&$status)
 }
 .arial10weiss { font-family: Arial, Helvetica, sans-serif; font-size: 10px; font-weight: normal; color: #333333;}
 .arial2boldweiss { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; color: #333333}
+
+.footer {
+  background: transparent !important;
+}
 
 -->
 </style>
@@ -1681,7 +1685,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 												<td class="arial12weiss" align="left"> 
 													<?php echo $languagearray[103]; ?>
 												</td>
-												<td class="arial2boldweiss">&nbsp; </td>
+												<td class="arial12weiss">&nbsp; </td>
 											</tr>
 											<tr valign="middle" align="left"> 
 												<td class="arial2bold" width="250">user </td>
@@ -1697,7 +1701,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 											</tr>
 											<tr valign="middle"> 
 												<td class="arial12" align="right"> 
-													<?php echo $languagearray[104]; ?>
+													<?php echo $languagearray[104]; ?>&nbsp;&nbsp;
 												</td>
 												<td class="arial12" align="left"> 
 													<input type="password" name="newpass2" class="inputwidth150" size="20" />
@@ -1724,7 +1728,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 												<td class="arial12weiss" align="left"> 
 													<?php echo $languagearray[105]; ?>
 												</td>
-												<td class="arial2boldweiss">&nbsp; </td>
+												<td class="arial12weiss">&nbsp; </td>
 											</tr>
 											<tr valign="middle" align="left"> 
 												<td class="arial2bold" width="250">user </td>
@@ -1740,7 +1744,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 											</tr>
 											<tr valign="middle"> 
 												<td class="arial12" align="right"> 
-													<?php echo $languagearray[104]; ?>
+													<?php echo $languagearray[104]; ?>&nbsp;&nbsp;
 												</td>
 												<td class="arial12"  align="left"> 
 													<input type="password" name="updatepass2" class="inputwidth150" />
@@ -1770,7 +1774,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 												<td class="arial12weiss"> 
 													<?php echo $languagearray[106]; ?>
 												</td>
-												<td class="arial2boldweiss">&nbsp;</td>
+												<td class="arial12weiss">&nbsp;</td>
 											</tr>
 											<tr valign="middle"> 
 												<td class="arial12" align="left" width="210"> 
@@ -1803,7 +1807,7 @@ if($disable['fileimportuser'] != 1) {
 												<td class="arial12weiss"> 
 													<?php echo $languagearray[110]; ?>
 												</td>
-												<td class="arial2boldweiss" align="right">&nbsp; 
+												<td class="arial12weiss" align="right">&nbsp; 
 												</td>
 											</tr>
 										</table>
@@ -1850,7 +1854,7 @@ if($disable['deleteall'] != 1) {
 
 ?>
 								<tr> 
-									<td class="arial12weiss" style="color:#999999;" align="center" valign="bottom"> 
+									<td class="arial12weiss footer" style="color:#999999;" align="center" valign="bottom"> 
 										Login Management System [LMS] by <a href="http://sc02.funpic.de">sc02</a>
 									</td>
 								</tr>

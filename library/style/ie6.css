@@ -61,7 +61,7 @@
     top: auto !important;
     bottom: 100px;
     }
-    
+
 /* listPages */
 
 .listPages .content div {
@@ -105,6 +105,7 @@
     }
 #windowBox .boxBottom {
     position: absolute !important;
+    bottom: 1px;
     }
 /* windoxBox gif backgrounds */
 #windowBox .boxTop {
