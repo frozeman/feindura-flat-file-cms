@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 3
-Build 267
+Build 268
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 beta 3
+  build 268: fixed doubling of the styleshett paths hint
   build 267: fixed search.php loadPages issue
   build 266: fixed pageThumbnail button in listpages
   build 265: add raphael loading circle to page thumbnail upload

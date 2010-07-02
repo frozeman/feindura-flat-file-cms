@@ -25,7 +25,7 @@ $adminConfig['page']['plugins'] =         true;
 $adminConfig['page']['showtags'] =        true;
 
 $adminConfig['editor']['enterMode'] =  'p';
-$adminConfig['editor']['styleFile'] =  '/_feindura.org/style/reset.css|/_feindura.org/style/layout.css';
+$adminConfig['editor']['styleFile'] =  '/_feindura.org/style/reset.css|/_feindura.org/style/layout.css|/_feindura.org/style/widgets.css';
 $adminConfig['editor']['styleId'] =    'content';
 $adminConfig['editor']['styleClass'] = '';
 

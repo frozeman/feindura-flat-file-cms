@@ -819,12 +819,12 @@ else $hidden = ' hidden';
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleFile']; ?></span>
       </td><td class="right">
       <div id="pageStyleFilesInputs" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
+      <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <?php      
       $styleFileInputs = explode('|',getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']));
       
       foreach($styleFileInputs as $styleFileInput) {
-        echo '<input name="styleFile[]" value="'.$styleFileInput.'" />
-              <span class="hint">'.$langFile['stylesheet_styleFile_example'].'</span>';
+        echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';
       }      
       ?>
       </div>
