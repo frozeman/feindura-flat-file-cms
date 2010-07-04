@@ -270,7 +270,7 @@ if($_GET['site'] == 'addons') {
       </div>      
     </div>
     <?php } ?>
-    <a href="http://frozeman.de" id="createdBy" title="created by Fabian Vogelsteller [frozeman.de]">&nbsp;</a>
+    <!--<a href="http://frozeman.de" id="createdBy" title="created by Fabian Vogelsteller [frozeman.de]">&nbsp;</a>-->
   </div>     
   
   
