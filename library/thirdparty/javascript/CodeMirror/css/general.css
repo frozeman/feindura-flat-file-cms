@@ -6,3 +6,7 @@
 body {
   font-size: 14px !important;
   }
+  
+.editbox {
+  font-family: Monospace, Monaco, Courier !important;
+  }

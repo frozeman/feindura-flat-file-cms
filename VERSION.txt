@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 3
-Build 273
+Build 274
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 beta 3
+  build 274: changed font of the highlighting
   build 273: try to fix anchor problems in safari and chrome after saving in the editor.php (didnt found a solution yet)
   build 272: changed formularBg.jpg to png
   build 271: hide the made by button in the header
