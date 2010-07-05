@@ -2,9 +2,11 @@
 {if $vars[vars].static}
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
-
-	<div class="var-header">
-		<span class="var-title">
+  
+  <a href="#sec-var-summary">Up</a>
+  
+	<div class="var-header">	  
+		<span class="var-title">		  
 			static <span class="var-type">{$vars[vars].var_type}</span>
 			<span class="var-name">{$vars[vars].var_name}</span>
 			{if $vars[vars].var_default} = <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br />"}</span>{/if}
@@ -49,7 +51,9 @@
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
 
-	<div class="var-header">
+  <a href="#sec-var-summary">Up</a>
+  
+	<div class="var-header">	  
 		<span class="var-title">
 			<span class="var-type">{$vars[vars].var_type}</span>
 			<span class="var-name">{$vars[vars].var_name}</span>

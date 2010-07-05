@@ -4,7 +4,8 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 
-
+  <a href="#sec-method-summary">Up</a>
+  
 	<div class="method-header">
 		static <span class="method-result">{$methods[methods].function_return}</span>
 		<span class="method-title">
@@ -97,7 +98,7 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
-	
+	<a href="#sec-method-summary">Up</a>
 	
 	<div class="method-header">
 		<span class="method-result">{$methods[methods].function_return}</span>

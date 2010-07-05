@@ -4,5 +4,21 @@
 	</p>
 {/if}
 	{if $top3}</div>{/if}
+
+{literal}
+<script language="JavaScript">
+/* <![CDATA[ */
+  // umleiten if no frames
+  var targetFile = "../index.html?"+self.location;
+  var togo = 'to'+'p.lo'+'cation.';
+  if(!top.framesetLoaded) {
+    if(document.images)
+      eval(togo + 'replac'+'e(targetFile)');
+    else
+      eval(togo + 'hre'+'f = targetFile');
+  }
+/* ]]> */
+</script> 
 </body>
 </html>
+{/literal}
