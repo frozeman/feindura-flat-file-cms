@@ -1885,7 +1885,7 @@ class feinduraBase {
           $output = substr($output,0,$lastTagPos).$endString.$lastTag;
         } else
           $output .= $endString;
-      }        
+      }
       
       // returns the shorten HTML-Text
       return $output.$moreLink;

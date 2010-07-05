@@ -19,7 +19,7 @@ forms.css version 0.1 */
 /* ---:- INPUT */
 
 input, textarea, select, div.CodeMirror-wrapping {
-    background: url(../image/bg/formularBg.jpg) no-repeat #ffffff;
+    background: url(../image/bg/formularBg.png) no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
     margin: 1px 0px;

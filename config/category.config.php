@@ -1,25 +1,5 @@
 <?php
 
-$categoryConfig['id_1']['id'] =              1;
-$categoryConfig['id_1']['name'] =            'Layoutelemente';
-$categoryConfig['id_1']['public'] =          true;
-$categoryConfig['id_1']['createdelete'] =    true;
-$categoryConfig['id_1']['thumbnail'] =       false;
-$categoryConfig['id_1']['plugins'] =         false;
-$categoryConfig['id_1']['showtags'] =        false;
-$categoryConfig['id_1']['showpagedate'] =    false;
-$categoryConfig['id_1']['sortbypagedate'] =  false;
-$categoryConfig['id_1']['sortascending'] =   false;
-
-$categoryConfig['id_1']['styleFile'] =       '';
-$categoryConfig['id_1']['styleId'] =         '';
-$categoryConfig['id_1']['styleClass'] =      '';
-
-$categoryConfig['id_1']['thumbWidth'] =      '';
-$categoryConfig['id_1']['thumbHeight'] =     '';
-$categoryConfig['id_1']['thumbRatio'] =      '';
-
-
 $categoryConfig['id_2']['id'] =              2;
 $categoryConfig['id_2']['name'] =            'News (en)';
 $categoryConfig['id_2']['public'] =          true;
@@ -58,6 +38,46 @@ $categoryConfig['id_3']['styleClass'] =      '';
 $categoryConfig['id_3']['thumbWidth'] =      '';
 $categoryConfig['id_3']['thumbHeight'] =     '';
 $categoryConfig['id_3']['thumbRatio'] =      '';
+
+
+$categoryConfig['id_4']['id'] =              4;
+$categoryConfig['id_4']['name'] =            'Examples (de)';
+$categoryConfig['id_4']['public'] =          true;
+$categoryConfig['id_4']['createdelete'] =    true;
+$categoryConfig['id_4']['thumbnail'] =       false;
+$categoryConfig['id_4']['plugins'] =         false;
+$categoryConfig['id_4']['showtags'] =        false;
+$categoryConfig['id_4']['showpagedate'] =    false;
+$categoryConfig['id_4']['sortbypagedate'] =  false;
+$categoryConfig['id_4']['sortascending'] =   false;
+
+$categoryConfig['id_4']['styleFile'] =       '';
+$categoryConfig['id_4']['styleId'] =         '';
+$categoryConfig['id_4']['styleClass'] =      '';
+
+$categoryConfig['id_4']['thumbWidth'] =      '';
+$categoryConfig['id_4']['thumbHeight'] =     '';
+$categoryConfig['id_4']['thumbRatio'] =      '';
+
+
+$categoryConfig['id_1']['id'] =              1;
+$categoryConfig['id_1']['name'] =            'Layoutelemente';
+$categoryConfig['id_1']['public'] =          true;
+$categoryConfig['id_1']['createdelete'] =    true;
+$categoryConfig['id_1']['thumbnail'] =       false;
+$categoryConfig['id_1']['plugins'] =         false;
+$categoryConfig['id_1']['showtags'] =        false;
+$categoryConfig['id_1']['showpagedate'] =    false;
+$categoryConfig['id_1']['sortbypagedate'] =  false;
+$categoryConfig['id_1']['sortascending'] =   false;
+
+$categoryConfig['id_1']['styleFile'] =       '';
+$categoryConfig['id_1']['styleId'] =         '';
+$categoryConfig['id_1']['styleClass'] =      '';
+
+$categoryConfig['id_1']['thumbWidth'] =      '';
+$categoryConfig['id_1']['thumbHeight'] =     '';
+$categoryConfig['id_1']['thumbRatio'] =      '';
 
 
 return $categoryConfig;
