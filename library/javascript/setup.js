@@ -202,7 +202,7 @@ function changeEditFile( site, fileName, status, anchorName )
   window.location.href = window.location.pathname + "?site=" + site + "&status=" + status + "&file=" + fileName + "#" + anchorName ;
 }
 
-// -> NO SUBMIT goto ANCHOR
+// -> on SUBMIT goto ANCHOR
 function submitAnchor(formId,anchorName) {
   
   // IE
@@ -215,6 +215,7 @@ function submitAnchor(formId,anchorName) {
     // set new action attribute
     form.setAttributeNode(attr);
   // ALL the OTHERS
-  } else
+  } else {
     $(formId).setAttribute('action',($(formId).getAttribute('action') + '#' + anchorName));
+  }
 }

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.95
+// editor.php version 1.96
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
@@ -353,9 +353,9 @@ else
 </div>
 
 <!-- page settings anchor is here -->
-<a id="pageSettingsAnchor" name="pageSettingsAnchor" class="anchorTarget"></a>
-
+<a name="pageSettingsAnchor" id="pageSettingsAnchor" class="anchorTarget"></a>
 <?php
+
 if(!$newPage) {
 ?>
 <!-- ***** PAGE STATISTICS -->
@@ -689,8 +689,7 @@ else $hidden = ' hidden';
   <div class="bottom"></div>
 </div>
 
-
-<a id="htmlEditorAnchor" name="htmlEditorAnchor" class="anchorTarget"></a>
+<a name="htmlEditorAnchor" id="htmlEditorAnchor" class="anchorTarget"></a>
 <div class="editor">
 <?php
 
@@ -798,7 +797,7 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
 </div>
 
 <!-- ***** ADVANCED PAGE SETTINGS -->
-<a id="advancedPageSettingsAnchor" name="advancedPageSettingsAnchor" class="anchorTarget"></a>
+<a name="advancedPageSettingsAnchor" id="advancedPageSettingsAnchor" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 if($savedForm == 'advancedPageSettings')  $hidden = '';

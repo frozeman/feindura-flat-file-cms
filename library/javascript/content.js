@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.54 (requires mootools-core and mootools-more)
+// java/content.js version 0.55 (requires mootools-core and mootools-more)
 //
 
 
@@ -86,59 +86,60 @@ function blockSlideInOut(givenIdCLass) {
          }
       });
       
+      
       // DONT show the content bottom if IE 0-7
       if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
         bottomBorder.setStyle('display', 'none');
       }	   
 
       
-       var slideContentHeightOut = slideContent.offsetHeight;
+      var slideContentHeightOut = slideContent.offsetHeight;
        
-  	   // creates the slide effect
-  	   slideVertical = new Fx.Slide(slideContent,{duration: '500', transition: Fx.Transitions.Pow.easeOut});	   
+  	  // creates the slide effect
+  	  slideVertical = new Fx.Slide(slideContent,{duration: '500', transition: Fx.Transitions.Pow.easeOut});	   
       
       
-       // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-       slideVertical.onStart = function(el) {     
+      // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+      slideVertical.onStart = function(el) {     
          slideContent.getParent().fade('show');
          //slideContent.getParent().setStyle('height',slideContentHeightOut);
-       }      
+      }      
         
-  	   // changes the up and down button class from the <div class="top">
-  	   // so that the picture of the upper Toggle Buttons changes
-       slideVertical.onComplete = function(el) {
+  	  // changes the up and down button class from the <div class="top">
+  	  // so that the picture of the upper Toggle Buttons changes
+      slideVertical.onComplete = function(el) {
 
-          // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-      
-	  if(slideVertical.open) {
-            block.addClass('hidden');
-            slideContent.getParent().fade('hide');
-            slideVertical.open = false;
-          } else {
-	    block.removeClass('hidden');
-            slideContent.getParent().setStyle('height','auto');
-            slideContent.getParent().fade('show');
-            slideVertical.open= true;
-          }
-          layoutFix();
-       }
+        // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+  	    if(slideVertical.open) {
+              block.addClass('hidden');
+              slideContent.getParent().fade('hide');
+              slideVertical.open = false;
+        } else {
+  	          block.removeClass('hidden');
+              slideContent.getParent().setStyle('height','auto');
+              slideContent.getParent().fade('show');
+              slideVertical.open= true;
+        }
+        layoutFix();
+      }
   
-       // sets the SLIDE EFFECT to the buttons
-       slideButtonH1.addEvent('click', function(e) {
+      // sets the SLIDE EFFECT to the buttons
+      slideButtonH1.addEvent('click', function(e) {
       	  e.stop();
       	  if(!slideVertical.open) {
       	    block.removeClass('hidden');
           }
           slideVertical.toggle();          
-       });
-
-      } // <-- end go trough blocks
+      });
       
       // hide the Menu if it has class "hidden"
       if(block.hasClass('hidden'))  {
         slideVertical.hide();
-	slideVertical.open = false;
+	      slideVertical.open = false;
       }
+      
+    } // <-- end go trough blocks      
+      
   });
 }
 
@@ -157,12 +158,21 @@ window.addEvent('domready', function() {
   
   // block SLIDE IN/OUT ----------------------------------------------------------------------------------------------
 	blockSlideInOut();
-
   
-  // ADDs SMOOTHSCROLL to all ANCHORs
+  
+  // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
       links: '.smoothAnchor',
       wheelStops: true,
       duration: 200
   });
+  
+  // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
+  /*
+  var anchorId = window.location.hash.substring(1);  
+  if(anchorId) {
+    window.scrollTo(100, $(anchorId).getPosition().y);
+  }
+  */
+
 });
