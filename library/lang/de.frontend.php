@@ -31,7 +31,7 @@
 */
 
 $frontendLangFile['error_noPage'] = 'Die angeforderte Seite existiert nicht.';
-$frontendLangFile['error_pageClosed'] = 'Diese angeforderte Seite ist deaktiviert.';
+$frontendLangFile['error_pageClosed'] = 'Die angeforderte Seite ist deaktiviert.';
 
 
 /* ----------------------------------------------------------------------------------------------

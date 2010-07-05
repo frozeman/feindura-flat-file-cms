@@ -758,6 +758,7 @@ class feinduraPages extends feinduraBase {
     
     if(is_numeric($pageId)) {
       $this->startPage = $pageId;
+      $this->startCategory = $this->getPageCategory($pageId);
       $this->setCurrentPageId($pageId);
     }  
   }
@@ -834,6 +835,8 @@ class feinduraPages extends feinduraBase {
     
     // SET the country code to the language property
     $this->language = $_SESSION['language'];
+    $this->loadFrontendLanguageFile($this->language);
+    
         
     // includes the langFile and returns it
     if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))

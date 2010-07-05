@@ -40,6 +40,26 @@ $categoryConfig['id_3']['thumbHeight'] =     '';
 $categoryConfig['id_3']['thumbRatio'] =      '';
 
 
+$categoryConfig['id_5']['id'] =              5;
+$categoryConfig['id_5']['name'] =            'Examples (en)';
+$categoryConfig['id_5']['public'] =          true;
+$categoryConfig['id_5']['createdelete'] =    true;
+$categoryConfig['id_5']['thumbnail'] =       false;
+$categoryConfig['id_5']['plugins'] =         false;
+$categoryConfig['id_5']['showtags'] =        false;
+$categoryConfig['id_5']['showpagedate'] =    false;
+$categoryConfig['id_5']['sortbypagedate'] =  false;
+$categoryConfig['id_5']['sortascending'] =   false;
+
+$categoryConfig['id_5']['styleFile'] =       '';
+$categoryConfig['id_5']['styleId'] =         '';
+$categoryConfig['id_5']['styleClass'] =      '';
+
+$categoryConfig['id_5']['thumbWidth'] =      '';
+$categoryConfig['id_5']['thumbHeight'] =     '';
+$categoryConfig['id_5']['thumbRatio'] =      '';
+
+
 $categoryConfig['id_4']['id'] =              4;
 $categoryConfig['id_4']['name'] =            'Examples (de)';
 $categoryConfig['id_4']['public'] =          true;

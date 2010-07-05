@@ -256,12 +256,9 @@ class feinduraBase {
       
     // if no country code is given, try to get the BROWSER LANGUAGE
     } else
-      $this->language = $this->generalFunctions->checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME      
+      $this->language = $this->generalFunctions->checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME 
     
-    // includes the langFile
-    $languageFile = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$this->language.'.frontend.php';
-    if(file_exists($languageFile))
-      $this->languageFile = include($languageFile);
+    $this->loadFrontendLanguageFile($this->language);
     
   }
   
@@ -269,6 +266,43 @@ class feinduraBase {
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */
   
+  /**
+  * <b> Name</b>      loadFrontendLanguageFile()<br>
+  * 
+  * Loads the frontend language file into the {@link $languageFile} property.
+  * 
+  * 
+  * <b>Used Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param string $language a given country code which will be used to try to laod the language file
+  * 
+  * @uses language the country code from the property
+  * 
+  * @return array|false the frontend language file or FALSE if the file doesn't exist
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function loadFrontendLanguageFile($language) {
+    
+    // creates the frontend language file path
+    $languageFile = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$language.'.frontend.php';
+    
+    // includes the langFile
+    if(file_exists($languageFile)) {
+      $this->languageFile = include($languageFile);
+      
+      return $this->languageFile;
+    } else
+      return false;
+    
+  }
+
  /**
   * <b> Name</b>      getCurrentPageId()<br>
   * <b> Alias</b>     getPageId()<br>
@@ -438,7 +472,7 @@ class feinduraBase {
   function setCurrentPageId($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
     
     // sets the startPage if it exists
-    if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage']) && empty($this->category)) {
+    if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
       $this->startPage = $this->websiteConfig['startPage'];
     }
       
