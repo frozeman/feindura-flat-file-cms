@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 3
-Build 276
+Build 277
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 beta 3
+  build 277: add CKEDITOR.config.forcePasteAsPlainText = true to editor.js
   build 276: api reference add redirect for frames
   build 275: fix in feindura implementation classes -> setStartPage() and setCurrentPageId()
   build 274: changed font of the highlighting

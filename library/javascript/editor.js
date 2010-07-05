@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/editor.js version 0.13 (requires CKEditor)
+// java/editor.js version 0.14 (requires CKEditor)
 
 
 window.addEvent('domready', function() {
@@ -25,11 +25,12 @@ window.addEvent('domready', function() {
     CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
     CKEDITOR.config.uiColor                       = '#cccccc';
     CKEDITOR.config.width                         = '792';
+    CKEDITOR.config.height                        = '450';
     CKEDITOR.config.resize_minWidth               = '780';
     CKEDITOR.config.resize_maxWidth               = '1400';
-    CKEDITOR.config.height                        = '450';
     CKEDITOR.config.resize_minHeight              = '400';
-    CKEDITOR.config.resize_maxHeight              = '900';   
+    CKEDITOR.config.resize_maxHeight              = '900';
+    CKEDITOR.config.forcePasteAsPlainText         = true;
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
     
