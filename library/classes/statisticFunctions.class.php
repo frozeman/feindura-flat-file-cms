@@ -48,6 +48,9 @@ class statisticFunctions extends generalFunctions {
  /**
   * Contains the website-statistic <var>array</var>
   * 
+  * Example array:
+  * {@example backend/websiteStatistic.array.example.php}
+  * 
   * @var array
   * @see statisticFunctions()
   */ 
@@ -57,6 +60,9 @@ class statisticFunctions extends generalFunctions {
   * Contains the backend-statistic config <var>array</var>
   * 
   * This <var>array</var> contains the number of task logs and referrer logs saved until the last line is droped.
+  * 
+  * Example array:
+  * {@example backend/statisticConfig.array.example.php}
   * 
   * @var array
   * @see statisticFunctions()

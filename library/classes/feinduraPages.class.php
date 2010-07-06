@@ -901,9 +901,7 @@ class feinduraPages extends feinduraBase {
         $pageNameInTitle = ' - '.$currentPage['title'];
       
       // -> add TITLE
-      $metaTags .= '  <title>'."\n";      
-      $metaTags .= '  '.$this->websiteConfig['title'].$pageNameInTitle."\n";
-      $metaTags .= '  </title>'."\n\n";
+      $metaTags .= '  <title>'.$this->websiteConfig['title'].$pageNameInTitle.'</title>'."\n\n";
       
       // -> add robots.txt
       if($robotTxt === true)

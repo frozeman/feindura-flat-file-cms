@@ -81,9 +81,12 @@ class feinduraBase {
   *   
   * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
+  * Example array:
+  * {@example backend/adminConfig.array.example.php}
+  * 
   * @var array  
   * @see feinduraBase::feinduraBase()
-  *    
+  * 
   */
   var $adminConfig;
 
@@ -94,9 +97,12 @@ class feinduraBase {
   *   
   * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
+  * Example array:
+  * {@example backend/websiteConfig.array.example.php}
+  * 
   * @var array  
   * @see feinduraBase::feinduraBase()
-  *   
+  * 
   */
   var $websiteConfig;
   
@@ -107,9 +113,12 @@ class feinduraBase {
   *   
   * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
-  * @var array  
+  * Example array:
+  * {@example backend/categoryConfig.array.example.php}
+  * 
+  * @var array
   * @see feinduraBase::feinduraBase()
-  *   
+  * 
   */
   var $categoryConfig;
   
@@ -140,7 +149,7 @@ class feinduraBase {
   * 
   * @var array  
   * @see feinduraBase()
-  *   
+  * 
   */
   var $languageFile = null;  
 
@@ -166,7 +175,7 @@ class feinduraBase {
   * @var class
   * @see feinduraBase()
   * @see statisticFunctions::statisticFunctions()
-  *   
+  * 
   */
   var $statisticFunctions;
 
@@ -789,7 +798,7 @@ class feinduraBase {
        $return['title']	    = $title;
        
     if($returnThumbnail) {
-       $return['thumbnail'] = $returnThumbnail['thumbnail'];
+       $return['thumbnail'] = "\n".$returnThumbnail['thumbnail']."\n";
        $return['thumbnailPath'] = $returnThumbnail['thumbnailPath'];
     }
        
