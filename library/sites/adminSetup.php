@@ -577,7 +577,7 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" name="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
-    <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles"><?php echo $htmlEditorStyleContent; ?></textarea>
+    <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles css" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
  
     <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
     <input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />

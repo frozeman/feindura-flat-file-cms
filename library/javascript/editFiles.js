@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// javascript/editFiles.js version 0.1 (requires CodeMirror)
+// javascript/editFiles.js version 0.11 (requires CodeMirror)
 
 
 window.addEvent('domready', function() {
@@ -24,8 +24,8 @@ window.addEvent('domready', function() {
     
     if(textareaId != null) {
       // multihighlighting
-      if(textareaId.substring(0,9) == 'editFiles') {        
-    
+      if(textarea.hasClass('mixed')) { //textareaId.substring(0,9) == 'editFiles'
+
         CodeMirror.fromTextArea(textareaId, {
           width: "743px",
           height: "500px",
@@ -38,7 +38,7 @@ window.addEvent('domready', function() {
         });
       
       // css highlighting
-      } else if(textareaId.substring(0,3) == 'css') {
+      } else if(textarea.hasClass('css')) {
       
         CodeMirror.fromTextArea(textareaId, {
           width: "743px",

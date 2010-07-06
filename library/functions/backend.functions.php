@@ -19,9 +19,10 @@
  * 
  * @package [backend]
  * 
- * @version 1.31
+ * @version 1.32
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.32 fixed editFiles()
  *    - 1.31 add checkStyleFiles()
  * 
  */
@@ -841,9 +842,10 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
  * 
  * @return void displayes the file edit textfield
  * 
- * @version 1.0
+ * @version 1.01
  * <br>
  * <b>ChangeLog</b><br>
+ *    - 1.01 put fileType to the classe instead of the id of the textarea
  *    - 1.0 initial release
  * 
  */
@@ -971,9 +973,9 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
 
     $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
     
-    $idType = (strtolower($fileType) == 'css') ? 'css' : 'editFiles';      
+    $fileType = (strtolower($fileType) == 'css') ? ' css' : ' mixed';
     
-    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles" id="'.$idType.rand(1,999).'">'.$file.'</textarea>';
+    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles'.$fileType.'" id="editFiles'.rand(1,9999).'">'.$file.'</textarea>';
   }  
   
   
