@@ -813,7 +813,7 @@ class generalFunctions {
   *  
   * @return string the href string ready to use in a href attribute
   * 
-  * @see feinduraPages::createHref()
+  * @see feindura::createHref()
   * 
   * @version 1.0
   * <br>

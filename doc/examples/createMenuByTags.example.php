@@ -10,7 +10,7 @@ for a detailed menu example see createMenu()
 require('cms/feindura.include.php');
 
 // creates a new feindura instance
-$myCms = new feinduraPages();
+$myCms = new feindura();
 
 // the tags where the pages in the menu should have atleast one
 $tags = 'winter summer spring';

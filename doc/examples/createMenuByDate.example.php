@@ -10,7 +10,7 @@ for a detailed menu example see createMenu()
 require('cms/feindura.include.php');
 
 // creates a new feindura instance
-$myCms = new feinduraPages();
+$myCms = new feindura();
 
 // set this property to show the pagedate in the menu linktext
 // the "text before date" and "text after date:" was set in the page editor in the backend

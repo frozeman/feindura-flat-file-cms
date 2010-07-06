@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link feinduraPages} class for implementing the CMS in a website.
+ * This file contains the {@link feindura} class for implementing the CMS in a website.
  * 
  * @package [Implementation]
  */
@@ -38,7 +38,7 @@
 *    - 1.0 initial release
 * 
 */
-class feinduraPages extends feinduraBase {
+class feindura extends feinduraBase {
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
@@ -62,11 +62,11 @@ class feinduraPages extends feinduraBase {
   *
   * This property is used when a page loading method is called (for example: {@link showPage()}) and no page ID parameter is given.
   *   
-  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentPageId()} method.
+  * This property will be set in the {@link feindura()} constructor through the {@link setCurrentPageId()} method.
   * 
   * @var int
   *
-  * @see feinduraPages()
+  * @see feindura()
   * @see feinduraBase::getCurrentPageId()
   *   
   */
@@ -77,11 +77,11 @@ class feinduraPages extends feinduraBase {
   *
   * This property is used when a page-loading method is called (for example: {@link showPage()}) and no category ID parameter is given.
   *   
-  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentCategoryId()} method.
+  * This property will be set in the {@link feindura()} constructor through the {@link setCurrentCategoryId()} method.
   * 
   * @var int
   *
-  * @see feinduraPages()
+  * @see feindura()
   * @see feinduraBase::getCurrentCategoryId()  
   * 
   */
@@ -93,12 +93,12 @@ class feinduraPages extends feinduraBase {
   * This property is set to the {@link $page} property when the <var>$_GET</var> page variable
   * and the {@link $page} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   *   
-  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentPageId()} method.
+  * This property will be set in the {@link feindura()} constructor through the {@link setCurrentPageId()} method.
   * 
   * @var int
   *
   * @see $page
-  * @see feinduraPages()
+  * @see feindura()
   * @see setCurrentPageId()  
   * @see getCurrentPageId()
   *   
@@ -112,13 +112,13 @@ class feinduraPages extends feinduraBase {
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
   * and the {@link $category} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   *   
-  * This property will be set in the {@link feinduraPages()} constructor through the {@link setCurrentCategoryId()} method.
+  * This property will be set in the {@link feindura()} constructor through the {@link setCurrentCategoryId()} method.
   * 
   * @var int
   *
   * @see $startPage
   * @see $category  
-  * @see feinduraPages()
+  * @see feindura()
   * @see setCurrentCategoryId()  
   * @see getCurrentCategoryId()
   *   
@@ -691,7 +691,7 @@ class feinduraPages extends feinduraBase {
   
  /**
   * <b>Type</b> constructor<br> 
-  * <b>Name</b> feinduraPages()<br>
+  * <b>Name</b> feindura()<br>
   * 
   * The constructor of the class, sets all basic properties.
   * 
@@ -718,7 +718,7 @@ class feinduraPages extends feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function feinduraPages($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
     // RUN the feinduraBase constructor
     $this->feinduraBase($language);        
@@ -772,7 +772,7 @@ class feinduraPages extends feinduraBase {
   * 
   * @return string the {@link $language language country code}
   * 
-  * @see feinduraPages()  
+  * @see feindura()  
   * @see feinduraBase::feinduraBase()
   * 
   * @version 1.0
@@ -1035,32 +1035,32 @@ class feinduraPages extends feinduraBase {
   * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
   * @param string|bool            $linkText  (optional) a string with a linktext which the link will use, if TRUE it uses the page title of the page, if FALSE no linktext will be used
   * 
-  * @uses feinduraPages::$linkLength
-  * @uses feinduraPages::$linkId
-  * @uses feinduraPages::$linkClass
-  * @uses feinduraPages::$linkAttributes
-  * @uses feinduraPages::$linkBefore
-  * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkBeforeText
-  * @uses feinduraPages::$linkAfterText
-  * @uses feinduraPages::$linkShowThumbnail
-  * @uses feinduraPages::$linkShowThumbnailAfterText
-  * @uses feinduraPages::$linkShowPageDate
-  * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeparator
+  * @uses feindura::$linkLength
+  * @uses feindura::$linkId
+  * @uses feindura::$linkClass
+  * @uses feindura::$linkAttributes
+  * @uses feindura::$linkBefore
+  * @uses feindura::$linkAfter
+  * @uses feindura::$linkBeforeText
+  * @uses feindura::$linkAfterText
+  * @uses feindura::$linkShowThumbnail
+  * @uses feindura::$linkShowThumbnailAfterText
+  * @uses feindura::$linkShowPageDate
+  * @uses feindura::$linkShowCategory
+  * @uses feindura::$linkCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses createHref()                                  to create the href-attribute
-  * @uses feinduraBase::loadPrevNextPage()                  to load the current, previous or next page depending of the $page parameter
-  * @uses feinduraBase::createAttributes()                  to create the attributes used by the link <a> tag
-  * @uses feinduraBase::createThumbnail()                   to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
-  * @uses feinduraBase::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
+  * @uses feindura::loadPrevNextPage()                  to load the current, previous or next page depending of the $page parameter
+  * @uses feindura::createAttributes()                  to create the attributes used by the link <a> tag
+  * @uses feindura::createThumbnail()                   to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
+  * @uses feindura::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
@@ -1184,30 +1184,30 @@ class feinduraPages extends feinduraBase {
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
-  * @uses feinduraPages::$menuId
-  * @uses feinduraPages::$menuClass
-  * @uses feinduraPages::$menuAttributes
+  * @uses feindura::$menuId
+  * @uses feindura::$menuClass
+  * @uses feindura::$menuAttributes
   * 
-  * @uses feinduraPages::$linkLength
-  * @uses feinduraPages::$linkId
-  * @uses feinduraPages::$linkClass
-  * @uses feinduraPages::$linkAttributes
-  * @uses feinduraPages::$linkBefore
-  * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkBeforeText
-  * @uses feinduraPages::$linkAfterText
-  * @uses feinduraPages::$linkShowThumbnail
-  * @uses feinduraPages::$linkShowThumbnailAfterText
-  * @uses feinduraPages::$linkShowPageDate
-  * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeparator
+  * @uses feindura::$linkLength
+  * @uses feindura::$linkId
+  * @uses feindura::$linkClass
+  * @uses feindura::$linkAttributes
+  * @uses feindura::$linkBefore
+  * @uses feindura::$linkAfter
+  * @uses feindura::$linkBeforeText
+  * @uses feindura::$linkAfterText
+  * @uses feindura::$linkShowThumbnail
+  * @uses feindura::$linkShowThumbnailAfterText
+  * @uses feindura::$linkShowPageDate
+  * @uses feindura::$linkShowCategory
+  * @uses feindura::$linkCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses createLink()                        to create a link from every $pageContent array  
   * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
@@ -1410,30 +1410,30 @@ class feinduraPages extends feinduraBase {
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
-  * @uses feinduraPages::$menuId
-  * @uses feinduraPages::$menuClass
-  * @uses feinduraPages::$menuAttributes
+  * @uses feindura::$menuId
+  * @uses feindura::$menuClass
+  * @uses feindura::$menuAttributes
   * 
-  * @uses feinduraPages::$linkLength
-  * @uses feinduraPages::$linkId
-  * @uses feinduraPages::$linkClass
-  * @uses feinduraPages::$linkAttributes
-  * @uses feinduraPages::$linkBefore
-  * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkBeforeText
-  * @uses feinduraPages::$linkAfterText
-  * @uses feinduraPages::$linkShowThumbnail
-  * @uses feinduraPages::$linkShowThumbnailAfterText
-  * @uses feinduraPages::$linkShowPageDate
-  * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeparator
+  * @uses feindura::$linkLength
+  * @uses feindura::$linkId
+  * @uses feindura::$linkClass
+  * @uses feindura::$linkAttributes
+  * @uses feindura::$linkBefore
+  * @uses feindura::$linkAfter
+  * @uses feindura::$linkBeforeText
+  * @uses feindura::$linkAfterText
+  * @uses feindura::$linkShowThumbnail
+  * @uses feindura::$linkShowThumbnailAfterText
+  * @uses feindura::$linkShowPageDate
+  * @uses feindura::$linkShowCategory
+  * @uses feindura::$linkCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses feinduraBase::getPropertyIdsByType()  if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses feinduraBase::hasTags()               to get only the pages which have one or more tags from the given $tags parameter
@@ -1501,30 +1501,30 @@ class feinduraPages extends feinduraBase {
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * @param bool           $reverseList        (optional) reverse the menu listing
   *  
-  * @uses feinduraPages::$menuId
-  * @uses feinduraPages::$menuClass
-  * @uses feinduraPages::$menuAttributes
+  * @uses feindura::$menuId
+  * @uses feindura::$menuClass
+  * @uses feindura::$menuAttributes
   * 
-  * @uses feinduraPages::$linkLength
-  * @uses feinduraPages::$linkId
-  * @uses feinduraPages::$linkClass
-  * @uses feinduraPages::$linkAttributes
-  * @uses feinduraPages::$linkBefore
-  * @uses feinduraPages::$linkAfter
-  * @uses feinduraPages::$linkBeforeText
-  * @uses feinduraPages::$linkAfterText
-  * @uses feinduraPages::$linkShowThumbnail
-  * @uses feinduraPages::$linkShowThumbnailAfterText
-  * @uses feinduraPages::$linkShowPageDate
-  * @uses feinduraPages::$linkShowCategory
-  * @uses feinduraPages::$linkCategorySeparator
+  * @uses feindura::$linkLength
+  * @uses feindura::$linkId
+  * @uses feindura::$linkClass
+  * @uses feindura::$linkAttributes
+  * @uses feindura::$linkBefore
+  * @uses feindura::$linkAfter
+  * @uses feindura::$linkBeforeText
+  * @uses feindura::$linkAfterText
+  * @uses feindura::$linkShowThumbnail
+  * @uses feindura::$linkShowThumbnailAfterText
+  * @uses feindura::$linkShowPageDate
+  * @uses feindura::$linkShowCategory
+  * @uses feindura::$linkCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses feinduraBase::loadPagesByDate()       to load the pages which fit in the given time period parameters, sorted by the page date
   * @uses createMenu()                      to create the menu from the pages load by {@link feinduraBase::hasTags()}
@@ -1573,11 +1573,11 @@ class feinduraPages extends feinduraBase {
   * 
   * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
   * 
-  * @uses feinduraPages::$titleLength
-  * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate
-  * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeparator
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
   * 
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::createTitle()                  to generate the page title with the right title properties
@@ -1652,25 +1652,25 @@ class feinduraPages extends feinduraBase {
   * @param int|false              $shortenText  (optional) number of the maximal content text length shown, adds a "more" link at the end or FALSE to not shorten
   * @param bool                   $useHtml      (optional) whether the content of the page has HTML-tags or not
   * 
-  * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$showError
-  * @uses feinduraPages::$errorTag
-  * @uses feinduraPages::$errorId
-  * @uses feinduraPages::$errorClass
-  * @uses feinduraPages::$errorAttributes
+  * @uses feindura::$xHtml
+  * @uses feindura::$showError
+  * @uses feindura::$errorTag
+  * @uses feindura::$errorId
+  * @uses feindura::$errorClass
+  * @uses feindura::$errorAttributes
   * 
-  * @uses feinduraPages::$titleLength
-  * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate
-  * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeparator
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::generatePage()                 to generate the array with the page elements
@@ -1741,25 +1741,25 @@ class feinduraPages extends feinduraBase {
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
-  * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$showError
-  * @uses feinduraPages::$errorTag
-  * @uses feinduraPages::$errorId
-  * @uses feinduraPages::$errorClass
-  * @uses feinduraPages::$errorAttributes
+  * @uses feindura::$xHtml
+  * @uses feindura::$showError
+  * @uses feindura::$errorTag
+  * @uses feindura::$errorId
+  * @uses feindura::$errorClass
+  * @uses feindura::$errorAttributes
   * 
-  * @uses feinduraPages::$titleLength
-  * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate
-  * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeparator
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses feinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
@@ -1842,25 +1842,25 @@ class feinduraPages extends feinduraBase {
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
-  * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$showError
-  * @uses feinduraPages::$errorTag
-  * @uses feinduraPages::$errorId
-  * @uses feinduraPages::$errorClass
-  * @uses feinduraPages::$errorAttributes
+  * @uses feindura::$xHtml
+  * @uses feindura::$showError
+  * @uses feindura::$errorTag
+  * @uses feindura::$errorId
+  * @uses feindura::$errorClass
+  * @uses feindura::$errorAttributes
   * 
-  * @uses feinduraPages::$titleLength
-  * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate
-  * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeparator
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   *   
   * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
   * @uses feinduraBase::hasTags()                 to get only the pages which have one or more tags from the given $tags parameter
@@ -1938,25 +1938,25 @@ class feinduraPages extends feinduraBase {
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
-  * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$showError
-  * @uses feinduraPages::$errorTag
-  * @uses feinduraPages::$errorId
-  * @uses feinduraPages::$errorClass
-  * @uses feinduraPages::$errorAttributes
+  * @uses feindura::$xHtml
+  * @uses feindura::$showError
+  * @uses feindura::$errorTag
+  * @uses feindura::$errorId
+  * @uses feindura::$errorClass
+  * @uses feindura::$errorAttributes
   * 
-  * @uses feinduraPages::$titleLength
-  * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate
-  * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeparator
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses feinduraBase::loadPagesByDate()   to load the pages which fit in the given time period parameters, sorted by the page date
   * @uses listPages()                   to list the pages  

@@ -11,7 +11,7 @@ and list the current category given by $_GET variable.
 require('cms/feindura.include.php');
 
 // creates a new feindura instance
-$myCms = new feinduraPages();
+$myCms = new feindura();
 
 // set properties
 $myCms->xHtml =                  true;

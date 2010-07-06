@@ -11,7 +11,7 @@ and you have a simple link with the page title.
 require('cms/feindura.include.php');
 
 // creates a new feindura instance
-$myCms = new feinduraPages();
+$myCms = new feindura();
 
 // set title properties
 $myCms->titleLength =              10;

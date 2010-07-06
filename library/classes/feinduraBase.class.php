@@ -22,7 +22,7 @@
 /**
 * The basis feindura class for the implementation classes
 * 
-* It's methods provide necessary functions for the {@link feinduraPages} and the {@link feinduraModules} <var>classes</var>.
+* It's methods provide necessary functions for the {@link feindura} and the {@link feinduraModules} <var>classes</var>.
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
@@ -328,7 +328,7 @@ class feinduraBase {
   * 
   * @uses $varNames                     for variable names which the $_GET will use for the page ID
   * @uses $adminConfig                  to look if set startpage is allowed
-  * @uses feinduraPages::$startPage     if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses feindura::$startPage     if no $_GET variable exists it will try to get the {@link $startPage} property
   * @uses generalFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
   * 
@@ -401,7 +401,7 @@ class feinduraBase {
   * @uses $varNames                       for variable names which the $_GET variable will use for the category ID
   * @uses $adminConfig                    to look if set startpage is allowed
   * @uses $categoryConfig                 for the right category name, if the $_GET variable is not a ID but a category name
-  * @uses feinduraPages::$startCategory   if no $_GET variable exists it will try to get the {@link $startCategory} property
+  * @uses feindura::$startCategory   if no $_GET variable exists it will try to get the {@link $startCategory} property
   * 
   * @return int|false the current category ID or FALSE
   * 
@@ -465,8 +465,8 @@ class feinduraBase {
   * 
   * @uses $adminConfig              to check if setting a startpage is allowed
   * @uses $websiteConfig            to get the startpage ID
-  * @uses feinduraPages::$page      as the property to set
-  * @uses feinduraPages::$startPage if the $setStartPage parameter is TRUE this property will also be set
+  * @uses feindura::$page      as the property to set
+  * @uses feindura::$startPage if the $setStartPage parameter is TRUE this property will also be set
   * @uses getCurrentPageId()        to get the {@link $page} property or the {@link $startPage} property  
   * 
   * @return int|false the set page ID or FALSE
@@ -512,8 +512,8 @@ class feinduraBase {
   * 
   * @uses $adminConfig                  to check if setting a startpage is allowed
   * @uses $websiteConfig                to get the startpage ID
-  * @uses feinduraPages::$category      as the property to set
-  * @uses feinduraPages::$startCategory if the $setStartCategory parameter is TRUE this property will also be set
+  * @uses feindura::$category      as the property to set
+  * @uses feindura::$startCategory if the $setStartCategory parameter is TRUE this property will also be set
   * @uses getPageCategory()             to get the right category ID of the startpage
   * @uses getCurrentCategoryId()        to get the {@link $category} property or the {@link $startCategory} property
   * 
@@ -573,25 +573,25 @@ class feinduraBase {
   * @uses $categoryConfig                         to check whether the category of the page allows thumbnails
   * @uses $languageFile                           for the error texts
   * 
-  * @uses feinduraPages::$xHtml
-  * @uses feinduraPages::$showError
-  * @uses feinduraPages::$errorTag
-  * @uses feinduraPages::$errorId
-  * @uses feinduraPages::$errorClass
-  * @uses feinduraPages::$errorAttributes
+  * @uses feindura::$xHtml
+  * @uses feindura::$showError
+  * @uses feindura::$errorTag
+  * @uses feindura::$errorId
+  * @uses feindura::$errorClass
+  * @uses feindura::$errorAttributes
   * 
-  * @uses feinduraPages::$titleLength
-  * @uses feinduraPages::$titleAsLink
-  * @uses feinduraPages::$titleShowPageDate
-  * @uses feinduraPages::$titleShowCategory
-  * @uses feinduraPages::$titleCategorySeparator
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
   * 
-  * @uses feinduraPages::$thumbnailAlign
-  * @uses feinduraPages::$thumbnailId
-  * @uses feinduraPages::$thumbnailClass
-  * @uses feinduraPages::$thumbnailAttributes
-  * @uses feinduraPages::$thumbnailBefore
-  * @uses feinduraPages::$thumbnailAfter
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
   * 
   * @uses publicCategory()                         to check whether the category is public  
   * @uses createTitle()                            to create the page title
@@ -845,7 +845,7 @@ class feinduraBase {
   * 
   * @return string the generated title string ready to display in a HTML file
   * 
-  * @see feinduraPages::getPageTitle()
+  * @see feindura::getPageTitle()
   * 
   * @example getPageTitle.example.php the {@link getPageTitle()} method in this example calls this method with the title properties as parameters
   * 
@@ -1217,7 +1217,7 @@ class feinduraBase {
   * 
   * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
   * 
-  * @uses getPropertyPage()		to get the right {@link feinduraPages::$page} property
+  * @uses getPropertyPage()		to get the right {@link feindura::$page} property
   * @uses getPageCategory()		to get the category ID of the given page
   * @uses publicCategory()		to check if the category of the page is poblic
   * @uses generalFunctions::readPage()	to load the $pageContent array of the page and return it
@@ -1579,8 +1579,8 @@ class feinduraBase {
   * @param string         $idType   the ID type can be "page", "pages" or "category", "categories"
   * @param int|array|bool $ids      the category or page ID(s), if they are FALSE it returns the property ID, otherwise it passes the ID(s) through
   * 
-  * @uses getPropertyPage()         to get the right {@link feinduraPages::$page} property
-  * @uses getPropertyCategory()     to get the right {@link feinduraPages::$category} property
+  * @uses getPropertyPage()         to get the right {@link feindura::$page} property
+  * @uses getPropertyCategory()     to get the right {@link feindura::$category} property
   * 
   * @return int|false a page or category property ID or FALSE, if there are no property IDs
   * 

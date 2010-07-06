@@ -10,7 +10,7 @@ require('cms/feindura.include.php');
 
 // the feindura.include.php has to be included BEFORE the header of the HTML page is sent
 // because a session is startet in this file
-$myCms = new feinduraPages();
+$myCms = new feindura();
 
 // set menu properties
 $myCms->menuId =                      'menuId';
