@@ -30,7 +30,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.resize_maxWidth               = '1400';
     CKEDITOR.config.resize_minHeight              = '400';
     CKEDITOR.config.resize_maxHeight              = '900';
-    CKEDITOR.config.forcePasteAsPlainText         = true;
+    CKEDITOR.config.forcePasteAsPlainText         = false;
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
     
