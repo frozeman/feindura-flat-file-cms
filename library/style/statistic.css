@@ -33,9 +33,12 @@ table.tableChart {
     border: 1px solid #C3C2C3;
     border-top: 1px solid #D7D8D8;
     border-left: none;
+    padding: 0px;
+    margin: 0px;
     }
 
 table.tableChart td {
+    vertical-align: middle;
     padding: 0px 5px;
     border-left: 1px solid #cccccc;
     height: 40px;
@@ -43,7 +46,7 @@ table.tableChart td {
 
 
 /* --------------------- */
-/* -------> TABLE CHART */
+/* -------> VISIT COUNT */
     
 .visitCountNumber {
     position: relative;

@@ -673,57 +673,57 @@ class statisticFunctions extends generalFunctions {
         // change the Names and the Colors
         if($browser[0] == 'firefox') {
           $browserName = 'Firefox';
-          $browserColor = 'url(library/image/bg/browserBg_firefox.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_firefox.png)';
           $browserLogo = 'browser_firefox.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'netscape') {
           $browserName = 'Netscape Navigator';
-          $browserColor = 'url(library/image/bg/browserBg_netscape.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_netscape.png)';
           $browserLogo = 'browser_netscape.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'chrome') {
           $browserName = 'Google Chrome';
-          $browserColor = 'url(library/image/bg/browserBg_chrome.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_chrome.png)';
           $browserLogo = 'browser_chrome.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'ie') {
           $browserName = 'Internet Explorer';
-          $browserColor = 'url(library/image/bg/browserBg_ie.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_ie.png)';
           $browserLogo = 'browser_ie.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'ie_old') {
           $browserName = 'Internet Explorer 1-6';
-          $browserColor = 'url(library/image/bg/browserBg_ie_old.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_ie_old.png)';
           $browserLogo = 'browser_ie_old.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'opera') {
           $browserName = 'Opera';
-          $browserColor = 'url(library/image/bg/browserBg_opera.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_opera.png)';
           $browserLogo = 'browser_opera.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'konqueror') {
           $browserName = 'Konqueror';
-          $browserColor = 'url(library/image/bg/browserBg_konqueror.png) repeat-x';
+          $browserColor = 'url(library/image/bg/browserBg_konqueror.png)';
           $browserLogo = 'browser_konqueror.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'lynx') {
           $browserName = 'Lynx';
-          $browserColor = 'url(library/image/bg/browserBg_lynx.png) no-repeat';
+          $browserColor = 'url(library/image/bg/browserBg_lynx.png)';
           $browserLogo = 'browser_lynx.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'safari') {
           $browserName = 'Safari';
-          $browserColor = 'url(library/image/bg/browserBg_safari.png) no-repeat';
+          $browserColor = 'url(library/image/bg/browserBg_safari.png)';
           $browserLogo = 'browser_safari.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'mozilla') {
           $browserName = 'Mozilla';
-          $browserColor = 'url(library/image/bg/browserBg_mozilla.png) no-repeat';
+          $browserColor = 'url(library/image/bg/browserBg_mozilla.png)';
           $browserLogo = 'browser_mozilla.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'others') {
           $browserName = $GLOBALS['langFile']['log_browser_others'];
-          $browserColor = 'url(library/image/bg/browserBg_others.png) no-repeat';
+          $browserColor = 'url(library/image/bg/browserBg_others.png)';
           $browserLogo = 'browser_others.png';
           $browserTextColor = '#000000';
         }  
@@ -767,9 +767,9 @@ class statisticFunctions extends generalFunctions {
         }
         
         // SHOW the table cell with the right browser and color
-        $return .= '<td style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.';" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'">
+        $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'">
                     <div style="position: relative;">
-                    <img src="library/image/sign/'.$browserLogo.'" style="float: left; '.$logoSize.'" alt="browser logo" />'.$cellText.'
+                    <img src="library/image/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
                     </div>
                     </td>';
       
