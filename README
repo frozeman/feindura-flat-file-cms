@@ -20,9 +20,9 @@ AUTHOR
   Fabian Vogelsteller [frozeman.de]
 
 DESCRIPTION
-  feindura is lightweight flat file based content management system for small and medium websites.
-  It's main target is to provide a easy to integrate content management system for webdesigners who want to  focus on their design rather than the backend structure.
- 
+  feindura is lightweight flat file based content management system written in PHP and ideal for small and medium websites.
+  It's main target is to provide an easy to integrate CMS for webdesigners who want to focus on their design rather than the backend structure.
+
 BACKEND
   The CMS has a simple and easy to use interface with a simple structure, though its possible to create rather big content websites through the category system its uses.
 
