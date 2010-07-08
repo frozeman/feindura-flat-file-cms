@@ -1,7 +1,8 @@
 {if !$index}
-	<p class="notes" id="credit">
+  <hr />
+	<div class="footer" id="credit">
 		Documentation generated on {$date} by <a href="{$phpdocwebsite}" target="_blank">phpDocumentor {$phpdocversion}</a>
-	</p>
+	</div>
 {/if}
 	{if $top3}</div>{/if}
 

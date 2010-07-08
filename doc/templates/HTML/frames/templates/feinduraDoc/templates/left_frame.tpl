@@ -1,18 +1,26 @@
-{include file="header.tpl" top2=true}
-<div class="package-title">{$package}</div>
-<div class="package-details">
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- template designed by Marco Von Ballmoos -->
+	<title>{$title}</title>
+	<link rel="stylesheet" href="{$subdir}media/reset.css" />
+	<link rel="stylesheet" href="{$subdir}media/stylesheet.css" />
+	<link rel="stylesheet" href="{$subdir}media/left_menu.css" />
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>		
+<h1 class="package-title">{$package}</h1>
 
-	<dl class="tree">
-		
-		<dt class="folder-title">Indexes</dt>
-		<dd>
-			<a href='{$classtreepage}.html' target='right'>Class trees</a><br />
-			<a href='{$elementindex}.html' target='right'>Index of elements</a><br />
+		<ul>		
+		<li class="elementindex"><a href='{$elementindex}.html' target='right'>Index of elements</a></li>
+		<li class="classtrees"><a href='{$classtreepage}.html' target='right'>Class trees</a></li>
 			{if $hastodos}
-				<a href="{$todolink}" target="right">Todo List</a><br />
+				<li><a href="{$todolink}" target="right">Todo List</a></li>
 			{/if}
-		</dd>
+		</ul>
 	
+	<dl class="tree">
 		{section name=p loop=$info}
 					
 			{if $info[p].subpackage == ""}
@@ -62,24 +70,24 @@
 						{/if}
 					{/section}
 				{/if}
-				{if $info[p].hasclasses}
+				{if $info[p].classes}
 					<dt class="folder-title">Classes</dt>
 					{section name=class loop=$info[p].classes}
 					   {if $info[p].classes[class].is_class}
-						<dd><a href='{$info[p].classes[class].link}' target='right'>{$info[p].classes[class].title}</a></dd>
+						<dd class="classes"><a href='{$info[p].classes[class].link}' target='right'>{$info[p].classes[class].title}</a></dd>
 					   {/if}
 					{/section}
 				{/if}
 				{if $info[p].functions}
 					<dt class="folder-title">Functions</dt>
 					{section name=f loop=$info[p].functions}
-						<dd><a href='{$info[p].functions[f].link}' target='right'>{$info[p].functions[f].title}</a></dd>
+						<dd class="functions"><a href='{$info[p].functions[f].link}' target='right'>{$info[p].functions[f].title}</a></dd>
 					{/section}
 				{/if}
 				{if $info[p].files}
 					<dt class="folder-title">Files</dt>
 					{section name=nonclass loop=$info[p].files}
-						<dd><a href='{$info[p].files[nonclass].link}' target='right'>{$info[p].files[nonclass].title}</a></dd>
+						<dd class="files"><a href='{$info[p].files[nonclass].link}' target='right'>{$info[p].files[nonclass].title}</a></dd>
 					{/section}
 				{/if}
 								
@@ -131,19 +139,19 @@
 						{if $info[p].classes}
 							<dt class="folder-title">Classes</dt>
 							{section name=class loop=$info[p].classes}
-								<dd><a href='{$info[p].classes[class].link}' target='right'>{$info[p].classes[class].title}</a></dd>
+								<dd class="classes"><a href='{$info[p].classes[class].link}' target='right'>{$info[p].classes[class].title}</a></dd>
 							{/section}
 						{/if}
 						{if $info[p].functions}
 							<dt class="folder-title">Functions</dt>
 							{section name=f loop=$info[p].functions}
-								<dd><a href='{$info[p].functions[f].link}' target='right'>{$info[p].functions[f].title}</a></dd>
+								<dd class="functions"><a href='{$info[p].functions[f].link}' target='right'>{$info[p].functions[f].title}</a></dd>
 							{/section}
 						{/if}
 						{if $info[p].files}
 							<dt class="folder-title">Files</dt>
 							{section name=nonclass loop=$info[p].files}
-								<dd><a href='{$info[p].files[nonclass].link}' target='right'>{$info[p].files[nonclass].title}</a></dd>
+								<dd class="files"><a href='{$info[p].files[nonclass].link}' target='right'>{$info[p].files[nonclass].title}</a></dd>
 							{/section}
 						{/if}
 					</dl>
@@ -153,7 +161,5 @@
 			
 		{/section}
 	</dl>
-</div>
-<p class="notes"><a href="{$phpdocwebsite}" target="_blank">phpDocumentor v <span class="field">{$phpdocversion}</span></a></p>
-</BODY>
-</HTML>
+</body>
+</html>

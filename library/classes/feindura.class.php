@@ -131,9 +131,9 @@ class feindura extends feinduraBase {
   * The number of maximal visible characters in the link text
   * of any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * The link text will be shorten to the last word.
+  * The link text will be shorten to the last complete word.
   * 
-  * Example shorting of "Example Category -> Example Page Title" with a given <var>$titleLength</var> of "30" will shorten to:
+  * For example: <i>"Example Category -> Example Page Title"</i> with a given <var>$linkLength</var> of <i>"30"</i> will be shorten to:
   * <samp>
   * "Example Category -> Example..."
   * </samp>
@@ -387,9 +387,9 @@ class feindura extends feinduraBase {
  /**
   * A number of maximal characters visible in the page title
   * 
-  * The page title will be shorten to the last word.
+  * The page title will be shorten to the last complete word.
   * 
-  * Example shorting of "Example Category -> Example Page Title" with a given <var>$titleLength</var> of "30" will shorten to:
+  * For example: <i>"Example Category -> Example Page Title"</i> with a given <var>$titleLength</var> of <i>"30"</i> will be shorten to:
   * <samp>
   * "Example Category -> Example..."
   * </samp>

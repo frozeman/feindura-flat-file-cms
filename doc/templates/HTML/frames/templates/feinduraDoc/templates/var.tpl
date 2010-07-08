@@ -1,9 +1,9 @@
 {section name=vars loop=$vars}
 {if $vars[vars].static}
-<a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
+<a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
   
-  <a href="#sec-var-summary">Up</a>
+  <a href="#sec-var-summary" class="upButton" title="back to the variable summary"></a>
   
 	<div class="var-header">	  
 		<span class="var-title">		  
@@ -51,7 +51,7 @@
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
 
-  <a href="#sec-var-summary">Up</a>
+  <a href="#sec-var-summary" class="upButton" title="back to the variable summary"></a>
   
 	<div class="var-header">	  
 		<span class="var-title">

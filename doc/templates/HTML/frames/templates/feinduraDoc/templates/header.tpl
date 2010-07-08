@@ -4,6 +4,7 @@
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
 			<title>{$title}</title>
+			<link rel="stylesheet" href="{$subdir}media/reset.css" />
 			<link rel="stylesheet" href="{$subdir}media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 		</head>

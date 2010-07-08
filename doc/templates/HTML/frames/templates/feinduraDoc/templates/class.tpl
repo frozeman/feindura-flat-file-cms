@@ -157,15 +157,17 @@
   			{/if}
   		</div>
   		<div class="info-box-body">
-  			<div class="const-summary">
+  		  <table>
+  			<tr class="const-summary">
   				{section name=consts loop=$consts}
-  				<div class="const-title">
+  				<td class="const-title">
   					<img src="{$subdir}media/images/Constant.png" alt=" " />
   					<a href="#{$consts[consts].const_name}" title="details" class="const-name">{$consts[consts].const_name}</a> = 					<span class="var-type">{$consts[consts].const_value}</span>
   
-  				</div>
+  				</td>
   				{/section}
-  			</div>
+  			</tr>
+  		  </table>
   		</div>
   	</div>
 	</div>
@@ -201,22 +203,24 @@
   		</div>
   		<div class="info-box-body">
   			<div class="var-summary">
+  			  <table>
   				{section name=vars loop=$vars}
   				{if $vars[vars].static}
-  				<div class="var-title">
-  					static <span class="var-type">{$vars[vars].var_type}</span>
-  					<a href="#{$vars[vars].var_name}" title="details" class="var-name">{$vars[vars].var_name}</a>
-  				</div>
+  				<tr class="var-title">
+  					<td class="var-type">static <span>{$vars[vars].var_type}</span></td>
+  					<td><a href="#{$vars[vars].var_name}" title="details" class="var-name">{$vars[vars].var_name}</a></td>
+  				</tr>
   				{/if}
   				{/section}
   				{section name=vars loop=$vars}
   				{if !$vars[vars].static}
-  				<div class="var-title">
-  					<span class="var-type">{$vars[vars].var_type}</span>
-  					<a href="#{$vars[vars].var_name}" title="details" class="var-name">{$vars[vars].var_name}</a>
-  				</div>
+  				<tr class="var-title">
+  					<td class="var-type">{$vars[vars].var_type}</td>
+  					<td><a href="#{$vars[vars].var_name}" title="details" class="var-name">{$vars[vars].var_name}</a></td>
+  				</tr>
   				{/if}
   				{/section}
+  				</table>
   			</div>
   		</div>
   	</div>
@@ -253,36 +257,40 @@
   		</div>
   		<div class="info-box-body">			
   			<div class="method-summary">
+  			  <table>
   				{section name=methods loop=$methods}
   				{if $methods[methods].static}		
-  				<div class="method-definition">
-  					static {if $methods[methods].function_return}
-  						<span class="method-result">{$methods[methods].function_return}</span>
-  					{/if}
-  					<a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>
+  				<tr class="method-definition">
+  					<td class="method-result">static {if $methods[methods].function_return}
+  						<span >{$methods[methods].function_return}</span>
+  					{/if}</td>
+  					<td><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>
   					{if count($methods[methods].ifunction_call.params)}
   						({section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $methods[methods].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>]{/if}{/section})
   					{else}
   					()
   					{/if}
-  				</div>
+  					</td>
+  				</tr>
   				{/if}
   				{/section}
   				{section name=methods loop=$methods}
   				{if !$methods[methods].static}		
-  				<div class="method-definition">
-  					{if $methods[methods].function_return}
+  				<tr class="method-definition">
+  					<td class="method-name">{if $methods[methods].function_return}
   						<span class="method-result">{$methods[methods].function_return}</span>
   					{/if}
-  					<a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>
-  					{if count($methods[methods].ifunction_call.params)}
-  						({section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $methods[methods].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>]{/if}{/section})
+  					<a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a></td>
+  					<td>{if count($methods[methods].ifunction_call.params)}
+  						<span class="method-braces">(</span>{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br />&nbsp;{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
   					{else}
   					()
   					{/if}
-  				</div>
+  					</td>
+  				</tr>
   				{/if}
   				{/section}
+  				</table>
   			</div>
   		</div>
   	</div>
