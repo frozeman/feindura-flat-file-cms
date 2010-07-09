@@ -45,7 +45,6 @@ echo $page['thumbnail']."\n";
 echo $page['content'];
 
 
-
 /*                              *** RESULT with page *** 
 --------------------------------------------------------------------------------
 */
@@ -68,7 +67,8 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
 --------------------------------------------------------------------------------
 */
 
-<span id="errorId" class="errorClass" test="exampleAttribute1" onclick="exampleAttribute2">The requested page is currently not available.</span>
-
+<span id="errorId" class="errorClass" test="exampleAttribute1" onclick="exampleAttribute2">
+The requested page is currently not available.
+</span>
 
 ?>

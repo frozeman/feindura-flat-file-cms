@@ -20,8 +20,8 @@
  * @package [backend]
  * 
  * @version 1.32
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.32 fixed editFiles()
  *    - 1.31 add checkStyleFiles()
  * 
@@ -47,26 +47,26 @@
 //}
 
 /**
- * <b>Name</b> isAdmin()<br>
+ * <b>Name</b> isAdmin()<br />
  * 
  * Open the .htpasswd file and check if one of the usernames is:
  * "admin", "adminstrator", "superuser", "root" or "frozeman".
  * If one of the above usernames exist and the current user has one of this usernames it returns TRUE,
- * otherwise FALSE.<br>
+ * otherwise FALSE.<br />
  * If no user with the above usernames exists it assume that there is no admin and returns TRUE.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  *    
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *     
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
  * 
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -119,19 +119,19 @@ function isAdmin() {
 }
 
 /**
- * <b>Name</b> getNewCatgoryId()<br>
+ * <b>Name</b> getNewCatgoryId()<br />
  * 
  * Returns a new category ID, which is the highest category ID + 1.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *     
  * @return int a new category ID
  * 
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -150,15 +150,15 @@ function getNewCatgoryId() {
 }
 
 /**
- * <b>Name</b> saveCategories()<br>
+ * <b>Name</b> saveCategories()<br />
  * 
  * Saves the category-settings config array to the "config/category.config.php" file.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
  * 
  * @param array $newCategories a $categoryConfig array to save
@@ -168,8 +168,8 @@ function getNewCatgoryId() {
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -258,7 +258,7 @@ function saveCategories($newCategories) {
 }
 
 /**
- * <b>Name</b> moveCategories()<br>
+ * <b>Name</b> moveCategories()<br />
  * 
  * Change the order of the <var>$categoryConfig</var> array.
  * 
@@ -272,8 +272,8 @@ function saveCategories($newCategories) {
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -397,11 +397,11 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
 }
 
 /**
- * <b>Name</b> saveAdminConfig()<br>
+ * <b>Name</b> saveAdminConfig()<br />
  * 
  * Saves the administrator-settings config array to the "config/admin.config.php" file.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag
  * 
@@ -412,8 +412,8 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -488,11 +488,11 @@ function saveAdminConfig($adminConfig) {
 }
 
 /**
- * <b>Name</b> saveWebsiteConfig()<br>
+ * <b>Name</b> saveWebsiteConfig()<br />
  * 
  * Saves the website-settings config array to the "config/website.config.php" file.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag
  * 
@@ -503,8 +503,8 @@ function saveAdminConfig($adminConfig) {
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -549,11 +549,11 @@ function saveWebsiteConfig($websiteConfig) {
 }
 
 /**
- * <b>Name</b> saveStatisticConfig()<br>
+ * <b>Name</b> saveStatisticConfig()<br />
  * 
  * Saves the statiostic-settings config array to the "config/statistic.config.php" file.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag
  * 
@@ -564,8 +564,8 @@ function saveWebsiteConfig($websiteConfig) {
  * @example backend/statisticConfig.array.example.php of the $statisticConfig array
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -601,11 +601,11 @@ function saveStatisticConfig($statisticConfig) {
 }
 
 /**
- * <b>Name</b> movePage()<br>
+ * <b>Name</b> movePage()<br />
  * 
  * Moves a file into a new category directory.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
  * 
@@ -616,8 +616,8 @@ function saveStatisticConfig($statisticConfig) {
  * @return bool TRUE if the page was succesfull moved, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -643,19 +643,19 @@ function movePage($page, $fromCategory, $toCategory) {
 }
 
 /**
- * <b>Name</b> getNewPageId()<br>
+ * <b>Name</b> getNewPageId()<br />
  * 
  * Returns a new page ID, which is the highest page ID + 1.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$generalFunctions</var> for the {@link getStoredPagesIds} (included in the {@link general.include.php})
  * 
  * @return int a new page ID
  * 
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -681,7 +681,7 @@ function getNewPageId() {
 }
 
 /**
- * <b>Name</b> prepareStyleFilePaths()<br>
+ * <b>Name</b> prepareStyleFilePaths()<br />
  * 
  * Check the array with stylesheet files if they have a slash on the beginnging and if there are not empty.
  * Then implodes the array to a string like:
@@ -698,8 +698,8 @@ function getNewPageId() {
  * 
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -725,13 +725,13 @@ function prepareStyleFilePaths($givenStyleFiles) {
 }
 
 /**
- * <b>Name</b> getStylesByPriority()<br>
+ * <b>Name</b> getStylesByPriority()<br />
  * 
  * Returns the right stylesheet-file path, ID or class-attribute.
  * If the <var>$givenStyle</var> parameter is empty,
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  * 
@@ -743,8 +743,8 @@ function prepareStyleFilePaths($givenStyleFiles) {
  * 
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -764,14 +764,14 @@ function getStylesByPriority($givenStyle,$styleType,$category) {
 }
 
 /**
- * <b>Name</b> setStylesByPriority()<br>
+ * <b>Name</b> setStylesByPriority()<br />
  * 
  * Bubbles through the stylesheet-file path, ID or class-attribute
  * of the page, category and adminSetup and check if the stylesheet-file path, ID or class-attribute already exist.
  * Ff the <var>$givenStyle</var> parameter is empty,
  * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  * 
@@ -783,8 +783,8 @@ function getStylesByPriority($givenStyle,$styleType,$category) {
  * 
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -818,14 +818,14 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
 }
 
 /**
- * <b>Name</b> editFiles()<br>
+ * <b>Name</b> editFiles()<br />
  * 
  * Generates a editable textfield with a file selection and a input for creating new files.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$_POST</var> to get which form is open
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
@@ -843,8 +843,8 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
  * @return void displayes the file edit textfield
  * 
  * @version 1.01
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.01 put fileType to the classe instead of the id of the textarea
  *    - 1.0 initial release
  * 
@@ -991,11 +991,11 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
 }
 
 /**
- * <b>Name</b> saveEditedFiles()<br>
+ * <b>Name</b> saveEditedFiles()<br />
  * 
  * Save the files edited in {@link editFiles()}.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>$_POST</var> for the file data
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver 
  * 
@@ -1004,8 +1004,8 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1072,7 +1072,7 @@ function saveEditedFiles(&$savedForm) {
 }
 
 /**
- * <b>Name</b> delDir()<br>
+ * <b>Name</b> delDir()<br />
  * 
  * Deletes a directory and all files in it.
  * 
@@ -1081,8 +1081,8 @@ function saveEditedFiles(&$savedForm) {
  * @return bool TRUE if the directory was succesfull deleted, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1104,14 +1104,14 @@ function delDir($dir) {
 }
 
 /**
- * <b>Name</b> isFolderWarning()<br>
+ * <b>Name</b> isFolderWarning()<br />
  * 
  * Check if the <var>$folder</var> parameter is a directory, otherwise it return a warning text.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    
  * 
  * @param string $folder the absolut path of the folder to check
@@ -1119,8 +1119,8 @@ function delDir($dir) {
  * @return string|false a warning text if it's not a directory, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1136,14 +1136,14 @@ function isFolderWarning($folder) {
 }
 
 /**
- * <b>Name</b> isWritableWarning()<br>
+ * <b>Name</b> isWritableWarning()<br />
  * 
  * Check if a file/folder is writeable, otherwise it return a warning text.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  * 
  * @param string $fileFolder the absolut path of a file/folder to check
@@ -1151,8 +1151,8 @@ function isFolderWarning($folder) {
  * @return string|false a warning text if it's not writable, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1168,7 +1168,7 @@ function isWritableWarning($fileFolder) {
 }
 
 /**
- * <b>Name</b> isWritableWarningRecursive()<br>
+ * <b>Name</b> isWritableWarningRecursive()<br />
  * 
  * Check if folders and it's containing files are writeable, otherwise it return a warning text.
  * 
@@ -1181,8 +1181,8 @@ function isWritableWarning($fileFolder) {
  * @return string|false warning texts if they are not writable, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1217,7 +1217,7 @@ function isWritableWarningRecursive($folders) {
 }
 
 /**
- * <b>Name</b> readFolder()<br>
+ * <b>Name</b> readFolder()<br />
  * 
  * Reads a folder and return it's subfolders and files.
  * 
@@ -1236,7 +1236,7 @@ function isWritableWarningRecursive($folders) {
  *    )
  * </code>
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
  * @param string $folder the absolute path of an folder to read
@@ -1244,8 +1244,8 @@ function isWritableWarningRecursive($folders) {
  * @return array|false an array with the folder elements, FALSE if the folder not a directory
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1295,7 +1295,7 @@ function readFolder($folder) {
 }
 
 /**
- * <b>Name</b> readFolderRecursive()<br>
+ * <b>Name</b> readFolderRecursive()<br />
  * 
  * Reads a folder recursive and return it's subfolders and files, opens then also the subfolders and read them, etc.
  * 
@@ -1314,7 +1314,7 @@ function readFolder($folder) {
  *    )
  * </code>
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
  * @param string $folder the absolute path of an folder to read
@@ -1322,8 +1322,8 @@ function readFolder($folder) {
  * @return array|false an array with the folder elements, FALSE if the folder not a directory
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1387,11 +1387,11 @@ function readFolderRecursive($folder) {
 } 
 
 /**
- * <b>Name</b> folderIsEmpty()<br>
+ * <b>Name</b> folderIsEmpty()<br />
  * 
  * Check if a folder is empty.
  * 
- * <b>Used Constants</b><br>
+ * <b>Used Constants</b><br />
  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
  * @param string $folder the absolute path of an folder to check
@@ -1399,8 +1399,8 @@ function readFolderRecursive($folder) {
  * @return bool TRUE if its empty, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1415,11 +1415,11 @@ function folderIsEmpty($folder) {
 }
 
 /**
- * <b>Name</b> createStyleTags()<br>
+ * <b>Name</b> createStyleTags()<br />
  * 
  * Goes through a folder recursive and creates a HTML <link> tag for every stylesheet-file found.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  * 
  * @param string $folder the absolute path of the folder to look for stylesheet files
@@ -1429,8 +1429,8 @@ function folderIsEmpty($folder) {
  * @return string|false the HTML <link> tags or FALSE if no stylesheet-file was found
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1457,19 +1457,19 @@ function createStyleTags($folder) {
 }
 
 /**
- * <b>Name</b> checkBasePath()<br>
+ * <b>Name</b> checkBasePath()<br />
  * 
  * Check if the current path of the CMS is matching the <var>$adminConfig['basePath']</var>
  * And if the current URL is matching the <var>$adminConfig['url']</var>.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  * 
  * @return bool TRUE if there are matching, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1486,11 +1486,11 @@ function checkBasePath() {
 }
 
 /**
- * <b>Name</b> checkBasePath()<br>
+ * <b>Name</b> checkBasePath()<br />
  * 
  * Retruns a warning if the current path of the CMS and the current URL is not matching with the ones set in the <var>$adminConfig</var>.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  * 
  * @uses checkBasePath() to check if the current pathand URL are matching
@@ -1498,8 +1498,8 @@ function checkBasePath() {
  * @return string|false a warining if there are not matching, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */
@@ -1518,11 +1518,11 @@ function basePathWarning() {
 }
 
 /**
- * <b>Name</b> checkBasePath()<br>
+ * <b>Name</b> checkBasePath()<br />
  * 
  * Retruns a warning if the current set start page is existing.
  * 
- * <b>Used Global Variables</b><br>
+ * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
  *    - <var>$generalFunctions</var> for the {@link generalFunctions::getPageCategory()} method (included in the {@link general.include.php})
@@ -1533,8 +1533,8 @@ function basePathWarning() {
  * @return string|false a warning if the start page doesn't exist, otherwise FALSE
  * 
  * @version 1.0
- * <br>
- * <b>ChangeLog</b><br>
+ * <br />
+ * <b>ChangeLog</b><br />
  *    - 1.0 initial release
  * 
  */

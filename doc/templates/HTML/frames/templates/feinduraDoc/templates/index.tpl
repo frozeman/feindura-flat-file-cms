@@ -12,14 +12,44 @@
   /* <![CDATA[ */    
     var framesetLoaded = true;
     
+    function str_replace(search, replace, subject) {
+      var result = "";
+      var  oldi = 0;
+      for (i = subject.indexOf (search)
+         ; i > -1
+         ; i = subject.indexOf (search, i))
+      {
+        result += subject.substring (oldi, i);
+        result += replace;
+        i += search.length;
+        oldi = i;
+      }
+      return result + subject.substring (oldi, subject.length);
+    }
+    
     function loadPage() {
       if(self.location.search.length > 0) {
         // get the url from the [implementation]/...
         var new_url = self.location.href;
-        new_url = new_url.substring(new_url.lastIndexOf('%5B'));
-        var current_package = new_url.substring(new_url.lastIndexOf('%5B'),new_url.lastIndexOf('%5D'));
-        current_package = 'li_['+current_package.substring(3)+'].html';
+        var current_package;
+        
+        if(new_url.indexOf('%5B') > 0) {
+          new_url = new_url.substring(new_url.indexOf('%5B'));
+          current_package = new_url.substring(new_url.indexOf('%5B'),new_url.lastIndexOf('%5D'));
+          current_package = 'li_['+current_package.substring(3)+'].html';
+          current_package = str_replace('%5B', '[', current_package);
+          current_package = str_replace('%5D', ']', current_package);
+        } else if(new_url.indexOf('[') > 0) {
+          new_url = new_url.substring(new_url.indexOf('['));
+          current_package = new_url.substring(new_url.indexOf('['),new_url.lastIndexOf(']'));
+          current_package = 'li_['+current_package.substring(1)+'].html';
+        } else {
+          return false;
+        }
+        
+        //alert(new_url);
         //alert(current_package);
+        
         if(document.images) {
           self.right.location.replace(new_url);
           self.left_bottom.location.replace(current_package);
@@ -29,7 +59,7 @@
           self.left_bottom.location.href = current_package;
           self.left_top.location.href = 'packages.html?'+current_package;
         }
-
+        return false;
       }
     }
 

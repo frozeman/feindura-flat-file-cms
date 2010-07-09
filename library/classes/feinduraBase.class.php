@@ -31,8 +31,8 @@
 * @package [Implementation]
 * 
 * @version 1.58
-* <br>
-* <b>ChangeLog</b><br>
+* <br />
+* <b>ChangeLog</b><br />
 *    - 1.58 add phpDocumentor documentation
 *    - 1.57 startet documentation
 */
@@ -57,7 +57,7 @@ class feinduraBase {
  /**
   * Contains the variable names used for the <var>$_GET</var> variables
   * 
-  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feinduraBase()} constructor to the this property.<br>
+  * This variable names are configured in the feindura adminstrator-settings and set in the {@link feinduraBase()} constructor to the this property.<br />
   * For standard value see above.
   * 
   * Example of a link using the standard variable names:
@@ -127,7 +127,7 @@ class feinduraBase {
   * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files.
   * 
   * This country code is used to include the right frontend language-file.
-  * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br />
   * This property will be set in the {@link feindura} constructor.
   * 
   * The standard value is <i>"en"</i> (english).
@@ -142,7 +142,7 @@ class feinduraBase {
  /**
   * Contains the frontend language-file array
   * 
-  * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br>
+  * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br />
   * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
   *   
   * It will be <i>included</i> and set to this property in the {@link feinduraBase()} constructor.
@@ -156,7 +156,7 @@ class feinduraBase {
  /**
   * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
   * 
-  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br>   
+  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br />   
   * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var class
@@ -169,7 +169,7 @@ class feinduraBase {
  /**
   * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
   * 
-  * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br>
+  * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br />
   * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var class
@@ -186,23 +186,23 @@ class feinduraBase {
  /* **************************************************************************************************************************** */
  
  /**
-  * <b> Type</b>      constructor<br>
-  * <b> Name</b>      feinduraBase()<br>
+  * <b> Type</b>      constructor<br />
+  * <b> Name</b>      feinduraBase()<br />
   * 
   * The constructor of the class, sets all basic properties.
   * 
-  * First gets all settings config <var>arrays</var> and external classes.<br>
-  * Then set the <var>$_GET</var> variable names from the {@link feinduraBase::$adminConfig administrator-settings config} to the {@link $varNames} property.<br>
-  * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br>
+  * First gets all settings config <var>arrays</var> and external classes.<br />
+  * Then set the <var>$_GET</var> variable names from the {@link feinduraBase::$adminConfig administrator-settings config} to the {@link $varNames} property.<br />
+  * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br />
   * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
   * 
   * 
-  * <b>Used Global Variables</b><br>
+  * <b>Used Global Variables</b><br />
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
   *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
-  * <b>Used Constants</b><br>
+  * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and will be set to the {@link $language} property 
@@ -223,8 +223,8 @@ class feinduraBase {
   * @example includeFeindura.example.php    
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -276,12 +276,12 @@ class feinduraBase {
  /* **************************************************************************************************************************** */
   
   /**
-  * <b> Name</b>      loadFrontendLanguageFile()<br>
+  * <b> Name</b>      loadFrontendLanguageFile()<br />
   * 
   * Loads the frontend language file into the {@link $languageFile} property.
   * 
   * 
-  * <b>Used Constants</b><br>
+  * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $language a given country code which will be used to try to laod the language file
@@ -292,8 +292,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -313,8 +313,8 @@ class feinduraBase {
   }
 
  /**
-  * <b> Name</b>      getCurrentPageId()<br>
-  * <b> Alias</b>     getPageId()<br>
+  * <b> Name</b>      getCurrentPageId()<br />
+  * <b> Alias</b>     getPageId()<br />
   * 
   * Returns the current page ID from the <var>$_GET</var> variable.
   * 
@@ -323,7 +323,7 @@ class feinduraBase {
   * If no <var>$_GET</var> variable exists try to return the {@link $startPage} property.
   * 
   * 
-  * <b>Used Global Variables</b><br>
+  * <b>Used Global Variables</b><br />
   *    - <var>$_GET</var> to fetch the page ID
   * 
   * @uses $varNames                     for variable names which the $_GET will use for the page ID
@@ -336,8 +336,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -385,8 +385,8 @@ class feinduraBase {
   }
 
  /**
-  * <b> Name</b>      getCurrentCategoryId()<br>
-  * <b> Alias</b>     getCategory()<br>
+  * <b> Name</b>      getCurrentCategoryId()<br />
+  * <b> Alias</b>     getCategory()<br />
   * 
   * Returns the current category ID from the <var>$_GET</var> variable.
   * 
@@ -395,7 +395,7 @@ class feinduraBase {
   * If no <var>$_GET</var> variable exists it try to return the {@link $startPage} property.
   * 
   * 
-  * <b>Used Global Variables</b><br>
+  * <b>Used Global Variables</b><br />
   *    - <var>$_GET</var> to fetch the category ID
   * 
   * @uses $varNames                       for variable names which the $_GET variable will use for the category ID
@@ -407,8 +407,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -452,8 +452,8 @@ class feinduraBase {
   }
   
  /**
-  * <b>Name</b>     setCurrentPageId()<br>
-  * <b>Alias</b>    setPageId()<br>
+  * <b>Name</b>     setCurrentPageId()<br />
+  * <b>Alias</b>    setPageId()<br />
   * 
   * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property.
   * 
@@ -473,8 +473,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -500,8 +500,8 @@ class feinduraBase {
   }
   
  /**
-  * <b>Name</b>     setCurrentCategoryId()<br>
-  * <b>Alias</b>    setCategoryId()<br>
+  * <b>Name</b>     setCurrentCategoryId()<br />
+  * <b>Alias</b>    setCategoryId()<br />
   * 
   *  Sets the current category ID from the <var>$_GET</var> variable to the {@link $category} property.
   * 
@@ -521,8 +521,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -548,17 +548,17 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> generatePage()<br>
+  * <b>Name</b> generatePage()<br />
   * 
   * Generates a page.
   * 
-  * This method is called in descendant classes.<br>
+  * This method is called in descendant classes.<br />
   * Generates a page by the given page ID.
   * An array will be returned with all elements of the page, ready for displaying in a HTML-page.
   * 
   * In case the page doesn't exists or is not public and the <var>$showError</var> parameter is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
-  * otherwiese it returns an empty array.<br>  
+  * otherwiese it returns an empty array.<br />  
   * 
   * Example of the returned array:
   * {@example generatePage.return.example.php}
@@ -610,8 +610,8 @@ class feinduraBase {
   * @example showPage.example.php the called showPage method in this example uses the generatePage() method
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -756,7 +756,7 @@ class feinduraBase {
           $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, "...");
         else {
           // clear string of html tags (except BR)
-          $pageContentEdited = strip_tags($pageContentEdited, '<br>,<br />');
+          $pageContentEdited = strip_tags($pageContentEdited, '<br />,<br />');
           $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent, "...");
         }
       }
@@ -825,7 +825,7 @@ class feinduraBase {
   }  
   
  /**
-  * <b>Name</b> createTitle()<br>
+  * <b>Name</b> createTitle()<br />
   * 
   * Generates a page title from a given <var>$pageContent</var> array by using the given parameters.
   * 
@@ -850,8 +850,8 @@ class feinduraBase {
   * @example getPageTitle.example.php the {@link getPageTitle()} method in this example calls this method with the title properties as parameters
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -920,12 +920,12 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> createThumbnail()<br>
+  * <b>Name</b> createThumbnail()<br />
   * 
   * Generates a thumbnail <img> tag from the given <var>$pageContent</var> array and
   * returns an array with the ready to display tag and the plain thumbnail path.
   * 
-  * <b>Used Constants</b><br>
+  * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param array $pageContent   the $pageContent array of a page
@@ -938,8 +938,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -982,7 +982,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> createAttributes()<br>
+  * <b>Name</b> createAttributes()<br />
   * 
   * Generates a string with a given id, class and other attributes.
   * 
@@ -1001,8 +1001,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1027,12 +1027,12 @@ class feinduraBase {
 
 
  /**
-  * <b>Name</b> loadPagesByType()<br>
+  * <b>Name</b> loadPagesByType()<br />
   * 
   * Load pages by ID-type and ID(s).
   * 
-  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br>
-  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br>
+  * If the <var>$idType</var> parameter start with "cat" it takes the given <var>$ids</var> parameter as category IDs.<br />
+  * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br />
   * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
   * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
   * 
@@ -1048,8 +1048,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1138,9 +1138,9 @@ class feinduraBase {
   }
   
  /**
-  * <b>Name</b> publicCategory()<br>
+  * <b>Name</b> publicCategory()<br />
   * 
-  * Checks whether the given category(ires) are public and returns the ID or an array with IDs of the public ones.
+  * Checks whether the given category(ies) are public and returns the ID or an array with IDs of the public ones.
   * 
   * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
   * 
@@ -1150,8 +1150,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1195,7 +1195,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> getPageCategory()<br>
+  * <b>Name</b> getPageCategory()<br />
   * 
   * Gets the category ID of a page.
   * 
@@ -1209,7 +1209,7 @@ class feinduraBase {
 
 
  /**
-  * <b>Name</b> loadPrevNextPage()<br>
+  * <b>Name</b> loadPrevNextPage()<br />
   * 
   * Loads a page, but check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page.
   * 
@@ -1227,8 +1227,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   *   
   */ 
@@ -1299,12 +1299,12 @@ class feinduraBase {
   }  
 
  /**
-  * <b>Name</b> compareTags()<br>
+  * <b>Name</b> compareTags()<br />
   * 
   * Compares the given tags with the tags in the given <var>$pageContent</var> array.
   * 
   * If the given <var>$pageContent</var> array has one or more tags from the <var>$tags</var> parameter,
-  * it returns the <var>$pageContent</var> array otherwise it FALSE.<br>
+  * it returns the <var>$pageContent</var> array otherwise it FALSE.<br />
   * <b>Notice</b>: the tags will be compared case insensitive.
   * 
   * @param array $pageContent    the $pageContent array of a page
@@ -1315,8 +1315,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   *   
   */ 
@@ -1345,7 +1345,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> hasTags()<br>
+  * <b>Name</b> hasTags()<br />
   * 
   * Load pages by ID-type and ID(s), but only if the page(s) have one or more tags from the given <var>$tags</var> parameter.
   * 
@@ -1362,8 +1362,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */   
@@ -1409,7 +1409,7 @@ class feinduraBase {
 
 
  /**
-  * <b>Name</b> loadPagesByDate()<br>
+  * <b>Name</b> loadPagesByDate()<br />
   * 
   * Loads pages by ID-type and ID, which fit in the given time period parameters.
   * 
@@ -1434,8 +1434,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   *   
   */     
@@ -1520,7 +1520,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> changeDate()<br>
+  * <b>Name</b> changeDate()<br />
   * 
   * Change add or substract month from a date.
   * 
@@ -1532,8 +1532,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   *   
   */   
@@ -1572,7 +1572,7 @@ class feinduraBase {
   }
   
  /**
-  * <b>Name</b> getPropertyIdsByType()<br>
+  * <b>Name</b> getPropertyIdsByType()<br />
   * 
   * If <var>$ids</var> parameter is FALSE it check the ID-type and returns then the {@link $page} or {@link $category} property.
   * 
@@ -1586,8 +1586,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */ 
@@ -1618,7 +1618,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> getPropertyPage()<br>
+  * <b>Name</b> getPropertyPage()<br />
   * 
   * Returns the {@link $page} property if the given <var>$page</var> parameter is FALSE.
   * 
@@ -1628,8 +1628,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   *   
   */  
@@ -1656,7 +1656,7 @@ class feinduraBase {
   
   
  /**
-  * <b>Name</b> getPropertyCategory()<br>
+  * <b>Name</b> getPropertyCategory()<br />
   * 
   * Returns the {@link $category} property if the given <var>$category</var> parameter is FALSE.
   * 
@@ -1666,8 +1666,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   *   
   */  
@@ -1679,7 +1679,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> getStoredPageIds()<br>
+  * <b>Name</b> getStoredPageIds()<br />
   * 
   * Returns the {@link generalFunctions::$storedPageIds} property.
   * 
@@ -1693,7 +1693,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> getStoredPages()<br>
+  * <b>Name</b> getStoredPages()<br />
   * 
   * Returns the {@link generalFunctions::$storedPages} property.
   * 
@@ -1707,7 +1707,7 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> shortenText()<br>
+  * <b>Name</b> shortenText()<br />
   * 
   * Shorten a text by to a given length.
   * 
@@ -1727,8 +1727,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release  
   * 
   */
@@ -1767,11 +1767,11 @@ class feinduraBase {
   }
 
  /**
-  * <b>Name</b> shortenHtmlText()<br>
+  * <b>Name</b> shortenHtmlText()<br />
   * 
   * Shorten a HTML text by to a given length.
   * 
-  * All HTML tags which are contained in the shortend text will be counted and closed on the end.<br>
+  * All HTML tags which are contained in the shortend text will be counted and closed on the end.<br />
   * If the <var>$endString</var> parameter is set and a <var>$pageContent</var> array is given,
   * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
   * 
@@ -1787,8 +1787,8 @@ class feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */  

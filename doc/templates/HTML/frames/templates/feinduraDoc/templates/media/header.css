@@ -1,0 +1,44 @@
+body { 
+  	background: url(image/bg/header.png) no-repeat #FFFFFF;
+  	margin: 0px; 
+  	padding: 0px;
+  }
+
+/* LOGO */
+#logo {
+  display: block;
+  position: absolute;
+  top: 7px;
+  right: 20px;
+  width: 270px;
+  height: 80px; 
+  background: url(image/sign/api_logo.png) no-repeat;
+  border: none;
+  }
+
+/* README CHANGELOG LICENSE */
+#readmechangelog {
+  position: absolute;
+  bottom: 20px;
+  right: 5px;
+  width: 310px; /* org 250px */
+  font-size: 12px;
+  text-align: center;
+  }
+
+/* PACKAGE SELECTION */
+#packages {
+  position: absolute;
+  bottom: 9px;
+  left: 4px;
+  }
+
+#packages select {
+  position: relative;
+  width: 243px;
+  height: 30px;
+  padding: 1px 2px;
+  font-size: 18px;
+  border: 1px solid #999999;
+  color: #666666;
+  }

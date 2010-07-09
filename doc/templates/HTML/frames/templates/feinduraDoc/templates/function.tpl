@@ -2,36 +2,45 @@
 <a name="{$functions[func].function_dest}" id="{$functions[func].function_dest}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
+	<a href="#sec-description" class="upButton"></a>
+	
 	<div class="method-header">
+	  <span class="lineNumber"><span>File source:</span><br />
+    line {if $functions[func].slink}{$functions[func].slink}{else}{$functions[func].line_number}{/if}
+    </span>
+    <table>
+    <tr><td>
 		<span class="method-result">{$functions[func].function_return}</span>
-		<span class="method-name">
+		<span class="method-title">
 			{if $functions[func].ifunction_call.returnsref}&amp;{/if}{$functions[func].function_name}
 		</span>
+		<span class="method-braces">(</span>
+		</td><td>
 		{if count($functions[func].ifunction_call.params)}
-			({section name=params loop=$functions[func].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $functions[func].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$functions[func].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$functions[func].ifunction_call.params[params].name}</span>{if $functions[func].ifunction_call.params[params].hasdefault} = <span class="var-default">{$functions[func].ifunction_call.params[params].default|escape:"html"}</span>]{/if}{/section})
+			{section name=params loop=$functions[func].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br />{/if}{if $functions[func].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$functions[func].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$functions[func].ifunction_call.params[params].name}</span>{if $functions[func].ifunction_call.params[params].hasdefault} = <span class="var-default">{$functions[func].ifunction_call.params[params].default|escape:"html"}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
 		{else}
-		()
+		<span class="method-braces">)</span>
 		{/if}
+		</td></tr>
+		</table>
 	</div>
   
-  <!--
-  <div class="method-header">
-	   <span class="method-result">{$functions[func].function_return}</span>
-		 <span class="method-title">{$functions[func].function_name}</span> (line <span class="line-number">{if $functions[func].slink}{$functions[func].slink}{else}{$functions[func].line_number}{/if}</span>)
-	</div>
-	-->
+  <div class="docBlock">
 	
 	{if $functions[func].params}
-	  <div class="function-parameters">
-  	  <b>Parameters</b><br>
-  		<ul class="parameters">
+	  <div class="method-parameters">
+  	  <h3>Parameters</h3>
+  		<table class="parameters">
   		{section name=params loop=$functions[func].params}
-  			<li>
+  			<tr><td style="white-space: nowrap; padding-right: 8px;text-align: right;">
   				<span class="var-type">{$functions[func].params[params].datatype}</span>
-  				<span class="var-name">{$functions[func].params[params].var}</span>{if $functions[func].params[params].data}<span class="var-description">: {$functions[func].params[params].data}</span>{/if}
-  			</li>
+  				<span class="var-name">{$functions[func].params[params].var}</span>
+          </td><td>
+          {if $functions[func].params[params].data}<span class="var-description">: {$functions[func].params[params].data}</span>{/if}
+  			  </td>
+        </tr>
   		{/section}
-  		</ul>
+  		</table>
   	</div>
 	{/if}
 	
@@ -43,6 +52,8 @@
 			{/section}
 		</div>
 	{/if}
+	
+	</div>
 
 	{include file="docblock.tpl" sdesc=$functions[func].sdesc desc=$functions[func].desc tags=$functions[func].tags params=$functions[func].params function=false}
 	

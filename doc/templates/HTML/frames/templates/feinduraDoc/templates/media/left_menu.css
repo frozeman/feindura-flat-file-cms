@@ -1,0 +1,77 @@
+body { 
+  	background: url(image/bg/left_menu.png) repeat-y #FFFFFF;
+  	margin: 0px; 
+  	padding: 15px;
+  	padding-top: 25px;
+  	font-size: 13px;
+  }
+
+/* PACKAGE TITLE */
+h1.package-title {
+  font-size: 13px;
+  font-weight: bold;
+  background: url(image/sign/icon_package.png) no-repeat 0px 2px;
+  padding: 2px;
+  padding-left: 23px;
+  margin-left: -8px;
+  margin-bottom: 25px;
+  color: #666666;
+  }
+
+/* LISTS */
+ul {
+  list-style: none;
+  margin-left: 3px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  }
+li {
+  margin-bottom: 8px;
+  }
+  
+li.classtrees {
+  background: url(image/sign/cookies.png) no-repeat 0px 1px;
+  padding: 3px 0px;
+  padding-left: 22px;
+  }
+
+li.elementindex {
+  background: url(image/sign/sign_elementindex.png) no-repeat 0px 1px;
+  padding: 3px 0px;
+  padding-left: 22px;
+  }
+
+dt { 
+    margin: 20px 0px 0px 2px;
+    color: #666666;
+    border-top: none;
+    }
+.tree dl {
+    margin: 5px 0px;    
+    }
+.folder-title {
+    background: url(image/sign/folder-horizontal.png) no-repeat 0px 1px;
+    padding: 3px 0px;
+    padding-left: 20px;
+    }
+    
+dd { 
+    margin: 5px 0px;
+    margin-left: 10px;
+    }
+dd.classes {
+    background: url(image/sign/cookie.png) no-repeat 0px 2px;
+    padding: 3px 0px;
+    padding-left: 20px;
+    }
+dd.functions {
+    background: url(image/sign/cookie-bite.png) no-repeat 0px 1px;
+    padding: 3px 0px;
+    padding-left: 20px;
+    }
+dd.files {
+    background: url(image/sign/document-binary.png) no-repeat 0px 1px;
+    padding: 3px 0px;
+    padding-left: 20px;
+    }
+

@@ -15,9 +15,9 @@
 		{/if}
 		{if $vars || $ivars}
 			{if $vars}
-				<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
 			{else}
-				<a href="#sec-vars">Vars</a>
+				<a href="#sec-vars">Properties</a>
 			{/if}
 			{if $methods || $imethods}|{/if}
 		{/if}
@@ -83,9 +83,9 @@
 			{if $vars || $ivars || $methods || $imethods}|{/if}
 			{if $vars || $ivars}
 				{if $vars}
-					<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
 				{else}
-					<a href="#sec-vars">Vars</a>
+					<a href="#sec-vars">Properties</a>
 				{/if}
 				{if $methods || $imethods}|{/if}
 			{/if}
@@ -141,9 +141,9 @@
   			<span class="disabled">Constants</span> (<a href="#sec-consts">details</a>)
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
   				{else}
-  					<a href="#sec-vars">Vars</a>
+  					<a href="#sec-vars">Properties</a>
   				{/if} 
   				|
   			{/if}
@@ -162,7 +162,7 @@
   				{section name=consts loop=$consts}
   				<td class="const-title">
   					<img src="{$subdir}media/images/Constant.png" alt=" " />
-  					<a href="#{$consts[consts].const_name}" title="details" class="const-name">{$consts[consts].const_name}</a> = 					<span class="var-type">{$consts[consts].const_value}</span>
+  					<a href="#{$consts[consts].const_name}" title="details" class="const-name">{$consts[consts].const_name}</a> = <span class="var-type">{$consts[consts].const_value}</span>
   
   				</td>
   				{/section}
@@ -178,13 +178,13 @@
   <div id="var-summary-block">
   	<a name="sec-var-summary"></a>
   	<div class="info-box">
-  		<div class="info-box-title">Variable Summary</span></div>
+  		<div class="info-box-title">Property Summary</span></div>
   		<div class="nav-bar">
   			<a href="#sec-description">Description</a> |
   			{if $children}
   				<a href="#sec-descendents">Descendents</a> |
   			{/if}
-  			<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+  			<span class="disabled">Properties</span> (<a href="#sec-vars">details</a>)
   			{if $methods || $imethods}
   				| 
   				{if $methods}
@@ -247,9 +247,9 @@
   			{/if}
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
   				{else}
-  					<a href="#sec-vars">Vars</a>
+  					<a href="#sec-vars">Properties</a>
   				{/if} 
   				|
   			{/if}
@@ -268,7 +268,7 @@
   					{if count($methods[methods].ifunction_call.params)}
   						({section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $methods[methods].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>]{/if}{/section})
   					{else}
-  					()
+  					<span class="method-braces">()</span>
   					{/if}
   					</td>
   				</tr>
@@ -316,9 +316,9 @@
   			
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
   				{else}
-  					<a href="#sec-vars">Vars</a>
+  					<a href="#sec-vars">Properties</a>
   				{/if}
   			{/if}
   			{if $methods || $imethods}
@@ -331,8 +331,7 @@
   			{/if}
   		</div>
   		<div class="info-box-body">
-  			{include file="const.tpl"}
-  			{if $iconsts}
+  		  {if $iconsts}
   				<h4>Inherited Constants</h4>
   				<A NAME='inherited_vars'><!-- --></A>
   				{section name=iconsts loop=$iconsts}
@@ -341,12 +340,15 @@
   						{section name=iconsts2 loop=$iconsts[iconsts].iconsts}
   							<img src="{$subdir}media/images/{if $iconsts[iconsts].iconsts[iconsts2].access == 'private'}PrivateVariable{else}Variable{/if}.png" />
   							<span class="const-title">
-  								<span class="const-name">{$iconsts[iconsts].iconsts[iconsts2].link}</span>{if $iconsts[iconsts].iconsts[iconsts2].iconst_sdesc}: {$iconsts[iconsts].iconsts[iconsts2].iconst_sdesc}{/if}<br>
+  								<span class="const-name">{$iconsts[iconsts].iconsts[iconsts2].link}</span>{if $iconsts[iconsts].iconsts[iconsts2].iconst_sdesc}: {$iconsts[iconsts].iconsts[iconsts2].iconst_sdesc}{/if}<br />
   							</span>
   						{/section}
   					</blockquote> 
   				{/section}
-  			{/if}			
+  				<br /><br />
+  			{/if}
+  		  
+  			{include file="const.tpl"}  						
   		</div>
   	</div>
 	</div>
@@ -357,16 +359,16 @@
   <div id="var-details-block">
   	<a name="sec-vars"></a>
   	<div class="info-box">
-  		<div class="info-box-title">Variables</div>
+  		<div class="info-box-title">Properties</div>
   		<div class="nav-bar">
   			<a href="#sec-description">Description</a> |
   			{if $children}
   				<a href="#sec-descendents">Descendents</a> |
   			{/if}
   			{if $methods}
-  				<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+  				<a href="#sec-var-summary">Properties</a> (<span class="disabled">details</span>)
   			{else}
-  				<span class="disabled">Vars</span>
+  				<span class="disabled">Properties</span>
   			{/if}			
   			
   			{if $consts || $iconsts}
@@ -386,21 +388,24 @@
   			{/if}
   		</div>
   		<div class="info-box-body">
-  			{include file="var.tpl"}
-  			{if $ivars}
-  				<h4>Inherited Variables</h4>
+  		  {if $ivars}
+  				<h4>Inherited Properties</h4>
   				<A NAME='inherited_vars'><!-- --></A>
   				{section name=ivars loop=$ivars}
   					<p>Inherited from <span class="classname">{$ivars[ivars].parent_class}</span></p>
   					<blockquote>
   						{section name=ivars2 loop=$ivars[ivars].ivars}
   							<span class="var-title">
-  								<span class="var-name">{$ivars[ivars].ivars[ivars2].link}</span>{if $ivars[ivars].ivars[ivars2].ivar_sdesc}: {$ivars[ivars].ivars[ivars2].ivar_sdesc}{/if}<br>
+  								<span class="var-name">{$ivars[ivars].ivars[ivars2].link}</span>{if $ivars[ivars].ivars[ivars2].ivar_sdesc}: {$ivars[ivars].ivars[ivars2].ivar_sdesc}{/if}<br />
   							</span>
   						{/section}
   					</blockquote> 
   				{/section}
-  			{/if}			
+  				<br /><br />
+  			{/if}
+  		  
+  			{include file="var.tpl"}
+  						
   		</div>
   	</div>
 	</div>
@@ -419,9 +424,9 @@
   			{/if}
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
   				{else}
-  					<a href="#sec-vars">Vars</a>
+  					<a href="#sec-vars">Properties</a>
   				{/if}
   			{/if}
   			{if $consts || $iconsts}
@@ -438,8 +443,7 @@
   			{/if}			
   		</div>
   		<div class="info-box-body">
-  			{include file="method.tpl"}
-  			{if $imethods}
+  		  {if $imethods}
   				<h4>Inherited Methods</h4>
   				<a name='inherited_methods'><!-- --></a>	
   				{section name=imethods loop=$imethods}
@@ -447,11 +451,15 @@
   					<p>Inherited From <span class="classname">{$imethods[imethods].parent_class}</span></p>
   					<blockquote>
   						{section name=im2 loop=$imethods[imethods].imethods}
-  							<span class="method-name">{$imethods[imethods].imethods[im2].link}</span>{if $imethods[imethods].imethods[im2].ifunction_sdesc}: {$imethods[imethods].imethods[im2].ifunction_sdesc}{/if}<br>
+  							<span class="method-name">{$imethods[imethods].imethods[im2].link}</span>{if $imethods[imethods].imethods[im2].ifunction_sdesc}: {$imethods[imethods].imethods[im2].ifunction_sdesc}{/if}<br />
   						{/section}
   					</blockquote>
   				{/section}
-  			{/if}			
+  				<br /><br />
+  			{/if}
+  		
+  			{include file="method.tpl"}
+  						
   		</div>
   	</div>
 	</div>

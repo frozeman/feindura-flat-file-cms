@@ -22,7 +22,7 @@
 /**
 * The class for implementing feindura - Flat File Content Management System in a website.
 * 
-* It's methods provide necessary functions for implementing the CMS in a website.<br>
+* It's methods provide necessary functions for implementing the CMS in a website.<br />
 * It contains, for example, methods for building a menu and get page contents, etc.
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
@@ -32,8 +32,8 @@
 * @package [Implementation]
 * 
 * @version 1.01
-* <br>
-* <b>ChangeLog</b><br>
+* <br />
+* <b>ChangeLog</b><br />
 *    - 1.01 add setStartPage()
 *    - 1.0 initial release
 * 
@@ -49,7 +49,7 @@ class feindura extends feinduraBase {
  /**
   * <i>TRUE</i> when the pages content should be handled as XHTML
   *
-  * In XHTML standalone tags end with " />" instead of ">".<br>
+  * In XHTML standalone tags end with " />" instead of ">".<br />
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
@@ -108,7 +108,7 @@ class feindura extends feinduraBase {
  /**
   * Contains the startcategory ID
   *
-  * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br>
+  * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br />
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
   * and the {@link $category} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   *   
@@ -133,9 +133,9 @@ class feindura extends feinduraBase {
   * 
   * The link text will be shorten to the last complete word.
   * 
-  * For example: <i>"Example Category -> Example Page Title"</i> with a given <var>$linkLength</var> of <i>"30"</i> will be shorten to:
+  * For example the following string will be shorten to a <var>$linkLength</var> of <i>"30"</i>:
   * <samp>
-  * "Example Category -> Example..."
+  * "Example Category -> Example Page Title" => "Example Category -> Example..."
   * </samp>
   * 
   * @var int|false Number of characters or FALSE to don't shorten the link text
@@ -281,7 +281,7 @@ class feindura extends feinduraBase {
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the link text
   * of any link created by {@link createLink()} or {@link createMenu()}
   * 
-  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br>
+  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
   *   
   * <b>Notice</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
@@ -337,7 +337,7 @@ class feindura extends feinduraBase {
  /**
   * Contains an id-Attribute which will be add to the menu tag
   * 
-  * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
+  * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
@@ -350,7 +350,7 @@ class feindura extends feinduraBase {
  /**
   * Contains an class-Attribute which will be add to the menu tag
   * 
-  * <b>Notice</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
+  * <b>Notice</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
   * @see createMenu()
@@ -362,7 +362,7 @@ class feindura extends feinduraBase {
  /**
   * Contains a string with attributes which will be add to the menu tag
   * 
-  * <b>Notice</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br>
+  * <b>Notice</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * 
   * The string should have the following format
   * <samp>
@@ -389,9 +389,9 @@ class feindura extends feinduraBase {
   * 
   * The page title will be shorten to the last complete word.
   * 
-  * For example: <i>"Example Category -> Example Page Title"</i> with a given <var>$titleLength</var> of <i>"30"</i> will be shorten to:
+  * For example the following string will be shorten to a <var>$titleLength</var> of <i>"30"</i>:
   * <samp>
-  * "Example Category -> Example..."
+  * "Example Category -> Example Page Title" => "Example Category -> Example..."
   * </samp>
   * 
   * @var int|false Number of characters or FALSE to don't shorten the page title
@@ -417,7 +417,7 @@ class feindura extends feinduraBase {
  /**
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title
   * 
-  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br>
+  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend.
   * 
   * Example:
@@ -611,7 +611,7 @@ class feindura extends feinduraBase {
  /**
   * The tag which should be used for the error message
   * 
-  * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add<br>
+  * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add<br />
   * 
   * Example:
   * <samp>
@@ -629,7 +629,7 @@ class feindura extends feinduraBase {
  /**
   * Contains an id-Attribute which will be add to the error tag
   * 
-  * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
+  * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * Example:
@@ -648,7 +648,7 @@ class feindura extends feinduraBase {
  /**
   * Contains an class-Attribute which will be add to the error tag
   * 
-  * <b>Notice</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br>
+  * <b>Notice</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
   * 
   * Example:
   * <samp>
@@ -690,13 +690,13 @@ class feindura extends feinduraBase {
  /* **************************************************************************************************************************** */
   
  /**
-  * <b>Type</b> constructor<br> 
-  * <b>Name</b> feindura()<br>
+  * <b>Type</b> constructor<br /> 
+  * <b>Name</b> feindura()<br />
   * 
   * The constructor of the class, sets all basic properties.
   * 
   * Run the {@link feinduraBase::feinduraBase()} class constructor to set all necessary properties
-  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br>
+  * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br />
   * If there is no page and category ID it sets the start page ID from the {@link feinduraBase::$websiteConfig website-settings config}.
   * 
   * Example:
@@ -713,8 +713,8 @@ class feindura extends feinduraBase {
   * @see feinduraBase::feinduraBase()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -735,7 +735,7 @@ class feindura extends feinduraBase {
   // ****************************************************************************************************************
   
  /**
-  * <b>Name</b>     setStartPage()<br>
+  * <b>Name</b>     setStartPage()<br />
   * 
   * Set a page ID to the {@link $startPage} and {@link $page} property.
   * 
@@ -749,8 +749,8 @@ class feindura extends feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -764,7 +764,7 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b>     getLanguage()<br>
+  * <b>Name</b>     getLanguage()<br />
   * 
   * Returns the {@link $language language country code} which was set in the feindura:feinduraBase() constructor.
   * 
@@ -776,8 +776,8 @@ class feindura extends feinduraBase {
   * @see feinduraBase::feinduraBase()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -786,7 +786,7 @@ class feindura extends feinduraBase {
   }
   
   /**
-  * <b>Name</b>     getLanguageFile()<br>
+  * <b>Name</b>     getLanguageFile()<br />
   * 
   * Check a specific directory for files beginning or ending with a country code (e.g. "en", "de", ...) and compare these with the browser language.
   * If a match is found it set the country code to the {@link feinduraBase::$language} property and returns the included language file.
@@ -795,10 +795,10 @@ class feindura extends feinduraBase {
   * Example of a language file
   * @example languageFile.array.example.php
   * 
-  * <b>Used Global Variables</b><br>
+  * <b>Used Global Variables</b><br />
   *    - <var>$_SESSION['language']</var> the country code will be stored in this SESSION variable
   * 
-  * <b>Used Constants</b><br>
+  * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $langFilesPath a absolute path where the language files are situated
@@ -812,8 +812,8 @@ class feindura extends feinduraBase {
   * @see generalFunctions::checkLanguageFiles()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -846,8 +846,8 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMetaTags()<br>
-  * <b>Alias</b>    createMetaTag()<br>
+  * <b>Name</b>     createMetaTags()<br />
+  * <b>Alias</b>    createMetaTag()<br />
   * 
   * Creates a string with all necessary meta tags.
   * 
@@ -868,8 +868,8 @@ class feindura extends feinduraBase {
   * 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -965,15 +965,15 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b> createHref()<br>
+  * <b>Name</b> createHref()<br />
   * 
   * Generates a href attribute which links to a page.
-  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br>
+  * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br />
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
-  * Examples of the returned href string:<br>
+  * Examples of the returned href string:<br />
   * <i>("user=xyz123" stands for: sessionname=sessionid)</i>
   * 
   * Pages without category: 
@@ -999,8 +999,8 @@ class feindura extends feinduraBase {
   * @see generalFunctions::createHref()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1017,7 +1017,7 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b> createLink()<br>
+  * <b>Name</b> createLink()<br />
   * 
   * Creates a link from a page ID.
   * 
@@ -1070,8 +1070,8 @@ class feindura extends feinduraBase {
   * @see createMenuByDate()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1161,7 +1161,7 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b> createMenu()<br>
+  * <b>Name</b> createMenu()<br />
   * 
   * Creates a menu from category or page ID(s).
   * 
@@ -1222,8 +1222,8 @@ class feindura extends feinduraBase {
   * @see createMenuByDate()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1310,7 +1310,7 @@ class feindura extends feinduraBase {
       // adds the break after BR
       if($breakAfter === true) {
         if($this->xHtml === true)
-          $link .= "<br \>\n";
+          $link .= "<br />\n";
         else
           $link .= "<br>\n";
       */
@@ -1383,8 +1383,8 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMenuByTags()<br>
-  * <b>Alias</b>    createMenuByTag()<br>
+  * <b>Name</b>     createMenuByTags()<br />
+  * <b>Alias</b>    createMenuByTag()<br />
   * 
   * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
@@ -1447,8 +1447,8 @@ class feindura extends feinduraBase {
   * @see createMenuByDate()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1472,8 +1472,8 @@ class feindura extends feinduraBase {
   }
   
  /**
-  * <b>Name</b>     createMenuByDate()<br>
-  * <b>Alias</b>    createMenuByDates()<br>
+  * <b>Name</b>     createMenuByDate()<br />
+  * <b>Alias</b>    createMenuByDates()<br />
   * 
   * Creates a menu from category or page ID(s) sorted by the page date,
   * with pages which have a page date and the page date fit in the time period
@@ -1536,8 +1536,8 @@ class feindura extends feinduraBase {
   * @see createMenuByTags()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1560,8 +1560,8 @@ class feindura extends feinduraBase {
   }  
   
  /**
-  * <b>Name</b>     getPageTitle()<br>
-  * <b>Alias</b>    getTitle()<br>
+  * <b>Name</b>     getPageTitle()<br />
+  * <b>Alias</b>    getTitle()<br />
   * 
   * Returns the title of a page.
   * This page title will be generated using the title properties.
@@ -1587,8 +1587,8 @@ class feindura extends feinduraBase {
   * @see feinduraBase::createTitle()  
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1630,15 +1630,15 @@ class feindura extends feinduraBase {
   
   
  /**
-  * <b>Name</b>  showPage()<br>
-  * <b>Alias</b> showPages()<br>  
+  * <b>Name</b>  showPage()<br />
+  * <b>Alias</b> showPages()<br />  
   * 
   * Returns a page for displaying in a HTML-page.
   * This array will conatin all elements of the page, ready for displaying in a HTML-page.
   * 
   * In case the page doesn't exists or is not public and the {@link $showError} property is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
-  * otherwiese it returns an empty array.<br>
+  * otherwiese it returns an empty array.<br />
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
@@ -1682,8 +1682,8 @@ class feindura extends feinduraBase {
   * @see feinduraBase::generatePage()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1717,8 +1717,8 @@ class feindura extends feinduraBase {
   }
 
  /**
-  * <b>Name</b>     listPages()<br>
-  * <b>Alias</b>    listPage()<br>
+  * <b>Name</b>     listPages()<br />
+  * <b>Alias</b>    listPage()<br />
   * 
   * List pages by given category or page ID(s).
   * 
@@ -1774,8 +1774,8 @@ class feindura extends feinduraBase {
   * @see listPagesByDate() 
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1818,8 +1818,8 @@ class feindura extends feinduraBase {
   }
 
  /**
-  * <b>Name</b>     listPagesByTags()<br>
-  * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br>
+  * <b>Name</b>     listPagesByTags()<br />
+  * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br />
   * 
   * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
@@ -1873,8 +1873,8 @@ class feindura extends feinduraBase {
   * @see listPagesByDate()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
@@ -1914,8 +1914,8 @@ class feindura extends feinduraBase {
   }  
   
  /**
-  * <b>Name</b>     listPagesByDate()<br>
-  * <b>Alias</b>    listPagesByDates(), listPageByDate(), listPageByDates()<br>
+  * <b>Name</b>     listPagesByDate()<br />
+  * <b>Alias</b>    listPagesByDates(), listPageByDate(), listPageByDates()<br />
   * 
   * List pages by given category or page ID(s) sorted by the page date which have a page date and it fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
@@ -1968,8 +1968,8 @@ class feindura extends feinduraBase {
   * @see listPagesByTags()
   * 
   * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
+  * <br />
+  * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
