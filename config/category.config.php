@@ -62,7 +62,7 @@ $categoryConfig['id_5']['thumbRatio'] =      '';
 
 $categoryConfig['id_4']['id'] =              4;
 $categoryConfig['id_4']['name'] =            'Examples (de)';
-$categoryConfig['id_4']['public'] =          true;
+$categoryConfig['id_4']['public'] =          false;
 $categoryConfig['id_4']['createdelete'] =    true;
 $categoryConfig['id_4']['thumbnail'] =       false;
 $categoryConfig['id_4']['plugins'] =         false;

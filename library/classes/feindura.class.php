@@ -764,6 +764,45 @@ class feindura extends feinduraBase {
   }
   
  /**
+  * <b>Name</b>     setLanguage()<br />
+  * 
+  * Set the {@link feinduraBase::$language} property and reloads the frontend language file.
+  * 
+  * <b>Notice</b> The country code will also be set to the <var>$_SESSION['language']</var> variable.
+  * 
+  * <b>Used Global Variables</b><br />
+  *    - <var>$_SESSION['language']</var> the country code will be stored in this SESSION variable
+  * 
+  * @param string $language a language country code like "en", "de", ...
+  * 
+  * @uses feinduraBase::$language	the language country code like "en", "de", ... which will be returned
+  * 
+  * @return string|false the {@link $language language country code} or FALSE if the given $language parameter is no country code
+  * 
+  * @see feindura()  
+  * @see feinduraBase::feinduraBase()
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  function setLanguage($language) {
+    
+    if(is_string($language) && strlen($language) == 2) {
+      
+      $_SESSION['language'] = $language;
+      
+      $this->language = $language;
+      $this->loadFrontendLanguageFile($this->language);
+      
+      return $this->language;
+    } else
+      return false;
+  }  
+
+ /**
   * <b>Name</b>     getLanguage()<br />
   * 
   * Returns the {@link $language language country code} which was set in the feindura:feinduraBase() constructor.
@@ -788,12 +827,17 @@ class feindura extends feinduraBase {
   /**
   * <b>Name</b>     getLanguageFile()<br />
   * 
-  * Check a specific directory for files beginning or ending with a country code (e.g. "en", "de", ...) and compare these with the browser language.
+  * 
+  * Check a specific directory for files beginning or ending with a country code (e.g. "en", "de", ...).<br />
+  * If the <var>$_SESSION['language']</var> is set, it uses the country code from this variable, otherwise it compare the files with the the browser language.
   * If a match is found it set the country code to the {@link feinduraBase::$language} property and returns the included language file.
   * If no match could be found it returns an empty array.
   * 
+  * <b>Notice</b> The country code (from the <var>$_SESSION['language']</var> variable or the browser) 
+  * will also be set to the {@link feinduraBase::$language} property and the frontend language file will be reloaded with the new country code.
+  * 
   * Example of a language file
-  * @example languageFile.array.example.php
+  * {@example languageFile.array.example.php}
   * 
   * <b>Used Global Variables</b><br />
   *    - <var>$_SESSION['language']</var> the country code will be stored in this SESSION variable
@@ -804,7 +848,8 @@ class feindura extends feinduraBase {
   * @param string $langFilesPath a absolute path where the language files are situated
   * 
   * @uses feinduraBase::$language                     the language country code like "en", "de", ... which will be returned
-  * @uses generalFunctions::checkLanguageFiles()  check the browser language and returns the country code
+  * @uses feindura::setLanguage()                     to set the {@link $language} property and reload the frontend language file
+  * @uses generalFunctions::checkLanguageFiles()      check the browser language and returns the country code
   * 
   * 
   * @return array the right language file or and empty array
@@ -834,8 +879,7 @@ class feindura extends feinduraBase {
     }
     
     // SET the country code to the language property
-    $this->language = $_SESSION['language'];
-    $this->loadFrontendLanguageFile($this->language);
+    $this->setLanguage($_SESSION['language']);
     
         
     // includes the langFile and returns it

@@ -10,6 +10,7 @@ array(
     'thumbnail' => false, // page has no thumbnail
     'thumbnailPath' => false, // page has no thumbnail
     'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
+    'description' => 'Short description of the page',
     'tags' => 'tag1 tag2 tag3',
     'plugins' => array (?)
     ),
@@ -22,6 +23,7 @@ array(
     'thumbnail' => false, // page has no thumbnail
     'thumbnailPath' => false, // page has no thumbnail
     'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
+    'description' => 'Short description of the page',
     'tags' => 'tag3 tag4',
     'plugins' => array (?)
     ),
@@ -34,9 +36,12 @@ array(
     'thumbnail' => '<img src="/path/thumb_cat1page3.png" alt="Thumbnail" title="Title Example 3" />',
     'thumbnailPath' => '/path/thumb_cat1page3.png',
     'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
+    'description' => 'Short description of the page',
     'tags' => 'tag3 tag1',
     'plugins' => array (?)
     )
   )
+  
+  ...
   
 ?>
