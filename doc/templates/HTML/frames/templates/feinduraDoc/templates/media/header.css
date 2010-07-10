@@ -17,13 +17,21 @@ body {
   }
 
 /* README CHANGELOG LICENSE */
-#readmechangelog {
+.menu {
   position: absolute;
   bottom: 20px;
-  right: 5px;
-  width: 310px; /* org 250px */
+  /*width: 310px; org 250px */
   font-size: 12px;
-  text-align: center;
+  }
+
+.menu.left {
+  left: 265px;
+  text-align: left;
+  }
+
+.menu.right {
+  right: 8px;
+  text-align: right;
   }
 
 /* PACKAGE SELECTION */

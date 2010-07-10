@@ -58,7 +58,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
   <title>      
-    <?php echo $websiteConfig['title']; ?> -> feindura CMS
+    feindura > <?php echo $websiteConfig['title']; ?> 
   </title>
   
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -70,7 +70,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy würde die seite nicht cachen-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy würde die seite nicht cachen-->  
       
-  <meta name="title" content="feindura CMS -> <?php echo $websiteConfig['title']; ?>" />    
+  <meta name="title" content="feindura > <?php echo $websiteConfig['title']; ?>" />    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    

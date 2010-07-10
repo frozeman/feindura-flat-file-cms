@@ -55,7 +55,13 @@
 	{/if}
 	</div>
 	
-	<div id="readmechangelog">
+  <div class="menu left">
+	<a href="http://feindura.org" target="_top">feindura.org</a> | 
+	<a href="http://feindura.org/?site=gettingstarted" target="_top">Getting started</a> | 
+	<a href="http://feindura.org/?site=examples" target="_top">Examples</a>
+	</div>
+	
+	<div class="menu right">
 	<a href="blank.html" target="right">STARTPAGE</a>
 	{if count($ric) >= 1}
 	   | 
