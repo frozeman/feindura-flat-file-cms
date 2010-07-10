@@ -24,10 +24,10 @@ DESCRIPTION
   It's main target is to provide an easy to integrate CMS for webdesigners who want to focus on their design rather than the backend structure.
 
 BACKEND
-  The CMS has a simple and easy to use interface with a simple structure, though its possible to create rather big content websites through the category system its uses.
+  The CMS has a simple and easy to use interface with a simple structure, even though its possible to create large content websites through the category system.
 
-IMPLIMENTATION
-  You should have some basic knowledge in PHP so that you can impliment the CMS in your website. But by following the given examples in this documentation it should easy to use feindura.
+YOUR KNOWLEDGE
+  You should have some basic knowledge in PHP so that you can impliment the CMS in your website. But by following the given examples it should easy to use feindura.
   It's basic requirements for the implimentation in a website is a Apache server with PHP, however for using the CMS backend its recommend to have Javascript activated.
 
 
@@ -48,9 +48,10 @@ FEATURES
   addon system, build your own application running in the feindura-CMS backend
  
 REQUIREMENTS
+  Apache Server (for .htaccess login and if desired: Speaking URLs)
   PHP >= 4.3.0 (SafeMode OFF) (PHP 5 for the FileManager)
   Javascript
 
 APPROPRIATE USES  
-  It's not tested yet, but it should work well on websites with up to 10 000 vistiors per day
-  feinduraPages::$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB
+  It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.
+  The feinduraPages::$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB (means you website can have up to 30 000 pages)
