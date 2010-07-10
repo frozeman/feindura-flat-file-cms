@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 beta 3
-Build 287
+Build 288
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 beta 3
+  build 288: fixed basePath issue in adminSetup.php
   build 287: add setLanguage() to feindura class
   build 286: fixed redirection in API reference
   build 285: finished API reference design

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* adminSetup.php version 2.35
+* adminSetup.php version 2.36
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -32,8 +32,12 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   foreach($_POST as $postKey => $post) {
     
     if(strstr($postKey,'Path')) {
-      if(!empty($post) && substr($post,-1) !== '/')
-        $_POST[$postKey] = $post.'/';
+      if(!empty($post) && substr($post,-1) !== '/') {
+        $post = $post.'/';        
+      }
+      $post = preg_replace("#/+#",'/',$post);
+      
+      $_POST[$postKey] = $post;
     }
   }
   
@@ -159,7 +163,9 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   
   // -> PREPARE CONFIG VARs
   $adminConfig['url'] = $_SERVER["HTTP_HOST"];
-  $adminConfig['basePath'] = dirname($_SERVER['PHP_SELF']).'/';
+  $adminConfig['basePath'] = (substr(dirname($_SERVER['PHP_SELF']),-1) == '/')
+  ? dirname($_SERVER['PHP_SELF'])
+  : dirname($_SERVER['PHP_SELF']).'/';
   $adminConfig['savePath'] =  $_POST['cfg_savePath'];
   
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
@@ -323,7 +329,14 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       <label for="cfg_basePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field2'].'::'.$langFile['adminSetup_fmsSettings_field2_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_field2'] ?></span></label>
       </td><td class="right">
-      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != dirname($_SERVER['PHP_SELF']).'/') echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field2_inputTip']; ?>" />
+      <?php
+      
+      $checkPath = (substr(dirname($_SERVER['PHP_SELF']),-1) == '/')
+      ? dirname($_SERVER['PHP_SELF'])
+      : dirname($_SERVER['PHP_SELF']).'/';
+      
+      ?>
+      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field2_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>
