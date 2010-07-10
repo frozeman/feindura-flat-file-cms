@@ -2,12 +2,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<!-- template designed by Marco Von Ballmoos -->
-	<title>{$title}</title>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  
+  <!-- template designed by Marco Von Ballmoos (redesigned by Fabian Vogelsteller [frozeman.de]) -->
+	<title>{$title}</title>	
+	
 	<link rel="stylesheet" href="{$subdir}media/reset.css" />
 	<link rel="stylesheet" href="{$subdir}media/stylesheet.css" />
 	<link rel="stylesheet" href="{$subdir}media/left_menu.css" />
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+	
+	<!-- thirdparty/MooTools -->
+  <script type="text/javascript" src="{$subdir}media/javascript/mootools-1.2.4-core.js"></script>
+	
+	<script type="text/javascript" src="{$subdir}media/javascript/linksMenu.js"></script>	
+	
 </head>
 <body>		
 <h1 class="package-title">{$package}</h1>

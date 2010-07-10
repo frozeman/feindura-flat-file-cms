@@ -7,7 +7,13 @@
 			<title>{$title}</title>
 			<link rel="stylesheet" href="{$subdir}media/reset.css" />
 			<link rel="stylesheet" href="{$subdir}media/stylesheet.css" />
-			<!--[if IE 6]><link rel="stylesheet" href="{$subdir}media/ie.css" /><![endif]-->			
+			<!--[if IE 6]><link rel="stylesheet" href="{$subdir}media/ie.css" /><![endif]-->
+      
+      <!-- thirdparty/MooTools -->
+      <script type="text/javascript" src="{$subdir}media/javascript/mootools-1.2.4-core.js"></script>
+      <script type="text/javascript" src="{$subdir}media/javascript/mootools-1.2.4.4-more.js"></script>
+      
+      <script type="text/javascript" src="{$subdir}media/javascript/linksPage.js"></script>
 		</head>
 		<body>
 			{if $top3}<div class="page-body">{/if}

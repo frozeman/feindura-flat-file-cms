@@ -10,29 +10,29 @@
 			<span class="disabled">Description</span> |
 		{/if}
 		{if $children}
-			<a href="#sec-descendents">Descendents</a>
+			<a href="#sec-descendents" class="smoothAnchor">Descendents</a>
 			{if $vars || $ivars || $methods || $imethods || $consts || $iconsts}|{/if}
 		{/if}
 		{if $vars || $ivars}
 			{if $vars}
-				<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
+				<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<a href="#sec-vars" class="smoothAnchor">details</a>)
 			{else}
-				<a href="#sec-vars">Properties</a>
+				<a href="#sec-vars" class="smoothAnchor">Properties</a>
 			{/if}
 			{if $methods || $imethods}|{/if}
 		{/if}
 		{if $methods || $imethods}
 			{if $methods}
-				<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+				<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<a href="#sec-methods" class="smoothAnchor">details</a>)
 			{else}
-				<a href="#sec-methods">Methods</a>
+				<a href="#sec-methods" class="smoothAnchor">Methods</a>
 			{/if}			
 		{/if}
 		{if $consts || $iconsts}
 			{if $consts}
-				<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+				<a href="#sec-const-summary" class="smoothAnchor">Constants</a> (<a href="#sec-consts" class="smoothAnchor">details</a>)
 			{else}
-				<a href="#sec-consts">Constants</a>
+				<a href="#sec-consts" class="smoothAnchor">Constants</a>
 			{/if}			
 		{/if}
 	</div>
@@ -78,29 +78,29 @@
 	<div class="info-box">
 		<div class="info-box-title">Direct descendents</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
+			<a href="#sec-description" class="smoothAnchor">Description</a> |
 			<span class="disabled">Descendents</span>
 			{if $vars || $ivars || $methods || $imethods}|{/if}
 			{if $vars || $ivars}
 				{if $vars}
-					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
+					<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<a href="#sec-vars" class="smoothAnchor">details</a>)
 				{else}
-					<a href="#sec-vars">Properties</a>
+					<a href="#sec-vars" class="smoothAnchor">Properties</a>
 				{/if}
 				{if $methods || $imethods}|{/if}
 			{/if}
 			{if $methods || $imethods}
 				{if $methods}
-					<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+					<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<a href="#sec-methods" class="smoothAnchor">details</a>)
 				{else}
-					<a href="#sec-methods">Methods</a>
+					<a href="#sec-methods" class="smoothAnchor">Methods</a>
 				{/if}			
 			{/if}
 			{if $consts || $iconsts}
 				{if $consts}
-					<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+					<a href="#sec-const-summary" class="smoothAnchor">Constants</a> (<a href="#sec-consts" class="smoothAnchor">details</a>)
 				{else}
-					<a href="#sec-consts">Constants</a>
+					<a href="#sec-consts" class="smoothAnchor">Constants</a>
 				{/if}			
 			{/if}
 		</div>
@@ -134,25 +134,25 @@
   	<div class="info-box">
   		<div class="info-box-title">Class Constant Summary</span></div>
   		<div class="nav-bar">
-  			<a href="#sec-description">Description</a> |
+  			<a href="#sec-description" class="smoothAnchor">Description</a> |
   			{if $children}
-  				<a href="#sec-descendents">Descendants</a> |
+  				<a href="#sec-descendents" class="smoothAnchor">Descendants</a> |
   			{/if}
-  			<span class="disabled">Constants</span> (<a href="#sec-consts">details</a>)
+  			<span class="disabled">Constants</span> (<a href="#sec-consts" class="smoothAnchor">details</a>)
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<a href="#sec-vars" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-vars">Properties</a>
+  					<a href="#sec-vars" class="smoothAnchor">Properties</a>
   				{/if} 
   				|
   			{/if}
   			{if $methods || $imethods}
   				| 
   				{if $methods}
-  					<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+  					<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<a href="#sec-methods" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-methods">Methods</a>
+  					<a href="#sec-methods" class="smoothAnchor">Methods</a>
   				{/if}			
   			{/if}
   		</div>
@@ -162,7 +162,7 @@
   				{section name=consts loop=$consts}
   				<td class="const-title">
   					<img src="{$subdir}media/images/Constant.png" alt=" " />
-  					<a href="#{$consts[consts].const_name}" title="details" class="const-name">{$consts[consts].const_name}</a> = <span class="var-type">{$consts[consts].const_value}</span>
+  					<a href="#{$consts[consts].const_name}" title="details" class="const-name smoothAnchor">{$consts[consts].const_name}</a> = <span class="var-type">{$consts[consts].const_value}</span>
   
   				</td>
   				{/section}
@@ -180,24 +180,24 @@
   	<div class="info-box">
   		<div class="info-box-title">Property Summary</span></div>
   		<div class="nav-bar">
-  			<a href="#sec-description">Description</a> |
+  			<a href="#sec-description" class="smoothAnchor">Description</a> |
   			{if $children}
-  				<a href="#sec-descendents">Descendents</a> |
+  				<a href="#sec-descendents" class="smoothAnchor">Descendents</a> |
   			{/if}
-  			<span class="disabled">Properties</span> (<a href="#sec-vars">details</a>)
+  			<span class="disabled">Properties</span> (<a href="#sec-vars" class="smoothAnchor">details</a>)
   			{if $methods || $imethods}
   				| 
   				{if $methods}
-  					<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+  					<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<a href="#sec-methods" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-methods">Methods</a>
+  					<a href="#sec-methods" class="smoothAnchor">Methods</a>
   				{/if}			
   			{/if}
   			{if $consts || $iconsts}
   				{if $consts}
-  					<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+  					<a href="#sec-const-summary" class="smoothAnchor">Constants</a> (<a href="#sec-consts" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-consts">Constants</a>
+  					<a href="#sec-consts" class="smoothAnchor">Constants</a>
   				{/if}			
   			{/if}
   		</div>
@@ -208,7 +208,7 @@
   				{if $vars[vars].static}
   				<tr class="var-title">
   					<td class="var-type">static <span>{$vars[vars].var_type}</span></td>
-  					<td><a href="#{$vars[vars].var_name}" title="details" class="var-name">{$vars[vars].var_name}</a></td>
+  					<td><a href="#{$vars[vars].var_name}" title="details" class="var-name smoothAnchor">{$vars[vars].var_name}</a></td>
   				</tr>
   				{/if}
   				{/section}
@@ -216,7 +216,7 @@
   				{if !$vars[vars].static}
   				<tr class="var-title">
   					<td class="var-type">{$vars[vars].var_type}</td>
-  					<td><a href="#{$vars[vars].var_name}" title="details" class="var-name">{$vars[vars].var_name}</a></td>
+  					<td><a href="#{$vars[vars].var_name}" title="details" class="var-name smoothAnchor">{$vars[vars].var_name}</a></td>
   				</tr>
   				{/if}
   				{/section}
@@ -234,26 +234,26 @@
   	<div class="info-box">
   		<div class="info-box-title">Method Summary</span></div>
   		<div class="nav-bar">
-  			<a href="#sec-description">Description</a> |
+  			<a href="#sec-description" class="smoothAnchor">Description</a> |
   			{if $children}
-  				<a href="#sec-descendents">Descendents</a> |
+  				<a href="#sec-descendents" class="smoothAnchor">Descendents</a> |
   			{/if}
   			{if $consts || $iconsts}
   				{if $consts}
-  					<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+  					<a href="#sec-const-summary" class="smoothAnchor">Constants</a> (<a href="#sec-consts" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-consts">Constants</a>
+  					<a href="#sec-consts" class="smoothAnchor">Constants</a>
   				{/if}			
   			{/if}
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<a href="#sec-vars" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-vars">Properties</a>
+  					<a href="#sec-vars" class="smoothAnchor">Properties</a>
   				{/if} 
   				|
   			{/if}
-  			<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+  			<span class="disabled">Methods</span> (<a href="#sec-methods" class="smoothAnchor">details</a>)
   		</div>
   		<div class="info-box-body">			
   			<div class="method-summary">
@@ -264,7 +264,7 @@
   					<td class="method-result">static {if $methods[methods].function_return}
   						<span >{$methods[methods].function_return}</span>
   					{/if}</td>
-  					<td><a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>
+  					<td><a href="#{$methods[methods].function_name}" title="details" class="method-name smoothAnchor">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a>
   					{if count($methods[methods].ifunction_call.params)}
   						({section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1}, {/if}{if $methods[methods].ifunction_call.params[params].hasdefault}[{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>]{/if}{/section})
   					{else}
@@ -280,7 +280,7 @@
   					<td class="method-name">{if $methods[methods].function_return}
   						<span class="method-result">{$methods[methods].function_return}</span>
   					{/if}
-  					<a href="#{$methods[methods].function_name}" title="details" class="method-name">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a></td>
+  					<a href="#{$methods[methods].function_name}" title="details" class="method-name smoothAnchor">{if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}</a></td>
   					<td>{if count($methods[methods].ifunction_call.params)}
   						<span class="method-braces">(</span>{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br />&nbsp;{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
   					{else}
@@ -304,36 +304,36 @@
   	<div class="info-box">
   		<div class="info-box-title">Class Constants</div>
   		<div class="nav-bar">
-  			<a href="#sec-description">Description</a> |
+  			<a href="#sec-description" class="smoothAnchor">Description</a> |
   			{if $children}
-  				<a href="#sec-descendents">Descendants</a> |
+  				<a href="#sec-descendents" class="smoothAnchor">Descendants</a> |
   			{/if}
   			{if $methods}
-  				<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+  				<a href="#sec-var-summary" class="smoothAnchor">Constants</a> (<span class="disabled">details</span>)
   			{else}
   				<span class="disabled">Constants</span>
   			{/if}			
   			
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<a href="#sec-vars" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-vars">Properties</a>
+  					<a href="#sec-vars" class="smoothAnchor">Properties</a>
   				{/if}
   			{/if}
   			{if $methods || $imethods}
   				| 
   				{if $methods}
-  					<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+  					<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<a href="#sec-methods" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-methods">Methods</a>
-  				{/if}			
+  					<a href="#sec-methods" class="smoothAnchor">Methods</a>
+  				{/if}
   			{/if}
   		</div>
   		<div class="info-box-body">
   		  {if $iconsts}
   				<h4>Inherited Constants</h4>
-  				<A NAME='inherited_vars'><!-- --></A>
+  				<a name='inherited_vars'><!-- --></a>
   				{section name=iconsts loop=$iconsts}
   					<p>Inherited from <span class="classname">{$iconsts[iconsts].parent_class}</span></p>
   					<blockquote>
@@ -361,36 +361,36 @@
   	<div class="info-box">
   		<div class="info-box-title">Properties</div>
   		<div class="nav-bar">
-  			<a href="#sec-description">Description</a> |
+  			<a href="#sec-description" class="smoothAnchor">Description</a> |
   			{if $children}
-  				<a href="#sec-descendents">Descendents</a> |
+  				<a href="#sec-descendents" class="smoothAnchor">Descendents</a> |
   			{/if}
   			{if $methods}
-  				<a href="#sec-var-summary">Properties</a> (<span class="disabled">details</span>)
+  				<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<span class="disabled">details</span>)
   			{else}
   				<span class="disabled">Properties</span>
   			{/if}			
   			
   			{if $consts || $iconsts}
   				{if $consts}
-  					<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+  					<a href="#sec-const-summary" class="smoothAnchor">Constants</a> (<a href="#sec-consts" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-consts">Constants</a>
+  					<a href="#sec-consts" class="smoothAnchor">Constants</a>
   				{/if}			
   			{/if}
   			{if $methods || $imethods}
   				| 
   				{if $methods}
-  					<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+  					<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<a href="#sec-methods" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-methods">Methods</a>
+  					<a href="#sec-methods" class="smoothAnchor">Methods</a>
   				{/if}			
   			{/if}
   		</div>
   		<div class="info-box-body">
   		  {if $ivars}
   				<h4>Inherited Properties</h4>
-  				<A NAME='inherited_vars'><!-- --></A>
+  				<a name='inherited_vars'><!-- --></a>
   				{section name=ivars loop=$ivars}
   					<p>Inherited from <span class="classname">{$ivars[ivars].parent_class}</span></p>
   					<blockquote>
@@ -418,26 +418,26 @@
   	<div class="info-box">
   		<div class="info-box-title">Methods</div>
   		<div class="nav-bar">
-  			<a href="#sec-description">Description</a> |
+  			<a href="#sec-description" class="smoothAnchor">Description</a> |
   			{if $children}
-  				<a href="#sec-descendents">Descendents</a> |
+  				<a href="#sec-descendents" class="smoothAnchor">Descendents</a> |
   			{/if}
   			{if $vars || $ivars}
   				{if $vars}
-  					<a href="#sec-var-summary">Properties</a> (<a href="#sec-vars">details</a>)
+  					<a href="#sec-var-summary" class="smoothAnchor">Properties</a> (<a href="#sec-vars" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-vars">Properties</a>
+  					<a href="#sec-vars" class="smoothAnchor">Properties</a>
   				{/if}
   			{/if}
   			{if $consts || $iconsts}
   				{if $consts}
-  					<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+  					<a href="#sec-const-summary" class="smoothAnchor">Constants</a> (<a href="#sec-consts" class="smoothAnchor">details</a>)
   				{else}
-  					<a href="#sec-consts">Constants</a>
+  					<a href="#sec-consts" class="smoothAnchor">Constants</a>
   				{/if}			
   			{/if}
   			{if $methods}
-  				<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+  				<a href="#sec-method-summary" class="smoothAnchor">Methods</a> (<span class="disabled">details</span>)
   			{else}
   				<span class="disabled">Methods</span>
   			{/if}			

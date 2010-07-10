@@ -3,7 +3,7 @@
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
   
-  <a href="#sec-var-summary" class="upButton" title="back to the variable summary"></a>
+  <a href="#sec-var-summary" class="upButton smoothAnchor" title="back to the property summary"></a>
   
 	<div class="var-header">	  
 		<span class="var-title">		  
@@ -51,7 +51,7 @@
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
 
-  <a href="#sec-var-summary" class="upButton" title="back to the variable summary"></a>
+  <a href="#sec-var-summary" class="upButton smoothAnchor" title="back to the property summary"></a>
   
 	<div class="var-header">	  
 		<span class="var-title">

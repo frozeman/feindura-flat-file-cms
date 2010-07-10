@@ -7,6 +7,9 @@
   <title>{$title}</title>
   <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
   
+  <!-- thirdparty/MooTools -->
+  <script type="text/javascript" src="{$subdir}media/javascript/mootools-1.2.4-core.js"></script>
+  
   {literal}
   <script language="JavaScript">
   /* <![CDATA[ */    
@@ -27,7 +30,8 @@
       return result + subject.substring (oldi, subject.length);
     }
     
-    function loadPage() {
+    window.addEvent('domready', function() {
+    
       if(self.location.search.length > 0) {
         // get the url from the [implementation]/...
         var new_url = self.location.href;
@@ -47,6 +51,8 @@
           return false;
         }
         
+        new_url = str_replace('%23', '#', new_url);;
+        
         //alert(new_url);
         //alert(current_package);
         
@@ -61,18 +67,19 @@
         }
         return false;
       }
-    }
+      
+    });
 
   /* ]]> */
   </script>
   {/literal}
 </head>
 
-<frameset rows='123,*' border="0" onLoad="loadPage(); return true;"><!-- onLoad="loadPage(); return true;" -->
-	<frame src='packages.html' name='left_top' frameborder="0">
-	<frameset cols='251,*'>
-		<frame src='{$start}' name='left_bottom' frameborder="0">
-		<frame src='{$blank}.html' name='right' frameborder="0">
+<frameset rows='123,*' frameborder="0" framespacing="0" border="0"><!-- onLoad="loadPage(); return true;" -->
+	<frame src='packages.html' name='left_top' frameborder="0" framespacing="0" border="0" noresize="noresize">
+	<frameset cols='251,*' frameborder="0" framespacing="0" border="0">
+		<frame src='{$start}' name='left_bottom' frameborder="0" framespacing="0" border="0" noresize="noresize">
+		<frame src='{$blank}.html' name='right' frameborder="0" framespacing="0" border="0">
 	</frameset>
 	<noframes>
 		<h2>Frame Error</h2>

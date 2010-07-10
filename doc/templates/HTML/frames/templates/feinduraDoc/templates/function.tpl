@@ -2,7 +2,7 @@
 <a name="{$functions[func].function_dest}" id="{$functions[func].function_dest}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
-	<a href="#sec-description" class="upButton"></a>
+	<a href="#sec-description" class="upButton smoothAnchor" title="back to the function summary"></a>
 	
 	<div class="method-header">
 	  <span class="lineNumber"><span>File source:</span><br />

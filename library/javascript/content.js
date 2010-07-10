@@ -168,11 +168,14 @@ window.addEvent('domready', function() {
   });
   
   // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
-  /*
-  var anchorId = window.location.hash.substring(1);  
+/*
+  var anchorId = window.location.hash.substring(1);
+  alert(anchorId);
   if(anchorId) {
-    window.scrollTo(100, $(anchorId).getPosition().y);
+    //window.scrollTo(100, $(anchorId).getPosition().y);
+    //document.getElementById(anchorId)).scrollIntoView(true);
+    //window.location.hash = anchorId;
   }
-  */
+*/
 
 });

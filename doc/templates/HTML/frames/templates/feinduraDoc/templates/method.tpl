@@ -4,7 +4,7 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 
-  <a href="#sec-method-summary" class="upButton"></a>
+  <a href="#sec-method-summary" class="upButton smoothAnchor" title="back to the methods summary"></a>
   
   <div class="method-header">
     <span class="lineNumber"><span>File source:</span><br />
@@ -93,7 +93,7 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
-	<a href="#sec-method-summary" class="upButton"></a>
+	<a href="#sec-method-summary" class="upButton smoothAnchor" title="back to the methods summary"></a>
 	
 	<div class="method-header">
 	  <span class="lineNumber"><span>File source:</span><br />

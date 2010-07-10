@@ -10,23 +10,23 @@
 			<span class="disabled">Description</span> |
 		{/if}
 		{if $classes}
-			<a href="#sec-classes">Classes</a>
+			<a href="#sec-classes" class="smoothAnchor">Classes</a>
 			{if $includes || $defines || $globals || $functions}|{/if}
 		{/if}
 		{if $includes}
-			<a href="#sec-includes">Includes</a>
+			<a href="#sec-includes" class="smoothAnchor">Includes</a>
 			{if $defines || $globals || $functions}|{/if}
 		{/if}
 		{if $defines}
-			<a href="#sec-constants">Constants</a>
+			<a href="#sec-constants" class="smoothAnchor">Constants</a>
 			{if $globals || $functions}|{/if}
 		{/if}
 		{if $globals}
-			<a href="#sec-variables">Variables</a>
+			<a href="#sec-variables" class="smoothAnchor">Variables</a>
 			{if $functions}|{/if}
 		{/if}
 		{if $functions}
-			<a href="#sec-functions">Functions</a>
+			<a href="#sec-functions" class="smoothAnchor">Functions</a>
 		{/if}
 	</div>
 	<div class="info-box-body">	
@@ -44,23 +44,23 @@
 	<div class="info-box">
 		<div class="info-box-title">Classes</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
+			<a href="#sec-description" class="smoothAnchor">Description</a> |
 			<span class="disabled">Classes</span>
 			{if $includes || $defines || $globals || $functions}|{/if}
 			{if $includes}
-				<a href="#sec-includes">Includes</a>
+				<a href="#sec-includes" class="smoothAnchor">Includes</a>
 				{if $defines || $globals || $functions}|{/if}
 			{/if}
 			{if $defines}
-				<a href="#sec-constants">Constants</a>
+				<a href="#sec-constants" class="smoothAnchor">Constants</a>
 				{if $globals || $functions}|{/if}
 			{/if}
 			{if $globals}
-				<a href="#sec-variables">Variables</a>
+				<a href="#sec-variables" class="smoothAnchor">Variables</a>
 				{if $functions}|{/if}
 			{/if}
 			{if $functions}
-				<a href="#sec-functions">Functions</a>
+				<a href="#sec-functions" class="smoothAnchor">Functions</a>
 			{/if}
 		</div>
 		<div class="info-box-body">	
@@ -93,23 +93,23 @@
 	<div class="info-box">
 		<div class="info-box-title">Includes</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
+			<a href="#sec-description" class="smoothAnchor">Description</a> |
 			{if $classes}
-				<a href="#sec-classes">Classes</a>
+				<a href="#sec-classes" class="smoothAnchor">Classes</a>
 				{if $includes || $defines || $globals || $functions}|{/if}
 			{/if}
 			<span class="disabled">Includes</span>
 			{if $defines || $globals || $functions}|{/if}
 			{if $defines}
-				<a href="#sec-constants">Constants</a>
+				<a href="#sec-constants" class="smoothAnchor">Constants</a>
 				{if $globals || $functions}|{/if}
 			{/if}
 			{if $globals}
-				<a href="#sec-variables">Variables</a>
+				<a href="#sec-variables" class="smoothAnchor">Variables</a>
 				{if $functions}|{/if}
 			{/if}
 			{if $functions}
-				<a href="#sec-functions">Functions</a>
+				<a href="#sec-functions" class="smoothAnchor">Functions</a>
 			{/if}
 		</div>
 		<div class="info-box-body">	
@@ -123,23 +123,23 @@
 	<div class="info-box">
 		<div class="info-box-title">Constants</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
+			<a href="#sec-description" class="smoothAnchor">Description</a> |
 			{if $classes}
-				<a href="#sec-classes">Classes</a>
+				<a href="#sec-classes" class="smoothAnchor">Classes</a>
 				{if $includes || $defines || $globals || $functions}|{/if}
 			{/if}
 			{if $includes}
-				<a href="#sec-includes">Includes</a>
+				<a href="#sec-includes" class="smoothAnchor">Includes</a>
 				{if $defines || $globals || $functions}|{/if}
 			{/if}
 			<span class="disabled">Constants</span>
 			{if $globals || $functions}|{/if}
 			{if $globals}
-				<a href="#sec-variables">Variables</a>
+				<a href="#sec-variables" class="smoothAnchor">Variables</a>
 				{if $functions}|{/if}
 			{/if}
 			{if $functions}
-				<a href="#sec-functions">Functions</a>
+				<a href="#sec-functions" class="smoothAnchor">Functions</a>
 			{/if}
 		</div>
 		<div class="info-box-body">	
@@ -153,23 +153,23 @@
 	<div class="info-box">
 		<div class="info-box-title">Variables</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
+			<a href="#sec-description" class="smoothAnchor">Description</a> |
 			{if $classes}
-				<a href="#sec-classes">Classes</a>
+				<a href="#sec-classes" class="smoothAnchor">Classes</a>
 				{if $includes || $defines || $globals || $functions}|{/if}
 			{/if}
 			{if $includes}
-				<a href="#sec-includes">Includes</a>
+				<a href="#sec-includes" class="smoothAnchor">Includes</a>
 				{if $defines || $globals || $functions}|{/if}
 			{/if}
 			{if $defines}
-				<a href="#sec-constants">Constants</a>
+				<a href="#sec-constants" class="smoothAnchor">Constants</a>
 				{if $globals || $functions}|{/if}
 			{/if}
 			<span class="disabled">Variables</span>
 			{if $functions}|{/if}
 			{if $functions}
-				<a href="#sec-functions">Functions</a>
+				<a href="#sec-functions" class="smoothAnchor">Functions</a>
 			{/if}
 		</div>
 		<div class="info-box-body">	
@@ -183,21 +183,21 @@
 	<div class="info-box">
 		<div class="info-box-title">Functions</div>
 		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
+			<a href="#sec-description" class="smoothAnchor">Description</a> |
 			{if $classes}
-				<a href="#sec-classes">Classes</a>
+				<a href="#sec-classes" class="smoothAnchor">Classes</a>
 				{if $includes || $defines || $globals || $functions}|{/if}
 			{/if}
 			{if $includes}
-				<a href="#sec-includes">Includes</a>
+				<a href="#sec-includes" class="smoothAnchor">Includes</a>
 				{if $defines || $globals || $functions}|{/if}
 			{/if}
 			{if $defines}
-				<a href="#sec-constants">Constants</a>
+				<a href="#sec-constants" class="smoothAnchor">Constants</a>
 				{if $globals || $functions}|{/if}
 			{/if}
 			{if $globals}
-				<a href="#sec-variables">Variables</a>
+				<a href="#sec-variables" class="smoothAnchor">Variables</a>
 				{if $functions}|{/if}
 			{/if}
 			<span class="disabled">Functions</span>

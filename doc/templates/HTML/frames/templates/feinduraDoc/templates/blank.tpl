@@ -3,7 +3,7 @@
 <div align="center"><h1>{$maintitle}</h1></div>
 <h2>Welcome to the feindura API reference!</h2>
 <p>
-This reference was generated out of the comments of the feindura code.
+This reference was generated out of the comments in the feindura code.
 It should provide a sufficient description of all necessary methods and functions used by feindura.</p>
 <p>
 To implement feindura take a look in the <a href="li_[Implementation].html" target="left_bottom">[Implementation]</a> package, 

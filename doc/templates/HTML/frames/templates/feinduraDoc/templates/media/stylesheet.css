@@ -1,5 +1,6 @@
 body { 
     background: url(image/bg/main.png) repeat-y #ffffff;
+    margin: 0px;
     padding: 10px 23px;
     font-family: Verdana, Arial, sans-serif;
     font-size: 15px;    

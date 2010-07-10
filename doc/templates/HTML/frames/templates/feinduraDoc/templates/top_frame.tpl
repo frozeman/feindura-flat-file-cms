@@ -15,7 +15,11 @@
    var givenPackage = self.location.search.substring(1);
   
    function PreselectMyItem(itemToSelect) {
-  
+      
+      if(itemToSelect == '') {
+        itemToSelect = 'li_[Implementation].html';
+      }
+      
       // Get a reference to the drop-down
       var myDropdownList = document.formPackageSelection.packageSelection;
   
@@ -28,7 +32,7 @@
           myDropdownList.options[iLoop].selected = true;
           break;
         }
-      }  
+      }
     }
   /* ]]> */
   </script>
