@@ -17,7 +17,34 @@
 * 
 * headerMenus.css version 0.2 */
 
-    
+/* ----------------------- */
+/* --- LANGUAGE SELECTION */
+
+#languageSelection {
+    z-index: 2;
+    position: absolute;
+    bottom: 21px;
+    left: 30px;
+    }
+
+#languageSelection a {
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 21px;
+    }
+#languageSelection a:hover {
+    background-position: 0px -21px !important;
+    }
+#languageSelection a.en {
+    left: 0px;
+    background: url(../image/key/langSelection_en.png) no-repeat;
+    }
+#languageSelection a.de {
+    left: 30px;
+    background: url(../image/key/langSelection_de.png) no-repeat;
+    }
+
 /* ----------------------- */
 /* --- mainMenu */
 

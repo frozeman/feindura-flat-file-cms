@@ -1068,11 +1068,11 @@ function createhtaccess(&$status) {
 		$htaccess.= "AuthUserFile ".PASSWDFILE."\n"; // ORG: $htaccess.= "AuthUserFile ".$path."/".PASSWDFILE."\n";
 		$htaccess.= "require valid-user";
 
-		$filehandle = fopen(ACCESSFILE, "w");
+		$filehandle = @fopen(ACCESSFILE, "w");
 
-		fputs($filehandle, $htaccess);
+		@fputs($filehandle, $htaccess);
 
-		fclose($filehandle);
+		@fclose($filehandle);
 
 		$status .= $languagearray[10];
 
@@ -1085,11 +1085,11 @@ function createhtpasswd(&$newusers, &$status, &$existingusers) {
 
 	global $languagearrray;
 
-	$filehandle = fopen(PASSWDFILE, "a");
+	$filehandle = @fopen(PASSWDFILE, "a");
 
-	fputs ($filehandle, $newusers);
+	@fputs ($filehandle, $newusers);
 
-	fclose($filehandle);
+	@fclose($filehandle);
 
 	$existingusers = getusers($status, 1);
 

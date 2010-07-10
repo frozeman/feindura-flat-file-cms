@@ -197,6 +197,11 @@ if($_GET['site'] == 'addons') {
     <a id="top" name="top" class="anchorTarget"></a>
     
     <div id="headerBlock">
+      
+      <div id="languageSelection">
+        <a href="?language=en" class="en"></a>
+        <a href="?language=de" class="de"></a>
+      </div>
           
       <img src="library/image/bg/logo.png" id="logo" title="<?php echo $langFile['txt_logo'].$version[2].' - '.$version[3]; ?>" alt="feindura logo" />
       <div id="version"><?php echo $version[2]; ?></div>
