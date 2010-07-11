@@ -87,6 +87,10 @@ window.addEvent('domready', function() {
   // ->> ADMIN SETUP
   // ---------------
   
+  // -> adds auto grow to the userinfo textarea
+  if($('cfg_userInfo') != null)
+    new AutoGrow($('cfg_userInfo'));
+  
   // -> adds realtime THUMBSCALE to the thumbnail Settings
   setThumbScale('cfg_thumbWidth','thumbWidthScale','cfg_thumbHeight','thumbHeightScale');
   

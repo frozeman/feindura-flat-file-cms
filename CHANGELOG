@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 288
+Build 290
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,7 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 
 1.0 RC
-  
+  build 290: add AutoGrow to the userInfo and Page shoprt description textarea
 
 1.0 beta 3
   build 289: add language selection

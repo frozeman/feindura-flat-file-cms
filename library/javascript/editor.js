@@ -69,6 +69,10 @@ window.addEvent('domready', function() {
      
   }
   
+  // -> ADD auto grow to the userinfo textarea
+  if($('edit_description') != null)
+    new AutoGrow($('edit_description'));
+  
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MAX
   if($('visitTimeMax') != null) {
