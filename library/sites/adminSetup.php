@@ -24,7 +24,6 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 // **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
-
 // ****** ---------- SAVE ADMIN CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
@@ -58,27 +57,34 @@ RewriteEngine on
 RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
+RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.'),'',$_SERVER["HTTP_HOST"]).'$ [OR]
+RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
 RewriteRule ^category/([^/]+)/(.*)\.html?$ ?category=$1&page=$2$3 [QSA,L]
 RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
 </IfModule>';
     
-    $htaccessFile = DOCUMENTROOT.'/.htaccess';
+  $htaccessFile = DOCUMENTROOT.'/.htaccess';
   
   // ** looks for the apache modules
-  if(function_exists('apache_get_modules'))
-    $apacheModules = apache_get_modules();
-  else
-    $apacheModules = array(false);
+  $apacheModules = (function_exists('apache_get_modules'))
+  ? apache_get_modules()
+  : array(false);
   
   // ** looks if the MOD_REWRITE modul exists
-  if(!in_array('mod_rewrite',$apacheModules))
+  if(!in_array('mod_rewrite',$apacheModules)) {
     $_POST['cfg_speakingUrl'] = '';
+    //$errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_modul'];
   // ** ->> looks for a .htacces file with the speaking url mod_rewrite
-  elseif(in_array('mod_rewrite',$apacheModules) && $_POST['cfg_speakingUrl'] == 'true') {
-
+  } elseif($_POST['cfg_speakingUrl'] == 'true') {
+    
     // -> looks if the existing .htaccess file has the SPEAKING URL code
     if(file_exists($htaccessFile)) {
-
+      
+      /*echo $htaccessFile;      
+      echo file_get_contents($htaccessFile);      
+      echo '<br>-----<br>'.$speakingUrlCode;
+      */
+      
       if(strstr(file_get_contents($htaccessFile),$speakingUrlCode) === false) {
         if($htaccess = @fopen($htaccessFile,"a")) {
           flock($htaccess,2); // LOCK_EX
@@ -394,6 +400,12 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       <label for="cfg_speakingUrl"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_speakingUrl'].'::'.$langFile['adminSetup_fmsSettings_speakingUrl_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_speakingUrl'] ?></span></label>
       </td><td class="right">
+      <?php
+        $apacheModules = (function_exists('apache_get_modules'))
+        ? apache_get_modules()
+        : array(false);
+
+      ?>
       <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" <?php if(!in_array('mod_rewrite',$apacheModules)) echo 'disabled="disabled"'; ?>>
         <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; echo ' class="toolTip" title="'.$langFile['adminSetup_fmsSettings_speakingUrl_warning'].'"'; ?>><?php echo $langFile['adminSetup_fmsSettings_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['adminSetup_fmsSettings_speakingUrl_true_example'];?></option>
         <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['adminSetup_fmsSettings_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.$langFile['adminSetup_fmsSettings_speakingUrl_false_example'];?></option>

@@ -392,6 +392,8 @@ $langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNUNG!::[span class
 
 // ---------- speaking url ERRORs
 $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> konnte nicht aktiviert werden'.$langFile['error_save_file'].'/.htaccess';
+$langFile['adminSetup_fmsSettings_speakingUrl_error_modul'] = '<b>Speaking URLs</b> konnte nicht aktiviert werden da das Apache modul: MOD_REWRITE nicht gefunden wurde';
+
 
 // ---------- user Settings
 $langFile['adminSetup_userSettings_h1'] = 'Benutzer-Einstellungen';

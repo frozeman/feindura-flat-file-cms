@@ -388,11 +388,13 @@ $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URLs';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example_category/example.html';
 $langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URLs with variables';
 $langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
-$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'The URL format, which will be used to link the pages.[br /][br /]Speaking URLs only work if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
+$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'The URL format, which will be used to link the pages.[br /][br /]Speaking URLs work only if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
 $langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br /][br /](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
 // ---------- speaking url ERRORs
 $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> could not be activated'.$langFile['error_save_file'].'/.htaccess';
+$langFile['adminSetup_fmsSettings_speakingUrl_error_modul'] = '<b>Speaking URLs</b> could not be activated, because the Apache MOD_REWRITE modul could not be found';
+
 
 // ---------- user Settings
 $langFile['adminSetup_userSettings_h1'] = 'User-Settings';
