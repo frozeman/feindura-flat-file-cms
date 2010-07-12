@@ -502,7 +502,7 @@ class statisticFunctions extends generalFunctions {
   function saveTaskLog($task, $object = false) {
     
     $maxEntries = $this->statisticConfig['number']['taskLog'];
-    $logFilePath = dirname(__FILE__).'/../../'.'statistic/task.statistic.txt';
+    $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
     
     if(file_exists($logFilePath))
       $oldLog = file($logFilePath);
@@ -556,7 +556,7 @@ class statisticFunctions extends generalFunctions {
   function saveRefererLog() {
     
     $maxEntries = $this->statisticConfig['number']['refererLog'];
-    $logFile = dirname(__FILE__).'/../../'.'statistic/referer.statistic.txt';
+    $logFile = dirname(__FILE__).'/../../'.'statistic/referer.statistic.log';
     
     if(file_exists($logFile))
       $oldLog = file($logFile);

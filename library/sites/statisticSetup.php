@@ -84,7 +84,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR REFERER-LOG
   if($_POST['clearStatistics_refererLog'] == 'true' &&
-     $refererLogFile = @fopen(dirname(__FILE__)."/../../statistic/referer.statistic.txt","w")) {
+     $refererLogFile = @fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","w")) {
     fclose($refererLogFile);
     
     // set documentSaved status
@@ -95,7 +95,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR TASK-LOG
   if($_POST['clearStatistics_taskLog'] == 'true' &&
-     $taskLogFile = @fopen(dirname(__FILE__)."/../../statistic/task.statistic.txt","w")) {
+     $taskLogFile = @fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","w")) {
     fclose($taskLogFile);
     
     // set documentSaved status
