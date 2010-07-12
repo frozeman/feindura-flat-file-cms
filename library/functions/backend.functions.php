@@ -78,8 +78,9 @@ function isAdmin() {
   if($currentUser == 'admin' || $currentUser == 'administrator' || $currentUser == 'root' || $currentUser == 'superuser' || $currentUser == 'frozeman') {
     return true;
   } else { // otherwise it checks if in the htpasswd is one of the above usernames, if not return true
+
     // checks for userfile
-    if($getHtaccess = @file(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'.htaccess')) {      
+    if($getHtaccess = @file(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'.htaccess')) {
 
       // try to find the .htpasswd path
       foreach($getHtaccess as $htaccessLine) {
@@ -115,7 +116,8 @@ function isAdmin() {
     } else { // there is no user file      
       return true;
     }    
-  } return true;  
+  }  
+  return true;  
 }
 
 /**
@@ -1281,7 +1283,7 @@ function checkBasePath() {
   $baseUrl = str_replace('www.','',$GLOBALS['adminConfig']['url']);
   $checkUrl = str_replace('www.','',$_SERVER["HTTP_HOST"]);
   
-  if($GLOBALS['adminConfig']['basePath'] ==  dirname($_SERVER['PHP_SELF']).'/' ||
+  if($GLOBALS['adminConfig']['basePath'] ==  dirname($_SERVER['PHP_SELF']).'/' &&
      $baseUrl == $checkUrl)
     return true;
   else
