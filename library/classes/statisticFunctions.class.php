@@ -30,9 +30,10 @@
 * 
 * @package [Implementation]|[backend]
 * 
-* @version 0.57
+* @version 0.58
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.58 fixed isSpider() and saveWebsiteStatistic()
 *    - 0.57 add new browsers to createBrowserChart() 
 *    - 0.56 started documentation
 * 
@@ -936,10 +937,9 @@ class statisticFunctions extends generalFunctions {
       $i = 0;
       $summe = count($bots);
 
-      while ($i < $summe) {
-        if(strstr($userAgent, $bots[$i]))
+      foreach($bots as $bot) {
+        if(strstr(strtolower($userAgent), strtolower($bot)))
           return true; // User-Agent is a Bot
-        $i++;
       }
       // User-Agent is no Bot
       return false;
@@ -1106,9 +1106,10 @@ class statisticFunctions extends generalFunctions {
   *  
   * return bool TRUE if the website-statistics were saved, otherwise FALSE
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 if spider it will only be counted nothing else  
   *    - 1.0 initial release
   * 
   */
@@ -1124,24 +1125,24 @@ class statisticFunctions extends generalFunctions {
     
     // COUNT if the user/spider isn't already counted
     if(!isset($_SESSION['log_userVisited']) || $_SESSION['log_userVisited'] === false) {
-      
-      // -> saves the FIRST WEBSITE VISIT
-      // -----------------------------
-      if(!isset($this->websiteStatistic['firstVisit']) ||
-        (isset($this->websiteStatistic['firstVisit']) && empty($this->websiteStatistic['firstVisit'])))
-        $this->websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
-      
-      // -> saves the LAST WEBSITE VISIT
-      // ----------------------------
-      $this->websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
-      
-      // -> saves the HTTP REFERER
-      // ----------------------------
-      $this->saveRefererLog();
-      
+   
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
-          ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false) {
+      if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
+         (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
+         
+        // -> saves the FIRST WEBSITE VISIT
+        // -----------------------------
+        if(!isset($this->websiteStatistic['firstVisit']) ||
+          (isset($this->websiteStatistic['firstVisit']) && empty($this->websiteStatistic['firstVisit'])))
+          $this->websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+        
+        // -> saves the LAST WEBSITE VISIT
+        // ----------------------------
+        $this->websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+        
+        // -> saves the HTTP REFERER
+        // ----------------------------
+        $this->saveRefererLog();
         
         // -> COUNT the USER UP
         if(!isset($this->websiteStatistic['userVisitCount']) ||
@@ -1241,14 +1242,14 @@ class statisticFunctions extends generalFunctions {
     // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() function
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;    
+      $_SESSION = $HTTP_SESSION_VARS;
     
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER
-    if ((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
-        ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false) {
-      
+    if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
+       (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
+         
       // CHECK if the $pageContent parameter is a valid $pageContent array
       if($this->isPageContentArray($pageContent) === false)
         return false;

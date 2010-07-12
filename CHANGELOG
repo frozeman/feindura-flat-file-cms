@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 298
+Build 299
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,6 +23,7 @@ ChangeLog:
 
 1.0 RC
 
+  build 299: fixed isSpider() and saveWebsiteStatistic()
   build 298: fixed checkBasePath() in backend.functions.php
   build 297: add new browser logos for the chart and add thirdparty browserdetection class from http://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php/
   build 296: changes small user icon
