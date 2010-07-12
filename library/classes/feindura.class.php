@@ -880,7 +880,6 @@ class feindura extends feinduraBase {
     
     // SET the country code to the language property
     $this->setLanguage($_SESSION['language']);
-    
         
     // includes the langFile and returns it
     if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))

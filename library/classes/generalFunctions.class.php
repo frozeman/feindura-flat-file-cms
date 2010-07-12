@@ -28,9 +28,10 @@
 * 
 * @package [Implementation]|[backend]
 * 
-* @version 1.17
+* @version 1.18
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.18 fixed checkLanguageFiles()
 *    - 1.17 add chmod to savePage()
 *    - 1.16 started documentation
 */ 
@@ -138,14 +139,16 @@ class generalFunctions {
   * @param bool         $returnLangFile   (optional) if TRUE it includes and returns the language-file which matches the browser language
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
-  * @uses $adminConfig  for the base path of the CMS
-  * 
+  * @uses $adminConfig                          for the base path of the CMS
+  * @uses generalFunctions::readFolderRecursive to read the language folder
+  *  
   * @return string|array|false a country code (like: de, en, fr..) or the language-file array or FALSE if the language file could not be opend
   * 
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 fixed language files check, uses now readFolder recursive  
   *    - 1.0 initial release
   * 
   */
@@ -163,32 +166,29 @@ class generalFunctions {
         
       } else
         $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'; // $this->adminConfig['websitefilesPath']
+       
+      // -> read language folder
+      $langFiles = $this->readFolderRecursive($langPath);
       
-      // opens the lang Dir
-      if(!$openlangdir = @opendir($langPath)) {
-        if(!$returnLangFile)
-          return $standardLang;
-        else
-          return false;
-      }
+      // -> get langFiles
+      if(!empty($langFiles['files'])) {
       
-      // go trough the lang Dir
-      while(false !== ($lang_file = @readdir($openlangdir))) {
-        if($lang_file != "." && $lang_file != ".." && 
-           is_file($langPath.$lang_file)) {
-          
-          $langFileSchema = $lang_file;
-          
-          // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE
-          $l = explode(",", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        	while(list($key, $value) = each($l)) {
-        	  $browserData = strtolower(substr($value, 0, 2));
-        		if(strstr(strtolower(substr(substr($lang_file,-6),0,2)).",", $browserData.",") ||
-               strstr(strtolower(substr($lang_file,0,2)).",", $browserData.",")) {
+        // -> get browser language
+        $browserDataRaw = explode(",", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+                 
+        // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE          
+      	while(list($key, $value) = each($browserDataRaw)) {
+      	  $browserData = strtolower(substr($value, 0, 2));
+      	  
+      	  foreach($langFiles['files'] as $langFile) {      
+            $langFileSchema = basename($langFile);
+        	  
+        		if(strstr(strtolower(substr(substr($langFileSchema,-6),-2)).",", $browserData.",") ||
+               strstr(strtolower(substr($langFileSchema,0,2)).",", $browserData.",")) {
         		  // returns either langFile or the COUNTRY CODE
         		  if($returnLangFile) {
-        		    if($langFile = @include($langPath.$lang_file))
-                  return $langFile;
+        		    if($return = @include($langFile))
+                  return $return;
                 else
                   return false;
         		  } else {
@@ -197,15 +197,17 @@ class generalFunctions {
         		}
         	}
         }
-      }
-      @closedir($mod_openedmodul);      
+      } elseif(!$returnLangFile)
+          return $standardLang;
+      else
+          return false;
       
     	// if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
     	if($returnLangFile) {
         if(!empty($langFileSchema)) {
-          if($langFile = @include($langPath.substr($langFileSchema,0,-6).$standardLang.'.php') ||
-             $langFile = @include($langPath.$standardLang.substr($langFileSchema,2)))
-            return $langFile;
+          if($return = @include($langPath.substr($langFileSchema,0,-6).$standardLang.'.php') ||
+             $return = @include($langPath.$standardLang.substr($langFileSchema,2)))
+            return $return;
           else
             return false;
         } else
@@ -1120,6 +1122,203 @@ class generalFunctions {
       $string = preg_replace("/_+/", '_', $string);
       
       return $string;
+  }
+
+ /**
+  * <b>Name</b> readFolder()<br />
+  * 
+  * Reads a folder and return it's subfolders and files.
+  * 
+  * Example of the returned array:
+  * <code>
+  * array(
+  *    "files" => array(
+  *                   0 => '/path/file1.php',
+  *                   1 => '/path/file2.php',
+  *                   ),
+  *    "folders" => array(
+  *                   0 => '/path/subfolder1',
+  *                   1 => '/path/subfolder2',
+  *                   2 => '/path/subfolder3'
+  *                   )
+  *    )
+  * </code>
+  * 
+  * <b>Used Constants</b><br />
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param string $folder the absolute path of an folder to read
+  * 
+  * @return array|false an array with the folder elements, FALSE if the folder not a directory
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  function readFolder($folder) {
+    
+    if(empty($folder))
+      return false;
+    
+    //change windows path
+    $folder = str_replace('\\','/',$folder);
+    
+    // -> adds / on the beginning of the folder
+    if(substr($folder,0,1) != '/')
+      $folder = '/'.$folder;
+    // -> adds / on the end of the folder
+    if(substr($folder,-1) != '/')
+      $folder .= '/';
+    
+    //clean vars  
+    $folder = preg_replace("/\/+/", '/', $folder);
+    $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);  
+    
+    // vars
+    $return = false;  
+    $fullFolder = $folder;
+    
+    // adds the DOCUMENTROOT  
+    $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);  
+    $fullFolder = DOCUMENTROOT.$fullFolder; 
+    
+    // open the folder and read the content
+    if(is_dir($fullFolder)) {
+      $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
+      while(false !== ($inDirObjects = @readdir($openedDir))) {
+        if($inDirObjects != "." && $inDirObjects != "..") {      
+          if(is_dir($fullFolder.$inDirObjects)) {        
+            $return['folders'][] = $folder.$inDirObjects;
+          } elseif(is_file($fullFolder.$inDirObjects)) {
+            $return['files'][] = $folder.$inDirObjects;
+          }
+        }
+      }
+      @closedir($openedDir);
+    }
+    
+    return $return;  
+  }
+
+ /**
+  * <b>Name</b> readFolderRecursive()<br />
+  * 
+  * Reads a folder recursive and return it's subfolders and files, opens then also the subfolders and read them, etc.
+  * 
+  * Example of the returned array:
+  * <code>
+  * array(
+  *    "files" => array(
+  *                   0 => '/path/file1.php',
+  *                   1 => '/path/subfolder1/file2.php',
+  *                   ),
+  *    "folders" => array(
+  *                   0 => '/path/subfolder1',
+  *                   1 => '/path/subfolder2/subsubfolder1',
+  *                   2 => '/path/subfolder2/subsubfolder2'
+  *                   )
+  *    )
+  * </code>
+  * 
+  * <b>Used Constants</b><br />
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param string $folder the absolute path of an folder to read
+  * 
+  * @return array|false an array with the folder elements, FALSE if the folder not a directory
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  function readFolderRecursive($folder) {
+    
+    if(empty($folder))
+      return false;
+    
+    // adds a slash on the beginning
+    if(substr($folder,0,1) != '/')
+      $folder = '/'.$folder;
+    
+    //clean vars
+    $folder = preg_replace("/\/+/", '/', $folder);
+    $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);
+    
+    //vars  
+    $fullFolder = DOCUMENTROOT.$folder;  
+    $goTroughFolders['folders'][0] = $fullFolder;
+    $goTroughFolders['files'] = array();
+    $subFolders = array();
+    $files = array();
+    $return['folders'] = false;
+    $return['files'] = false;
+      
+    // ->> goes trough all SUB-FOLDERS  
+    while(!empty($goTroughFolders['folders'][0])) {
+  
+      // ->> GOES TROUGH folders
+      foreach($goTroughFolders['folders'] as $subFolder) {
+        //echo '<br /><br />'.$subFolder.'<br />';     
+        $inDirObjects = $this->readFolder($subFolder);
+        
+        // -> add all subfolders to an array
+        if(is_array($inDirObjects['folders'])) {        
+          $subFolders = array_merge($subFolders, $inDirObjects['folders']);
+        }        
+      
+        // -> add folders to the $return array
+        if(is_array($inDirObjects['folders'])) {
+          foreach($inDirObjects['folders'] as $folder) {
+            $return['folders'][] = str_replace(DOCUMENTROOT,'',$folder);
+          }
+        }
+        // -> add files to the $return array
+        if(is_array($inDirObjects['files'])) {
+          foreach($inDirObjects['files'] as $file) {
+            $return['files'][] = str_replace(DOCUMENTROOT,'',$file);
+          }
+        }
+      }
+      
+      $goTroughFolders['folders'] = $subFolders;
+      $goTroughFolders['files'] = $files;
+  
+      $subFolders = array();
+      $files = array();
+    }
+  
+    return $return;
+  } 
+
+ /**
+  * <b>Name</b> folderIsEmpty()<br />
+  * 
+  * Check if a folder is empty.
+  * 
+  * <b>Used Constants</b><br />
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param string $folder the absolute path of an folder to check
+  * 
+  * @return bool TRUE if its empty, otherwise FALSE
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  function folderIsEmpty($folder) {
+    
+    if($this->readFolder(DOCUMENTROOT.$folder) === false)
+      return true;
+    else
+      return false;
+  
   }
 
  /**

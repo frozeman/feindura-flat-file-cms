@@ -46,9 +46,11 @@ $newPage = false;
 if(isset($_GET['language']))
   $_SESSION['language'] = $_GET['language'];
 
+//unset($_SESSION['language']);
+
 if(empty($_SESSION['language'])) {
   // gets the BROWSER LANGUAGE
-  $_SESSION['language'] = $generalFunctions->checkLanguageFiles(false,false); // returns a COUNTRY SHORTNAME
+  $_SESSION['language'] = $generalFunctions->checkLanguageFiles(false,false,'en'); // returns a COUNTRY SHORTNAME
 }
 
 // includes the langFile which is set by the session var

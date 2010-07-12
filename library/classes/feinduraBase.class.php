@@ -256,7 +256,7 @@ class feinduraBase {
     if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
-    
+
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
     // set the given country code

@@ -216,7 +216,7 @@ if($_GET['site'] == 'addons') {
           <td><a href="?site=pages" class="pages" title="<?php echo $langFile['btn_pages']; ?>"><span><?php echo $langFile['btn_pages']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty
-          if(!folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
+          if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
           <td><a href="?site=addons" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
           <?php } ?>
           <td><a href="?site=websiteSetup" class="websiteSetup" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></td>
@@ -230,7 +230,7 @@ if($_GET['site'] == 'addons') {
           <li><a href="?site=pages" class="pages" title="<?php echo $langFile['btn_pages']; ?>"><span><?php echo $langFile['btn_pages']; ?></span></a></li>
           <?php
           // checks if there any modules or plugins, if not dont show the menupoint
-          if(!folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
+          if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
           <li><a href="" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></li>
           <?php } ?>
           <li><a href="?site=websiteSetup" class="websiteSetup" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></li>
@@ -256,18 +256,18 @@ if($_GET['site'] == 'addons') {
           <td><a href="?site=userSetup" onclick="openWindowBox('library/sites/userSetup.php','<?php echo $langFile['btn_userSetup']; ?>',true);return false;" class="userSetup" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
-          if(!folderIsEmpty($adminConfig['basePath'].'plugins/') || !folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
+          if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'plugins/') || !$generalFunctions->folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
           </tr><tr>
           <?php
           // CHECKS if the plugins/ folder is empty
-          if(!folderIsEmpty($adminConfig['basePath'].'plugins/')) { ?>
+          if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'plugins/')) { ?>
           <td><a href="?site=pluginSetup" class="pluginSetup" title="<?php  echo $langFile['btn_pluginSetup']; ?>"><span><?php echo $langFile['btn_pluginSetup']; ?></span></a></td>
           <?php } else { ?>
           <td</td>
           <?php }
 
           // CHECKS if the plugins/ folder is empty
-          if(!folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
+          if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
           <td><a href="?site=modulSetup" class="modulSetup" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
           <?php } else { ?>
           <td</td>

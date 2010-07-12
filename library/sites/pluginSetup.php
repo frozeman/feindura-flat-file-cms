@@ -68,7 +68,7 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
 
 // ->> GOES TROUGH every PLUGIN
 // ---------------------------------------------------------------------------------------------------------------
-$pluginFolders = readFolder(DOCUMENTROOT.$adminConfig['basePath'].'plugins/'); //DOCUMENTROOT.$adminConfig['basePath'].'plugins/'; //dirname(__FILE__).'/../../plugins/'
+$pluginFolders = $generalFunctions->readFolder(DOCUMENTROOT.$adminConfig['basePath'].'plugins/'); //DOCUMENTROOT.$adminConfig['basePath'].'plugins/'; //dirname(__FILE__).'/../../plugins/'
 
 // VARs
   $firstLine = true;
@@ -77,7 +77,7 @@ if($pluginFolders) {
   foreach($pluginFolders['folders'] as $pluginFolder) {
     
     // ->> IF plugin folder HAS FILES
-    if($pluginSubFolders = readFolderRecursive($pluginFolder)) {
+    if($pluginSubFolders = $generalFunctions->readFolderRecursive($pluginFolder)) {
   
       // VARs
       $pluginName = basename($pluginFolder);

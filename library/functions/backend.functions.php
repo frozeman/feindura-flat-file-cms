@@ -838,7 +838,7 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
  * @param string|false		$fileType      (optional) a filetype which will be added to each ne created file
  * @param string|array|false	$excluded	 (optional) a string (seperated with ",") or array with files or folder names which should be excluded from the file selection, if FALSE no file will be excluded
  * 
- * @uses readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
+ * @uses generalFunctions::readFolderRecursive()	reads the $filesPath folder recursive and loads all file paths in an array
  * 
  * @return void displayes the file edit textfield
  * 
@@ -877,7 +877,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);  
   $dir = DOCUMENTROOT.$filesPath;
   if(!empty($filesPath) && is_dir($dir)) {
-    $files = readFolderRecursive($filesPath);
+    $files = $GLOBALS['generalFunctions']->readFolderRecursive($filesPath);
     $files = $files['files'];
 
   	// ->> EXLUDES files or folders
@@ -1174,9 +1174,9 @@ function isWritableWarning($fileFolder) {
  * 
  * @param array $folders an array with absolut paths of folders to check
  * 
- * @uses isFolderWarning()      to check if the folder is a valid directory, if not return a warning
- * @uses isWritableWarning()    to check every file/folder if it's writable, if not return a warning
- * @uses readFolderRecursive()  to read all subfolders and files in a directory
+ * @uses isFolderWarning()                        to check if the folder is a valid directory, if not return a warning
+ * @uses isWritableWarning()                      to check every file/folder if it's writable, if not return a warning
+ * @uses generalFunctions::readFolderRecursive()  to read all subfolders and files in a directory
  * 
  * @return string|false warning texts if they are not writable, otherwise FALSE
  * 
@@ -1197,7 +1197,7 @@ function isWritableWarningRecursive($folders) {
         $return .= $isFolder;
       } else {
         $return .= isWritableWarning($folder);
-        if($readFolder = readFolderRecursive($folder)) {
+        if($readFolder = $GLOBALS['generalFunctions']->readFolderRecursive($folder)) {
           if(is_array($readFolder['folders'])) {
             foreach($readFolder['folders'] as $folder) {
               $return .= isWritableWarning($folder);
@@ -1216,203 +1216,6 @@ function isWritableWarningRecursive($folders) {
   return $return;
 }
 
-/**
- * <b>Name</b> readFolder()<br />
- * 
- * Reads a folder and return it's subfolders and files.
- * 
- * Example of the returned array:
- * <code>
- * array(
- *    "files" => array(
- *                   0 => '/path/file1.php',
- *                   1 => '/path/file2.php',
- *                   ),
- *    "folders" => array(
- *                   0 => '/path/subfolder1',
- *                   1 => '/path/subfolder2',
- *                   2 => '/path/subfolder3'
- *                   )
- *    )
- * </code>
- * 
- * <b>Used Constants</b><br />
- *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- * 
- * @param string $folder the absolute path of an folder to read
- * 
- * @return array|false an array with the folder elements, FALSE if the folder not a directory
- * 
- * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0 initial release
- * 
- */
-function readFolder($folder) {
-  
-  if(empty($folder))
-    return false;
-  
-  //change windows path
-  $folder = str_replace('\\','/',$folder);
-  
-  // -> adds / on the beginning of the folder
-  if(substr($folder,0,1) != '/')
-    $folder = '/'.$folder;
-  // -> adds / on the end of the folder
-  if(substr($folder,-1) != '/')
-    $folder .= '/';
-  
-  //clean vars  
-  $folder = preg_replace("/\/+/", '/', $folder);
-  $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);  
-  
-  // vars
-  $return = false;  
-  $fullFolder = $folder;
-  
-  // adds the DOCUMENTROOT  
-  $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);  
-  $fullFolder = DOCUMENTROOT.$fullFolder; 
-  
-  // open the folder and read the content
-  if(is_dir($fullFolder)) {
-    $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
-    while(false !== ($inDirObjects = @readdir($openedDir))) {
-      if($inDirObjects != "." && $inDirObjects != "..") {      
-        if(is_dir($fullFolder.$inDirObjects)) {        
-          $return['folders'][] = $folder.$inDirObjects;
-        } elseif(is_file($fullFolder.$inDirObjects)) {
-          $return['files'][] = $folder.$inDirObjects;
-        }
-      }
-    }
-    @closedir($openedDir);
-  }
-  
-  return $return;  
-}
-
-/**
- * <b>Name</b> readFolderRecursive()<br />
- * 
- * Reads a folder recursive and return it's subfolders and files, opens then also the subfolders and read them, etc.
- * 
- * Example of the returned array:
- * <code>
- * array(
- *    "files" => array(
- *                   0 => '/path/file1.php',
- *                   1 => '/path/subfolder1/file2.php',
- *                   ),
- *    "folders" => array(
- *                   0 => '/path/subfolder1',
- *                   1 => '/path/subfolder2/subsubfolder1',
- *                   2 => '/path/subfolder2/subsubfolder2'
- *                   )
- *    )
- * </code>
- * 
- * <b>Used Constants</b><br />
- *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- * 
- * @param string $folder the absolute path of an folder to read
- * 
- * @return array|false an array with the folder elements, FALSE if the folder not a directory
- * 
- * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0 initial release
- * 
- */
-function readFolderRecursive($folder) {
-  
-  if(empty($folder))
-    return false;
-  
-  // adds a slash on the beginning
-  if(substr($folder,0,1) != '/')
-    $folder = '/'.$folder;
-  
-  //clean vars
-  $folder = preg_replace("/\/+/", '/', $folder);
-  $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);
-  
-  //vars  
-  $fullFolder = DOCUMENTROOT.$folder;  
-  $goTroughFolders['folders'][0] = $fullFolder;
-  $goTroughFolders['files'] = array();
-  $subFolders = array();
-  $files = array();
-  $return['folders'] = false;
-  $return['files'] = false;
-    
-  // ->> goes trough all SUB-FOLDERS  
-  while(!empty($goTroughFolders['folders'][0])) {
-
-    // ->> GOES TROUGH folders
-    foreach($goTroughFolders['folders'] as $subFolder) {
-      //echo '<br /><br />'.$subFolder.'<br />';     
-      $inDirObjects = readFolder($subFolder);
-      
-      // -> add all subfolders to an array
-      if(is_array($inDirObjects['folders'])) {        
-        $subFolders = array_merge($subFolders, $inDirObjects['folders']);
-      }        
-    
-      // -> add folders to the $return array
-      if(is_array($inDirObjects['folders'])) {
-        foreach($inDirObjects['folders'] as $folder) {
-          $return['folders'][] = str_replace(DOCUMENTROOT,'',$folder);
-        }
-      }
-      // -> add files to the $return array
-      if(is_array($inDirObjects['files'])) {
-        foreach($inDirObjects['files'] as $file) {
-          $return['files'][] = str_replace(DOCUMENTROOT,'',$file);
-        }
-      }
-    }
-    
-    $goTroughFolders['folders'] = $subFolders;
-    $goTroughFolders['files'] = $files;
-
-    $subFolders = array();
-    $files = array();
-  }
-
-  return $return;
-} 
-
-/**
- * <b>Name</b> folderIsEmpty()<br />
- * 
- * Check if a folder is empty.
- * 
- * <b>Used Constants</b><br />
- *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- * 
- * @param string $folder the absolute path of an folder to check
- * 
- * @return bool TRUE if its empty, otherwise FALSE
- * 
- * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0 initial release
- * 
- */
-
-function folderIsEmpty($folder) {
-  
-  if(readFolder(DOCUMENTROOT.$folder) === false)
-    return true;
-  else
-    return false;
-
-}
 
 /**
  * <b>Name</b> createStyleTags()<br />
@@ -1424,7 +1227,7 @@ function folderIsEmpty($folder) {
  * 
  * @param string $folder the absolute path of the folder to look for stylesheet files
  * 
- * @uses readFolderRecursive() to read the folder
+ * @uses generalFunctions::readFolderRecursive() to read the folder
  * 
  * @return string|false the HTML <link> tags or FALSE if no stylesheet-file was found
  * 
@@ -1440,7 +1243,7 @@ function createStyleTags($folder) {
   $return = false;
   
   // ->> goes trough all folder and subfolders
-  $filesInFolder = readFolderRecursive($folder);
+  $filesInFolder = $GLOBALS['generalFunctions']->readFolderRecursive($folder);
   if(is_array($filesInFolder['files'])) {
     foreach($filesInFolder['files'] as $file) {
       // -> check for CSS FILES
