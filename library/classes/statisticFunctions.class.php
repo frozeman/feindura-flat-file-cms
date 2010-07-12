@@ -30,9 +30,10 @@
 * 
 * @package [Implementation]|[backend]
 * 
-* @version 0.56
+* @version 0.57
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.57 add new browsers to createBrowserChart() 
 *    - 0.56 started documentation
 * 
 */ 
@@ -592,43 +593,34 @@ class statisticFunctions extends generalFunctions {
   * 
   * Returns the right browser name.
   * 
+  * @uses Browser::getBrowser to get the right browser
+  * 
   * @return string|false the right browser name or FALSE if no useragent is available
   * 
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 add the browser detection class from {@link http://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php}
   *    - 1.0 initial release
   * 
   */
   function getBrowser() {
-  
-    if(isset($_SERVER['HTTP_USER_AGENT'])) {
     
-      $agent = $_SERVER['HTTP_USER_AGENT'];
+    require_once(dirname(__FILE__).'/../thirdparty/BrowserDetection.php');
     
-      if(preg_match("/Firefox/", $agent)) $c_browser = "firefox";                       // Phoenix oder Firefox
-      elseif((preg_match("/Nav/", $agent)) ||
-      (preg_match("/Gold/", $agent)) ||
-      (preg_match("/X11/", $agent)) ||
-      (preg_match("/Netscape/", $agent)) AND
-      (!preg_match("/MSIE 6/", $agent))) $c_browser = "netscape";                       // Netscape Navigator
-      elseif(preg_match("/Chrome/", $agent)) $c_browser  = "chrome";                    // Google Chrome
-      elseif(preg_match("/MSIE [0-6]/", $agent)) $c_browser = "ie_old";                 // Internet Explorer 1-6
-      elseif(preg_match("/MSIE/", $agent)) $c_browser = "ie";                           // Internet Explorer
-      elseif(preg_match("/Opera/", $agent)) $c_browser = "opera";                       // Opera
-      elseif(preg_match("/Konqueror/", $agent)) $c_browser = "konqueror";               // Konqueror
-      elseif(preg_match("/Lynx/", $agent)) $c_browser = "lynx";                         // Lynx
-      elseif(preg_match("/iCab/", $agent)) $c_browser = "safari";                       // Safari
-      elseif(preg_match("/Safari/", $agent)) $c_browser = "safari";                     // Safari
-      elseif(preg_match("/gecko/", $agent)) $c_browser = "mozilla";                     // Mozilla oder kompatibel
-      elseif(preg_match("/Mozilla/", $agent)) $c_browser = "mozilla";                   // Mozilla oder kompatibel
-      else $c_browser = "others";
-      
-      return $c_browser;
+    $browser = new Browser();
+	  $return = $browser->getBrowser();
+	  
+	  // check if older IE
+	  if($return == 'Internet Explorer' && $browser->getVersion() <= 6)
+	   $return = 'Internet Explorer old';	 
     
-    } else
-      return false;  
+    if($return = 'Shiretoko')
+      $return = 'Firefox';
+    
+    // -> return
+	  return strtolower($return);
   }
   
  /**
@@ -642,9 +634,10 @@ class statisticFunctions extends generalFunctions {
   * 
   * return string|false the browser chart or FALSE
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 add a lot of new browsers  
   *    - 1.0 initial release
   * 
   */
@@ -676,7 +669,7 @@ class statisticFunctions extends generalFunctions {
           $browserColor = 'url(library/image/bg/browserBg_firefox.png)';
           $browserLogo = 'browser_firefox.png';
           $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'netscape') {
+        } elseif($browser[0] == 'netscape navigator') {
           $browserName = 'Netscape Navigator';
           $browserColor = 'url(library/image/bg/browserBg_netscape.png)';
           $browserLogo = 'browser_netscape.png';
@@ -686,12 +679,12 @@ class statisticFunctions extends generalFunctions {
           $browserColor = 'url(library/image/bg/browserBg_chrome.png)';
           $browserLogo = 'browser_chrome.png';
           $browserTextColor = '#000000';
-        } elseif($browser[0] == 'ie') {
+        } elseif($browser[0] == 'internet explorer') {
           $browserName = 'Internet Explorer';
           $browserColor = 'url(library/image/bg/browserBg_ie.png)';
           $browserLogo = 'browser_ie.png';
           $browserTextColor = '#000000';
-        } elseif($browser[0] == 'ie_old') {
+        } elseif($browser[0] == 'internet explorer old') {
           $browserName = 'Internet Explorer 1-6';
           $browserColor = 'url(library/image/bg/browserBg_ie_old.png)';
           $browserLogo = 'browser_ie_old.png';
@@ -721,7 +714,62 @@ class statisticFunctions extends generalFunctions {
           $browserColor = 'url(library/image/bg/browserBg_mozilla.png)';
           $browserLogo = 'browser_mozilla.png';
           $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'others') {
+        } elseif($browser[0] == 'iphone') {
+          $browserName = 'iPhone';
+          $browserColor = 'url(library/image/bg/browserBg_iphone.png)';
+          $browserLogo = 'browser_iphone.png';
+          $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'ipod') {
+          $browserName = 'iPod';
+          $browserColor = 'url(library/image/bg/browserBg_ipod.png)';
+          $browserLogo = 'browser_ipod.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'amaya') {
+          $browserName = 'Amaya';
+          $browserColor = 'url(library/image/bg/browserBg_amaya.png)';
+          $browserLogo = 'browser_amaya.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'phoenix') {
+          $browserName = 'Phoenix';
+          $browserColor = 'url(library/image/bg/browserBg_phoenix.png)';
+          $browserLogo = 'browser_phoenix.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'icab') {
+          $browserName = 'iCab';
+          $browserColor = 'url(library/image/bg/browserBg_icab.png)';
+          $browserLogo = 'browser_icab.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'omniweb') {
+          $browserName = 'OmniWeb';
+          $browserColor = 'url(library/image/bg/browserBg_omniweb.png)';
+          $browserLogo = 'browser_omniweb.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'galeon') {
+          $browserName = 'Galeon';
+          $browserColor = 'url(library/image/bg/browserBg_galeon.png)';
+          $browserLogo = 'browser_galeon.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'netpositive') {
+          $browserName = 'NetPositive';
+          $browserColor = 'url(library/image/bg/browserBg_netpositive.png)';
+          $browserLogo = 'browser_netpositive.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'opera mini') {
+          $browserName = 'Opera Mini';
+          $browserColor = 'url(library/image/bg/browserBg_opera_mini.png)';
+          $browserLogo = 'browser_opera_mini.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'blackberry') {
+          $browserName = 'BlackBerry';
+          $browserColor = 'url(library/image/bg/browserBg_blackberry.png)';
+          $browserLogo = 'browser_blackberry.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'icecat') {
+          $browserName = 'IceCat';
+          $browserColor = 'url(library/image/bg/browserBg_icecat.png)';
+          $browserLogo = 'browser_icecat.png';
+          $browserTextColor = '#000000';
+        } elseif($browser[0] == 'unknown') {
           $browserName = $GLOBALS['langFile']['log_browser_others'];
           $browserColor = 'url(library/image/bg/browserBg_others.png)';
           $browserLogo = 'browser_others.png';
@@ -841,7 +889,7 @@ class statisticFunctions extends generalFunctions {
   * Check if the user-agent is a spider/bot/webcrawler.
   * This method uses the "library/thirdparty/spiders.xml" or "library/thirdparty/spiders.txt" (depending on the php version)
   * 
-  * The list of spiders it uses is from: {@link http://spiderlist.codeforgers.com}
+  * The list of spiders it uses is from: {@link http://www.wolfshead-solutions.com/spiders-list}
   * 
   * return bool TRUE if its a spider/bot/webcrawler, FALSE if not
   * 
@@ -867,7 +915,7 @@ class statisticFunctions extends generalFunctions {
         }
         
         /*
-        //listet die bots auf damit ich sie in einer datei speicher kann
+        // list bots so i can save them in a text file
         foreach($bots as $bot) {
           echo $bot.',';
         }

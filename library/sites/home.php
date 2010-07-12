@@ -19,11 +19,7 @@ home.php version 0.86
 
 include_once(dirname(__FILE__).'/../backend.include.php');
 
-//echo '->'.$_SERVER['HTTP_USER_AGENT'].'<br />';
-//echo '->'.$statisticFunctions->getBrowser();  
-
 ?>
-
 <div class="block">
   <h1><?php echo $langFile['home_welcome_h1']; ?></h1>
   <div class="content">

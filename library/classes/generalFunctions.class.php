@@ -1266,18 +1266,18 @@ class generalFunctions {
         $inDirObjects = $this->readFolder($subFolder);
         
         // -> add all subfolders to an array
-        if(is_array($inDirObjects['folders'])) {        
+        if(isset($inDirObjects['folders']) && is_array($inDirObjects['folders'])) {        
           $subFolders = array_merge($subFolders, $inDirObjects['folders']);
         }        
       
         // -> add folders to the $return array
-        if(is_array($inDirObjects['folders'])) {
+        if(isset($inDirObjects['folders']) && is_array($inDirObjects['folders'])) {
           foreach($inDirObjects['folders'] as $folder) {
             $return['folders'][] = str_replace(DOCUMENTROOT,'',$folder);
           }
         }
         // -> add files to the $return array
-        if(is_array($inDirObjects['files'])) {
+        if(isset($inDirObjects['files']) && is_array($inDirObjects['files'])) {
           foreach($inDirObjects['files'] as $file) {
             $return['files'][] = str_replace(DOCUMENTROOT,'',$file);
           }

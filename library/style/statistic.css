@@ -39,9 +39,11 @@ table.tableChart {
 
 table.tableChart td {
     vertical-align: middle;
-    padding: 0px 5px;
+    padding: 0px 5px !important;
     border-left: 1px solid #cccccc;
     height: 40px;
+    max-height: 40px;
+    overflow: hidden;
     }
 
 
