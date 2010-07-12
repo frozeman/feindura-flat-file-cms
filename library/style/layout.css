@@ -84,14 +84,14 @@ span.red {
     width: 100%;
     height: 100%;
     /*background-color: #222222;*/
-    background: url(../image/bg/dimmContainer.png) repeat;
+    background: url("../image/bg/dimmContainer.png") repeat;
     display: none;
     -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
     filter:Alpha(opacity=50, finishopacity=50, style=0);
     } 
 
 .cke_dialog_background_cover {
-    background: url(../image/bg/dimmContainer.png) repeat !important;
+    background: url("../image/bg/dimmContainer.png") repeat !important;
     background-color: transparent !important;
     }
 
@@ -104,7 +104,7 @@ span.red {
     width: 100%;
     min-width: 1255px;
     height: 150px;
-    background: url(../image/bg/header.png) repeat-x;
+    background: url("../image/bg/header.png") repeat-x;
     }
 #headerBlock {
     z-index: 2;
@@ -113,7 +113,7 @@ span.red {
     left: 0px;
     width: 850px;
     height: 141px;
-    background: url(../image/bg/headerBlock.png) no-repeat; 
+    background: url("../image/bg/headerBlock.png") no-repeat; 
     }
     
 #adminMenu {
@@ -123,7 +123,7 @@ span.red {
     left: 849px;
     width: 190px; /* will be overwriten by javascript with 172px*/
     height: 140px;
-    background: url(../image/bg/adminMenu.png) no-repeat;
+    background: url("../image/bg/adminMenu.png") no-repeat;
     text-align: center;
     border-bottom: 1px solid #BBB9B7;
     overflow: auto; /* will be overwriten by javascript */
@@ -170,7 +170,7 @@ a#createdBy {
     left: 1024px;
     width: 95px;
     height: 27px;
-    background: url(../image/key/createdBy.png) no-repeat;
+    background: url("../image/key/createdBy.png") no-repeat;
     text-decoration: none;
     }
 a#createdBy:hover {
@@ -207,7 +207,7 @@ a#createdBy:hover {
     top: -5px;
     width: 100%;
     min-width: 1255px;
-    background: url(../image/bg/mainBody.png) repeat-y #d8d8d8;
+    background: url("../image/bg/mainBody.png") repeat-y #d8d8d8;
     }
   
 #content {
@@ -233,7 +233,7 @@ a#createdBy:hover {
     width: 100%px;
     min-width: 1255px;
     clear: left;
-    background: url(../image/bg/footer.png) repeat-x;
+    background: url("../image/bg/footer.png") repeat-x;
     }
 #footerBlock {
     position: relative;
@@ -241,7 +241,7 @@ a#createdBy:hover {
     left: 0px;
     width: 1024px;
     height: 237px;
-    background: url(../image/bg/footerBlock.png) no-repeat;
+    background: url("../image/bg/footerBlock.png") no-repeat;
     }
 #copyright {
     position: absolute;
@@ -327,7 +327,7 @@ a.lang_de {
   padding-left: 23px;
   display: inline-block;
   text-decoration: none;
-  background: url(../image/sign/de.png) no-repeat 2px;
+  background: url("../image/sign/de.png") no-repeat 2px;
   color: #434F58;
   }
 a.lang_de:hover {
@@ -341,7 +341,7 @@ a.lang_en {
   padding-left: 23px;
   display: inline-block;
   text-decoration: none;
-  background: url(../image/sign/en.png) no-repeat 2px;
+  background: url("../image/sign/en.png") no-repeat 2px;
   color: #434F58;
   }
 a.lang_en:hover {

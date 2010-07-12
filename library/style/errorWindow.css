@@ -25,7 +25,7 @@ errorWindow.css version 0.11 */
     left: 370px;
     width: 447px;
     padding: 0px 40px;
-    background: url(../image/bg/errorWindow_middle.png) repeat-y; 
+    background: url("../image/bg/errorWindow_middle.png") repeat-y; 
     }
 
 #errorWindow .top {
@@ -37,7 +37,7 @@ errorWindow.css version 0.11 */
     height: 10px; /*org: 40px */
     padding: 0px;
     padding-top: 30px;
-    background: url(../image/bg/errorWindow_top.png) no-repeat;
+    background: url("../image/bg/errorWindow_top.png") no-repeat;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -55,12 +55,12 @@ errorWindow.css version 0.11 */
     left: -40px;
     width: 527px;
     height: 40px;
-    background: url(../image/bg/errorWindow_bottom.png) no-repeat;
+    background: url("../image/bg/errorWindow_bottom.png") no-repeat;
     }
     
 #errorWindow .content.warning {
     min-height: 48px;
-    background: url(../image/sign/warning.png) no-repeat center left;
+    background: url("../image/sign/warning.png") no-repeat center left;
     }
     
 #errorWindow .content p {
@@ -79,7 +79,7 @@ errorWindow.css version 0.11 */
     width: 75px;
     height: 70px;
     padding: 0px;
-    background: url(../image/key/errorWindow_ok.png) no-repeat;
+    background: url("../image/key/errorWindow_ok.png") no-repeat;
     }
 #errorWindow .content a.ok:hover {
     background-position: 0px -65px;

@@ -27,7 +27,7 @@ content.css version 0.21 */
     margin: 30px -20px;
     margin-top: 30px;
     padding: 20px;
-    background: url(../image/bg/content_block_normal.png) repeat-y;
+    background: url("../image/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     }
 #content .block .content { /* eliminate safari padding-problem */
@@ -46,7 +46,7 @@ content.css version 0.21 */
     left: 0px;
     width: 806px;
     height: 10px;
-    background: url(../image/bg/content_block_bottom.png) no-repeat;
+    background: url("../image/bg/content_block_bottom.png") no-repeat;
     }
 #content .block h1 {
     margin-top: -40px; /* balance out the height of the h1 */
@@ -55,7 +55,7 @@ content.css version 0.21 */
 
 /* warning */
 #content .block.warning {
-    background: url(../image/bg/content_block_warning.png) repeat-y 0px 46px;
+    background: url("../image/bg/content_block_warning.png") repeat-y 0px 46px;
     }
 #content .block.warning h1 {
     color: #CA5C00;
@@ -65,7 +65,7 @@ content.css version 0.21 */
     }
 #content .block.warning .content {
     min-height: 48px;
-    background: url(../image/sign/warning.png) no-repeat center left;
+    background: url("../image/sign/warning.png") no-repeat center left;
     }
 #content .block.warning .content p {
     display: block;
@@ -74,7 +74,7 @@ content.css version 0.21 */
 
 /* info */
 #content .block.info {
-    background: url(../image/bg/content_block_info.png) repeat-y 0px 46px;
+    background: url("../image/bg/content_block_info.png") repeat-y 0px 46px;
     }
 #content .block.info h1 {
     color: #DFB300;
@@ -84,7 +84,7 @@ content.css version 0.21 */
     }
 #content .block.info .content {
     min-height: 83px;
-    background: url(../image/sign/info.png) no-repeat center left;
+    background: url("../image/sign/info.png") no-repeat center left;
     }
 #content .block.info .content p {
     display: block;
@@ -99,7 +99,7 @@ content.css version 0.21 */
     z-index: 0;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
-    background: url(../image/bg/content_block_open.png) no-repeat !important; 
+    background: url("../image/bg/content_block_open.png") no-repeat !important; 
     }
 
 
@@ -114,7 +114,7 @@ content.css version 0.21 */
     margin: 20px 0px;
     margin-bottom: 2px;
     float: left;
-    background: url(../image/bg/block_innerBlock_small.png) no-repeat;
+    background: url("../image/bg/block_innerBlock_small.png") no-repeat;
     font-size: 12px;
     }
 #content .block div.innerBlockRight {
@@ -125,7 +125,7 @@ content.css version 0.21 */
     margin: 20px 0px;
     margin-bottom: 2px;
     float: right;
-    background: url(../image/bg/block_innerBlock_big.png) no-repeat;
+    background: url("../image/bg/block_innerBlock_big.png") no-repeat;
     font-size: 12px;
     }
     
@@ -157,7 +157,7 @@ content.css version 0.21 */
 .block table td.leftTop {
     height: 30px;
     padding: 0px;
-    background: url(../image/bg/content_block_table_left_top.png) no-repeat right top;    
+    background: url("../image/bg/content_block_table_left_top.png") no-repeat right top;    
     }
     
 /* left */    
@@ -167,10 +167,10 @@ content.css version 0.21 */
     text-align: right;
     vertical-align: middle;
     color: #888888;
-    background: url(../image/bg/content_block_table_left_middle.png) repeat-y right top;
+    background: url("../image/bg/content_block_table_left_middle.png") repeat-y right top;
     }
 .block table col.left {
-    background: url(../image/bg/content_block_table_left_middle.png) repeat-y right top;    
+    background: url("../image/bg/content_block_table_left_middle.png") repeat-y right top;    
     }
    /* checkboxes */
 .block table td.left.checkboxes {
@@ -185,7 +185,7 @@ content.css version 0.21 */
 .block table td.leftBottom {
     height: 35px;
     padding: 0px;
-    background: url(../image/bg/content_block_table_left_bottom.png) no-repeat right top #ffffff;    
+    background: url("../image/bg/content_block_table_left_bottom.png") no-repeat right top #ffffff;    
     }
     
 /* right */       
@@ -226,21 +226,21 @@ content.css version 0.21 */
     padding: 0px;
     padding-right: 40px;
     margin-bottom: -5px;  
-    background: url(../image/key/content_h1_up_off.png) no-repeat right top;
+    background: url("../image/key/content_h1_up_off.png") no-repeat right top;
     color: #536068;
     }
 #content h1 a:hover {
     color: #536068;
-    background: url(../image/key/content_h1_up_on.png) no-repeat right top;
+    background: url("../image/key/content_h1_up_on.png") no-repeat right top;
     }
 #content h1 a:active {
     color: #536068;
     }
 #content .hidden h1 a {
-    background: url(../image/key/content_h1_down_off.png) no-repeat right top;
+    background: url("../image/key/content_h1_down_off.png") no-repeat right top;
     }
 #content .hidden h1 a:hover {
-    background: url(../image/key/content_h1_down_on.png) no-repeat right top;
+    background: url("../image/key/content_h1_down_on.png") no-repeat right top;
     }
     
 /* ----------------------- */  
@@ -263,7 +263,7 @@ h1 img.sortIcon {
     width: 66px;
     height: 65px;
     text-decoration: none;
-    background: url(../image/key/content_fastUp.png) no-repeat;
+    background: url("../image/key/content_fastUp.png") no-repeat;
     }
 #content a.fastUp:hover {
     background-position: 0px -68px;
@@ -275,13 +275,13 @@ h1 img.sortIcon {
 a.down {
     font-weight: bold;
     padding-left: 18px;
-    background: url(../image/key/down.gif) no-repeat 0px 3px !important;
+    background: url("../image/key/down.gif") no-repeat 0px 3px !important;
     }
     
 a.up {
     font-weight: bold;
     padding-left: 18px;
-    background: url(../image/key/up.gif) no-repeat 0px 3px !important;
+    background: url("../image/key/up.gif") no-repeat 0px 3px !important;
     }
 
 /* ----------------------- */  
@@ -308,13 +308,13 @@ a.up {
     font-size: 17px;
     color: #536068;
     line-height: 30px;
-    background: url(../image/bg/block_h1.png) no-repeat;
+    background: url("../image/bg/block_h1.png") no-repeat;
     }
 #content h1.brown {
-    background: url(../image/bg/block_h1_brown.png) no-repeat;
+    background: url("../image/bg/block_h1_brown.png") no-repeat;
     }
 #content h1.blue {
-    background: url(../image/bg/block_h1_blue.png) no-repeat;
+    background: url("../image/bg/block_h1_blue.png") no-repeat;
     }
 
 #content h1 img {
@@ -381,7 +381,7 @@ a.up {
     height: 30px;
     margin: 25px -8px;
     margin-bottom: 50px;
-    background: url(../image/bg/content_blockSpacer.png) no-repeat;
+    background: url("../image/bg/content_blockSpacer.png") no-repeat;
     }
     
 /* ----------------------- */  
@@ -390,10 +390,10 @@ a.standardLink, .block a, #windowBox a {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
-    background: url(../image/sign/link.gif) no-repeat 0px 3px;
+    background: url("../image/sign/link.gif") no-repeat 0px 3px;
     }
 #leftSidebar a.standardLink {
-    background: url(../image/sign/link.gif) no-repeat 0px 1px;
+    background: url("../image/sign/link.gif") no-repeat 0px 1px;
     }
 a.standardLink:hover, .block a:hover, #windowBox a:hover {
     color: #536068;

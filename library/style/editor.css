@@ -26,7 +26,7 @@ editor.css version 0.11 */
     left: 0px;
     margin: 30px -20px;
     margin-top: 30px; 
-    background: url(../image/bg/content_block_normal.png) repeat-y;
+    background: url("../image/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     width: 792px;
     padding: 7px;
@@ -39,7 +39,7 @@ editor.css version 0.11 */
 #content .editor textarea {
     width: 750px !important;
     height: 437px !important;
-    background: url(../image/bg/formularBg.png) no-repeat #ffffff !important;
+    background: url("../image/bg/formularBg.png") no-repeat #ffffff !important;
     padding: 10px;
     }
 #content .editor textarea:hover {
@@ -68,7 +68,7 @@ editor.css version 0.11 */
     width: 90px;
     height: 75px; /* org: 40px*/
     text-decoration: none;
-    background: url(../image/key/content_pageThumbnailUpload.png) no-repeat;  
+    background: url("../image/key/content_pageThumbnailUpload.png") no-repeat;  
     }
 #content .block.pageHead a.pageThumbnailUpload:hover {
     background-position: 0px -76px;

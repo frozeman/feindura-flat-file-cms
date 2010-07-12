@@ -32,7 +32,7 @@ listPages.css version 0.16
     height: 34px; /* org: 40px*/
     padding: 3px 7px;
     list-style: none;
-    background: url(../image/bg/sortPages_liBg.png) no-repeat;
+    background: url("../image/bg/sortPages_liBg.png") no-repeat;
     white-space: nowrap;
     overflow: visible;
     }
@@ -60,7 +60,7 @@ div.listPagesHead {
     border-top: 1px solid #DB9E39;
     font-size:15px;
     line-height:30px;
-    background: url(../image/bg/sortPages_headBg.png) repeat-x;
+    background: url("../image/bg/sortPages_headBg.png") repeat-x;
     }
 
 .listPagesHead div {
@@ -163,12 +163,12 @@ div.listPagesHead {
 .listPages div.name a {
     display: inline-block;
     height: 27px;
-    background: url(../image/sign/pageIcon_small.png) no-repeat 0px 0px;
+    background: url("../image/sign/pageIcon_small.png") no-repeat 0px 0px;
     padding-left: 30px !important;
     }
     
 .listPages div.name a.startPage {
-    background: url(../image/key/listPages_startPage.png) no-repeat 0px -27px !important;
+    background: url("../image/key/listPages_startPage.png") no-repeat 0px -27px !important;
     }
 
 .listPages .functions a {
@@ -180,19 +180,19 @@ div.listPagesHead {
     }
 
 .listPages .functions a.startPage {
-    background: url(../image/key/listPages_startPage.png) no-repeat;
+    background: url("../image/key/listPages_startPage.png") no-repeat;
     }
 .listPages .functions a.editPage {
-    background: url(../image/key/listPages_editPage.png) no-repeat;
+    background: url("../image/key/listPages_editPage.png") no-repeat;
     }
 .listPages .functions a.deletePage {
-    background: url(../image/key/listPages_deletePage.png) no-repeat;
+    background: url("../image/key/listPages_deletePage.png") no-repeat;
     }  
 .listPages .functions a.pageThumbnailUpload {
-    background: url(../image/key/listPages_pageThumbnailUpload.png) no-repeat;
+    background: url("../image/key/listPages_pageThumbnailUpload.png") no-repeat;
     }
 .listPages .functions a.pageThumbnailDelete {
-    background: url(../image/key/listPages_pageThumbnailDelete.png) no-repeat;
+    background: url("../image/key/listPages_pageThumbnailDelete.png") no-repeat;
     } 
 
 
@@ -203,7 +203,7 @@ div.listPagesHead {
 
 .startPageIcon {
     display: inline-block;
-    background: url(../image/key/listPages_startPage.png) no-repeat;
+    background: url("../image/key/listPages_startPage.png") no-repeat;
     width:27px;
     height: 23px;
     }
@@ -215,7 +215,7 @@ div.listPagesHead {
     display: block;
     width: 27px;
     height: 27px;
-    background: url(../image/key/listPages_createPage.png) no-repeat !important;
+    background: url("../image/key/listPages_createPage.png") no-repeat !important;
     }
 .listPages .createPage:hover {
     background-position: 0px -27px !important;
@@ -234,16 +234,16 @@ div.listPagesHead {
 
 /* for categories */
 .listPages .category .status a.public {
-    background: url(../image/sign/category_public.png) no-repeat !important;
+    background: url("../image/sign/category_public.png") no-repeat !important;
     }
 .listPages .category .status a.nonpublic {
-    background: url(../image/sign/category_nonpublic.png) no-repeat !important;
+    background: url("../image/sign/category_nonpublic.png") no-repeat !important;
     }
 
 /* for pages */
 .listPages .content .status.public a {     
-    background: url(../image/sign/page_public.png) no-repeat !important;
+    background: url("../image/sign/page_public.png") no-repeat !important;
     }
 .listPages .content .status.nonpublic a {
-    background: url(../image/sign/page_nonpublic.png) no-repeat !important;
+    background: url("../image/sign/page_nonpublic.png") no-repeat !important;
     }

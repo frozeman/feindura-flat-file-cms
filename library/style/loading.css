@@ -33,16 +33,16 @@
     }    
 #loadingBox .top {
     height: 30px;
-    background: url(../image/bg/loadingBox_top.png) no-repeat;
+    background: url("../image/bg/loadingBox_top.png") no-repeat;
     }
 #loadingBox .content {
     padding: 0px 25px;
-    background: url(../image/bg/loadingBox_middle.png) repeat-y;
+    background: url("../image/bg/loadingBox_middle.png") repeat-y;
     text-align: center;
     }
 #loadingBox .bottom {
     height: 30px;
-    background: url(../image/bg/loadingBox_bottom.png) no-repeat;
+    background: url("../image/bg/loadingBox_bottom.png") no-repeat;
     }
     
 /* ----------------------- */
@@ -58,7 +58,7 @@
   
   width: 100%;
   height: 48px;
-  background: url(../image/sign/loadingCircle.gif) no-repeat top center;
+  background: url("../image/sign/loadingCircle.gif") no-repeat top center;
   }
 
 /* ----------------------- */
@@ -74,5 +74,5 @@
     margin-right: auto;
     width: 300px;
     height: 320px;
-    background: url(../image/sign/documentSaved.png) no-repeat;
+    background: url("../image/sign/documentSaved.png") no-repeat;
     }

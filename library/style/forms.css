@@ -19,7 +19,7 @@ forms.css version 0.1 */
 /* ---:- INPUT */
 
 input, textarea, select, div.CodeMirror-wrapping {
-    background: url(../image/bg/formularBg.png) no-repeat #ffffff;
+    background: url("../image/bg/formularBg.png") no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
     margin: 1px 0px;
@@ -89,7 +89,7 @@ a.addStyleFilePath {
     height: 24px;
     top: 5px;
     left: 1px;
-    background: url(../image/key/addStyleFilePath.png) no-repeat;
+    background: url("../image/key/addStyleFilePath.png") no-repeat;
     }
 a.addStyleFilePath:hover {
     background-position: 0px -24px;
@@ -114,7 +114,7 @@ input.submit, a.submit, a.ok {
     position: relative;
     width: 75px;
     height: 75px;
-    background: url(../image/key/form_submit.png) no-repeat !important;
+    background: url("../image/key/form_submit.png") no-repeat !important;
     }
 input.submit:hover, a.submit:hover, a.ok:hover {
     background-position: 1px -78px !important;
@@ -133,7 +133,7 @@ a.cancel {
 input.cancel, a.cancel {
     width: 75px;
     height: 75px;
-    background: url(../image/key/form_cancel.png) no-repeat !important;
+    background: url("../image/key/form_cancel.png") no-repeat !important;
     }
 input.cancel:hover, a.cancel:hover {
     background-position: 0px -78px !important;
@@ -170,7 +170,7 @@ input.search {
     width: 50px;
     height: 50px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url(../image/key/form_search.png) no-repeat  0px 0px !important;
+    background: url("../image/key/form_search.png") no-repeat  0px 0px !important;
     }
 input.search:hover {
     background-position: 0px -50px !important;

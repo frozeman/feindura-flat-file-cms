@@ -34,7 +34,7 @@
 #footerMenu li.spacer {
     width: 14px;
     height: 100px;
-    background: url(../image/key/footerMenu_spacer.png) no-repeat;
+    background: url("../image/key/footerMenu_spacer.png") no-repeat;
     }
     
 /* ----------------------- */
@@ -65,35 +65,35 @@
 
 /* fileManager */ 
 #footerMenu a.fileManager {
-    background: url(../image/key/footerMenu_fileManager.png) no-repeat;
+    background: url("../image/key/footerMenu_fileManager.png") no-repeat;
     }
 #footerMenu a.fileManager:hover {
     background-position: -100px 0px;
     }
 /* createPage */ 
 #footerMenu a.createPage {
-    background: url(../image/key/footerMenu_createPage.png) no-repeat;
+    background: url("../image/key/footerMenu_createPage.png") no-repeat;
     }
 #footerMenu a.createPage:hover {
     background-position: -100px 0px;
     }
 /* deletePage */ 
 #footerMenu a.deletePage {
-    background: url(../image/key/footerMenu_deletePage.png) no-repeat;
+    background: url("../image/key/footerMenu_deletePage.png") no-repeat;
     }
 #footerMenu a.deletePage:hover {
     background-position: -100px 0px;
     }
 /* uploadThumb */ 
 #footerMenu a.pageThumbnailUpload {
-    background: url(../image/key/footerMenu_uploadThumb.png) no-repeat;
+    background: url("../image/key/footerMenu_uploadThumb.png") no-repeat;
     }
 #footerMenu a.pageThumbnailUpload:hover {
     background-position: -100px 0px;
     }
 /* deleteThumb */ 
 #footerMenu a.pageThumbnailDelete {
-    background: url(../image/key/footerMenu_deleteThumb.png) no-repeat;
+    background: url("../image/key/footerMenu_deleteThumb.png") no-repeat;
     }
 #footerMenu a.pageThumbnailDelete:hover {
     background-position: -100px 0px;

@@ -45,7 +45,7 @@ windowBox.css version 0.1 */
     width: 780px;
     height: 2px; /*org: 60px */
     padding: 29px 0px;
-    background: url(../image/bg/windowBox_top.png) no-repeat;
+    background: url("../image/bg/windowBox_top.png") no-repeat;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -57,7 +57,7 @@ windowBox.css version 0.1 */
     width: 680px;
     min-height: 180px;
     padding: 20px 50px;
-    background: url(../image/bg/windowBox_middle.png) repeat-y;
+    background: url("../image/bg/windowBox_middle.png") repeat-y;
     overflow: hidden;
     }
 #windowBox .boxBottom {
@@ -66,7 +66,7 @@ windowBox.css version 0.1 */
     bottom: 0px; /* before -55px */
     width: 780px;
     height: 60px; /* org: 60px */
-    background: url(../image/bg/windowBox_bottom.png) no-repeat;
+    background: url("../image/bg/windowBox_bottom.png") no-repeat;
     }
 
 #windowBoxDimmer {
@@ -79,7 +79,7 @@ windowBox.css version 0.1 */
     /*margin-bottom: -80px;*/
     padding: 50px 0px;
     text-align: center;
-    background: url(../image/bg/dimmContainer.png) repeat;
+    background: url("../image/bg/dimmContainer.png") repeat;
     -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
     filter:Alpha(opacity=50, finishopacity=50, style=0);
     }
@@ -93,7 +93,7 @@ windowBox.css version 0.1 */
     margin-bottom: 10px;
     padding: 0px 10px;
     padding-bottom: 12px;
-    background: url(../image/bg/windowBox_h1.png) no-repeat bottom left;
+    background: url("../image/bg/windowBox_h1.png") no-repeat bottom left;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -117,7 +117,7 @@ windowBox.css version 0.1 */
     width: 35px;
     height: 35px;
     padding: 0px;
-    background: url(../image/key/windowBox_close.png) no-repeat;
+    background: url("../image/key/windowBox_close.png") no-repeat;
     }
 #windowBox .boxTop a:hover {
     background-position: -35px 0px;

@@ -26,7 +26,7 @@ a.createCategory {
     height: 54px;
     padding: 0px !important; /* overwrites the #mainBody a*/
     float: right;
-    background: url(../image/key/pageSetup_createCategory.png) no-repeat 0px 0px !important;
+    background: url("../image/key/pageSetup_createCategory.png") no-repeat 0px 0px !important;
     }
 a.createCategory:hover {
     background-position: 0px -54px !important;
@@ -42,7 +42,7 @@ a.deleteCategory {
     height: 54px;
     padding: 0px !important; /* overwrites the #mainBody a*/
     float: right;
-    background: url(../image/key/pageSetup_deleteCategory.png) no-repeat  0px 0px !important;
+    background: url("../image/key/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
     }
 a.deleteCategory:hover {
     background-position: 0px -54px !important;
@@ -56,7 +56,7 @@ a.categoryUp {
     width: 43px;
     height: 31px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url(../image/key/pageSetup_categoryUp.png) no-repeat 0px 0px !important;
+    background: url("../image/key/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
     }
 a.categoryUp:hover {
     background-position: 0px -32px !important;
@@ -71,7 +71,7 @@ a.categoryDown {
     width: 43px;
     height: 31px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url(../image/key/pageSetup_categoryDown.png) no-repeat 0px 0px !important;
+    background: url("../image/key/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
     }
 a.categoryDown:hover {
     background-position: 0px -32px !important;

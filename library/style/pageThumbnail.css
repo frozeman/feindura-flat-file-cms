@@ -83,7 +83,7 @@ input.thumbnailUpload {
     left: 305px;
     width: 75px;
     height: 90px;
-    background: url(../image/key/thumbnailUpload.png) no-repeat !important;
+    background: url("../image/key/thumbnailUpload.png") no-repeat !important;
     }
 input.thumbnailUpload:hover {
     background-position: 0px -90px !important;
