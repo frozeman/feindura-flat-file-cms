@@ -410,8 +410,6 @@ class generalFunctions {
   */
   function savePage($pageContent) {
     
-    
-    
     // escaps ",',\,NULL but undescappes the double quotes again
     //echo '---1>'.$pageContent['content'];
     $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);

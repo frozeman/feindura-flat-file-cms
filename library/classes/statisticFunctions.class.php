@@ -1094,6 +1094,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver  
   * 
   * <b>Used Constants</b><br>
   *    - <var>PHPSTARTTAG</var> the php start tag
@@ -1129,7 +1130,12 @@ class statisticFunctions extends generalFunctions {
       // ->> CHECKS if the user is NOT a BOT/SPIDER
       if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
          (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
-         
+   
+        // -------------------------------------------------------------------------------------
+        // -->> --------------------------------------------------------------------------------
+        // ->> WEBSITE STATISTIC
+        // -------------- 
+        
         // -> saves the FIRST WEBSITE VISIT
         // -----------------------------
         if(!isset($this->websiteStatistic['firstVisit']) ||
@@ -1192,12 +1198,107 @@ class statisticFunctions extends generalFunctions {
         // saves the user as visited
         $_SESSION['log_userVisited'] = true;
         
-        return true;
-      } else
-        return false;
+      }        
+    } else {
+      
+      // ->> CHECKS if the user is NOT a BOT/SPIDER
+      if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
+         (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
         
-    } else
-      return false;
+        // -------------------------------------------------------------------------------------
+        // ->> VISIT TIME of PAGES
+        // -----------------------
+        
+        $newMinVisitTimes = '';
+        $newMaxVisitTimes = '';
+        $maxCount = 5;
+
+        // -> count the time difference, between the last page and the current
+        if(isset($_SESSION['log_lastPages']) && isset($_SESSION['log_lastPage_timestamp'])) {
+             
+          foreach($_SESSION['log_lastPages'] as $log_lastPage) {
+          
+            // load the last page again
+            $lastPage = $this->readPage($log_lastPage,$this->getPageCategory($log_lastPage));
+            
+            $orgVisitTime = $this->getMicroTime() - $_SESSION['log_lastPage_timestamp'];
+            // makes a time out of seconds
+            $orgVisitTime = $this->secToTime($orgVisitTime);
+            $visitTime = $orgVisitTime;
+
+            // -> saves the MAX visitTime
+            // ****
+            if(!empty($lastPage['log_visitTime_max']) && $visitTime !== false) {
+            
+              $maxVisitTimes = explode('|',$lastPage['log_visitTime_max']);
+              
+              // adds the new time if it is bigger than the highest min time
+              if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
+                array_unshift($maxVisitTimes,$visitTime);
+                $visitTime = false;
+              }
+              // adds the new time on the beginnig of the array          
+              $newMaxVisitTimes = array_slice($maxVisitTimes,0,$maxCount);
+              
+              // sort array
+              natsort($newMaxVisitTimes);
+              $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
+              // make array to string
+              $newMaxVisitTimes = implode('|',$newMaxVisitTimes);
+              
+            } elseif(!empty($lastPage['log_visitTime_max']))
+              $newMaxVisitTimes = $lastPage['log_visitTime_max'];
+            else
+              $newMaxVisitTimes = $orgVisitTime;
+            
+            // -> saves the MIN visitTime
+            // ****
+            if(!empty($lastPage['log_visitTime_min']) && $visitTime !== false) {
+            
+              $minVisitTimes = explode('|',$lastPage['log_visitTime_min']);
+              
+              // adds the new time if it is bigger than the highest min time
+              if($visitTime > $minVisitTimes[0]) {
+                array_unshift($minVisitTimes,$visitTime);
+              }
+              // adds the new time on the beginnig of the array  
+              $newMinVisitTimes = array_slice($minVisitTimes,0,$maxCount);
+    
+              // sort array
+              natsort($newMinVisitTimes);
+              $newMinVisitTimes = array_reverse($newMinVisitTimes);
+              // make array to string
+              $newMinVisitTimes = implode('|',$newMinVisitTimes);
+              
+            } elseif(!empty($lastPage['log_visitTime_min']))
+              $newMinVisitTimes = $lastPage['log_visitTime_min'];
+            else
+              $newMinVisitTimes = '00:00:00';
+            
+            //echo '-> '.$newMaxVisitTimes.'<br />';
+            //echo '-> '.$newMinVisitTimes.'<br />';
+                 
+            // -> adds the new max times to the pageContent Array
+            $lastPage['log_visitTime_max'] = $newMaxVisitTimes;
+            $lastPage['log_visitTime_min'] = $newMinVisitTimes;
+            
+            $seconds = str_replace(':','',$orgVisitTime);
+            $category = ($lastPage['category'] != 0) ? $lastPage['category'].'/' : '';
+            
+            // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
+            if($seconds > 5 && // save only pages which where visited longer than 5 seconds
+               @file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].$category.$lastPage['id'].'.php'))
+              $this->savePage($lastPage);
+          }
+          
+          // -> clear the lastPages IDs, after saved their visit time
+          $_SESSION['log_lastPages'] = array();
+        }
+      }
+    }
+    
+    // -> store the visitime start
+    $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();   
   }
   
  /**
@@ -1254,91 +1355,8 @@ class statisticFunctions extends generalFunctions {
       if($this->isPageContentArray($pageContent) === false)
         return false;
       
-      // -------------------------------------------------------------------------------------
-      // -->> --------------------------------------------------------------------------------
-      // ->> VISIT TIME
-      // --------------
-      $newMinVisitTimes = '';
-      $newMaxVisitTimes = '';
-      $maxCount = 5;
-              
-      // -> count the time difference, between the last page and the current
-      if(isset($_SESSION['log_lastPage'])) {
-        
-        // load the last page again
-        $lastPage = $this->readPage($_SESSION['log_lastPage'],$this->getPageCategory($_SESSION['log_lastPage']));
-        
-        $orgVisitTime = $this->getMicroTime() - $_SESSION['log_lastPage_timestamp'];
-        // makes a time out of seconds
-        $orgVisitTime = $this->secToTime($orgVisitTime);
-        $visitTime = $orgVisitTime;
-        
-        // -> saves the MAX visitTime
-        // ****
-        if(!empty($lastPage['log_visitTime_max']) && $visitTime !== false) {
-        
-          $maxVisitTimes = explode('|',$lastPage['log_visitTime_max']);
-          
-          // adds the new time if it is bigger than the highest min time
-          if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
-            array_unshift($maxVisitTimes,$visitTime);
-            $visitTime = false;
-          }
-          // adds the new time on the beginnig of the array          
-          $newMaxVisitTimes = array_slice($maxVisitTimes,0,$maxCount);
-          
-          // sort array
-          natsort($newMaxVisitTimes);
-          $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
-          // make array to string
-          $newMaxVisitTimes = implode('|',$newMaxVisitTimes);
-          
-        } elseif(!empty($lastPage['log_visitTime_max']))
-          $newMaxVisitTimes = $lastPage['log_visitTime_max'];
-        else
-          $newMaxVisitTimes = $orgVisitTime;
-        
-        // -> saves the MIN visitTime
-        // ****
-        if(!empty($lastPage['log_visitTime_min']) && $visitTime !== false) {
-        
-          $minVisitTimes = explode('|',$lastPage['log_visitTime_min']);
-          
-          // adds the new time if it is bigger than the highest min time
-          if($visitTime > $minVisitTimes[0]) {
-            array_unshift($minVisitTimes,$visitTime);
-          }
-          // adds the new time on the beginnig of the array  
-          $newMinVisitTimes = array_slice($minVisitTimes,0,$maxCount);
-
-          // sort array
-          natsort($newMinVisitTimes);
-          $newMinVisitTimes = array_reverse($newMinVisitTimes);
-          // make array to string
-          $newMinVisitTimes = implode('|',$newMinVisitTimes);
-          
-        } elseif(!empty($lastPage['log_visitTime_min']))
-          $newMinVisitTimes = $lastPage['log_visitTime_min'];
-        else
-          $newMinVisitTimes = '00:00:00';
-          
-        //echo '-> '.$newMaxVisitTimes.'<br />';
-        //echo '-> '.$newMinVisitTimes.'<br />';
-        
-        // -> adds the new max times to the pageContent Array
-        $lastPage['log_visitTime_max'] = $newMaxVisitTimes;
-        $lastPage['log_visitTime_min'] = $newMinVisitTimes;        
-        
-        // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
-        if(@file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].'/'.$lastPage['category'].'/'.$lastPage['id'].'.php')) {
-          $this->savePage($lastPage);
-        }
-      }
-      
-      // stores the time of the LAST PAGE in the session
-      $_SESSION['log_lastPage'] = $pageContent['id'];
-      $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();
-
+      // STORE last visited page IDs in a session array and the time
+      $_SESSION['log_lastPages'][] = $pageContent['id'];      
       
       // -> saves the FIRST PAGE VISIT
       // -----------------------------

@@ -216,7 +216,7 @@ class feinduraBase {
   * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
   * @uses $language                               to set the given $language parameter to, or try to find out the browser language
   * @uses $languageFile                           set the loaded frontend language-file to this property
-  * @uses statisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit
+  * @uses statisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit AND the visit time of the last visited pages
   * 
   * @return void
   * 

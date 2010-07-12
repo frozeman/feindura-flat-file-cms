@@ -1742,7 +1742,7 @@ class feindura extends feinduraBase {
           if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
             // -> SAVE PAGE STATISTIC
             // **********************
-            $this->statisticFunctions->savePageStats($pageContent);          
+            $this->statisticFunctions->savePageStats($pageContent);
           }
           
           // returns the UNCHANGED pageContent Array, after showing the page
