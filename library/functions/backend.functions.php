@@ -1283,7 +1283,9 @@ function checkBasePath() {
   $baseUrl = str_replace('www.','',$GLOBALS['adminConfig']['url']);
   $checkUrl = str_replace('www.','',$_SERVER["HTTP_HOST"]);
   
-  if($GLOBALS['adminConfig']['basePath'] ==  dirname($_SERVER['PHP_SELF']).'/' &&
+  $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
+  
+  if($GLOBALS['adminConfig']['basePath'] ==  $checkPath &&
      $baseUrl == $checkUrl)
     return true;
   else
