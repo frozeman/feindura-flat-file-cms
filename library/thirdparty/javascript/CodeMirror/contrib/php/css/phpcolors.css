@@ -23,7 +23,7 @@ html {
   of the cursor.
 */
 pre.code, .editbox {
-  color: red;
+  color: #666666;
 }
 
 .editbox p {
@@ -31,21 +31,21 @@ pre.code, .editbox {
 }
 
 span.php-punctuation {
-  color: blue;
+  color: #333333;
 }
 
 span.php-keyword {
-  color: #770088;
+  color: #83590E;
   font-weight: bold;
 }
 
 span.php-operator {
-  color: blue;
+  color: #333333;
 }
 
 /* __FILE__ etc.; http://php.net/manual/en/reserved.php */
 span.php-compile-time-constant {
-  color: #776088;
+  color: #83590E;
   font-weight: bold;
 }
 
@@ -57,7 +57,7 @@ span.php-predefined-constant {
 
 /* PHP reserved "language constructs"... echo() etc.; http://php.net/manual/en/reserved.php */
 span.php-reserved-language-construct {
-  color: #333333;
+  color: #83590E;
   font-weight: bold;
 }
 
@@ -77,7 +77,7 @@ span.php-atom {
 
 /* class, interface, namespace or function names, but not $variables */
 span.php-t_string {
-  color: black;
+  color: #666666;
 }
 
 span.php-variable {
@@ -86,26 +86,26 @@ span.php-variable {
 
 
 span.js-localvariable {
-  color: #004499;
+  color: #1A75CD;
 }
 
 span.php-comment {
-  color: #AA7700;
+  color: #87A87C;
   font-stretch: condensed;
 /*  font-style: italic;  This causes line height to slightly change, getting line numbers out of sync */
 }
 
 span.php-string-single-quoted {
-  color: #AA2222;
+  color: #D66B22;
 }
 /* double quoted strings allow interpolation */
 span.php-string-double-quoted {
-  color: #AA2222;
+  color: #D66B22;
   font-weight: bold;
 }
 
 span.syntax-error {
-  background-color: red;
+  background-color: #FFB088;
 }
 
 span.deprecated {

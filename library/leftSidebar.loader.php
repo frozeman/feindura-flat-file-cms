@@ -188,7 +188,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // FEINDURA INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
             <p>'.$version[2].' - '.$version[3].'</p>';
-      echo '<a href="CHANGELOG" class="standardLink">changelog</a>';
+      echo '<a href="CHANGELOG" class="standardLink">Changelog</a>';
       echo '<hr />';
       
       if(substr(phpversion(),0,3) >= '4.3') {

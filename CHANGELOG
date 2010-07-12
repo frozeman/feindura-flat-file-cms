@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 293
+Build 294
 --------------------------------------------------
 Copyright © Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,6 +23,7 @@ ChangeLog:
 
 1.0 RC
 
+  build 294: changed CodeMirror syntax colors
   build 293: some fixes in language files
   build 292: fixed checkLanguage
   build 291: fixed apache mod rewrite modul detection

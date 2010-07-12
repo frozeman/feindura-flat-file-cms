@@ -19,7 +19,7 @@ span.xml-tagname {
 }
 
 span.xml-attribute {
-  color: #281;
+  color: #1A75CD;
 }
 
 span.xml-punctuation {
@@ -27,11 +27,11 @@ span.xml-punctuation {
 }
 
 span.xml-attname {
-  color: #00F;
+  color: #333333;
 }
 
 span.xml-comment {
-  color: #A70;
+  color: #87A87C;
 }
 
 span.xml-cdata {
@@ -39,7 +39,8 @@ span.xml-cdata {
 }
 
 span.xml-processing {
-  color: #999;
+  color: #333333;
+  background-color: #E9E9E9;
 }
 
 span.xml-entity {
