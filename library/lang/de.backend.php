@@ -72,7 +72,7 @@ $langFile['path_relativepath_tip'] = 'Relativer Pfad::Beginnt ohne &quot;/&quot;
 
 $langFile['home_browser_h1'] = 'Browserspektrum der Besucher';
 $langFile['log_spiderCount'] = 'Spider';
-$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt sind Computer-programme von Suchmaschienen, die Seiten analysieren und indizieren.';
+$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt sind Programmscripte von Suchmaschienen, die Seiten analysieren und indizieren.';
 
 $langFile['log_searchwordtothissite_part1'] = 'hat'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt';

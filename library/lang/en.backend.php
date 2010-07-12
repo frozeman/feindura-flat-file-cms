@@ -282,7 +282,7 @@ $langFile['home_taskLog_nolog'] = 'none';
 
 $langFile['home_h1_article'] = 'the';
 $langFile['home_mostVisitedPages_h1'] = 'most visted pages';
-$langFile['home_lastEditedPages_h1'] = 'last visited pages';
+$langFile['home_lastEditedPages_h1'] = 'last edited pages';
 $langFile['home_longestViewedPages_h1'] = 'longest viewed pages';
 
 $langFile['home_refererLog_h1'] = 'Websites from which visitors came';
