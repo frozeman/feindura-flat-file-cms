@@ -266,9 +266,8 @@ class feinduraBase {
     // if no country code is given, try to get the BROWSER LANGUAGE
     } else
       $this->language = $this->generalFunctions->checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME 
-    
+
     $this->loadFrontendLanguageFile($this->language);
-    
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */

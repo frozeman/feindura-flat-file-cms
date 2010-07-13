@@ -617,7 +617,7 @@ class statisticFunctions extends generalFunctions {
 	  if($return == 'Internet Explorer' && $browser->getVersion() <= 6)
 	   $return = 'Internet Explorer old';	 
     
-    if($return = 'Shiretoko')
+    if($return == 'Shiretoko')
       $return = 'Firefox';
     
     // -> return
@@ -653,7 +653,7 @@ class statisticFunctions extends generalFunctions {
         $browsers[] =  explode(',',$browser);
       }
       
-      $highestNumber = 1;
+      $highestNumber = 0;
       foreach($browsers as $browser) {
         $highestNumber += $browser[1];
       }
@@ -1162,7 +1162,7 @@ class statisticFunctions extends generalFunctions {
         if(isset($this->websiteStatistic['browser']))
           $this->websiteStatistic['browser'] = $this->addDataToString(array($browser),$this->websiteStatistic['browser']);
         else
-          $this->websiteStatistic['browser'] = '';
+          $this->websiteStatistic['browser'] = $browser.',1';
         
         if(!isset($this->websiteStatistic["spiderVisitCount"]))
           $this->websiteStatistic["spiderVisitCount"] = '0';

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 303
+Build 304
 --------------------------------------------------
 Copyright Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,6 +23,7 @@ ChangeLog:
 
 1.0 RC
 
+  build 304: fixes in browser detection
   build 303: fixes in checkBasePath()
   build 302: changed activity log filename to activity.statistic.log and referer.statistic.log
   build 301: add CKEditor build 3691
