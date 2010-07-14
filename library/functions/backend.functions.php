@@ -712,17 +712,18 @@ function prepareStyleFilePaths($givenStyleFiles) {
   
   if(is_string($givenStyleFiles))
     return $givenStyleFiles;
-  
-  foreach($givenStyleFiles as $styleFile) {
-    // ** adds a "/" on the beginning of all absolute paths
-    if(!empty($styleFile) && substr($styleFile,0,1) !== '/')
-        $styleFile = '/'.$styleFile;
     
-    // adds back to the string only if its not empty
-    if(!empty($styleFile))
-      $styleFiles[] = $styleFile;
+  if(is_array($givenStyleFiles)) {
+    foreach($givenStyleFiles as $styleFile) {
+      // ** adds a "/" on the beginning of all absolute paths
+      if(!empty($styleFile) && substr($styleFile,0,1) !== '/')
+          $styleFile = '/'.$styleFile;
+      
+      // adds back to the string only if its not empty
+      if(!empty($styleFile))
+        $styleFiles[] = $styleFile;
+    }
   }
-  
   return implode('|',$styleFiles);
 }
 

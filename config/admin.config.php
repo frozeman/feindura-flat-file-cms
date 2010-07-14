@@ -3,9 +3,9 @@
 $adminConfig['url'] =              'localhost';
 $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura10/_page/';
-$adminConfig['uploadPath'] =       '/_feindura.org/upload/';
+$adminConfig['uploadPath'] =       '/_feindura10/upload/';
 $adminConfig['websitefilesPath'] = '/_feindura10/plugins/';
-$adminConfig['stylesheetPath'] =   '/_feindura10/library/style/';
+$adminConfig['stylesheetPath'] =   '';
 $adminConfig['dateFormat'] =       'eu';
 $adminConfig['speakingUrl'] =      false;
 

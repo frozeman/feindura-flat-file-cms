@@ -7,7 +7,7 @@ $websiteConfig['keywords']       = 'keyword1,keyword2,keyword3,keyword4';
 $websiteConfig['description']    = 'This example website is intended to show how easy it is to use feindura CMS.';
 $websiteConfig['contactMail']    = 'fabian@frozeman.de';
 
-$websiteConfig['startPage']      = '6';
+$websiteConfig['startPage']      = '1';
 
 return $websiteConfig;
 ?>
