@@ -1168,12 +1168,13 @@ class statisticFunctions extends generalFunctions {
           $this->websiteStatistic["spiderVisitCount"] = '0';
         
       // ->> COUNT the SPIDER UP
-      } elseif(!isset($this->websiteStatistic['spiderVisitCount']) ||
-               (isset($this->websiteStatistic['spiderVisitCount']) && $this->websiteStatistic['spiderVisitCount'] == ''))
+      } elseif($_SESSION['log_userIsSpider'] === true && 
+               (!isset($this->websiteStatistic['spiderVisitCount']) ||
+               (isset($this->websiteStatistic['spiderVisitCount']) && $this->websiteStatistic['spiderVisitCount'] == ''))) {
         $this->websiteStatistic['spiderVisitCount'] = '1';
-      else
+      }elseif($_SESSION['log_userIsSpider'] === true) {
         $this->websiteStatistic['spiderVisitCount']++;
-
+      }
       
       // ->> OPEN website.statistic.php for writing
       if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","w")) {
