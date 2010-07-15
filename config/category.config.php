@@ -21,9 +21,9 @@ $categoryConfig['id_1']['thumbRatio'] =      '';
 
 
 $categoryConfig['id_2']['id'] =              2;
-$categoryConfig['id_2']['name'] =            '';
-$categoryConfig['id_2']['public'] =          false;
-$categoryConfig['id_2']['createdelete'] =    false;
+$categoryConfig['id_2']['name'] =            'Rechtliches';
+$categoryConfig['id_2']['public'] =          true;
+$categoryConfig['id_2']['createdelete'] =    true;
 $categoryConfig['id_2']['thumbnail'] =       false;
 $categoryConfig['id_2']['plugins'] =         false;
 $categoryConfig['id_2']['showtags'] =        false;
@@ -38,6 +38,26 @@ $categoryConfig['id_2']['styleClass'] =      '';
 $categoryConfig['id_2']['thumbWidth'] =      '';
 $categoryConfig['id_2']['thumbHeight'] =     '';
 $categoryConfig['id_2']['thumbRatio'] =      '';
+
+
+$categoryConfig['id_3']['id'] =              3;
+$categoryConfig['id_3']['name'] =            'News';
+$categoryConfig['id_3']['public'] =          true;
+$categoryConfig['id_3']['createdelete'] =    true;
+$categoryConfig['id_3']['thumbnail'] =       false;
+$categoryConfig['id_3']['plugins'] =         false;
+$categoryConfig['id_3']['showtags'] =        false;
+$categoryConfig['id_3']['showpagedate'] =    false;
+$categoryConfig['id_3']['sortbypagedate'] =  false;
+$categoryConfig['id_3']['sortascending'] =   false;
+
+$categoryConfig['id_3']['styleFile'] =       '';
+$categoryConfig['id_3']['styleId'] =         '';
+$categoryConfig['id_3']['styleClass'] =      '';
+
+$categoryConfig['id_3']['thumbWidth'] =      '';
+$categoryConfig['id_3']['thumbHeight'] =     '';
+$categoryConfig['id_3']['thumbRatio'] =      '';
 
 
 return $categoryConfig;

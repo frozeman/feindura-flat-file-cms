@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 306
+Build 307
 --------------------------------------------------
 Copyright Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,6 +23,7 @@ ChangeLog:
 
 1.0 RC
  
+  build 307: changed API reference design to non frame 
   build 306: fixes in backend.functions.php
   build 305: fixes in saveWebsiteStats()
   build 304: fixes in browser detection

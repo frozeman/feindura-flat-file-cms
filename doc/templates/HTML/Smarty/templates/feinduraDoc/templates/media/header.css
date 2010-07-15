@@ -1,0 +1,110 @@
+/* ----------------------- */
+/* --- HEADER */    
+#header {
+    z-index: 0;
+    position: relative;
+    top: 0px;
+    width: 910px;
+    height: 200px;
+    background: url("image/bg/header.png") no-repeat;
+    }
+    
+#navigationInfo {
+    position: absolute;
+    bottom: -4px;
+    left: 20px;
+    color: #999999;
+    font-size: 11px;
+    }
+
+#subMenu {
+    position: absolute;
+    bottom: -4px;
+    right: 20px;
+    color: #999999;
+    font-size: 11px;
+    }
+
+/* - HEADER SEARCHFIELD */
+#header input#searchfield {
+    position: absolute;
+    top: 20px;
+    right: 23px;
+    width:137px; /* org: 147px */
+    height: 18px; /* org: 18px */
+    padding: 0px 5px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    }
+.overTxtLabel { color:#999; }
+
+/* LOGO LINK */
+
+#header a.logo {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    height: 160px;
+    width: 280px;
+    }
+
+/* - HEADER MENU */  
+ul#headerMenu {
+    z-index: 0;
+    position: absolute;
+    top: 50px;
+    left: 350px; /* org 350px */
+    list-style: none;
+    }
+ul#headerMenu li {
+    position: relative;
+    display: inline-block;    
+    float: left;
+    text-align: left;
+    margin: 0px 5px;
+    }
+
+#headerMenu a {
+    position: relative;
+    display: block;
+    height: 80px;
+    width: 120px;
+    color: #999999;
+    text-decoration: none;
+    text-align: center;
+    font-size: 12px;
+    background-position: center top !important;
+    border: none;
+    }
+#headerMenu a:hover, #headerMenu a.active {
+    color: #4E5C69;
+    background-position: center -80px !important;    
+    }
+#headerMenu a span {
+    position: relative;
+    top: 80px;
+    text-align: center;
+    /*border: 1px solid red;*/
+    }
+    
+/* overview */
+#headerMenu a.overview {
+    background: url("image/key/headerMenu_overview.png") no-repeat;
+    }
+    
+/* download */
+#headerMenu a.download {
+    background: url("image/key/headerMenu_download.png") no-repeat;
+    }
+    
+/* documentation */
+#headerMenu a.documentation {
+    background: url("image/key/headerMenu_documentation.png") no-repeat;
+    }
+    
+/* community */
+#headerMenu a.community {
+    background: url("image/key/headerMenu_community.png") no-repeat;
+    }

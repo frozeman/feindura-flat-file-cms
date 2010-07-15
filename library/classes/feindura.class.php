@@ -868,7 +868,8 @@ class feindura extends feinduraBase {
     if(substr($langFilesPath,-1) != '/')
       $langFilesPath .= '/';
       
-    // adds the DOCUMENTROOT  
+    // adds the DOCUMENTROOT
+    $langFilesPath = str_replace('\\','/',$langFilesPath);
     $langFilesPath = str_replace(DOCUMENTROOT,'',$langFilesPath);  
     $langFilesPath = DOCUMENTROOT.$langFilesPath; 
     
