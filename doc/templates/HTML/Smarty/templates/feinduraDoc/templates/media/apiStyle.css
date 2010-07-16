@@ -137,7 +137,7 @@ ul.files li {
   }
 
 /* DOCBLOCK LISTS */
-.insideDockBlock ul {
+.insideDocBlock ul {
   list-style: circle;
   margin-left: 40px;
   font-size: 13px;

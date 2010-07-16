@@ -18,7 +18,7 @@
 <hr />
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'usedby'}{assign var="hasUsedBy" value="true"}{/if}{/section}
 	{if $hasUsedBy == 'true'}
-	<div class="insideDockBlock method-usedby">
+	<div class="insideDocBlock method-usedby">
 	<h5>Used By</h5>
 		<ul>
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'usedby'}
@@ -29,7 +29,7 @@
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}{assign var="hasUses" value="true"}{/if}{/section}
 	{if $hasUses == 'true'}
-	<div class="insideDockBlock method-uses">
+	<div class="insideDocBlock method-uses">
 	<h5>Uses</h5>
 		<ul>
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'uses'}
@@ -40,7 +40,7 @@
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'return'}{assign var="hasReturn" value="true"}{/if}{/section}
 	{if $hasReturn == 'true'}
-	<div class="insideDockBlock method-return">
+	<div class="insideDocBlock method-return">
 	<h5>Return Value</h5>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'return'}
@@ -51,7 +51,7 @@
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses' && $tags[tags].keyword != 'usedby'}{assign var="hasTags" value="true"}{/if}{/section}
 	{if $hasTags == 'true'}
-	<div class="insideDockBlock method-tags">
+	<div class="insideDocBlock method-tags">
 	<h5>Additional</h5>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword != 'version' && $tags[tags].keyword != 'return' && $tags[tags].keyword != 'uses' && $tags[tags].keyword != 'usedby'}
@@ -62,7 +62,7 @@
 	{/if}
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}{assign var="hasVersion" value="true"}{/if}{/section}
 	{if $hasVersion == 'true'}
-	<div class="insideDockBlock method-version">
+	<div class="insideDocBlock method-version">
 	<h5>Version</h5>
 		<ul class="tags">
 {section name=tags loop=$tags}{if $tags[tags].keyword == 'version'}

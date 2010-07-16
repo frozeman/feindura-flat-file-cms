@@ -606,7 +606,7 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $showError = true;
+  var $showErrors = true;
   
  /**
   * The tag which should be used for the error message
@@ -1063,9 +1063,10 @@ class feindura extends feinduraBase {
  /**
   * <b>Name</b> createLink()<br />
   * 
+  * <b>This method uses the {@link $linkLength $link...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * Creates a link from a page ID.
   * 
-  * <b>This method uses the link properties.</b>
   * 
   * If the given <var>$page</var> parameter is a string with "previous" or "next",
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
@@ -1207,9 +1208,10 @@ class feindura extends feinduraBase {
  /**
   * <b>Name</b> createMenu()<br />
   * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * Creates a menu from category or page ID(s).
   * 
-  * <b>This method uses the menu and link properties.</b>
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary child HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
@@ -1430,9 +1432,10 @@ class feindura extends feinduraBase {
   * <b>Name</b>     createMenuByTags()<br />
   * <b>Alias</b>    createMenuByTag()<br />
   * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * Create a menu from category or page ID(s) with pages which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
-  * <b>This method uses the menu and link properties.</b>
   * 
   * <b>Notice</b>: the tags will be compared case insensitive.
   * 
@@ -1519,11 +1522,12 @@ class feindura extends feinduraBase {
   * <b>Name</b>     createMenuByDate()<br />
   * <b>Alias</b>    createMenuByDates()<br />
   * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * Creates a menu from category or page ID(s) sorted by the page date,
   * with pages which have a page date and the page date fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
   * 
-  * <b>This method uses the menu and link properties.</b> 
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
@@ -1607,6 +1611,8 @@ class feindura extends feinduraBase {
   * <b>Name</b>     getPageTitle()<br />
   * <b>Alias</b>    getTitle()<br />
   * 
+  * <b>This method uses the {@link $titleLength $title...} properties.</b>
+  * 
   * Returns the title of a page.
   * This page title will be generated using the title properties.
   * 
@@ -1677,10 +1683,12 @@ class feindura extends feinduraBase {
   * <b>Name</b>  showPage()<br />
   * <b>Alias</b> showPages()<br />  
   * 
+  * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * Returns a page for displaying in a HTML-page.
   * This array will conatin all elements of the page, ready for displaying in a HTML-page.
   * 
-  * In case the page doesn't exists or is not public and the {@link $showError} property is TRUE, 
+  * In case the page doesn't exists or is not public and the {@link $showErrors} property is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
   * otherwiese it returns an empty array.<br />
   * 
@@ -1696,8 +1704,10 @@ class feindura extends feinduraBase {
   * @param int|false              $shortenText  (optional) number of the maximal content text length shown, adds a "more" link at the end or FALSE to not shorten
   * @param bool                   $useHtml      (optional) whether the content of the page has HTML-tags or not
   * 
+  * @uses feindura::$page
+  * 
   * @uses feindura::$xHtml
-  * @uses feindura::$showError
+  * @uses feindura::$showErrors
   * @uses feindura::$errorTag
   * @uses feindura::$errorId
   * @uses feindura::$errorClass
@@ -1764,9 +1774,10 @@ class feindura extends feinduraBase {
   * <b>Name</b>     listPages()<br />
   * <b>Alias</b>    listPage()<br />
   * 
+  * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * List pages by given category or page ID(s).
   * 
-  * <b>This method uses the error, title and thumbnail properties.</b>
   * 
   * Returns an array with multiple pages for displaying in a HTML-page.
   * 
@@ -1785,8 +1796,9 @@ class feindura extends feinduraBase {
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
+  * 
   * @uses feindura::$xHtml
-  * @uses feindura::$showError
+  * @uses feindura::$showErrors
   * @uses feindura::$errorTag
   * @uses feindura::$errorId
   * @uses feindura::$errorClass
@@ -1865,9 +1877,10 @@ class feindura extends feinduraBase {
   * <b>Name</b>     listPagesByTags()<br />
   * <b>Alias</b>    listPagesByTag(), listPageByTags(), listPageByTag()<br />
   * 
+  * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * List pages by given category or page ID(s), which have one or more of the tags from the given <var>$tags</var> parameter.
   * 
-  * <b>This method uses the error, title and thumbnail properties.</b>
   * 
   * <b>Notice</b>: the tags will be compared case insensitive.
   * 
@@ -1886,8 +1899,9 @@ class feindura extends feinduraBase {
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
+  * 
   * @uses feindura::$xHtml
-  * @uses feindura::$showError
+  * @uses feindura::$showErrors
   * @uses feindura::$errorTag
   * @uses feindura::$errorId
   * @uses feindura::$errorClass
@@ -1961,10 +1975,11 @@ class feindura extends feinduraBase {
   * <b>Name</b>     listPagesByDate()<br />
   * <b>Alias</b>    listPagesByDates(), listPageByDate(), listPageByDates()<br />
   * 
+  * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
   * List pages by given category or page ID(s) sorted by the page date which have a page date and it fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
   * 
-  * <b>This method uses the error, title and thumbnail properties.</b>
   * 
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
@@ -1983,7 +1998,7 @@ class feindura extends feinduraBase {
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
   * 
   * @uses feindura::$xHtml
-  * @uses feindura::$showError
+  * @uses feindura::$showErrors
   * @uses feindura::$errorTag
   * @uses feindura::$errorId
   * @uses feindura::$errorClass

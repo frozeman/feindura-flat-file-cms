@@ -549,13 +549,15 @@ class feinduraBase {
  /**
   * <b>Name</b> generatePage()<br />
   * 
+  * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>   
+  * 
   * Generates a page.
   * 
   * This method is called in descendant classes.<br />
   * Generates a page by the given page ID.
   * An array will be returned with all elements of the page, ready for displaying in a HTML-page.
   * 
-  * In case the page doesn't exists or is not public and the <var>$showError</var> parameter is TRUE, 
+  * In case the page doesn't exists or is not public and the <var>$showErrors</var> parameter is TRUE, 
   * an error will be placed in the ['content'] part of the returned array,
   * otherwiese it returns an empty array.<br />  
   * 
@@ -563,7 +565,7 @@ class feinduraBase {
   * {@example generatePage.return.example.php}
   * 
   * @param int|array  $page          page ID or a $pageContent array
-  * @param bool       $showError     (optional) says if errors like "The page you requested doesn't exist" will be displayed
+  * @param bool       $showErrors     (optional) says if errors like "The page you requested doesn't exist" will be displayed
   * @param int|false  $shortenText   (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
   * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
   * 
@@ -572,8 +574,10 @@ class feinduraBase {
   * @uses $categoryConfig                         to check whether the category of the page allows thumbnails
   * @uses $languageFile                           for the error texts
   * 
+  * @uses feindura::$page   
+  * 
   * @uses feindura::$xHtml
-  * @uses feindura::$showError
+  * @uses feindura::$showErrors
   * @uses feindura::$errorTag
   * @uses feindura::$errorId
   * @uses feindura::$errorClass
@@ -614,7 +618,7 @@ class feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function generatePage($page, $showError = true, $shortenText = false, $useHtml = true) {
+  function generatePage($page, $showErrors = true, $shortenText = false, $useHtml = true) {
     
     // vars
     $return['id'] = false;
@@ -637,7 +641,7 @@ class feinduraBase {
     
     // -> sets the ERROR SETTINGS
     // ----------------------------
-    if($showError) {
+    if($showErrors) {
       // adds ATTRIBUTES  
       $errorStartTag = '';
       $errorEndTag = '';
@@ -667,7 +671,7 @@ class feinduraBase {
       // -> if not try to load the page
       if(!$pageContent = $this->generalFunctions->readPage($page,$category)) {
         // if could not load throw ERROR
-        if($showError) {
+        if($showErrors) {
 	        $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
           return $return;
         } else
@@ -678,7 +682,7 @@ class feinduraBase {
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
-      if($showError) {
+      if($showErrors) {
         $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
         return $return; 
       } else
