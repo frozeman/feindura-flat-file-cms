@@ -149,33 +149,24 @@ window.addEvent('load',autoResizeThumbnailPreview);
 // DOMREADY
 window.addEvent('domready', function() {
   
-  // creates a smooth Scroll effect to anchors
-  /* new Fx.SmoothScroll({
-        links: '.smoothAnchors',
-        wheelStops: true,
-        duration: 1200
-    });*/
-  
   // block SLIDE IN/OUT ----------------------------------------------------------------------------------------------
 	blockSlideInOut();
   
   
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
-      links: '.smoothAnchor',
       wheelStops: true,
       duration: 200
   });
   
   // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
-/*
   var anchorId = window.location.hash.substring(1);
-  alert(anchorId);
+  //alert(anchorId + ' -> '+ $(anchorId).getPosition(window).y);
   if(anchorId) {
+    window.scrollTo(0,$(anchorId).getPosition(window).y - 50);
     //window.scrollTo(100, $(anchorId).getPosition().y);
     //document.getElementById(anchorId)).scrollIntoView(true);
     //window.location.hash = anchorId;
   }
-*/
 
 });

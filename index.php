@@ -333,7 +333,7 @@ if($_GET['site'] == 'addons') {
       include('library/content.loader.php');
       
       ?>
-      <a href="#top" class="fastUp smoothAnchor" title="<?php echo $langFile['btn_fastUp']; ?>">&nbsp;</a>
+      <a href="#top" class="fastUp" title="<?php echo $langFile['btn_fastUp']; ?>">&nbsp;</a>
     </div>    
     <?php    
     // ---------------------------------------------------------------
