@@ -1072,7 +1072,7 @@ class feindura extends feinduraBase {
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property AND set the class name <i>"active"</i> to the link.
   * 
   * Example:
   * {@example createLink.example.php}
@@ -1155,8 +1155,14 @@ class feindura extends feinduraBase {
          
           // add HREF
           $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.$linkText.'"'; // title="'.$pageContent['title'].'"
-  	  
-  	      $linkAttributes .= $this->createAttributes($this->linkId, $this->linkClass, $this->linkAttributes);
+  	      
+          $linkClass = ($this->page == $pageContent['id'])
+          ? $this->linkClass.' active'
+          : $this->linkClass;
+  	      
+  	      $linkClass = trim($linkClass);
+  	      
+  	      $linkAttributes .= $this->createAttributes($this->linkId, $linkClass, $this->linkAttributes);
                       
           $linkStartTag = '<a '.$linkAttributes.">\n";
           $linkEndTag = "\n</a>";        
@@ -1218,7 +1224,8 @@ class feindura extends feinduraBase {
   * 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
   * 
-  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.<br />
+  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenu.example.php}
@@ -1445,6 +1452,7 @@ class feindura extends feinduraBase {
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenuByTags.example.php}
@@ -1535,6 +1543,7 @@ class feindura extends feinduraBase {
   * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
   * 
   * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
   * 
   * Example:
   * {@example createMenuByDate.example.php}
