@@ -3,15 +3,14 @@
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
   
-  <a href="#sec-var-summary" class="upButton" title="back to the property summary"></a>
-  
-	<div class="var-header">	  
+	<div class="var-header">
+	  <a href="#sec-var-summary" class="upButton" title="back to the property summary"></a>
 		<span class="var-title">		  
 			static <span class="var-type">{$vars[vars].var_type}</span>
 			<span class="var-name">{$vars[vars].var_name}</span>
-			{if $vars[vars].var_default} = <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br />"}</span>{/if}
+			{if $vars[vars].var_default} = <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br>"}</span>{/if}
 			<!--(line <span class="line-number">{if $vars[vars].slink}{$vars[vars].slink}{else}{$vars[vars].line_number}{/if}</span>)-->
-		</span>
+    </span>
 	</div>
 
 	{include file="docblock.tpl" sdesc=$vars[vars].sdesc desc=$vars[vars].desc tags=$vars[vars].tags}	
@@ -50,16 +49,15 @@
 {if !$vars[vars].static}
 <a name="var{$vars[vars].var_name}" id="{$vars[vars].var_name}"><!-- --></A>
 <div class="{cycle values="evenrow,oddrow"}">
-
-  <a href="#sec-var-summary" class="upButton" title="back to the property summary"></a>
   
-	<div class="var-header">	  
+	<div class="var-header">
+    <a href="#sec-var-summary" class="upButton" title="back to the property summary"></a>  
 		<span class="var-title">
 			<span class="var-type">{$vars[vars].var_type}</span>
 			<span class="var-name">{$vars[vars].var_name}</span>
-			{if $vars[vars].var_default} = <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br />"}</span>{/if}
+			{if $vars[vars].var_default} = <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br>"}</span>{/if}
 			<!--(line <span class="line-number">{if $vars[vars].slink}{$vars[vars].slink}{else}{$vars[vars].line_number}{/if}</span>)-->
-		</span>
+    </span>
 	</div>
 
 	{include file="docblock.tpl" sdesc=$vars[vars].sdesc desc=$vars[vars].desc tags=$vars[vars].tags}	
@@ -93,4 +91,3 @@
 </div>
 {/if}
 {/section}
-

@@ -1,6 +1,6 @@
 {foreach key=subpackage item=files from=$classleftindex}
   <ul class="classes">
-	{if $subpackage != ""}{$subpackage}<br />{/if}
+	{if $subpackage != ""}{$subpackage}<br>{/if}
 	{section name=files loop=$files}
 	   <li>
     {if $subpackage != ""}<span style="padding-left: 1em;">{/if}

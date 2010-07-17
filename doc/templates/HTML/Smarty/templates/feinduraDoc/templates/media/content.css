@@ -5,7 +5,7 @@
     font-size: 1.2em;
     line-height: 1.7em;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     }
   
 #content h1 {  
@@ -15,10 +15,6 @@
     font-weight: normal;
     }  
 
-    
-#content table {
-    margin-top: 20px;
-    }
 
 #content td.tableSideBar {
     border-left: 1px dotted #CCCCCC;
@@ -27,11 +23,10 @@
 
 /* quotes */
 blockquote { 
-    margin: 15px 15px;
+    margin: 0px;
     margin-bottom: 30px;
     padding: 12px 20px;
     padding-bottom: 15px;
-    padding-left: 38px;
     border: 1px dotted #cccccc;
     background: url("../image/bg/blockquote.png") no-repeat #f9f9f9;
     }

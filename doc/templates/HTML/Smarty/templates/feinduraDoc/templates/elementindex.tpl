@@ -7,6 +7,6 @@
 	<li><a href="elementindex_{$packageindex[p].title}.html">{$packageindex[p].title}</a></li>
 {/section}
 </ul>
-<br />
+<br>
 {include file="basicindex.tpl" indexname="elementindex"}
 {include file="footer.tpl"}

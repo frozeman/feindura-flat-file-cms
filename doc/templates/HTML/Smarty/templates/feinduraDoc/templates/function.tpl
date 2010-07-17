@@ -2,10 +2,9 @@
 <a name="{$functions[func].function_dest}" id="{$functions[func].function_dest}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
-	<a href="#sec-description" class="upButton smoothAnchor" title="back to the function summary"></a>
-	
 	<div class="method-header">
-	  <span class="lineNumber"><span>File source:</span><br />
+	  <a href="#sec-description" class="upButton" title="back to the function summary"></a>
+	  <span class="lineNumber"><span>File source:</span><br>
     line {if $functions[func].slink}{$functions[func].slink}{else}{$functions[func].line_number}{/if}
     </span>
     <table>
@@ -17,7 +16,7 @@
 		<span class="method-braces">(</span>
 		</td><td>
 		{if count($functions[func].ifunction_call.params)}
-			{section name=params loop=$functions[func].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br />{/if}{if $functions[func].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$functions[func].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$functions[func].ifunction_call.params[params].name}</span>{if $functions[func].ifunction_call.params[params].hasdefault} = <span class="var-default">{$functions[func].ifunction_call.params[params].default|escape:"html"}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
+			{section name=params loop=$functions[func].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br>{/if}{if $functions[func].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$functions[func].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$functions[func].ifunction_call.params[params].name}</span>{if $functions[func].ifunction_call.params[params].hasdefault} = <span class="var-default">{$functions[func].ifunction_call.params[params].default|escape:"html"}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
 		{else}
 		<span class="method-braces">)</span>
 		{/if}
@@ -32,11 +31,13 @@
   	  <h3>Parameters</h3>
   		<table class="parameters">
   		{section name=params loop=$functions[func].params}
-  			<tr><td style="white-space: nowrap; padding-right: 8px;text-align: right;">
+  			<tr><td>
   				<span class="var-type">{$functions[func].params[params].datatype}</span>
+  				</td><td>
   				<span class="var-name">{$functions[func].params[params].var}</span>
           </td><td>
-          {if $functions[func].params[params].data}<span class="var-description">: {$functions[func].params[params].data}</span>{/if}
+          {if $functions[func].params[params].data}<span class="var-description">{$functions[func].params[params].data}</span>{/if}<br>
+          {if $functions[func].ifunction_call.params[params].hasdefault} Default <span class="var-default">{$functions[func].ifunction_call.params[params].default}</span>{/if}
   			  </td>
         </tr>
   		{/section}
@@ -46,9 +47,9 @@
 	
 		{if $functions[func].function_conflicts.conflict_type}
 		<hr class="separator" />
-		<div><span class="warning">Conflicts with functions:</span><br /> 
+		<div><span class="warning">Conflicts with functions:</span><br> 
 			{section name=me loop=$functions[func].function_conflicts.conflicts}
-				{$functions[func].function_conflicts.conflicts[me]}<br />
+				{$functions[func].function_conflicts.conflicts[me]}<br>
 			{/section}
 		</div>
 	{/if}
@@ -57,6 +58,5 @@
 
 	{include file="docblock.tpl" sdesc=$functions[func].sdesc desc=$functions[func].desc tags=$functions[func].tags params=$functions[func].params function=false}
 	
-
 </div>
 {/section}

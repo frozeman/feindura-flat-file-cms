@@ -1,7 +1,7 @@
 /* ----------------------- */
 /* --- HEADER */    
 #header {
-    z-index: 0;
+    z-index: 2;
     position: relative;
     top: 0px;
     width: 910px;
@@ -26,7 +26,7 @@
     }
 
 /* - HEADER SEARCHFIELD */
-#header input#searchfield {
+#header input#searchfield, #searchBox #moo-search-module-inputs input {
     position: absolute;
     top: 20px;
     right: 23px;
@@ -35,9 +35,52 @@
     padding: 0px 5px;
     background: none;
     border: none;
-    font-size: 13px;
+    font-size: 13px;    
     }
 .overTxtLabel { color:#999; }
+
+/* mootools searchbox */
+#searchBox {
+    z-index: 10;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+    }
+#searchBox .fadeBox p.title, #search-button {
+    display: none;
+    }
+    
+#moo-search-module-results {
+    z-index: 99;
+    position: absolute;
+    top: 40px;
+    right: 23px;
+    width: 250px;
+    padding: 10px;
+    background-color: #F3F3F3;
+    -moz-opacity:0.9; -khtml-opacity:0.9; opacity:0.9;
+    filter:Alpha(opacity=90, finishopacity=90, style=0);
+    border: 1px solid #cccccc;
+    display: none;
+    }
+
+#moo-search-module-results p {
+    margin-bottom: 25px;
+    }    
+
+#moo-search-module-results ul{
+    font-family: helvetica,verdana,sans-serif,arial;
+    font-size: 12px;
+    margin: -13px -10px;
+    list-style-type: none;
+    }
+#moo-search-module-results ul li{
+    background-color: #E5E7E5;
+    padding: 3px 5px;
+    margin: 3px 0px;
+    }
+
 
 /* LOGO LINK */
 
@@ -67,6 +110,7 @@ ul#headerMenu li {
     }
 
 #headerMenu a {
+    z-index: 1;
     position: relative;
     display: block;
     height: 80px;

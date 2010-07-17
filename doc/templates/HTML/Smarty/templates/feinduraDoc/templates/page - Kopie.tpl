@@ -114,7 +114,7 @@
 		<div class="info-box-body">
 			{include file="include.tpl"}
 		</div>
-	</div><br />
+	</div><br>
 {/if}
 
 {if $defines}
@@ -144,7 +144,7 @@
 		<div class="info-box-body">
 			{include file="define.tpl"}
 		</div>
-	</div><br />
+	</div><br>
 {/if}
 
 {if $globals}
@@ -174,7 +174,7 @@
 		<div class="info-box-body">
 			{include file="global.tpl"}
 		</div>
-	</div><br />
+	</div><br>
 {/if}
 
 {if $functions}
@@ -204,7 +204,7 @@
 		<div class="info-box-body">
 			{include file="function.tpl"}
 		</div>
-	</div><br />
+	</div><br>
 {/if}
 
 {include file="footer.tpl" top3=true}

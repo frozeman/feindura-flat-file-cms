@@ -1,5 +1,5 @@
 {if count($api_tags) > 0}
-<strong>API Tags:</strong><br />
+<strong>API Tags:</strong><br>
 <table border="0" cellspacing="0" cellpadding="0">
 {section name=tag loop=$api_tags}
   <tr>
@@ -7,11 +7,11 @@
   </tr>
 {/section}
 </table>
-<br />
+<br>
 {/if}
 
 {if count($info_tags) > 0}
-<strong>Information Tags:</strong><br />
+<strong>Information Tags:</strong><br>
 <table border="0" cellspacing="0" cellpadding="0">
 {section name=tag loop=$info_tags}
 	{if $info_tags[tag].keyword ne "author"}

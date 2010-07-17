@@ -4,10 +4,10 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 
-  <a href="#sec-method-summary" class="upButton smoothAnchor" title="back to the methods summary"></a>
   
   <div class="method-header">
-    <span class="lineNumber"><span>File source:</span><br />
+    <a href="#sec-method-summary" class="upButton" title="back to the methods summary"></a>
+    <span class="lineNumber"><span>File source:</span><br>
     line {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}
     </span>
   	<table>
@@ -18,7 +18,7 @@
       <span class="method-braces">(</span>
       </td><td>
   		{if count($methods[methods].ifunction_call.params)}
-  			{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br />{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
+  			{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br>{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
   		{else}
   		<span class="method-braces">)</span>
   		{/if}
@@ -33,11 +33,14 @@
 			<h3>Parameters</h3>
 			<table class="parameters">
 			{section name=params loop=$methods[methods].params}
-				<tr><td style="white-space: nowrap; padding-right: 8px;text-align: right;">
+				<tr><td>
 					<span class="var-type">{$methods[methods].params[params].datatype}</span>
+					</td><td>
 					<span class="var-name">{$methods[methods].params[params].var}</span>
           </td><td>
           {if $methods[methods].params[params].data}<span class="var-description">{$methods[methods].params[params].data}</span>{/if}
+          <br>
+          {if $methods[methods].ifunction_call.params[params].hasdefault} Default <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>{/if}
 				</td></tr>
 			{/section}
 			</table>
@@ -93,10 +96,9 @@
 <a name="method{$methods[methods].function_name}" id="{$methods[methods].function_name}"><!-- --></a>
 <div class="{cycle values="evenrow,oddrow"}">
 	
-	<a href="#sec-method-summary" class="upButton smoothAnchor" title="back to the methods summary"></a>
-	
 	<div class="method-header">
-	  <span class="lineNumber"><span>File source:</span><br />
+	  <a href="#sec-method-summary" class="upButton" title="back to the methods summary"></a>
+	  <span class="lineNumber"><span>File source:</span><br>
     line {if $methods[methods].slink}{$methods[methods].slink}{else}{$methods[methods].line_number}{/if}
     </span>
   	<table>
@@ -109,7 +111,7 @@
   		<span class="method-braces">(</span>
       </td><td>
   		{if count($methods[methods].ifunction_call.params)}
-  			{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br />{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
+  			{section name=params loop=$methods[methods].ifunction_call.params}{if $smarty.section.params.iteration != 1},<br>{/if}{if $methods[methods].ifunction_call.params[params].hasdefault}<span class="method-optional-braces">[</span>{/if}<span class="var-type">{$methods[methods].ifunction_call.params[params].type}</span>&nbsp;<span class="var-name">{$methods[methods].ifunction_call.params[params].name}</span>{if $methods[methods].ifunction_call.params[params].hasdefault} = <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span><span class="method-optional-braces">]</span>{/if}{/section}<span class="method-braces">)</span>
   		{else}
   		<span class="method-braces">)</span>
   		{/if}
@@ -124,11 +126,13 @@
 			<h3>Parameters</h3>
 			<table class="parameters">
 			{section name=params loop=$methods[methods].params}
-				<tr><td style="white-space: nowrap; padding-right: 8px; text-align: right;">
+				<tr><td>
 					<span class="var-type">{$methods[methods].params[params].datatype}</span>
+					</td><td>
 					<span class="var-name">{$methods[methods].params[params].var}</span>
           </td><td>
-          {if $methods[methods].params[params].data}<span class="var-description">{$methods[methods].params[params].data}</span>{/if}
+          {if $methods[methods].params[params].data}<span class="var-description">{$methods[methods].params[params].data}</span>{/if}<br>
+          {if $methods[methods].ifunction_call.params[params].hasdefault} Default <span class="var-default">{$methods[methods].ifunction_call.params[params].default}</span>{/if}
 				</td></tr>
 			{/section}
 			</table>

@@ -15,7 +15,7 @@
 {/if}
 
 {if $tags}
-<hr />
+<hr>
 	{section name=tags loop=$tags}{if $tags[tags].keyword == 'usedby'}{assign var="hasUsedBy" value="true"}{/if}{/section}
 	{if $hasUsedBy == 'true'}
 	<div class="insideDocBlock method-usedby">

@@ -15,21 +15,21 @@
 	{include file="docblock.tpl" sdesc=$globals[glob].sdesc desc=$globals[glob].desc}
   {/if}
 
-  <b>Default value:</b>&nbsp;&nbsp;<span class="var-default">{$globals[glob].global_value|replace:" ":"&nbsp;"|replace:"\n":"<br />\n"|replace:"\t":"&nbsp;&nbsp;&nbsp;"}</span>
-<br />
+  <b>Default value:</b>&nbsp;&nbsp;<span class="var-default">{$globals[glob].global_value|replace:" ":"&nbsp;"|replace:"\n":"<br>\n"|replace:"\t":"&nbsp;&nbsp;&nbsp;"}</span>
+<br>
 	{include file="tags.tpl" api_tags=$globals[glob].api_tags info_tags=$globals[glob].info_tags}
 
 	{if $globals[glob].global_conflicts.conflict_type}
 		<hr class="separator" />
-		<div><span class="warning">Conflicts with global variables:</span><br />
+		<div><span class="warning">Conflicts with global variables:</span><br>
 			{section name=me loop=$globals[glob].global_conflicts.conflicts}
-				{$globals[glob].global_conflicts.conflicts[me]}<br />
+				{$globals[glob].global_conflicts.conflicts[me]}<br>
 			{/section}
 		</div>
 	{/if}
-	<br />
+	<br>
 	<div class="top">[ <a href="#top">Top</a> ]</div>
-	<br />
+	<br>
 </div>
 {/section}
 {/if}

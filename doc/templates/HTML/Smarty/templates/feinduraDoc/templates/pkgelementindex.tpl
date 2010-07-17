@@ -13,6 +13,6 @@
 {/if}
 <ul>
   <li class="elementindex"><a href="elementindex.html">All Elements</a></li>
-</ul><br />
+</ul><br>
 {include file="basicindex.tpl" indexname=elementindex_$package}
 {include file="footer.tpl"}

@@ -6,13 +6,13 @@
 </h2>-->
 {if $interfaces}
 {section name=classtrees loop=$interfaces}
-<h2>Root interface {$interfaces[classtrees].class}</h2>
+<h1>Interface Hierarchy</h1>
 {$interfaces[classtrees].class_tree}
 {/section}
 {/if}
 {if $classtrees}
 {section name=classtrees loop=$classtrees}
-<h2>Root class {$classtrees[classtrees].class}</h2>
+<h1>Class Hierarchy</h1>
 <div class="classes">
 {$classtrees[classtrees].class_tree}
 </div>

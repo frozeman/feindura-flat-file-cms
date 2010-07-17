@@ -13,6 +13,6 @@
 	{include file="docblock.tpl" sdesc=$includes[includes].sdesc desc=$includes[includes].desc tags=$includes[includes].tags}
 	{include file="tags.tpl" api_tags=$includes[includes].api_tags info_tags=$includes[includes].info_tags}
 		<div class="top">[ <a href="#top">Top</a> ]</div>
-		<br />
+		<br>
 </div>
 {/section}

@@ -4,15 +4,15 @@
 {section name=toc loop=$toc}
 {if $toc[toc].tagname == 'refsect1'}
 {assign var="context" value="refsect1"}
-{$toc[toc].link}<br />
+{$toc[toc].link}<br>
 {/if}
 {if $toc[toc].tagname == 'refsect2'}
 {assign var="context" value="refsect2"}
-&nbsp;&nbsp;&nbsp;{$toc[toc].link}<br />
+&nbsp;&nbsp;&nbsp;{$toc[toc].link}<br>
 {/if}
 {if $toc[toc].tagname == 'refsect3'}
 {assign var="context" value="refsect3"}
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$toc[toc].link}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$toc[toc].link}<br>
 {/if}
 {if $toc[toc].tagname == 'table'}
 {if $context == 'refsect2'}&nbsp;&nbsp;&nbsp;{/if}

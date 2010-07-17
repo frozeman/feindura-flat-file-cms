@@ -1,22 +1,53 @@
 <!--<h1>{$maintitle}</h1>-->
 <h1>Welcome to the feindura API reference!</h1>
+
+<div class="large">
 <p>
-This reference was generated out of the comments in the feindura code.
-It should provide a sufficient description of all necessary methods and functions used by feindura.</p>
+To impelement <span class="feindura"><em>fein</em>dura</span> in your website you need to create an instance of the <a href="{$subdir}[Implementation]/feindura.html">feindura class</a> 
+before the header of your HTML page is sent, which means before any HTML tag.<br>
+Take a look in the <a href="{$subdir}[Implementation]/feindura.html#sec-method-summary">methods</a> of this class to see what you can do with <span class="feindura"><em>fein</em>dura</span>.</p>
+
+<p><i>The <a href="{$subdir}[Implementation]/feinduraBase.html">feinduraBase class</a> is the basis class for the <a href="{$subdir}[Implementation]/feindura.html">feindura class</a> and should not be called directly.</i></p>
+</div>
+
+<hr>
+
 <p>
-To implement feindura take a look in the <a href="li_[Implementation].html">[Implementation]</a> package, 
-in there you find <b>the <i>feindura class</i> which should provide every necessary method to implement feindura in your website.</b></p>
-<p>
-For more advanced usage see also the <a href="li_[Implementation]-[backend].html">[Implementation]-[backend]</a> package.</p>
-<p>
-If you want to improve feindura, the <a href="li_[backend].html">[backend]</a> and <a href="li_[Implementation]-[backend].html">[Implementation]-[backend]</a> package 
+For more advanced usage of <span class="feindura"><em>fein</em>dura</span> you can take a look in the <a href="{$subdir}li_[Implementation]-[backend].html">[Implementation]-[backend]</a> package.<br>
+If you want to improve feindura, the <a href="{$subdir}li_[backend].html">[backend]</a> and <a href="{$subdir}li_[Implementation]-[backend].html">[Implementation]-[backend]</a> package 
 should be interesting for you.</p>
 
-<p>Your selected package is: <b>{$package}</b></p>
-{if $compiledclassindex}
-<span class="folder-title">Classes</span>
-    {eval var=$compiledclassindex}
+
+<div class="info-box-body" style="padding: 25px 20px; padding-top: 10px;">
+
+{if $package == "[not_documented]"}
+  {if $packageindex}
+  <h5>Available Packages</h5>
+  <ul class="package">
+    {section name=packagelist loop=$packageindex}
+      <li><a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a></li>
+    {/section}
+  </ul>
+  {/if}
 {/if}
-{if $compiledfileindex}
-  {eval var=$compiledfileindex}
-{/if} 
+
+{if $package != "[not_documented]"}
+  
+  <br>
+  <span class="package-title">Package: {$package}</span><br>
+  <br>
+  {if $compiledclassindex}
+  <span class="folder-title">Classes</span>
+      {eval var=$compiledclassindex}
+  {/if}
+  {if $package == "[backend]"}
+    <br>
+    <span class="functions"><a href="{$subdir}[backend]/_library---functions---backend.functions.php.html#sec-functions">Functions</a></span>
+    <br><br>
+  {/if} 
+  {if $compiledfileindex}
+    {eval var=$compiledfileindex}
+  {/if}
+
+{/if}
+</div>
