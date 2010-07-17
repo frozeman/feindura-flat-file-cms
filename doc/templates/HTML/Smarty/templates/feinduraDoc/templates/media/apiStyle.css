@@ -172,7 +172,7 @@ tr.evenrowParameters { background-color: #F3F3F3; }*/
 
 .field { font-weight: bold; }
 .detail { font-size: 8pt; }
-.notes { width: 100%; text-align: right; clear: both; padding: 5px; margin-top: 5px; font-size: 10px;}
+.notes { width: 848px; text-align: right; clear: both; padding: 10px; padding-right: 15px; margin-top: 5px; font-size: 10px;}
 .separator { background-color: #999999; height: 2px; }
 .warning {  color: #FF6600; }
 .disabled { font-style: italic; color: #999999; }

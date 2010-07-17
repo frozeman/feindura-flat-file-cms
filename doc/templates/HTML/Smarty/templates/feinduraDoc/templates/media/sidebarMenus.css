@@ -22,14 +22,17 @@ span.package-title {
 div.sidebarMenu {
     z-index: 2;
     position: fixed;
-    top: 20px;
+    top: 0px;
+    padding: 20px 0px;
     width: 275px;
     }
-div.sidebarMenu.left {    
+div.sidebarMenu.left {
     left: 0px;
     }
 div.sidebarMenu.right {
     right: 0px;
+    height: 700px;
+    overflow: auto;
     }
     
 div.sidebarMenu div {
@@ -80,11 +83,11 @@ div.sidebarMenu.right div div.bottom {
     }
     
 div.sidebarMenu.right div.methods div.content, div.sidebarMenu.right div.properties div.content {
-    max-height: 260px;
+    /*max-height: 260px;*/
     }
     
 div.sidebarMenu.right div.functions div.content {
-    max-height: 350px;
+    /*max-height: 350px;*/
     }
 
 /* SIDEBAR MENU CONTENT */

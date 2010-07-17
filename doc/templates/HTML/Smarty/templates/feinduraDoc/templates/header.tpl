@@ -27,6 +27,7 @@
   <!-- own javascripts -->
   <script type="text/javascript" src="{$subdir}media/javascript/header.js"></script>
   <script type="text/javascript" src="{$subdir}media/javascript/pageLinks.js"></script>
+  <script type="text/javascript" src="{$subdir}media/javascript/divScroller.js"></script>  
   <script type="text/javascript" src="{$subdir}media/javascript/sidebarMenus.js"></script>  
 	
 </head>

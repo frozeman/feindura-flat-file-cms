@@ -27,8 +27,22 @@ window.addEvent('domready', function() {
   });
   
   /* SIDEBAR RIGHT */
+  
+  
+  
   $$('div.sidebarMenu.right').each(function(sideBarMenu){
     
+    // set the height of the sidebar conatiner
+    sideBarMenu.setStyle('height',(window.getSize().y - 40)); // -40px padding
+    sideBarMenu.setStyle('overflow','hidden');
+    
+    // add DIV SCROLLER
+    var logScroller = new divScroller(sideBarMenu, {area: (window.getSize().y / 2.5),direction: 'y', velocity: 0.3,scrollSpeed: 250});
+  	// myContent
+  	sideBarMenu.addEvent('mouseenter', logScroller.start.bind(logScroller));
+  	sideBarMenu.addEvent('mouseleave', logScroller.stop.bind(logScroller));
+    
+    // slide out of the window 
     if(window.getSize().x <= minWindowSize)
      sideBarMenu.setStyle('right',blendOut);
     
@@ -37,13 +51,21 @@ window.addEvent('domready', function() {
     sideBarMenu.addEvent('mouseover',function(){
       if(window.getSize().x <= minWindowSize)
         sideBarMenu.tween('right','0px');
-      
+        
+      // reset the height of the sidebar conatiner
+      sideBarMenu.setStyle('height',(window.getSize().y - 40)); 
+      logScroller.setOptions({area: window.getSize().y / 2.5});
+          
     });
     sideBarMenu.addEvent('mouseout',function(){
       if(window.getSize().x <= minWindowSize)
        sideBarMenu.tween('right',blendOut);
       else
-       sideBarMenu.tween('right','0px');      
+       sideBarMenu.tween('right','0px');
+      
+      // reset the height of the sidebar conatiner
+      sideBarMenu.setStyle('height',(window.getSize().y - 40));
+      logScroller.setOptions({area: window.getSize().y / 2.5});
     });
   });
 });
