@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 312
+Build 313
 --------------------------------------------------
 Copyright Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,6 +23,7 @@ ChangeLog:
 
 1.0 RC
  
+  build 313: small changes in the language files
   build 312: fixed === true in some places
   build 311: adds now class active to the link which is selected
   build 310: removed smoothAnchor class
