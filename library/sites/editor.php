@@ -715,8 +715,7 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
 </textarea>
 
 <script type="text/javascript">
-/* <![CDATA[ */
-  
+/* <![CDATA[ */  
   
   // set the CONFIGs of the editor
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
@@ -727,7 +726,6 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
   CKEDITOR.config.filebrowserBrowseUrl      = <?php if($adminConfig['user']['fileManager']) echo "'library/thirdparty/filemanager/index.php'"; else echo "''"; ?>;
-
 
 /* ]]> */
 </script>
