@@ -851,7 +851,7 @@ function importcommaseparateddata($textfile, $textfile_name, &$status, &$newuser
 				$newuser = $data[0];
 				$newpass = $data[1];
 
-				if (checkimports($newuser, $newpass, $status, $existingusers) == true) {		/* Importierte Daten prüfen */
+				if (checkimports($newuser, $newpass, $status, $existingusers) === true) {		/* Importierte Daten prüfen */
 
 					adduser($newuser, $newpass, $status, $newusers);		/* Userinfo in $newusers ablegen */
 
@@ -1098,7 +1098,7 @@ function createhtpasswd(&$newusers, &$status, &$existingusers) {
 
 function cryptpass($user, $newpass) {
 
-	if(USEHTPASSWDEXE == true) {
+	if(USEHTPASSWDEXE === true) {
 		$command = HTPASSWDEXELOC." -nbm ".$user." ".$newpass;
 		return (exec($command));
 	}
@@ -1340,7 +1340,7 @@ if(isset($loginname) and isset($loginpass)) {
 	
 } //endif
 
-if($logok == false) {
+if($logok === false) {
 
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -1464,7 +1464,7 @@ if (isset($HTTP_POST_VARS['updatepasssubmit'])) {		/* Schaltfläche UPDATE wurde 
 	
 	} else {	//Benutzer ist NICHT schreibgeschützt
 		
-			if (checkupdates($HTTP_POST_VARS['updatepass'],$HTTP_POST_VARS['updatepass2'],$status) == true) {		/* Benutzereingaben prüfen */
+			if (checkupdates($HTTP_POST_VARS['updatepass'],$HTTP_POST_VARS['updatepass2'],$status) === true) {		/* Benutzereingaben prüfen */
 
 				updatepass($HTTP_POST_VARS['updatepassoptionbox'], $HTTP_POST_VARS['updatepass'], $status, $existingusers);
 
@@ -1477,7 +1477,7 @@ if (isset($HTTP_POST_VARS['updatepasssubmit'])) {		/* Schaltfläche UPDATE wurde 
 
 if (isset($HTTP_POST_VARS['newpasssubmit'])) {		/* Schaltfläche CREATE wurde gedrückt */
 	
-	if (checkinputs($HTTP_POST_VARS['newuser'],$HTTP_POST_VARS['newpass'],$HTTP_POST_VARS['newpass2'],$status, $existingusers) == true) {		/* Benutzereingaben prüfen */
+	if (checkinputs($HTTP_POST_VARS['newuser'],$HTTP_POST_VARS['newpass'],$HTTP_POST_VARS['newpass2'],$status, $existingusers) === true) {		/* Benutzereingaben prüfen */
 
 		createhtaccess($status);		/* .htaccess anlegen */
 
@@ -1622,7 +1622,7 @@ if(isAdmin()) {
 								</tr>
 								<?php
 
-if ( $currentusers == true ) {		/* User sind vorhanden */
+if ( $currentusers === true ) {		/* User sind vorhanden */
 
 ?>
 								<tr> 
@@ -1718,7 +1718,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 								</tr>
 								<?php
 	
-if ( $currentusers == true ) {		/* User sind vorhanden */
+if ( $currentusers === true ) {		/* User sind vorhanden */
 
 ?>
 								<tr> 
@@ -1764,7 +1764,7 @@ if ( $currentusers == true ) {		/* User sind vorhanden */
 } //endif
 
 
-if ( $currentusers == true ) {		/* User sind vorhanden */
+if ( $currentusers === true ) {		/* User sind vorhanden */
 
 ?>
 								<tr> 

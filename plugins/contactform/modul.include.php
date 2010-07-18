@@ -78,7 +78,7 @@ if(!isset($kontaktConfig)) {
 
 // ->> Mail senden
 // ----------------------------------------------------------------
-if($_POST['send'] == true) {
+if($_POST['send'] == 'true') {
 
 $_SESSION['anrede'] = @$_POST['anrede'];
 $_SESSION['vorname'] = @$_POST['vorname'];

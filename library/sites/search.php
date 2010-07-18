@@ -180,10 +180,10 @@ function ausgabeblock_end() {
           $zaehl++;
 			    unset($findtext);
         }
-		  }				
+		  }
 							   
 			// ausgabe wenn was gefunden wurde
-			if($if_find == true) {
+			if($if_find === true) {
 			  array_multisort($findings,SORT_ASC, SORT_REGULAR);
 			  
 			  //var_dump($findings);			  
@@ -209,7 +209,7 @@ function ausgabeblock_end() {
 				//echo $i;
 				//echo $ausgabenlaenge;
 				
-				if($findings[$i]['findtext'] == true) {	
+				if($findings[$i]['findtext'] === true) {	
 				
 					//überprüft ob das vorherige (davor) wort nah am jetzigen ist
 					if(isset($findings[($i-1)]['stelle']) && ($findings[($i-1)]['stelle']+$findings[($i-1)]['wortlaenge']) >= ($findings[$i]['stelle']-$ausgabenlaenge)) {

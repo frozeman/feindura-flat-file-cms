@@ -1600,7 +1600,7 @@ class feinduraBase {
     $shortIdType = substr($idType,0,3);
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    if($ids == false) {
+    if($ids === false) {
       if($shortIdType == 'pag')
         // USES the PRIORITY: 1. -> pages var 2. -> PROPERTY pages var 3. -> false
         $ids = $this->getPropertyPage(false);      

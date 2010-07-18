@@ -1041,7 +1041,7 @@ class statisticFunctions extends generalFunctions {
         if(isset($foundSw) && is_array($foundSw))
           $foundSwStr = implode('|',$foundSw);
      
-        if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) == false)) {
+        if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) === false)) {
           if(!empty($data)) {// verhindert das leere Suchwort strings gespeichert werden
             if(substr($newDataString,-1) != '|')
               $newDataString .= '|';
