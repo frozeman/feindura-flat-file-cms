@@ -147,7 +147,7 @@ var contextualSearch = new Class({
                       
                       var inPageElementLink = new Element('a',{
                           'href': 'javascript:void(0)',
-                          'html': '..' + elementText + '..',
+                          'html': elementText, //'..' + elementText + '..',
                           'events': {
                                 'click': function(){
                                     window.scrollTo(0,element.getPosition().y - 50);

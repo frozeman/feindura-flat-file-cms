@@ -6,10 +6,12 @@ It's also works much more simple: just call createMenu('category',1)
 and you have a simple array with links of the pages from this category.
 */
 
+// a session will be started in the "feindura.include.php",
+// therefor you have to include this file before the header of the HTML page is sent,
+// which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// the feindura.include.php has to be included BEFORE the header of the HTML page is sent
-// because a session is startet in this file
+// creates a new feindura instance
 $myCms = new feindura();
 
 // set menu properties

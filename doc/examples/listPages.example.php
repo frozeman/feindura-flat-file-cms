@@ -6,8 +6,9 @@ It's also works much more simple: just call listPages() without setting properti
 and list the current category given by $_GET variable.
 */
 
-// the feindura.include.php has to be included BEFORE the header of the HTML page is sent
-// because a session is startet in this file
+// a session will be started in the "feindura.include.php",
+// therefor you have to include this file before the header of the HTML page is sent,
+// which means before any HTML Tag.
 require('cms/feindura.include.php');
 
 // creates a new feindura instance
