@@ -905,15 +905,18 @@ class feindura extends feinduraBase {
   * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
   * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will not be set
   * 
-  * @uses feinduraBase::$websiteConfig      for the website title, publisher, copyright, description and keywords
-  * @uses generalFunctions::readPage()	to read the page and set the page title
+  * @uses feindura::$page               to load the page title of teh righte page
+  * @uses feindura::$category         to load the page title of teh righte page
+  * @uses feinduraBase::$websiteConfig  for the website title, publisher, copyright, description and keywords
+  * @uses generalFunctions::readPage()	to load the page for the page title
   * 
   * @return string with all meta tags ready to display in a HTML page
   * 
   * 
-  * @version 1.0
+  * @version 1.01
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.01 changed readPage() from getCurrentPage() to use only the page property    
   *    - 1.0 initial release
   * 
   */
@@ -941,7 +944,7 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
 
       // -> create TITLE
-      if($this->getCurrentPageId() && $currentPage = $this->generalFunctions->readPage($this->getCurrentPageId(),$this->getCurrentCategoryId()))
+      if($this->getCurrentPageId() && $currentPage = $this->generalFunctions->readPage($this->page,$this->category))
         $pageNameInTitle = ' - '.$currentPage['title'];
       
       // -> add TITLE
