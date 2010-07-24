@@ -54,7 +54,8 @@ var contextualSearch = new Class({
            }.bind(this)); 
 
            $('search-input').addEvent('keydown',function(event){
-              if(event.key == 'enter') {this.fetchData();}
+              //if(event.key == 'enter') {
+              this.fetchData()//;}
            }.bind(this)); 
 
     },
@@ -120,7 +121,7 @@ var contextualSearch = new Class({
                      }
                     markup += '</ul>';
                   } else {
-                    markup = "<p>No results found on other pages.</p>";
+                    markup = "<p>Nothing found in the API</p>";
                   }      
                  
                  // BLEND OUT results if clicked somwhere     
