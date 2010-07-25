@@ -84,12 +84,12 @@ $langFile['log_visitTime_max'] = 'longest retention';
 $langFile['log_visitTime_min'] = 'shortest retention';
 $langFile['log_firstVisit'] = 'since';
 $langFile['log_lastVisit'] = 'last visit';
-$langFile['log_novisit'] = 'Nobody visit this website yet.';
+$langFile['log_novisit'] = 'Yet nobody visit this website.';
 $langFile['log_tags_description'] = 'Serchwords which led from
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> or
 <a href="http://www.bing.com">Bing (MSN)</a> to this website.';
-$langFile['log_notags'] = 'No searchwords led to this website yet.';
+$langFile['log_notags'] = 'No searchwords led yet to this website.';
 
 $langFile['log_hour_single'] = 'hour';
 $langFile['log_hour_multiple'] = 'hours';
@@ -158,7 +158,7 @@ $langFile['user_currentuser'] = 'The user under which you\'re logged';
 * ---------- GENERAL TEXTs
 */
 
-$langFile['txt_logo'] = 'feindura, Version ';
+$langFile['txt_logo'] = 'Version ';
 $langFile['txt_loading'] = 'Page is loading..';
 
 /* ----------------------------------------------------------------------------------------------
@@ -286,7 +286,7 @@ $langFile['home_lastEditedPages_h1'] = 'last edited pages';
 $langFile['home_longestViewedPages_h1'] = 'longest viewed pages';
 
 $langFile['home_refererLog_h1'] = 'Websites from which visitors came';
-$langFile['home_refererLog_nolog'] = 'There are no visitors which came from other websites yet.';
+$langFile['home_refererLog_nolog'] = 'Yet there are no visitors which came from other websites.';
 $langFile['home_novisitors'] = 'There are no visitors yet';
 
 /* ----------------------------------------------------------------------------------------------

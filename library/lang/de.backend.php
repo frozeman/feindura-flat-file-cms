@@ -157,7 +157,7 @@ $langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
 * ---------- GENERAL TEXTs
 */
 
-$langFile['txt_logo'] = 'feindura, Version ';
+$langFile['txt_logo'] = 'Version ';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
 /* ----------------------------------------------------------------------------------------------

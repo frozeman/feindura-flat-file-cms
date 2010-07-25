@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 315
+Build 316
 --------------------------------------------------
 Copyright Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,6 +23,7 @@ ChangeLog:
 
 1.0 RC
  
+  build 316: logo in the corner is now clickable and lead to the website
   build 315: changes in createMetaTags() -> changed readPage() from getCurrentPage() to use only the page property
   build 314: add CKEditor build 5707
   build 313: small changes in the language files

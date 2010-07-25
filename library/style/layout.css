@@ -144,9 +144,13 @@ span.red {
 /* --- LOGO and createdBy link */ 
 #logo {
     z-index: 1;
+    display: block;
     position: absolute;
     top: 0px;
-    left: 0px;    
+    left: 0px;
+    width: 205px;
+    height: 140px;
+    background: url("../image/sign/logo.png") no-repeat;
     }
 #version {
     z-index: 2;
