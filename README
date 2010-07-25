@@ -1,6 +1,6 @@
 ----------------------------------------------
 feindura - Flat File Content Management System
-----------------------------------------------
+==============================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
 
@@ -16,42 +16,57 @@ You should have received a copy of the GNU General Public License along with thi
 if not,see <http://www.gnu.org/licenses/>.
 ----------------------------------------------
 
-AUTHOR
-  Fabian Vogelsteller [frozeman.de]
+## AUTHOR
+Fabian Vogelsteller [frozeman.de]
 
-DESCRIPTION
-  feindura is lightweight flat file based content management system written in PHP and ideal for small and medium websites.
-  It's main target is to provide an easy to integrate CMS for webdesigners who want to focus on their design rather than the backend structure.
+## DESCRIPTION
+feindura is lightweight flat file based content management system written in PHP, ideal for small and medium websites.
+It's main target is to provide an easy to integrate CMS for webdesigners who want to focus on their design rather than the backend structure.
 
-BACKEND
-  The CMS has a simple and easy to use interface with a simple structure, even though its possible to create large content websites through the category system.
+## BACKEND
+The CMS has an easy to use interface with a simple structure, even though its possible to create large content websites through the category system.
 
-YOUR KNOWLEDGE
-  You should have some basic knowledge in PHP so that you can impliment the CMS in your website. But by following the given examples it should easy to use feindura.
-  It's basic requirements for the implimentation in a website is a Apache server with PHP, however for using the CMS backend its recommend to have Javascript activated.
+## NECESSARY KNOWLEDGE
+You should have some basic knowledge in PHP so that you can impliment the CMS in your website. But by following the given examples it should easy to use feindura.
+It's basic requirements for the implimentation in a website is a Apache server with PHP, however for using the CMS backend its recommend to have Javascript activated.
 
+## FEATURES
+* Easy to install
+* Easy to setup on a server
+* Easy to use backend-interface through the use of mootools
+* multi-language backend interface (currently english and german)
+* Website statistics
+* Uses CKEditor
+* no templating, just create your design like you want it and say where to put what (menu, content, etc)
+* Set a thumbnail picture for every page
+* upload images and files
+* drag'n'drop for moving pages
 
-FEATURES
-  Easy to install
-  Easy to setup on a server
-  Easy to use backend-interface through the use of mootools
-  Website statistics
-  Uses the famous WYSIWYG CKEditor
-  No templating, just create your design like you want it and say where to put what (menu, content, etc)
-  Upload images and files
-  Set thumbnails for every page
-  Drag'n'Drop for moving pages
-  Multi-languages (currently english and german)
-  possibility of building Multi-language websites
-  plugin system (like adding contactforms to a page)
-  modul system (like search)
-  addon system, build your own application running in the feindura-CMS backend
+# future features
+* plugin system (like adding contactforms to a page)
+* modul system (like search)
+* addon system, build your own application running in the feindura-CMS backend
  
-REQUIREMENTS
-  Apache Server (for .htaccess login and if desired: Speaking URLs)
-  PHP >= 4.3.0 (SafeMode OFF) (PHP 5 for the FileManager)
-  Javascript
+## REQUIREMENTS
+* Apache Server (for .htaccess login and if desired: Speaking URLs)
+* PHP >= 4.3.0 (SafeMode OFF) (PHP 5 for the FileManager)
+* Javascript
 
-APPROPRIATE USES  
-  It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.
-  The feinduraPages::$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB (means you website can have up to 30 000 pages)
+## APPROPRIATE USES  
+It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.
+The feinduraPages::$storedPages array can have up to 30 000 Pages if the php memory limit is 16MB (means you website can have up to 30 000 pages)
+  
+## INSTALLATION
+To implement feindura in you're website copy the /cms/ folder in your website's folder and add the following lines on the beginning of your index.php,
+before the header is sent, which means before any HTML tag:
+
+    #PHP
+    <?php
+
+    include('cms/feindura.include.php');
+    
+    $myCms = new feindura();
+    
+    ?>
+    
+After this you can refer to the feindura class an it's methods through the $mycms->... variable.
