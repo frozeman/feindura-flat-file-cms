@@ -16,7 +16,7 @@ array(
                 ),  
     "tags" => 'winter summer',
     "plugins" => '',
-    "thumbnail" => 'thumb_cat1page2.jpg',
+    "thumbnail" => 'thumb_page2.jpg',
     "styleFile" => '',
     "styleId" => '',
     "styleClass" => '',

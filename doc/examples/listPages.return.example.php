@@ -33,8 +33,8 @@ array(
     'category' => 'Another Category',
     'pageDate' => false, // page has no pagedate
     'title' => 'Title Example 3',
-    'thumbnail' => '<img src="/path/thumb_cat1page3.png" alt="Thumbnail" title="Title Example 3" />',
-    'thumbnailPath' => '/path/thumb_cat1page3.png',
+    'thumbnail' => '<img src="/path/thumb_page3.png" alt="Thumbnail" title="Title Example 3" />',
+    'thumbnailPath' => '/path/thumb_page3.png',
     'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
     'description' => 'Short description of the page',
     'tags' => 'tag3 tag1',

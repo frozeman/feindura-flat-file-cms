@@ -31,6 +31,6 @@ $adminConfig['editor']['styleClass'] = '';
 $adminConfig['pageThumbnail']['width'] =  '115';
 $adminConfig['pageThumbnail']['height'] = '';
 $adminConfig['pageThumbnail']['ratio'] =  'x';
-$adminConfig['pageThumbnail']['path'] =   'images/thumbnail/'; // relativer to the ['uploadPath']
+$adminConfig['pageThumbnail']['path'] =   'thumbnails/'; // relativer to the ['uploadPath']
 
 ?>

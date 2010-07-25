@@ -32,7 +32,7 @@ $adminConfig['editor']['styleClass'] = '';
 $adminConfig['pageThumbnail']['width'] =  '100';
 $adminConfig['pageThumbnail']['height'] = '150';
 $adminConfig['pageThumbnail']['ratio'] =  'x';
-$adminConfig['pageThumbnail']['path'] =   'images/thumbnails/';
+$adminConfig['pageThumbnail']['path'] =   'thumbnails/';
 
 return $adminConfig;
 ?>

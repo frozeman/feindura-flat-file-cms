@@ -52,7 +52,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
   $adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
   $adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
-  $adminConfig['pageThumbnail']['path'] = 'images/'.$_POST['cfg_thumbPath'];
+  $adminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {
@@ -353,8 +353,8 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       <label for="cfg_thumbPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3'].'::'.$langFile['adminSetup_thumbnailSettings_field3_tip'] ?>">
       <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
       </td><td class="right">
-      <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>images/" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>" />
-      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo str_replace("images/","",$adminConfig['pageThumbnail']['path']); ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip2']; ?>" />
+      <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>" />
+      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip2']; ?>" />
       </td></tr>
       
             

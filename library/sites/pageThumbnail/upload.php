@@ -143,7 +143,7 @@ if($_POST['upload']) {
         	 
           // change thumbnail image width and height -------------------
           
-          $newFileName = 'thumb_cat'.$category.'page'.$page.'.'.$fileExtension;
+          $newFileName = 'thumb_page'.$page.'.'.$fileExtension;
           $newFilePath = $uploadPath.$newFileName;
           
           $imagesize = getimagesize(DOCUMENTROOT.$filePath);

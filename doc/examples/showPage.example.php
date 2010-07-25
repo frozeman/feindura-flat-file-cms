@@ -53,7 +53,7 @@ echo $page['content'];
 <a href="?page=1" title="2010-12-31 Example Page">
 2010-12-31 Example...
 </a>
-<img src="/path/thumb_cat1page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
+<img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
 class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
 
 <h2>Example Headline</h2>

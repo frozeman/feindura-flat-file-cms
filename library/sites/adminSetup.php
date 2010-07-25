@@ -205,7 +205,7 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   //$adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
   //$adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
   //$adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
-  //$adminConfig['pageThumbnail']['path'] = 'images/'.$_POST['cfg_thumbPath'];
+  //$adminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {   
