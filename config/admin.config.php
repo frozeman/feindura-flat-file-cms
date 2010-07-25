@@ -2,8 +2,8 @@
 
 $adminConfig['url'] =              'localhost';
 $adminConfig['basePath'] =         '/_feindura10/';
-$adminConfig['savePath'] =         '/sportivo-leipzig/pages/';
-$adminConfig['uploadPath'] =       '/sportivo-leipzig/upload/';
+$adminConfig['savePath'] =         '/_feindura10/_pages/';
+$adminConfig['uploadPath'] =       '/_feindura10/_upload/';
 $adminConfig['websitefilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '';
 $adminConfig['dateFormat'] =       'eu';
@@ -21,18 +21,18 @@ $adminConfig['user']['info'] =             '';
 $adminConfig['setStartPage'] =            true;
 $adminConfig['page']['createdelete'] =    true;
 $adminConfig['page']['thumbnails'] =      false;
-$adminConfig['page']['plugins'] =         true;
-$adminConfig['page']['showtags'] =        true;
+$adminConfig['page']['plugins'] =         false;
+$adminConfig['page']['showtags'] =        false;
 
 $adminConfig['editor']['enterMode'] =  'p';
-$adminConfig['editor']['styleFile'] =  '/sportivo-leipzig/style/reset.css|/sportivo-leipzig/style/layout.css|/sportivo-leipzig/style/widgets.css|/sportivo-leipzig/style/content.css';
-$adminConfig['editor']['styleId'] =    'content';
-$adminConfig['editor']['styleClass'] = 'cmsHtmlFix';
+$adminConfig['editor']['styleFile'] =  '/_feindura10/style/layout.css';
+$adminConfig['editor']['styleId'] =    '';
+$adminConfig['editor']['styleClass'] = '';
 
-$adminConfig['pageThumbnail']['width'] =  '115';
+$adminConfig['pageThumbnail']['width'] =  '100';
 $adminConfig['pageThumbnail']['height'] = '150';
 $adminConfig['pageThumbnail']['ratio'] =  'x';
-$adminConfig['pageThumbnail']['path'] =   'images/thumbnail/';
+$adminConfig['pageThumbnail']['path'] =   'images/thumbnails/';
 
 return $adminConfig;
 ?>
