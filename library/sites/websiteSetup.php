@@ -142,10 +142,10 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="contactMail"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6'].'::'.$langFile['websiteSetup_websiteConfig_field6_tip']; ?>">
+      <label for="email"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6'].'::'.$langFile['websiteSetup_websiteConfig_field6_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field6']; ?></span></label>
       </td><td class="right">
-      <input id="contactMail" name="contactMail" value="<?php echo $websiteConfig['contactMail']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6_inputTip']; ?>" />
+      <input id="email" name="email" value="<?php echo $websiteConfig['email']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>

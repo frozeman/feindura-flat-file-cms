@@ -1027,13 +1027,13 @@ class generalFunctions {
   }
   
  /**
-  * <b>Name</b> clearText()<br>
+  * <b>Name</b> prepareStringInput()<br>
   * 
-  * Clears the title string from not allowed chars and change the speial chars into htmlentities.
+  * Clears a string from double withe spaces, slashes and htmlentities all special chars.
   * 
-  * @param string $title the title string to clean
+  * @param string $text the string to clear
   * 
-  * @return string the cleaned title string
+  * @return string the cleaned string
   * 
   * @version 1.0
   * <br>
@@ -1041,11 +1041,12 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function clearText($text) {
+  function prepareStringInput($text) {
       
-      // format title
-      $text = preg_replace("/ +/", ' ', $text);
-      $text = str_replace('\\', '', $text);
+      // format text
+      $text = preg_replace("/ +/", " ", $text);
+      $text = preg_replace('#\\\\+#', '', $text);
+      $text = stripslashes($text);
       $text = htmlentities($text,ENT_QUOTES,'UTF-8');
       
       return $text;

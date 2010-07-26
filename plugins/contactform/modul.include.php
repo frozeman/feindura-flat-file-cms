@@ -52,7 +52,7 @@ $langText['kontakt_feld_senden'] = 'SENDEN';
 
 include_once('chapta.php');
 
-$contactMail = $websiteConfig['contactMail'];
+$contactMail = $websiteConfig['email'];
 
 $pflichtStern = ' <span style="color:#D23D30;">*</span>';
 $pflichtColor = ' style="color:#D23D30;"';

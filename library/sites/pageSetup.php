@@ -182,7 +182,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   // cleans the category names
   $catewgoriesCleaned = array();
   foreach($_POST['categories'] as $category) {
-      $category['name'] = $generalFunctions->clearText($category['name']);
+      $category['name'] = $generalFunctions->prepareStringInput($category['name']);
       $categoriesCleaned[$category['id']] = $category;
   }
 

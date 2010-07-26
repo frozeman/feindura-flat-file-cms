@@ -221,7 +221,7 @@ function saveCategories($newCategories) {
         // -> CLEAN all " out of the strings
         foreach($category as $postKey => $post) {    
           $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
-        } 
+        }
         
         // WRITE
         fwrite($file,"\$categoryConfig['id_".$category['id']."']['id'] =              ".$category['id'].";\n");
@@ -524,18 +524,25 @@ function saveWebsiteConfig($websiteConfig) {
     $keywords = str_replace(', ',',', $keywords);
     $keywords = str_replace(' ,',',', $keywords);
     $keywords = str_replace(' ',',', $keywords);
-    $websiteConfig['keywords'] = htmlentities($keywords,ENT_QUOTES,'UTF-8');
+    $websiteConfig['keywords'] = $keywords;
+    
+    // format all other strings
+    $websiteConfig['title'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['title']);
+    $websiteConfig['publisher'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['publisher']);
+    $websiteConfig['copyright'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['copyright']);
+    $websiteConfig['keywords'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['keywords']);
+    $websiteConfig['description'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['description']);
     
     // *** write
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($file,"\$websiteConfig['title']          = '".htmlentities($websiteConfig['title'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($file,"\$websiteConfig['publisher']      = '".htmlentities($websiteConfig['publisher'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($file,"\$websiteConfig['copyright']      = '".htmlentities($websiteConfig['copyright'],ENT_QUOTES,'UTF-8')."';\n");
+      fwrite($file,"\$websiteConfig['title']          = '".$websiteConfig['title']."';\n");
+      fwrite($file,"\$websiteConfig['publisher']      = '".$websiteConfig['publisher']."';\n");
+      fwrite($file,"\$websiteConfig['copyright']      = '".$websiteConfig['copyright']."';\n");
       fwrite($file,"\$websiteConfig['keywords']       = '".$websiteConfig['keywords']."';\n");
-      fwrite($file,"\$websiteConfig['description']    = '".htmlentities($websiteConfig['description'],ENT_QUOTES,'UTF-8')."';\n");
-      fwrite($file,"\$websiteConfig['contactMail']    = '".$websiteConfig['contactMail']."';\n\n");
+      fwrite($file,"\$websiteConfig['description']    = '".$websiteConfig['description']."';\n");
+      fwrite($file,"\$websiteConfig['email']          = '".$websiteConfig['email']."';\n\n");
       
       fwrite($file,"\$websiteConfig['startPage']      = '".$websiteConfig['startPage']."';\n\n");
       
