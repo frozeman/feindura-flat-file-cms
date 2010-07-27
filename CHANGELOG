@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 319
+Build 320
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0 RC
  
+  build 320: add BrowserDetection 1.8
   build 319: changed clearTexte() to prepareStringInput() in generalFunctions class
   build 318: prepare release 1.0 RC
   build 317: changed README
