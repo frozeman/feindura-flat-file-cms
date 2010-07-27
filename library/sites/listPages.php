@@ -214,7 +214,7 @@ foreach($allCategories as $category) {
 	
         // CHECKs the DATE FORMAT
         $showDate = ($statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
-        ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300;]'.$langFile['editor_pageSettings_pagedate_error'].':[/span] '.$pageContent['pagedate']['date'].$titleDateAfter
+        ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pagedate']['date'].$titleDateAfter
         : '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$langFile)).$titleDateAfter;
         
       } else $showDate = '';

@@ -720,6 +720,11 @@ class statisticFunctions extends generalFunctions {
           $browserColor = 'url(library/image/bg/browserBg_iphone.png)';
           $browserLogo = 'browser_iphone.png';
           $browserTextColor = '#ffffff';
+        } elseif($browser[0] == 'ipad') {
+          $browserName = 'iPad';
+          $browserColor = 'url(library/image/bg/browserBg_ipad.png)';
+          $browserLogo = 'browser_ipad.png';
+          $browserTextColor = '#000000';
         } elseif($browser[0] == 'ipod') {
           $browserName = 'iPod';
           $browserColor = 'url(library/image/bg/browserBg_ipod.png)';
@@ -770,7 +775,7 @@ class statisticFunctions extends generalFunctions {
           $browserColor = 'url(library/image/bg/browserBg_icecat.png)';
           $browserLogo = 'browser_icecat.png';
           $browserTextColor = '#000000';
-        } elseif($browser[0] == 'unknown') {
+        } else {
           $browserName = $GLOBALS['langFile']['log_browser_others'];
           $browserColor = 'url(library/image/bg/browserBg_others.png)';
           $browserLogo = 'browser_others.png';

@@ -625,7 +625,7 @@ $langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Year::[b]Format[/b] Y
 $langFile['editor_pageSettings_field4'] = 'Status of the page';
 $langFile['editor_pageSettings_field4_tip'] = '[b]Only if the page is public, it will be shown on the website![/b]';
 
-$langFile['editor_pageSettings_pagedate_error'] = 'Erratic date format';
+$langFile['editor_pageSettings_pagedate_error'] = 'Wrong date format';
 $langFile['editor_pageSettings_pagedate_error_tip'] = 'This month has eventually no 31 days.[br /]The date should have the follwing format:';
 
 // ---------- page advanced settings
