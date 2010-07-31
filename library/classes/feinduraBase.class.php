@@ -319,7 +319,7 @@ class feinduraBase {
   * 
   * Gets the current page ID from the <var>$_GET</var> variable.
   * If <var>$_GET</var> is not a ID but a page name, it loads all pages in an array and look for the right page name and returns the ID.
-  * If no <var>$_GET</var> variable exists try to return the {@link $startPage} property.
+  * If no <var>$_GET</var> variable exists try to return the {@link feindura::$startPage} property.
   * 
   * 
   * <b>Used Global Variables</b><br />
@@ -327,7 +327,7 @@ class feinduraBase {
   * 
   * @uses $varNames                     for variable names which the $_GET will use for the page ID
   * @uses $adminConfig                  to look if set startpage is allowed
-  * @uses feindura::$startPage     if no $_GET variable exists it will try to get the {@link $startPage} property
+  * @uses feindura::$startPage     if no $_GET variable exists it will try to get the {@link feindura::$startPage} property
   * @uses generalFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
   * 
@@ -390,17 +390,17 @@ class feinduraBase {
   * Returns the current category ID from the <var>$_GET</var> variable.
   * 
   * Gets the current category ID from the <var>$_GET</var> variable.
-  * If <var>$_GET</var> is not a ID but a category name, it look in the {@link $categoryConfig} for the right category ID.
-  * If no <var>$_GET</var> variable exists it try to return the {@link $startPage} property.
+  * If <var>$_GET</var> is not a ID but a category name, it look in the {@link feinduraBase::$categoryConfig} for the right category ID.
+  * If no <var>$_GET</var> variable exists it try to return the {@link feindura::$startPage} property.
   * 
   * 
   * <b>Used Global Variables</b><br />
   *    - <var>$_GET</var> to fetch the category ID
   * 
-  * @uses $varNames                       for variable names which the $_GET variable will use for the category ID
-  * @uses $adminConfig                    to look if set startpage is allowed
-  * @uses $categoryConfig                 for the right category name, if the $_GET variable is not a ID but a category name
-  * @uses feindura::$startCategory   if no $_GET variable exists it will try to get the {@link $startCategory} property
+  * @uses $varNames                  for variable names which the $_GET variable will use for the category ID
+  * @uses $adminConfig               to look if set startpage is allowed
+  * @uses $categoryConfig            for the right category name, if the $_GET variable is not a ID but a category name
+  * @uses feindura::$startCategory   if no $_GET variable exists it will try to get the {@link feindura::$startCategory} property
   * 
   * @return int|false the current category ID or FALSE
   * 
@@ -457,16 +457,16 @@ class feinduraBase {
   * Sets the current page ID from the <var>$_GET</var> variable to the {@link $page} property.
   * 
   * Gets the current page ID from the <var>$_GET</var> variable (through {@link getCurrentPageId}) and set it to the {@link $page} property.
-  * If the <var>$setStartPage</var> parameter is TRUE and the {@link $category} is empty, the {@link $startPage} property will also be set with the start page ID from the {@link $websiteConfig}.
+  * If the <var>$setStartPage</var> parameter is TRUE and the {@link feindura::$category} is empty, the {@link feindura::$startPage} property will also be set with the start page ID from the {@link $websiteConfig}.
   * 
   * 
-  * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link $startPage} property
+  * @param bool $setStartPage (optional) If set to TRUE it also sets the {@link feindura::$startPage} property
   * 
-  * @uses $adminConfig              to check if setting a startpage is allowed
-  * @uses $websiteConfig            to get the startpage ID
+  * @uses $adminConfig         to check if setting a startpage is allowed
+  * @uses $websiteConfig       to get the startpage ID
   * @uses feindura::$page      as the property to set
   * @uses feindura::$startPage if the $setStartPage parameter is TRUE this property will also be set
-  * @uses getCurrentPageId()        to get the {@link $page} property or the {@link $startPage} property  
+  * @uses getCurrentPageId()   to get the {@link feindura::$page} property or the {@link feindura::$startPage} property  
   * 
   * @return int|false the set page ID or FALSE
   * 
@@ -502,19 +502,19 @@ class feinduraBase {
   * <b>Name</b>     setCurrentCategoryId()<br />
   * <b>Alias</b>    setCategoryId()<br />
   * 
-  *  Sets the current category ID from the <var>$_GET</var> variable to the {@link $category} property.
+  *  Sets the current category ID from the <var>$_GET</var> variable to the {@link feindura::$category} property.
   * 
-  * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategoryId}) and set it to the {@link $category} property.
+  * Gets the current category ID from the <var>$_GET</var> variable (through {@link getCurrentCategoryId}) and set it to the {@link feindura::$category} property.
   * If the <var>$setStartCategory</var> parameter is TRUE the {@link $startCategory} property will also be set with the startpage ID from the {@link $websiteConfig}.
   * 
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   * 
-  * @uses $adminConfig                  to check if setting a startpage is allowed
-  * @uses $websiteConfig                to get the startpage ID
-  * @uses feindura::$category      as the property to set
-  * @uses feindura::$startCategory if the $setStartCategory parameter is TRUE this property will also be set
-  * @uses getPageCategory()             to get the right category ID of the startpage
-  * @uses getCurrentCategoryId()        to get the {@link $category} property or the {@link $startCategory} property
+  * @uses $adminConfig              to check if setting a startpage is allowed
+  * @uses $websiteConfig            to get the startpage ID
+  * @uses feindura::$category       as the property to set
+  * @uses feindura::$startCategory  if the $setStartCategory parameter is TRUE this property will also be set
+  * @uses getPageCategory()         to get the right category ID of the startpage
+  * @uses getCurrentCategoryId()    to get the {@link feindura::$category} property or the {@link $startCategory} property
   * 
   * @return int|false the set category ID or FALSE
   * 
@@ -1216,7 +1216,7 @@ class feinduraBase {
   * 
   * Loads a page, but check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page.
   * 
-  * If the given $page parameter is "previous" or "next" it loads the previous or the next page of the current {@link $page} property.
+  * If the given <var>$page</var> parameter is "previous" or "next" it loads the previous or the next page of the current {@link feindura::$page} property.
   * 
   * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
   * 
@@ -1577,7 +1577,7 @@ class feinduraBase {
  /**
   * <b>Name</b> getPropertyIdsByType()<br />
   * 
-  * If <var>$ids</var> parameter is FALSE it check the ID-type and returns then the {@link $page} or {@link $category} property.
+  * If <var>$ids</var> parameter is FALSE it check the ID-type and returns then the {@link feindura::$page} or {@link feindura::$category} property.
   * 
   * @param string         $idType   the ID type can be "page", "pages" or "category", "categories"
   * @param int|array|bool $ids      the category or page ID(s), if they are FALSE it returns the property ID, otherwise it passes the ID(s) through
@@ -1623,11 +1623,11 @@ class feinduraBase {
  /**
   * <b>Name</b> getPropertyPage()<br />
   * 
-  * Returns the {@link $page} property if the given <var>$page</var> parameter is FALSE.
+  * Returns the {@link feindura::$page} property if the given <var>$page</var> parameter is FALSE.
   * 
   * @param int|bool $page (optional) a page id or a boolean
   * 
-  * @return int|true the {@link $page} property or the $page parameter
+  * @return int|true the {@link feindura::$page} property or the $page parameter
   * 
   * 
   * @version 1.0
@@ -1661,11 +1661,11 @@ class feinduraBase {
  /**
   * <b>Name</b> getPropertyCategory()<br />
   * 
-  * Returns the {@link $category} property if the given <var>$category</var> parameter is FALSE.
+  * Returns the {@link feindura::$category} property if the given <var>$category</var> parameter is FALSE.
   * 
   * @param int|bool $category (optional) a category id or a boolean
   * 
-  * @return int|true the {@link $category} property or the $category parameter
+  * @return int|true the {@link feindura::$category} property or the $category parameter
   * 
   * 
   * @version 1.0

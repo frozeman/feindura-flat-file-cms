@@ -1104,11 +1104,11 @@ class feindura extends feinduraBase {
   * @uses feindura::$thumbnailBefore
   * @uses feindura::$thumbnailAfter
   * 
-  * @uses createHref()                                  to create the href-attribute
-  * @uses feindura::loadPrevNextPage()                  to load the current, previous or next page depending of the $page parameter
-  * @uses feindura::createAttributes()                  to create the attributes used by the link <a> tag
-  * @uses feindura::createThumbnail()                   to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
-  * @uses feindura::shortenText()                       toshorten the linktext if the {@link $linkLength} property is set
+  * @uses feindura::createHref()                        to create the href-attribute
+  * @uses feinduraBase::loadPrevNextPage()              to load the current, previous or next page depending of the $page parameter
+  * @uses feinduraBase::createAttributes()              to create the attributes used by the link <a> tag
+  * @uses feinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
+  * @uses feinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
