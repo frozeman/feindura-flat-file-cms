@@ -957,8 +957,7 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta name="siteinfo" content="'.$robotTxt.'"'.$tagEnding."\n";
       
       if($robotTxt) {
-        $metaTags .= '  <meta name="robots" content="index"'.$tagEnding."\n";
-        $metaTags .= '  <meta name="robots" content="nofollow"'.$tagEnding."\n";
+        $metaTags .= '  <meta name="robots" content="index, follow"'.$tagEnding."\n";
       }
         
       // -> add REVISIT AFTER

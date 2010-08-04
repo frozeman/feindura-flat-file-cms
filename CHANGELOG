@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 321
+Build 322
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0 RC
  
+  build 322: add new CKEditor 3.4.1 and changed robots meta tag to "follow"
   build 321: add iPad to browser chart
   build 320: add BrowserDetection 1.8
   build 319: changed clearTexte() to prepareStringInput() in generalFunctions class

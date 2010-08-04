@@ -33,14 +33,15 @@ You should have some basic knowledge in PHP so that you can impliment the CMS in
 It's basic requirements for the implimentation in a website is a Apache server with PHP, however for using the CMS backend its recommend to have Javascript activated.
 
 ### FEATURES
-* Easy to install
-* Easy to setup on a server
-* Easy to use backend-interface through the use of mootools
+* no database required
+* easy to install
+* easy to setup on a server
+* easy to use backend-interface through the use of mootools
 * multi-language backend interface (currently english and german)
-* Website statistics
-* Uses CKEditor
+* website statistics
+* uses CKEditor
 * no templating, just create your design like you want it and say where to put what (menu, content, etc)
-* Set a thumbnail picture for every page
+* set a thumbnail picture for every page
 * upload images and files
 * drag'n'drop for moving pages
 
