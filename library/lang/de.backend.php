@@ -65,8 +65,8 @@ $langFile['stylesheet_styleFile_example'] = '<b>Beispiel</b> &quot;/style/layout
 
 $langFile['path_absolutepath'] = 'Absoluter Pfad';
 $langFile['path_relativepath'] = 'Relativer Pfad';
-$langFile['path_absolutepath_tip'] = 'Absoluter Pfad::Beginnt mit einem &quot;/&quot;';
-$langFile['path_relativepath_tip'] = 'Relativer Pfad::Beginnt ohne &quot;/&quot;';
+$langFile['path_absolutepath_tip'] = 'Absoluter Pfad';
+$langFile['path_relativepath_tip'] = 'Relativer Pfad';
 
 // ---------- STATISTIC
 
@@ -271,7 +271,7 @@ $langFile['btn_quickmenu_pages'] = 'Seiten von';
 $langFile['home_userInfo_h1'] = 'Benutzer Information';
 
 $langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span><br />dem Content Management System deiner Webseite.';
-$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flatfiles::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flatfiles</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
 
 $langFile['home_statistic_h1'] = 'Webseiten-Statistik';
 
@@ -364,7 +364,7 @@ $langFile['adminSetup_fmsSettings_field2_tip'] = 'Der Hauptpfad wird automatisch
 $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
 $langFile['adminSetup_fmsSettings_field3'] = 'Speicherpfad';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flatfiles mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flat-Files mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_field4'] = 'Daten-Upload Pfad';
 $langFile['adminSetup_fmsSettings_field4_tip'] = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen &gt; Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]Diese Dateien k&ouml;nnen dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]';
@@ -403,7 +403,7 @@ $langFile['adminSetup_userSettings_check3'] = 'Dateimanager aktivieren';
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=home">'.$langFile['btn_home'].'</a>';
 $langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['btn_home'].' angezeigt.';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Lasse das Feld leer, wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest';
+$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Wenn Du keine Informationen f&uuml;r den Benutzer anzeigen m&ouml;chtest lasse das Feld leer';
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';

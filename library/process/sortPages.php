@@ -63,7 +63,10 @@ foreach($sortOrder as $sort) {
           else
             $logText = $langFile['log_listPages_sorted'];
           // save log
-          $statisticFunctions->saveTaskLog($logText,'page='.$pageContent['id'].'|#|category='.$_POST['categoryNew'].'|#|'.$langFile['log_listPages_moved_in']); // <- SAVE the task in a LOG FILE
+          if(empty($_POST['categoryNew']))
+            $statisticFunctions->saveTaskLog($logText,'page='.$pageContent['id'].'|#|category='.$_POST['categoryNew'].'|#|'.$langFile['log_listPages_moved_in'].' '.$langFile['categories_noncategory_tip']); // <- SAVE the task in a LOG FILE
+          else
+            $statisticFunctions->saveTaskLog($logText,'page='.$pageContent['id'].'|#|category='.$_POST['categoryNew'].'|#|'.$langFile['log_listPages_moved_in']); // <- SAVE the task in a LOG FILE
         }
       // -X ERROR savePage
       } else {

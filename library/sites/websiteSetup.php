@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.89
+* websiteSetup.php version 1.9
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -129,14 +129,14 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       <label for="keywords"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4'].'::'.$langFile['websiteSetup_websiteConfig_field4_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field4']; ?></span></label>
       </td><td class="right">
-      <input id="keywords" name="keywords" value="<?php echo $websiteConfig['keywords']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>" />
+      <input id="keywords" name="keywords" value="<?php echo $websiteConfig['keywords']; ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field4_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="description"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5'].'::'.$langFile['websiteSetup_websiteConfig_field5_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field5']; ?></span></label>
       </td><td class="right">
-      <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo $websiteConfig['description']; ?></textarea>
+      <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo $websiteConfig['description']; ?></textarea>
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>
@@ -145,7 +145,7 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       <label for="email"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6'].'::'.$langFile['websiteSetup_websiteConfig_field6_tip']; ?>">
       <?php echo $langFile['websiteSetup_websiteConfig_field6']; ?></span></label>
       </td><td class="right">
-      <input id="email" name="email" value="<?php echo $websiteConfig['email']; ?>" class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6_inputTip']; ?>" />
+      <input id="email" name="email" value="<?php echo $websiteConfig['email']; ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="leftBottom"></td><td></td></tr>

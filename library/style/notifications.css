@@ -41,6 +41,10 @@ span.hint {
     font-size: 12px;
     color: #947342;
     }
+    
+.toolTipBox span.hint {
+    background-position: 0px 5px !important;
+    }
 
 /* ----------------------- */	
 /* - INLINE WARNINGs */

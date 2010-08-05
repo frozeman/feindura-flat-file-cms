@@ -66,8 +66,8 @@ $langFile['stylesheet_styleFile_example'] = '<b>Example</b> &quot;/style/layout.
 
 $langFile['path_absolutepath'] = 'absolute path';
 $langFile['path_relativepath'] = 'relative path';
-$langFile['path_absolutepath_tip'] = 'Absolute Path::Starts with a &quot;/&quot;';
-$langFile['path_relativepath_tip'] = 'Relative Path::Starts without &quot;/&quot;';
+$langFile['path_absolutepath_tip'] = 'Absolute Path';
+$langFile['path_relativepath_tip'] = 'Relative Path';
 
 // ---------- STATISTIC
 
@@ -122,7 +122,7 @@ $langFile['log_adminSetup_ckstyles'] = 'Saved &quot;Formatting-Styles&quot; of t
 
 $langFile['log_websiteSetup_saved'] = 'Saved Website-Settings';
 
-$langFile['log_statisticSetup_saved'] = 'SavedStatistikc-Settings';
+$langFile['log_statisticSetup_saved'] = 'Saved Statistic-Settings';
 $langFile['log_clearStatistic_websiteStatistic'] = 'Deleted Website-Statistic';
 $langFile['log_clearStatistic_pagesStatistics'] = 'Deleted Page-Statistics';
 $langFile['log_clearStatistic_refererLog'] = 'Deleted Referrer-Log';
@@ -269,7 +269,7 @@ $langFile['btn_quickmenu_pages'] = 'Pages of';
 */
 
 // ---------- HOME
-$langFile['home_userInfo_h1'] = 'User information';
+$langFile['home_userInfo_h1'] = 'User Information';
 
 $langFile['home_welcome_h1'] = 'Welcome in <span class="logoname">fein<span>dura</span></span><br />the Content Management System of your website.';
 $langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
@@ -403,8 +403,8 @@ $langFile['adminSetup_userSettings_check2'] = 'Edit stylesheet files in the webs
 $langFile['adminSetup_userSettings_check3'] = 'activate File manager';
 
 $langFile['adminSetup_userSettings_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['btn_home'].'</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'User information::This text will be shown in the '.$langFile['btn_home'].' page of [span class=logoname]fein[span]dura[/span][/span].';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Let this field empty to don\'t show an information for the user';
+$langFile['adminSetup_userSettings_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['btn_home'].' page of [span class=logoname]fein[span]dura[/span][/span].';
+$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'If you don\'t want to display an information for the user, leave this field empty';
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Settings';

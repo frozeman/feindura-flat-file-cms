@@ -20,7 +20,7 @@ $adminConfig['user']['info'] =             '';
 
 $adminConfig['setStartPage'] =            true;
 $adminConfig['page']['createdelete'] =    true;
-$adminConfig['page']['thumbnails'] =      false;
+$adminConfig['page']['thumbnails'] =      true;
 $adminConfig['page']['plugins'] =         false;
 $adminConfig['page']['showtags'] =        false;
 

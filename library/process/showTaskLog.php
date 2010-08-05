@@ -72,10 +72,14 @@ foreach($logContent as $logRow) {
       $taskObject = $logObject[0];
   }                  
   
+  $user = (!empty($logRow[1]))
+  ? '<br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span>'
+  : '';
+  
   // displays 2 or 3 rows
   echo ($taskObject)
-  ? '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span>'.$taskObject.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span></li>'
-  : '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span><br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span></li>';
+  ? '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span>'.$taskObject.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$user.'</li>'
+  : '<li><span class="blue" style="font-weight:bold;">'.$logRow[2].'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$user.'</li>';
 }
 echo '</ul>';
 

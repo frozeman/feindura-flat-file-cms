@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// editor.php version 1.96
+// editor.php version 1.97
 
 include_once(dirname(__FILE__)."/../backend.include.php");
 
@@ -249,8 +249,8 @@ else
         
       
       echo '<div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
-      echo '<span class="toolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview toolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
+      echo '<span class="inputToolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview inputToolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
       echo '</div>';
     
     // -> show the thumbnail upload button if there is no thumbnail yet
@@ -543,7 +543,7 @@ else $hidden = ' hidden';
       <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1'].'::'.$langFile['editor_pageSettings_field1_tip']; ?>">
       <?php echo $langFile['editor_pageSettings_field1']; ?></span></label>
       </td><td class="right">
-      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1_inputTip']; ?>"><?php echo $pageContent['description']; ?></textarea>
+      <textarea id="edit_description" name="description" cols="50" rows="2" style="white-space:normal;width:480px;" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_field1_inputTip']; ?>"><?php echo $pageContent['description']; ?></textarea>
       </td></tr>
       <?php
       
@@ -585,7 +585,7 @@ else $hidden = ' hidden';
       </label>
       
       </td><td class="right">
-        <input name="pagedate[before]" value="<?php echo $pageContent['pagedate']['before']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
+        <input name="pagedate[before]" value="<?php echo $pageContent['pagedate']['before']; ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
         
         <?php
         
@@ -636,7 +636,7 @@ else $hidden = ' hidden';
         
         ?>
         
-        <!--<input id="edit_pagedate" name="pagedate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['pagedate']['date']); ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />-->
+        <!--<input id="edit_pagedate" name="pagedate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['pagedate']['date']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />-->
         <input name="pagedate[after]" value="<?php echo $pageContent['pagedate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
       </td></tr>
       <?php }
@@ -650,7 +650,7 @@ else $hidden = ' hidden';
       <label for="edit_tags"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_field2'] ?></span></label>
       </td><td class="right">
-        <input id="edit_tags" name="tags" class="toolTip" style="width:492px;" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip_inputTip']; ?>" />        
+        <input id="edit_tags" name="tags" class="inputToolTip" style="width:492px;" value="<?php echo $pageContent['tags']; ?>" title="<?php echo $langFile['editor_pageSettings_field2'].'::'.$langFile['editor_pageSettings_field2_tip_inputTip']; ?>" />        
       </td></tr>
       <?php } ?>
       
@@ -815,7 +815,7 @@ else $hidden = ' hidden';
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleFile']; ?></span>
       </td><td class="right">
-      <div id="pageStyleFilesInputs" class="toolTip" title="<?php echo $langFile['path_absolutepath_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
+      <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <?php      
       $styleFileInputs = explode('|',getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']));
@@ -831,13 +831,13 @@ else $hidden = ' hidden';
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleId']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleClass']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="toolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

@@ -220,7 +220,7 @@ $unwriteableList .= isWritableWarning($adminConfig['basePath'].'config/category.
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_writeAccess'].'</h1>
+    <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- needs <p> tags for margin-left:..-->
     </div>
@@ -615,7 +615,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'styleFile"><span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleFile'].'</span></label>
                 </td><td class="right">
-                <div id="categoryStyleFilesInputs'.$category['id'].'" class="toolTip" title="'.$langFile['path_absolutepath_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
+                <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 <span class="hint" style="float:right;width:190px;">'.$langFile['stylesheet_styleFile_example'].'</span>';
                 $styleFileInputs = explode('|',getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']));
       
@@ -630,14 +630,14 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleId'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="toolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
+                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
                 </td></tr>';
                 
           echo '<tr><td class="left">
                 <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleClass'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="toolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
+                <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
                 </td></tr>';
           
           echo '<tr><td class="spacer"></td><td></td></tr>';

@@ -41,7 +41,7 @@ function str_replace(s, r, c) {
 function setToolTips() {
 
   //store titles and text
-	$$('.toolTip').each(function(element,index) {
+	$$('.toolTip, .inputToolTip').each(function(element,index) {
 	  if(element.get('title')) {
       var content = element.get('title').split('::');
      		
@@ -65,10 +65,30 @@ function setToolTips() {
     className: 'toolTipBox',
     //onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
     //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
-    offset: {'x': 5,'y': 12},
+    offset: {'x': 10,'y': 15},
     fixed: false,
     showDelay: 200,
     hideDelay: 0 });
+  
+  if(window.getSize().x < 1255) {
+    var toolTipsInput = new Tips('.inputToolTip',{
+      className: 'toolTipBox',
+      //onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
+      //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
+      offset: {'x': -275,'y': -20},
+      fixed: true,
+      showDelay: 100,
+      hideDelay: 100 });
+  } else {
+    var toolTipsInput = new Tips('.inputToolTip',{
+      className: 'toolTipBox',
+      //onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
+      //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
+      offset: {'x': 500,'y': -20},
+      fixed: true,
+      showDelay: 100,
+      hideDelay: 100 });  
+  }
 }
 
 
