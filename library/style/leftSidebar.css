@@ -53,7 +53,7 @@
         
 #leftSidebar .sidebarMenu .top span {
     position: absolute;
-    top: 9px;
+    top: 10px;
     left: 43px;
     }
 #leftSidebar .sidebarMenu .top.blue span {
@@ -62,13 +62,21 @@
 #leftSidebar .sidebarMenu .top.brown span {
     color: #536068; /* color: #668CA6; */ 
     }
-  
+#leftSidebar .sidebarMenu .top.grey span {
+    color: #666666;
+    }
+
+/* free */
 #leftSidebar .sidebarMenu.free .top.blue {
     background: url("../image/bg/sidebarMenu_freeTop_blue.png") repeat-x right top;
     }
 #leftSidebar .sidebarMenu.free .top.brown {
     background: url("../image/bg/sidebarMenu_freeTop_brown.png") repeat-x right top;
-    } 
+    }
+#leftSidebar .sidebarMenu.free .top.grey {
+    background: url("../image/bg/sidebarMenu_freeTop_grey.png") repeat-x right top;
+    }
+/* fixed */
 #leftSidebar .sidebarMenu.fixed .top.blue {
     background: url("../image/bg/sidebarMenu_fixedTop_blue.png") repeat-x right top;
     }
