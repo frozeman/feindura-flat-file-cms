@@ -95,7 +95,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   if(!empty($_GET['category'])) {
     
     // SPACER
-    echo '<div class="spacer"></div>';
+    echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
     <div class="top grey"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>

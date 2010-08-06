@@ -253,6 +253,10 @@
     background: url("../image/bg/sidebarMenu_spacer.png") no-repeat top left !important;
     }
 
+#leftSidebar .spacer.arrow {
+    background: url("../image/bg/sidebarMenu_spacer_arrow.png") no-repeat top left !important;
+    }    
+
 /* ------------------------- */
 /* - SIDEBAR INFO */
 
