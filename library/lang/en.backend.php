@@ -110,7 +110,7 @@ $langFile['log_page_delete'] = 'Page deleted';
 
 $langFile['log_listPages_moved'] = 'Moved page in category';
 $langFile['log_listPages_moved_in'] = 'in'; // Example Page in Category
-$langFile['log_listPages_sorted'] = 'Page resorted';
+$langFile['log_listPages_sorted'] = 'Page sorting changed';
 
 $langFile['log_pageThumbnail_upload'] = 'New thumbnail uploaded';
 $langFile['log_pageThumbnail_delete'] = 'Thumbnail deleted';
