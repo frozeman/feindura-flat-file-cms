@@ -105,41 +105,41 @@ $langFile['log_browser_others'] = 'other';
 */
 
 $langFile['log_page_saved'] = 'Page saved';
-$langFile['log_page_new'] = 'Created new page';
-$langFile['log_page_delete'] = 'Deleted Page';
+$langFile['log_page_new'] = 'New page created';
+$langFile['log_page_delete'] = 'Page deleted';
 
 $langFile['log_listPages_moved'] = 'Moved page in category';
 $langFile['log_listPages_moved_in'] = 'in'; // Example Page in Category
-$langFile['log_listPages_sorted'] = 'Resorted page';
+$langFile['log_listPages_sorted'] = 'Page resorted';
 
-$langFile['log_pageThumbnail_upload'] = 'Uploaded new thumbnail';
-$langFile['log_pageThumbnail_delete'] = 'Deleted thumbnail';
+$langFile['log_pageThumbnail_upload'] = 'New thumbnail uploaded';
+$langFile['log_pageThumbnail_delete'] = 'Thumbnail deleted';
 
-$langFile['log_userSetup_useradd'] = 'Created new user';
+$langFile['log_userSetup_useradd'] = 'New user created';
 
-$langFile['log_adminSetup_saved'] = 'Saved Administrator-Settings';
-$langFile['log_adminSetup_ckstyles'] = 'Saved &quot;Formatting-Styles&quot; of the HTML-Editor';
+$langFile['log_adminSetup_saved'] = 'Administrator-Settings saved';
+$langFile['log_adminSetup_ckstyles'] = '&quot;Formatting-Styles&quot; of the HTML-Editor saved';
 
-$langFile['log_websiteSetup_saved'] = 'Saved Website-Settings';
+$langFile['log_websiteSetup_saved'] = 'Website-Settings saved';
 
-$langFile['log_statisticSetup_saved'] = 'Saved Statistic-Settings';
-$langFile['log_clearStatistic_websiteStatistic'] = 'Deleted Website-Statistic';
-$langFile['log_clearStatistic_pagesStatistics'] = 'Deleted Page-Statistics';
-$langFile['log_clearStatistic_refererLog'] = 'Deleted Referrer-Log';
-$langFile['log_clearStatistic_taskLog'] = 'Deleted last Activities-Log';
+$langFile['log_statisticSetup_saved'] = 'Statistic-Settings saved';
+$langFile['log_clearStatistic_websiteStatistic'] = 'Website-Statistic deleted';
+$langFile['log_clearStatistic_pagesStatistics'] = 'Page-Statistics deleted';
+$langFile['log_clearStatistic_refererLog'] = 'Referrer-Log deleted';
+$langFile['log_clearStatistic_taskLog'] = 'Last Activities-Log deleted';
 
-$langFile['log_pageSetup_saved'] = 'Saved Page-Settings';
+$langFile['log_pageSetup_saved'] = 'Page-Settings saved';
 
-$langFile['log_pageSetup_saved'] = 'Saved Category-Settings';
-$langFile['log_pageSetup_new'] = 'Created new category';
-$langFile['log_pageSetup_delete'] = 'Deleted category';
-$langFile['log_pageSetup_move'] = 'Moved category';
+$langFile['log_pageSetup_saved'] = 'Category-Settings saved';
+$langFile['log_pageSetup_new'] = 'New category created';
+$langFile['log_pageSetup_delete'] = 'Category deleted';
+$langFile['log_pageSetup_move'] = 'Category moved';
 
-$langFile['log_pluginSetup_saved'] = 'Saved Plugin-Settings';
+$langFile['log_pluginSetup_saved'] = 'Plugin-Settings saved';
 
-$langFile['log_file_saved'] = 'Saved file';
+$langFile['log_file_saved'] = 'File saved';
 
-$langFile['log_file_deleted'] = 'Deleted file';
+$langFile['log_file_deleted'] = 'File deleted';
 
 // ----------- page/category public/nonpuplic
 
