@@ -683,8 +683,8 @@ else $hidden = ' hidden';
       
     </table>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettingsAnchor');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettingsAnchor');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -789,8 +789,8 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
     </table>
     </div>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="submitAnchor('editorForm','htmlEditorAnchor');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="submitAnchor('editorForm','htmlEditorAnchor');" />
   </div>
 </div>
 
@@ -844,8 +844,8 @@ else $hidden = ' hidden';
       
     </table>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'advancedPageSettings'; submitAnchor('editorForm','advancedPageSettingsAnchor');" />
   </div>
   <div class="bottom"></div>
 </div>

@@ -187,7 +187,7 @@ if($categoryRatio) {
     echo '</div>';
   }
   ?>
-	<input type="submit" value="" class="toolTip button thumbnailUpload" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>" />
+	<input type="submit" value="" class="button thumbnailUpload" title="<?php echo $langFile['pagethumbnail_submit_tip']; ?>" />
 </form>
 </div>
 

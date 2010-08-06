@@ -454,8 +454,8 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'fmsSettings';" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'fmsSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -504,8 +504,8 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings';" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -572,8 +572,8 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings';" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings';" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -604,8 +604,8 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
   <div class="content">
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles css" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
  
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="saveCategories" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="saveCategories" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>

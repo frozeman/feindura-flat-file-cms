@@ -152,8 +152,8 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="toolTip button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="websiteConfig" class="toolTip button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>
