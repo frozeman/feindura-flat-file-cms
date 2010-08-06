@@ -115,6 +115,7 @@ input.submit, a.submit, a.ok {
     width: 75px;
     height: 75px;
     background: url("../image/key/form_submit.png") no-repeat !important;
+    cursor: pointer;
     }
 input.submit:hover, a.submit:hover, a.ok:hover {
     background-position: 1px -78px !important;
