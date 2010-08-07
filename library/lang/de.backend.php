@@ -124,6 +124,7 @@ $langFile['log_websiteSetup_saved'] = 'Webseiten-Einstellungen gespeichert';
 $langFile['log_statisticSetup_saved'] = 'Statistik-Einstellungen gespeichert';
 $langFile['log_clearStatistic_websiteStatistic'] = 'Webseiten-Statistik gel&ouml;scht';
 $langFile['log_clearStatistic_pagesStatistics'] = 'Seiten-Statistiken gel&ouml;scht';
+$langFile['log_clearStatistic_pagesStaylengthStatistics'] = 'Seiten-Verweildauer-Statistiken gel&ouml;scht';
 $langFile['log_clearStatistic_refererLog'] = 'Referrer-Log gel&ouml;scht';
 $langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten-Log gel&ouml;scht';
 
@@ -569,6 +570,8 @@ $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Webseiten-Statis
 $langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Seiten-Statistiken';
 $langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]k&uuml;rzeste Verweildauer[/li][li]l&auml;ngste Verweildauer[/li][li]Suchmaschienen-Stichworte welche auf diese Seite gef&uuml;hrt haben[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'] = 'nur die Seiten-Verweildauer-Statistiken';
+$langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip'] = '';
 $langFile['statisticSetup_clearStatistics_refererLog'] = 'Referrer-URLs Log'; // engl.: referer
 $langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Eine Liste mit allen URLs welche auf diese Webseite gef&uuml;hrt haben.';
 $langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs der letzten T&auml;tigkeiten';

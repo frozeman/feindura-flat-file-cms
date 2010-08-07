@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* statisticSetup.php version 0.11
+* statisticSetup.php version 0.12
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -68,6 +68,30 @@ if($_POST['sendClearstatistics']) {
     if($documentSaved) {
       $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_pagesStatistics'].'<br />';
       $statisticFunctions->saveTaskLog($langFile['log_clearStatistic_pagesStatistics']); // <- SAVE the task in a LOG FILE
+    }
+  }
+  
+  // ->> CLEAR PAGES-LENGTHOFSTAY-STATISTICs
+  if($_POST['clearStatistics_pagesStaylengthStatistics'] == 'true' &&
+     $pages = $generalFunctions->loadPages(true,true)) {
+      
+    foreach($pages as $pageContent) {
+      
+      // -> CLEAR the page stats
+      $pageContent['log_visitTime_min'] = '';
+      $pageContent['log_visitTime_max'] = '';
+      
+      if($generalFunctions->savePage($pageContent)) {        
+        // set documentSaved status
+        $documentSaved = true;
+      } else
+        $errorWindow = $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
+    }
+    
+    // set the messagebox; save tasklog
+    if($documentSaved) {
+      $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_pagesStaylengthStatistics'].'<br />';
+      $statisticFunctions->saveTaskLog($langFile['log_clearStatistic_pagesStaylengthStatistics']); // <- SAVE the task in a LOG FILE
     }
   }  
   
@@ -226,6 +250,12 @@ if($savedForm == 'clearStatistics')
       <input type="checkbox" id="clearStatistics_pagesStatistics" name="clearStatistics_pagesStatistics" value="true" class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic'].'::'.$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']; ?>" />
       </td><td class="right checkboxes">
       <label for="clearStatistics_pagesStatistics"><span class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic'].'::'.$langFile['statisticSetup_clearStatistics_pagesStatistic_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_pagesStatistic']; ?></span></label>
+      </td></tr>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="clearStatistics_pagesStaylengthStatistics" name="clearStatistics_pagesStaylengthStatistics" value="true" class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_clearStatistics_pagesStaylengthStatistics'].'::'.$langFile['statisticSetup_clearStatistics_clearStatistics_pagesStaylengthStatistics_tip']; ?>" />
+      </td><td class="right checkboxes">
+      <label for="clearStatistics_pagesStaylengthStatistics"><span class="toolTip" title="<?php echo $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'].'::'.$langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics_tip']; ?>"><?php echo $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics']; ?></span></label>
       </td></tr>
       
       <tr><td class="left checkboxes">

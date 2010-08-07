@@ -110,7 +110,6 @@ if($_GET['site'] == 'addons') {
 }
 ?>
   
-  <link rel="stylesheet" type="text/css" href="library/style/print.css" media="print, embossed" />  
   <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie6.css" /><![endif]-->
   <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/style/ie7.css" /><![endif]-->
   

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 329
+Build 330
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+  build 330: add separate delete of length-of-stay statistics
   build 329: small change on slide in arrows
   build 328: add arrow over category pages menu in the left sidebar
   build 327: changed color of the category pages menu in the left sidebar

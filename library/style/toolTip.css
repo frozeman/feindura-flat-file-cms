@@ -97,6 +97,7 @@ span.toolTip {
     padding: 0px;
     margin: 0px;
     margin-left: 15px;
+    list-style: disc;
     }
 .toolTipBox .tip ul li {
     padding: 2px 0px;
