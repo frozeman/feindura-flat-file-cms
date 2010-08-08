@@ -435,12 +435,6 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['page']['plugins'] = (isset($adminConfig['page']['plugins']) && $adminConfig['page']['plugins']) ? 'true' : 'false';
     $adminConfig['page']['showtags'] = (isset($adminConfig['page']['showtags']) && $adminConfig['page']['showtags']) ? 'true' : 'false';
     
-    // prepare style strings
-    $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$adminConfig['editor']['styleId']);
-    $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$adminConfig['editor']['styleClass']);
-    if(!empty($adminConfig['editor']['styleFile']) && substr($adminConfig['editor']['styleFile'],0,1) !== '/')
-      $adminConfig['editor']['styleFile'] = '/'.$adminConfig['editor']['styleFile'];
-    
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
     
@@ -723,7 +717,7 @@ function prepareStyleFilePaths($givenStyleFiles) {
   if(is_array($givenStyleFiles)) {
     foreach($givenStyleFiles as $styleFile) {
       // ** adds a "/" on the beginning of all absolute paths
-      if(!empty($styleFile) && substr($styleFile,0,1) !== '/')
+      if(!empty($styleFile) && !strstr($styleFile,'://') && substr($styleFile,0,1) !== '/')
           $styleFile = '/'.$styleFile;
       
       // adds back to the string only if its not empty

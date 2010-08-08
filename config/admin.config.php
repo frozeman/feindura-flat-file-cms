@@ -25,9 +25,9 @@ $adminConfig['page']['plugins'] =         false;
 $adminConfig['page']['showtags'] =        false;
 
 $adminConfig['editor']['enterMode'] =  'p';
-$adminConfig['editor']['styleFile'] =  '/_feindura10/style/layout.css';
-$adminConfig['editor']['styleId'] =    '';
-$adminConfig['editor']['styleClass'] = '';
+$adminConfig['editor']['styleFile'] =  '/_feindura10/style/layout.css|/df|http://fonts.googleapis.com/css?family=Molengo';
+$adminConfig['editor']['styleId'] =    'asdasdas';
+$adminConfig['editor']['styleClass'] = 'asdasd';
 
 $adminConfig['pageThumbnail']['width'] =  '100';
 $adminConfig['pageThumbnail']['height'] = '150';
