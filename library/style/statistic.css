@@ -22,6 +22,10 @@ statistic.css version 0.1 */
   font-size: 9px;
   }
 
+#sidebarTaskLog ul {
+  list-style: none !important;
+  margin-left: 0px !important;
+  }
 
 /* --------------------- */
 /* -------> TABLE CHART */

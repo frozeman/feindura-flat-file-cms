@@ -44,7 +44,7 @@ foreach($logContent as $logRow) {
       $pageId = $generalFunctions->cleanSpecialChars($pageId); // removes \n\r
       $pageContent = $generalFunctions->readPage($pageId,$generalFunctions->getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.$pageContent['title'].'">'.$generalFunctions->shortenTitle($pageContent['title'], 21).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.$pageContent['title'].'">'.$generalFunctions->shortenTitle($pageContent['title'], 28).'</a>';
       
       $foundObject = true;
     }
