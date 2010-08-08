@@ -116,6 +116,7 @@ content.css version 0.21 */
     float: left;
     background: url("../image/bg/block_innerBlock_small.png") no-repeat;
     font-size: 12px;
+    overflow: hidden;
     }
 #content .block div.innerBlockRight {
     position: relative;
@@ -127,6 +128,7 @@ content.css version 0.21 */
     float: right;
     background: url("../image/bg/block_innerBlock_big.png") no-repeat;
     font-size: 12px;
+    overflow: hidden;
     }
     
 #content .block .innerBlockListPages {

@@ -34,7 +34,7 @@ body {
 
 #splitter {
 	background-color: white;
-	height: 400px;
+	height: 400px !important;
 	border: 1px solid #ccc;
 	/* no padding allowed */
 }
