@@ -161,9 +161,10 @@ window.addEvent('domready', function() {
   
   // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
   var anchorId = window.location.hash.substring(1);
+  anchorId = $(anchorId);
   //alert(anchorId + ' -> '+ $(anchorId).getPosition(window).y);
-  if(anchorId) {
-    window.scrollTo(0,$(anchorId).getPosition(window).y - 50);
+  if(anchorId != null) {
+    window.scrollTo(0,anchorId.getPosition(window).y - 50);
     //window.scrollTo(100, $(anchorId).getPosition().y);
     //document.getElementById(anchorId)).scrollIntoView(true);
     //window.location.hash = anchorId;

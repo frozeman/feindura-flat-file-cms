@@ -252,7 +252,7 @@ class statisticFunctions extends generalFunctions {
  /**
   * <b>Name</b> dateDayBeforeAfter()<br>
   * 
-  * Replaces the given <var>$date<var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
+  * Replaces the given <var>$date</var> parameter with "yesterday", "today" or "tomorrow" if it is one day before or the same day or one day after today.
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})

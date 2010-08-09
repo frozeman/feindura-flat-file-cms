@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 334
+Build 335
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+  build 335: fixes in content.js with anchor scroll; add thumbnailToolTip style to editFiles -> create new file
   build 334: changes in sidebartasklog layout
   build 333: fixes with stylefilepath, when including an url
   build 332: fixes in file manager & add new CKEditor build 5813

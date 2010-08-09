@@ -872,7 +872,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   echo '</div>';
   
   echo '<div class="block'.$hidden.'">
-          <h1><a href="#" name="'.$anchorName.'">'.$titleText.'</a></h1>
+          <h1><a href="#" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
           <div class="content"><br />';
       
   //echo $filesPath.'<br />';      
@@ -963,7 +963,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       $fileTypeText = '<b>.'.$fileType.'</b>';
     echo '<div class="editFiles right">
           <h2>'.$GLOBALS['langFile']['editFilesSettings_createFile'].'</h2>
-          <input name="newFile" style="width:200px;" class="toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_createFile'].'::'.$GLOBALS['langFile']['editFilesSettings_createFile_inputTip'].'" /> '.$fileTypeText.'
+          <input name="newFile" style="width:200px;" class="thumbnailToolTip" title="'.$GLOBALS['langFile']['editFilesSettings_createFile'].'::'.$GLOBALS['langFile']['editFilesSettings_createFile_inputTip'].'" /> '.$fileTypeText.'
           </div>';
   }
   
