@@ -17,7 +17,7 @@ $myCms = new feindura();
 // set properties
 $myCms->xHtml =                  true;
 
-$myCms->showError =              true;
+$myCms->showErrors =              true;
 $myCms->errorTag =               'span';
 $myCms->errorId =                'errorId';
 $myCms->errorClass =             'errorClass';

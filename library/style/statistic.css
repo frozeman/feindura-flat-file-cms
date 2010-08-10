@@ -65,7 +65,7 @@ table.tableChart td {
 /* -------> REFERER LOG */
 
 #refererLogContainer {
-    width: 750px;
+    width: 100%;
     height: 250px;
     padding: 0px;
     border: 1px solid #cccccc;

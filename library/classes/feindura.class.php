@@ -476,7 +476,7 @@ class feindura extends feinduraBase {
   //var $pageShowTitle = true;
   //var $pageShowThumbnail = true;
   //var $pageShowContent = true;
-  //var $pageShowError = true;
+  //var $pageShowErrors = true;
   
   /*
   var $showContent = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
@@ -718,7 +718,7 @@ class feindura extends feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function feindura($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function feindura($language = false) {
     
     // RUN the feinduraBase constructor
     $this->feinduraBase($language);        
@@ -1758,7 +1758,7 @@ class feindura extends feinduraBase {
          
         // ->> load SINGLE PAGE
         // *******************
-        if($generatedPage = $this->generatePage($page,$this->showError,$shortenText,$useHtml)) {
+        if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
                          
           // loads the $pageContent array
           if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {

@@ -180,7 +180,7 @@ class generalFunctions {
       	while(list($key, $value) = each($browserDataRaw)) {
       	  $browserData = strtolower(substr($value, 0, 2));
       	  
-      	  foreach($langFiles['files'] as $langFile) {      
+      	  foreach($langFiles['files'] as $langFile) {
             $langFileSchema = basename($langFile);
         	  
         		if(strstr(strtolower(substr(substr($langFileSchema,-6),-2)).",", $browserData.",") ||
@@ -197,25 +197,26 @@ class generalFunctions {
         		}
         	}
         }
+        
+        // if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
+      	if($returnLangFile) {
+          if(!empty($langFileSchema)) {
+            if($return = @include($langPath.substr($langFileSchema,0,-6).$standardLang.'.php') ||
+               $return = @include($langPath.$standardLang.substr($langFileSchema,2)))
+              return $return;
+            else
+              return false;
+          } else
+           return false;
+    	     
+    	  // return only the standard COUNTRY CODE
+    	  } else
+    		  return $standardLang;   		  
+  		  
       } elseif(!$returnLangFile)
           return $standardLang;
       else
-          return false;
-      
-    	// if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
-    	if($returnLangFile) {
-        if(!empty($langFileSchema)) {
-          if($return = @include($langPath.substr($langFileSchema,0,-6).$standardLang.'.php') ||
-             $return = @include($langPath.$standardLang.substr($langFileSchema,2)))
-            return $return;
-          else
-            return false;
-        } else
-         return false;
-  	     
-  	  // return only the standard COUNTRY CODE
-  	  } else
-  		  return $standardLang;  	 
+          return array();	 
   }
   
  /**

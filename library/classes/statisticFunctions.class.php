@@ -30,9 +30,10 @@
 * 
 * @package [Implementation]|[backend]
 * 
-* @version 0.58
+* @version 0.59
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.59 savePageStats(): prevent save searchwords to be counted miltuple times
 *    - 0.58 fixed isSpider() and saveWebsiteStatistic()
 *    - 0.57 add new browsers to createBrowserChart() 
 *    - 0.56 started documentation
@@ -1171,6 +1172,7 @@ class statisticFunctions extends generalFunctions {
         
         if(!isset($this->websiteStatistic["spiderVisitCount"]))
           $this->websiteStatistic["spiderVisitCount"] = '0';
+
         
       // ->> COUNT the SPIDER UP
       } elseif($_SESSION['log_userIsSpider'] === true && 
@@ -1335,9 +1337,10 @@ class statisticFunctions extends generalFunctions {
   * 
   * return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a spider, or the $pageContent parameter is not a valid $pageContent array
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 prevent save searchwords to be counted miltuple times
   *    - 1.0 initial release
   * 
   */
@@ -1384,13 +1387,16 @@ class statisticFunctions extends generalFunctions {
         //echo $pageContent['id'].' -> '.$pageContent['log_visitCount'];
         $pageContent['log_visitCount']++;
         // add to the array of already visited pages
-        array_push($_SESSION['log_visitedPages'],$pageContent['id']);
+        $_SESSION['log_visitedPages'][] = $pageContent['id'];
       }
       
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
       // -------------------------------------------------------
+      if(!isset($_SESSION['log_searchwords']))
+        $_SESSION['log_searchwords'] = array();
+
       if(isset($_SERVER['HTTP_REFERER']) &&
-         !empty($_SERVER['HTTP_REFERER'])) {
+         !empty($_SERVER['HTTP_REFERER'])) {        
          
         $searchWords = parse_url($_SERVER['HTTP_REFERER']);
         // test search url strings:
@@ -1409,11 +1415,22 @@ class statisticFunctions extends generalFunctions {
           $searchWords = substr($searchWords,2,strpos($searchWords,'&')-2);
   
           $searchWords = rawurldecode($searchWords);
-          $searchWords = explode('+',$searchWords);    
+          $searchWords = explode('+',$searchWords);
           
-          // adds the searchwords to the searchword data string
-          $pageContent['log_searchwords'] = $this->addDataToString($searchWords,$pageContent['log_searchwords']);
-                
+          // gos through searchwords and check if there already saved  
+          $newSearchWords = array();
+          foreach($searchWords as $searchWord) {
+            if(in_array($searchWord,$_SESSION['log_searchwords']) === false) {
+              $newSearchWords[] = $searchWord;
+              $_SESSION['log_searchwords'][] = $searchWord;
+            }
+          }
+          
+          if(!empty($newSearchWords)) {
+               
+            // adds the searchwords to the searchword data string
+            $pageContent['log_searchwords'] = $this->addDataToString($searchWords,$pageContent['log_searchwords']);   
+          }
         }
       }
       

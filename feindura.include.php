@@ -25,7 +25,7 @@
 */
 
 // -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
-session_name("user"); 
+session_name("websiteStatistic");
 session_start();
 
 // -> CHECKS if cookies are enabled
