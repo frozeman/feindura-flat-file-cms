@@ -5,7 +5,7 @@ $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura10/_pages/';
 $adminConfig['uploadPath'] =       '/_feindura10/_upload/';
 $adminConfig['websitefilesPath'] = '/_feindura10/addons/';
-$adminConfig['stylesheetPath'] =   '';
+$adminConfig['stylesheetPath'] =   '/_feindura.org/style/';
 $adminConfig['dateFormat'] =       'eu';
 $adminConfig['speakingUrl'] =      false;
 
@@ -14,7 +14,7 @@ $adminConfig['varName']['category'] = 'category';
 $adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['fileManager'] =      true;
-$adminConfig['user']['editWebsiteFiles'] = true;
+$adminConfig['user']['editWebsiteFiles'] = false;
 $adminConfig['user']['editStylesheets'] =  true;
 $adminConfig['user']['info'] =             '';
 

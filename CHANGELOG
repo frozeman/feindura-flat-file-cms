@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 337
+Build 338
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+  build 338: highlight now menu buttons when page is selected
   build 337: fixes in layout pictures
   build 336: savePageStats(): prevent save searchwords to be counted miltuple times
   build 335: fixes in content.js with anchor scroll; add thumbnailToolTip style to editFiles -> create new file

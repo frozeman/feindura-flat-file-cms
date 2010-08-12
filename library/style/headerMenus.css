@@ -96,6 +96,9 @@
 #mainMenu a:hover {
     color: #CF7F52;
     }
+#mainMenu a:hover, #mainMenu a.active {
+    background-position: 0px -142px !important;
+    }
 /* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
 #mainMenu a span{
     display: table-cell;
@@ -105,41 +108,26 @@
     vertical-align: middle;
     font-size: 12px;
     }
-
+    
 /* home */
 #mainMenu a.home {
     background: url("../image/key/mainMenu_home.png") no-repeat;
-    }
-#mainMenu a.home:hover {
-    background-position: 0px -142px !important;
     }
 /* pages */
 #mainMenu a.pages {
     background: url("../image/key/mainMenu_pages.png") no-repeat;
     }
-#mainMenu a.pages:hover {
-    background-position: 0px -142px;
-    }
 /* addons */
 #mainMenu a.addons {
     background: url("../image/key/mainMenu_plugins.png") no-repeat;
-    }
-#mainMenu a.addons:hover {
-    background-position: 0px -142px;
     }
 /* settings */
 #mainMenu a.websiteSetup {
     background: url("../image/key/mainMenu_settings.png") no-repeat;
     }
-#mainMenu a.websiteSetup:hover {
-    background-position: 0px -142px;
-    }
 /* search */
 #mainMenu a.search {
     background: url("../image/key/mainMenu_search.png") no-repeat;
-    }
-#mainMenu a.search:hover {
-    background-position: 0px -142px;
     }
 
 /* ----------------------- */
@@ -174,8 +162,9 @@
     line-height: 11px;
 
     }
-#adminMenu .content a:hover {
+#adminMenu .content a:hover, #adminMenu .content a.active {
     color: #CF7F52;
+    background-position: -65px 0px !important;
     }
 
 /* advancedSetup */

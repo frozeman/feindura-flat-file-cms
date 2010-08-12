@@ -42,7 +42,7 @@ $categoryConfig['id_2']['thumbRatio'] =      '';
 
 $categoryConfig['id_3']['id'] =              3;
 $categoryConfig['id_3']['name'] =            'Rechtliches';
-$categoryConfig['id_3']['public'] =          false;
+$categoryConfig['id_3']['public'] =          true;
 $categoryConfig['id_3']['createdelete'] =    false;
 $categoryConfig['id_3']['thumbnail'] =       false;
 $categoryConfig['id_3']['plugins'] =         false;

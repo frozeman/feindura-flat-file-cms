@@ -35,6 +35,11 @@ $version[3] = $generalFunctions->cleanSpecialChars($version[3]);
 //$version[3] = str_replace(array("\n","\n"),'',$version[3]);
 
 
+// if feindura starts first set page to 'home'
+if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
+  $_GET['site'] = 'home';
+
+
 // -----------------------------------------------------------------------------------
 // generates the DOCUMENT TYPE
 // kind of hack, because i use iframes for uploading the thumbnail
@@ -211,15 +216,15 @@ if($_GET['site'] == 'addons') {
       <div id="mainMenu">
         <table>
           <tr>
-          <td><a href="?site=home" class="home" title="<?php echo $langFile['btn_home']; ?>"><span><?php echo $langFile['btn_home']; ?></span></a></td>
-          <td><a href="?site=pages" class="pages" title="<?php echo $langFile['btn_pages']; ?>"><span><?php echo $langFile['btn_pages']; ?></span></a></td>
+          <td><a href="?site=home" class="home<?php if($_GET['site'] == 'home') echo ' active'; ?>" title="<?php echo $langFile['btn_home']; ?>"><span><?php echo $langFile['btn_home']; ?></span></a></td>
+          <td><a href="?site=pages" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['btn_pages']; ?>"><span><?php echo $langFile['btn_pages']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty
           if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
-          <td><a href="?site=addons" class="addons" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
+          <td><a href="?site=addons" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['btn_addons']; ?>"><span><?php echo $langFile['btn_addons']; ?></span></a></td>
           <?php } ?>
-          <td><a href="?site=websiteSetup" class="websiteSetup" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></td>
-          <td><a href="?site=search" class="search" title="<?php echo $langFile['btn_search']; ?>"><span><?php echo $langFile['btn_search']; ?></span></a></td>
+          <td><a href="?site=websiteSetup" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['btn_settings']; ?>"><span><?php echo $langFile['btn_settings']; ?></span></a></td>
+          <td><a href="?site=search" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['btn_search']; ?>"><span><?php echo $langFile['btn_search']; ?></span></a></td>
           </tr>
         </table>
                 
@@ -248,11 +253,11 @@ if($_GET['site'] == 'addons') {
       <div class="content">
         <table>
           <tr>
-          <td><a href="?site=adminSetup" class="adminSetup" title="<?php  echo $langFile['btn_adminSetup']; ?>"><span><?php echo $langFile['btn_adminSetup']; ?></span></a></td>
-          <td><a href="?site=pageSetup" class="pageSetup" title="<?php  echo $langFile['btn_pageSetup']; ?>"><span><?php echo $langFile['btn_pageSetup']; ?></span></a></td>
+          <td><a href="?site=adminSetup" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_adminSetup']; ?>"><span><?php echo $langFile['btn_adminSetup']; ?></span></a></td>
+          <td><a href="?site=pageSetup" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_pageSetup']; ?>"><span><?php echo $langFile['btn_pageSetup']; ?></span></a></td>
           </tr><tr>
-          <td><a href="?site=statisticSetup" class="statisticSetup" title="<?php  echo $langFile['btn_statisticSetup']; ?>"><span><?php echo $langFile['btn_statisticSetup']; ?></span></a></td>
-          <td><a href="?site=userSetup" onclick="openWindowBox('library/sites/userSetup.php','<?php echo $langFile['btn_userSetup']; ?>',true);return false;" class="userSetup" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
+          <td><a href="?site=statisticSetup" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_statisticSetup']; ?>"><span><?php echo $langFile['btn_statisticSetup']; ?></span></a></td>
+          <td><a href="?site=userSetup" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" onclick="openWindowBox('library/sites/userSetup.php','<?php echo $langFile['btn_userSetup']; ?>',true);return false;" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
           if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'plugins/') || !$generalFunctions->folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
@@ -260,14 +265,14 @@ if($_GET['site'] == 'addons') {
           <?php
           // CHECKS if the plugins/ folder is empty
           if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'plugins/')) { ?>
-          <td><a href="?site=pluginSetup" class="pluginSetup" title="<?php  echo $langFile['btn_pluginSetup']; ?>"><span><?php echo $langFile['btn_pluginSetup']; ?></span></a></td>
+          <td><a href="?site=pluginSetup" class="pluginSetup<?php if($_GET['site'] == 'pluginSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_pluginSetup']; ?>"><span><?php echo $langFile['btn_pluginSetup']; ?></span></a></td>
           <?php } else { ?>
           <td</td>
           <?php }
 
-          // CHECKS if the plugins/ folder is empty
+          // CHECKS if the modlues/ folder is empty
           if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
-          <td><a href="?site=modulSetup" class="modulSetup" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
+          <td><a href="?site=modulSetup" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
           <?php } else { ?>
           <td</td>
           <?php }
