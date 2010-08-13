@@ -271,14 +271,14 @@ var PHPParser = Editor.Parser = (function() {
     // Dispatches various types of statements based on the type of the current token.
     function statement(token){
       var type = token.type;
-      if (type == "keyword a") cont(pushlex("form"), expression, statement, poplex);
+      if (type == "keyword a") cont(pushlex("form"), expression, altsyntax, statement, poplex);
       else if (type == "keyword b") cont(pushlex("form"), statement, poplex);
       else if (type == "{") cont(pushlex("}"), block, poplex);
       else if (type == "function") funcdef();
       // technically, "class implode {...}" is correct, but we'll flag that as an error because it overrides a predefined function
       else if (type == "class") classdef();
-      else if (type == "foreach") cont(pushlex("form"), require("("), pushlex(")"), expression, require("as"), require("variable"), /* => $value */ expect(")"), poplex, statement, poplex);
-      else if (type == "for") cont(pushlex("form"), require("("), pushlex(")"), expression, require(";"), expression, require(";"), expression, require(")"), poplex, statement, poplex);
+      else if (type == "foreach") cont(pushlex("form"), require("("), pushlex(")"), expression, require("as"), require("variable"), /* => $value */ expect(")"), altsyntax, poplex, statement, poplex);
+      else if (type == "for") cont(pushlex("form"), require("("), pushlex(")"), expression, require(";"), expression, require(";"), expression, require(")"), altsyntax, poplex, statement, poplex);
       // public final function foo(), protected static $bar;
       else if (type == "modifier") cont(require(["modifier", "variable", "function", "abstract"], [null, null, funcdef, absfun]));
       else if (type == "abstract") abs();
@@ -298,11 +298,11 @@ var PHPParser = Editor.Parser = (function() {
       if (atomicTypes.hasOwnProperty(type)) cont(maybeoperator);
       else if (type == "<<<") cont(require("string"), maybeoperator);  // heredoc/nowdoc
       else if (type == "t_string") cont(maybe_double_colon, maybeoperator);
-      else if (type == "keyword c") cont(expression);
+      else if (type == "keyword c" || type == "operator") cont(expression);
+      // lambda
+      else if (type == "function") lambdadef();
       // function call or parenthesized expression: $a = ($b + 1) * 2;
       else if (type == "(") cont(pushlex(")"), commasep(expression), require(")"), poplex, maybeoperator);
-      else if (type == "operator") cont(expression);
-      else if (type == "function") lambdadef();
     }
     // Called for places where operators, function calls, or subscripts are
     // valid. Will skip on to the next action if none is found.
@@ -332,7 +332,7 @@ var PHPParser = Editor.Parser = (function() {
     }
     // the declaration or definition of a lambda
     function lambdadef() {
-      cont(require("("), pushlex(")"), commasep(funcarg), require(")"), maybe_lambda_use, poplex, block);
+      cont(require("("), pushlex(")"), commasep(funcarg), require(")"), maybe_lambda_use, poplex, require("{"), pushlex("}"), block, poplex);
     }
     // optional lambda 'use' statement
     function maybe_lambda_use(token) {
@@ -371,17 +371,23 @@ var PHPParser = Editor.Parser = (function() {
       if (token.type == "}") cont();
       else pass(statement, block);
     }
+    function empty_parens_if_array(token) {
+      if(token.content == "array")
+        cont(require("("), require(")"));
+    }
     function maybedefaultparameter(token){
-      if (token.content == "=") cont(expression);
+      if (token.content == "=") cont(require(["t_string", "string", "number"], [empty_parens_if_array, null, null]));
+    }
+    function var_or_reference(token) {
+      if(token.type == "variable") cont(maybedefaultparameter);
+      else if(token.content == "&") cont(require("variable"), maybedefaultparameter);
     }
     // support for default arguments: http://us.php.net/manual/en/functions.arguments.php#functions.arguments.default
     function funcarg(token){
-      // function foo(myclass $obj) {...}
-      if (token.type == "t_string") cont(require("variable"), maybedefaultparameter);
-      // function foo($string) {...}
-      else if (token.type == "variable") cont(maybedefaultparameter);
-      // function foo(&$ref) {...}
-      else if (token.content == "&") cont(require("variable"), maybedefaultparameter);
+      // function foo(myclass $obj) {...} or function foo(myclass &objref) {...}
+      if (token.type == "t_string") cont(var_or_reference);
+      // function foo($var) {...} or function foo(&$ref) {...}
+      else var_or_reference(token);
     }
 
     // A namespace definition or use
@@ -392,6 +398,17 @@ var PHPParser = Editor.Parser = (function() {
     function namespacedef(token) {
       pass(require("t_string"), maybe_double_colon_def);
     }
+    
+    function altsyntax(token){
+    	if(token.content==':')
+    		cont(altsyntaxBlock,poplex);
+    }
+    
+    function altsyntaxBlock(token){
+    	if (token.type == "altsyntaxend") cont(require(';'));
+      else pass(statement, altsyntaxBlock);
+    }
+
 
     return parser;
   }

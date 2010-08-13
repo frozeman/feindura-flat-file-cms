@@ -1022,6 +1022,8 @@ class generalFunctions {
     $string = preg_replace("/ +/", ' ', $string);
     // allows only a-z and 0-9, "_", ".", " "
     $string = preg_replace('/[^\w^.^ ]/u', $replaceString, $string);
+    if(!empty($replaceString))
+      $string = preg_replace('/'.$replaceString.'+/', $replaceString, $string);
     //$string = str_replace( array('å','è','ô','?','ä','|','@','[',']','ü','ç','∑','!','ó',',',";","*","∞","{",'}','^','¥','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ø',"$","ß",'"',"'","(",")"), $replaceSign, $string);
     
     return $string;

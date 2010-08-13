@@ -1019,12 +1019,15 @@ function saveEditedFiles(&$savedForm) {
   $file = str_replace(DOCUMENTROOT,'',$_POST['file']);  
   $file = DOCUMENTROOT.$file;    
   $_POST['filesPath'] = str_replace(DOCUMENTROOT,'',$_POST['filesPath']);  
-  $_POST['filesPath'] = DOCUMENTROOT.$_POST['filesPath'];    
+  $_POST['filesPath'] = DOCUMENTROOT.$_POST['filesPath'];
   
   
   // ->> SAVE FILE
   if(@is_file($file) && empty($_POST['newFile'])) {
-
+    
+    $_POST['fileContent'] = preg_replace("#\\\\r+#","",$_POST['fileContent']);
+    //$_POST['fileContent'] = preg_replace("#\\\\n+#","\n",$_POST['fileContent']);
+    
     $_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
     $_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
     //$_POST['fileContent'] 	= str_replace("<br />", "", $_POST['fileContent']);
@@ -1051,10 +1054,13 @@ function saveEditedFiles(&$savedForm) {
     }
     
   // ->> NEW FILE
-  } else { // erstellt eine neue datei wenn etwas ins das neu erstellen Feld eingetragen wurde
+  } else { // creates a new file if a filename was input in the field
+        
+    //$_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile']);
+    $_POST['newFile'] = str_replace( array("ä","ü","ö","ß","Ä","Ü","Ö"), array("ae","ue","oe","ss","Ae","Ue","Oe"), $_POST['newFile']);
+    $_POST['newFile'] = $GLOBALS['generalFunctions']->cleanSpecialChars($_POST['newFile'],'_');
     
-    $_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile'] ) ;
-    $_POST['newFile'] = str_replace( array("ä","ü","ö","ß",'\"'), array("ae","ue","oe","ss","-"), $_POST['newFile'] ) ;
+    echo $_POST['newFile'];
     
     $_POST['newFile'] = str_replace($_POST['fileType'],'',$_POST['newFile']);
     

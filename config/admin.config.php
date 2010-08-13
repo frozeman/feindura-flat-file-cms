@@ -14,7 +14,7 @@ $adminConfig['varName']['category'] = 'category';
 $adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['fileManager'] =      true;
-$adminConfig['user']['editWebsiteFiles'] = false;
+$adminConfig['user']['editWebsiteFiles'] = true;
 $adminConfig['user']['editStylesheets'] =  true;
 $adminConfig['user']['info'] =             '';
 
