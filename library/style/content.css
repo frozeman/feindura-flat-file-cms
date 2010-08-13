@@ -30,19 +30,22 @@ content.css version 0.21 */
     background: url("../image/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     }
-#content .block .content { /* eliminate safari padding-problem */
+#content .block .content {
     position: relative;
+    margin: 0px 0px;
+    margin-top: -30px;
     padding: 1px 0px;
+    padding-top: 30px;
     overflow: hidden;
     }
 #content .block.hidden .content {
-    display: none;
+    /*display: none;*/
     /*height: 0px !important;*/
     }
     
 #content .block .bottom {
     position: absolute;
-    bottom: 0px;
+    bottom: -5px;
     left: 0px;
     width: 806px;
     height: 10px;
@@ -102,6 +105,9 @@ content.css version 0.21 */
     background: url("../image/bg/content_block_open.png") no-repeat !important; 
     }
 
+#content .block.open.noBg {
+    background: transparent !important; 
+    }
 
 /* ----------------------- */  
 /* --- INNER BLOCKs */
@@ -220,30 +226,26 @@ content.css version 0.21 */
     }
     
 /* ----------------------- */  
-/* --- SLIDE H1 links */
-#content h1 a, .slide {
+/* --- SLIDE HEADER LINKS */
+
+#content .block > h1 a {
     z-index: 1;
     position: relative;
     display: block;
-    width: 725px;
+    width: 760px;
     min-height: 35px;
     padding: 0px;
-    padding-right: 40px;
-    margin-bottom: -5px;  
     background: url("../image/key/content_h1_up_off.png") no-repeat right top;
     color: #536068;
     }
-#content h1 a:hover {
+#content .block > h1 a:hover {
     color: #536068;
     background: url("../image/key/content_h1_up_on.png") no-repeat right top;
     }
-#content h1 a:active {
-    color: #536068;
-    }
-#content .hidden h1 a {
+#content .block.hidden > h1 a {
     background: url("../image/key/content_h1_down_off.png") no-repeat right top;
     }
-#content .hidden h1 a:hover {
+#content .block.hidden > h1 a:hover {
     background: url("../image/key/content_h1_down_on.png") no-repeat right top;
     }
     
@@ -275,7 +277,8 @@ h1 img.sortIcon {
     
 
 /* ----------------------- */  
-/* - SLIDE DOWN/UP LINK */  
+/* - DOWN/UP LINK */  
+
 a.down {
     font-weight: bold;
     padding-left: 18px;

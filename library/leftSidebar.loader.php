@@ -21,8 +21,14 @@ require_once(dirname(__FILE__)."/backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
-// to activate toolTips after reloading with ajax (dowesn't work)
-echo '<script type="text/javascript" src="javascript/toolTips.js"></script>';
+// to activate toolTips after reloading with ajax (doesn't work)
+/*
+echo '<!-- thirdparty/MooTools -->
+      <script type="text/javascript" src="thirdparty/javascript/mootools-1.2.4-core.js"></script>
+      <script type="text/javascript" src="thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
+      <script type="text/javascript" src="javascript/toolTips.js"></script>
+      ';
+*/
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR
@@ -74,7 +80,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = '';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
-    <div class="top blue"><img src="library/image/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_categories'].'::">&nbsp;</a></div>
+    <div class="top blue"><img src="library/image/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#">&nbsp;</a></div>
     <div class="content blue">
       <ul class="verticalButtons">';      
         
@@ -188,7 +194,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // FEINDURA INFO
       echo '<h1>'.$langFile['adminSetup_version'].'</h1>
             <p>'.$version[2].' - '.$version[3].'</p>';
-      echo '<a href="README" class="standardLink">README</a><br />';
+      echo '<a href="README.md" class="standardLink">README</a><br />';
       echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br />';
       echo '<a href="LICENSE" class="standardLink">LICENSE</a>';
       echo '<hr />';

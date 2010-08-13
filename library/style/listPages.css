@@ -13,10 +13,50 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.css version 0.16
+listPages.css version 0.17
 */
 
-/* ----------------------- border: 1px solid red;*/	
+
+/* LISTPAGES BLOCK */
+
+#content .block.listPages {
+    margin-bottom: 35px;
+    margin-top:-20px;
+    }
+#content .block.listPages .content {
+    margin-bottom: -18px;
+    }
+
+/* ----------------------- */  
+/* --- SLIDE HEADER LINKS */
+
+#content .block.listPages > h1.brown a img {
+    position: relative;
+    top: 10px !important;
+    }
+
+#content .block.listPages > h1 a span {
+    position: relative;
+    top: -5px;
+    line-height: 15px;
+    font-weight: bold;
+    background: none;
+    padding: 0px;
+    font-size:15px;
+    }
+
+#content .block.listPages > h1.brown a span {
+    top: -12px;
+    }
+
+/* ----------------------- */  
+/* ---:- category SORT ICON */
+
+#content .block.listPages > h1 img.sortIcon {
+    top: 3px !important;
+    }
+
+/* ----------------------- */	
 /* ---:- listPages */
 
 .listPages ul {
@@ -55,7 +95,7 @@ div.listPagesHead {
     width: 790px;
     height: 40px;
     margin-left: -12px;
-    margin-bottom: 50px;
+    margin-bottom: 33px;
     color:3C5E91;
     border-top: 1px solid #DB9E39;
     font-size:15px;

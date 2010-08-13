@@ -175,7 +175,7 @@ $langFile['date_tomorrow'] = 'Tomorrow';
 */
 
 // --- mainMenu
-$langFile['btn_home'] = 'Overview';
+$langFile['btn_home'] = 'Dashboard';
 $langFile['btn_pages'] = 'Pages';
 $langFile['btn_addons'] = 'Addons';
 $langFile['btn_settings'] = 'Website Settings';
@@ -554,11 +554,11 @@ $langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_s
 
 $langFile['statisticSetup_statisticConfig_h1'] = 'Statistic-Settings';
 $langFile['statisticSetup_statisticConfig_field1'] = 'Number of the visible <b>most visited</b> pages';
-$langFile['statisticSetup_statisticConfig_field1_tip'] = 'Specifies how much most visted pages will be displayed on the overview page.';
+$langFile['statisticSetup_statisticConfig_field1_tip'] = 'Specifies how much most visted pages will be displayed on the dashboard page.';
 $langFile['statisticSetup_statisticConfig_field2'] = 'Number of the visible <b>longest viewed</b> pages';
-$langFile['statisticSetup_statisticConfig_field2_tip'] = 'Specifies how much longest viewed pages will be displayed on the overview page.';
+$langFile['statisticSetup_statisticConfig_field2_tip'] = 'Specifies how much longest viewed pages will be displayed on the dashboard page.';
 $langFile['statisticSetup_statisticConfig_field3'] = 'Number of the visible <b>last edited</b> pages';
-$langFile['statisticSetup_statisticConfig_field3_tip'] = 'Specifies how much last edited pages will be displayed on the overview page.';
+$langFile['statisticSetup_statisticConfig_field3_tip'] = 'Specifies how much last edited pages will be displayed on the dashboard page.';
 
 $langFile['statisticSetup_statisticConfig_field4'] = 'maximal number of <b>Referrer-URLs</b>';
 $langFile['statisticSetup_statisticConfig_field4_tip'] = 'Specifies how much Referrer-URLs ([i]URLs which lead to the website[/i]) will be saved and displayed.';

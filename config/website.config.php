@@ -7,7 +7,7 @@ $websiteConfig['keywords']       = 'content,management,system,cms,flat,files,ope
 $websiteConfig['description']    = '';
 $websiteConfig['email']          = 'name@providor.com';
 
-$websiteConfig['startPage']      = '';
+$websiteConfig['startPage']      = '12';
 
 return $websiteConfig;
 ?>

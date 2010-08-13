@@ -234,7 +234,7 @@ a#createdBy:hover {
     z-index: 1;
     position: relative;
     top: -15px;
-    width: 100%px;
+    width: 100%;
     min-width: 1255px;
     clear: left;
     background: url("../image/bg/footer.png") repeat-x;
@@ -244,7 +244,7 @@ a#createdBy:hover {
     top: 0px;
     left: 0px;
     width: 1024px;
-    height: 237px;
+    min-height: 237px;
     background: url("../image/bg/footerBlock.png") no-repeat;
     }
 #copyright {
@@ -316,7 +316,6 @@ div.tr {
 div.td { 
     display: table-cell;
     padding: 5px;
-    border: 1px solid red;
     }
 div.row { 
     display: table-row-group;

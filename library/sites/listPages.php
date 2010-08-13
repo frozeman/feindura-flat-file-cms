@@ -85,7 +85,7 @@ startPageWarning();
 
 ?>
 
-<div class="block open">
+<div class="block open noBg">
 <h1><?php echo $langFile['sortablePageList_h1']; ?></h1>
 
 <div class="listPagesHead">
@@ -102,7 +102,7 @@ startPageWarning();
 // shows the PAGES in NO CATEGORIES (the page/ folder),
 // by adding a empty category to the $categoryConfig array
 $allCategories= $categoryConfig;
-array_unshift($allCategories,array('id' => 0,'name' => $langFile['categories_noncategory_name'].' <span style="font-size:12px;color:#9FA0A0;">('.$langFile['categories_noncategory_tip'].')</span>'));
+array_unshift($allCategories,array('id' => 0,'name' => $langFile['categories_noncategory_tip']));
 
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES
@@ -144,9 +144,9 @@ foreach($allCategories as $category) {
   }
   
   // -> CREATE CATEGORY HEADLINE
-  echo "\n\n".'<div class="block listPages'.$hidden.'" style="margin-top:-20px;">';
+  echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;" style="font-size:15px;"><b class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].'</b> '.$categorySorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].'</span> '.$categorySorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS
@@ -163,9 +163,9 @@ foreach($allCategories as $category) {
       if(($category['id'] == 0 && $adminConfig['page']['createdelete']) || $category['createdelete'])
         echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['btn_createPage_tip'].'::" class="createPage toolTip">&nbsp;</a>';
          
-  echo '    </div>
-          </div>          
-        <div class="content">';
+  echo '  </div>
+        </div>
+      <div class="content">';
   
   // -> CHECK if pages are sortable
   $listIsSortableClass = (empty($category['sortbypagedate'])) ? ' class="sortablePageList"' : '';

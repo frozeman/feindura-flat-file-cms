@@ -13,14 +13,13 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// java/content.js version 0.55 (requires mootools-core and mootools-more)
+// java/content.js version 0.56 (requires mootools-core and mootools-more)
 //
 
 
 // -------------------------------------------------
 // auto resize of the THUMBNAIL-PREVIEW
 function autoResizeThumbnailPreview() {
-  
   $$('.thumbnailPreview').each(function(thumbnail) {
       
       // only set tween if the img tag has a width attribute,
@@ -84,40 +83,39 @@ function blockSlideInOut(givenIdCLass) {
          if(passedDiv.hasClass('bottom')) {
            bottomBorder = passedDiv;
          }
-      });
-      
+      });      
       
       // DONT show the content bottom if IE 0-7
       if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
         bottomBorder.setStyle('display', 'none');
-      }	   
-
+      }
       
       var slideContentHeightOut = slideContent.offsetHeight;
        
   	  // creates the slide effect
-  	  slideVertical = new Fx.Slide(slideContent,{duration: '500', transition: Fx.Transitions.Pow.easeOut});	   
-      
+  	  slideVertical = new Fx.Slide(slideContent,{duration: '500', transition: Fx.Transitions.Pow.easeOut});      
       
       // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
       slideVertical.onStart = function(el) {     
          slideContent.getParent().fade('show');
          //slideContent.getParent().setStyle('height',slideContentHeightOut);
-      }      
-        
+      }
+              
   	  // changes the up and down button class from the <div class="top">
   	  // so that the picture of the upper Toggle Buttons changes
       slideVertical.onComplete = function(el) {
 
         // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
   	    if(slideVertical.open) {
-              block.addClass('hidden');
-              slideContent.getParent().fade('hide');
+              block.addClass('hidden'); // to change the arrow
+              slideContent.setStyle('display','none'); // to allow sorting above the slided in box
+              //slideContent.getParent().fade('hide');
               slideVertical.open = false;
         } else {
-  	          block.removeClass('hidden');
+  	          block.removeClass('hidden'); // to change the arrow
+  	          slideContent.setStyle('display','block'); // to allow sorting above the slided in box
               slideContent.getParent().setStyle('height','auto');
-              slideContent.getParent().fade('show');
+              //slideContent.getParent().fade('show');
               slideVertical.open= true;
         }
         layoutFix();
@@ -127,7 +125,8 @@ function blockSlideInOut(givenIdCLass) {
       slideButtonH1.addEvent('click', function(e) {
       	  e.stop();
       	  if(!slideVertical.open) {
-      	    block.removeClass('hidden');
+      	    block.removeClass('hidden'); // to change the arrow
+      	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box
           }
           slideVertical.toggle();          
       });
@@ -135,11 +134,10 @@ function blockSlideInOut(givenIdCLass) {
       // hide the Menu if it has class "hidden"
       if(block.hasClass('hidden'))  {
         slideVertical.hide();
-	      slideVertical.open = false;
-      }
-      
+        slideVertical.open = false;
+        slideContent.setStyle('display','none'); // to allow sorting above the slided in box	      
+      }      
     } // <-- end go trough blocks      
-      
   });
 }
 
@@ -159,6 +157,7 @@ window.addEvent('domready', function() {
       duration: 200
   });
   
+  /*
   // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
   var anchorId = window.location.hash.substring(1);
   anchorId = $(anchorId);
@@ -169,5 +168,5 @@ window.addEvent('domready', function() {
     //document.getElementById(anchorId)).scrollIntoView(true);
     //window.location.hash = anchorId;
   }
-
+  */
 });

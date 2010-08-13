@@ -101,7 +101,6 @@ function setToolTips() {
   }
 }
 
-
 /* when the DOM is ready */
 window.addEvent('domready', function() {
     // toolTips throw error in IE when tooltTips are in a <form> tag
