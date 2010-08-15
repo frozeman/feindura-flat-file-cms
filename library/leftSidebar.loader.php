@@ -24,9 +24,9 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 // to activate toolTips after reloading with ajax (doesn't work)
 /*
 echo '<!-- thirdparty/MooTools -->
-      <script type="text/javascript" src="thirdparty/javascript/mootools-1.2.4-core.js"></script>
-      <script type="text/javascript" src="thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
-      <script type="text/javascript" src="javascript/toolTips.js"></script>
+      <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4-core.js"></script>
+      <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
+      <script type="text/javascript" src="library/javascript/toolTips.js"></script>
       ';
 */
 

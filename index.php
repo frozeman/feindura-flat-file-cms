@@ -70,8 +70,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   
   <meta name="siteinfo" content="<?php echo $adminConfig['basePath'] ?>robots.txt" />
   <meta name="revisit_after" content="12" />
-  <meta name="robots" content="index" />
-  <meta name="robots" content="nofollow" />
+  <meta name="robots" content="index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy würde die seite nicht cachen-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy würde die seite nicht cachen-->  
       
