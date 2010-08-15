@@ -410,7 +410,7 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Wenn Du keine Informa
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Taste Modus';
 $langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br /&gt;&quot;';
-$langFile['adminSetup_editorSettings_field1_tip'] = 'Legt fest welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt [br]wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
+$langFile['adminSetup_editorSettings_field1_tip'] = 'Legt fest welcher HTML-Tag beim dr&uuml;cken der ENTER-Taste gesetzt wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Wenn das Feld leer ist, wird keine Id verwendet.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
 

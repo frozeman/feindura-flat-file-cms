@@ -31,7 +31,7 @@ pre.code, .editbox {
 }
 
 span.php-punctuation {
-  color: blue;
+  color: #666666;
 }
 
 span.php-keyword {
@@ -40,7 +40,7 @@ span.php-keyword {
 }
 
 span.php-operator {
-  color: blue;
+  color: #666666;
 }
 
 /* __FILE__ etc.; http://php.net/manual/en/reserved.php */
@@ -81,13 +81,13 @@ span.php-t_string {
 }
 
 span.php-variable {
-  color: black;
+  color: #277499;
   font-weight: bold;
 }
 
 
 span.js-localvariable {
-  color: #004499;
+  color: #277499;
 }
 
 span.php-comment {
@@ -97,11 +97,11 @@ span.php-comment {
 }
 
 span.php-string-single-quoted {
-  color: #AA2222;
+  color: #C36610;
 }
 /* double quoted strings allow interpolation */
 span.php-string-double-quoted {
-  color: #AA2222;
+  color: #C36610;
   font-weight: bold;
 }
 

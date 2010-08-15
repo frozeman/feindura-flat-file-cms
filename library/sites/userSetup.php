@@ -14,7 +14,7 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 0.54
+verion 0.55
 
 */
 
@@ -106,7 +106,7 @@ if (!isset($HTTP_POST_VARS['languageselect'])) {
 	
 } else { /* set standard language */
 
-	$languageselect = $HTTP_POST_VARS['languageselect']; 
+	$languageselect = $_POST['languageselect']; 
 
 } //endif
 
@@ -778,7 +778,7 @@ function getusers(&$status, $changestatus=1) {
 
 		while ($zeile = fgets($fp, 4096)) {		/* htpasswd zeilenweise einlesen */
 
-				ereg ("(.*)(:)(.*)", $zeile, $passelements);	/* Zeile in User, ":", Pass zerlegen */
+				preg_match("#(.*)(:)(.*)#", $zeile, $passelements);	/* Zeile in User, ":", Pass zerlegen */
 
 				$singleuser = $passelements[1];
 				$singlepass = $passelements[3];
@@ -854,6 +854,7 @@ function importcommaseparateddata($textfile, $textfile_name, &$status, &$newuser
 				if (checkimports($newuser, $newpass, $status, $existingusers) === true) {		/* Importierte Daten prüfen */
 
 					adduser($newuser, $newpass, $status, $newusers);		/* Userinfo in $newusers ablegen */
+					$statisticFunctions->saveTaskLog($langFile['log_userSetup_useradd'],$newuser); // <- SAVE the task in a LOG FILE
 
 				} //endif
 
@@ -1060,7 +1061,7 @@ function createhtaccess(&$status) {
 
 	global $languagearray;
 	
-	if (!file_exists(ACCESSFILE)){		/* .htaccess existiert nicht, muss angelegt werden */
+	if(!file_exists(ACCESSFILE)) {		/* .htaccess existiert nicht, muss angelegt werden */
 
 		$path = getpath($status);
 		$htaccess = "AuthName \"".AUTHNAME."\"\n";
@@ -1068,30 +1069,38 @@ function createhtaccess(&$status) {
 		$htaccess.= "AuthUserFile ".PASSWDFILE."\n"; // ORG: $htaccess.= "AuthUserFile ".$path."/".PASSWDFILE."\n";
 		$htaccess.= "require valid-user";
 
-		$filehandle = @fopen(ACCESSFILE, "w");
+		if($filehandle = @fopen(ACCESSFILE, "w")) {
 
-		@fputs($filehandle, $htaccess);
-
-		@fclose($filehandle);
-
-		$status .= $languagearray[10];
-
-	} //endif
+  		@fputs($filehandle, $htaccess);
+  
+  		@fclose($filehandle);
+  
+  		$status .= $languagearray[10];
+  		
+  		return true;		
+		} else
+		  return false;		  
+	}
+  
+  return true;
 
 } //EndOfFunction
 
 
 function createhtpasswd(&$newusers, &$status, &$existingusers) {
 
-	global $languagearrray;
-
-	$filehandle = @fopen(PASSWDFILE, "a");
-
-	@fputs ($filehandle, $newusers);
-
-	@fclose($filehandle);
-
-	$existingusers = getusers($status, 1);
+	global $languagearrray;  
+  
+	if($filehandle = @fopen(PASSWDFILE, "a")) {
+    
+  	@fputs ($filehandle, $newusers);
+  
+  	@fclose($filehandle);
+  	$existingusers = getusers($status, 1);
+  	
+	  return true;    		
+	} else
+		return false;	
 
 } //EndOfFunction
 
@@ -1109,9 +1118,8 @@ function cryptpass($user, $newpass) {
 
 
 function adduser($user, $pass, &$status, &$newusers) {
-  global $langFile;
-	global $languagearray;
-	global $statisticFunctions;
+
+	global $languagearray;	
 
 	$cryptedpass = cryptpass($user, $pass);
 
@@ -1120,8 +1128,6 @@ function adduser($user, $pass, &$status, &$newusers) {
 	$newusers .= $newline;
 
 	$status .= $languagearray[11].$user.$languagearray[22];
-	
-	$statisticFunctions->saveTaskLog($langFile['log_userSetup_useradd'],$user); // <- SAVE the task in a LOG FILE
 
 } //EndOfFunction
 
@@ -1322,11 +1328,11 @@ function disablepasses(&$status)
 /**********************/
 
 // for newer versions of PHP:
-if(!isset($HTTP_POST_VARS))
-	$HTTP_POST_VARS = $_POST;
+if(!isset($_POST))
+	$_POST = $_POST;
 
-if (isset($HTTP_POST_VARS['loginname'])) { $loginname = $HTTP_POST_VARS['loginname']; }
-if (isset($HTTP_POST_VARS['loginpass'])) { $loginpass = $HTTP_POST_VARS['loginpass']; }
+if (isset($_POST['loginname'])) { $loginname = $_POST['loginname']; }
+if (isset($_POST['loginpass'])) { $loginpass = $_POST['loginpass']; }
 
 $logok = true; //False damit kein login benötigt wird <-----------------------------------------------------------------*****************
 
@@ -1434,39 +1440,39 @@ if($logok==true) :
 /* PROGRAMMABLAUF       */
 /************************/
 
-if (isset($HTTP_POST_VARS['importtextfilesubmit'])) {		/* Schaltfläche IMPORT wurde aktiviert */
+if (isset($_POST['importtextfilesubmit'])) {		/* Schaltfläche IMPORT wurde aktiviert */
 
 	importcommaseparateddata($HTTP_POST_FILES['textfile']['tmp_name'], $HTTP_POST_FILES['textfile']['name'], $status, $newusers, $existingusers);
 
 } //endif
 
 
-if (isset($HTTP_POST_VARS['delusersubmit'])) {	/* Schaltfläche DELETE wurde gedrückt */
+if (isset($_POST['delusersubmit'])) {	/* Schaltfläche DELETE wurde gedrückt */
 
-	if (isset($readonlyusers) and is_array($readonlyusers) and in_array($HTTP_POST_VARS['delusroptionbox'], $readonlyusers)) {
+	if (isset($readonlyusers) and is_array($readonlyusers) and in_array($_POST['delusroptionbox'], $readonlyusers)) {
 	
 		$status .= $languagearray[4];
 	
 	} else {
 
-		deleteuser($HTTP_POST_VARS['delusroptionbox'],$status, $existingusers);
+		deleteuser($_POST['delusroptionbox'],$status, $existingusers);
 
 	} //endif
 
 } //endif
 
 
-if (isset($HTTP_POST_VARS['updatepasssubmit'])) {		/* Schaltfläche UPDATE wurde gedrückt */
+if (isset($_POST['updatepasssubmit'])) {		/* Schaltfläche UPDATE wurde gedrückt */
 
-	if (isset($readonlyusers) and is_array($readonlyusers) and in_array($HTTP_POST_VARS['updatepassoptionbox'], $readonlyusers)) {
+	if (isset($readonlyusers) and is_array($readonlyusers) and in_array($_POST['updatepassoptionbox'], $readonlyusers)) {
 	
 		$status .= $languagearray[4];
 	
 	} else {	//Benutzer ist NICHT schreibgeschützt
 		
-			if (checkupdates($HTTP_POST_VARS['updatepass'],$HTTP_POST_VARS['updatepass2'],$status) === true) {		/* Benutzereingaben prüfen */
+			if (checkupdates($_POST['updatepass'],$_POST['updatepass2'],$status) === true) {		/* Benutzereingaben prüfen */
 
-				updatepass($HTTP_POST_VARS['updatepassoptionbox'], $HTTP_POST_VARS['updatepass'], $status, $existingusers);
+				updatepass($_POST['updatepassoptionbox'], $_POST['updatepass'], $status, $existingusers);
 
 			} //endif
 
@@ -1475,22 +1481,24 @@ if (isset($HTTP_POST_VARS['updatepasssubmit'])) {		/* Schaltfläche UPDATE wurde 
 } //endif
 
 
-if (isset($HTTP_POST_VARS['newpasssubmit'])) {		/* Schaltfläche CREATE wurde gedrückt */
+if (isset($_POST['newpasssubmit'])) {		/* Schaltfläche CREATE wurde gedrückt */
 	
-	if (checkinputs($HTTP_POST_VARS['newuser'],$HTTP_POST_VARS['newpass'],$HTTP_POST_VARS['newpass2'],$status, $existingusers) === true) {		/* Benutzereingaben prüfen */
+	if (checkinputs($_POST['newuser'],$_POST['newpass'],$_POST['newpass2'],$status, $existingusers) === true) {		/* Benutzereingaben prüfen */
 
-		createhtaccess($status);		/* .htaccess anlegen */
+		if(createhtaccess($status)) { /* .htaccess anlegen */
 
-		adduser($HTTP_POST_VARS['newuser'],$HTTP_POST_VARS['newpass'], $status, $newusers);	/* Userinfo in $newusers ablegen */
-
-		createhtpasswd($newusers, $status, $existingusers); /* user in .htpasswd eintragen */
-
+  		adduser($_POST['newuser'],$_POST['newpass'], $status, $newusers);	/* Userinfo in $newusers ablegen */
+  		createhtpasswd($newusers, $status, $existingusers); /* user in .htpasswd eintragen */
+  		
+      $GLOBALS['statisticFunctions']->saveTaskLog($GLOBALS['langFile']['log_userSetup_useradd'],$_POST['newuser']); // <- SAVE the task in a LOG FILE
+		
+		}
 	} //endif
 
 } //endif
 
 
-if (isset($HTTP_POST_VARS['disablepassessubmit'])) {		/* Schaltfläche DISABLE wurde gedrückt */
+if (isset($_POST['disablepassessubmit'])) {		/* Schaltfläche DISABLE wurde gedrückt */
 		
 	if($disable['deleteall'] != 1) {	/* deleteall ist NICHT deaktiviert */
 		
