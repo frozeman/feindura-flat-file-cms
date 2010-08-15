@@ -121,7 +121,7 @@ var contextualSearch = new Class({
                      }
                     markup += '</ul>';
                   } else {
-                    markup = "<p>Nothing found in the API</p>";
+                    markup = "<p>Nothing found on other pages</p>";
                   }      
                  
                  // BLEND OUT results if clicked somwhere     
@@ -131,7 +131,7 @@ var contextualSearch = new Class({
                  
                  // PAGE-SEARCH-ENGINE: add list for elements in page results
                  if (elementsInPage.length >= 1) {                   
-                   markup += '<ul id="elementsInPageResult"></ul>';
+                   markup += '<span id="elementsInPageResultHeadline">Results from this page</span><br /><ul id="elementsInPageResult"></ul>';
                  }
                    
                  // hook the markup on the DOM now that it's complete

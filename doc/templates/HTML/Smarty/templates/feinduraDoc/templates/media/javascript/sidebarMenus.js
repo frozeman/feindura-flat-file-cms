@@ -3,15 +3,22 @@ window.addEvent('domready', function() {
   var blendOut = '-180px';
   var minWindowSize = 1420;
   
+  /* slideOut function*/
+  var slideOut = function(direction){ this.tween(direction,blendOut) };
+
+  
   /* select every link, and change the adress url in the window.href wehn clicked */
   
   /* SIDEBAR LEFT */
   $$('div.sidebarMenu.left').each(function(sideBarMenu){
     
-    if(window.getSize().x <= minWindowSize)
-     sideBarMenu.setStyle('left',blendOut);
-    
+    /* set tween */
     sideBarMenu.set('tween',{duration: '400', transition: Fx.Transitions.Pow.easeOut});
+    
+    /* slide out on startup */
+    if(window.getSize().x <= minWindowSize)
+      slideOut.delay(800,sideBarMenu,'left');   
+
     
     sideBarMenu.addEvent('mouseover',function(){
       if(window.getSize().x <= minWindowSize)
@@ -27,10 +34,10 @@ window.addEvent('domready', function() {
   });
   
   /* SIDEBAR RIGHT */
-  
-  
-  
   $$('div.sidebarMenu.right').each(function(sideBarMenu){
+    
+    /* set tween */
+    sideBarMenu.set('tween',{duration: '400', transition: Fx.Transitions.Pow.easeOut});
     
     // set the height of the sidebar conatiner
     sideBarMenu.setStyle('height',(window.getSize().y - 40)); // -40px padding
@@ -42,11 +49,9 @@ window.addEvent('domready', function() {
   	sideBarMenu.addEvent('mouseenter', logScroller.start.bind(logScroller));
   	sideBarMenu.addEvent('mouseleave', logScroller.stop.bind(logScroller));
     
-    // slide out of the window 
+    /* slide out on startup */
     if(window.getSize().x <= minWindowSize)
-     sideBarMenu.setStyle('right',blendOut);
-    
-    sideBarMenu.set('tween',{duration: '400', transition: Fx.Transitions.Pow.easeOut});
+      slideOut.delay(800,sideBarMenu,'right');
     
     sideBarMenu.addEvent('mouseover',function(){
       if(window.getSize().x <= minWindowSize)

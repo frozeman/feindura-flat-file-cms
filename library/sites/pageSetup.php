@@ -77,31 +77,34 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
   // -> GET highest category id
   $newId = getNewCatgoryId();
   
-  if($newId == 1)
-    $categoryConfig = array();
+  if(is_numeric($newId)) {
+    if($newId == 1)
+      $categoryConfig = array();
+    
+    //fügt dem $categoryConfig array einen leeren array an
+    $categoryConfig['id_'.$newId] = array('id' => $newId); // gives the new category a id
+    if(saveCategories($categoryConfig)) {
   
-  //fügt dem $categoryConfig array einen leeren array an
-  $categoryConfig['id_'.$newId] = array('id' => $newId); // gives the new category a id
-  if(saveCategories($categoryConfig)) {
-
-    $categoryInfo = $langFile['pageSetup_createCategory_created'];
-    
-    // if there is no category dir, try to create one
-    if(!is_dir(DOCUMENTROOT.$adminConfig['savePath'].$newId)) {
-      // erstellt ein verzeichnis
-      if(!mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777) ||
-         !chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777)) {
-        if($errorWindow) // if there is allready an warning
-          $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_createDir'];
-        else
-          $errorWindow = $langFile['pageSetup_error_createDir'];
+      $categoryInfo = $langFile['pageSetup_createCategory_created'];
+      
+      // if there is no category dir, try to create one
+      if(!is_dir(DOCUMENTROOT.$adminConfig['savePath'].$newId)) {
+        // erstellt ein verzeichnis
+        if(!mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777) ||
+           !chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777)) {
+          if($errorWindow) // if there is allready an warning
+            $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_createDir'];
+          else
+            $errorWindow = $langFile['pageSetup_error_createDir'];
+        }
       }
-    }
-    
-    $statisticFunctions->saveTaskLog($langFile['log_pageSetup_new']); // <- SAVE the task in a LOG FILE
+      
+      $statisticFunctions->saveTaskLog($langFile['log_pageSetup_new']); // <- SAVE the task in a LOG FILE
+    } else // throw error
+      $errorWindow = $langFile['pageSetup_error_create'];
   } else // throw error
     $errorWindow = $langFile['pageSetup_error_create'];
-  
+    
   $savedForm = 'categories';
 }
 

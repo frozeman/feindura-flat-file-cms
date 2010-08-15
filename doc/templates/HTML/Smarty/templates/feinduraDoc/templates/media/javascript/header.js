@@ -8,7 +8,7 @@ window.addEvent('domready',function() {
   
   // add contextual search
   if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-    new contextualSearch({site: 'feindura.org/api/',targetID: 'searchBox'});
+    new contextualSearch({site: 'feindura.org/api/',targetID: 'searchBox',css: 'media/header.css'});
   
   // add search input overtext
 	new OverText('search-input',{ //searchfield
