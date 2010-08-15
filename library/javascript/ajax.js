@@ -35,7 +35,7 @@ function requestSite(site,siteTitle,formId) {
         // shows the LOADING
         if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
           $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
-          removeLoadingCircle = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
+          removeLoadingCircle = loadingCircle('windowBoxDimmer', 23, 35, 12, 6, "#fff");
         } else {
           $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle'}),'top');
         }
@@ -47,7 +47,7 @@ function requestSite(site,siteTitle,formId) {
 		  $('windowRequestBox').set('slide', {duration: '300', transition: Fx.Transitions.Pow.easeOut});      
       $('windowRequestBox').slide('out');
       
-      if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
+      //if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         removeLoadingCircle();
       
       // ->> on complete fade out, put content

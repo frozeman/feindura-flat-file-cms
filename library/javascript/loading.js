@@ -62,13 +62,8 @@ function loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
 // create loading circle element
 var jsLoadingCircleContent = new Element('div', {id: 'loadingCircleContent'});
 
-
 // create the LOADING-CIRCLE
-if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-  var loadingCircleContent = new Element('div', {id: 'loadingCircleContent', style: 'z-index: 4; display: block; position: relative; width: 48px; height: 48px; background: url(library/image/sign/loadingCircle.gif) no-repeat;'});
-} else {
-  var loadingCircleContent = new Element('div', {id: 'loadingCircleContent', style: 'z-index: 4; display: block; position: relative; left: 115px; width: 48px; height: 48px; background: url(library/image/sign/loadingCircle.gif) no-repeat;'});
-}
+var loadingCircleContent = new Element('div', {id: 'loadingCircle'});
 
 /* LOADING-CIRCLE when the DOM is loading
 *
@@ -103,8 +98,7 @@ window.addEvent('load', function() {
   window.addEvent('domready', function() {
       $('loadingBox').tween('opacity','0');
       lastLoadingTween = true;
-  });
-  
+  });  
 });
 
 /* LOADING-CIRCLE when the DOM is unloading

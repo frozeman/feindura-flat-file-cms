@@ -178,17 +178,23 @@ input.search:hover {
     }
 
 /* EDITFILES new file */
-div.editFiles.left {
+textarea.editFiles, div.CodeMirror-wrapping {
     position: relative;
-    left: 0px;
-    top: 0px;
+    top: 62px;
+    margin-bottom: 45px;
+    }
+
+div.editFiles.left {
+    position: absolute;
+    left: 7px;
+    top: 35px;
     width: 600px;
     white-space:nowrap;
     }
 div.editFiles.right {
     position: absolute;
     right: 7px;
-    top: 18px;
+    top: 35px;
     width: 250px;
     height: 80px;
     padding-left: 10px;

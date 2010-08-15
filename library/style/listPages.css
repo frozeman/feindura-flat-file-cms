@@ -177,7 +177,7 @@ div.listPagesHead {
 .listPages div.category {
     z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
-    top: -5px;
+    top: -1px;
     left: 592px;
     }
     

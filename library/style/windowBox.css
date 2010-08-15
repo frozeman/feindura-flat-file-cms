@@ -54,9 +54,9 @@ windowBox.css version 0.1 */
 #windowRequestBox {
     z-index: 1;
     position: relative;
-    width: 680px;
-    min-height: 180px;
-    padding: 20px 50px;
+    width: 705px;
+    min-height: 140px;
+    padding: 20px 40px;
     background: url("../image/bg/windowBox_middle.png") repeat-y;
     overflow: hidden;
     }
@@ -72,9 +72,9 @@ windowBox.css version 0.1 */
 #windowBoxDimmer {
     z-index: 3;
     position: absolute;
-    width: 736px;    
+    width: 735px;    
     height: 100%;
-    margin: 0px -26px;
+    margin: 0px -16px;
     margin-top: -21px;
     /*margin-bottom: -80px;*/
     padding: 50px 0px;
@@ -89,10 +89,10 @@ windowBox.css version 0.1 */
 
 #windowBox h1 {
     width: 685px; /* 705px */
-    margin: 0px -11px;
+    margin: 0px;
     margin-bottom: 10px;
     padding: 0px 10px;
-    padding-bottom: 12px;
+    padding-bottom: 18px;
     background: url("../image/bg/windowBox_h1.png") no-repeat bottom left;
     text-align: center;
     font-size: 18px;

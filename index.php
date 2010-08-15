@@ -447,8 +447,7 @@ if($_GET['site'] == 'addons') {
   
   <!-- ************************************************************************* -->
   <!-- ** LEFT-SIDEBAR ************************************************************** -->
-  <!-- requires the <span> tag inside the <li><a> tag for measure the text width 
-  <img src="library/image/sign/loadingCircle.gif" id="leftSidebarLoadingCircle" alt="dfsdf" />-->
+  <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
   <div id="leftSidebar">
     <?php
 
