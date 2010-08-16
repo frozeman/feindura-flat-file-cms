@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* pageSetup.php version 1.21
+* pageSetup.php version 1.22
 */
 
 include_once(dirname(__FILE__)."/../backend.include.php");
@@ -74,6 +74,9 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
 if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['createCategory'])) ||
    $_GET['status'] == 'createCategory') {
    
+  // var
+  $isDir = false;
+   
   // -> GET highest category id
   $newId = getNewCatgoryId();
   
@@ -81,27 +84,35 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
     if($newId == 1)
       $categoryConfig = array();
     
-    //fügt dem $categoryConfig array einen leeren array an
-    $categoryConfig['id_'.$newId] = array('id' => $newId); // gives the new category a id
-    if(saveCategories($categoryConfig)) {
-  
-      $categoryInfo = $langFile['pageSetup_createCategory_created'];
-      
-      // if there is no category dir, try to create one
-      if(!is_dir(DOCUMENTROOT.$adminConfig['savePath'].$newId)) {
-        // erstellt ein verzeichnis
-        if(!mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777) ||
-           !chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777)) {
-          if($errorWindow) // if there is allready an warning
-            $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_createDir'];
-          else
-            $errorWindow = $langFile['pageSetup_error_createDir'];
-        }
+    // if there is no category dir, try to create one
+    if(@is_dir(DOCUMENTROOT.$adminConfig['savePath'].$newId)) {
+      $isDir = true;
+    } else {
+      // erstellt ein verzeichnis
+      if(!@mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777) ||
+         !@chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777)) {
+          $isDir = false;
+          $errorWindow = $langFile['pageSetup_error_createDir'];      
+      // save category dir could be created
+      } else
+        $isDir = true;
+    }      
+    
+    // finaly if category directory exists
+    if($isDir) {         
+      // add a new id to the category array
+      $categoryConfig['id_'.$newId] = array('id' => $newId); // gives the new category a id  
+      if(saveCategories($categoryConfig)) {
+         $categoryInfo = $langFile['pageSetup_createCategory_created'];
+         $statisticFunctions->saveTaskLog($langFile['log_pageSetup_new']); // <- SAVE the task in a LOG FILE
+      } else { // throw error
+        if($errorWindow) // if there is allready an warning
+          $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_create'];
+        else
+          $errorWindow = $langFile['pageSetup_error_create']; 
       }
-      
-      $statisticFunctions->saveTaskLog($langFile['log_pageSetup_new']); // <- SAVE the task in a LOG FILE
-    } else // throw error
-      $errorWindow = $langFile['pageSetup_error_create'];
+    }
+     
   } else // throw error
     $errorWindow = $langFile['pageSetup_error_create'];
     
@@ -531,8 +542,12 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           echo '<tr><td class="leftBottom"></td><td>';
                // category up / down
-          echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>
-                <a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
+               
+          if(count($categoryConfig) > 1) {
+            echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>
+                  <a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
+          }
+          
           echo '</td></tr>';
                     
                // category SETTINGS
