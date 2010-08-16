@@ -82,7 +82,7 @@ window.addEvent('load', function() {
   }
 
   // show the loadingCircle
-  $('loadingBox').fade('in');
+  $('loadingBox').fade('show');
   
   // disply none the documentsaved, after blending in and out
   $('loadingBox').get('tween').addEvent('complete', function() {   
@@ -126,32 +126,32 @@ window.addEvent('unload',  function() {
 */
 window.addEvent('domready', function() {
     
-    // SHOWS UP IF THE PAGE HAS BEEN SAVED!
-    var lastTween = false;    
-    
-    // if documentSaved has given the class from the php script
-    if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {    
-    
-      // disply none the documentsaved, after blending in and out
-      $('documentSaved').get('tween').addEvent('complete', function() {      
-          if(lastTween) {
-            $('documentSaved').setStyle('display','none');
-            $('documentSaved').removeClass('saved');
-          }
-      });
+  // SHOWS UP IF THE PAGE HAS BEEN SAVED!
+  var lastTween = false;    
+  
+  // if documentSaved has given the class from the php script
+  if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {    
+  
+    // disply none the documentsaved, after blending in and out
+    $('documentSaved').get('tween').addEvent('complete', function() {      
+        if(lastTween) {
+          $('documentSaved').setStyle('display','none');
+          $('documentSaved').removeClass('saved');
+        }
+    });
 
-      $('documentSaved').fade('hide');
-      $('dimmContainer').set('tween', {duration: '300', transition: Fx.Transitions.Pow.easeOut});
-      $('documentSaved').tween('opacity','1');
-      
-      
-      $('documentSaved').addEvent('load', function() {
-          $('documentSaved').tween('opacity','0');
-          
-          lastTween = true;
-      });
-      
-      $('documentSaved').fireEvent('load', $('documentSaved'), 300);
-      
-    }
+    $('documentSaved').fade('hide');
+    $('dimmContainer').set('tween', {duration: '300', transition: Fx.Transitions.Pow.easeOut});
+    $('documentSaved').tween('opacity','1');
+    
+    
+    $('documentSaved').addEvent('load', function() {
+        $('documentSaved').tween('opacity','0');
+        
+        lastTween = true;
+    });
+    
+    $('documentSaved').fireEvent('load', $('documentSaved'), 300);
+    
+  }
   });

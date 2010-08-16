@@ -123,7 +123,59 @@ if($_GET['site'] == 'addons') {
   
   <!-- thirdparty/customformelements -->
   <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
-    
+  
+  <!-- ************************************************************************************************************ -->
+  <!-- JAVASCRIPT -->
+  
+  <!-- thirdparty/iePNGfix -->
+  <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
+  <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
+
+  <!-- thirdparty/MooTools -->
+  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4-core.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
+  
+  <!-- thirdparty/AutoGrow (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascript/autogrow-1.0.js"></script>
+  
+  <!-- thirdparty/StaticScroller (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Source/StaticScroller.js"></script>
+	<script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Requires/Element.Pin.js"></script>
+	
+	<!-- thirdparty/Raphael -->
+  <script type="text/javascript" src="library/thirdparty/javascript/raphael-1.4.3.js"></script>
+	
+  <!-- thirdparty/CodeMirror -->
+  <script type="text/javascript" src="library/thirdparty/javascript/CodeMirror/js/codemirror.js"></script>
+  
+  <!-- thirdparty/CustomFormElements -->
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.replace.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.checkbox.js"></script>
+  <!--<script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.radio.js"></script>-->
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.addon.dependencies.js"></script>
+  
+  <!-- thirdparty/CKEditor -->
+  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
+ 
+  <!-- javascripts -->
+  <script type="text/javascript" src="library/javascript/loading.js"></script>
+  <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
+  <script type="text/javascript" src="library/javascript/divScroller.js"></script>
+  <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  
+  <script type="text/javascript" src="library/javascript/sidebar.js"></script>
+  <script type="text/javascript" src="library/javascript/sidebarMenu.js"></script>  
+  <script type="text/javascript" src="library/javascript/sortPages.js"></script>
+  <script type="text/javascript" src="library/javascript/setup.js"></script>
+  <script type="text/javascript" src="library/javascript/content.js"></script>
+  <script type="text/javascript" src="library/javascript/forms.js"></script>
+  <script type="text/javascript" src="library/javascript/windowBox.js"></script>
+  <script type="text/javascript" src="library/javascript/ajax.js"></script>
+  <script type="text/javascript" src="library/javascript/toolTips.js"></script>
+  <script type="text/javascript" src="library/javascript/editor.js"></script>
+  <script type="text/javascript" src="library/javascript/editFiles.js"></script>
+  <script type="text/javascript" src="library/javascript/pageThumbnail.js"></script>
+  
 </head>
 <body>
   <div id="dimmContainer">
@@ -477,58 +529,6 @@ if($_GET['site'] == 'addons') {
       </div>
     </div>
   </div>
-  
-  <!-- ************************************************************************************************************ -->
-  <!-- JAVASCRIPT -->
-  
-  <!-- thirdparty/iePNGfix -->
-  <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
-  <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
-  
-  <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4-core.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
-  
-  <!-- thirdparty/AutoGrow (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascript/autogrow-1.0.js"></script>
-  
-  <!-- thirdparty/StaticScroller (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Source/StaticScroller.js"></script>
-	<script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Requires/Element.Pin.js"></script>
-	
-  <!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascript/raphael-1.4.3.js"></script>
-  
-  <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/javascript/CodeMirror/js/codemirror.js"></script>
-  
-  <!-- thirdparty/CustomFormElements -->
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.replace.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.checkbox.js"></script>
-  <!--<script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.radio.js"></script>-->
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.addon.dependencies.js"></script>
-  
-  <!-- thirdparty/CKEditor -->
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
- 
-  <!-- javascripts -->
-  <script type="text/javascript" src="library/javascript/loading.js"></script>
-  <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
-  <script type="text/javascript" src="library/javascript/divScroller.js"></script>
-  <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  
-  <script type="text/javascript" src="library/javascript/sidebar.js"></script>
-  <script type="text/javascript" src="library/javascript/sidebarMenu.js"></script>  
-  <script type="text/javascript" src="library/javascript/sortPages.js"></script>
-  <script type="text/javascript" src="library/javascript/setup.js"></script>
-  <script type="text/javascript" src="library/javascript/content.js"></script>
-  <script type="text/javascript" src="library/javascript/forms.js"></script>
-  <script type="text/javascript" src="library/javascript/windowBox.js"></script>
-  <script type="text/javascript" src="library/javascript/ajax.js"></script>
-  <script type="text/javascript" src="library/javascript/toolTips.js"></script>
-  <script type="text/javascript" src="library/javascript/editor.js"></script>
-  <script type="text/javascript" src="library/javascript/editFiles.js"></script>
-  <script type="text/javascript" src="library/javascript/pageThumbnail.js"></script>
-  
+    
 </body>
 </html>
