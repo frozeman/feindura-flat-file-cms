@@ -23,7 +23,7 @@ include_once(dirname(__FILE__).'/../backend.include.php');
 $opendCategory = false;
 
 // -> CHANGE PAGE STATUS
-if($_GET['status'] == 'changePageStatus') {
+if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
     
     if($contentArray = $generalFunctions->readPage($_GET['page'],$_GET['category'])) {      
          
@@ -44,7 +44,7 @@ if($_GET['status'] == 'changePageStatus') {
 }
 
 // -> CHANGE CATEGORY STATUS
-if($_GET['status'] == 'changeCategoryStatus') {    
+if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {    
      
       // change the status
       $categoryConfig['id_'.$_GET['category']]['public'] = ($_GET['public']) ? false : true;
@@ -60,7 +60,7 @@ if($_GET['status'] == 'changeCategoryStatus') {
 }
 
 // -> SET THE STARTPAGE
-if($_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
+if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
   
     // sets the new startPage
     $websiteConfig['startPage'] = $_GET['page'];

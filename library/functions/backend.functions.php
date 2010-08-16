@@ -19,9 +19,10 @@
  * 
  * @package [backend]
  * 
- * @version 1.32
+ * @version 1.33
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.33 isAdmin(): add immediately return true if no remote_user exists 
  *    - 1.32 fixed editFiles()
  *    - 1.31 add checkStyleFiles()
  * 
@@ -64,14 +65,18 @@
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
  * 
  * 
- * @version 1.0
+ * @version 1.01
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.01 add immediately return true if no remote_user exists
  *    - 1.0 initial release
  * 
  */
 function isAdmin() {
-
+  
+  if(!isset($_SERVER["REMOTE_USER"]))
+    return true;
+  
   $currentUser = strtolower($_SERVER["REMOTE_USER"]);
   
   // checks if the current user has a username like:
