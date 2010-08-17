@@ -14,17 +14,17 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// deleteEditFiles.php version 0.1
+// clearStatistics.php version 0.1
 
-include_once(dirname(__FILE__).'/../backend.include.php');
+include_once(dirname(__FILE__).'/../../backend.include.php');
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // QUESTION
-echo '<h1>'.$langFile['editFilesSettings_deleteFile_question_part1'].' &quot;<span style="color:#000000;">'.basename($_GET['file']).'</span>&quot; '.$langFile['editFilesSettings_deleteFile_question_part2'].'</h1>';
+echo '<h1>'.$langFile['statisticSetup_clearStatistics_question_h1'].'</h1>';
 
 ?>
 <div>
-<a href="<?php echo '?site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>" class="ok left" onclick="closeWindowBox('index.php?<?php echo 'site='.$_GET['site'].'&amp;status='.$_GET['status'].'&amp;editFilesStatus='.$_GET['editFilesStatus'].'&amp;file='.$_GET['file'].'#'.$_GET['anchorName']; ?>');return false;">&nbsp;</a>
-<a href="?site=<?php echo $_GET['site']; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=statisticSetup#clearStatistics" class="ok left" onclick="$('clearStatisticsForm').submit();return false;">&nbsp;</a>
+<a href="?site=statisticSetup#clearStatistics" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 </div>

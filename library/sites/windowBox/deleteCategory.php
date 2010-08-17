@@ -16,7 +16,7 @@
 */
 // deleteCategory.php version 0.11
 
-include_once(dirname(__FILE__).'/../backend.include.php');
+include_once(dirname(__FILE__).'/../../backend.include.php');
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 

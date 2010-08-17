@@ -24,15 +24,13 @@ function startUploadAnimation() {
   
   // shows the LOADING
   if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
-    $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
+    $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 80px;'}),'top');
     startUploadAnimationElement = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
   } else {
     startUploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
     $('windowRequestBox').grab(startUploadAnimationElement,'top'); 
-  }
-  
+  }  
   return true;
-
 }
 //--------------------------------------------------
 // called on the end of the upload
@@ -52,7 +50,7 @@ function stopUploadAnimation() {
       
     } else {
       startUploadAnimationElement.destroy();
-    } 
+    }
     
     return true;
   }
@@ -115,4 +113,3 @@ window.addEvent('domready', function() {
     }
   });
 });
-

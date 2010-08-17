@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// pageThumbnailUpload.php version 1.03
+// pageThumbnailUpload.php version 1.04
 
 $error = false;
 $response = false;
@@ -22,7 +22,7 @@ $site = $_GET['site'];
 $page = $_GET['page'];
 $category = $_GET['category'];
 
-include(dirname(__FILE__)."/../backend.include.php");
+include(dirname(__FILE__)."/../../backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
@@ -101,7 +101,7 @@ if($categoryRatio) {
 
 <div style="position: relative">
 <!-- <form action="?site=pageThumbnail&amp;category=<?php echo $category; ?>&amp;id=<?php echo $page; ?>" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','pageThumbnailUploadForm');return false;" accept-charset="UTF-8"> -->
-<form action="library/sites/pageThumbnail/upload.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
+<form action="library/process/thumbnailUpload.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
 	<input type="hidden" name="upload" value="true" />
 	<input type="hidden" name="category" value="<?php echo $category; ?>" />
   <input type="hidden" name="id" value="<?php echo $page; ?>" />
@@ -195,4 +195,4 @@ if($categoryRatio) {
 <a href="?category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" onclick="closeWindowBox('index.php?site=<?php echo $site; ?>&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->
-<iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/sites/pageThumbnail/upload.php"></iframe>
+<iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/process/thumbnailUpload.php"></iframe>

@@ -258,7 +258,7 @@ else
             (($pageContent['category'] == 0 && $adminConfig['page']['thumbnails']) ||
             $categoryConfig['id_'.$pageContent['category']]['thumbnail'])) {  
       
-        echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
+        echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
     }
     ?>
     
@@ -716,7 +716,9 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
 
 <script type="text/javascript">
 /* <![CDATA[ */  
-  
+
+window.addEvent('domready',function(){
+
   // set the CONFIGs of the editor
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["language"]; ?>';
@@ -727,6 +729,7 @@ $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
   CKEDITOR.config.filebrowserBrowseUrl      = <?php if($adminConfig['user']['fileManager']) echo "'library/thirdparty/filemanager/index.php'"; else echo "''"; ?>;
 
+});
 /* ]]> */
 </script>
 

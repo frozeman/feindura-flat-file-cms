@@ -16,7 +16,7 @@
 */
 // pageThumbnailDelete.php version 0.91
 
-include(dirname(__FILE__).'/../backend.include.php');
+include(dirname(__FILE__).'/../../backend.include.php');
 
 // gets the vars
 if(isset($_POST['category']))

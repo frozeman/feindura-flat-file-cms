@@ -14,9 +14,9 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// upload.php v. 1.51
+// thumbnailUpload.php v. 1.51
 
-include_once(dirname(__FILE__)."/../../backend.include.php");
+include_once(dirname(__FILE__)."/../backend.include.php");
 
 $error = false;
 $response = false;
@@ -34,7 +34,7 @@ $category = $_POST['category'];
 <html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="../../style/pageThumbnail.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../style/pageThumbnail.css" media="screen" />
 </head>
 <body id="thumbnailUploadFrame">
 <?php
@@ -242,7 +242,6 @@ if($_POST['upload']) {
     }
     echo '<ul>';
   }
-
 }
 ?>
 </body>

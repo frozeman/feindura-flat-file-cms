@@ -990,7 +990,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   if($isDir) {
     if($isFiles)
-      echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
+      echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/windowBox/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
     echo '<br /><br /><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['form_submit'].'" />';
   }
   echo '</div>
@@ -1045,7 +1045,7 @@ function saveEditedFiles(&$savedForm) {
     // wandelt die php einleitungstags wieder in zeichen um
     $_POST['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$_POST['fileContent']);
     
-    if($file = fopen($file,"w")) {
+    if($file = @fopen($file,"w")) {
     flock($file,2);
     fwrite($file,$_POST['fileContent']);
     flock($file,3);
@@ -1055,8 +1055,9 @@ function saveEditedFiles(&$savedForm) {
     $_GET['status'] = $_POST['status'];
     $savedForm = $_POST['status'];
     
-    return true;      
-    }
+      return true;      
+    } else
+      return false;
     
   // ->> NEW FILE
   } else { // creates a new file if a filename was input in the field
@@ -1081,9 +1082,9 @@ function saveEditedFiles(&$savedForm) {
       $savedForm = $_POST['status'];
       
       return true;
-    }
+    } else
+      return false;
   }
-  return false;
 }
 
 /**

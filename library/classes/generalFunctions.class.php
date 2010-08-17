@@ -389,12 +389,15 @@ class generalFunctions {
   * 
   * Save a page to it's flatfile.
   * 
+  * Example of the saved $pageContent array:
+  * {@example readPage.return.example.php}
+  * 
   * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
   * 
-  * @param array $pageContent the $pageContent array of the page to save    
+  * @param array $pageContent the $pageContent array of the page to save
   * 
   * @uses $adminConfig      for the save path of the flatfiles
   * @uses setStoredPages()  to store the saved file agiain, and overwrite th old stored page
@@ -404,8 +407,8 @@ class generalFunctions {
   * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.02 add preg_replace removing multiple slahses  
-  *    - 1.01 add chmod  
+  *    - 1.02 add preg_replace removing multiple slahses
+  *    - 1.01 add chmod
   *    - 1.0 initial release
   * 
   */

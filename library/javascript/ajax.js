@@ -35,9 +35,9 @@ function requestSite(site,siteTitle,formId) {
         // shows the LOADING
         if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
           $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
-          removeLoadingCircle = loadingCircle('windowBoxDimmer', 23, 35, 12, 6, "#fff");
+          removeLoadingCircle = loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
         } else {
-          $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle'}),'top');
+          $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
         }
     },
     //-----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ function requestSite(site,siteTitle,formId) {
 		  $('windowRequestBox').set('slide', {duration: '300', transition: Fx.Transitions.Pow.easeOut});      
       $('windowRequestBox').slide('out');
       
-      //if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
+      if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         removeLoadingCircle();
       
       // ->> on complete fade out, put content
@@ -183,6 +183,4 @@ function requestLeftSidebar(category,page,site) {
 			$('leftSidebar').inject(failureText);
 		  }
     }).send();
-
 }
-

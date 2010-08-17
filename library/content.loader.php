@@ -96,15 +96,19 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // fileManager
     case 'fileManager':
-      include (dirname(__FILE__).'/sites/fileManager.php');
+      include (dirname(__FILE__).'/sites/windowBox/fileManager.php');
       break; 
     // deletePage
     case 'deletePage':
-      include (dirname(__FILE__).'/sites/deletePage.php');
+      include (dirname(__FILE__).'/sites/windowBox/deletePage.php');
       break;
-    // pageThumbnail
+    // pageThumbnailUpload
     case 'pageThumbnailUpload':
-      include (dirname(__FILE__).'/sites/pageThumbnailUpload.php');
+      include (dirname(__FILE__).'/sites/windowBox/pageThumbnailUpload.php');
+      break;
+    // pageThumbnailDelete
+    case 'pageThumbnailDelete':
+      include (dirname(__FILE__).'/sites/windowBox/pageThumbnailDelete.php');
       break;
   } //switch END
 
