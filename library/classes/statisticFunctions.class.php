@@ -30,9 +30,10 @@
 * 
 * @package [Implementation]|[backend]
 * 
-* @version 0.59
+* @version 0.60
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.60 add hasVistiCache()
 *    - 0.59 savePageStats(): prevent save searchwords to be counted miltuple times
 *    - 0.58 fixed isSpider() and saveWebsiteStatistic()
 *    - 0.57 add new browsers to createBrowserChart() 
@@ -891,70 +892,6 @@ class statisticFunctions extends generalFunctions {
   }
 
  /**
-  * <b>Name</b> isSpider()<br>
-  * 
-  * Check if the user-agent is a spider/bot/webcrawler.
-  * This method uses the "library/thirdparty/spiders.xml" or "library/thirdparty/spiders.txt" (depending on the php version)
-  * 
-  * The list of spiders it uses is from: {@link http://www.wolfshead-solutions.com/spiders-list}
-  * 
-  * return bool TRUE if its a spider/bot/webcrawler, FALSE if not
-  * 
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  function isSpider() {
-  
-    if(isset($_SERVER['HTTP_USER_AGENT'])) {
-      $userAgent = ($_SERVER['HTTP_USER_AGENT']);
-      
-      // hohlt die botliste aus der spiders.xml liste
-      // wenn php version > 5
-      if(substr(phpversion(),0,1) >= 5) {
-        if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {
-         
-          foreach($xml as $xmlData) {
-              $bots[] = strtolower($xmlData['ident']);            
-          }
-        }
-        
-        /*
-        // list bots so i can save them in a text file
-        foreach($bots as $bot) {
-          echo $bot.',';
-        }
-        */
-        
-      } else { // php version 4
-        // hohlt die botliste aus der spiders.txt liste
-        $filename = dirname(__FILE__)."/../thirdparty/spiders.txt";
-        $fd = fopen ($filename, "r");
-        $bots = fread ($fd, filesize($filename));
-        fclose ($fd);
-        $bots = explode(',',$bots);
-      }
-      
-      //var_dump($bots);
-      
-      $userAgent = strtolower($userAgent);
-      $i = 0;
-      $summe = count($bots);
-
-      foreach($bots as $bot) {
-        if(strstr(strtolower($userAgent), strtolower($bot)))
-          return true; // User-Agent is a Bot
-      }
-      // User-Agent is no Bot
-      return false;
-    
-    } else
-      return false; // no HTTP_USER_AGENT available
-  }
-
- /**
   * <b>Name</b> addDataToString()<br>
   * 
   * Adds a new string to a data-string in the format: "stringa,42|stringb,23|stringc,1" and counts the string up if its already existing.
@@ -1089,6 +1026,135 @@ class statisticFunctions extends generalFunctions {
   }
   
  /**
+  * <b>Name</b> isSpider()<br>
+  * 
+  * Check if the user-agent is a spider/bot/webcrawler.
+  * This method uses the "library/thirdparty/spiders.xml" or "library/thirdparty/spiders.txt" (depending on the php version)
+  * 
+  * The list of spiders it uses is from: {@link http://www.wolfshead-solutions.com/spiders-list}
+  * 
+  * return bool TRUE if its a spider/bot/webcrawler, FALSE if not
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function isSpider() {
+
+    if(isset($_SERVER['HTTP_USER_AGENT'])) {
+      
+      // var
+      $userAgent = $_SERVER['HTTP_USER_AGENT'];
+      
+      // hohlt die botliste aus der spiders.xml liste
+      // wenn php version > 5
+      if(substr(phpversion(),0,1) >= 5) {
+        if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
+          foreach($xml as $xmlData) {
+              $bots[] = strtolower($xmlData['ident']);            
+          }
+        }
+        
+        /*
+        // list bots so i can save them in a text file
+        foreach($bots as $bot) {
+          echo $bot.',';
+        }
+        */
+        
+      } else { // php version 4
+        // hohlt die botliste aus der spiders.txt liste
+        $filename = dirname(__FILE__)."/../thirdparty/spiders.txt";
+        $fd = fopen ($filename, "r");
+        $bots = fread ($fd, filesize($filename));
+        fclose ($fd);
+        $bots = explode(',',$bots);
+      }
+      
+      //var_dump($bots);
+      
+      $userAgent = strtolower($userAgent);
+      $i = 0;
+      $summe = count($bots);
+
+      foreach($bots as $bot) {
+        if(strstr(strtolower($userAgent), strtolower($bot)))
+          return true; // User-Agent is a Bot
+      }
+      // User-Agent is no Bot
+      return false;
+
+    } else
+      return false; // no HTTP_USER_AGENT available
+  }
+  
+ /**
+  * <b>Name</b> hasVisitCache()<br>
+  * 
+  * Creates a <var>visit.statistic.cache</var> file and store the md5 sum of the user agent + ip with a timestamp.
+  * If the agent load again the website, it check if the agent is already in the cache and the timeframe of 2 hours is not passed.
+  * 
+  * This function is used when the session ID cannot be transfered, because of deactivated cookies or no session ID in the link was transfered. 
+  * 
+  * return bool TRUE the user agent is in the cache, FALSE if not
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function hasVisitCache() {
+    
+    //var
+    $return = false;
+    $maxTime = 7200; // 3600 seconds = 1 hour
+    $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
+    $currentDate = mktime(); //date("YmdHis");
+    $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
+    $newLines = array();
+    
+    // -> OPEN visit.statistic.cache for reading
+    $cachedLines = @file($cacheFile);
+    
+    if(!empty($cachedLines) && is_array($cachedLines)) {
+      
+      foreach($cachedLines as $cachedLine) {
+        $cachedLineArray = explode('|', $cachedLine);
+        
+        // stores the agent again with new timestamp, if the user was less than 1h on the page,
+        // after 1 hour the agent is deleted form the cache
+        if($currentDate - $cachedLineArray[1] < $maxTime) {
+          if($cachedLineArray[0] == $userAgentMd5) {          
+            $newLines[] = $cachedLineArray[0].'|'.$currentDate;
+            $return = true;
+          } else
+            $newLines[] = $cachedLine;
+        }
+      }
+    }
+    // agent doesn't exist, create a new cache
+    if($return === false)
+      $newLines[] = $userAgentMd5.'|'.$currentDate;
+    
+    // ->> OPEN visit.statistic.cache for writing
+    if($cache = @fopen($cacheFile,"w")) {      
+      flock($cache,2);
+      foreach($newLines as $newLine) {
+        $newLine = preg_replace('#\n+#','',$newLine);
+        fwrite($cache,$newLine."\n");
+      }
+      flock($cache,3);
+      fclose($cache);      
+    }
+    
+    // return the right value
+    return $return;
+  }
+  
+ /**
   * <b>Name</b> saveWebsiteStats()<br>
   * 
   * Saves the following values of the website-statistic:<br>
@@ -1129,13 +1195,14 @@ class statisticFunctions extends generalFunctions {
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
-    
+      
     // COUNT if the user/spider isn't already counted
-    if(!isset($_SESSION['log_userVisited']) || $_SESSION['log_userVisited'] === false) {
+    if((isset($_SESSION['log_visited']) && $_SESSION['log_visited'] === false) ||
+       (!isset($_SESSION['log_visited']) && ($_SESSION['log_visited'] = $this->hasVisitCache()) === false)) {
    
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
-         (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
+      if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
+         (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = $this->isSpider()) === false)) {
    
         // -------------------------------------------------------------------------------------
         // -->> --------------------------------------------------------------------------------
@@ -1175,11 +1242,11 @@ class statisticFunctions extends generalFunctions {
 
         
       // ->> COUNT the SPIDER UP
-      } elseif($_SESSION['log_userIsSpider'] === true && 
+      } elseif($_SESSION['log_isSpider'] === true && 
                (!isset($this->websiteStatistic['spiderVisitCount']) ||
                (isset($this->websiteStatistic['spiderVisitCount']) && $this->websiteStatistic['spiderVisitCount'] == ''))) {
         $this->websiteStatistic['spiderVisitCount'] = '1';
-      }elseif($_SESSION['log_userIsSpider'] === true) {
+      }elseif($_SESSION['log_isSpider'] === true) {
         $this->websiteStatistic['spiderVisitCount']++;
       }
       
@@ -1204,14 +1271,14 @@ class statisticFunctions extends generalFunctions {
         fclose($statisticFile);
         
         // saves the user as visited
-        $_SESSION['log_userVisited'] = true;
+        $_SESSION['log_visited'] = true;
         
-      }        
+      }
     } else {
       
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
-         (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
+      if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
+         (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = $this->isSpider()) === false)) {
         
         // -------------------------------------------------------------------------------------
         // ->> VISIT TIME of PAGES
@@ -1357,8 +1424,8 @@ class statisticFunctions extends generalFunctions {
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER
-    if((isset($_SESSION['log_userIsSpider']) && $_SESSION['log_userIsSpider'] === false) ||
-       (!isset($_SESSION['log_userIsSpider']) && ($_SESSION['log_userIsSpider'] = $this->isSpider()) === false)) {
+    if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
+       (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = $this->isSpider()) === false)) {
          
       // CHECK if the $pageContent parameter is a valid $pageContent array
       if($this->isPageContentArray($pageContent) === false)

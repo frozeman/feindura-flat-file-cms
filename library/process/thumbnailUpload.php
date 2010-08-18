@@ -217,7 +217,6 @@ if($_POST['upload']) {
                   window.top.window.finishUpload('.($thumbHeight + 100).');
                   /* ]]> */
                   </script>';
-            
           	}
         	}
       	}

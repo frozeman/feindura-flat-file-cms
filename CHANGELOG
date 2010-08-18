@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 347
+Build 348
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+  build 348: add hasVistiCache() to statisticFunctions.class.php
   build 347: moved some pages in library/site/ to library/site/windowBox
   build 346: moved javascript to the header again
   build 345: fix in pageSetup create category
