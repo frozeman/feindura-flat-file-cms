@@ -17,7 +17,7 @@
 
 // vars
 var loadingText;
-var startUploadAnimationElement = null;
+var uploadAnimationElement = null;
 
 /* ---------------------------------------------------------------------------------- */
 // dimms the background and calls: requestSite(site,siteTitle);
@@ -234,10 +234,11 @@ function startUploadAnimation() {
   // shows the LOADING
   if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
     $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 80px;'}),'top');
-    startUploadAnimationElement = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
+    $('windowBoxDimmer').setStyle('display','block');
+    uploadAnimationElement = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
   } else {
-    startUploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
-    $('windowRequestBox').grab(startUploadAnimationElement,'top'); 
+    uploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
+    $('windowRequestBox').grab(uploadAnimationElement,'top'); 
   }  
   return true;
 }
@@ -250,15 +251,22 @@ function stopUploadAnimation() {
   $('uploadTargetFrame').tween('height','100px');
   
   // removes the loading animation
-  if(startUploadAnimationElement != null) {
+  if(uploadAnimationElement != null) {
   
     if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
-      startUploadAnimationElement();
-      $('windowBoxDimmer').setStyle('padding',0);
-      $('windowBoxDimmer').tween('height',0);
+      uploadAnimationElement();
+      //$('windowBoxDimmer').setStyle('padding',0);
+      //$('windowBoxDimmer').tween('height',0);
+      // slides in again
+        $('windowRequestBox').slide('out');
+        
+        $('windowRequestBox').get('slide').addEvent('complete',function(e) {
+          $('windowBoxDimmer').setStyle('display','none');
+          $('windowRequestBox').slide('in');
+        });
       
     } else {
-      startUploadAnimationElement.destroy();
+      uploadAnimationElement.destroy();
     }
     
     return true;

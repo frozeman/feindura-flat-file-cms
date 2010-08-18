@@ -73,7 +73,8 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta name="robots" content="index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
-      
+  <meta http-equiv="accept-encoding" content="gzip, deflate" />
+  
   <meta name="title" content="feindura > <?php echo $websiteConfig['title']; ?>" />    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />

@@ -14,7 +14,7 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 0.55
+verion 1.0
 
 */
 
@@ -89,12 +89,16 @@ $disable['fileimportuser'] = 1;		/* set to 1 to deactivate the 'Import User from
 /***************/
 /*  CONSTANTS  */
 /***************/
-define("AUTHNAME", "feindura CMS");
+define("AUTHNAME", "feindura - Flat File CMS");
 define("PASSWDFILE", DOCUMENTROOT.$adminConfig['basePath'].".htpasswd");
 define("ACCESSFILE", DOCUMENTROOT.$adminConfig['basePath'].".htaccess");
 define("SCRIPTVERSION","1.05");
 define("SERVERNAME", getenv("SERVER_NAME"));
 
+$htaccess.= "AuthName \"".AUTHNAME."\"\n";
+$htaccess.= "AuthType Basic\n";
+$htaccess.= "AuthUserFile ".PASSWDFILE."\n"; // ORG: $htaccess.= "AuthUserFile ".$path."/".PASSWDFILE."\n";
+$htaccess.= "require valid-user";
 
 /******************/
 /* Language-Packs */
@@ -1060,27 +1064,35 @@ function parsepathforoutput($path) {
 function createhtaccess(&$status) {
 
 	global $languagearray;
+	global $htaccess;
+	
+	$path = getpath($status);
 	
 	if(!file_exists(ACCESSFILE)) {		/* .htaccess existiert nicht, muss angelegt werden */
 
-		$path = getpath($status);
-		$htaccess = "AuthName \"".AUTHNAME."\"\n";
-		$htaccess.= "AuthType Basic\n";
-		$htaccess.= "AuthUserFile ".PASSWDFILE."\n"; // ORG: $htaccess.= "AuthUserFile ".$path."/".PASSWDFILE."\n";
-		$htaccess.= "require valid-user";
-
 		if($filehandle = @fopen(ACCESSFILE, "w")) {
-
-  		@fputs($filehandle, $htaccess);
-  
+  		@fputs($filehandle, $htaccess);  
   		@fclose($filehandle);
-  
+        
   		$status .= $languagearray[10];
   		
   		return true;		
 		} else
-		  return false;		  
-	}
+		  return false;
+  
+  // if file exists check if htaccess exists
+	} elseif(strstr(file_get_contents(ACCESSFILE),$htaccess) === false) {
+  
+    if($filehandle = @fopen(ACCESSFILE, "a")) {
+  		@fputs($filehandle, "\n".$htaccess);  
+  		@fclose($filehandle);
+        
+  		$status .= $languagearray[10];
+  		
+  		return true;		
+		} else
+		  return false;    
+  }
   
   return true;
 
@@ -1188,7 +1200,7 @@ function deleteuser($user2delete, &$status, &$existingusers)
 
 			if ($singleuser['user'] != $user2delete) {		/* User soll nicht gelöscht werden */
 
-				$pwfilecontent .= $singleuser['user'].":".$singleuser['pass'];
+				$pwfilecontent .= $singleuser['user'].":".$singleuser['pass']."\n";
 
 			} //endif
 
@@ -1249,20 +1261,43 @@ function printoptionbox($boxname, $cssclass, $elementsarray, $kataktiv=1) {
 } //EndOfFunction
 
 
-function disablepasses(&$status)
-{
+function disablepasses(&$status) {
 
 	global $languagearray;
+	global $htaccess;
 
-	if (file_exists(ACCESSFILE)) { 
-		
+  if(file_exists(ACCESSFILE)) {
+    
+    $htaccessfile = file_get_contents(ACCESSFILE);
+    
+    // if ONLY the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
+    if($htaccessfile == $htaccess) {
+      @unlink(ACCESSFILE);
+         
+    // looks if SPEAKING URL code EXISTs in the .htaccess file
+    } elseif(strstr($htaccessfile,$htaccess)) {
+      //echo 'ddd:'.strstr($htaccessfile,$htaccess);
+      
+      $newHtaccess = str_replace($htaccess,'',$htaccessfile);
+      $newHtaccess = preg_replace('# +#', ' ', $newHtaccess);
+      $newHtaccess = preg_replace('#\n+#', "\n", $newHtaccess);
+      
+      if($htaccessfile = @fopen(ACCESSFILE,"w")) {
+        flock($htaccessfile,2); // LOCK_EX
+        fputs($htaccessfile,$newHtaccess);
+        flock($htaccessfile,3); //LOCK_UN
+        fclose($htaccessfile);
+      }
+    }
+
+		/*
 		chmod (ACCESSFILE, 0777);
 		clearstatcache();
-		unlink(ACCESSFILE); 
-
+		unlink(ACCESSFILE);
+		*/
 	} //endif
 
-	if (file_exists(PASSWDFILE)) { 
+	if(file_exists(PASSWDFILE)) {
 
 		chmod (PASSWDFILE, 0777);
 		clearstatcache();
@@ -1616,7 +1651,7 @@ if(isAdmin()) {
 																<?php echo $languagearray[109]; ?>
 															</td>
 															<td class="arial12"> 
-																<?php echo parsepathforoutput(getpath($status)); ?>
+																<?php echo DOCUMENTROOT.$adminConfig['basePath']; //parsepathforoutput(getpath($status)); ?>
 															</td>
 														</tr>
 													</table>

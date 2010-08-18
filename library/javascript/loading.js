@@ -97,26 +97,27 @@ window.addEvent('load', function() {
   if($('content') != null && loadingBox != null) {
     loadingBox.grab(loadingCircleContent,'top');
     //var removeLoadingCircle = loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
-  }
-
-  // show the loadingCircle
-  $('loadingBox').fade('show');
   
-  // disply none the documentsaved, after blending in and out
-  $('loadingBox').get('tween').addEvent('complete', function() {   
-      if(lastLoadingTween) {
-        //removeLoadingCircle();
-        loadingBox.set('html','');
-        $('loadingBox').setStyle('display','none');
-        $('loadingBox').setStyle('opacity','1');
-        $('loadingBox').removeEvents();
-      }
-  }); 
-      
-  window.addEvent('domready', function() {
-      $('loadingBox').tween('opacity','0');
-      lastLoadingTween = true;
-  });  
+
+    // show the loadingCircle
+    $('loadingBox').fade('show');
+    
+    // disply none the documentsaved, after blending in and out
+    $('loadingBox').get('tween').addEvent('complete', function() {   
+        if(lastLoadingTween) {
+          //removeLoadingCircle();
+          loadingBox.set('html','');
+          //$('loadingBox').setStyle('display','none');
+          //$('loadingBox').setStyle('opacity','1');
+          $('loadingBox').removeEvents();
+        }
+    }); 
+        
+    window.addEvent('domready', function() {
+        $('loadingBox').fade('out');
+        lastLoadingTween = true;
+    });
+  }
 });
 
 /* LOADING-CIRCLE when the DOM is unloading
@@ -129,13 +130,13 @@ window.addEvent('unload',  function() {
   var loadingBox = $$('#loadingBox .content')[0];
   
   // empties the loadingBox, and refill with the loadingCircle
-  if(loadingBox != null) {    
+  if(loadingBox != null) {
     loadingBox.set('html','');
     loadingBox.grab(loadingCircleContent,'top');
-    //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
-  }
-  
-  $('loadingBox').setStyle('display','block');
+    //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");    
+
+    $('loadingBox').fade('in');
+  }  
 });
 
 

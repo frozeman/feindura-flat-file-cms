@@ -34,7 +34,7 @@ $category = $_POST['category'];
 <html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="../style/pageThumbnail.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../style/windowBox.css" media="screen" />
 </head>
 <body id="thumbnailUploadFrame">
 <?php
