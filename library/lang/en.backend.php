@@ -80,9 +80,10 @@ $langFile['log_searchwordtothissite_part2'] = 'times led to this site';
 $langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in all pages.';
 
 $langFile['log_visitCount'] = 'Visitors';
+$langFile['log_currentVisitors'] = 'current visitors';
 $langFile['log_visitTime_max'] = 'longest length of stay';
 $langFile['log_visitTime_min'] = 'shortest length of stay';
-$langFile['log_firstVisit'] = 'since';
+$langFile['log_firstVisit'] = 'first visit';
 $langFile['log_lastVisit'] = 'last visit';
 $langFile['log_novisit'] = 'Yet nobody visit this website.';
 $langFile['log_tags_description'] = 'Searchwords which led from

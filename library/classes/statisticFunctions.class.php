@@ -1098,6 +1098,8 @@ class statisticFunctions extends generalFunctions {
   * 
   * This function is used when the session ID cannot be transfered, because of deactivated cookies or no session ID in the link was transfered. 
   * 
+  * @param bool $clear if this is TRUE, it only check if the agents in the cache are still up to date, without adding a user agent
+  * 
   * return bool TRUE the user agent is in the cache, FALSE if not
   * 
   * @version 1.0
@@ -1106,7 +1108,7 @@ class statisticFunctions extends generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function hasVisitCache() {
+  function hasVisitCache($clear = false) {
     
     //var
     $return = false;
@@ -1127,7 +1129,7 @@ class statisticFunctions extends generalFunctions {
         // stores the agent again with new timestamp, if the user was less than 1h on the page,
         // after 1 hour the agent is deleted form the cache
         if($currentDate - $cachedLineArray[1] < $maxTime) {
-          if($cachedLineArray[0] == $userAgentMd5) {          
+          if($clear === false && $cachedLineArray[0] == $userAgentMd5) {          
             $newLines[] = $cachedLineArray[0].'|'.$currentDate;
             $return = true;
           } else
@@ -1136,7 +1138,7 @@ class statisticFunctions extends generalFunctions {
       }
     }
     // agent doesn't exist, create a new cache
-    if($return === false)
+    if($return === false && $clear === false)
       $newLines[] = $userAgentMd5.'|'.$currentDate;
     
     // ->> OPEN visit.statistic.cache for writing

@@ -87,12 +87,18 @@ if(!empty($adminConfig['user']['info'])) {
           <hr class="small" />';
       echo '</div>';
       
+      $statisticFunctions->hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
+      $currentVisitors = @count(@file(dirname(__FILE__).'/../../statistic/visit.statistic.cache'));
+      
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';
+        // CURRENT VISITORS
+        echo '<span>'.$langFile['log_currentVisitors'].' <span class="blue"><b>'.$currentVisitors.'</b></span></span><br />';
         // FIRST VISIT
         echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
         // LADST VISIT
         echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+        
         echo '</div>';
       }
     echo '</div>';

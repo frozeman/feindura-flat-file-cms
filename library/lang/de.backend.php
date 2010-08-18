@@ -79,9 +79,10 @@ $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt'
 $langFile['log_searchwordtothissite_tip'] = 'Anklicken um dieses Suchwort in allen Seiten zu suchen.';
 
 $langFile['log_visitCount'] = 'Besucher';
+$langFile['log_currentVisitors'] = 'aktuelle Besucher';
 $langFile['log_visitTime_max'] = 'l&auml;ngste Verweildauer';
 $langFile['log_visitTime_min'] = 'k&uuml;rzeste Verweildauer';
-$langFile['log_firstVisit'] = 'seit dem';
+$langFile['log_firstVisit'] = 'erster Besuch';
 $langFile['log_lastVisit'] = 'letzter Besuch';
 $langFile['log_novisit'] = 'Es hat noch niemand diese Seite besucht.';
 $langFile['log_tags_description'] = 'Suchworte die von
