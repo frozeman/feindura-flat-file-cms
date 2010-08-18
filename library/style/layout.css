@@ -154,14 +154,20 @@ span.red {
 #languageSelection a:hover {
     background-position: 0px -21px !important;
     }
-#languageSelection a.en {
-    left: 30px;
-    background: url("../image/key/langSelection_en.png") no-repeat;
-    }
+    
 #languageSelection a.de {
     left: 0px;
     background: url("../image/key/langSelection_de.png") no-repeat;
     }
+#languageSelection a.en {
+    left: 30px;
+    background: url("../image/key/langSelection_en.png") no-repeat;
+    }
+#languageSelection a.fr {
+    left: 60px;
+    background: url("../image/key/langSelection_fr.png") no-repeat;
+    }
+
 
  /* ----------------------- */
 /* --- SIDEBARS */

@@ -72,7 +72,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta name="revisit_after" content="12" />
   <meta name="robots" content="index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
+  <meta http-equiv="cache-control" content="private" /> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate" />
   
   <meta name="title" content="feindura > <?php echo $websiteConfig['title']; ?>" />    
@@ -182,8 +182,9 @@ if($_GET['site'] == 'addons') {
     <div id="headerBlock">
       
       <div id="languageSelection">        
-        <a href="?language=de" class="de"></a>
-        <a href="?language=en" class="en"></a>
+        <a href="?language=de" class="de toolTip" title="deutsch::"></a>
+        <a href="?language=en" class="en toolTip" title="english::"></a>
+        <!--<a href="?language=fr" class="fr toolTip" title="français::"></a>-->
       </div>
           
       <a href="http://<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].$version[2].' - '.$version[3]; ?>::"></a>
