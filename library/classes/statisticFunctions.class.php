@@ -1094,7 +1094,7 @@ class statisticFunctions extends generalFunctions {
   * <b>Name</b> hasVisitCache()<br>
   * 
   * Creates a <var>visit.statistic.cache</var> file and store the md5 sum of the user agent + ip with a timestamp.
-  * If the agent load again the website, it check if the agent is already in the cache and the timeframe of 2 hours is not passed.
+  * If the agent load again the website, it check if the agent is already in the cache and the timeframe of 1/2 hour is not passed.
   * 
   * This function is used when the session ID cannot be transfered, because of deactivated cookies or no session ID in the link was transfered. 
   * 
@@ -1110,7 +1110,7 @@ class statisticFunctions extends generalFunctions {
     
     //var
     $return = false;
-    $maxTime = 7200; // 3600 seconds = 1 hour
+    $maxTime = 1800; // 3600 seconds = 1 hour
     $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
     $currentDate = mktime(); //date("YmdHis");
     $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
