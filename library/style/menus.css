@@ -1,0 +1,347 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+* Stylesheet format the "mainMenu" AND the "adminMenu" in the header 
+* 
+* menus.css version 0.3 */
+
+/* --- MAINMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */
+/* --- mainMenu */
+
+#mainMenu {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 208px; /* right: 250px; */
+    }
+
+#mainMenu table {
+    width: 640px;
+    border: none;
+    border-collapse: collapse;
+    }
+#mainMenu table td {
+    text-align: center;
+    }
+
+/* --- button ul list defined in layout.css */
+
+/* ----------------------- */
+/* --- buttons */
+
+#mainMenu a {
+    position: relative;
+    display: inline-block;
+    width: 106px;
+    height: 44px; /* org: 141px */
+    padding-top: 97px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #666666;
+    line-height: 15px;
+    }
+#mainMenu a:hover {
+    color: #CF7F52;
+    }
+#mainMenu a:hover, #mainMenu a.active {
+    background-position: 0px -142px !important;
+    }
+/* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
+#mainMenu a span{
+    display: table-cell;
+    position: relative;
+    width: 106px;
+    height: 40px;
+    vertical-align: middle;
+    font-size: 12px;
+    }
+    
+/* home */
+#mainMenu a.home {
+    background: url("../image/key/mainMenu_home.png") no-repeat;
+    }
+/* pages */
+#mainMenu a.pages {
+    background: url("../image/key/mainMenu_pages.png") no-repeat;
+    }
+/* addons */
+#mainMenu a.addons {
+    background: url("../image/key/mainMenu_addons.png") no-repeat;
+    }
+/* settings */
+#mainMenu a.websiteSetup {
+    background: url("../image/key/mainMenu_settings.png") no-repeat;
+    }
+/* search */
+#mainMenu a.search {
+    background: url("../image/key/mainMenu_search.png") no-repeat;
+    }
+
+/* --- ADMINMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */
+/* --- adminMenu */
+
+#adminMenu .content {
+    z-index: 1;
+    position: absolute;
+    top: 37px;
+    left: 8px;
+    }
+
+
+/*#adminMenu .content table {
+  border:1px solid red;
+}*/
+
+/* ----------------------- */
+/* --- buttons */
+
+#adminMenu .content a {
+    position: relative;
+    display: block;
+    width: 65px;
+    height: 30px; /* org-image-size: 65px */
+    padding-top: 70px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 9px;
+    color: #666666;
+    line-height: 11px;
+
+    }
+#adminMenu .content a:hover, #adminMenu .content a.active {
+    color: #CF7F52;
+    background-position: -65px 0px !important;
+    }
+
+/* advancedSetup */
+#adminMenu .content a.adminSetup {
+    background: url("../image/key/adminMenu_adminSetup.png") no-repeat;
+    }
+#adminMenu .content a.adminSetup:hover {
+    background-position: -65px 0px;
+    }
+/* pageSetup */
+#adminMenu .content a.pageSetup {
+    background: url("../image/key/adminMenu_pageSetup.png") no-repeat;
+    }
+#adminMenu .content a.pageSetup:hover {
+    background-position: -65px 0px;
+    }
+/* pluginSetup */
+#adminMenu .content a.pluginSetup {
+    background: url("../image/key/adminMenu_pluginSetup.png") no-repeat;
+    }
+#adminMenu .content a.pluginSetup:hover {
+    background-position: -65px 0px;
+    }
+/* statisticSetup */
+#adminMenu .content a.statisticSetup {
+    background: url("../image/key/adminMenu_statisticSetup.png") no-repeat;
+    }
+#adminMenu .content a.statisticSetup:hover {
+    background-position: -65px 0px;
+    }
+/* userSetup */
+#adminMenu .content a.userSetup {
+    background: url("../image/key/adminMenu_userSetup.png") no-repeat;
+    }
+#adminMenu .content a.userSetup:hover {
+    background-position: -65px 0px;
+    }
+
+/* --- SUBMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */
+/* --- subMenu */
+
+.subMenu {
+    z-index: 1;
+    position: absolute;
+    top: -3px;
+    left: 240px; /* right: 250px; */
+    width: auto;
+    height: 56px; /* org height 64px */
+    overflow: visible;
+    background: url("../image/bg/subMenu_middle.png") repeat-x;
+    }
+    
+.subMenu .content {
+    padding: 4px 0px;
+    }
+    
+.subMenu .left {
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 20px;
+    height: 58px;
+    background: url("../image/bg/subMenu_left.png") no-repeat;
+    }
+.subMenu .right {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    width: 20px;
+    height: 58px;
+    background: url("../image/bg/subMenu_right.png") no-repeat;
+    }
+
+/* ------------------------- */
+/* --- spacer (button ul list defined in layout.css)*/
+
+.subMenu li.spacer {
+    width: 14px;
+    height: 47px;
+    background: url("../image/key/subMenu_spacer.png") no-repeat;
+    }
+    
+/* ----------------------- */
+/* --- buttons */
+
+.subMenu li a {
+    display: block;
+    width: 45px;
+    height: 48px;
+    margin: 0px 5px;
+    text-decoration: none;
+    }
+
+/* fileManager */ 
+.subMenu a.fileManager {
+    width: 50px;
+    background: url("../image/key/subMenu_fileManager.png") no-repeat;
+    }
+.subMenu a.fileManager:hover {
+    background-position: -50px 0px;
+    }
+/* createPage */ 
+.subMenu a.createPage {
+    background: url("../image/key/subMenu_createPage.png") no-repeat;
+    }
+.subMenu a.createPage:hover {
+    background-position: -45px 0px;
+    }
+/* deletePage */ 
+.subMenu a.deletePage {
+    background: url("../image/key/subMenu_deletePage.png") no-repeat;
+    }
+.subMenu a.deletePage:hover {
+    background-position: -45px 0px;
+    }
+/* uploadThumb */ 
+.subMenu a.pageThumbnailUpload {
+    width: 50px;
+    background: url("../image/key/subMenu_uploadThumb.png") no-repeat;
+    }
+.subMenu a.pageThumbnailUpload:hover {
+    background-position: -50px 0px;
+    }
+/* deleteThumb */ 
+.subMenu a.pageThumbnailDelete {
+    width: 50px;
+    background: url("../image/key/subMenu_deleteThumb.png") no-repeat;
+    }
+.subMenu a.pageThumbnailDelete:hover {
+    background-position: -50px 0px;
+    }
+
+/* --- FOOTERMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */
+/* --- footerMenu */
+
+#footerMenu {
+    z-index: 0;
+    position: absolute;
+    top: 24px;
+    left: 200px;
+    }
+
+/* ----------------------- */
+/* --- spacer (button ul list defined in layout.css)*/
+
+#footerMenu li.spacer {
+    width: 14px;
+    height: 100px;
+    background: url("../image/key/footerMenu_spacer.png") no-repeat;
+    }
+    
+/* ----------------------- */
+/* --- buttons */
+
+#footerMenu a {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 45px; /* org: 100px */
+    padding-top: 97px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #dfdfdf;
+    }
+#footerMenu a:hover {
+    color: #dfdfdf;
+    }
+/* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
+#footerMenu a span{
+    display: table-cell;
+    position: relative;
+    width: 100px;
+    height: 40px;
+    vertical-align: middle;
+    }
+
+/* fileManager */ 
+#footerMenu a.fileManager {
+    background: url("../image/key/footerMenu_fileManager.png") no-repeat;
+    }
+#footerMenu a.fileManager:hover {
+    background-position: -100px 0px;
+    }
+/* createPage */ 
+#footerMenu a.createPage {
+    background: url("../image/key/footerMenu_createPage.png") no-repeat;
+    }
+#footerMenu a.createPage:hover {
+    background-position: -100px 0px;
+    }
+/* deletePage */ 
+#footerMenu a.deletePage {
+    background: url("../image/key/footerMenu_deletePage.png") no-repeat;
+    }
+#footerMenu a.deletePage:hover {
+    background-position: -100px 0px;
+    }
+/* uploadThumb */ 
+#footerMenu a.pageThumbnailUpload {
+    background: url("../image/key/footerMenu_uploadThumb.png") no-repeat;
+    }
+#footerMenu a.pageThumbnailUpload:hover {
+    background-position: -100px 0px;
+    }
+/* deleteThumb */ 
+#footerMenu a.pageThumbnailDelete {
+    background: url("../image/key/footerMenu_deleteThumb.png") no-repeat;
+    }
+#footerMenu a.pageThumbnailDelete:hover {
+    background-position: -100px 0px;
+    }

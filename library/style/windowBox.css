@@ -13,10 +13,12 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-windowBox.css version 0.1 */
+windowBox.css version 0.2 */
+
+/* --- WINDOWBOX ------------------------------------------------------------------------------------------------------------------- */
 
 /* ----------------------- */	
-/* ---:- WINDOWBOX */
+/* ---:- windowBox */
 
 #windowBoxContainer {
     z-index: 10;
@@ -157,4 +159,185 @@ windowBox.css version 0.1 */
     float: left !important;
     left: 10px;
     margin: 10px 0px;
+    }
+    
+    
+/* --- THUMBNAIL UPLOAD ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */	
+/* ---:- thumbInfo */
+
+#thumbInfo {
+    position: absolute;
+    right: 50px;
+    width: 300px;
+    padding: 5px;
+    float: right;
+    border: 1px solid #cccccc;
+    background-color: #EDF1E1;
+    }
+#thumbInfo ul {
+    margin: 0px;
+    margin-left: 10px;
+    color: #666666;
+    }
+#thumbInfo ul li {
+    margin: 3px 10px;
+    list-style-type: circle;
+    }
+
+/* ----------------------- */	
+/* ---:- THUMB PREVIEW */
+    
+img.thumbnailPreview {
+    margin: 10px;
+    border: 5px solid #cccccc;
+    }
+
+/* ----------------------- */	
+/* ---:- pageThumbnailUploadForm */
+    
+#pageThumbnailUploadForm {
+    position: relative;
+    overflow: visible;
+    }
+
+/* thumbnailUpload BUTTON */
+input.thumbnailUpload {
+    position: relative;
+    left: 305px;
+    width: 75px;
+    height: 90px;
+    background: url("../image/key/thumbnailUpload.png") no-repeat !important;
+    }
+input.thumbnailUpload:hover {
+    background-position: 0px -90px !important;
+    }
+
+/* ----------------------- */	
+/* ---:- UPLOAD IFRAME */
+
+iframe#uploadTargetFrame {
+    width: 100%;
+    height: 300px;
+    background-color: transparent;
+    border: none !important;
+    overflow: hidden;
+    }
+
+
+/* ----------------------- */	
+/* ---:- UPLOAD IFRAME INNERHTML */
+
+body#thumbnailUploadFrame {
+    font: bold 15px Verdana, Arial, Sans-serif, Serif;
+    text-align: center;
+    vertical-align: middle;
+    color: #666666;
+    }
+    
+#thumbnailUploadFrame ul {
+    margin: 0px;
+    margin-left: 10px;    
+    }
+#thumbnailUploadFrame ul li {
+    margin: 3px 10px;
+    list-style-type: circle;
+    }
+
+/* response texts */
+#thumbnailUploadFrame .response {
+    color: #71A1BD;
+    }
+#thumbnailUploadFrame .response b {
+    color: #666666;
+    }
+
+/* error texts */
+#thumbnailUploadFrame .error {
+    color: #9C0000;
+    }
+    
+/* --- FILEMANAGER ------------------------------------------------------------------------------------------------------------------- */
+  
+/* ----------------------- */	
+/* ---:- fileManagerFrame */
+
+iframe#fileManagerFrame {
+    width: 732px;
+    height: 470px;
+    margin: -20px -14px;
+    font-family: Monospace, Monaco, Courier !important;
+    }
+    
+/* --- ERRORWINDOW ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */	
+/* ---:- errorWindow */
+
+#errorWindow {
+    z-index: 20;
+    position: fixed;    
+    top: 20%;
+    left: 370px;
+    width: 447px;
+    padding: 0px 40px;
+    background: url("../image/bg/errorWindow_middle.png") repeat-y; 
+    }
+
+#errorWindow .top {
+    z-index: 3;
+    position: relative;
+    top: -40px;
+    left: -40px;
+    width: 527px;
+    height: 10px; /*org: 40px */
+    padding: 0px;
+    padding-top: 30px;
+    background: url("../image/bg/errorWindow_top.png") no-repeat;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #A30000;
+    overflow: visible;
+    }
+#errorWindow .content {
+    z-index: 0;
+    width: 377px;
+    padding-left: 70px;    
+    }
+#errorWindow .bottom {
+    position: relative;
+    bottom: -40px;
+    left: -40px;
+    width: 527px;
+    height: 40px;
+    background: url("../image/bg/errorWindow_bottom.png") no-repeat;
+    }
+    
+#errorWindow .content.warning {
+    min-height: 48px;
+    background: url("../image/sign/warning.png") no-repeat center left;
+    }
+    
+#errorWindow .content p {
+    padding-top: 20px;
+    color: #A30000;
+    }
+
+/* ----------------------- */	
+/* ---:- OK */
+
+#errorWindow .content a.ok {
+    display: block;
+    position: relative;
+    top: 20px;
+    left: 130px;
+    width: 75px;
+    height: 70px;
+    padding: 0px;
+    background: url("../image/key/errorWindow_ok.png") no-repeat;
+    }
+#errorWindow .content a.ok:hover {
+    background-position: 0px -65px;
     }

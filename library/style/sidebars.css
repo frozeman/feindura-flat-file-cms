@@ -1,9 +1,10 @@
 /* Stylesheet format of the left sidebar menu (categories, pages) 
 * 
-* leftSidebar.css version 0.27
+* sidebars.css version 0.3
 * 
-* sidebarMenu und sidebarInfo */
+*/
 
+/* --- LEFT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
 
 /* ----------------------- */
 /* --- leftSidebar Loading Circle */
@@ -12,8 +13,7 @@
     position: absolute;
     top: 200px;
     left: 80px;
-    }
-    
+    }    
 
 /* ----------------------- */
 /* --- SIDEBAR LINKS */
@@ -328,4 +328,40 @@
     position: absolute;
     height: 30px;
     width: 165px;
+    }
+    
+/* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */
+/* --- sortPagesMessageBox */
+
+#rightSidebarMessageBox .content {
+    z-index: 2;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 170px;
+    padding: 20px;
+    padding-bottom: 5px;
+    background: url("../image/bg/rightSidebar_bg.png") repeat-y;
+    color: #666666;
+    line-height: 18px;
+    }
+#rightSidebarMessageBox .bottom {
+    z-index: 2;
+    position: absolute;
+    bottom: -25px;
+    left: 0px;
+    width: 210px;
+    height: 25px;
+    background: url("../image/bg/rightSidebar_bgBottom.png") no-repeat;
+    }
+
+/* --- hintIcon */
+
+#rightSidebarMessageBox .hintIcon {
+    position: relative;
+    display: block;
+    left: 50px;
+    margin-bottom: 13px;
     }

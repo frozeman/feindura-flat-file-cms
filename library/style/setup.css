@@ -13,7 +13,101 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-forms.css version 0.1 */
+pageSetup.css version 0.2 */
+
+/* --- PAGE-SETUP ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */	
+/* ---:- BUTTONS */
+
+/* createCategory */
+a.createCategory {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../image/key/pageSetup_createCategory.png") no-repeat 0px 0px !important;
+    }
+a.createCategory:hover {
+    background-position: 0px -54px !important;
+    }
+    
+/* deleteCategory */
+a.deleteCategory {
+    position: relative;
+    display: block;
+    top: -8px; /* -28px */
+    right: 20px;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../image/key/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
+    }
+a.deleteCategory:hover {
+    background-position: 0px -54px !important;
+    }
+    
+/* categoryUp */
+a.categoryUp {
+    position: absolute;
+    right: 45px;
+    display: block;
+    width: 43px;
+    height: 31px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    background: url("../image/key/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
+    }
+a.categoryUp:hover {
+    background-position: 0px -32px !important;
+    }
+    
+/* categoryUp */
+a.categoryDown {
+    position: absolute;
+    right: 45px;
+    margin-top: 40px;
+    display: block;
+    width: 43px;
+    height: 31px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    background: url("../image/key/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
+    }
+a.categoryDown:hover {
+    background-position: 0px -32px !important;
+    }
+    
+
+/* --- THUMBNAIL ------------------------------------------------------------------------------------------------------------------- */
+
+/* ----------------------- */	
+/* ---:- THUMB SCALE */
+
+.scale {
+    height:10px;
+    border:1px solid #BE8500;
+    border-top:0px;
+    border-bottom:0px;
+    }
+.scale div {
+    position:relative;
+    top:4px;
+    border-top:1px solid #BE8500;
+    }
+
+/* ----------------------- */	
+/* ---:- thumbSize - change Thumbnail Size table */
+
+#thumbSize {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+    }
+
+    
+/* --- FORMS ------------------------------------------------------------------------------------------------------------------- */
 
 /* ----------------------- */	
 /* ---:- INPUT */

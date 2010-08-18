@@ -1,0 +1,17 @@
+<IfModule mod_expires.c>
+# turn on the module for this directory
+ExpiresActive on
+# set default
+ExpiresDefault "access plus 24 hours"
+# cache common graphics for 15 days
+ExpiresByType image/jpg "access plus 15 days"
+ExpiresByType image/gif "access plus 15 days"
+ExpiresByType image/jpeg "access plus 15 days"
+ExpiresByType image/png "access plus 15 days"
+# cache CSS for 24 hours
+ExpiresByType text/css "access plus 24 hours"
+# cache other for 24 hours
+ExpiresByType text/javascript "access plus 24 hours"
+ExpiresByType application/javascript "access plus 24 hours"
+ExpiresByType application/x-shockwave-flash "access plus 24 hours"
+</IfModule>

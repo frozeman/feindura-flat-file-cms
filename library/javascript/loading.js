@@ -16,6 +16,24 @@
 * 
 * loading.php version 0.3 (require mootools-core AND mootools-more)  */
 
+// fix the layout height
+function layoutFix() {
+  
+  if($('leftSidebar') != null) {
+    // get the high of both elements
+    var leftSideBarHeight = $('leftSidebar').getSize().y;
+    var contentHeight = $('content').getSize().y;
+    
+    // set the high of #mainBody as high as the highest element
+    $('mainBody').set('tween', {duration: '550', transition: Fx.Transitions.Pow.easeOut});
+    
+    if(leftSideBarHeight > contentHeight) {
+      $('mainBody').tween('height',leftSideBarHeight);
+    } else {    
+    	$('mainBody').setStyle('height', 'auto');
+    }
+  }
+}
 
 // create the JS LOADING-CIRCLE
 function loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
@@ -125,8 +143,16 @@ window.addEvent('unload',  function() {
 * when the DOM is ready
 */
 window.addEvent('domready', function() {
-    
-  // SHOWS UP IF THE PAGE HAS BEEN SAVED!
+  
+  // LAYOUTFIX
+  layoutFix();
+  
+  // IE HACK for dimmContainer
+	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+		$('dimmContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
+	}
+  
+  // SHOW UP - SAVED ICON!
   var lastTween = false;    
   
   // if documentSaved has given the class from the php script

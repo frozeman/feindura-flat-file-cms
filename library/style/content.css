@@ -418,3 +418,613 @@ a.anchorTarget {
     height: 0px;
     background: none;
     }
+
+/* --- LISTPAGES ------------------------------------------------------------------------------------------------------------------- */
+
+/* LISTPAGES BLOCK */
+
+#content .block.listPages {
+    margin-bottom: 35px;
+    margin-top:-20px;
+    }
+#content .block.listPages .content {
+    margin-bottom: -18px;
+    }
+
+/* ----------------------- */  
+/* --- SLIDE HEADER LINKS */
+
+#content .block.listPages > h1.brown a img {
+    position: relative;
+    top: 10px !important;
+    }
+
+#content .block.listPages > h1 a span {
+    position: relative;
+    top: -5px;
+    line-height: 15px;
+    font-weight: bold;
+    background: none;
+    padding: 0px;
+    font-size:15px;
+    }
+
+#content .block.listPages > h1.brown a span {
+    top: -12px;
+    }
+
+/* ----------------------- */  
+/* ---:- category SORT ICON */
+
+#content .block.listPages > h1 img.sortIcon {
+    top: 3px !important;
+    }
+
+/* ----------------------- */	
+/* ---:- listPages */
+
+.listPages ul {
+    position: relative;
+    margin: 15px 0px;
+    padding: 0px;
+    }
+
+.listPages ul li {
+    position: relative;
+    width: 755px;
+    margin: 5px 0px;
+    height: 34px; /* org: 40px*/
+    padding: 3px 7px;
+    list-style: none;
+    background: url("../image/bg/sortPages_liBg.png") no-repeat;
+    white-space: nowrap;
+    overflow: visible;
+    }
+.listPages ul li:hover {    
+    background-position: 0px -41px;
+    }
+
+.listPages ul.sortablePageList li {
+    cursor: move;
+    }
+
+.listPages h1 img {
+    top: 8px !important;
+    }
+
+/* ----------------------- */	
+/* ---:- listPages HEAD */
+
+div.listPagesHead {
+    width: 790px;
+    height: 40px;
+    margin-left: -12px;
+    margin-bottom: 33px;
+    color:3C5E91;
+    border-top: 1px solid #DB9E39;
+    font-size:15px;
+    line-height:30px;
+    background: url("../image/bg/sortPages_headBg.png") repeat-x;
+    }
+
+.listPagesHead div {
+    display: inline-block;
+    max-height: 20px;
+    padding: 4px 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+    }
+    
+.listPagesHead div.name {    
+    width: 300px;
+    padding-left: 15px;    
+    }
+.listPagesHead div.lastSaveDate {
+    width: 150px;
+    padding-left: 10px;
+    }
+.listPagesHead div.counter {
+    width: 60px;
+    text-align: center;
+    }
+.listPagesHead div.status {
+    width: 90px;
+    text-align: center;
+    }
+.listPagesHead div.functions {
+    width: 145px;
+    text-align: center;
+    }
+
+/* ----------------------- */	
+/* ---:- listPages PAGES */
+
+.listPages .content div {
+    display: inline-block;
+    height: 24px;
+    max-height: 24px;
+    padding: 6px 0px;
+    overflow: hidden;
+    line-height: 24px;
+    white-space: nowrap;
+    float: left;
+    }
+
+.listPages .content div.name {    
+    width: 300px;
+    padding: 5px 0px;
+    }
+.listPages .content div.lastSaveDate {
+    width: 140px;
+    }
+.listPages .content div.counter {
+    width: 120px;
+    padding-right: 4px;
+    text-align: center;
+    font-weight: bold;
+    }
+.listPages .content div.status {
+    width: 27px;
+    padding-top: 3px;
+    }
+.listPages .content div.functions {
+    float: right !important;
+    width: 140px;
+    margin-right: 10px;
+    text-align: right; 
+    }
+
+/* ----------------------- */	
+/* ---:- listPages CATEGORY */
+
+.listPages div.category {
+    z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
+    position: absolute;
+    top: -1px;
+    left: 592px;
+    }
+    
+.listPages div.category div.status {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    }
+
+.listPages div.category div.functions {
+    z-index: 6; /* fixes the problem that it hides the functions div under the h1 */
+    position: absolute;
+    top: 0px;
+    left: 44px;  
+    width: 115px;
+    height: 27px;
+    text-align: left;
+    }
+
+/* ----------------------- */	
+/* ---:- FUNCTION links */
+
+.listPages div.name a {
+    display: inline-block;
+    height: 27px;
+    background: url("../image/sign/pageIcon_small.png") no-repeat 0px 0px;
+    padding-left: 30px !important;
+    }
+    
+.listPages div.name a.startPage {
+    background: url("../image/key/listPages_startPage.png") no-repeat;
+    }
+
+.listPages .functions a {
+    display: inline-block;
+    width: 27px;
+    height: 26px;
+    padding: 0px !important;
+    background-position: 0px 0px !important;
+    }
+
+.listPages .functions a.startPage {
+    background: url("../image/key/listPages_startPage.png") no-repeat;
+    }
+.listPages .functions a.editPage {
+    background: url("../image/key/listPages_editPage.png") no-repeat;
+    }
+.listPages .functions a.deletePage {
+    background: url("../image/key/listPages_deletePage.png") no-repeat;
+    }  
+.listPages .functions a.pageThumbnailUpload {
+    background: url("../image/key/listPages_pageThumbnailUpload.png") no-repeat;
+    }
+.listPages .functions a.pageThumbnailDelete {
+    background: url("../image/key/listPages_pageThumbnailDelete.png") no-repeat;
+    } 
+
+
+.listPages .functions a:hover, .listPages .functions a.startPage.active {
+    background-position: 0px -27px !important;
+    }
+    
+
+.startPageIcon {
+    display: inline-block;
+    background: url("../image/key/listPages_startPage.png") no-repeat;
+    width:27px;
+    height: 23px;
+    }
+
+/* ----------------------- */	
+/* ---:- category FUNCTION links */
+
+.listPages .createPage {
+    display: block;
+    width: 27px;
+    height: 27px;
+    background: url("../image/key/listPages_createPage.png") no-repeat !important;
+    }
+.listPages .createPage:hover {
+    background-position: 0px -27px !important;
+    }
+
+/* ----------------------- */	
+/* ---:- PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
+
+/* works for pages status and category status */
+.listPages .status a {
+    display: block;
+    width: 27px;
+    height: 27px;
+    text-decoration: none;
+    }
+
+/* for categories */
+.listPages .category .status a.public {
+    background: url("../image/sign/category_public.png") no-repeat !important;
+    }
+.listPages .category .status a.nonpublic {
+    background: url("../image/sign/category_nonpublic.png") no-repeat !important;
+    }
+
+/* for pages */
+.listPages .content .status.public a {     
+    background: url("../image/sign/page_public.png") no-repeat !important;
+    }
+.listPages .content .status.nonpublic a {
+    background: url("../image/sign/page_nonpublic.png") no-repeat !important;
+    }
+  
+    
+/* --- EDITOR ------------------------------------------------------------------------------------------------------------------- */
+    
+/* ----------------------- */	
+/* - BLOCK EDITOR */  
+
+#content .editor {
+    z-index: 5;
+    position: relative;
+    display: block;
+    left: 0px;
+    margin: 30px -20px;
+    margin-top: 30px; 
+    background: url("../image/bg/content_block_normal.png") repeat-y;
+    overflow: visible;
+    width: 792px;
+    padding: 7px;
+    }
+
+#content .editor .content {
+    margin: 20px 20px !important;
+    }    
+
+#content .editor textarea {
+    width: 750px !important;
+    height: 437px !important;
+    background: url("../image/bg/formularBg.png") no-repeat #ffffff !important;
+    padding: 10px;
+    }
+#content .editor textarea:hover {
+    border: none !important;
+    }
+#content .editor textarea:focus {
+    border: none !important;
+    }
+
+/* ----------------------- */	
+/* - BLOCK EDITOR LINKS  
+
+#content .block.editor a {
+    background-image: none;
+    }
+*/
+
+/* ----------------------- */	
+/* - PAGE-THUMBNAIL */  
+
+#content .block.pageHead a.pageThumbnailUpload {
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 90px;
+    height: 75px; /* org: 40px*/
+    text-decoration: none;
+    background: url("../image/key/content_pageThumbnailUpload.png") no-repeat;  
+    }
+#content .block.pageHead a.pageThumbnailUpload:hover {
+    background-position: 0px -76px;
+    }
+
+/* ----------------------- */	
+/* - info text */  
+
+span.info {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666666;    
+    }
+span.info strong {
+    color: #71A1BD !important;
+    }
+
+/* ----------------------- */	
+/* - VISIT-TIME */  
+
+#visitTimeMaxContainer {
+    width: 180px;
+    }
+#visitTimeMinContainer {
+    width: 180px;
+    }
+    
+/* --- DASHBORAD STATISTIC ------------------------------------------------------------------------------------------------------------------- */
+    
+/* --------------------- */
+/* -------> TASK LOKG */
+#sidebarTaskLog {
+  font-size: 9px;
+  }
+
+#sidebarTaskLog ul {
+  list-style: none !important;
+  margin-left: 0px !important;
+  }
+
+/* --------------------- */
+/* -------> TABLE CHART */
+
+table.tableChart {
+    width: 100%;
+    font-size: 10px;
+    color: #000000;
+    border: 1px solid #C3C2C3;
+    border-top: 1px solid #D7D8D8;
+    border-left: none;
+    padding: 0px;
+    margin: 0px;
+    }
+
+table.tableChart td {
+    vertical-align: middle;
+    padding: 0px 5px !important;
+    border-left: 1px solid #cccccc;
+    height: 40px;
+    max-height: 40px;
+    overflow: hidden;
+    }
+
+
+/* --------------------- */
+/* -------> VISIT COUNT */
+    
+.visitCountNumber {
+    position: relative;
+    top: -5px;
+    font-size: 35px;
+    font-weight: bold;
+    }
+    
+/* --------------------- */
+/* -------> REFERER LOG */
+
+#refererLogContainer {
+    width: 100%;
+    height: 250px;
+    padding: 0px;
+    border: 1px solid #cccccc;
+    border-left: none;
+    border-right: none;
+    overflow: auto;
+    }
+    
+/* COLORED LIST in an UL or TABLE with two colors */
+.coloredList {
+    font-size: 11px;
+    }
+.coloredList a {
+    background-position: 1px 1px;
+    }
+
+ul.coloredList {
+    padding: 0px;
+    margin: 0px; 
+    }
+ul.coloredList li {    
+    padding: 5px 10px;
+    margin: 0px;
+    list-style: none;
+    }
+    
+table.coloredList {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    }
+table.coloredList td {
+    padding: 5px 0px;
+    padding-left: 5px;
+    padding-right: 2px;
+    }
+
+.coloredList .light {  
+    background-color: #E5EEEE;
+    }
+.coloredList .dark {  
+    background-color: #D4E0E0;
+    }
+    
+/* --------------------- */
+/* -------> TAG CLOUD */
+
+div.tagCloud {
+    width: 100%;
+    max-height: 450px;
+    text-align: center;
+    overflow: auto;
+    }
+
+div.tagCloud span, div.tagCloud a {
+    background: none !important;
+    padding-right: 0px !important;
+    color: #668CA6 !important;
+    }
+
+
+/* --- TOOLTIPS ------------------------------------------------------------------------------------------------------------------- */
+
+/* --- TOOLTIP in the text */
+
+.toolTip {    
+    cursor: help;
+    }
+/* textarea toolTip */
+input.toolTip, textarea.toolTip {
+    cursor: text;
+    }
+/* checkbox toolTip */
+input.toolTip[type=checkbox] {
+    cursor: help;
+    }
+/* button toolTip */
+input.button.toolTip {
+    cursor: pointer;
+    }
+/* link toolTip */
+a.toolTip {
+    cursor: pointer;
+    }    
+/* text toolTip */
+span.toolTip {
+    /*color: #B46F00;*/
+    background: url("../image/sign/toolTip.gif") no-repeat right center;
+    padding-right: 15px;
+    }
+
+    
+.toolTip.mark {
+    
+    }
+
+/* --- TOOLTIP BOX */
+
+/* format of the toolTip box */
+.toolTipBox {
+    z-index: 10;
+    }
+
+.toolTipBox .tip-title	{
+    z-index: 2;
+    position: relative;    
+    margin: 0px 30px; /* before  0px 40px; */
+    padding-bottom: 3px;
+    /*padding-left: 16px;
+    background: url("../image/sign/hinweis.png") no-repeat 0px 5px;*/
+    font-weight:bold;
+    color:#947342;
+    text-align: center;
+    word-wrap: break-word;
+    }
+.toolTipBox .tip-title span	{
+    color: #666666;
+    }
+.toolTipBox .tip-text	{
+    z-index: 2;
+    position: relative;
+    color: #666666;
+    padding: 4px 35px; /* before  10px 40px; */
+    padding-bottom: 0px;
+    word-wrap: break-word;    
+    }
+.toolTipBox .tip-top {
+    z-index: 0;
+    position: relative;
+    background: url("../image/bg/toolTip_top.png") top left no-repeat;
+    width:272px;
+    height:30px; /* org  40px; */
+    }
+.toolTipBox .tip {
+    z-index: 1;
+    position: relative;
+    width:272px;
+    background: url("../image/bg/toolTip_middle.png") left top repeat-y;
+    line-height: 20px;
+    border: none;
+    }
+.toolTipBox .tip ul {
+    padding: 0px;
+    margin: 0px;
+    margin-left: 15px;
+    list-style: disc;
+    }
+.toolTipBox .tip ul li {
+    padding: 2px 0px;
+    margin: 0px;
+    }
+.toolTipBox .tip-bottom	{
+    background: url("../image/bg/toolTip_bottom.png") left bottom no-repeat;
+    width: 272px;
+    height: 25px; /* org  35px; */
+    }
+
+
+/* --- NOTIFICATIONS ------------------------------------------------------------------------------------------------------------------- */
+    
+/* -----------------------*/	
+/* ---:- MESSAGEBOX */
+
+.messageBox {
+    min-height: 25px;
+    padding: 20px 0px;
+    padding-left: 75px;
+    margin-bottom: 15px;
+    vertical-align: middle;
+    background: url("../image/sign/hintIcon.png") no-repeat center left;
+    /*font-weight:bold;*/
+    font-size:18px;
+    line-height: 28px;
+    }
+    
+/* ----------------------- */	
+/* - INLINE HINTs */
+
+span.hint {
+    display: inline-block;
+    padding-left: 16px;
+    background: url("../image/sign/hinweis.png") no-repeat 0px 2px !important;
+    font-size: 12px;
+    color: #947342;
+    }
+    
+.toolTipBox span.hint {
+    background-position: 0px 5px !important;
+    }
+
+/* ----------------------- */	
+/* - INLINE WARNINGs */
+
+span.warning {
+    display: inline-block;
+    padding: 3px 0px;
+    padding-left: 20px;
+    background: url("../image/sign/warning.gif") no-repeat 0px 6px !important;
+    font-size: 12px;
+    color: #990000;
+    }

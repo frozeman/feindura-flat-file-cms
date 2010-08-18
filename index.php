@@ -71,8 +71,8 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta name="siteinfo" content="<?php echo $adminConfig['basePath'] ?>robots.txt" />
   <meta name="revisit_after" content="12" />
   <meta name="robots" content="index,nofollow" />
-  <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy würde die seite nicht cachen-->
-  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy würde die seite nicht cachen-->
+  <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
+  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
       
   <meta name="title" content="feindura > <?php echo $websiteConfig['title']; ?>" />    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
@@ -88,24 +88,11 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   
   <link rel="stylesheet" type="text/css" href="library/style/reset.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/style/layout.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/headerMenus.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/subMenu.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/leftSidebar.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/rightSidebar.css" media="all" /> 
+  <link rel="stylesheet" type="text/css" href="library/style/menus.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/style/sidebars.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/style/content.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/statistic.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/pageSetup.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/footerMenu.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/loading.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/style/setup.css" media="all" />  
   <link rel="stylesheet" type="text/css" href="library/style/windowBox.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/fileManager.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/errorWindow.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/listPages.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/notifications.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/forms.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/toolTip.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/editor.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/pageThumbnail.css" media="all" />
   
 <?php
 if($_GET['site'] == 'addons') {
@@ -160,21 +147,10 @@ if($_GET['site'] == 'addons') {
  
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascript/loading.js"></script>
-  <script type="text/javascript" src="library/javascript/layoutFix.js"></script>
   <script type="text/javascript" src="library/javascript/divScroller.js"></script>
-  <script type="text/javascript" src="library/javascript/adminMenu.js"></script>  
   <script type="text/javascript" src="library/javascript/sidebar.js"></script>
-  <script type="text/javascript" src="library/javascript/sidebarMenu.js"></script>  
-  <script type="text/javascript" src="library/javascript/sortPages.js"></script>
-  <script type="text/javascript" src="library/javascript/setup.js"></script>
   <script type="text/javascript" src="library/javascript/content.js"></script>
-  <script type="text/javascript" src="library/javascript/forms.js"></script>
   <script type="text/javascript" src="library/javascript/windowBox.js"></script>
-  <script type="text/javascript" src="library/javascript/ajax.js"></script>
-  <script type="text/javascript" src="library/javascript/toolTips.js"></script>
-  <script type="text/javascript" src="library/javascript/editor.js"></script>
-  <script type="text/javascript" src="library/javascript/editFiles.js"></script>
-  <script type="text/javascript" src="library/javascript/pageThumbnail.js"></script>
   
 </head>
 <body>
@@ -204,9 +180,9 @@ if($_GET['site'] == 'addons') {
     
     <div id="headerBlock">
       
-      <div id="languageSelection">
-        <a href="?language=en" class="en"></a>
+      <div id="languageSelection">        
         <a href="?language=de" class="de"></a>
+        <a href="?language=en" class="en"></a>
       </div>
           
       <a href="http://<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].$version[2].' - '.$version[3]; ?>::"></a>
