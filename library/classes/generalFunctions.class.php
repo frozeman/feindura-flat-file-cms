@@ -28,9 +28,10 @@
 * 
 * @package [Implementation]|[backend]
 * 
-* @version 1.18
+* @version 1.19
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.19 add parseDefaultLanguage() to checkLanguageFiles()
 *    - 1.18 fixed checkLanguageFiles()
 *    - 1.17 add chmod to savePage()
 *    - 1.16 started documentation
@@ -124,7 +125,45 @@ class generalFunctions {
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */
+ 
+  /**
+  * <b>Name</b> parseDefaultLanguage()<br>
+  * 
+  * Checks for the browser language with the highest q-value
+  * 
+  * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
+  * 
+  * @author Darrin Yeager
+  * @copyright Copyright (c) 2008 Darrin Yeager
+  * @license http://www.dyeager.org/downloads/license-bsd.php BSD license
+  * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
+  * 
+  */
+  function parseDefaultLanguage($http_accept, $deflang = "en") {
+     if(isset($http_accept) && strlen($http_accept) > 1)  {
+        # Split possible languages into array
+        $x = explode(",",$http_accept);
+        foreach ($x as $val) {
+           #check for q-value and create associative array. No q-value means 1 by rule
+           if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
+              $lang[$matches[1]] = (float)$matches[2];
+           else
+              $lang[$val] = 1.0;
+        }
   
+        #return default language (highest q-value)
+        $qval = 0.0;
+        foreach ($lang as $key => $value) {
+           if ($value > $qval) {
+              $qval = (float)$value;
+              $deflang = $key;
+           }
+        }
+     }
+     return strtolower($deflang);
+  }
+
+ 
  /**
   * <b>Name</b> checkLanguageFiles()<br>
   * 
@@ -139,15 +178,17 @@ class generalFunctions {
   * @param bool         $returnLangFile   (optional) if TRUE it includes and returns the language-file which matches the browser language
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
-  * @uses $adminConfig                          for the base path of the CMS
-  * @uses generalFunctions::readFolderRecursive to read the language folder
-  *  
+  * @uses $adminConfig                           for the base path of the CMS
+  * @uses generalFunctions::readFolderRecursive  to read the language folder
+  * @uses generalFunctions::parseDefaultLanguage to get the right browser language
+  * 
   * @return string|array|false a country code (like: de, en, fr..) or the language-file array or FALSE if the language file could not be opend
   * 
   * 
-  * @version 1.01
+  * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.02 add parseDefaultLanguage()
   *    - 1.01 fixed language files check, uses now readFolder recursive  
   *    - 1.0 initial release
   * 
@@ -165,38 +206,37 @@ class generalFunctions {
         $useLangPath = DOCUMENTROOT.$useLangPath;
         
       } else
-        $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'; // $this->adminConfig['websitefilesPath']
+        $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/';
        
       // -> read language folder
       $langFiles = $this->readFolderRecursive($langPath);
       
       // -> get langFiles
       if(!empty($langFiles['files'])) {
-      
-        // -> get browser language
-        $browserDataRaw = explode(",", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-                 
-        // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE          
-      	while(list($key, $value) = each($browserDataRaw)) {
-      	  $browserData = strtolower(substr($value, 0, 2));
-      	  
-      	  foreach($langFiles['files'] as $langFile) {
-            $langFileSchema = basename($langFile);
-        	  
-        		if(strstr(strtolower(substr(substr($langFileSchema,-6),-2)).",", $browserData.",") ||
-               strstr(strtolower(substr($langFileSchema,0,2)).",", $browserData.",")) {
-        		  // returns either langFile or the COUNTRY CODE
-        		  if($returnLangFile) {
-        		    if($return = @include($langFile))
-                  return $return;
-                else
-                  return false;
-        		  } else {
-        			   return $browserData;
-        			}
-        		}
-        	}
-        }
+                    
+        // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
+        $browserLang = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
+          ? $this->parseDefaultLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"],$standardLang)
+          : $this->parseDefaultLanguage(NULL,$standardLang);
+        $browserLang = substr($browserLang,0,2);
+        
+    	  foreach($langFiles['files'] as $langFilePath) {
+
+          $langFileSchema = basename($langFilePath);
+
+      		if(stristr(substr(substr($langFileSchema,-6),-2).",", $browserLang.",") ||
+             stristr(substr($langFileSchema,0,2).",", $browserLang.",")) {
+      		  // returns either langFile or the COUNTRY CODE
+      		  if($returnLangFile) {
+      		    if($return = include(DOCUMENTROOT.$langFilePath))
+                return $return;
+             else
+                return false;
+      		  } else {
+      			   return $browserLang;
+      			}
+      		}
+      	}
         
         // if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
       	if($returnLangFile) {
@@ -213,10 +253,10 @@ class generalFunctions {
     	  } else
     		  return $standardLang;   		  
   		  
-      } elseif(!$returnLangFile)
-          return $standardLang;
+      } elseif($returnLangFile)
+          return array();
       else
-          return array();	 
+          return $standardLang;          
   }
   
  /**
