@@ -109,14 +109,16 @@ $langFile['log_page_saved'] = 'Page saved';
 $langFile['log_page_new'] = 'New page created';
 $langFile['log_page_delete'] = 'Page deleted';
 
-$langFile['log_listPages_moved'] = 'Moved page in category';
-$langFile['log_listPages_moved_in'] = 'in'; // Example Page in Category
+$langFile['log_listPages_moved'] = 'Moved page to category';
+$langFile['log_listPages_moved_in'] = 'in category'; // Example Page in Category
 $langFile['log_listPages_sorted'] = 'Page sorting changed';
 
 $langFile['log_pageThumbnail_upload'] = 'New thumbnail uploaded';
 $langFile['log_pageThumbnail_delete'] = 'Thumbnail deleted';
 
 $langFile['log_userSetup_useradd'] = 'New user created';
+$langFile['log_userSetup_userdeleted'] = 'User deleted';
+$langFile['log_userSetup_userpass_changed'] = 'User password changed';
 
 $langFile['log_adminSetup_saved'] = 'Administrator-Settings saved';
 $langFile['log_adminSetup_ckstyles'] = '&quot;Formatting-Styles&quot; of the HTML-Editor saved';
@@ -131,13 +133,14 @@ $langFile['log_clearStatistic_refererLog'] = 'Referrer-Log deleted';
 $langFile['log_clearStatistic_taskLog'] = 'Last Activities-Log deleted';
 
 $langFile['log_pageSetup_saved'] = 'Page-Settings saved';
+$langFile['log_pageSetup_categories_saved'] = 'Categories saved';
 
 $langFile['log_pageSetup_saved'] = 'Category-Settings saved';
 $langFile['log_pageSetup_new'] = 'New category created';
 $langFile['log_pageSetup_delete'] = 'Category deleted';
 $langFile['log_pageSetup_move'] = 'Category moved';
 
-$langFile['log_pluginSetup_saved'] = 'Plugin-Settings saved';
+$langFile['log_pluginSetup_saved'] = 'Plugin-Settings saved of';
 
 $langFile['log_file_saved'] = 'File saved';
 

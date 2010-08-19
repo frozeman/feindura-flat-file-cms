@@ -75,7 +75,7 @@ if($_POST['save']) {
   
     $pageContent['log_visitCount'] = '0';
     
-    $logText = $langFile['log_page_new'];
+    $logText = 0;
     
     $generalFunctions->storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
     
@@ -87,7 +87,7 @@ if($_POST['save']) {
     if(!$pageContent = $generalFunctions->readPage($page,$category))
       $errorWindow = $langFile['file_error_read'];
    
-    $logText = $langFile['log_page_saved']; 
+    $logText = 1; 
   }
   
   // only save page if no error occured
@@ -204,7 +204,7 @@ if($category['id'] != 0) {
 
 // -> show NEWPAGE ICON
 if($newPage) {
-  $newPageIcon = '<img src="library/image/sign/newPageIcon_middle.png" style="float:left;" />';  
+  $newPageIcon = '<img src="library/image/sign/newPageIcon_middle.png" />';  
 }
 
 // -> checks for startpage, and show STARTPAGE ICON

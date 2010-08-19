@@ -109,13 +109,15 @@ $langFile['log_page_new'] = 'Neue Seite erstellt';
 $langFile['log_page_delete'] = 'Seite gel&ouml;scht';
 
 $langFile['log_listPages_moved'] = 'Seite in Kategorie verschoben';
-$langFile['log_listPages_moved_in'] = 'in'; // Example Page in Category
+$langFile['log_listPages_moved_in'] = 'in Kategorie'; // Example Page in Category
 $langFile['log_listPages_sorted'] = 'Seite neu sortiert';
 
 $langFile['log_pageThumbnail_upload'] = 'Neues Thumbnail hochgeladen';
 $langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
 
 $langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
+$langFile['log_userSetup_userdeleted'] = 'Benutzer gel&ouml;scht';
+$langFile['log_userSetup_userpass_changed'] = 'Benutzerpasswort ge&auml;ndert';
 
 $langFile['log_adminSetup_saved'] = 'Administrator-Einstellungen gespeichert';
 $langFile['log_adminSetup_ckstyles'] = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
@@ -130,13 +132,14 @@ $langFile['log_clearStatistic_refererLog'] = 'Referrer-Log gel&ouml;scht';
 $langFile['log_clearStatistic_taskLog'] = 'letzte T&auml;tigkeiten-Log gel&ouml;scht';
 
 $langFile['log_pageSetup_saved'] = 'Seiten-Einstellungen gespeichert';
+$langFile['log_pageSetup_categories_saved'] = 'Kategorien gespeichert';
 
 $langFile['log_pageSetup_saved'] = 'Kategorien-Verwaltung gespeichert';
 $langFile['log_pageSetup_new'] = 'Neue Kategorie erstellt';
 $langFile['log_pageSetup_delete'] = 'Kategorie gel&ouml;scht';
 $langFile['log_pageSetup_move'] = 'Kategorie verschoben';
 
-$langFile['log_pluginSetup_saved'] = 'Plugin-Einstellungen gespeichert';
+$langFile['log_pluginSetup_saved'] = 'Plugin-Einstellungen gespeichert von';
 
 $langFile['log_file_saved'] = 'Datei gespeichert';
 

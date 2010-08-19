@@ -212,7 +212,7 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
      
     // give documentSaved status
     $documentSaved = true;
-    $statisticFunctions->saveTaskLog($langFile['log_adminSetup_saved']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog(8); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
@@ -238,7 +238,7 @@ if(isset($_POST['saveFckStyleFile'])) {
   
     // give documentSaved status
     $documentSaved = true;
-    $statisticFunctions->saveTaskLog($langFile['log_adminSetup_ckstyles']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog(9); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow = $langFile['adminSetup_styleFileSettings_error_save'];
   }

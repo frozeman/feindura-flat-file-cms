@@ -14,7 +14,7 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 1.0
+verion 1.01
 
 */
 
@@ -858,7 +858,7 @@ function importcommaseparateddata($textfile, $textfile_name, &$status, &$newuser
 				if (checkimports($newuser, $newpass, $status, $existingusers) === true) {		/* Importierte Daten prüfen */
 
 					adduser($newuser, $newpass, $status, $newusers);		/* Userinfo in $newusers ablegen */
-					$statisticFunctions->saveTaskLog($langFile['log_userSetup_useradd'],$newuser); // <- SAVE the task in a LOG FILE
+					$GLOBALS['statisticFunctions']->saveTaskLog(25,$newuser); // <- SAVE the task in a LOG FILE
 
 				} //endif
 
@@ -1170,6 +1170,8 @@ function updatepass($user2update, $newpass, &$status, &$existingusers) {
       
       clearstatcache();
       
+      $GLOBALS['statisticFunctions']->saveTaskLog(27,$user2update); // <- SAVE the task in a LOG FILE
+      
 		} //endif
 
 	} //endwhile
@@ -1196,16 +1198,16 @@ function deleteuser($user2delete, &$status, &$existingusers)
 
 	if (isset($users) && is_array($users) && count($users) > 0) {
 
-		while (list($key, $singleuser) = each($users)){
+		while(list($key, $singleuser) = each($users)){
 
-			if ($singleuser['user'] != $user2delete) {		/* User soll nicht gelöscht werden */
+			if($singleuser['user'] != $user2delete) {		/* User soll nicht gelöscht werden */
 
 				$pwfilecontent .= $singleuser['user'].":".$singleuser['pass']."\n";
 
 			} //endif
 
 		} //endwhile
-
+    $GLOBALS['statisticFunctions']->saveTaskLog(26,$user2delete); // <- SAVE the task in a LOG FILE
 	}
 
 	fputs ($filehandle, $pwfilecontent);
@@ -1525,7 +1527,7 @@ if (isset($_POST['newpasssubmit'])) {		/* Schaltfläche CREATE wurde gedrückt */
   		adduser($_POST['newuser'],$_POST['newpass'], $status, $newusers);	/* Userinfo in $newusers ablegen */
   		createhtpasswd($newusers, $status, $existingusers); /* user in .htpasswd eintragen */
   		
-      $GLOBALS['statisticFunctions']->saveTaskLog($GLOBALS['langFile']['log_userSetup_useradd'],$_POST['newuser']); // <- SAVE the task in a LOG FILE
+      $GLOBALS['statisticFunctions']->saveTaskLog(25,$_POST['newuser']); // <- SAVE the task in a LOG FILE
 		
 		}
 	} //endif

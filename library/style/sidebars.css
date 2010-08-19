@@ -315,20 +315,30 @@
 /* ------------------------- */
 /* - SIDEBAR LOG */
 
-#leftSidebar #sidebarTaskLog {
-    z-index: 1;
-    position: relative;
-    height: 450px;
-    border-bottom: 1px solid #ffffff;
-    overflow: auto;
-    }
+/* --------------------- */
+/* -------> TASK LOKG */
+#sidebarTaskLog {
+  z-index: 1;
+  position: relative;
+  height: 450px;
+  border-bottom: 1px solid #ffffff;
+  overflow: auto;
+  font-size: 9px;
+  margin: 0px -10px;
+}
+
+#sidebarTaskLog ul li {
+  display: block;
+  width: 150px;
+  list-style: none !important;
+}
     
 #leftSidebar .scrollUpDown {
-    z-index: 2;
-    position: absolute;
-    height: 30px;
-    width: 165px;
-    }
+  z-index: 2;
+  position: absolute;
+  height: 30px;
+  width: 165px;
+}
     
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
 

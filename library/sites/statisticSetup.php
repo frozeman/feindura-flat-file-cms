@@ -31,7 +31,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
     if(saveStatisticConfig($_POST)) {
       // set documentSaved status
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog($langFile['log_statisticSetup_saved']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog(19); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow = $langFile['statisticSetup_statisticConfig_error_save'];
   
@@ -67,7 +67,7 @@ if($_POST['sendClearstatistics']) {
     // set the messagebox; save tasklog
     if($documentSaved) {
       $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_pagesStatistics'].'<br />';
-      $statisticFunctions->saveTaskLog($langFile['log_clearStatistic_pagesStatistics']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog(20); // <- SAVE the task in a LOG FILE
     }
   }
   
@@ -91,7 +91,7 @@ if($_POST['sendClearstatistics']) {
     // set the messagebox; save tasklog
     if($documentSaved) {
       $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_pagesStaylengthStatistics'].'<br />';
-      $statisticFunctions->saveTaskLog($langFile['log_clearStatistic_pagesStaylengthStatistics']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog(21); // <- SAVE the task in a LOG FILE
     }
   }  
   
@@ -103,7 +103,7 @@ if($_POST['sendClearstatistics']) {
     // set documentSaved status
     $documentSaved = true;
     $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_websiteStatistic'].'<br />';
-    $statisticFunctions->saveTaskLog($langFile['log_clearStatistic_websiteStatistic']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog(22); // <- SAVE the task in a LOG FILE
   }
   
   // ->> CLEAR REFERER-LOG
@@ -114,7 +114,7 @@ if($_POST['sendClearstatistics']) {
     // set documentSaved status
     $documentSaved = true;
     $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_refererLog'].'<br />';
-    $statisticFunctions->saveTaskLog($langFile['log_clearStatistic_refererLog']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog(23); // <- SAVE the task in a LOG FILE
   }
   
   // ->> CLEAR TASK-LOG
@@ -125,7 +125,7 @@ if($_POST['sendClearstatistics']) {
     // set documentSaved status
     $documentSaved = true;
     $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_taskLog'].'<br />';
-    //$statisticFunctions->saveTaskLog($langFile['log_clearStatistic_taskLog']); // <- SAVE the task in a LOG FILE
+    $statisticFunctions->saveTaskLog(24); // <- SAVE the task in a LOG FILE
   }
   
   // SHOWs the MESSAGEBOX

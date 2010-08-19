@@ -25,22 +25,6 @@ include_once(dirname(__FILE__)."/../backend.include.php");
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
 
-// ------------ SAVE the WEBSITE SETTINGS
-if(isset($_POST['send']) && $_POST['send'] ==  'websiteConfig') {
-
-    // gets the startPage var and put it in the POST var
-    $_POST['startPage'] = $websiteConfig['startPage'];
-    
-    $_POST['copyright'] = $_POST['websiteConfig_copyright'];
-    if(saveWebsiteConfig($_POST)) {
-      // give documentSaved status
-      $documentSaved = true;
-      $statisticFunctions->saveTaskLog($langFile['log_websiteSetup_saved']); // <- SAVE the task in a LOG FILE
-    } else
-    $errorWindow = $langFile['websiteSetup_websiteConfig_error_save'];
-
-}
-
 // ---------- SAVE the editFiles
 include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
@@ -105,7 +89,7 @@ if($pluginFolders) {
           // give documentSaved status
           $documentSaved = true;
           $savedForm = true;
-          $statisticFunctions->saveTaskLog($langFile['log_pluginSetup_saved'],$pluginName); // <- SAVE the task in a LOG FILE        
+          $statisticFunctions->saveTaskLog(11,$pluginName); // <- SAVE the task in a LOG FILE        
           
         } else
           $errorWindow = $langFile['pluginSetup_pluginconfig_error_save'].' '.$pluginFolder.'/plugin.config.php';

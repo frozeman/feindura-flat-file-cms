@@ -1,7 +1,7 @@
 <?php
 // created by Fabian Vogelsteller [frozeman.de]
 // 
-// contactform.php version 1.57 (benötigt Rmail (thirdparty/Rmail/))
+// contactform.php version 1.57 (benï¿½tigt Rmail (thirdparty/Rmail/))
 //
 // mit session (muss mit session_start(); gestartet werden)
 //
@@ -10,20 +10,20 @@
 /* CHAPTA */
 /*
 .s {
-	color: #666666;
-	background-color: #666666;
-	font: 5px Arial, Verdana, Sans-serif, Serif !important;
-	line-height: 5px;
+  color: #666666;
+  background-color: #666666;
+  font: 5px Arial, Verdana, Sans-serif, Serif !important;
+  line-height: 5px;
 }
 .w {
-	background-color: transparent;
-	font: 5px Arial, Verdana, Sans-serif, Serif !important;
-	line-height: 5px;
+  background-color: transparent;
+  font: 5px Arial, Verdana, Sans-serif, Serif !important;
+  line-height: 5px;
 }
 */
 /*
 
-  benötigt SPRACHDATEIVARIABLEN:*/
+  benï¿½tigt SPRACHDATEIVARIABLEN:*/
 $langText['kontakt_h1'] = 'Kontaktformular';
 $langText['kontakt_back'] = 'Zur&uuml;ck';
 $langText['kontakt_sendfinish'] = 'Ihre Nachricht wurde erfolgreich verschickt!';
@@ -96,11 +96,11 @@ $_SESSION['fax'] = @$_POST['fax'];
 $_SESSION['nachricht_org'] = stripslashes($_POST['nachricht']);
 $nachricht = str_replace("\n", '<br>', $_POST['nachricht']);
 
-// CHAPTA CHECK (wird über url übertragen)
+// CHAPTA CHECK (wird ï¿½ber url ï¿½bertragen)
 if(isset($_SESSION['chaptacheck']) && $_POST['chapta'] == $_SESSION['chaptacheck']) {
   unset($_SESSION['chaptacheck']);  
 
-  //überprüft die PFLICHTFELDER
+  //ï¿½berprï¿½ft die PFLICHTFELDER
   $pflichtfelderOk = true;
   foreach($kontaktConfig as $key => $wert) {  
     // wenn das Feld NICHT aktiviert ist ODER
@@ -119,7 +119,7 @@ if(isset($_SESSION['chaptacheck']) && $_POST['chapta'] == $_SESSION['chaptacheck
   if($pflichtfelderOk && !empty($_POST['nachricht'])) {
   
   $timestamp = time();
-  $senddate	= date(d).".".date(m).".".date(Y);
+  $senddate  = date(d).".".date(m).".".date(Y);
   $sendtime = date("H:i",$timestamp);
   
   
@@ -182,7 +182,7 @@ Gesendet am '.$senddate.' um '.$sendtime.'<br>
 -------------------------------------------------<br>
 </body></html>';
   
-    // verwendet Rmail, wenn die php version größer 5 ist
+    // verwendet Rmail, wenn die php version grï¿½ï¿½er 5 ist
   if(substr(phpversion(),0,1) >= 5 && include_once('thirdparty/Rmail/Rmail.php')) {
     
     $mail = new Rmail();
@@ -207,9 +207,9 @@ Gesendet am '.$senddate.' um '.$sendtime.'<br>
     $nachricht = preg_replace("/ +/", ' ', strip_tags($mailcontent));
     
     if(empty($_POST['email']))
-      $header = 'From: no-reply <'.$contactMail.">\r\n";
+      $header = 'From: no-reply <'.$contactMail.">\n";
     else
-      $header = 'From: '.$_POST['vorname'].' '.$_POST['nachname'].' <'.$_POST['email'].">\r\n";
+      $header = 'From: '.$_POST['vorname'].' '.$_POST['nachname'].' <'.$_POST['email'].">\n";
     
     $header .= 'X-Mailer: PHP/' . phpversion();
     
@@ -258,13 +258,13 @@ Gesendet am '.$senddate.' um '.$sendtime.'<br>
         // listet den nachrichtentext auf wenn NUR ER leer ist
         echo $langText['kontakt_feld_nachricht'];
       }
-    //echo '<br /><br /><a href="?site='.$_GET['site'].'&amp;'.htmlspecialchars(session_name().'='.session_id()).'">'.$langText['kontakt_back'].'</a></p>';
+    //echo '<br /><br /><a href="?site='.$_GET['site'].'&'.htmlspecialchars(session_name().'='.session_id()).'">'.$langText['kontakt_back'].'</a></p>';
   }
   
   // ERROR - CHAPTA INCORRECT
   } else {
   echo '<p>'.$langText['kontakt_error_chapta'].'<br />
-        <a href="?site='.$_GET['site'].'&amp;'.htmlspecialchars(session_name().'='.session_id()).'">'.$langText['kontakt_back'].'</a></p>';
+        <a href="?site='.$_GET['site'].'&'.htmlspecialchars(session_name().'='.session_id()).'">'.$langText['kontakt_back'].'</a></p>';
   }
   
 } 
@@ -278,7 +278,7 @@ if(!$_POST['send'] || $error == 'pflichtfeld') {
 <h1><?php echo $langText['kontakt_h1']; ?></h1>
 
 <center>
-<form action="?site=contact&amp;<?php echo htmlspecialchars(session_name().'='.session_id()); ?>" method="post" enctype="multipart/form-data" id="contactForm">
+<form action="?site=contact&<?php echo htmlspecialchars(session_name().'='.session_id()); ?>" method="post" enctype="multipart/form-data" id="contactForm">
 
 <table border="0" cellspacing="5" style="line-height:25px;">
 <tr><td align="left" colspan="2">
@@ -416,9 +416,9 @@ echo '<label for="nachricht_label"'.$notFilled.'><b>'.$langText['kontakt_feld_na
 <b><?php echo $langText['kontakt_feld_chapta'].$pflichtStern ?></b>
 <div style="margin: 0px 10px; line-height: 0px !important;">
 <?php
-	$n = new Number(rand(1000,9999));
-	$n->printNumber();
-  $_SESSION['chaptacheck'] = $n->getNum();	
+  $n = new Number(rand(1000,9999));
+  $n->printNumber();
+  $_SESSION['chaptacheck'] = $n->getNum();  
 ?>
 <input style="position:relative;top:-25px;left:50px;width:31px;" name="chapta" size="4" autocomplete="off" type="text" maxlength="4" />
 </div>
