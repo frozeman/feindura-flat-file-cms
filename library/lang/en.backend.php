@@ -81,6 +81,7 @@ $langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in al
 
 $langFile['log_visitCount'] = 'Visitors';
 $langFile['log_currentVisitors'] = 'current visitors';
+$langFile['log_currentVisitors_lastActivity'] = 'last activity';
 $langFile['log_visitTime_max'] = 'longest length of stay';
 $langFile['log_visitTime_min'] = 'shortest length of stay';
 $langFile['log_firstVisit'] = 'first visit';

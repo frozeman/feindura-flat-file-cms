@@ -88,12 +88,22 @@ if(!empty($adminConfig['user']['info'])) {
       echo '</div>';
       
       $statisticFunctions->hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
-      $currentVisitors = @count(@file(dirname(__FILE__).'/../../statistic/visit.statistic.cache'));
+      $currentVisitors = @count($visitCache = @file(dirname(__FILE__).'/../../statistic/visit.statistic.cache'));
+      $latestVisitCacheTime = 0;
+      $latestVisitCacheTimeText = $langFile['log_currentVisitors'];
+      if(!empty($visitCache) && is_array($visitCache)) {
+        foreach($visitCache as $visitCacheLine) {
+          $visitCacheLine = explode('|',$visitCacheLine);
+          if($latestVisitCacheTime < $visitCacheLine[1])
+            $latestVisitCacheTime = $visitCacheLine[1];
+        }
+        $latestVisitCacheTimeText = $langFile['log_currentVisitors_lastActivity'].' '.date('H:i', $latestVisitCacheTime);
+      }        
       
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';
         // CURRENT VISITORS
-        echo '<span>'.$langFile['log_currentVisitors'].' <span class="blue"><b>'.$currentVisitors.'</b></span></span><br />';
+        echo '<span>'.$langFile['log_currentVisitors'].' <span class="blue toolTip" title="'.$latestVisitCacheTimeText.'::"><b>'.$currentVisitors.'</b></span></span><br />';
         // FIRST VISIT
         echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
         // LADST VISIT
