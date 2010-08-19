@@ -58,10 +58,9 @@ foreach($sortOrder as $sort) {
         
         // -> saves the task log
         if($_POST['sortedPageId'] == $pageContent['id'] && empty($categoryConfig['id_'.$_POST['categoryNew']]['sortbypagedate'])) {
-          if($_POST['categoryOld'] != $_POST['categoryNew'])
-            $logText = $langFile['log_listPages_moved'];
-          else
-            $logText = $langFile['log_listPages_sorted'];
+          $logText = ($_POST['categoryOld'] != $_POST['categoryNew'])
+            ? $langFile['log_listPages_moved']
+            : $logText = $langFile['log_listPages_sorted'];
           // save log
           if(empty($_POST['categoryNew']))
             $statisticFunctions->saveTaskLog($logText,'page='.$pageContent['id'].'|#|category='.$_POST['categoryNew'].'|#|'.$langFile['log_listPages_moved_in'].' '.$langFile['categories_noncategory_tip']); // <- SAVE the task in a LOG FILE

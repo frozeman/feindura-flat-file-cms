@@ -19,7 +19,7 @@
 * 
 * Lists all tasks in an unorderd list (<ul><li></li></ul>).
 * 
-* @version 0.1
+* @version 0.11
 */
 
 echo '<ul>';
@@ -62,14 +62,14 @@ foreach($logContent as $logRow) {
       $categoryId = (substr($logObject[0],0,9) == 'category=') ? substr($logObject[0],9) : substr($logObject[1],9);
       $categoryId = $generalFunctions->cleanSpecialChars($categoryId); // removes \n\r
       
-      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'">'.$categoryConfig['id_'.$categoryId]['name'].'</a>';
+      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" title="'.$categoryConfig['id_'.$categoryId]['name'].'">'.$categoryConfig['id_'.$categoryId]['name'].'</a>';
       
       $foundObject = true;                  
     }
     
     // -> OTHERWISE just use the task object name/text
     if($foundObject === false)
-      $taskObject = $logObject[0];
+      $taskObject = '<span title="'.$logObject[0].'">'.$logObject[0].'</span>';
   }                  
   
   $user = (!empty($logRow[1]))
