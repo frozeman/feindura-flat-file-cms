@@ -918,8 +918,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   	  }
   	  
   	}
-  	$isDir = true;
-  	
+  	$isDir = true;	
   	
   	// only if still are files left
   	if(is_array($files) && !empty($files)) {

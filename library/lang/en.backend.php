@@ -274,7 +274,7 @@ $langFile['btn_quickmenu_pages'] = 'Pages of';
 $langFile['home_userInfo_h1'] = 'User Information';
 
 $langFile['home_welcome_h1'] = 'Welcome in <span class="logoname">fein<span>dura</span></span><br />the Content Management System of your website.';
-$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
+$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
 
 $langFile['home_statistic_h1'] = 'Website-Statistic';
 

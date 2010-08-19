@@ -72,7 +72,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta name="revisit_after" content="12" />
   <meta name="robots" content="index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="private" /> <!--proxy dont cache-->
+  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate" />
   
   <meta name="title" content="feindura > <?php echo $websiteConfig['title']; ?>" />    

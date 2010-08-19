@@ -14,20 +14,22 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* pluginSetup.php version 0.1
+* pluginSetup.php version 0.11
 */
 
 // ->> SAVE the editFiles
 if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
   
+  //var
+  $fileType = (!empty($post['fileType'])) ? '.'.$post['fileType'] : '';
+  $file = (!empty($_POST['newFile'])) ? $_POST['newFile'].$fileType : $_POST['file'];
+  
   if(saveEditedFiles($savedForm)) {
     $documentSaved = true; // give documentSaved status
-    $statisticFunctions->saveTaskLog($langFile['log_file_saved'],$_POST['file']); // <- SAVE the task in a LOG FILE
-  } else {
-    $fileType = (!empty($post['fileType'])) ? '.'.$post['fileType'] : '';
-    $errorWindow = $langFile['editFilesSettings_error_save'].' '.$_POST['file'].$fileType;
+    $statisticFunctions->saveTaskLog($langFile['log_file_saved'],$file); // <- SAVE the task in a LOG FILE
+  } else {     
+    $errorWindow = $langFile['editFilesSettings_error_save'].' '.$file;
   }
-
 }
 
 // ->> DELETE editFiles File
