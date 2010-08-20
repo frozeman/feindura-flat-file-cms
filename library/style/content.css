@@ -112,7 +112,7 @@ content.css version 0.21 */
 /* ----------------------- */  
 /* --- INNER BLOCKs */
 
-#content .block div.innerBlockLeft {
+.block div.innerBlockLeft {
     position: relative;
     width: 270px; /* org: 320px */
     height: 180px; /* org: 200px */
@@ -124,7 +124,7 @@ content.css version 0.21 */
     font-size: 12px;
     overflow: hidden;
     }
-#content .block div.innerBlockRight {
+.block div.innerBlockRight {
     position: relative;
     width: 380px; /* org: 430px */
     height: 180px; /* org: 200px */
@@ -137,7 +137,7 @@ content.css version 0.21 */
     overflow: hidden;
     }
     
-#content .block .innerBlockListPages {
+.block .innerBlockListPages {
     position: relative;
     width: 100%;
     height: 126px; /* org 108px */

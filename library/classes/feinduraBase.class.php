@@ -1455,7 +1455,7 @@ class feinduraBase {
     if($pages = $this->loadPagesByType($idType,$ids)) {
       
       // creates the current date to compare with
-      $currentDate = date('Y').date('m').date('d');       
+      $currentDate = date('Ymd');       
       
       $pastDate = false;
       $futureDate = false;

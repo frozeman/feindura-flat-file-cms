@@ -40,7 +40,7 @@ if($_POST['save']) {
   $_GET['category'] = $category;  
   
   // generate current date
-  $lastsavedate	= date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+  $lastsavedate	= date('Y-m-d H:i:s');
   
   // format tags  
   $_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
@@ -562,7 +562,7 @@ else $hidden = ' hidden';
         
       // add the DATE of TODAY, if its a NEW PAGE
       if($newPage) {
-          $pageContent['pagedate']['date'] = date('Y')."-".date('m')."-".date('d');
+          $pageContent['pagedate']['date'] = date('Y-m-d');
       }
       
       ?>      

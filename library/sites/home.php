@@ -74,7 +74,19 @@ if(!empty($adminConfig['user']['info'])) {
   <h1><img src="library/image/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['home_statistic_h1']; ?></h1>
   <div class="content">
     <?php
-
+    
+    // vars
+    $rowColor = 'dark'; // starting row color
+    
+    // ->> LOAD all PAGES
+    $orgPages = $generalFunctions->loadPages(true,true);
+    $pages = $orgPages;
+    
+    // -> clear cache from visotrs over the timelimit and load current visitors
+    $statisticFunctions->hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
+    $currentVisitors = $statisticFunctions->getCurrentVisitors();
+    
+    
     // --------------------------------
     // USER COUNTER
     echo '<div class="innerBlockLeft">';
@@ -87,23 +99,14 @@ if(!empty($adminConfig['user']['info'])) {
           <hr class="small" />';
       echo '</div>';
       
-      $statisticFunctions->hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
-      $currentVisitors = @count($visitCache = @file(dirname(__FILE__).'/../../statistic/visit.statistic.cache'));
-      $latestVisitCacheTime = 0;
-      $latestVisitCacheTimeText = $langFile['log_currentVisitors'];
-      if(!empty($visitCache) && is_array($visitCache)) {
-        foreach($visitCache as $visitCacheLine) {
-          $visitCacheLine = explode('|',$visitCacheLine);
-          if($latestVisitCacheTime < $visitCacheLine[1])
-            $latestVisitCacheTime = $visitCacheLine[1];
-        }
-        $latestVisitCacheTimeText = $langFile['log_currentVisitors_lastActivity'].' '.date('H:i', $latestVisitCacheTime);
-      }        
+      $latestVisitCacheTimeText = (!empty($currentVisitors[0]['time']))
+        ? $langFile['log_currentVisitors_lastActivity'].' '.$statisticFunctions->formatTime($currentVisitors[0]['time'])
+        : $langFile['log_currentVisitors'];
       
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';
         // CURRENT VISITORS
-        echo '<span>'.$langFile['log_currentVisitors'].' <span class="blue toolTip" title="'.$latestVisitCacheTimeText.'::"><b>'.$currentVisitors.'</b></span></span><br />';
+        echo '<span>'.$langFile['log_currentVisitors'].' <span class="blue toolTip" title="'.$latestVisitCacheTimeText.'::"><b>'.count($currentVisitors,0).'</b></span></span><br />';
         // FIRST VISIT
         echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
         // LADST VISIT
@@ -113,15 +116,53 @@ if(!empty($adminConfig['user']['info'])) {
       }
     echo '</div>';
     
-    // ->> LOAD all PAGES
-    $orgPages = $generalFunctions->loadPages(true,true);
-    $pages = $orgPages;
-    
-    //print_r($orgPages);
+    // ---------------------------------
+    // -> CURRENT VISITORS
+    echo '<div class="innerBlockRight">';    
+    echo '<h2>'.$langFile['log_currentVisitors'].'</h2>';    
+      echo '<div class="innerBlockListPages">
+            <table class="coloredList">';
+      
+      /**
+       * uses GeoIPLite
+       * 
+       * @link http://geolite.maxmind.com/download/geoip/api/php/
+       * @link http://geolite.maxmind.com/download/geoip/database/
+       */
+      
+      include(dirname(__FILE__).'/../thirdparty/GeoIP/geoip.inc');
+      
+      // open geodates
+      $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
+      
+      $count = 1;      
+      foreach($currentVisitors as $currentVisitor) {
+
+        $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
+        $geoIPFlag = (!empty($geoIPCode))
+          ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
+          : '';
+        
+        if(!empty($currentVisitor))
+          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b>'.$currentVisitor['ip'].'</b></td><td>'.$langFile['log_currentVisitors_lastActivity'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
+        
+        // change row color
+        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
+        // count
+        if($count == $statisticConfig['number']['longestVisitedPages']) break;
+        else $count++;
+      }
+      
+      // close geodates
+      geoip_close($geoIP);
+      
+      echo '</table>
+            </div>';                        
+    echo '</div>';
     
     // ---------------------------------
     // -> MOST VISITED PAGE
-    echo '<div class="innerBlockRight">';    
+    echo '<div class="innerBlockLeft">';    
     echo '<h2>'.$langFile['home_h1_article'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['home_mostVisitedPages_h1'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
@@ -129,43 +170,15 @@ if(!empty($adminConfig['user']['info'])) {
       usort($pages, 'sortByVisitCount');
       
       $count = 1;
-      $rowColor = 'dark'; // starting row color
       foreach($pages as $page) {
         if(!empty($page['log_visitCount'])) {
-          echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;"><b>'.$page['log_visitCount'].'</b></td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitCount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
           // change row color
-          if($rowColor == 'light') $rowColor = 'dark';
-          else $rowColor = 'light';        
+          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
           // count
           if($count == $statisticConfig['number']['mostVisitedPages']) break;
           else $count++;
         }
-      }
-      echo '</table>
-            </div>';
-    echo '</div>';
-    
-    $pages = $orgPages;
-    
-    // ---------------------------------
-    // -> LAST EDITED PAGES
-    echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['home_lastEditedPages_h1'].'</h2>';    
-      echo '<div class="innerBlockListPages">
-            <table class="coloredList">';      
-      // SORT the Pages by VISIT SAVEDATE
-      usort($pages, 'sortByLastSaveDate');
-      
-      $count = 1;
-      $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) { 
-        echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:left;"><b>'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($page['lastsavedate'])).'</b> '.$statisticFunctions->formatTime($page['lastsavedate']).'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
-        // change row color
-        if($rowColor == 'light') $rowColor = 'dark';
-        else $rowColor = 'light';        
-        // count
-        if($count == $statisticConfig['number']['lastEditedPages']) break;
-        else $count++;
       }
       echo '</table>
             </div>';
@@ -183,17 +196,15 @@ if(!empty($adminConfig['user']['info'])) {
       usort($pages, 'sortByVisitTimeMax');
       
       $count = 1;
-      $rowColor = 'dark'; // starting row color
       foreach($pages as $page) {
         
         // get highest time
         $highestTime = explode('|',$page['log_visitTime_max']);
         
         if($pageVisitTime = $statisticFunctions->showVisitTime($highestTime[0],$langFile))
-          echo '<tr><td class="'.$rowColor.'" style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td class="'.$rowColor.'"><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
         // change row color
-        if($rowColor == 'light') $rowColor = 'dark';
-        else $rowColor = 'light';        
+        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';         
         // count
         if($count == $statisticConfig['number']['longestVisitedPages']) break;
         else $count++;
@@ -202,10 +213,34 @@ if(!empty($adminConfig['user']['info'])) {
             </div>';                        
     echo '</div>';
     
-    //echo '<br /><hr class="small" /><br />';
-    echo '<br style="clear:both;" /><br />';
-    
     $pages = $orgPages;
+    
+    // ---------------------------------
+    // -> LAST EDITED PAGES
+    echo '<div class="innerBlockLeft">';    
+    echo '<h2>'.$langFile['home_lastEditedPages_h1'].'</h2>';    
+      echo '<div class="innerBlockListPages">
+            <table class="coloredList">';      
+      // SORT the Pages by VISIT SAVEDATE
+      usort($pages, 'sortByLastSaveDate');
+      
+      $count = 1;
+      $rowColor = 'dark'; // starting row color
+      foreach($pages as $page) { 
+        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($page['lastsavedate'])).'</b> '.$statisticFunctions->formatTime($page['lastsavedate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        // change row color
+        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
+        // count
+        if($count == $statisticConfig['number']['lastEditedPages']) break;
+        else $count++;
+      }
+      echo '</table>
+            </div>';
+    echo '</div>';
+    
+    $pages = $orgPages;    
+    
+    echo '<br style="clear:both;" /><br />';
     
     // ---------------------------------
     // ->> SEARCHWORD CLOUD    
@@ -249,7 +284,6 @@ if(!empty($adminConfig['user']['info'])) {
        
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';
-      $rowColor = 'dark'; // starting row color
       foreach($logContent as $logRow) {
         $logDateTime = substr($logRow,0,19);
         $logDate = $statisticFunctions->formatDate($logDateTime);
@@ -259,8 +293,7 @@ if(!empty($adminConfig['user']['info'])) {
         echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
         
         // change row color
-        if($rowColor == 'light') $rowColor = 'dark';
-        else $rowColor = 'light';
+        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';  
       }
       echo '</ul>
             </div>';

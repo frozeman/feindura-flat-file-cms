@@ -180,6 +180,9 @@ class statisticFunctions extends generalFunctions {
       $month = substr($givenDate,5,2);
       $day = substr($givenDate,8,2);
       
+      if(!empty($year) && !empty($month) && !empty($day) && !checkdate($month,$day,$year))
+        return $givenDate;
+      
       if(strstr($givenDate,'-') && is_numeric($year) && is_numeric($month) && is_numeric($day)) {
   
         if($format === false)
@@ -213,15 +216,18 @@ class statisticFunctions extends generalFunctions {
   * 
   */
   function formatTime($givenDate,$showSeconds = false) {
+      
       $hour = substr($givenDate,-8,2);
       $minute = substr($givenDate,-5,2);
       $second = ':'.substr($givenDate,-2,2);
-   
+      
       if(!$showSeconds) {
           $second = '';
       }    
-    
-      return $hour.':'.$minute.$second;
+      
+      return (is_numeric($hour) && is_numeric($minute))
+        ? $hour.':'.$minute.$second
+        : $givenDate;
   }
   
  /**
@@ -277,15 +283,15 @@ class statisticFunctions extends generalFunctions {
       $givenLangFile = $GLOBALS['langFile'];
 
     // if the date is TODAY
-    if(substr($date,0,10) == date('Y')."-".date('m')."-".date('d'))
+    if(substr($date,0,10) == date('Y-m-d'))
       return $givenLangFile['date_today'];
     
     // if the date is YESTERDAY
-    elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')-1)))
+    elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')-1)))
       return $givenLangFile['date_yesterday'];
     
     // if the date is TOMORROW
-    elseif(substr($date,0,10) == date('Y')."-".date('m')."-".sprintf("%02d",(date('d')+1)))
+    elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
       return $givenLangFile['date_tomorrow'];
   
     else return $date;
@@ -515,7 +521,7 @@ class statisticFunctions extends generalFunctions {
       $object = ($object) ? '|-|'.$object : false;
       
       // -> create the new log string
-      $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
+      $newLog = date('Y-m-d H:i:s').'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    
@@ -570,7 +576,7 @@ class statisticFunctions extends generalFunctions {
        $logFile = @fopen($logFile,"w")) {       
       
       // -> create the new log string
-      $newLog = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time()).' '.$_SERVER['HTTP_REFERER'];
+      $newLog = date('Y-m-d H:i:s').' '.$_SERVER['HTTP_REFERER'];
       
       // -> write the new log file
       flock($logFile,2);    
@@ -1128,9 +1134,9 @@ class statisticFunctions extends generalFunctions {
         
         // stores the agent again with new timestamp, if the user was less than 1h on the page,
         // after 1 hour the agent is deleted form the cache
-        if($currentDate - $cachedLineArray[1] < $maxTime) {
+        if($currentDate - $cachedLineArray[2] < $maxTime) {
           if($clear === false && $cachedLineArray[0] == $userAgentMd5) {          
-            $newLines[] = $cachedLineArray[0].'|'.$currentDate;
+            $newLines[] = $cachedLineArray[0].'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
             $return = true;
           } else
             $newLines[] = $cachedLine;
@@ -1139,7 +1145,7 @@ class statisticFunctions extends generalFunctions {
     }
     // agent doesn't exist, create a new cache
     if($return === false && $clear === false)
-      $newLines[] = $userAgentMd5.'|'.$currentDate;
+      $newLines[] = $userAgentMd5.'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
     
     // ->> OPEN visit.statistic.cache for writing
     if($cache = @fopen($cacheFile,"w")) {      
@@ -1154,6 +1160,53 @@ class statisticFunctions extends generalFunctions {
     
     // return the right value
     return $return;
+  }
+  
+ /**
+  * <b>Name</b> getCurrentVisitors()<br>
+  * 
+  * Gets the current user from the visitCache file (<var>statistic/visit.statistic.cache</var>)
+  * 
+  * return array the current visitors with $returnVisitors['ip'] and $returnVisitors['time']
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function getCurrentVisitors() {
+    
+    //var
+    $returnVisitors = array();
+    
+    if($currentVisitors = @file(dirname(__FILE__).'/../../statistic/visit.statistic.cache')) {
+      
+      // sort the visitors, the latest one first
+      usort($currentVisitors, 'sortCurrentUserByTime');
+    
+      foreach($currentVisitors as $currentVisitor) {
+        $currentVisitor = explode('|',$currentVisitor);
+          $returnVisitor['ip'] = $currentVisitor[1];
+          $returnVisitor['time'] = date('Y-m-d H:i:s',$currentVisitor[2]);
+          $returnVisitors[] = $returnVisitor;
+      }
+    }
+    
+    return $returnVisitors;
+    
+    /*$latestVisitCacheTime = 0;
+    $latestVisitCacheTimeText = $langFile['log_currentVisitors'];
+    if(!empty($visitCache) && is_array($visitCache)) {
+      foreach($visitCache as $visitCacheLine) {
+        $visitCacheLine = explode('|',$visitCacheLine);
+        if($latestVisitCacheTime < $visitCacheLine[1])
+          $latestVisitCacheTime = $visitCacheLine[1];
+      }
+     }
+      */
+      
+    
   }
   
  /**
@@ -1218,11 +1271,11 @@ class statisticFunctions extends generalFunctions {
         // -----------------------------
         if(!isset($this->websiteStatistic['firstVisit']) ||
           (isset($this->websiteStatistic['firstVisit']) && empty($this->websiteStatistic['firstVisit'])))
-          $this->websiteStatistic['firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+          $this->websiteStatistic['firstVisit'] = date('Y-m-d H:i:s');
         
         // -> saves the LAST WEBSITE VISIT
         // ----------------------------
-        $this->websiteStatistic['lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+        $this->websiteStatistic['lastVisit'] = date('Y-m-d H:i:s');
         
         // -> saves the HTTP REFERER
         // ----------------------------
@@ -1442,13 +1495,13 @@ class statisticFunctions extends generalFunctions {
       // -> saves the FIRST PAGE VISIT
       // -----------------------------
       if(empty($pageContent['log_firstVisit'])) {
-        $pageContent['log_firstVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+        $pageContent['log_firstVisit'] = date('Y-m-d H:i:s');
         $pageContent['log_visitCount'] = 0;
       }
       
       // -> saves the LAST PAGE VISIT
       // ----------------------------
-      $pageContent['log_lastVisit'] = date('Y')."-".date('m')."-".date('d').' '.date("H:i:s",time());
+      $pageContent['log_lastVisit'] = date('Y-m-d H:i:s');
       
       // -> COUNT UP, if the user haven't already visited this page in this session
       // --------------------------------------------------------------------------

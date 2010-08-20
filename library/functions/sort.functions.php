@@ -23,6 +23,18 @@
 
 $feindura_categories = $categoryConfig;
 
+// ** -- sortCurrentUserByTime ***************************************************************
+// sort an Array with the current users by the TIMESTAMP
+// -------------------------------------------------------------------------------------
+function sortCurrentUserByTime($a, $b) {     // (Array) $a = current; $b = follwing value
+  
+  $a = explode('|',$a);
+  $b = explode('|',$b);
+
+  return ($a[2] > $b[2]) ? -1 : 1;
+}
+// ---- sortBySortOrder is used by the function sortPages ------------------------------
+
 // ** -- sortBySortOrder ***************************************************************
 // sort an Array with the pageContent Array by SORTORDER
 // -------------------------------------------------------------------------------------

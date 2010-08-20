@@ -118,9 +118,8 @@ if(isset($_SESSION['chaptacheck']) && $_POST['chapta'] == $_SESSION['chaptacheck
   
   if($pflichtfelderOk && !empty($_POST['nachricht'])) {
   
-  $timestamp = time();
-  $senddate  = date(d).".".date(m).".".date(Y);
-  $sendtime = date("H:i",$timestamp);
+  $senddate  = date('d.m.Y');
+  $sendtime = date("H:i");
   
   
   //zeigt die felder in der email an, wenn sie aktiviert sind und nicht leer
