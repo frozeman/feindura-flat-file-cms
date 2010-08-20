@@ -1094,7 +1094,7 @@ class statisticFunctions extends generalFunctions {
   * <b>Name</b> hasVisitCache()<br>
   * 
   * Creates a <var>visit.statistic.cache</var> file and store the md5 sum of the user agent + ip with a timestamp.
-  * If the agent load again the website, it check if the agent is already in the cache and the timeframe of 1/2 hour is not passed.
+  * If the agent load again the website, it check if the agent is already in the cache and the timelimit of 10 min is not passed.
   * 
   * This function is used when the session ID cannot be transfered, because of deactivated cookies or no session ID in the link was transfered. 
   * 
@@ -1112,7 +1112,7 @@ class statisticFunctions extends generalFunctions {
     
     //var
     $return = false;
-    $maxTime = 1800; // 3600 seconds = 1 hour
+    $maxTime = 700; // 3600 seconds = 1 hour
     $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
     $currentDate = mktime(); //date("YmdHis");
     $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
@@ -1197,10 +1197,13 @@ class statisticFunctions extends generalFunctions {
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
-      
+    
+    // refresh the visit cache
+    $hasVisitCache = $this->hasVisitCache();
+    
     // COUNT if the user/spider isn't already counted
     if((isset($_SESSION['log_visited']) && $_SESSION['log_visited'] === false) ||
-       (!isset($_SESSION['log_visited']) && ($_SESSION['log_visited'] = $this->hasVisitCache()) === false)) {
+       (!isset($_SESSION['log_visited']) && $hasVisitCache === false)) {
    
       // ->> CHECKS if the user is NOT a BOT/SPIDER
       if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
