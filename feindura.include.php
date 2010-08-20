@@ -18,14 +18,15 @@
 *
 *
 * !!! PROTECTED VARs (do not overwrite these in your script)
-* -> $adminConfig
-* -> $websiteConfig
-* -> $websiteStatistic
-* -> $categoryConfig
+* -> $feindura_adminConfig
+* -> $feindura_websiteConfig
+* -> $feindura_categoryConfig
+* -> $feindura_$statisticConfig
+* -> $feindura_websiteStatistic
 */
 
 // -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
-session_name("websiteStatistic");
+session_name("statistic");
 session_start();
 
 // -> CHECKS if cookies are enabled
@@ -36,5 +37,11 @@ if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
 
 // -> include all important functions and config vars
 include_once(dirname(__FILE__)."/library/frontend.include.php");
+$feindura_adminConfig = $adminConfig;
+$feindura_websiteConfig = $websiteConfig;
+$feindura_categoryConfig = $categoryConfig;
+$feindura_statisticConfig = $statisticConfig;
+$feindura_websiteStatistic = $websiteStatistic;
+unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$websiteStatistic);
 
 ?>

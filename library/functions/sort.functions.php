@@ -47,37 +47,23 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
 // ---- sortBySortOrder is used by the function sortPages ------------------------------
 
 // ** -- sortByDate ********************************************************************
-// sort an Array with the pageContent Array by DATE
+// sort an Array with the pageContent Array by DATE TIMESTAMP
 // -------------------------------------------------------------------------------------
 function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
   
-  $a['pagedate'] = str_replace('-','',$a['pagedate']['date']);
-  $b['pagedate'] = str_replace('-','',$b['pagedate']['date']);
-
-  //echo $a['pagedate'].'<br>';
-  //echo $b['pagedate'].'<br><br>';
-  
-  if ($a['pagedate'] == $b['pagedate']) {
+  if ($a['pagedate']['date'] == $b['pagedate']['date'])
     return 0;
-  }
-  return ($a['pagedate'] > $b['pagedate']) ? -1 : 1;
+  return ($a['pagedate']['date'] > $b['pagedate']['date']) ? -1 : 1;
 }
 // ---- sortByDate is used by the function sortPages -----------------------------------
 
 // ** -- sortByLastSaveDate ********************************************************************
-// sort an Array with the pageContent Array by LASTSAVEDATE
+// sort an Array with the pageContent Array by LASTSAVEDATE TIMESTAMP
 // -------------------------------------------------------------------------------------
 function sortByLastSaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
-  
-  $a['lastsavedate'] = str_replace(array('-',':',' '),'',$a['lastsavedate']);
-  $b['lastsavedate'] = str_replace(array('-',':',' '),'',$b['lastsavedate']); 
-  
-  //echo $a['lastsavedate'].'<br>';
-  //echo $b['lastsavedate'].'<br><br>';
-  
-  if ($a['lastsavedate'] == $b['lastsavedate']) {
+    
+  if ($a['lastsavedate'] == $b['lastsavedate'])
     return 0;
-  }
   return ($a['lastsavedate'] > $b['lastsavedate']) ? -1 : 1;
 }
 // ---- sortByLastSaveDate is used by the function sortPages -----------------------------------
@@ -111,9 +97,8 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
 // sort an Array with the pageContent Array by VISIT COUNT
 // -------------------------------------------------------------------------------------
 function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
-  if ($a['log_visitCount'] == $b['log_visitCount']) {
+  if ($a['log_visitCount'] == $b['log_visitCount'])
     return 0;
-  }
   return ($a['log_visitCount'] > $b['log_visitCount']) ? -1 : 1;
 }
 
@@ -126,9 +111,8 @@ function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing
   $aMaxVisitTime = explode('|',$a['log_visitTime_max']);
   $bMaxVisitTime = explode('|',$b['log_visitTime_max']);
 
-  if ($aMaxVisitTime[0] == $bMaxVisitTime[0]) {
+  if ($aMaxVisitTime[0] == $bMaxVisitTime[0])
     return 0;
-  }
   return ($aMaxVisitTime[0] > $bMaxVisitTime[0]) ? -1 : 1;
 }
 
@@ -140,9 +124,8 @@ function sortSearchwordString($a, $b) {
   $aExp = explode(',',$a);
   $bExp = explode(',',$b);
   
-  if ($aExp[1] == $bExp[1]) {
+  if ($aExp[1] == $bExp[1])
       return 0;
-  }      
   //echo 'A:'.$aExp[1].'<br />';
   //echo 'B:'.$bExp[1].'<br />';
   return ($aExp[1] > $bExp[1]) ? -1 : 1;

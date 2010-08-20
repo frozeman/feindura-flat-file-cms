@@ -39,9 +39,6 @@ if($_POST['save']) {
   $_GET['page'] = $page;
   $_GET['category'] = $category;  
   
-  // generate current date
-  $lastsavedate	= date('Y-m-d H:i:s');
-  
   // format tags  
   $_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
@@ -91,11 +88,10 @@ if($_POST['save']) {
   }
   
   // only save page if no error occured
-  if($errorWindow === false) {
-  
+  if($errorWindow === false) {  
   
     // speichert den inhalt in der flatfile
-    $_POST['lastsavedate'] = $lastsavedate;
+    $_POST['lastsavedate'] = time();
     $_POST['lastsaveauthor'] = $_SERVER["REMOTE_USER"];
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
@@ -105,11 +101,13 @@ if($_POST['save']) {
     $generatedPageDate = $_POST['pagedate']['year'].'-'.$_POST['pagedate']['month'].'-'.$_POST['pagedate']['day'];
     
     // VALIDATE the SORT DATE
-    if(($pageDate = $statisticFunctions->validateDateFormat($generatedPageDate)) === false) {
+    if(($pageDate = $statisticFunctions->validateDateFormat($generatedPageDate)) === false)
       $pageDate = $generatedPageDate;
+    // if VALID set the validated date to the post var
+    else {
+      $_POST['pagedate']['date'] = $pageDate;
+      unset($pageDate);
     }
-    // set the validated date to the post var
-    $_POST['pagedate']['date'] = $pageDate;
     
     //echo '<br />'.$_POST['pagedate']['before'];
     //echo '<br />'.$_POST['pagedate']['date'];
@@ -167,6 +165,11 @@ if($pageContent = $generalFunctions->readPage($page,$category))
   $newPage = false;
 else
   $newPage = true;
+
+// check if already a (wrong) pageDate exists
+$pageDate = (isset($pageDate))
+  ? $pageDate
+  : $pageContent['pagedate']['date'];
 
 // set Title
 if($newPage) {
@@ -226,10 +229,13 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
 $lastSaveDate =  $statisticFunctions->formatDate($pageContent['lastsavedate']);
 $lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
 
-if($newPage)
-  echo '</h1>';
-else
-  echo '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.' '.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].']</span></h1>';
+$editedByUser = (!empty($pageContent['lastsaveauthor']))
+  ? ' '.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor']
+  : '';
+
+echo ($newPage)
+  ? '</h1>'
+  : '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.$editedByUser.' ]</span></h1>';
   
 ?>
   <div class="content">
@@ -562,7 +568,7 @@ else $hidden = ' hidden';
         
       // add the DATE of TODAY, if its a NEW PAGE
       if($newPage) {
-          $pageContent['pagedate']['date'] = date('Y-m-d');
+          $pageDate = time();
       }
       
       ?>      
@@ -577,7 +583,7 @@ else $hidden = ' hidden';
         $dateFormat = $langFile['date_int'];
       
       // CHECKs the DATE FORMAT
-      if(!empty($pageContent['pagedate']['date']) && $statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
+      if(!empty($pageDate) && $statisticFunctions->validateDateFormat($pageDate) === false)
         echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_pagedate_error'].'::'.$langFile['editor_pageSettings_pagedate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_pagedate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_tip'].'">'.$langFile['editor_pageSettings_field3'].'</span>';
@@ -597,7 +603,8 @@ else $hidden = ' hidden';
             $countDays = '0'.$i;
           else $countDays = $i;
           // selects the selected month
-          if(substr($pageContent['pagedate']['date'],-2) == $countDays)
+          if(substr($pageDate,-2) == $countDays ||
+             (preg_match('/^[0-9]{1,}$/',$pageDate) && date('d',$pageDate) == $countDays))
             $selected = ' selected="selected"';
           else $selected = null;
           $pageDateTags['day'] .= '<option value="'.$countDays.'"'.$selected.'>'.$countDays.'</option>'."\n";
@@ -612,7 +619,8 @@ else $hidden = ' hidden';
             $countMonths = '0'.$i;            
           else $countMonths = $i;
           // selects the selected month
-          if(substr($pageContent['pagedate']['date'],-5,2) == $countMonths)
+          if(substr($pageDate,-5,2) == $countMonths ||
+             (preg_match('/^[0-9]{1,}$/',$pageDate) && date('m',$pageDate) == $countMonths))
             $selected = ' selected="selected"';
           else $selected = null;
           $pageDateTags['month'] .= '<option value="'.$countMonths.'"'.$selected.'>'.$countMonths.'</option>'."\n";
@@ -620,12 +628,15 @@ else $hidden = ' hidden';
         $pageDateTags['month'] .= '</select>'."\n";
         
         // -> creates YEAR selection
-        $year = substr($pageContent['pagedate']['date'],0,4);
-        if(preg_match('/[0-9]{4}/',$year))
+        $year = substr($pageDate,0,4);
+        if(strlen($pageDate) > 4 && preg_match('/^[0-9]{1,}$/',$pageDate))
+          $year = date('Y',$pageDate);
+        elseif(preg_match('/^[0-9]{4}$/',$year))
           $year = $year;
-        else $year = null;
+        else
+          $year = null;
+          
         $pageDateTags['year'] = '<input type="text" class="short toolTip" name="pagedate[year]" title="'.$langFile['editor_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
-
         
         // -> WRITES the SORT DATE TAGS
         if($adminConfig['dateFormat'] == 'eu') {
@@ -636,7 +647,6 @@ else $hidden = ' hidden';
         
         ?>
         
-        <!--<input id="edit_pagedate" name="pagedate[date]" value="<?php echo $statisticFunctions->formatDate($pageContent['pagedate']['date']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_inpuTip_part2'].' '.$dateFormat; ?>" style="width:90px; text-align:center;" />-->
         <input name="pagedate[after]" value="<?php echo $pageContent['pagedate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
       </td></tr>
       <?php }

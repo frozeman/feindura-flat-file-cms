@@ -721,7 +721,7 @@ class feindura extends feinduraBase {
   function feindura($language = false) {
     
     // RUN the feinduraBase constructor
-    $this->feinduraBase($language);        
+    $this->feinduraBase($language);
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
@@ -1538,6 +1538,7 @@ class feindura extends feinduraBase {
   * with pages which have a page date and the page date fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
   * 
+  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   * 
   * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
   * If its any other tag name it just enclose the links with this HTML-tag.
@@ -1552,8 +1553,8 @@ class feindura extends feinduraBase {
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
-  * @param int|bool       $monthsInThePast    (optional) number of months before today, if TRUE it loads all pages in the past, if FALSE it loads only pages starting from today
-  * @param int|bool       $monthsInTheFuture  (optional) number of months after today, if TRUE it loads all pages in the future, if FALSE it loads only pages until today
+  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
@@ -1991,6 +1992,7 @@ class feindura extends feinduraBase {
   * List pages by given category or page ID(s) sorted by the page date which have a page date and it fit in the time period
   * from the <var>$monthsInThePast</var> and the <var>$monthsInTheFuture</var> parameter starting from the date today.
   * 
+  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
   * 
   * Returns an array with multiple pages for displaying in a HTML-page. 
   * In case no page with the given category or page ID(s) exist it returns an empty array.
@@ -2002,8 +2004,8 @@ class feindura extends feinduraBase {
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
-  * @param int|bool       $monthsInThePast    (optional) number of months before today, if TRUE it loads all pages in the past, if FALSE it loads only pages starting from today
-  * @param int|bool       $monthsInTheFuture  (optional) number of months after today, if TRUE it loads all pages in the future, if FALSE it loads only pages until today
+  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
   * @param int|false      $shortenText	      (optional) number of the maximal content text length shown of the pages, adds a "more" link at the end or FALSE to not shorten
   * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category

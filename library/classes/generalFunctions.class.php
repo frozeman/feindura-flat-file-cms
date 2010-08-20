@@ -117,8 +117,8 @@ class generalFunctions {
   function generalFunctions() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = $GLOBALS['adminConfig'];
-    $this->categoryConfig = $GLOBALS['categoryConfig'];
+    $this->adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
+    $this->categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
 
   }
   

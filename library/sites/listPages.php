@@ -183,7 +183,7 @@ foreach($allCategories as $category) {
     foreach ($pages as $pageContent) {
 
       // vars
-      $showDate = '';
+      $pageDate = '';
       $showTags = '';
       $sort_order[] = $pageContent['sortorder'];
     
@@ -213,11 +213,11 @@ foreach($allCategories as $category) {
       	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
 	
         // CHECKs the DATE FORMAT
-        $showDate = ($statisticFunctions->validateDateFormat($pageContent['pagedate']['date']) === false)
+        $pageDate = ($statisticFunctions->validateDateFormat($statisticFunctions->formatDate($pageContent['pagedate']['date'])) === false)
         ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pagedate']['date'].$titleDateAfter
         : '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$langFile)).$titleDateAfter;
         
-      } else $showDate = '';
+      } else $pageDate = '';
       
       // -> show tags
       if($category['showtags'] && !empty($pageContent['tags'])) {
@@ -240,7 +240,7 @@ foreach($allCategories as $category) {
         $startPageText = '';
       }
       
-      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$showDate.$showTags.'"><b>'.$title.'</b></a></div>';
+      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
       if(!empty($pageContent['lastsaveauthor']))
         echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
       else

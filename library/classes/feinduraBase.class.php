@@ -231,9 +231,9 @@ class feinduraBase {
   function feinduraBase($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = $GLOBALS["adminConfig"];
-    $this->websiteConfig = $GLOBALS["websiteConfig"];
-    $this->categoryConfig = $GLOBALS["categoryConfig"];
+    $this->adminConfig = $GLOBALS["feindura_adminConfig"];
+    $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
+    $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
     
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();
@@ -696,12 +696,12 @@ class feinduraBase {
     // *****************
     $pagedate = false;
     if($this->statisticFunctions->checkPageDate($pageContent)) {
-	$titleDateBefore = '';
-	$titleDateAfter = '';
-	// adds spaces on before and after
-	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
-	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-	$pagedate = $titleDateBefore.$this->statisticFunctions->formatDate($this->statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
+    	$titleDateBefore = '';
+    	$titleDateAfter = '';
+    	// adds spaces on before and after
+    	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
+    	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
+    	$pagedate = $titleDateBefore.$this->statisticFunctions->formatDate($this->statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
@@ -1420,27 +1420,30 @@ class feinduraBase {
   * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
   * All time period parameters are compared against the date of TODAY.
   * 
-  * @param string         $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param bool|int       $monthsInThePast       if FALSE it shows pages only FROM today on, if TRUE it shows all pages in the past, if number it shows all pages within the number of months in the past
-  * @param bool|int       $monthsInTheFuture     if FALSE it shows pages only UNTIL today, if TRUE it shows all pages in the future, if number it shows all pages within the number of months in the future
-  * @param bool           $sortByCategories      determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
-  * @param bool	          $reverseList           if TRUE the pages sorting will be reversed
+  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * 
+  * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
+  * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
   * 
   * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
   * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
   * @uses loadPagesByType()               load the pages depending on the type
-  * @uses changeDate()                    change the current date minus or plus the months from the parameters
+  * @uses changeDate()                    change the current date minus or plus the months from specified in the parameters
   * @uses gernalFunctions::sortPages()		to sort the pages by page date
   * 
   * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
   * 
+  * @link http://www.php.net/manual/de/datetime.formats.php
   * 
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
-  *   
+  * 
   */     
   function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
 
@@ -1455,20 +1458,24 @@ class feinduraBase {
     if($pages = $this->loadPagesByType($idType,$ids)) {
       
       // creates the current date to compare with
-      $currentDate = date('Ymd');       
+      $currentDate = time();       
       
       $pastDate = false;
       $futureDate = false;
        
       // creates the PAST DATE
-      if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-        $pastDate = $this->changeDate($currentDate,$monthsInThePast,false);
+      if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
+        $pastDate = strtotime($monthsInThePast,$currentDate);
+      elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
+        $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
       elseif($monthsInThePast === false)
         $pastDate = $currentDate;
                       
       // creates the FUTURE DATE
+      if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
+        $pastDate = strtotime($monthsInTheFuture,$currentDate);
       if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-        $futureDate = $this->changeDate($currentDate,$monthsInTheFuture,true);
+        $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
       elseif($monthsInTheFuture === false)
         $futureDate = $currentDate;
       
@@ -1482,18 +1489,15 @@ class feinduraBase {
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['pagedate']['date']) &&
-           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['showpagedate'])) {
+           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['showpagedate'])) {         
            
-           // makes the page sort date compareable
-           $pageDate = str_replace('-','',$page['pagedate']['date']);
-           
-           //echo 'pageDate: '.$pageDate.'<br /><br />';           
+           //echo $page['pagedate']['date'].' >= '.$pastDate.'<br />';
            
            // adds the page to the array, if:
            // -> the currentdate ist between the minus and the plus month or
            // -> mins or plus month are true (means there is no time limit)
-           if(($monthsInThePast === true || $pageDate >= $pastDate) &&
-              ($monthsInTheFuture === true || $pageDate <= $futureDate))
+           if(($monthsInThePast === true || $page['pagedate']['date'] >= $pastDate) &&
+              ($monthsInTheFuture === true || $page['pagedate']['date'] <= $futureDate))
              $selectedPages[] = $page;
         }
       }      
@@ -1520,58 +1524,6 @@ class feinduraBase {
       
     } else return false;
     //return $return;
-  }
-
- /**
-  * <b>Name</b> changeDate()<br />
-  * 
-  * Change add or substract month from a date.
-  * 
-  * @param string    $date			the date to be changed in fomrat: YYYYMMDD
-  * @param int       $monthNumber		the number of month to add or substract
-  * @param bool      $addMonths			if TRUE it adds the month otherwise i substract them
-  * 
-  * @return string the modified date or if the $monthNumber parameter is a bool the unmodified date
-  * 
-  * 
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  *   
-  */   
-  function changeDate($date, $monthNumber, $addMonths = true) {
-    
-    // CHECKS if the given date and month are numbers and not a boolean
-    if(!is_numeric($date) || (is_bool($monthNumber) && !is_numeric($monthNumber)))
-      return $date;
-    
-    // das aktuelle jahr
-    $year = substr($date,0,4);
-    $month = substr($date,4,2);
-    $day = substr($date,6,2);
-    
-    // subtrahiert oder addiert monnate zum aktuellen monat
-    if($addMonths === true)
-      $month += $monthNumber;
-    else
-      $month -= $monthNumber;  
-    // counts the year up if month are higher than 12
-    while($month > 12) {
-        $year++;
-        $month -= 12;
-    }
-    while($month <= 0) {
-        $year--;
-        $month += 12;
-    }  
-    
-    // sets the month to two chracters MM
-    if(strlen($month) == 1)
-      $month = "0".$month;
-      
-  	// returns the new date
-  	return $year.$month.$day;
   }
   
  /**

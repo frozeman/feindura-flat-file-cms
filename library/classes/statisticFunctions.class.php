@@ -101,8 +101,8 @@ class statisticFunctions extends generalFunctions {
     $this->generalFunctions();
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->websiteStatistic = $GLOBALS["websiteStatistic"];
-    $this->statisticConfig = $GLOBALS["statisticConfig"];
+    $this->websiteStatistic = (isset($GLOBALS["websiteStatistic"])) ? $GLOBALS["websiteStatistic"] : $GLOBALS["feindura_websiteStatistic"];
+    $this->statisticConfig = (isset($GLOBALS["statisticConfig"])) ? $GLOBALS["statisticConfig"] : $GLOBALS["feindura_statisticConfig"];
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -112,9 +112,9 @@ class statisticFunctions extends generalFunctions {
  /**
   * <b>Name</b> getMicroTime()<br>
   * 
-  * Returns a unix timestamp as float
+  * Returns a UNIX-Timestamp as float
   * 
-  * @return float the unix timestamp
+  * @return float the UNIX-Timestamp
   * 
   * @version 1.0
   * <br>
@@ -159,75 +159,63 @@ class statisticFunctions extends generalFunctions {
  /**
   * <b>Name</b> formatDate()<br>
   * 
-  * Converst a given date into the given format type.
+  * Converst a given timestamp into the a specific format type.
   * 
-  * @param string $givenDate the given date with following format: "YYYY-MM-DD HH:MM:SS" or "YYYY-MM-DD"
+  * @param int    $timeStamp a UNIX-Timestamp
   * @param string $format    (optional) the format type can be "eu" to format into: "DD-MM-YYYY", or "int" to format into: "YYYYY-MM-DD", if FALSE it uses the format set in the administrator-settings config
   * 
   * @uses $adminConfig  to get the right date format, if no format is given
   * 
-  * @return string the formated date, if the given forrmat or date is not valid it just returns the unchaged date
+  * @return string the formated date or the unchanged $timestamp parameter
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 changed from date conversion to timestamp
   *    - 1.0 initial release
   * 
   */
-  function formatDate($givenDate, $format = false) {
-                              
-      $year = substr($givenDate,0,4);
-      $month = substr($givenDate,5,2);
-      $day = substr($givenDate,8,2);
-      
-      if(!empty($year) && !empty($month) && !empty($day) && !checkdate($month,$day,$year))
-        return $givenDate;
-      
-      if(strstr($givenDate,'-') && is_numeric($year) && is_numeric($month) && is_numeric($day)) {
-  
-        if($format === false)
-          $format = $this->adminConfig['dateFormat'];
+  function formatDate($timeStamp, $format = false) {
+    
+    if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
+      return $timeStamp;
+             
+    if($format === false)
+      $format = $this->adminConfig['dateFormat'];
         
-        if($format == 'eu') {
-            return $day.'.'.$month.'.'.$year;        
-        } elseif($format == 'int') {
-            return $year.'-'.$month.'-'.$day;
-        } else
-            return $givenDate;
-            
-      } else
-        return $givenDate;
+    if($format == 'eu') {
+        return date('d.m.Y',$timeStamp);
+    } elseif($format == 'int') {
+        return date('Y-m-d',$timeStamp);
+    } else
+        return $timeStamp;
   }
   
  /**
   * <b>Name</b> formatTime()<br>
   * 
-  * Converts a given date-time into the following format "12:60" or "12:60:00", if the <var>$showSeconds</var> parameter is TRUE.
+  * Converts a given timestamp into the following format "12:60" or "12:60:00", if the <var>$showSeconds</var> parameter is TRUE.
   * 
-  * @param string $givenDate      the given date with following format: "YYYY-MM-DD HH:MM:SS" or "HH:MM:SS"
+  * @param int    $timeStamp      the given date with following format: "YYYY-MM-DD HH:MM:SS" or "HH:MM:SS"
   * @param bool   $showSeconds    (optional) whether seconds are shown in the time string
   * 
-  * @return string the formated time with or without seconds
+  * @return string the formated time with or without seconds or the $timestamp parameter
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 changed from date conversion to timestamp  
   *    - 1.0 initial release
   * 
   */
-  function formatTime($givenDate,$showSeconds = false) {
-      
-      $hour = substr($givenDate,-8,2);
-      $minute = substr($givenDate,-5,2);
-      $second = ':'.substr($givenDate,-2,2);
-      
-      if(!$showSeconds) {
-          $second = '';
-      }    
-      
-      return (is_numeric($hour) && is_numeric($minute))
-        ? $hour.':'.$minute.$second
-        : $givenDate;
+  function formatTime($timeStamp,$showSeconds = false) {
+    
+    if(empty($timeStamp) || !preg_match('/^[0-9]{1,}$/',$timeStamp))
+      return $timeStamp;
+    
+    return ($showSeconds)
+      ? date('H:i:s',$timeStamp)
+      : date('H:i',$timeStamp);
   }
   
  /**
@@ -265,10 +253,10 @@ class statisticFunctions extends generalFunctions {
   * <b>Used Global Variables</b><br>
   *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
   * 
-  * @param string       $date           the date which will be checked, with the format: "YYYY-MM-DD HH:MM"
+  * @param int          $timestamp      the timestamp to check
   * @param array|false  $givenLangFile  the languageFile which contains the ['date_yesterday'], ['date_today'] and ['date_tomorrow'] texts, if FALSE it loads the backend language-file
   * 
-  * @return string a string with "yesterday", "today" or "tomorrow" or the unchanged date
+  * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
   * 
   * 
   * @version 1.0
@@ -277,11 +265,17 @@ class statisticFunctions extends generalFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  function dateDayBeforeAfter($date,$givenLangFile = false) {
+  function dateDayBeforeAfter($timestamp,$givenLangFile = false) {
+    
+    if(empty($timestamp) || !preg_match('/^[0-9]{1,}$/',$timestamp))
+      return $timestamp;
+
+    //var
+    $date = date('Y-m-d',$timestamp);
     
     if($givenLangFile === false)
       $givenLangFile = $GLOBALS['langFile'];
-
+    
     // if the date is TODAY
     if(substr($date,0,10) == date('Y-m-d'))
       return $givenLangFile['date_today'];
@@ -294,7 +288,8 @@ class statisticFunctions extends generalFunctions {
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
       return $givenLangFile['date_tomorrow'];
   
-    else return $date;
+    else
+      return $timestamp;
   }
   
  /**
@@ -329,11 +324,11 @@ class statisticFunctions extends generalFunctions {
  /**
   * <b>Name</b> validateDateFormat()<br>
   * 
-  * Check if a date is valid and returns the date in the following format: "YYYY-MM-DD".
+  * Check if a date is valid and returns the date as UNIX-Timestamp
   * 
-  * @param string $dateString the date to validate can have the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing seperators ".", "-", "/", " ", '", "," or ";"
+  * @param string $dateString a UNIX-Timestamp or the date to validate, with the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing seperators ".", "-", "/", " ", '", "," or ";"
   * 
-  * @return string|false the checked date or FALSE if the date is not valid
+  * @return int|false the timestamp of the date or FALSE if the date is not valid
   * 
   * @version 1.0
   * <br>
@@ -342,6 +337,10 @@ class statisticFunctions extends generalFunctions {
   * 
   */
   function validateDateFormat($dateString) {
+    
+    // if its a unix timestamp return immediately
+    if(preg_match('/^[0-9]{1,}$/',$dateString))
+      return $dateString;
     
     if(!is_string($dateString) && !is_numeric($dateString))
       return false;
@@ -363,15 +362,16 @@ class statisticFunctions extends generalFunctions {
         if(checkdate(substr($date[0], 4, 2),
                      substr($date[0], 6, 2),
                      substr($date[0], 0, 4)))
-          return substr($date[0], 0, 4).'-'.substr($date[0], 4, 2).'-'.substr($date[0], 6, 2);
+          return mktime(23,59,59,substr($date[0], 4, 2),substr($date[0], 6, 2),substr($date[0], 0, 4));
         // DDMMYYYY
         elseif(checkdate(substr($date[0], 2, 2),
-                     substr($date[0], 0, 2),
-                     substr($date[0], 4, 4)))
-          return substr($date[0], 4, 4).'-'.substr($date[0], 2, 2).'-'.substr($date[0], 0, 2);
+                         substr($date[0], 0, 2),
+                         substr($date[0], 4, 4)))
+          return mktime(23,59,59,substr($date[0], 2, 2),substr($date[0], 0, 2),substr($date[0], 4, 4));
         else
           return false;
-      } else return false;
+      } else
+        return false;
       
     // -> CHECK the array with the date
     } elseif(count($date) == 3 &&
@@ -386,20 +386,20 @@ class statisticFunctions extends generalFunctions {
         $date[1] = '0'.$date[1];
       if(strlen($date[2]) == 1)
         $date[2] = '0'.$date[2];
-      
+      //echo 'dd:'.$date[0].'-'.$date[1].'-'.$date[2];
       //ddmmyyyy
       if(strlen($date[2]) == 4 && checkdate($date[1], $date[0], $date[2]))
-        return $date[2].'-'.$date[1].'-'.$date[0];
+        return mktime(23,59,59,$date[1],$date[0],$date[2]);
       //yyyymmdd
       elseif(strlen($date[0]) == 4 && checkdate($date[1], $date[2], $date[0]))
-        return $date[0].'-'.$date[1].'-'.$date[2];
+        return mktime(23,59,59,$date[1],$date[2],$date[0]);
       //mmddyyyy
       elseif(strlen($date[2]) == 4 && checkdate($date[0], $date[1], $date[2]))
-        return $date[2].'-'.$date[0].'-'.$date[1];    
+        return mktime(23,59,59,$date[0],$date[1],$date[2]);
       else
         return false;
     }
-   
+    
     // if the function doesn't return something, return false
     return false;
   }
@@ -521,7 +521,7 @@ class statisticFunctions extends generalFunctions {
       $object = ($object) ? '|-|'.$object : false;
       
       // -> create the new log string
-      $newLog = date('Y-m-d H:i:s').'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
+      $newLog = time().'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    
@@ -576,7 +576,7 @@ class statisticFunctions extends generalFunctions {
        $logFile = @fopen($logFile,"w")) {       
       
       // -> create the new log string
-      $newLog = date('Y-m-d H:i:s').' '.$_SERVER['HTTP_REFERER'];
+      $newLog = time().' '.$_SERVER['HTTP_REFERER'];
       
       // -> write the new log file
       flock($logFile,2);    
@@ -1120,7 +1120,7 @@ class statisticFunctions extends generalFunctions {
     $return = false;
     $maxTime = 700; // 3600 seconds = 1 hour
     $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
-    $currentDate = mktime(); //date("YmdHis");
+    $currentDate = time(); //date("YmdHis");
     $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
     $newLines = array();
     
@@ -1188,7 +1188,7 @@ class statisticFunctions extends generalFunctions {
       foreach($currentVisitors as $currentVisitor) {
         $currentVisitor = explode('|',$currentVisitor);
           $returnVisitor['ip'] = $currentVisitor[1];
-          $returnVisitor['time'] = date('Y-m-d H:i:s',$currentVisitor[2]);
+          $returnVisitor['time'] = $currentVisitor[2];
           $returnVisitors[] = $returnVisitor;
       }
     }
@@ -1271,11 +1271,11 @@ class statisticFunctions extends generalFunctions {
         // -----------------------------
         if(!isset($this->websiteStatistic['firstVisit']) ||
           (isset($this->websiteStatistic['firstVisit']) && empty($this->websiteStatistic['firstVisit'])))
-          $this->websiteStatistic['firstVisit'] = date('Y-m-d H:i:s');
+          $this->websiteStatistic['firstVisit'] = time();
         
         // -> saves the LAST WEBSITE VISIT
         // ----------------------------
-        $this->websiteStatistic['lastVisit'] = date('Y-m-d H:i:s');
+        $this->websiteStatistic['lastVisit'] = time();
         
         // -> saves the HTTP REFERER
         // ----------------------------
@@ -1495,13 +1495,13 @@ class statisticFunctions extends generalFunctions {
       // -> saves the FIRST PAGE VISIT
       // -----------------------------
       if(empty($pageContent['log_firstVisit'])) {
-        $pageContent['log_firstVisit'] = date('Y-m-d H:i:s');
+        $pageContent['log_firstVisit'] = time();
         $pageContent['log_visitCount'] = 0;
       }
       
       // -> saves the LAST PAGE VISIT
       // ----------------------------
-      $pageContent['log_lastVisit'] = date('Y-m-d H:i:s');
+      $pageContent['log_lastVisit'] = time();
       
       // -> COUNT UP, if the user haven't already visited this page in this session
       // --------------------------------------------------------------------------
