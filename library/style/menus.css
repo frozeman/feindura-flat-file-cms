@@ -218,50 +218,36 @@
 
 .subMenu li a {
     display: block;
-    width: 45px;
+    width: 50px;
     height: 48px;
     margin: 0px 5px;
     text-decoration: none;
     }
+.subMenu a:hover {
+    background-position: -50px 0px !important;
+    }
 
 /* fileManager */ 
 .subMenu a.fileManager {
-    width: 50px;
     background: url("../image/key/subMenu_fileManager.png") no-repeat;
-    }
-.subMenu a.fileManager:hover {
-    background-position: -50px 0px;
     }
 /* createPage */ 
 .subMenu a.createPage {
     background: url("../image/key/subMenu_createPage.png") no-repeat;
     }
-.subMenu a.createPage:hover {
-    background-position: -45px 0px;
-    }
 /* deletePage */ 
 .subMenu a.deletePage {
     background: url("../image/key/subMenu_deletePage.png") no-repeat;
     }
-.subMenu a.deletePage:hover {
-    background-position: -45px 0px;
-    }
 /* uploadThumb */ 
 .subMenu a.pageThumbnailUpload {
-    width: 50px;
     background: url("../image/key/subMenu_uploadThumb.png") no-repeat;
-    }
-.subMenu a.pageThumbnailUpload:hover {
-    background-position: -50px 0px;
     }
 /* deleteThumb */ 
 .subMenu a.pageThumbnailDelete {
-    width: 50px;
     background: url("../image/key/subMenu_deleteThumb.png") no-repeat;
     }
-.subMenu a.pageThumbnailDelete:hover {
-    background-position: -50px 0px;
-    }
+
 
 /* --- FOOTERMENU ------------------------------------------------------------------------------------------------------------------- */
 

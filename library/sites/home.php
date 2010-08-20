@@ -91,22 +91,26 @@ if(!empty($adminConfig['user']['info'])) {
     // USER COUNTER
     echo '<div class="innerBlockLeft">';
     echo '<h2>'.$langFile['log_visitCount'].'</h2>';
-    
-      echo '<div style="width:100%; text-align:center;">';
-      
-      echo '<span class="visitCountNumber brown">'.$statisticFunctions->formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
-      echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'"><b>'.$langFile['log_spiderCount'].'</b> '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span>
-          <hr class="small" />';
-      echo '</div>';
       
       $latestVisitCacheTimeText = (!empty($currentVisitors[0]['time']))
         ? $langFile['log_currentVisitors_lastActivity'].' '.$statisticFunctions->formatTime($currentVisitors[0]['time'])
         : $langFile['log_currentVisitors'];
       
-      if(!empty($websiteStatistic['firstVisit'])) {
-        echo '<div style="width:100%; text-align:right;">';
+      echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
+      
+      echo '<span class="visitCountNumber brown">'.$statisticFunctions->formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+      
+      echo '<div style="line-height: 18px;">';
+        echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'">'.$langFile['log_spiderCount'].' '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
         // CURRENT VISITORS
-        echo '<span>'.$langFile['log_currentVisitors'].' <span class="blue toolTip" title="'.$latestVisitCacheTimeText.'::"><b>'.count($currentVisitors,0).'</b></span></span><br />';
+        echo '<span class="toolTip blue" title="'.$latestVisitCacheTimeText.'::"><b>'.$langFile['log_currentVisitors'].'</b> '.count($currentVisitors,0).'</span>';
+      echo '</div>';  
+      echo '<hr class="small" />';
+      echo '</div>';     
+      
+      
+      if(!empty($websiteStatistic['firstVisit'])) {
+        echo '<div style="width:100%; text-align:right;">';       
         // FIRST VISIT
         echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
         // LADST VISIT
