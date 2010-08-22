@@ -576,7 +576,7 @@ class statisticFunctions extends generalFunctions {
        $logFile = @fopen($logFile,"w")) {       
       
       // -> create the new log string
-      $newLog = time().' '.$_SERVER['HTTP_REFERER'];
+      $newLog = time().'|'.$_SERVER['HTTP_REFERER'];
       
       // -> write the new log file
       flock($logFile,2);    

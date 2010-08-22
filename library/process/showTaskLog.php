@@ -34,8 +34,10 @@ foreach($logContent as $logRow) {
   
   //vars
   $maxLength = 28;
-  $logRow = explode('|-|',$logRow);
+  $taskObject = null;
+  $logUser = null;
   
+  $logRow = explode('|-|',$logRow);
   $logDate = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($logRow[0]));
   $logTime = $statisticFunctions->formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))

@@ -62,6 +62,16 @@
     bottom: 100px;
     }
 
+/* innerblock */  
+
+.block .innerBlockListPages {
+    height: 126px; /* org 108px */
+    }
+
+#refererLogContainer {
+    height: 250px;
+    }
+
 /* listPages */
 
 .listPages .content div {

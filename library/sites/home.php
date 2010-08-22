@@ -289,10 +289,10 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';
       foreach($logContent as $logRow) {
-        $logDateTime = substr($logRow,0,19);
-        $logDate = $statisticFunctions->formatDate($logDateTime);
-        $logTime = $statisticFunctions->formatTime($logDateTime);
-        $logUrl = substr($logRow,20);
+        $logRow = explode('|',$logRow);
+        $logDate = $statisticFunctions->formatDate($logRow[0]);
+        $logTime = $statisticFunctions->formatTime($logRow[0]);
+        $logUrl = $logRow[1];
  
         echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';
         
