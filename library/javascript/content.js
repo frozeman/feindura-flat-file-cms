@@ -246,7 +246,7 @@ function blockSlideInOut(givenIdCLass) {
     blocksInDiv = givenIdCLass + ' ';
   }
   
-  $$(blocksInDiv + '.block').each(function(block) {
+  $$(blocksInDiv + '.block').each(function(block,i) {
 	   
      var slideButtonH1;
 	   var slideContent;
@@ -276,7 +276,10 @@ function blockSlideInOut(givenIdCLass) {
       var slideContentHeightOut = slideContent.offsetHeight;
        
   	  // creates the slide effect
-  	  slideVertical = new Fx.Slide(slideContent,{duration: '500', transition: Fx.Transitions.Pow.easeOut});      
+  	  slideVertical = new Fx.Slide(slideContent,{
+            duration: '500',
+            transition: Fx.Transitions.Pow.easeOut
+      });      
       
       // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
       slideVertical.onStart = function(el) {     
@@ -293,13 +296,14 @@ function blockSlideInOut(givenIdCLass) {
               block.addClass('hidden'); // to change the arrow
               slideContent.setStyle('display','none'); // to allow sorting above the slided in box
               //slideContent.getParent().fade('hide');
-              slideVertical.open = false;
+              slideVertical.open = false;              
         } else {
   	          block.removeClass('hidden'); // to change the arrow
   	          slideContent.setStyle('display','block'); // to allow sorting above the slided in box
               slideContent.getParent().setStyle('height','auto');
               //slideContent.getParent().fade('show');
               slideVertical.open= true;
+              new Fx.Scroll(window,{duration: '300',}).start(window.getPosition().x,block.getPosition().y - 80);
         }
         layoutFix();
       }
@@ -324,10 +328,26 @@ function blockSlideInOut(givenIdCLass) {
   });
 }
 
+/* scrollToAnchor function*/
+var scrollToAnchor = function(){ new Fx.Scroll(window,{duration:100}).start(0,this.getPosition().y - 50); };
+
 // *---------------------------------------------------------------------------------------------------*
 //  LOAD (if all pics are loaded)
 // *---------------------------------------------------------------------------------------------------*
-window.addEvent('load',autoResizeThumbnailPreview);
+window.addEvent('load', function() {
+
+    autoResizeThumbnailPreview();    
+ 
+    // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
+    var anchorId = window.location.hash.substring(1);
+    anchorId = $(anchorId);
+    //alert(anchorId + ' -> '+ $(anchorId).getPosition(window).y);
+    if(anchorId != null) {
+      scrollToAnchor.delay(1,anchorId);
+    }
+
+    
+});
 
 // *---------------------------------------------------------------------------------------------------*
 //  DOMREADY
@@ -365,19 +385,6 @@ window.addEvent('domready', function() {
       wheelStops: true,
       duration: 200
   });
-  
-  /*
-  // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
-  var anchorId = window.location.hash.substring(1);
-  anchorId = $(anchorId);
-  //alert(anchorId + ' -> '+ $(anchorId).getPosition(window).y);
-  if(anchorId != null) {
-    window.scrollTo(0,anchorId.getPosition(window).y - 50);
-    //window.scrollTo(100, $(anchorId).getPosition().y);
-    //document.getElementById(anchorId)).scrollIntoView(true);
-    //window.location.hash = anchorId;
-  }
-  */
   
   // -------------------------------------------------------------------------------------------
   // TOOLTIPS (throws error in IE when tooltTips are in a <form> tag)

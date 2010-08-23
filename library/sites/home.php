@@ -103,7 +103,15 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div style="line-height: 18px;">';
         echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'">'.$langFile['log_spiderCount'].' '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
         // CURRENT VISITORS
-        echo '<span class="toolTip blue" title="'.$latestVisitCacheTimeText.'::"><b>'.$langFile['log_currentVisitors'].'</b> '.count($currentVisitors,0).'</span>';
+        $countVisitor = 0;
+        $countSpider = 0;
+        foreach($currentVisitors as $currentVisitor) {
+          if($currentVisitor['type'] == 'visitor')
+            $countVisitor++;
+          else
+            $countSpider++;
+        }
+        echo '<span class="toolTip blue" title="'.$latestVisitCacheTimeText.'::"><b>'.$langFile['log_currentVisitors'].'</b> '.$countVisitor.' ('.$langFile['log_spiderCount'].' '.$countSpider.')</span>';
       echo '</div>';  
       echo '<hr class="small" />';
       echo '</div>';     
@@ -148,7 +156,7 @@ if(!empty($adminConfig['user']['info'])) {
           : '';
                 
         if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
-          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b>'.$currentVisitor['ip'].'</b></td><td>'.$langFile['log_currentVisitors_lastActivity'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
+          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['log_currentVisitors_lastActivity'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
         
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
