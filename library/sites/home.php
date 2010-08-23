@@ -127,7 +127,7 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';
       
-      /**
+      /*
        * uses GeoIPLite
        * 
        * @link http://geolite.maxmind.com/download/geoip/api/php/
@@ -146,8 +146,8 @@ if(!empty($adminConfig['user']['info'])) {
         $geoIPFlag = (!empty($geoIPCode))
           ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
           : '';
-        
-        if(!empty($currentVisitor))
+                
+        if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
           echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b>'.$currentVisitor['ip'].'</b></td><td>'.$langFile['log_currentVisitors_lastActivity'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
         
         // change row color

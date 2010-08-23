@@ -1108,9 +1108,10 @@ class statisticFunctions extends generalFunctions {
   * 
   * return bool TRUE the user agent is in the cache, FALSE if not
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 add type, which can be "spider" or "visitor" 
   *    - 1.0 initial release
   * 
   */
@@ -1134,9 +1135,9 @@ class statisticFunctions extends generalFunctions {
         
         // stores the agent again with new timestamp, if the user was less than 1h on the page,
         // after 1 hour the agent is deleted form the cache
-        if($currentDate - $cachedLineArray[2] < $maxTime) {
-          if($clear === false && $cachedLineArray[0] == $userAgentMd5) {          
-            $newLines[] = $cachedLineArray[0].'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
+        if($currentDate - $cachedLineArray[3] < $maxTime) {
+          if($clear === false && $cachedLineArray[1] == $userAgentMd5) {          
+            $newLines[] = $cachedLineArray[0].'|'.$cachedLineArray[1].'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
             $return = true;
           } else
             $newLines[] = $cachedLine;
@@ -1144,8 +1145,10 @@ class statisticFunctions extends generalFunctions {
       }
     }
     // agent doesn't exist, create a new cache
-    if($return === false && $clear === false)
-      $newLines[] = $userAgentMd5.'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
+    if($return === false && $clear === false) {
+      $spider = ($this->isSpider()) ? 'spider' : 'visitor';
+      $newLines[] = $spider.'|'.$userAgentMd5.'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
+    }
     
     // ->> OPEN visit.statistic.cache for writing
     if($cache = @fopen($cacheFile,"w")) {      
@@ -1167,7 +1170,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * Gets the current user from the visitCache file (<var>statistic/visit.statistic.cache</var>)
   * 
-  * return array the current visitors with $returnVisitors['ip'] and $returnVisitors['time']
+  * return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   * 
   * @version 1.0
   * <br>
@@ -1187,26 +1190,13 @@ class statisticFunctions extends generalFunctions {
     
       foreach($currentVisitors as $currentVisitor) {
         $currentVisitor = explode('|',$currentVisitor);
-          $returnVisitor['ip'] = $currentVisitor[1];
-          $returnVisitor['time'] = $currentVisitor[2];
+          $returnVisitor['type'] = $currentVisitor[0];
+          $returnVisitor['ip'] = $currentVisitor[2];
+          $returnVisitor['time'] = $currentVisitor[3];
           $returnVisitors[] = $returnVisitor;
       }
-    }
-    
-    return $returnVisitors;
-    
-    /*$latestVisitCacheTime = 0;
-    $latestVisitCacheTimeText = $langFile['log_currentVisitors'];
-    if(!empty($visitCache) && is_array($visitCache)) {
-      foreach($visitCache as $visitCacheLine) {
-        $visitCacheLine = explode('|',$visitCacheLine);
-        if($latestVisitCacheTime < $visitCacheLine[1])
-          $latestVisitCacheTime = $visitCacheLine[1];
-      }
-     }
-      */
-      
-    
+    }    
+    return $returnVisitors; 
   }
   
  /**
