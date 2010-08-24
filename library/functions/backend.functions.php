@@ -80,7 +80,7 @@ function isAdmin() {
   $currentUser = strtolower($_SERVER["REMOTE_USER"]);
   
   // checks if the current user has a username like:
-  if($currentUser == 'admin' || $currentUser == 'administrator' || $currentUser == 'root' || $currentUser == 'superuser' || $currentUser == 'frozeman') {
+  if($currentUser == 'admin' || $currentUser == 'administrator' || $currentUser == 'root' || $currentUser == 'superuser') {
     return true;
   } else { // otherwise it checks if in the htpasswd is one of the above usernames, if not return true
 
@@ -105,7 +105,7 @@ function isAdmin() {
         foreach($getHtpasswd as $htpasswdLine) {
           $user = explode(':',strtolower($htpasswdLine));          
           
-          if($user[0] == 'admin' || $user[0] == 'administrator' || $user[0] == 'root' || $user[0] == 'superuser' || $user[0] == 'frozeman')
+          if($user[0] == 'admin' || $user[0] == 'administrator' || $user[0] == 'root' || $user[0] == 'superuser')
             $adminExists = true;
         }
         

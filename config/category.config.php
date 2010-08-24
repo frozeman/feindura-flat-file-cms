@@ -21,9 +21,9 @@ $categoryConfig['id_1']['thumbRatio'] =      '';
 
 
 $categoryConfig['id_2']['id'] =              2;
-$categoryConfig['id_2']['name'] =            'Produkte und Weiter eandere Dinge';
+$categoryConfig['id_2']['name'] =            'Produkte';
 $categoryConfig['id_2']['public'] =          true;
-$categoryConfig['id_2']['createdelete'] =    true;
+$categoryConfig['id_2']['createdelete'] =    false;
 $categoryConfig['id_2']['thumbnail'] =       false;
 $categoryConfig['id_2']['plugins'] =         false;
 $categoryConfig['id_2']['showtags'] =        false;

@@ -121,7 +121,7 @@ var contextualSearch = new Class({
                      }
                     markup += '</ul>';
                   } else {
-                    markup = "<p>Nothing found on other pages</p>";
+                    markup = "<p>Nothing found in the API by Yahoo</p>";
                   }      
                  
                  // BLEND OUT results if clicked somwhere     
@@ -151,7 +151,7 @@ var contextualSearch = new Class({
                           'html': elementText, //'..' + elementText + '..',
                           'events': {
                                 'click': function(){
-                                    window.scrollTo(0,element.getPosition().y - 50);
+                                    new Fx.Scroll(window,{duration: '300',}).start(0,element.getPosition().y - 50);
                                 },
                             } 
                           }                      
