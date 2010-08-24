@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0 RC
-Build 367
+Build 368
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 368: add french to userSetup.php
   build 367: add browser nokia to browser chart
   build 366: add french language translation
   build 365: fixed scrollToAnchor in chrome and safari

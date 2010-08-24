@@ -59,7 +59,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
 ?>
 <html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" /> <!-- iso-8859-1 -->
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
   <title>      

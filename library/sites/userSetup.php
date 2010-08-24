@@ -14,10 +14,9 @@ edited by Fabian Vogelsteller:
 - include <input type="hidden" name="" value="true" id="hiddenSubmit" /> ajax hack: hand over the submit buttom name for the ajax 
 - include onsubmit for ajax
 
-verion 1.01
+verion 1.02
 
 */
-
 include(dirname(__FILE__).'/../backend.include.php');
 
 
@@ -50,10 +49,16 @@ $adminloginpass = "";		/* pw: userchange | Enter the admin-password of your choi
 
 /* Enter the ID of the language, phpaccess should start with */
 
-if($_SESSION['language'] == 'de')
-  $standardlanguage = 1;
-else
-  $standardlanguage = 0;
+switch($_SESSION['language']) {
+  case 'de':
+    $standardlanguage = 1;
+    break;
+  case 'fr':
+    $standardlanguage = 4;
+    break;
+  default:
+    $standardlanguage = 0;
+}
 
 
 /* HTPASSWD.EXE - crypting for windows-servers */
@@ -289,56 +294,56 @@ if($languageselect == 1) {	/* German Language Pack */
 
 $languagearray = array ( 
 
-	1 => "Mot de passe vide non autorisé.\n", 
-	2 => "utilisateur vide non autorisé.\n", 
-	3 => "confirmation du mot de passe non valide.\n", 
-	4 => "Utilisateur en lecture seule.\n", 
-	5 => "Pas de fichier \"".PASSWDFILE."\" disponible.\n", 
-	6 => "Pas de fichier \"".ACCESSFILE."\" disponible.\n", 
-	7 => "Aucun utilisateur dans \"".PASSWDFILE."\".\n", 
-	8 => "Utilisateurs importés avec succés.\n", 
-	9 => "Pas d'utilisateurs disponibles.\n", 
-	10 => "Fichier \"".ACCESSFILE."\" créé avec succés.\n", 
-	12 => "Cette fonction a été désactivée\n", 
-	14 => "Password-safety désactivé.\n", 
-	15 => "Aucun fichier selectionné.\n", 
-	18 => "Problême d'upload.\n", 
+  1 => "Mot de passe vide non autoris&eacute;.\n", 
+  2 => "utilisateur vide non autoris&eacute;.\n", 
+  3 => "confirmation du mot de passe non valide.\n", 
+  4 => "Utilisateur en lecture seule.\n", 
+  5 => "Pas de fichier \"".PASSWDFILE."\" disponible.\n", 
+  6 => "Pas de fichier \"".ACCESSFILE."\" disponible.\n", 
+  7 => "Aucun utilisateur dans \"".PASSWDFILE."\".\n", 
+  8 => "Utilisateurs import&eacute;s avec succ&eacute;s.\n", 
+  9 => "Pas d'utilisateurs disponibles.\n", 
+  10 => "Fichier \"".ACCESSFILE."\" cr&eacute;&eacute; avec succ&eacute;s.\n", 
+  12 => "Cette fonction a &eacute;t&eacute; d&eacute;sactiv&eacute;e\n", 
+  14 => "Password-safety d&eacute;sactiv&eacute;.\n", 
+  15 => "Aucun fichier selectionn&eacute;.\n", 
+  18 => "Probl&ecirc;me d'upload.\n", 
 
-	16 => "L'utilisateur \"", 
-	17 => "\" existe déjà.\n", 
+  16 => "L'utilisateur \"", 
+  17 => "\" existe d&eacute;j&agrave;.\n", 
 
-	19 => "Effacement \"", 
-	20 => "\" sur le serveur non-effectué - Supprimer le fichier manuellement.\n", 
+  19 => "Effacement \"", 
+  20 => "\" sur le serveur non-effectu&eacute; - Supprimer le fichier manuellement.\n", 
 
-	11 => "Utilisateur ajouté avec succés \"", 
-	13 => "Utilisateur supprimé avec succés \"", 
-	21 => "Utilisateur mis à jour avec succés \"", 
-	22 => "\".\n", 
+  11 => "Utilisateur ajout&eacute; avec succ&eacute;s \"", 
+  13 => "Utilisateur supprim&eacute; avec succ&eacute;s \"", 
+  21 => "Utilisateur mis &agrave; jour avec succ&eacute;s \"", 
+  22 => "\".\n", 
 
-	100 => "Status :", 
-	101 => "Infos sur le serveur :", 
-	102 => "Utilisateurs :", 
-	103 => "Ajouter un utilisateur :", 
-	104 => "Confirmation :", 
-	105 => "Changer le mot de passe :", 
-	106 => "Effacer un utilisateur :", 
-	107 => "Effacer tous les utilisateurs :", 
-	108 => "Serveur:", 
-	109 => "Chemin:", 
-	110 => "Importer depuis un fichier :", 
-	112 => "[ format: user,pass ]", 
-	111 => "Fichier :", 
+  100 => "Status :", 
+  101 => "Infos sur le serveur :", 
+  102 => "Utilisateurs :", 
+  103 => "Ajouter un utilisateur :", 
+  104 => "Confirmation :", 
+  105 => "Changer le mot de passe :", 
+  106 => "Effacer un utilisateur :", 
+  107 => "Effacer tous les utilisateurs :", 
+  108 => "Serveur:", 
+  109 => "Chemin:", 
+  110 => "Importer depuis un fichier :", 
+  112 => "[ format: user,pass ]", 
+  111 => "Fichier :", 
 
-	200 => "Créér", 
-	201 => "Changer", 
-	202 => "Effacer", 
-	203 => "Tout effacer", 
-	204 => "Importer", 
+  200 => "Cr&eacute;&eacute;r", 
+  201 => "Changer", 
+  202 => "Effacer", 
+  203 => "Tout effacer", 
+  204 => "Importer", 
 
-	300 => "PHPAccess-Login", 
-	301 => "Login", 
-	302 => "Mot de passe", 
-	303 => "login" 
+  300 => "PHPAccess-Login", 
+  301 => "Login", 
+  302 => "Mot de passe", 
+  303 => "login" 
 
 ); //endarray
 
