@@ -783,6 +783,11 @@ class statisticFunctions extends generalFunctions {
           $browserColor = 'url(library/image/bg/browserBg_icecat.png)';
           $browserLogo = 'browser_icecat.png';
           $browserTextColor = '#000000';
+        } elseif($browser[0] == 'nokia browser' || $browser[0] == 'Nokia S60 OSS Browser') {
+          $browserName = 'Nokia Browser';
+          $browserColor = 'url(library/image/bg/browserBg_nokia.png)';
+          $browserLogo = 'browser_nokia.png';
+          $browserTextColor = '#000000';
         } else {
           $browserName = $GLOBALS['langFile']['log_browser_others'];
           $browserColor = 'url(library/image/bg/browserBg_others.png)';

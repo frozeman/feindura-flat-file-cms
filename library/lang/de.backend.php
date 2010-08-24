@@ -45,7 +45,7 @@ $langFile['thumbnail_height_tip'] = 'Standardh&ouml;he::Die H&ouml;he des Thumbn
 $langFile['thumbnail_ratio_name'] = 'Seitenverh&auml;ltnis';
 $langFile['thumbnail_ratio_fieldText'] = 'Seitenverh&auml;ltnis beibehalten';
 $langFile['thumbnail_ratio_noRatio'] = 'festes Seitenverh&auml;ltnis';
-$langFile['thumbnail_ratio_noRatio_tip'] = 'H&ouml;he und Breite sind fest einstellbar.';
+$langFile['thumbnail_ratio_noRatio_tip'] = 'H&ouml;he und Breite ist fest einstellbar.';
 $langFile['thumbnail_ratio_x_tip'] = 'Wird an der [b]Breite[/b] ausgerichtet.';
 $langFile['thumbnail_ratio_y_tip'] = 'Wird an der [b]H&ouml;he[/b] ausgerichtet.';
 
