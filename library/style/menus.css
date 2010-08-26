@@ -32,10 +32,11 @@
 #mainMenu table {
     width: 640px;
     border: none;
-    border-collapse: collapse;
+    border-collapse: collapse;    
     }
 #mainMenu table td {
     text-align: center;
+    vertical-align: top;
     }
 
 /* --- button ul list defined in layout.css */
@@ -46,6 +47,7 @@
 #mainMenu a {
     position: relative;
     display: inline-block;
+    top: 0px;
     width: 106px;
     height: 44px; /* org: 141px */
     padding-top: 97px;

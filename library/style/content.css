@@ -398,7 +398,7 @@ a.standardLink, .block a, #windowBox a {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
-    background: url("../image/sign/link.gif") no-repeat 0px 3px;
+    background: url("../image/sign/link.gif") no-repeat 0px 2px;
     }
 #leftSidebar a.standardLink {
     background: url("../image/sign/link.gif") no-repeat 0px 1px;
