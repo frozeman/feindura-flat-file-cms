@@ -211,7 +211,7 @@ if(!empty($adminConfig['user']['info'])) {
       foreach($pages as $page) {
         
         // get highest time
-        $highestTime = explode('|',$page['log_visitTime_max']);
+        $highestTime = explode('|#|',$page['log_visitTime_max']);
         
         if($pageVisitTime = $statisticFunctions->showVisitTime($highestTime[0],$langFile))
           echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
@@ -297,7 +297,7 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';
       foreach($logContent as $logRow) {
-        $logRow = explode('|',$logRow);
+        $logRow = explode('|#|',$logRow);
         $logDate = $statisticFunctions->formatDate($logRow[0]);
         $logTime = $statisticFunctions->formatTime($logRow[0]);
         $logUrl = $logRow[1];

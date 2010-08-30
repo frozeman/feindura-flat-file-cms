@@ -28,8 +28,8 @@ $feindura_categories = $categoryConfig;
 // -------------------------------------------------------------------------------------
 function sortCurrentUserByTime($a, $b) {     // (Array) $a = current; $b = follwing value
   
-  $a = explode('|',$a);
-  $b = explode('|',$b);
+  $a = explode('|#|',$a);
+  $b = explode('|#|',$b);
 
   return ($a[2] > $b[2]) ? -1 : 1;
 }
@@ -108,8 +108,8 @@ function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing v
 function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing value
 
  // get highest time
-  $aMaxVisitTime = explode('|',$a['log_visitTime_max']);
-  $bMaxVisitTime = explode('|',$b['log_visitTime_max']);
+  $aMaxVisitTime = explode('|#|',$a['log_visitTime_max']);
+  $bMaxVisitTime = explode('|#|',$b['log_visitTime_max']);
 
   if ($aMaxVisitTime[0] == $bMaxVisitTime[0])
     return 0;

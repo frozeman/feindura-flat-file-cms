@@ -67,6 +67,8 @@ content.css version 0.21 */
     margin-left: 65px;
     }
 #content .block.warning .content {
+    margin-top: 1px;
+    padding-top: 0px;
     min-height: 48px;
     background: url("../image/sign/warning.png") no-repeat center left;
     }
@@ -86,6 +88,8 @@ content.css version 0.21 */
     margin-left: 95px;
     }
 #content .block.info .content {
+    margin-top: 1px;
+    padding-top: 0px;
     min-height: 85px;
     background: url("../image/sign/info.png") no-repeat center left;
     }

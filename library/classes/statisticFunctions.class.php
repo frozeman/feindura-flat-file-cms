@@ -576,7 +576,7 @@ class statisticFunctions extends generalFunctions {
        $logFile = @fopen($logFile,"w")) {       
       
       // -> create the new log string
-      $newLog = time().'|'.$_SERVER['HTTP_REFERER'];
+      $newLog = time().'|#|'.$_SERVER['HTTP_REFERER'];
       
       // -> write the new log file
       flock($logFile,2);    
@@ -657,7 +657,7 @@ class statisticFunctions extends generalFunctions {
     
     if(isset($browserString) && !empty($browserString)) {
     
-      foreach(explode('|',$browserString) as $browser) {
+      foreach(explode('|#|',$browserString) as $browser) {
         $browsers[] =  explode(',',$browser);
       }
       
@@ -872,7 +872,7 @@ class statisticFunctions extends generalFunctions {
     
     if(!empty($tagString)) {
     
-      foreach(explode('|',$tagString) as $searchWord) {   
+      foreach(explode('|#|',$tagString) as $searchWord) {   
         $searchWords[] =  explode(',',$searchWord);
       }
       
@@ -921,14 +921,14 @@ class statisticFunctions extends generalFunctions {
   */
   function addDataToString($dataToAdd, $dataString, $encodeSpecialChars = true) {
             
-    $exisitingDatas = explode('|',$dataString);
+    $exisitingDatas = explode('|#|',$dataString);
     
     // ->> IF given DATA is a DATASTRING
     //------------------------------
     if(is_string($dataToAdd)) {
       $newDataString = $dataString;
       
-      $dataToAdd = explode('|',$dataToAdd);
+      $dataToAdd = explode('|#|',$dataToAdd);
       
       // goes trough all searchwords
       foreach($dataToAdd as $data) {
@@ -977,7 +977,7 @@ class statisticFunctions extends generalFunctions {
         if(!empty($exisitingData[0])) {
           $newDataString .= $exisitingData[0].','.$exisitingData[1];
           if($countExistingData < count($exisitingDatas))
-            $newDataString .= '|';
+            $newDataString .= '|#|';
         }
       }
       
@@ -993,40 +993,40 @@ class statisticFunctions extends generalFunctions {
         $countNewData++;
         
         if(isset($foundSw) && is_array($foundSw))
-          $foundSwStr = implode('|',$foundSw);
+          $foundSwStr = implode('|#|',$foundSw);
      
         if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) === false)) {
           if(!empty($data)) {// verhindert das leere Suchwort strings gespeichert werden
-            if(substr($newDataString,-1) != '|')
-              $newDataString .= '|';
+            if(substr($newDataString,-1) != '|#|')
+              $newDataString .= '|#|';
             // fügt ein neues Suchwort in den String mit den Suchwörtern ein                
             $newDataString .= $data.',1';
             
             if($countNewData < count($dataToAdd))
-              $newDataString .= '|';
+              $newDataString .= '|#|';
           }
         }
       }          
       //echo $newDataString.'<br />';
       
       // removes the FIRST "|"
-      while(substr($newDataString,0,1) == '|') {
+      while(substr($newDataString,0,1) == '|#|') {
         $newDataString = substr($newDataString, 1);
       }
       // removes the LAST "|"
-      while(substr($newDataString,-1) == '|') {
+      while(substr($newDataString,-1) == '|#|') {
         $newDataString = substr($newDataString, 0, -1);
       }
       
       // -> SORTS the NEW SEARCHWORD STRING with THE SEARCHWORD with MOST COUNT at the BEGINNING
-      if($dataToAdd = explode('|',$newDataString)) {
+      if($dataToAdd = explode('|#|',$newDataString)) {
       
         // sortiert den array, mithilfe der funktion sortArray
         natsort($dataToAdd);
         usort($dataToAdd, "sortSearchwordString");          
     
         // fügt den neugeordneten Suchworte String wieder zu einem Array zusammen
-        $newDataString = implode('|',$dataToAdd);
+        $newDataString = implode('|#|',$dataToAdd);
       }
       
       // -> RETURNs the new data String
@@ -1136,13 +1136,13 @@ class statisticFunctions extends generalFunctions {
     if(!empty($cachedLines) && is_array($cachedLines)) {
       
       foreach($cachedLines as $cachedLine) {
-        $cachedLineArray = explode('|', $cachedLine);
+        $cachedLineArray = explode('|#|', $cachedLine);
         
         // stores the agent again with new timestamp, if the user was less than 1h on the page,
         // after 1 hour the agent is deleted form the cache
         if($currentDate - $cachedLineArray[3] < $maxTime) {
           if($clear === false && $cachedLineArray[1] == $userAgentMd5) {          
-            $newLines[] = $cachedLineArray[0].'|'.$cachedLineArray[1].'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
+            $newLines[] = $cachedLineArray[0].'|#|'.$cachedLineArray[1].'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$currentDate;
             $return = true;
           } else
             $newLines[] = $cachedLine;
@@ -1152,7 +1152,7 @@ class statisticFunctions extends generalFunctions {
     // agent doesn't exist, create a new cache
     if($return === false && $clear === false) {
       $spider = ($this->isSpider()) ? 'spider' : 'visitor';
-      $newLines[] = $spider.'|'.$userAgentMd5.'|'.$_SERVER['REMOTE_ADDR'].'|'.$currentDate;
+      $newLines[] = $spider.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$currentDate;
     }
     
     // ->> OPEN visit.statistic.cache for writing
@@ -1194,7 +1194,7 @@ class statisticFunctions extends generalFunctions {
       usort($currentVisitors, 'sortCurrentUserByTime');
     
       foreach($currentVisitors as $currentVisitor) {
-        $currentVisitor = explode('|',$currentVisitor);
+        $currentVisitor = explode('|#|',$currentVisitor);
           $returnVisitor['type'] = $currentVisitor[0];
           $returnVisitor['ip'] = $currentVisitor[2];
           $returnVisitor['time'] = $currentVisitor[3];
@@ -1358,7 +1358,7 @@ class statisticFunctions extends generalFunctions {
             // ****
             if(!empty($lastPage['log_visitTime_max']) && $visitTime !== false) {
             
-              $maxVisitTimes = explode('|',$lastPage['log_visitTime_max']);
+              $maxVisitTimes = explode('|#|',$lastPage['log_visitTime_max']);
               
               // adds the new time if it is bigger than the highest min time
               if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
@@ -1372,7 +1372,7 @@ class statisticFunctions extends generalFunctions {
               natsort($newMaxVisitTimes);
               $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
               // make array to string
-              $newMaxVisitTimes = implode('|',$newMaxVisitTimes);
+              $newMaxVisitTimes = implode('|#|',$newMaxVisitTimes);
               
             } elseif(!empty($lastPage['log_visitTime_max']))
               $newMaxVisitTimes = $lastPage['log_visitTime_max'];
@@ -1383,7 +1383,7 @@ class statisticFunctions extends generalFunctions {
             // ****
             if(!empty($lastPage['log_visitTime_min']) && $visitTime !== false) {
             
-              $minVisitTimes = explode('|',$lastPage['log_visitTime_min']);
+              $minVisitTimes = explode('|#|',$lastPage['log_visitTime_min']);
               
               // adds the new time if it is bigger than the highest min time
               if($visitTime > $minVisitTimes[0]) {
@@ -1396,7 +1396,7 @@ class statisticFunctions extends generalFunctions {
               natsort($newMinVisitTimes);
               $newMinVisitTimes = array_reverse($newMinVisitTimes);
               // make array to string
-              $newMinVisitTimes = implode('|',$newMinVisitTimes);
+              $newMinVisitTimes = implode('|#|',$newMinVisitTimes);
               
             } elseif(!empty($lastPage['log_visitTime_min']))
               $newMinVisitTimes = $lastPage['log_visitTime_min'];

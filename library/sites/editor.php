@@ -382,8 +382,8 @@ $hidden = ' hidden';
   $lastVisitDate = $statisticFunctions->formatDate($pageContent['log_lastVisit']);
   $lastVisitTime = $statisticFunctions->formatTime($pageContent['log_lastVisit']);
   
-  $visitTimes_max = explode('|',$pageContent['log_visitTime_max']);
-  $visitTimes_min = explode('|',$pageContent['log_visitTime_min']);
+  $visitTimes_max = explode('|#|',$pageContent['log_visitTime_max']);
+  $visitTimes_min = explode('|#|',$pageContent['log_visitTime_min']);
   ?>  
   <table>   
     
@@ -732,7 +732,7 @@ window.addEvent('domready',function(){
   // set the CONFIGs of the editor
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["language"]; ?>';
-  CKEDITOR.config.contentsCss               = [<?php echo "'".str_replace('|',"','",$editorStyleFile)."'"; ?>];
+  CKEDITOR.config.contentsCss               = [<?php echo "'".str_replace('|#|',"','",$editorStyleFile)."'"; ?>];
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
@@ -831,7 +831,7 @@ else $hidden = ' hidden';
       <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <?php      
-      $styleFileInputs = explode('|',getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']));
+      $styleFileInputs = explode('|#|',getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']));
       
       foreach($styleFileInputs as $styleFileInput) {
         echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';

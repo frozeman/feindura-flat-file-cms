@@ -72,8 +72,8 @@ $langFile['path_relativepath_tip'] = 'Relative Path';
 // ---------- STATISTIC
 
 $langFile['home_browser_h1'] = 'Browser Usage of the Users';
-$langFile['log_spiderCount'] = 'Spider';
-$langFile['log_spiderCount_tip'] = 'Spider::Or webcrawler are programs of search engines which analyse and index websites.';
+$langFile['log_spiderCount'] = 'web spiders';
+$langFile['log_spiderCount_tip'] = 'web spider::Or webcrawler are programs of search engines which analyse and index websites.';
 
 $langFile['log_searchwordtothissite_part1'] = 'has'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'times led to this site';
@@ -277,7 +277,7 @@ $langFile['btn_quickmenu_pages'] = 'Pages of';
 // ---------- HOME
 $langFile['home_userInfo_h1'] = 'User Information';
 
-$langFile['home_welcome_h1'] = 'Welcome in <span class="logoname">fein<span>dura</span></span><br />the Content Management System of your website.';
+$langFile['home_welcome_h1'] = 'Welcome in <span class="logoname">fein<span>dura</span></span>,<br />the Content Management System of your website';
 $langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
 
 $langFile['home_statistic_h1'] = 'Website-Statistic';
@@ -573,7 +573,7 @@ $langFile['statisticSetup_statisticConfig_field5_tip'] = 'Specifies how much Act
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'Delete statistics';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Website-Statistic';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contains[/b][ul][li]Total number of visitors[/li][li]Total number of Spiders[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contains[/b][ul][li]Total number of visitors[/li][li]Total number of web spiders[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Page-Statistics';
 $langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Contains[/b][ul][li]Number of page visitors[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest length of stay[/li][li]longest length of stay[/li][li]Keywords which led to this site[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'] = 'only the Page-Length-Of-Stay-Statistics';

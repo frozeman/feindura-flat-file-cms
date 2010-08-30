@@ -730,7 +730,7 @@ function prepareStyleFilePaths($givenStyleFiles) {
         $styleFiles[] = $styleFile;
     }
   }
-  return implode('|',$styleFiles);
+  return implode('|#|',$styleFiles);
 }
 
 /**

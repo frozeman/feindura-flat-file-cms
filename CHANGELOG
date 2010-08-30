@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 370
+Build 371
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 371: spearate data in string now with "|#|", before was "|"
   build 370: fixes in robots.txt and moved error_reporting(E_ALL & ~E_NOTICE); to the general.include.php
   build 369: fix in main menu for opera
   build 368: add french to userSetup.php

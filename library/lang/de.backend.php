@@ -71,8 +71,8 @@ $langFile['path_relativepath_tip'] = 'Relativer Pfad';
 // ---------- STATISTIC
 
 $langFile['home_browser_h1'] = 'Browserspektrum der Besucher';
-$langFile['log_spiderCount'] = 'Spider';
-$langFile['log_spiderCount_tip'] = 'Spider::Oder auch Webcrawler genannt sind Programmscripte von Suchmaschienen, die Seiten analysieren und indizieren.';
+$langFile['log_spiderCount'] = 'Web-Spiders';
+$langFile['log_spiderCount_tip'] = 'Web-Spiders::Oder auch Webcrawler genannt sind Programmscripte von Suchmaschienen, die Seiten analysieren und indizieren.';
 
 $langFile['log_searchwordtothissite_part1'] = 'hat'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'mal auf diese Seite gef&uuml;hrt';
@@ -276,7 +276,7 @@ $langFile['btn_quickmenu_pages'] = 'Seiten von';
 // ---------- HOME
 $langFile['home_userInfo_h1'] = 'Benutzer Information';
 
-$langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span><br />dem Content Management System deiner Webseite.';
+$langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
 $langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
 
 $langFile['home_statistic_h1'] = 'Webseiten-Statistik';
@@ -572,7 +572,7 @@ $langFile['statisticSetup_statisticConfig_field5_tip'] = 'Gibt an wieviele T&aum
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'Statistiken l&ouml;schen';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Webseiten-Statistik';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Web-Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Seiten-Statistiken';
 $langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]k&uuml;rzeste Verweildauer[/li][li]l&auml;ngste Verweildauer[/li][li]Suchmaschienen-Stichworte welche auf diese Seite gef&uuml;hrt haben[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'] = 'nur die Seiten-Verweildauer-Statistiken';
