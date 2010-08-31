@@ -28,7 +28,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
     $documentSaved = true; // give documentSaved status
     $statisticFunctions->saveTaskLog(12,$file); // <- SAVE the task in a LOG FILE
   } else {     
-    $errorWindow = $langFile['editFilesSettings_error_save'].' '.$file;
+    $errorWindow .= $langFile['editFilesSettings_error_save'].' '.$file;
   }
 }
 
@@ -38,7 +38,7 @@ if($_GET['status'] == 'deleteEditFiles' && !empty($_GET['file'])) {
   if(@unlink(DOCUMENTROOT.$_GET['file'])) {
     $statisticFunctions->saveTaskLog(13,$_GET['file']); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow = $langFile['editFilesSettings_deleteFile_error_delete'].' '.$_GET['file'];
+    $errorWindow .= $langFile['editFilesSettings_deleteFile_error_delete'].' '.$_GET['file'];
   
   $savedForm = $_GET['editFilesStatus'];
 }

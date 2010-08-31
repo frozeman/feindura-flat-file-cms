@@ -33,7 +33,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
       $documentSaved = true;
       $statisticFunctions->saveTaskLog(19); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow = $langFile['statisticSetup_statisticConfig_error_save'];
+      $errorWindow .= $langFile['statisticSetup_statisticConfig_error_save'];
   
   $savedForm = 'statisticConfig';
 }
@@ -61,7 +61,7 @@ if($_POST['sendClearstatistics']) {
         // set documentSaved status
         $documentSaved = true;
       } else
-        $errorWindow = $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
+        $errorWindow .= $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
     }
     
     // set the messagebox; save tasklog
@@ -85,7 +85,7 @@ if($_POST['sendClearstatistics']) {
         // set documentSaved status
         $documentSaved = true;
       } else
-        $errorWindow = $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
+        $errorWindow .= $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
     }
     
     // set the messagebox; save tasklog
@@ -108,7 +108,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR REFERER-LOG
   if($_POST['clearStatistics_refererLog'] == 'true' &&
-     $refererLogFile = @fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","w")) {
+     $refererLogFile = fopen(dirname(__FILE__)."/../../statistic/referer.statistic.log","w")) {
     fclose($refererLogFile);
     
     // set documentSaved status
@@ -119,7 +119,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR TASK-LOG
   if($_POST['clearStatistics_taskLog'] == 'true' &&
-     $taskLogFile = @fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","w")) {
+     $taskLogFile = fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","w")) {
     fclose($taskLogFile);
     
     // set documentSaved status

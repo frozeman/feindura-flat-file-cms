@@ -72,7 +72,7 @@ if($pluginFolders) {
       if(isset($_POST['send']) && $_POST['send'] ==  $pluginName) {
         
         // -> OPEN settings file
-        if($pluginConfigFile = @fopen($pluginFolder.'/plugin.config.php','w+')) {
+        if($pluginConfigFile = fopen($pluginFolder.'/plugin.config.php','w+')) {
           // *** write
           flock($pluginConfigFile,2); //LOCK_EX
             fwrite($pluginConfigFile,PHPSTARTTAG); //< ?php
@@ -92,7 +92,7 @@ if($pluginFolders) {
           $statisticFunctions->saveTaskLog(11,$pluginName); // <- SAVE the task in a LOG FILE        
           
         } else
-          $errorWindow = $langFile['pluginSetup_pluginconfig_error_save'].' '.$pluginFolder.'/plugin.config.php';
+          $errorWindow .= $langFile['pluginSetup_pluginconfig_error_save'].' '.$pluginFolder.'/plugin.config.php';
       }
       
       // INCLUDE PLUGIN CONFIG

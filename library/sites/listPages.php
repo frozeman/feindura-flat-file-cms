@@ -34,10 +34,10 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
       if($generalFunctions->savePage($contentArray))
         $documentSaved = true;
       else
-        $errorWindow = $langFile['sortablePageList_changeStatusPage_error_save'];
+        $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];
         
     } else
-      $errorWindow = $langFile['file_error_read'];
+      $errorWindow .= $langFile['file_error_read'];
   
   // shows after saving the category open
   $opendCategory = $_GET['category'];
@@ -53,7 +53,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
       if(saveCategories($categoryConfig))
         $documentSaved = true;
       else
-        $errorWindow = $langFile['sortablePageList_changeStatusPage_error_save'];
+        $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];
    
    // shows after saving the category open
    $opendCategory = $_GET['category'];
@@ -69,7 +69,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['
       // give documentSaved status
       $documentSaved = true;
       
-    } else $errorWindow = $langFile['sortablePageList_setStartPage_error_save'];
+    } else $errorWindow .= $langFile['sortablePageList_setStartPage_error_save'];
 
   
   // shows after saving the category open

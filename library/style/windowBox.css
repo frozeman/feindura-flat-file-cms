@@ -327,6 +327,15 @@ iframe#fileManagerFrame {
     color: #A30000;
     }
 
+#errorWindow .rawError {
+    display: block;
+    margin: 0px -10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px dotted #999999;
+    color: #444;
+    }
+
 /* ----------------------- */	
 /* ---:- OK */
 

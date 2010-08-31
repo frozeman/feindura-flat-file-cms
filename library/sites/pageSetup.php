@@ -62,7 +62,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $statisticFunctions->saveTaskLog(14); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
+    $errorWindow .= $langFile['adminSetup_fmsSettings_error_save'];
   
   $savedForm = $_POST['savedBlock'];
 }
@@ -92,7 +92,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       if(!@mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777) ||
          !@chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, 0777)) {
           $isDir = false;
-          $errorWindow = $langFile['pageSetup_error_createDir'];      
+          $errorWindow .= $langFile['pageSetup_error_createDir'];      
       // save category dir could be created
       } else
         $isDir = true;
@@ -109,12 +109,12 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
         if($errorWindow) // if there is allready an warning
           $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_create'];
         else
-          $errorWindow = $langFile['pageSetup_error_create']; 
+          $errorWindow .= $langFile['pageSetup_error_create']; 
       }
     }
      
   } else // throw error
-    $errorWindow = $langFile['pageSetup_error_create'];
+    $errorWindow .= $langFile['pageSetup_error_create'];
     
   $savedForm = 'categories';
 }
@@ -153,13 +153,13 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
         if($errorWindow) // if there is allready an warning
           $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_deleteDir'];
         else
-          $errorWindow = $langFile['pageSetup_error_deleteDir'];
+          $errorWindow .= $langFile['pageSetup_error_deleteDir'];
       }    
     }
     
     $statisticFunctions->saveTaskLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
-    $errorWindow = $langFile['pageSetup_error_delete'];
+    $errorWindow .= $langFile['pageSetup_error_delete'];
 
   $savedForm = 'categories';
 }
@@ -182,7 +182,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
       $documentSaved = true; // set documentSaved status
       $statisticFunctions->saveTaskLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow = $langFile['pageSetup_error_save'];
+      $errorWindow .= $langFile['pageSetup_error_save'];
     
   }
     
@@ -204,7 +204,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     $documentSaved = true; // set documentSaved status
     $statisticFunctions->saveTaskLog(18); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow = $langFile['pageSetup_error_save'];
+    $errorWindow .= $langFile['pageSetup_error_save'];
   
   $savedForm = 'categories';
 }

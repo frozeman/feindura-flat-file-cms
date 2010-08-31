@@ -37,7 +37,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
       $documentSaved = true;
       $statisticFunctions->saveTaskLog(7); // <- SAVE the task in a LOG FILE
     } else
-    $errorWindow = $langFile['websiteSetup_websiteConfig_error_save'];
+    $errorWindow .= $langFile['websiteSetup_websiteConfig_error_save'];
   
   $savedForm = 'websiteConfig';
 }

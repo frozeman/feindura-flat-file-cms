@@ -48,6 +48,52 @@
 //}
 
 /**
+ * <b>Name</b> showErrorsInWindow()<br />
+ * 
+ * gets the PHP errors, to show them in the errorWindow
+ * 
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$errorWindow</var> the errorWindow text which will extended with the given errors from PHP
+ * 
+ * @param int     $errorCode the PHP errorcode
+ * @param string  $errorText the PHP error message
+ * @param string  $errorFile the filename of the file where the erro occurred
+ * @param int     $errorLine the line number where the error occurred
+ * 
+ * @return bool TRUE if PHP should not handle th errors, FALSE if PHP should show the errors
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
+    
+    // var
+    $error = '<span class="rawError">'.$errorText."<br /><br />".$errorFile.' on line '.$errorLine."</span>\n";
+    
+    switch ($errorCode) {
+    case E_USER_ERROR:
+        return false;
+        break;
+
+    //case E_USER_WARNING: case E_USER_NOTICE:
+        //$GLOBALS['errorWindow'] .= $error;
+        //break;
+
+    default:
+        $GLOBALS['errorWindow'] .= $error;
+        break;
+    }
+    
+    /* to prevent the internal PHP error reporting */
+    return true;
+}
+
+/**
  * <b>Name</b> isAdmin()<br />
  * 
  * Open the .htpasswd file and check if one of the usernames is:
@@ -183,7 +229,7 @@ function getNewCatgoryId() {
 function saveCategories($newCategories) {
   
   // öffnet die category.config.php zum schreiben
-  if($file = @fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
  
       // *** write CATEGORIES
       flock($file,2); //LOCK_EX
@@ -427,7 +473,7 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
 function saveAdminConfig($adminConfig) {
 
   // **** opens admin.config.php for writing
-  if($file = @fopen(dirname(__FILE__)."/../../config/admin.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/admin.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE
     $adminConfig['speakingUrl'] = (isset($adminConfig['speakingUrl']) && $adminConfig['speakingUrl']) ? 'true' : 'false';
@@ -512,7 +558,7 @@ function saveAdminConfig($adminConfig) {
 function saveWebsiteConfig($websiteConfig) {
    
   // opens the file for writing
-  if($file = @fopen(dirname(__FILE__)."/../../config/website.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/website.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE
     //$websiteConfig['noname'] = (isset($websiteConfig['noname']) && $websiteConfig['noname']) ? 'true' : 'false';
@@ -580,7 +626,7 @@ function saveWebsiteConfig($websiteConfig) {
 function saveStatisticConfig($statisticConfig) {
    
   // opens the file for writing
-  if($file = @fopen("config/statistic.config.php","w")) {
+  if($file = fopen("config/statistic.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE
     //$statisticConfig['noname'] = (isset($statisticConfig['noname']) && $statisticConfig['noname']) ? 'true' : 'false';
@@ -640,7 +686,7 @@ function movePage($page, $fromCategory, $toCategory) {
   // MOVE categories
   if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
     DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$toCategory.'/'.$page.'.php') &&
-    @unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
+    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
     // reset the stored page ids
     $GLOBALS['generalFunctions']->storedPagess = null;
     $GLOBALS['generalFunctions']->storedPagesIds = null;
@@ -1044,7 +1090,7 @@ function saveEditedFiles(&$savedForm) {
     // wandelt die php einleitungstags wieder in zeichen um
     $_POST['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$_POST['fileContent']);
     
-    if($file = @fopen($file,"w")) {
+    if($file = fopen($file,"w")) {
     flock($file,2);
     fwrite($file,$_POST['fileContent']);
     flock($file,3);
@@ -1074,7 +1120,7 @@ function saveEditedFiles(&$savedForm) {
     //clean vars
     $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
     
-    if($file = @fopen($fullFilePath,"w")) {
+    if($file = fopen($fullFilePath,"w")) {
       
       $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);       
       $_GET['status'] = $_POST['status'];

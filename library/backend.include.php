@@ -36,6 +36,8 @@ $documentSaved = false;
 $savedForm = false;
 $newPage = false;
 
+// ->> SET ERROR HANDLER
+set_error_handler("showErrorsInWindow",E_ALL & ~E_NOTICE);
 
 // ->> choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

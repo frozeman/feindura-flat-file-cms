@@ -1,6 +1,6 @@
 <?php
 
-$adminConfig['url'] =              'locaflhost';
+$adminConfig['url'] =              'localhost';
 $adminConfig['basePath'] =         '/_feindura10/';
 $adminConfig['savePath'] =         '/_feindura10/_pages/';
 $adminConfig['uploadPath'] =       '/_feindura10/_upload/';
@@ -16,7 +16,7 @@ $adminConfig['varName']['modul'] =    'modul';
 $adminConfig['user']['fileManager'] =      true;
 $adminConfig['user']['editWebsiteFiles'] = true;
 $adminConfig['user']['editStylesheets'] =  true;
-$adminConfig['user']['info'] =             'gfdg';
+$adminConfig['user']['info'] =             '';
 
 $adminConfig['setStartPage'] =            true;
 $adminConfig['page']['createdelete'] =    true;

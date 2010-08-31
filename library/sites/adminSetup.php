@@ -73,7 +73,7 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   // ** looks if the MOD_REWRITE modul exists
   if(!in_array('mod_rewrite',$apacheModules)) {
     $_POST['cfg_speakingUrl'] = '';
-    //$errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_modul'];
+    //$errorWindow .= $langFile['adminSetup_fmsSettings_speakingUrl_error_modul'];
   // ** ->> looks for a .htacces file with the speaking url mod_rewrite
   } elseif($_POST['cfg_speakingUrl'] == 'true') {
     
@@ -86,26 +86,26 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
       */
       
       if(strstr(file_get_contents($htaccessFile),$speakingUrlCode) === false) {
-        if($htaccess = @fopen($htaccessFile,"a")) {
+        if($htaccess = fopen($htaccessFile,"a")) {
           flock($htaccess,2); // LOCK_EX
           fwrite($htaccess,"\n".$speakingUrlCode);
           flock($htaccess,3); //LOCK_UN
           fclose($htaccess);
         } else {
           $_POST['cfg_speakingUrl'] = '';
-          $errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
+          $errorWindow .= $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
         }
       }
     // -> creates a NEW .htaccess file
     } else {
-      if($htaccess = @fopen($htaccessFile,"w")) {
+      if($htaccess = fopen($htaccessFile,"w")) {
         flock($htaccess,2); // LOCK_EX
         fwrite($htaccess,$speakingUrlCode);
         flock($htaccess,3); //LOCK_UN
         fclose($htaccess);
       } else {
         $_POST['cfg_speakingUrl'] = '';
-        $errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
+        $errorWindow .= $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
       }
     }
     
@@ -126,13 +126,13 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
         $newHtaccess = preg_replace("/ +/", ' ', $newHtaccess);
         $newHtaccess = preg_replace("/\\\\n+/", "\n", $newHtaccess);
         
-        if($htaccess = @fopen($htaccessFile,"w")) {
+        if($htaccess = fopen($htaccessFile,"w")) {
           flock($htaccess,2); // LOCK_EX
           fwrite($htaccess,$newHtaccess);
           flock($htaccess,3); //LOCK_UN
           fclose($htaccess);
         } else {
-          $errorWindow = $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
+          $errorWindow .= $langFile['adminSetup_fmsSettings_speakingUrl_error_save'];
         }
       }
     }
@@ -208,14 +208,14 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   //$adminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
   
   // **** opens admin.config.php for writing
-  if(saveAdminConfig($adminConfig)) {   
+  if(saveAdminConfig($adminConfig)) {
      
     // give documentSaved status
     $documentSaved = true;
     $statisticFunctions->saveTaskLog(8); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow = $langFile['adminSetup_fmsSettings_error_save'];
+    $errorWindow .= $langFile['adminSetup_fmsSettings_error_save'];
   
   $savedForm = $_POST['savedBlock'];
 
@@ -240,7 +240,7 @@ if(isset($_POST['saveFckStyleFile'])) {
     $documentSaved = true;
     $statisticFunctions->saveTaskLog(9); // <- SAVE the task in a LOG FILE
   } else {
-    $errorWindow = $langFile['adminSetup_styleFileSettings_error_save'];
+    $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
   }
   
   $savedForm = 'fckStyleFile';
@@ -591,9 +591,9 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 <?php
 
 $htmlEditorStyleFilePath = "config/htmlEditorStyles.js";
-$htmlEditorStyleFile = @fopen($htmlEditorStyleFilePath,"r");
-$htmlEditorStyleContent = @fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
-@fclose($htmlEditorStyleFile);
+$htmlEditorStyleFile = fopen($htmlEditorStyleFilePath,"r");
+$htmlEditorStyleContent = fread($htmlEditorStyleFile,filesize($htmlEditorStyleFilePath));
+fclose($htmlEditorStyleFile);
 
 
 // shows the block below if it is the ones which is saved before

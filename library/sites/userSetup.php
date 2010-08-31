@@ -1075,7 +1075,7 @@ function createhtaccess(&$status) {
 	
 	if(!file_exists(ACCESSFILE)) {		/* .htaccess existiert nicht, muss angelegt werden */
 
-		if($filehandle = @fopen(ACCESSFILE, "w")) {
+		if($filehandle = fopen(ACCESSFILE, "w")) {
   		@fputs($filehandle, $htaccess);  
   		@fclose($filehandle);
         
@@ -1088,7 +1088,7 @@ function createhtaccess(&$status) {
   // if file exists check if htaccess exists
 	} elseif(strstr(file_get_contents(ACCESSFILE),$htaccess) === false) {
   
-    if($filehandle = @fopen(ACCESSFILE, "a")) {
+    if($filehandle = fopen(ACCESSFILE, "a")) {
   		@fputs($filehandle, "\n".$htaccess);  
   		@fclose($filehandle);
         
@@ -1108,7 +1108,7 @@ function createhtpasswd(&$newusers, &$status, &$existingusers) {
 
 	global $languagearrray;  
   
-	if($filehandle = @fopen(PASSWDFILE, "a")) {
+	if($filehandle = fopen(PASSWDFILE, "a")) {
     
   	@fputs ($filehandle, $newusers);
   
@@ -1289,7 +1289,7 @@ function disablepasses(&$status) {
       $newHtaccess = preg_replace('# +#', ' ', $newHtaccess);
       $newHtaccess = preg_replace('#\n+#', "\n", $newHtaccess);
       
-      if($htaccessfile = @fopen(ACCESSFILE,"w")) {
+      if($htaccessfile = fopen(ACCESSFILE,"w")) {
         flock($htaccessfile,2); // LOCK_EX
         fputs($htaccessfile,$newHtaccess);
         flock($htaccessfile,3); //LOCK_UN

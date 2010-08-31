@@ -82,7 +82,7 @@ if($_POST['save']) {
     // if flatfile exists, load $pageContent array
     // (necessary for: thumbnail, sortorder and logs)
     if(!$pageContent = $generalFunctions->readPage($page,$category))
-      $errorWindow = $langFile['file_error_read'];
+      $errorWindow .= $langFile['file_error_read'];
    
     $logText = 1; 
   }
@@ -149,7 +149,7 @@ if($_POST['save']) {
       $documentSaved = true;
       $statisticFunctions->saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow = $langFile['editor_savepage_error_save'];
+      $errorWindow .= $langFile['editor_savepage_error_save'];
   }
   
   // sets which block should be opend after saving
