@@ -167,16 +167,15 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           // list user
           echo '<ul>';
           foreach($users as $user) {
-            $user = substr($user,0,strpos($user,':'));
+            $userArray = explode(':',$user);
             
             // set the style for the active user
-            if($user == $_SERVER['PHP_AUTH_USER'])
-              $activeUserStyle = ' class="blue toolTip" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"';
-            else
-              $activeUserStyle = '';
+            $activeUserStyle = (strtolower($userArray[0]) == strtolower($_SERVER['PHP_AUTH_USER']))
+              ? ' class="blue toolTip" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"'
+              : '';
               
             // list users
-            echo '<li><span'.$activeUserStyle.'>'.$user.'</span></li>';
+            echo '<li><span'.$activeUserStyle.'>'.$userArray[0].'</span></li>';
           }
           echo '</ul>';
         // no users

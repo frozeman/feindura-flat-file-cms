@@ -30,9 +30,9 @@ session_name("statistic");
 session_start();
 
 // -> CHECKS if cookies are enabled
-if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
+if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
     // try to set a cookie, to check in the next webpage whether its set or not
-    setcookie( "checkCookies", 'true');
+    setcookie( "feindura_checkCookies", 'true');
 }
 
 // -> include all important functions and config vars

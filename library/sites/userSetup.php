@@ -1287,7 +1287,7 @@ function disablepasses(&$status) {
       
       $newHtaccess = str_replace($htaccess,'',$htaccessfile);
       $newHtaccess = preg_replace('# +#', ' ', $newHtaccess);
-      $newHtaccess = preg_replace('#\n+#', "\n", $newHtaccess);
+      $newHtaccess = preg_replace('#[\r\n]+#', "\n", $newHtaccess);
       
       if($htaccessfile = fopen(ACCESSFILE,"w")) {
         flock($htaccessfile,2); // LOCK_EX

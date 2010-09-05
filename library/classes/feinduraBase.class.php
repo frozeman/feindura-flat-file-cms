@@ -253,7 +253,7 @@ class feinduraBase {
       $this->varNames['category'] = $this->adminConfig['varName']['category'];
 
     // -> CHECKS if cookies the cookie in the feindura.include.php file was set
-    if(!isset($_COOKIE['checkCookies']) || $_COOKIE['checkCookies'] != 'true') {
+    if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
 
@@ -819,7 +819,7 @@ class feinduraBase {
     // adds breaks before and after
     $return = "\n".$return."\n";    
     // removes double breaks
-    $return = preg_replace("/\\\\n+/","\n",$return);
+    $return = preg_replace("/[\r\n]+/","\n",$return);
     */
     
     // -> AFTER all RETURN $return

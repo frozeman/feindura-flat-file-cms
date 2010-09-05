@@ -1431,7 +1431,7 @@ class feindura extends feinduraBase {
     // adds breaks before and after
     //$menu = "\n".$menu."\n";
     // removes double breaks
-    //$menu = preg_replace("/\\\\n+/","\n",$menu);
+    //$menu = preg_replace("/[\r\n]+/","\n",$menu);
     
     // returns the whole menu after finish
     return $menu;

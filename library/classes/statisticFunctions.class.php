@@ -1159,7 +1159,7 @@ class statisticFunctions extends generalFunctions {
     if($cache = @fopen($cacheFile,"w")) {      
       flock($cache,2);
       foreach($newLines as $newLine) {
-        $newLine = preg_replace('#\n+#','',$newLine);
+        $newLine = preg_replace('#[\r\n]+#','',$newLine);
         fwrite($cache,$newLine."\n");
       }
       flock($cache,3);

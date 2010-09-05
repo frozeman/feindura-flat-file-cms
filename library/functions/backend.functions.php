@@ -1075,8 +1075,7 @@ function saveEditedFiles(&$savedForm) {
   // ->> SAVE FILE
   if(@is_file($file) && empty($_POST['newFile'])) {
     
-    $_POST['fileContent'] = preg_replace("#\\\\r+#","",$_POST['fileContent']);
-    //$_POST['fileContent'] = preg_replace("#\\\\n+#","\n",$_POST['fileContent']);
+    //$_POST['fileContent'] = preg_replace("#[\r\n]+#","\n",$_POST['fileContent']);
     
     $_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
     $_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
