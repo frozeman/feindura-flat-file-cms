@@ -37,7 +37,7 @@ $savedForm = false;
 $newPage = false;
 
 // ->> SET ERROR HANDLER
-set_error_handler("showErrorsInWindow",E_ALL & ~E_NOTICE);
+set_error_handler("showErrorsInWindow",E_ALL & ~E_NOTICE & ~E_WARNING);
 
 // ->> choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

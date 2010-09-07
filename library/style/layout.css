@@ -200,6 +200,7 @@ span.red {
     width: 100%;
     min-width: 1255px;
     background: url("../image/bg/mainBody.png") repeat-y #d8d8d8;
+    overflow: hidden;
     }
   
 #content {
