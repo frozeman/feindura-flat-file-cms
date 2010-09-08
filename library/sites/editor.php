@@ -198,7 +198,7 @@ echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$
 <div class="block open pageHead">
 <?php
 
-// shows ID and differtnet header color if its a CATEGORY
+// shows ID and different header color if its a CATEGORY
 if($category['id'] != 0) {
   $headerColor = 'blue'; //" comes in the h1
 } else {
@@ -230,12 +230,12 @@ $lastSaveDate =  $statisticFunctions->formatDate($pageContent['lastsavedate']);
 $lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
 
 $editedByUser = (!empty($pageContent['lastsaveauthor']))
-  ? ' '.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor']
+  ? ' '.$langFile['editor_pageinfo_lastsaveauthor'].' '.$pageContent['lastsaveauthor']
   : '';
 
 echo ($newPage)
   ? '</h1>'
-  : '<br /><span style="font-size:11px;">[ '.$langFile['editor_h1_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.$editedByUser.' ]</span></h1>';
+  : '<br /><span style="font-size:11px;">[ '.$langFile['editor_pageinfo_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.$editedByUser.' ]</span></h1>';
   
 ?>
   <div class="content">
@@ -279,7 +279,7 @@ echo ($newPage)
       if(!$newPage)
         echo '<tr>
               <td class="left">      
-              <span class="info toolTip" title="'.$langFile['editor_h1_id'].'::'.$langFile['editor_h1_id_tip'].'"><strong>'.$langFile['editor_h1_id'].'</strong></span>
+              <span class="info toolTip" title="'.$langFile['editor_pageinfo_id'].'::'.$langFile['editor_pageinfo_id_tip'].'"><strong>'.$langFile['editor_pageinfo_id'].'</strong></span>
               </td><td class="right">
               <span class="info">'.$_GET['page'].'</span>
               </td>
@@ -287,14 +287,14 @@ echo ($newPage)
               
       
       if($_GET['category'] == 0) // show only if categories exist
-        $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_h1_categoryid_noCategory'].'</span>';
+        $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_pageinfo_category_noCategory'].'</span>';
       else
-        $categoryName = $_GET['category'].' <span style="color:#A6A6A6;">&rArr; '.$categoryConfig['id_'.$_GET['category']]['name'].'</span>';
+        $categoryName = '<span style="color:#A6A6A6;">'.$categoryConfig['id_'.$_GET['category']]['name'].' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
       
       if(!$newPage)
         echo '<tr>
               <td class="left">
-              <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
+              <span class="info"><strong>'.$langFile['editor_pageinfo_category'].'</strong></span>
               </td><td class="right">
               <span class="info">'.$categoryName.'</span>
               </td>
@@ -303,13 +303,13 @@ echo ($newPage)
       else {
         echo '<tr>
               <td class="left">
-              <span class="info"><strong>'.$langFile['editor_h1_categoryid'].'</strong></span>
+              <span class="info"><strong>'.$langFile['editor_pageinfo_category'].'</strong></span>
               </td><td class="right">
               <select name="categoryId">';
               
               // -> shows non-category selection if create pages is allowed
               if($adminConfig['page']['createdelete'])
-                echo '<option value="0">'.$langFile['editor_h1_categoryid_noCategory'].'</option>';
+                echo '<option value="0">'.$langFile['editor_pageinfo_category_noCategory'].'</option>';
               
               // ->> goes trough categories and list them
               foreach($categoryConfig as $listCategory) {
@@ -321,7 +321,7 @@ echo ($newPage)
                 
                 // -> shows category selection if create pages is allowed
                 if($listCategory['createdelete'])
-                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.$listCategory['id'].' &rArr; '.$listCategory['name'].'</option>'."\n";
+                  echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.$listCategory['name'].' (ID '.$listCategory['id'].')</option>'."\n";
               }             
               
         echo '</select>
@@ -344,7 +344,7 @@ echo ($newPage)
         
         echo '<tr>
               <td class="left">
-              <span class="info"><strong>'.$langFile['editor_h1_linktothispage'].'</strong></span>
+              <span class="info"><strong>'.$langFile['editor_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
               <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
               </td>

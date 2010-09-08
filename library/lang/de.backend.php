@@ -600,15 +600,15 @@ $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_setting
 * editor.php
 */
 
-// ---------- page data
-$langFile['editor_h1_lastsavedate'] = 'zuletzt bearbeitet am';
-$langFile['editor_h1_lastsaveauthor'] = 'von';
+// ---------- page info
 $langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
-$langFile['editor_h1_linktothispage'] = 'Link zu dieser Seite';
-$langFile['editor_h1_id'] = 'Seiten ID';
-$langFile['editor_h1_id_tip'] = 'Unter dieser ID wird die Seite auf dem Server gespeichert.';
-$langFile['editor_h1_categoryid'] = 'Kategorie ID';
-$langFile['editor_h1_categoryid_noCategory'] = 'keine Kategorie';
+$langFile['editor_pageinfo_lastsavedate'] = 'zuletzt bearbeitet am';
+$langFile['editor_pageinfo_lastsaveauthor'] = 'von';
+$langFile['editor_pageinfo_linktothispage'] = 'Link zu dieser Seite';
+$langFile['editor_pageinfo_id'] = 'Seiten ID';
+$langFile['editor_pageinfo_id_tip'] = 'Unter dieser ID wird die Seite auf dem Server gespeichert.';
+$langFile['editor_pageinfo_category'] = 'Kategorie';
+$langFile['editor_pageinfo_category_noCategory'] = 'keine Kategorie (ID 0)';
 
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'Einstellungen';

@@ -520,15 +520,15 @@ $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_setting
 * editor.php
 */
 
-// ---------- page data
-$langFile['editor_h1_lastsavedate'] = 'derni&egrave;rement trait&eacute; au';
-$langFile['editor_h1_lastsaveauthor'] = 'de';
+// ---------- page info
 $langFile['editor_h1_createpage'] = 'cr&eacute;er nouvelle page';
-$langFile['editor_h1_linktothispage'] = 'lien m&egrave;nant sur le site web';
-$langFile['editor_h1_id'] = 'ID de la page';
-$langFile['editor_h1_id_tip'] = 'le site web sera sauvegard&eacute; sur le serveur sous cette ID.';
-$langFile['editor_h1_categoryid'] = 'cat&eacute;gorie ID';
-$langFile['editor_h1_categoryid_noCategory'] = 'aucune cat&eacute;gorie';
+$langFile['editor_pageinfo_lastsavedate'] = 'derni&egrave;rement trait&eacute; au';
+$langFile['editor_pageinfo_lastsaveauthor'] = 'de';
+$langFile['editor_pageinfo_linktothispage'] = 'lien m&egrave;nant sur le site web';
+$langFile['editor_pageinfo_id'] = 'ID de la page';
+$langFile['editor_pageinfo_id_tip'] = 'le site web sera sauvegard&eacute; sur le serveur sous cette ID.';
+$langFile['editor_pageinfo_category'] = 'cat&eacute;gorie';
+$langFile['editor_pageinfo_category_noCategory'] = 'aucune cat&eacute;gorie (ID 0)';
 
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'param&egrave;tres';
