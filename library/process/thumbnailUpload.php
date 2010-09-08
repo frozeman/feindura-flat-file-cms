@@ -86,8 +86,8 @@ if($_POST['upload']) {
     $fileExtension = strtolower( $fileExtension );
     
     // ---------------- ERROR
-    // checks the fileExtension for JPEG, JPG or PNG if not throw an error
-    if ( !($fileExtension == 'jpeg' || $fileExtension == 'jpg' ||  $fileExtension == 'png'))
+    // checks the fileExtension for JPEG, JPG, GIF or PNG if not throw an error
+    if ( !($fileExtension == 'jpeg' || $fileExtension == 'jpg' ||  $fileExtension == 'png' || $fileExtension == 'gif'))
         $error[] = $langFile['pagethumbnail_upload_error_wrongformat'].' &quot;<b>'.$fileExtension.'</b>&quot;';
     
     // Initializes the counter used to rename the file, if another one with the same name already exists.
@@ -168,6 +168,9 @@ if($_POST['upload']) {
           if($fileExtension == 'jpg' || $fileExtension == 'jpeg')
             $oldImg = imagecreatefromjpeg(DOCUMENTROOT.$filePath);
           // GETIMAGE png
+          if($fileExtension == 'gif')
+            $oldImg = imagecreatefromgif(DOCUMENTROOT.$filePath); 
+          // GETIMAGE png
           if($fileExtension == 'png')
             $oldImg = imagecreatefrompng(DOCUMENTROOT.$filePath);  
             
@@ -180,6 +183,9 @@ if($_POST['upload']) {
           // SAVEIMAGE jpg
           if($fileExtension == 'jpg' || $fileExtension == 'jpeg')
             imagejpeg($newImg,DOCUMENTROOT.$newFilePath,100);
+          // SAVEIMAGE png
+          if($fileExtension == 'gif')
+            imagegif($newImg,DOCUMENTROOT.$newFilePath);
           // SAVEIMAGE png
           if($fileExtension == 'png')
             imagepng($newImg,DOCUMENTROOT.$newFilePath);

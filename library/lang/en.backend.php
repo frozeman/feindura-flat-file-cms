@@ -695,7 +695,7 @@ $langFile['pagethumbnail_h1_part1'] = 'Upload page thumbnail of';
 $langFile['pagethumbnail_h1_part2'] = '';
 $langFile['pagethumbnail_field1'] = 'Select image';
 
-$langFile['pagethumbnail_thumbinfo_formats'] = 'Only the following file formats are allowed<br /><b>JPG</b>, <b>JPEG</b> or <b>PNG</b>';
+$langFile['pagethumbnail_thumbinfo_formats'] = 'Only the following file formats are allowed'; //<br /><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b>
 $langFile['pagethumbnail_thumbinfo_filesize'] = 'maximum filesize';
 $langFile['pagethumbnail_thumbinfo_standardthumbsize'] = 'Standard image size';
 

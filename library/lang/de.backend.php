@@ -694,7 +694,7 @@ $langFile['pagethumbnail_h1_part1'] = 'Seiten-Thumbnail f&uuml;r';
 $langFile['pagethumbnail_h1_part2'] = 'hochladen';
 $langFile['pagethumbnail_field1'] = 'Bild ausw&auml;hlen';
 
-$langFile['pagethumbnail_thumbinfo_formats'] = 'Nur folgende Dateiformate sind erlaubt<br /><b>JPG</b>, <b>JPEG</b> oder <b>PNG</b>';
+$langFile['pagethumbnail_thumbinfo_formats'] = 'Nur folgende Dateiformate sind erlaubt'; //<br /><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b>
 $langFile['pagethumbnail_thumbinfo_filesize'] = 'maximale Dateigr&ouml;&szlig;e';
 $langFile['pagethumbnail_thumbinfo_standardthumbsize'] = 'Standardbildgr&ouml;&szlig;e';
 

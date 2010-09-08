@@ -87,7 +87,7 @@ if($categoryRatio) {
 
 <div id="thumbInfo">
 <ul>
-  <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?></li>
+  <li><?php echo $langFile['pagethumbnail_thumbinfo_formats']; ?><br /><b>JPG</b>, <b>JPEG</b>, <b>GIF</b>, <b>PNG</b></li>
   <li><?php echo $langFile['pagethumbnail_thumbinfo_filesize'].' <b>'.ini_get('upload_max_filesize').'B</b>'; ?></li>
   <li><b><?php echo $langFile['pagethumbnail_thumbinfo_standardthumbsize']; ?></b><br />
   <?php 
