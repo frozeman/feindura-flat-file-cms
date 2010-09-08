@@ -48,7 +48,7 @@ class feinduraBase {
  /**
   * Contains the session-ID, if cookies are deactivated
   * 
-  * This session ID is then placed on the end of every link.    
+  * This session ID is then placed on the end of every link.
   *      
   * @var string
   */
@@ -66,7 +66,7 @@ class feinduraBase {
   * </samp>
   * 
   * @var array
-  * @see feinduraBase()  
+  * @see feinduraBase()
   *   
   */
   var $varNames = array('page' => 'page', 'category' => 'category', 'modul' => 'modul');
@@ -124,7 +124,7 @@ class feinduraBase {
   
   
  /**
-  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files.
+  * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files
   * 
   * This country code is used to include the right frontend language-file.
   * The frontend language-file is used when displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br />
@@ -154,7 +154,7 @@ class feinduraBase {
   var $languageFile = null;  
 
  /**
-  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>.
+  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>
   * 
   * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br />   
   * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
@@ -167,7 +167,7 @@ class feinduraBase {
   var $generalFunctions;
   
  /**
-  * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>.
+  * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>
   * 
   * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br />
   * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feinduraBase()} constructor.

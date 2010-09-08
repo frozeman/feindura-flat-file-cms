@@ -185,7 +185,9 @@ if($_POST['upload']) {
             imagepng($newImg,DOCUMENTROOT.$newFilePath);
           
           // deletes the uploaded original file
-          unlink(DOCUMENTROOT.$filePath);
+          unlink(DOCUMENTROOT.$filePath);          
+          imagedestroy($newImg);
+          imagedestroy($oldImg);
           
           // get pageContent (ERROR)
           if(!$pageContent = $generalFunctions->readPage($page,$category))
