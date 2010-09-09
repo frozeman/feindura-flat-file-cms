@@ -1365,7 +1365,51 @@ class generalFunctions {
       return false;
   
   }
-
+  
+  /**
+   * <b>Name</b> createStyleTags()<br />
+   * 
+   * Goes through a folder recursive and creates a HTML <link> tag for every stylesheet-file found.
+   * 
+   * <b>Used Global Variables</b><br />
+   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+   * 
+   * @param string $folder  the absolute path of the folder to look for stylesheet files
+   * @param bool   $backend if TRUE is substract the {@link feinduraBase::$adminConfig $adminConfig['basePath']} from the stylesheet link
+   * 
+   * @uses generalFunctions::readFolderRecursive() to read the folder
+   * 
+   * @return string|false the HTML <link> tags or FALSE if no stylesheet-file was found
+   * 
+   * @version 1.0
+   * <br />
+   * <b>ChangeLog</b><br />
+   *    - 1.0 initial release
+   * 
+   */
+  function createStyleTags($folder, $backend = true) {
+    
+    //var
+    $return = false;
+    
+    // ->> goes trough all folder and subfolders
+    $filesInFolder = $this->readFolderRecursive($folder);
+    if(is_array($filesInFolder['files'])) {
+      foreach($filesInFolder['files'] as $file) {
+        // -> check for CSS FILES
+        if(substr($file,-4) == '.css') {
+          // -> removes the $adminConfig('basePath')
+          if($backend)          
+            $file = str_replace($this->adminConfig['basePath'],'',$file);
+          // -> WRITES the HTML-Style-Tags
+          $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'" />'."\n";
+        }
+      }
+    }
+    
+    return $return;
+  }
+  
  /**
   * <b>Name</b> showMemoryUsage()<br>
   * 

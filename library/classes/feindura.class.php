@@ -997,8 +997,12 @@ class feindura extends feinduraBase {
       if($this->websiteConfig['keywords'])
         $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'"'.$tagEnding."\n";
       
+      $metaTags .= "\n";
+      
+      // -> add plugin-stylesheets
+      $metaTags .= $this->generalFunctions->createStyleTags($this->adminConfig['basePath'].'plugins/',false);
+      
       // -> show the metaTags
-      //echo $metaTags;
       return $metaTags;
   }
  /**
