@@ -80,6 +80,17 @@ if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.co
   $statisticConfig =  array();
 
 /**
+ * The plugin-settings config
+ * 
+ * This config <var>array</var> is included from: <i>"feindura-CMS/config/plugin.config.php"</i>
+ * 
+ * @global array $GLOBALS['pluginConfig']
+ */
+if(!$pluginConfig =  @include_once(dirname(__FILE__)."/../config/plugin.config.php"))
+  $pluginConfig =  array();
+
+
+/**
  * The website-statistics
  * 
  * This statistics <var>array</var> is included from: <i>"feindura-CMS/config/website.statistic.php"</i>

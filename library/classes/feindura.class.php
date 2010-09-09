@@ -1000,7 +1000,14 @@ class feindura extends feinduraBase {
       $metaTags .= "\n";
       
       // -> add plugin-stylesheets
-      $metaTags .= $this->generalFunctions->createStyleTags($this->adminConfig['basePath'].'plugins/',false);
+      $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
+      foreach($plugins['folders'] as $pluginFolders) {
+        $pluginFolderName = basename($pluginFolders);
+
+        if($this->pluginConfig[$pluginFolderName]['active'])
+          $metaTags .= $this->generalFunctions->createStyleTags($pluginFolders,false);
+      }
+      
       
       // -> show the metaTags
       return $metaTags;

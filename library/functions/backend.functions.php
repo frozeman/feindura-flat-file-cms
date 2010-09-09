@@ -655,6 +655,54 @@ function saveStatisticConfig($statisticConfig) {
 }
 
 /**
+ * <b>Name</b> savePluginConfig()<br />
+ * 
+ * Saves the plugins-settings config array to the "config/plugin.config.php" file.
+ * 
+ * <b>Used Constants</b><br />
+ *    - <var>PHPSTARTTAG</var> the php start tag
+ *    - <var>PHPENDTAG</var> the php end tag
+ * 
+ * @param array $pluginConfig a $pluginConfig array to save
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @example backend/pluginConfig.array.example.php of the $adminConfig array
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function savePluginConfig($pluginConfig) {
+
+  // **** opens plugin.config.php for writing
+  if($file = fopen(dirname(__FILE__)."/../../config/plugin.config.php","w")) {
+    
+    // CHECK BOOL VALUES and change to FALSE   
+    flock($file,2); // LOCK_EX
+    fwrite($file,PHPSTARTTAG); //< ?php
+    
+    if(is_array($pluginConfig)) {
+      foreach($pluginConfig as $key => $value) {
+        $pluginConfig[$key]['active'] = (isset($pluginConfig[$key]['active']) && $pluginConfig[$key]['active']) ? 'true' : 'false';    
+        fwrite($file,"\$pluginConfig['$key']['active'] = ".$pluginConfig[$key]['active'].";\n");
+      }
+    }
+    
+    fwrite($file,"\nreturn \$pluginConfig;");
+       
+    fwrite($file,PHPENDTAG); //? >
+    flock($file,3); //LOCK_UN
+    fclose($file);   
+    
+    return true;
+  } else
+    return false;
+}
+
+/**
  * <b>Name</b> movePage()<br />
  * 
  * Moves a file into a new category directory.

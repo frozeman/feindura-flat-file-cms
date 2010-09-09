@@ -17,17 +17,38 @@
 * pluginSetup.php version 0.1
 */
 
-include_once(dirname(__FILE__)."/../backend.include.php");
+//include_once(dirname(__FILE__)."/../backend.include.php");
 
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------------------------------
+// ****** ---------- SAVE PLUGIN CONFIG in config/admin.config.php
+if(isset($_POST['send']) && $_POST['send'] ==  'pluginConfig') {
+  
+  // prepare vars
+  $pluginConfig[$_POST['savedBlock']]['active'] = $_POST['plugin'][$_POST['savedBlock']]['active'];
+  
+  // **** opens admin.config.php for writing
+  if(savePluginConfig($pluginConfig)) {
+     
+    // give documentSaved status
+    $documentSaved = true;
+    $statisticFunctions->saveTaskLog(11,$_POST['savedBlock']); // <- SAVE the task in a LOG FILE
+    
+  } else
+    $errorWindow .= $langFile['pluginSetup_pluginconfig_error_save'].' '.$adminConfig['basePath'].'config/plugin.config.php';
+  
+  $savedForm = $_POST['savedBlock'];
+}
 
 // ---------- SAVE the editFiles
 include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
+// RE-INCLUDE
+$pluginConfig = @include (dirname(__FILE__)."/../../config/plugin.config.php");
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
@@ -58,15 +79,23 @@ $pluginFolders = $generalFunctions->readFolder(DOCUMENTROOT.$adminConfig['basePa
   $firstLine = true;
 
 if($pluginFolders) {
+  
   foreach($pluginFolders['folders'] as $pluginFolder) {
     
     // ->> IF plugin folder HAS FILES
     if($pluginSubFolders = $generalFunctions->readFolderRecursive($pluginFolder)) {
-  
+      
       // VARs
       $pluginName = basename($pluginFolder);
-      $savedForm = false;    
-  
+      $savedForm = false;
+      
+      echo '<form action="?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pluginForm">
+              <div>
+              <input type="hidden" name="send" value="pluginConfig" />
+              <input type="hidden" name="savedBlock" value="'.$pluginName.'" />
+              </div>';
+          
+      /*
       // ->> WRITE PLUGIN CONFIG
       // ---------------------------------------------------------------------------
       if(isset($_POST['send']) && $_POST['send'] ==  $pluginName) {
@@ -95,10 +124,11 @@ if($pluginFolders) {
           $errorWindow .= $langFile['pluginSetup_pluginconfig_error_save'].' '.$pluginFolder.'/plugin.config.php';
       }
       
+      
       // INCLUDE PLUGIN CONFIG
       if(!$pluginConfig = @include($pluginFolder.'/plugin.config.php'))
         $pluginConfig = array();
-      
+      */
       
       // -> BEGINN PLUGIN FORM
       // ---------------------------------------------------------------------------
@@ -106,12 +136,6 @@ if($pluginFolders) {
       // seperation line
       if($firstLine) $firstLine = false;
       else echo '<div class="blockSpacer"></div>';    
-      
-      
-      echo '<form action="?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-              <div>
-              <input type="hidden" name="send" value="'.$pluginName.'" />
-              </div>';
       
       echo '<div class="block open">
               <h1>'.$pluginName.'</h1>';
@@ -124,9 +148,9 @@ if($pluginFolders) {
                 
                 
                 <tr><td class="left checkboxes">
-                <input type="checkbox" id="plgcfg_active" name="plgcfg_active" value="true"<?php if($pluginConfig['active']) echo ' checked="checked"'; ?> />                
+                <input type="checkbox" id="plugin_<?= $pluginName; ?>" name="plugin[<?= $pluginName; ?>][active]" value="true"<?php echo ($pluginConfig[$pluginName]['active']) ? ' checked="checked"' : ''; ?> />                
                 </td><td class="right checkboxes">
-                <label for="plgcfg_active"><?php echo $langFile['pluginSetup_pluginconfig_active']; ?></label><br />
+                <label for="plugin_<?= $pluginName; ?>"><?php echo $langFile['pluginSetup_pluginconfig_active']; ?></label><br />
                 </td></tr>
                 
                 <!--<tr><td class="leftTop"></td><td></td></tr>
@@ -138,8 +162,7 @@ if($pluginFolders) {
               
   <?php
         echo '<input type="submit" value="" class="button submit center" />';
-      echo '</form>';     
-        
+        echo '</form>';
         
               // edit plugin files
               editFiles($pluginFolder, $_GET['site'], "edit".$pluginName,  $pluginName.' '.$langFile['pluginSetup_editFiles_h1'], $pluginName."EditFilesAnchor", "php",'plugin.config.php');
@@ -147,7 +170,7 @@ if($pluginFolders) {
       echo '</div>';   
       
     }
-  }
+  } 
 }
 
 ?>
