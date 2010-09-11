@@ -530,6 +530,8 @@ $langFile['editor_pageinfo_id_tip'] = 'le site web sera sauvegard&eacute; sur le
 $langFile['editor_pageinfo_category'] = 'cat&eacute;gorie';
 $langFile['editor_pageinfo_category_noCategory'] = 'aucune cat&eacute;gorie (ID 0)';
 
+$langFile['editor_block_edited'] = 'ont &eacute;t&eacute; &eacute;dit&eacute;';
+
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'param&egrave;tres';
 $langFile['editor_pagestatistics_h1'] = 'statistiques';
@@ -569,7 +571,11 @@ $langFile['editor_htmleditor_hotkeys_field8'] = 'gras';
 $langFile['editor_htmleditor_hotkeys_field9'] = 'italique';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'soulign&eacute;';
 $langFile['editor_htmleditor_hotkeys_or'] = 'ou';
+
 $langFile['editor_savepage_error_save'] = '<b>Cette page ne pouvait pas &ecirc;tre sauvegard&eacute;e.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+
+// ---------- plugin settings
+$langFile['editor_pluginSettings_h1'] = 'pr&eacute;f&eacute;rence plugin';
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php
@@ -642,6 +648,5 @@ $langFile['search_results_time_part2'] = 'secondes';
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
-// returns the $langFile var
 return $langFile;
 ?>

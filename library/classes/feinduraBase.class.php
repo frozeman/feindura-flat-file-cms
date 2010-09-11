@@ -1239,7 +1239,6 @@ class feinduraBase {
   * 
   * @uses getPropertyPage()		to get the right {@link feindura::$page} property
   * @uses getPageCategory()		to get the category ID of the given page
-  * @uses publicCategory()		to check if the category of the page is poblic
   * @uses generalFunctions::readPage()	to load the $pageContent array of the page and return it
   * @uses generalFunctions::loadPages()	to load all pages in a category to find the right previous or next page and return it
   * 

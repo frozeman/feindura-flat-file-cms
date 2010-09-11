@@ -119,8 +119,7 @@ foreach($allCategories as $category) {
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  $categorySorting = ($category['sortbypagedate'])? '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
-  //else $categorySorting = '<span style="font-size: 12px; font-weight: normal;">('.$langFile['sortablePageList_sortOrder_manuell'].')</span>';
+  $categorySorting = ($category['sortbypagedate'])? '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
   
   // show whether the category is public or nonpublic
   if($category['public']) {

@@ -237,13 +237,13 @@ function autoResizeThumbnailPreview() {
 
 // -------------------------------------------------
 // BLOCK SLIDE IN/OUT
-function blockSlideInOut(givenIdCLass) {
+function blockSlider(givenId) {
   
   var blocksInDiv = '';
   
   // prepares the given container div id or class
-  if(givenIdCLass) {
-    blocksInDiv = givenIdCLass + ' ';
+  if(givenId) {
+    blocksInDiv = givenId + ' ';
   }
   
   $$(blocksInDiv + '.block').each(function(block,i) {
@@ -328,6 +328,64 @@ function blockSlideInOut(givenIdCLass) {
   });
 }
 
+// -------------------------------------------------
+// BLOCK SLIDE IN/OUT
+function inBlockTableSlider() {
+  
+  var count = 0;
+  var slideLinks = new Array();
+  
+  // -> GO TROUGH every CATEGORY
+  if($$('.block .slideTable') != null && $$('.block .slideTableLink') != null) {
+    
+    // -----------------------------------------
+    // ADD SLIDE TO TABLEs inside a BLOCK
+    $$('.block').each(function(block) {
+      
+      // gets the SLIDE links
+      block.getElements('.slideTableLink').each(function(insideBlockLinks) {
+        slideLinks.push(insideBlockLinks);
+      });
+      
+      block.getElements('.slideTable').each(function(insideBlockTable) {        
+         // creates the slide effect
+    	   var slideTableInstance = new Fx.Slide(insideBlockTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
+         
+         // ON COMPLETE
+         slideTableInstance.onComplete = function(el) {
+    
+              // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+              if(slideTableInstance.open) {
+                insideBlockTable.getParent().fade('hide');
+                slideTableInstance.open = false;
+              } else {              
+                insideBlockTable.getParent().fade('show');
+                slideTableInstance.open= true;
+              }
+          }
+        
+         // slides the hotky div in, on start
+         if(insideBlockTable.hasClass('hidden')) {
+           // hides the wrapper on start
+           slideTableInstance.hide();
+           insideBlockTable.getParent().fade('hide');
+         }
+         
+         // sets the SLIDE effect to the SLIDE links
+         slideLinks[count].addEvent('click', function(e) {
+            if(e.target.match('a'))
+        		  e.stop();
+        		slideTableInstance.toggle();
+        		insideBlockTable.getParent().fade('show');
+        		insideBlockTable.toggleClass('hidden');
+        	});
+         
+         count++;      
+      });       
+    });
+  }
+}
+
 /* scrollToAnchor function*/
 var scrollToAnchor = function(){ new Fx.Scroll(window,{duration:100}).start(0,this.getPosition().y - 50); };
 
@@ -378,7 +436,8 @@ window.addEvent('domready', function() {
   // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
     
   // BLOCK SLIDE IN/OUT
-	blockSlideInOut();  
+	blockSlider();
+	inBlockTableSlider();
   
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
@@ -667,7 +726,7 @@ window.addEvent('domready', function() {
   // ->> PAGE SETUP
   // ---------------
   
-  // -> GO TROUGH every CATEGORY
+  // -> GO TROUGH every CATEGORY and add thumbScale to the advanced category settings
   if($$('.advancedcategoryConfig') != null) {
     
     var countCategories = 0;
@@ -676,47 +735,9 @@ window.addEvent('domready', function() {
     // ADD SLIDE TO THE ADVANCED CATEGORY SETTINGS
     // go trough every advancedcategoryConfig class and add the slide effect
     $$('.categoryConfig').each(function(categoryConfig) {
-       // count categories
-       countCategories++;
-       
-       // var
-       var advancedcategoryConfigTable = categoryConfig.getElements('table')[1];
-    
-       // creates the slide effect
-  	   var slideAdvancedcategoryConfig = new Fx.Slide(advancedcategoryConfigTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
-       
-       
-      
-       // ON COMPLETE
-       slideAdvancedcategoryConfig.onComplete = function(el) {
-  
-            // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-            if(slideAdvancedcategoryConfig.open) {
-              advancedcategoryConfigTable.getParent().fade('hide');
-              slideAdvancedcategoryConfig.open = false;
-            } else {              
-              advancedcategoryConfigTable.getParent().fade('show');
-              slideAdvancedcategoryConfig.open= true;
-            }
-        }
-      
-       // slides the hotky div in, on start
-       if(advancedcategoryConfigTable.hasClass('hidden')) {
-         // hides the wrapper on start
-         slideAdvancedcategoryConfig.hide();
-         advancedcategoryConfigTable.getParent().fade('hide');
-       }
-      
-       // sets the SLIDE EFFECT to the buttons
-       if(categoryConfig.getElements('a')[2] != null) {
-         categoryConfig.getElements('a')[2].addEvent('click', function(e) {
-        		e.stop();	
-        		slideAdvancedcategoryConfig.toggle();
-        		advancedcategoryConfigTable.getParent().fade('show');
-        		advancedcategoryConfigTable.toggleClass('hidden');
-        	});
-       }
-       
+      // count categories
+      countCategories++;
+
       // -----------------------------------------
       // adds realtime THUMBSCALE to the advanced category settings
       setThumbScale('categories'+countCategories+'thumbWidth','categories'+countCategories+'thumbWidthScale','categories'+countCategories+'thumbHeight','categories'+countCategories+'thumbHeightScale');

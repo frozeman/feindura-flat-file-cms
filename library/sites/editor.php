@@ -122,7 +122,7 @@ if($_POST['save']) {
     $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
     $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
-    
+
     /*
     if(!empty($categoryConfig['id_'.$category]['styleFile'])) { if($_POST['styleFile'] == $categoryConfig['id_'.$category]['styleFile']) $_POST['styleFile'] = ''; } elseif($_POST['styleFile'] == $adminConfig['editor']['styleFile']) { $_POST['styleFile'] = ''; }
     if(!empty($categoryConfig['id_'.$category]['styleId'])) { if($_POST['styleId'] == $categoryConfig['id_'.$category]['styleId']) $_POST['styleId'] = ''; } elseif($_POST['styleId'] == $adminConfig['editor']['styleId']) { $_POST['styleId'] = ''; }
@@ -160,7 +160,7 @@ if($_POST['save']) {
 // show the PAGE CONTENT
 // ------------------------------------------------------------------------------
 
-// -> CHECK for NEW PAGE
+// -> LOAD PAGE and CHECK for NEW PAGE
 if($pageContent = $generalFunctions->readPage($page,$category))
   $newPage = false;
 else
@@ -199,11 +199,9 @@ echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$
 <?php
 
 // shows ID and different header color if its a CATEGORY
-if($category['id'] != 0) {
-  $headerColor = 'blue'; //" comes in the h1
-} else {
-  $headerColor = 'brown'; //" comes in the h1
-}
+$headerColor = ($category['id'] != 0)
+  ? 'blue' //" comes in the h1
+  : 'brown'; //" comes in the h1
 
 // -> show NEWPAGE ICON
 if($newPage) {
@@ -217,10 +215,9 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-if($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
-  $categorySorting = '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="sortIcon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />';
-else
-  $categorySorting = '';
+$categorySorting = ($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
+  ? '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />'
+  : '';
 
 // -> show the page PAGE HEADLINE
 echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.$categorySorting.'</span>';
@@ -367,8 +364,7 @@ if(!$newPage) {
 <!-- ***** PAGE STATISTICS -->
 <?php
 // dont shows the block below if pageSettings is saved
-//if($savedForm)  $hidden = ' hidden';
-//else $hidden = '';
+//$hidden = ($savedForm) ? ' hidden' : '';
 $hidden = ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -520,8 +516,7 @@ $hidden = ' hidden';
 <!-- ***** PAGE SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-if($newPage || $savedForm == 'pageSettings')  $hidden = '';
-else $hidden = ' hidden';
+$hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
@@ -688,9 +683,7 @@ else $hidden = ' hidden';
         <?php echo $langFile['editor_pageSettings_field4']; ?></span></label>        
       </td></tr>
       
-      <tr><td class="spacer checkboxes"></td><td></td></tr>
-      <tr><td class="spacer checkboxes"></td><td></td></tr> 
-      
+      <tr><td class="spacer checkboxes"></td><td></td></tr>      
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
@@ -698,6 +691,108 @@ else $hidden = ' hidden';
   </div>
   <div class="bottom"></div>
 </div>
+
+<?php
+// ->> CHECK if plugins are activated
+if(($pageContent['category'] == 0 && $adminConfig['page']['plugins']) ||
+   $categoryConfig['id_'.$pageContent['category']]['plugins']) {
+?>
+<!-- ***** PLUGIN SETTINGS -->
+<a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>
+<?php
+// shows the block below if it is the ones which is saved before
+$hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
+$blockContentEdited = (isset($pageContent['plugins']))
+  ? '&nbsp;<img src="library/image/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_pluginSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
+  : '';
+?>
+<div class="block<?php echo $hidden; ?>">
+  <h1><a href="#"><?php echo $langFile['editor_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
+  <div class="content">
+      <?php
+      
+      // ->> LOAD PLUGINS      
+      $plugins = $generalFunctions->readFolder($adminConfig['basePath'].'plugins/');
+      foreach($plugins['folders'] as $pluginFolder) {
+        // vars
+        $pluginFolderName = basename($pluginFolder);
+        $config = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
+        $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/lang/'.$_SESSION['language'].'.php');
+        $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
+        
+        // LIST PLUGINS
+        if($pluginConfig[$pluginFolderName]['active']) {
+          ?>          
+          <table>          
+          <tr><td class="left checkboxes">
+          <input type="checkbox" class="slideTableLink" id="plugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
+          </td><td class="right checkboxes">
+            <label for="plugin_<?= $pluginFolderName; ?>"><b><?= $pluginName; ?></b></label>
+            <p><?= $pluginLangFile['plugin_description']; ?></p>
+          </td></tr>
+          </table>                   
+          <?php
+          
+          $hidden = ($pageContent['plugins'][$pluginFolderName]['active']) ? '' : ' hidden';
+          ?>
+          <table class="slideTable<?= $hidden; ?>">
+          <colgroup>
+          <col class="left" />
+          </colgroup>          
+          <?php          
+          // var
+          $checkboxes = true;
+          
+          // ->> LIST PLUGIN SETTINGS          
+          if(!empty($config) && is_array($config)) {
+            foreach($config as $key => $value) {
+              
+              $keyName = (isset($pluginLangFile[$key])) ? $pluginLangFile[$key] : $key;
+              $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
+              $value = (empty($pageContent['plugins'][$pluginFolderName][$key]) && $pageContent['plugins'][$pluginFolderName][$key] !== false)
+                ? $value
+                : $pageContent['plugins'][$pluginFolderName][$key];
+              
+              if(is_bool($value)) {
+                echo (!$checkboxes) ? '<tr><td class="leftBottom"></td><td></td></tr>' : '';
+                
+                $checked = ($value) ? 'checked' : '';
+                echo '<tr><td class="left checkboxes">
+                      <input type="hidden" name="plugins['.$pluginFolderName.']['.$key.']" value="false" />
+                      <input type="checkbox" id="plugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.' '.$checked.' />
+                      </td><td class="right checkboxes">
+                        <label for="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>        
+                      </td>';
+                      
+                $checkboxes = true;
+                          
+              } else {
+                echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
+                
+                $inputLength = (is_numeric($value)) ? ' class="short"' : '';
+                echo '<tr><td class="left">
+                      <label for="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                      </td><td class="right">
+                        <input id="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$inputLength.' name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.' />        
+                      </td></tr>';
+                      
+                $checkboxes = false;              
+              }  
+            }
+          }          
+          echo (!$checkboxes) ? '<tr><td class="leftBottom"></td><td></td></tr>' : '';
+          echo '</tr></table>
+                <div class="verticalSeparator"></div>';                
+        }
+      }     
+      ?>
+    <br />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettingsAnchor');" />
+  </div>
+  <div class="bottom"></div>
+</div>
+<?php } ?>
 
 <a name="htmlEditorAnchor" id="htmlEditorAnchor" class="anchorTarget"></a>
 <div class="editor">
@@ -811,11 +906,13 @@ window.addEvent('domready',function(){
 <a name="advancedPageSettingsAnchor" id="advancedPageSettingsAnchor" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-if($savedForm == 'advancedPageSettings')  $hidden = '';
-else $hidden = ' hidden';
+$hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
+$blockContentEdited = (!empty($pageContent['styleFile']) || !empty($pageContent['styleId']) || !empty($pageContent['styleClass']))
+  ? '&nbsp;<img src="library/image/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_advancedpageSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
+  : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_advancedpageSettings_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['editor_advancedpageSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content">
     <table>
      

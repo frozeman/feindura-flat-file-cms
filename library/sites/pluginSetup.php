@@ -89,7 +89,8 @@ if($pluginFolders) {
       $pluginName = basename($pluginFolder);
       $savedForm = false;
       
-      echo '<form action="?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pluginForm">
+      echo '<a name='.$pluginName.'Anchor" id="'.$pluginName.'Anchor" class="anchorTarget"></a>
+            <form action="?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pluginForm">
               <div>
               <input type="hidden" name="send" value="pluginConfig" />
               <input type="hidden" name="savedBlock" value="'.$pluginName.'" />

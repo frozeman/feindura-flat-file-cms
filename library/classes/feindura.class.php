@@ -1001,11 +1001,11 @@ class feindura extends feinduraBase {
       
       // -> add plugin-stylesheets
       $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
-      foreach($plugins['folders'] as $pluginFolders) {
-        $pluginFolderName = basename($pluginFolders);
+      foreach($plugins['folders'] as $pluginFolder) {
+        $pluginName = basename($pluginFolder);
 
-        if($this->pluginConfig[$pluginFolderName]['active'])
-          $metaTags .= $this->generalFunctions->createStyleTags($pluginFolders,false);
+        if($this->pluginConfig[$pluginName]['active'])
+          $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
       }
       
       
@@ -1776,10 +1776,11 @@ class feindura extends feinduraBase {
           if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
             // -> SAVE PAGE STATISTIC
             // **********************
-            $this->statisticFunctions->savePageStats($pageContent);
+            if($pageContent['public'])
+              $this->statisticFunctions->savePageStats($pageContent);
           }
           
-          // returns the UNCHANGED pageContent Array, after showing the page
+          // returns the generated page
           return $generatedPage;
         }        
     } else return false;
@@ -1791,6 +1792,86 @@ class feindura extends feinduraBase {
   function showPages($page = false, $shortenText = false, $useHtml = true) {
     // call the right function
     return $this->showPage($page, $shortenText, $useHtml);
+  }
+  
+ /**
+  * <b>Name</b>  showPlugins()<br />
+  * <b>Alias</b> showPlugin()<br />  
+  * 
+  * Returns the plugins of a page ready for displaying in a HTML page.
+  * 
+  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * 
+  * Example of the returned array:
+  * {@example generatePage.return.example.php}
+  * 
+  * Example usage:
+  * {@example showPage.example.php}
+  * 
+  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
+  * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
+  * 
+  * @uses feindura::$page
+  * 
+  * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses feinduraBase::generatePage()                 to generate the array with the page elements
+  * 
+  * @return array with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array if the plugin(s) or page doesn't exist or is not public
+  * 
+  * @see getPageTitle()
+  * @see feinduraBase::generatePage()
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  function showPlugins($plugins = true, $page = false) {    
+    
+    // var
+    $pluginsArray = array();
+    if(!is_array($plugins) && !is_bool($plugins))
+      $plugins[0] = $plugins;
+    
+    if($page = $this->loadPrevNextPage($page)) {
+                                
+        // LOAD the $pageContent array
+        if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
+          
+          // ->> LOAD the PLUGINS and return them 
+          if((($pageContent['category'] == 0) || $this->categoryConfig['id_'.$pageContent['category']]['public']) && $pageContent['public']) {
+            if(is_array($pageContent['plugins'])) {
+            
+              foreach($pageContent['plugins'] as $pluginName => $plugin) {
+                
+                // goe through all plugins and load the required ones
+                if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
+                   $plugin['active']) {
+                  
+                  // create plugin config
+                  $pluginConfig = $plugin;
+                  unset($pluginConfig['active']); // remove the active value from the plugin config
+                  
+                  // -> include the plugin
+                  $pluginsArray[$pluginName] = include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
+                  
+                }
+              }
+            }         
+          }            
+        }       
+    }
+    
+    return $pluginsArray;
+  }
+  /**
+  * Alias of {@link showPlugins()}
+  * @ignore
+  */
+  function showPlugin($plugins = true, $page = false) {
+    // call the right function
+    return $this->showPlugins($plugins, $page);
   }
 
  /**

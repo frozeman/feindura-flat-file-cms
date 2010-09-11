@@ -611,6 +611,8 @@ $langFile['editor_pageinfo_id_tip'] = 'The page will be saved under this ID on t
 $langFile['editor_pageinfo_category'] = 'Category';
 $langFile['editor_pageinfo_category_noCategory'] = 'no category (ID 0)';
 
+$langFile['editor_block_edited'] = 'were edited';
+
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'Settings';
 $langFile['editor_pagestatistics_h1'] = 'Statistic';
@@ -656,6 +658,9 @@ $langFile['editor_htmleditor_hotkeys_field10'] = 'underline';
 $langFile['editor_htmleditor_hotkeys_or'] = 'or';
 
 $langFile['editor_savepage_error_save'] = '<b>The page could not be saved.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+
+// ---------- plugin settings
+$langFile['editor_pluginSettings_h1'] = 'Plugin Settings';
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php
@@ -738,7 +743,6 @@ $langFile['search_results_time_part2'] = 'seconds';
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
-// returns the $langFile var
 return $langFile;
 
 ?>

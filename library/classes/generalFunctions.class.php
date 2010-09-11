@@ -328,21 +328,20 @@ class generalFunctions {
  /**
   * <b>Name</b> setStoredPages()<br>
   * 
-  * Adds or removes a <var>$pageContent</var> array to or from the {@link $storedPages} property.
-  * If the second parameter <var>$remove</var> is TRUE it removes this $pageContent array from the {@link $storedPages} property.
+  * Adds a <var>$pageContent</var> array to the {@link $storedPages} property.
   * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
   * 
   * @param int  $pageContent   a $pageContent array which should be add to the {@link $storedPages} property
-  * @param bool $remove        (optional) if TRUE it removes the given $pageContent array from the {@link $storedPages} property
   * 
-  * @uses $storedPages        the property to add the $pageContent array
+  * @uses $storedPages the property to add the $pageContent array
   * 
   * @return array passes through the given $pageContent array
   * 
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 removed the $remove parameter  
   *    - 1.0 initial release
   * 
   */
@@ -359,28 +358,61 @@ class generalFunctions {
     if($this->isPageContentArray($pageContent)) {
       
       // ->> ADD
-      if($remove === false) {
-        // -> checks if the SESSION storedPages Array exists
-        if(isset($_SESSION['storedPages']))
-          $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
-        else {
-          $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
-          $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
-        }
-      
-      // ->> REMOVE
-      } elseif($remove === true) {
-	    // -> checks if the SESSION storedPages Array exists
-        if(isset($_SESSION['storedPages']))
-          unset($_SESSION['storedPages'][$pageContent['id']]); // if isset, remove from the storedPages in the SESSION
-        else {
-          unset($this->storedPages[$pageContent['id']]); // if not remove from the storedPages in the PROPERTY
-          unset($_SESSION['storedPages'][$pageContent['id']]);
-        }
+      // -> checks if the SESSION storedPages Array exists
+      if(isset($_SESSION['storedPages']))
+        $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
+      else {
+        $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
+        $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
       }
     }
     
     return $pageContent;
+  }
+  
+ /**
+  * <b>Name</b> removeStoredPage()<br>
+  * 
+  * Removes a <var>$pageContent</var> array from the {@link $storedPages} property.
+  * Its also possible to remove the {@link $storedPages} property from the <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
+  * 
+  * @param int $id the ID of a page which should be removed from the {@link $storedPages} property
+  * 
+  * @uses $storedPages the property to remove the $pageContent array
+  * 
+  * @return bool TRUE if a page with this ID exists and could be removed, otherwise FALSE
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function removeStoredPage($id) {
+    global $HTTP_SESSION_VARS;
+    
+    // var
+    $return = false;
+    
+    // if its an older php version, set the session var
+    if(phpversion() <= '4.1.0')
+      $_SESSION = $HTTP_SESSION_VARS;  
+    
+    // ->> REMOVE
+    if(is_numeric($id)) {
+    // -> checks if the SESSION storedPages Array exists
+      if(isset($_SESSION['storedPages']) && isset($_SESSION['storedPages'][$id])) {
+        unset($_SESSION['storedPages'][$id]); // if isset, remove from the storedPages in the SESSION
+        return true;
+      } elseif(isset($this->storedPages[$id])) {
+        unset($this->storedPages[$id]); // if not remove from the storedPages in the PROPERTY
+        unset($_SESSION['storedPages'][$id]);
+        return true;
+      }
+    }
+    
+    return $return;
   }
   
  /**
@@ -476,7 +508,8 @@ class generalFunctions {
     : DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php';
     
     // open the flatfile
-    if($file = @fopen($filePath,"w")) {
+    if(($file = @fopen($filePath,"w")) &&
+       is_numeric($pageContent['id'])) {
         
       // CHECK BOOL VALUES and change to FALSE
       $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
@@ -499,8 +532,27 @@ class generalFunctions {
       fwrite($file,"\$pageContent['pagedate']['before'] = '".$pageContent['pagedate']['before']."';\n");
       fwrite($file,"\$pageContent['pagedate']['date'] =   '".$pageContent['pagedate']['date']."';\n");
       fwrite($file,"\$pageContent['pagedate']['after'] =  '".$pageContent['pagedate']['after']."';\n");           
-      fwrite($file,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n");
-      fwrite($file,"\$pageContent['plugins'] =            '".$pageContent['plugins']."';\n\n");
+      fwrite($file,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n\n");
+      
+      // write the plugins
+      if(is_array($pageContent['plugins'])) {
+        foreach($pageContent['plugins'] as $key => $value) {
+          // save plugin settings only if plugin is activated
+          if($pageContent['plugins'][$key]['active']) {
+            foreach($value as $insideKey => $finalValue) {
+              // CHECK BOOL VALUES and change to FALSE
+              if($pageContent['plugins'][$key][$insideKey] == 'true' ||
+                 $pageContent['plugins'][$key][$insideKey] == 'false') {
+                $pageContent['plugins'][$key][$insideKey] = (isset($pageContent['plugins'][$key][$insideKey]) && $pageContent['plugins'][$key][$insideKey] !== 'false') ? 'true' : 'false';
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".$pageContent['plugins'][$key][$insideKey].";\n");
+              } else
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".$pageContent['plugins'][$key][$insideKey]."';\n");
+  
+            }
+            fwrite($file,"\n");
+          }        
+        }
+      }    
       
       fwrite($file,"\$pageContent['thumbnail'] =          '".$pageContent['thumbnail']."';\n");
       fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n");
@@ -525,7 +577,8 @@ class generalFunctions {
       @chmod($filePath, 0777);
       
       // writes the new saved page to the $storedPages property      
-      $this->setStoredPages($pageContent,true); // remove the old one
+      $this->removeStoredPage($pageContent['id']); // remove the old one
+      unset($pageContent);
       $pageContent = include($filePath);
       $this->setStoredPages($pageContent);
       // reset the stored page ids
@@ -1194,7 +1247,7 @@ class generalFunctions {
   * 
   * @param string $folder the absolute path of an folder to read
   * 
-  * @return array|false an array with the folder elements, FALSE if the folder not a directory
+  * @return array|false an array with the folder elements, FALSE if the folder not is a directory
   * 
   * @version 1.0
   * <br />
@@ -1272,7 +1325,7 @@ class generalFunctions {
   * 
   * @param string $folder the absolute path of an folder to read
   * 
-  * @return array|false an array with the folder elements, FALSE if the folder not a directory
+  * @return array|false an array with the folder elements, FALSE if the folder is not a directory
   * 
   * @version 1.0
   * <br />

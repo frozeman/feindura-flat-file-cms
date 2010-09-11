@@ -1,0 +1,36 @@
+<?php
+/* imageGallery plugin */
+/**
+ * GERMAN (DE) language-file for the imageGallery plugin
+ * 
+ * NEEDS a RETURN $pluginLangFile; at the END
+ */
+
+
+/* ----------------------------------------------------------------------------------------------
+* --- CONFIG
+*/
+
+$pluginLangFile['plugin_title']        = 'Bildergalerie';
+$pluginLangFile['plugin_description']  = 'Listet Bilder aus einem Ordner als Galerie auf. Dabei wird für jedes Bild im Ordner automatisch ein Vorschaubild erstellt. Beim anklicken werden die Bilder in einer <a href="http://www.digitalia.be/software/slimbox2">Box</a> vergr&ouml;&szlig;ert.';
+
+$pluginLangFile['galleryPath']         = 'Pfad der Galerie';
+$pluginLangFile['galleryPath_tip']     = 'Absoluter Pfad des Ordners in dem sich die Bilder befinden';
+$pluginLangFile['galleryTitle']        = 'Galerietitel';
+$pluginLangFile['previewImage']        = 'Dateiname des Vorschaubildes';
+$pluginLangFile['imageWidth']          = 'Bilderbreite';
+$pluginLangFile['imageHeight']         = 'Bilderh&ouml;he';
+$pluginLangFile['thumbnailWidth']      = 'Vorschaubildbreite';
+$pluginLangFile['thumbnailHeight']     = 'Vorschaubildh&ouml;he';
+$pluginLangFile['tag']                 = 'Auflistungs HTML-Tag';
+$pluginLangFile['tag_tip']             = 'Der HTML-Tag f&uuml;r die Auflistung der Bilder::Folgende HTML-Tags sind erlaubt: &quot;table&quot;, &quot;ul&quot; oder nichts.';
+$pluginLangFile['breakAfter']          = 'Umbruch nach';
+$pluginLangFile['breakAfter_tip']      = 'Ist nur wirksam wenn bei Auflistungs HTML-Tag &quot;table&quot; angegeben wurde:: Gibt dann an nach wieviel Bildern eine neue Zeile erzeugt wird.';
+
+
+// -----------------------------------------------------------------------------------------------
+// RETURN ****************************************************************************************
+// -----------------------------------------------------------------------------------------------
+return $pluginLangFile;
+
+?>

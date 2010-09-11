@@ -529,10 +529,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 // deleteCategory
           echo '<td class="right" style="width:525px;">
                 <div style="border-bottom: 1px dotted #cccccc;width:400px;height:15px;float:left !important;"></div>
-                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/sites/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['pageSetup_deleteCategory'].'::'.$category['name'].'[br /][br /][span style=color:#990000;]'.$langFile['pageSetup_deleteCategory_warning'].'[/span]"></a>';
-                // advanced Settings slide link
-          echo '<a href="#" class="down" style="position:relative; bottom:-11px;">'.$langFile['pageSetup_advancedSettings'].'</a>
-                </td></tr>';          
+                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/sites/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['pageSetup_deleteCategory'].'::'.$category['name'].'[br /][br /][span style=color:#990000;]'.$langFile['pageSetup_deleteCategory_warning'].'[/span]"></a>';          
+          echo '</td></tr>';
                 // category name
           echo '<tr><td class="left">
                 '.$langFile['pageSetup_field1'].'
@@ -614,15 +612,19 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'sortascending"><span class="toolTip" title="'.$langFile['pageSetup_check7'].'::'.$langFile['pageSetup_check7_tip'].'">'.$langFile['pageSetup_check7'].'</span></label>          
                 </td></tr>';
-
+          
+          echo '<tr><td class="left checkboxes"></td>
+                <td><a href="#" class="down slideTableLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['pageSetup_advancedSettings'].'</a>
+                </td></tr>';
+          
           // end of the TABLE for one category
           echo '</table>';
           
           // -----------------------------------------------
           // second TABLE (advanced settings) (with slide in)
-          $hidden = ($_POST['savedCategory'] != $category['id']) ? ' class="hidden"' : '';
+          $hidden = ($_POST['savedCategory'] != $category['id']) ? ' hidden' : '';
           
-          echo '<table id="advancedConfigTable'.$category['id'].'"'.$hidden.'>     
+          echo '<table id="advancedConfigTable'.$category['id'].'" class="slideTable'.$hidden.'">     
                 <colgroup>
                 <col class="left" />
                 </colgroup>

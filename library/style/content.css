@@ -192,7 +192,7 @@ content.css version 0.21 */
     line-height: 22px;
     padding: 2px 5px;
     padding-right: 1px !important;
-    background: #ffffff !important;
+    background: #fff;
     vertical-align: top;
     }
  
@@ -215,7 +215,7 @@ content.css version 0.21 */
     margin-right: 5px;
     }
 .block table td.right.checkboxes {
-    padding: 1px 5px;
+    padding: 0px 5px;
     vertical-align: top;
     }
 
@@ -229,6 +229,11 @@ content.css version 0.21 */
 .block table td.spacer.checkboxes {
     background: #ffffff !important;
     }
+    
+.block .verticalSeparator {
+  background: url('../image/bg/content_block_verticalSeparator.png') no-repeat bottom center;
+  padding-bottom: 5px;
+}
     
 /* ----------------------- */  
 /* --- SLIDE HEADER LINKS */
@@ -255,9 +260,9 @@ content.css version 0.21 */
     }
     
 /* ----------------------- */  
-/* ---:- category SORT ICON */
+/* ---:- BLOCK H1 ICON */
 
-h1 img.sortIcon {
+.block h1 img.blockH1Icon {
     position: relative;
     top: 7px !important;
     left: -2px;
@@ -398,12 +403,15 @@ a.up {
     
 /* ----------------------- */  
 /* - BLOCK and WINDOBOX Standard Links */  
-a.standardLink, .block a, #windowBox a {
+.block a, #windowBox a, a.standardLink {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
-    background: url("../image/sign/link.gif") no-repeat 0px 2px;
+    background: url("../image/sign/link.gif") no-repeat 0px 1px;
     }
+.block p a, #windowBox p a {
+  background-position: 0px 4px;
+}
 #leftSidebar a.standardLink {
     background: url("../image/sign/link.gif") no-repeat 0px 1px;
     }
@@ -459,9 +467,9 @@ a.anchorTarget {
     }
 
 /* ----------------------- */  
-/* ---:- category SORT ICON */
+/* ---:- LISTPAGES - BLOCK H1 ICON */
 
-#content .block.listPages > h1 img.sortIcon {
+#content .block.listPages > h1 img.blockH1Icon {
     top: 3px !important;
     }
 
