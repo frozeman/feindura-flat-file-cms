@@ -130,13 +130,13 @@ class feinduraBase {
   * This settings will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * Example array:
-  * {@example backend/pluginConfig.array.example.php}
+  * {@example backend/pluginsConfig.array.example.php}
   * 
   * @var array
   * @see feinduraBase::feinduraBase()
   * 
   */
-  var $pluginConfig;
+  var $pluginsConfig;
   
   
  /**
@@ -250,7 +250,7 @@ class feinduraBase {
     $this->adminConfig = $GLOBALS["feindura_adminConfig"];
     $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
     $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
-    $this->pluginConfig = $GLOBALS["feindura_pluginConfig"];
+    $this->pluginsConfig = $GLOBALS["feindura_pluginsConfig"];
     
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();

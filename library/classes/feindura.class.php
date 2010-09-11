@@ -1004,7 +1004,7 @@ class feindura extends feinduraBase {
       foreach($plugins['folders'] as $pluginFolder) {
         $pluginName = basename($pluginFolder);
 
-        if($this->pluginConfig[$pluginName]['active'])
+        if($this->pluginsConfig[$pluginName]['active'])
           $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
       }
       
@@ -1840,14 +1840,16 @@ class feindura extends feinduraBase {
         if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
           
           // ->> LOAD the PLUGINS and return them 
-          if((($pageContent['category'] == 0) || $this->categoryConfig['id_'.$pageContent['category']]['public']) && $pageContent['public']) {
+          if(($pageContent['category'] == 0 || $this->categoryConfig['id_'.$pageContent['category']]['public']) && $pageContent['public']) {
             if(is_array($pageContent['plugins'])) {
             
               foreach($pageContent['plugins'] as $pluginName => $plugin) {
-                
+
                 // goe through all plugins and load the required ones
                 if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
-                   $plugin['active']) {
+                   $plugin['active'] &&
+                   $this->pluginsConfig[$pluginName]['active'] &&
+                   (($pageContent['category'] == 0 && $this->adminConfig['page']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
                   
                   // create plugin config
                   $pluginConfig = $plugin;

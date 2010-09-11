@@ -19,7 +19,7 @@
 * Plugin include
 * 
 * Generates the plugin with the <var>$pluginConfig</var> array,
-* which is created from the <var>$pageContent</var> array in the {@link feindura::showPlugins()} method
+* which comes from the <var>$pageContent</var> array in the {@link feindura::showPlugins()} method
 * and therefor also available in this file.
 * 
 * The following variables are available in this script when it gets include by the {@link feindura::showPlugins()} method:
@@ -44,7 +44,7 @@
 
 // var
 $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
-$filePath = str_replace(DOCUMENTROOT,'',$filePath);
+$filePath = str_replace($_SERVER["DOCUMENT_ROOT"],'',$filePath);
 $plugin = '';
 
 $plugin .= '<script type="text/javascript" src="'.$filePath.'/js/jquery-1.4.2.min.js" />';
@@ -52,7 +52,7 @@ $plugin .= '<script type="text/javascript" src="'.$filePath.'/slimBox2/js/slimbo
 
 // load the imageGallery class
 require('imageGallery.php');
-     
+
 // create an instance of the imageGallery class
 $gallery = new imageGallery($pluginConfig['galleryPath']);
 

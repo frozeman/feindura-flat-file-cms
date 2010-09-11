@@ -14,7 +14,8 @@
  *
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- */ 
+ */
+$pagecontent = $pageContent;
 /**
 * Image Gallery Plugin class
 * 
@@ -131,6 +132,14 @@ class imageGallery {
   */
   var $previewImage;
   
+/**
+  * the timestamp of the latest modification of the files
+  * 
+  * @var int
+  * 
+  */
+  var $lastModification = 0;
+  
   
  /**
   * <b>Type</b> constructor<br /> 
@@ -155,28 +164,25 @@ class imageGallery {
   */
   function imageGallery($folder) {
     
-    // The absolut path of the webserver
-    define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
-    
     // read folder
     $files = $this->readFolder($folder);
-   
+    
     $count = 0;
     if(is_array($files)) {
       foreach($files as $file) {
         
         // get title
         //if(strtolower(basename($file)) == 'title.txt')
-          //$this->title = @htmlentities(@file_get_contents(DOCUMENTROOT.$file));
+          //$this->title = @htmlentities(@file_get_contents($_SERVER["DOCUMENT_ROOT"].$file));
   
         // get previewImage
         //if(strtolower(basename($file)) == 'previewimage.txt')
-          //$this->previewImage = @file_get_contents(DOCUMENTROOT.$file);
+          //$this->previewImage = @file_get_contents($_SERVER["DOCUMENT_ROOT"].$file);
         
         // get image texts
         if(strtolower(basename($file)) == 'texts.txt') {
           $newImageTexts = array();
-          if($imageTexts = @file(DOCUMENTROOT.$file)) {
+          if($imageTexts = @file($_SERVER["DOCUMENT_ROOT"].$file)) {
             foreach($imageTexts as $imageText) {
               $filename = substr($imageText,0,strpos($imageText,' '));
               $text = substr($imageText,strpos($imageText,' ') + 1);            
@@ -193,7 +199,15 @@ class imageGallery {
           
           $this->images[$count]['filename'] = basename($file);        
           $this->images[$count]['text'] = (is_array($imageTexts) && array_key_exists($this->images[$count]['filename'],$imageTexts))
-            ? $imageTexts[$this->images[$count]['filename']] : '' ;
+            ? $imageTexts[$this->images[$count]['filename']]
+            : '' ;
+          
+          // get the latest modification
+          if(($lastMovement = @filectime($_SERVER["DOCUMENT_ROOT"].$file)) > $this->lastModification)
+            $this->lastModification = $lastMovement;
+          if(($lastModification = @filemtime($_SERVER["DOCUMENT_ROOT"].$file)) > $this->lastModification)
+            $this->lastModification = $lastModification;
+          
           $count++;
         }
       }
@@ -209,9 +223,6 @@ class imageGallery {
   * 
   * Reads a folder and return it's files.
   * 
-  * 
-  * <b>Used Constants</b><br />
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $folder the absolute path of an folder to read
   * 
@@ -240,15 +251,15 @@ class imageGallery {
     
     //clean vars  
     $folder = preg_replace("/\/+/", '/', $folder);
-    $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);  
+    $folder = str_replace('/'.$_SERVER["DOCUMENT_ROOT"],$_SERVER["DOCUMENT_ROOT"],$folder);  
     
     // vars
     $return = false;  
     $fullFolder = $folder;
     
-    // adds the DOCUMENTROOT  
-    $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);  
-    $fullFolder = DOCUMENTROOT.$fullFolder;
+    // adds the $_SERVER["DOCUMENT_ROOT"]  
+    $fullFolder = str_replace($_SERVER["DOCUMENT_ROOT"],'',$fullFolder);  
+    $fullFolder = $_SERVER["DOCUMENT_ROOT"].$fullFolder;
     
     // open the folder and read the content
     if(is_dir($fullFolder)) {
@@ -270,8 +281,6 @@ class imageGallery {
   * 
   * Resize an image by the given image parameters and returns the image link resource.
   * 
-  * <b>Used Constants</b><br />
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $imagePath the absolut path to the image 
   * 
@@ -292,7 +301,7 @@ class imageGallery {
     
     // vars
     $imageExtension = pathinfo($imagePath, PATHINFO_EXTENSION);    
-    $imagesize = getimagesize(DOCUMENTROOT.$imagePath);
+    $imagesize = getimagesize($_SERVER["DOCUMENT_ROOT"].$imagePath);
       
     // -> CALCULATE the RATIO, IF RATIO is X or Y
     // RATIO X
@@ -310,13 +319,13 @@ class imageGallery {
     
     // GETIMAGE gif
     if($imageExtension == 'gif')
-      $oldImg = imagecreatefromgif(DOCUMENTROOT.$imagePath);
+      $oldImg = imagecreatefromgif($_SERVER["DOCUMENT_ROOT"].$imagePath);
     // GETIMAGE jpg
     if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
-      $oldImg = imagecreatefromjpeg(DOCUMENTROOT.$imagePath);
+      $oldImg = imagecreatefromjpeg($_SERVER["DOCUMENT_ROOT"].$imagePath);
     // GETIMAGE png
     if($imageExtension == 'png')
-      $oldImg = imagecreatefrompng(DOCUMENTROOT.$imagePath);  
+      $oldImg = imagecreatefrompng($_SERVER["DOCUMENT_ROOT"].$imagePath);  
       
     // create a blank image
     $newImg = imagecreatetruecolor($imageWidth, $imageHeight);
@@ -338,8 +347,6 @@ class imageGallery {
   * 
   * Resize the images to the size set in the {@link imageGallery::$imageWidth} and {@link imageGallery::$imageHeight} property.
   * 
-  * <b>Used Constants</b><br />
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver  
   * 
   * @return bool TRUE if all images could be resized, otherwise FALSE
   * 
@@ -356,9 +363,74 @@ class imageGallery {
   * 
   */
   function resizeImages() {
-    
+  
     // quit if no image sizes are set
     if(empty($this->imageWidth) && empty($this->imageHeight))
+      return false;
+      
+    // ->> RESIZE IMAGES
+    foreach($this->images as $image) {
+      
+      // vars
+      $imagePath = $this->galleryPath.$image['filename'];      
+      $imageSize = getimagesize($_SERVER["DOCUMENT_ROOT"].$imagePath);
+      $sizeDifference = ((empty($this->imageHeight) && $this->imageWidth == $imageSize[0]) || (empty($this->imageWidth) && $this->imageHeight == $imageSize[1]) || ($this->imageWidth  == $imageSize[0] && $this->imageHeight == $imageSize[1]))
+        ? false
+        : true;
+      
+      // resize every image      
+      if($sizeDifference && ($newImg = $this->resize($imagePath,$this->imageWidth,$this->imageHeight))) {
+        
+        // var        
+        $imageExtension = pathinfo($image['filename'], PATHINFO_EXTENSION);
+        
+        // deletes the uploaded original file
+        unlink($_SERVER["DOCUMENT_ROOT"].$imagePath);
+        
+        // SAVEIMAGE png
+        if($imageExtension == 'gif')
+          imagegif($newImg,$_SERVER["DOCUMENT_ROOT"].$imagePath);
+        // SAVEIMAGE jpg
+        if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
+          imagejpeg($newImg,$_SERVER["DOCUMENT_ROOT"].$imagePath,100);
+        // SAVEIMAGE png
+        if($imageExtension == 'png')
+          imagepng($newImg,$_SERVER["DOCUMENT_ROOT"].$imagePath);
+        
+        // clean memory
+        imagedestroy($newImg);
+        
+        $return = true;
+      } else
+        $return = false;
+    }
+    
+    return $return;
+  }
+  
+ /**
+  * <b>Name</b> createThumbnails()<br />
+  * 
+  * Resize the images to the size set in the {@link imageGallery::$thumbnailWidth} and {@link imageGallery::$thumbnailHeight} property and copy them to a "thumbnails/" subfolder. 
+  * 
+  * 
+  * @return bool TRUE if all images could be resized, otherwise FALSE
+  * 
+  * @uses imageGallery::$thumbnailWidth
+  * @uses imageGallery::$thumbnailHeight
+  * @uses imageGallery::$galleryPath  
+  * @uses imageGallery::resize()
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  function createThumbnails() {
+    
+    // quit if no image sizes are set
+    if(empty($this->thumbnailWidth) && empty($this->thumbnailHeight))
       return false;
     
     // ->> DELTE OLD THUMBNAILS
@@ -380,79 +452,10 @@ class imageGallery {
         // -> delete old thumbnails
         $fileExtension = strtolower(pathinfo($oldThumbnail, PATHINFO_EXTENSION));
         if($fileExtension == 'jpg' || $fileExtension == 'jpeg' || $fileExtension == 'png' || $fileExtension == 'gif') {
-          @unlink(DOCUMENTROOT.$oldThumbnail);
+          @unlink($_SERVER["DOCUMENT_ROOT"].$oldThumbnail);
         }
       }
     }
-    
-    // ->> RESIZE THUMBNAILS
-    foreach($this->images as $image) {
-      
-      // vars
-      $imagePath = $this->galleryPath.$image['filename'];      
-      $imageSize = getimagesize(DOCUMENTROOT.$imagePath);
-      $sizeDifference = ((empty($this->imageHeight) && $this->imageWidth == $imageSize[0]) || (empty($this->imageWidth) && $this->imageHeight == $imageSize[1]) || ($this->imageWidth  == $imageSize[0] && $this->imageHeight == $imageSize[1]))
-        ? false
-        : true;
-      
-      // resize every image      
-      if($sizeDifference && ($newImg = $this->resize($imagePath,$this->imageWidth,$this->imageHeight))) {
-        
-        // var        
-        $imageExtension = pathinfo($image['filename'], PATHINFO_EXTENSION);
-        
-        // deletes the uploaded original file
-        unlink(DOCUMENTROOT.$imagePath);
-        
-        // SAVEIMAGE png
-        if($imageExtension == 'gif')
-          imagegif($newImg,DOCUMENTROOT.$imagePath);
-        // SAVEIMAGE jpg
-        if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
-          imagejpeg($newImg,DOCUMENTROOT.$imagePath,100);
-        // SAVEIMAGE png
-        if($imageExtension == 'png')
-          imagepng($newImg,DOCUMENTROOT.$imagePath);
-        
-        // clean memory
-        imagedestroy($newImg);
-        
-        $return = true;
-      } else
-        $return = false;
-    }
-    
-    return $return;
-  }
-  
- /**
-  * <b>Name</b> createThumbnails()<br />
-  * 
-  * Resize the images to the size set in the {@link imageGallery::$thumbnailWidth} and {@link imageGallery::$thumbnailHeight} property and copy them to a "thumbnails/" subfolder. 
-  * 
-  * b>Used Constants</b><br />
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
-  * 
-  * @return bool TRUE if all images could be resized, otherwise FALSE
-  * 
-  * @uses imageGallery::$thumbnailWidth
-  * @uses imageGallery::$thumbnailHeight
-  * @uses imageGallery::$galleryPath  
-  * @uses imageGallery::resize()
-  * 
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  function createThumbnails() {
-    
-    // quit if no image sizes are set
-    if(empty($this->thumbnailWidth) && empty($this->thumbnailHeight))
-      return false;
-    
-    
     
     // resize every image
     foreach($this->images as $image) {
@@ -460,31 +463,31 @@ class imageGallery {
       // vars
       $thumbnailPath = $this->galleryPath.'thumbnails/thumb_'.$image['filename'];
       $imagePath = $this->galleryPath.$image['filename'];
-      $thumbnailSize = @getimagesize(DOCUMENTROOT.$thumbnailPath);
+      $thumbnailSize = @getimagesize($_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
       $sizeDifference = ((empty($this->thumbnailHeight) && $this->thumbnailWidth == $thumbnailSize[0]) || (empty($this->thumbnailWidth) && $this->thumbnailHeight == $thumbnailSize[1]) || ($this->thumbnailWidth  == $thumbnailSize[0] && $this->thumbnailHeight == $thumbnailSize[1]))
         ? false
         : true;
         
       // create the thumbnail folder
-      if(!is_dir(DOCUMENTROOT.$this->galleryPath.'thumbnails/'))
-        if(!mkdir(DOCUMENTROOT.$this->galleryPath.'thumbnails/'))
+      if(!is_dir($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/'))
+        if(!mkdir($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/'))
           return false;
       
       // resize every thumbnail      
-      if((!file_exists(DOCUMENTROOT.$this->galleryPath.'thumbnails/thumb_'.$image['filename']) || $sizeDifference) && ($newImg = $this->resize($imagePath,$this->thumbnailWidth,$this->thumbnailHeight))) {
+      if((!file_exists($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/thumb_'.$image['filename']) || $sizeDifference) && ($newImg = $this->resize($imagePath,$this->thumbnailWidth,$this->thumbnailHeight))) {
         
         // var        
         $imageExtension = pathinfo($image['filename'], PATHINFO_EXTENSION);
         
         // SAVEIMAGE png
         if($imageExtension == 'gif')
-          imagegif($newImg,DOCUMENTROOT.$thumbnailPath);
+          imagegif($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
         // SAVEIMAGE jpg
         if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
-          imagejpeg($newImg,DOCUMENTROOT.$thumbnailPath,100);
+          imagejpeg($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath,100);
         // SAVEIMAGE png
         if($imageExtension == 'png')
-          imagepng($newImg,DOCUMENTROOT.$thumbnailPath);
+          imagepng($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
         
         // clean memory
         imagedestroy($newImg);
@@ -492,6 +495,14 @@ class imageGallery {
         $return = true;
       } else
         $return = false;
+    }
+    
+    // -> create a timestamp when the gallery was edited
+    if($file = @fopen($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/lastmodification.log',"w")) {
+      flock($file,2); //LOCK_EX
+        fwrite($file,time());
+      flock($file,3); //LOCK_UN
+      fclose($file);    
     }
     
     return $return;
@@ -542,7 +553,7 @@ class imageGallery {
   */
   function createLinkToGallery() {
     $previewImagePath = $this->galleryPath.'thumbnails/thumb_'.$this->previewImage;
-    $previewImageSize = @getimagesize(DOCUMENTROOT.$previewImagePath);
+    $previewImageSize = @getimagesize($_SERVER["DOCUMENT_ROOT"].$previewImagePath);
     
     $previewImage = (!empty($this->previewImage)) ? '<img src="'.$previewImagePath.'" alt="previewImage" />' : '';
     $linkUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false) ? $_SERVER['REQUEST_URI'].'?gallery=' : $_SERVER['REQUEST_URI'].'&amp;gallery=';
@@ -555,9 +566,10 @@ class imageGallery {
   * 
   * Generates the gallery for displaying in an HTML-page
   * 
-  * @param string $tag         the tag used to create the gallery, can be "ul", "table" or FALSE to return just images
-  * @param int    @breakAfter  if the $tag parameter is "table" then it defines the number after which the table makes a new row
-  *  
+  * 
+  * @param string       $tag         the tag used to create the gallery, can be "ul", "table" or FALSE to return just images
+  * @param int          $breakAfter  (optional) if the $tag parameter is "table" then it defines the number after which the table makes a new row
+  * 
   * @return string the generated gallery
   * 
   * @uses imageGallery::resizeImages()      to check if the images must be resized first and do it
@@ -569,11 +581,16 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function showGallery($tag,$breakAfter) {
+  function showGallery($tag,$breakAfter = false) {    
     
-    // CHECK and DO
-    $this->resizeImages();
-    $this->createThumbnails();
+    // CHECK if a $pageContent array is given
+    $lastEditTimestamp = @file_get_contents($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/lastmodification.log');
+    // -> check if the timestamp of the lastmodification is newer than the one saved in the "thumbnails/lastedit.log"
+    //echo $this->lastModification.' > '.$lastEditTimestamp;
+    if($this->lastModification > $lastEditTimestamp) {
+      $this->resizeImages();
+      $this->createThumbnails();
+    } 
     
     // vars
     if(is_string($tag)) {

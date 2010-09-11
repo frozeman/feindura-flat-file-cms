@@ -655,19 +655,19 @@ function saveStatisticConfig($statisticConfig) {
 }
 
 /**
- * <b>Name</b> savePluginConfig()<br />
+ * <b>Name</b> savePluginsConfig()<br />
  * 
- * Saves the plugins-settings config array to the "config/plugin.config.php" file.
+ * Saves the plugins-settings config array to the "config/plugins.config.php" file.
  * 
  * <b>Used Constants</b><br />
  *    - <var>PHPSTARTTAG</var> the php start tag
  *    - <var>PHPENDTAG</var> the php end tag
  * 
- * @param array $pluginConfig a $pluginConfig array to save
+ * @param array $pluginsConfig a $pluginsConfig array to save
  * 
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  * 
- * @example backend/pluginConfig.array.example.php of the $adminConfig array
+ * @example backend/pluginsConfig.array.example.php of the $adminConfig array
  * 
  * @version 1.0
  * <br />
@@ -675,23 +675,23 @@ function saveStatisticConfig($statisticConfig) {
  *    - 1.0 initial release
  * 
  */
-function savePluginConfig($pluginConfig) {
+function savePluginsConfig($pluginsConfig) {
 
   // **** opens plugin.config.php for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/plugin.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","w")) {
     
     // CHECK BOOL VALUES and change to FALSE   
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
     
-    if(is_array($pluginConfig)) {
-      foreach($pluginConfig as $key => $value) {
-        $pluginConfig[$key]['active'] = (isset($pluginConfig[$key]['active']) && $pluginConfig[$key]['active']) ? 'true' : 'false';    
-        fwrite($file,"\$pluginConfig['$key']['active'] = ".$pluginConfig[$key]['active'].";\n");
+    if(is_array($pluginsConfig)) {
+      foreach($pluginsConfig as $key => $value) {
+        $pluginsConfig[$key]['active'] = (isset($pluginsConfig[$key]['active']) && $pluginsConfig[$key]['active']) ? 'true' : 'false';    
+        fwrite($file,"\$pluginsConfig['$key']['active'] = ".$pluginsConfig[$key]['active'].";\n");
       }
     }
     
-    fwrite($file,"\nreturn \$pluginConfig;");
+    fwrite($file,"\nreturn \$pluginsConfig;");
        
     fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN

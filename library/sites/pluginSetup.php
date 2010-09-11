@@ -26,13 +26,13 @@
 
 // ---------------------------------------------------------------------------------------------------
 // ****** ---------- SAVE PLUGIN CONFIG in config/admin.config.php
-if(isset($_POST['send']) && $_POST['send'] ==  'pluginConfig') {
+if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
   
   // prepare vars
-  $pluginConfig[$_POST['savedBlock']]['active'] = $_POST['plugin'][$_POST['savedBlock']]['active'];
+  $pluginsConfig[$_POST['savedBlock']]['active'] = $_POST['plugin'][$_POST['savedBlock']]['active'];
   
   // **** opens admin.config.php for writing
-  if(savePluginConfig($pluginConfig)) {
+  if(savePluginsConfig($pluginsConfig)) {
      
     // give documentSaved status
     $documentSaved = true;
@@ -48,7 +48,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginConfig') {
 include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 // RE-INCLUDE
-$pluginConfig = @include (dirname(__FILE__)."/../../config/plugin.config.php");
+$pluginsConfig = @include (dirname(__FILE__)."/../../config/plugins.config.php");
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
@@ -92,45 +92,10 @@ if($pluginFolders) {
       echo '<a name='.$pluginName.'Anchor" id="'.$pluginName.'Anchor" class="anchorTarget"></a>
             <form action="?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pluginForm">
               <div>
-              <input type="hidden" name="send" value="pluginConfig" />
+              <input type="hidden" name="send" value="pluginsConfig" />
               <input type="hidden" name="savedBlock" value="'.$pluginName.'" />
               </div>';
-          
-      /*
-      // ->> WRITE PLUGIN CONFIG
-      // ---------------------------------------------------------------------------
-      if(isset($_POST['send']) && $_POST['send'] ==  $pluginName) {
-        
-        // -> OPEN settings file
-        if($pluginConfigFile = fopen($pluginFolder.'/plugin.config.php','w+')) {
-          // *** write
-          flock($pluginConfigFile,2); //LOCK_EX
-            fwrite($pluginConfigFile,PHPSTARTTAG); //< ?php
-        
-            fwrite($pluginConfigFile,"\$pluginConfig['active']          = '".$_POST['plgcfg_active']."';\n\n");
-            //fwrite($pluginConfig,"\$pluginConfig['publisher']      = '".htmlentities($givenSettings['publisher'],ENT_QUOTES,'UTF-8')."';\n");
-            
-            fwrite($pluginConfigFile,"return \$pluginConfig;");
-          
-            fwrite($pluginConfigFile,PHPENDTAG); //? >
-          flock($pluginConfigFile,3); //LOCK_UN
-          fclose($pluginConfigFile);
-          
-          // give documentSaved status
-          $documentSaved = true;
-          $savedForm = true;
-          $statisticFunctions->saveTaskLog(11,$pluginName); // <- SAVE the task in a LOG FILE        
-          
-        } else
-          $errorWindow .= $langFile['pluginSetup_pluginconfig_error_save'].' '.$pluginFolder.'/plugin.config.php';
-      }
-      
-      
-      // INCLUDE PLUGIN CONFIG
-      if(!$pluginConfig = @include($pluginFolder.'/plugin.config.php'))
-        $pluginConfig = array();
-      */
-      
+ 
       // -> BEGINN PLUGIN FORM
       // ---------------------------------------------------------------------------
       
@@ -149,7 +114,7 @@ if($pluginFolders) {
                 
                 
                 <tr><td class="left checkboxes">
-                <input type="checkbox" id="plugin_<?= $pluginName; ?>" name="plugin[<?= $pluginName; ?>][active]" value="true"<?php echo ($pluginConfig[$pluginName]['active']) ? ' checked="checked"' : ''; ?> />                
+                <input type="checkbox" id="plugin_<?= $pluginName; ?>" name="plugin[<?= $pluginName; ?>][active]" value="true"<?php echo ($pluginsConfig[$pluginName]['active']) ? ' checked="checked"' : ''; ?> />                
                 </td><td class="right checkboxes">
                 <label for="plugin_<?= $pluginName; ?>"><?php echo $langFile['pluginSetup_pluginconfig_active']; ?></label><br />
                 </td></tr>

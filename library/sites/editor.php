@@ -694,8 +694,13 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
 
 <?php
 // ->> CHECK if plugins are activated
-if(($pageContent['category'] == 0 && $adminConfig['page']['plugins']) ||
-   $categoryConfig['id_'.$pageContent['category']]['plugins']) {
+$pluginsActive = false;
+foreach($pluginsConfig as $pluginConfig) {
+  if($pluginConfig['active'])
+    $pluginsActive = true;    
+}
+if($pluginsActive && (($pageContent['category'] == 0 && $adminConfig['page']['plugins']) ||
+   $categoryConfig['id_'.$pageContent['category']]['plugins'])) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>
@@ -716,12 +721,12 @@ $blockContentEdited = (isset($pageContent['plugins']))
       foreach($plugins['folders'] as $pluginFolder) {
         // vars
         $pluginFolderName = basename($pluginFolder);
-        $config = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
+        $pluginConfig = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
         $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/lang/'.$_SESSION['language'].'.php');
         $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
         
         // LIST PLUGINS
-        if($pluginConfig[$pluginFolderName]['active']) {
+        if($pluginsConfig[$pluginFolderName]['active']) {
           ?>          
           <table>          
           <tr><td class="left checkboxes">
@@ -744,8 +749,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
           $checkboxes = true;
           
           // ->> LIST PLUGIN SETTINGS          
-          if(!empty($config) && is_array($config)) {
-            foreach($config as $key => $value) {
+          if(!empty($pluginConfig) && is_array($pluginConfig)) {
+            foreach($pluginConfig as $key => $value) {
               
               $keyName = (isset($pluginLangFile[$key])) ? $pluginLangFile[$key] : $key;
               $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';

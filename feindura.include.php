@@ -22,7 +22,7 @@
 * -> $feindura_websiteConfig
 * -> $feindura_categoryConfig
 * -> $feindura_statisticConfig
-* -> $feindura_pluginConfig
+* -> $feindura_pluginsConfig
 * -> $feindura_websiteStatistic
 */
 
@@ -42,8 +42,8 @@ $feindura_adminConfig = $adminConfig;
 $feindura_websiteConfig = $websiteConfig;
 $feindura_categoryConfig = $categoryConfig;
 $feindura_statisticConfig = $statisticConfig;
-$feindura_pluginConfig = $pluginConfig;
+$feindura_pluginsConfig = $pluginsConfig;
 $feindura_websiteStatistic = $websiteStatistic;
-unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$pluginConfig,$websiteStatistic);
+unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$pluginsConfig,$websiteStatistic);
 
 ?>
