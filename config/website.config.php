@@ -5,7 +5,6 @@ $websiteConfig['publisher']      = 'Fabian Vogelsteller';
 $websiteConfig['copyright']      = 'Fabian Vogelsteller';
 $websiteConfig['keywords']       = 'content,management,system,cms,flat,files,open,source,free,software,GPL';
 $websiteConfig['description']    = '';
-$websiteConfig['email']          = 'name@providor.com';
 
 $websiteConfig['startPage']      = '12';
 

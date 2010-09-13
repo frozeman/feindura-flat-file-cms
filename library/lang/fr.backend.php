@@ -472,9 +472,6 @@ $langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'les mots cl&eacute;s 
 $langFile['websiteSetup_websiteConfig_field5'] = 'description du site web';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'Une courte description de votre site web utilis&eacute; par les moteurs de recherche. Les mots-cl&eacute; se trouveront dans l&lsquo;URL du site web mais dans le contenu.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Un texte court en 3 lignes.';
-$langFile['websiteSetup_websiteConfig_field6'] = 'adresse mail';
-$langFile['websiteSetup_websiteConfig_field6_tip'] = 'Cette adresse mail sera utilis&eacute; pour toute forme de contact.[br /](z.B. formulaire de contact etc.)';
-$langFile['websiteSetup_websiteConfig_field6_inputTip'] = $langFile['text_example'].'::nom@provideur.fr';
 
 /* ----------------------------------------------------------------------------------------------
 * statisticSetup.php

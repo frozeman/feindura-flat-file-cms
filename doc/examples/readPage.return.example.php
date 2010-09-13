@@ -15,7 +15,18 @@ array(
                   "after" => 'text after date'
                 ),  
     "tags" => 'winter summer',
-    "plugins" => '',
+    "plugins" => array(
+                  "plugin1" => array(
+                              "active" => true,
+                              "exampleConfigString" => 'example/path/',
+                              "exampleConfigNumber" => 500
+                            ),
+                  "plugin2" => array(
+                              "active" => true,
+                              "exampleConfigBool1" => false,
+                              "exampleConfigBool2" => true,
+                            )
+                ),
     "thumbnail" => 'thumb_page2.jpg',
     "styleFile" => '',
     "styleId" => '',

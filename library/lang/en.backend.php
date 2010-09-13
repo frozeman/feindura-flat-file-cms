@@ -545,10 +545,6 @@ $langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'The keywords must be 
 $langFile['websiteSetup_websiteConfig_field5'] = 'Website description';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'A short description which will search engines use, if the searchwords were found in the website URL and not in the content.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'A short text with not more than 3 lines.';
-$langFile['websiteSetup_websiteConfig_field6'] = 'E-mail address';
-$langFile['websiteSetup_websiteConfig_field6_tip'] = 'This E-mail address will be used for all important contact options. [br /](e.g. contactforms etc.)';
-$langFile['websiteSetup_websiteConfig_field6_inputTip'] = $langFile['text_example'].'::name@providor.com';
-
 
 /* ----------------------------------------------------------------------------------------------
 * statisticSetup.php

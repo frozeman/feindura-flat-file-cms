@@ -544,10 +544,6 @@ $langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'Die Stichworte m&uuml
 $langFile['websiteSetup_websiteConfig_field5'] = 'Webseitenbeschreibung';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'Eine kurze Beschreibung die von den Suchmaschienen verwendet wird wenn Stichworte in der Webseiten-URL gefunden wurden aber nicht im inhalt.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
-$langFile['websiteSetup_websiteConfig_field6'] = 'E-Mail Adresse';
-$langFile['websiteSetup_websiteConfig_field6_tip'] = 'Diese E-Mail Adresse wird f&uuml;r alle wichtigen Kontaktm&ouml;glichkeiten verwendet.[br /](z.B. Kontaktformulare etc.)';
-$langFile['websiteSetup_websiteConfig_field6_inputTip'] = $langFile['text_example'].'::name@providor.de';
-
 
 /* ----------------------------------------------------------------------------------------------
 * statisticSetup.php

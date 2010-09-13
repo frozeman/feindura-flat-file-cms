@@ -549,9 +549,10 @@ function saveAdminConfig($adminConfig) {
  * 
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  * 
- * @version 1.0
+ * @version 1.01
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.01 removed $websiteconfig['email'], because its now set up in the contactForm plugin
  *    - 1.0 initial release
  * 
  */
@@ -586,8 +587,7 @@ function saveWebsiteConfig($websiteConfig) {
       fwrite($file,"\$websiteConfig['publisher']      = '".$websiteConfig['publisher']."';\n");
       fwrite($file,"\$websiteConfig['copyright']      = '".$websiteConfig['copyright']."';\n");
       fwrite($file,"\$websiteConfig['keywords']       = '".$websiteConfig['keywords']."';\n");
-      fwrite($file,"\$websiteConfig['description']    = '".$websiteConfig['description']."';\n");
-      fwrite($file,"\$websiteConfig['email']          = '".$websiteConfig['email']."';\n\n");
+      fwrite($file,"\$websiteConfig['description']    = '".$websiteConfig['description']."';\n\n");
       
       fwrite($file,"\$websiteConfig['startPage']      = '".$websiteConfig['startPage']."';\n\n");
       

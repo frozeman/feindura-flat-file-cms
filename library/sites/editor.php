@@ -70,7 +70,7 @@ if($_POST['save']) {
     $_GET['category'] = $category;
     $_POST['category'] = $category;       
   
-    $pageContent['log_visitCount'] = '0';
+    $pageContent['log_visitCount'] = 0;
     
     $logText = 0;
     

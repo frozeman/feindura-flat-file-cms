@@ -573,13 +573,13 @@ class statisticFunctions extends generalFunctions {
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
        !strstr($_SERVER['HTTP_REFERER'],str_replace('www.','',$this->adminConfig['url'])) && // checks if referer is not the own page
-       $logFile = @fopen($logFile,"w")) {       
+       $logFile = @fopen($logFile,"w")) {
       
       // -> create the new log string
       $newLog = time().'|#|'.$_SERVER['HTTP_REFERER'];
       
       // -> write the new log file
-      flock($logFile,2);    
+      flock($logFile,2);
       fwrite($logFile,$newLog."\n");    
       $count = 2;
       foreach($oldLog as $oldLogRow) {

@@ -117,7 +117,7 @@ if($_POST['sendClearstatistics']) {
     $statisticFunctions->saveTaskLog(23); // <- SAVE the task in a LOG FILE
   }
   
-  // ->> CLEAR TASK-LOG
+  // ->> CLEAR ACTIVITY-LOG
   if($_POST['clearStatistics_taskLog'] == 'true' &&
      $taskLogFile = fopen(dirname(__FILE__)."/../../statistic/activity.statistic.log","w")) {
     fclose($taskLogFile);

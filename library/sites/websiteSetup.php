@@ -139,15 +139,6 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       <textarea id="description" name="description" cols="50" rows="4" style="white-space:normal;width:500px;height:70px;" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field5_inputTip']; ?>"><?php echo $websiteConfig['description']; ?></textarea>
       </td></tr>
       
-      <tr><td class="spacer"></td><td></td></tr>
-      
-      <tr><td class="left">
-      <label for="email"><span class="toolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6'].'::'.$langFile['websiteSetup_websiteConfig_field6_tip']; ?>">
-      <?php echo $langFile['websiteSetup_websiteConfig_field6']; ?></span></label>
-      </td><td class="right">
-      <input id="email" name="email" value="<?php echo $websiteConfig['email']; ?>" class="inputToolTip" title="<?php echo $langFile['websiteSetup_websiteConfig_field6_inputTip']; ?>" />
-      </td></tr>
-      
       <tr><td class="leftBottom"></td><td></td></tr>
       
     </table>
