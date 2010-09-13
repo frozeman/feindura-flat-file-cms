@@ -47,7 +47,7 @@ class feindura extends feinduraBase {
  /* ->> GENERAL <<- */
  
  /**
-  * <i>TRUE</i> when the pages content should be handled as XHTML
+  * TRUE when the pages content should be handled as XHTML
   *
   * In XHTML standalone tags end with " />" instead of ">".<br />
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".

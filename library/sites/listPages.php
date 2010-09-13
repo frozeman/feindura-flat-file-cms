@@ -200,7 +200,7 @@ foreach($allCategories as $category) {
       $title = $generalFunctions->shortenTitle($pageContent['title'],31);
       
       // -> show lastsavedate
-      $lastSaveDate = $statisticFunctions->formatDate($pageContent['lastsavedate']).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
+      $lastSaveDate = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['lastsavedate'],$langFile)).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);
       
       // -> show pagedate
       if($statisticFunctions->checkPageDate($pageContent)) {

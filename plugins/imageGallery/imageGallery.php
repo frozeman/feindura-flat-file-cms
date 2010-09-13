@@ -15,19 +15,21 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  */
-$pagecontent = $pageContent;
+
 /**
 * Image Gallery Plugin class
 * 
 * This class reads an folder and creates a gallery out of the pictures in it.
 * 
 * <b>Notice</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
+* <b>Notice</b>: The image gallery is surrounded by an '<div class="imageGallery">' tag to help to style the image gallery. 
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
 * @package [Plugins]
+* @subpackage imageGallery
 * 
 * @version 1.0
 * <br />
@@ -40,7 +42,18 @@ class imageGallery {
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
  /* **************************************************************************************************************************** */
-  
+
+ /**
+  * TRUE when the pages content should be handled as XHTML
+  *
+  * In XHTML standalone tags end with " />" instead of ">".<br />
+  * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
+  * 
+  * @var bool
+  * 
+  */
+  var $xHtml = true; 
+
  /**
   * the maximal width of the pictures
   * 
@@ -527,11 +540,13 @@ class imageGallery {
     
     // var
     $return = array();
+    $tagEnd = ($this->xHtml === true) ? ' />' : '>';
     
     foreach($this->images as $image) {
       $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';    
-      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" rel="lightbox-gallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/thumb_'.$image['filename'].'" alt="thumbnail" /></a>';
-    }    
+      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" rel="lightbox-gallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/thumb_'.$image['filename'].'" alt="thumbnail"'.$tagEnd.'</a>';
+    }
+    
     return $return;    
   }
 
@@ -552,10 +567,13 @@ class imageGallery {
   * 
   */
   function createLinkToGallery() {
+    //var
+    $tagEnd = ($this->xHtml === true) ? ' />' : '>';
+    
     $previewImagePath = $this->galleryPath.'thumbnails/thumb_'.$this->previewImage;
     $previewImageSize = @getimagesize($_SERVER["DOCUMENT_ROOT"].$previewImagePath);
     
-    $previewImage = (!empty($this->previewImage)) ? '<img src="'.$previewImagePath.'" alt="previewImage" />' : '';
+    $previewImage = (!empty($this->previewImage)) ? '<img src="'.$previewImagePath.'" alt="previewImage"'.$tagEnd : '';
     $linkUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false) ? $_SERVER['REQUEST_URI'].'?gallery=' : $_SERVER['REQUEST_URI'].'&amp;gallery=';
     
     return '<a href="'.$linkUrl.$this->galleryPath.'">'.$previewImage.'<br />'.$this->title.'</a>';    
@@ -566,9 +584,11 @@ class imageGallery {
   * 
   * Generates the gallery for displaying in an HTML-page
   * 
+  * <b>Notice</b>: The image gallery is surrounded by an '<div class="imageGallery">' tag to help to style the image gallery.  
   * 
   * @param string       $tag         the tag used to create the gallery, can be "ul", "table" or FALSE to return just images
   * @param int          $breakAfter  (optional) if the $tag parameter is "table" then it defines the number after which the table makes a new row
+  * @param array        $pageContent (optional) the $pageContent array of the page which uses the plugin, to compare the last edit date with the one from the "lastmodification.log"
   * 
   * @return string the generated gallery
   * 
@@ -581,19 +601,21 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function showGallery($tag,$breakAfter = false) {    
+  function showGallery($tag, $breakAfter = false, $pageContent = false) {    
+    
+    
     
     // CHECK if a $pageContent array is given
     $lastEditTimestamp = @file_get_contents($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/lastmodification.log');
     // -> check if the timestamp of the lastmodification is newer than the one saved in the "thumbnails/lastedit.log"
     //echo $this->lastModification.' > '.$lastEditTimestamp;
-    if($this->lastModification > $lastEditTimestamp) {
+    if(($pageContent && $pageContent['lastsavedate'] > $lastEditTimestamp) || $this->lastModification > $lastEditTimestamp) {
       $this->resizeImages();
       $this->createThumbnails();
     } 
     
     // vars
-    if(is_string($tag)) {
+    if(is_string($tag) && !empty($tag)) {
       $startTag = '<'.$tag.'>';
       $endTag = '</'.$tag.'>';
     }
@@ -650,7 +672,7 @@ class imageGallery {
     }
     
     // RETURN
-    return $gallery;
+    return '<div class="imageGallery">'.$gallery.'</div>';
   }
   
 }

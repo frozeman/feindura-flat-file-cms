@@ -1061,7 +1061,7 @@ class statisticFunctions extends generalFunctions {
       
       // hohlt die botliste aus der spiders.xml liste
       // wenn php version > 5
-      if(substr(phpversion(),0,1) >= 5) {
+      if(substr(phpversion(),0,1) >= 5) {      
         if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
           foreach($xml as $xmlData) {
               $bots[] = strtolower($xmlData['ident']);            
@@ -1091,8 +1091,10 @@ class statisticFunctions extends generalFunctions {
       $summe = count($bots);
 
       foreach($bots as $bot) {
-        if(strstr(strtolower($userAgent), strtolower($bot)))
+        if(strpos(strtolower($userAgent), strtolower($bot)) !== false) {
+          //echo $_SERVER['HTTP_USER_AGENT'].'<br>'.$bot;
           return true; // User-Agent is a Bot
+        }           
       }
       // User-Agent is no Bot
       return false;
@@ -1473,7 +1475,7 @@ class statisticFunctions extends generalFunctions {
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
-    
+
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER

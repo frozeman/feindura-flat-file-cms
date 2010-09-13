@@ -602,7 +602,7 @@ $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_setting
 
 // ---------- page info
 $langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
-$langFile['editor_pageinfo_lastsavedate'] = 'zuletzt bearbeitet am';
+$langFile['editor_pageinfo_lastsavedate'] = 'zuletzt bearbeitet';
 $langFile['editor_pageinfo_lastsaveauthor'] = 'von';
 $langFile['editor_pageinfo_linktothispage'] = 'Link zu dieser Seite';
 $langFile['editor_pageinfo_id'] = 'Seiten ID';

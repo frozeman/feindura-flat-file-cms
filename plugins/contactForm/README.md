@@ -1,6 +1,6 @@
 feindura - Flat File Content Management System
 ==============================================
-imageGallery plugin
+contactForm plugin
 ==============================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,23 +24,11 @@ Fabian Vogelsteller <http://frozeman.de>
 
 
 ### DESCRIPTION
-This plugin creates automaticly an gallery from a folder containing images. On the first load of the plugin in the website,
-the images will be resized to the size set in the plugin settings and thumbnails will be created.
+This plugin creates an contactform to send an email, it uses also a simple chapta protection
 
 
 ### USAGE
-The imageGallery plugin can be displayed in your website with the showPlugins('imageGallery',$pageId) method from the feindura class (when activated in the page with the $pageId).
-
+The contactForm plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the feindura class (when activated in the page with the $pageId).
 
 ### ADDITIONAL
-You can also add image captions by placing a "texts.txt" in the folder of the images with the following format:
-filename1.jpg image text
-filename2.png another image text
-...
-
-The imageGallery class can also be used without feindura as a image gallery in your websites!
-
-
-### USES
-SlimBox2 http://www.digitalia.be/software/slimbox2
-jQuery http://jquery.com/
+The contactForm class can also be used without feindura in your websites!

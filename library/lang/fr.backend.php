@@ -522,7 +522,7 @@ $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_setting
 
 // ---------- page info
 $langFile['editor_h1_createpage'] = 'cr&eacute;er nouvelle page';
-$langFile['editor_pageinfo_lastsavedate'] = 'derni&egrave;rement trait&eacute; au';
+$langFile['editor_pageinfo_lastsavedate'] = 'derni&egrave;rement trait&eacute;';
 $langFile['editor_pageinfo_lastsaveauthor'] = 'de';
 $langFile['editor_pageinfo_linktothispage'] = 'lien m&egrave;nant sur le site web';
 $langFile['editor_pageinfo_id'] = 'ID de la page';

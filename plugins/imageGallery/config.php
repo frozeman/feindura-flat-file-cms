@@ -1,15 +1,15 @@
 <?php
 /* imageGallery plugin */
 
-$config['galleryPath']         = '';
-//$config['galleryTitle']        = 'unnamed';
-//$config['previewImage']        = '';
-$config['imageWidth']          = 800;
-$config['imageHeight']         = null;
-$config['thumbnailWidth']      = 160;
-$config['thumbnailHeight']     = null;
-$config['tag']                 = 'table';
-$config['breakAfter']          = 3;
+$pluginConfig['galleryPath']         = '';
+//$pluginConfig['galleryTitle']        = 'unnamed';
+//$pluginConfig['previewImage']        = '';
+$pluginConfig['imageWidth']          = 800;
+$pluginConfig['imageHeight']         = null;
+$pluginConfig['thumbnailWidth']      = 160;
+$pluginConfig['thumbnailHeight']     = null;
+$pluginConfig['tag']                 = 'table';
+$pluginConfig['breakAfter']          = 3;
 
-return $config;
+return $pluginConfig;
 ?>

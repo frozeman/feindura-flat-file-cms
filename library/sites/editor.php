@@ -223,7 +223,7 @@ $categorySorting = ($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
 echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.$categorySorting.'</span>';
 
 // -> show LAST SAVE DATE TIME
-$lastSaveDate =  $statisticFunctions->formatDate($pageContent['lastsavedate']);
+$lastSaveDate =  $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['lastsavedate'],$langFile));
 $lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
 
 $editedByUser = (!empty($pageContent['lastsaveauthor']))
@@ -232,7 +232,7 @@ $editedByUser = (!empty($pageContent['lastsaveauthor']))
 
 echo ($newPage)
   ? '</h1>'
-  : '<br /><span style="font-size:11px;">[ '.$langFile['editor_pageinfo_lastsavedate'].' '.$lastSaveDate.' '.$lastSaveTime.$editedByUser.' ]</span></h1>';
+  : '<br /><span style="font-size:11px;">[ '.$langFile['editor_pageinfo_lastsavedate'].': '.$lastSaveDate.' '.$lastSaveTime.$editedByUser.' ]</span></h1>';
   
 ?>
   <div class="content">
@@ -343,7 +343,7 @@ echo ($newPage)
               <td class="left">
               <span class="info"><strong>'.$langFile['editor_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
-              <span class="info" style="font-size:11px;"><a href="http://'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
+              <span class="info" style="font-size:11px;"><a href="'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
               </td>
               </tr>';
       }
@@ -720,7 +720,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
       $plugins = $generalFunctions->readFolder($adminConfig['basePath'].'plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
         // vars
-        $pluginFolderName = basename($pluginFolder);
+        unset($pluginConfig,$pluginLangFile);
+        $pluginFolderName = basename($pluginFolder);       
         $pluginConfig = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
         $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/lang/'.$_SESSION['language'].'.php');
         $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;

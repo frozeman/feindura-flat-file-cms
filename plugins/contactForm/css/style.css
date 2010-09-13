@@ -1,0 +1,64 @@
+/* FORM */
+
+.contactForm table, .contactForm td {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  line-height:25px;
+}
+
+.contactForm input {
+  width: 180px;
+}
+#contactForm_field_housenumber, #contactForm_field_zipcode {
+  width: 48px;
+}
+#contactForm_field_street, #contactForm_field_city {
+  width: 125px;
+}
+
+#contactForm_field_street, #contactForm_field_zipcode {
+  margin-right: 2px;
+}
+
+#contactForm_field_message {
+  width: 365px;
+}
+
+#contactForm_field_chapta {
+  position:relative;
+  top: -30px;
+  left: 70px;
+  width: 31px;
+}
+
+#contactForm_chaptaNumbers {
+  margin-top: 15px;
+  line-height: 0px;
+}
+
+#contactForm_button_send {
+  width: auto;
+}
+
+#contactForm_text_mandatoryfields {
+  font-size: 11px;
+}
+
+/* ERROR */
+
+#contactForm_error {
+  
+}
+
+/* CHAPTA */
+.contactForm .chapta_letters {
+	color: #000;
+	background-color: #000;
+	font: 5px Verdana, Arial, Sans-serif, Serif !important;
+}
+.contactForm .chapta_background {
+  color: transparent;
+	background-color: transparent;
+	font: 5px Verdana, Arial, Sans-serif, Serif !important;
+}

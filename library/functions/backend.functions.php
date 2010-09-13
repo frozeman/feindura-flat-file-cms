@@ -1343,8 +1343,9 @@ function isWritableWarningRecursive($folders) {
  */
 function checkBasePath() {
   
+  $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
   $baseUrl = str_replace('www.','',$GLOBALS['adminConfig']['url']);
-  $checkUrl = str_replace('www.','',$_SERVER["HTTP_HOST"]);
+  $checkUrl = str_replace('www.','',$hostProtocol.$_SERVER["HTTP_HOST"]);
   
   $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
   

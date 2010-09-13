@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <searchspiders>
-	<spider ident="008">
-		<name>80legs</name>
-		<info>http://www.80legs.com/spider.html</info>
-	</spider>
 	<spider ident="urlfan-bot">
 		<name>://URLFAN</name>
 		<info>http://www.urlfanx.com/site/bot/350.html</info>

@@ -168,7 +168,8 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
   }
   
   // -> PREPARE CONFIG VARs
-  $adminConfig['url'] = $_SERVER["HTTP_HOST"];
+    $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
+  $adminConfig['url'] = $hostProtocol.$_SERVER["HTTP_HOST"];
   $adminConfig['basePath'] = (substr(dirname($_SERVER['PHP_SELF']),-1) == '/')
   ? dirname($_SERVER['PHP_SELF'])
   : dirname($_SERVER['PHP_SELF']).'/';
@@ -325,8 +326,9 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       <?php echo $langFile['adminSetup_fmsSettings_field1'] ?></span></label>
       </td><td class="right">
       <?php
+        $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
       $basePath = str_replace('www.','',$adminConfig['url']);
-      $checkPath = str_replace('www.','',$_SERVER["HTTP_HOST"]);
+      $checkPath = str_replace('www.','',$hostProtocol.$_SERVER["HTTP_HOST"]);
       ?>
       <input id="cfg_url" name="cfg_url"<?php if($basePath != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field1_inputTip']; ?>" />
       </td></tr>

@@ -42,34 +42,28 @@
 * 
 */
 /**
- * The inlcude file for the imageGallery plugin
+ * The inlcude file for the contactForm plugin
  * 
  * @package [Plugins]
- * @subpackage imageGallery
+ * @subpackage contactForm
  */ 
 
-// var
-$filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
-$filePath = str_replace($_SERVER["DOCUMENT_ROOT"],'',$filePath);
-$plugin = '';
-
-$plugin .= '<script type="text/javascript" src="'.$filePath.'/js/jquery-1.4.2.min.js" />';
-$plugin .= '<script type="text/javascript" src="'.$filePath.'/slimBox2/js/slimbox2.js" />';
-
-// load the imageGallery class
-require('imageGallery.php');
+// load the contactForm class
+require('contactForm.php');
 
 // create an instance of the imageGallery class
-$gallery = new imageGallery($pluginConfig['galleryPath']);
+$contactForm = new contactForm($pluginConfig['recipient']);
 
 // set configs
-$gallery->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
-$gallery->imageWidth = $pluginConfig['imageWidth'];
-$gallery->imageHeight = $pluginConfig['imageHeight'];
-$gallery->thumbnailWidth = $pluginConfig['thumbnailWidth'];
-$gallery->thumbnailHeight = $pluginConfig['thumbnailHeight'];
+$contactForm->xHtml = $this->xHtml; // set the xHtml property from the feindura class
+$contactForm->websiteTitle = $this->websiteConfig['title'];
+$contactForm->websiteUrl = $this->adminConfig['url'];
+$contactForm->config = $pluginConfig;
+// include the $pluginLangFile
+if($pluginLangFile = @include('lang/'.$this->language.'.php'))
+  $contactForm->langFile = $pluginLangFile;
 
-$plugin .= $gallery->showGallery($pluginConfig['tag'],$pluginConfig['breakAfter'],$pageContent);
+$plugin = $contactForm->showContactForm();
 
 // RETURN the plugin
 // *****************

@@ -187,7 +187,7 @@ if($_GET['site'] == 'addons') {
         <a href="?language=fr" class="fr toolTip" title="français::"></a>
       </div>
           
-      <a href="http://<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].$version[2].' - '.$version[3]; ?>::"></a>
+      <a href="<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].$version[2].' - '.$version[3]; ?>::"></a>
       <div id="version"><?php echo $version[2]; ?></div>
       
       <div id="mainMenu">
