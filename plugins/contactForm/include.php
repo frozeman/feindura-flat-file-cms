@@ -49,7 +49,7 @@
  */ 
 
 // load the contactForm class
-require('contactForm.php');
+require_once('contactForm.php');
 
 // create an instance of the imageGallery class
 $contactForm = new contactForm($pluginConfig['recipient']);
@@ -60,7 +60,10 @@ $contactForm->websiteTitle = $this->websiteConfig['title'];
 $contactForm->websiteUrl = $this->adminConfig['url'];
 $contactForm->config = $pluginConfig;
 // include the $pluginLangFile
-if($pluginLangFile = @include('lang/'.$this->language.'.php'))
+$pluginCountryCode = (file_exists(dirname(__FILE__).'/lang/'.$this->language.'.php'))
+	  ? $this->language
+	  : 'en';
+if($pluginLangFile = @include('lang/'.$pluginCountryCode.'.php'))
   $contactForm->langFile = $pluginLangFile;
 
 $plugin = $contactForm->showContactForm();

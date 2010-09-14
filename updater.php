@@ -272,12 +272,12 @@ $newVersion = '1.0';
       flock($logFile,3);
       fclose($logFile);
       
-      echo 'referer <span class="succesfull">Succesfully updated, you can delete this file now.</span><br />';
+      echo 'referer <span class="succesfull">Succesfully updated</span><br />';
       
     }
     ?>
   
-  <h1>All Succesfully Updated</h1>
+  <h1>You can now delete this file.</h1>
   
   <?php
   }  

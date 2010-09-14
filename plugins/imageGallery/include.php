@@ -57,7 +57,7 @@ $plugin .= '<script type="text/javascript" src="'.$filePath.'/js/jquery-1.4.2.mi
 $plugin .= '<script type="text/javascript" src="'.$filePath.'/slimBox2/js/slimbox2.js" />';
 
 // load the imageGallery class
-require('imageGallery.php');
+require_once('imageGallery.php');
 
 // create an instance of the imageGallery class
 $gallery = new imageGallery($pluginConfig['galleryPath']);

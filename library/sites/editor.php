@@ -719,11 +719,15 @@ $blockContentEdited = (isset($pageContent['plugins']))
       // ->> LOAD PLUGINS      
       $plugins = $generalFunctions->readFolder($adminConfig['basePath'].'plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
+      
         // vars
+	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/lang/'.$_SESSION['language'].'.php'))
+	  ? $_SESSION['language']
+	  : 'en';
         unset($pluginConfig,$pluginLangFile);
         $pluginFolderName = basename($pluginFolder);       
         $pluginConfig = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
-        $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/lang/'.$_SESSION['language'].'.php');
+        $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/lang/'.$pluginCountryCode.'.php');
         $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
         
         // LIST PLUGINS

@@ -222,10 +222,11 @@ class generalFunctions {
         
     	  foreach($langFiles['files'] as $langFilePath) {
 
-          $langFileSchema = basename($langFilePath);
+          $langFile = basename($langFilePath);
 
-      		if(stristr(substr(substr($langFileSchema,-6),-2).",", $browserLang.",") ||
-             stristr(substr($langFileSchema,0,2).",", $browserLang.",")) {
+      		if(stristr(substr($langFile,-6,2).",", $browserLang.",") ||
+             stristr(substr($langFile,0,2).",", $browserLang.",")) {
+	  
       		  // returns either langFile or the COUNTRY CODE
       		  if($returnLangFile) {
       		    if($return = include(DOCUMENTROOT.$langFilePath))
@@ -240,9 +241,9 @@ class generalFunctions {
         
         // if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
       	if($returnLangFile) {
-          if(!empty($langFileSchema)) {
-            if($return = @include($langPath.substr($langFileSchema,0,-6).$standardLang.'.php') ||
-               $return = @include($langPath.$standardLang.substr($langFileSchema,2)))
+          if(!empty($langFile)) {
+            if($return = @include($langPath.substr($langFile,0,-6).$standardLang.'.php') ||
+               $return = @include($langPath.$standardLang.substr($langFile,2)))
               return $return;
             else
               return false;

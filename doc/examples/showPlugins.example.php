@@ -1,9 +1,8 @@
 <?php
 /*                               *** CODE *** 
 --------------------------------------------------------------------------------
-This example uses all possible properties.
-It's also works much more simple: just call showPage() without setting properties
-and it shows the current page given by the $_GET variable.
+This example gets all plugins which are activated in the page with ID "2".
+You can also request only single plugins, it will then only return a string, with the HTML of the plugin.
 */
 
 // a session will be started in the "feindura.include.php",
@@ -14,36 +13,13 @@ require('cms/feindura.include.php');
 // creates a new feindura instance
 $myCms = new feindura();
 
-// set properties
-$myCms->xHtml =                  true;
-
-$myCms->showErrors =              true;
-$myCms->errorTag =               'span';
-$myCms->errorId =                'errorId';
-$myCms->errorClass =             'errorClass';
-$myCms->errorAttributes =        'test="exampleAttribute1" onclick="exampleAttribute2"';
-
-$myCms->titleLength =            20;
-$myCms->titleAsLink =            true;
-$myCms->titleShowPageDate =      true;
-$myCms->titleShowCategory =      false; // has no effect, because page with ID "1" has no category
-$myCms->titleCategorySeperator = ' -> ';
-
-$myCms->thumbnailAlign =         'left';
-$myCms->thumbnailId =            'thumbId';
-$myCms->thumbnailClass =         'thumbCLass';
-$myCms->thumbnailAttributes =    'test="exampleAttribute1" onclick="exampleAttribute2"';
-$myCms->thumbnailBefore =        false;
-$myCms->thumbnailAfter =         false;
-
-
-// finally, return the page, with ID "1", using the above set properties
-$page = $myCms->showPage(1,100,true,true);
+// get the all plugins, which are activated in the page with ID "2"
+$plugins = $myCms->showPlugins(true,2);
 
 // displays the page (the "\n" creates a line break for a better look)
-echo $page['title']."\n";
-echo $page['thumbnail']."\n";
-echo $page['content'];
+foreach($plugins as $plugin) {
+  echo $plugin;
+}
 
 
 /*                              *** RESULT with page *** 

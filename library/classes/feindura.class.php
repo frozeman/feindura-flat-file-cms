@@ -1798,15 +1798,15 @@ class feindura extends feinduraBase {
   * <b>Name</b>  showPlugins()<br />
   * <b>Alias</b> showPlugin()<br />  
   * 
-  * Returns the plugins of a page ready for displaying in a HTML page.
+  * Returns the plugin(s) of a page ready for displaying in a HTML page.
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
   * Example of the returned array:
-  * {@example generatePage.return.example.php}
+  * {@example showPlugins.return.example.php}
   * 
   * Example usage:
-  * {@example showPage.example.php}
+  * {@example showPlugins.example.php}
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
   * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
@@ -1816,7 +1816,7 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::generatePage()                 to generate the array with the page elements
   * 
-  * @return array with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array if the plugin(s) or page doesn't exist or is not public
+  * @return array|string|false with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
   * 
   * @see getPageTitle()
   * @see feinduraBase::generatePage()
@@ -1830,9 +1830,10 @@ class feindura extends feinduraBase {
   function showPlugins($plugins = true, $page = false) {    
     
     // var
-    $pluginsArray = array();
+    $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
+    $pluginsReturn = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? false : array();
     if(!is_array($plugins) && !is_bool($plugins))
-      $plugins[0] = $plugins;
+      $plugins = array($plugins);
     
     if($page = $this->loadPrevNextPage($page)) {
                                 
@@ -1845,18 +1846,21 @@ class feindura extends feinduraBase {
             
               foreach($pageContent['plugins'] as $pluginName => $plugin) {
 
-                // goe through all plugins and load the required ones
+                // go through all plugins and load the required ones
                 if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
                    $plugin['active'] &&
                    $this->pluginsConfig[$pluginName]['active'] &&
                    (($pageContent['category'] == 0 && $this->adminConfig['page']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
-                  
+                 
                   // create plugin config
                   $pluginConfig = $plugin;
                   unset($pluginConfig['active']); // remove the active value from the plugin config
-                  
+
                   // -> include the plugin
-                  $pluginsArray[$pluginName] = include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
+		  if($singlePlugin)
+		    return include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
+		  else  
+                    $pluginsReturn[$pluginName] = include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
                   
                 }
               }
@@ -1865,7 +1869,7 @@ class feindura extends feinduraBase {
         }       
     }
     
-    return $pluginsArray;
+    return $pluginsReturn;
   }
   /**
   * Alias of {@link showPlugins()}
