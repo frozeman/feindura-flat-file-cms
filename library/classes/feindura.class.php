@@ -1852,7 +1852,7 @@ class feindura extends feinduraBase {
               if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
                  $plugin['active'] &&
                  $this->pluginsConfig[$pluginName]['active'] &&
-                 (($pageContent['category'] == 0 && $this->adminConfig['page']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
+                 (($pageContent['category'] == 0 && $this->adminConfig['pages']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
                
                 // create plugin config
                 $pluginConfig = $plugin;

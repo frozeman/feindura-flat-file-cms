@@ -19,10 +19,10 @@ $adminConfig['user']['editStylesheets'] =  true;
 $adminConfig['user']['info'] =             '';
 
 $adminConfig['setStartPage'] =            true;
-$adminConfig['page']['createdelete'] =    true;
-$adminConfig['page']['thumbnails'] =      true;
-$adminConfig['page']['plugins'] =         true;
-$adminConfig['page']['showtags'] =        false;
+$adminConfig['pages']['createdelete'] =    true;
+$adminConfig['pages']['thumbnails'] =      true;
+$adminConfig['pages']['plugins'] =         true;
+$adminConfig['pages']['showtags'] =        false;
 
 $adminConfig['editor']['enterMode'] =  'p';
 $adminConfig['editor']['styleFile'] =  '/_feindura.org/style/reset.css|#|/_feindura.org/style/layout.css|#|/_feindura.org/style/widgets.css|#|/_feindura.org/style/content.css|#|http://fonts.googleapis.com/css?family=Molengo';

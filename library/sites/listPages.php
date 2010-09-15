@@ -159,7 +159,7 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';
       
       // create page
-      if(($category['id'] == 0 && $adminConfig['page']['createdelete']) || $category['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $category['createdelete'])
         echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['btn_createPage_tip'].'::" class="createPage toolTip">&nbsp;</a>';
          
   echo '  </div>
@@ -251,18 +251,18 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';      
  
       // thumbnail upload
-      if(($category['id'] == 0 && $adminConfig['page']['thumbnails']) || $allCategories['id_'.$category['id']]['thumbnail'])
+      if(($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories['id_'.$category['id']]['thumbnail'])
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
       
       // thumbnail upload delete
-      if((($category['id'] == 0 && $adminConfig['page']['thumbnails']) || $allCategories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
+      if((($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
         echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
                
       // edit page
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
       
       // delete page
-      if(($category['id'] == 0 && $adminConfig['page']['createdelete']) || $allCategories['id_'.$category['id']]['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $allCategories['id_'.$category['id']]['createdelete'])
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['btn_deletePage'].'::" class="deletePage toolTip">&nbsp;</a>';
 
       // startpage

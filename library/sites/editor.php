@@ -258,7 +258,7 @@ echo ($newPage)
     
     // -> show the thumbnail upload button if there is no thumbnail yet
     } elseif(!$newPage &&
-            (($pageContent['category'] == 0 && $adminConfig['page']['thumbnails']) ||
+            (($pageContent['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
             $categoryConfig['id_'.$pageContent['category']]['thumbnail'])) {  
       
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
@@ -305,7 +305,7 @@ echo ($newPage)
               <select name="categoryId">';
               
               // -> shows non-category selection if create pages is allowed
-              if($adminConfig['page']['createdelete'])
+              if($adminConfig['pages']['createdelete'])
                 echo '<option value="0">'.$langFile['editor_pageinfo_category_noCategory'].'</option>';
               
               // ->> goes trough categories and list them
@@ -699,7 +699,7 @@ foreach($pluginsConfig as $pluginConfig) {
   if($pluginConfig['active'])
     $pluginsActive = true;    
 }
-if($pluginsActive && (($pageContent['category'] == 0 && $adminConfig['page']['plugins']) ||
+if($pluginsActive && (($pageContent['category'] == 0 && $adminConfig['pages']['plugins']) ||
    $categoryConfig['id_'.$pageContent['category']]['plugins'])) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->

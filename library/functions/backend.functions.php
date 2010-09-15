@@ -481,10 +481,10 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['user']['editWebsiteFiles'] = (isset($adminConfig['user']['editWebsiteFiles']) && $adminConfig['user']['editWebsiteFiles']) ? 'true' : 'false';
     $adminConfig['user']['editStylesheets'] = (isset($adminConfig['user']['editStylesheets']) && $adminConfig['user']['editStylesheets']) ? 'true' : 'false';
     $adminConfig['setStartPage'] = (isset($adminConfig['setStartPage']) && $adminConfig['setStartPage']) ? 'true' : 'false';
-    $adminConfig['page']['createdelete'] = (isset($adminConfig['page']['createdelete']) && $adminConfig['page']['createdelete']) ? 'true' : 'false';
-    $adminConfig['page']['thumbnails'] = (isset($adminConfig['page']['thumbnails']) && $adminConfig['page']['thumbnails']) ? 'true' : 'false';
-    $adminConfig['page']['plugins'] = (isset($adminConfig['page']['plugins']) && $adminConfig['page']['plugins']) ? 'true' : 'false';
-    $adminConfig['page']['showtags'] = (isset($adminConfig['page']['showtags']) && $adminConfig['page']['showtags']) ? 'true' : 'false';
+    $adminConfig['pages']['createdelete'] = (isset($adminConfig['pages']['createdelete']) && $adminConfig['pages']['createdelete']) ? 'true' : 'false';
+    $adminConfig['pages']['thumbnails'] = (isset($adminConfig['pages']['thumbnails']) && $adminConfig['pages']['thumbnails']) ? 'true' : 'false';
+    $adminConfig['pages']['plugins'] = (isset($adminConfig['pages']['plugins']) && $adminConfig['pages']['plugins']) ? 'true' : 'false';
+    $adminConfig['pages']['showtags'] = (isset($adminConfig['pages']['showtags']) && $adminConfig['pages']['showtags']) ? 'true' : 'false';
     
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
@@ -507,11 +507,11 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['user']['editStylesheets'] =  ".$adminConfig['user']['editStylesheets'].";\n");  
     fwrite($file,"\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n");
     
-    fwrite($file,"\$adminConfig['setStartPage'] =            ".$adminConfig['setStartPage'].";\n");
-    fwrite($file,"\$adminConfig['page']['createdelete'] =    ".$adminConfig['page']['createdelete'].";\n");
-    fwrite($file,"\$adminConfig['page']['thumbnails'] =      ".$adminConfig['page']['thumbnails'].";\n");    
-    fwrite($file,"\$adminConfig['page']['plugins'] =         ".$adminConfig['page']['plugins'].";\n");
-    fwrite($file,"\$adminConfig['page']['showtags'] =        ".$adminConfig['page']['showtags'].";\n\n");
+    fwrite($file,"\$adminConfig['setStartPage'] =          ".$adminConfig['setStartPage'].";\n");
+    fwrite($file,"\$adminConfig['pages']['createdelete'] = ".$adminConfig['pages']['createdelete'].";\n");
+    fwrite($file,"\$adminConfig['pages']['thumbnails'] =   ".$adminConfig['pages']['thumbnails'].";\n");    
+    fwrite($file,"\$adminConfig['pages']['plugins'] =      ".$adminConfig['pages']['plugins'].";\n");
+    fwrite($file,"\$adminConfig['pages']['showtags'] =     ".$adminConfig['pages']['showtags'].";\n\n");
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".$adminConfig['editor']['enterMode']."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n");
