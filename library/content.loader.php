@@ -29,8 +29,8 @@ echo basePathWarning();
 // ***********************************************************************
 // CHECKs if a STARTPAGE is SET and if this page exists
 // if not throw a warning
-if($_GET['site'] != 'pages' && $_GET['site'] != 'adminSetup')
-  startPageWarning();
+if($_GET['site'] != 'pages' && $_GET['site'] != 'pageSetup')
+echo startPageWarning();
 
 
 // start of loading the content

@@ -18,11 +18,11 @@ $adminConfig['user']['editWebsiteFiles'] = true;
 $adminConfig['user']['editStylesheets'] =  true;
 $adminConfig['user']['info'] =             '';
 
-$adminConfig['setStartPage'] =            true;
-$adminConfig['pages']['createdelete'] =    true;
-$adminConfig['pages']['thumbnails'] =      true;
-$adminConfig['pages']['plugins'] =         true;
-$adminConfig['pages']['showtags'] =        false;
+$adminConfig['setStartPage'] =          true;
+$adminConfig['pages']['createdelete'] = true;
+$adminConfig['pages']['thumbnails'] =   true;
+$adminConfig['pages']['plugins'] =      true;
+$adminConfig['pages']['showtags'] =     false;
 
 $adminConfig['editor']['enterMode'] =  'p';
 $adminConfig['editor']['styleFile'] =  '/_feindura.org/style/reset.css|#|/_feindura.org/style/layout.css|#|/_feindura.org/style/widgets.css|#|/_feindura.org/style/content.css|#|http://fonts.googleapis.com/css?family=Molengo';
