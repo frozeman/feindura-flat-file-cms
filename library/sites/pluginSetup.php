@@ -48,7 +48,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
 include(dirname(__FILE__).'/../process/saveEditFiles.php');
 
 // RE-INCLUDE
-$pluginsConfig = @include (dirname(__FILE__)."/../../config/plugins.config.php");
+$pluginsConfig = @include(dirname(__FILE__)."/../../config/plugins.config.php");
 
 // ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 

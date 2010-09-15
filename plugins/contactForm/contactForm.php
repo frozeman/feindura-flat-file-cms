@@ -521,7 +521,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if($this->config['phone_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
         if(!empty($mandatoryFields['phone'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
-        $return .= '<label for="contactForm_field_phone"'.$notFilled.'><b>'.$this->langFile[''].$mandatory.'</b></label><br />';
+        $return .= '<label for="contactForm_field_phone"'.$notFilled.'><b>'.$this->langFile['field_phone'].$mandatory.'</b></label><br />';
         $return .= '<input type="text" size="28" id="contactForm_field_phone" name="phone" value="'.@$_SESSION['phone'].'" /><br />';
   
       }

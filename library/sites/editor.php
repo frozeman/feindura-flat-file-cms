@@ -699,8 +699,8 @@ foreach($pluginsConfig as $pluginConfig) {
   if($pluginConfig['active'])
     $pluginsActive = true;    
 }
-if($pluginsActive && (($pageContent['category'] == 0 && $adminConfig['pages']['plugins']) ||
-   $categoryConfig['id_'.$pageContent['category']]['plugins'])) {
+if($pluginsActive && (($category == 0 && $adminConfig['pages']['plugins']) ||
+   $categoryConfig['id_'.$category]['plugins'])) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>

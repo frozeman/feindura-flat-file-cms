@@ -20,7 +20,7 @@
  * @version 0.13
  */
 
-error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING); //E_ALL & ~E_NOTICE
 
 /**
  * The absolut path of the webserver
@@ -66,7 +66,7 @@ if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.conf
  * 
  * @global array $GLOBALS['categoryConfig']
  */
-if(!$categoryConfig =       @include_once(dirname(__FILE__)."/../config/category.config.php"))
+if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../config/category.config.php"))
   $categoryConfig =       array();
 
 /**
