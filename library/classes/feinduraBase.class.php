@@ -1031,16 +1031,16 @@ class feinduraBase {
       $attributeString = '';
       
       // add ID
-      if(is_string($id) || is_numeric($id))
+      if((is_string($id) || is_numeric($id)) && !empty($class))
         $attributeString .= ' id="'.$id.'"';
 	
       // add CLASS
-      if(is_string($class) || is_numeric($class))
+      if((is_string($class) || is_numeric($class)) && !empty($class))
         $attributeString .= ' class="'.$class.'"';
       
       // add ATTRIBUTES
-      if(is_string($attributes) || is_numeric($attributes))
-	$attributeString .= ' '.$attributes;
+      if((is_string($attributes) || is_numeric($attributes)) && !empty($class))
+	      $attributeString .= ' '.$attributes;
         
       return $attributeString;    
   }

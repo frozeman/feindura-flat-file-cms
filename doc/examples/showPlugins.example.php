@@ -19,6 +19,7 @@ $plugins = $myCms->showPlugins(true,2);
 // displays the page (the "\n" creates a line break for a better look)
 foreach($plugins as $plugin) {
   echo $plugin;
+  echo '------';
 }
 
 
@@ -26,26 +27,12 @@ foreach($plugins as $plugin) {
 --------------------------------------------------------------------------------
 */
 
-<a href="?page=1" title="2010-12-31 Example Page">
-2010-12-31 Example...
-</a>
-<img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
-class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
-
-<h2>Example Headline</h2>
-<p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
-Stet clita kasd gubergren, no sea takimata sanctus.</p>
-<p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam...</p>
-<a href="?page=1">mehr</a>
-
-
-/*                              *** RESULT with error *** 
---------------------------------------------------------------------------------
-*/
-
-<span id="errorId" class="errorClass" test="exampleAttribute1" onclick="exampleAttribute2">
-The requested page is currently not available.
-</span>
+<p>HTML created by the Plugin</p>
+<span>What it is depends on the plugin :-)</span>
+-----
+<h1>Another plugin which follows the first one</h1>
+<p>You can alsocall specific plugins directly
+when you give the plugin name instead of "true", like in this example</p>
+-----
 
 ?>

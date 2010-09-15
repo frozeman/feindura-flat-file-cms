@@ -23,13 +23,17 @@ $pluginLangFile['plugin_description']  = 'Listet Bilder aus einem Ordner als Gal
 /* CONFIG ************************************************************************************ */
 
 $pluginLangFile['galleryPath']         = 'Pfad der Galerie';
-$pluginLangFile['galleryPath_tip']     = 'Absoluter Pfad des Ordners in dem sich die Bilder befinden';
+$pluginLangFile['galleryPath_tip']     = 'Absoluter Pfad des Ordners in dem sich die Bilder befinden::z.B. &quot;/upload/Bildergalerie1&quot;';
 $pluginLangFile['galleryTitle']        = 'Galerietitel';
 $pluginLangFile['previewImage']        = 'Dateiname des Vorschaubildes';
 $pluginLangFile['imageWidth']          = 'Bilderbreite';
+$pluginLangFile['imageWidth_tip']      = 'in Pixel';
 $pluginLangFile['imageHeight']         = 'Bilderh&ouml;he';
+$pluginLangFile['imageHeight_tip']     = 'in Pixel';
 $pluginLangFile['thumbnailWidth']      = 'Vorschaubildbreite';
+$pluginLangFile['thumbnailWidth_tip']  = 'in Pixel';
 $pluginLangFile['thumbnailHeight']     = 'Vorschaubildh&ouml;he';
+$pluginLangFile['thumbnailHeight_tip'] = 'in Pixel';
 $pluginLangFile['tag']                 = 'Auflistungs HTML-Tag';
 $pluginLangFile['tag_tip']             = 'Der HTML-Tag f&uuml;r die Auflistung der Bilder::Folgende HTML-Tags sind erlaubt: &quot;table&quot;, &quot;ul&quot; oder nichts.';
 $pluginLangFile['breakAfter']          = 'Umbruch nach';

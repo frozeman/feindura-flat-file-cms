@@ -175,7 +175,7 @@ if($categoryRatio) {
   // show thumbnail if the page has one
   if(!empty($pageContent['thumbnail'])) {
     
-    $thumbnailWidth = getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+    $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
     if($thumbnailWidth[0] <= 250)
       $thumbnailWidth = ' width="'.$thumbnailWidth[0].'"';

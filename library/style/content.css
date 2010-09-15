@@ -913,7 +913,7 @@ a.toolTip {
     cursor: pointer;
     }    
 /* text toolTip */
-span.toolTip {
+span.toolTip, label.toolTip {
     /*color: #B46F00;*/
     background: url("../image/sign/hint_toolTipInfo.png") no-repeat right center;
     padding-right: 15px;

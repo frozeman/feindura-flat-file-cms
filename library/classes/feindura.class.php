@@ -1799,6 +1799,8 @@ class feindura extends feinduraBase {
   * <b>Alias</b> showPlugin()<br />  
   * 
   * Returns the plugin(s) of a page ready for displaying in a HTML page.
+  * It can return an array with the contents of the plugins requested,
+  * or if the <var>$plugins</var> parameter is a string with a plugin name, it returns only a string with one content of the plugin.   
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
@@ -1837,38 +1839,36 @@ class feindura extends feinduraBase {
     
     if($page = $this->loadPrevNextPage($page)) {
                                 
-        // LOAD the $pageContent array
-        if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
+      // LOAD the $pageContent array
+      if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
+        
+        // ->> LOAD the PLUGINS and return them 
+        if(($pageContent['category'] == 0 || $this->categoryConfig['id_'.$pageContent['category']]['public']) && $pageContent['public']) {
+          if(is_array($pageContent['plugins'])) {
           
-          // ->> LOAD the PLUGINS and return them 
-          if(($pageContent['category'] == 0 || $this->categoryConfig['id_'.$pageContent['category']]['public']) && $pageContent['public']) {
-            if(is_array($pageContent['plugins'])) {
-            
-              foreach($pageContent['plugins'] as $pluginName => $plugin) {
+            foreach($pageContent['plugins'] as $pluginName => $plugin) {
 
-                // go through all plugins and load the required ones
-                if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
-                   $plugin['active'] &&
-                   $this->pluginsConfig[$pluginName]['active'] &&
-                   (($pageContent['category'] == 0 && $this->adminConfig['page']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
-                 
-                  // create plugin config
-                  $pluginConfig = $plugin;
-                  unset($pluginConfig['active']); // remove the active value from the plugin config
+              // go through all plugins and load the required ones
+              if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
+                 $plugin['active'] &&
+                 $this->pluginsConfig[$pluginName]['active'] &&
+                 (($pageContent['category'] == 0 && $this->adminConfig['page']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
+               
+                // create plugin config
+                $pluginConfig = $plugin;
+                unset($pluginConfig['active']); // remove the active value from the plugin config
 
-                  // -> include the plugin
-		  if($singlePlugin)
-		    return include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
-		  else  
-                    $pluginsReturn[$pluginName] = include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
-                  
-                }
+                // -> include the plugin
+          		  if($singlePlugin)
+          		    return include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
+          		  else  
+                  $pluginsReturn[$pluginName] = include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
               }
-            }         
-          }            
-        }       
-    }
-    
+            }
+          }         
+        }            
+      }       
+    }    
     return $pluginsReturn;
   }
   /**

@@ -23,13 +23,17 @@ $pluginLangFile['plugin_description']  = 'Lists images from a folder. A thumbnai
 /* CONFIG ************************************************************************************ */
 
 $pluginLangFile['galleryPath']         = 'path to the gallery';
-$pluginLangFile['galleryPath_tip']     = 'absolut path of the folder where the pictures are in';
+$pluginLangFile['galleryPath_tip']     = 'absolut path of the folder where the pictures are in::e.g &quot;/upload/Imagegallery1&quot;';
 $pluginLangFile['galleryTitle']        = 'title of the gallery';
 $pluginLangFile['previewImage']        = 'filename of the gallery preview picture';
 $pluginLangFile['imageWidth']          = 'image width';
+$pluginLangFile['imageWidth_tip']      = 'in pixel';
 $pluginLangFile['imageHeight']         = 'image height';
+$pluginLangFile['imageHeight_tip']     = 'in pixel';
 $pluginLangFile['thumbnailWidth']      = 'thumbnail width';
+$pluginLangFile['thumbnailWidth_tip']  = 'in pixel';
 $pluginLangFile['thumbnailHeight']     = 'thumbnail height';
+$pluginLangFile['thumbnailHeight_tip'] = 'in pixel';
 $pluginLangFile['tag']                 = 'list HTML-Tag';
 $pluginLangFile['tag_tip']             = 'The HTML-Tag which will be used to list the pictures::The Following HTML-Tags are allowed: &quot;table&quot;, &quot;ul&quot; oder nothing.';
 $pluginLangFile['breakAfter']          = 'break after';

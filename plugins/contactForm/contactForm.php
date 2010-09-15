@@ -342,7 +342,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         // ERROR - a MANDATORY FILED is empty
         } else {
               
-          $return .= '<span id="contactForm_error"'.$this->mandatoryColor.'><b>'.$this->langFile['error_mandatoryfields'].'</b><br />';
+          $return .= '<span id="contactForm_error"'.$this->mandatoryColor.'><b>'.$this->langFile['error_mandatoryfields'].'</b><br />'."\n";
             // listet die Pflichfelder die nochleer sind auf
             if(is_array($mandatoryFields)) {
               $count = 1;
@@ -363,14 +363,13 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
               $return .= $this->langFile['field_message'];
             }
           
-          $return .= '</span>';
-          //echo '<br /><br /><a href="'.$this->currentUrl.'">'.$this->langFile['link_back'].'</a></p>';
+          $return .= '</span><br /><br />'."\n";
         }
       
       // ERROR - CHAPTA INCORRECT
       } else {
       $return .= '<span id="contactForm_error"><b>'.$this->langFile['error_chapta'].'</b><br />
-            <a href="'.$this->currentUrl.'">'.$this->langFile['link_back'].'</a></span>';
+            <a href="'.$this->currentUrl.'">'.$this->langFile['link_back'].'</a></span>'."\n";
       }
     }
     
@@ -402,8 +401,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
     //var
     $return = '';
 
-    $return .= '<h1>'.$this->langFile['form_title'].'</h1>
-  <form action="'.$this->currentUrl.'" method="post" enctype="multipart/form-data">
+    $return .= '<form action="'.$this->currentUrl.'" method="post" enctype="multipart/form-data">
     <div>
     <input type="hidden" name="contactFormSend" value="true" />
     </div>
@@ -596,6 +594,8 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
     $return = '';
     $mandatoryfieldsOk = true;
     $mandatoryFields = array();
+    
+    $return .= '<h1>'.$this->langFile['form_title'].'</h1>'."\n";
     
     if(isset($_POST['contactFormSend']) && $_POST['contactFormSend'] == 'true')
       $return .= $this->sendForm($mandatoryfieldsOk,$mandatoryFields);

@@ -757,8 +757,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
           if(!empty($pluginConfig) && is_array($pluginConfig)) {
             foreach($pluginConfig as $key => $value) {
               
+              $inputLength = (is_numeric($value)) ? ' short' : '';
               $keyName = (isset($pluginLangFile[$key])) ? $pluginLangFile[$key] : $key;
-              $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
+              $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip'.$inputLength.'" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
               $value = (empty($pageContent['plugins'][$pluginFolderName][$key]) && $pageContent['plugins'][$pluginFolderName][$key] !== false)
                 ? $value
                 : $pageContent['plugins'][$pluginFolderName][$key];
@@ -778,8 +779,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
                           
               } else {
                 echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
-                
-                $inputLength = (is_numeric($value)) ? ' class="short"' : '';
+
                 echo '<tr><td class="left">
                       <label for="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
                       </td><td class="right">

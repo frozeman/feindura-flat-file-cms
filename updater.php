@@ -109,9 +109,12 @@ $newVersion = '1.0';
   // WARNING
   if(!$updatePossible)
     echo '<br /><span class="warning">You can not use this updater, it\'s for updating to '.$newVersion.' only!</span>';
-    
+  
+  $basePath = dirname($_SERVER['PHP_SELF']).'/';
+  $basePath = preg_replace('#\/+#','/',$basePath);
+  
   // WRONG PATH WARNING
-  if(dirname($_SERVER['PHP_SELF']).'/' != $adminConfig['basePath']) {
+  if($basePath != $adminConfig['basePath']) {
     echo '<br /><span class="warning">You must place the "updater.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
     $updatePossible = false;
   }
