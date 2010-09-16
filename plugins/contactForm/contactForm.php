@@ -15,12 +15,18 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  */
+/**
+ * This file contains the {@link contactForm} class.
+ * 
+ * @package [Plugins]
+ * @subpackage contactForm
+ */
 
 // include the chapta
 require('chapta.php');
 
 /**
-* Image Gallery Plugin class
+* contactForm Plugin class
 * 
 * This class creates an contact form with a simple chapta check.
 * 

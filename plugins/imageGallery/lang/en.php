@@ -1,5 +1,4 @@
 <?php
-/* imageGallery plugin */
 /**
  * ENGLISH (EN) language-file for the imageGallery plugin
  * 
@@ -13,6 +12,9 @@
  * If the array key has an "configname_tip" on the end it will be used as toolTip.
  * E.g.:
  * $pluginLangFile['exampleconfig_tip'] = 'Example config tooltip text';
+ * 
+ * @package [Plugins]
+ * @subpackage imageGallery
  */
 
 /* PLUGIN ************************************************************************************ */

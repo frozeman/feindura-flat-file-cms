@@ -1,5 +1,8 @@
 <?php
-/* imageGallery plugin */
+/**
+ * @package [Plugins]
+ * @subpackage contactForm
+ */ 
 
 $pluginConfig['galleryPath']         = '';
 //$pluginConfig['galleryTitle']        = 'unnamed';

@@ -5,7 +5,7 @@
     font-size: 1.2em;
     line-height: 1.7em;
     margin-top: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 12px;
     }
   
 #content h1 {  
@@ -19,8 +19,22 @@
 #content td.tableSideBar {
     border-left: 1px dotted #CCCCCC;
     padding-left: 10px;
-    }
+  }
 
+#content ul {  
+    list-style: circle;
+    padding-left: 10px;
+    margin-left: 20px;
+    margin-top: -5px;
+    }
+#content li {
+    margin: 5px 0px;
+    }
+    
+#contentPackagList ul {
+  list-style: none;
+}
+    
 /* quotes */
 blockquote { 
     margin: 0px;

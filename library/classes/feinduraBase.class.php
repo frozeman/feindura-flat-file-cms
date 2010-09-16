@@ -956,7 +956,6 @@ class feinduraBase {
   * 
   * @return array|false the generated thumbnail <img> tag and a the plain thumbnail path or FALSE if no thumbnail exists or is not allowed to show
   * 
-  * 
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />

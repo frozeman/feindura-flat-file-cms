@@ -165,7 +165,8 @@
             <span class="functions"><a href="{$subdir}[backend]/_library---functions---backend.functions.php.html#sec-functions">Functions</a></span>
             <br><br>
           {/if}        
-          {if $compiledfileindex}        
+          {if $compiledfileindex}
+          <span class="folder-title">Files</span>
             {eval var=$compiledfileindex}
           {/if}        
                                          

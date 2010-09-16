@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link statisticFunctions} class.
  * 
- * @package [Implementation]|[backend]
+ * @package [Implementation]-[Backend]
  * 
  */
 
@@ -28,7 +28,7 @@
 * 
 * <b>Notice</b>: this class will be used by the implementation classes AND the backend of the feindura-CMS.
 * 
-* @package [Implementation]|[backend]
+* @package [Implementation]-[Backend]
 * 
 * @version 0.60
 * <br>
@@ -641,7 +641,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * @uses $websiteStatistic to get the browsers which visited to the website
   * 
-  * return string|false the browser chart or FALSE
+  * @return string|false the browser chart or FALSE
   * 
   * @version 1.01
   * <br>
@@ -857,7 +857,7 @@ class statisticFunctions extends generalFunctions {
   * @param int    $minFontSize    (optional) the minimal font size in the tag-cloud
   * @param int    $maxFontSize    (optional) the maximal font size in the tag-cloud  
   * 
-  * return string|false the tag-cloud or FALSE if the $tagString parameter is empty
+  * @return string|false the tag-cloud or FALSE if the $tagString parameter is empty
   * 
   * @version 1.0
   * <br>
@@ -911,7 +911,7 @@ class statisticFunctions extends generalFunctions {
   * @param string       $dataString           the data-string which the $dataToAdd parameter will be add to
   * @param bool         $encodeSpecialChars   (optional) if TRUE it clean speacial chars and encode htmlentities before adding to the data-string
   * 
-  * return string the modified data-string parameter or the unchanged $dataString parameter if its not a string or array
+  * @return string the modified data-string parameter or the unchanged $dataString parameter if its not a string or array
   * 
   * @version 1.0
   * <br>
@@ -1044,7 +1044,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * The list of spiders it uses is from: {@link http://www.wolfshead-solutions.com/spiders-list}
   * 
-  * return bool TRUE if its a spider/bot/webcrawler, FALSE if not
+  * @return bool TRUE if its a spider/bot/webcrawler, FALSE if not
   * 
   * @version 1.0
   * <br>
@@ -1113,7 +1113,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * @param bool $clear if this is TRUE, it only check if the agents in the cache are still up to date, without adding a user agent
   * 
-  * return bool TRUE the user agent is in the cache, FALSE if not
+  * @return bool TRUE the user agent is in the cache, FALSE if not
   * 
   * @version 1.01
   * <br>
@@ -1177,7 +1177,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * Gets the current user from the visitCache file (<var>statistic/visit.statistic.cache</var>)
   * 
-  * return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
+  * @return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   * 
   * @version 1.0
   * <br>
@@ -1209,18 +1209,18 @@ class statisticFunctions extends generalFunctions {
  /**
   * <b>Name</b> saveWebsiteStats()<br>
   * 
-  * Saves the following values of the website-statistic:<br>
+  * Saves the following values of the website-statistic:
   *   - number of user visits
   *   - number of bot visits
   *   - first visit date time
   *   - last visit date time
   *   - which browser and how often visited this website
   * 
-  * <b>Used Global Variables</b><br>
+  * <b>Used Global Variables</b>
   *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver  
   * 
-  * <b>Used Constants</b><br>
+  * <b>Used Constants</b>
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
   * 
@@ -1229,7 +1229,7 @@ class statisticFunctions extends generalFunctions {
   * @uses isSpider()        to check whether the user-agent is a spider or a human
   * @uses addDataToString() to add a browser to the browser data-string
   *  
-  * return bool TRUE if the website-statistics were saved, otherwise FALSE
+  * @return bool TRUE if the website-statistics were saved, otherwise FALSE
   * 
   * @version 1.01
   * <br>
@@ -1457,7 +1457,7 @@ class statisticFunctions extends generalFunctions {
   * @uses generalFunctions::readPage()    to read the last visited page for the view-time
   * @uses generalFunctions::savePage()    to save the page and also the last visited page with the calculated view-time
   * 
-  * return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a spider, or the $pageContent parameter is not a valid $pageContent array
+  * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a spider, or the $pageContent parameter is not a valid $pageContent array
   * 
   * @version 1.01
   * <br>

@@ -18,7 +18,7 @@ If you want to improve feindura, the <a href="{$subdir}li_[backend].html">[backe
 should be interesting for you.</p>
 
 
-<div class="info-box-body" style="padding: 25px 20px; padding-top: 10px;">
+<div id="contentPackagList" class="info-box-body" style="padding: 25px 20px; padding-top: 10px;">
 
 {if $package == "[not_documented]"}
   {if $packageindex}
@@ -46,6 +46,7 @@ should be interesting for you.</p>
     <br><br>
   {/if} 
   {if $compiledfileindex}
+  <span class="folder-title">Files</span>
     {eval var=$compiledfileindex}
   {/if}
 

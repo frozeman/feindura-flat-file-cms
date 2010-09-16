@@ -138,10 +138,7 @@ li.classtrees {
 li.elementindex {
   background: url("image/sign/sign_elementindex.png") no-repeat 0px 1px;
   padding: 3px 0px;
-  padding-left: 22px;
-  }
-
-#content li.elementindex {
+  padding-left: 20px;
   margin-left: 5px;
   }
   

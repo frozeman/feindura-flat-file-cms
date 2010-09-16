@@ -15,9 +15,15 @@
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
  */
+/**
+ * This file contains the {@link imageGallery} class.
+ * 
+ * @package [Plugins]
+ * @subpackage imageGallery
+ */
 
 /**
-* Image Gallery Plugin class
+* imageGallery Plugin class
 * 
 * This class reads an folder and creates a gallery out of the pictures in it.
 * 
@@ -57,12 +63,12 @@ class imageGallery {
  /**
   * the maximal width of the pictures
   * 
-  * All pictures will be resized to this width when the {@link imageGallery::resizeImages()) method is called.
+  * All pictures will be resized to this width when the {@link imageGallery::resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$imageHeight) property is null, it keeps the aspect ratio of the images.
+  * <b>Notice</b>: If the {@link imageGallery::$imageHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
-  * @see imageGallery::$imageHeight  
+  * @see imageGallery::$imageHeight
   * @see imageGallery::resizeImages()
   * 
   */
@@ -71,9 +77,9 @@ class imageGallery {
  /**
   * the maximal height of the pictures
   * 
-  * All pictures will be resized to this height when the {@link resizeImages()) method is called.
+  * All pictures will be resized to this height when the {@link resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$imageWidth) property is null, it keeps the aspect ratio of the images.
+  * <b>Notice</b>: If the {@link imageGallery::$imageWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @see imageGallery::$imageWidth
@@ -85,9 +91,9 @@ class imageGallery {
  /**
   * the maximal width of the thumbnails of the pictures
   * 
-  * the thumbnails will be created with this width when the {@link imageGallery::createThumbanils()) method is called.
+  * the thumbnails will be created with this width when the {@link imageGallery::createThumbanils()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$thumbnailHeight) property is null, it keeps the aspect ratio of the images.
+  * <b>Notice</b>: If the {@link imageGallery::$thumbnailHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @see imageGallery::$thumbnailHeight  
@@ -99,9 +105,9 @@ class imageGallery {
  /**
   * the maximal height of the thumbnails of the pictures
   * 
-  * the thumbnails will be created with this height when the {@link imageGallery::createThumbanils()) method is called.
+  * the thumbnails will be created with this height when the {@link imageGallery::createThumbanils()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$thumbnailWidth) property is null, it keeps the aspect ratio of the images.
+  * <b>Notice</b>: If the {@link imageGallery::$thumbnailWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @see imageGallery::$thumbnailWidth
@@ -114,7 +120,7 @@ class imageGallery {
   * An array which contains all image filenames and paths
   * 
   * Example Array:
-  * {@example plugins/imagesGallery/images.array.example.php}
+  * {@example plugins/imageGallery/images.array.example.php}
   * 
   * @var array
   * 

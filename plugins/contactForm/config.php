@@ -1,5 +1,8 @@
 <?php
-/* imageGallery plugin */
+/**
+ * @package [Plugins]
+ * @subpackage imageGallery
+ */ 
 
 $pluginConfig['recipient'] = 'name@providor.net';
 $pluginConfig['appellation'] = true;
