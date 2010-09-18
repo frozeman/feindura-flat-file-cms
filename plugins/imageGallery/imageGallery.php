@@ -183,11 +183,15 @@ class imageGallery {
   */
   function imageGallery($folder) {
     
+    // clerars the cache from other operations
+    clearstatcache();
+    
     // read folder
     $files = $this->readFolder($folder);
     
     $count = 0;
     if(is_array($files)) {
+      natcasesort($files);
       foreach($files as $file) {
         
         // get title
@@ -312,7 +316,7 @@ class imageGallery {
   * 
   */
   function resize($imagePath,$imageWidth,$imageHeight) {
-    ini_set('memory_limit', '100M');   //  handle large images
+    @ini_set('memory_limit', '50M');   //  handle large images
     
     // quit if no image sizes are set
     if(empty($imageWidth) && empty($imageHeight))

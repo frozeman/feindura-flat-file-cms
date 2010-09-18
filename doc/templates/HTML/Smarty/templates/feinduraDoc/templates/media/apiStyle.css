@@ -130,13 +130,13 @@ dd strong {
 
 /* Page layout/boxes */
 
-.info-box { width: 870px;}
+.info-box { width: 870px;  }
 .info-box-title { position: relative; margin: 15px 0px 20px 0px; padding: 7px 9px; font-weight: normal; font-size: 18px; background-color: #EEEEEE; border: 1px dotted #999999; }
 .info-box-body { padding: 0px; border:1px dotted #cccccc; }
 .nav-bar { position: relative; right: 5px; font-size: 12px; white-space: nowrap; text-align: right; padding: .2em; margin: 0em 0em 1em 0em; }
 
-div.oddrow { border: 1px dotted #3174A3; padding: 5px; margin-bottom: 20px; }
-div.evenrow { border: 1px dotted #DD6A1A; padding: 5px; margin-bottom: 20px; }
+div.oddrow { border: 1px dotted #3174A3; padding: 5px; margin-bottom: 20px; border-left: 2px solid #3174A3; border-right: 2px solid #3174A3; }
+div.evenrow {  border: 1px dotted #DD6A1A; padding: 5px; margin-bottom: 20px; border-left: 2px solid #DD6A1A; border-right: 2px solid #DD6A1A;}
 
 /*tr.oddrowParameters { background-color: #FFFFFF; }
 tr.evenrowParameters { background-color: #F3F3F3; }*/

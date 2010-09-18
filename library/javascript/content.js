@@ -71,7 +71,7 @@ function setToolTips() {
   /* add Tooltips */
   var toolTips = new Tips('.toolTip',{
     className: 'toolTipBox',
-    //onShow: function(tip){ tip.fade('show'); }, //tip.fade('hide'); tip.fade('in');
+    //onShow: function(tip){ tip.tween('right','200px');}, //tip.fade('hide'); tip.fade('in');
     //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
     offset: {'x': 10,'y': 15},
     fixed: false,
