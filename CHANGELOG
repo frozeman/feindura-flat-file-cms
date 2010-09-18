@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 390: add CKEditor build 3886
   build 389: fixed imageGallery plugin
   build 388: fixes in documentation
   build 387: fixed startPageWarning()
