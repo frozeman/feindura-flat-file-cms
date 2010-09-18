@@ -15,17 +15,17 @@ body {
 #uploader {
 	display: block;
 	text-align: left;
-	min-height: 30px !important;
-	max-height: 80px !important;
+	height: 50px;
 	overflow: hidden;
+	padding-bottom: 5px;
 }
 
 #uploader h1 {
 	display: block;
-	padding-bottom: 8px;
 	/*float: left;*/
 	text-align: left;
 	font-size: 12px;
+	padding-bottom: 8px;
 }
 
 #uploadresponse {
@@ -34,7 +34,7 @@ body {
 
 #splitter {
 	background-color: white;
-	height: 400px !important;
+	height: 400px;
 	border: 1px solid #ccc;
 	/* no padding allowed */
 }
@@ -272,6 +272,7 @@ div.clip {
 #rename span, .contextMenu li.rename a { background-image: url(../images/pencil.png); }
 #delete span, .contextMenu li.delete a { background-image: url(../images/bin_closed.png); }
 #upload span { background-image: url(../images/add.png); }
+#parentfolder span { background-image: url(../images/parentfolder.png); }
 #newfolder span { background-image: url(../images/folder_add.png); }
 
 /* div.jqi button { background-image: url(../images/circular/yes.png); } */

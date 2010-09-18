@@ -8,9 +8,10 @@
  *
  *	@license	MIT License
  *	@author		Riaan Los <mail (at) riaanlos (dot) nl>
+ *  @author		Simon Georget <simon (at) linea21 (dot) com>
  *	@copyright	Authors
  */
-
+require_once('./inc/filemanager.inc.php');
 require_once('filemanager.config.php');
 require_once('filemanager.class.php');
 $fm = new Filemanager($config);
@@ -74,6 +75,11 @@ if(!isset($_GET)) {
 					$fm->download();
 				}
 				break;
+			case 'preview':
+				if($fm->getvar('path')) {
+					$fm->preview();
+				}
+				break;
 				
 		}
 		
@@ -99,6 +105,7 @@ if(!isset($_GET)) {
 }
 
 echo json_encode($response);
+
 die();
 
 ?>

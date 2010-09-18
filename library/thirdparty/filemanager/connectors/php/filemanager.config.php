@@ -8,9 +8,14 @@
  *
  *	@license	MIT License
  *	@author		Riaan Los <mail (at) riaanlos (dot) nl>
+ *	@author		Simon Georget <simon (at) linea21 (dot) com>
  *	@copyright	Authors
  */
 
+// -> START SESSION (for the language)
+session_cache_limiter(60);
+session_name("feinduraBackend");
+session_start();
 
 /**
  *	Check if user is authorized
@@ -24,10 +29,14 @@ function auth() {
 }
 
 /**
+ *	Language settings
+ */
+$config['culture'] = (isset($_SESSION['language'])) ? $_SESSION['language'] : 'en';
+
+/**
  *	PHP date format
  *	see http://www.php.net/date for explanation
  */
-date_default_timezone_set('America/New_York'); // required on OS X
 $config['date'] = 'd M Y H:i';
 
 /**
@@ -48,22 +57,24 @@ $config['upload']['imagesonly'] = false; // true or false; Only allow images (jp
  *	Images array
  *	used to display image thumbnails
  */
-$config['images'] = array('jpg','gif','png');
-
-/**
- *	Add the server host (http://www.domain.com) as prefix to files
- */
-$config['add_host'] = false;
-
-
-
-
-
+$config['images'] = array('jpg', 'jpeg','gif','png');
 
 
 /**
- *	not supported yet
+ *	Files and folders
+ *	excluded from filtree
  */
+$config['unallowed_files']= array('.htaccess');
+$config['unallowed_dirs']= array('thumbnails');
+
+/**
+ *	FEATURED OPTIONS
+ *	for Vhost or outside files folder
+ */
+$config['doc_root'] = $_SERVER['DOCUMENT_ROOT']; // No end slash
+
+
+//	not working yet
 //$config['upload']['suffix'] = '_'; // string; if overwrite is false, the suffix will be added after the filename (before .ext)
 
 ?>
