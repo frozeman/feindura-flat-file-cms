@@ -279,14 +279,14 @@ if($_GET['site'] == 'addons') {
     
     if($generallyCreatePages && $_GET['site'] == 'pages' ||
        (!empty($_GET['page']) &&
-       ($_GET['category'] == 0 && $adminConfig['pages']['createdelete']) ||
-        $categoryConfig['id_'.$_GET['category']]['createdelete']))
+       ($_GET['category'] === '0' && $adminConfig['pages']['createdelete']) ||
+        ($_GET['category'] !== '0' && $categoryConfig['id_'.$_GET['category']]['createdelete'])))
       $showCreatePage = true;
     else
       $showCreatePage = false;
     
     // CHECK 1. pageThumbnailUpload
-    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] == 0 && $adminConfig['pages']['thumbnails']) || $categoryConfig['id_'.$_GET['category']]['thumbnail']))
+    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] === '0' && $adminConfig['pages']['thumbnails']) || $categoryConfig['id_'.$_GET['category']]['thumbnail']))
       $showPageThumbnailUpload = true;
     else
       $showPageThumbnailUpload = false;
@@ -355,41 +355,41 @@ if($_GET['site'] == 'addons') {
           
           // file manager
           if($adminConfig['user']['fileManager']) { ?>
-          <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::">&nbsp;</a></li>
+            <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::">&nbsp;</a></li>
           <?php
             $showSpacer = true;
           }
           
           if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
-          <li class="spacer">&nbsp;</li>
+            <li class="spacer">&nbsp;</li>
           <?php 
             $showSpacer = false;
           } 
           
           // create new page
           if($showCreatePage) { ?>
-          <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['btn_createPage_tip']; ?>::">&nbsp;</a></li>
+            <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['btn_createPage_tip']; ?>::">&nbsp;</a></li>
           <?php
           // deletePage
           if($showDeletePage) { ?>
-          <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\',true);return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
+            <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\',true);return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
           <?php }          
             $showSpacer = true;
           }
           
           if($showSpacer && $showPageThumbnailUpload) { ?>
-          <li class="spacer">&nbsp;</li>
+            <li class="spacer">&nbsp;</li>
           <?php 
             $showSpacer = false;
           }          
           
           // pageThumbnailUpload
           if($showPageThumbnailUpload) { ?>
-          <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::"'; ?> class="pageThumbnailUpload toolTip">&nbsp;</a></li>
+            <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::"'; ?> class="pageThumbnailUpload toolTip">&nbsp;</a></li>
           <?php
           // pageThumbnailDelete
           if($showPageThumbnailDelete) { ?>
-          <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::"'; ?> class="pageThumbnailDelete toolTip">&nbsp;</a></li>
+            <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::"'; ?> class="pageThumbnailDelete toolTip">&nbsp;</a></li>
           <?php }          
             $showSpacer = true;
           }           
@@ -453,31 +453,31 @@ if($_GET['site'] == 'addons') {
           
           // file manager
           if($adminConfig['user']['fileManager']) { ?>
-          <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>');return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::"><span><?php echo $langFile['btn_fileManager']; ?></span></a></li>
+            <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>');return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::"><span><?php echo $langFile['btn_fileManager']; ?></span></a></li>
           <?php
             $showSpacer = true;
           }
           
           if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
-          <li class="spacer">&nbsp;</li>
+            <li class="spacer">&nbsp;</li>
           <?php 
             $showSpacer = false;
           }
           
           // create new page
           if($showCreatePage) { ?>
-          <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['btn_createPage_tip']; ?>::"><span><?php echo $langFile['btn_createPage']; ?></span></a></li>
+            <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['btn_createPage_tip']; ?>::"><span><?php echo $langFile['btn_createPage']; ?></span></a></li>
           <?php
           // deletePage
           if($showDeletePage) { ?>
-          <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip"><span><?php echo $langFile['btn_deletePage']; ?></span></a></li>
+            <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip"><span><?php echo $langFile['btn_deletePage']; ?></span></a></li>
           <?php }          
           $showSpacer = true;
           }
           
           
           if($showSpacer && $showPageThumbnailUpload) { ?>
-          <li class="spacer">&nbsp;</li>
+            <li class="spacer">&nbsp;</li>
           <?php 
             $showSpacer = false;
           }
@@ -485,11 +485,11 @@ if($_GET['site'] == 'addons') {
           
           // pageThumbnailUpload
           if($showPageThumbnailUpload) { ?>
-          <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::"'; ?> class="pageThumbnailUpload toolTip"><span><?php echo $langFile['btn_pageThumbnailUpload']; ?></span></a></li>
+            <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::"'; ?> class="pageThumbnailUpload toolTip"><span><?php echo $langFile['btn_pageThumbnailUpload']; ?></span></a></li>
           <?php
           // pageThumbnailDelete
           if($showPageThumbnailDelete) { ?>
-          <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::"'; ?> class="pageThumbnailDelete toolTip"><span><?php echo $langFile['btn_pageThumbnailDelete']; ?></span></a></li>
+            <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::"'; ?> class="pageThumbnailDelete toolTip"><span><?php echo $langFile['btn_pageThumbnailDelete']; ?></span></a></li>
           <?php }          
             $showSpacer = true;
           }           

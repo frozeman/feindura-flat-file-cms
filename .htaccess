@@ -1,5 +1,4 @@
 Options -Indexes
-php_value memory_limit 50M
 
 <IfModule mod_expires.c>
 # turn on the module for this directory

@@ -17,6 +17,8 @@ session_cache_limiter(60);
 session_name("feinduraBackend");
 session_start();
 
+$adminConfig = include(dirname(__FILE__).'/../../../../../config/admin.config.php');
+
 /**
  *	Check if user is authorized
  *
@@ -64,8 +66,8 @@ $config['images'] = array('jpg', 'jpeg','gif','png');
  *	Files and folders
  *	excluded from filtree
  */
-$config['unallowed_files']= array('.htaccess');
-$config['unallowed_dirs']= array('thumbnails');
+$config['unallowed_files']= array('.htaccess','.htpasswd','lastmodification.log');
+$config['unallowed_dirs']= array(str_replace('/','',$adminConfig['pageThumbnail']['path']));
 
 /**
  *	FEATURED OPTIONS
