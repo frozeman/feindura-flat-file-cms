@@ -133,11 +133,11 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascript/CodeMirror/js/codemirror.js"></script>
   
   <!-- thirdparty/CustomFormElements -->
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.base.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.replace.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.checkbox.js"></script>
-  <!--<script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.module.radio.js"></script>-->
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe-min/cfe.addon.dependencies.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.replace.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.checkbox.js"></script>
+  <!--<script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.radio.js"></script>-->
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script>
   
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
