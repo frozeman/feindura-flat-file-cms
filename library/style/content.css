@@ -15,8 +15,8 @@
 
 content.css version 0.21 */
 
-/* ----------------------- */  
-/* ---:- BLOCK */
+/****************/  
+/* *** BLOCK */
 
 #content .block {
     z-index: 1;
@@ -113,7 +113,7 @@ content.css version 0.21 */
     background: transparent !important; 
     }
 
-/* ----------------------- */  
+/****************/  
 /* --- INNER BLOCKs */
 
 .block div.innerBlockLeft {
@@ -154,7 +154,7 @@ content.css version 0.21 */
     overflow: auto;
     }
 
-/* ----------------------- */  
+/****************/  
 /* --- BLOCK-TABLE */
 
 .block table {
@@ -235,7 +235,7 @@ content.css version 0.21 */
   padding-bottom: 5px;
 }
     
-/* ----------------------- */  
+/****************/  
 /* --- SLIDE HEADER LINKS */
 
 #content .block > h1 a {
@@ -259,8 +259,8 @@ content.css version 0.21 */
     background: url("../images/key/content_h1_down_on.png") no-repeat right top;
     }
     
-/* ----------------------- */  
-/* ---:- BLOCK H1 ICON */
+/****************/  
+/* *** BLOCK H1 ICON */
 
 .block h1 img.blockH1Icon {
     position: relative;
@@ -268,7 +268,7 @@ content.css version 0.21 */
     left: -2px;
     }
 
-/* ----------------------- */  
+/****************/  
 /* - CONTENT FASTUP link */  
 #content a.fastUp {
     z-index: 4;
@@ -286,7 +286,7 @@ content.css version 0.21 */
     }
     
 
-/* ----------------------- */  
+/****************/  
 /* - DOWN/UP LINK */  
 
 a.down {
@@ -301,7 +301,7 @@ a.up {
     background: url("../images/key/up.gif") no-repeat 0px 3px !important;
     }
 
-/* ----------------------- */  
+/****************/  
 /* - INLINE HINT modification (look notifications.css) */
 
 .block table span.hint {
@@ -309,11 +309,11 @@ a.up {
     }
 
 /* --------------------------------------------- */  
-/* ---:- ELEMENTS */
+/* *** ELEMENTS */
 /* --------------------------------------------- */  
 
-/* ----------------------- */  
-/* ---:- HEADLINES */
+/****************/  
+/* *** HEADLINES */
 
 #content h1 {
     z-index: 1;
@@ -361,8 +361,8 @@ a.up {
   color: #536068;
   }
 
-/* ----------------------- */  
-/* ---:- TEXT */
+/****************/  
+/* *** TEXT */
 #content {
     font-size: 14px;
     color: #536068;
@@ -373,8 +373,8 @@ a.up {
     color: #536068;
     }
 
-/* ----------------------- */  
-/* ---:- HR */
+/****************/  
+/* *** HR */
 
  hr {
     position: relative;
@@ -401,7 +401,7 @@ a.up {
     background: url("../images/bg/content_blockSpacer.png") no-repeat;
     }
     
-/* ----------------------- */  
+/****************/  
 /* - BLOCK and WINDOBOX Standard Links */  
 .block a, #windowBox a, a.standardLink {
     padding-left: 18px;
@@ -444,7 +444,7 @@ a.anchorTarget {
     margin-bottom: -18px;
     }
 
-/* ----------------------- */  
+/****************/  
 /* --- SLIDE HEADER LINKS */
 
 #content .block.listPages > h1.brown a img {
@@ -466,15 +466,15 @@ a.anchorTarget {
     top: -12px;
     }
 
-/* ----------------------- */  
-/* ---:- LISTPAGES - BLOCK H1 ICON */
+/****************/  
+/* *** LISTPAGES - BLOCK H1 ICON */
 
 #content .block.listPages > h1 img.blockH1Icon {
     top: 3px !important;
     }
 
-/* ----------------------- */	
-/* ---:- listPages */
+/****************/	
+/* *** listPages */
 
 .listPages ul {
     position: relative;
@@ -505,8 +505,8 @@ a.anchorTarget {
     top: 8px !important;
     }
 
-/* ----------------------- */	
-/* ---:- listPages HEAD */
+/****************/	
+/* *** listPages HEAD */
 
 div.listPagesHead {
     width: 790px;
@@ -550,8 +550,8 @@ div.listPagesHead {
     text-align: center;
     }
 
-/* ----------------------- */	
-/* ---:- listPages PAGES */
+/****************/	
+/* *** listPages PAGES */
 
 .listPages .content div {
     display: inline-block;
@@ -588,8 +588,8 @@ div.listPagesHead {
     text-align: right; 
     }
 
-/* ----------------------- */	
-/* ---:- listPages CATEGORY */
+/****************/	
+/* *** listPages CATEGORY */
 
 .listPages div.category {
     z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
@@ -614,8 +614,8 @@ div.listPagesHead {
     text-align: left;
     }
 
-/* ----------------------- */	
-/* ---:- FUNCTION links */
+/****************/	
+/* *** FUNCTION links */
 
 .listPages div.name a {
     display: inline-block;
@@ -665,8 +665,8 @@ div.listPagesHead {
     height: 23px;
     }
 
-/* ----------------------- */	
-/* ---:- category FUNCTION links */
+/****************/	
+/* *** category FUNCTION links */
 
 .listPages .createPage {
     display: block;
@@ -678,8 +678,8 @@ div.listPagesHead {
     background-position: 0px -27px !important;
     }
 
-/* ----------------------- */	
-/* ---:- PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
+/****************/	
+/* *** PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
 
 /* works for pages status and category status */
 .listPages .status a {
@@ -708,7 +708,7 @@ div.listPagesHead {
     
 /* --- EDITOR ------------------------------------------------------------------------------------------------------------------- */
     
-/* ----------------------- */	
+/****************/	
 /* - BLOCK EDITOR */  
 
 #content .editor {
@@ -741,7 +741,7 @@ div.listPagesHead {
     border: none !important;
     }
 
-/* ----------------------- */	
+/****************/	
 /* - BLOCK EDITOR LINKS  
 
 #content .block.editor a {
@@ -749,7 +749,7 @@ div.listPagesHead {
     }
 */
 
-/* ----------------------- */	
+/****************/	
 /* - PAGE-THUMBNAIL */  
 
 #content .block.pageHead a.pageThumbnailUpload {
@@ -766,7 +766,7 @@ div.listPagesHead {
     background-position: 0px -76px;
     }
 
-/* ----------------------- */	
+/****************/	
 /* - info text */  
 
 span.info {
@@ -778,7 +778,7 @@ span.info strong {
     color: #71A1BD !important;
     }
 
-/* ----------------------- */	
+/****************/	
 /* - VISIT-TIME */  
 
 #visitTimeMaxContainer {
@@ -987,7 +987,7 @@ span.toolTip, label.toolTip {
 /* --- NOTIFICATIONS ------------------------------------------------------------------------------------------------------------------- */
     
 /* -----------------------*/	
-/* ---:- MESSAGEBOX */
+/* *** MESSAGEBOX */
 
 .messageBox {
     min-height: 25px;
@@ -1001,7 +1001,7 @@ span.toolTip, label.toolTip {
     line-height: 28px;
     }
     
-/* ----------------------- */	
+/****************/	
 /* - INLINE HINTs */
 
 span.hint {
@@ -1016,7 +1016,7 @@ span.hint {
     background-position: 0px 5px !important;
     }
 
-/* ----------------------- */	
+/****************/	
 /* - INLINE WARNINGs */
 
 span.warning {

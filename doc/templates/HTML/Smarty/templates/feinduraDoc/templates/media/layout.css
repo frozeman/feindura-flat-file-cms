@@ -6,8 +6,8 @@ body {
 	color: #4B4B4B;
 	}
 
-/* ----------------------- */	
-/* ---:- GENERAL */
+/****************/	
+/* *** GENERAL */
 
 /* standard links */
 a:link, a:visited {
@@ -39,8 +39,8 @@ span.feindura em {
     border: none;
     }
 
-/* ----------------------- */	
-/* ---:- CONTAINERS */
+/****************/	
+/* *** CONTAINERS */
 
 #bgFade {
     z-index: -1;
@@ -62,7 +62,7 @@ span.feindura em {
     margin-right: auto;
     }
 
-/* ----------------------- */
+/****************/
 /* --- CONTENT */ 
 
 #content {
@@ -72,7 +72,7 @@ span.feindura em {
     color: #666666;
     }
 
-/* ----------------------- */
+/****************/
 /* --- FOOTER */
 #footer {
     z-index: 0;

@@ -19,11 +19,15 @@
  * @version 2.01
  */
 
+/**
+ * Includes the login
+ */
+include_once("library/includes/login.include.php");
 
 /**
  * Includes all necessary configs, functions and classes
  */
-include("library/includes/backend.include.php");
+include_once("library/includes/backend.include.php");
 
 // VARs
 // -----------------------------------------------------------------------------------
@@ -64,9 +68,8 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
-  <meta name="siteinfo" content="<?php echo $adminConfig['basePath'] ?>robots.txt" />
-  <meta name="revisit_after" content="12" />
-  <meta name="robots" content="index,nofollow" />
+  <meta name="siteinfo" content="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>robots.txt" />
+  <meta name="robots" content="no-index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate" />
@@ -75,8 +78,8 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
-  <meta name="description" content="Ein Content Managemant System, welches auf Flatfiles basiert" />    
-  <meta name="keywords" content="fmx,cms,conte,management,system,flatfiles" /> 
+  <meta name="description" content="A flat file based Content Management System, written in PHP" />    
+  <meta name="keywords" content="cms,content,management,system,flat,file" /> 
    
   <link rel="shortcut icon" href="<?php echo dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
   
@@ -116,7 +119,7 @@ if($_GET['site'] == 'addons') {
   <!--[if IE 6]><script type="text/javascript" src="library/javascripts/ie.js"></script><![endif]-->
 
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4-core.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.5-core.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
   
   <!-- thirdparty/AutoGrow (needs MooTools) -->
@@ -183,7 +186,7 @@ if($_GET['site'] == 'addons') {
         <a href="?language=fr" class="fr toolTip" title="français::"></a>
       </div>
           
-      <a href="<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].$version[2].' - '.$version[3]; ?>::"></a>
+      <a href="<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].' '.$version[2].' - '.$version[3]; ?>::<?= $langFile['txt_logo_gotowebsite'] ?>"></a>
       <div id="version"><?php echo $version[2]; ?></div>
       
       <div id="mainMenu">

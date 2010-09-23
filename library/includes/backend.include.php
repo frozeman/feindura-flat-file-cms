@@ -46,7 +46,7 @@ set_error_handler("showErrorsInWindow",E_ALL & ~E_NOTICE & ~E_WARNING);
 if(isset($_GET['language']))
   $_SESSION['language'] = $_GET['language'];
 
-unset($_SESSION['language']);
+//unset($_SESSION['language']);
 
 if(empty($_SESSION['language'])) {
   // gets the BROWSER LANGUAGE

@@ -24,7 +24,21 @@
  * 
  * NEEDS a RETURN $langFile; at the END
  */
- 
+
+/* ----------------------------------------------------------------------------------------------
+* --- LOGIN
+*/
+
+$langFile['login_username'] = 'Nome d&lsquo;utilisateur';
+$langFile['login_password'] = 'Mot de passe';
+$langFile['login_button_login'] = 'LOGIN';
+$langFile['login_info_cookie'] = 'Les cookies doivent &ecirc;tre active';
+
+$langFile['login_error_wrongUser'] = 'L&lsquo;utilisateur n&lsquo;existe pas';
+$langFile['login_error_wrongPassword'] = 'mot de passe erron&eacute;';
+
+$langFile['login_logout_part1'] = 'D&ecirc;connectez-vous avec succ&egrave;s';
+$langFile['login_logout_part2'] = 'Suivant au le site web';
  
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
@@ -137,6 +151,7 @@ $langFile['user_currentuser'] = 'tu es connect&eacute; en tant qu&lsquo;utilisat
 */
 
 $langFile['txt_logo'] = 'version';
+$langFile['txt_logo_gotowebsite'] = 'Cliquez ici pour acc&eacute;der &agrave; votre site Web.';
 $langFile['txt_loading'] = 'site en connexion...';
 
 /* ----------------------------------------------------------------------------------------------

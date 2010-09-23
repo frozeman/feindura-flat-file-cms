@@ -17,8 +17,8 @@ pageSetup.css version 0.2 */
 
 /* --- PAGE-SETUP ------------------------------------------------------------------------------------------------------------------- */
 
-/* ----------------------- */	
-/* ---:- BUTTONS */
+/****************/	
+/* *** BUTTONS */
 
 /* createCategory */
 a.createCategory {
@@ -82,8 +82,8 @@ a.categoryDown:hover {
 
 /* --- THUMBNAIL ------------------------------------------------------------------------------------------------------------------- */
 
-/* ----------------------- */	
-/* ---:- THUMB SCALE */
+/****************/	
+/* *** THUMB SCALE */
 
 .scale {
     height:10px;
@@ -97,8 +97,8 @@ a.categoryDown:hover {
     border-top:1px solid #BE8500;
     }
 
-/* ----------------------- */	
-/* ---:- thumbSize - change Thumbnail Size table */
+/****************/	
+/* *** thumbSize - change Thumbnail Size table */
 
 #thumbSize {
     position: relative;
@@ -109,8 +109,8 @@ a.categoryDown:hover {
     
 /* --- FORMS ------------------------------------------------------------------------------------------------------------------- */
 
-/* ----------------------- */	
-/* ---:- INPUT */
+/****************/	
+/* *** INPUT */
 
 input, textarea, select, div.CodeMirror-wrapping {
     background: url("../images/bg/formularBg.png") no-repeat #ffffff;
@@ -143,8 +143,8 @@ textarea, div.CodeMirror-wrapping {
     padding: 10px;
     }
   
-/* ----------------------- */	
-/* ---:- INPUT TYPEs */
+/****************/	
+/* *** INPUT TYPEs */
 
 input.short {
     width: 50px !important;
@@ -167,8 +167,8 @@ input[type="file"]{ /* works only in safari*/
     width: 300px;
     }
 
-/* ----------------------- */	
-/* ---:- TEXTAREA */
+/****************/	
+/* *** TEXTAREA */
 
 textarea.editFiles, div.CodeMirror-wrapping {
     width:743px;
@@ -192,8 +192,8 @@ a.addStyleFilePath:active {
     background-position: 0px -48px;
     }
 
-/* ----------------------- */	
-/* ---:- BUTTONS */
+/****************/	
+/* *** BUTTONS */
 
 input.button {
     border: none;

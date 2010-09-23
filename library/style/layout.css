@@ -16,8 +16,8 @@
 layout.css version 0.58 */
 
 
-/* ----------------------- */	
-/* ---:- BODY */
+/****************/	
+/* *** BODY */
 
 html,body {
   	margin: 0px;
@@ -25,11 +25,11 @@ html,body {
   	font: 12px Verdana, Arial, Sans-serif, Serif;
   	background-color: #5b5b5b !important; /* #5b5b5b */
   	color: #000000;
-  	height: 100%; /* läßt die #leftSidebar box auch im IE 100% hoch sein */
+  	height: 100%; /* makes the #leftSidebar box also in IE 100% */
   	}
 
-/* ----------------------- */	
-/* ---:- GENERAL ELEMENTs FORMAT  */
+/****************/	
+/* *** GENERAL ELEMENTs FORMAT  */
 
 span.blue {
     color: #668CA6 !important;
@@ -41,8 +41,8 @@ span.red {
     color: #A02F00 !important;
     }
  
-/* ----------------------- */	
-/* ---:- DIMM-CONTAINER */
+/****************/	
+/* *** DIMM-CONTAINER */
 
 #dimmContainer {
     z-index: 5;
@@ -61,7 +61,7 @@ span.red {
     background-color: transparent !important;
     }
 
-/* ----------------------- */
+/****************/
 /* --- HEADER */    
 #header {
     z-index: 3;
@@ -106,7 +106,7 @@ span.red {
     color: #999999;
     }
 
-/* ----------------------- */
+/****************/
 /* --- LOGO */ 
 #logo {
     z-index: 1;
@@ -135,7 +135,7 @@ span.red {
     color: #3979A5 !important;
     }
 
-/* ----------------------- */
+/****************/
 /* --- LANGUAGE SELECTION */
 
 #languageSelection {
@@ -169,7 +169,7 @@ span.red {
     }
 
 
- /* ----------------------- */
+ /****************/
 /* --- SIDEBARS */
 
 #leftSidebar {
@@ -191,7 +191,7 @@ span.red {
     padding: 0px;
     }
 
-/* ----------------------- */
+/****************/
 /* --- MAINBODY */
 #mainBody {
     z-index: 0;
@@ -217,7 +217,7 @@ span.red {
     padding-top: 60px;
     }
 
-/* ----------------------- */
+/****************/
 /* --- FOOTER */
 #footer {
     z-index: 1;
@@ -258,8 +258,8 @@ span.red {
     color: #ffffff;
     }
 
-/* ----------------------- */
-/* ---:- LOADING -*/
+/****************/
+/* *** LOADING -*/
 
 #loadingBox {
     visibility: hidden;
@@ -285,8 +285,8 @@ span.red {
     background: url("../images/bg/loadingBox_bottom.png") no-repeat;
     }
     
-/* ----------------------- */
-/* ---:- loadingCircle -*/
+/****************/
+/* *** loadingCircle -*/
 
 #loadingCircle {
   display: block;
@@ -299,8 +299,8 @@ span.red {
   background: url("../images/sign/loadingCircle.gif") no-repeat top center;
   }
 
-/* ----------------------- */
-/* ---:- documentSaved -*/
+/****************/
+/* *** documentSaved -*/
 
 #documentSaved {
     z-index: 17;
@@ -315,7 +315,7 @@ span.red {
     background: url("../images/sign/documentSaved.png") no-repeat;
     }
 
-/* ----------------------- */    
+/****************/    
 /* --- BUTTON LISTE */
 
 ul.horizontalButtons {
@@ -349,7 +349,7 @@ ul.verticalButtons {
     margin: 0px;
     }
     
-/* ----------------------- */    
+/****************/    
 /* --- DIV-TABLE */
 
 div.table {

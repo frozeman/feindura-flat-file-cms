@@ -1,8 +1,9 @@
 <?php
-// -> START SESSION (for the language)
-session_cache_limiter(60);
-session_name("feinduraBackend");
-session_start();
+/**
+ * Includes the login
+ */
+include(dirname(__FILE__)."/../../includes/login.include.php");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">

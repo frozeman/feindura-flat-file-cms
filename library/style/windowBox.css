@@ -17,8 +17,8 @@ windowBox.css version 0.2 */
 
 /* --- WINDOWBOX ------------------------------------------------------------------------------------------------------------------- */
 
-/* ----------------------- */	
-/* ---:- windowBox */
+/****************/	
+/* *** windowBox */
 
 #windowBoxContainer {
     z-index: 10;
@@ -86,8 +86,8 @@ windowBox.css version 0.2 */
     filter:Alpha(opacity=50, finishopacity=50, style=0);
     }
 
-/* ----------------------- */	
-/* ---:- HEADLINES */
+/****************/	
+/* *** HEADLINES */
 
 #windowBox h1 {
     width: 685px; /* 705px */
@@ -109,8 +109,8 @@ windowBox.css version 0.2 */
     color: #888888;
     }
 
-/* ----------------------- */	
-/* ---:- CLOSE */
+/****************/	
+/* *** CLOSE */
 
 #windowBox .boxTop a {
     position: absolute;
@@ -125,8 +125,8 @@ windowBox.css version 0.2 */
     background-position: -35px 0px;
     }
     
-/* ----------------------- */	
-/* ---:- SUBMIT/CANCEL */
+/****************/	
+/* *** SUBMIT/CANCEL */
 
 #windowRequestBox .cancel { /* link on the left */
     right: 10px;
@@ -164,8 +164,8 @@ windowBox.css version 0.2 */
     
 /* --- THUMBNAIL UPLOAD ------------------------------------------------------------------------------------------------------------------- */
 
-/* ----------------------- */	
-/* ---:- thumbInfo */
+/****************/	
+/* *** thumbInfo */
 
 #thumbInfo {
     position: absolute;
@@ -186,16 +186,16 @@ windowBox.css version 0.2 */
     list-style-type: circle;
     }
 
-/* ----------------------- */	
-/* ---:- THUMB PREVIEW */
+/****************/	
+/* *** THUMB PREVIEW */
     
 img.thumbnailPreview {
     margin: 10px;
     border: 5px solid #cccccc;
     }
 
-/* ----------------------- */	
-/* ---:- pageThumbnailUploadForm */
+/****************/	
+/* *** pageThumbnailUploadForm */
     
 #pageThumbnailUploadForm {
     position: relative;
@@ -214,8 +214,8 @@ input.thumbnailUpload:hover {
     background-position: 0px -90px !important;
     }
 
-/* ----------------------- */	
-/* ---:- UPLOAD IFRAME */
+/****************/	
+/* *** UPLOAD IFRAME */
 
 iframe#uploadTargetFrame {
     width: 100%;
@@ -226,8 +226,8 @@ iframe#uploadTargetFrame {
     }
 
 
-/* ----------------------- */	
-/* ---:- UPLOAD IFRAME INNERHTML */
+/****************/	
+/* *** UPLOAD IFRAME INNERHTML */
 
 body#thumbnailUploadFrame {
     font: bold 15px Verdana, Arial, Sans-serif, Serif;
@@ -262,8 +262,8 @@ body#thumbnailUploadFrame {
     
 /* --- FILEMANAGER ------------------------------------------------------------------------------------------------------------------- */
   
-/* ----------------------- */	
-/* ---:- fileManagerFrame */
+/****************/	
+/* *** fileManagerFrame */
 
 iframe#fileManagerFrame {
     width: 732px;
@@ -273,8 +273,8 @@ iframe#fileManagerFrame {
     
 /* --- ERRORWINDOW ------------------------------------------------------------------------------------------------------------------- */
 
-/* ----------------------- */	
-/* ---:- errorWindow */
+/****************/	
+/* *** errorWindow */
 
 #errorWindow {
     z-index: 20;
@@ -335,8 +335,8 @@ iframe#fileManagerFrame {
     color: #444;
     }
 
-/* ----------------------- */	
-/* ---:- OK */
+/****************/	
+/* *** OK */
 
 #errorWindow .content a.ok {
     display: block;

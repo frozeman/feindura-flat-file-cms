@@ -25,6 +25,20 @@
  * NEEDS a RETURN $langFile; at the END
  */
 
+/* ----------------------------------------------------------------------------------------------
+* --- LOGIN
+*/
+
+$langFile['login_username'] = 'Username';
+$langFile['login_password'] = 'Password';
+$langFile['login_button_login'] = 'LOGIN';
+$langFile['login_info_cookie'] = 'Cookies must be activated';
+
+$langFile['login_error_wrongUser'] = 'User does not exist';
+$langFile['login_error_wrongPassword'] = 'wrong password';
+
+$langFile['login_logout_part1'] = 'Successfully logged out';
+$langFile['login_logout_part2'] = 'further to the website';
 
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
@@ -164,7 +178,8 @@ $langFile['user_currentuser'] = 'The user under which you\'re logged';
 * ---------- GENERAL TEXTs
 */
 
-$langFile['txt_logo'] = 'Version ';
+$langFile['txt_logo'] = 'Version';
+$langFile['txt_logo_gotowebsite'] = 'Click here to go to your website.';
 $langFile['txt_loading'] = 'Page is loading..';
 
 /* ----------------------------------------------------------------------------------------------
