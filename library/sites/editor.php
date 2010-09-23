@@ -205,18 +205,18 @@ $headerColor = ($category['id'] != 0)
 
 // -> show NEWPAGE ICON
 if($newPage) {
-  $newPageIcon = '<img src="library/image/sign/newPageIcon_middle.png" />';  
+  $newPageIcon = '<img src="library/images/sign/newPageIcon_middle.png" />';  
 }
 
 // -> checks for startpage, and show STARTPAGE ICON
 if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
-  $startPageIcon = '<img src="library/image/sign/startPageIcon_middle.png" />';
+  $startPageIcon = '<img src="library/images/sign/startPageIcon_middle.png" />';
   $startPageTitle = ' toolTip" title="'.$langFile['btn_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY
 $categorySorting = ($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
-  ? '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />'
+  ? '&nbsp;<img src="library/images/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />'
   : '';
 
 // -> show the page PAGE HEADLINE
@@ -368,7 +368,7 @@ if(!$newPage) {
 $hidden = ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/image/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
+  <h1><a href="#"><img src="library/images/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
   <div class="content">
   <?php
   // -> format vars
@@ -674,9 +674,9 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         // shows the public or unpublic picture
         if($pageContent['public'])
-          echo '<img src="library/image/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
+          echo '<img src="library/images/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
         else
-          echo '<img src="library/image/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
+          echo '<img src="library/images/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
 
         ?>
         &nbsp;<span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field4'].'::'.$langFile['editor_pageSettings_field4_tip'] ?>">
@@ -708,7 +708,7 @@ if($pluginsActive && (($category == 0 && $adminConfig['pages']['plugins']) ||
 // shows the block below if it is the ones which is saved before
 $hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
 $blockContentEdited = (isset($pageContent['plugins']))
-  ? '&nbsp;<img src="library/image/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_pluginSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
+  ? '&nbsp;<img src="library/images/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_pluginSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
@@ -918,7 +918,7 @@ window.addEvent('domready',function(){
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
 $blockContentEdited = (!empty($pageContent['styleFile']) || !empty($pageContent['styleId']) || !empty($pageContent['styleClass']))
-  ? '&nbsp;<img src="library/image/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_advancedpageSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
+  ? '&nbsp;<img src="library/images/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_advancedpageSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">

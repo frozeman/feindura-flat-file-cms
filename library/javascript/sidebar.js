@@ -109,7 +109,7 @@ function requestLeftSidebar(category,page,site) {
   
   var leftSideBarloadingCircle = new Element('img',{
         'id': 'leftSidebarLoadingCircle',
-        'src': 'library/image/sign/loadingCircle.gif',
+        'src': 'library/images/sign/loadingCircle.gif',
         'alt': 'loadingCircle'
       });
   

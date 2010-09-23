@@ -75,23 +75,23 @@
     
 /* home */
 #mainMenu a.home {
-    background: url("../image/key/mainMenu_home.png") no-repeat;
+    background: url("../images/key/mainMenu_home.png") no-repeat;
     }
 /* pages */
 #mainMenu a.pages {
-    background: url("../image/key/mainMenu_pages.png") no-repeat;
+    background: url("../images/key/mainMenu_pages.png") no-repeat;
     }
 /* addons */
 #mainMenu a.addons {
-    background: url("../image/key/mainMenu_addons.png") no-repeat;
+    background: url("../images/key/mainMenu_addons.png") no-repeat;
     }
 /* settings */
 #mainMenu a.websiteSetup {
-    background: url("../image/key/mainMenu_settings.png") no-repeat;
+    background: url("../images/key/mainMenu_settings.png") no-repeat;
     }
 /* search */
 #mainMenu a.search {
-    background: url("../image/key/mainMenu_search.png") no-repeat;
+    background: url("../images/key/mainMenu_search.png") no-repeat;
     }
 
 /* --- ADMINMENU ------------------------------------------------------------------------------------------------------------------- */
@@ -135,35 +135,35 @@
 
 /* advancedSetup */
 #adminMenu .content a.adminSetup {
-    background: url("../image/key/adminMenu_adminSetup.png") no-repeat;
+    background: url("../images/key/adminMenu_adminSetup.png") no-repeat;
     }
 #adminMenu .content a.adminSetup:hover {
     background-position: -65px 0px;
     }
 /* pageSetup */
 #adminMenu .content a.pageSetup {
-    background: url("../image/key/adminMenu_pageSetup.png") no-repeat;
+    background: url("../images/key/adminMenu_pageSetup.png") no-repeat;
     }
 #adminMenu .content a.pageSetup:hover {
     background-position: -65px 0px;
     }
 /* pluginSetup */
 #adminMenu .content a.pluginSetup {
-    background: url("../image/key/adminMenu_pluginSetup.png") no-repeat;
+    background: url("../images/key/adminMenu_pluginSetup.png") no-repeat;
     }
 #adminMenu .content a.pluginSetup:hover {
     background-position: -65px 0px;
     }
 /* statisticSetup */
 #adminMenu .content a.statisticSetup {
-    background: url("../image/key/adminMenu_statisticSetup.png") no-repeat;
+    background: url("../images/key/adminMenu_statisticSetup.png") no-repeat;
     }
 #adminMenu .content a.statisticSetup:hover {
     background-position: -65px 0px;
     }
 /* userSetup */
 #adminMenu .content a.userSetup {
-    background: url("../image/key/adminMenu_userSetup.png") no-repeat;
+    background: url("../images/key/adminMenu_userSetup.png") no-repeat;
     }
 #adminMenu .content a.userSetup:hover {
     background-position: -65px 0px;
@@ -182,7 +182,7 @@
     width: auto;
     height: 56px; /* org height 64px */
     overflow: visible;
-    background: url("../image/bg/subMenu_middle.png") repeat-x;
+    background: url("../images/bg/subMenu_middle.png") repeat-x;
     }
     
 .subMenu .content {
@@ -195,7 +195,7 @@
     left: -20px;
     width: 20px;
     height: 58px;
-    background: url("../image/bg/subMenu_left.png") no-repeat;
+    background: url("../images/bg/subMenu_left.png") no-repeat;
     }
 .subMenu .right {
     position: absolute;
@@ -203,7 +203,7 @@
     right: -20px;
     width: 20px;
     height: 58px;
-    background: url("../image/bg/subMenu_right.png") no-repeat;
+    background: url("../images/bg/subMenu_right.png") no-repeat;
     }
 
 /* ------------------------- */
@@ -212,7 +212,7 @@
 .subMenu li.spacer {
     width: 14px;
     height: 47px;
-    background: url("../image/key/subMenu_spacer.png") no-repeat;
+    background: url("../images/key/subMenu_spacer.png") no-repeat;
     }
     
 /* ----------------------- */
@@ -231,23 +231,23 @@
 
 /* fileManager */ 
 .subMenu a.fileManager {
-    background: url("../image/key/subMenu_fileManager.png") no-repeat;
+    background: url("../images/key/subMenu_fileManager.png") no-repeat;
     }
 /* createPage */ 
 .subMenu a.createPage {
-    background: url("../image/key/subMenu_createPage.png") no-repeat;
+    background: url("../images/key/subMenu_createPage.png") no-repeat;
     }
 /* deletePage */ 
 .subMenu a.deletePage {
-    background: url("../image/key/subMenu_deletePage.png") no-repeat;
+    background: url("../images/key/subMenu_deletePage.png") no-repeat;
     }
 /* uploadThumb */ 
 .subMenu a.pageThumbnailUpload {
-    background: url("../image/key/subMenu_uploadThumb.png") no-repeat;
+    background: url("../images/key/subMenu_uploadThumb.png") no-repeat;
     }
 /* deleteThumb */ 
 .subMenu a.pageThumbnailDelete {
-    background: url("../image/key/subMenu_deleteThumb.png") no-repeat;
+    background: url("../images/key/subMenu_deleteThumb.png") no-repeat;
     }
 
 
@@ -269,7 +269,7 @@
 #footerMenu li.spacer {
     width: 14px;
     height: 100px;
-    background: url("../image/key/footerMenu_spacer.png") no-repeat;
+    background: url("../images/key/footerMenu_spacer.png") no-repeat;
     }
     
 /* ----------------------- */
@@ -300,35 +300,35 @@
 
 /* fileManager */ 
 #footerMenu a.fileManager {
-    background: url("../image/key/footerMenu_fileManager.png") no-repeat;
+    background: url("../images/key/footerMenu_fileManager.png") no-repeat;
     }
 #footerMenu a.fileManager:hover {
     background-position: -100px 0px;
     }
 /* createPage */ 
 #footerMenu a.createPage {
-    background: url("../image/key/footerMenu_createPage.png") no-repeat;
+    background: url("../images/key/footerMenu_createPage.png") no-repeat;
     }
 #footerMenu a.createPage:hover {
     background-position: -100px 0px;
     }
 /* deletePage */ 
 #footerMenu a.deletePage {
-    background: url("../image/key/footerMenu_deletePage.png") no-repeat;
+    background: url("../images/key/footerMenu_deletePage.png") no-repeat;
     }
 #footerMenu a.deletePage:hover {
     background-position: -100px 0px;
     }
 /* uploadThumb */ 
 #footerMenu a.pageThumbnailUpload {
-    background: url("../image/key/footerMenu_uploadThumb.png") no-repeat;
+    background: url("../images/key/footerMenu_uploadThumb.png") no-repeat;
     }
 #footerMenu a.pageThumbnailUpload:hover {
     background-position: -100px 0px;
     }
 /* deleteThumb */ 
 #footerMenu a.pageThumbnailDelete {
-    background: url("../image/key/footerMenu_deleteThumb.png") no-repeat;
+    background: url("../images/key/footerMenu_deleteThumb.png") no-repeat;
     }
 #footerMenu a.pageThumbnailDelete:hover {
     background-position: -100px 0px;

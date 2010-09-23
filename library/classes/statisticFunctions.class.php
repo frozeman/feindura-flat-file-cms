@@ -675,122 +675,122 @@ class statisticFunctions extends generalFunctions {
         // change the Names and the Colors
         if($browser[0] == 'firefox') {
           $browserName = 'Firefox';
-          $browserColor = 'url(library/image/bg/browserBg_firefox.png)';
+          $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
           $browserLogo = 'browser_firefox.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'netscape navigator') {
           $browserName = 'Netscape Navigator';
-          $browserColor = 'url(library/image/bg/browserBg_netscape.png)';
+          $browserColor = 'url(library/images/bg/browserBg_netscape.png)';
           $browserLogo = 'browser_netscape.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'chrome') {
           $browserName = 'Google Chrome';
-          $browserColor = 'url(library/image/bg/browserBg_chrome.png)';
+          $browserColor = 'url(library/images/bg/browserBg_chrome.png)';
           $browserLogo = 'browser_chrome.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'internet explorer') {
           $browserName = 'Internet Explorer';
-          $browserColor = 'url(library/image/bg/browserBg_ie.png)';
+          $browserColor = 'url(library/images/bg/browserBg_ie.png)';
           $browserLogo = 'browser_ie.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'internet explorer old') {
           $browserName = 'Internet Explorer 1-6';
-          $browserColor = 'url(library/image/bg/browserBg_ie_old.png)';
+          $browserColor = 'url(library/images/bg/browserBg_ie_old.png)';
           $browserLogo = 'browser_ie_old.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'opera') {
           $browserName = 'Opera';
-          $browserColor = 'url(library/image/bg/browserBg_opera.png)';
+          $browserColor = 'url(library/images/bg/browserBg_opera.png)';
           $browserLogo = 'browser_opera.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'konqueror') {
           $browserName = 'Konqueror';
-          $browserColor = 'url(library/image/bg/browserBg_konqueror.png)';
+          $browserColor = 'url(library/images/bg/browserBg_konqueror.png)';
           $browserLogo = 'browser_konqueror.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'lynx') {
           $browserName = 'Lynx';
-          $browserColor = 'url(library/image/bg/browserBg_lynx.png)';
+          $browserColor = 'url(library/images/bg/browserBg_lynx.png)';
           $browserLogo = 'browser_lynx.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'safari') {
           $browserName = 'Safari';
-          $browserColor = 'url(library/image/bg/browserBg_safari.png)';
+          $browserColor = 'url(library/images/bg/browserBg_safari.png)';
           $browserLogo = 'browser_safari.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'mozilla') {
           $browserName = 'Mozilla';
-          $browserColor = 'url(library/image/bg/browserBg_mozilla.png)';
+          $browserColor = 'url(library/images/bg/browserBg_mozilla.png)';
           $browserLogo = 'browser_mozilla.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'iphone') {
           $browserName = 'iPhone';
-          $browserColor = 'url(library/image/bg/browserBg_iphone.png)';
+          $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
           $browserLogo = 'browser_iphone.png';
           $browserTextColor = '#ffffff';
         } elseif($browser[0] == 'ipad') {
           $browserName = 'iPad';
-          $browserColor = 'url(library/image/bg/browserBg_ipad.png)';
+          $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
           $browserLogo = 'browser_ipad.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'ipod') {
           $browserName = 'iPod';
-          $browserColor = 'url(library/image/bg/browserBg_ipod.png)';
+          $browserColor = 'url(library/images/bg/browserBg_ipod.png)';
           $browserLogo = 'browser_ipod.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'amaya') {
           $browserName = 'Amaya';
-          $browserColor = 'url(library/image/bg/browserBg_amaya.png)';
+          $browserColor = 'url(library/images/bg/browserBg_amaya.png)';
           $browserLogo = 'browser_amaya.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'phoenix') {
           $browserName = 'Phoenix';
-          $browserColor = 'url(library/image/bg/browserBg_phoenix.png)';
+          $browserColor = 'url(library/images/bg/browserBg_phoenix.png)';
           $browserLogo = 'browser_phoenix.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'icab') {
           $browserName = 'iCab';
-          $browserColor = 'url(library/image/bg/browserBg_icab.png)';
+          $browserColor = 'url(library/images/bg/browserBg_icab.png)';
           $browserLogo = 'browser_icab.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'omniweb') {
           $browserName = 'OmniWeb';
-          $browserColor = 'url(library/image/bg/browserBg_omniweb.png)';
+          $browserColor = 'url(library/images/bg/browserBg_omniweb.png)';
           $browserLogo = 'browser_omniweb.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'galeon') {
           $browserName = 'Galeon';
-          $browserColor = 'url(library/image/bg/browserBg_galeon.png)';
+          $browserColor = 'url(library/images/bg/browserBg_galeon.png)';
           $browserLogo = 'browser_galeon.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'netpositive') {
           $browserName = 'NetPositive';
-          $browserColor = 'url(library/image/bg/browserBg_netpositive.png)';
+          $browserColor = 'url(library/images/bg/browserBg_netpositive.png)';
           $browserLogo = 'browser_netpositive.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'opera mini') {
           $browserName = 'Opera Mini';
-          $browserColor = 'url(library/image/bg/browserBg_opera_mini.png)';
+          $browserColor = 'url(library/images/bg/browserBg_opera_mini.png)';
           $browserLogo = 'browser_opera_mini.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'blackberry') {
           $browserName = 'BlackBerry';
-          $browserColor = 'url(library/image/bg/browserBg_blackberry.png)';
+          $browserColor = 'url(library/images/bg/browserBg_blackberry.png)';
           $browserLogo = 'browser_blackberry.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'icecat') {
           $browserName = 'IceCat';
-          $browserColor = 'url(library/image/bg/browserBg_icecat.png)';
+          $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
           $browserLogo = 'browser_icecat.png';
           $browserTextColor = '#000000';
         } elseif($browser[0] == 'nokia browser' || $browser[0] == 'Nokia S60 OSS Browser') {
           $browserName = 'Nokia Browser';
-          $browserColor = 'url(library/image/bg/browserBg_nokia.png)';
+          $browserColor = 'url(library/images/bg/browserBg_nokia.png)';
           $browserLogo = 'browser_nokia.png';
           $browserTextColor = '#000000';
         } else {
           $browserName = $GLOBALS['langFile']['log_browser_others'];
-          $browserColor = 'url(library/image/bg/browserBg_others.png)';
+          $browserColor = 'url(library/images/bg/browserBg_others.png)';
           $browserLogo = 'browser_others.png';
           $browserTextColor = '#000000';
         }  
@@ -836,7 +836,7 @@ class statisticFunctions extends generalFunctions {
         // SHOW the table cell with the right browser and color
         $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'">
                     <div style="position: relative;">
-                    <img src="library/image/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
+                    <img src="library/images/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
                     </div>
                     </td>';
       

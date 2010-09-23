@@ -28,7 +28,7 @@ a.createCategory {
     height: 54px;
     padding: 0px !important; /* overwrites the #mainBody a*/
     float: right;
-    background: url("../image/key/pageSetup_createCategory.png") no-repeat 0px 0px !important;
+    background: url("../images/key/pageSetup_createCategory.png") no-repeat 0px 0px !important;
     }
 a.createCategory:hover {
     background-position: 0px -54px !important;
@@ -44,7 +44,7 @@ a.deleteCategory {
     height: 54px;
     padding: 0px !important; /* overwrites the #mainBody a*/
     float: right;
-    background: url("../image/key/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
+    background: url("../images/key/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
     }
 a.deleteCategory:hover {
     background-position: 0px -54px !important;
@@ -58,7 +58,7 @@ a.categoryUp {
     width: 43px;
     height: 31px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../image/key/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
+    background: url("../images/key/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
     }
 a.categoryUp:hover {
     background-position: 0px -32px !important;
@@ -73,7 +73,7 @@ a.categoryDown {
     width: 43px;
     height: 31px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../image/key/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
+    background: url("../images/key/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
     }
 a.categoryDown:hover {
     background-position: 0px -32px !important;
@@ -113,7 +113,7 @@ a.categoryDown:hover {
 /* ---:- INPUT */
 
 input, textarea, select, div.CodeMirror-wrapping {
-    background: url("../image/bg/formularBg.png") no-repeat #ffffff;
+    background: url("../images/bg/formularBg.png") no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
     margin: 1px 0px;
@@ -183,7 +183,7 @@ a.addStyleFilePath {
     height: 24px;
     top: 5px;
     left: 1px;
-    background: url("../image/key/addStyleFilePath.png") no-repeat;
+    background: url("../images/key/addStyleFilePath.png") no-repeat;
     }
 a.addStyleFilePath:hover {
     background-position: 0px -24px;
@@ -208,7 +208,7 @@ input.submit, a.submit, a.ok {
     position: relative;
     width: 75px;
     height: 75px;
-    background: url("../image/key/form_submit.png") no-repeat !important;
+    background: url("../images/key/form_submit.png") no-repeat !important;
     cursor: pointer;
     }
 input.submit:hover, a.submit:hover, a.ok:hover {
@@ -228,7 +228,7 @@ a.cancel {
 input.cancel, a.cancel {
     width: 75px;
     height: 75px;
-    background: url("../image/key/form_cancel.png") no-repeat !important;
+    background: url("../images/key/form_cancel.png") no-repeat !important;
     }
 input.cancel:hover, a.cancel:hover {
     background-position: 0px -78px !important;
@@ -265,7 +265,7 @@ input.search {
     width: 50px;
     height: 50px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../image/key/form_search.png") no-repeat  0px 0px !important;
+    background: url("../images/key/form_search.png") no-repeat  0px 0px !important;
     }
 input.search:hover {
     background-position: 0px -50px !important;

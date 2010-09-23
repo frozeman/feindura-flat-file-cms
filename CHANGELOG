@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 396
+Build 397
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,7 +23,8 @@ ChangeLog:
 ---------
 
 1.0
-
+  
+  build 397: changed image/ folder to images/
   build 396: changed lang/ folder to languages/
   build 395: add CustomFormElements 0.9.4
   build 394: add CKEditor 3.4.1

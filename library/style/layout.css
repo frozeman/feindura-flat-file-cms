@@ -50,14 +50,14 @@ span.red {
     width: 100%;
     height: 100%;
     /*background-color: #222222;*/
-    background: url("../image/bg/dimmContainer.png") repeat;
+    background: url("../images/bg/dimmContainer.png") repeat;
     display: none;
     -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
     filter:Alpha(opacity=50, finishopacity=50, style=0);
     } 
 
 .cke_dialog_background_cover {
-    background: url("../image/bg/dimmContainer.png") repeat !important;
+    background: url("../images/bg/dimmContainer.png") repeat !important;
     background-color: transparent !important;
     }
 
@@ -70,7 +70,7 @@ span.red {
     width: 100%;
     min-width: 1255px;
     height: 150px;
-    background: url("../image/bg/header.png") repeat-x;
+    background: url("../images/bg/header.png") repeat-x;
     }
 #headerBlock {
     z-index: 2;
@@ -79,7 +79,7 @@ span.red {
     left: 0px;
     width: 850px;
     height: 141px;
-    background: url("../image/bg/headerBlock.png") no-repeat; 
+    background: url("../images/bg/headerBlock.png") no-repeat; 
     }
     
 #adminMenu {
@@ -89,7 +89,7 @@ span.red {
     left: 849px;
     width: 190px; /* will be overwriten by javascript with 172px*/
     height: 140px;
-    background: url("../image/bg/adminMenu.png") no-repeat;
+    background: url("../images/bg/adminMenu.png") no-repeat;
     text-align: center;
     border-bottom: 1px solid #BBB9B7;
     overflow: auto; /* will be overwriten by javascript */
@@ -116,7 +116,7 @@ span.red {
     left: 0px;
     width: 205px;
     height: 140px;
-    background: url("../image/sign/logo.png") no-repeat;
+    background: url("../images/sign/logo.png") no-repeat;
     }
 #version {
     z-index: 2;
@@ -157,15 +157,15 @@ span.red {
     
 #languageSelection a.de {
     left: 0px;
-    background: url("../image/key/langSelection_de.png") no-repeat;
+    background: url("../images/key/langSelection_de.png") no-repeat;
     }
 #languageSelection a.en {
     left: 30px;
-    background: url("../image/key/langSelection_en.png") no-repeat;
+    background: url("../images/key/langSelection_en.png") no-repeat;
     }
 #languageSelection a.fr {
     left: 60px;
-    background: url("../image/key/langSelection_fr.png") no-repeat;
+    background: url("../images/key/langSelection_fr.png") no-repeat;
     }
 
 
@@ -199,7 +199,7 @@ span.red {
     top: -5px;
     width: 100%;
     min-width: 1255px;
-    background: url("../image/bg/mainBody.png") repeat-y #d8d8d8;
+    background: url("../images/bg/mainBody.png") repeat-y #d8d8d8;
     overflow: hidden;
     }
   
@@ -226,7 +226,7 @@ span.red {
     width: 100%;
     min-width: 1255px;
     clear: left;
-    background: url("../image/bg/footer.png") repeat-x;
+    background: url("../images/bg/footer.png") repeat-x;
     }
 #footerBlock {
     position: relative;
@@ -234,7 +234,7 @@ span.red {
     left: 0px;
     width: 1024px;
     min-height: 237px;
-    background: url("../image/bg/footerBlock.png") no-repeat;
+    background: url("../images/bg/footerBlock.png") no-repeat;
     }
 #copyright {
     position: absolute;
@@ -273,16 +273,16 @@ span.red {
     }    
 #loadingBox .top {
     height: 30px;
-    background: url("../image/bg/loadingBox_top.png") no-repeat;
+    background: url("../images/bg/loadingBox_top.png") no-repeat;
     }
 #loadingBox .content {
     padding: 0px 20px;
-    background: url("../image/bg/loadingBox_middle.png") repeat-y;
+    background: url("../images/bg/loadingBox_middle.png") repeat-y;
     text-align: center;
     }
 #loadingBox .bottom {
     height: 30px;
-    background: url("../image/bg/loadingBox_bottom.png") no-repeat;
+    background: url("../images/bg/loadingBox_bottom.png") no-repeat;
     }
     
 /* ----------------------- */
@@ -296,7 +296,7 @@ span.red {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  background: url("../image/sign/loadingCircle.gif") no-repeat top center;
+  background: url("../images/sign/loadingCircle.gif") no-repeat top center;
   }
 
 /* ----------------------- */
@@ -312,7 +312,7 @@ span.red {
     margin-right: auto;
     width: 300px;
     height: 320px;
-    background: url("../image/sign/documentSaved.png") no-repeat;
+    background: url("../images/sign/documentSaved.png") no-repeat;
     }
 
 /* ----------------------- */    
@@ -376,7 +376,7 @@ a.lang_de {
   padding-left: 23px;
   display: inline-block;
   text-decoration: none;
-  background: url("../image/sign/de.png") no-repeat 2px;
+  background: url("../images/sign/de.png") no-repeat 2px;
   color: #434F58;
   }
 a.lang_de:hover {
@@ -390,7 +390,7 @@ a.lang_en {
   padding-left: 23px;
   display: inline-block;
   text-decoration: none;
-  background: url("../image/sign/en.png") no-repeat 2px;
+  background: url("../images/sign/en.png") no-repeat 2px;
   color: #434F58;
   }
 a.lang_en:hover {

@@ -44,7 +44,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = ' hidden';
     
     echo '<div class="sidebarMenu fixed'.$hidden.'">
-    <div class="top brown"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['categories_noncategory_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_noncategory_tip'].'::">&nbsp;</a></div>
+    <div class="top brown"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['categories_noncategory_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_noncategory_tip'].'::">&nbsp;</a></div>
     <div class="content brown">
       <ul class="verticalButtons">';
             
@@ -80,7 +80,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = '';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
-    <div class="top blue"><img src="library/image/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#">&nbsp;</a></div>
+    <div class="top blue"><img src="library/images/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#">&nbsp;</a></div>
     <div class="content blue">
       <ul class="verticalButtons">';      
         
@@ -104,7 +104,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top grey"><img src="library/image/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
+    <div class="top grey"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig['id_'.$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig['id_'.$_GET['category']]['name'].'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -144,7 +144,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/activity.statistic.log') &&
          $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/activity.statistic.log')) {
          
-         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
+         echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
          echo '<div id="sidebarTaskLog"><br /><br />';
          
               // ->> LIST the tasks
@@ -152,7 +152,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
               
          echo '<br />
               <br /></div>';
-         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/image/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
+         echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
       // no log
       } else
         echo $langFile['home_taskLog_nolog'];
@@ -160,7 +160,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<hr />';
       
       // -> SHOW USERs
-      echo '<h1><img src="library/image/sign/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['home_user_h1'].'</h1><br />';
+      echo '<h1><img src="library/images/sign/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['home_user_h1'].'</h1><br />';
         if(file_exists(dirname(__FILE__).'/../.htpasswd')) {
           $users = file(dirname(__FILE__).'/../.htpasswd');
           natsort($users);

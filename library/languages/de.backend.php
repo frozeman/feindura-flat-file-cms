@@ -424,7 +424,7 @@ $langFile['adminSetup_thumbnailSettings_h1'] = 'Seiten-Thumbnail-Einstellungen';
 $langFile['adminSetup_thumbnailSettings_field3'] = 'Speicherpfad'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip'] = 'Der Pfad innerhalb des Daten-Upload Pfads, wo die Thumbnails gespeichert werden.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'Der Daten-Upload Pfad';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relativer Pfad::Relativ zum &quot;[b]'.$adminConfig['uploadPath'].'image/[/b]&quot; Pfad.[br /][br /]Beginnt ohne &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relativer Pfad::Relativ zum &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; Pfad.[br /][br /]Beginnt ohne &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings

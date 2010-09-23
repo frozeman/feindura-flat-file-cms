@@ -119,7 +119,7 @@ foreach($allCategories as $category) {
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  $categorySorting = ($category['sortbypagedate'])? '&nbsp;<img src="library/image/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
+  $categorySorting = ($category['sortbypagedate'])? '&nbsp;<img src="library/images/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
   
   // show whether the category is public or nonpublic
   if($category['public']) {
@@ -134,12 +134,12 @@ foreach($allCategories as $category) {
   if($category['id'] != 0) {
     //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="blue"';
-    $headerIcon = 'library/image/sign/categoryIcon_small.png';
+    $headerIcon = 'library/images/sign/categoryIcon_small.png';
     $category['name'] = ' '.$category['name'];
   } else {
     //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="brown"';
-    $headerIcon = 'library/image/sign/pageIcon_middle.png';
+    $headerIcon = 'library/images/sign/pageIcon_middle.png';
   }
   
   // -> CREATE CATEGORY HEADLINE

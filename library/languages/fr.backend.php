@@ -370,7 +370,7 @@ $langFile['adminSetup_thumbnailSettings_h1'] = 'param&egrave;tres thumbnail du s
 $langFile['adminSetup_thumbnailSettings_field3'] = 'trace de sauvegarde'; // trace de sauvegarde thumbnail
 $langFile['adminSetup_thumbnailSettings_field3_tip'] = 'trace au sein de la trace upload des donn&eacute;es ou les thumbnails seront sauvegard&eacute;s.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'trace upload des donn&eacute;es';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'trace relative::d&eacute;p&eacute;ndant de la "[b]'.$adminConfig['uploadPath'].'image/[/b]" trace.[br /][br /]Commence sans "/"';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'trace relative::d&eacute;p&eacute;ndant de la "[b]'.$adminConfig['uploadPath'].'[/b]" trace.[br /][br /]Commence sans "/"';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> "thumbnails/" ';
 
 // ---------- styleFile Settings

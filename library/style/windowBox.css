@@ -47,7 +47,7 @@ windowBox.css version 0.2 */
     width: 780px;
     height: 2px; /*org: 60px */
     padding: 29px 0px;
-    background: url("../image/bg/windowBox_top.png") no-repeat;
+    background: url("../images/bg/windowBox_top.png") no-repeat;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -59,7 +59,7 @@ windowBox.css version 0.2 */
     width: 705px;
     min-height: 140px;
     padding: 20px 40px;
-    background: url("../image/bg/windowBox_middle.png") repeat-y;
+    background: url("../images/bg/windowBox_middle.png") repeat-y;
     overflow: hidden;
     }
 #windowBox .boxBottom {
@@ -68,7 +68,7 @@ windowBox.css version 0.2 */
     bottom: 0px; /* before -55px */
     width: 780px;
     height: 60px; /* org: 60px */
-    background: url("../image/bg/windowBox_bottom.png") no-repeat;
+    background: url("../images/bg/windowBox_bottom.png") no-repeat;
     }
 
 #windowBoxDimmer {
@@ -81,7 +81,7 @@ windowBox.css version 0.2 */
     /*margin-bottom: -80px;*/
     padding: 50px 0px;
     text-align: center;
-    background: url("../image/bg/dimmContainer.png") repeat;
+    background: url("../images/bg/dimmContainer.png") repeat;
     -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
     filter:Alpha(opacity=50, finishopacity=50, style=0);
     }
@@ -95,7 +95,7 @@ windowBox.css version 0.2 */
     margin-bottom: 10px;
     padding: 0px 10px;
     padding-bottom: 18px;
-    background: url("../image/bg/windowBox_h1.png") no-repeat bottom left;
+    background: url("../images/bg/windowBox_h1.png") no-repeat bottom left;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -119,7 +119,7 @@ windowBox.css version 0.2 */
     width: 35px;
     height: 35px;
     padding: 0px;
-    background: url("../image/key/windowBox_close.png") no-repeat;
+    background: url("../images/key/windowBox_close.png") no-repeat;
     }
 #windowBox .boxTop a:hover {
     background-position: -35px 0px;
@@ -208,7 +208,7 @@ input.thumbnailUpload {
     left: 305px;
     width: 75px;
     height: 90px;
-    background: url("../image/key/thumbnailUpload.png") no-repeat !important;
+    background: url("../images/key/thumbnailUpload.png") no-repeat !important;
     }
 input.thumbnailUpload:hover {
     background-position: 0px -90px !important;
@@ -283,7 +283,7 @@ iframe#fileManagerFrame {
     left: 370px;
     width: 447px;
     padding: 0px 40px;
-    background: url("../image/bg/errorWindow_middle.png") repeat-y; 
+    background: url("../images/bg/errorWindow_middle.png") repeat-y; 
     }
 
 #errorWindow .top {
@@ -295,7 +295,7 @@ iframe#fileManagerFrame {
     height: 10px; /*org: 40px */
     padding: 0px;
     padding-top: 30px;
-    background: url("../image/bg/errorWindow_top.png") no-repeat;
+    background: url("../images/bg/errorWindow_top.png") no-repeat;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
@@ -313,12 +313,12 @@ iframe#fileManagerFrame {
     left: -40px;
     width: 527px;
     height: 40px;
-    background: url("../image/bg/errorWindow_bottom.png") no-repeat;
+    background: url("../images/bg/errorWindow_bottom.png") no-repeat;
     }
     
 #errorWindow .content.warning {
     min-height: 48px;
-    background: url("../image/sign/warning.png") no-repeat center left;
+    background: url("../images/sign/warning.png") no-repeat center left;
     }
     
 #errorWindow .content p {
@@ -346,7 +346,7 @@ iframe#fileManagerFrame {
     width: 75px;
     height: 70px;
     padding: 0px;
-    background: url("../image/key/errorWindow_ok.png") no-repeat;
+    background: url("../images/key/errorWindow_ok.png") no-repeat;
     }
 #errorWindow .content a.ok:hover {
     background-position: 0px -65px;

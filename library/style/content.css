@@ -27,7 +27,7 @@ content.css version 0.21 */
     margin: 30px -20px;
     margin-top: 30px;
     padding: 20px;
-    background: url("../image/bg/content_block_normal.png") repeat-y;
+    background: url("../images/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     }
 #content .block .content {
@@ -49,7 +49,7 @@ content.css version 0.21 */
     left: 0px;
     width: 806px;
     height: 10px;
-    background: url("../image/bg/content_block_bottom.png") no-repeat;
+    background: url("../images/bg/content_block_bottom.png") no-repeat;
     }
 #content .block h1 {
     margin-top: -40px; /* balance out the height of the h1 */
@@ -58,7 +58,7 @@ content.css version 0.21 */
 
 /* warning */
 #content .block.warning {
-    background: url("../image/bg/content_block_warning.png") repeat-y 0px 46px;
+    background: url("../images/bg/content_block_warning.png") repeat-y 0px 46px;
     }
 #content .block.warning h1 {
     color: #CA5C00;
@@ -70,7 +70,7 @@ content.css version 0.21 */
     margin-top: 1px;
     padding-top: 0px;
     min-height: 48px;
-    background: url("../image/sign/warning.png") no-repeat center left;
+    background: url("../images/sign/warning.png") no-repeat center left;
     }
 #content .block.warning .content p {
     display: block;
@@ -79,7 +79,7 @@ content.css version 0.21 */
 
 /* info */
 #content .block.info {
-    background: url("../image/bg/content_block_info.png") repeat-y 0px 46px;
+    background: url("../images/bg/content_block_info.png") repeat-y 0px 46px;
     }
 #content .block.info h1 {
     color: #DFB300;
@@ -91,7 +91,7 @@ content.css version 0.21 */
     margin-top: 1px;
     padding-top: 0px;
     min-height: 85px;
-    background: url("../image/sign/info.png") no-repeat center left;
+    background: url("../images/sign/info.png") no-repeat center left;
     }
 #content .block.info .content p {
     display: block;
@@ -106,7 +106,7 @@ content.css version 0.21 */
     z-index: 0;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
-    background: url("../image/bg/content_block_open.png") no-repeat !important; 
+    background: url("../images/bg/content_block_open.png") no-repeat !important; 
     }
 
 #content .block.open.noBg {
@@ -124,7 +124,7 @@ content.css version 0.21 */
     margin: 20px 0px;
     margin-bottom: 2px;
     float: left;
-    background: url("../image/bg/block_innerBlock_small.png") no-repeat;
+    background: url("../images/bg/block_innerBlock_small.png") no-repeat;
     font-size: 12px;
     overflow: hidden;
     }
@@ -136,7 +136,7 @@ content.css version 0.21 */
     margin: 20px 0px;
     margin-bottom: 2px;
     float: right;
-    background: url("../image/bg/block_innerBlock_big.png") no-repeat;
+    background: url("../images/bg/block_innerBlock_big.png") no-repeat;
     font-size: 12px;
     overflow: hidden;
     }
@@ -172,7 +172,7 @@ content.css version 0.21 */
 .block table td.leftTop {
     height: 30px;
     padding: 0px;
-    background: url("../image/bg/content_block_table_left_top.png") no-repeat right top;    
+    background: url("../images/bg/content_block_table_left_top.png") no-repeat right top;    
     }
     
 /* left */    
@@ -182,10 +182,10 @@ content.css version 0.21 */
     text-align: right;
     vertical-align: middle;
     color: #888888;
-    background: url("../image/bg/content_block_table_left_middle.png") repeat-y right top;
+    background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;
     }
 .block table col.left {
-    background: url("../image/bg/content_block_table_left_middle.png") repeat-y right top;    
+    background: url("../images/bg/content_block_table_left_middle.png") repeat-y right top;    
     }
    /* checkboxes */
 .block table td.left.checkboxes {
@@ -200,7 +200,7 @@ content.css version 0.21 */
 .block table td.leftBottom {
     height: 35px;
     padding: 0px;
-    background: url("../image/bg/content_block_table_left_bottom.png") no-repeat right top #ffffff;    
+    background: url("../images/bg/content_block_table_left_bottom.png") no-repeat right top #ffffff;    
     }
     
 /* right */       
@@ -231,7 +231,7 @@ content.css version 0.21 */
     }
     
 .block .verticalSeparator {
-  background: url('../image/bg/content_block_verticalSeparator.png') no-repeat bottom center;
+  background: url('../images/bg/content_block_verticalSeparator.png') no-repeat bottom center;
   padding-bottom: 5px;
 }
     
@@ -245,18 +245,18 @@ content.css version 0.21 */
     width: 760px;
     min-height: 35px;
     padding: 0px;
-    background: url("../image/key/content_h1_up_off.png") no-repeat right top;
+    background: url("../images/key/content_h1_up_off.png") no-repeat right top;
     color: #536068;
     }
 #content .block > h1 a:hover {
     color: #536068;
-    background: url("../image/key/content_h1_up_on.png") no-repeat right top;
+    background: url("../images/key/content_h1_up_on.png") no-repeat right top;
     }
 #content .block.hidden > h1 a {
-    background: url("../image/key/content_h1_down_off.png") no-repeat right top;
+    background: url("../images/key/content_h1_down_off.png") no-repeat right top;
     }
 #content .block.hidden > h1 a:hover {
-    background: url("../image/key/content_h1_down_on.png") no-repeat right top;
+    background: url("../images/key/content_h1_down_on.png") no-repeat right top;
     }
     
 /* ----------------------- */  
@@ -279,7 +279,7 @@ content.css version 0.21 */
     width: 66px;
     height: 65px;
     text-decoration: none;
-    background: url("../image/key/content_fastUp.png") no-repeat;
+    background: url("../images/key/content_fastUp.png") no-repeat;
     }
 #content a.fastUp:hover {
     background-position: 0px -68px;
@@ -292,13 +292,13 @@ content.css version 0.21 */
 a.down {
     font-weight: bold;
     padding-left: 18px;
-    background: url("../image/key/down.gif") no-repeat 0px 3px !important;
+    background: url("../images/key/down.gif") no-repeat 0px 3px !important;
     }
     
 a.up {
     font-weight: bold;
     padding-left: 18px;
-    background: url("../image/key/up.gif") no-repeat 0px 3px !important;
+    background: url("../images/key/up.gif") no-repeat 0px 3px !important;
     }
 
 /* ----------------------- */  
@@ -325,13 +325,13 @@ a.up {
     font-size: 17px;
     color: #536068;
     line-height: 30px;
-    background: url("../image/bg/block_h1.png") no-repeat;
+    background: url("../images/bg/block_h1.png") no-repeat;
     }
 #content h1.brown {
-    background: url("../image/bg/block_h1_brown.png") no-repeat;
+    background: url("../images/bg/block_h1_brown.png") no-repeat;
     }
 #content h1.blue {
-    background: url("../image/bg/block_h1_blue.png") no-repeat;
+    background: url("../images/bg/block_h1_blue.png") no-repeat;
     }
 
 #content h1 img {
@@ -398,7 +398,7 @@ a.up {
     height: 30px;
     margin: 25px -8px;
     margin-bottom: 50px;
-    background: url("../image/bg/content_blockSpacer.png") no-repeat;
+    background: url("../images/bg/content_blockSpacer.png") no-repeat;
     }
     
 /* ----------------------- */  
@@ -407,13 +407,13 @@ a.up {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
-    background: url("../image/sign/link.gif") no-repeat 0px 1px;
+    background: url("../images/sign/link.gif") no-repeat 0px 1px;
     }
 .block p a, #windowBox p a {
   background-position: 0px 4px;
 }
 #leftSidebar a.standardLink {
-    background: url("../image/sign/link.gif") no-repeat 0px 1px;
+    background: url("../images/sign/link.gif") no-repeat 0px 1px;
     }
 a.standardLink:hover, .block a:hover, #windowBox a:hover {
     color: #536068;
@@ -489,7 +489,7 @@ a.anchorTarget {
     height: 34px; /* org: 40px*/
     padding: 3px 7px;
     list-style: none;
-    background: url("../image/bg/sortPages_liBg.png") no-repeat;
+    background: url("../images/bg/sortPages_liBg.png") no-repeat;
     white-space: nowrap;
     overflow: visible;
     }
@@ -517,7 +517,7 @@ div.listPagesHead {
     border-top: 1px solid #DB9E39;
     font-size:15px;
     line-height:30px;
-    background: url("../image/bg/sortPages_headBg.png") repeat-x;
+    background: url("../images/bg/sortPages_headBg.png") repeat-x;
     }
 
 .listPagesHead div {
@@ -620,12 +620,12 @@ div.listPagesHead {
 .listPages div.name a {
     display: inline-block;
     height: 27px;
-    background: url("../image/sign/pageIcon_small.png") no-repeat 0px 0px;
+    background: url("../images/sign/pageIcon_small.png") no-repeat 0px 0px;
     padding-left: 30px !important;
     }
     
 .listPages div.name a.startPage {
-    background: url("../image/key/listPages_startPage.png") no-repeat;
+    background: url("../images/key/listPages_startPage.png") no-repeat;
     }
 
 .listPages .functions a {
@@ -637,19 +637,19 @@ div.listPagesHead {
     }
 
 .listPages .functions a.startPage {
-    background: url("../image/key/listPages_startPage.png") no-repeat;
+    background: url("../images/key/listPages_startPage.png") no-repeat;
     }
 .listPages .functions a.editPage {
-    background: url("../image/key/listPages_editPage.png") no-repeat;
+    background: url("../images/key/listPages_editPage.png") no-repeat;
     }
 .listPages .functions a.deletePage {
-    background: url("../image/key/listPages_deletePage.png") no-repeat;
+    background: url("../images/key/listPages_deletePage.png") no-repeat;
     }  
 .listPages .functions a.pageThumbnailUpload {
-    background: url("../image/key/listPages_pageThumbnailUpload.png") no-repeat;
+    background: url("../images/key/listPages_pageThumbnailUpload.png") no-repeat;
     }
 .listPages .functions a.pageThumbnailDelete {
-    background: url("../image/key/listPages_pageThumbnailDelete.png") no-repeat;
+    background: url("../images/key/listPages_pageThumbnailDelete.png") no-repeat;
     } 
 
 
@@ -660,7 +660,7 @@ div.listPagesHead {
 
 .startPageIcon {
     display: inline-block;
-    background: url("../image/key/listPages_startPage.png") no-repeat;
+    background: url("../images/key/listPages_startPage.png") no-repeat;
     width:27px;
     height: 23px;
     }
@@ -672,7 +672,7 @@ div.listPagesHead {
     display: block;
     width: 27px;
     height: 27px;
-    background: url("../image/key/listPages_createPage.png") no-repeat !important;
+    background: url("../images/key/listPages_createPage.png") no-repeat !important;
     }
 .listPages .createPage:hover {
     background-position: 0px -27px !important;
@@ -691,18 +691,18 @@ div.listPagesHead {
 
 /* for categories */
 .listPages .category .status a.public {
-    background: url("../image/sign/category_public.png") no-repeat !important;
+    background: url("../images/sign/category_public.png") no-repeat !important;
     }
 .listPages .category .status a.nonpublic {
-    background: url("../image/sign/category_nonpublic.png") no-repeat !important;
+    background: url("../images/sign/category_nonpublic.png") no-repeat !important;
     }
 
 /* for pages */
 .listPages .content .status.public a {     
-    background: url("../image/sign/page_public.png") no-repeat !important;
+    background: url("../images/sign/page_public.png") no-repeat !important;
     }
 .listPages .content .status.nonpublic a {
-    background: url("../image/sign/page_nonpublic.png") no-repeat !important;
+    background: url("../images/sign/page_nonpublic.png") no-repeat !important;
     }
   
     
@@ -718,7 +718,7 @@ div.listPagesHead {
     left: 0px;
     margin: 30px -20px;
     margin-top: 30px; 
-    background: url("../image/bg/content_block_normal.png") repeat-y;
+    background: url("../images/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     width: 792px;
     padding: 7px;
@@ -731,7 +731,7 @@ div.listPagesHead {
 #content .editor textarea {
     width: 750px !important;
     height: 437px !important;
-    background: url("../image/bg/formularBg.png") no-repeat #ffffff !important;
+    background: url("../images/bg/formularBg.png") no-repeat #ffffff !important;
     padding: 10px;
     }
 #content .editor textarea:hover {
@@ -760,7 +760,7 @@ div.listPagesHead {
     width: 90px;
     height: 75px; /* org: 40px*/
     text-decoration: none;
-    background: url("../image/key/content_pageThumbnailUpload.png") no-repeat;  
+    background: url("../images/key/content_pageThumbnailUpload.png") no-repeat;  
     }
 #content .block.pageHead a.pageThumbnailUpload:hover {
     background-position: 0px -76px;
@@ -915,7 +915,7 @@ a.toolTip {
 /* text toolTip */
 span.toolTip, label.toolTip {
     /*color: #B46F00;*/
-    background: url("../image/sign/hint_toolTipInfo.png") no-repeat right center;
+    background: url("../images/sign/hint_toolTipInfo.png") no-repeat right center;
     padding-right: 15px;
     }
 
@@ -955,7 +955,7 @@ span.toolTip, label.toolTip {
 .toolTipBox .tip-top {
     z-index: 0;
     position: relative;
-    background: url("../image/bg/toolTip_top.png") top left no-repeat;
+    background: url("../images/bg/toolTip_top.png") top left no-repeat;
     width:272px;
     height:30px; /* org  40px; */
     }
@@ -963,7 +963,7 @@ span.toolTip, label.toolTip {
     z-index: 1;
     position: relative;
     width:272px;
-    background: url("../image/bg/toolTip_middle.png") left top repeat-y;
+    background: url("../images/bg/toolTip_middle.png") left top repeat-y;
     line-height: 20px;
     border: none;
     }
@@ -978,7 +978,7 @@ span.toolTip, label.toolTip {
     margin: 0px;
     }
 .toolTipBox .tip-bottom	{
-    background: url("../image/bg/toolTip_bottom.png") left bottom no-repeat;
+    background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
     width: 272px;
     height: 25px; /* org  35px; */
     }
@@ -995,7 +995,7 @@ span.toolTip, label.toolTip {
     padding-left: 75px;
     margin-bottom: 15px;
     vertical-align: middle;
-    background: url("../image/sign/hintIcon.png") no-repeat center left;
+    background: url("../images/sign/hintIcon.png") no-repeat center left;
     /*font-weight:bold;*/
     font-size:18px;
     line-height: 28px;
@@ -1007,7 +1007,7 @@ span.toolTip, label.toolTip {
 span.hint {
     display: inline-block;
     padding-left: 16px;
-    background: url("../image/sign/hint_toolTipInfo.png") no-repeat 0px 2px !important;
+    background: url("../images/sign/hint_toolTipInfo.png") no-repeat 0px 2px !important;
     font-size: 12px;
     color: #947342;
     }
@@ -1023,7 +1023,7 @@ span.warning {
     display: inline-block;
     padding: 3px 0px;
     padding-left: 20px;
-    background: url("../image/sign/warning.gif") no-repeat 0px 6px !important;
+    background: url("../images/sign/warning.gif") no-repeat 0px 6px !important;
     font-size: 12px;
     color: #990000;
     }

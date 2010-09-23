@@ -90,13 +90,13 @@
 
 /* tooltip hack, use gif instead of png*/
 .toolTip .tip-top {
-    background:url("../image/bg/toolTip_top.gif") top left no-repeat;
+    background:url("../images/bg/toolTip_top.gif") top left no-repeat;
     }
 .toolTip .tip {
-    background:url("../image/bg/toolTip_middle.gif") left top repeat-y;
+    background:url("../images/bg/toolTip_middle.gif") left top repeat-y;
     }
 .toolTip .tip-bottom	{
-    background:url("../image/bg/toolTip_bottom.gif") left bottom no-repeat;
+    background:url("../images/bg/toolTip_bottom.gif") left bottom no-repeat;
     }
     
 /* loadingbox */
@@ -119,13 +119,13 @@
     }
 /* windoxBox gif backgrounds */
 #windowBox .boxTop {
-    background: url("../image/bg/windowBox_top.gif") no-repeat;
+    background: url("../images/bg/windowBox_top.gif") no-repeat;
     }
 #windowRequestBox {
-    background: url("../image/bg/windowBox_middle.gif") repeat-y;
+    background: url("../images/bg/windowBox_middle.gif") repeat-y;
     }
 #windowBox .boxBottom {
-    background: url("../image/bg/windowBox_bottom.gif") no-repeat;
+    background: url("../images/bg/windowBox_bottom.gif") no-repeat;
     }
     
 /* errorWindow gif backgrounds */
@@ -133,17 +133,17 @@
     position: absolute;    
     top: 200px;
     left: 350px;
-    background: url("../image/bg/errorWindow_middle.gif") repeat-y; 
+    background: url("../images/bg/errorWindow_middle.gif") repeat-y; 
     }
 
 #errorWindow .top {
-    background: url("../image/bg/errorWindow_top.gif") no-repeat;
+    background: url("../images/bg/errorWindow_top.gif") no-repeat;
     }
 #errorWindow .content {
     height: 48px;
     }
 #errorWindow .bottom {
-    background: url("../image/bg/errorWindow_bottom.gif") no-repeat;
+    background: url("../images/bg/errorWindow_bottom.gif") no-repeat;
     }
 
 /* .block submit buttom */    

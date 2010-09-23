@@ -22,7 +22,7 @@ if($_GET['site'] == 'pages') {
   
   echo '<div id="rightSidebarMessageBox">';
     echo '<div id="messageBox_input" class="content">';
-    echo '<img src="library/image/sign/hintIcon.png" class="hintIcon" />'.$langFile['sortablePageList_info'];
+    echo '<img src="library/images/sign/hintIcon.png" class="hintIcon" />'.$langFile['sortablePageList_info'];
     // -> the javascript request of the sortable gets its error messages from this input
     echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
     echo '</div>';

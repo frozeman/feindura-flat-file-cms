@@ -425,7 +425,7 @@ $langFile['adminSetup_thumbnailSettings_h1'] = 'Page-Thumbnail-Settings';
 $langFile['adminSetup_thumbnailSettings_field3'] = 'Save path'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip'] = 'The path inside the upload path which will be used to save the thumbanils.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'The upload path';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relative path::Relative to the &quot;[b]'.$adminConfig['uploadPath'].'image/[/b]&quot; path.[br /][br /]Starts without &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relative path::Relative to the &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; path.[br /][br /]Starts without &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
