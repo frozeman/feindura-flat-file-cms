@@ -149,7 +149,7 @@ class contactForm {
     
     // check if the langFile was set
     if(!is_array($this->langFile))
-      $this->langFile = include('lang/en.php');
+      $this->langFile = include('languages/en.php');
     
     // add the session to the current URL
     if(strpos($_SERVER['REQUEST_URI'],session_name()) === false) {

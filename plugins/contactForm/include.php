@@ -57,10 +57,10 @@ $contactForm->websiteTitle = $this->websiteConfig['title'];
 $contactForm->websiteUrl = $this->adminConfig['url'];
 $contactForm->config = $pluginConfig;
 // include the $pluginLangFile
-$pluginCountryCode = (file_exists(dirname(__FILE__).'/lang/'.$this->language.'.php'))
+$pluginCountryCode = (file_exists(dirname(__FILE__).'/languages/'.$this->language.'.php'))
 	  ? $this->language
 	  : 'en';
-if($pluginLangFile = @include('lang/'.$pluginCountryCode.'.php'))
+if($pluginLangFile = @include('languages/'.$pluginCountryCode.'.php'))
   $contactForm->langFile = $pluginLangFile;
 
 $plugin = $contactForm->showContactForm();

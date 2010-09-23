@@ -174,7 +174,7 @@ class generalFunctions {
   * 
   * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
   * 
-  * @param string|false $useLangPath      (optional) a absolut path to look for language files or FALSE to use the "feindura-cms/library/lang" folder
+  * @param string|false $useLangPath      (optional) a absolut path to look for language files or FALSE to use the "feindura-cms/library/languages" folder
   * @param bool         $returnLangFile   (optional) if TRUE it includes and returns the language-file which matches the browser language
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
@@ -206,7 +206,7 @@ class generalFunctions {
         $useLangPath = DOCUMENTROOT.$useLangPath;
         
       } else
-        $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/';
+        $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/languages/';
        
       // -> read language folder
       $langFiles = $this->readFolderRecursive($langPath);

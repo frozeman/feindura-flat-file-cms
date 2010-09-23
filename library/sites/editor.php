@@ -721,13 +721,13 @@ $blockContentEdited = (isset($pageContent['plugins']))
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars
-	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/lang/'.$_SESSION['language'].'.php'))
+	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['language'].'.php'))
 	  ? $_SESSION['language']
 	  : 'en';
         unset($pluginConfig,$pluginLangFile);
         $pluginFolderName = basename($pluginFolder);       
         $pluginConfig = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
-        $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/lang/'.$pluginCountryCode.'.php');
+        $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
         $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
         
         // LIST PLUGINS

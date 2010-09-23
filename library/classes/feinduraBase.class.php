@@ -159,7 +159,7 @@ class feinduraBase {
   * Contains the frontend language-file array
   * 
   * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br />
-  * The file is situated at <i>"feindura-CMS/library/lang/de.frontend.php"</i>.
+  * The file is situated at <i>"feindura-CMS/library/languages/de.frontend.php"</i>.
   *   
   * It will be <i>included</i> and set to this property in the {@link feinduraBase()} constructor.
   * 
@@ -316,7 +316,7 @@ class feinduraBase {
   function loadFrontendLanguageFile($language) {
     
     // creates the frontend language file path
-    $languageFile = DOCUMENTROOT.$this->adminConfig['basePath'].'library/lang/'.$language.'.frontend.php';
+    $languageFile = DOCUMENTROOT.$this->adminConfig['basePath'].'library/languages/'.$language.'.frontend.php';
     
     // includes the langFile
     if(file_exists($languageFile)) {

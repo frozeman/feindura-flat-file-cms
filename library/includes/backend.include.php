@@ -54,7 +54,7 @@ if(empty($_SESSION['language'])) {
 }
 
 // includes the langFile which is set by the session var
-$langFile = include(dirname(__FILE__).'/../lang/'.$_SESSION['language'].'.backend.php');
+$langFile = include(dirname(__FILE__).'/../languages/'.$_SESSION['language'].'.backend.php');
 
 // *---* choose LANGUAGE END -----------------------------------------------------
 
