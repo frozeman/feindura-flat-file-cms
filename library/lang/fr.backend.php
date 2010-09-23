@@ -128,7 +128,7 @@ $langFile['status_page_nonpublic'] = 'site web cach&eacute;';
 $langFile['status_category_public'] = 'cat&eacute;gorie est public';
 $langFile['status_category_nonpublic'] = 'cat&eacute;gorie est cach&eacute;e';
 
-// ----------- sidebar.include.php
+// ----------- leftSidebar.loader.php
 $langFile['user_nousers'] = 'il n&lsquo;y a pas d&lsquo;utilisateurs';
 $langFile['user_currentuser'] = 'tu es connect&eacute; en tant qu&lsquo;utilisateurs';
 

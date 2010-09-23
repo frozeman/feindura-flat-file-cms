@@ -155,7 +155,7 @@ $langFile['status_page_nonpublic'] = 'Page is hidden';
 $langFile['status_category_public'] = 'Category is public';
 $langFile['status_category_nonpublic'] = 'Category is hidden';
 
-// ----------- sidebar.include.php
+// ----------- leftSidebar.loader.php
 
 $langFile['user_nousers'] = 'No users';
 $langFile['user_currentuser'] = 'The user under which you\'re logged';

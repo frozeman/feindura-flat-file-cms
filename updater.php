@@ -26,7 +26,7 @@
 /**
  * Includes all necessary configs, functions and classes
  */
-@include("library/backend.include.php");
+@include("library/includes/backend.include.php");
 
 // VARs
 // -----------------------------------------------------------------------------------

@@ -154,7 +154,7 @@ $langFile['status_page_nonpublic'] = 'Seite ist versteckt';
 $langFile['status_category_public'] = 'Kategorie ist &ouml;ffentlich';
 $langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
 
-// ----------- sidebar.include.php
+// ----------- leftSidebar.loader.php
 
 $langFile['user_nousers'] = 'Es sind keine Benutzer vorhanden';
 $langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';

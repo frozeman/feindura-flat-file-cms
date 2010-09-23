@@ -27,7 +27,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING); //E_ALL & ~E_NOTICE
  */ 
 define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
 
-$phpTags = file(dirname(__FILE__)."/process/phptags.txt"); 
+$phpTags = file(dirname(__FILE__)."/../process/phptags.txt"); 
 /**
  * The php start tag for us in saveing functions
  */ 
@@ -47,7 +47,7 @@ define('PHPENDTAG',"\n".$phpTags[1]);
  * @global array $GLOBALS['adminConfig']
  */
 $GLOBALS['adminConfig'];
-if(!$adminConfig =      @include_once(dirname(__FILE__)."/../config/admin.config.php"))
+if(!$adminConfig =      @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig =      array();
 
 /**
@@ -58,7 +58,7 @@ if(!$adminConfig =      @include_once(dirname(__FILE__)."/../config/admin.config
  * @global array $GLOBALS['websiteConfig']
  */
 $GLOBALS['websiteConfig'];
-if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.config.php"))
+if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../../config/website.config.php"))
   $websiteConfig =    array();
 
 /**
@@ -69,7 +69,7 @@ if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../config/website.conf
  * @global array $GLOBALS['categoryConfig']
  */
 $GLOBALS['categoryConfig'];
-if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../config/category.config.php"))
+if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../../config/category.config.php"))
   $categoryConfig =       array();
 
 /**
@@ -80,7 +80,7 @@ if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../config/category.con
  * @global array $GLOBALS['statisticConfig']
  */
 $GLOBALS['statisticConfig'];
-if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.config.php"))
+if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../../config/statistic.config.php"))
   $statisticConfig =  array();
 
 /**
@@ -91,7 +91,7 @@ if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../config/statistic.co
  * @global array $GLOBALS['pluginsConfig']
  */
 $GLOBALS['pluginsConfig'];
-if(!$pluginsConfig =  @include_once(dirname(__FILE__)."/../config/plugins.config.php"))
+if(!$pluginsConfig =  @include_once(dirname(__FILE__)."/../../config/plugins.config.php"))
   $pluginsConfig =  array();
 
 
@@ -103,7 +103,7 @@ if(!$pluginsConfig =  @include_once(dirname(__FILE__)."/../config/plugins.config
  * @global array $GLOBALS['websiteStatistic']
  */
 $GLOBALS['websiteStatistic'];
-if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../statistic/website.statistic.php"))
+if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/website.statistic.php"))
   $websiteStatistic = array();
 
 
@@ -111,16 +111,16 @@ if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../statistic/website.s
 /**
  * Includes the {@link sort.functions.php}
  */ 
-require_once(dirname(__FILE__)."/functions/sort.functions.php");
+require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
 /**
  * Includes the {@link generalFunctions} <var>class</var>
  */
-require_once(dirname(__FILE__)."/classes/generalFunctions.class.php");
+require_once(dirname(__FILE__)."/../classes/generalFunctions.class.php");
 
 /**
  * Includes the {@link statisticFunctions} <var>class</var>
  */
-require_once(dirname(__FILE__)."/classes/statisticFunctions.class.php");
+require_once(dirname(__FILE__)."/../classes/statisticFunctions.class.php");
 
 ?>

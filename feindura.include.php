@@ -37,7 +37,7 @@ if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'
 }
 
 // -> include all important functions and config vars
-include_once(dirname(__FILE__)."/library/frontend.include.php");
+include_once(dirname(__FILE__)."/library/includes/frontend.include.php");
 $feindura_adminConfig = $adminConfig;
 $feindura_websiteConfig = $websiteConfig;
 $feindura_categoryConfig = $categoryConfig;

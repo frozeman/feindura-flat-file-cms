@@ -17,7 +17,7 @@
 // sidebar.loader.php version 0.60
 
 // -> GET FUNCTIONS
-require_once(dirname(__FILE__)."/backend.include.php");
+require_once(dirname(__FILE__)."/includes/backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 

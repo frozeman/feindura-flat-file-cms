@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
     feindura - Flat File Content Management System
     Copyright (C) Fabian Vogelsteller [frozeman.de]
@@ -13,15 +13,14 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
+
+* frontend.include.php version 0.24
 */
-// download.php version 0.11
 
-include("../backend.include.php");
+// INCLUDES
+require_once(dirname(__FILE__)."/general.include.php");
 
-header('Content-Disposition: attachment; filename="'.$_GET['filename'].'"'); //Sagt dem Browser, dass es sich um einem Download handelt
-header('Content-Type: x-type/subtype'); //"Bug-Fix" für den IE 4.x & 5.x
-
-readfile(DOCUMENTROOT.$adminConfig['savePath'].$_GET['group'].'/'.$_GET['filename']);
-
+require_once(dirname(__FILE__)."/../classes/feinduraBase.class.php");
+require_once(dirname(__FILE__)."/../classes/feindura.class.php");
 
 ?>

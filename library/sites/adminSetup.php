@@ -17,7 +17,7 @@
 * adminSetup.php version 2.36
 */
 
-include_once(dirname(__FILE__)."/../backend.include.php");
+include_once(dirname(__FILE__)."/../includes/backend.include.php");
 
 
 // ----------------------------------------------------------------------------------------------------------------------------------------

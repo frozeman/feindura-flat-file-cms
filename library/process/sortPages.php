@@ -16,7 +16,7 @@
 */
 // process/sortPages.php version 0.32
 
-include(dirname(__FILE__)."/../backend.include.php");
+include(dirname(__FILE__)."/../includes/backend.include.php");
 
 
 /* split the value of the sortation */

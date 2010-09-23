@@ -17,7 +17,7 @@
 * statisticSetup.php version 0.12
 */
 
-include_once(dirname(__FILE__)."/../backend.include.php");
+include_once(dirname(__FILE__)."/../includes/backend.include.php");
 
 $savedForm = false;
 

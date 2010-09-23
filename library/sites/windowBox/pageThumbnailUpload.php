@@ -22,7 +22,7 @@ $site = $_GET['site'];
 $page = $_GET['page'];
 $category = $_GET['category'];
 
-include(dirname(__FILE__)."/../../backend.include.php");
+include(dirname(__FILE__)."/../../includes/backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 

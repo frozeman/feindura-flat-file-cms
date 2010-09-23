@@ -17,7 +17,7 @@ edited by Fabian Vogelsteller:
 verion 1.02
 
 */
-include(dirname(__FILE__).'/../backend.include.php');
+include(dirname(__FILE__).'/../includes/backend.include.php');
 
 
 /**********************/
@@ -1571,7 +1571,7 @@ checkfiles($status);		/* Existenz von ht...-files prüfen */
 /****************************/
 
 
-require_once(dirname(__FILE__).'/../backend.include.php');
+require_once(dirname(__FILE__).'/../includes/backend.include.php');
 
 // didnt show the Setup for non-adminstrators
 if(isAdmin()) {

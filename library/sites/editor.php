@@ -16,7 +16,7 @@
 */
 // editor.php version 1.97
 
-include_once(dirname(__FILE__)."/../backend.include.php");
+include_once(dirname(__FILE__)."/../includes/backend.include.php");
 
 // VARs
 // -----------------------------------------------------------------------------

@@ -24,7 +24,7 @@ session_start();
 
 // INCLUDES
 require_once(dirname(__FILE__)."/general.include.php");
-require_once(dirname(__FILE__)."/functions/backend.functions.php");
+require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
 // GET FUNCTIONS
 $generalFunctions = new generalFunctions();
@@ -54,7 +54,7 @@ if(empty($_SESSION['language'])) {
 }
 
 // includes the langFile which is set by the session var
-$langFile = include(dirname(__FILE__).'/lang/'.$_SESSION['language'].'.backend.php');
+$langFile = include(dirname(__FILE__).'/../lang/'.$_SESSION['language'].'.backend.php');
 
 // *---* choose LANGUAGE END -----------------------------------------------------
 
