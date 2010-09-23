@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// javascript/sidebar.js version 0.33 (requires mootools-core and mootools-more)
+// javascripts/sidebar.js version 0.33 (requires mootools-core and mootools-more)
 
 // -------------------------------------------------
 // SLIDE IN/OUT and MOUSEOVER RESIZE

@@ -17,9 +17,6 @@ listPages.php version 0.86
 
 */
 
-// RE-INCLUDE
-include_once(dirname(__FILE__).'/../includes/backend.include.php');
-
 $opendCategory = false;
 
 // -> CHANGE PAGE STATUS

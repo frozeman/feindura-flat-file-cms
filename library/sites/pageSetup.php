@@ -17,12 +17,10 @@
 * pageSetup.php version 1.22
 */
 
-include_once(dirname(__FILE__)."/../includes/backend.include.php");
 
 // VARs
 // ---------------------------------------------------------------------------
 $categoryInfo = false;
-
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
 // **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
@@ -149,7 +147,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
       }
       
       // deletes the dir with subdirs and files
-      if(!delDir(DOCUMENTROOT.$adminConfig['savePath'].$_GET['category'].'/')) {
+      if(!delDir($adminConfig['savePath'].$_GET['category'].'/')) {
         if($errorWindow) // if there is allready an warning
           $errorWindow .= '<br /><br />'.$langFile['pageSetup_error_deleteDir'];
         else

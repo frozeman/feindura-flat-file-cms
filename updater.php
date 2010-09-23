@@ -278,9 +278,19 @@ $newVersion = '1.0';
       echo 'referer <span class="succesfull">Succesfully updated</span><br />';
       
     }
+    
+    delDir($adminConfig['basePath'].'/library/javascript/');
+    delDir($adminConfig['basePath'].'/library/thirdparty/javascript/');
+    delDir($adminConfig['basePath'].'/library/image/');
+    delDir($adminConfig['basePath'].'/library/lang/');
+    @unlink(DOCUMENTROOT.$adminConfig['basePath'].'/library/general.include.php');
+    @unlink(DOCUMENTROOT.$adminConfig['basePath'].'/library/frontend.include.php');
+    @unlink(DOCUMENTROOT.$adminConfig['basePath'].'/library/backend.include.php');
+    echo 'removed <span class="succesfull">old files and folders</span><br />';
+    
     ?>
   
-  <h1>You can now delete this file.</h1>
+  <h1>You can delete this file now.</h1>
   
   <?php
   }  

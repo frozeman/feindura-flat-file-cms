@@ -1195,17 +1195,35 @@ function saveEditedFiles(&$savedForm) {
  * 
  */
 function delDir($dir) {
-    $files = glob($dir.'*', GLOB_MARK );
-    if(is_array($files)) {
-      foreach( $files as $file ){
-          if( substr( $file, -1 ) == '/' )
-              delTree( $file );
-          else
-              unlink( $file );
-      }
-    }
+
+    $filesFolders = $GLOBALS['generalFunctions']->readFolderRecursive($dir);
     
-    if(rmdir( $dir ))
+    if(is_array($filesFolders)) {
+      $return = false;
+      $writeerror = false;
+      
+      foreach($filesFolders['files'] as $file) {
+        if(!is_writable(DOCUMENTROOT.$file))
+          $writeerror = true;
+        unlink(DOCUMENTROOT.$file);
+      }
+      foreach($filesFolders['folders'] as $folder) {
+        if(!is_writable(DOCUMENTROOT.$folder))
+          $writeerror = true;
+        rmdir(DOCUMENTROOT.$folder);
+      }
+      
+      // recheck if everything is deleted
+      $checkFilesFolders = $GLOBALS['generalFunctions']->readFolderRecursive($dir);
+      
+      if(rmdir(DOCUMENTROOT.$dir))
+        return true;
+      elseif($writeerror === false && (!empty($checkFilesFolders['folders']) || !empty($checkFilesFolders['files'])))
+        delDir($dir);
+      else
+        return false;
+    
+    } elseif(rmdir(DOCUMENTROOT.$dir))
       return true;
     else
       return false;

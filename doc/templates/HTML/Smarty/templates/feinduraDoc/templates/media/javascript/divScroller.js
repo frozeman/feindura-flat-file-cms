@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// javascript/divScroller.js version 0.11 (requires mootools-core and mootools-more)
+// javascripts/divScroller.js version 0.11 (requires mootools-core and mootools-more)
 
 /*
 Class: divScroller

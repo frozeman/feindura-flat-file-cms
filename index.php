@@ -113,24 +113,24 @@ if($_GET['site'] == 'addons') {
   
   <!-- thirdparty/iePNGfix -->
   <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
-  <!--[if IE 6]><script type="text/javascript" src="library/javascript/ie.js"></script><![endif]-->
+  <!--[if IE 6]><script type="text/javascript" src="library/javascripts/ie.js"></script><![endif]-->
 
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4-core.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascript/mootools-1.2.4.4-more.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4-core.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
   
   <!-- thirdparty/AutoGrow (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascript/autogrow-1.0.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/autogrow-1.0.js"></script>
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Source/StaticScroller.js"></script>
-	<script type="text/javascript" src="library/thirdparty/javascript/staticScroller/Requires/Element.Pin.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Source/StaticScroller.js"></script>
+	<script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Requires/Element.Pin.js"></script>
 	
 	<!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascript/raphael-1.4.3.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.4.3.js"></script>
 	
   <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/javascript/CodeMirror/js/codemirror.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/CodeMirror/js/codemirror.js"></script>
   
   <!-- thirdparty/CustomFormElements -->
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
@@ -143,11 +143,11 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
  
   <!-- javascripts -->
-  <script type="text/javascript" src="library/javascript/loading.js"></script>
-  <script type="text/javascript" src="library/javascript/divScroller.js"></script>
-  <script type="text/javascript" src="library/javascript/sidebar.js"></script>
-  <script type="text/javascript" src="library/javascript/content.js"></script>
-  <script type="text/javascript" src="library/javascript/windowBox.js"></script>
+  <script type="text/javascript" src="library/javascripts/loading.js"></script>
+  <script type="text/javascript" src="library/javascripts/divScroller.js"></script>
+  <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
+  <script type="text/javascript" src="library/javascripts/content.js"></script>
+  <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
   
 </head>
 <body>

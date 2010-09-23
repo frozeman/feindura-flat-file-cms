@@ -763,8 +763,8 @@ window.addEvent('domready', function() {
           textWrapping: false,
           parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js",
                       "../contrib/php/js/tokenizephp.js", "../contrib/php/js/parsephp.js", "../contrib/php/js/parsephphtmlmixed.js"],
-          stylesheet: ["library/thirdparty/javascript/CodeMirror/css/xmlcolors.css", "library/thirdparty/javascript/CodeMirror/css/jscolors.css", "library/thirdparty/javascript/CodeMirror/css/csscolors.css", "library/thirdparty/javascript/CodeMirror/contrib/php/css/phpcolors.css", "library/thirdparty/javascript/CodeMirror/css/general.css"],
-          path: "library/thirdparty/javascript/CodeMirror/js/"
+          stylesheet: ["library/thirdparty/javascripts/CodeMirror/css/xmlcolors.css", "library/thirdparty/javascripts/CodeMirror/css/jscolors.css", "library/thirdparty/javascripts/CodeMirror/css/csscolors.css", "library/thirdparty/javascripts/CodeMirror/contrib/php/css/phpcolors.css", "library/thirdparty/javascripts/CodeMirror/css/general.css"],
+          path: "library/thirdparty/javascripts/CodeMirror/js/"
         });
       
       // css highlighting
@@ -776,8 +776,8 @@ window.addEvent('domready', function() {
           iframeClass: 'editFilesIFrame',
           textWrapping: false,
           parserfile: "parsecss.js",
-          stylesheet: ["library/thirdparty/javascript/CodeMirror/css/csscolors.css", "library/thirdparty/javascript/CodeMirror/css/general.css"],
-          path: "library/thirdparty/javascript/CodeMirror/js/"
+          stylesheet: ["library/thirdparty/javascripts/CodeMirror/css/csscolors.css", "library/thirdparty/javascripts/CodeMirror/css/general.css"],
+          path: "library/thirdparty/javascripts/CodeMirror/js/"
         });        
       }
     }
