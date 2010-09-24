@@ -34,6 +34,18 @@ $langFile['login_password'] = 'Password';
 $langFile['login_button_login'] = 'LOGIN';
 $langFile['login_info_cookie'] = 'Cookies must be activated';
 
+$langFile['login_forgotPassword'] = 'Forgot your password?';
+$langFile['login_forgotPassword_back'] = 'back to login';
+$langFile['login_button_forgotPassword'] = 'SEND';
+$langFile['login_forgotPassword_email_subject'] = 'You requested your feindura CMS password from';
+$langFile['login_forgotPassword_email_message'] = 'You have requested a new password for your feindura - Flat File CMS.
+Your new password is:';
+
+$langFile['login_error_forgotPassword_nomail'] = 'The user has no E-Mail address.';
+$langFile['login_error_forgotPassword_notsend'] = 'ERROR<br /> while sending the new password to the user-specified email address';
+$langFile['login_error_forgotPassword_notsaved'] = 'ERROR<br /> Could not save the new generated password.';
+$langFile['login_error_forgotPassword_success'] = 'A new password is send to the following e-mail address';
+
 $langFile['login_error_wrongUser'] = 'User does not exist';
 $langFile['login_error_wrongPassword'] = 'wrong password';
 
@@ -600,6 +612,37 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'A list of the last ac
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Are you sure you want to delete these statistics?';
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+
+/* ----------------------------------------------------------------------------------------------
+* userSetup.php
+*/
+
+$langFile['userSetup_h1'] = 'User-Management';
+$langFile['userSetup_userSelection'] = 'Users';
+
+$langFile['userSetup_createUser'] = 'Create new user';
+$langFile['userSetup_createUser_created'] = 'New user created';
+$langFile['userSetup_createUser_unnamed'] = 'Unnamed user';
+
+$langFile['userSetup_deleteUser'] = 'Delete user';
+$langFile['userSetup_deleteUser_deleted'] = 'User deleted';
+
+$langFile['userSetup_username'] = 'Username';
+$langFile['userSetup_username_missing'] = 'There is no username set yet.';
+$langFile['userSetup_password'] = 'Password';
+$langFile['userSetup_password_change'] = 'change password';
+$langFile['userSetup_password_confirm'] = 'Password confirmation';
+$langFile['userSetup_password_confirm_wrong'] = 'The two passwords do not match.';
+$langFile['userSetup_password_missing'] = 'There is no password set yet.';
+$langFile['userSetup_password_success'] = 'Password successfully changed!';
+$langFile['userSetup_email'] = 'E-Mail';
+$langFile['userSetup_email_tip'] = 'If the user has forgotten his password, a new password will be sent to this e-mail.';
+
+$langFile['userSetup_admin'] = 'Adminstrator';
+$langFile['userSetup_admin_tip'] = 'Determines whether the user has adminstrator rights.';
+
+$langFile['userSetup_error_create'] = '<b> A new user could not be created.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
+$langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 
 /* ----------------------------------------------------------------------------------------------
 * pluginSetup.php

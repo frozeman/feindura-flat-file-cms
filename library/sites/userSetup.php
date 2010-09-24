@@ -94,6 +94,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['username']]['password'] = md5($newUserConfig[$configs['username']]['password']);
         $userPassChanged = true;
+        $userInfoPassword = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['userSetup_password_success'].'</span></td></tr>';
       } else {
         $userInfo = $langFile['userSetup_password_confirm_wrong'];
         $userInfoPassword = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';

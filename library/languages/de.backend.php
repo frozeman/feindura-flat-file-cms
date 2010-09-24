@@ -34,6 +34,18 @@ $langFile['login_password'] = 'Passwort';
 $langFile['login_button_login'] = 'LOGIN';
 $langFile['login_info_cookie'] = 'Cookies m&uuml;ssen aktivert sein';
 
+$langFile['login_forgotPassword'] = 'Passwort vergessen?';
+$langFile['login_forgotPassword_back'] = 'zur&uuml;ck zum Login';
+$langFile['login_button_forgotPassword'] = 'SENDEN';
+$langFile['login_forgotPassword_email_subject'] = 'feindura CMS Passwort angefordert von';
+$langFile['login_forgotPassword_email_message'] = 'Du hast ein neues Passwort f&uuml;r dein feindura - Flat File CMS angefordert.
+Dein neues Passwort lautet:';
+
+$langFile['login_error_forgotPassword_nomail'] = 'Der Benutzer hat keine E-Mail Adressse angegeben.';
+$langFile['login_error_forgotPassword_notsend'] = 'FEHLER<br />beim senden des neuen Passworts an die vom Benutzer angegebene E-Mail Adresse.';
+$langFile['login_error_forgotPassword_notsaved'] = 'FEHLER<br />Konnte das neu erzeugte Passwort nicht speichern.';
+$langFile['login_error_forgotPassword_success'] = 'Es wurde ein neues Passwort and folgende E-Mail Adresse verschickt';
+
 $langFile['login_error_wrongUser'] = 'Benutzer nicht vorhanden';
 $langFile['login_error_wrongPassword'] = 'falsches Passwort';
 
@@ -619,10 +631,11 @@ $langFile['userSetup_username_missing'] = 'Es wurde noch keine Benutzername f&uu
 $langFile['userSetup_password'] = 'Passwort';
 $langFile['userSetup_password_change'] = 'Passwort &auml;ndern';
 $langFile['userSetup_password_confirm'] = 'Passwort wiederholen';
-$langFile['userSetup_password_confirm_wrong'] = 'Die beiden Passw&ouml;rter stimmen nicht &uuml;berein';
+$langFile['userSetup_password_confirm_wrong'] = 'Die beiden Passw&ouml;rter stimmen nicht &uuml;berein.';
 $langFile['userSetup_password_missing'] = 'Es wurde noch keine Passwort f&uuml;r diesen Benutzer festgelegt.';
+$langFile['userSetup_password_success'] = 'Passwort erfolgreich ge&auml;ndert!';
 $langFile['userSetup_email'] = 'E-Mail';
-$langFile['userSetup_email_tip'] = 'Wenn der Benutzer sein altes Passwort vergessen hat, wird an diese E-Mail wird das neue Passwort gesendet.';
+$langFile['userSetup_email_tip'] = 'Wenn der Benutzer sein Passwort vergessen hat, wird an diese E-Mail ein neues Passwort gesendet.';
 
 $langFile['userSetup_admin'] = 'Adminstrator';
 $langFile['userSetup_admin_tip'] = 'Legt fest ob der Benutzer Adminstratorrechte besitzt.';

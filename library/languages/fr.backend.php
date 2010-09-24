@@ -34,6 +34,9 @@ $langFile['login_password'] = 'Mot de passe';
 $langFile['login_button_login'] = 'LOGIN';
 $langFile['login_info_cookie'] = 'Les cookies doivent &ecirc;tre active';
 
+$langFile['login_forgotPassword'] = 'Mot de passe oubli&ecirc;?';
+$langFile['login_button_forgotPassword'] = 'ENVOYER';
+
 $langFile['login_error_wrongUser'] = 'L&lsquo;utilisateur n&lsquo;existe pas';
 $langFile['login_error_wrongPassword'] = 'mot de passe erron&eacute;';
 
