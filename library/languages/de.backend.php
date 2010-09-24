@@ -40,6 +40,8 @@ $langFile['login_error_wrongPassword'] = 'falsches Passwort';
 $langFile['login_logout_part1'] = 'Erfolgreich ausgeloggt';
 $langFile['login_logout_part2'] = 'weiter zur Webseite';
 
+$langFile['logout_button_tip'] = 'Klicke hier um dich auszuloggen';
+
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
 */
@@ -133,6 +135,7 @@ $langFile['log_pageThumbnail_delete'] = 'Thumbnail gel&ouml;scht';
 $langFile['log_userSetup_useradd'] = 'Neuen Benutzer angelegt';
 $langFile['log_userSetup_userdeleted'] = 'Benutzer gel&ouml;scht';
 $langFile['log_userSetup_userpass_changed'] = 'Benutzerpasswort ge&auml;ndert';
+$langFile['log_userSetup_userchanged'] = 'Benutzer gespeichert';
 
 $langFile['log_adminSetup_saved'] = 'Administrator-Einstellungen gespeichert';
 $langFile['log_adminSetup_ckstyles'] = '&quot;Stil-Auswahl&quot; des HTML-Editors gespeichert';
@@ -596,6 +599,36 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+
+/* ----------------------------------------------------------------------------------------------
+* userSetup.php
+*/
+
+$langFile['userSetup_h1'] = 'Benutzer-Verwaltung';
+$langFile['userSetup_userSelection'] = 'Benutzer';
+
+$langFile['userSetup_createUser'] = 'Neuen Benutzer anlegen';
+$langFile['userSetup_createUser_created'] = 'Neuen Benutzer angelegt';
+$langFile['userSetup_createUser_unnamed'] = 'Unbenannter Benutzer';
+
+$langFile['userSetup_deleteUser'] = 'Benutzer l&ouml;schen';
+$langFile['userSetup_deleteUser_deleted'] = 'Benutzer gel&ouml;scht';
+
+$langFile['userSetup_username'] = 'Benutzername';
+$langFile['userSetup_username_missing'] = 'Es wurde noch keine Benutzername f&uuml;r diesen Benutzer festgelegt.';
+$langFile['userSetup_password'] = 'Passwort';
+$langFile['userSetup_password_change'] = 'Passwort &auml;ndern';
+$langFile['userSetup_password_confirm'] = 'Passwort wiederholen';
+$langFile['userSetup_password_confirm_wrong'] = 'Die beiden Passw&ouml;rter stimmen nicht &uuml;berein';
+$langFile['userSetup_password_missing'] = 'Es wurde noch keine Passwort f&uuml;r diesen Benutzer festgelegt.';
+$langFile['userSetup_email'] = 'E-Mail';
+$langFile['userSetup_email_tip'] = 'Wenn der Benutzer sein altes Passwort vergessen hat, wird an diese E-Mail wird das neue Passwort gesendet.';
+
+$langFile['userSetup_admin'] = 'Adminstrator';
+$langFile['userSetup_admin_tip'] = 'Legt fest ob der Benutzer Adminstratorrechte besitzt.';
+
+$langFile['userSetup_error_create'] = '<b>Ein neuer Benutzer konnte nicht angelegt werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
+$langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 
 /* ----------------------------------------------------------------------------------------------
 * pluginSetup.php

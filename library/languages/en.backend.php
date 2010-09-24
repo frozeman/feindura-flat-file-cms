@@ -40,6 +40,8 @@ $langFile['login_error_wrongPassword'] = 'wrong password';
 $langFile['login_logout_part1'] = 'Successfully logged out';
 $langFile['login_logout_part2'] = 'further to the website';
 
+$langFile['logout_button_tip'] = 'Click here to logout';
+
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
 */
@@ -134,6 +136,7 @@ $langFile['log_pageThumbnail_delete'] = 'Thumbnail deleted';
 $langFile['log_userSetup_useradd'] = 'New user created';
 $langFile['log_userSetup_userdeleted'] = 'User deleted';
 $langFile['log_userSetup_userpass_changed'] = 'User password changed';
+$langFile['log_userSetup_userchanged'] = 'User saved';
 
 $langFile['log_adminSetup_saved'] = 'Administrator-Settings saved';
 $langFile['log_adminSetup_ckstyles'] = '&quot;Formatting-Styles&quot; of the HTML-Editor saved';

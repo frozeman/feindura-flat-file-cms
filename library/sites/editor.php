@@ -579,7 +579,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       // CHECKs the DATE FORMAT
       if(!empty($pageDate) && $statisticFunctions->validateDateFormat($pageDate) === false)
-        echo '<span class="toolTip" style="color:#950300;" title="'.$langFile['editor_pageSettings_pagedate_error'].'::'.$langFile['editor_pageSettings_pagedate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_pagedate_error'].'</b></span>'; 
+        echo '<span class="toolTip red" title="'.$langFile['editor_pageSettings_pagedate_error'].'::'.$langFile['editor_pageSettings_pagedate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_pagedate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_tip'].'">'.$langFile['editor_pageSettings_field3'].'</span>';
       ?>

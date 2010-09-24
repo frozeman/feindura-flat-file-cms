@@ -219,7 +219,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     case 'pageSetup':
       
       // -> CATEGORY ANCHOR LINKS
-      echo '<div id="sidebarCategorySelection">';
+      echo '<div id="sidebarSelection">';
       
       echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['pageSetup_createCategory'].'::"></a>'; 
       
@@ -235,16 +235,34 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   	        foreach($categoryConfig as $category) {
               echo '<li><a href="#category'.$category['id'].'" class="standardLink">'.$category['name'].'</a></li>';
           
-            }	
-          echo '</ul>';
-	      }
-        echo '</div></div>';
-      }
-      echo '</div>';
+            }	echo '</ul>';
+	      } echo '</div></div>';
+      } echo '</div>';
 
       break;
     // ***** userSetup -------------------------------------------- **********
     case 'userSetup':
+      
+      // -> USER ANCHOR LINKS
+      echo '<div id="sidebarSelection">';
+      
+      echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['userSetup_createUser'].'::"></a>'; 
+      
+      if(!empty($userConfig)) {
+        echo '<div class="sidebarInfo"><div class="content">';
+        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['btn_fastUp'].'">'.$langFile['btn_fastUp'].'</a>';
+        if(is_array($userConfig)) {
+  	      echo '<hr />';
+            echo '<h1>'.$langFile['userSetup_userSelection'].'</h1>';
+            echo '<ul>';      
+          
+            // -> show a anchor link to each user
+  	        foreach($userConfig as $user) {
+              echo '<li><a href="#userId'.$user['id'].'" class="standardLink">'.$user['username'].'</a></li>';
+          
+            } echo '</ul>';
+	      } echo '</div></div>';
+      } echo '</div>';
 
       break;
     // ***** search -------------------------------------------- **********

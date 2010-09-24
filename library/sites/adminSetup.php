@@ -297,7 +297,7 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
 <!-- anchor for the adminSettings 
 <a name="adminSettingsTop" id="adminSettingsTop" class="anchor"></a>-->
 
-<form action="?site=adminSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=adminSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div>
   <input type="hidden" name="send" value="adminSetup" />
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />
@@ -585,7 +585,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
 <!-- HIER BEGINNT DIE STIL-AUSWAHL BEARBEITUNG DES HTML EDITORS -->
 
-<form action="?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div><input type="hidden" name="saveFckStyleFile" value="true" /></div>
 
 <?php

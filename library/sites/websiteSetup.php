@@ -79,7 +79,7 @@ if($unwriteableList && checkBasePath()) {
 }
 
 ?>
-<form action="?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=websiteSetup#websiteConfig" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div><input type="hidden" name="send" value="websiteSetup" /></div>
   
 <!-- PAGE SETTINGS -->

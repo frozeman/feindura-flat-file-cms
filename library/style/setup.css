@@ -79,6 +79,34 @@ a.categoryDown:hover {
     background-position: 0px -32px !important;
     }
     
+/* createUser */
+a.createUser {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../images/key/userSetup_createUser.png") no-repeat 0px 0px !important;
+    }
+a.createUser:hover {
+    background-position: 0px -54px !important;
+    }
+    
+/* deleteUser */
+a.deleteUser {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../images/key/userSetup_deleteUser.png") no-repeat 0px 0px !important;
+    }
+a.deleteUser:hover {
+    background-position: 0px -54px !important;
+    }
+    
 
 /* --- THUMBNAIL ------------------------------------------------------------------------------------------------------------------- */
 

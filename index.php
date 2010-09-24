@@ -180,6 +180,8 @@ if($_GET['site'] == 'addons') {
     
     <div id="headerBlock">
       
+      <a href="index.php?logout" class="logout toolTip" title="<?= $langFile['logout_button_tip']; ?>::"></a>
+      
       <div id="languageSelection">        
         <a href="?language=de" class="de toolTip" title="deutsch::"></a>
         <a href="?language=en" class="en toolTip" title="english::"></a>
@@ -233,7 +235,7 @@ if($_GET['site'] == 'addons') {
           <td><a href="?site=pageSetup" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_pageSetup']; ?>"><span><?php echo $langFile['btn_pageSetup']; ?></span></a></td>
           </tr><tr>
           <td><a href="?site=statisticSetup" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_statisticSetup']; ?>"><span><?php echo $langFile['btn_statisticSetup']; ?></span></a></td>
-          <td><a href="?site=userSetup" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" onclick="openWindowBox('library/sites/userSetup.php','<?php echo $langFile['btn_userSetup']; ?>',true);return false;" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
+          <td><a href="?site=userSetup" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['btn_userSetup']; ?>"><span><?php echo $langFile['btn_userSetup']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
           if(!$generalFunctions->folderIsEmpty($adminConfig['basePath'].'plugins/') || !$generalFunctions->folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>

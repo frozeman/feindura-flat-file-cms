@@ -130,6 +130,9 @@ foreach($logContent as $logRow) {
     case 27:
         $logText = $langFile['log_userSetup_userpass_changed'];
         break;
+    case 28:
+        $logText = $langFile['log_userSetup_userchanged'];
+        break;
   }
   
   // ->> PROCESS LOG DATA

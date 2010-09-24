@@ -203,6 +203,37 @@ function getNewCatgoryId() {
 }
 
 /**
+ * <b>Name</b> getNewUserId()<br />
+ * 
+ * Returns a new user ID, which is the highest user ID + 1.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
+ *     
+ * @return int a new user ID
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function getNewUserId() {
+  
+  // gets the highest id
+  $highestId = 0;
+  if(is_array($GLOBALS['userConfig'])) {
+    foreach($GLOBALS['userConfig'] as $user) {          
+      if($user['id'] > $highestId)
+        $highestId = $user['id'];
+    }
+    return ++$highestId;
+  } else
+    return 1;
+}
+
+/**
  * <b>Name</b> saveCategories()<br />
  * 
  * Saves the category-settings config array to the "config/category.config.php" file.
@@ -535,6 +566,65 @@ function saveAdminConfig($adminConfig) {
 }
 
 /**
+ * <b>Name</b> saveUserConfig()<br />
+ * 
+ * Saves the user-settings config array to the "config/user.config.php" file.
+ * 
+ * <b>Used Constants</b><br />
+ *    - <var>PHPSTARTTAG</var> the php start tag
+ *    - <var>PHPENDTAG</var> the php end tag
+ * 
+ * @param array $userConfig a $userConfig array to save
+ * 
+ * @return bool TRUE if the file was succesfull saved, otherwise FALSE
+ * 
+ * @example backend/userConfig.array.example.php of the $userConfig array
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function saveUserConfig($userConfig) {
+   
+  // opens the file for writing
+  if($file = fopen(dirname(__FILE__)."/../../config/user.config.php","w")) {
+    
+    // CHECK BOOL VALUES and change to FALSE
+    foreach($userConfig as $user => $config) {
+      $userConfig[$user]['admin'] = (isset($userConfig[$user]['admin']) && $userConfig[$user]['admin']) ? 'true' : 'false';
+    }
+    
+    // *** write
+    flock($file,2); //LOCK_EX
+      fwrite($file,PHPSTARTTAG); //< ?php      
+      
+      foreach($userConfig as $user => $configs) {
+      
+        // CHECK BOOL VALUES and change to FALSE
+        $userConfig[$user]['admin'] = (isset($userConfig[$user]['admin']) && $userConfig[$user]['admin']) ? 'true' : 'false';
+        
+        foreach($configs as $configKey => $configValue) {
+          if($configKey == 'id' || $configKey == 'admin')
+            fwrite($file,"\$userConfig['".$user."']['".$configKey."'] = ".$configValue.";\n");
+          else
+            fwrite($file,"\$userConfig['".$user."']['".$configKey."'] = '".$configValue."';\n");
+        }
+        fwrite($file,"\n");        
+      }      
+      fwrite($file,"return \$userConfig;");
+    
+      fwrite($file,PHPENDTAG); //? >
+    flock($file,3); //LOCK_UN
+    fclose($file);
+  
+    return true;
+  } else
+    return false;
+}
+
+/**
  * <b>Name</b> saveWebsiteConfig()<br />
  * 
  * Saves the website-settings config array to the "config/website.config.php" file.
@@ -601,6 +691,7 @@ function saveWebsiteConfig($websiteConfig) {
   } else
     return false;
 }
+
 
 /**
  * <b>Name</b> saveStatisticConfig()<br />

@@ -39,6 +39,8 @@ $langFile['login_error_wrongPassword'] = 'mot de passe erron&eacute;';
 
 $langFile['login_logout_part1'] = 'D&ecirc;connectez-vous avec succ&egrave;s';
 $langFile['login_logout_part2'] = 'Suivant au le site web';
+
+$langFile['logout_button_tip'] = 'Cliquez ici pour vous d&eacute;connecter';
  
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
@@ -117,6 +119,8 @@ $langFile['log_pageThumbnail_delete'] = 'thumbnail &eacute;ffac&eacute;';
 $langFile['log_userSetup_useradd'] = 'nouveau utilisateur cr&eacute;e';
 $langFile['log_userSetup_userdeleted'] = 'utilisateur &eacute;ffac&eacute;';
 $langFile['log_userSetup_userpass_changed'] = 'mot de passe chang&eacute;';
+$langFile['log_userSetup_userchanged'] = 'utilisateur sauvegard&eacute;';
+
 $langFile['log_adminSetup_saved'] = 'nouveaux pr&eacute;f&eacute;rences l&lsquo;administrateur sauvegard&eacute;';
 $langFile['log_adminSetup_ckstyles'] = '"choix des syles" de l&lsquo;&eacute;diteur HTML sauvegard&eacute;';
 $langFile['log_websiteSetup_saved'] = 'pr&eacute;f&eacute;rences site web sauvegard&eacute;';

@@ -46,9 +46,20 @@ define('PHPENDTAG',"\n".$phpTags[1]);
  * 
  * @global array $GLOBALS['adminConfig']
  */
-$GLOBALS['adminConfig'];
 if(!$adminConfig =      @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig =      array();
+$GLOBALS['adminConfig'];
+
+/**
+ * The user-settings config
+ * 
+ * This config <var>array</var> is included from: <i>"feindura-CMS/config/user.config.php"</i>
+ * 
+ * @global array $GLOBALS['userConfig']
+ */
+if(!$userConfig =      @include_once(dirname(__FILE__)."/../../config/user.config.php"))
+  $userConfig =      array();
+$GLOBALS['userConfig'];
 
 /**
  * The website-settings config
@@ -57,9 +68,9 @@ if(!$adminConfig =      @include_once(dirname(__FILE__)."/../../config/admin.con
  * 
  * @global array $GLOBALS['websiteConfig']
  */
-$GLOBALS['websiteConfig'];
 if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../../config/website.config.php"))
   $websiteConfig =    array();
+$GLOBALS['websiteConfig'];
 
 /**
  * The categories-settings config
@@ -68,9 +79,9 @@ if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../../config/website.c
  * 
  * @global array $GLOBALS['categoryConfig']
  */
-$GLOBALS['categoryConfig'];
 if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../../config/category.config.php"))
   $categoryConfig =       array();
+$GLOBALS['categoryConfig'];
 
 /**
  * The statistic-settings config
@@ -79,9 +90,9 @@ if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../../config/category.
  * 
  * @global array $GLOBALS['statisticConfig']
  */
-$GLOBALS['statisticConfig'];
 if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../../config/statistic.config.php"))
   $statisticConfig =  array();
+$GLOBALS['statisticConfig'];
 
 /**
  * The plugin-settings config
@@ -90,9 +101,9 @@ if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../../config/statistic
  * 
  * @global array $GLOBALS['pluginsConfig']
  */
-$GLOBALS['pluginsConfig'];
 if(!$pluginsConfig =  @include_once(dirname(__FILE__)."/../../config/plugins.config.php"))
   $pluginsConfig =  array();
+$GLOBALS['pluginsConfig'];
 
 
 /**
@@ -102,9 +113,9 @@ if(!$pluginsConfig =  @include_once(dirname(__FILE__)."/../../config/plugins.con
  * 
  * @global array $GLOBALS['websiteStatistic']
  */
-$GLOBALS['websiteStatistic'];
 if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/website.statistic.php"))
   $websiteStatistic = array();
+$GLOBALS['websiteStatistic'];
 
 
 // INCLUDES

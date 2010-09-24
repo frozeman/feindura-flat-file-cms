@@ -31,13 +31,13 @@ html,body {
 /****************/	
 /* *** GENERAL ELEMENTs FORMAT  */
 
-span.blue {
+span.blue, label.blue {
     color: #668CA6 !important;
     }
-span.brown {
+span.brown, label.brown {
     color: #D7943C !important;
     }
-span.red {
+span.red, label.red {
     color: #A02F00 !important;
     }
  
@@ -134,6 +134,23 @@ span.red {
 .logoname span {
     color: #3979A5 !important;
     }
+
+/****************/
+/* --- LOGOUT */
+
+#header a.logout {
+    z-index: 2;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 35px;
+    height: 35px;
+    background: url("../images/key/header_logout.png") no-repeat;
+}
+#header a.logout:hover {
+    background-position: 0px -35px;
+}
 
 /****************/
 /* --- LANGUAGE SELECTION */
