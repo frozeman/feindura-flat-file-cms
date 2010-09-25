@@ -356,6 +356,15 @@
 #sidebarListUsers li span {
   background: none;
 }
+
+/* --------------------- */
+/* -------> SIDEBAR SELECTION */
+
+#sidebarSelection  li {
+  list-style: none !important;
+  margin: 0px !important;
+  padding: 8px 0px !important;
+}
     
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
 

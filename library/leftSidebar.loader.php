@@ -177,13 +177,13 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             
             // your own user
             if($_SESSION['login_username'] == $user['username'])
-              echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"';
+              echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"';
             // users who are online too
             elseif(is_array(($sessions = $sessionLister->getSessions()))) {              
               foreach($sessions as $sessionName => $sessionData) {
                 if((time() - $sessionData["modification"]) < 1800 ) { // show only sessions within the last half hour
                   if(isset($sessionData['raw']['login_username']) && $sessionData['raw']['login_username'] == $user['username']) {
-                    echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['user_onlineusers'].': '.date("H:i",$sessionData["modification"]).'"';
+                    echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['user_onlineusers'].': '.date("H:i",$sessionData["modification"]).'"';
                     break;
                   }
                 }
@@ -274,7 +274,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           
             // -> show a anchor link to each user
   	        foreach($userConfig as $user) {
-              echo '<li><a href="#userId'.$user['id'].'" class="standardLink">'.$user['username'].'</a></li>';
+  	          $userIsAdmin = ($user['admin']) ? ' toolTip" style="font-weight:bold" title="'.$langFile['userSetup_admin'].'::"' : '"';
+              echo '<li><a href="#userId'.$user['id'].'" class="standardLink'.$userIsAdmin.'>'.$user['username'].'</a></li>';
           
             } echo '</ul>';
 	      } echo '</div></div>';

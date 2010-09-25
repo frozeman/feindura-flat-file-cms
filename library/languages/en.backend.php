@@ -31,7 +31,7 @@
 
 $langFile['login_username'] = 'Username';
 $langFile['login_password'] = 'Password';
-$langFile['login_button_login'] = 'LOGIN';
+$langFile['login_button_login'] = 'LOG IN';
 $langFile['login_info_cookie'] = 'Cookies must be activated';
 
 $langFile['login_forgotPassword'] = 'Forgot your password?';
@@ -639,8 +639,8 @@ $langFile['userSetup_password_success'] = 'Password successfully changed!';
 $langFile['userSetup_email'] = 'E-Mail';
 $langFile['userSetup_email_tip'] = 'If the user has forgotten his password, a new password will be sent to this e-mail.';
 
-$langFile['userSetup_admin'] = 'Adminstrator';
-$langFile['userSetup_admin_tip'] = 'Determines whether the user has adminstrator rights.';
+$langFile['userSetup_admin'] = 'Administrator';
+$langFile['userSetup_admin_tip'] = 'Determines whether the user has administrator rights.';
 
 $langFile['userSetup_error_create'] = '<b> A new user could not be created.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';

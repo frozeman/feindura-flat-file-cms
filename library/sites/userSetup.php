@@ -109,7 +109,9 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
     // get the username which was saved
     $savedUsername = ($_POST['savedUserId'] = $configs['id']) ? $configs['username'] : '';
   }
-
+  
+  ksort($newUserConfig);
+  
   if(saveUserConfig($newUserConfig)) {
     $documentSaved = true; // set documentSaved status
     if($userPassChanged)

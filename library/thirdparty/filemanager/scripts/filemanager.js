@@ -44,7 +44,7 @@ $.SetImpromptuDefaults({
 // Forces columns to fill the layout vertically.
 // Called on initial page load and on resize.
 var setDimensions = function(){
-	var newH = $(window).height() - 70;
+	var newH = $(window).height() - 70;	
 	$('#splitter, #filetree, #fileinfo, .vsplitbar').height(newH);
 }
 
@@ -133,7 +133,7 @@ var formatBytes = function(bytes){
 	var n = parseFloat(bytes);
 	var d = parseFloat(1024);
 	var c = 0;
-	var u = [' bytes','kb','mb','gb'];
+	var u = [lg.bytes,lg.kb,lg.mb,lg.gb];
 	
 	while(true){
 		if(n < d){
@@ -453,9 +453,7 @@ var getFileInfo = function(file){
 	// Include the template.
 	var template = '<div id="preview"><img /><h1></h1><dl></dl></div>';
 	template += '<form id="toolbar">';
-	// blend out if filemanager was not load in a CKEditor instance
-	if(window.opener)
-	 template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
+	if(window.opener != null) template += '<button id="select" name="select" type="button" value="Select">' + lg.select + '</button>';
 	template += '<button id="download" name="download" type="button" value="Download">' + lg.download + '</button>';
 	template += '<button id="rename" name="rename" type="button" value="Rename">' + lg.rename + '</button>';
 	template += '<button id="delete" name="delete" type="button" value="Delete">' + lg.del + '</button>';
@@ -678,5 +676,8 @@ $(function(){
 	}, function(file){
 		getFileInfo(file);
 	});
+	// Disable select function if no window.opener
+	if(window.opener == null) $('#itemOptions a[href$="#select"]').remove();
+	//alert($('#filetree').find('li a.directory'));
     getDetailView(fileRoot);
 });

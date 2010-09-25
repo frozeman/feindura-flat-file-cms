@@ -638,8 +638,8 @@ $langFile['userSetup_password_success'] = 'Passwort erfolgreich ge&auml;ndert!';
 $langFile['userSetup_email'] = 'E-Mail';
 $langFile['userSetup_email_tip'] = 'Wenn der Benutzer sein Passwort vergessen hat, wird an diese E-Mail ein neues Passwort gesendet.';
 
-$langFile['userSetup_admin'] = 'Adminstrator';
-$langFile['userSetup_admin_tip'] = 'Legt fest ob der Benutzer Adminstratorrechte besitzt.';
+$langFile['userSetup_admin'] = 'Administrator';
+$langFile['userSetup_admin_tip'] = 'Legt fest ob der Benutzer Administratorrechte besitzt.';
 
 $langFile['userSetup_error_create'] = '<b>Ein neuer Benutzer konnte nicht angelegt werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
