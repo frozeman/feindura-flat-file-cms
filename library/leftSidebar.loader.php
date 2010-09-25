@@ -17,7 +17,7 @@
 // sidebar.loader.php version 0.60
 
 // -> GET FUNCTIONS
-require_once(dirname(__FILE__)."/includes/backend.include.php");
+include_once(dirname(__FILE__)."/includes/backend.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
@@ -161,21 +161,37 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       // -> SHOW USERs
       echo '<h1><img src="library/images/sign/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['home_user_h1'].'</h1><br />';
-        if(file_exists(dirname(__FILE__).'/../.htpasswd')) {
-          $users = file(dirname(__FILE__).'/../.htpasswd');
-          natsort($users);
+        if(!empty($userConfig)) {
+        
+          unset($sessions,$sessionLister);
+          
+          // crreate an instance of sessionLister
+          if(include(dirname(__FILE__).'/thirdparty/sessionLister.php'))
+            $sessionLister = new sessionLister();         
+
           // list user
-          echo '<ul>';
-          foreach($users as $user) {
-            $userArray = explode(':',$user);
+          echo '<ul id="sidebarListUsers">';
+          foreach($userConfig as $user) {
             
-            // set the style for the active user
-            $activeUserStyle = (strtolower($userArray[0]) == strtolower($_SERVER['PHP_AUTH_USER']))
-              ? ' class="blue toolTip" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"'
-              : '';
+            echo '<li><span';
+            
+            // your own user
+            if($_SESSION['login_username'] == $user['username'])
+              echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"';
+            // users who are online too
+            elseif(is_array(($sessions = $sessionLister->getSessions()))) {              
+              foreach($sessions as $sessionName => $sessionData) {
+                if((time() - $sessionData["modification"]) < 1800 ) { // show only sessions within the last half hour
+                  if(isset($sessionData['raw']['login_username']) && $sessionData['raw']['login_username'] == $user['username']) {
+                    echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['user_onlineusers'].': '.date("H:i",$sessionData["modification"]).'"';
+                    break;
+                  }
+                }
+              }
+            }  
               
             // list users
-            echo '<li><span'.$activeUserStyle.'>'.$userArray[0].'</span></li>';
+            echo '>'.$user['username'].'</span></li>';
           }
           echo '</ul>';
         // no users

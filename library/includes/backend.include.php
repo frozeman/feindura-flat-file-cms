@@ -14,11 +14,10 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* backend.include.php version 0.24
+* backend.include.php version 0.25
 */
 
-// -> START SESSION (for the language and storedPages [currently deactivated])
-session_cache_limiter(60);
+// -> START SESSION (for the login, language and storedPages [currently deactivated])
 session_name("feinduraBackend");
 session_start();
 
@@ -37,7 +36,7 @@ $savedForm = false;
 $newPage = false;
 
 // ->> SET ERROR HANDLER
-set_error_handler("showErrorsInWindow",E_ALL & ~E_NOTICE & ~E_WARNING);
+//set_error_handler("showErrorsInWindow",E_ALL & ~E_NOTICE & ~E_WARNING);
 
 // ->> choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

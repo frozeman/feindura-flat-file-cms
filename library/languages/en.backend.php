@@ -188,6 +188,7 @@ $langFile['status_category_nonpublic'] = 'Category is hidden';
 
 $langFile['user_nousers'] = 'No users';
 $langFile['user_currentuser'] = 'The user under which you\'re logged';
+$langFile['user_onlineusers'] = 'This user is also logged in::Latest activity';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- GENERAL TEXTs

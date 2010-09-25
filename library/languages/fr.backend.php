@@ -151,7 +151,8 @@ $langFile['status_category_nonpublic'] = 'cat&eacute;gorie est cach&eacute;e';
 
 // ----------- leftSidebar.loader.php
 $langFile['user_nousers'] = 'il n&lsquo;y a pas d&lsquo;utilisateurs';
-$langFile['user_currentuser'] = 'tu es connect&eacute; en tant qu&lsquo;utilisateurs';
+$langFile['user_currentuser'] = 'Tu es connect&eacute; en tant qu&lsquo;utilisateurs';
+$langFile['user_onlineusers'] = 'Cet utilisateur est &eacute;galement connect&eacute;:: Derni&egrave;res activit&eacute;s';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- GENERAL TEXTs

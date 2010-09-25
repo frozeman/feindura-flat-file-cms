@@ -339,6 +339,23 @@
   height: 30px;
   width: 165px;
 }
+
+/* --------------------- */
+/* -------> LIST USERS */
+
+#sidebarListUsers {
+  margin-left: 27px !important;
+}
+
+#sidebarListUsers li {
+  list-style: none !important;
+  margin: 0px !important;
+  padding: 3px 0px !important;
+}
+
+#sidebarListUsers li span {
+  background: none;
+}
     
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
 

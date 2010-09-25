@@ -110,24 +110,6 @@ class statisticFunctions extends generalFunctions {
  /* **************************************************************************************************************************** */
   
  /**
-  * <b>Name</b> getMicroTime()<br>
-  * 
-  * Returns a UNIX-Timestamp as float
-  * 
-  * @return float the UNIX-Timestamp
-  * 
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  function getMicroTime() {
-    list($usec, $sec) = explode(" ",microtime());
-    return ((float)$usec + (float)$sec);
-  }
-  
- /**
   * <b>Name</b> secToTime()<br>
   * 
   * Converts seconds into a readable time
@@ -1351,7 +1333,7 @@ class statisticFunctions extends generalFunctions {
             // load the last page again
             $lastPage = $this->readPage($log_lastPage,$this->getPageCategory($log_lastPage));
             
-            $orgVisitTime = $this->getMicroTime() - $_SESSION['log_lastPage_timestamp'];
+            $orgVisitTime = time() - $_SESSION['log_lastPage_timestamp'];
             // makes a time out of seconds
             $orgVisitTime = $this->secToTime($orgVisitTime);
             $visitTime = $orgVisitTime;
@@ -1428,7 +1410,7 @@ class statisticFunctions extends generalFunctions {
     }
     
     // -> store the visitime start
-    $_SESSION['log_lastPage_timestamp'] = $this->getMicroTime();   
+    $_SESSION['log_lastPage_timestamp'] = time();
   }
   
  /**

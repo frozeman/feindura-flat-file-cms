@@ -37,7 +37,7 @@ if(isset($_POST) && $_POST['action'] == 'login' && !empty($_POST['username']) &&
   
   if(array_key_exists($_POST['username'],$userConfig)) {
     if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
-      $_SESSION['login_user'] = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
+      $_SESSION['login_userIdentity'] = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
       $_SESSION['login_username'] = $_POST['username'];
       $_SESSION['login_loggedIn'] = true;
     } else
@@ -86,13 +86,13 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' &&!empty($_POST['usernam
 
 // -> LOGOUT
 if(isset($_GET['logout'])) {
-  unset($_SESSION['login_user'],$_SESSION['login_loggedIn']);
+  unset($_SESSION['login_userIdentity'],$_SESSION['login_username'],$_SESSION['login_loggedIn']);
   $loggedOut = true;
 }
 
 // ->> CHECK if user is logged in
-if(isset($_SESSION['login_user']) &&
-   $_SESSION['login_user'] == md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']) &&
+if(isset($_SESSION['login_userIdentity']) &&
+   $_SESSION['login_userIdentity'] == md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']) &&
    $_SESSION['login_loggedIn'] === true) {
    
    // does nothing :-)

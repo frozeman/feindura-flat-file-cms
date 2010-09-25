@@ -33,7 +33,7 @@ $langFile['search_results_time_part2'] = 'Sekunden';
 */
 
 // LADEZEIT MESSEN
-$time_start = $statisticFunctions->getMicroTime(); //Zeitbeginn am Seitenanfang
+$time_start = microtime(); //Zeitbeginn am Seitenanfang
 
 // set the GET searchword as the POST searchword, IF exists
 if(isset($_GET['search']))
@@ -257,7 +257,7 @@ function ausgabeblock_end() {
 	
 // AUSGABE angabe der Treffer vor ausgabe
 // LADEZEIT MESSEN ausgabe
-$time_end = $statisticFunctions->getMicroTime();
+$time_end = microtime();
 $time = round($time_end - $time_start,2);
 
 $timeOutputText = '<h2>'.$count.' '.$langFile['search_results_count'].' <span style="font-size:10px;">'.$langFile['search_results_time_part1'].' '.$time.' '.$langFile['search_results_time_part2'].'</span></h2>';

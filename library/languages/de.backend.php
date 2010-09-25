@@ -186,7 +186,8 @@ $langFile['status_category_nonpublic'] = 'Kategorie ist versteckt';
 // ----------- leftSidebar.loader.php
 
 $langFile['user_nousers'] = 'Es sind keine Benutzer vorhanden';
-$langFile['user_currentuser'] = 'Du bist unter diesem Benutzer eingeloggt';
+$langFile['user_currentuser'] = 'Du bist unter diesem Benutzernamen eingeloggt';
+$langFile['user_onlineusers'] = 'Dieser Benutzer ist ebenfalls eingeloggt::Letzte Aktivit&auml;t';
 
 /* ----------------------------------------------------------------------------------------------
 * ---------- GENERAL TEXTs

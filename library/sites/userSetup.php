@@ -93,12 +93,11 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       // check confirmation
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['username']]['password'] = md5($newUserConfig[$configs['username']]['password']);
-        $userPassChanged = true;
+        $userPassChanged = true;        
         $userInfoPassword = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['userSetup_password_success'].'</span></td></tr>';
       } else {
         $userInfo = $langFile['userSetup_password_confirm_wrong'];
         $userInfoPassword = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';
-        $userChangedPasword = $configs['username'];
         $newUserConfig[$configs['username']]['password'] = $userConfig[$configs['username']]['password'];
       }
     } else
@@ -106,14 +105,17 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
     
     // clear the password confirm var
     unset($newUserConfig[$configs['username']]['password_confirm']);
+    
+    // get the username which was saved
+    $savedUsername = ($_POST['savedUserId'] = $configs['id']) ? $configs['username'] : '';
   }
 
   if(saveUserConfig($newUserConfig)) {
     $documentSaved = true; // set documentSaved status
     if($userPassChanged)
-      $statisticFunctions->saveTaskLog(27,$_POST['savedUser']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog(27,$savedUsername); // <- SAVE the task in a LOG FILE
     else
-      $statisticFunctions->saveTaskLog(28,$_POST['savedUser']); // <- SAVE the task in a LOG FILE
+      $statisticFunctions->saveTaskLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= $langFile['userSetup_error_save'];
 }
@@ -153,7 +155,7 @@ if($unwriteableList && checkBasePath()) {
 <form action="index.php?site=userSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="userForm">
   <div>
   <input type="hidden" name="send" value="userSetup" />
-  <input type="hidden" name="savedUser" id="savedUser" value="" />
+  <input type="hidden" name="savedUserId" id="savedUserId" value="" />
   </div>
 
 <div class="block">
@@ -276,7 +278,7 @@ if($unwriteableList && checkBasePath()) {
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           echo '</table>';
            
-          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['form_submit'].'" onclick="$(\'savedUser\').value = \''.$user['username'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');" />'; // end slide in box
+          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['form_submit'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');" />'; // end slide in box
           
         }
       }        
