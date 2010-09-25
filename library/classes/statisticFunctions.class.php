@@ -862,7 +862,7 @@ class statisticFunctions extends generalFunctions {
       //$lowestNumber = $searchWords[count($searchWords)-1][1];
       
       // sort alphabetical
-      sort($searchWords);
+      natcasesort($searchWords);
       
       foreach($searchWords as $searchWord) {
         

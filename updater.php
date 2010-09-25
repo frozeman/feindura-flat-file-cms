@@ -198,6 +198,10 @@ $newVersion = '1.0';
       if(strpos($data,'|#|') === false)
         $pageContent['log_visitTime_max'] = str_replace('|','|#|',$data);
       
+      $data = $pageContent['log_searchwords'];
+      if(strpos($data,'|#|') === false)
+        $pageContent['log_searchwords'] = str_replace('|','|#|',$data);
+      
       $generalFunctions->savePage($pageContent);
       
     }

@@ -261,10 +261,11 @@ if(!empty($adminConfig['user']['info'])) {
     $allSearchwords = false;
     foreach($pages as $page) {      
       // if page has searchwords
-      if(!empty($page['log_searchwords'])) {        
+      if(!empty($page['log_searchwords'])) {
         $allSearchwords = $statisticFunctions->addDataToString($page['log_searchwords'],$allSearchwords);
       }
     }
+    
     // SHOW tag CLOUD
     echo '<h3>'.$langFile['log_tags_description'].'</h3>';
     echo '<div class="tagCloud">';
