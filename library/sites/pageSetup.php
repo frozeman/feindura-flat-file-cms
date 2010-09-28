@@ -632,12 +632,14 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right">
                 <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 <span class="hint" style="float:right;width:190px;">'.$langFile['stylesheet_styleFile_example'].'</span>';
-                $styleFileInputs = explode('|#|',getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']));
-      
-                foreach($styleFileInputs as $styleFileInput) {
-                  echo '<input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile][]" value="'.$styleFileInput.'" />';
+                  
+                if(($styleFileInputs = unserialize(getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']))) !== false) {
+                  foreach($styleFileInputs as $styleFileInput) {
+                    echo '<input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile][]" value="'.$styleFileInput.'" />';
+                  }
                 }
-          echo '</div>
+          echo '<input id="categories'.$category['id'].'styleFile" class="noResize" name="categories['.$category['id'].'][styleFile][]" value="" />
+                </div>
                 <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['stylesheet_styleFile_addButton_tip'].'::"></a>              
                 </td></tr>';
                 

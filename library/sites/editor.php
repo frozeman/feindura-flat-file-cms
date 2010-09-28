@@ -378,8 +378,8 @@ $hidden = ' hidden';
   $lastVisitDate = $statisticFunctions->formatDate($pageContent['log_lastVisit']);
   $lastVisitTime = $statisticFunctions->formatTime($pageContent['log_lastVisit']);
   
-  $visitTimes_max = explode('|#|',$pageContent['log_visitTime_max']);
-  $visitTimes_min = explode('|#|',$pageContent['log_visitTime_min']);
+  $visitTimes_max = unserialize($pageContent['log_visitTime_max']);
+  $visitTimes_min = unserialize($pageContent['log_visitTime_min']);
   ?>  
   <table>   
     
@@ -434,15 +434,17 @@ $hidden = ' hidden';
         <?php
         // -> VISIT TIME MAX
         $showTimeHead = true;
-        foreach($visitTimes_max as $visitTime_max) {          
-          if($visitTime_max_formated = $statisticFunctions->showVisitTime($visitTime_max,$langFile)) {
-            if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMax" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />
-              <div id="visitTimeMaxContainer">';
-            else            
-              echo '<span class="blue" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />';
-            
-            $showTimeHead = false;            
+        if(is_array($visitTimes_max)) {
+          foreach($visitTimes_max as $visitTime_max) {
+            if($visitTime_max_formated = $statisticFunctions->showVisitTime($visitTime_max,$langFile)) {
+              if($showTimeHead)
+                echo '<span class="blue" id="visitTimeMax" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />
+                <div id="visitTimeMaxContainer">';
+              else            
+                echo '<span class="blue" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />';
+              
+              $showTimeHead = false;            
+            }
           }
         }
         echo '</div>';    
@@ -456,17 +458,19 @@ $hidden = ' hidden';
         <?php
         // -> VISIT TIME MIN
         $showTimeHead = true;
-        $visitTimes_min = array_reverse($visitTimes_min);
-        foreach($visitTimes_min as $visitTime_min) {          
-          if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min,$langFile)) {
-            if($showTimeHead)
-              echo '<span class="blue" id="visitTimeMin" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />
-              <div id="visitTimeMinContainer">';
-            else            
-              echo '<span class="blue" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />';
-          
-            $showTimeHead = false;
-          }          
+        if(is_array($visitTimes_max)) {
+          $visitTimes_min = array_reverse($visitTimes_min);
+          foreach($visitTimes_min as $visitTime_min) {          
+            if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min,$langFile)) {
+              if($showTimeHead)
+                echo '<span class="blue" id="visitTimeMin" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />
+                <div id="visitTimeMinContainer">';
+              else            
+                echo '<span class="blue" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />';
+            
+              $showTimeHead = false;
+            }          
+          }
         }
         echo '</div>';
         ?>
@@ -818,7 +822,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
 //if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categoryConfig['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
 //if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categoryConfig['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
 //if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categoryConfig['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
-$editorStyleFile = getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+$editorStyleFiles = getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
 $editorStyleId = getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
 $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
 
@@ -837,7 +841,7 @@ window.addEvent('domready',function(){
   // set the CONFIGs of the editor
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["language"]; ?>';
-  CKEDITOR.config.contentsCss               = [<?php echo "'".str_replace('|#|',"','",$editorStyleFile)."'"; ?>];
+  CKEDITOR.config.contentsCss               = ['<?php if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false) { $echoStyleFiles = ''; foreach($editorStyleFiles as $editorStyleFile) {$echoStyleFiles .= $editorStyleFile."','";} echo substr($echoStyleFiles,0,-3); } ?>'];
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
@@ -937,13 +941,14 @@ $blockContentEdited = (!empty($pageContent['styleFile']) || !empty($pageContent[
       </td><td class="right">
       <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
-      <?php      
-      $styleFileInputs = explode('|#|',getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']));
-      
-      foreach($styleFileInputs as $styleFileInput) {
-        echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';
-      }      
+      <?php            
+      if(($styleFileInputs = unserialize(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']))) !== false) {
+        foreach($styleFileInputs as $styleFileInput) {
+          echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';
+        }
+      }
       ?>
+      <input name="styleFile[]" value="" class="noResize" />
       </div>
       <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
       </td></tr>

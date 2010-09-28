@@ -638,147 +638,175 @@ class statisticFunctions extends generalFunctions {
     $return = false;
     
     if(isset($browserString) && !empty($browserString)) {
-    
-      foreach(explode('|#|',$browserString) as $browser) {
-        $browsers[] =  explode(',',$browser);
-      }
+         
+      $browsers = unserialize($browserString);
       
-      $highestNumber = 0;
+      $sumOfNumbers = 0;
       foreach($browsers as $browser) {
-        $highestNumber += $browser[1];
+        $sumOfNumbers += $browser['number'];
       }
       
       $return = '<table class="tableChart"><tr>';
       foreach($browsers as $browser) {
         
-        $tablePercent = $browser[1] / $highestNumber;
+        $tablePercent = $browser['number'] / $sumOfNumbers;
         $tablePercent = round($tablePercent * 100);
         
         // change the Names and the Colors
-        if($browser[0] == 'firefox') {
-          $browserName = 'Firefox';
-          $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
-          $browserLogo = 'browser_firefox.png';
-          $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'netscape navigator') {
-          $browserName = 'Netscape Navigator';
-          $browserColor = 'url(library/images/bg/browserBg_netscape.png)';
-          $browserLogo = 'browser_netscape.png';
-          $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'chrome') {
-          $browserName = 'Google Chrome';
-          $browserColor = 'url(library/images/bg/browserBg_chrome.png)';
-          $browserLogo = 'browser_chrome.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'internet explorer') {
-          $browserName = 'Internet Explorer';
-          $browserColor = 'url(library/images/bg/browserBg_ie.png)';
-          $browserLogo = 'browser_ie.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'internet explorer old') {
-          $browserName = 'Internet Explorer 1-6';
-          $browserColor = 'url(library/images/bg/browserBg_ie_old.png)';
-          $browserLogo = 'browser_ie_old.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'opera') {
-          $browserName = 'Opera';
-          $browserColor = 'url(library/images/bg/browserBg_opera.png)';
-          $browserLogo = 'browser_opera.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'konqueror') {
-          $browserName = 'Konqueror';
-          $browserColor = 'url(library/images/bg/browserBg_konqueror.png)';
-          $browserLogo = 'browser_konqueror.png';
-          $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'lynx') {
-          $browserName = 'Lynx';
-          $browserColor = 'url(library/images/bg/browserBg_lynx.png)';
-          $browserLogo = 'browser_lynx.png';
-          $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'safari') {
-          $browserName = 'Safari';
-          $browserColor = 'url(library/images/bg/browserBg_safari.png)';
-          $browserLogo = 'browser_safari.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'mozilla') {
-          $browserName = 'Mozilla';
-          $browserColor = 'url(library/images/bg/browserBg_mozilla.png)';
-          $browserLogo = 'browser_mozilla.png';
-          $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'iphone') {
-          $browserName = 'iPhone';
-          $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
-          $browserLogo = 'browser_iphone.png';
-          $browserTextColor = '#ffffff';
-        } elseif($browser[0] == 'ipad') {
-          $browserName = 'iPad';
-          $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
-          $browserLogo = 'browser_ipad.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'ipod') {
-          $browserName = 'iPod';
-          $browserColor = 'url(library/images/bg/browserBg_ipod.png)';
-          $browserLogo = 'browser_ipod.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'amaya') {
-          $browserName = 'Amaya';
-          $browserColor = 'url(library/images/bg/browserBg_amaya.png)';
-          $browserLogo = 'browser_amaya.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'phoenix') {
-          $browserName = 'Phoenix';
-          $browserColor = 'url(library/images/bg/browserBg_phoenix.png)';
-          $browserLogo = 'browser_phoenix.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'icab') {
-          $browserName = 'iCab';
-          $browserColor = 'url(library/images/bg/browserBg_icab.png)';
-          $browserLogo = 'browser_icab.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'omniweb') {
-          $browserName = 'OmniWeb';
-          $browserColor = 'url(library/images/bg/browserBg_omniweb.png)';
-          $browserLogo = 'browser_omniweb.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'galeon') {
-          $browserName = 'Galeon';
-          $browserColor = 'url(library/images/bg/browserBg_galeon.png)';
-          $browserLogo = 'browser_galeon.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'netpositive') {
-          $browserName = 'NetPositive';
-          $browserColor = 'url(library/images/bg/browserBg_netpositive.png)';
-          $browserLogo = 'browser_netpositive.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'opera mini') {
-          $browserName = 'Opera Mini';
-          $browserColor = 'url(library/images/bg/browserBg_opera_mini.png)';
-          $browserLogo = 'browser_opera_mini.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'blackberry') {
-          $browserName = 'BlackBerry';
-          $browserColor = 'url(library/images/bg/browserBg_blackberry.png)';
-          $browserLogo = 'browser_blackberry.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'icecat') {
-          $browserName = 'IceCat';
-          $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
-          $browserLogo = 'browser_icecat.png';
-          $browserTextColor = '#000000';
-        } elseif($browser[0] == 'nokia browser' || $browser[0] == 'Nokia S60 OSS Browser') {
-          $browserName = 'Nokia Browser';
-          $browserColor = 'url(library/images/bg/browserBg_nokia.png)';
-          $browserLogo = 'browser_nokia.png';
-          $browserTextColor = '#000000';
-        } else {
-          $browserName = $GLOBALS['langFile']['log_browser_others'];
-          $browserColor = 'url(library/images/bg/browserBg_others.png)';
-          $browserLogo = 'browser_others.png';
-          $browserTextColor = '#000000';
-        }  
+        switch($browser['data']) {
+          case 'firefox':
+            $browserName = 'Firefox';
+            $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
+            $browserLogo = 'browser_firefox.png';
+            $browserTextColor = '#ffffff';
+            break;
+          case 'firefox':
+            $browserName = 'Firefox';
+            $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
+            $browserLogo = 'browser_firefox.png';
+            $browserTextColor = '#ffffff';
+            break;
+          case 'netscape navigator':
+            $browserName = 'Netscape Navigator';
+            $browserColor = 'url(library/images/bg/browserBg_netscape.png)';
+            $browserLogo = 'browser_netscape.png';
+            $browserTextColor = '#ffffff';
+            break;
+          case 'chrome':
+            $browserName = 'Google Chrome';
+            $browserColor = 'url(library/images/bg/browserBg_chrome.png)';
+            $browserLogo = 'browser_chrome.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'internet explorer':
+            $browserName = 'Internet Explorer';
+            $browserColor = 'url(library/images/bg/browserBg_ie.png)';
+            $browserLogo = 'browser_ie.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'internet explorer old':
+            $browserName = 'Internet Explorer 1-6';
+            $browserColor = 'url(library/images/bg/browserBg_ie_old.png)';
+            $browserLogo = 'browser_ie_old.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'opera':
+            $browserName = 'Opera';
+            $browserColor = 'url(library/images/bg/browserBg_opera.png)';
+            $browserLogo = 'browser_opera.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'konqueror':
+            $browserName = 'Konqueror';
+            $browserColor = 'url(library/images/bg/browserBg_konqueror.png)';
+            $browserLogo = 'browser_konqueror.png';
+            $browserTextColor = '#ffffff';
+            break;
+          case 'lynx':
+            $browserName = 'Lynx';
+            $browserColor = 'url(library/images/bg/browserBg_lynx.png)';
+            $browserLogo = 'browser_lynx.png';
+            $browserTextColor = '#ffffff';
+            break;
+          case 'safari':
+            $browserName = 'Safari';
+            $browserColor = 'url(library/images/bg/browserBg_safari.png)';
+            $browserLogo = 'browser_safari.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'mozilla':
+            $browserName = 'Mozilla';
+            $browserColor = 'url(library/images/bg/browserBg_mozilla.png)';
+            $browserLogo = 'browser_mozilla.png';
+            $browserTextColor = '#ffffff';
+            break;
+          case 'iphone':
+            $browserName = 'iPhone';
+            $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
+            $browserLogo = 'browser_iphone.png';
+            $browserTextColor = '#ffffff';
+          case 'ipad':
+            $browserName = 'iPad';
+            $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
+            $browserLogo = 'browser_ipad.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'ipod':
+            $browserName = 'iPod';
+            $browserColor = 'url(library/images/bg/browserBg_ipod.png)';
+            $browserLogo = 'browser_ipod.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'amaya':
+            $browserName = 'Amaya';
+            $browserColor = 'url(library/images/bg/browserBg_amaya.png)';
+            $browserLogo = 'browser_amaya.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'phoenix':
+            $browserName = 'Phoenix';
+            $browserColor = 'url(library/images/bg/browserBg_phoenix.png)';
+            $browserLogo = 'browser_phoenix.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'icab':
+            $browserName = 'iCab';
+            $browserColor = 'url(library/images/bg/browserBg_icab.png)';
+            $browserLogo = 'browser_icab.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'omniweb':
+            $browserName = 'OmniWeb';
+            $browserColor = 'url(library/images/bg/browserBg_omniweb.png)';
+            $browserLogo = 'browser_omniweb.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'galeon':
+            $browserName = 'Galeon';
+            $browserColor = 'url(library/images/bg/browserBg_galeon.png)';
+            $browserLogo = 'browser_galeon.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'netpositive':
+            $browserName = 'NetPositive';
+            $browserColor = 'url(library/images/bg/browserBg_netpositive.png)';
+            $browserLogo = 'browser_netpositive.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'opera mini':
+            $browserName = 'Opera Mini';
+            $browserColor = 'url(library/images/bg/browserBg_opera_mini.png)';
+            $browserLogo = 'browser_opera_mini.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'blackberry':
+            $browserName = 'BlackBerry';
+            $browserColor = 'url(library/images/bg/browserBg_blackberry.png)';
+            $browserLogo = 'browser_blackberry.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'icecat':
+            $browserName = 'IceCat';
+            $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
+            $browserLogo = 'browser_icecat.png';
+            $browserTextColor = '#000000';
+            break;
+          case 'nokia browser': case 'Nokia S60 OSS Browser':
+            $browserName = 'Nokia Browser';
+            $browserColor = 'url(library/images/bg/browserBg_nokia.png)';
+            $browserLogo = 'browser_nokia.png';
+            $browserTextColor = '#000000';
+            break;
+          default:
+            $browserName = $GLOBALS['langFile']['log_browser_others'];
+            $browserColor = 'url(library/images/bg/browserBg_others.png)';
+            $browserLogo = 'browser_others.png';
+            $browserTextColor = '#000000';
+            break;
+        } 
     
         // calculates the text width and the cell width
-        $textWidth = round(((strlen($browserName) + strlen($browser[1]) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
+        $textWidth = round(((strlen($browserName) + strlen($browser['number']) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
         $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
         //$return .= '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
         
@@ -809,14 +837,14 @@ class statisticFunctions extends generalFunctions {
             
           $bigLogo = false;
         } else {      
-          $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$browserName.'</b> ('.$browser[1].')</span>';
+          $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$browserName.'</b> ('.$browser['number'].')</span>';
           $logoSize = '';
           $bigLogo = true;
           $cellpadding = '';
         }
         
         // SHOW the table cell with the right browser and color
-        $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser[1].' '.$GLOBALS['langFile']['log_visitCount'].'">
+        $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['log_visitCount'].'">
                     <div style="position: relative;">
                     <img src="library/images/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
                     </div>
@@ -847,35 +875,32 @@ class statisticFunctions extends generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function createTagCloud($tagString,$minFontSize = 10,$maxFontSize = 20) {
+  function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
     
     //var
     $return = false;
     
-    if(!empty($tagString)) {
-    
-      foreach(explode('|#|',$tagString) as $searchWord) {   
-        $searchWords[] =  explode(',',$searchWord);
-      }
+    if(is_string($serializedTags) && !empty($serializedTags)) {
+         
+      $tags = unserialize($serializedTags);
       
-      $highestNumber = $searchWords[0][1];
-      //$lowestNumber = $searchWords[count($searchWords)-1][1];
+      $highestNumber = $tags[0]['number'];
       
       // sort alphabetical
-      natcasesort($searchWords);
+      natcasesort($tags);
       
-      foreach($searchWords as $searchWord) {
+      foreach($tags as $tag) {
         
-        $fontSize = $searchWord[1] / $highestNumber;
+        $fontSize = $tag['number'] / $highestNumber;
         $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
         
         // create href
         if(substr(phpversion(),0,3) >= '5')
-          $searchWordHref = urlencode(html_entity_decode($searchWord[0],ENT_QUOTES,'UTF-8'));
+          $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
         else
-          $searchWordHref = urlencode(utf8_encode(html_entity_decode($searchWord[0],ENT_QUOTES,'ISO-8859-15')));
+          $tagsHref = urlencode(utf8_encode(html_entity_decode($tag['data'],ENT_QUOTES,'ISO-8859-15')));
         
-        $return .= '<a href="?site=search&amp;search='.$searchWordHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$searchWord[0].'&quot;[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part1'].' [span]'.$searchWord[1].'[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part2'].'::'.$GLOBALS['langFile']['log_searchwordtothissite_tip'].'">'.$searchWord[0].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$searchWord[1].')</span>
+        $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part2'].'::'.$GLOBALS['langFile']['log_searchwordtothissite_tip'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
       
       }
     }    
@@ -885,137 +910,94 @@ class statisticFunctions extends generalFunctions {
   }
 
  /**
-  * <b>Name</b> addDataToString()<br>
+  * <b>Name</b> addDataToDataString()<br>
   * 
   * Adds a new string to a data-string in the format: "stringa,42|stringb,23|stringc,1" and counts the string up if its already existing.
   * 
-  * @param string|array $dataToAdd            a data-string in the format "stringa,42|stringb,23|stringc,1" or an array with strings to add
+  * @param string|array $dataToAdd            a string or an array with data to add, OR a unserialized data-string
   * @param string       $dataString           the data-string which the $dataToAdd parameter will be add to
   * @param bool         $encodeSpecialChars   (optional) if TRUE it clean speacial chars and encode htmlentities before adding to the data-string
   * 
-  * @return string the modified data-string parameter or the unchanged $dataString parameter if its not a string or array
+  * @return string the modified data-string
   * 
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 changed to searialize data
   *    - 1.0 initial release
   * 
   */
-  function addDataToString($dataToAdd, $dataString, $encodeSpecialChars = true) {
-            
-    $exisitingDatas = explode('|#|',$dataString);
+  function addDataToDataString($dataString, $dataToAdd, $encodeSpecialChars = true) {
     
-    // ->> IF given DATA is a DATASTRING
-    //------------------------------
-    if(is_string($dataToAdd)) {
-      $newDataString = $dataString;
+    // if dataToAdd is a serialized data-string
+    if(is_string($dataToAdd) && !empty($dataToAdd) && ($unserializedDataToAdd = unserialize($dataToAdd)) !== false) {
       
-      $dataToAdd = explode('|#|',$dataToAdd);
+      if(is_string($dataString) && !empty($dataString)) {
       
-      // goes trough all searchwords
-      foreach($dataToAdd as $data) {
-        $data = explode(',',$data);
+        // var
+        $dataArray = unserialize($dataString);
+        $newDataArray = $dataArray;
+        $newDataToAddArray = $unserializedDataToAdd;
         
-        //echo '<br />->'.$data[0].'-'.$data[1].'<br />';
-        // add every word
-        for($i = 0; $i < $data[1]; $i++) {
-          $newDataString = $this->addDataToString(array($data[0]),$newDataString,false);
+        // -> check if data already exists, if then add the number from one array to the other one
+        foreach($dataArray as $key => $dataArrayVariable) {
+          foreach($unserializedDataToAdd as $dataToAddKey => $dataToAddArrayVariable) {
+            if($dataArrayVariable['data'] == $dataToAddArrayVariable['data']) {
+              $newDataArray[$key]['number'] += $dataToAddArrayVariable['number'];
+              unset($newDataToAddArray[$dataToAddKey]);
+            }            
+          }
+        }
+
+        $newDataArray = array_merge($newDataArray,$newDataToAddArray);
+
+        // sort the new created array
+        usort($newDataArray, 'sortDataString');
+
+        return serialize($newDataArray);
+      } else
+        return $dataToAdd;
+      
+    } else {
+    
+      // var
+      $newdata = (!is_array($dataToAdd))
+        ? array($dataToAdd)
+        : $dataToAdd;
+      if(($exisitingData = unserialize($dataString)) === false)
+        $exisitingData = array();
+      $newDataArray = $exisitingData;
+      
+      // ->> add new data
+      
+      // -> check if data already exists, if then count up the number of the data
+      if(is_array($exisitingData) && !empty($exisitingData)) {
+        foreach($exisitingData as $key => $exisitingDataVariable) {
+          // if then count up the number of the data
+          if(false !== ($foundKey = array_search(strtolower($exisitingDataVariable['data']),$newdata))) {
+            $newDataArray[$key]['number']++;
+            // and remove the data from the $data array
+            unset($newdata[$foundKey]);
+          }
         }
       }
       
-      // -> RETURNs the new data String
-      return $newDataString;
-    
-    // ->> IF given DATA is a ARRAY WITH DATA
-    //------------------------------
-    } elseif(is_array($dataToAdd)) {
-    
-      // -> COUNTS THE EXISTING SEARCHWORDS
-      $countExistingData = 0;
-      $newDataString = '';
-      foreach($exisitingDatas as $exisitingData) {
-        $exisitingData = explode(',',$exisitingData);
-        $countExistingData++; 
-        
-        $countNewData = -1;
-        foreach($dataToAdd as $data) {
+      // -> add the left new data
+      if(is_array($newdata) && !empty($newdata)) {    
+        foreach($newdata as $dataVariable) {
           if($encodeSpecialChars === true) {
-            $data = $this->cleanSpecialChars($data,''); // entfernt Sonderzeichen
-            $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
-            //$data = str_replace('&amp;','&',$data); // prevent double decoding        
+            $dataVariable = $this->cleanSpecialChars($dataVariable,''); // clean special chars
+            $dataVariable = htmlentities($dataVariable,ENT_QUOTES, 'UTF-8');     
           }
-          $data = strtolower($data);
-          $countNewData++;
-          
-          // wenn es das Stichwort schon gibt
-          if($exisitingData[0] == $data) {
-            // zählt ein die Anzahl des Stichworts höher
-            $exisitingData[1]++;
-            $foundSw[] = $data;
-          }
-        }
-        
-        // adds the old Searchwords (maybe counted up) to the String with the new ones            
-        if(!empty($exisitingData[0])) {
-          $newDataString .= $exisitingData[0].','.$exisitingData[1];
-          if($countExistingData < count($exisitingDatas))
-            $newDataString .= '|#|';
+          $newDataArray[] = array('data' => strtolower($dataVariable), 'number' => 1);
         }
       }
       
-      // -> ADDS NEW SEARCHWORDS
-      $countNewData = 0;
-      foreach($dataToAdd as $data) {
-        if($encodeSpecialChars === true) {
-          $data = $this->cleanSpecialChars($data,''); // entfernt Sonderzeichen
-          $data = htmlentities($data,ENT_QUOTES, 'UTF-8');
-          //$data = str_replace('&amp;','&',$data); // prevent double decoding
-        }
-        $data = strtolower($data);
-        $countNewData++;
-        
-        if(isset($foundSw) && is_array($foundSw))
-          $foundSwStr = implode('|#|',$foundSw);
-     
-        if(!isset($foundSw) || (!empty($data) && strstr($foundSwStr,$data) === false)) {
-          if(!empty($data)) {// verhindert das leere Suchwort strings gespeichert werden
-            if(substr($newDataString,-1) != '|#|')
-              $newDataString .= '|#|';
-            // fügt ein neues Suchwort in den String mit den Suchwörtern ein                
-            $newDataString .= $data.',1';
-            
-            if($countNewData < count($dataToAdd))
-              $newDataString .= '|#|';
-          }
-        }
-      }          
-      //echo $newDataString.'<br />';
+      // sort the new created array
+      usort($newDataArray, 'sortDataString');
       
-      // removes the FIRST "|"
-      while(substr($newDataString,0,1) == '|#|') {
-        $newDataString = substr($newDataString, 1);
-      }
-      // removes the LAST "|"
-      while(substr($newDataString,-1) == '|#|') {
-        $newDataString = substr($newDataString, 0, -1);
-      }
-      
-      // -> SORTS the NEW SEARCHWORD STRING with THE SEARCHWORD with MOST COUNT at the BEGINNING
-      if($dataToAdd = explode('|#|',$newDataString)) {
-      
-        // sortiert den array, mithilfe der funktion sortArray
-        natsort($dataToAdd);
-        usort($dataToAdd, "sortSearchwordString");          
-    
-        // fügt den neugeordneten Suchworte String wieder zu einem Array zusammen
-        $newDataString = implode('|#|',$dataToAdd);
-      }
-      
-      // -> RETURNs the new data String
-      return $newDataString;
-      
-    } else
-      return $dataString;
+      return serialize($newDataArray);
+    }
   }
   
  /**
@@ -1175,7 +1157,7 @@ class statisticFunctions extends generalFunctions {
     if($currentVisitors = @file(dirname(__FILE__).'/../../statistic/visit.statistic.cache')) {
       
       // sort the visitors, the latest one first
-      usort($currentVisitors, 'sortCurrentUserByTime');
+      usort($currentVisitors, 'sortCurrentVisitorsByTime');
     
       foreach($currentVisitors as $currentVisitor) {
         $currentVisitor = explode('|#|',$currentVisitor);
@@ -1209,7 +1191,7 @@ class statisticFunctions extends generalFunctions {
   * @uses $websiteStatistic for the old website-statistics
   * @uses saveRefererLog()  to save the referer log-file
   * @uses isSpider()        to check whether the user-agent is a spider or a human
-  * @uses addDataToString() to add a browser to the browser data-string
+  * @uses addDataToDataString() to add a browser to the browser data-string
   *  
   * @return bool TRUE if the website-statistics were saved, otherwise FALSE
   * 
@@ -1270,7 +1252,7 @@ class statisticFunctions extends generalFunctions {
         // -> adds the user BROWSER
         $browser = $this->getBrowser();
         if(isset($this->websiteStatistic['browser']))
-          $this->websiteStatistic['browser'] = $this->addDataToString(array($browser),$this->websiteStatistic['browser']);
+          $this->websiteStatistic['browser'] = $this->addDataToDataString($this->websiteStatistic['browser'],$browser);
         else
           $this->websiteStatistic['browser'] = $browser.',1';
         
@@ -1342,7 +1324,7 @@ class statisticFunctions extends generalFunctions {
             // ****
             if(!empty($lastPage['log_visitTime_max']) && $visitTime !== false) {
             
-              $maxVisitTimes = explode('|#|',$lastPage['log_visitTime_max']);
+              $maxVisitTimes = unserialize($lastPage['log_visitTime_max']);
               
               // adds the new time if it is bigger than the highest min time
               if($visitTime > $maxVisitTimes[count($maxVisitTimes) - 1]) {
@@ -1356,7 +1338,7 @@ class statisticFunctions extends generalFunctions {
               natsort($newMaxVisitTimes);
               $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
               // make array to string
-              $newMaxVisitTimes = implode('|#|',$newMaxVisitTimes);
+              $newMaxVisitTimes = serialize($newMaxVisitTimes);
               
             } elseif(!empty($lastPage['log_visitTime_max']))
               $newMaxVisitTimes = $lastPage['log_visitTime_max'];
@@ -1367,7 +1349,7 @@ class statisticFunctions extends generalFunctions {
             // ****
             if(!empty($lastPage['log_visitTime_min']) && $visitTime !== false) {
             
-              $minVisitTimes = explode('|#|',$lastPage['log_visitTime_min']);
+              $minVisitTimes = unserialize($lastPage['log_visitTime_min']);
               
               // adds the new time if it is bigger than the highest min time
               if($visitTime > $minVisitTimes[0]) {
@@ -1380,7 +1362,7 @@ class statisticFunctions extends generalFunctions {
               natsort($newMinVisitTimes);
               $newMinVisitTimes = array_reverse($newMinVisitTimes);
               // make array to string
-              $newMinVisitTimes = implode('|#|',$newMinVisitTimes);
+              $newMinVisitTimes = serialize($newMinVisitTimes);
               
             } elseif(!empty($lastPage['log_visitTime_min']))
               $newMinVisitTimes = $lastPage['log_visitTime_min'];
@@ -1435,7 +1417,7 @@ class statisticFunctions extends generalFunctions {
   * 
   * @uses $adminConfig                    for the save path of the pages
   * @uses isSpider()                      to check whether the user-agent is a spider or a human
-  * @uses addDataToString()               to add the searchwords to the searchword data-string
+  * @uses addDataToDataString()               to add the searchwords to the searchword data-string
   * @uses generalFunctions::readPage()    to read the last visited page for the view-time
   * @uses generalFunctions::savePage()    to save the page and also the last visited page with the calculated view-time
   * 
@@ -1519,7 +1501,9 @@ class statisticFunctions extends generalFunctions {
           $searchWords = substr($searchWords,2,strpos($searchWords,'&')-2);
   
           $searchWords = rawurldecode($searchWords);
-          $searchWords = explode('+',$searchWords);
+          $searchWords = (strpos($searchWords,'+') !== false)
+            ? explode('+',$searchWords)
+            : explode('%2B',$searchWords);
           
           // gos through searchwords and check if there already saved  
           $newSearchWords = array();
@@ -1531,9 +1515,8 @@ class statisticFunctions extends generalFunctions {
           }
           
           if(!empty($newSearchWords)) {
-               
             // adds the searchwords to the searchword data string
-            $pageContent['log_searchwords'] = $this->addDataToString($searchWords,$pageContent['log_searchwords']);   
+            $pageContent['log_searchwords'] = $this->addDataToDataString($pageContent['log_searchwords'],$searchWords);   
           }
         }
       }

@@ -292,7 +292,7 @@ function saveCategories($newCategories) {
         if(!isset($category['thumbHeight']))
           $category['thumbHeight'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbHeight'];
         
-        // adds absolute path slash on the beginning and implode the stylefiles
+        // adds absolute path slash on the beginning and serialize the stylefiles
         $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
       
         // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
@@ -915,7 +915,7 @@ function prepareStyleFilePaths($givenStyleFiles) {
         $styleFiles[] = $styleFile;
     }
   }
-  return implode('|#|',$styleFiles);
+  return serialize($styleFiles);
 }
 
 /**
@@ -987,7 +987,7 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
   // prepare string
   if($styleType != 'styleFile')
     $givenStyle = str_replace(array('#','.'),'',$givenStyle);
-  elseif($styleType == 'styleFile' && !empty($givenStyle) && substr($givenStyle,0,1) !== '/')
+  elseif($styleType == 'styleFile' && !empty($givenStyle) && substr($givenStyle,0,2) !== 'a:' &&substr($givenStyle,0,1) !== '/')
     $givenStyle = '/'.$givenStyle;
     
   // compare string with category

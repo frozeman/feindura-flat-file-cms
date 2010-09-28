@@ -685,7 +685,7 @@ window.addEvent('domready', function() {
   setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio');
   
   // -> adds Fields to styleSheetsFilePaths
-  $$('.addStyleFilePath').each(function(addButton){    
+  $$('.addStyleFilePath').each(function(addButton){
     if(addButton != null) {
       var containerId = addButton.getParent().getElement('div').getProperty('id');
       var inputName = addButton.getParent().getElement('div').getElement('input').getProperty('name');
@@ -790,10 +790,10 @@ window.addEvent('domready', function() {
   if($$('.right input') != null) {
         var smallSize = '50';
         
-        $$('.right input').each(function(input){
+        $$('.right input').each(function(input) {
             
             // looks for empty inputs
-            if(input.get('value') == '' || input.get('disabled') != false) {
+            if(!input.hasClass('noResize') && (input.get('value') == '' || input.get('disabled') != false)) {
                 
                 var hasFocus = false;
                 var hasContent = false;

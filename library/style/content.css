@@ -407,14 +407,11 @@ a.up {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
-    background: url("../images/sign/link.gif") no-repeat 0px 1px;
+    background: url("../images/sign/link.gif") no-repeat left center;
     }
 .block p a, #windowBox p a {
   background-position: 0px 4px;
 }
-#leftSidebar a.standardLink {
-    background: url("../images/sign/link.gif") no-repeat 0px 1px;
-    }
 a.standardLink:hover, .block a:hover, #windowBox a:hover {
     color: #536068;
     text-decoration: none;

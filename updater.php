@@ -135,14 +135,33 @@ $newVersion = '1.0';
   // UPDATE
   } elseif($updatePossible && $_POST['asking'] == 'true') {
     
+    // changeToSerializedDataString
+    function changeToSerializedDataString($oldDataString,$separator) {
+      $dataArray = explode($separator,$oldDataString);
+      $newDataArry = array();    
+      
+      foreach($dataArray as $data) {
+        $dataExploded = explode(',',$data);
+        $newDataArry[] = array('data' => $dataExploded[0], 'number' => $dataExploded[1]);
+      }    
+      return serialize($newDataArry);
+    }
+    
+    function changeToSerializedData($oldDataString,$separator) {
+      $dataArray = explode($separator,$oldDataString);   
+      return serialize($dataArray);
+    }
+    
     echo '<br />';
     
     // ->> SAVE NEW categoryConfig
     $newCategoryConfig = array();
     foreach($categoryConfig as $key => $category) {
       $data = $category['styleFile'];
-      if(strpos($data,'|#|') === false)
-        $category['styleFile'] = str_replace('|','|#|',$data);
+        if(strpos($data,'|#|') !== false)
+          $category['styleFile'] = changeToSerializedData($data,'|#|');
+        elseif(strpos($data,'|') !== false)
+          $category['styleFile'] = changeToSerializedData($data,'|');
         
       $newCategoryConfig[$key] = $category;
     }    
@@ -155,8 +174,10 @@ $newVersion = '1.0';
     
     // ->> SAVE NEW adminConfig
     $data = $adminConfig['editor']['styleFile'];
-    if(strpos($data,'|#|') === false)
-      $adminConfig['editor']['styleFile'] = str_replace('|','|#|',$data);
+      if(strpos($data,'|#|') !== false)
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
+      elseif(strpos($data,'|') !== false)
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
     
     if(saveAdminConfig($adminConfig))
       echo 'adminConfig <span class="succesfull">succesfully updated</span><br />';
@@ -190,17 +211,28 @@ $newVersion = '1.0';
         $pageContent['pagedate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
 
       // -> change dataString separator
-      $data = $pageContent['log_visitTime_min'];
-      if(strpos($data,'|#|') === false)
-        $pageContent['log_visitTime_min'] = str_replace('|','|#|',$data);
+      $data = $pageContent['log_visitTime_min'];      
+        if(strpos($data,'|#|') !== false)
+          $pageContent['log_visitTime_min'] = changeToSerializedData($data,'|#|');
+        elseif(strpos($data,'|') !== false)
+          $pageContent['log_visitTime_min'] = changeToSerializedData($data,'|');
+        elseif(!empty($data) && substr($data,0,2) != 'a:')
+          $pageContent['log_visitTime_min'] = changeToSerializedData($data,' ');
       
       $data = $pageContent['log_visitTime_max'];
-      if(strpos($data,'|#|') === false)
-        $pageContent['log_visitTime_max'] = str_replace('|','|#|',$data);
+        if(strpos($data,'|#|') !== false)
+          $pageContent['log_visitTime_max'] = changeToSerializedData($data,'|#|');
+        elseif(strpos($data,'|') !== false)
+          $pageContent['log_visitTime_max'] = changeToSerializedData($data,'|');
+        elseif(!empty($data) && substr($data,0,2) != 'a:')
+          $pageContent['log_visitTime_max'] = changeToSerializedData($data,' ');
+          
       
       $data = $pageContent['log_searchwords'];
-      if(strpos($data,'|#|') === false)
-        $pageContent['log_searchwords'] = str_replace('|','|#|',$data);
+        if(strpos($data,'|#|') !== false)
+          $pageContent['log_searchwords'] = changeToSerializedDataString($data,'|#|');
+        elseif(strpos($data,'|') !== false)
+          $pageContent['log_searchwords'] = changeToSerializedDataString($data,'|');
       
       $generalFunctions->savePage($pageContent);
       
@@ -229,8 +261,10 @@ $newVersion = '1.0';
       $websiteStatistic['lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
       
     $data = $websiteStatistic['browser'];
-    if(strpos($data,'|#|') === false)
-      $websiteStatistic['browser'] = str_replace('|','|#|',$data);
+      if(strpos($data,'|#|') !== false)
+        $websiteStatistic['browser'] = changeToSerializedDataString($data,'|#|');
+      elseif(strpos($data,'|') !== false)
+        $websiteStatistic['browser'] = changeToSerializedDataString($data,'|');
     
     if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","w")) {
       

@@ -211,7 +211,7 @@ if(!empty($adminConfig['user']['info'])) {
       foreach($pages as $page) {
         
         // get highest time
-        $highestTime = explode('|#|',$page['log_visitTime_max']);
+        $highestTime = unserialize($page['log_visitTime_max']);
         
         if($pageVisitTime = $statisticFunctions->showVisitTime($highestTime[0],$langFile))
           echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
@@ -259,10 +259,10 @@ if(!empty($adminConfig['user']['info'])) {
     
     // -> create SEARCHWORD DATASTRING of ALL PAGES
     $allSearchwords = false;
-    foreach($pages as $page) {      
+    foreach($pages as $page) {
       // if page has searchwords
       if(!empty($page['log_searchwords'])) {
-        $allSearchwords = $statisticFunctions->addDataToString($page['log_searchwords'],$allSearchwords);
+        $allSearchwords = $statisticFunctions->addDataToDataString($allSearchwords,$page['log_searchwords']);
       }
     }
     

@@ -143,7 +143,7 @@
     }
 #leftSidebar .sidebarMenu .content.dark a.active {
     background: url("../images/key/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
-    color: #ffffff !important;
+    color: #333333 !important;
     }
 #leftSidebar .sidebarMenu .content.dark a:hover {
     background: url("../images/key/sidebarMenu_key_dark.png") repeat-x 0px -35px;
@@ -157,7 +157,7 @@
     }
 #leftSidebar .sidebarMenu .content.white a.active {
     background: url("../images/key/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
-    color: #585F5F !important;
+    color: #333 !important;
     }
 #leftSidebar .sidebarMenu .content.white a:hover {
     background: url("../images/key/sidebarMenu_key_white.png") repeat-x 0px -35px;
@@ -171,7 +171,7 @@
     }
 #leftSidebar .sidebarMenu .content.light a.active {
     background: url("../images/key/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
-    color: #444444 !important;
+    color: #ffffff !important;
     }
 #leftSidebar .sidebarMenu .content.light a:hover {
     background: url("../images/key/sidebarMenu_key_light.png") repeat-x 0px -35px;
@@ -185,7 +185,7 @@
     }
 #leftSidebar .sidebarMenu .content.brown a.active {
     background: url("../images/key/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
-    color: #BE8423 !important;
+    color: #ffffff !important;
     }
 #leftSidebar .sidebarMenu .content.brown a:hover {
     background: url("../images/key/sidebarMenu_key_brown.png") repeat-x 0px -35px;
@@ -199,7 +199,7 @@
     }
 #leftSidebar .sidebarMenu .content.blue a.active {
     background: url("../images/key/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
-    color: #668CA6 !important;
+    color: #ffffff !important;
     }
 #leftSidebar .sidebarMenu .content.blue a:hover {
     background: url("../images/key/sidebarMenu_key_blue.png") repeat-x 0px -35px;

@@ -17,10 +17,10 @@
 /**
  * This file includes all necessary <var>classes</var> and configs for the use in the FRONTEND and the BACKEND
  *
- * @version 0.13
+ * @version 0.14
  */
 
-error_reporting(E_ALL & ~E_NOTICE); //E_ALL & ~E_NOTICE
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);// E_ALL & ~E_NOTICE & & ~E_WARNING
 
 /**
  * The absolut path of the webserver
