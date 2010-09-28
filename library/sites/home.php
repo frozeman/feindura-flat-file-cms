@@ -169,8 +169,17 @@ if(!empty($adminConfig['user']['info'])) {
       geoip_close($geoIP);
       
       echo '</table>
-            </div>';                        
+            </div>';                           
     echo '</div>';
+    
+    echo '<br style="clear:both;" /><br />';
+    
+    // -> inBlockSlider
+    echo '<div style="text-align:center;"><a href="#" class="inBlockSliderLink down">'.$langFile['log_pageStatistics'].'</a></div><br />';
+    
+    echo '<div class="verticalSeparator"></div>';
+    
+    echo '<div class="inBlockSlider hidden">';
     
     // ---------------------------------
     // -> MOST VISITED PAGE
@@ -252,7 +261,7 @@ if(!empty($adminConfig['user']['info'])) {
     
     $pages = $orgPages;    
     
-    echo '<br style="clear:both;" /><br />';
+    echo '<br style="clear:both;" />';
     
     // ---------------------------------
     // ->> SEARCHWORD CLOUD    
@@ -265,9 +274,13 @@ if(!empty($adminConfig['user']['info'])) {
         $allSearchwords = $statisticFunctions->addDataToDataString($allSearchwords,$page['log_searchwords']);
       }
     }
+    echo '<br style="clear:both;" /><div class="verticalSeparator"></div>';
+    echo '</div>'; // <- inBlockSlider End
+    
+    echo '<br />';
     
     // SHOW tag CLOUD
-    echo '<h3>'.$langFile['log_tags_description'].'</h3>';
+    echo '<h3 style="text-align:center;">'.$langFile['log_tags_description'].'</h3>';
     echo '<div class="tagCloud">';
     if($tagCloud = $statisticFunctions->createTagCloud($allSearchwords))
       echo $tagCloud;
@@ -275,21 +288,21 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<span class="blue" style="font-size:15px;">'.$GLOBALS['langFile']['log_notags'].'</span>';
     echo '</div>';
     
-    echo '<br /><br /><hr class="small" /><br />';
-    
+    echo '<br /><hr class="small"><br />';
+     
     // ---------------------------------
     // -> BROWSER CHART
-    echo '<h3>'.$langFile['home_browser_h1'].'</h3>';
+    echo '<h3 style="text-align:center;">'.$langFile['home_browser_h1'].'</h3>';
     if($browserChart = $statisticFunctions->createBrowserChart($websiteStatistic['browser']))
       echo $browserChart;
     else
       echo $GLOBALS['langFile']['home_novisitors'];
     
-    echo '<br /><hr class="small" /><br />';
+    echo '<br /><br /><hr class="small"><br />';
     
     // ---------------------------------
     // -> SHOW REFERER LOG
-    echo '<h3>'.$langFile['home_refererLog_h1'].'</h3>';
+    echo '<h3 style="text-align:center;">'.$langFile['home_refererLog_h1'].'</h3>';
     
     if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log') &&
        $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log')) {

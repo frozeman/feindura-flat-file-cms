@@ -99,7 +99,7 @@ $langFile['path_relativepath_tip'] = 'Relative Path';
 
 // ---------- STATISTIC
 
-$langFile['home_browser_h1'] = 'Browser Usage of the Users';
+$langFile['home_browser_h1'] = 'Browser usage of the users';
 $langFile['log_spiderCount'] = 'web spiders';
 $langFile['log_spiderCount_tip'] = 'web spider::Or webcrawler are programs of search engines which analyse and index websites.';
 
@@ -107,9 +107,12 @@ $langFile['log_searchwordtothissite_part1'] = 'has'; // "wort" hat 20 mal auf di
 $langFile['log_searchwordtothissite_part2'] = 'times led to this site';
 $langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in all pages.';
 
-$langFile['log_visitCount'] = 'Visitors';
+$langFile['log_visitCount'] = 'visitors';
 $langFile['log_currentVisitors'] = 'current visitors';
 $langFile['log_currentVisitors_lastActivity'] = 'last activity';
+
+$langFile['log_pageStatistics'] = 'page statistics';
+
 $langFile['log_visitTime_max'] = 'longest length of stay';
 $langFile['log_visitTime_min'] = 'shortest length of stay';
 $langFile['log_firstVisit'] = 'first visit';

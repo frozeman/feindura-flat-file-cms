@@ -89,6 +89,9 @@ $langFile['log_searchwordtothissite_tip'] = 'Cliquez dessus pour chercher le mot
 $langFile['log_visitCount'] = 'visiteurs';
 $langFile['log_currentVisitors'] = 'visiteurs pr&eacute;sents';
 $langFile['log_currentVisitors_lastActivity'] = 'visiteurs pr&eacute;sents';
+
+$langFile['log_pageStatistics'] = 'statistiques du pages';
+
 $langFile['log_visitTime_max'] = 'temps de visite le plus longs';
 $langFile['log_visitTime_min'] = 'temps de visite le plus court';
 $langFile['log_firstVisit'] = 'premi&egrave;re visite';

@@ -109,6 +109,9 @@ $langFile['log_searchwordtothissite_tip'] = 'Anklicken um dieses Suchwort in all
 $langFile['log_visitCount'] = 'Besucher';
 $langFile['log_currentVisitors'] = 'aktuelle Besucher';
 $langFile['log_currentVisitors_lastActivity'] = 'letzte Aktivit&auml;t';
+
+$langFile['log_pageStatistics'] = 'Seiten Statistiken';
+
 $langFile['log_visitTime_max'] = 'l&auml;ngste Verweildauer';
 $langFile['log_visitTime_min'] = 'k&uuml;rzeste Verweildauer';
 $langFile['log_firstVisit'] = 'erster Besuch';

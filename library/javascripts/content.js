@@ -336,38 +336,38 @@ function inBlockTableSlider() {
   var slideLinks = new Array();
   
   // -> GO TROUGH every CATEGORY
-  if($$('.block .slideTable') != null && $$('.block .slideTableLink') != null) {
+  if($$('.block .inBlockSlider') != null && $$('.block .inBlockSliderLink') != null) {
     
     // -----------------------------------------
     // ADD SLIDE TO TABLEs inside a BLOCK
     $$('.block').each(function(block) {
       
       // gets the SLIDE links
-      block.getElements('.slideTableLink').each(function(insideBlockLinks) {
+      block.getElements('.inBlockSliderLink').each(function(insideBlockLinks) {
         slideLinks.push(insideBlockLinks);
       });
       
-      block.getElements('.slideTable').each(function(insideBlockTable) {        
+      block.getElements('.inBlockSlider').each(function(insideBlockTable) {        
          // creates the slide effect
-    	   var slideTableInstance = new Fx.Slide(insideBlockTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
+    	   var inBlockSliderInstance = new Fx.Slide(insideBlockTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
          
          // ON COMPLETE
-         slideTableInstance.onComplete = function(el) {
+         inBlockSliderInstance.onComplete = function(el) {
     
               // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-              if(slideTableInstance.open) {
+              if(inBlockSliderInstance.open) {
                 insideBlockTable.getParent().fade('hide');
-                slideTableInstance.open = false;
+                inBlockSliderInstance.open = false;
               } else {              
                 insideBlockTable.getParent().fade('show');
-                slideTableInstance.open= true;
+                inBlockSliderInstance.open= true;
               }
           }
         
          // slides the hotky div in, on start
          if(insideBlockTable.hasClass('hidden')) {
            // hides the wrapper on start
-           slideTableInstance.hide();
+           inBlockSliderInstance.hide();
            insideBlockTable.getParent().fade('hide');
          }
          
@@ -375,7 +375,7 @@ function inBlockTableSlider() {
          slideLinks[count].addEvent('click', function(e) {
             if(e.target.match('a'))
         		  e.stop();
-        		slideTableInstance.toggle();
+        		inBlockSliderInstance.toggle();
         		insideBlockTable.getParent().fade('show');
         		insideBlockTable.toggleClass('hidden');
         	});

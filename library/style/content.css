@@ -233,6 +233,7 @@ content.css version 0.21 */
 .block .verticalSeparator {
   background: url('../images/bg/content_block_verticalSeparator.png') no-repeat bottom center;
   padding-bottom: 5px;
+  clear: both;
 }
     
 /****************/  

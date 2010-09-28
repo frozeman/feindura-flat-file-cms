@@ -609,7 +609,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td></tr>';
           
           echo '<tr><td class="left checkboxes"></td>
-                <td><a href="#" class="down slideTableLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['pageSetup_advancedSettings'].'</a>
+                <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['pageSetup_advancedSettings'].'</a>
                 </td></tr>';
           
           // end of the TABLE for one category
@@ -619,7 +619,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           // second TABLE (advanced settings) (with slide in)
           $hidden = ($_POST['savedCategory'] != $category['id']) ? ' hidden' : '';
           
-          echo '<table id="advancedConfigTable'.$category['id'].'" class="slideTable'.$hidden.'">     
+          echo '<table id="advancedConfigTable'.$category['id'].'" class="inBlockSlider'.$hidden.'">     
                 <colgroup>
                 <col class="left" />
                 </colgroup>

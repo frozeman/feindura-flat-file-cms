@@ -739,7 +739,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
           ?>          
           <table>          
           <tr><td class="left checkboxes">
-          <input type="checkbox" class="slideTableLink" id="plugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
+          <input type="checkbox" class="inBlockSliderLink" id="plugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
           </td><td class="right checkboxes">
             <label for="plugin_<?= $pluginFolderName; ?>"><b><?= $pluginName; ?></b></label>
             <p><?= $pluginLangFile['plugin_description']; ?></p>
@@ -749,7 +749,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
           
           $hidden = ($pageContent['plugins'][$pluginFolderName]['active']) ? '' : ' hidden';
           ?>
-          <table class="slideTable<?= $hidden; ?>">
+          <table class="inBlockSlider<?= $hidden; ?>">
           <colgroup>
           <col class="left" />
           </colgroup>          
