@@ -66,8 +66,17 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
   
   echo '<div class="blockSpacer"></div>';
 }
+?>
+<div class="block">
+  <h1><?php echo $langFile['pluginSetup_h1']; ?></h1>
+  <div class="content">
+    <p><?php echo $langFile['pluginSetup_description']; ?></p>
+    
+  </div>
+  <div class="bottom"></div>
+</div>
 
-
+<?php
 // ->> GOES TROUGH every PLUGIN
 // ---------------------------------------------------------------------------------------------------------------
 $pluginFolders = $generalFunctions->readFolder(DOCUMENTROOT.$adminConfig['basePath'].'plugins/'); //DOCUMENTROOT.$adminConfig['basePath'].'plugins/'; //dirname(__FILE__).'/../../plugins/'

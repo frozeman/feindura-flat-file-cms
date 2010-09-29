@@ -105,13 +105,13 @@ $langFile['log_spiderCount_tip'] = 'web spider::Or webcrawler are programs of se
 
 $langFile['log_searchwordtothissite_part1'] = 'has'; // "wort" hat 20 mal auf diese Seite geführt
 $langFile['log_searchwordtothissite_part2'] = 'times led to this site';
-$langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in all pages.';
+$langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in the pages.';
 
 $langFile['log_visitCount'] = 'visitors';
 $langFile['log_currentVisitors'] = 'current visitors';
 $langFile['log_currentVisitors_lastActivity'] = 'last activity';
 
-$langFile['log_pageStatistics'] = 'page statistics';
+$langFile['log_pageStatistics'] = 'Page Statistics';
 
 $langFile['log_visitTime_max'] = 'longest length of stay';
 $langFile['log_visitTime_min'] = 'shortest length of stay';
@@ -653,6 +653,11 @@ $langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['
 */
 
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
+
+$langFile['pluginSetup_h1'] = 'Plugins-Settings';
+$langFile['pluginSetup_description'] = 'Plugins provide enhanced capabilities for the pages of the website. You can add the below activated plugins to every page, as far as they are acivated in the <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, in the respective category.<br /><br /><i>The plugins will be included in the website through the <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> method.</i>';
+
+
 $langFile['pluginSetup_editFiles_h1'] = 'Edit files';
 $langFile['pluginSetup_pluginconfig_active'] = 'activate Plugin';
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];

@@ -38,12 +38,14 @@ if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'
 
 // -> include all important functions and config vars
 include_once(dirname(__FILE__)."/library/includes/frontend.include.php");
+// -> change the variable names of the config arrays
 $feindura_adminConfig = $adminConfig;
 $feindura_websiteConfig = $websiteConfig;
 $feindura_categoryConfig = $categoryConfig;
 $feindura_statisticConfig = $statisticConfig;
 $feindura_pluginsConfig = $pluginsConfig;
 $feindura_websiteStatistic = $websiteStatistic;
+// -> delete old config arrays
 unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$pluginsConfig,$websiteStatistic);
 
 ?>

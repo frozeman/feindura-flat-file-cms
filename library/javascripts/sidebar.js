@@ -221,7 +221,7 @@ window.addEvent('domready', function() {
 
    }
   
-  // ->> PAGESETUP CATEGORY MENU
+  // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
   if($('sidebarSelection') != null) {
   
