@@ -641,217 +641,221 @@ class statisticFunctions extends generalFunctions {
          
       $browsers = unserialize($browserString);
       
-      $sumOfNumbers = 0;
-      foreach($browsers as $browser) {
-        $sumOfNumbers += $browser['number'];
-      }
+      if(is_array($browsers)) {
       
-      $return = '<table class="tableChart"><tr>';
-      foreach($browsers as $browser) {
-        
-        $tablePercent = $browser['number'] / $sumOfNumbers;
-        $tablePercent = round($tablePercent * 100);
-        
-        // change the Names and the Colors
-        switch($browser['data']) {
-          case 'firefox':
-            $browserName = 'Firefox';
-            $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
-            $browserLogo = 'browser_firefox.png';
-            $browserTextColor = '#ffffff';
-            break;
-          case 'firefox':
-            $browserName = 'Firefox';
-            $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
-            $browserLogo = 'browser_firefox.png';
-            $browserTextColor = '#ffffff';
-            break;
-          case 'netscape navigator':
-            $browserName = 'Netscape Navigator';
-            $browserColor = 'url(library/images/bg/browserBg_netscape.png)';
-            $browserLogo = 'browser_netscape.png';
-            $browserTextColor = '#ffffff';
-            break;
-          case 'chrome':
-            $browserName = 'Google Chrome';
-            $browserColor = 'url(library/images/bg/browserBg_chrome.png)';
-            $browserLogo = 'browser_chrome.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'internet explorer':
-            $browserName = 'Internet Explorer';
-            $browserColor = 'url(library/images/bg/browserBg_ie.png)';
-            $browserLogo = 'browser_ie.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'internet explorer old':
-            $browserName = 'Internet Explorer 1-6';
-            $browserColor = 'url(library/images/bg/browserBg_ie_old.png)';
-            $browserLogo = 'browser_ie_old.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'opera':
-            $browserName = 'Opera';
-            $browserColor = 'url(library/images/bg/browserBg_opera.png)';
-            $browserLogo = 'browser_opera.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'konqueror':
-            $browserName = 'Konqueror';
-            $browserColor = 'url(library/images/bg/browserBg_konqueror.png)';
-            $browserLogo = 'browser_konqueror.png';
-            $browserTextColor = '#ffffff';
-            break;
-          case 'lynx':
-            $browserName = 'Lynx';
-            $browserColor = 'url(library/images/bg/browserBg_lynx.png)';
-            $browserLogo = 'browser_lynx.png';
-            $browserTextColor = '#ffffff';
-            break;
-          case 'safari':
-            $browserName = 'Safari';
-            $browserColor = 'url(library/images/bg/browserBg_safari.png)';
-            $browserLogo = 'browser_safari.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'mozilla':
-            $browserName = 'Mozilla';
-            $browserColor = 'url(library/images/bg/browserBg_mozilla.png)';
-            $browserLogo = 'browser_mozilla.png';
-            $browserTextColor = '#ffffff';
-            break;
-          case 'iphone':
-            $browserName = 'iPhone';
-            $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
-            $browserLogo = 'browser_iphone.png';
-            $browserTextColor = '#ffffff';
-          case 'ipad':
-            $browserName = 'iPad';
-            $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
-            $browserLogo = 'browser_ipad.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'ipod':
-            $browserName = 'iPod';
-            $browserColor = 'url(library/images/bg/browserBg_ipod.png)';
-            $browserLogo = 'browser_ipod.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'amaya':
-            $browserName = 'Amaya';
-            $browserColor = 'url(library/images/bg/browserBg_amaya.png)';
-            $browserLogo = 'browser_amaya.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'phoenix':
-            $browserName = 'Phoenix';
-            $browserColor = 'url(library/images/bg/browserBg_phoenix.png)';
-            $browserLogo = 'browser_phoenix.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'icab':
-            $browserName = 'iCab';
-            $browserColor = 'url(library/images/bg/browserBg_icab.png)';
-            $browserLogo = 'browser_icab.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'omniweb':
-            $browserName = 'OmniWeb';
-            $browserColor = 'url(library/images/bg/browserBg_omniweb.png)';
-            $browserLogo = 'browser_omniweb.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'galeon':
-            $browserName = 'Galeon';
-            $browserColor = 'url(library/images/bg/browserBg_galeon.png)';
-            $browserLogo = 'browser_galeon.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'netpositive':
-            $browserName = 'NetPositive';
-            $browserColor = 'url(library/images/bg/browserBg_netpositive.png)';
-            $browserLogo = 'browser_netpositive.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'opera mini':
-            $browserName = 'Opera Mini';
-            $browserColor = 'url(library/images/bg/browserBg_opera_mini.png)';
-            $browserLogo = 'browser_opera_mini.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'blackberry':
-            $browserName = 'BlackBerry';
-            $browserColor = 'url(library/images/bg/browserBg_blackberry.png)';
-            $browserLogo = 'browser_blackberry.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'icecat':
-            $browserName = 'IceCat';
-            $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
-            $browserLogo = 'browser_icecat.png';
-            $browserTextColor = '#000000';
-            break;
-          case 'nokia browser': case 'Nokia S60 OSS Browser':
-            $browserName = 'Nokia Browser';
-            $browserColor = 'url(library/images/bg/browserBg_nokia.png)';
-            $browserLogo = 'browser_nokia.png';
-            $browserTextColor = '#000000';
-            break;
-          default:
-            $browserName = $GLOBALS['langFile']['log_browser_others'];
-            $browserColor = 'url(library/images/bg/browserBg_others.png)';
-            $browserLogo = 'browser_others.png';
-            $browserTextColor = '#000000';
-            break;
-        } 
-    
-        // calculates the text width and the cell width
-        $textWidth = round(((strlen($browserName) + strlen($browser['number']) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
-        $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
-        //$return .= '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
-        
-        // show tex only if cell is big enough
-        if($cellWidth < $textWidth) {
-          $cellText = '';
-          $cellWidth -= 10;
-          
-          //$return .= $browserName.': '.$cellWidth.'<br>';
-          
-          // makes the browser logo smaller
-          if($cellWidth < 40) {// 40 = logo width
-            
-            // change logo size
-            if($cellWidth <= 0)
-              $logoSize = 'width: 0px;';
-            else
-              $logoSize = 'width: '.$cellWidth.'px;';
-            
-            // change cellpadding
-            $createPadding = round(($cellWidth / 40) * 10);
-            if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
-              $cellpadding = $createPadding.'px 5px;';
-            else
-              $cellpadding = 'padding: 0px 5px;';
-    
-          }
-            
-          $bigLogo = false;
-        } else {      
-          $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$browserName.'</b> ('.$browser['number'].')</span>';
-          $logoSize = '';
-          $bigLogo = true;
-          $cellpadding = '';
+        $sumOfNumbers = 0;
+        foreach($browsers as $browser) {
+          $sumOfNumbers += $browser['number'];
         }
         
-        // SHOW the table cell with the right browser and color
-        $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['log_visitCount'].'">
-                    <div style="position: relative;">
-                    <img src="library/images/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
-                    </div>
-                    </td>';
+        $return = '<table class="tableChart"><tr>';
+        foreach($browsers as $browser) {
+          
+          $tablePercent = $browser['number'] / $sumOfNumbers;
+          $tablePercent = round($tablePercent * 100);
+          
+          // change the Names and the Colors
+          switch($browser['data']) {
+            case 'firefox':
+              $browserName = 'Firefox';
+              $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
+              $browserLogo = 'browser_firefox.png';
+              $browserTextColor = '#ffffff';
+              break;
+            case 'firefox':
+              $browserName = 'Firefox';
+              $browserColor = 'url(library/images/bg/browserBg_firefox.png)';
+              $browserLogo = 'browser_firefox.png';
+              $browserTextColor = '#ffffff';
+              break;
+            case 'netscape navigator':
+              $browserName = 'Netscape Navigator';
+              $browserColor = 'url(library/images/bg/browserBg_netscape.png)';
+              $browserLogo = 'browser_netscape.png';
+              $browserTextColor = '#ffffff';
+              break;
+            case 'chrome':
+              $browserName = 'Google Chrome';
+              $browserColor = 'url(library/images/bg/browserBg_chrome.png)';
+              $browserLogo = 'browser_chrome.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'internet explorer':
+              $browserName = 'Internet Explorer';
+              $browserColor = 'url(library/images/bg/browserBg_ie.png)';
+              $browserLogo = 'browser_ie.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'internet explorer old':
+              $browserName = 'Internet Explorer 1-6';
+              $browserColor = 'url(library/images/bg/browserBg_ie_old.png)';
+              $browserLogo = 'browser_ie_old.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'opera':
+              $browserName = 'Opera';
+              $browserColor = 'url(library/images/bg/browserBg_opera.png)';
+              $browserLogo = 'browser_opera.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'konqueror':
+              $browserName = 'Konqueror';
+              $browserColor = 'url(library/images/bg/browserBg_konqueror.png)';
+              $browserLogo = 'browser_konqueror.png';
+              $browserTextColor = '#ffffff';
+              break;
+            case 'lynx':
+              $browserName = 'Lynx';
+              $browserColor = 'url(library/images/bg/browserBg_lynx.png)';
+              $browserLogo = 'browser_lynx.png';
+              $browserTextColor = '#ffffff';
+              break;
+            case 'safari':
+              $browserName = 'Safari';
+              $browserColor = 'url(library/images/bg/browserBg_safari.png)';
+              $browserLogo = 'browser_safari.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'mozilla':
+              $browserName = 'Mozilla';
+              $browserColor = 'url(library/images/bg/browserBg_mozilla.png)';
+              $browserLogo = 'browser_mozilla.png';
+              $browserTextColor = '#ffffff';
+              break;
+            case 'iphone':
+              $browserName = 'iPhone';
+              $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
+              $browserLogo = 'browser_iphone.png';
+              $browserTextColor = '#ffffff';
+            case 'ipad':
+              $browserName = 'iPad';
+              $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
+              $browserLogo = 'browser_ipad.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'ipod':
+              $browserName = 'iPod';
+              $browserColor = 'url(library/images/bg/browserBg_ipod.png)';
+              $browserLogo = 'browser_ipod.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'amaya':
+              $browserName = 'Amaya';
+              $browserColor = 'url(library/images/bg/browserBg_amaya.png)';
+              $browserLogo = 'browser_amaya.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'phoenix':
+              $browserName = 'Phoenix';
+              $browserColor = 'url(library/images/bg/browserBg_phoenix.png)';
+              $browserLogo = 'browser_phoenix.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'icab':
+              $browserName = 'iCab';
+              $browserColor = 'url(library/images/bg/browserBg_icab.png)';
+              $browserLogo = 'browser_icab.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'omniweb':
+              $browserName = 'OmniWeb';
+              $browserColor = 'url(library/images/bg/browserBg_omniweb.png)';
+              $browserLogo = 'browser_omniweb.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'galeon':
+              $browserName = 'Galeon';
+              $browserColor = 'url(library/images/bg/browserBg_galeon.png)';
+              $browserLogo = 'browser_galeon.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'netpositive':
+              $browserName = 'NetPositive';
+              $browserColor = 'url(library/images/bg/browserBg_netpositive.png)';
+              $browserLogo = 'browser_netpositive.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'opera mini':
+              $browserName = 'Opera Mini';
+              $browserColor = 'url(library/images/bg/browserBg_opera_mini.png)';
+              $browserLogo = 'browser_opera_mini.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'blackberry':
+              $browserName = 'BlackBerry';
+              $browserColor = 'url(library/images/bg/browserBg_blackberry.png)';
+              $browserLogo = 'browser_blackberry.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'icecat':
+              $browserName = 'IceCat';
+              $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
+              $browserLogo = 'browser_icecat.png';
+              $browserTextColor = '#000000';
+              break;
+            case 'nokia browser': case 'Nokia S60 OSS Browser':
+              $browserName = 'Nokia Browser';
+              $browserColor = 'url(library/images/bg/browserBg_nokia.png)';
+              $browserLogo = 'browser_nokia.png';
+              $browserTextColor = '#000000';
+              break;
+            default:
+              $browserName = $GLOBALS['langFile']['log_browser_others'];
+              $browserColor = 'url(library/images/bg/browserBg_others.png)';
+              $browserLogo = 'browser_others.png';
+              $browserTextColor = '#000000';
+              break;
+          } 
       
+          // calculates the text width and the cell width
+          $textWidth = round(((strlen($browserName) + strlen($browser['number']) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
+          $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
+          //$return .= '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
+          
+          // show tex only if cell is big enough
+          if($cellWidth < $textWidth) {
+            $cellText = '';
+            $cellWidth -= 10;
+            
+            //$return .= $browserName.': '.$cellWidth.'<br>';
+            
+            // makes the browser logo smaller
+            if($cellWidth < 40) {// 40 = logo width
+              
+              // change logo size
+              if($cellWidth <= 0)
+                $logoSize = 'width: 0px;';
+              else
+                $logoSize = 'width: '.$cellWidth.'px;';
+              
+              // change cellpadding
+              $createPadding = round(($cellWidth / 40) * 10);
+              if($bigLogo === false && $createPadding < 5 && $createPadding > 0)
+                $cellpadding = $createPadding.'px 5px;';
+              else
+                $cellpadding = 'padding: 0px 5px;';
+      
+            }
+              
+            $bigLogo = false;
+          } else {      
+            $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$browserName.'</b> ('.$browser['number'].')</span>';
+            $logoSize = '';
+            $bigLogo = true;
+            $cellpadding = '';
+          }
+          
+          // SHOW the table cell with the right browser and color
+          $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['log_visitCount'].'">
+                      <div style="position: relative;">
+                      <img src="library/images/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
+                      </div>
+                      </td>';
+        
+        }
+        $return .= '</tr></table>';
+        
       }
-      $return .= '</tr></table>';      
     }    
     
     // return the chart or false

@@ -17,7 +17,7 @@
 /**
  * This file is inlcuded in the index.php and all standalone files
  *
- * @version 0.1
+ * @version 0.11
  */
 
 /**
@@ -29,25 +29,43 @@ include_once(dirname(__FILE__)."/../includes/backend.include.php");
 $loginError = false;
 $loggedOut = false;
 $resetPassword = false;
+$indentity = $_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"].dirname($_SERVER['PHP_SELF']);
 //unset($_SESSION);
 
 // ->> LOGIN FORM SEND
-if(isset($_POST) && $_POST['action'] == 'login' && !empty($_POST['username']) && !empty($_POST['password'])) {
-  $userConfig = @include("config/user.config.php");
+if(isset($_POST) && $_POST['action'] == 'login') {
+  $userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
+
+  // -> if user exits
+  if(!empty($userConfig)) {
   
-  if(array_key_exists($_POST['username'],$userConfig)) {
-    if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
-      $_SESSION['login_userIdentity'] = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
-      $_SESSION['login_username'] = $_POST['username'];
-      $_SESSION['login_loggedIn'] = true;
+    if(!empty($_POST['username']) && array_key_exists($_POST['username'],$userConfig)) {
+      if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
+        $_SESSION['login_userIdentity'] = md5($indentity);
+        $_SESSION['login_username'] = $_POST['username'];
+        $_SESSION['login_loggedIn'] = true;
+      } else
+        $loginError = $langFile['login_error_wrongPassword'];
     } else
-      $loginError = $langFile['login_error_wrongPassword'];
+      $loginError = $langFile['login_error_wrongUser'];
+      
+  // -> if no users exist
+  } elseif(empty($_POST['username'])) {
+    $_SESSION['login_userIdentity'] = md5($indentity);
+    $_SESSION['login_username'] = $_POST['username'];
+    $_SESSION['login_loggedIn'] = true;
   } else
     $loginError = $langFile['login_error_wrongUser'];
 }
 
+// -> LOGOUT
+if(isset($_GET['logout'])) {
+  unset($_SESSION['login_userIdentity'],$_SESSION['login_username'],$_SESSION['login_loggedIn']);
+  $loggedOut = true;
+}
+
 // ->> RESET PASSWORD
-if(isset($_POST) && $_POST['action'] == 'resetPassword' &&!empty($_POST['username'])) {
+if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['username'])) {
   $userConfig = @include("config/user.config.php");
   
   if(array_key_exists($_POST['username'],$userConfig)) {
@@ -84,16 +102,11 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' &&!empty($_POST['usernam
   
 }
 
-// -> LOGOUT
-if(isset($_GET['logout'])) {
-  unset($_SESSION['login_userIdentity'],$_SESSION['login_username'],$_SESSION['login_loggedIn']);
-  $loggedOut = true;
-}
-
 // ->> CHECK if user is logged in
-if(isset($_SESSION['login_userIdentity']) &&
-   $_SESSION['login_userIdentity'] == md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']) &&
-   $_SESSION['login_loggedIn'] === true) {
+// *****************************************************
+if($_SESSION['login_loggedIn'] === true &&
+   isset($_SESSION['login_userIdentity']) &&
+   $_SESSION['login_userIdentity'] == md5($indentity)) {
    
    // does nothing :-)
 

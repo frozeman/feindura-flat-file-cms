@@ -1311,7 +1311,7 @@ function delDir($dir) {
       // recheck if everything is deleted
       $checkFilesFolders = $GLOBALS['generalFunctions']->readFolderRecursive($dir);
       
-      if(@rmdir(DOCUMENTROOT.$dir))
+      if(rmdir(DOCUMENTROOT.$dir))
         return true;
       elseif($writeerror === false && (!empty($checkFilesFolders['folders']) || !empty($checkFilesFolders['files'])))
         delDir($dir);

@@ -20,7 +20,7 @@
  * @version 0.14
  */
 
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);// E_ALL & ~E_NOTICE & & ~E_WARNING
+error_reporting(E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 /**
  * The absolut path of the webserver

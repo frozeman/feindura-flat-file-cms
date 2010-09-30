@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 397
+Build 398
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 398: fixes in update.php and login.include.php
   build 397: add a description of the plugins to the plugins settings
   build 396: changed webseiten statistic representation
   build 395: changed data-strings, divided by |#| into serialized arrays

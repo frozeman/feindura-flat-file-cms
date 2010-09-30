@@ -22,7 +22,6 @@
  * @version 0.1
  */
 
-
 /**
  * Includes all necessary configs, functions and classes
  */
@@ -31,6 +30,8 @@ $wrongDiractory = (@include("library/includes/backend.include.php"))
 
 // VARs
 // -----------------------------------------------------------------------------------
+error_reporting(E_ALL ^ E_NOTICE);
+
 // gets the version of the feindura CMS
 $version = @file("CHANGELOG");
 $version[2] = trim($version[2]);
@@ -89,9 +90,16 @@ $newVersion = '1.0';
    .succesfull {
     color: #476117;
     line-height: 25px;
+   }   
+   .succesfull:before {
+    content: " -> ";
    }
    
-   .succesfull:before {
+   .notSuccesfull {
+    color: #BD3317;
+    line-height: 25px;
+   }   
+   .notSuccesfull:before {
     content: " -> ";
    }
  </style>
@@ -136,6 +144,12 @@ $newVersion = '1.0';
   // UPDATE
   } elseif($updatePossible && $_POST['asking'] == 'true') {
     
+    // var
+    // **
+    $succesfullUpdate = true;    
+    
+    // functions
+    // *********
     // changeToSerializedDataString
     function changeToSerializedDataString($oldDataString,$separator) {
       $dataArray = explode($separator,$oldDataString);
@@ -153,6 +167,9 @@ $newVersion = '1.0';
       return serialize($dataArray);
     }
     
+    // and start!
+    // *********
+    
     echo '<br />';
     
     // ->> SAVE NEW categoryConfig
@@ -168,10 +185,18 @@ $newVersion = '1.0';
     }    
     if(saveCategories($newCategoryConfig))
       echo 'categoryConfig <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
     
     // ->> SAVE NEW websiteConfig
     if(saveWebsiteConfig($websiteConfig))
       echo 'websiteConfig <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
     
     // ->> SAVE NEW adminConfig
     $data = $adminConfig['editor']['styleFile'];
@@ -179,9 +204,15 @@ $newVersion = '1.0';
         $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
       elseif(strpos($data,'|') !== false)
         $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
+      elseif(!empty($data) && substr($data,0,2) != 'a:')
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
     
     if(saveAdminConfig($adminConfig))
       echo 'adminConfig <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
   
     // ->> FIX PAGES
     $pages = $generalFunctions->loadPages(true);
@@ -234,11 +265,21 @@ $newVersion = '1.0';
           $pageContent['log_searchwords'] = changeToSerializedDataString($data,'|#|');
         elseif(strpos($data,'|') !== false)
           $pageContent['log_searchwords'] = changeToSerializedDataString($data,'|');
+        elseif(!empty($data) && substr($data,0,2) != 'a:')
+          $pageContent['log_searchwords'] = changeToSerializedDataString($data,' ');
       
-      $generalFunctions->savePage($pageContent);
+      if($generalFunctions->savePage($pageContent))
+        $pagesSuccesfullUpdated = true;
+      else
+        $pagesSuccesfullUpdated = false;
       
     }
-    echo 'pages <span class="succesfull">succesfully updated</span><br />';
+    if($pagesSuccesfullUpdated)
+      echo 'pages <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'pages <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
     
     // ->> CLEAR activity log
     if($taskLogFile = fopen(dirname(__FILE__)."/statistic/activity.statistic.log","w")) {
@@ -250,6 +291,9 @@ $newVersion = '1.0';
       $statisticFunctions->saveTaskLog(24); // <- SAVE the task in a LOG FILE
       
       echo 'activity log <span class="succesfull">reset</span><br />';
+    } else {
+      echo 'activity log <span class="notSuccesfull">could not be reseted</span><br />';
+      $succesfullUpdate = false;
     }
     
     // ->> SAVE WEBSITE STATISTIC
@@ -266,6 +310,8 @@ $newVersion = '1.0';
         $websiteStatistic['browser'] = changeToSerializedDataString($data,'|#|');
       elseif(strpos($data,'|') !== false)
         $websiteStatistic['browser'] = changeToSerializedDataString($data,'|');
+      elseif(!empty($data) && substr($data,0,2) != 'a:')
+        $websiteStatistic['browser'] = changeToSerializedDataString($data,' ');
     
     if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","w")) {
       
@@ -286,8 +332,10 @@ $newVersion = '1.0';
       flock($statisticFile,3);
       fclose($statisticFile);
       
-      echo 'website statistic <span class="succesfull">succesfully updated</span><br />';
-      
+      echo 'website statistic <span class="succesfull">succesfully updated</span><br />';      
+    } else {
+      echo 'website statistic <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
     }
     
     // ->> SAVE referer log
@@ -316,22 +364,56 @@ $newVersion = '1.0';
       
       echo 'referer <span class="succesfull">Succesfully updated</span><br />';
       
+    } else {
+      echo 'referer <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
     }
     
-    delDir($adminConfig['basePath'].'/library/javascript/');
-    delDir($adminConfig['basePath'].'/library/thirdparty/javascript/');
-    delDir($adminConfig['basePath'].'/library/image/');
-    delDir($adminConfig['basePath'].'/library/lang/');
-    @unlink(DOCUMENTROOT.$adminConfig['basePath'].'/library/general.include.php');
-    @unlink(DOCUMENTROOT.$adminConfig['basePath'].'/library/frontend.include.php');
-    @unlink(DOCUMENTROOT.$adminConfig['basePath'].'/library/backend.include.php');
-    echo 'removed <span class="succesfull">old files and folders</span><br />';
+    // ->> delete old files
+    $checkFiles = array();
+    if(!delDir($adminConfig['basePath'].'library/javascript/') && 
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/javascript/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/javascript/';
+    if(!delDir($adminConfig['basePath'].'library/thirdparty/javascript/') &&
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/thirdparty/javascript/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/thirdparty/javascript/';
+    if(!delDir($adminConfig['basePath'].'library/image/') &&
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/image/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/image/';
+    if(!delDir($adminConfig['basePath'].'library/lang/') && 
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/lang/'))  
+      $checkFiles[] = $adminConfig['basePath'].'library/lang/';
+    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'README')&&
+      is_file(DOCUMENTROOT.$adminConfig['basePath'].'README'))
+      $checkFiles[] = $adminConfig['basePath'].'README';
+    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/general.include.php')&&
+      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/general.include.php'))
+      $checkFiles[] = $adminConfig['basePath'].'library/general.include.php';
+    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/frontend.include.php')&&
+      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/frontend.include.php'))
+      $checkFiles[] = $adminConfig['basePath'].'library/frontend.include.php';
+    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/backend.include.php') &&
+      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/backend.include.php'))
+      $checkFiles[] = $adminConfig['basePath'].'library/backend.include.php';
+      
+    if(empty($checkFiles))
+      echo 'removed <span class="succesfull">old files and folders</span><br />';
+    else {
+      echo 'could not remove <span class="notSuccesfull">old files and folders,<br />
+      please check these folders, and remove them manually:<br />';
+      foreach($checkFiles as $checkFile) {
+          echo $checkFile.'<br />';
+      }
+      echo '</span>';
+      $succesfullUpdate = false;
+    }
     
-    ?>
-  
-  <h1>You can delete this file now.</h1>
-  
-  <?php
+    // -> final success text or failure warning
+    if($succesfullUpdate)
+      echo '<h1>You can now delete the "update.php" file.</h1>';
+    else
+      echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
+    
   }  
   ?>    
 </body>
