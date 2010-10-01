@@ -280,18 +280,17 @@ class contactForm {
 $mailcontent = '<html><head><title>'.$subject.'</title>
 </head><body style="font: 10pt Verdana, Arial, Helvetica;">
 '.$this->langFile['message_title1'].' <a href="'.$this->websiteUrl.'">'.$this->websiteTitle.'</a> '.$this->langFile['message_title2'].':<br><br>
-<b>'.$this->langFile['message_block1_title'].'</b> ---------------------------------------<br>
+<b>'.$this->langFile['message_block1_title'].'</b><br>
 <br>
 '.$message.'<br>
 <br>  
 '.$this->langFile['message_senddate'].' '.$senddate.' '.$this->langFile['message_sendtime'].' '.$sendtime.'<br>
 <br>
-<b>'.$this->langFile['message_block1_title'].'</b> ---------------------------------------------<br>
+<b>'.$this->langFile['message_block2_title'].'</b><br>
 <br>
 '.$anrede.$vorname.$nachname.'
 <br>
 '.$address.$street.$city.$country.$website.$email.$phone.$fax.'<br>
--------------------------------------------------<br>
 </body></html>';
         
         // ->> use phpMailer

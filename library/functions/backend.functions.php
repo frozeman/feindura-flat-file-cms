@@ -99,79 +99,41 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
 /**
  * <b>Name</b> isAdmin()<br />
  * 
- * Open the .htpasswd file and check if one of the usernames is:
- * "admin", "adminstrator", "superuser", "root" or "frozeman".
- * If one of the above usernames exist and the current user has one of this usernames it returns TRUE,
- * otherwise FALSE.<br />
- * If no user with the above usernames exists it assume that there is no admin and returns TRUE.
+ * Check if the current user is an admin. If no users exist everyone is an admin.
  * 
- * <b>Used Constants</b><br />
- *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
- *    
+ * 
  * <b>Used Global Variables</b><br />
- *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- *     
+ *    - <var>$userConfig</var> the user-settings config (included in the {@link general.include.php})
+ * 
  * @return bool TRUE if the current user is an admin, or no admins exist, otherwise FALSE
  * 
  * 
- * @version 1.01
+ * @version 1.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.1 changed user managament system, it now get the users from the user.config.php 
  *    - 1.01 add immediately return true if no remote_user exists
  *    - 1.0 initial release
  * 
  */
 function isAdmin() {
   
-  if(!isset($_SERVER["REMOTE_USER"]))
+  if(!empty($GLOBALS['userConfig'])) {
+    
+    // check if the user exists
+    if(array_key_exists($_SESSION['login_username'],$GLOBALS['userConfig'])) {
+      
+      // check if the user is admin
+      return ($GLOBALS['userConfig'][$_SESSION['login_username']]['admin'])
+        ? true
+        : false;
+      
+    } else
+      return false;
+    
+  // if no user, all are Admins
+  } else
     return true;
-  
-  $currentUser = strtolower($_SERVER["REMOTE_USER"]);
-  
-  // checks if the current user has a username like:
-  if($currentUser == 'admin' || $currentUser == 'administrator' || $currentUser == 'root' || $currentUser == 'superuser') {
-    return true;
-  } else { // otherwise it checks if in the htpasswd is one of the above usernames, if not return true
-
-    // checks for userfile
-    if($getHtaccess = @file(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'.htaccess')) {
-
-      // try to find the .htpasswd path
-      foreach($getHtaccess as $htaccessLine) {
-        if(strstr(strtolower($htaccessLine),'authuserfile')) {
-          $passwdFilePath = substr($htaccessLine,strpos(strtolower($htaccessLine),'authuserfile')+13);
-          $passwdFilePath = str_replace("\n", '', $passwdFilePath);
-          $passwdFilePath = str_replace("\r", '', $passwdFilePath);          
-          $passwdFilePath = str_replace(" ", '', $passwdFilePath);
-        }    
-      }
-      
-      // go trough users in .htpasswd, if there is any user with the above names
-      // and current user have not such a username return false
-      if($getHtpasswd = @file($passwdFilePath)) {        
-        
-        $adminExists = false;        
-        foreach($getHtpasswd as $htpasswdLine) {
-          $user = explode(':',strtolower($htpasswdLine));          
-          
-          if($user[0] == 'admin' || $user[0] == 'administrator' || $user[0] == 'root' || $user[0] == 'superuser')
-            $adminExists = true;
-        }
-        
-        // checks if the currentuser has such a name
-        if($adminExists) {          
-          return false; // ONLY WHEN AN ADMIN EXITS AND THE CURRENT USER ISNT THE ADMIN return false
-        } else
-          return true;
-      
-      } else
-        return true;
-      
-    } else { // there is no user file      
-      return true;
-    }    
-  }  
-  return true;  
 }
 
 /**

@@ -37,7 +37,7 @@ foreach($logContent as $logRow) {
   $taskObject = null;
   $logUser = null;
   
-  $logRow = explode('|-|',$logRow);
+  $logRow = explode('|#|',$logRow);
   $logDate = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($logRow[0]));
   $logTime = $statisticFunctions->formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))
@@ -141,7 +141,7 @@ foreach($logContent as $logRow) {
     //vars
     $taskObject = '';
     $foundObject = false;
-    $logObject = explode('|#|',$logRow[3]);
+    $logObject = explode('|-|',$logRow[3]);
                      
     // -> IF there is a PAGE
     if(substr($logObject[0],0,5) == 'page=') {

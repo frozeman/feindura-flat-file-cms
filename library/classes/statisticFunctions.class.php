@@ -500,10 +500,10 @@ class statisticFunctions extends generalFunctions {
     if($logFile = @fopen($logFilePath,"w")) {
       
       // adds the Object
-      $object = ($object) ? '|-|'.$object : false;
+      $object = ($object) ? '|#|'.$object : false;
       
       // -> create the new log string
-      $newLog = time().'|-|'.$_SERVER["REMOTE_USER"].'|-|'.$task.$object;
+      $newLog = time().'|#|'.$_SESSION['login_username'].'|#|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    

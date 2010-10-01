@@ -94,10 +94,10 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       if($configs['password'] == $configs['password_confirm']) {
         $newUserConfig[$configs['username']]['password'] = md5($newUserConfig[$configs['username']]['password']);
         $userPassChanged = true;        
-        $userInfoPassword = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['userSetup_password_success'].'</span></td></tr>';
+        $userInfoPassword[$configs['username']] = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['userSetup_password_success'].'</span></td></tr>';
       } else {
         $userInfo = $langFile['userSetup_password_confirm_wrong'];
-        $userInfoPassword = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';
+        $userInfoPassword[$configs['username']] = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';
         $newUserConfig[$configs['username']]['password'] = $userConfig[$configs['username']]['password'];
       }
     } else
@@ -251,7 +251,7 @@ if($unwriteableList && checkBasePath()) {
                 $markPassword = (empty($user['password']))
                   ? ' class="toolTip red" title="'.$langFile['userSetup_password_missing'].'::"'
                   : '';
-          echo $userInfoPassword;        
+          echo $userInfoPassword[$user['username']];
                 
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
