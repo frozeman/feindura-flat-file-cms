@@ -278,7 +278,7 @@ class contactForm {
         $subject = $this->websiteTitle.' '.$this->langFile['message_subject'];
               
 $mailcontent = '<html><head><title>'.$subject.'</title>
-</head><body style="font: 11pt Verdana, Arial, Helvetica;">
+</head><body style="font: 10pt Verdana, Arial, Helvetica;">
 '.$this->langFile['message_title1'].' <a href="'.$this->websiteUrl.'">'.$this->websiteTitle.'</a> '.$this->langFile['message_title2'].':<br><br>
 <b>'.$this->langFile['message_block1_title'].'</b> ---------------------------------------<br>
 <br>
@@ -294,26 +294,32 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
 -------------------------------------------------<br>
 </body></html>';
         
-          // ->> if PHP version > 5 use RMail
-        if(substr(phpversion(),0,1) >= 5 && include('Rmail/Rmail.php')) {
+        // ->> use phpMailer
+        if(@include('phpMailer/class.phpmailer.php')) {
           
-          $mail = new Rmail();
+          $mail = new phpmailer();
           
-          if(empty($_POST['email']))
-            $mail->setFrom('"no-reply" <'.$this->recipient.">");
-          else
-            $mail->setFrom('"'.$_POST['firstname'].' '.$_POST['lastname'].'" <'.$_POST['email'].">");
+          $mail->CharSet = 'UTF-8';
+          $mail->IsHTML(true);
           
-          $mail->setSubject($subject);
-          $mail->setPriority('normal');
+          if(empty($_POST['email'])) {
+            $mail->From = $this->recipient;
+            $mail->FromName = "no-reply";
+          } else {
+            $mail->From = $_POST['email'];
+            $mail->FromName = $_POST['firstname'].' '.$_POST['lastname'];
+          }
           
+          $mail->Subject = $subject;
           
-          $mail->setHTML($mailcontent);
-          $mail->setText(preg_replace("/ +/", ' ', strip_tags($mailcontent)));
+          $mail->Body = $mailcontent;
+          $mail->AltBody = preg_replace("/ +/", ' ', strip_tags($mailcontent));
           
-          $result = $mail->send(array($this->recipient));
+          $mail->AddAddress($this->recipient);
+          
+          $result = $mail->Send();
         
-        // ->> if PHP version <= 4 use plain UTF 8 text mail
+        // ->> if PHP couldn't inlcude phpMailer
         } else {
         
           $message = preg_replace("/ +/", ' ', strip_tags($mailcontent));
