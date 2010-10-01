@@ -40,9 +40,10 @@ require('chapta.php');
 * @package [Plugins]
 * @subpackage contactForm
 * 
-* @version 1.0
+* @version 1.01
 * <br />
 * <b>ChangeLog</b><br />
+*    - 1.01 add plain mail in UTF-8 when php 4
 *    - 1.0 initial release
 * 
 */
@@ -293,15 +294,15 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
 -------------------------------------------------<br>
 </body></html>';
         
-          // verwendet Rmail, wenn die php version gr��er 5 ist
+          // ->> if PHP version > 5 use RMail
         if(substr(phpversion(),0,1) >= 5 && include('Rmail/Rmail.php')) {
           
           $mail = new Rmail();
           
           if(empty($_POST['email']))
-            $mail->setFrom('no-reply <'.$this->recipient.">");
+            $mail->setFrom('"no-reply" <'.$this->recipient.">");
           else
-            $mail->setFrom($_POST['firstname'].' '.$_POST['lastname'].' <'.$_POST['email'].">");
+            $mail->setFrom('"'.$_POST['firstname'].' '.$_POST['lastname'].'" <'.$_POST['email'].">");
           
           $mail->setSubject($subject);
           $mail->setPriority('normal');
@@ -312,16 +313,15 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
           
           $result = $mail->send(array($this->recipient));
         
-        // send email without HTML tags phpversion <4 ist
+        // ->> if PHP version <= 4 use plain UTF 8 text mail
         } else {
         
           $message = preg_replace("/ +/", ' ', strip_tags($mailcontent));
           
-          if(empty($_POST['email']))
-            $header = 'From: no-reply <'.$this->recipient.">\n";
-          else
-            $header = 'From: '.$_POST['firstname'].' '.$_POST['lastname'].' <'.$_POST['email'].">\n";
-          
+          $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail          
+          $header .= (empty($_POST['email']))
+            ? 'From: "no-reply" <'.$this->recipient.">\r\n"
+            : 'From: "'.$_POST['firstname'].' '.$_POST['lastname'].'" <'.$_POST['email'].">\r\n";          
           $header .= 'X-Mailer: PHP/' . phpversion();
           
           mail($this->recipient, $subject, $message, $header);

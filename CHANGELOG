@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 398
+Build 399
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 399: fixed login and getStylesByPriority()
   build 398: fixes in update.php and login.include.php
   build 397: add a description of the plugins to the plugins settings
   build 396: changed webseiten statistic representation

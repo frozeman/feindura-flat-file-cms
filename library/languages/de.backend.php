@@ -38,8 +38,8 @@ $langFile['login_forgotPassword'] = 'Passwort vergessen?';
 $langFile['login_forgotPassword_back'] = 'zur&uuml;ck zum Login';
 $langFile['login_button_forgotPassword'] = 'SENDEN';
 $langFile['login_forgotPassword_email_subject'] = 'feindura CMS Passwort angefordert von';
-$langFile['login_forgotPassword_email_message'] = 'Du hast ein neues Passwort f&uuml;r dein feindura - Flat File CMS angefordert.
-Dein neues Passwort lautet:';
+$langFile['login_forgotPassword_email_message'] = 'Du hast ein neues Passwort für das feindura - Flat File CMS angefordert.
+Dein Benutzername und dein neues Passwort lauten:';
 
 $langFile['login_error_forgotPassword_nomail'] = 'Der Benutzer hat keine E-Mail Adressse angegeben.';
 $langFile['login_error_forgotPassword_notsend'] = 'FEHLER<br />beim senden des neuen Passworts an die vom Benutzer angegebene E-Mail Adresse.';

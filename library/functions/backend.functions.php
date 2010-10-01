@@ -75,6 +75,9 @@ function showErrorsInWindow($errorCode, $errorText, $errorFile, $errorLine) {
     // var
     $error = '<span class="rawError">'.$errorText."<br /><br />".$errorFile.' on line '.$errorLine."</span>\n";
     
+    // suppress Error reporting with @
+    if(0 == error_reporting()) { return; }
+    
     switch ($errorCode) {
     case E_USER_ERROR:
         return false;
@@ -945,11 +948,11 @@ function prepareStyleFilePaths($givenStyleFiles) {
 function getStylesByPriority($givenStyle,$styleType,$category) {
   
   // check if the $givenStyle is empty
-  if(empty($givenStyle)) {
+  if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
   
-    return (!empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]))
-    ? $GLOBALS['categoryConfig']['id_'.$category][$styleType]
-    : $GLOBALS['adminConfig']['editor'][$styleType];
+    return (empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) || $GLOBALS['categoryConfig']['id_'.$category][$styleType] == 'a:0:{}')
+      ? $GLOBALS['adminConfig']['editor'][$styleType]
+      : $GLOBALS['categoryConfig']['id_'.$category][$styleType];
   
   // otherwise it passes through the $givenStyle parameter
   } else
@@ -989,24 +992,17 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
     $givenStyle = str_replace(array('#','.'),'',$givenStyle);
   elseif($styleType == 'styleFile' && !empty($givenStyle) && substr($givenStyle,0,2) !== 'a:' &&substr($givenStyle,0,1) !== '/')
     $givenStyle = '/'.$givenStyle;
-    
+  
   // compare string with category
-  if($category !== true && !empty($GLOBALS['categoryConfig']['id_'.$category][$styleType])) {      
-    if($givenStyle == $GLOBALS['categoryConfig']['id_'.$category][$styleType]) 
+  if($category !== true &&
+     (!empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) || $GLOBALS['categoryConfig']['id_'.$category][$styleType] != 'a:0:{}') &&
+     $givenStyle == $GLOBALS['categoryConfig']['id_'.$category][$styleType]) {
       $givenStyle = '';
       
   //  or adminConfig
   } elseif($givenStyle == $GLOBALS['adminConfig']['editor'][$styleType]) {
     $givenStyle = '';
   }  
-  
-  /*
-  $givenStyle = ((!empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) && $givenStyle == $GLOBALS['categoryConfig']['id_'.$category][$styleType]) ||
-                 (empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) && $givenStyle == $GLOBALS['adminConfig']['editor'][$styleType])) 
-  ? $givenStyle
-  : '';
-  
-  */
   
   return $givenStyle;
 }

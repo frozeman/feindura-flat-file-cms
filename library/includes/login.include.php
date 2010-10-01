@@ -29,7 +29,7 @@ include_once(dirname(__FILE__)."/../includes/backend.include.php");
 $loginError = false;
 $loggedOut = false;
 $resetPassword = false;
-$indentity = $_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"].dirname($_SERVER['PHP_SELF']);
+$indentity = $_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"];
 //unset($_SESSION);
 
 // ->> LOGIN FORM SEND
@@ -80,7 +80,10 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       $newPassword = implode('', array_slice($chars, 0, 5)); 
       
       $subject = $langFile['login_forgotPassword_email_subject'].': '.$adminConfig['url'];
-      $message = $langFile['login_forgotPassword_email_message']."\n".$newPassword;
+      $message = $langFile['login_forgotPassword_email_message']."\n".$_POST['username']."\n".$newPassword;
+      $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail
+      $header .= 'From: "feindura CMS from '.$adminConfig['url'].'" <noreply@'.str_replace(array('http://','https://','www.'),'',$adminConfig['url']).">\r\n";
+      $header .= 'X-Mailer: PHP/' . phpversion();
       
       // change users password
       $newUserConfig = $userConfig;
@@ -88,7 +91,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       
       // send mail with the new password
       if(saveUserConfig($newUserConfig)) {
-        if(mail($userEmail,$subject,$message)) {
+        if(mail($userEmail,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header)) {
           $resetPassword = true;
           unset($_GET['resetpassword']);
         } else

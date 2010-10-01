@@ -921,7 +921,9 @@ window.addEvent('domready',function(){
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
-$blockContentEdited = (!empty($pageContent['styleFile']) || !empty($pageContent['styleId']) || !empty($pageContent['styleClass']))
+$blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['styleFile'] != 'a:0:{}') ||
+                       (!empty($pageContent['styleId']) &&  $pageContent['styleId'] != 'a:0:{}') ||
+                       (!empty($pageContent['styleClass']) && $pageContent['styleClass'] != 'a:0:{}'))
   ? '&nbsp;<img src="library/images/sign/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_advancedpageSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" />'
   : '';
 ?>
@@ -941,7 +943,8 @@ $blockContentEdited = (!empty($pageContent['styleFile']) || !empty($pageContent[
       </td><td class="right">
       <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
-      <?php            
+      <?php
+
       if(($styleFileInputs = unserialize(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']))) !== false) {
         foreach($styleFileInputs as $styleFileInput) {
           echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';
