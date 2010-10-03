@@ -18,6 +18,8 @@
 */
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
+session_cache_limiter('private');
+session_cache_expire(240); // chache 4h
 session_name("feindura_backendSession");
 session_start();
 

@@ -503,7 +503,7 @@ class statisticFunctions extends generalFunctions {
       $object = ($object) ? '|#|'.$object : false;
       
       // -> create the new log string
-      $newLog = time().'|#|'.$_SESSION['login_username'].'|#|'.$task.$object;
+      $newLog = time().'|#|'.$_SESSION['feindurLogin'][IDENTITY]['username'].'|#|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    
@@ -554,7 +554,7 @@ class statisticFunctions extends generalFunctions {
     // -> SAVE REFERER LOG
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
-       !strstr($_SERVER['HTTP_REFERER'],str_replace('www.','',$this->adminConfig['url'])) && // checks if referer is not the own page
+       strpos($_SERVER['HTTP_REFERER'],str_replace('www.','',$this->adminConfig['url'])) === false && // checks if referer is not the own page
        $logFile = @fopen($logFile,"w")) {
       
       // -> create the new log string

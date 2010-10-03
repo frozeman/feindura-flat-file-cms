@@ -29,7 +29,7 @@ include_once(dirname(__FILE__)."/../includes/backend.include.php");
 $loginError = false;
 $loggedOut = false;
 $resetPassword = false;
-$indentity = $_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"];
+DEFINE('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
 //unset($_SESSION);
 
 // ->> LOGIN FORM SEND
@@ -41,9 +41,8 @@ if(isset($_POST) && $_POST['action'] == 'login') {
   
     if(!empty($_POST['username']) && array_key_exists($_POST['username'],$userConfig)) {
       if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
-        $_SESSION['login_userIdentity'] = md5($indentity);
-        $_SESSION['login_username'] = $_POST['username'];
-        $_SESSION['login_loggedIn'] = true;
+        $_SESSION['feindurLogin'][IDENTITY]['username'] = $_POST['username'];
+        $_SESSION['feindurLogin'][IDENTITY]['loggedIn'] = true;
       } else
         $loginError = $langFile['login_error_wrongPassword'];
     } else
@@ -51,16 +50,15 @@ if(isset($_POST) && $_POST['action'] == 'login') {
       
   // -> if no users exist
   } elseif(empty($_POST['username'])) {
-    $_SESSION['login_userIdentity'] = md5($indentity);
-    $_SESSION['login_username'] = $_POST['username'];
-    $_SESSION['login_loggedIn'] = true;
+    $_SESSION['feindurLogin'][IDENTITY]['username'] = $_POST['username'];
+    $_SESSION['feindurLogin'][IDENTITY]['loggedIn'] = true;
   } else
     $loginError = $langFile['login_error_wrongUser'];
 }
 
 // -> LOGOUT
 if(isset($_GET['logout'])) {
-  unset($_SESSION['login_userIdentity'],$_SESSION['login_username'],$_SESSION['login_loggedIn']);
+  unset($_SESSION['feindurLogin'][IDENTITY]['username'],$_SESSION['feindurLogin'][IDENTITY]['loggedIn']);
   $loggedOut = true;
 }
 
@@ -107,9 +105,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
 
 // ->> CHECK if user is logged in
 // *****************************************************
-if($_SESSION['login_loggedIn'] === true &&
-   isset($_SESSION['login_userIdentity']) &&
-   $_SESSION['login_userIdentity'] == md5($indentity)) {
+if($_SESSION['feindurLogin'][IDENTITY]['loggedIn'] === true) {
    
    // does nothing :-)
 

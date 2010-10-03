@@ -120,11 +120,13 @@ function isAdmin() {
   
   if(!empty($GLOBALS['userConfig'])) {
     
+    $username = $_SESSION['feindurLogin'][IDENTITY]['username'];
+    
     // check if the user exists
-    if(array_key_exists($_SESSION['login_username'],$GLOBALS['userConfig'])) {
+    if(array_key_exists($username,$GLOBALS['userConfig'])) {
       
       // check if the user is admin
-      return ($GLOBALS['userConfig'][$_SESSION['login_username']]['admin'])
+      return ($GLOBALS['userConfig'][$username]['admin'])
         ? true
         : false;
       

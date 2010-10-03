@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 401
+Build 402
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 402: fixed expire time of the session and login.include.php
   build 401: changed isAdmin() to user $userConfig
   build 400: add phpMailer to contactForm plugin
   build 399: fixed login and getStylesByPriority()
