@@ -20,7 +20,7 @@
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
 session_cache_limiter('private');
 session_cache_expire(240); // chache 4h
-session_name("feindura_backendSession");
+session_name("feindura");
 session_start();
 
 // INCLUDES
@@ -29,7 +29,7 @@ require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
 // GET FUNCTIONS
 $generalFunctions = new generalFunctions();
-$statisticFunctions = new statisticFunctions();
+$statisticFunctions = new statisticFunctions($generalFunctions);
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
 $errorWindow = false;

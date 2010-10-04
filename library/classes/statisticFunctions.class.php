@@ -30,9 +30,10 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 0.60
+* @version 0.61
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.61 doesnt extend generalFunctions anymore, no creates an instance of it
 *    - 0.60 add hasVistiCache()
 *    - 0.59 savePageStats(): prevent save searchwords to be counted miltuple times
 *    - 0.58 fixed isSpider() and saveWebsiteStatistic()
@@ -40,7 +41,7 @@
 *    - 0.56 started documentation
 * 
 */ 
-class statisticFunctions extends generalFunctions {
+class statisticFunctions {
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES *** */
@@ -48,7 +49,25 @@ class statisticFunctions extends generalFunctions {
  
  // PUBLIC
  // *********
+ 
+  /**
+  * Contains the administrator-settings config <var>array</var>
+  * 
+  * @var array
+  * @see generalFunctions()
+  * 
+  */ 
+  var $adminConfig;
   
+  /**
+  * Contains the category-settings config <var>array</var>
+  * 
+  * @var array
+  * @see generalFunctions()
+  * 
+  */ 
+  var $categoryConfig;
+ 
  /**
   * Contains the website-statistic <var>array</var>
   * 
@@ -73,6 +92,19 @@ class statisticFunctions extends generalFunctions {
   */ 
   var $statisticConfig = array();
   
+ /**
+  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>
+  * 
+  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br />   
+  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link statisticFunctions()} constructor.
+  * 
+  * @var class
+  * @see feinduraBase()
+  * @see generalFunctions::generalFunctions()
+  *   
+  */
+  var $generalFunctions;
+  
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -87,20 +119,25 @@ class statisticFunctions extends generalFunctions {
   *    - <var>$websiteStatistic</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$statisticConfig</var> the statistic-settings config (included in the {@link general.include.php})
   * 
+  * @param object $generalFunctions (optional) an instance of the generalFunctions class or FALSE
+  * 
   * @return void
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 add $adminConfig and $categoryConfig and creates an instance of the generalFunctions class
   *    - 1.0 initial release
   * 
   */ 
-  function statisticFunctions() {
+  function statisticFunctions($generalFunctions = false) {
 
     // run the parent class constructor
-    $this->generalFunctions();
+    $this->generalFunctions = (is_a($generalFunctions,'generalFunctions')) ? $generalFunctions : new generalFunctions();
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
+    $this->adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
+    $this->categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
     $this->websiteStatistic = (isset($GLOBALS["websiteStatistic"])) ? $GLOBALS["websiteStatistic"] : $GLOBALS["feindura_websiteStatistic"];
     $this->statisticConfig = (isset($GLOBALS["statisticConfig"])) ? $GLOBALS["statisticConfig"] : $GLOBALS["feindura_statisticConfig"];
   }
@@ -503,7 +540,7 @@ class statisticFunctions extends generalFunctions {
       $object = ($object) ? '|#|'.$object : false;
       
       // -> create the new log string
-      $newLog = time().'|#|'.$_SESSION['feindurLogin'][IDENTITY]['username'].'|#|'.$task.$object;
+      $newLog = time().'|#|'.$_SESSION['feinduraLogin'][IDENTITY]['username'].'|#|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    
@@ -621,7 +658,6 @@ class statisticFunctions extends generalFunctions {
   * 
   * @param string $browserString the browsers with their number of visits in a string with the format: "firefox,34|chrome,12"
   * 
-  * @uses $websiteStatistic to get the browsers which visited to the website
   * 
   * @return string|false the browser chart or FALSE
   * 
@@ -990,7 +1026,7 @@ class statisticFunctions extends generalFunctions {
       if(is_array($newdata) && !empty($newdata)) {    
         foreach($newdata as $dataVariable) {
           if($encodeSpecialChars === true) {
-            $dataVariable = $this->cleanSpecialChars($dataVariable,''); // clean special chars
+            $dataVariable = $this->generalFunctions->cleanSpecialChars($dataVariable,''); // clean special chars
             $dataVariable = htmlentities($dataVariable,ENT_QUOTES, 'UTF-8');     
           }
           $newDataArray[] = array('data' => strtolower($dataVariable), 'number' => 1);
@@ -1002,6 +1038,26 @@ class statisticFunctions extends generalFunctions {
       
       return serialize($newDataArray);
     }
+  }
+
+ /**
+  * <b>Name</b> isLoggedUser()<br>
+  * 
+  * Check if the current session user is logged into the feindura backend
+  * 
+  * 
+  * @return bool TRUE if the surrent user is logged in, otherwise false
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function isLoggedUser() {
+    return (isset($_SESSION['feinduraLogin'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn']) &&
+            $_SESSION['feinduraLogin'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn'])
+      ? true : false;
   }
   
  /**
@@ -1215,6 +1271,10 @@ class statisticFunctions extends generalFunctions {
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
+      
+    // doesnt save anything if visitor is a logged in user
+    if($this->isLoggedUser())
+      return false;
     
     // refresh the visit cache
     $hasVisitCache = $this->hasVisitCache();
@@ -1317,7 +1377,7 @@ class statisticFunctions extends generalFunctions {
           foreach($_SESSION['log_lastPages'] as $log_lastPage) {
           
             // load the last page again
-            $lastPage = $this->readPage($log_lastPage,$this->getPageCategory($log_lastPage));
+            $lastPage = $this->generalFunctions->readPage($log_lastPage,$this->generalFunctions->getPageCategory($log_lastPage));
             
             $orgVisitTime = time() - $_SESSION['log_lastPage_timestamp'];
             // makes a time out of seconds
@@ -1386,7 +1446,7 @@ class statisticFunctions extends generalFunctions {
             // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
             if($seconds > 5 && // save only pages which where visited longer than 5 seconds
                @file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].$category.$lastPage['id'].'.php'))
-              $this->savePage($lastPage);
+              $this->generalFunctions->savePage($lastPage);
           }
           
           // -> clear the lastPages IDs, after saved their visit time
@@ -1443,6 +1503,10 @@ class statisticFunctions extends generalFunctions {
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
+      
+    // doesnt save anything if visitor is a logged in user
+    if($this->isLoggedUser())
+      return false;
 
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
@@ -1451,7 +1515,7 @@ class statisticFunctions extends generalFunctions {
        (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = $this->isSpider()) === false)) {
          
       // CHECK if the $pageContent parameter is a valid $pageContent array
-      if($this->isPageContentArray($pageContent) === false)
+      if($this->generalFunctions->isPageContentArray($pageContent) === false)
         return false;
       
       // STORE last visited page IDs in a session array and the time
@@ -1526,7 +1590,7 @@ class statisticFunctions extends generalFunctions {
       }
       
       // -> SAVE the PAGE STATISTICS
-      return $this->savePage($pageContent);
+      return $this->generalFunctions->savePage($pageContent);
       
     } else
       return false;

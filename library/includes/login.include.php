@@ -41,8 +41,8 @@ if(isset($_POST) && $_POST['action'] == 'login') {
   
     if(!empty($_POST['username']) && array_key_exists($_POST['username'],$userConfig)) {
       if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
-        $_SESSION['feindurLogin'][IDENTITY]['username'] = $_POST['username'];
-        $_SESSION['feindurLogin'][IDENTITY]['loggedIn'] = true;
+        $_SESSION['feinduraLogin'][IDENTITY]['username'] = $_POST['username'];
+        $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
       } else
         $loginError = $langFile['login_error_wrongPassword'];
     } else
@@ -50,15 +50,15 @@ if(isset($_POST) && $_POST['action'] == 'login') {
       
   // -> if no users exist
   } elseif(empty($_POST['username'])) {
-    $_SESSION['feindurLogin'][IDENTITY]['username'] = $_POST['username'];
-    $_SESSION['feindurLogin'][IDENTITY]['loggedIn'] = true;
+    $_SESSION['feinduraLogin'][IDENTITY]['username'] = $_POST['username'];
+    $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
   } else
     $loginError = $langFile['login_error_wrongUser'];
 }
 
 // -> LOGOUT
 if(isset($_GET['logout'])) {
-  unset($_SESSION['feindurLogin'][IDENTITY]['username'],$_SESSION['feindurLogin'][IDENTITY]['loggedIn']);
+  unset($_SESSION['feinduraLogin'][IDENTITY]['username'],$_SESSION['feinduraLogin'][IDENTITY]['loggedIn']);
   $loggedOut = true;
 }
 
@@ -105,7 +105,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
 
 // ->> CHECK if user is logged in
 // *****************************************************
-if($_SESSION['feindurLogin'][IDENTITY]['loggedIn'] === true) {
+if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
    
    // does nothing :-)
 

@@ -27,7 +27,7 @@
 */
 
 // -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
-session_name("statisticId");
+session_name("feindura");
 session_start();
 
 // -> CHECKS if cookies are enabled

@@ -254,7 +254,7 @@ class feinduraBase {
     
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();
-    $this->statisticFunctions = new statisticFunctions();
+    $this->statisticFunctions = new statisticFunctions($this->generalFunctions);
     
     // save the website statistics
     // ***************************

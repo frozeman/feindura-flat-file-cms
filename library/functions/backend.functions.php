@@ -120,7 +120,7 @@ function isAdmin() {
   
   if(!empty($GLOBALS['userConfig'])) {
     
-    $username = $_SESSION['feindurLogin'][IDENTITY]['username'];
+    $username = $_SESSION['feinduraLogin'][IDENTITY]['username'];
     
     // check if the user exists
     if(array_key_exists($username,$GLOBALS['userConfig'])) {
