@@ -206,7 +206,7 @@ class generalFunctions {
         $useLangPath = DOCUMENTROOT.$useLangPath;
         
       } else
-        $langPath = DOCUMENTROOT.$this->adminConfig['basePath'].'library/languages/';
+        $langPath = dirname(__FILE__).'/../languages/';
        
       // -> read language folder
       $langFiles = $this->readFolderRecursive($langPath);

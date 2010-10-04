@@ -1000,7 +1000,7 @@ class feindura extends feinduraBase {
       $metaTags .= "\n";
       
       // -> add plugin-stylesheets
-      $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
+      $plugins = $this->generalFunctions->readFolder(dirname(__FILE__).'/../../plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
         $pluginName = basename($pluginFolder);
 
@@ -1860,9 +1860,9 @@ class feindura extends feinduraBase {
 
                 // -> include the plugin
           		  if($singlePlugin)
-          		    return include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
+          		    return include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
           		  else  
-                  $pluginsReturn[$pluginName] = include(DOCUMENTROOT.$this->adminConfig['basePath'].'plugins/'.$pluginName.'/include.php');
+                  $pluginsReturn[$pluginName] = include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
               }
             }
           }         

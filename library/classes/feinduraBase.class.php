@@ -316,7 +316,7 @@ class feinduraBase {
   function loadFrontendLanguageFile($language) {
     
     // creates the frontend language file path
-    $languageFile = DOCUMENTROOT.$this->adminConfig['basePath'].'library/languages/'.$language.'.frontend.php';
+    $languageFile = dirname(__FILE__).'/../languages/'.$language.'.frontend.php';
     
     // includes the langFile
     if(file_exists($languageFile)) {

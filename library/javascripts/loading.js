@@ -103,14 +103,15 @@ window.addEvent('load', function() {
         if(lastLoadingTween) {
           //removeLoadingCircle();
           loadingBox.set('html','');
-          //$('loadingBox').setStyle('display','none');
-          //$('loadingBox').setStyle('opacity','1');
+          $('loadingBox').setStyle('display','none');
+          $('loadingBox').setStyle('','1');
           $('loadingBox').removeEvents();
         }
     }); 
         
     window.addEvent('domready', function() {
-        $('loadingBox').fade('out');
+        //$('loadingBox').fade('out');
+        $('loadingBox').tween('opacity','0');
         lastLoadingTween = true;
     });
   }
@@ -122,7 +123,7 @@ window.addEvent('load', function() {
 */
 window.addEvent('unload',  function() {
   //loadingCircle(true);
-  
+
   var loadingBox = $$('#loadingBox .content')[0];
   
   // empties the loadingBox, and refill with the loadingCircle
@@ -130,8 +131,11 @@ window.addEvent('unload',  function() {
     loadingBox.set('html','');
     loadingBox.grab(loadingCircleContent,'top');
     //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");    
-
-    $('loadingBox').fade('in');
+    
+    //$('loadingBox').fade('in');
+    $('loadingBox').setStyle('display','block');
+    $('loadingBox').setStyle('opacity','0');
+    $('loadingBox').tween('opacity','1');    
   }  
 });
 
