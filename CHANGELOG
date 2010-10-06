@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 404
+Build 405
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 405: changed session lifetime to 180min for the backend and 60min for the frontend
   build 404: used only dirname(__FILE__), $aminConfig['basePath'] instead of  ro reference other feindura files in frontend files
   build 403: statisticFunctions doesn't extend generalFunctions class anymore, changed logout button graphic
   build 402: fixed expire time of the session and login.include.php

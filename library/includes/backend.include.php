@@ -18,8 +18,7 @@
 */
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
-session_cache_limiter('private');
-session_cache_expire(240); // chache 4h
+ini_set('session.gc_maxlifetime', 10800); // saves the session for 180 minutes
 session_name("feindura");
 session_start();
 

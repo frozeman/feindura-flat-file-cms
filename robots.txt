@@ -1,7 +1,9 @@
 User-agent: *
+Disallow: library/
 Disallow: config/
 Disallow: statistic/
-Disallow: library/
-Disallow: ../
+Disallow: plugins/
+Disallow: addons/
+Disallow: modules/
 Disallow: ../../
 

@@ -27,6 +27,7 @@
 */
 
 // -> starts a SESSION; needed to prevent multiple counting of the visitor in the statistics
+ini_set('session.gc_maxlifetime', 3600); // saves the session for 60 minutes
 session_name("feindura");
 session_start();
 
