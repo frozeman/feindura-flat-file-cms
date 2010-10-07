@@ -21,7 +21,7 @@ $adminConfig['user']['info'] =             '';
 $adminConfig['setStartPage'] =          true;
 $adminConfig['pages']['createdelete'] = true;
 $adminConfig['pages']['thumbnails'] =   false;
-$adminConfig['pages']['plugins'] =      true;
+$adminConfig['pages']['plugins'] =      false;
 $adminConfig['pages']['showtags'] =     false;
 
 $adminConfig['editor']['enterMode'] =  'p';

@@ -69,7 +69,7 @@ var basename = function(path, suffix) {
 // whenever a new directory is selected.
 var setUploader = function(path){
 	$('#currentpath').val(path);
-	$('#uploader h1').text(lg.current_folder + disp(path));
+	$('#uploader h1').text(lg.current_folder + path); //disp(path)
 
 	$('#newfolder').unbind().click(function(){
 		var foldername =  lg.default_foldername;

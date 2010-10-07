@@ -386,7 +386,20 @@ function inBlockTableSlider() {
   }
 }
 
-/* scrollToAnchor function*/
+/* pageWasEdited function 
+adds a * to the head and the sideBarMenu link of the page, to show that the page was modified, but not saved yet */
+function pageWasEdited() {
+  if($('editorForm') != null) {
+    var menuPageId = 'menu' + $('editorForm').get('class');
+    var pageH1 = $$('#editorForm .pageHead h1')[0];
+    // adds a * to the leftSideBar menu page name
+    $(menuPageId).set('text',$(menuPageId).get('text') + ' *');
+    // adds a * to the edit page h1
+    pageH1.set('html',pageH1.get('html') + ' *');
+  }
+}
+
+/* scrollToAnchor function */
 var scrollToAnchor = function(){ new Fx.Scroll(window,{duration:100}).start(0,this.getPosition().y - 50); };
 
 // *---------------------------------------------------------------------------------------------------*
@@ -895,7 +908,7 @@ window.addEvent('domready', function() {
     //CKEDITOR.config.disableNativeSpellChecker = false;
     
     CKEDITOR.config.toolbar = [
-                              ['Save','Preview','-','Maximize','-','Source'],
+                              ['Save','-','Maximize','-','Source'],
                               ['Undo','Redo','-','RemoveFormat','SelectAll'],
                               ['Cut','Copy','Paste','PasteText','PasteFromWord'],
                               ['Find','Replace','-','Print','SpellChecker', 'Scayt'],
@@ -911,19 +924,9 @@ window.addEvent('domready', function() {
                               ['ShowBlocks','-','About']
                               ];		// No comma for the last row.
   
-      
-    
     // ----------------------------------------------------------------------
     // CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
-  	CKEDITOR.replace('HTMLEditor',{
-  	  
-    });
-
-    
-    // ADDS the CKFinder as filemanager to the CKEditor
-    //CKFinder.SetupCKEditor(CKEDITOR, 'library/thirdparty/ckfinder/');
-    
-    
+  	CKEDITOR.replace('HTMLEditor');  
      
   }
   
@@ -1015,4 +1018,19 @@ window.addEvent('domready', function() {
       	});
      }
   }
+  
+  // -----------------------------------------
+  // ->> CHECKS if changes in the editor page was made
+  
+  // CHECK if fields are changed
+  $$('#editorForm input, #editorForm textarea').each(function(formfields){
+    formfields.addEvent('change',function() {
+      pageWasEdited();
+    });
+  });
+  // CHECK if the HTMLeditor content was changed
+  CKEDITOR.instances.HTMLEditor.on('blur',function() {
+    if(CKEDITOR.instances.HTMLEditor.checkDirty())
+      pageWasEdited();
+  });
 });

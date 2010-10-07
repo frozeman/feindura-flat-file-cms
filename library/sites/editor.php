@@ -186,7 +186,7 @@ if($newPage) {
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 // ->> SHOW the FORM
-echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8" id="editorForm">
+echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8" id="editorForm" class="PageId'.$pageContent['id'].'">
       <div>
       <input type="hidden" name="save" value="true" />
       <input type="hidden" name="category" value="'.$category.'" />

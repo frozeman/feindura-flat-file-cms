@@ -56,7 +56,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span></a></li>';
+          echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.' id="menuPageId'.$page['id'].'"><span>'.$page['title'].'</span></a></li>';
         }        
       } else {
         echo '<li><a href="#"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
@@ -116,7 +116,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span></a></li>';
+          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.' id="menuPageId'.$page['id'].'"><span>'.$page['title'].'</span></a></li>';
         }       
       } else {
         echo '<li><a href="#"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';

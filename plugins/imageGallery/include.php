@@ -16,11 +16,11 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /** 
- * The include file for the imageGallery plugin  
+ * The include file for the contactForm plugin  
  * 
  * Generates the plugin with the <var>$pluginConfig</var> array,
- * which comes from the <var>$pageContent</var> array in the {@link feindura::showPlugins()} method
- * and therefor also available in this file.
+ * which is the config Array from this plugin, saved in the respective page and comes from the <var>$pageContent</var> array.
+ * Included in the {@link feindura::showPlugins()} method and is therefor available in this file, because this file will be included in the {@link feindura::showPlugins()}.
  * 
  * The following variables are available in this script when it gets include by the {@link feindura::showPlugins()} method:
  *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin

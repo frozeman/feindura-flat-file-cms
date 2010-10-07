@@ -60,7 +60,7 @@ include(dirname(__FILE__)."/../../includes/login.include.php");
 		<?php $adminConfig = include(dirname(__FILE__).'/../../../config/admin.config.php');?>
 		
       // Set culture to display localized messages
-      var culture = '<?php echo (isset($_SESSION['language'])) ? $_SESSION['language'] : 'ss'; ?>';
+      var culture = '<?php echo (isset($_SESSION['language'])) ? $_SESSION['language'] : 'en'; ?>';
       
       // Autoload text in GUI
       var autoload = true;

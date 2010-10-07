@@ -13,8 +13,8 @@
  */
 
 // -> START SESSION (for the language)
-session_cache_limiter(60);
-session_name("feinduraBackend");
+ini_set('session.gc_maxlifetime', 10800); // saves the session for 180 minutes
+session_name("feindura");
 session_start();
 
 $adminConfig = include(dirname(__FILE__).'/../../../../../config/admin.config.php');
@@ -39,7 +39,7 @@ $config['culture'] = (isset($_SESSION['language'])) ? $_SESSION['language'] : 'e
  *	PHP date format
  *	see http://www.php.net/date for explanation
  */
-$config['date'] = 'd M Y H:i';
+$config['date'] = 'd.M.Y H:i';
 
 /**
  *	Icons settings
