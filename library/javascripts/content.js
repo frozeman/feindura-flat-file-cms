@@ -19,12 +19,9 @@
 // vars
 var deactivateType = 'disabled'; // disabled/readonly
 var myCfe;
+var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
 
-
-
-// *** ->> TOOLTIPS - functions -----------------------------------------------------------------------------------------------------------------------
- 
-// !!!! TOOLTIPS IN IE DEACTIVATED, WAITING FOR mootools UPDATE !!!!
+/* GENERAL FUNCTIONS */
 
 /* str_replace funktion */
 function is_array(value) {
@@ -44,6 +41,8 @@ function str_replace(s, r, c) {
    }
    return c;
 }
+
+// *** ->> TOOLTIPS - functions -----------------------------------------------------------------------------------------------------------------------
 
 /* set toolTips to all objects with a toolTip class */
 function setToolTips() {
@@ -66,7 +65,6 @@ function setToolTips() {
   	}
 
 	});
-
   
   /* add Tooltips */
   var toolTips = new Tips('.toolTip',{
@@ -386,16 +384,14 @@ function inBlockTableSlider() {
   }
 }
 
-/* pageWasEdited function 
+/* pageChangedSign function 
 adds a * to the head and the sideBarMenu link of the page, to show that the page was modified, but not saved yet */
-function pageWasEdited() {
-  if($('editorForm') != null) {
-    var menuPageId = 'menu' + $('editorForm').get('class');
-    var pageH1 = $$('#editorForm .pageHead h1')[0];
-    // adds a * to the leftSideBar menu page name
-    $(menuPageId).set('text',$(menuPageId).get('text') + ' *');
-    // adds a * to the edit page h1
-    pageH1.set('html',pageH1.get('html') + ' *');
+function pageContentChangedSign() {
+  if($('editorForm') != null && !pageContentChanged) {
+    $$('.notSavedSign' + $('editorForm').get('class')).each(function(notSavedSign) {
+      notSavedSign.setStyle('display','inline');
+    });
+    setToolTips();
   }
 }
 
@@ -459,9 +455,8 @@ window.addEvent('domready', function() {
   });
   
   // -------------------------------------------------------------------------------------------
-  // TOOLTIPS (throws error in IE when tooltTips are in a <form> tag)
-  if(!navigator.appVersion.match(/MSIE ([0-8]\.\d)/))
-    setToolTips();
+  // TOOLTIPS
+  setToolTips();
   
   // *** ->> LISTPAGES -----------------------------------------------------------------------------------------------------------------------
     
@@ -1025,12 +1020,32 @@ window.addEvent('domready', function() {
   // CHECK if fields are changed
   $$('#editorForm input, #editorForm textarea').each(function(formfields){
     formfields.addEvent('change',function() {
-      pageWasEdited();
+      pageContentChangedSign();
+      pageContentChanged = true;
     });
   });
   // CHECK if the HTMLeditor content was changed
-  CKEDITOR.instances.HTMLEditor.on('blur',function() {
-    if(CKEDITOR.instances.HTMLEditor.checkDirty())
-      pageWasEdited();
+  if($('HTMLEditor') != null) {
+    CKEDITOR.instances.HTMLEditor.on('blur',function() {
+      if(CKEDITOR.instances.HTMLEditor.checkDirty())
+        pageContentChangedSign();
+        pageContentChanged = true;
+    });
+  }
+  
+  // throw a warning when user want to leave the page and the page content was changed
+  $$('a').each(function(links) {    
+    // only on external links, or the sideBarMenu category selection
+    if((links.get('onclick') == null || (links.get('onclick') != null && links.get('onclick').toString().substr(0,18) == 'requestLeftSidebar')) &&
+        links.get('href') != null &&
+        links.get('href').toString().indexOf('#') == -1) {
+
+      links.addEvent('click',function(e) {
+        if(pageContentChanged) {
+          e.stop();
+          openWindowBox('library/sites/windowBox/unsavedPage.php?target=' + escape(e.target.get('href')),false,false);
+        }
+      });
+    }    
   });
 });

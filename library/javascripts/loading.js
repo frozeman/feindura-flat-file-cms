@@ -149,7 +149,7 @@ window.addEvent('domready', function() {
   layoutFix();
   
   // IE HACK for dimmContainer
-	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimmContainer') != null) {
 		$('dimmContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
 	}
   

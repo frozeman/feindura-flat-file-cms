@@ -63,7 +63,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
   <title>      
-    feindura > <?php echo $websiteConfig['title']; ?> 
+    feindura: <?php echo $websiteConfig['title']; ?> 
   </title>
   
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -74,7 +74,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
   <meta http-equiv="accept-encoding" content="gzip, deflate" />
   
-  <meta name="title" content="feindura > <?php echo $websiteConfig['title']; ?>" />    
+  <meta name="title" content="feindura: <?php echo $websiteConfig['title']; ?>" />    
   <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
@@ -149,8 +149,8 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
   <script type="text/javascript" src="library/javascripts/divScroller.js"></script>
   <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
-  <script type="text/javascript" src="library/javascripts/content.js"></script>
   <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
+  <script type="text/javascript" src="library/javascripts/content.js"></script>  
   
 </head>
 <body>

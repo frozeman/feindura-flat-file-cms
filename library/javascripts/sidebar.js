@@ -120,11 +120,7 @@ function requestLeftSidebar(category,page,site) {
     data: 'site=' + site + '&category=' + category + '&page=' + page,
     
     //-----------------------------------------------------------------------------
-    onRequest: function() { //-----------------------------------------------------
-        
-        //Clear the boxTop <div>
-    		//$('leftSidebar').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
-    		
+    onRequest: function() { //-----------------------------------------------------		
     	
         // -> TWEEN leftSidebar
         $('leftSidebar').set('tween',{duration: 150});

@@ -29,7 +29,6 @@ include_once(dirname(__FILE__)."/../includes/backend.include.php");
 $loginError = false;
 $loggedOut = false;
 $resetPassword = false;
-DEFINE('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
 //unset($_SESSION);
 
 // ->> LOGIN FORM SEND

@@ -23,8 +23,7 @@ windowBox.css version 0.2 */
 #windowBoxContainer {
     z-index: 10;
     visibility: hidden; /* display: none; */
-    position: absolute;    
-    top: 0px;
+    position: absolute;
     width: 100%;
     height: 100%;
     }
@@ -99,7 +98,7 @@ windowBox.css version 0.2 */
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    color: #888888;
+    color: #668CA6;
     }
 
 #windowBox h2 {

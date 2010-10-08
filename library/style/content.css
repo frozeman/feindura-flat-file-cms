@@ -753,7 +753,7 @@ div.listPagesHead {
 #content .block.pageHead a.pageThumbnailUpload {
     display: block;
     position: absolute;
-    top: 50px;
+    top: 100px;
     right: 50px;
     width: 90px;
     height: 75px; /* org: 40px*/
@@ -916,11 +916,11 @@ span.toolTip, label.toolTip {
     background: url("../images/sign/hint_toolTipInfo.png") no-repeat right center;
     padding-right: 15px;
     }
-
     
-.toolTip.mark {
-    
-    }
+span.toolTip.noMark {
+  background: none;
+  padding-right: auto;
+}
 
 /* --- TOOLTIP BOX */
 

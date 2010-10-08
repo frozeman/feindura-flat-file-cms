@@ -554,6 +554,7 @@ $langFile['editor_pageinfo_category'] = 'cat&eacute;gorie';
 $langFile['editor_pageinfo_category_noCategory'] = 'aucune cat&eacute;gorie (ID 0)';
 
 $langFile['editor_block_edited'] = 'ont &eacute;t&eacute; &eacute;dit&eacute;';
+$langFile['editor_pageNotSaved'] = 'pas sauvegard&eacute;';
 
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'param&egrave;tres';
@@ -599,6 +600,12 @@ $langFile['editor_savepage_error_save'] = '<b>Cette page ne pouvait pas &ecirc;t
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'pr&eacute;f&eacute;rence plugin';
+
+/* ----------------------------------------------------------------------------------------------
+* unsavedPage.php
+*/
+
+$langFile['unsavedPage_question_h1'] = '<span class="brown">La page a &eacute;t&eacute; modifiée.</span><br />Vous voulez sauvegard&eacute; la page maintenant?';
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php

@@ -48,10 +48,7 @@ if($_POST['save']) {
   
   $_POST['description'] = $generalFunctions->prepareStringInput($_POST['description']);
   
-  //$postArray['FCKeditor'] = str_replace("<br />", "<br>", $postArray['FCKeditor'] );
-  //$postArray['FCKeditor'] = str_replace("/>", ">", $postArray['FCKeditor'] );
-  //$postArray['FCKeditor'] = str_replace("'", "\'", $postArray['FCKeditor'] ); //&#039;
-  // entfernt mehrfache leerzeichen hintereinander
+  // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
   $_POST['HTMLEditor'] = str_replace("'", "\'", $_POST['HTMLEditor'] ); //&#039;
   
@@ -92,7 +89,7 @@ if($_POST['save']) {
   
     // speichert den inhalt in der flatfile
     $_POST['lastsavedate'] = time();
-    $_POST['lastsaveauthor'] = $_SERVER["REMOTE_USER"];
+    $_POST['lastsaveauthor'] = $_SESSION['feinduraLogin'][IDENTITY]['username'];
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
@@ -122,19 +119,6 @@ if($_POST['save']) {
     $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
     $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
-
-    /*
-    if(!empty($categoryConfig['id_'.$category]['styleFile'])) { if($_POST['styleFile'] == $categoryConfig['id_'.$category]['styleFile']) $_POST['styleFile'] = ''; } elseif($_POST['styleFile'] == $adminConfig['editor']['styleFile']) { $_POST['styleFile'] = ''; }
-    if(!empty($categoryConfig['id_'.$category]['styleId'])) { if($_POST['styleId'] == $categoryConfig['id_'.$category]['styleId']) $_POST['styleId'] = ''; } elseif($_POST['styleId'] == $adminConfig['editor']['styleId']) { $_POST['styleId'] = ''; }
-    if(!empty($categoryConfig['id_'.$category]['styleClass'])) { if($_POST['styleClass'] == $categoryConfig['id_'.$category]['styleClass']) $_POST['styleClass'] = ''; } elseif($_POST['styleClass'] == $adminConfig['editor']['styleClass']) { $_POST['styleClass'] = ''; }
-    
-    $_POST['styleId'] = str_replace(array('#','.'),'',$_POST['styleId']);
-    $_POST['styleClass'] = str_replace(array('#','.'),'',$_POST['styleClass']);
-   
-    
-    if(!empty($_POST['styleFile']) && substr($_POST['styleFile'],0,1) !== '/')
-          $_POST['styleFile'] = '/'.$_POST['styleFile'];
-    */
     
     // gets the visit status
     $_POST['log_visitCount'] = $pageContent['log_visitCount'];
@@ -186,7 +170,7 @@ if($newPage) {
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 // ->> SHOW the FORM
-echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8" id="editorForm" class="PageId'.$pageContent['id'].'">
+echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$pageContent['id'].'">
       <div>
       <input type="hidden" name="save" value="true" />
       <input type="hidden" name="category" value="'.$category.'" />
@@ -220,25 +204,25 @@ $categorySorting = ($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
   : '';
 
 // -> show the page PAGE HEADLINE
-echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.$categorySorting.'</span>';
+echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.$categorySorting.'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
 
-// -> show LAST SAVE DATE TIME
-$lastSaveDate =  $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['lastsavedate'],$langFile));
-$lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
-
-$editedByUser = (!empty($pageContent['lastsaveauthor']))
-  ? ' '.$langFile['editor_pageinfo_lastsaveauthor'].' '.$pageContent['lastsaveauthor']
-  : '';
-
-echo ($newPage)
-  ? '</h1>'
-  : '<br /><span style="font-size:11px;">[ '.$langFile['editor_pageinfo_lastsavedate'].': '.$lastSaveDate.' '.$lastSaveTime.$editedByUser.' ]</span></h1>';
-  
 ?>
-  <div class="content">
-   
-    <?php 
-    // -> show thumbnail if the page has one
+  <div class="content">   
+    <?php
+    
+    // -> show LAST SAVE DATE TIME
+    $lastSaveDate =  $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['lastsavedate'],$langFile));
+    $lastSaveTime =  $statisticFunctions->formatTime($pageContent['lastsavedate']);
+    
+    $editedByUser = (!empty($pageContent['lastsaveauthor']))
+      ? '</b> '.$langFile['editor_pageinfo_lastsaveauthor'].' <b>'.$pageContent['lastsaveauthor']
+      : '';
+    
+    echo ($newPage)
+      ? ''
+      : '<div style="font-size:11px; text-align:right;">'.$langFile['editor_pageinfo_lastsavedate'].': <b>'.$lastSaveDate.' '.$lastSaveTime.$editedByUser.'</b></div>';
+      
+    // -> show THUMBNAIL if the page has one
     if(!empty($pageContent['thumbnail'])) {
       
       $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
@@ -251,7 +235,7 @@ echo ($newPage)
         //$thumbnailWidth = ' width="'.$thumbnailWidth.'"';
         
       
-      echo '<div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
+      echo '<br /><div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
       echo '<span class="thumbnailToolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
       echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
       echo '</div>';

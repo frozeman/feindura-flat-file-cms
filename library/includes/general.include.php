@@ -17,7 +17,7 @@
 /**
  * This file includes all necessary <var>classes</var> and configs for the use in the FRONTEND and the BACKEND
  *
- * @version 0.14
+ * @version 0.15
  */
 
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
@@ -26,6 +26,12 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
  * The absolut path of the webserver
  */ 
 define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
+
+/**
+ * The identity of the user
+ */ 
+define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
+
 
 $phpTags = file(dirname(__FILE__)."/../process/phptags.txt"); 
 /**

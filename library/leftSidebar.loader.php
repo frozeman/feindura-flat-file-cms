@@ -24,9 +24,10 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 // to activate toolTips after reloading with ajax (doesn't work)
 /*
 echo '<!-- thirdparty/MooTools -->
-      <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4-core.js"></script>
-      <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
-      <script type="text/javascript" src="library/javascripts/toolTips.js"></script>
+      <script type="text/javascript" src="thirdparty/javascripts/mootools-1.2.4-core.js"></script>
+      <script type="text/javascript" src="thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
+      <script type="text/javascript" src="javascripts/toolTips.js"></script>
+      <script type="text/javascript" src="javascripts/content.js"></script>
       ';
 */
 
@@ -56,7 +57,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.' id="menuPageId'.$page['id'].'"><span>'.$page['title'].'</span></a></li>';
+          echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
         }        
       } else {
         echo '<li><a href="#"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
@@ -116,7 +117,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.' id="menuPageId'.$page['id'].'"><span>'.$page['title'].'</span></a></li>';
+          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
         }       
       } else {
         echo '<li><a href="#"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';

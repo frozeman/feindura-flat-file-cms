@@ -21,8 +21,8 @@ include_once(dirname(__FILE__).'/../../includes/backend.include.php');
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // QUESTION
-echo '<h1>'.$langFile['pageSetup_deletCategory_question_part1'].' &quot;<span style="color:#000000;">'.$categoryConfig['id_'.$_GET['category']]['name'].'</span>&quot; '.$langFile['pageSetup_deletCategory_question_part2'].'</h1>';
-echo '<h2 style="color:#960000; text-align:center;">'.$langFile['pageSetup_deleteCategory_warning'].'</h2>';
+echo '<h1 class="red">'.$langFile['pageSetup_deletCategory_question_part1'].' &quot;<span style="color:#000000;">'.$categoryConfig['id_'.$_GET['category']]['name'].'</span>&quot; '.$langFile['pageSetup_deletCategory_question_part2'].'</h1>';
+echo '<h2 style="color:#A02F00; text-align:center;">'.$langFile['pageSetup_deleteCategory_warning'].'</h2>';
 
 ?>
 <div>

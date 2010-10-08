@@ -676,6 +676,7 @@ $langFile['editor_pageinfo_category'] = 'Kategorie';
 $langFile['editor_pageinfo_category_noCategory'] = 'keine Kategorie (ID 0)';
 
 $langFile['editor_block_edited'] = 'wurden bearbeitet';
+$langFile['editor_pageNotSaved'] = 'noch nicht gespeichert';
 
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'Einstellungen';
@@ -725,6 +726,12 @@ $langFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Einstellungen';
+
+/* ----------------------------------------------------------------------------------------------
+* unsavedPage.php
+*/
+
+$langFile['unsavedPage_question_h1'] = '<span class="brown">Die Seite wurde ver&auml;ndert.</span><br />Willst du die Seite jetzt speichern?';
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php

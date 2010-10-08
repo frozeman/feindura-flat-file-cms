@@ -678,6 +678,7 @@ $langFile['editor_pageinfo_category'] = 'Category';
 $langFile['editor_pageinfo_category_noCategory'] = 'no category (ID 0)';
 
 $langFile['editor_block_edited'] = 'were edited';
+$langFile['editor_pageNotSaved'] = 'not saved';
 
 // ---------- page settings
 $langFile['editor_pageSettings_h1'] = 'Settings';
@@ -727,6 +728,12 @@ $langFile['editor_savepage_error_save'] = '<b>The page could not be saved.</b>'.
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Settings';
+
+/* ----------------------------------------------------------------------------------------------
+* unsavedPage.php
+*/
+
+$langFile['unsavedPage_question_h1'] = '<span class="brown">The page has been changed.</span><br />Do you want to save the page now?';
 
 /* ----------------------------------------------------------------------------------------------
 * deletePage.php

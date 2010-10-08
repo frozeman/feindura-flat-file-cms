@@ -36,11 +36,10 @@ function openWindowBox(site,siteTitle,fixed) {
       
       // if fixed is true, than the window positon is relative,
       // means its fixed in the document, and NOT scrolling with the user
-      if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+      if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
         $('windowBox').setStyle('position','relative');
-      } else {
+      else
         $('windowBox').setStyle('position','fixed');
-      }
       
       // set the display to block
       $('windowBoxContainer').fade('show');
@@ -49,8 +48,7 @@ function openWindowBox(site,siteTitle,fixed) {
       // set the fade
       $('windowBox').set('opacity','0');  			
       $('windowBox').tween('opacity','1');
-		  $('windowRequestBox').slide('show');
-		  
+		  $('windowRequestBox').slide('show');		  
 
       // IE HACK, wont bring the bottom div to the top
 			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
@@ -294,7 +292,7 @@ function finishUpload(frameHeight) {
 window.addEvent('domready', function() {
 
   // -> CLOSE WINDOW BOX by clicking the windowBoxContainer
-  $('windowBoxContainer').addEvent('mouseup',function(e){    
+  $('windowBoxContainer').addEvent('click',function(e) {
     if(e.target.getProperty('id') == 'windowBoxContainer')
     closeWindowBox();
   });

@@ -38,7 +38,7 @@ if($category == 0)
 
 // QUESTION
 if(is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
-  $question = '<h1>'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
+  $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {
