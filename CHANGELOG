@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 407
+Build 408
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 408: fixed add styleFile input and created showStyleFileInputs() function
   build 407: add a warning when leaving an unsaved page
   build 406: adds a * to the page headline and sideBarMenu link to show that the page was not saved yet
   build 405: changed session lifetime to 180min for the backend and 60min for the frontend

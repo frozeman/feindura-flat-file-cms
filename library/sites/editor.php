@@ -928,14 +928,10 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <?php
+      
+      echo showStyleFileInputs(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
-      if(($styleFileInputs = unserialize(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']))) !== false) {
-        foreach($styleFileInputs as $styleFileInput) {
-          echo '<input name="styleFile[]" value="'.$styleFileInput.'" />';
-        }
-      }
-      ?>
-      <input name="styleFile[]" value="" class="noResize" />
+      ?>      
       </div>
       <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
       </td></tr>

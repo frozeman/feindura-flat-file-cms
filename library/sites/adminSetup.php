@@ -538,20 +538,16 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_editorStyleFile"><span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'] ?>">
-      <?php echo $langFile['stylesheet_name_styleFile'] ?></span></label>
+      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'] ?>">
+      <?php echo $langFile['stylesheet_name_styleFile'] ?></span>
       </td><td class="right">
       <div id="adminStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>::">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <?php      
       
-      if(($styleFileInputs = unserialize($adminConfig['editor']['styleFile'])) !== false) {
-        foreach($styleFileInputs as $styleFileInput) {
-          echo '<input id="cfg_editorStyleFile" name="cfg_editorStyleFile[]" value="'.$styleFileInput.'" />';
-        }
-      }
+      echo showStyleFileInputs($adminConfig['editor']['styleFile'],'cfg_editorStyleFile');
+
       ?>
-      <input id="cfg_editorStyleFile" class="noResize" name="cfg_editorStyleFile[]" value="" />
       </div>
       <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
       </td></tr>

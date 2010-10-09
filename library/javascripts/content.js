@@ -116,8 +116,8 @@ function addField(containerId,inputName) {
   //var newInput = new Element('input', {name: inputName});
   
   if(containerId && $(containerId) != null) {
-    $(containerId).set('html',$(containerId).get('html') + ' <input name="'+ inputName +'" />');
-		//$(containerId).grab(newInput,'bottom');
+    var newInput  = new Element('input', {name: inputName});
+    $(containerId).grab(newInput,'bottom');
 		return true;
   } else
     return false;
@@ -391,7 +391,6 @@ function pageContentChangedSign() {
     $$('.notSavedSign' + $('editorForm').get('class')).each(function(notSavedSign) {
       notSavedSign.setStyle('display','inline');
     });
-    setToolTips();
   }
 }
 

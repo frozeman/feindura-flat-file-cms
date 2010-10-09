@@ -627,19 +627,15 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['pageSetup_advancedSettings_hint'].'</span></td></tr>';
           
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleFile"><span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
-                '.$langFile['stylesheet_name_styleFile'].'</span></label>
+                <span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
+                '.$langFile['stylesheet_name_styleFile'].'</span>
                 </td><td class="right">
                 <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 <span class="hint" style="float:right;width:190px;">'.$langFile['stylesheet_styleFile_example'].'</span>';
-                  
-                if(($styleFileInputs = unserialize(getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']))) !== false) {
-                  foreach($styleFileInputs as $styleFileInput) {
-                    echo '<input id="categories'.$category['id'].'styleFile" name="categories['.$category['id'].'][styleFile][]" value="'.$styleFileInput.'" />';
-                  }
-                }
-          echo '<input id="categories'.$category['id'].'styleFile" class="noResize" name="categories['.$category['id'].'][styleFile][]" value="" />
-                </div>
+                
+          echo showStyleFileInputs(getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
+
+          echo '</div>
                 <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['stylesheet_styleFile_addButton_tip'].'::"></a>              
                 </td></tr>';
                 

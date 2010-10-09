@@ -972,6 +972,42 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
 }
 
 /**
+ * <b>Name</b> showStyleFileInputs()<br />
+ * 
+ * Lists the styleFile inputs from a given styleFile data-string.
+ * 
+ * 
+ * @param string   $styleFiles the string with the stylesheet-file path, id or class
+ * @param string   $inputNames  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+ * 
+ * @return string the style File inputs
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function showStyleFileInputs($styleFiles,$inputNames) {
+
+  // var
+  $return = false;
+  
+  if(!empty($styleFiles) &&
+     $styleFiles != 'a:0:{}' &&
+     ($styleFileInputs = unserialize($styleFiles)) !== false) {
+    foreach($styleFileInputs as $styleFileInput) {
+      $return .= '<input name="'.$inputNames.'[]" value="'.$styleFileInput.'" />';
+    }
+  } else
+    $return = '<input class="noResize" name="'.$inputNames.'[]" value="" />';
+  
+  // return the result
+  return $return;
+}
+
+/**
  * <b>Name</b> editFiles()<br />
  * 
  * Generates a editable textfield with a file selection and a input for creating new files.
