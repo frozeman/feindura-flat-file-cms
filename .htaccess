@@ -1,5 +1,3 @@
-Options -Indexes
-
 <IfModule mod_expires.c>
   # turn on the module for this directory
   ExpiresActive on

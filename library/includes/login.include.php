@@ -143,7 +143,7 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
   
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.4.3.js"></script>

@@ -86,8 +86,7 @@ function closeWindowBox(redirectAfter) {
 			$('windowBox').tween('opacity','0');
 			// fades the dimmContainer
       $('dimmContainer').tween('opacity','0');
-			
-			this.removeEvents();
+
     }); 
 	
 	// slides the windowRequestBox out
@@ -96,22 +95,22 @@ function closeWindowBox(redirectAfter) {
   
   // fades the windowBox
   $('windowBox').get('tween').addEvent('complete', function(e) {
-        // set the display of the windowBoxContainerto none;
-       $('windowBoxContainer').fade('hide');
-        
-        this.removeEvents();
-    });
+      // set the display of the windowBoxContainerto none;
+     $('windowBoxContainer').fade('hide');
+      
+      this.removeEvents();
+  });
     
   // fades the dimmContainer // last effect
   $('dimmContainer').get('tween').addEvent('complete', function(e) {
-			   $('dimmContainer').setStyle('display','none');
-			   $$('#windowBox .boxTop').set('html',loadingText);
-			   
-			   this.removeEvents();
-			   
-			   if(redirectAfter)
-			     document.location.href = redirectAfter;
-    });
+		   $('dimmContainer').setStyle('display','none');
+		   $$('#windowBox .boxTop').set('html',loadingText);
+		   
+		   this.removeEvents();
+		   
+		   if(redirectAfter)
+		     document.location.href = redirectAfter;
+  });
     
   return false;
 }

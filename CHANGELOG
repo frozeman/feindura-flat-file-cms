@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 412
+Build 413
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 413: add newest filemanager
   build 412: add CKEditor build 5929
   build 411: fixed login.include.php
   build 410: add french translation for plugins

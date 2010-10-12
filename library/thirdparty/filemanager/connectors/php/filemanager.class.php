@@ -1,5 +1,4 @@
 <?php
-
 /**
  *	Filemanager PHP class
  *
@@ -103,7 +102,6 @@ class Filemanager {
   public function getfolder() {
     $array = array();
     $current_path = $this->doc_root . $this->get['path'];
-
     if(!is_dir($current_path)) {
       $this->error(sprintf($this->lang('DIRECTORY_NOT_EXIST'),$this->get['path']));
     }
@@ -157,14 +155,14 @@ class Filemanager {
     $suffix='';
 
 
-  if(substr($this->get['old'],-1,1)=='/') {
+    if(substr($this->get['old'],-1,1)=='/') {
       $this->get['old'] = substr($this->get['old'],0,(strlen($this->get['old'])-1));
       $suffix='/';
     }
     $tmp = explode('/',$this->get['old']);
     $filename = $tmp[(sizeof($tmp)-1)];
     $path = str_replace('/' . $filename,'',$this->get['old']);
-    
+
     if(file_exists ($this->doc_root . $path . '/' . $this->get['new'])) {
       if($suffix=='/' && is_dir($this->doc_root . $path . '/' . $this->get['new'])) {
         $this->error(sprintf($this->lang('DIRECTORY_ALREADY_EXISTS'),$this->get['new']));
@@ -280,7 +278,7 @@ class Filemanager {
   }
 
   public function preview() {
-    
+
     if(isset($this->get['path']) && file_exists($this->doc_root . $this->get['path'])) {
       header("Content-type: image/" .$ext = pathinfo($this->get['path'], PATHINFO_EXTENSION));
       header("Content-Transfer-Encoding: Binary");
@@ -383,10 +381,10 @@ class Filemanager {
     if (is_array($string)) {
       $cleaned = array();
       foreach ($string as $key => $clean) {
-        $cleaned[$key] = preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $clean);
+        $cleaned[$key] = preg_replace("/[^{$allow}_a-zA-Z0-9]/", '', $clean);
       }
     } else {
-      $cleaned = preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $string);
+      $cleaned = preg_replace("/[^{$allow}_a-zA-Z0-9]/", '', $string);
     }
     return $cleaned;
   }
