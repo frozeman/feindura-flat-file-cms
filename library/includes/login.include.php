@@ -31,9 +31,14 @@ $loggedOut = false;
 $resetPassword = false;
 //unset($_SESSION);
 
+// -> if NO USER EXISTS
+if(empty($userConfig)) {
+  $_SESSION['feinduraLogin'][IDENTITY]['username'] = false;
+  $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
+}
+
 // ->> LOGIN FORM SEND
 if(isset($_POST) && $_POST['action'] == 'login') {
-  $userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
 
   // -> if user exits
   if(!empty($userConfig)) {
@@ -46,11 +51,6 @@ if(isset($_POST) && $_POST['action'] == 'login') {
         $loginError = $langFile['login_error_wrongPassword'];
     } else
       $loginError = $langFile['login_error_wrongUser'];
-      
-  // -> if no users exist
-  } elseif(empty($_POST['username'])) {
-    $_SESSION['feinduraLogin'][IDENTITY]['username'] = $_POST['username'];
-    $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
   } else
     $loginError = $langFile['login_error_wrongUser'];
 }

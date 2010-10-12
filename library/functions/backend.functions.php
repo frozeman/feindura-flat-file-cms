@@ -123,19 +123,19 @@ function isAdmin() {
     $username = $_SESSION['feinduraLogin'][IDENTITY]['username'];
     
     // check if the user exists
-    if(array_key_exists($username,$GLOBALS['userConfig'])) {
-      
-      // check if the user is admin
-      return ($GLOBALS['userConfig'][$username]['admin'])
-        ? true
-        : false;
-      
-    } else
-      return false;
-    
+    if(!empty($username)) {
+      if(array_key_exists($username,$GLOBALS['userConfig'])) {
+        
+        // check if the user is admin
+        return ($GLOBALS['userConfig'][$username]['admin'])
+          ? true
+          : false;
+        
+      }
+    }
+  }
   // if no user, all are Admins
-  } else
-    return true;
+  return true;
 }
 
 /**
