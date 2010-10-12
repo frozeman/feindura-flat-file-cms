@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 409
+Build 410
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 410: add french translation for plugins
   build 409: add mootools 1.3, deactivated customformelements for now, until a newer version is available
   build 408: fixed add styleFile input and created showStyleFileInputs() function
   build 407: add a warning when leaving an unsaved page

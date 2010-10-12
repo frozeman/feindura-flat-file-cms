@@ -657,7 +657,6 @@ $langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['
 $langFile['pluginSetup_h1'] = 'Plugins-Settings';
 $langFile['pluginSetup_description'] = 'Plugins provide enhanced capabilities for the pages of the website. You can add the below activated plugins to every page, as far as they are acivated in the <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, in the respective category.<br /><br /><i>The plugins will be included in the website through the <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> method.</i>';
 
-
 $langFile['pluginSetup_editFiles_h1'] = 'Edit files';
 $langFile['pluginSetup_pluginconfig_active'] = 'activate Plugin';
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];

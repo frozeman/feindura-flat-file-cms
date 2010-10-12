@@ -29,21 +29,30 @@
 * --- LOGIN
 */
 
-$langFile['login_username'] = 'Nome d&lsquo;utilisateur';
-$langFile['login_password'] = 'Mot de passe';
+$langFile['login_username'] = 'nom d\'utilisateur';
+$langFile['login_password'] = 'mot de passe';
 $langFile['login_button_login'] = 'LOGIN';
-$langFile['login_info_cookie'] = 'Les cookies doivent &ecirc;tre active';
+$langFile['login_info_cookie'] = 'Cookies doivent &ecirc;tre activ&eacute;s';
 
-$langFile['login_forgotPassword'] = 'Mot de passe oubli&ecirc;?';
+$langFile['login_forgotPassword'] = 'Mot de passe oubli&eacute;?';
+$langFile['login_forgotPassword_back'] = 'Aller au login';
 $langFile['login_button_forgotPassword'] = 'ENVOYER';
+$langFile['login_forgotPassword_email_subject'] = 'mot de passe feindura CMS command&eacute;';
+$langFile['login_forgotPassword_email_message'] = 'Tu as command&eacute; un nouveau mot de passe pour ton feindura - Flat File CMS.
+Le login et ton nouveau mot de passe sont:';
 
-$langFile['login_error_wrongUser'] = 'L&lsquo;utilisateur n&lsquo;existe pas';
-$langFile['login_error_wrongPassword'] = 'mot de passe erron&eacute;';
+$langFile['login_error_forgotPassword_nomail'] = 'Utilisateur na pas laiss&eacute; dadr&egrave;sse &eacute;l&eacute;ctronique.';
+$langFile['login_error_forgotPassword_notsend'] = 'FEHLER<br />pendant lenvoy du nouveau mot de passe pour ladr&egrave;sse &eacute;l&eacute;ctronique de lutilisateur.';
+$langFile['login_error_forgotPassword_notsaved'] = 'FEHLER<br />impossible de sauvegarder le nouveau mot de passe.';
+$langFile['login_error_forgotPassword_success'] = 'Un nouveau mot de passe a &eacute;t&eacute; envoy&eacute; &agrave; ladr&egrave;sse suivante';
 
-$langFile['login_logout_part1'] = 'D&ecirc;connectez-vous avec succ&egrave;s';
-$langFile['login_logout_part2'] = 'Suivant au le site web';
+$langFile['login_error_wrongUser'] = 'utilisateur nexiste pas';
+$langFile['login_error_wrongPassword'] = 'mot de passe incorrect';
 
-$langFile['logout_button_tip'] = 'Cliquez ici pour vous d&eacute;connecter';
+$langFile['login_logout_part1'] = 'd&eacute;connexion avec succ&egrave;s ';
+$langFile['login_logout_part2'] = 'diriger vers site web';
+
+$langFile['logout_button_tip'] = 'Cliquez ici pour vous d&eacute;connectez';
  
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
@@ -531,10 +540,45 @@ $langFile['statisticSetup_clearStatistics_question_h1'] = 'Voulez vous vraiment 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'une erreur s&lsquo;est produite pendant l&lsquo;&eacute;ffacement des statistiques du site web.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 /* ----------------------------------------------------------------------------------------------
+* userSetup.php
+*/
+
+$langFile['userSetup_h1'] = 'administration utilisateur';
+$langFile['userSetup_userSelection'] = 'utilisateur';
+
+$langFile['userSetup_createUser'] = 'cr&eacute;er nouveau utilisateur';
+$langFile['userSetup_createUser_created'] = 'nouveau utilisateur cr&eacute;e';
+$langFile['userSetup_createUser_unnamed'] = 'utilisateur inconnu';
+
+$langFile['userSetup_deleteUser'] = '&eacute;ffacer utilisateur';
+$langFile['userSetup_deleteUser_deleted'] = 'utilisateur &eacute;ffac&eacute;';
+
+$langFile['userSetup_username'] = 'nom dutilisateur';
+$langFile['userSetup_username_missing'] = 'Pas de nom dutilisateur pour ce profil.';
+$langFile['userSetup_password'] = 'mot de passe';
+$langFile['userSetup_password_change'] = 'changer le mot de passe';
+$langFile['userSetup_password_confirm'] = 'r&eacute;peter le mot de passe';
+$langFile['userSetup_password_confirm_wrong'] = 'le deux mot de passe ne correspondent pas.';
+$langFile['userSetup_password_missing'] = 'Pas de nouveau mot de passe pour ce profil.';
+$langFile['userSetup_password_success'] = 'Mot de passe chang&eacute;!';
+$langFile['userSetup_email'] = 'adr&egrave;sse &eacute;l&eacute;ctronique';
+$langFile['userSetup_email_tip'] = 'Si vous avev oubliez votre mot de passe, un email va &ecirc;tre envoy&eacute; avec votre nouveau mot de passe.';
+
+$langFile['userSetup_admin'] = 'administrateur';
+$langFile['userSetup_admin_tip'] = 'D&eacute;finit si lutilisateur poss&egrave;de les droits de ladministrateur.';
+
+$langFile['userSetup_error_create'] = '<b>Un nouveau utilisateur na pas &eacute;t&eacute; cr&eacute;e.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
+$langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
+
+/* ----------------------------------------------------------------------------------------------
 * pluginSetup.php
 */
 
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
+
+$langFile['pluginSetup_h1'] = 'param&egrave;tres plugins';
+$langFile['pluginSetup_description'] = 'Les plugins mettent en disposition des fonctions avanc&eacute;s pour le site web. Les plugins activ&eacute;s peuvent &ecirc;tre attribu&eacute;s &agrave; chaque page, si les plugins <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, sont activ&eacute;s dans la cat&eacute;gorie.<br /><br /><i>Les plugins sur le site web sont implement&eacute;s par cette m&eacute;thode <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a>.</i>';
+
 $langFile['pluginSetup_editFiles_h1'] = 'traiter les fichiers';
 $langFile['pluginSetup_pluginconfig_active'] = 'Plugin activ&eacute;';
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
