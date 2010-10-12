@@ -834,10 +834,11 @@ window.addEvent('domready', function() {
   
   
   // ------------------------------------------------------------
-  // REPLACE the CHECKBOXES
+  // REPLACE the CHECKBOXES  
   
+  /*
   if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-    /* path to a 1x1 pixel transparent gif */
+    // path to a 1x1 pixel transparent gif
     cfe.spacer = "library/thirdparty/customformelements/gfx/spacer.gif";
     
     // create a cfe replacement instance
@@ -873,12 +874,14 @@ window.addEvent('domready', function() {
           })
         }
         */
+        /*
       }
     });
     
     // initialize the replacment
     myCfe.init({scope: $('content')});
   }
+  */
   
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------

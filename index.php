@@ -119,15 +119,15 @@ if($_GET['site'] == 'addons') {
   <!--[if IE 6]><script type="text/javascript" src="library/javascripts/ie.js"></script><![endif]-->
 
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.5-core.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
   
   <!-- thirdparty/AutoGrow (needs MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/autogrow-1.0.js"></script>
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Source/StaticScroller.js"></script>
-	<script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Requires/Element.Pin.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Requires/Element.Pin.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Source/StaticScroller.js"></script>	
 	
 	<!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.4.3.js"></script>
@@ -135,12 +135,12 @@ if($_GET['site'] == 'addons') {
   <!-- thirdparty/CodeMirror -->
   <script type="text/javascript" src="library/thirdparty/javascripts/CodeMirror/js/codemirror.js"></script>
   
-  <!-- thirdparty/CustomFormElements -->
+  <!-- thirdparty/CustomFormElements 
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.replace.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.checkbox.js"></script>
-  <!--<script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.radio.js"></script>-->
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.radio.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script>-->  
   
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>

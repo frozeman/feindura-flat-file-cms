@@ -76,11 +76,11 @@ var divScroller = new Class({
 		
 		var mouseEvent = new Event(event);
 		
-		this.elementScroll = this.element.getScroll();		
+		//this.elementScroll = this.element.getScroll();		
 		this.elementPos = this.element.getPosition();
-		
-    this.elementPosX = this.elementPos.x + this.elementScroll.x;
-    this.elementPosY = this.elementPos.y + this.elementScroll.y;
+
+    this.elementPosX = this.elementPos.x; //+ this.elementScroll.x;
+    this.elementPosY = this.elementPos.y; //+ this.elementScroll.y;
 		
 		if(this.element.getStyle('position') == 'fixed') {
       this.mousePosX = mouseEvent.client.x - this.elementPosX;

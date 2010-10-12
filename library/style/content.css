@@ -209,7 +209,7 @@ content.css version 0.21 */
     text-align: left;
     vertical-align: middle;
     line-height: 23px;
-    }  
+    }
 .block table td.right input {
     width: 300px;
     margin-right: 5px;
@@ -409,6 +409,7 @@ a.up {
     color: #F58218;
     text-decoration: none;
     background: url("../images/sign/link.gif") no-repeat left center;
+    cursor: pointer !important;
     }
 .block p a, #windowBox p a {
   background-position: 0px 4px;
