@@ -945,10 +945,10 @@ class feindura extends feinduraBase {
 
       // -> create TITLE
       if($this->getCurrentPageId() && $currentPage = $this->generalFunctions->readPage($this->page,$this->category))
-        $pageNameInTitle = ' - '.$currentPage['title'];
+        $pageNameInTitle = $currentPage['title'].' - ';
       
       // -> add TITLE
-      $metaTags .= '  <title>'.$this->websiteConfig['title'].$pageNameInTitle.'</title>'."\n\n";
+      $metaTags .= '  <title>'.$pageNameInTitle.$this->websiteConfig['title'].'</title>'."\n\n";
       
       // -> add robots.txt
       if($robotTxt === true)
@@ -969,7 +969,7 @@ class feindura extends feinduraBase {
       $metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
       
       // -> add title
-      $metaTags .= '  <meta name="title" content="'.$this->websiteConfig['title'].$pageNameInTitle.'"'.$tagEnding."\n";
+      $metaTags .= '  <meta name="title" content="'.$pageNameInTitle.$this->websiteConfig['title'].'"'.$tagEnding."\n";
       
       // -> add author
       if($author && is_string($author))
