@@ -99,13 +99,12 @@ window.addEvent('load', function() {
     $('loadingBox').fade('show');
     
     // disply none the documentsaved, after blending in and out
-    $('loadingBox').get('tween').addEvent('complete', function() {   
+    $('loadingBox').get('tween').chain(function() {
         if(lastLoadingTween) {
           //removeLoadingCircle();
           loadingBox.set('html','');
           $('loadingBox').setStyle('display','none');
           $('loadingBox').setStyle('','1');
-          $('loadingBox').removeEvents();
         }
     }); 
         
@@ -125,17 +124,17 @@ window.addEvent('unload',  function() {
   //loadingCircle(true);
 
   var loadingBox = $$('#loadingBox .content')[0];
-  
+   
   // empties the loadingBox, and refill with the loadingCircle
   if(loadingBox != null) {
     loadingBox.set('html','');
     loadingBox.grab(loadingCircleContent,'top');
     //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");    
-    
+
     //$('loadingBox').fade('in');
     $('loadingBox').setStyle('display','block');
-    $('loadingBox').setStyle('opacity','0');
-    $('loadingBox').tween('opacity','1');    
+    $('loadingBox').setStyle('opacity','1');
+    //$('loadingBox').tween('opacity','1');    
   }  
 });
 
@@ -160,7 +159,7 @@ window.addEvent('domready', function() {
   if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {    
   
     // disply none the documentsaved, after blending in and out
-    $('documentSaved').get('tween').addEvent('complete', function() {      
+    $('documentSaved').get('tween').chain(function() {      
         if(lastTween) {
           $('documentSaved').setStyle('display','none');
           $('documentSaved').removeClass('saved');

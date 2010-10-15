@@ -67,7 +67,7 @@ function openWindowBox(site,siteTitle,fixed) {
 function closeWindowBox(redirectAfter) {
       
 	// resize the box by a slide
-	$('windowRequestBox').set('slide', {duration: '250', transition: Fx.Transitions.Pow.easeIn});
+	var SlideWindowBoxClose = new Fx.Slide('windowRequestBox', {duration: '250', transition: Fx.Transitions.Pow.easeIn});
 	$('windowBox').set('fade', {duration: '100', transition: Fx.Transitions.Pow.easeOut});
 	$('dimmContainer').set('fade', {duration: '100', transition: Fx.Transitions.Pow.easeOut});
 	
@@ -77,8 +77,9 @@ function closeWindowBox(redirectAfter) {
 		$$('#windowBox .boxBottom')[0].tween('top','0px');
 	}
 	
-	$('windowRequestBox').get('slide').addEvent('complete', function(e) {
-			// set the html inside the windowRequestBox div back.
+	// slides the windowRequestBox out
+	SlideWindowBoxClose.slideOut().chain(function(){
+      // set the html inside the windowRequestBox div back.
 			$('windowRequestBox').set('html', '');
 			$('windowRequestBox').setStyle('height', 'auto');
 			
@@ -86,30 +87,20 @@ function closeWindowBox(redirectAfter) {
 			$('windowBox').tween('opacity','0');
 			// fades the dimmContainer
       $('dimmContainer').tween('opacity','0');
-
-    }); 
-	
-	// slides the windowRequestBox out
-	$('windowRequestBox').slide('out');
-
+  });
   
-  // fades the windowBox
-  $('windowBox').get('tween').addEvent('complete', function(e) {
+  $('windowBox').get('tween').chain(function(e) {
       // set the display of the windowBoxContainerto none;
      $('windowBoxContainer').fade('hide');
-      
-      this.removeEvents();
   });
-    
-  // fades the dimmContainer // last effect
-  $('dimmContainer').get('tween').addEvent('complete', function(e) {
-		   $('dimmContainer').setStyle('display','none');
-		   $$('#windowBox .boxTop').set('html',loadingText);
-		   
-		   this.removeEvents();
-		   
-		   if(redirectAfter)
-		     document.location.href = redirectAfter;
+  
+  // last effect
+  $('dimmContainer').get('tween').chain(function(e) {
+	   $('dimmContainer').setStyle('display','none');
+	   $$('#windowBox .boxTop').set('html',loadingText);
+	   
+	   if(redirectAfter)
+	     document.location.href = redirectAfter;
   });
     
   return false;
@@ -144,18 +135,15 @@ function requestSite(site,siteTitle,formId) {
     //-----------------------------------------------------------------------------
 		onSuccess: function(html) { //-------------------------------------------------      
       
-      // resize the box by a slide; set the slide
-		  $('windowRequestBox').set('slide', {duration: '300', transition: Fx.Transitions.Pow.easeOut});      
-      $('windowRequestBox').slide('out');
-      
       if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         removeLoadingCircle();
       
-      // ->> on complete fade out, put content
-      $('windowRequestBox').get('slide').addEvent('complete',function(e) {
-        
-        $('windowRequestBox').get('slide').removeEvents();
-        
+      // resize the box by a slide; set the slide
+      var SlideWindowBox = new Fx.Slide('windowRequestBox', {duration: '400', transition: Fx.Transitions.Pow.easeOut});
+      var slidedOut = false;
+      
+      SlideWindowBox.slideOut().chain(function() {
+          
         // fill in the content
   			if(site) {
     			//Clear the text currently inside the results div.
@@ -166,13 +154,7 @@ function requestSite(site,siteTitle,formId) {
   			
   			// fire a event if the page is loaded
   			$('windowBox').fireEvent('loaded',$('windowRequestBox'));
-        
-        // sets the height of the wrapper to auto after the slide,
-        // so that the windowRequestBox, resizes automaticly when content is changing
-        $('windowRequestBox').get('slide').addEvent('complete', function() {
-          if($('windowRequestBox').get('slide').wrapper.offsetHeight != 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-            $('windowRequestBox').get('slide').wrapper.setStyle('height','auto');
-        });
+  
 			  
   			// only when the a new window is opend slide in ------------
   			if(newWindow) {
@@ -203,15 +185,21 @@ function requestSite(site,siteTitle,formId) {
     			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
       			$$('#windowBox .boxBottom')[0].setStyle('top',$('windowRequestBox').getSize().y);
     			}
-        }			
+        }
   			
   			// slides in again
-        $('windowRequestBox').slide('in');
+        this.slideIn();
   			
   			/* set toolTips to all objects with a toolTip class */
   			setToolTips();
-			
-			});
+  			  
+			}).chain(function(){
+        // sets the height of the wrapper to auto after the slide,
+        // so that the windowRequestBox, resizes automaticly when content is changing
+        if(SlideWindowBox.wrapper.offsetHeight != 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+        SlideWindowBox.wrapper.setStyle('height','auto');
+      });
+
 		},
 		//-----------------------------------------------------------------------------
 		//Our request will most likely succeed, but just in case, we'll add an
@@ -230,9 +218,9 @@ function startUploadAnimation() {
   
   // shows the LOADING
   if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
-    $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 80px;'}),'top');
+    $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 100px;'}),'top');
     $('windowBoxDimmer').setStyle('display','block');
-    uploadAnimationElement = loadingCircle('windowBoxDimmer', 30, 50, 12, 10, "#fff");
+    uploadAnimationElement = loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
   } else {
     uploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
     $('windowRequestBox').grab(uploadAnimationElement,'top'); 
@@ -257,7 +245,7 @@ function stopUploadAnimation() {
       // slides in again
         $('windowRequestBox').slide('out');
         
-        $('windowRequestBox').get('slide').addEvent('complete',function(e) {
+        $('windowRequestBox').get('slide').chain(function() {
           $('windowBoxDimmer').setStyle('display','none');
           $('windowRequestBox').slide('in');
         });

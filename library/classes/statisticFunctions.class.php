@@ -1438,8 +1438,8 @@ class statisticFunctions {
               else
                 $newMinVisitTimes = serialize(array(0));
               
-              echo 'MAX -> '.$newMaxVisitTimes.'<br />';
-              echo 'MIN -> '.$newMinVisitTimes.'<br />';
+              //echo 'MAX -> '.$newMaxVisitTimes.'<br />';
+              //echo 'MIN -> '.$newMinVisitTimes.'<br />';
                    
               // -> adds the new max times to the pageContent Array
               $lastPage['log_visitTime_max'] = $newMaxVisitTimes;

@@ -1043,7 +1043,7 @@ window.addEvent('domready', function() {
         links.get('href').toString().indexOf('#') == -1) {
 
       links.addEvent('click',function(e) {
-        if(pageContentChanged) {
+        if(pageContentChanged && e.target.get('href') != null) {
           e.stop();
           openWindowBox('library/sites/windowBox/unsavedPage.php?target=' + escape(e.target.get('href')),false,false);
         }

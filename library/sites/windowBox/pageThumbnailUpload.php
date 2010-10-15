@@ -192,7 +192,7 @@ if($categoryRatio) {
 </div>
 
 <!-- ok button, after upload -->
-<a href="?category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" onclick="closeWindowBox('index.php?site=<?php echo $site; ?>&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
+<a href="?category=<?= $category; ?>&amp;page=<?= $page; ?>" onclick="closeWindowBox('index.php?site=<?= $site; ?>&amp;category=<?= $category; ?>&amp;page=<?= $page; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->
 <iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/process/thumbnailUpload.php"></iframe>

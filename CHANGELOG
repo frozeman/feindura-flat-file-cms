@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 415
+Build 416
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 416: replaced addEvent('complete') with chain(), in windowBox.js and loading.js
   build 415: fixed lastVisitTime saveing, add CKEditor build 5940
   build 414: changed website title order to: page name - website title
   build 413: add newest filemanager
