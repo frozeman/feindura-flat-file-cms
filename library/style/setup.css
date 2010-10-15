@@ -180,7 +180,7 @@ input.short {
     }
     
 input[type="checkbox"], .checkboxes input {
-    width: 10px !important;
+    /*width: 10px !important;*/
     background: none !important;
     border: none !important;
     }

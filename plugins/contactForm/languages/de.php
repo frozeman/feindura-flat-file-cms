@@ -76,7 +76,7 @@ $pluginLangFile['field_email'] = 'E-Mail';
 $pluginLangFile['field_phone'] = 'Telefon';
 $pluginLangFile['field_fax'] = 'Fax';
 $pluginLangFile['field_message'] = 'Nachricht';
-$pluginLangFile['field_chapta'] = '&Uuml;bertrage bitte die Zahl in das Feld';
+$pluginLangFile['field_chapta'] = '&Uuml;bertrage bitte die Zahl in das Feld.';
 $pluginLangFile['button_send'] = 'SENDEN';
 
 $pluginLangFile['message_subject'] = 'Kontaktformular'; // Websitetitle contact form

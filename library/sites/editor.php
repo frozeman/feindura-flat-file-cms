@@ -85,7 +85,7 @@ if($_POST['save']) {
   }
   
   // only save page if no error occured
-  if($errorWindow === false) {  
+  if($errorWindow === false) {
   
     // speichert den inhalt in der flatfile
     $_POST['lastsavedate'] = time();

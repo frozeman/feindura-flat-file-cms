@@ -19,7 +19,7 @@
  * for updating from 
  * 1.0 rc -> o 1.0
  *
- * @version 0.1
+ * @version 0.12
  */
 
 /**
@@ -167,6 +167,29 @@ $newVersion = '1.0';
       return serialize($dataArray);
     }
     
+    function changeVisitTime($oldDataString,$separator) {
+      $dataExploded = explode($separator,$oldDataString);
+      $newDataString = array();
+      
+      
+      foreach($dataExploded as $data) {
+        
+        $hour = substr($time,0,2);
+        $minute = substr($time,3,2);
+        $second = substr($time,6,2);
+        
+        $sec = floor($hour * 3600);
+        $sec += floor($minute * 60);
+        $sec += $second;
+        
+        $newDataString = $sec;
+      }
+      
+      $newDataString = implode($separator,$newDataString);
+      
+      return changeToSerializedData($newDataString,$separator);
+    }
+    
     // and start!
     // *********
     
@@ -243,21 +266,21 @@ $newVersion = '1.0';
         $pageContent['pagedate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
 
       // -> change dataString separator
-      $data = $pageContent['log_visitTime_min'];      
+      $data = $pageContent['log_visitTime_min'];
         if(strpos($data,'|#|') !== false)
-          $pageContent['log_visitTime_min'] = changeToSerializedData($data,'|#|');
+          $pageContent['log_visitTime_min'] = changeVisitTime($data,'|#|');
         elseif(strpos($data,'|') !== false)
-          $pageContent['log_visitTime_min'] = changeToSerializedData($data,'|');
+          $pageContent['log_visitTime_min'] = changeVisitTime($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
-          $pageContent['log_visitTime_min'] = changeToSerializedData($data,' ');
+          $pageContent['log_visitTime_min'] = changeVisitTime($data,' ');
       
       $data = $pageContent['log_visitTime_max'];
         if(strpos($data,'|#|') !== false)
-          $pageContent['log_visitTime_max'] = changeToSerializedData($data,'|#|');
+          $pageContent['log_visitTime_max'] = changeVisitTime($data,'|#|');
         elseif(strpos($data,'|') !== false)
-          $pageContent['log_visitTime_max'] = changeToSerializedData($data,'|');
+          $pageContent['log_visitTime_max'] = changeVisitTime($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
-          $pageContent['log_visitTime_max'] = changeToSerializedData($data,' ');
+          $pageContent['log_visitTime_max'] = changeVisitTime($data,' ');
           
       
       $data = $pageContent['log_searchwords'];
