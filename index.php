@@ -285,13 +285,13 @@ if($_GET['site'] == 'addons') {
     if($generallyCreatePages && $_GET['site'] == 'pages' ||
        (!empty($_GET['page']) &&
        ($_GET['category'] === '0' && $adminConfig['pages']['createdelete']) ||
-        ($_GET['category'] !== '0' && $categoryConfig['id_'.$_GET['category']]['createdelete'])))
+        ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createdelete'])))
       $showCreatePage = true;
     else
       $showCreatePage = false;
     
     // CHECK 1. pageThumbnailUpload
-    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] === '0' && $adminConfig['pages']['thumbnails']) || $categoryConfig['id_'.$_GET['category']]['thumbnail']))
+    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] === '0' && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnail']))
       $showPageThumbnailUpload = true;
     else
       $showPageThumbnailUpload = false;
@@ -311,7 +311,7 @@ if($_GET['site'] == 'addons') {
     <!-- ** CONTENT ************************************************************** -->
     <div id="content"<?php if($showSubFooterMenu) echo 'class="hasSubMenu"'; ?>>      
       <?php
-      
+
       include('library/content.loader.php');
       
       ?>

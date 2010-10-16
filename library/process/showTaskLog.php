@@ -170,7 +170,7 @@ foreach($logContent as $logRow) {
       
       $categoryName = ($categoryId == 0)
         ? $langFile['categories_noncategory_tip']
-        : $categoryConfig['id_'.$categoryId]['name'];
+        : $categoryConfig[$categoryId]['name'];
       
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" title="'.$categoryName.'">'.$generalFunctions->shortenTitle($categoryName, $maxLength).'</a>';
       

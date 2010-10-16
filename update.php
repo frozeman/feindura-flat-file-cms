@@ -110,7 +110,7 @@ $newVersion = '1.0';
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
   <?= $oldVersion ?> &rArr; <?= $newVersion ?><br />
   <br />
-  Your current <span class="feindura"><em>fein</em>dura</span> version is <?= $version[2] ?><br />  
+  Good: Your current <span class="feindura"><em>fein</em>dura</span> version is <?= $version[2] ?>, so we can now proceed with the update.<br />  
   <?php
   
   $updatePossible = ($version[2] == $newVersion) ? true : false;
@@ -133,7 +133,7 @@ $newVersion = '1.0';
 
     ?>
 <div>
-<h2>Do you want to update all pages and configs of <span class="feindura"><em>fein</em>dura</span>, so that they work with feindura <?= $newVersion ?>?</h2>
+<h2>Do you want to update all pages and configs, so that they work with feindura <?= $newVersion ?>?</h2>
 <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="hidden" name="asking" value="true" />
 <input type="submit" value="UPDATE" />
@@ -169,11 +169,9 @@ $newVersion = '1.0';
     
     function changeVisitTime($oldDataString,$separator) {
       $dataExploded = explode($separator,$oldDataString);
-      $newDataString = array();
+      $newDataString = array();      
       
-      
-      foreach($dataExploded as $data) {
-        
+      foreach($dataExploded as $data) {        
         $hour = substr($time,0,2);
         $minute = substr($time,3,2);
         $second = substr($time,6,2);
@@ -183,10 +181,8 @@ $newVersion = '1.0';
         $sec += $second;
         
         $newDataString = $sec;
-      }
-      
-      $newDataString = implode($separator,$newDataString);
-      
+      }      
+      $newDataString = implode($separator,$newDataString);      
       return changeToSerializedData($newDataString,$separator);
     }
     
@@ -203,8 +199,11 @@ $newVersion = '1.0';
           $category['styleFile'] = changeToSerializedData($data,'|#|');
         elseif(strpos($data,'|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|');
-        
-      $newCategoryConfig[$key] = $category;
+      
+      $newKey = str_replace('id_','',$key);
+      $newKey = intval($newKey);
+      
+      $newCategoryConfig[$newKey] = $category;
     }    
     if(saveCategories($newCategoryConfig))
       echo 'categoryConfig <span class="succesfull">succesfully updated</span><br />';

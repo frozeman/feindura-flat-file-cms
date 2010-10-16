@@ -844,7 +844,7 @@ class generalFunctions {
         
         // sorts the category
         if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-          if($categoryId != 0 && $this->categoryConfig['id_'.$categoryId]['sortbypagedate'])
+          if($categoryId != 0 && $this->categoryConfig[$categoryId]['sortbypagedate'])
             $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortByDate');
           else
             $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortBySortOrder');
@@ -932,7 +932,7 @@ class generalFunctions {
       
       // adds the category to the href attribute
       if($category != 0) {
-        $categoryLink = '/category/'.$this->encodeToUrl($this->categoryConfig['id_'.$category]['name']).'/';
+        $categoryLink = '/category/'.$this->encodeToUrl($this->categoryConfig[$category]['name']).'/';
       } else $categoryLink = '';
       
       
@@ -1039,7 +1039,7 @@ class generalFunctions {
         
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
-          if($category && $this->categoryConfig['id_'.$category]['sortbypagedate'])
+          if($category && $this->categoryConfig[$category]['sortbypagedate'])
             usort($categoriesArray, 'sortByDate');
           else
             usort($categoriesArray, 'sortBySortOrder');
@@ -1048,7 +1048,7 @@ class generalFunctions {
         
         
         // makes the category ascending, if its in the options
-        if($category && $this->categoryConfig['id_'.$category]['sortascending'])
+        if($category && $this->categoryConfig[$category]['sortascending'])
           $categoriesArray = array_reverse($categoriesArray);
          
         foreach($categoriesArray as $pageContent) {

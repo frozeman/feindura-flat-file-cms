@@ -74,8 +74,8 @@ function ausgabeblock_start($count,$pageContent) {
   global $categoryConfig;
   
   // set category name
-  if(isset($categoryConfig['id_'.$pageContent['category']]['name']))
-    $categoryName = '&rArr; '.$categoryConfig['id_'.$pageContent['category']]['name'];
+  if(isset($categoryConfig[$pageContent['category']]['name']))
+    $categoryName = '&rArr; '.$categoryConfig[$pageContent['category']]['name'];
   elseif($pageContent['category'] == 0)
     $categoryName = '&rArr; '.$GLOBALS['langFile']['categories_noncategory_tip'];
   
@@ -102,11 +102,11 @@ function ausgabeblock_end() {
       $pageContent['content'] = strip_tags($pageContent['content']);
       
       // -> check for public only in the frontend search
-      //if($categoryConfig['id_'.$pageContent['category']]['public'] && $pageContent['public']) {
+      //if($categoryConfig[$pageContent['category']]['public'] && $pageContent['public']) {
        	$inhalt = strtolower($pageContent['content']);
        	$id = strtolower($pageContent['id']);
         $titel = strtolower($pageContent['title']);
-        $categoryName = strtolower($categoryConfig['id_'.$pageContent['category']]['name']);
+        $categoryName = strtolower($categoryConfig[$pageContent['category']]['name']);
         $beforeDate = strtolower($pageContent['pagedate']['before']);
         $date = $statisticFunctions->formatDate($pageContent['pagedate']['date']);
         $afterDate = strtolower($pageContent['pagedate']['after']);

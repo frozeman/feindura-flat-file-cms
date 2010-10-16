@@ -1,43 +1,63 @@
 <?php
 
-$categoryConfig['id_2']['id'] =              2;
-$categoryConfig['id_2']['name'] =            'News';
-$categoryConfig['id_2']['public'] =          true;
-$categoryConfig['id_2']['createdelete'] =    false;
-$categoryConfig['id_2']['thumbnail'] =       false;
-$categoryConfig['id_2']['plugins'] =         false;
-$categoryConfig['id_2']['showtags'] =        false;
-$categoryConfig['id_2']['showpagedate'] =    true;
-$categoryConfig['id_2']['sortbypagedate'] =  true;
-$categoryConfig['id_2']['sortascending'] =   false;
+$categoryConfig[3]['id'] =              3;
+$categoryConfig[3]['name'] =            'dfgfg';
+$categoryConfig[3]['public'] =          false;
+$categoryConfig[3]['createdelete'] =    false;
+$categoryConfig[3]['thumbnail'] =       false;
+$categoryConfig[3]['plugins'] =         false;
+$categoryConfig[3]['showtags'] =        false;
+$categoryConfig[3]['showpagedate'] =    false;
+$categoryConfig[3]['sortbypagedate'] =  false;
+$categoryConfig[3]['sortascending'] =   false;
 
-$categoryConfig['id_2']['styleFile'] =       '';
-$categoryConfig['id_2']['styleId'] =         '';
-$categoryConfig['id_2']['styleClass'] =      '';
+$categoryConfig[3]['styleFile'] =       '';
+$categoryConfig[3]['styleId'] =         '';
+$categoryConfig[3]['styleClass'] =      '';
 
-$categoryConfig['id_2']['thumbWidth'] =      '';
-$categoryConfig['id_2']['thumbHeight'] =     '';
-$categoryConfig['id_2']['thumbRatio'] =      '';
+$categoryConfig[3]['thumbWidth'] =      '';
+$categoryConfig[3]['thumbHeight'] =     '';
+$categoryConfig[3]['thumbRatio'] =      '';
 
 
-$categoryConfig['id_1']['id'] =              1;
-$categoryConfig['id_1']['name'] =            'Test';
-$categoryConfig['id_1']['public'] =          true;
-$categoryConfig['id_1']['createdelete'] =    true;
-$categoryConfig['id_1']['thumbnail'] =       false;
-$categoryConfig['id_1']['plugins'] =         true;
-$categoryConfig['id_1']['showtags'] =        false;
-$categoryConfig['id_1']['showpagedate'] =    false;
-$categoryConfig['id_1']['sortbypagedate'] =  false;
-$categoryConfig['id_1']['sortascending'] =   false;
+$categoryConfig[1]['id'] =              1;
+$categoryConfig[1]['name'] =            'Test';
+$categoryConfig[1]['public'] =          false;
+$categoryConfig[1]['createdelete'] =    true;
+$categoryConfig[1]['thumbnail'] =       false;
+$categoryConfig[1]['plugins'] =         true;
+$categoryConfig[1]['showtags'] =        false;
+$categoryConfig[1]['showpagedate'] =    false;
+$categoryConfig[1]['sortbypagedate'] =  false;
+$categoryConfig[1]['sortascending'] =   false;
 
-$categoryConfig['id_1']['styleFile'] =       '';
-$categoryConfig['id_1']['styleId'] =         '';
-$categoryConfig['id_1']['styleClass'] =      '';
+$categoryConfig[1]['styleFile'] =       '';
+$categoryConfig[1]['styleId'] =         '';
+$categoryConfig[1]['styleClass'] =      '';
 
-$categoryConfig['id_1']['thumbWidth'] =      '';
-$categoryConfig['id_1']['thumbHeight'] =     '';
-$categoryConfig['id_1']['thumbRatio'] =      '';
+$categoryConfig[1]['thumbWidth'] =      '';
+$categoryConfig[1]['thumbHeight'] =     '';
+$categoryConfig[1]['thumbRatio'] =      '';
+
+
+$categoryConfig[2]['id'] =              2;
+$categoryConfig[2]['name'] =            'News';
+$categoryConfig[2]['public'] =          true;
+$categoryConfig[2]['createdelete'] =    false;
+$categoryConfig[2]['thumbnail'] =       false;
+$categoryConfig[2]['plugins'] =         false;
+$categoryConfig[2]['showtags'] =        false;
+$categoryConfig[2]['showpagedate'] =    true;
+$categoryConfig[2]['sortbypagedate'] =  true;
+$categoryConfig[2]['sortascending'] =   false;
+
+$categoryConfig[2]['styleFile'] =       '';
+$categoryConfig[2]['styleId'] =         '';
+$categoryConfig[2]['styleClass'] =      '';
+
+$categoryConfig[2]['thumbWidth'] =      '';
+$categoryConfig[2]['thumbHeight'] =     '';
+$categoryConfig[2]['thumbRatio'] =      '';
 
 
 return $categoryConfig;

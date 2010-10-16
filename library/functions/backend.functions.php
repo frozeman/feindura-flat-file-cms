@@ -139,6 +139,44 @@ function isAdmin() {
 }
 
 /**
+ * <b>Name</b> getNewPageId()<br />
+ * 
+ * Returns a new page ID, which is the highest page ID + 1.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$generalFunctions</var> for the {@link getStoredPagesIds} (included in the {@link general.include.php})
+ * 
+ * @return int a new page ID
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function getNewPageId() {
+  
+  // loads the file list in an array
+  $pages = $GLOBALS['generalFunctions']->getStoredPageIds();
+  
+  $highestId = 0;
+  
+  // go trough the file list and look for the highest number
+  if(is_array($pages)) {
+    foreach($pages as $page) {
+      $pageId = $page['page'];
+          
+      if($pageId > $highestId)
+        $highestId = $pageId;
+    }
+  }
+  $highestId++;
+  
+  return $highestId;
+}
+
+/**
  * <b>Name</b> getNewCatgoryId()<br />
  * 
  * Returns a new category ID, which is the highest category ID + 1.
@@ -255,9 +293,9 @@ function saveCategories($newCategories) {
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
         if(!isset($category['thumbWidth']))
-          $category['thumbWidth'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbWidth'];
+          $category['thumbWidth'] = $GLOBALS['categoryConfig'][$category['id']]['thumbWidth'];
         if(!isset($category['thumbHeight']))
-          $category['thumbHeight'] = $GLOBALS['categoryConfig']['id_'.$category['id']]['thumbHeight'];
+          $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
         
         // adds absolute path slash on the beginning and serialize the stylefiles
         $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
@@ -273,25 +311,25 @@ function saveCategories($newCategories) {
         }
         
         // WRITE
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['id'] =              ".$category['id'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['name'] =            '".$category['name']."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['id'] =              ".$category['id'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['name'] =            '".$category['name']."';\n");
         
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['public'] =          ".$category['public'].";\n");        
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['createdelete'] =    ".$category['createdelete'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbnail'] =       ".$category['thumbnail'].";\n");        
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['plugins'] =         ".$category['plugins'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showtags'] =        ".$category['showtags'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['showpagedate'] =    ".$category['showpagedate'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortbypagedate'] =  ".$category['sortbypagedate'].";\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['sortascending'] =   ".$category['sortascending'].";\n\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['public'] =          ".$category['public'].";\n");        
+        fwrite($file,"\$categoryConfig[".$category['id']."]['createdelete'] =    ".$category['createdelete'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbnail'] =       ".$category['thumbnail'].";\n");        
+        fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         ".$category['plugins'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['showtags'] =        ".$category['showtags'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['showpagedate'] =    ".$category['showpagedate'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['sortbypagedate'] =  ".$category['sortbypagedate'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['sortascending'] =   ".$category['sortascending'].";\n\n");
         
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleFile'] =       '".$category['styleFile']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleId'] =         '".$category['styleId']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['styleClass'] =      '".$category['styleClass']."';\n\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['styleFile'] =       '".$category['styleFile']."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['styleId'] =         '".$category['styleId']."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['styleClass'] =      '".$category['styleClass']."';\n\n");
         
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbWidth'] =      '".$category['thumbWidth']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbHeight'] =     '".$category['thumbHeight']."';\n");
-        fwrite($file,"\$categoryConfig['id_".$category['id']."']['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbWidth'] =      '".$category['thumbWidth']."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbHeight'] =     '".$category['thumbHeight']."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
         
       }    
       fwrite($file,'return $categoryConfig;');
@@ -336,7 +374,7 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
   // if they fail it returns the unchanged $categoryConfig array
   if(is_array($categoryConfig) &&                         // is categories is array
     is_numeric($category) &&                          // have the given category id is a number
-    $category == $categoryConfig['id_'.$category]['id'] &&     // dows the category exists in the $categoryConfig array
+    $category == $categoryConfig[$category]['id'] &&     // dows the category exists in the $categoryConfig array
     (!$direction || $direction == 'up' || $direction == 'down') &&
     (!$position || is_numeric($position))) {   // is the right direction is given
     
@@ -438,7 +476,7 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
     $categoryConfig = array();
     foreach($sortetCategories as $sortetCategory) {
       echo '';
-      $categoryConfig['id_'.$sortetCategory['id']] = $sortetCategory;
+      $categoryConfig[$sortetCategory['id']] = $sortetCategory;
     }
     
     return true;
@@ -803,44 +841,6 @@ function movePage($page, $fromCategory, $toCategory) {
 }
 
 /**
- * <b>Name</b> getNewPageId()<br />
- * 
- * Returns a new page ID, which is the highest page ID + 1.
- * 
- * <b>Used Global Variables</b><br />
- *    - <var>$generalFunctions</var> for the {@link getStoredPagesIds} (included in the {@link general.include.php})
- * 
- * @return int a new page ID
- * 
- * 
- * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0 initial release
- * 
- */
-function getNewPageId() {
-  
-  // loads the file list in an array
-  $pages = $GLOBALS['generalFunctions']->getStoredPageIds();
-  
-  $highestId = 0;
-  
-  // go trough the file list and look for the highest number
-  if(is_array($pages)) {
-    foreach($pages as $page) {
-      $pageId = $page['page'];
-          
-      if($pageId > $highestId)
-        $highestId = $pageId;
-    }
-  }
-  $highestId++;
-  
-  return $highestId;
-}
-
-/**
  * <b>Name</b> prepareStyleFilePaths()<br />
  * 
  * Check the array with stylesheet files if they have a slash on the beginnging and if there are not empty.
@@ -914,9 +914,9 @@ function getStylesByPriority($givenStyle,$styleType,$category) {
   // check if the $givenStyle is empty
   if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
   
-    return (empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) || $GLOBALS['categoryConfig']['id_'.$category][$styleType] == 'a:0:{}')
+    return (empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] == 'a:0:{}')
       ? $GLOBALS['adminConfig']['editor'][$styleType]
-      : $GLOBALS['categoryConfig']['id_'.$category][$styleType];
+      : $GLOBALS['categoryConfig'][$category][$styleType];
   
   // otherwise it passes through the $givenStyle parameter
   } else
@@ -959,8 +959,8 @@ function setStylesByPriority($givenStyle,$styleType,$category) {
   
   // compare string with category
   if($category !== true &&
-     (!empty($GLOBALS['categoryConfig']['id_'.$category][$styleType]) || $GLOBALS['categoryConfig']['id_'.$category][$styleType] != 'a:0:{}') &&
-     $givenStyle == $GLOBALS['categoryConfig']['id_'.$category][$styleType]) {
+     (!empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] != 'a:0:{}') &&
+     $givenStyle == $GLOBALS['categoryConfig'][$category][$styleType]) {
       $givenStyle = '';
       
   //  or adminConfig

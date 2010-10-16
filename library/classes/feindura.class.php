@@ -1843,7 +1843,7 @@ class feindura extends feinduraBase {
       if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
         
         // ->> LOAD the PLUGINS and return them 
-        if(($pageContent['category'] == 0 || $this->categoryConfig['id_'.$pageContent['category']]['public']) && $pageContent['public']) {
+        if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
           if(is_array($pageContent['plugins'])) {
           
             foreach($pageContent['plugins'] as $pluginName => $plugin) {
@@ -1852,7 +1852,7 @@ class feindura extends feinduraBase {
               if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
                  $plugin['active'] &&
                  $this->pluginsConfig[$pluginName]['active'] &&
-                 (($pageContent['category'] == 0 && $this->adminConfig['pages']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig['id_'.$pageContent['category']]['plugins']))) {
+                 (($pageContent['category'] == 0 && $this->adminConfig['pages']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['plugins']))) {
                
                 // create plugin config
                 $pluginConfig = $plugin;

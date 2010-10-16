@@ -44,7 +44,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
 if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {    
      
       // change the status
-      $categoryConfig['id_'.$_GET['category']]['public'] = ($_GET['public']) ? false : true;
+      $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;
   
       // save the new status
       if(saveCategories($categoryConfig))
@@ -248,18 +248,18 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';      
  
       // thumbnail upload
-      if(($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories['id_'.$category['id']]['thumbnail'])
+      if(($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnail'])
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
       
       // thumbnail upload delete
-      if((($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories['id_'.$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
+      if((($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
         echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
                
       // edit page
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
       
       // delete page
-      if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $allCategories['id_'.$category['id']]['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $allCategories[$category['id']]['createdelete'])
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['btn_deletePage'].'::" class="deletePage toolTip">&nbsp;</a>';
 
       // startpage
@@ -292,7 +292,7 @@ echo '</ul>
   </div>';
 
 echo "\n".'<!-- transport the sortorder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories['id_'.$category['id']]['sortascending'].'" /> <!-- reverse order yes/no -->
+      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortascending'].'" /> <!-- reverse order yes/no -->
       <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" /> <!-- the new page order -->';
 }
 

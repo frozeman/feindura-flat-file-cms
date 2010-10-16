@@ -23,7 +23,7 @@ include(dirname(__FILE__)."/../includes/backend.include.php");
 $sortOrder = explode('|',$_POST['sort_order']);
 
 // dreht die reihenfolge um, wenn sortascending == true
-if(!$categoryConfig['id_'.$_POST['categoryNew']]['sortascending'])
+if(!$categoryConfig[$_POST['categoryNew']]['sortascending'])
   $sortOrder = array_reverse($sortOrder);
 
 // MOVE the file if it is sorted in an new category
@@ -35,7 +35,7 @@ if($_POST['categoryOld'] != $_POST['categoryNew']) {
 }
 
 // set Name of the non category
-$categoryConfig['id_0']['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
+$categoryConfig[0]['name'] = $langFile['categories_nocategories_name'].' '.$langFile['categories_nocategories_hint'];
 
 // go trough the sort_order which has the id of the pages in the new order
 foreach($sortOrder as $sort) {
@@ -57,7 +57,7 @@ foreach($sortOrder as $sort) {
         $count++;
         
         // -> saves the task log
-        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categoryConfig['id_'.$_POST['categoryNew']]['sortbypagedate'])) {
+        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categoryConfig[$_POST['categoryNew']]['sortbypagedate'])) {
           $logText = ($_POST['categoryOld'] != $_POST['categoryNew'])
             ? 3 : 4;
           // save log

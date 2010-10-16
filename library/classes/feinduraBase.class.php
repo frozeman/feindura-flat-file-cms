@@ -809,7 +809,7 @@ class feinduraBase {
        $return['id'] = $pageContent['id'];
     
     if($pageContent['category'] && $pageContent['category'] != '0')
-       $return['category'] = $this->categoryConfig['id_'.$pageContent['category']]['name'];    
+       $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];    
     
     if($pagedate)
        $return['pageDate']  = $pagedate;
@@ -906,9 +906,9 @@ class feinduraBase {
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
         if(is_string($titleCategorySeparator))
-          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].$titleCategorySeparator; // adds the Spacer
+          $titleShowCategory = $this->categoryConfig[$pageContent['category']]['name'].$titleCategorySeparator; // adds the Spacer
         else
-          $titleShowCategory = $this->categoryConfig['id_'.$pageContent['category']]['name'].' ';
+          $titleShowCategory = $this->categoryConfig[$pageContent['category']]['name'].' ';
       } else
         $titleShowCategory = '';
         
@@ -968,7 +968,7 @@ class feinduraBase {
     if(!empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) { //&&
       //(($pageContent['category'] == '0' && $this->adminConfig['pages']['thumbnails']) ||
-      //($pageContent['category'] && $this->categoryConfig['id_'.$pageContent['category']]['thumbnail']))) {
+      //($pageContent['category'] && $this->categoryConfig[$pageContent['category']]['thumbnail']))) {
       
       // set TAG ENDING (xHTML or HTML) 
       if($this->xHtml === true) $tagEnding = ' />';
@@ -1195,7 +1195,7 @@ class feinduraBase {
       // goes trough the given category IDs array
       foreach($ids as $id) {
         // checks if the category is public and creates a new array
-      	if($id == 0 || (isset($this->categoryConfig['id_'.$id]) && $this->categoryConfig['id_'.$id]['public']))    
+      	if($id == 0 || (isset($this->categoryConfig[$id]) && $this->categoryConfig[$id]['public']))    
       	  $newIds[] = $id;
             }
       
@@ -1203,7 +1203,7 @@ class feinduraBase {
     } elseif(is_numeric($ids)) {
 
       // checks if the category is public
-      if($ids == 0 || $this->categoryConfig['id_'.$ids]['public'])    
+      if($ids == 0 || $this->categoryConfig[$ids]['public'])    
         return $ids;
       else return false;
     
@@ -1504,7 +1504,7 @@ class feinduraBase {
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['pagedate']['date']) &&
-           ($page['category'] != 0 && $this->categoryConfig['id_'.$page['category']]['showpagedate'])) {         
+           ($page['category'] != 0 && $this->categoryConfig[$page['category']]['showpagedate'])) {         
            
            //echo $page['pagedate']['date'].' >= '.$pastDate.'<br />';
            

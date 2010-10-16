@@ -715,8 +715,8 @@ div.listPagesHead {
     position: relative;
     display: block;
     left: 0px;
-    margin: 30px -20px;
-    margin-top: 30px; 
+    margin: 0px -20px;
+    margin-top: -20px; 
     background: url("../images/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     width: 792px;

@@ -603,7 +603,7 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles css" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
  
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="saveCategories" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>

@@ -36,22 +36,22 @@ $thumbRatio = false;
 // GET THUMBNAIL SIZE
 // --------------------------
 // THUMB WIDTH
-if(!empty($categoryConfig['id_'.$category]['thumbWidth'])) {
-  $thumbWidth = $categoryConfig['id_'.$category]['thumbWidth'];
+if(!empty($categoryConfig[$category]['thumbWidth'])) {
+  $thumbWidth = $categoryConfig[$category]['thumbWidth'];
   $categoryRatio = true;
 } else
   $thumbWidth = $adminConfig['pageThumbnail']['width'];
 // THUMB HEIGHT
-if(!empty($categoryConfig['id_'.$category]['thumbHeight'])) {
-  $thumbHeight = $categoryConfig['id_'.$category]['thumbHeight'];
+if(!empty($categoryConfig[$category]['thumbHeight'])) {
+  $thumbHeight = $categoryConfig[$category]['thumbHeight'];
   $categoryRatio = true;
 } else
   $thumbHeight = $adminConfig['pageThumbnail']['height'];
   
 // THUMB RATIO X
 if($categoryRatio) {
-  if($categoryConfig['id_'.$category]['thumbRatio'] == 'y' ||
-     $categoryConfig['id_'.$category]['thumbRatio'] == '') {
+  if($categoryConfig[$category]['thumbRatio'] == 'y' ||
+     $categoryConfig[$category]['thumbRatio'] == '') {
     //$thumbRatioX = ' disabled="disabled"';
     $thumbRatioX = true;
     $thumbRatio = 'y';
@@ -67,8 +67,8 @@ if($categoryRatio) {
 
 // THUMB RATIO Y
 if($categoryRatio) {
-  if($categoryConfig['id_'.$category]['thumbRatio'] == 'x' ||
-     $categoryConfig['id_'.$category]['thumbRatio'] == '') {
+  if($categoryConfig[$category]['thumbRatio'] == 'x' ||
+     $categoryConfig[$category]['thumbRatio'] == '') {
     //$thumbRatioY = ' disabled="disabled"';
     $thumbRatioY = true;
     $thumbRatio = 'x';

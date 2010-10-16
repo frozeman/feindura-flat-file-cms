@@ -115,10 +115,10 @@ window.addEvent('domready', function() {
     });
     
   // ->> hide loading circle, when it was not animated
-  } else {
+  } else if(loadingBoxContent != null) {
     loadingBoxContent.set('html','');
-        $('loadingBox').setStyle('display','none');
-        $('loadingBox').setStyle('opacity','1');
+    $('loadingBox').setStyle('display','none');
+    $('loadingBox').setStyle('opacity','1');
   }
 });
 

@@ -199,7 +199,7 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-$categorySorting = ($categoryConfig['id_'.$_GET['category']]['sortbypagedate'])
+$categorySorting = ($categoryConfig[$_GET['category']]['sortbypagedate'])
   ? '&nbsp;<img src="library/images/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />'
   : '';
 
@@ -243,7 +243,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
     // -> show the thumbnail upload button if there is no thumbnail yet
     } elseif(!$newPage &&
             (($pageContent['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
-            $categoryConfig['id_'.$pageContent['category']]['thumbnail'])) {  
+            $categoryConfig[$pageContent['category']]['thumbnail'])) {  
       
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
     }
@@ -270,7 +270,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
       if($_GET['category'] == 0) // show only if categories exist
         $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_pageinfo_category_noCategory'].'</span>';
       else
-        $categoryName = '<span style="color:#A6A6A6;">'.$categoryConfig['id_'.$_GET['category']]['name'].' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
+        $categoryName = '<span style="color:#A6A6A6;">'.$categoryConfig[$_GET['category']]['name'].' (ID </span>'.$_GET['category'].'<span style="color:#A6A6A6;">)</span>';
       
       if(!$newPage)
         echo '<tr>
@@ -537,13 +537,13 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <?php
       
       // -> CHECK if page date or tags are activated, show the spacer
-      if($categoryConfig['id_'.$_GET['category']]['showpagedate'] ||
-         $categoryConfig['id_'.$_GET['category']]['showtags']) {
+      if($categoryConfig[$_GET['category']]['showpagedate'] ||
+         $categoryConfig[$_GET['category']]['showtags']) {
         echo '<tr><td class="spacer"></td><td></td></tr>';
       }
       
       // ->> CHECK if activated
-      if($categoryConfig['id_'.$_GET['category']]['showpagedate']) { ?>
+      if($categoryConfig[$_GET['category']]['showpagedate']) { ?>
       
       <!-- ***** SORT DATE -->
       
@@ -635,7 +635,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <?php }
       
       // ->> CHECK if activated
-      if($categoryConfig['id_'.$_GET['category']]['showtags']) {
+      if($categoryConfig[$_GET['category']]['showtags']) {
       ?>      
       <!-- ***** TAGS -->
       
@@ -679,8 +679,8 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
   </div>
   <div class="bottom"></div>
 </div>
-
 <?php
+
 // ->> CHECK if plugins are activated
 $pluginsActive = false;
 foreach($pluginsConfig as $pluginConfig) {
@@ -688,7 +688,7 @@ foreach($pluginsConfig as $pluginConfig) {
     $pluginsActive = true;    
 }
 if($pluginsActive && (($category == 0 && $adminConfig['pages']['plugins']) ||
-   $categoryConfig['id_'.$category]['plugins'])) {
+   $categoryConfig[$category]['plugins'])) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>
@@ -790,8 +790,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
   </div>
   <div class="bottom"></div>
 </div>
-<?php } ?>
-
+<?php
+}
+?>
 <a name="htmlEditorAnchor" id="htmlEditorAnchor" class="anchorTarget"></a>
 <div class="editor">
 <?php
@@ -802,10 +803,6 @@ $blockContentEdited = (isset($pageContent['plugins']))
 // from the Page, if empty,
 // than from the Category if empty,
 // than from the HTMl-Editor Settings
-
-//if(empty($pageContent['styleFile'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleFile'])) $editorStyleFile = $categoryConfig['id_'.$_GET['category']]['styleFile']; else $editorStyleFile = $adminConfig['editor']['styleFile']; } else $editorStyleFile = $pageContent['styleFile'];  
-//if(empty($pageContent['styleId'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleId'])) $editorStyleId = $categoryConfig['id_'.$_GET['category']]['styleId']; else $editorStyleId = $adminConfig['editor']['styleId']; } else $editorStyleId = $pageContent['styleId'];  
-//if(empty($pageContent['styleClass'])) { if(!empty($categoryConfig['id_'.$_GET['category']]['styleClass'])) $editorStyleClass = $categoryConfig['id_'.$_GET['category']]['styleClass']; else $editorStyleClass = $adminConfig['editor']['styleClass']; } else $editorStyleClass = $pageContent['styleClass'];  
 $editorStyleFiles = getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
 $editorStyleId = getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
 $editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);

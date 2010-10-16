@@ -99,7 +99,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
     // finaly if category directory exists
     if($isDir) {         
       // add a new id to the category array
-      $categoryConfig['id_'.$newId] = array('id' => $newId); // gives the new category a id  
+      $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id  
       if(saveCategories($categoryConfig)) {
          $categoryInfo = $langFile['pageSetup_createCategory_created'];
          $statisticFunctions->saveTaskLog(15); // <- SAVE the task in a LOG FILE
@@ -118,13 +118,13 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
 
 // ****** ---------- DELETE CATEGORY
 if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['deleteCategory'])) ||
-   $_GET['status'] == 'deleteCategory') && isset($categoryConfig['id_'.$_GET['category']])) {  
+   $_GET['status'] == 'deleteCategory') && isset($categoryConfig[$_GET['category']])) {  
   
   // save the name, to put it in the info
-  $storedCategoryName = $categoryConfig['id_'.$_GET['category']]['name'];
+  $storedCategoryName = $categoryConfig[$_GET['category']]['name'];
   
   // deletes the category with the given id from the array and saves the categoriesSettings.php
-  unset($categoryConfig['id_'.$_GET['category']]);  
+  unset($categoryConfig[$_GET['category']]);  
   if(saveCategories($categoryConfig)) {
   
     // Hinweis für den Benutzer welche Gruppe gelöscht wurde
@@ -463,6 +463,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
 
       // lists the categories
       if(is_array($categoryConfig)) {
+        $lastCategory = end($categoryConfig);
+        $firstCategory = reset($categoryConfig);
+        
         foreach($categoryConfig as $category) {
         
           // prevent using the $check vars from the last category
@@ -537,8 +540,11 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           // category up / down               
           if(count($categoryConfig) > 1) {
-            echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>
-                  <a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
+          
+            if($firstCategory['id'] != $category['id'])
+              echo '<a href="?site=pageSetup&amp;status=moveCategoryUp&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryUp toolTip" title="'.$langFile['pageSetup_moveCategory_up_tip'].'::"></a>';
+            if($lastCategory['id'] != $category['id'])
+              echo '<a href="?site=pageSetup&amp;status=moveCategoryDown&amp;category='.$category['id'].'&amp;load='.rand(0,999).'#category'.$category['id'].'" class="categoryDown toolTip" title="'.$langFile['pageSetup_moveCategory_down_tip'].'::"></a>';
           }
           
           echo '</td></tr>';
