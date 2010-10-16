@@ -273,50 +273,38 @@ function blockSlider(givenId) {
       
       var slideContentHeightOut = slideContent.offsetHeight;
        
-  	  // creates the slide effect
-  	  slideVertical = new Fx.Slide(slideContent,{
-            duration: '500',
-            transition: Fx.Transitions.Pow.easeOut
-      });      
-      
-      // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-      slideVertical.onStart = function(el) {     
-         slideContent.getParent().fade('show');
-         //slideContent.getParent().setStyle('height',slideContentHeightOut);
-      }
-              
-  	  // changes the up and down button class from the <div class="top">
-  	  // so that the picture of the upper Toggle Buttons changes
+  	  // -> CREATE the SLIDE EFFECT
+  	  slideVertical = new Fx.Slide(slideContent,{ duration: '500', transition: Fx.Transitions.Pow.easeOut });      
+    
       slideVertical.onComplete = function(el) {
-
         // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
   	    if(slideVertical.open) {
-              block.addClass('hidden'); // to change the arrow
               slideContent.setStyle('display','none'); // to allow sorting above the slided in box
-              //slideContent.getParent().fade('hide');
-              slideVertical.open = false;              
+              slideVertical.wrapper.setStyle('height',slideContent.getSize().y);
+              slideVertical.open = false;       
         } else {
-  	          block.removeClass('hidden'); // to change the arrow
-  	          slideContent.setStyle('display','block'); // to allow sorting above the slided in box
-              slideContent.getParent().setStyle('height','auto');
-              //slideContent.getParent().fade('show');
-              slideVertical.open= true;
+              slideVertical.wrapper.setStyle('height','auto');
+              slideVertical.open = true;
               new Fx.Scroll(window,{duration: '300',}).start(window.getPosition().x,block.getPosition().y - 80);
         }
         layoutFix();
       }
   
-      // sets the SLIDE EFFECT to the buttons
+      // -> set click Event for the SLIDE EFFECT to the buttons
       slideButtonH1.addEvent('click', function(e) {
       	  e.stop();
+
       	  if(!slideVertical.open) {
-      	    block.removeClass('hidden'); // to change the arrow
       	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box
+      	    block.removeClass('hidden'); // to change the arrow
+          } else { 
+            block.addClass('hidden'); // to change the arrow
           }
+          
           slideVertical.toggle();          
       });
       
-      // hide the Menu if it has class "hidden"
+      // -> hide the block at start, if it has class "hidden"
       if(block.hasClass('hidden'))  {
         slideVertical.hide();
         slideVertical.open = false;

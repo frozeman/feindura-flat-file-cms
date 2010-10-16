@@ -242,7 +242,7 @@ span.red, label.red, h1.red {
     top: -15px;
     width: 100%;
     min-width: 1255px;
-    clear: left;
+    clear: both;
     background: url("../images/bg/footer.png") repeat-x;
     }
 #footerBlock {
@@ -250,7 +250,7 @@ span.red, label.red, h1.red {
     top: 0px;
     left: 0px;
     width: 1024px;
-    min-height: 237px;
+    height: 237px;
     background: url("../images/bg/footerBlock.png") no-repeat;
     }
 #copyright {

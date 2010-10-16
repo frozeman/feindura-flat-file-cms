@@ -17,7 +17,7 @@
  * update.php
  * 
  * for updating from 
- * 1.0 rc -> o 1.0
+ * 1.0 rc -> 1.0
  *
  * @version 0.12
  */
