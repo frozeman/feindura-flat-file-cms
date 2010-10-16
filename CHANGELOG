@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 418
+Build 419
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 419: fixed loading Circle and documentSaved animation
   build 418: fixed slideBlock() in content.js
   build 417: deactivated filemanger, will now also not work when called directly over url
   build 416: replaced addEvent('complete') with chain(), in windowBox.js and loading.js

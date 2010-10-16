@@ -83,45 +83,47 @@ var loadingCircleContent = new Element('div', {id: 'loadingCircle'});
 *
 * creates loadingCircle and disappears when domready
 */
-window.addEvent('load', function() {
-  //loadingCircle(false);
-  
-  var lastLoadingTween = false;    
-  var loadingBox = $$('#loadingBox .content')[0];
-  
-  // add the loading circle to the #content div
-  if($('content') != null && loadingBox != null) {
-    loadingBox.grab(loadingCircleContent,'top');
-    //var removeLoadingCircle = loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
-  
+window.addEvent('domready', function() {
+    
+  var loadingBoxContent = $$('#loadingBox .content')[0];
 
+  // ->> SHOW the loading circle 
+  if($('content') != null && loadingBoxContent != null &&
+     $('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
+    // -> add to the #content div
+    loadingBoxContent.grab(loadingCircleContent,'top');
+    //var removeLoadingCircle = loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
+    
+    // set tween
+    $('loadingBox').set('tween',{duration: 400})
+    
     // show the loadingCircle
     $('loadingBox').fade('show');
+    //$('loadingBox').setStyle('display','block');
     
     // disply none the documentsaved, after blending in and out
     $('loadingBox').get('tween').chain(function() {
-        if(lastLoadingTween) {
-          //removeLoadingCircle();
-          loadingBox.set('html','');
-          $('loadingBox').setStyle('display','none');
-          $('loadingBox').setStyle('','1');
-        }
+        //removeLoadingCircle();
+        loadingBoxContent.set('html','');
+        $('loadingBox').setStyle('display','none');
+        $('loadingBox').setStyle('opacity','1');
     }); 
-        
-    window.addEvent('domready', function() {
-        //$('loadingBox').fade('out');
+    
+    // blend out after page is loaded 
+    window.addEvent('load', function() {
         $('loadingBox').tween('opacity','0');
-        lastLoadingTween = true;
     });
+    
+  // ->> hide loading circle, when it was not animated
+  } else {
+    loadingBoxContent.set('html','');
+        $('loadingBox').setStyle('display','none');
+        $('loadingBox').setStyle('opacity','1');
   }
 });
 
-/* LOADING-CIRCLE when the DOM is unloading
-*
-* creates a loadingCircle and disappears new site is loaded and site will change
-*/
+// LOADING-CIRCLE when the website will be left
 window.addEvent('unload',  function() {
-  //loadingCircle(true);
 
   var loadingBox = $$('#loadingBox .content')[0];
    
@@ -131,10 +133,7 @@ window.addEvent('unload',  function() {
     loadingBox.grab(loadingCircleContent,'top');
     //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");    
 
-    //$('loadingBox').fade('in');
     $('loadingBox').setStyle('display','block');
-    $('loadingBox').setStyle('opacity','1');
-    //$('loadingBox').tween('opacity','1');    
   }  
 });
 
@@ -152,32 +151,24 @@ window.addEvent('domready', function() {
 		$('dimmContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
 	}
   
-  // SHOW UP - SAVED ICON!
-  var lastTween = false;    
-  
-  // if documentSaved has given the class from the php script
-  if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {    
-  
-    // disply none the documentsaved, after blending in and out
-    $('documentSaved').get('tween').chain(function() {      
-        if(lastTween) {
-          $('documentSaved').setStyle('display','none');
-          $('documentSaved').removeClass('saved');
-        }
-    });
+  // ->> if DOCUMENT SAVED has given the class from the php script
+  if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {
 
+    // set tween
+    $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+    
+    // start tween
     $('documentSaved').fade('hide');
-    $('dimmContainer').set('tween', {duration: '300', transition: Fx.Transitions.Pow.easeOut});
     $('documentSaved').tween('opacity','1');
     
-    
-    $('documentSaved').addEvent('load', function() {
-        $('documentSaved').tween('opacity','0');
-        
-        lastTween = true;
+    // hide the documentsaved, after blending in and out
+    $('documentSaved').get('tween').chain(function() {      
+      $('documentSaved').tween('opacity','0');
+    }).chain(function(){
+      $('documentSaved').setStyle('display','none');
+      $('documentSaved').removeClass('saved');
     });
     
-    $('documentSaved').fireEvent('load', $('documentSaved'), 300);
-    
+    //$('documentSaved').fireEvent('load', $('documentSaved'), 300);    
   }
   });
