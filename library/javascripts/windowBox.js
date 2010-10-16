@@ -138,9 +138,8 @@ function requestSite(site,siteTitle,formId) {
       if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         removeLoadingCircle();
       
-      // resize the box by a slide; set the slide
+      // animate the box by a slide; set the slide
       var SlideWindowBox = new Fx.Slide('windowRequestBox', {duration: '400', transition: Fx.Transitions.Pow.easeOut});
-      var slidedOut = false;
       
       SlideWindowBox.slideOut().chain(function() {
           
