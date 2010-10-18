@@ -383,7 +383,7 @@ $langFile['adminSetup_warning_phpversion'] = 'F&uuml;r volle Funktionalit&auml;t
 $langFile['adminSetup_srvRootPath'] = 'Server-Root-Pfad';
 
 $langFile['adminSetup_error_title'] = 'Es sind Fehler aufgetreten';
-$langFile['adminSetup_error_writeAccess_tip'] = 'Bei Dateien und Verzeichnissen m&uuml;ssen die Schreibrechte auf 755 gesetzt werden.';
+$langFile['adminSetup_error_writeAccess_tip'] = 'Bei Dateien und Verzeichnissen m&uuml;ssen die Schreibrechte auf '.PERMISSIONS.' gesetzt werden.';
 
 $langFile['adminSetup_error_writeAccess'] = 'ist nicht beschreibbar';
 $langFile['adminSetup_error_isFolder'] = 'ist kein Verzeichnis';

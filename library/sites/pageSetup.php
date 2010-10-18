@@ -87,8 +87,8 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       $isDir = true;
     } else {
       // erstellt ein verzeichnis
-      if(!@mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, PERMISSIONS) ||
-         !@chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, PERMISSIONS)) {
+      if(!@mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, '0'.PERMISSIONS) ||
+         !@chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, '0'.PERMISSIONS)) {
           $isDir = false;
           $errorWindow .= $langFile['pageSetup_error_createDir'];      
       // save category dir could be created
@@ -138,7 +138,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
         // deletes possible thumbnails before deleting the category
         foreach($pageContents as $page) {
           if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
-            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], PERMISSIONS);          
+            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], '0'.PERMISSIONS);          
             // DELETING    
             @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
           }
