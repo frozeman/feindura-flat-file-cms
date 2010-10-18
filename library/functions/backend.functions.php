@@ -890,45 +890,6 @@ function prepareStyleFilePaths($givenStyleFiles) {
 }
 
 /**
- * <b>Name</b> getStylesByPriority()<br />
- * 
- * Returns the right stylesheet-file path, ID or class-attribute.
- * If the <var>$givenStyle</var> parameter is empty,
- * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
- * 
- * <b>Used Global Variables</b><br />
- *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
- *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
- * 
- * @param string $givenStyle the string with the stylesheet-file path, id or class
- * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
- * @param int    $category   the ID of the category to bubble through
- * 
- * @return string the right stylesheet-file, ID or class
- * 
- * 
- * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0 initial release
- * 
- */
-function getStylesByPriority($givenStyle,$styleType,$category) {
-  
-  // check if the $givenStyle is empty
-  if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
-  
-    return (empty($GLOBALS['categoryConfig'][$category][$styleType]) || $GLOBALS['categoryConfig'][$category][$styleType] == 'a:0:{}')
-      ? $GLOBALS['adminConfig']['editor'][$styleType]
-      : $GLOBALS['categoryConfig'][$category][$styleType];
-  
-  // otherwise it passes through the $givenStyle parameter
-  } else
-    return $givenStyle;
-  
-}
-
-/**
  * <b>Name</b> setStylesByPriority()<br />
  * 
  * Bubbles through the stylesheet-file path, ID or class-attribute
@@ -1052,7 +1013,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   // shows the block below if it is the ones which is saved before
   $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
 
-  echo '<form action="?site='.$siteName.'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  echo '<form action="index.php?site='.$siteName.'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>
         <input type="hidden" name="send" value="saveEditedFiles" />
         <input type="hidden" name="status" value="'.$status.'" />

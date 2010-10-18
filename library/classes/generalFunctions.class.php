@@ -1061,6 +1061,46 @@ class generalFunctions {
       return $pageContentArrays;
   }
 
+  /**
+   * <b>Name</b> getStylesByPriority()<br />
+   * 
+   * Returns the right stylesheet-file path, ID or class-attribute.
+   * If the <var>$givenStyle</var> parameter is empty,
+   * it check if the category has a styleheet-file path, ID or class-attribute set return the value if not return the value from the {@link $adminConfig administartor-settings config}.
+   * 
+   * <b>Used Global Variables</b><br />
+   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+   * 
+   * @param string $givenStyle the string with the stylesheet-file path, id or class
+   * @param string $styleType  the key for the $pageContent, {@link $categoryConfig} or {@link $adminConfig} array can be "styleFile", "styleId" or "styleClass" 
+   * @param int    $category   the ID of the category to bubble through
+   * 
+   * @return string the right stylesheet-file, ID or class
+   * 
+   * 
+   * @version 1.01
+   * <br />
+   * <b>ChangeLog</b><br />
+   *    - 1.01 moved to generalFunctions class   
+   *    - 1.0 initial release
+   * 
+   */
+  function getStylesByPriority($givenStyle,$styleType,$category) {
+    
+    // check if the $givenStyle is empty
+    if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
+    
+      return (empty($this->categoryConfig[$category][$styleType]) || $this->categoryConfig[$category][$styleType] == 'a:0:{}')
+        ? $this->adminConfig['editor'][$styleType]
+        : $this->categoryConfig[$category][$styleType];
+    
+    // otherwise it passes through the $givenStyle parameter
+    } else
+      return $givenStyle;
+    
+  }
+
  /**
   * <b>Name</b> getRealCharacterNumber()<br>
   * 

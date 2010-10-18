@@ -911,7 +911,7 @@ window.addEvent('domready', function() {
   
     // ----------------------------------------------------------------------
     // CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
-  	CKEDITOR.replace('HTMLEditor');  
+  	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
      
   }
   
@@ -1016,10 +1016,11 @@ window.addEvent('domready', function() {
   });
   // CHECK if the HTMLeditor content was changed
   if($('HTMLEditor') != null) {
-    CKEDITOR.instances.HTMLEditor.on('blur',function() {
-      if(CKEDITOR.instances.HTMLEditor.checkDirty())
+    HTMLEditor.on('blur',function() {
+      if(HTMLEditor.checkDirty()) {        
         pageContentChangedSign();
         pageContentChanged = true;
+      }
     });
   }
   

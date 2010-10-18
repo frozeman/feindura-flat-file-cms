@@ -437,7 +437,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 <span class="hint" style="float:right;width:190px;">'.$langFile['stylesheet_styleFile_example'].'</span>';
                 
-          echo showStyleFileInputs(getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
+          echo showStyleFileInputs($generalFunctions->getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
 
           echo '</div>
                 <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['stylesheet_styleFile_addButton_tip'].'::"></a>              
@@ -447,14 +447,14 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleId'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
+                <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.$generalFunctions->getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
                 </td></tr>';
                 
           echo '<tr><td class="left">
                 <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
                 '.$langFile['stylesheet_name_styleClass'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
+                <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.$generalFunctions->getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
                 </td></tr>';
           
           echo '<tr><td class="spacer"></td><td></td></tr>';

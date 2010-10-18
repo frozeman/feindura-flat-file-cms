@@ -44,7 +44,7 @@ $searchWord = stripslashes($_POST['searchWord']);
 $searchWord = htmlentities($searchWord,ENT_NOQUOTES,'UTF-8');
 
 // show the form
-echo '<form action="?site='.$_GET['site'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">';
+echo '<form action="index.php?site='.$_GET['site'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">';
 
 echo '<div class="block">
       <h1>'.$langFile['search_h1'].'</h1>

@@ -933,8 +933,7 @@ class feindura extends feinduraBase {
       } else {
         $siteType = 'text/html';
         $tagEnding = '>';
-      }
-        
+      }        
       
       // -> add CHARSET
       $metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
@@ -1000,7 +999,7 @@ class feindura extends feinduraBase {
       $metaTags .= "\n";
       
       // -> add plugin-stylesheets
-      $plugins = $this->generalFunctions->readFolder(dirname(__FILE__).'/../../plugins/');
+      $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
         $pluginName = basename($pluginFolder);
 
@@ -1008,6 +1007,46 @@ class feindura extends feinduraBase {
           $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
       }
       
+      // ->> ENABLE FRONTEND EDITING
+      // if user is logged into the CMS, add javascripts for implementing ckeditor
+      
+      if($this->loggedIn) {
+        
+        $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
+        // add frontendEditing stylesheets
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";        
+        // add mootools
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        // add CKEditor
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
+        // add CKEditor integration
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
+        
+        
+        // ->> setup CKEditor main config
+        // set ENTER mode
+        $enterMode = ($this->adminConfig['editor']['enterMode'] == "br") ? "CKEDITOR.ENTER_BR" : "CKEDITOR.ENTER_P";
+        
+        // set fileManager
+        $filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
+        
+        $metaTags .= '  <script type="text/javascript">
+  /* <![CDATA[ */  
+
+  window.addEvent(\'domready\',function(){
+
+    // set the CONFIGs of the editor
+    CKEDITOR.config.baseHref                  = \''.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/\';
+    CKEDITOR.config.language                  = \''.$_SESSION["language"].'\';
+    CKEDITOR.config.enterMode                 = \''.$enterMode.'\';
+    CKEDITOR.config.stylesSet                 = \'htmlEditorStyles:../../../config/htmlEditorStyles.js\';
+    CKEDITOR.config.filebrowserBrowseUrl      = '.$filemanager.';
+           
+  });
+  /* ]]> */
+  </script>'."\n";
+  
+      }
       
       // -> show the metaTags
       return $metaTags;
@@ -1772,7 +1811,7 @@ class feindura extends feinduraBase {
         // *******************
         if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
                          
-          // loads the $pageContent array
+          // -> loads the $pageContent array
           if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
             // -> SAVE PAGE STATISTIC
             // **********************
@@ -1780,7 +1819,31 @@ class feindura extends feinduraBase {
               $this->statisticFunctions->savePageStats($pageContent);
           }
           
-          // returns the generated page
+          // -> adds the frontend editing container
+          if($this->loggedIn) {
+          
+            // -> CHOOSES the RIGHT EDITOR ID and/or CLASS
+            $editorStyleFiles = $this->generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+            $editorStyleId = $this->generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
+            $editorStyleClass = $this->generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
+            
+            // generate the styleFiles list: fileone.css,filetwo.css
+            $listStyleFiles = '';
+            if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false) {
+              foreach($editorStyleFiles as $editorStyleFile) {$listStyleFiles .= $editorStyleFile."','";}
+              $listStyleFiles = substr($listStyleFiles,0,-3);
+            }
+            $listStyleFiles = "'".$listStyleFiles."'";
+            
+            $generatedPage['content'] = '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<a href="#" class="feinduraPageEditingButton" onclick="feinduraEditPage('.$pageContent['id'].',['.$listStyleFiles.'],\''.$editorStyleId.'\',\''.$editorStyleClass.'\')">Edit</a>
+<div id="feinduraPage'.$pageContent['id'].'">
+'.$generatedPage['content'].'
+</div>
+</form>'; 
+          }
+          
+          // -> returns the generated page
           return $generatedPage;
         }        
     } else return false;

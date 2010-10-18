@@ -18,7 +18,7 @@
 */
 
 // ->> SHOW the FORM
-echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
+echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
       <div>
       <input type="hidden" name="save" value="true" />
       <input type="hidden" name="category" value="'.$_GET['category'].'" />
@@ -655,9 +655,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
 // from the Page, if empty,
 // than from the Category if empty,
 // than from the HTMl-Editor Settings
-$editorStyleFiles = getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
-$editorStyleId = getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
-$editorStyleClass = getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
+$editorStyleFiles = $generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+$editorStyleId = $generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
+$editorStyleClass = $generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
 
 // -> CREATES the EDITOR-INSTANCE
 // ------------------------------
@@ -778,7 +778,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
       <?php
       
-      echo showStyleFileInputs(getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
+      echo showStyleFileInputs($generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
       ?>      
       </div>
@@ -788,13 +788,13 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleId']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php echo getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleId" value="<?php echo $generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleClass']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php echo getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleClass" value="<?php echo $generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

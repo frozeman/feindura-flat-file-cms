@@ -46,6 +46,15 @@ class feinduraBase {
  // *********
   
  /**
+  * Is TRUE when the user is logged into the backend of feindura and visits the frontend website.
+  * If TRUE, it will enable the the frontend editing feature.  
+  * 
+  * 
+  * @var bool
+  */
+  var $loggedIn = false;
+  
+ /**
   * Contains the session-ID, if cookies are deactivated
   * 
   * This session ID is then placed on the end of every link.
@@ -208,6 +217,7 @@ class feinduraBase {
   * The constructor of the class, sets all basic properties.
   * 
   * First gets all settings config <var>arrays</var> and external classes.<br />
+  * Then Check if the visitor is a logged in user of the feindura backend and set the {@link feinduraBase::$loggedIn} property.  
   * Then set the <var>$_GET</var> variable names from the {@link feinduraBase::$adminConfig administrator-settings config} to the {@link $varNames} property.<br />
   * Check if cookies are activated, otherwise store the session ID in the {@link $sessionId} property for use in links.<br />
   * Get the the given <var>$language</var> parameter or try to find the browser language and load the frontend language-file and set it to the {@link $languageFile} property.
@@ -228,6 +238,7 @@ class feinduraBase {
   * @uses $categoryConfig                         the category-settings config array will set to this property
   * @uses $generalFunctions                       a generalFunctions class instance will set to this property
   * @uses $statisticFunctions                     a statisticFunctions class instance will set to this property
+  * @uses $loggedIn                               to set whether the visitor is logged in or not  
   * @uses $varNames                               the variable names from the administrator-settings config will set to this property
   * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
   * @uses $language                               to set the given $language parameter to, or try to find out the browser language
@@ -255,6 +266,9 @@ class feinduraBase {
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();
     $this->statisticFunctions = new statisticFunctions($this->generalFunctions);
+    
+    // CHECK if logged in
+    $this->loggedIn = ($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) ? true : false;
     
     // save the website statistics
     // ***************************
