@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 421
+Build 422
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 422: fixed persmissions and add check of pageContent array to savePage()
   build 421: created constant PERMISSIONS, and changed file create permissions to 755
   build 420: changed category key from 'id_1' to 1; show category move up button not on the first category and category move down button not on the last category
   build 419: fixed loading Circle and documentSaved animation

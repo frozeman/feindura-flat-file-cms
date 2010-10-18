@@ -487,21 +487,12 @@ class generalFunctions {
   */
   function savePage($pageContent) {
     
-    // escaps ",',\,NULL but undescappes the double quotes again
-    //echo '---1>'.$pageContent['content'];
-    $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
-    //echo '---2>'.$pageContent['content'];
-    $pageContent['content'] = stripslashes($pageContent['content']);
-    $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
-    $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );
-    //echo '---3>'.$pageContent['content'];
+    // check if array is pageContent array
+    if(!$this->isPageContentArray($pageContent))
+      return false;
     
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];
-    
-    // adds a slash after the category
-    if(!empty($categoryId) && $categoryId != 0)
-      $categoryId = $categoryId.'/';
     
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
@@ -509,8 +500,16 @@ class generalFunctions {
     : DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php';
     
     // open the flatfile
-    if(($file = @fopen($filePath,"w")) &&
-       is_numeric($pageContent['id'])) {
+    if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
+      
+      // escaps ",',\,NULL but undescappes the double quotes again
+      $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
+      $pageContent['content'] = stripslashes($pageContent['content']);
+      $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
+      $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );    
+      
+      // adds a slash after the category
+      $categoryId = (!empty($categoryId) && $categoryId != 0) ? $categoryId.'/' : $categoryId;
         
       // CHECK BOOL VALUES and change to FALSE
       $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
@@ -611,7 +610,7 @@ class generalFunctions {
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
   * 
-  * @return array the $pageContent array of the requested page
+  * @return array|FALSE the $pageContent array of the requested page or FALS, if it couldn't open the file
   * 
   * @version 1.0
   * <br>

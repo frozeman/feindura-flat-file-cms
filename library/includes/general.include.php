@@ -35,7 +35,7 @@ define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].
 /**
  * The permissions set to files, created by feindura
  */ 
-define('PERMISSIONS', PERMISSIONS);
+define('PERMISSIONS', 0755);
 
 
 
