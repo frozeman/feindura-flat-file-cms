@@ -101,6 +101,11 @@ window.addEvent('domready', function() {
     $('loadingBox').fade('show');
     //$('loadingBox').setStyle('display','block');
     
+    // blend out after page is loaded 
+    window.addEvent('load', function() {
+        $('loadingBox').tween('opacity','0');
+    });
+    
     // disply none the documentsaved, after blending in and out
     $('loadingBox').get('tween').chain(function() {
         //removeLoadingCircle();
@@ -108,11 +113,7 @@ window.addEvent('domready', function() {
         $('loadingBox').setStyle('display','none');
         $('loadingBox').setStyle('opacity','1');
     }); 
-    
-    // blend out after page is loaded 
-    window.addEvent('load', function() {
-        $('loadingBox').tween('opacity','0');
-    });
+
     
   // ->> hide loading circle, when it was not animated
   } else if(loadingBoxContent != null) {

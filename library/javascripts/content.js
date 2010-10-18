@@ -1024,16 +1024,19 @@ window.addEvent('domready', function() {
   }
   
   // throw a warning when user want to leave the page and the page content was changed
-  $$('a').each(function(links) {    
+  $$('a').each(function(link) {
+    var href = link.get('href');
+    var onclick = link.get('onclick');
+    
     // only on external links, or the sideBarMenu category selection
-    if((links.get('onclick') == null || (links.get('onclick') != null && links.get('onclick').toString().substr(0,18) == 'requestLeftSidebar')) &&
-        links.get('href') != null &&
-        links.get('href').toString().indexOf('#') == -1) {
+    if((onclick == null || (onclick != null && onclick.toString().substr(0,18) == 'requestLeftSidebar')) &&
+        href != null &&
+        href.toString().indexOf('#') == -1) {
 
-      links.addEvent('click',function(e) {
-        if(pageContentChanged && e.target.get('href') != null) {
+      link.addEvent('click',function(e) {
+        if(pageContentChanged) {
           e.stop();
-          openWindowBox('library/sites/windowBox/unsavedPage.php?target=' + escape(e.target.get('href')),false,false);
+          openWindowBox('library/sites/windowBox/unsavedPage.php?target=' + escape(href),false,false);
         }
       });
     }    

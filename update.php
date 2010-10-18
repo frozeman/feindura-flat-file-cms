@@ -290,11 +290,7 @@ $newVersion = '1.0';
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchwords'] = changeToSerializedDataString($data,' ');
       
-      if($generalFunctions->savePage($pageContent))
-        $pagesSuccesfullUpdated = true;
-      else
-        $pagesSuccesfullUpdated = false;
-      
+      $pagesSuccesfullUpdated = ($generalFunctions->savePage($pageContent)) ? true : false;      
     }
     if($pagesSuccesfullUpdated)
       echo 'pages <span class="succesfull">succesfully updated</span><br />';
