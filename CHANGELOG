@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 424
+Build 425
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 425: fixed editor.process.php
   build 424: seperated files in site into procss and display files; changed folder name of process/ to processes/
   build 423: fixed permission constant
   build 422: fixed persmissions and add check of pageContent array to savePage()

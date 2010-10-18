@@ -1,5 +1,5 @@
 <?php
-/*
+/*$categoryConfig
     feindura - Flat File Content Management System
     Copyright (C) Fabian Vogelsteller [frozeman.de]
 
@@ -18,11 +18,11 @@
 */
 
 // ->> SHOW the FORM
-echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$page.'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$pageContent['id'].'">
+echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
       <div>
       <input type="hidden" name="save" value="true" />
-      <input type="hidden" name="category" value="'.$category.'" />
-      <input type="hidden" name="id" value="'.$page.'" />
+      <input type="hidden" name="category" value="'.$_GET['category'].'" />
+      <input type="hidden" name="id" value="'.$_GET['page'].'" />
       <input type="hidden" name="savedBlock" id="savedBlock" value="" />
       </div>';
 
@@ -31,7 +31,7 @@ echo '<form action="'.$_SERVER['PHP_SELF'].'?category='.$category.'&amp;page='.$
 <?php
 
 // shows ID and different header color if its a CATEGORY
-$headerColor = ($category['id'] != 0)
+$headerColor = ($_GET['category'] != 0)
   ? 'blue' //" comes in the h1
   : 'brown'; //" comes in the h1
 
@@ -90,8 +90,8 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
     
     // -> show the thumbnail upload button if there is no thumbnail yet
     } elseif(!$newPage &&
-            (($pageContent['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
-            $categoryConfig[$pageContent['category']]['thumbnail'])) {  
+             (($_GET['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
+             $categoryConfig[$_GET['category']]['thumbnail'])) {  
       
         echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
     }
@@ -163,7 +163,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
         if($_GET['category'] == 0)
           $categoryInLink = '';
         else
-          $categoryInLink = $adminConfig['varName']['category'].'='.$_GET['category'].'&amp;';
+          $categoryInLink = $adminConfig['varName']['category'].'='.$pageContent['category'].'&amp;';
         
         
         // shows the page link
@@ -539,8 +539,8 @@ foreach($pluginsConfig as $pluginConfig) {
   if($pluginConfig['active'])
     $pluginsActive = true;    
 }
-if($pluginsActive && (($category == 0 && $adminConfig['pages']['plugins']) ||
-   $categoryConfig[$category]['plugins'])) {
+if($pluginsActive && (($_GET['category'] == 0 && $adminConfig['pages']['plugins']) ||
+   $categoryConfig[$_GET['category']]['plugins'])) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>

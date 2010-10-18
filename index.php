@@ -277,9 +277,9 @@ if($_GET['site'] == 'addons') {
     <!-- ** DOCUMENT SAVED ******************************************************* -->
     <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
     
-    <!-- ************************************************************************* -->
-    <!-- ** ERROR WINDOW ********************************************************* -->
     <?php if($errorWindow !== false) { ?>
+    <!-- ************************************************************************* -->
+    <!-- ** ERROR WINDOW ********************************************************* -->    
     <div id="errorWindow">
       <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
       <div class="content warning">

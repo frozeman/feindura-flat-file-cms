@@ -6,7 +6,7 @@ $websiteConfig['copyright']      = 'Fabian Vogelsteller';
 $websiteConfig['keywords']       = 'content,management,system,cms,flat,files,open,source,free,software,GPL';
 $websiteConfig['description']    = '';
 
-$websiteConfig['startPage']      = '12';
+$websiteConfig['startPage']      = '14';
 
 return $websiteConfig;
 ?>

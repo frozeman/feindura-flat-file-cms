@@ -16,8 +16,6 @@
 */
 // content.loader.php version 0.32
 
-
-
   
 // ***********************************************************************
 // CHECKs if the current basePath is matching the real basePath
@@ -25,11 +23,9 @@
 if($_GET['site'] != 'adminSetup')
 echo basePathWarning();
 
-
 // ***********************************************************************
 // CHECKs if a STARTPAGE is SET and if this page exists
 // if not throw a warning
-if($_GET['site'] != 'pages' && $_GET['site'] != 'pageSetup')
 echo startPageWarning();
 
 // start of loading the content

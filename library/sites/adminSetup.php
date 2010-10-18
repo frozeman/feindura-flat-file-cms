@@ -20,12 +20,6 @@
 // didnt show the Setup for non-adminstrators
 if(isAdmin()) {
 
-// CHECKs if a STARTPAGE is SET and if this page exists, if not throw a warning
-startPageWarning();
-
-// show basePath warning if necessary
-echo basePathWarning();
-
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 // ----------------------------------------------------------------------------------------
 $checkFolders[] = $adminConfig['basePath'].'config/';

@@ -1479,7 +1479,7 @@ function checkBasePath() {
  * 
  * @uses checkBasePath() to check if the current pathand URL are matching
  * 
- * @return string|false a warining if there are not matching, otherwise FALSE
+ * @return string|false a warning if the basePath is wrong, otherwise FALSE
  * 
  * @version 1.0
  * <br />
@@ -1523,6 +1523,9 @@ function basePathWarning() {
  * 
  */
 function startPageWarning() {
+  
+  if(basePathWarning() !== false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath']))
+    return false;
   
   if($GLOBALS['adminConfig']['setStartPage'] && $GLOBALS['websiteConfig']['startPage'] && ($startPageCategory = $GLOBALS['generalFunctions']->getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
     $startPageCategory .= '/';
