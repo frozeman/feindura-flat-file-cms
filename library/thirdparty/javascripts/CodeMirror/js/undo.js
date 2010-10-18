@@ -145,7 +145,7 @@ UndoHistory.prototype = {
 
   // Commit unless there are pending dirty nodes.
   tryCommit: function() {
-    if (!window.UndoHistory) return; // Stop when frame has been unloaded
+    if (!window.parent || !window.UndoHistory) return; // Stop when frame has been unloaded
     if (this.editor.highlightDirty()) this.commit(true);
     else this.scheduleCommit();
   },
@@ -380,7 +380,7 @@ UndoHistory.prototype = {
         self.container.insertBefore(line.from, end);
 
       // Add the text.
-      var node = makePartSpan(fixSpaces(line.text), this.container.ownerDocument);
+      var node = makePartSpan(fixSpaces(line.text));
       self.container.insertBefore(node, end);
       // See if the cursor was on this line. Put it back, adjusting
       // for changed line length, if it was.
@@ -391,7 +391,7 @@ UndoHistory.prototype = {
           // Only adjust if the cursor is after the unchanged part of
           // the line.
           for (var match = 0; match < cursor.offset &&
-               line.text.charAt(match) == prev.text.charAt(match); match++);
+               line.text.charAt(match) == prev.text.charAt(match); match++){}
           if (cursor.offset > match)
             cursordiff = line.text.length - prev.text.length;
         }

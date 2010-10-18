@@ -101,10 +101,21 @@ var JSParser = Editor.Parser = (function() {
         // Newline tokens get an indentation function associated with
         // them.
         token.indentation = indentJS(lexical);
+        // special handling for multiline strings: keep everything in the first
+        // column, as spaces at the start of a multiline string are significant
+        if (lexical.info == "multilineString") {
+          lexical.align = false;
+          token.indentation = function () { return 0; };
+        }
       }
       // No more processing for meaningless tokens.
       if (token.type == "whitespace" || token.type == "comment")
         return token;
+      // Take note when a multiline string is found, so as to
+      // correctly handle indentation at the end of the line
+      // (see above, line 95)
+      if (token.type == "multilineString")
+        lexical.info = 'multilineString';
       // When a meaningful token is found and the lexical scope's
       // align is undefined, it is an aligned scope.
       if (!("align" in lexical))
@@ -206,8 +217,6 @@ var JSParser = Editor.Parser = (function() {
     }
     // Pop off the current lexical context.
     function poplex(){
-      if (lexical.type == ")")
-        indented = lexical.indented;
       lexical = lexical.prev;
     }
     poplex.lex = true;
@@ -220,7 +229,6 @@ var JSParser = Editor.Parser = (function() {
     function expect(wanted){
       return function expecting(type){
         if (type == wanted) cont();
-        else if (wanted == ";") pass();
         else cont(arguments.callee);
       };
     }
@@ -239,7 +247,6 @@ var JSParser = Editor.Parser = (function() {
       else if (type == "keyword a") cont(pushlex("form"), expression, statement, poplex);
       else if (type == "keyword b") cont(pushlex("form"), statement, poplex);
       else if (type == "{") cont(pushlex("}"), block, poplex);
-      else if (type == ";") cont();
       else if (type == "function") cont(functiondef);
       else if (type == "for") cont(pushlex("form"), expect("("), pushlex(")"), forspec1, expect(")"), poplex, statement, poplex);
       else if (type == "variable") cont(pushlex("stat"), maybelabel);
@@ -263,10 +270,8 @@ var JSParser = Editor.Parser = (function() {
     // Called for places where operators, function calls, or
     // subscripts are valid. Will skip on to the next action if none
     // is found.
-    function maybeoperator(type, value){
-      if (type == "operator" && /\+\+|--/.test(value)) cont(maybeoperator);
-      else if (type == "operator") cont(expression);
-      else if (type == ";") pass();
+    function maybeoperator(type){
+      if (type == "operator") cont(expression);
       else if (type == "(") cont(pushlex(")"), commasep(expression, ")"), poplex, maybeoperator);
       else if (type == ".") cont(property, maybeoperator);
       else if (type == "[") cont(pushlex("]"), expression, expect("]"), poplex, maybeoperator);

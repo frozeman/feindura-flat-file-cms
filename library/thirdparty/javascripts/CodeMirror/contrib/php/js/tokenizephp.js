@@ -720,7 +720,7 @@ var tokenizePHP = (function() {
       "EACCELERATOR_SHM_AND_DISK", "EACCELERATOR_SHM", "EACCELERATOR_SHM_ONLY",
       "EACCELERATOR_DISK_ONLY", "EACCELERATOR_NONE", "XDEBUG_TRACE_APPEND",
       "XDEBUG_TRACE_COMPUTERIZED", "XDEBUG_TRACE_HTML", "XDEBUG_CC_UNUSED",
-      "XDEBUG_CC_DEAD_CODE", "STDIN", "STDOUT", "STDERR",
+      "XDEBUG_CC_DEAD_CODE", "STDIN", "STDOUT", "STDERR"
     ].forEach(function(element, index, array) {
       result[element] = token("atom", "php-predefined-constant");
     });
@@ -766,7 +766,7 @@ var tokenizePHP = (function() {
   // Helper regexps
   var isOperatorChar = /[+*&%\/=<>!?.|-]/;
   var isHexDigit = /[0-9A-Fa-f]/;
-  var isWordChar = /[\w\$_]/;
+  var isWordChar = /[\w\$_\\]/;
 
   // Wrapper around phpToken that helps maintain parser state (whether
   // we are inside of a multi-line comment)
@@ -960,7 +960,7 @@ var tokenizePHP = (function() {
     }
     var ch = source.next();
     if (ch == "'" || ch == "\"")
-      return readMultilineString(ch)
+      return readMultilineString(ch);
     else if (ch == "#")
       return readSingleLineComment();
     else if (ch == "$")
