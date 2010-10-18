@@ -2,6 +2,7 @@ window.addEvent('domready', function() {
   
   var blendOut = '-180px';
   var minWindowSize = 1420;
+  var delayForHide = 1500;
   
   /* slideOut function*/
   var slideOut = function(direction){ this.tween(direction,blendOut) };
@@ -17,7 +18,7 @@ window.addEvent('domready', function() {
     
     /* slide out on startup */
     if(window.getSize().x <= minWindowSize)
-      slideOut.delay(800,sideBarMenu,'left');   
+      slideOut.delay(delayForHide,sideBarMenu,'left');   
 
     
     sideBarMenu.addEvent('mouseover',function(){
@@ -51,7 +52,7 @@ window.addEvent('domready', function() {
     
     /* slide out on startup */
     if(window.getSize().x <= minWindowSize)
-      slideOut.delay(800,sideBarMenu,'right');
+      slideOut.delay(delayForHide,sideBarMenu,'right');
     
     sideBarMenu.addEvent('mouseover',function(){
       if(window.getSize().x <= minWindowSize)

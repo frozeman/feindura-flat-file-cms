@@ -250,7 +250,7 @@ class Filemanager {
       $this->error(sprintf($this->lang('DIRECTORY_ALREADY_EXISTS'),$this->get['name']));
        
     }
-    if(!mkdir($this->doc_root . $this->get['path'] . $this->get['name'],0755)) {
+    if(!mkdir($this->doc_root . $this->get['path'] . $this->get['name'], PERMISSIONS)) {
       $this->error(sprintf($this->lang('UNABLE_TO_CREATE_DIRECTORY'),$this->get['name']));
     }
     $array = array(

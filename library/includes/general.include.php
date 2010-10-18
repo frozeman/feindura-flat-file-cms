@@ -32,6 +32,12 @@ define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
  */ 
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
 
+/**
+ * The permissions set to files, created by feindura
+ */ 
+define('PERMISSIONS', PERMISSIONS);
+
+
 
 $phpTags = file(dirname(__FILE__)."/../process/phptags.txt"); 
 /**

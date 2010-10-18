@@ -575,7 +575,7 @@ class generalFunctions {
       flock($file,3);
       fclose($file);
       
-      @chmod($filePath, 0777);
+      @chmod($filePath, PERMISSIONS);
       
       // writes the new saved page to the $storedPages property      
       $this->removeStoredPage($pageContent['id']); // remove the old one
