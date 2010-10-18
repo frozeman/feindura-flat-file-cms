@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// process/sortPages.php version 0.32
+// processes/sortPages.process.php version 0.32
 
 include(dirname(__FILE__)."/../includes/backend.include.php");
 

@@ -178,7 +178,7 @@
     z-index: 1;
     position: absolute;
     top: -3px;
-    left: 240px; /* right: 250px; */
+    left: 25px; /* right: 250px; */
     width: auto;
     height: 56px; /* org height 64px */
     overflow: visible;

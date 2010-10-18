@@ -13,75 +13,10 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-listPages.php version 0.86
-
+* listPages.php version 0.86
 */
 
-$opendCategory = false;
-
-// -> CHANGE PAGE STATUS
-if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
-    
-    if($contentArray = $generalFunctions->readPage($_GET['page'],$_GET['category'])) {      
-         
-      // change the status
-      $contentArray['public'] = ($_GET['public']) ? false : true;
-      
-      // save the new status
-      if($generalFunctions->savePage($contentArray))
-        $documentSaved = true;
-      else
-        $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];
-        
-    } else
-      $errorWindow .= $langFile['file_error_read'];
-  
-  // shows after saving the category open
-  $opendCategory = $_GET['category'];
-}
-
-// -> CHANGE CATEGORY STATUS
-if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {    
-     
-      // change the status
-      $categoryConfig[$_GET['category']]['public'] = ($_GET['public']) ? false : true;
-  
-      // save the new status
-      if(saveCategories($categoryConfig))
-        $documentSaved = true;
-      else
-        $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];
-   
-   // shows after saving the category open
-   $opendCategory = $_GET['category'];
-}
-
-// -> SET THE STARTPAGE
-if(isset($_GET['status']) && $_GET['status'] == 'setStartPage' && !empty($_GET['page'])) {
-  
-    // sets the new startPage
-    $websiteConfig['startPage'] = $_GET['page'];
-    
-    if(savewebsiteConfig($websiteConfig)) {
-      // give documentSaved status
-      $documentSaved = true;
-      
-    } else $errorWindow .= $langFile['sortablePageList_setStartPage_error_save'];
-
-  
-  // shows after saving the category open
-   $opendCategory = $_GET['category'];
-}
-
-
-// ***********************************************************************
-// CHECKs if a STARTPAGE is SET and if this page exists, if not throw a warning
-startPageWarning();
-
-//<!--<a href="#" onclick="activateSortPages();">sdfsdf</a> in sortPages.js-->
-
 ?>
-
 <div class="block open noBg">
 <h1><?php echo $langFile['sortablePageList_h1']; ?></h1>
 

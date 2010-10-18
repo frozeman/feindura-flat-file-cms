@@ -384,7 +384,7 @@ $langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span cl
 $langFile['adminSetup_srvRootPath'] = 'Server-Root-Path';
 
 $langFile['adminSetup_error_title'] = 'Errors occured';
-$langFile['adminSetup_error_writeAccess_tip'] = 'For files and directories have need to set the permissions to '.PERMISSIONS.'.';
+$langFile['adminSetup_error_writeAccess_tip'] = 'For files and directories have need to set the permissions to '.decoct(PERMISSIONS).'.';
 
 $langFile['adminSetup_error_writeAccess'] = 'is not writeable';
 $langFile['adminSetup_error_isFolder'] = 'is not a directory';

@@ -14,25 +14,14 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// content.loader.php version 0.32
+// processes.loader.php version 0.1
 
+/**
+ * Includes the login
+ */
+include_once(dirname(__FILE__)."/includes/login.include.php");
 
-
-  
-// ***********************************************************************
-// CHECKs if the current basePath is matching the real basePath
-// if not throw an warning
-if($_GET['site'] != 'adminSetup')
-echo basePathWarning();
-
-
-// ***********************************************************************
-// CHECKs if a STARTPAGE is SET and if this page exists
-// if not throw a warning
-if($_GET['site'] != 'pages' && $_GET['site'] != 'pageSetup')
-echo startPageWarning();
-
-// start of loading the content
+// start of loading the processes
 // -------------------------------------------------------------------------------------------------------------
 
 // if page ID is given, it loads the HTML-Editor
@@ -43,7 +32,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
   
-  include (dirname(__FILE__).'/sites/editor.php');
+  include (dirname(__FILE__).'/processes/editor.process.php');
   
 // otherwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
@@ -51,63 +40,39 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   
   // SWITCHES the &_GET['site'] var
   switch($_GET['site']) {
-    // home
-    case 'home': case '':
-      include (dirname(__FILE__).'/sites/home.php');
-      break;
     // pages
     case 'pages':
       if(empty($categoryConfig))
         $_GET['category'] = 0;
-      include (dirname(__FILE__).'/sites/listPages.php');
+      include (dirname(__FILE__).'/processes/listPages.process.php');
       break;
     // adminSetup
     case 'adminSetup':
-      include (dirname(__FILE__).'/sites/adminSetup.php');
+      include (dirname(__FILE__).'/processes/adminSetup.process.php');
       break;
     // adminSetup
     case 'pageSetup':
-      include (dirname(__FILE__).'/sites/pageSetup.php');
+      include (dirname(__FILE__).'/processes/pageSetup.process.php');
       break;
     // websiteSetup
     case 'websiteSetup':
-      include (dirname(__FILE__).'/sites/websiteSetup.php');
+      include (dirname(__FILE__).'/processes/websiteSetup.process.php');
       break;
     // statisticSetup
     case 'statisticSetup':
-      include (dirname(__FILE__).'/sites/statisticSetup.php');
+      include (dirname(__FILE__).'/processes/statisticSetup.process.php');
       break;
     // userSetup
     case 'userSetup':
-      include (dirname(__FILE__).'/sites/userSetup.php');
+      include (dirname(__FILE__).'/processes/userSetup.process.php');
       break;
     // pluginSetup
     case 'pluginSetup':
-      include (dirname(__FILE__).'/sites/pluginSetup.php');
+      include (dirname(__FILE__).'/processes/pluginSetup.process.php');
       break;
     // modulSetup
     case 'modulSetup':
-      include (dirname(__FILE__).'/sites/modulSetup.php');
-      break;
-    // search
-    case 'search':
-      include (dirname(__FILE__).'/sites/search.php');
-      break;
-    // fileManager
-    case 'fileManager':
-      include (dirname(__FILE__).'/sites/windowBox/fileManager.php');
-      break; 
-    // deletePage
-    case 'deletePage':
-      include (dirname(__FILE__).'/sites/windowBox/deletePage.php');
-      break;
-    // pageThumbnailUpload
-    case 'pageThumbnailUpload':
-      include (dirname(__FILE__).'/sites/windowBox/pageThumbnailUpload.php');
-      break;
-    // pageThumbnailDelete
-    case 'pageThumbnailDelete':
-      include (dirname(__FILE__).'/sites/windowBox/pageThumbnailDelete.php');
+      include (dirname(__FILE__).'/processes/modulSetup.process.php');
       break;
   } //switch END
 

@@ -589,9 +589,9 @@ window.addEvent('domready', function() {
 			$$('.sortablePageList span').each(function(span) { if($('reverse').value) count_sort--;	else count_sort++; span.innerHTML = count_sort + '.';});
 			*/
 			
-			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/process/sortPages.php	------------------------------
+			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/processes/sortPages.process.php	------------------------------
 				var req = new Request({
-					url:'library/process/sortPages.php',
+					url:'library/processes/sortPages.process.php',
 					method:'post',
 					//autoCancel:true,
 					data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked

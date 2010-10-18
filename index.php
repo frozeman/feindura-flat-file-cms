@@ -22,12 +22,17 @@
 /**
  * Includes the login
  */
-include_once("library/includes/login.include.php");
+include_once(dirname(__FILE__)."/library/includes/login.include.php");
 
 /**
  * Includes all necessary configs, functions and classes
  */
-include_once("library/includes/backend.include.php");
+include_once(dirname(__FILE__)."/library/includes/backend.include.php");
+
+/**
+ * Includes all necessary configs, functions and classes
+ */
+include_once(dirname(__FILE__)."/library/processes.loader.php");
 
 // VARs
 // -----------------------------------------------------------------------------------
@@ -267,9 +272,29 @@ if($_GET['site'] == 'addons') {
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
-    <?php   
+  
+    <!-- ************************************************************************* -->
+    <!-- ** DOCUMENT SAVED ******************************************************* -->
+    <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
+    
+    <!-- ************************************************************************* -->
+    <!-- ** ERROR WINDOW ********************************************************* -->
+    <?php if($errorWindow !== false) { ?>
+    <div id="errorWindow">
+      <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
+      <div class="content warning">
+        <p><?php echo $errorWindow; ?></p>
+        <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    
+    <?php }
+    
+    // ---------------------------------------------------------------
+    // ->> CHECK to show BUTTONs in subMenu and FooterMenu 
      
-    // CHECK createPage
+    // -> CHECK if show createPage
     $generallyCreatePages = false;
     // check if non-category can create pages
     if($adminConfig['pages']['createdelete'])
@@ -282,169 +307,121 @@ if($_GET['site'] == 'addons') {
       }
     }
     
-    if($generallyCreatePages && $_GET['site'] == 'pages' ||
-       (!empty($_GET['page']) &&
-       ($_GET['category'] === '0' && $adminConfig['pages']['createdelete']) ||
-        ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createdelete'])))
-      $showCreatePage = true;
-    else
-      $showCreatePage = false;
+    $showCreatePage = ($generallyCreatePages && $_GET['site'] == 'pages' ||
+                       (!empty($_GET['page']) &&
+                       ($_GET['category'] === '0' && $adminConfig['pages']['createdelete']) ||
+                       ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createdelete']))) ? true : false;
     
-    // CHECK 1. pageThumbnailUpload
-    if(empty($_GET['site']) && !empty($_GET['page']) && (($_GET['category'] === '0' && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnail']))
-      $showPageThumbnailUpload = true;
-    else
-      $showPageThumbnailUpload = false;
+    // -> CHECK if show pageThumbnailUpload
+    $showPageThumbnailUpload = (!$newPage &&
+                                empty($_GET['site']) && !empty($_GET['page']) &&
+                                (($_GET['category'] === '0' && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnail'])) ? true : false;
+
     
-    // CHECK 1. SHOW SUB- FOOTERMENU
-    if(//$_GET['status'] != 'changePageStatus' &&
+    // -> CHECK if show pageThumbnailDelete
+    $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
+    
+    // -> CHECK if show SUB- FOOTERMENU
+    $showSubFooterMenu = (//$_GET['status'] != 'changePageStatus' &&
        //$_GET['status'] != 'changeCategoryStatus' &&
        //$_GET['category'] != '' &&
        ($_GET['site'] == 'pages' || !empty($_GET['page'])) && 
-       ($showPageThumbnailUpload || $showCreatePage || $adminConfig['user']['fileManager']))
-      $showSubFooterMenu = true;
-    else
-      $showSubFooterMenu = false;          
+       ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || $adminConfig['user']['fileManager'])) ? true : false;
+      
+     // -> CHEACK if show DELETE PAGE
+    $showDeletePage = (!$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new') ? true : false;
     
     ?>
+    
+    <!-- ************************************************************************* -->
+    <!-- ** LEFT-SIDEBAR ************************************************************** -->
+    <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
+    <div id="leftSidebar">
+      <?php
+    
+      include('library/leftSidebar.loader.php');
+      
+      ?>
+    </div>
+    
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
-    <div id="content"<?php if($showSubFooterMenu) echo 'class="hasSubMenu"'; ?>>      
-      <?php
+    <div id="content"<?php if($showSubFooterMenu) echo 'class="hasSubMenu"'; ?>>
+    
+      <!-- ************************************************************************* -->
+      <!-- ** SUBMENU ************************************************************** -->
+      <?php if($showSubFooterMenu) { ?>
+      <div class="subMenu">
+        <div class="left"></div>
+        <div class="content">
+          <ul class="horizontalButtons">         
+            <?php
+            $showSpacer = false;
+            
+            // file manager
+            if($adminConfig['user']['fileManager']) { ?>
+              <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::">&nbsp;</a></li>
+            <?php
+              $showSpacer = true;
+            }
+            
+            if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+              <li class="spacer">&nbsp;</li>
+            <?php 
+              $showSpacer = false;
+            } 
+            
+            // create new page
+            if($showCreatePage) { ?>
+              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['btn_createPage_tip']; ?>::">&nbsp;</a></li>
+            <?php
+            // deletePage
+            if($showDeletePage) { ?>
+              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\',true);return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
+            <?php }          
+              $showSpacer = true;
+            }
+            
+            if($showSpacer && $showPageThumbnailUpload) { ?>
+              <li class="spacer">&nbsp;</li>
+            <?php 
+              $showSpacer = false;
+            }          
+            
+            // pageThumbnailUpload
+            if($showPageThumbnailUpload) { ?>
+              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::"'; ?> class="pageThumbnailUpload toolTip">&nbsp;</a></li>
+            <?php
+            // pageThumbnailDelete
+            if($showPageThumbnailDelete) { ?>
+              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::"'; ?> class="pageThumbnailDelete toolTip">&nbsp;</a></li>
+            <?php }          
+              $showSpacer = true;
+            }           
+            ?>          
+          </ul>
+        </div>        
+        <div class="right"></div>
+      </div>
+      <?php }
 
       include('library/content.loader.php');
       
       ?>
       <a href="#top" class="fastUp" title="<?php echo $langFile['btn_fastUp']; ?>">&nbsp;</a>
-    </div>    
-    <?php    
-    // ---------------------------------------------------------------
-    // CHECK to show BUTTONs in subMenu and FooterMenu
+    </div>
     
-    // show deletePage
-    if(!$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new')
-      $showDeletePage = true;
-    else
-      $showDeletePage = false;
-      
-    // CHECK 2. pageThumbnailUpload
-    if(!$newPage && $showPageThumbnailUpload)
-      $showPageThumbnailUpload = true;
-    else
-      $showPageThumbnailUpload = false;
-    
-    // show pageThumbnailDelete
-    if(empty($_GET['site']) && !empty($pageContent['thumbnail']))
-      $showPageThumbnailDelete = true;
-    else
-      $showPageThumbnailDelete = false;
-      
-    // ---------------------------------------------------------------
-    // CHECK 2. SHOW SUB- FOOTERMENU
-    if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && 
-       (($showSubFooterMenu && ($showCreatePage || $showPageThumbnailUpload)) || $adminConfig['user']['fileManager']))
-      $showSubFooterMenu = true;
-    else
-      $showSubFooterMenu = false;
-
-    ?>
     <!-- ************************************************************************* -->
-    <!-- ** SUBMENU ************************************************************** -->
-    <?php if($showSubFooterMenu) { ?>
-    <div class="subMenu">
-      <div class="left"></div>
-      <div class="content">
-        <ul class="horizontalButtons">         
-          <?php
-          $showSpacer = false;
-          
-          // file manager
-          if($adminConfig['user']['fileManager']) { ?>
-            <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['btn_fileManager']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['btn_fileManager_tip']; ?>::">&nbsp;</a></li>
-          <?php
-            $showSpacer = true;
-          }
-          
-          if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
-            <li class="spacer">&nbsp;</li>
-          <?php 
-            $showSpacer = false;
-          } 
-          
-          // create new page
-          if($showCreatePage) { ?>
-            <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['btn_createPage_tip']; ?>::">&nbsp;</a></li>
-          <?php
-          // deletePage
-          if($showDeletePage) { ?>
-            <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_deletePage'].'\',true);return false;" title="'.$langFile['btn_deletePage_tip'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
-          <?php }          
-            $showSpacer = true;
-          }
-          
-          if($showSpacer && $showPageThumbnailUpload) { ?>
-            <li class="spacer">&nbsp;</li>
-          <?php 
-            $showSpacer = false;
-          }          
-          
-          // pageThumbnailUpload
-          if($showPageThumbnailUpload) { ?>
-            <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::"'; ?> class="pageThumbnailUpload toolTip">&nbsp;</a></li>
-          <?php
-          // pageThumbnailDelete
-          if($showPageThumbnailDelete) { ?>
-            <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::"'; ?> class="pageThumbnailDelete toolTip">&nbsp;</a></li>
-          <?php }          
-            $showSpacer = true;
-          }           
-          ?>          
-        </ul>
-      </div>        
-      <div class="right"></div>
-    </div>
-    <?php } ?>
-    
-  </div>
+    <!-- ** RIGHT-SIDEBAR ************************************************************** -->
+    <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
+    <div id="rightSidebar">
+      <?php
   
-  <!-- ************************************************************************* -->
-  <!-- ** DOCUMENT SAVED ******************************************************* -->
-  <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
-  
-  <!-- ************************************************************************* -->
-  <!-- ** ERROR WINDOW ********************************************************* -->
-  <?php if($errorWindow !== false) { ?>
-  <div id="errorWindow">
-    <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
-    <div class="content warning">
-      <p><?php echo $errorWindow; ?></p>
-      <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
-    </div>
-    <div class="bottom"></div>
-  </div>
-  <?php } ?>
-  
-  <!-- ************************************************************************* -->
-  <!-- ** LEFT-SIDEBAR ************************************************************** -->
-  <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
-  <div id="leftSidebar">
-    <?php
-
-    include('library/leftSidebar.loader.php');
-    
-    ?>
-  </div>
-  
-  <!-- ************************************************************************* -->
-  <!-- ** RIGHT-SIDEBAR ************************************************************** -->
-  <!-- requires the <span> tag inside the <li><a> tag for measure the text width -->
-  <div id="rightSidebar">
-    <?php
-
-    include('library/rightSidebar.loader.php');
-    
-    ?>
-  </div>
+      include('library/rightSidebar.loader.php');
+      
+      ?>
+    </div>    
+  </div> 
   
   <!-- ******************************************************************************************* -->
   <!-- ** FOOTER ********************************************************************************* -->

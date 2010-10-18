@@ -405,6 +405,10 @@ $newVersion = '1.0';
     if(!delDir($adminConfig['basePath'].'library/lang/') && 
       is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/lang/'))  
       $checkFiles[] = $adminConfig['basePath'].'library/lang/';
+    if(!delDir($adminConfig['basePath'].'library/process/') && 
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/process/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/process/';
+      
     if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'README')&&
       is_file(DOCUMENTROOT.$adminConfig['basePath'].'README'))
       $checkFiles[] = $adminConfig['basePath'].'README';

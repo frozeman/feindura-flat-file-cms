@@ -35,11 +35,11 @@ define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].
 /**
  * The permissions set to files, created by feindura
  */ 
-define('PERMISSIONS', 755);
+define('PERMISSIONS', 0755);
 
 
 
-$phpTags = file(dirname(__FILE__)."/../process/phptags.txt"); 
+$phpTags = file(dirname(__FILE__)."/../processes/phptags");
 /**
  * The php start tag for us in saveing functions
  */ 

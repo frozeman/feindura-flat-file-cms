@@ -192,7 +192,7 @@ span.red, label.red, h1.red {
 #leftSidebar {
     z-index: 2;
     position: absolute;
-    top: 145px;
+    top: 0px;
     left: 0px;
     width: 208px;
     padding: 0px 0px;
@@ -202,7 +202,7 @@ span.red, label.red, h1.red {
 #rightSidebar {
     z-index: 2;
     position: absolute;
-    top: 145px;
+    top: 0px;
     left: 1035px;
     width: 210px;
     padding: 0px;

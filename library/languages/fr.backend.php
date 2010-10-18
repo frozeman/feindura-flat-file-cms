@@ -336,7 +336,7 @@ $langFile['adminSetup_phpVersion'] = 'PHP Version';
 $langFile['adminSetup_warning_phpversion'] = 'pour la fonctionalit&eacute; tu as besoin d&lsquo;au moins'; // PHP 4.3.0
 $langFile['adminSetup_srvRootPath'] = 'trace Server-Root';
 $langFile['adminSetup_error_title'] = 'des erreurs se sont produites';
-$langFile['adminSetup_error_writeAccess_tip'] = 'pour les fichiers et les donn&eacute;es les droits de lecture doivent &ecirc;tre mis sur '.PERMISSIONS.'.';
+$langFile['adminSetup_error_writeAccess_tip'] = 'pour les fichiers et les donn&eacute;es les droits de lecture doivent &ecirc;tre mis sur '.decoct(PERMISSIONS).'.';
 $langFile['adminSetup_error_writeAccess'] = 'n&lsquo;est pas descriptible';
 $langFile['adminSetup_error_isFolder'] = 'n&lsquo;est pas un dossier';
 

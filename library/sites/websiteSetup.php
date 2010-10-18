@@ -14,44 +14,8 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* websiteSetup.php version 1.9
+* sites/websiteSetup.php version 1.9
 */
-
-
-// ----------------------------------------------------------------------------------------------------------------------------------------
-// **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------------------------
-
-// ------------ SAVE the WEBSITE SETTINGS
-if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
-
-    // gets the startPage var and put it in the POST var
-    $_POST['startPage'] = $websiteConfig['startPage'];
-    
-    $_POST['copyright'] = $_POST['websiteConfig_copyright'];
-    if(saveWebsiteConfig($_POST)) {
-      // give documentSaved status
-      $documentSaved = true;
-      $statisticFunctions->saveTaskLog(7); // <- SAVE the task in a LOG FILE
-    } else
-    $errorWindow .= $langFile['websiteSetup_websiteConfig_error_save'];
-  
-  $savedForm = 'websiteConfig';
-}
-
-// ---------- SAVE the editFiles
-include_once(dirname(__FILE__).'/../process/saveEditFiles.php');
-
-
-// RE-INCLUDE
-$websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
-// RESET of the vars in the classes
-$generalFunctions->websiteConfig = $websiteConfig;
-$generalFunctions->storedPageIds = null;
-$generalFunctions->storedPages = null;
-
-
-// ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
 
 // CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------

@@ -149,7 +149,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          echo '<div id="sidebarTaskLog"><br /><br />';
          
               // ->> LIST the tasks
-              include(dirname(__FILE__).'/process/showTaskLog.php');
+              include(dirname(__FILE__).'/processes/showTaskLog.process.php');
               
          echo '<br />
               <br /></div>';

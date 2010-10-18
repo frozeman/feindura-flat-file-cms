@@ -101,7 +101,7 @@ if($categoryRatio) {
 
 <div style="position: relative">
 <!-- <form action="?site=pageThumbnail&amp;category=<?php echo $category; ?>&amp;id=<?php echo $page; ?>" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','pageThumbnailUploadForm');return false;" accept-charset="UTF-8"> -->
-<form action="library/process/thumbnailUpload.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
+<form action="library/processes/thumbnailUpload.process.php" id="pageThumbnailUploadForm" enctype="multipart/form-data" method="post" onsubmit="startUploadAnimation();" target="uploadTargetFrame" accept-charset="UTF-8">
 	<input type="hidden" name="upload" value="true" />
 	<input type="hidden" name="category" value="<?php echo $category; ?>" />
   <input type="hidden" name="id" value="<?php echo $page; ?>" />
@@ -195,4 +195,4 @@ if($categoryRatio) {
 <a href="?category=<?= $category; ?>&amp;page=<?= $page; ?>" onclick="closeWindowBox('index.php?site=<?= $site; ?>&amp;category=<?= $category; ?>&amp;page=<?= $page; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->
-<iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/process/thumbnailUpload.php"></iframe>
+<iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/processes/thumbnailUpload.process.php"></iframe>

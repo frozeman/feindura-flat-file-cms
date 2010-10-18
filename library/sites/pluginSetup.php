@@ -14,41 +14,8 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* pluginSetup.php version 0.1
+* sites/pluginSetup.php version 0.1
 */
-
-// ----------------------------------------------------------------------------------------------------------------------------------------
-// **--** SAVE PROCESS --------------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------
-// ****** ---------- SAVE PLUGIN CONFIG in config/admin.config.php
-if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
-  
-  // prepare vars
-  $pluginsConfig[$_POST['savedBlock']]['active'] = $_POST['plugin'][$_POST['savedBlock']]['active'];
-  
-  // **** opens admin.config.php for writing
-  if(savePluginsConfig($pluginsConfig)) {
-     
-    // give documentSaved status
-    $documentSaved = true;
-    $statisticFunctions->saveTaskLog(11,$_POST['savedBlock']); // <- SAVE the task in a LOG FILE
-    
-  } else
-    $errorWindow .= $langFile['pluginSetup_pluginconfig_error_save'].' '.$adminConfig['basePath'].'config/plugin.config.php';
-  
-  $savedForm = $_POST['savedBlock'];
-}
-
-// ---------- SAVE the editFiles
-include(dirname(__FILE__).'/../process/saveEditFiles.php');
-
-// RE-INCLUDE
-$pluginsConfig = @include(dirname(__FILE__)."/../../config/plugins.config.php");
-
-// ------------------------------- ENDE of the SAVING SCRIPT -------------------------------------------------------------------------------
-
 
 // CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
