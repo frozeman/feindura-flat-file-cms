@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 426
+Build 427
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 427: add CKEditor build 5942
   build 426: add CodeMirror 0.9
   build 425: fixed editor.process.php
   build 424: seperated files in site into procss and display files; changed folder name of process/ to processes/
