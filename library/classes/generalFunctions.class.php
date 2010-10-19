@@ -494,6 +494,9 @@ class generalFunctions {
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];
     
+    // adds a slash after the category
+    $categoryId = (!empty($categoryId) && $categoryId != 0) ? $categoryId.'/' : $categoryId;
+    
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
     ? DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php'
@@ -506,10 +509,7 @@ class generalFunctions {
       $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
       $pageContent['content'] = stripslashes($pageContent['content']);
       $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
-      $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );    
-      
-      // adds a slash after the category
-      $categoryId = (!empty($categoryId) && $categoryId != 0) ? $categoryId.'/' : $categoryId;
+      $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );
         
       // CHECK BOOL VALUES and change to FALSE
       $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.0
-Build 429
+Build 430
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.0
   
+  build 430: fixed savePage
   build 429: started frontendEditing (not working yet)
   build 428: fixed unsavedPage in content.js
   build 427: add CKEditor build 5942
