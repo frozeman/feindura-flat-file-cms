@@ -91,13 +91,13 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
-  <link rel="stylesheet" type="text/css" href="library/style/reset.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/layout.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/menus.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/sidebars.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/content.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/setup.css" media="all" />  
-  <link rel="stylesheet" type="text/css" href="library/style/windowBox.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/layout.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/menus.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/sidebars.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/content.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/setup.css" media="all" />  
+  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" media="all" />
   
 <?php
 if($_GET['site'] == 'addons') {
@@ -106,11 +106,11 @@ if($_GET['site'] == 'addons') {
 }
 ?>
   
-  <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/style/ie6.css" /><![endif]-->
-  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/style/ie7.css" /><![endif]-->
+  <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/styles/ie6.css" /><![endif]-->
+  <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css" /><![endif]-->
   
   <noscript>
-  <link rel="stylesheet" type="text/css" href="library/style/noJavascript.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css" media="screen" />
   </noscript>
   
   <!-- thirdparty/customformelements -->

@@ -847,18 +847,14 @@ function movePage($page, $fromCategory, $toCategory) {
 /**
  * <b>Name</b> prepareStyleFilePaths()<br />
  * 
- * Check the array with stylesheet files if they have a slash on the beginnging and if there are not empty.
- * Then implodes the array to a string like:
- * 
- * <samp>
- * /style/header.css|/style/content.css|/style/footer.css
- * </samp>
+ * Check the array with stylesheet file paths, whether they have a slash on the beginnging and that they are not empty.
+ * If slash is missing, it adds one and return the serialized the array as string.
  * 
  * If the $givenStyleFiles parameter is already a string it passes it trough.
  * 
  * @param array $givenStyleFiles the array with stylesheetfile paths
  * 
- * @return array the cleaned stylesheet files array
+ * @return string the checked stylesheet files path as serialized array
  * 
  * 
  * @version 1.0

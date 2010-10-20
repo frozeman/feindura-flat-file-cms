@@ -5,7 +5,7 @@ $adminConfig['basePath'] =         '/feinduraCMS/';
 $adminConfig['savePath'] =         '/feinduraCMS/page/';
 $adminConfig['uploadPath'] =       '/feinduraCMS/upload/';
 $adminConfig['websitefilesPath'] = '';
-$adminConfig['stylesheetPath'] =   '/style/';
+$adminConfig['stylesheetPath'] =   '/styles/';
 $adminConfig['dateFormat'] =       'int'; // can be "int" or "eu"
 $adminConfig['speakingUrl'] =      false;
 
@@ -24,7 +24,7 @@ $adminConfig['pages']['plugins'] =         false;
 $adminConfig['pages']['showtags'] =        false;
 
 $adminConfig['editor']['enterMode'] =  'p';
-$adminConfig['editor']['styleFile'] =  '/style/sheet.css';
+$adminConfig['editor']['styleFile'] =  '/styles/sheet.css';
 $adminConfig['editor']['styleId'] =    'contentId';
 $adminConfig['editor']['styleClass'] = '';
 

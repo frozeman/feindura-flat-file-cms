@@ -138,8 +138,8 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
    
   <link rel="shortcut icon" href="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
   
-  <link rel="stylesheet" type="text/css" href="library/style/reset.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/style/login.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all" />
   
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.js"></script>

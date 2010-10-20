@@ -11,7 +11,7 @@ $categoryConfig[1]['showtags'] =        true;
 $categoryConfig[1]['showpagedate'] =    true;
 $categoryConfig[1]['sortbypagedate'] =  true;
 
-$categoryConfig[1]['styleFile'] =       '/style/sheet.css';
+$categoryConfig[1]['styleFile'] =       '/styles/sheet.css';
 $categoryConfig[1]['styleId'] =         'contentId';
 $categoryConfig[1]['styleClass'] =      'contentClass';
 
