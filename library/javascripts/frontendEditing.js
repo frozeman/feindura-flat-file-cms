@@ -30,7 +30,7 @@ function saveEditedPage(editorInstance) {
 function feinduraEditPage(pageId,styleFiles,styleId,styleClass) {
   
   var pageContentName = 'feinduraPage' + pageId;
-  var pageContentBlock = $(pageContentName);
+  var pageContentBlock = $(styleId);
 
   if(pageContentBlock != null) {
   
@@ -44,11 +44,18 @@ function feinduraEditPage(pageId,styleFiles,styleId,styleClass) {
 
     // -> CREATES an editor instance by replacing the container DIV fo the page content
   	var editorInstance = CKEDITOR.replace(pageContentName, {
-        width       : pageContentBlock.getSize().x + 60,
-        height      : pageContentBlock.getSize().y + 80,
+        width       : pageContentBlock.getSize().x + 24, // 2x 12px
+        height      : pageContentBlock.getSize().y + 160, // 125px + 35px
         contentsCss : styleFiles,
         bodyId      : styleId,
         bodyClass   : styleClass
+    });
+    
+    
+    editorInstance.on('instanceReady',function(){
+      var editorBlock = $('cke_' + pageContentName);
+    
+      editorBlock.setStyle('margin','-125px -12px -35px -12px');
     });
     
     // -> SAVE automatically IF user LET the editor
