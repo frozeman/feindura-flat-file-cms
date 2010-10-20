@@ -13,25 +13,60 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// javascripts/frontendEditing.js version 0.1 (requires mootools-core and CKEditor)
-var editPageEditor
+// javascripts/frontendEditing.js version 0.11 (requires mootools-core and CKEditor)
+
+
+// ->> the function to SAVE the edited page data
+function saveEditedPage(editorInstance) {
+  editorInstance.updateElement();
+  alert(editorInstance.getData());
+  editorInstance.destroy();
+}
+
+
+// ->> the function will be execute when a user CLICK on the EDIT BUTTON
 function feinduraEditPage(pageId,styleFiles,styleId,styleClass) {
   
-  var pageContent = $('feinduraPage' + pageId);
+  var pageContentName = 'feinduraPage' + pageId;
+  var pageContentBlock = $(pageContentName);
   
-  if(pageContent != null) {
+  if(pageContentBlock != null) {
+    
+    if(CKEDITOR.instances.pageContentName != null) {
+      saveEditedPage(CKEDITOR.instances.pageContentName)
+      return;
+    }
 
     // CREATES an editor instance by replacing the container DIV fo the page content
-  	editPageEditor = CKEDITOR.replace('feinduraPage' + pageId,{
+  	var editorInstance = CKEDITOR.replace(pageContentName, {
         contentsCss : styleFiles,
         bodyId      : styleId,
         bodyClass   : styleClass
     });
+    
+    editorInstance.on('blur',function() {
+      saveEditedPage(editorInstance);
+    });
   }
 };
 
-window.addEvent('click',function(e){
-  if(editPageEditor != null && e.target.getParent() == editPageEditor)
-    alert(e.target);
-  //editPageEditor.destroy();
+// *---------------------------------------------------------------------------------------------------*
+//  DOMREADY
+// *---------------------------------------------------------------------------------------------------*
+window.addEvent('domready',function(){
+  CKEDITOR.plugins.registered['save'] = {
+     init : function( editorInstance )
+     {
+        var command = editorInstance.addCommand( 'save',
+           {
+              //modes : { wysiwyg:1, source:1 },
+              exec : function( editorInstance ) {
+                 //var fo=editor.element.$.form;
+                 saveEditedPage(editorInstance);
+              }
+           }
+        );
+        editorInstance.ui.addButton( 'Save',{label : 'Save',command : 'save'});
+     }
+  }
 });
