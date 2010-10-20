@@ -287,7 +287,10 @@ class feinduraBase {
     if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
-
+    
+    // -> CHECK the GET variables
+    $this->generalFunctions->checkGetVariables($this->varNames['category'],$this->varNames['category']);
+    
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
     // set the given country code

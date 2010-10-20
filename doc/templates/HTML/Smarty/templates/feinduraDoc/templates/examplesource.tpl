@@ -1,7 +1,5 @@
 {include file="header.tpl" title=$title}
-<h1 align="center">{$title}</h1>
+<h1 class="file-name">{$title}</h1>
 <div class="php"></div>
-<div class="src-code"><span class="php">
 {$source}
-</span></div>
 {include file="footer.tpl"}

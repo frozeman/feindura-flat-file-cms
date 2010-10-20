@@ -17,8 +17,6 @@ home.php version 0.86
 
 */
 
-include_once(dirname(__FILE__).'/../includes/backend.include.php');
-
 ?>
 <div class="block">
   <h1><?php echo $langFile['home_welcome_h1']; ?></h1>

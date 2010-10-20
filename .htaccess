@@ -1,3 +1,9 @@
+# secure htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+# enable caching of images and compressed delivery
 <IfModule mod_expires.c>
   # turn on the module for this directory
   ExpiresActive on

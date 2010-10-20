@@ -3,7 +3,5 @@
 <h2 class="file-name">Source for file {$name}</h2>
 <p>Documentation is available at {$docs}</p>
 <div class="php"></div>
-
 {$source}
-
 {include file="footer.tpl"}

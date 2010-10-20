@@ -260,6 +260,40 @@ class generalFunctions {
           return $standardLang;          
   }
   
+  /**
+   * <b>Name</b> checkGetVariables()<br />
+   * 
+   * Check all important GET varibale whether they have the right value type, otherwise exits the script.
+   * 
+   * <b>Used Global Variables</b><br />
+   *    - <var>$_GET</var> the http request variables
+   * 
+   * @param string $category the name of the category variable
+   * @param string $page the name of the category variable   
+   * 
+   * @return void nothing just cancels the running script if necessary
+   * 
+   * @version 1.0
+   * <br />
+   * <b>ChangeLog</b><br />
+   *    - 1.0 initial release
+   * 
+   */
+  function checkGetVariables($category = 'category', $page = 'page') {
+    
+    //check category
+    if(isset($_GET[$category]) && !empty($_GET[$category]) && !is_numeric($_GET[$category]))
+      die('Wrong &quot;'.$category.'&quot; parameter! Script will not be executed.');
+    // check page
+    if(isset($_GET[$page]) && !empty($_GET[$page]) && $_GET[$page] != 'new' && !is_numeric($_GET[$page]))
+      die('Wrong &quot;'.$page.'&quot; parameter! Script will not be executed.');
+    
+    // check language
+    if(isset($_GET['language']) && !empty($_GET['language']) && (!is_string($_GET['language']) || strlen($_GET['language']) > 2))
+      die('Wrong &quot;language&quot; parameter! Parameter can not have more than 2 characters. Script will not be executed.');
+    
+  }
+
  /**
   * <b>Name</b> getStoredPageIds()<br>
   * 
@@ -494,13 +528,10 @@ class generalFunctions {
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];
     
-    // adds a slash after the category
-    $categoryId = (!empty($categoryId) && $categoryId != 0) ? $categoryId.'/' : $categoryId;
-    
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
     ? DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php'
-    : DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.$pageId.'.php';
+    : DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {

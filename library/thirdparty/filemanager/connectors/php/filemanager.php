@@ -1,4 +1,8 @@
 <?php
+/**
+ * Includes the login
+ */
+include(dirname(__FILE__)."/../../../../includes/login.include.php");
 
 /**
  *	Filemanager PHP connector

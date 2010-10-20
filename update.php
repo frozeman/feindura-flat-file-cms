@@ -417,6 +417,10 @@ $newVersion = '1.0';
     if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/backend.include.php') &&
       is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/backend.include.php'))
       $checkFiles[] = $adminConfig['basePath'].'library/backend.include.php';
+    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/process/download.php') &&
+      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/process/download.php'))
+      $checkFiles[] = $adminConfig['basePath'].'library/process/download.php';
+      
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';

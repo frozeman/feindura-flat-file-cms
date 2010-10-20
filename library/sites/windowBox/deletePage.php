@@ -16,7 +16,7 @@
 */
 // deletePage.php version 0.93
 
-include_once(dirname(__FILE__).'/../../includes/backend.include.php');
+include_once(dirname(__FILE__).'/../../includes/login.include.php');
 
 // gets the vars
 if(isset($_POST['category']))

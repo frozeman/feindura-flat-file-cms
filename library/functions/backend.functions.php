@@ -1433,7 +1433,7 @@ function checkBasePath() {
 /**
  * <b>Name</b> checkBasePath()<br />
  * 
- * Retruns a warning if the current path of the CMS and the current URL is not matching with the ones set in the <var>$adminConfig</var>.
+ * Returns a warning if the current path of the CMS and the current URL is not matching with the ones set in the <var>$adminConfig</var>.
  * 
  * <b>Used Global Variables</b><br />
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})

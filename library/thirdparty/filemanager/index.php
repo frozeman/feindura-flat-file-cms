@@ -81,5 +81,5 @@ if($adminConfig['user']['fileManager']) {
 </html>
 <?php
 } else
+  echo 'The filemanager is deactivated';
 ?>
-The filemanager is deactivated
