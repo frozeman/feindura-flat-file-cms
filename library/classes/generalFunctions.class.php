@@ -1026,7 +1026,7 @@ class generalFunctions {
   */
   function sortPages($pageContentArrays, $sortBy = false) {
     
-    if(is_array($pageContentArrays)) {
+    if(is_array($pageContentArrays) && isset($pageContentArrays[0])) {
     
       // CHECK if the arrays are valid $pageContent arrays
       // otherwise return the unchanged array
@@ -1074,7 +1074,7 @@ class generalFunctions {
           else
             usort($categoriesArray, 'sortBySortOrder');
         } else
-          usort($categoriesArray, $sortBy);  
+            usort($categoriesArray, $sortBy);  
         
         
         // makes the category ascending, if its in the options
