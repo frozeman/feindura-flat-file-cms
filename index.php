@@ -127,7 +127,8 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.js"></script>
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
   
-  <!-- thirdparty/AutoGrow (needs MooTools) -->
+  <!-- thirdparty/AutoGrow [http://github.com/cpojer/mootools-form-autogrow] (needs MooTools) 
+  <script type="text/javascript" src="library/thirdparty/javascripts/Form.AutoGrow.js"></script>-->
   <script type="text/javascript" src="library/thirdparty/javascripts/autogrow-1.0.js"></script>
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
@@ -135,7 +136,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Source/StaticScroller.js"></script>	
 	
 	<!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.4.3.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
 	
   <!-- thirdparty/CodeMirror -->
   <script type="text/javascript" src="library/thirdparty/javascripts/CodeMirror/js/codemirror.js"></script>

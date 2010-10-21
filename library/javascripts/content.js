@@ -666,12 +666,14 @@ window.addEvent('domready', function() {
   
   // *** ->> SETUP -----------------------------------------------------------------------------------------------------------------------
   
+  // -> ADD auto grow to textareas which have the "autogrow" class
+  $$('textarea.autogrow').each(function(textarea){
+    //new Form.AutoGrow(textarea);
+    new AutoGrow(textarea);
+  });  
+  
   // ->> ADMIN-SETUP
   // ---------------
-  
-  // -> adds auto grow to the userinfo textarea
-  if($('cfg_userInfo') != null)
-    new AutoGrow($('cfg_userInfo'));
   
   // -> adds realtime THUMBSCALE to the thumbnail Settings
   setThumbScale('cfg_thumbWidth','thumbWidthScale','cfg_thumbHeight','thumbHeightScale');
@@ -919,11 +921,7 @@ window.addEvent('domready', function() {
   	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
      
   }
-  
-  // -> ADD auto grow to the userinfo textarea
-  if($('edit_description') != null)
-    new AutoGrow($('edit_description'));
-  
+
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MAX
   if($('visitTimeMax') != null) {

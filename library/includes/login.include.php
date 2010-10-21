@@ -154,7 +154,8 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   <script type="text/javascript">
   window.addEvent('load',function() {  
     new OverText('username',{positionOptions: {offset: {x: 12,y: 5}}});
-    new OverText('password',{positionOptions: {offset: {x: 12,y: 5}}});  	
+    new OverText('password',{positionOptions: {offset: {x: 12,y: 5}}});
+
   });
   
   function startLoadingCircle() {
