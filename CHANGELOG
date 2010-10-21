@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1
-Build 435
+Build 436
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1
   
+  build 436: add new autogrow
   build 435: add raphael 1.5.2
   build 434: changed order of the ckeditor toolbar
   build 433: renamed style/ folder to styles/

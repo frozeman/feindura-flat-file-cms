@@ -668,8 +668,7 @@ window.addEvent('domready', function() {
   
   // -> ADD auto grow to textareas which have the "autogrow" class
   $$('textarea.autogrow').each(function(textarea){
-    //new Form.AutoGrow(textarea);
-    new AutoGrow(textarea);
+    new Form.AutoGrow(textarea);
   });  
   
   // ->> ADMIN-SETUP
