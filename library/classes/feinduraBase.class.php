@@ -664,7 +664,8 @@ class feinduraBase {
     $return['content'] = false;
     $return['description'] = false;  
     $return['tags'] = false;
-    $return['plugins'] = false;
+    
+    $return['error'] = true;
 
     // ->> CHECKS
     // -------------------
@@ -672,6 +673,13 @@ class feinduraBase {
     // LOOKS FOR A GIVEN PAGE, IF NOT STOP THE METHOD
     if(!is_numeric($page) && !is_array($page))
       return array();
+      
+    // -> early SET UP PAGE ELEMENTS
+    if(!empty($pageContent['id']))
+      $return['id'] = $pageContent['id'];
+    
+    if($pageContent['category'] && $pageContent['category'] != '0')
+      $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
     
     // -> sets the ERROR SETTINGS
     // ----------------------------
@@ -820,14 +828,8 @@ class feinduraBase {
       $contentAfter = $this->contentAfter;
     */
     
-    // -> RETURNING the PAGE ELEMENTS
-    // *******************
-    if(!empty($pageContent['id']))
-       $return['id'] = $pageContent['id'];
-    
-    if($pageContent['category'] && $pageContent['category'] != '0')
-       $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];    
-    
+    // -> SET UP the PAGE ELEMENTS
+    // *******************   
     if($pagedate)
        $return['pageDate']  = $pagedate;
        
@@ -848,6 +850,7 @@ class feinduraBase {
     if(!empty($pageContent['tags']))
        $return['tags']   = $pageContent['tags'];
     
+    $return['error'] = false;
     
     /*
     // adds breaks before and after

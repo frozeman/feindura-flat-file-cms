@@ -1013,25 +1013,61 @@ class feindura extends feinduraBase {
       if($this->loggedIn) {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
-        // add frontendEditing stylesheets
+        // add frontend editing stylesheets
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";        
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.css" />'."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/rteFeinduraSkin.css" />'."\n";
+        
         // add mootools
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
         // add CKEditor
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
-        // add CKEditor integration
+        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
+        
+        // add MooRTE and mootools
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools.123.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools.more.1231.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
+        
+        //add mooml template engine
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mooml.js"></script>'."\n";
+      
+        // add frontend editing integration
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
         
+        // set fileManager
+        //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
+        
+        // ->> add topBar on the fly
+        $metaTags .= "  <script type=\"text/javascript\">
+  /* <![CDATA[ */  
+
+  window.addEvent('domready',function(){
+        
+    // ->> add BAR on TOP
+    var feindura_topBarTemplate = new Mooml.Template('feindura_topBarTemplate', function() {
+        div({id: 'feindura_topBar'},
+            a({ href: '".$this->adminConfig['basePath']."' }, 'back to cms'))
+    });
+    
+    var feindura_topBar = feindura_topBarTemplate.render();
+
+    
+    feindura_topBar.inject($(document.body),'top');
+  
+    $(document.body).setStyle('padding-top','60px');
+    
+  });
+  /* ]]> */
+  </script>\n";
         
         // ->> setup CKEditor main config
         // set ENTER mode
-        $enterMode = ($this->adminConfig['editor']['enterMode'] == "br") ? "CKEDITOR.ENTER_BR" : "CKEDITOR.ENTER_P";
+        //$enterMode = ($this->adminConfig['editor']['enterMode'] == "br") ? "CKEDITOR.ENTER_BR" : "CKEDITOR.ENTER_P";       
         
-        // set fileManager
-        $filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
-        
+/*
         $metaTags .= '  <script type="text/javascript">
-  /* <![CDATA[ */  
+  /* <![CDATA[ *  
 
   window.addEvent(\'domready\',function(){
 
@@ -1043,10 +1079,11 @@ class feindura extends feinduraBase {
     CKEDITOR.config.filebrowserBrowseUrl      = '.$filemanager.';
            
   });
-  /* ]]> */
+  /* ]]> *
   </script>'."\n";
-  
+  */
       }
+    
       
       // -> show the metaTags
       return $metaTags;
@@ -1724,7 +1761,10 @@ class feindura extends feinduraBase {
                                       $this->titleShowPageDate,
                                       $this->titleShowCategory,
                                       $this->titleCategorySeparator);                                      
-        
+          
+          if($this->loggedIn)
+            $title = '<span class="feindura_editTitle">'.$title.'</span>';
+          
           return $title;
           
         } else return false;
@@ -1820,8 +1860,12 @@ class feindura extends feinduraBase {
           }
           
           // -> adds the frontend editing container
-          if($this->loggedIn) {
-          
+          if($this->loggedIn && !$generatedPage['error']) {
+            
+            $generatedPage['title'] = '<span class="feindura_editTitle">'.$generatedPage['title'].'</span>';
+            $generatedPage['content'] = '<div class="feindura_editPage">'.$generatedPage['content'].'</div>';
+            
+          /*
             // -> CHOOSES the RIGHT EDITOR ID and/or CLASS
             $editorStyleFiles = $this->generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
             $editorStyleId = $this->generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
@@ -1834,14 +1878,17 @@ class feindura extends feinduraBase {
               $listStyleFiles = substr($listStyleFiles,0,-3);
             }
             $listStyleFiles = "'".$listStyleFiles."'";
-            
+         
             $generatedPage['content'] = '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <a href="#" class="feinduraPageEditingButton" onclick="feinduraEditPage('.$pageContent['id'].',['.$listStyleFiles.'],\''.$editorStyleId.'\',\''.$editorStyleClass.'\')">Edit</a>
 <div id="feinduraPage'.$pageContent['id'].'">
 '.$generatedPage['content'].'
 </div>
 </form>'; 
+*/
           }
+          
+          unset($generatedPage['error']);
           
           // -> returns the generated page
           return $generatedPage;

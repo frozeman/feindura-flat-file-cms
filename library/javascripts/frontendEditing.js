@@ -15,7 +15,7 @@
 */
 // javascripts/frontendEditing.js version 0.11 (requires mootools-core and CKEditor)
 
-
+/*
 // ->> FUNCTIONS
 
 // ->> the function to SAVE the edited page data
@@ -111,4 +111,77 @@ window.addEvent('domready',function(){
         editorInstance.ui.addButton( 'Save',{label : 'Save',command : 'save'});
      }
   }
+});
+*/
+
+// var
+var feindura_pageSaved = false;
+
+// ->> FUNCTIONS
+// *************
+
+// ->> save pages
+function feindura_savePage(page) {
+  if(feindura_pageSaved === false) {
+  
+    //page.get('html')
+    page.set('html',page.get('html')+'saved')
+    
+		//new Request({url:MooRTE.Elements.save.src}).send(content.toQueryString());
+		
+		
+	  feindura_pageSaved = true;
+  }
+}
+
+// ->> DOMREADY
+// ************
+window.addEvent('domready',function() {
+
+
+
+  // ->> add editor
+  // **************
+  
+  // -> add save button
+  MooRTE.Elements.extend({
+    save : { img:27, onClick: function() {
+        $$('.feindura_editPage, .feindura_editTitle').each(function(page) {                                     
+            if(MooRTE.activeField == page) {
+              feindura_pageSaved =  false;
+              feindura_savePage(page);
+            }
+        });
+      }}
+  });
+    
+  // ->> add save on blur
+  $$('.feindura_editPage, .feindura_editTitle').each(function(page) {    
+    // on blur
+    page.addEvent('blur', function(e) {
+      var page = e.target;
+      //alert(MooRTE.Elements.linkPop.visible);
+      if(page != null && MooRTE.Elements.linkPop.visible === false) {
+        feindura_savePage(page);
+      }
+    });    
+    // on focus
+    page.addEvent('focus', function() {
+      if(feindura_pageSaved)
+        feindura_pageSaved = false;
+    });
+    
+  });
+  
+  // -> set up toolbar  
+  var feindura_MooRTEButtons = {Toolbar:['save.saveBtn','undo','redo','removeformat', // 'Html/Text'
+                                        'bold','italic','underline','strikethrough',
+                                        'justifyleft','justifycenter','justifyright','justifyfull',
+                                        'outdent','indent','subscript','superscript',
+                                        'insertorderedlist','insertunorderedlist','blockquote','inserthorizontalrule',
+                                        'decreasefontsize','increasefontsize','hyperlink'
+                                        ]};
+                                        
+  // -> create editor instance to edit all divs which have the class "feindura_editPage"
+  $$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: feindura_MooRTEButtons,location:'pageTop'});
 });

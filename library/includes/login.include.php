@@ -167,7 +167,6 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   }
   
   </script>
-
 </head>
 <body>
   <div id="container">
