@@ -52,11 +52,12 @@ $langFile['login_error_wrongPassword'] = 'falsches Passwort';
 $langFile['login_logout_part1'] = 'Erfolgreich ausgeloggt';
 $langFile['login_logout_part2'] = 'weiter zur Webseite';
 
-$langFile['logout_button_tip'] = 'Klicke hier um dich auszuloggen';
-
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
 */
+
+$langFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
+$langFile['header_button_gotowebsite'] = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt auf deiner Webseite zu bearbeiten.';
 
 // ---------- thumbnail
 $langFile['thumbSize_unit'] = 'Pixel';
@@ -197,7 +198,6 @@ $langFile['user_onlineusers'] = 'Dieser Benutzer ist ebenfalls eingeloggt::Letzt
 */
 
 $langFile['txt_logo'] = 'Version';
-$langFile['txt_logo_gotowebsite'] = 'Klick hier um zu deiner Webseite zu gelangen.';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
 /* ----------------------------------------------------------------------------------------------

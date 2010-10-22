@@ -25,7 +25,8 @@
 * --- GENERAL
 */
 
-
+$frontendLangFile['header_button_logout'] = 'Logout::Click here to logout.';
+$frontendLangFile['header_button_gotobackend'] = 'feindura::Click here to go to the backend.';
 
 /* ----------------------------------------------------------------------------------------------
 * --------- FRONTEND Error texts
@@ -33,7 +34,6 @@
 
 $frontendLangFile['error_noPage'] = 'The requested page doesn\'t exist.';
 $frontendLangFile['error_pageClosed'] = 'The requested page is currently not available.';
-
 
 /* ----------------------------------------------------------------------------------------------
 * --------- date texts

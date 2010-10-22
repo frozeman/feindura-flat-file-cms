@@ -120,6 +120,54 @@ var feindura_pageSaved = false;
 // ->> FUNCTIONS
 // *************
 
+/* str_replace function */
+function feindura_is_array(value) {
+   if (typeof value === 'object' && value && value instanceof Array) {
+      return true;
+   }
+   return false;
+}
+function feindura_str_replace(s, r, c) {
+   if (feindura_is_array(s)) {
+      for(i=0; i < s.length; i++) {
+         c = c.split(s[i]).join(r[i]);
+      }
+   }
+   else {
+      c = c.split(s).join(r);
+   }
+   return c;
+}
+
+// ->> add tooltips
+function feindura_addToolTips() {
+  // store titles and text
+	$$('.feindura_toolTip').each(function(element,index) {
+
+	  if(element.get('title')) {
+      var content = element.get('title').split('::');
+     		
+     	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
+  		if(content[1])
+    		content[1] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
+
+  		if(content[0])
+    		content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
+
+  		element.store('tip:title', content[0]);
+  		element.store('tip:text', content[1]);    		
+  	}
+	});
+	
+	// add the tooltips to the elements
+  var feindura_toolTips = new Tips('.feindura_toolTip',{
+    className: 'toolTipBox',
+    offset: {'x': 10,'y': 15},
+    fixed: false,
+    showDelay: 200,
+    hideDelay: 0 });
+}
+
 // ->> save pages
 function feindura_savePage(page) {
   if(feindura_pageSaved === false) {
@@ -138,9 +186,7 @@ function feindura_savePage(page) {
 // ************
 window.addEvent('domready',function() {
 
-
-
-  // ->> add editor
+  // ->> ADD EDITOR
   // **************
   
   // -> add save button
@@ -183,5 +229,5 @@ window.addEvent('domready',function() {
                                         ]};
                                         
   // -> create editor instance to edit all divs which have the class "feindura_editPage"
-  $$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: feindura_MooRTEButtons,location:'pageTop'});
+  new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: feindura_MooRTEButtons,location:'pageTop'});
 });

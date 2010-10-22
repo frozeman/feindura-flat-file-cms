@@ -40,15 +40,44 @@ div#feindura_topBar {
 }
 */
 
+
+/* RESET styles from GENERAL.CSS */
+
+a.logout, a.toWebsite {
+    z-index: 2;
+    display: inline;
+    position: static;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto;
+    background: none;
+}
+a.logout:hover, a.toWebsite:hover {
+    background-position: top left;
+}
+
+
 /* TOP BAR */
 
 #feindura_topBar {
   z-index: 2;
   position: fixed;
   top: 0px;
-  height: 30px;
+  height: 20px;
   width: 100%;
-  background:#BCBECD url('../images/bg/frontendEditing_topBar.png') repeat-x;
+  padding: 5px 10px;
+  background: url('../images/bg/frontendEditing_topBar.png') repeat-x;
+}
+
+#feindura_logo {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 3px;
+  width: 112px;
+  height: 54px;
+  background: url('../images/sign/frontend_header_logo.png');
 }
 
 /* EDITABLE BLOCKS */

@@ -136,23 +136,6 @@ span.red, label.red, h1.red {
     }
 
 /****************/
-/* --- LOGOUT */
-
-#header a.logout {
-    z-index: 2;
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 35px;
-    height: 35px;
-    background: url("../images/key/header_logout.png") no-repeat;
-}
-#header a.logout:hover {
-    background-position: 0px -35px;
-}
-
-/****************/
 /* --- LANGUAGE SELECTION */
 
 #languageSelection {

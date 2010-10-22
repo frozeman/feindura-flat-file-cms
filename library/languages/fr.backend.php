@@ -51,12 +51,13 @@ $langFile['login_error_wrongPassword'] = 'mot de passe incorrect';
 
 $langFile['login_logout_part1'] = 'd&eacute;connexion avec succ&egrave;s ';
 $langFile['login_logout_part2'] = 'diriger vers site web';
-
-$langFile['logout_button_tip'] = 'Cliquez ici pour vous d&eacute;connectez';
  
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
 */
+
+$langFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
+$langFile['header_button_gotowebsite'] = 'feindura::S\'il vous pla&icirc;t cliquez ici pour &eacute;diter les pages directement sur votre site web.';
 
 // ---------- thumbnail
 $langFile['thumbSize_unit'] = 'pixel';

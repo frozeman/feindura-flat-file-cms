@@ -23,7 +23,7 @@ var pageContentChanged = false; // used to give a warning, if a page in the edit
 
 /* GENERAL FUNCTIONS */
 
-/* str_replace funktion */
+/* str_replace function */
 function is_array(value) {
    if (typeof value === 'object' && value && value instanceof Array) {
       return true;
@@ -53,12 +53,11 @@ function setToolTips() {
       var content = element.get('title').split('::');
      		
      	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
-  		if(content[1]) {      		  
+  		if(content[1])
     		content[1] = str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
-  		}
-  		if(content[0]) {      		  
+
+  		if(content[0])
     		content[0] = str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
-  		}
   		
   		element.store('tip:title', content[0]);
   		element.store('tip:text', content[1]);    		

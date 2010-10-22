@@ -25,6 +25,8 @@
 * --- GENERAL
 */
 
+$frontendLangFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
+$frontendLangFile['header_button_gotobackend'] = 'feindura::Cliquez ici pour aller &agrave; la CMS.';
 
 /* ----------------------------------------------------------------------------------------------
 * --------- FRONTEND Error texts

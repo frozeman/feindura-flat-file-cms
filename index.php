@@ -98,6 +98,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <link rel="stylesheet" type="text/css" href="library/styles/content.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/styles/setup.css" media="all" />  
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/general.css" media="all" />
   
 <?php
 if($_GET['site'] == 'addons') {
@@ -186,7 +187,8 @@ if($_GET['site'] == 'addons') {
     
     <div id="headerBlock">
       
-      <a href="index.php?logout" class="logout toolTip" title="<?= $langFile['logout_button_tip']; ?>::"></a>
+      <a href="index.php?logout" class="logout toolTip" title="<?= $langFile['header_button_logout']; ?>"></a>
+      <a href="<?= $adminConfig['url'] ?>" class="toWebsite toolTip" title="<?= $langFile['header_button_gotowebsite']; ?>"></a>
       
       <div id="languageSelection">        
         <a href="?language=de" class="de toolTip" title="deutsch::"></a>
@@ -194,7 +196,7 @@ if($_GET['site'] == 'addons') {
         <a href="?language=fr" class="fr toolTip" title="français::"></a>
       </div>
           
-      <a href="<?= $adminConfig['url'] ?>" id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].' '.$version[2].' - '.$version[3]; ?>::<?= $langFile['txt_logo_gotowebsite'] ?>"></a>
+      <div id="logo" class="toolTip" title="<?php echo $langFile['txt_logo'].' '.$version[2].' - '.$version[3]; ?>::"></div>
       <div id="version"><?php echo $version[2]; ?></div>
       
       <div id="mainMenu">

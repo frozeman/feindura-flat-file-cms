@@ -720,7 +720,6 @@ class feinduraBase {
           return array();
       }
     }
-
     
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {

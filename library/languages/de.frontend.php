@@ -25,6 +25,8 @@
 * --- GENERAL
 */
 
+$frontendLangFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
+$frontendLangFile['header_button_gotobackend'] = 'feindura::Klick hier um zur&uuml;ck zum Backend zu gelangen.';
 
 /* ----------------------------------------------------------------------------------------------
 * --------- FRONTEND Error texts
@@ -32,7 +34,6 @@
 
 $frontendLangFile['error_noPage'] = 'Die angeforderte Seite existiert nicht.';
 $frontendLangFile['error_pageClosed'] = 'Die angeforderte Seite ist deaktiviert.';
-
 
 /* ----------------------------------------------------------------------------------------------
 * --------- date texts

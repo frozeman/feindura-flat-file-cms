@@ -52,11 +52,12 @@ $langFile['login_error_wrongPassword'] = 'wrong password';
 $langFile['login_logout_part1'] = 'Successfully logged out';
 $langFile['login_logout_part2'] = 'further to the website';
 
-$langFile['logout_button_tip'] = 'Click here to logout';
-
 /* ----------------------------------------------------------------------------------------------
 * --- GENERAL
 */
+
+$langFile['header_button_logout'] = 'Logout::Click here to logout.';
+$langFile['header_button_gotowebsite'] = 'Frontend Editing::Click here to edit the pages directly in your website.';
 
 // ---------- thumbnail
 $langFile['thumbSize_unit'] = 'pixel';

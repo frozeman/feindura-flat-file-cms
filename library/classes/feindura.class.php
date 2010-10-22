@@ -1014,7 +1014,8 @@ class feindura extends feinduraBase {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";        
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/general.css" />'."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";    
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.css" />'."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/rteFeinduraSkin.css" />'."\n";
         
@@ -1024,8 +1025,8 @@ class feindura extends feinduraBase {
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
         
         // add MooRTE and mootools
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools.123.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools.more.1231.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.4.4-more.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
         
@@ -1037,7 +1038,7 @@ class feindura extends feinduraBase {
         
         // set fileManager
         //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
-        
+      
         // ->> add topBar on the fly
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */  
@@ -1047,7 +1048,10 @@ class feindura extends feinduraBase {
     // ->> add BAR on TOP
     var feindura_topBarTemplate = new Mooml.Template('feindura_topBarTemplate', function() {
         div({id: 'feindura_topBar'},
-            a({ href: '".$this->adminConfig['basePath']."' }, 'back to cms'))
+            a({ href: '".$this->adminConfig['basePath']."/index.php?logout', class: 'feindura_logout feindura_toolTip', title: '".$this->languageFile['header_button_logout']."' }, ''),
+            a({ href: '".$this->adminConfig['basePath']."', class: 'feindura_toBackend feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, ''),
+            a({ href: '".$this->adminConfig['basePath']."', id: 'feindura_logo', class: 'feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, '')
+           )
     });
     
     var feindura_topBar = feindura_topBarTemplate.render();
@@ -1056,6 +1060,8 @@ class feindura extends feinduraBase {
     feindura_topBar.inject($(document.body),'top');
   
     $(document.body).setStyle('padding-top','60px');
+    
+    feindura_addToolTips()
     
   });
   /* ]]> */

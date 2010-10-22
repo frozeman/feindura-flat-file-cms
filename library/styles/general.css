@@ -1,0 +1,50 @@
+/*
+    feindura - Flat File Content Management System
+    Copyright (C) Fabian Vogelsteller [frozeman.de]
+
+    This program is free software;
+    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along with this program;
+    if not,see <http://www.gnu.org/licenses/>.
+
+* general.css version 0.1
+* 
+* is shared by the frontand (editing) and backend
+*/
+
+/****************/
+/* --- LOGOUT */
+
+a.logout, a.feindura_logout {
+    z-index: 2;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 28px;
+    height: 26px;
+    background: url("../images/key/header_out.png") no-repeat;
+}
+a.logout:hover, a.feindura_logout:hover {
+    background-position: 0px -26px;
+}
+
+a.toWebsite, a.feindura_toBackend {
+    z-index: 2;
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 28px;
+    width: 28px;
+    height: 26px;
+    background: url("../images/key/header_in.png") no-repeat;
+}
+a.toWebsite:hover, a.feindura_toBackend:hover {
+    background-position: 0px -26px;
+}
