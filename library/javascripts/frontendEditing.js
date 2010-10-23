@@ -139,7 +139,7 @@ function feindura_str_replace(s, r, c) {
    return c;
 }
 
-// ->> add tooltips
+// ->> ADD TOOLTIPS
 function feindura_addToolTips() {
   // store titles and text
 	$$('.feindura_toolTip').each(function(element,index) {
@@ -161,18 +161,27 @@ function feindura_addToolTips() {
 	
 	// add the tooltips to the elements
   var feindura_toolTips = new Tips('.feindura_toolTip',{
-    className: 'toolTipBox',
+    className: 'feindura_toolTipBox',
     offset: {'x': 10,'y': 15},
     fixed: false,
     showDelay: 200,
     hideDelay: 0 });
 }
 
-// ->> save pages
+// ->> GET PAGE ID
+function feindura_getPageIds(pageBlock) {
+  if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle'))
+    return { page: pageBlock.get('class').split(' ')[1].substr(15), category: pageBlock.get('class').split(' ')[2].substr(19)};
+  else
+    return { page: null, category: null};
+}
+
+
+// ->> SAVE PAGE
 function feindura_savePage(page) {
   if(feindura_pageSaved === false) {
   
-    //page.get('html')
+    //alert(page.get('html'));
     page.set('html',page.get('html')+'saved')
     
 		//new Request({url:MooRTE.Elements.save.src}).send(content.toQueryString());
@@ -223,7 +232,7 @@ window.addEvent('domready',function() {
   var feindura_MooRTEButtons = {Toolbar:['save.saveBtn','undo','redo','removeformat', // 'Html/Text'
                                         'bold','italic','underline','strikethrough',
                                         'justifyleft','justifycenter','justifyright','justifyfull',
-                                        'outdent','indent','subscript','superscript',
+                                        'outdent','indent','superscript','subscript',
                                         'insertorderedlist','insertunorderedlist','blockquote','inserthorizontalrule',
                                         'decreasefontsize','increasefontsize','hyperlink'
                                         ]};

@@ -613,8 +613,8 @@ div.listPagesHead {
     text-align: left;
     }
 
-/****************/	
-/* *** FUNCTION links */
+/***************************/	
+/* *** PAGE FUNCTION links (also in general.css) */
 
 .listPages div.name a {
     display: inline-block;
@@ -651,11 +651,9 @@ div.listPagesHead {
     background: url("../images/key/listPages_pageThumbnailDelete.png") no-repeat;
     } 
 
-
 .listPages .functions a:hover, .listPages .functions a.startPage.active {
     background-position: 0px -27px !important;
     }
-    
 
 .startPageIcon {
     display: inline-block;
@@ -922,65 +920,6 @@ span.toolTip.noMark {
   background: none;
   padding-right: auto;
 }
-
-/* --- TOOLTIP BOX */
-
-/* format of the toolTip box */
-.toolTipBox {
-    z-index: 10;
-    }
-
-.toolTipBox .tip-title	{
-    z-index: 2;
-    position: relative;    
-    margin: 0px 30px; /* before  0px 40px; */
-    padding-bottom: 3px;
-    font-weight:bold;
-    color:#947342;
-    text-align: center;
-    word-wrap: break-word;
-    }
-.toolTipBox .tip-title span	{
-    color: #666666;
-    }
-.toolTipBox .tip-text	{
-    z-index: 2;
-    position: relative;
-    color: #666666;
-    padding: 4px 35px; /* before  10px 40px; */
-    padding-bottom: 0px;
-    word-wrap: break-word;    
-    }
-.toolTipBox .tip-top {
-    z-index: 0;
-    position: relative;
-    background: url("../images/bg/toolTip_top.png") top left no-repeat;
-    width:272px;
-    height:30px; /* org  40px; */
-    }
-.toolTipBox .tip {
-    z-index: 1;
-    position: relative;
-    width:272px;
-    background: url("../images/bg/toolTip_middle.png") left top repeat-y;
-    line-height: 20px;
-    border: none;
-    }
-.toolTipBox .tip ul {
-    padding: 0px;
-    margin: 0px;
-    margin-left: 15px;
-    list-style: disc;
-    }
-.toolTipBox .tip ul li {
-    padding: 2px 0px;
-    margin: 0px;
-    }
-.toolTipBox .tip-bottom	{
-    background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
-    width: 272px;
-    height: 25px; /* org  35px; */
-    }
 
 
 /* --- NOTIFICATIONS ------------------------------------------------------------------------------------------------------------------- */

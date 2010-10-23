@@ -27,6 +27,7 @@
 
 $frontendLangFile['header_button_logout'] = 'Logout::Click here to logout.';
 $frontendLangFile['header_button_gotobackend'] = 'feindura::Click here to go to the backend.';
+$frontendLangFile['editPage_functions'] = 'Edit this page in the backend';
 
 /* ----------------------------------------------------------------------------------------------
 * --------- FRONTEND Error texts

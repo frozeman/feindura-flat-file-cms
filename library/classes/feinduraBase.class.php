@@ -267,8 +267,16 @@ class feinduraBase {
     $this->generalFunctions = new generalFunctions();
     $this->statisticFunctions = new statisticFunctions($this->generalFunctions);
     
+    
+    // eventually LOGOUT
+    if(isset($_GET['feindura_logout']))
+      unset($_SESSION['feinduraLogin'][IDENTITY]['username'],$_SESSION['feinduraLogin'][IDENTITY]['loggedIn']);
     // CHECK if logged in
     $this->loggedIn = ($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) ? true : false;
+    
+    // set backend language if logged in
+    if($this->loggedIn)
+      $language = $_SESSION['language'];
     
     // save the website statistics
     // ***************************
@@ -673,14 +681,7 @@ class feinduraBase {
     // LOOKS FOR A GIVEN PAGE, IF NOT STOP THE METHOD
     if(!is_numeric($page) && !is_array($page))
       return array();
-      
-    // -> early SET UP PAGE ELEMENTS
-    if(!empty($pageContent['id']))
-      $return['id'] = $pageContent['id'];
-    
-    if($pageContent['category'] && $pageContent['category'] != '0')
-      $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
-    
+
     // -> sets the ERROR SETTINGS
     // ----------------------------
     if($showErrors) {
@@ -828,7 +829,13 @@ class feinduraBase {
     */
     
     // -> SET UP the PAGE ELEMENTS
-    // *******************   
+    // *******************
+    if(!empty($pageContent['id']))
+      $return['id'] = $pageContent['id'];
+    
+    if($pageContent['category'] && $pageContent['category'] != '0')
+      $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
+    
     if($pagedate)
        $return['pageDate']  = $pagedate;
        

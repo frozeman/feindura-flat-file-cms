@@ -67,7 +67,7 @@ function setToolTips() {
   
   /* add Tooltips */
   var toolTips = new Tips('.toolTip',{
-    className: 'toolTipBox',
+    className: 'feindura_toolTipBox',
     //onShow: function(tip){ tip.tween('right','200px');}, //tip.fade('hide'); tip.fade('in');
     //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');
     offset: {'x': 10,'y': 15},
@@ -77,7 +77,7 @@ function setToolTips() {
   
   /* thumbnailToolTip */
   var toolTipsInput = new Tips('.thumbnailToolTip',{
-    className: 'toolTipBox',
+    className: 'feindura_toolTipBox',
     offset: {'x': -320,'y': -20},
     fixed: true,
     showDelay: 130,
@@ -87,7 +87,7 @@ function setToolTips() {
   if(window.getSize().x < 1255) {
     /* inputToolTip */
     var toolTipsInput = new Tips('.inputToolTip',{
-      className: 'toolTipBox',
+      className: 'feindura_toolTipBox',
       offset: {'x': -275,'y': -20},
       fixed: true,
       showDelay: 100,
@@ -97,7 +97,7 @@ function setToolTips() {
   } else {
     /* inputToolTip */
     var toolTipsInput = new Tips('.inputToolTip',{
-      className: 'toolTipBox',
+      className: 'feindura_toolTipBox',
       offset: {'x': 500,'y': -20},
       fixed: true,
       showDelay: 100,

@@ -1032,41 +1032,119 @@ class feindura extends feinduraBase {
         
         //add mooml template engine
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mooml.js"></script>'."\n";
-      
+        
         // add frontend editing integration
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
-        
+                
         // set fileManager
         //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
       
         // ->> add topBar on the fly
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */  
-
-  window.addEvent('domready',function(){
-        
-    // ->> add BAR on TOP
-    var feindura_topBarTemplate = new Mooml.Template('feindura_topBarTemplate', function() {
-        div({id: 'feindura_topBar'},
-            a({ href: '".$this->adminConfig['basePath']."/index.php?logout', class: 'feindura_logout feindura_toolTip', title: '".$this->languageFile['header_button_logout']."' }, ''),
-            a({ href: '".$this->adminConfig['basePath']."', class: 'feindura_toBackend feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, ''),
-            a({ href: '".$this->adminConfig['basePath']."', id: 'feindura_logo', class: 'feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, '')
-           )
-    });
-    
-    var feindura_topBar = feindura_topBarTemplate.render();
-
-    
-    feindura_topBar.inject($(document.body),'top');
   
+  // ->> create TOP BAR
+  Mooml.register('feindura_topBarTemplate', function() {
+      div({id: 'feindura_topBar'},
+          a({ href: '".$_SERVER['PHP_SELF']."?feindura_logout', class: 'feindura_logout feindura_toolTip', title: '".$this->languageFile['header_button_logout']."' }, ''),
+          a({ href: '".$this->adminConfig['basePath']."', class: 'feindura_toBackend feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, ''),
+          a({ href: '".$this->adminConfig['basePath']."', id: 'feindura_logo', class: 'feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, '')
+         )
+  });  
+  
+  // ->> create PAGE BAR  
+  Mooml.register('feindura_pageBarTemplate', function(values) {
+          // editPage
+          a({ href: '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', class: 'editPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, ''),
+          // setStartPage
+          a({ href: '#', onclick: 'feindura_request(\'".$this->adminConfig['basePath']."library/processes/listPages.process.php?status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\');return false;',class: 'startPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, '')
+  });
+  
+  // ->> DOMREADY
+  // ************
+  window.addEvent('domready',function(){
+    
+    // ->> add TOP BAR
+    var feindura_topBar = Mooml.render('feindura_topBarTemplate');
+    feindura_topBar.inject($(document.body),'top');
     $(document.body).setStyle('padding-top','60px');
+    
+    // ->> add BAR to EACH PAGE BLOCK    
+    $$('.feindura_editPage').each(function(pageBlock) {
+      
+      //var      
+      var pageBarVisible = false;
+      var pageBlockFocused = false;
+      var oldPositionStyleValue;      
+      var ids = feindura_getPageIds(pageBlock);
+      
+      // ->> create PAGE BAR
+      var pageBar = new Element('div',{class: 'feindura_pageBar'});
+      var pageBarContent = Mooml.render('feindura_pageBarTemplate', { pageId: ids.page, categoryId: ids.category });
+      pageBarContent.each(function(link){
+        link.inject(pageBar,'bottom');
+      });
+      // -> inject the page bar
+      pageBar.inject(pageBlock,'before');
+      pageBar.set('tween',{duration: 300});
+      pageBar.fade('hide');      
+      
+      // -> set the parent to position: relative
+      var parent = pageBlock.getParent();
+      if(parent.getStyle('position') != 'relative' && parent.getStyle('position') != 'absolute') {
+        oldPositionStyleValue = parent.getStyle('position');
+        parent.setStyle('position','relative');
+      }
+        
+      // -> set the position of the page bar
+      pageBar.setPosition({
+        x: pageBlock.getPosition(parent).x + (pageBlock.getSize().x - pageBar.getSize().x),
+        y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 15}
+      );
+      
+      // ->> add page bar on focus
+      pageBlock.addEvent('mouseenter', function() {
+        // -> show the page bar         
+        pageBar.fade('in');
+      });
+      // ->> set pageBlockFocused on focus
+      pageBlock.addEvent('focus', function(e) {
+        pageBlockFocused = true;
+      });
+      
+      // ->> remove all page bars on mouseout
+      pageBlock.addEvent('mouseleave', function(e) {
+        
+        // -> check if target is not feindura_editPage block
+        if(!pageBlockFocused) {          
+          pageBar.fade('out');
+        }
+      });
+      // ->> set pageBlockFocused on focus
+      pageBlock.addEvent('blur', function(e) {
+        pageBar.fade('out');
+        pageBlockFocused = false;
+      });
+      
+      // ->> set page bar mouse events
+      pageBar.addEvent('mouseenter', function(e) {
+        pageBar.fade('in');
+      });
+      pageBar.addEvent('mouseleave', function(e) {
+        if(!pageBlockFocused)
+          pageBar.fade('out');
+      });
+      
+ 
+      
+    });
     
     feindura_addToolTips()
     
   });
   /* ]]> */
   </script>\n";
-        
+  
         // ->> setup CKEditor main config
         // set ENTER mode
         //$enterMode = ($this->adminConfig['editor']['enterMode'] == "br") ? "CKEDITOR.ENTER_BR" : "CKEDITOR.ENTER_P";       
@@ -1087,7 +1165,7 @@ class feindura extends feinduraBase {
   });
   /* ]]> *
   </script>'."\n";
-  */
+  */  
       }
     
       
@@ -1834,8 +1912,8 @@ class feindura extends feinduraBase {
   * @uses feindura::$thumbnailBefore
   * @uses feindura::$thumbnailAfter
   * 
-  * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
-  * @uses feinduraBase::generatePage()                 to generate the array with the page elements
+  * @uses feinduraBase::loadPrevNextPage()         to load the current, previous or next page depending of the $page parameter
+  * @uses feinduraBase::generatePage()             to generate the array with the page elements
   * @uses statisticFunctions::savePageStats()      to save the statistic of the page
   * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
@@ -1857,8 +1935,10 @@ class feindura extends feinduraBase {
         // *******************
         if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
                          
+          $category = $this->getPageCategory($page);               
+          
           // -> loads the $pageContent array
-          if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
+          if(($pageContent = $this->generalFunctions->readPage($page,$category)) !== false) {
             // -> SAVE PAGE STATISTIC
             // **********************
             if($pageContent['public'])
@@ -1868,8 +1948,8 @@ class feindura extends feinduraBase {
           // -> adds the frontend editing container
           if($this->loggedIn && !$generatedPage['error']) {
             
-            $generatedPage['title'] = '<span class="feindura_editTitle">'.$generatedPage['title'].'</span>';
-            $generatedPage['content'] = '<div class="feindura_editPage">'.$generatedPage['content'].'</div>';
+            $generatedPage['title'] = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
+            $generatedPage['content'] = '<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>';
             
           /*
             // -> CHOOSES the RIGHT EDITOR ID and/or CLASS

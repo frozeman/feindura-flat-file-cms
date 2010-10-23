@@ -66,7 +66,7 @@ a.logout:hover, a.toWebsite:hover {
   top: 0px;
   height: 20px;
   width: 100%;
-  padding: 5px 10px;
+  padding: 5px;
   background: url('../images/bg/frontendEditing_topBar.png') repeat-x;
 }
 
@@ -80,9 +80,44 @@ a.logout:hover, a.toWebsite:hover {
   background: url('../images/sign/frontend_header_logo.png');
 }
 
+/* PAGE BAR */
+div.feindura_pageBar {
+  position: absolute;
+  height: 26px;
+}
+
+/* PAGE BAR FUNCTIONs links (also in content.css) */
+
+.feindura_pageBar a {
+  display: inline-block;
+  width: 27px;
+  height: 26px;
+}
+
+.feindura_pageBar a.startPage {
+  background: url("../images/key/listPages_startPage.png") no-repeat;
+}
+.feindura_pageBar a.editPage {
+  background: url("../images/key/listPages_editPage.png") no-repeat;
+}
+.feindura_pageBar a.deletePage {
+  background: url("../images/key/listPages_deletePage.png") no-repeat;
+}  
+.feindura_pageBar a.pageThumbnailUpload {
+  background: url("../images/key/listPages_pageThumbnailUpload.png") no-repeat;
+}
+.feindura_pageBar a.pageThumbnailDelete {
+  background: url("../images/key/listPages_pageThumbnailDelete.png") no-repeat;
+}
+    
+.feindura_pageBar a:hover, .feindura_pageBar a.startPage.active {
+  background-position: 0px -27px !important;
+}  
+
 /* EDITABLE BLOCKS */
 
 div.feindura_editPage,span.feindura_editTitle {
+  position: relative;
   outline: none;
   resize: none;
 }
