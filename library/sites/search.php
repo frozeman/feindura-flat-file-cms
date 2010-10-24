@@ -35,6 +35,11 @@ $langFile['search_results_time_part2'] = 'Sekunden';
 // LADEZEIT MESSEN
 $time_start = microtime(); //Zeitbeginn am Seitenanfang
 
+/**
+ * Includes the login
+ */
+require_once(dirname(__FILE__)."/../includes/login.include.php");
+
 // set the GET searchword as the POST searchword, IF exists
 if(isset($_GET['search']))
   $_POST['searchWord'] = urldecode($_GET['search']);

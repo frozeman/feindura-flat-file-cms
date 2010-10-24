@@ -16,7 +16,7 @@
 */
 // thumbnailUpload.php v. 1.51
 
-include_once(dirname(__FILE__)."/../includes/login.include.php");
+require_once(dirname(__FILE__)."/../includes/login.include.php");
 
 $error = false;
 $response = false;

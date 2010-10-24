@@ -31,7 +31,7 @@
 /**
  * Includes the login
  */
-include_once(dirname(__FILE__)."/../includes/login.include.php");
+require_once(dirname(__FILE__)."/../includes/login.include.php");
 
 // ** -- redirect ----------------------------------------------------------------------------------
 // leitet automatisch weiter auf die angegeben seite

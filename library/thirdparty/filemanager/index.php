@@ -2,7 +2,7 @@
 /**
  * Includes the login
  */
-include(dirname(__FILE__)."/../../includes/login.include.php");
+require_once(dirname(__FILE__)."/../../includes/login.include.php");
 
 if($adminConfig['user']['fileManager']) {
 

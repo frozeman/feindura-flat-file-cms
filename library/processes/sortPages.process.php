@@ -16,7 +16,7 @@
 */
 // processes/sortPages.process.php version 0.32
 
-include(dirname(__FILE__)."/../includes/login.include.php");
+require_once(dirname(__FILE__)."/../includes/login.include.php");
 
 
 /* split the value of the sortation */

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1
-Build 440
+Build 441
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1
   
+  build 441: login is now required not included anymore
   build 440: add function buttons to frontend editing
   build 439: worked futher on frontend editing
   build 438: add MooRTE for frontend editing

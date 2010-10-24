@@ -22,17 +22,17 @@
 /**
  * Includes the login
  */
-include_once(dirname(__FILE__)."/library/includes/login.include.php");
+require_once(dirname(__FILE__)."/library/includes/login.include.php");
 
 /**
  * Includes all necessary configs, functions and classes
  */
-include_once(dirname(__FILE__)."/library/includes/backend.include.php");
+require_once(dirname(__FILE__)."/library/includes/backend.include.php");
 
 /**
  * Includes all necessary configs, functions and classes
  */
-include_once(dirname(__FILE__)."/library/processes.loader.php");
+require_once(dirname(__FILE__)."/library/processes.loader.php");
 
 // VARs
 // -----------------------------------------------------------------------------------
