@@ -91,6 +91,18 @@ class generalFunctions {
   * 
   */
   var $storedPages = null;
+  
+ /**
+  * Contains a <var>instance</var> of the {@link xssFilter::xssFilter() xssFilter} <var>class</var> for using in this <var>class</var>
+  * 
+  * The file with the {@link xssFilter::xssFilter() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
+  * A instance of the {@link xssFilter::xssFilter() xssFilter} class will be set to this property in the {@link xssFilter()} constructor.
+  * 
+  * @var class
+  * @see xssFilter::xssFilter()
+  *   
+  */
+  var $xssFilter;
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -106,6 +118,8 @@ class generalFunctions {
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
+  * @param object|false $xssFilter (optional) an instance of the xssFilter class or FALSE      
+  * 
   * @return void
   * 
   * @version 1.0
@@ -114,7 +128,10 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  function generalFunctions() {
+  function generalFunctions($xssFilter = false) {
+    
+    // run the parent class constructor
+    $this->xssFilter = (is_a($xssFilter,'xssFilter')) ? $xssFilter : new xssFilter();
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
@@ -261,15 +278,19 @@ class generalFunctions {
   }
   
   /**
-   * <b>Name</b> checkGetVariables()<br />
+   * <b>Name</b> checkMainVars()<br />
    * 
-   * Check all important GET varibale whether they have the right value type, otherwise exits the script.
+   * Check the "page", "category" and "language" GET variables whether they have the right type, otherwise exits the script.
+   * 
+   * <b>Notice</b>: this method will be used by the implementation classes AND the backend of the feindura-CMS.      
    * 
    * <b>Used Global Variables</b><br />
    *    - <var>$_GET</var> the http request variables
    * 
    * @param string $category the name of the category variable
    * @param string $page the name of the category variable   
+   * 
+   * @uses xssFilter::int()
    * 
    * @return void nothing just cancels the running script if necessary
    * 
@@ -279,19 +300,22 @@ class generalFunctions {
    *    - 1.0 initial release
    * 
    */
-  function checkGetVariables($category = 'category', $page = 'page') {
-    
+  function checkMainVars($category = 'category', $page = 'page') {
+        
     //check category
-    if(isset($_GET[$category]) && !empty($_GET[$category]) && !is_numeric($_GET[$category]))
-      die('Wrong &quot;'.$category.'&quot; parameter! Script will not be executed.');
+    if((isset($_GET[$category]) && $this->xssFilter->int($_GET[$category]) === false) ||
+       (isset($_POST[$category]) && $this->xssFilter->int($_POST[$category]) === false))
+      die('Wrong &quot;'.$category.'&quot; parameter! Script will be terminated.');
     // check page
-    if(isset($_GET[$page]) && !empty($_GET[$page]) && $_GET[$page] != 'new' && !is_numeric($_GET[$page]))
-      die('Wrong &quot;'.$page.'&quot; parameter! Script will not be executed.');
-    
+    if((isset($_GET[$page]) && $_GET[$page] != 'new' && $this->xssFilter->int($_GET[$page]) === false) ||
+       (isset($_POST[$page]) && $_POST[$page] != 'new' && $this->xssFilter->int($_POST[$page]) === false))
+      die('Wrong &quot;'.$page.'&quot; parameter! Script will be terminated.');
+      
     // check language
-    if(isset($_GET['language']) && !empty($_GET['language']) && (!is_string($_GET['language']) || strlen($_GET['language']) > 2))
-      die('Wrong &quot;language&quot; parameter! Parameter can not have more than 2 characters. Script will not be executed.');
-    
+    if((isset($_GET['language']) && $this->xssFilter->alphabetical($_GET['language'])) ||
+       (isset($_SESSION['language']) && $this->xssFilter->alphabetical($_GET['language'])))
+      die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
+
   }
 
  /**
@@ -1188,7 +1212,7 @@ class generalFunctions {
     // removes multiple spaces
     $string = preg_replace("/ +/", ' ', $string);
     // allows only a-z and 0-9, "_", ".", " "
-    $string = preg_replace('/[^\w^.^ ]/u', $replaceString, $string);
+    $string = preg_replace('/[^\w^.^&^;^ ]/u', $replaceString, $string);
     if(!empty($replaceString))
       $string = preg_replace('/'.$replaceString.'+/', $replaceString, $string);
     //$string = str_replace( array('å','è','ô','?','ä','|','@','[',']','ü','ç','∑','!','ó',',',";","*","∞","{",'}','^','¥','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ø',"$","ß",'"',"'","(",")"), $replaceSign, $string);
@@ -1328,6 +1352,8 @@ class generalFunctions {
   */
   function readFolder($folder) {
     
+    // TODO: use scandir()
+    
     if(empty($folder))
       return false;
     
@@ -1405,6 +1431,8 @@ class generalFunctions {
   * 
   */
   function readFolderRecursive($folder) {
+    
+    // TODO: use scandir()
     
     if(empty($folder))
       return false;

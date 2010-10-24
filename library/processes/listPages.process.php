@@ -16,6 +16,11 @@
 * processes/listPages.process.php version 0.86
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // VAR
 $opendCategory = false;
 

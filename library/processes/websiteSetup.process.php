@@ -17,6 +17,11 @@
 * processes/websiteSetup.process.php version 1.9
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // ------------ SAVE the WEBSITE SETTINGS
 if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 

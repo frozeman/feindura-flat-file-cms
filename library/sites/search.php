@@ -36,17 +36,17 @@ $langFile['search_results_time_part2'] = 'Sekunden';
 $time_start = microtime(); //Zeitbeginn am Seitenanfang
 
 /**
- * Includes the login
+ * Includes the login and filters the incoming data by xssFilter
  */
-require_once(dirname(__FILE__)."/../includes/login.include.php");
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // set the GET searchword as the POST searchword, IF exists
 if(isset($_GET['search']))
-  $_POST['searchWord'] = urldecode($_GET['search']);
+  $_POST['search'] = urldecode($_GET['search']);
 
 // clean up the searchWord
-$searchWord = stripslashes($_POST['searchWord']);
-$searchWord = htmlentities($searchWord,ENT_NOQUOTES,'UTF-8');
+$searchWord = stripslashes($_POST['search']);
+//$searchWord = htmlentities($searchWord,ENT_NOQUOTES,'UTF-8');
 
 // show the form
 echo '<form action="index.php?site='.$_GET['site'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">';
@@ -54,7 +54,7 @@ echo '<form action="index.php?site='.$_GET['site'].'" method="post" enctype="mul
 echo '<div class="block">
       <h1>'.$langFile['search_h1'].'</h1>
         <div class="content">
-          <input name="searchWord" type="text" size="50" value="'.$searchWord.'" style="float:left; margin-top: 12px; margin-right:10px;" />
+          <input name="search" type="text" size="50" value="'.$searchWord.'" style="float:left; margin-top: 12px; margin-right:10px;" />
           <input type="submit" value="" class="button search" />
         </div>
         <div class="bottom"></div>

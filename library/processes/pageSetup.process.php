@@ -17,9 +17,13 @@
 * processes/pageSetup.process.php version 1.22
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // VARs
 $categoryInfo = false;
-
 
 // ---------------------------------------------------------------------------------------------------
 // ****** ---------- SAVE PAGE CONFIG in config/admin.config.php

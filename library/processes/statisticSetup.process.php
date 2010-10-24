@@ -17,6 +17,11 @@
 * processes/statisticSetup.process.php version 0.12
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // ------------>> SAVE the STATISTIC SETTINGS
 if($_POST['send'] && isset($_POST['statisticConfig'])) {
 

@@ -34,6 +34,8 @@ define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].
 
 /**
  * The permissions set to files, created by feindura
+ * 
+ * format: 0755  
  */ 
 define('PERMISSIONS', 0755);
 
@@ -145,5 +147,10 @@ require_once(dirname(__FILE__)."/../classes/generalFunctions.class.php");
  * Includes the {@link statisticFunctions} <var>class</var>
  */
 require_once(dirname(__FILE__)."/../classes/statisticFunctions.class.php");
+
+/**
+ * Includes the {@link xssFilter} <var>class</var>
+ */
+require_once(dirname(__FILE__)."/../classes/xssFilter.class.php");
 
 ?>

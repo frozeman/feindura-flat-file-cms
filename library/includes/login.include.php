@@ -20,11 +20,6 @@
  * @version 0.11
  */
 
-/**
- * Includes all necessary configs, functions and classes
- */
-include_once(dirname(__FILE__)."/../includes/backend.include.php");
-
 // var
 $loginError = false;
 $loggedOut = false;
@@ -146,7 +141,7 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
   
   <!-- thirdparty/Raphael -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.4.3.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
   
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
@@ -174,7 +169,8 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
     <div id="loginSuccessBox">
       <div class="top"></div>
       <div class="middle">     
-      <?php
+      <?php      
+      
       if($loggedOut)
         echo '<h1>'.$langFile['login_logout_part1'].'</h1><a href="'.$adminConfig['url'].'">&rArr; '.$langFile['login_logout_part2'].'</a>';
       if($resetPassword)

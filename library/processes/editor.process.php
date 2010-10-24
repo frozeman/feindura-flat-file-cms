@@ -17,6 +17,11 @@
 * processes/editor.process.php version 1.97
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // VARs
 // -----------------------------------------------------------------------------
 $page	= $_GET['page'];

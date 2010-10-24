@@ -27,6 +27,7 @@ require_once(dirname(__FILE__)."/general.include.php");
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
 // GET FUNCTIONS
+$xssFilter = new xssFilter();
 $generalFunctions = new generalFunctions();
 $statisticFunctions = new statisticFunctions($generalFunctions);
 
@@ -37,10 +38,7 @@ $savedForm = false;
 $newPage = false;
 
 // -> SET ERROR HANDLER
-set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
-
-// -> CHECK the GET variables
-$generalFunctions->checkGetVariables();
+@set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 // ->> choose LANGUAGE START -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

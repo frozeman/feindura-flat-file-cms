@@ -16,8 +16,10 @@
 */
 // processes/sortPages.process.php version 0.32
 
-require_once(dirname(__FILE__)."/../includes/login.include.php");
-
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 /* split the value of the sortation */
 $sortOrder = explode('|',$_POST['sort_order']);

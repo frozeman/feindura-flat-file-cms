@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* sites/userSetup.php version 0.1
+* sites/userSetup.php version 0.12
 */
 
 
@@ -120,14 +120,14 @@ if($unwriteableList && checkBasePath()) {
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['userSetup_username'].'</label>
                 </td><td class="right">
-                <input type="text" id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" />
+                <input type="text" id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off" />
                 </td></tr>';
                 
                 // user email
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'email" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'">'.$langFile['userSetup_email'].'</label>
                 </td><td class="right">
-                <input type="text" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" />
+                <input type="text" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" autocomplete="off" />
                 </td></tr>';
                 
           echo '<tr><td class="left spacer"></td><td>';
@@ -144,7 +144,7 @@ if($unwriteableList && checkBasePath()) {
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>
                 </td><td class="right">
-                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" />
+                <input type="password" id="users'.$user['id'].'password" name="users['.$user['id'].'][password]" value="" autocomplete="off" />
                 </td></tr>';
                 // user password confirm
           echo '<tr><td class="left">

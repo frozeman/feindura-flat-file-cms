@@ -16,21 +16,16 @@
  *
  * index.php
  *
- * @version 2.01
+ * @version 2.02
  */
 
 /**
- * Includes the login
+ * Includes the login and ALSO the backend.include.php
  */
-require_once(dirname(__FILE__)."/library/includes/login.include.php");
+require_once(dirname(__FILE__)."/library/includes/secure.include.php");
 
 /**
- * Includes all necessary configs, functions and classes
- */
-require_once(dirname(__FILE__)."/library/includes/backend.include.php");
-
-/**
- * Includes all necessary configs, functions and classes
+ * Includes the process loader, used to process the sites
  */
 require_once(dirname(__FILE__)."/library/processes.loader.php");
 

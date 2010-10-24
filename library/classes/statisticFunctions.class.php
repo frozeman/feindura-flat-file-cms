@@ -99,7 +99,6 @@ class statisticFunctions {
   * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link statisticFunctions()} constructor.
   * 
   * @var class
-  * @see feinduraBase()
   * @see generalFunctions::generalFunctions()
   *   
   */
@@ -119,7 +118,7 @@ class statisticFunctions {
   *    - <var>$websiteStatistic</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$statisticConfig</var> the statistic-settings config (included in the {@link general.include.php})
   * 
-  * @param object $generalFunctions (optional) an instance of the generalFunctions class or FALSE
+  * @param object|false $generalFunctions (optional) an instance of the generalFunctions class or FALSE
   * 
   * @return void
   * 

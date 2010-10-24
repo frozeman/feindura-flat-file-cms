@@ -29,9 +29,9 @@
  */
 
 /**
- * Includes the login
+ * Includes the login and filters the incoming data by xssFilter
  */
-require_once(dirname(__FILE__)."/../includes/login.include.php");
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // ** -- redirect ----------------------------------------------------------------------------------
 // leitet automatisch weiter auf die angegeben seite

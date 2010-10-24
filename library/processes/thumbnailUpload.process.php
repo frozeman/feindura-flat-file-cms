@@ -16,7 +16,10 @@
 */
 // thumbnailUpload.php v. 1.51
 
-require_once(dirname(__FILE__)."/../includes/login.include.php");
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 $error = false;
 $response = false;

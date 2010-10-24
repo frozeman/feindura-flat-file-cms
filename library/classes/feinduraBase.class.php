@@ -265,8 +265,7 @@ class feinduraBase {
     
     // GET FUNCTIONS
     $this->generalFunctions = new generalFunctions();
-    $this->statisticFunctions = new statisticFunctions($this->generalFunctions);
-    
+    $this->statisticFunctions = new statisticFunctions($this->generalFunctions);    
     
     // eventually LOGOUT
     if(isset($_GET['feindura_logout']))
@@ -297,7 +296,7 @@ class feinduraBase {
     }
     
     // -> CHECK the GET variables
-    $this->generalFunctions->checkGetVariables($this->varNames['category'],$this->varNames['category']);
+    $this->generalFunctions->checkMainVars($this->varNames['category'],$this->varNames['category']);
     
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************

@@ -17,6 +17,11 @@
 * pluginSetup.php version 0.11
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // ->> SAVE the editFiles
 if(isset($_POST['send']) && $_POST['send'] == 'saveEditedFiles') {
   

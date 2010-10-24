@@ -28,6 +28,11 @@
 * @version 0.11
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 echo '<ul>';
 // ->> LIST the tasks
 foreach($logContent as $logRow) {

@@ -16,7 +16,7 @@
 */
 // pageThumbnailDelete.php version 0.91
 
-require_once(dirname(__FILE__).'/../../includes/login.include.php');
+require_once(dirname(__FILE__).'/../../includes/secure.include.php');
 
 // gets the vars
 if(isset($_POST['category']))

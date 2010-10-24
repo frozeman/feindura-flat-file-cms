@@ -17,6 +17,11 @@
 * processes/pluginSetup.process.php version 0.1
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // ---------------------------------------------------------------------------------------------------
 // ****** ---------- SAVE PLUGIN CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
