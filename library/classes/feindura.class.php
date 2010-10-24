@@ -1075,7 +1075,7 @@ class feindura extends feinduraBase {
       //var      
       var pageBarVisible = false;
       var pageBlockFocused = false;
-      var oldPositionStyleValue;      
+      var parent = pageBlock.getParent();
       var ids = feindura_getPageIds(pageBlock);
       
       // ->> create PAGE BAR
@@ -1089,22 +1089,19 @@ class feindura extends feinduraBase {
       pageBar.set('tween',{duration: 300});
       pageBar.fade('hide');      
       
-      // -> set the parent to position: relative
-      var parent = pageBlock.getParent();
+      // -> set the parent to position: relative      
       if(parent.getStyle('position') != 'relative' && parent.getStyle('position') != 'absolute') {
-        oldPositionStyleValue = parent.getStyle('position');
         parent.setStyle('position','relative');
-      }
-        
-      // -> set the position of the page bar
-      pageBar.setPosition({
-        x: pageBlock.getPosition(parent).x + (pageBlock.getSize().x - pageBar.getSize().x),
-        y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 15}
-      );
+      }      
       
       // ->> add page bar on focus
       pageBlock.addEvent('mouseenter', function() {
-        // -> show the page bar         
+        // -> show the page bar
+        // -> set the position of the page bar
+        pageBar.setPosition({
+          x: pageBlock.getPosition(parent).x + (pageBlock.getSize().x - pageBar.getSize().x),
+          y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 15}
+        );    
         pageBar.fade('in');
       });
       // ->> set pageBlockFocused on focus

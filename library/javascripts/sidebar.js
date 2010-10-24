@@ -107,11 +107,8 @@ function sidebarMenu() {
 // send a HTML request to load the new Sidebar content
 function requestLeftSidebar(category,page,site) {
   
-  var leftSideBarloadingCircle = new Element('img',{
-        'id': 'leftSidebarLoadingCircle',
-        'src': 'library/images/sign/loadingCircle.gif',
-        'alt': 'loadingCircle'
-      });
+  var jsLoadingCircleContainer = new Element('div',{id:'leftSidebarLoadingCircle'});
+  var removeLoadingCircle;
   
   // creates the request Object
   var requestCategory = new Request.HTML({
@@ -128,8 +125,8 @@ function requestLeftSidebar(category,page,site) {
         //$('leftSidebar').tween('opacity',0);
         
         // -> ADD the LOADING CIRCLE
-    		$('leftSidebar').grab(leftSideBarloadingCircle,'before');
-    		
+    		$('leftSidebar').grab(jsLoadingCircleContainer,'before'); //leftSideBarloadingCircle
+    		removeLoadingCircle = loadingCircle('leftSidebarLoadingCircle', 25, 40, 12, 3, "#999");
 
     },
     //-----------------------------------------------------------------------------
@@ -141,14 +138,16 @@ function requestLeftSidebar(category,page,site) {
 			$('leftSidebar').adopt(html);
 			
 			// -> TWEEN leftSidebar
-			$('leftSidebar').set('tween',{duration: 500});
+			$('leftSidebar').set('tween',{duration: 300});
 			$('leftSidebar').tween('left','0px');
 			//$('leftSidebar').tween('opacity',1);
 			
 			// -> REMOVE the LOADING CIRCLE
-			leftSideBarloadingCircle.destroy();
+      jsLoadingCircleContainer.destroy();
+      removeLoadingCircle();
 			
 	    sidebarMenu();
+	    setToolTips();
 	    layoutFix();
 		},
 		//-----------------------------------------------------------------------------

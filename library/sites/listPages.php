@@ -16,6 +16,11 @@
 * listPages.php version 0.86
 */
 
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 ?>
 <div class="block open noBg">
 <h1><?php echo $langFile['sortablePageList_h1']; ?></h1>

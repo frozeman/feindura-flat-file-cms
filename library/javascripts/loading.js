@@ -73,11 +73,11 @@ function loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
     };
 }
 
-// create loading circle element
-var jsLoadingCircleContent = new Element('div', {id: 'loadingCircleContent'});
+// create loading circle container
+var jsLoadingCircleContainer = new Element('div', {id: 'loadingCircleContainer'});
 
 // create the LOADING-CIRCLE
-var loadingCircleContent = new Element('div', {id: 'loadingCircle'});
+//var loadingCircleContent = new Element('div', {id: 'loadingCircle'});
 
 /* LOADING-CIRCLE when the DOM is loading
 *
@@ -91,8 +91,8 @@ window.addEvent('domready', function() {
   if($('content') != null && loadingBoxContent != null &&
      $('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
     // -> add to the #content div
-    loadingBoxContent.grab(loadingCircleContent,'top');
-    //var removeLoadingCircle = loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");
+    loadingBoxContent.grab(jsLoadingCircleContainer,'top');
+    var removeLoadingCircle = loadingCircle('loadingCircleContainer', 18, 30, 12, 3, "#000");
     
     // set tween
     $('loadingBox').set('tween',{duration: 400})
@@ -108,7 +108,7 @@ window.addEvent('domready', function() {
     
     // disply none the documentsaved, after blending in and out
     $('loadingBox').get('tween').chain(function() {
-        //removeLoadingCircle();
+        removeLoadingCircle();
         loadingBoxContent.set('html','');
         $('loadingBox').setStyle('display','none');
         $('loadingBox').setStyle('opacity','1');
@@ -131,8 +131,8 @@ window.addEvent('unload',  function() {
   // empties the loadingBox, and refill with the loadingCircle
   if(loadingBox != null) {
     loadingBox.set('html','');
-    loadingBox.grab(loadingCircleContent,'top');
-    //loadingCircle('jsLoadingCircleContent', 20, 30, 12, 3, "#000");    
+    loadingBox.grab(jsLoadingCircleContainer,'top');
+    loadingCircle('loadingCircleContainer', 18, 30, 12, 3, "#000");
 
     $('loadingBox').setStyle('display','block');
   }  

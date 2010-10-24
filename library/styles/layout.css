@@ -288,15 +288,11 @@ span.red, label.red, h1.red {
 /****************/
 /* *** loadingCircle -*/
 
-#loadingCircle {
-  display: block;
-  position: relative;  
-  width: 50px;
-  height: 48px;
+#loadingCircleContainer {
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  background: url("../images/sign/loadingCircle.gif") no-repeat top center;
   }
 
 /****************/

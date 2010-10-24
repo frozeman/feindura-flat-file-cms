@@ -626,16 +626,16 @@ window.addEvent('domready', function() {
 		    // adds the "no page - notice" li if the old category is empty
 		    if(responseText.substr(0,13) == '<span></span>') {              
 		      $$('.sortablePageList').each(function(ul) {
-			if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
-			  var newLi = new Element('li', {html: '<div>' + sortablePageList_status[1] + '</div>'});
-			  newLi.setStyle('cursor','auto');
-			  ul.grab(newLi,'top');
-			}
+      			if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
+      			  var newLi = new Element('li', {html: '<div>' + sortablePageList_status[1] + '</div>'});
+      			  newLi.setStyle('cursor','auto');
+      			  ul.grab(newLi,'top');
+      			}
 		      });
 		    }
 
 		    // RELOADS the sidebarMenu
-		    requestLeftSidebar(categoryNew,'','pages');
+		    requestLeftSidebar(categoryNew,'0','pages');
 
 		    // hide the loadingBox
 		    //$('loadingBox').setStyle('visibility','hidden');
@@ -925,7 +925,7 @@ window.addEvent('domready', function() {
   if($('visitTimeMax') != null) {
 
      // creates the slide effect
-	   var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});  
+	   var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: 300, transition: Fx.Transitions.Pow.easeOut});  
     
      // slides the hotky div in, on start
      slideVisitTimeMax.hide();

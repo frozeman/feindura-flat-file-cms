@@ -270,10 +270,10 @@ $hidden = ' hidden';
           foreach($visitTimes_max as $visitTime_max) {
             if($visitTime_max_formated = $statisticFunctions->showVisitTime($visitTime_max,$langFile)) {
               if($showTimeHead)
-                echo '<span class="blue" id="visitTimeMax" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />
+                echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br />
                 <div id="visitTimeMaxContainer">';
               else            
-                echo '<span class="blue" title="'.$visitTime_max.'">'.$visitTime_max_formated.'</span><br />';
+                echo '<span class="blue">'.$visitTime_max_formated.'</span><br />';
               
               $showTimeHead = false;            
             }
@@ -295,10 +295,10 @@ $hidden = ' hidden';
           foreach($visitTimes_min as $visitTime_min) {          
             if($visitTime_min_formated = $statisticFunctions->showVisitTime($visitTime_min,$langFile)) {
               if($showTimeHead)
-                echo '<span class="blue" id="visitTimeMin" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />
+                echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br />
                 <div id="visitTimeMinContainer">';
               else            
-                echo '<span class="blue" title="'.$visitTime_min.'">'.$visitTime_min_formated.'</span><br />';
+                echo '<span class="blue">'.$visitTime_min_formated.'</span><br />';
             
               $showTimeHead = false;
             }          

@@ -63,6 +63,7 @@ a.logout:hover, a.toWebsite:hover {
 #feindura_topBar {
   z-index: 2;
   position: fixed;
+  left: 0px;
   top: 0px;
   height: 20px;
   width: 100%;
@@ -83,6 +84,7 @@ a.logout:hover, a.toWebsite:hover {
 /* PAGE BAR */
 div.feindura_pageBar {
   position: absolute;
+  width: 60px;
   height: 26px;
 }
 

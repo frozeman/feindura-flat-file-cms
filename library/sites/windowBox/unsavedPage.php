@@ -16,7 +16,10 @@
 */
 // unsavedPage.php version 0.1
 
-require_once(dirname(__FILE__).'/../../includes/secure.include.php');
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 

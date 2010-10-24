@@ -13,10 +13,14 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-*/
-// pageThumbnailDelete.php version 0.91
 
-require_once(dirname(__FILE__).'/../../includes/secure.include.php');
+* pageThumbnailDelete.php version 0.91
+*/
+
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 // gets the vars
 if(isset($_POST['category']))

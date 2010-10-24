@@ -16,20 +16,12 @@
 */
 // sidebar.loader.php version 0.60
 
-// -> GET FUNCTIONS
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
 require_once(dirname(__FILE__)."/includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
-
-// to activate toolTips after reloading with ajax (doesn't work)
-/*
-echo '<!-- thirdparty/MooTools -->
-      <script type="text/javascript" src="thirdparty/javascripts/mootools-1.2.4-core.js"></script>
-      <script type="text/javascript" src="thirdparty/javascripts/mootools-1.2.4.4-more.js"></script>
-      <script type="text/javascript" src="javascripts/toolTips.js"></script>
-      <script type="text/javascript" src="javascripts/content.js"></script>
-      ';
-*/
 
 // -----------------------------------------------------------------------------------
 // if page ID is given, it LOAD THE EDITOR

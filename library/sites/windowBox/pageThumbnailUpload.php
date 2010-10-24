@@ -13,16 +13,20 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
+
+* pageThumbnailUpload.php version 1.04
 */
-// pageThumbnailUpload.php version 1.04
+
+/**
+ * Includes the login and filters the incoming data by xssFilter
+ */
+require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 $error = false;
 $response = false;
 $site = $_GET['site'];
 $page = $_GET['page'];
 $category = $_GET['category'];
-
-require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
