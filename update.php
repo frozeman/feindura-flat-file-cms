@@ -17,7 +17,7 @@
  * update.php
  * 
  * for updating from 
- * 1.0 rc -> 1.0
+ * 1.0 rc -> 1.1
  *
  * @version 0.12
  */
@@ -25,7 +25,7 @@
 /**
  * Includes all necessary configs, functions and classes
  */
-$wrongDiractory = (@include("library/includes/backend.include.php"))
+$wrongDiractory = (include("library/includes/backend.include.php"))
   ? false : true;
 
 // VARs
@@ -38,7 +38,7 @@ $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.0';
+$newVersion = '1.1';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -242,9 +242,6 @@ $newVersion = '1.0';
     //print_r($pages);
     foreach($pages as $pageContent) {
       
-      // remove $pagecontent['plugins']
-      unset($pageContent['plugins']);
-      
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
       // mktime(hour,minute,seconds,month,day,year)
       
@@ -290,7 +287,7 @@ $newVersion = '1.0';
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchwords'] = changeToSerializedDataString($data,' ');
       
-      $pagesSuccesfullUpdated = ($generalFunctions->savePage($pageContent)) ? true : false;      
+      $pagesSuccesfullUpdated = ($generalFunctions->savePage($pageContent)) ? true : false;
     }
     if($pagesSuccesfullUpdated)
       echo 'pages <span class="succesfull">succesfully updated</span><br />';
