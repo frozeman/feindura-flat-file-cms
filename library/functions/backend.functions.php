@@ -1483,7 +1483,7 @@ function startPageWarning() {
     $startPageCategory .= '/';
   else
     $startPageCategory = '';
-  
+
   if($GLOBALS['adminConfig']['setStartPage'] && (!$GLOBALS['websiteConfig']['startPage'] || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>

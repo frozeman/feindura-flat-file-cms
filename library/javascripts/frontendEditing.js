@@ -176,25 +176,167 @@ function feindura_getPageIds(pageBlock) {
     return { page: null, category: null};
 }
 
-
-// ->> SAVE PAGE
-function feindura_savePage(page) {
-  if(feindura_pageSaved === false) {
+/* ---------------------------------------------------------------------------------- */
+// SIDEBAR AJAX REQUEST
+// send a HTML request to load the new Sidebar content
+function feindura_request(aniContainer,url,data,method) {
   
-    //alert(page.get('html'));
-    page.set('html',page.get('html')+'saved')
+  // vars
+  if(!method) method = 'get';
+  var jsLoadingCircleContainer = new Element('div',{class:'feindura_loadingCircleContainer'});
+  var jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -20px;'});
+  jsLoadingCircleContainer.grab(jsLoadingCircle);
+  var finishPicture = new Element('div',{class:'feindura_requestFinish'});
+  var failedPicture = new Element('div',{class:'feindura_requestFailed'});
+  
+  var removeLoadingCircle;
+  
+  //console.debug(aniContainer);
+  
+  // creates the request Object
+  var request = new Request({
+    url: url,
+    method: method,
+    //data: data, //'site=' + site + '&category=' + category + '&page=' + page,
     
-		//new Request({url:MooRTE.Elements.save.src}).send(content.toQueryString());
-		
-		
-	  feindura_pageSaved = true;
-  }
+    //-----------------------------------------------------------------------------
+    onRequest: function() { //-----------------------------------------------------		
+
+        // -> ADD the LOADING CIRCLE
+    		aniContainer.grab(jsLoadingCircleContainer,'top');
+    		removeLoadingCircle = loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
+    		
+    		// -> TWEEN jsLoadingCircleContainer    
+        jsLoadingCircleContainer.set('tween',{duration: 100});
+        jsLoadingCircleContainer.setStyle('opacity',0);
+        jsLoadingCircleContainer.tween('opacity',0.5);
+
+    },
+    //-----------------------------------------------------------------------------
+		onSuccess: function(html) { //-------------------------------------------------
+			
+			// -> TWEEN leftSidebar
+			jsLoadingCircleContainer.set('tween',{duration: 200});
+			jsLoadingCircleContainer.fade('out');
+			jsLoadingCircleContainer.get('tween').chain(function(){
+			   // -> REMOVE the LOADING CIRCLE
+			   removeLoadingCircle();
+         jsLoadingCircleContainer.setStyle('background','transparent');
+         jsLoadingCircleContainer.setStyle('border','none');
+         jsLoadingCircleContainer.setStyle('opacity',1);
+         // request finish picture
+			   jsLoadingCircleContainer.grab(finishPicture,'top');
+      });
+			
+      finishPicture.set('tween',{duration: 400});
+      finishPicture.fade('in');
+      finishPicture.get('tween').chain(function(){
+        finishPicture.tween('opacity',0);
+      }).chain(function(){
+        finishPicture.destroy();
+        jsLoadingCircleContainer.destroy();
+      });
+
+		},
+		//-----------------------------------------------------------------------------
+		//Our request will most likely succeed, but just in case, we'll add an
+		//onFailure method which will let the user know what happened.
+		onFailure: function() { //-----------------------------------------------------
+		  
+		  // DONT work??
+      
+      // -> TWEEN leftSidebar
+			jsLoadingCircleContainer.set('tween',{duration: 200});
+			jsLoadingCircleContainer.fade('out');
+			jsLoadingCircleContainer.get('tween').chain(function(){
+			   // -> REMOVE the LOADING CIRCLE
+			   removeLoadingCircle();
+         jsLoadingCircleContainer.setStyle('background','transparent');
+         jsLoadingCircleContainer.setStyle('border','none');
+         jsLoadingCircleContainer.setStyle('opacity',1);
+         // request finish picture
+			   jsLoadingCircleContainer.grab(failedPicture,'top');
+      });
+			
+      failedPicture.set('tween',{duration: 400});
+      failedPicture.fade('in');
+      failedPicture.get('tween').chain(function(){
+        failedPicture.tween('opacity',0);
+      }).chain(function(){
+        failedPicture.destroy();
+        jsLoadingCircleContainer.destroy();
+      });
+		}
+  }).send(data);
 }
 
 // ->> DOMREADY
 // ************
 window.addEvent('domready',function() {
-
+  
+  // ->> add TOP BAR
+  // ***************
+  var feindura_topBar = Mooml.render('feindura_topBarTemplate');
+  feindura_topBar.inject($(document.body),'top');
+  $(document.body).setStyle('padding-top','60px');
+  
+  // ->> add BAR to EACH PAGE BLOCK  
+  // ******************************  
+  $$('.feindura_editPage').each(function(pageBlock) {
+    
+    //var      
+    var pageBarVisible = false;
+    var pageBlockFocused = false;
+    var parent = pageBlock.getParent();
+    var ids = feindura_getPageIds(pageBlock);
+    
+    // ->> create PAGE BAR
+    var pageBar = new Element('div',{class: 'feindura_pageBar'});
+    var pageBarContent = Mooml.render('feindura_pageBarTemplate', { pageId: ids.page, categoryId: ids.category, pageBlockClasses: pageBlock.get('class') });
+    pageBarContent.each(function(link){
+      link.inject(pageBar,'bottom');
+    });
+    // -> inject the page bar
+    pageBar.inject(pageBlock,'before');
+    pageBar.set('tween',{duration: 300});
+    pageBar.fade('hide');      
+    
+    // -> set the parent to position: relative      
+    if(parent.getStyle('position') != 'relative' && parent.getStyle('position') != 'absolute') { parent.setStyle('position','relative'); }      
+    
+    // ->> add page bar on focus
+    pageBlock.addEvent('mouseenter', function() {
+      // -> show the page bar
+      // -> set the position of the page bar
+      pageBar.setPosition({
+        x: pageBlock.getPosition(parent).x + (pageBlock.getSize().x - pageBar.getSize().x),
+        y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 15}
+      );    
+      pageBar.fade('in');
+    });
+    // ->> set pageBlockFocused on focus
+    pageBlock.addEvent('focus', function(e) { pageBlockFocused = true; });
+    
+    // ->> remove all page bars on mouseout
+    pageBlock.addEvent('mouseleave', function(e) {      
+      // -> check if target is not feindura_editPage block
+      if(!pageBlockFocused) {          
+        pageBar.fade('out');
+      }
+    });
+    // ->> set pageBlockFocused on focus
+    pageBlock.addEvent('blur', function(e) {
+      pageBar.fade('out');
+      pageBlockFocused = false;
+    });
+    
+    // ->> set page bar mouse events
+    pageBar.addEvent('mouseenter', function(e) { pageBar.fade('in'); });
+    pageBar.addEvent('mouseleave', function(e) { if(!pageBlockFocused) pageBar.fade('out'); });    
+  });
+  
+  feindura_addToolTips()
+  
   // ->> ADD EDITOR
   // **************
   

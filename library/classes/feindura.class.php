@@ -1023,25 +1023,41 @@ class feindura extends feinduraBase {
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
         // add CKEditor
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
-        
+
         // add MooRTE and mootools
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.4.4-more.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
-        
         //add mooml template engine
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mooml.js"></script>'."\n";
-        
+        // add raphael
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
+        // add the javascripts which are shared by the backend and the frontend
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/general.js"></script>'."\n";
         // add frontend editing integration
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
-                
         // set fileManager
         //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
       
-        // ->> add topBar on the fly
+        // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */  
+  
+  // ->> SAVE PAGE
+  function feindura_savePage(page,type) {
+    if(feindura_pageSaved === false) {   
+
+      // var
+      var ids = feindura_getPageIds(page);
+      
+      // save the page
+      feindura_request(page,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','type='+type+'&data='+page.get('html'),'post');
+  		
+  		 page.set('html',page.get('html')+'saved')
+      feindura_pageSaved = true;
+    }
+  }
   
   // ->> create TOP BAR
   Mooml.register('feindura_topBarTemplate', function() {
@@ -1057,88 +1073,10 @@ class feindura extends feinduraBase {
           // editPage
           a({ href: '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', class: 'editPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, ''),
           // setStartPage
-          a({ href: '#', onclick: 'feindura_request(\'".$this->adminConfig['basePath']."library/processes/listPages.process.php?status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\');return false;',class: 'startPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, '')
+          a({ href: '#', onclick: 'feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\');feindura_pageSaved = true;return false;',class: 'startPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, '')
+    //'+values.pageBlockClasses+'
   });
   
-  // ->> DOMREADY
-  // ************
-  window.addEvent('domready',function(){
-    
-    // ->> add TOP BAR
-    var feindura_topBar = Mooml.render('feindura_topBarTemplate');
-    feindura_topBar.inject($(document.body),'top');
-    $(document.body).setStyle('padding-top','60px');
-    
-    // ->> add BAR to EACH PAGE BLOCK    
-    $$('.feindura_editPage').each(function(pageBlock) {
-      
-      //var      
-      var pageBarVisible = false;
-      var pageBlockFocused = false;
-      var parent = pageBlock.getParent();
-      var ids = feindura_getPageIds(pageBlock);
-      
-      // ->> create PAGE BAR
-      var pageBar = new Element('div',{class: 'feindura_pageBar'});
-      var pageBarContent = Mooml.render('feindura_pageBarTemplate', { pageId: ids.page, categoryId: ids.category });
-      pageBarContent.each(function(link){
-        link.inject(pageBar,'bottom');
-      });
-      // -> inject the page bar
-      pageBar.inject(pageBlock,'before');
-      pageBar.set('tween',{duration: 300});
-      pageBar.fade('hide');      
-      
-      // -> set the parent to position: relative      
-      if(parent.getStyle('position') != 'relative' && parent.getStyle('position') != 'absolute') {
-        parent.setStyle('position','relative');
-      }      
-      
-      // ->> add page bar on focus
-      pageBlock.addEvent('mouseenter', function() {
-        // -> show the page bar
-        // -> set the position of the page bar
-        pageBar.setPosition({
-          x: pageBlock.getPosition(parent).x + (pageBlock.getSize().x - pageBar.getSize().x),
-          y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 15}
-        );    
-        pageBar.fade('in');
-      });
-      // ->> set pageBlockFocused on focus
-      pageBlock.addEvent('focus', function(e) {
-        pageBlockFocused = true;
-      });
-      
-      // ->> remove all page bars on mouseout
-      pageBlock.addEvent('mouseleave', function(e) {
-        
-        // -> check if target is not feindura_editPage block
-        if(!pageBlockFocused) {          
-          pageBar.fade('out');
-        }
-      });
-      // ->> set pageBlockFocused on focus
-      pageBlock.addEvent('blur', function(e) {
-        pageBar.fade('out');
-        pageBlockFocused = false;
-      });
-      
-      // ->> set page bar mouse events
-      pageBar.addEvent('mouseenter', function(e) {
-        pageBar.fade('in');
-      });
-      pageBar.addEvent('mouseleave', function(e) {
-        if(!pageBlockFocused)
-          pageBar.fade('out');
-      });
-      
- 
-      
-    });
-    
-    feindura_addToolTips()
-    
-  });
   /* ]]> */
   </script>\n";
   
@@ -1948,7 +1886,7 @@ class feindura extends feinduraBase {
             $generatedPage['title'] = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
             $generatedPage['content'] = '<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>';
             
-          /*
+            /*
             // -> CHOOSES the RIGHT EDITOR ID and/or CLASS
             $editorStyleFiles = $this->generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
             $editorStyleId = $this->generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);

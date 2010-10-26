@@ -148,6 +148,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
  
   <!-- javascripts -->
+  <script type="text/javascript" src="library/javascripts/general.js"></script>
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
   <script type="text/javascript" src="library/javascripts/divScroller.js"></script>
   <script type="text/javascript" src="library/javascripts/sidebar.js"></script>

@@ -107,6 +107,9 @@ function sidebarMenu() {
 // send a HTML request to load the new Sidebar content
 function requestLeftSidebar(category,page,site) {
   
+  // vars
+  if(!page) page = 0;
+  if(!category) category = 0;
   var jsLoadingCircleContainer = new Element('div',{id:'leftSidebarLoadingCircle'});
   var removeLoadingCircle;
   
@@ -115,6 +118,7 @@ function requestLeftSidebar(category,page,site) {
     url:'library/leftSidebar.loader.php',
     method: 'get',
     data: 'site=' + site + '&category=' + category + '&page=' + page,
+    update: $('leftSidebar'),
     
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------		
@@ -126,16 +130,11 @@ function requestLeftSidebar(category,page,site) {
         
         // -> ADD the LOADING CIRCLE
     		$('leftSidebar').grab(jsLoadingCircleContainer,'before'); //leftSideBarloadingCircle
-    		removeLoadingCircle = loadingCircle('leftSidebarLoadingCircle', 25, 40, 12, 3, "#999");
+    		removeLoadingCircle = loadingCircle('leftSidebarLoadingCircle', 25, 40, 12, 4, "#999");
 
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html) { //-------------------------------------------------
-
-			// Clear the text currently inside the leftSidebar div.
-			$('leftSidebar').set('text', '');
-			// -> ADD the new HTML elements into the leftSidebar div.
-			$('leftSidebar').adopt(html);
 			
 			// -> TWEEN leftSidebar
 			$('leftSidebar').set('tween',{duration: 300});
@@ -155,9 +154,9 @@ function requestLeftSidebar(category,page,site) {
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
 		  var failureText = new Element('p');
-		  failureText.set('text','The request failed.');
-			$('leftSidebar').inject(failureText);
-		  }
+		  failureText.set('text','Couldn\'t load the sidebar?');
+			$('leftSidebar').set('html',failureText);
+		}
   }).send();
 }
 

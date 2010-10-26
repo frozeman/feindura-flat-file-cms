@@ -143,3 +143,41 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
   -o-box-shadow: 0px 0px 5px #ccc;
   box-shadow: 0px 0px 5px #ccc;
 }
+
+/* REQUESTS */
+
+/* LOADING CIRCLE */
+.feindura_loadingCircleContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: url("../images/bg/dimmContainer.png") repeat;
+  border: 1px solid #333;
+  /*margin: auto;
+  margin-left: 50%;
+  margin-top: 50%;
+  */
+}
+
+/* REQUEST FINSIH */
+.feindura_requestFinish, .feindura_requestFailed, .feindura_loadingCircleHolder {
+  position: absolute;
+  top: 40%;
+  left: 50%;  
+}
+.feindura_requestFinish {  
+  width: 94px;
+  height: 100px;
+  margin-left: -47px;
+  margin-top: -50px;
+  background: url("../images/sign/documentSaved_small.png") no-repeat;
+}
+
+.feindura_requestFailed {
+  width: 94px;
+  height: 100px;
+  margin-left: -47px;
+  margin-top: -50px;
+  background: url("../images/sign/documentSaved_failed.png") no-repeat;
+}
