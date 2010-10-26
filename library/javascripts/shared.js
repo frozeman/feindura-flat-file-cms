@@ -14,10 +14,10 @@
     
 *
 * 
-* general.php version 0.1 (requires raphael)  */
+* shared.php version 0.1 (requires raphael)  */
 
 // create the JS LOADING-CIRCLE
-function loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
+function feindura_loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
     var sectorsCount = count || 12,
         color = colour || "#fff",
         width = stroke_width || 15,
@@ -56,4 +56,43 @@ function loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
         clearTimeout(tick);
         r.remove();
     };
+}
+
+/* str_replace function */
+function feindura_is_array(value) {
+   if (typeof value === 'object' && value && value instanceof Array) {
+      return true;
+   }
+   return false;
+}
+function feindura_str_replace(s, r, c) {
+   if (feindura_is_array(s)) {
+      for(i=0; i < s.length; i++) {
+         c = c.split(s[i]).join(r[i]);
+      }
+   }
+   else {
+      c = c.split(s).join(r);
+   }
+   return c;
+}
+
+// stores the title text in the elements storage
+function feindura_storeTipTexts(elements) {
+  $$(elements).each(function(element,index) {
+
+	  if(element.get('title')) {
+      var content = element.get('title').split('::');
+     		
+     	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
+  		if(content[1])
+    		content[1] = feindura_str_replace(new Array('"',"<",">","[", "]"), new Array("&quot;","&lt;","&gt;","<", ">"), content[1]);
+
+  		if(content[0])
+    		content[0] = feindura_str_replace(new Array('"',"<",">","[", "]"), new Array("&quot;","&lt;","&gt;","<", ">"), content[0]);
+
+  		element.store('tip:title', content[0]);
+  		element.store('tip:text', content[1]);    		
+  	}
+	});
 }

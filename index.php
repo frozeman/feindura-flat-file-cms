@@ -93,7 +93,7 @@ if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
   <link rel="stylesheet" type="text/css" href="library/styles/content.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/styles/setup.css" media="all" />  
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/general.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/shared.css" media="all" />
   
 <?php
 if($_GET['site'] == 'addons') {
@@ -148,7 +148,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
  
   <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/general.js"></script>
+  <script type="text/javascript" src="library/javascripts/shared.js"></script>
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
   <script type="text/javascript" src="library/javascripts/divScroller.js"></script>
   <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
@@ -267,28 +267,27 @@ if($_GET['site'] == 'addons') {
     <!--<a href="http://frozeman.de" id="createdBy" title="created by Fabian Vogelsteller [frozeman.de]">&nbsp;</a>-->
   </div>     
   
+  <!-- ************************************************************************* -->
+  <!-- ** DOCUMENT SAVED ******************************************************* -->
+  <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
+  
+  <?php if($errorWindow !== false) { ?>
+  <!-- ************************************************************************* -->
+  <!-- ** ERROR WINDOW ********************************************************* -->    
+  <div id="feindura_errorWindow">
+    <div class="feindura_top"><?php echo $langFile['errorWindow_h1'];?></div>
+    <div class="feindura_content feindura_warning">
+      <p><?php echo $errorWindow; ?></p>
+      <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('feindura_errorWindow').fade('out');return false;" class="feindura_ok"></a>
+    </div>
+    <div class="feindura_bottom"></div>
+  </div>  
+  <?php } ?>
   
   <!-- ***************************************************************************************** -->
   <!-- ** MAINBODY ***************************************************************************** -->
   <div id="mainBody">
-  
-    <!-- ************************************************************************* -->
-    <!-- ** DOCUMENT SAVED ******************************************************* -->
-    <div id="documentSaved"<?php if($documentSaved === true) echo ' class="saved"'; ?>></div>
-    
-    <?php if($errorWindow !== false) { ?>
-    <!-- ************************************************************************* -->
-    <!-- ** ERROR WINDOW ********************************************************* -->    
-    <div id="errorWindow">
-      <div class="top"><?php echo $langFile['form_errorWindow_h1'];?></div>
-      <div class="content warning">
-        <p><?php echo $errorWindow; ?></p>
-        <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('errorWindow').fade('out');return false;" class="ok"></a>
-      </div>
-      <div class="bottom"></div>
-    </div>
-    
-    <?php }
+    <?php
     
     // ---------------------------------------------------------------
     // ->> CHECK to show BUTTONs in subMenu and FooterMenu 

@@ -271,82 +271,13 @@ iframe#fileManagerFrame {
     }
     
 /* --- ERRORWINDOW ------------------------------------------------------------------------------------------------------------------- */
+/* more in shared.css */
 
-/****************/	
-/* *** errorWindow */
-
-#errorWindow {
-    z-index: 20;
-    position: fixed;    
-    top: 20%;
-    left: 370px;
-    width: 447px;
-    padding: 0px 40px;
-    background: url("../images/bg/errorWindow_middle.png") repeat-y; 
-    }
-
-#errorWindow .top {
-    z-index: 3;
-    position: relative;
-    top: -40px;
-    left: -40px;
-    width: 527px;
-    height: 10px; /*org: 40px */
-    padding: 0px;
-    padding-top: 30px;
-    background: url("../images/bg/errorWindow_top.png") no-repeat;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #A30000;
-    overflow: visible;
-    }
-#errorWindow .content {
-    z-index: 0;
-    width: 377px;
-    padding-left: 70px;    
-    }
-#errorWindow .bottom {
-    position: relative;
-    bottom: -40px;
-    left: -40px;
-    width: 527px;
-    height: 40px;
-    background: url("../images/bg/errorWindow_bottom.png") no-repeat;
-    }
-    
-#errorWindow .content.warning {
-    min-height: 48px;
-    background: url("../images/sign/warning.png") no-repeat center left;
-    }
-    
-#errorWindow .content p {
-    padding-top: 20px;
-    color: #A30000;
-    }
-
-#errorWindow .rawError {
+#feindura_errorWindow .rawError {
     display: block;
     margin: 0px -10px;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px dotted #999999;
     color: #444;
-    }
-
-/****************/	
-/* *** OK */
-
-#errorWindow .content a.ok {
-    display: block;
-    position: relative;
-    top: 20px;
-    left: 130px;
-    width: 75px;
-    height: 70px;
-    padding: 0px;
-    background: url("../images/key/errorWindow_ok.png") no-repeat;
-    }
-#errorWindow .content a.ok:hover {
-    background-position: 0px -65px;
     }

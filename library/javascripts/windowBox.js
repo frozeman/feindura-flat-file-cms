@@ -127,7 +127,7 @@ function requestSite(site,siteTitle,formId) {
         // shows the LOADING
         if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
           $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer'}),'top');
-          removeLoadingCircle = loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
+          removeLoadingCircle = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
         } else {
           $('windowRequestBox').grab(new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'}),'top');
         }
@@ -219,7 +219,7 @@ function startUploadAnimation() {
   if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
     $('windowRequestBox').grab(new Element('div', {id: 'windowBoxDimmer', style: 'padding-top: 100px;'}),'top');
     $('windowBoxDimmer').setStyle('display','block');
-    uploadAnimationElement = loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
+    uploadAnimationElement = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
   } else {
     uploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
     $('windowRequestBox').grab(uploadAnimationElement,'top'); 

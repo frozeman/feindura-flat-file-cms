@@ -120,44 +120,10 @@ var feindura_pageSaved = false;
 // ->> FUNCTIONS
 // *************
 
-/* str_replace function */
-function feindura_is_array(value) {
-   if (typeof value === 'object' && value && value instanceof Array) {
-      return true;
-   }
-   return false;
-}
-function feindura_str_replace(s, r, c) {
-   if (feindura_is_array(s)) {
-      for(i=0; i < s.length; i++) {
-         c = c.split(s[i]).join(r[i]);
-      }
-   }
-   else {
-      c = c.split(s).join(r);
-   }
-   return c;
-}
-
 // ->> ADD TOOLTIPS
 function feindura_addToolTips() {
   // store titles and text
-	$$('.feindura_toolTip').each(function(element,index) {
-
-	  if(element.get('title')) {
-      var content = element.get('title').split('::');
-     		
-     	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
-  		if(content[1])
-    		content[1] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
-
-  		if(content[0])
-    		content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
-
-  		element.store('tip:title', content[0]);
-  		element.store('tip:text', content[1]);    		
-  	}
-	});
+  feindura_storeTipTexts('.feindura_toolTip');
 	
 	// add the tooltips to the elements
   var feindura_toolTips = new Tips('.feindura_toolTip',{
@@ -169,17 +135,18 @@ function feindura_addToolTips() {
 }
 
 // ->> GET PAGE ID
-function feindura_getPageIds(pageBlock) {
-  if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle'))
-    return { page: pageBlock.get('class').split(' ')[1].substr(15), category: pageBlock.get('class').split(' ')[2].substr(19)};
-  else
-    return { page: null, category: null};
+function feindura_setPageIds(pageBlock) {
+  if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) {  
+    pageBlock.store('page', pageBlock.get('class').split(' ')[1].substr(15));
+    pageBlock.store('category', pageBlock.get('class').split(' ')[2].substr(19));
+    return true;
+  } else
+    return false;
 }
 
 /* ---------------------------------------------------------------------------------- */
-// SIDEBAR AJAX REQUEST
-// send a HTML request to load the new Sidebar content
-function feindura_request(aniContainer,url,data,method) {
+// FRONTEND EDITING AJAX REQUEST
+function feindura_request(pageBlock,url,data,errorTexts,method) {
   
   // vars
   if(!method) method = 'get';
@@ -187,42 +154,38 @@ function feindura_request(aniContainer,url,data,method) {
   var jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -20px;'});
   jsLoadingCircleContainer.grab(jsLoadingCircle);
   var finishPicture = new Element('div',{class:'feindura_requestFinish'});
-  var failedPicture = new Element('div',{class:'feindura_requestFailed'});
-  
+  var failedPicture = new Element('div',{class:'feindura_requestFailed'});  
   var removeLoadingCircle;
-  
-  //console.debug(aniContainer);
-  
+    
   // creates the request Object
-  var request = new Request({
+  new Request({
     url: url,
     method: method,
-    //data: data, //'site=' + site + '&category=' + category + '&page=' + page,
+    update: pageBlock,
     
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------		
-
-        // -> ADD the LOADING CIRCLE
-    		aniContainer.grab(jsLoadingCircleContainer,'top');
-    		removeLoadingCircle = loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
-    		
-    		// -> TWEEN jsLoadingCircleContainer    
-        jsLoadingCircleContainer.set('tween',{duration: 100});
-        jsLoadingCircleContainer.setStyle('opacity',0);
-        jsLoadingCircleContainer.tween('opacity',0.5);
+      
+      // -> ADD the LOADING CIRCLE
+      if(!pageBlock.get('html').contains(jsLoadingCircleContainer))
+  		  pageBlock.grab(jsLoadingCircleContainer,'top');
+  		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");  		
+  		// -> TWEEN jsLoadingCircleContainer    
+      jsLoadingCircleContainer.set('tween',{duration: 100});
+      jsLoadingCircleContainer.setStyle('opacity',0);
+      jsLoadingCircleContainer.tween('opacity',0.8);
 
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html) { //-------------------------------------------------
 			
-			// -> TWEEN leftSidebar
+			// -> fade out the loadingCircle
 			jsLoadingCircleContainer.set('tween',{duration: 200});
 			jsLoadingCircleContainer.fade('out');
 			jsLoadingCircleContainer.get('tween').chain(function(){
 			   // -> REMOVE the LOADING CIRCLE
 			   removeLoadingCircle();
          jsLoadingCircleContainer.setStyle('background','transparent');
-         jsLoadingCircleContainer.setStyle('border','none');
          jsLoadingCircleContainer.setStyle('opacity',1);
          // request finish picture
 			   jsLoadingCircleContainer.grab(finishPicture,'top');
@@ -242,30 +205,40 @@ function feindura_request(aniContainer,url,data,method) {
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
-		  
-		  // DONT work??
       
-      // -> TWEEN leftSidebar
+      // creates the errorWindow
+      var errorWindow = new Element('div',{id:'feindura_errorWindow',style:'left:50%;margin-left:-260px;'});
+      errorWindow.grab(new Element('div',{class:'feindura_top',html: errorTexts.title}));
+      var errorWindowContent = new Element('div',{class:'feindura_content feindura_warning',html:'<p>'+errorTexts.text+'</p>'});
+      var errorWindowOkButton = new Element('a',{class:'feindura_ok',href:'#'});
+      errorWindowContent.grab(errorWindowOkButton);
+      errorWindow.grab(errorWindowContent);
+      errorWindow.grab(new Element('div',{class:'feindura_bottom'}));     
+      
+      // add functionality to the ok button
+      errorWindowOkButton.addEvent('click',function(e) {
+        e.stop();
+        errorWindow.fade('out');
+        errorWindow.get('tween').chain(function(){
+          errorWindow.destroy();
+        });
+      });      
+      
+      // -> fade out the loadingCircle
+      if(!pageBlock.get('html').contains(jsLoadingCircleContainer))
+        pageBlock.grab(jsLoadingCircleContainer,'top');
 			jsLoadingCircleContainer.set('tween',{duration: 200});
 			jsLoadingCircleContainer.fade('out');
+      
 			jsLoadingCircleContainer.get('tween').chain(function(){
 			   // -> REMOVE the LOADING CIRCLE
 			   removeLoadingCircle();
-         jsLoadingCircleContainer.setStyle('background','transparent');
-         jsLoadingCircleContainer.setStyle('border','none');
-         jsLoadingCircleContainer.setStyle('opacity',1);
-         // request finish picture
-			   jsLoadingCircleContainer.grab(failedPicture,'top');
+			   jsLoadingCircleContainer.destroy();
+			   // add errorWindow
+         $(document.body).grab(errorWindow,'top');
+
       });
-			
-      failedPicture.set('tween',{duration: 400});
-      failedPicture.fade('in');
-      failedPicture.get('tween').chain(function(){
-        failedPicture.tween('opacity',0);
-      }).chain(function(){
-        failedPicture.destroy();
-        jsLoadingCircleContainer.destroy();
-      });
+
 		}
   }).send(data);
 }
@@ -288,11 +261,11 @@ window.addEvent('domready',function() {
     var pageBarVisible = false;
     var pageBlockFocused = false;
     var parent = pageBlock.getParent();
-    var ids = feindura_getPageIds(pageBlock);
+    feindura_setPageIds(pageBlock);
     
     // ->> create PAGE BAR
     var pageBar = new Element('div',{class: 'feindura_pageBar'});
-    var pageBarContent = Mooml.render('feindura_pageBarTemplate', { pageId: ids.page, categoryId: ids.category, pageBlockClasses: pageBlock.get('class') });
+    var pageBarContent = feindura_renderPageBar({ pageId: pageBlock.retrieve('page'), categoryId: pageBlock.retrieve('category'), pageBlockClasses: pageBlock.get('class') });
     pageBarContent.each(function(link){
       link.inject(pageBar,'bottom');
     });
@@ -345,8 +318,11 @@ window.addEvent('domready',function() {
     save : { img:27, onClick: function() {
         $$('.feindura_editPage, .feindura_editTitle').each(function(page) {                                     
             if(MooRTE.activeField == page) {
-              feindura_pageSaved =  false;
-              feindura_savePage(page);
+              feindura_pageSaved = false;
+              if(page.hasClass('feindura_editPage'))
+                feindura_savePage(page,'content');
+              else if(page.hasClass('feindura_editTitle'))
+                feindura_savePage(page,'title');              
             }
         });
       }}
@@ -359,7 +335,10 @@ window.addEvent('domready',function() {
       var page = e.target;
       //alert(MooRTE.Elements.linkPop.visible);
       if(page != null && MooRTE.Elements.linkPop.visible === false) {
-        feindura_savePage(page);
+        if(page.hasClass('feindura_editPage'))
+          feindura_savePage(page,'content');
+        else if(page.hasClass('feindura_editTitle'))
+          feindura_savePage(page,'title');   
       }
     });    
     // on focus

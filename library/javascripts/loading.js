@@ -34,9 +34,6 @@ function layoutFix() {
 // create loading circle container
 var jsLoadingCircleContainer = new Element('div', {id: 'loadingCircleContainer'});
 
-// create the LOADING-CIRCLE
-//var loadingCircleContent = new Element('div', {id: 'loadingCircle'});
-
 /* LOADING-CIRCLE when the DOM is loading
 *
 * creates loadingCircle and disappears when domready
@@ -50,7 +47,7 @@ window.addEvent('domready', function() {
      $('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
     // -> add to the #content div
     loadingBoxContent.grab(jsLoadingCircleContainer,'top');
-    var removeLoadingCircle = loadingCircle('loadingCircleContainer', 18, 30, 12, 4, "#000");
+    var removeLoadingCircle = feindura_loadingCircle('loadingCircleContainer', 18, 30, 12, 4, "#000");
     
     // set tween
     $('loadingBox').set('tween',{duration: 400})
@@ -90,7 +87,7 @@ window.addEvent('unload',  function() {
   if(loadingBox != null) {
     loadingBox.set('html','');
     loadingBox.grab(jsLoadingCircleContainer,'top');
-    loadingCircle('loadingCircleContainer', 18, 30, 12, 4, "#000");
+    feindura_loadingCircle('loadingCircleContainer', 18, 30, 12, 4, "#000");
 
     $('loadingBox').setStyle('display','block');
   }  

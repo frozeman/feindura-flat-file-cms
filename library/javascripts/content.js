@@ -23,47 +23,13 @@ var pageContentChanged = false; // used to give a warning, if a page in the edit
 
 /* GENERAL FUNCTIONS */
 
-/* str_replace function */
-function is_array(value) {
-   if (typeof value === 'object' && value && value instanceof Array) {
-      return true;
-   }
-   return false;
-}
-function str_replace(s, r, c) {
-   if (is_array(s)) {
-      for(i=0; i < s.length; i++) {
-         c = c.split(s[i]).join(r[i]);
-      }
-   }
-   else {
-      c = c.split(s).join(r);
-   }
-   return c;
-}
-
 // *** ->> TOOLTIPS - functions -----------------------------------------------------------------------------------------------------------------------
 
 /* set toolTips to all objects with a toolTip class */
 function setToolTips() {
 
   //store titles and text
-	$$('.toolTip, .inputToolTip, .thumbnailToolTip').each(function(element,index) {
-	  if(element.get('title')) {
-      var content = element.get('title').split('::');
-     		
-     	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
-  		if(content[1])
-    		content[1] = str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
-
-  		if(content[0])
-    		content[0] = str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
-  		
-  		element.store('tip:title', content[0]);
-  		element.store('tip:text', content[1]);    		
-  	}
-
-	});
+  feindura_storeTipTexts('.toolTip, .inputToolTip, .thumbnailToolTip');
   
   /* add Tooltips */
   var toolTips = new Tips('.toolTip',{

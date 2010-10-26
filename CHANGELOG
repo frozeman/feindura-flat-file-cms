@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1
-Build 445
+Build 446
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1
   
+  build 446: worked further on frontendEditing
   build 445: worked on frontend editing
   build 444: fixed update.php
   build 443: removed loadCircle.gif, replaced all by raphael loading circle

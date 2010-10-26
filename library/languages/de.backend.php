@@ -25,7 +25,7 @@
  * NEEDS a RETURN $langFile; at the END
  */
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --- LOGIN
 */
 
@@ -52,11 +52,10 @@ $langFile['login_error_wrongPassword'] = 'falsches Passwort';
 $langFile['login_logout_part1'] = 'Erfolgreich ausgeloggt';
 $langFile['login_logout_part2'] = 'weiter zur Webseite';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --- GENERAL
 */
 
-$langFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
 $langFile['header_button_gotowebsite'] = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt auf deiner Webseite zu bearbeiten.';
 
 // ---------- thumbnail
@@ -133,7 +132,7 @@ $langFile['log_second_multiple'] = 'Sekunden';
 
 $langFile['log_browser_others'] = 'Sonstige';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- LOG TEXTs
 */
 
@@ -193,22 +192,14 @@ $langFile['user_nousers'] = 'Es sind keine Benutzer vorhanden';
 $langFile['user_currentuser'] = 'Du bist unter diesem Benutzernamen eingeloggt';
 $langFile['user_onlineusers'] = 'Dieser Benutzer ist ebenfalls eingeloggt::Letzte Aktivit&auml;t';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- GENERAL TEXTs
 */
 
 $langFile['txt_logo'] = 'Version';
 $langFile['txt_loading'] = 'Seite wird geladen..';
 
-/* ----------------------------------------------------------------------------------------------
-* ---------- FRONTEND shared TEXTs
-*/
-
-$langFile['date_yesterday'] = 'Gestern';
-$langFile['date_today'] = 'Heute';
-$langFile['date_tomorrow'] = 'Morgen';
-
-/* ----------------------------------------------------------------------------------------------
+/*
 * --------- BUTTON-TEXT (index.php)
 */
 
@@ -238,8 +229,6 @@ $langFile['btn_pageThumbnailUpload'] = 'Seiten-Thumbnail hochladen';
 $langFile['btn_pageThumbnailUpload_tip'] = 'Thumbnail f&uuml;r diese Seite hochladen';
 $langFile['btn_pageThumbnailDelete'] = 'Seiten-Thumbnail l&ouml;schen';
 $langFile['btn_pageThumbnailDelete_tip'] = 'Thumbnail von dieser Seite l&ouml;schen';
-$langFile['btn_startPage_tip'] = 'Diese Seite als Startseite festlegen';
-$langFile['btn_startPage_set'] = 'Diese Seite ist die Startseite';
 
 // --- other
 $langFile['btn_fastUp'] = 'Nach oben';
@@ -249,7 +238,7 @@ $langFile['categories_noncategory_name'] = 'Seiten';
 $langFile['categories_noncategory_tip'] = 'Seiten ohne Kategorie';
 $langFile['text_example'] = 'Beispiel';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- ERROR TEXTs
 */
 
@@ -264,7 +253,7 @@ $langFile['error_folderDatabase_end'] = '" Ordners dessen Unterordner und Dateie
 
 
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- WARNINGs
 */
 
@@ -294,7 +283,7 @@ Dort klickst du unter Sicherheit entweder auf "Standardstufe", oder w&auml;hle "
 $langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> ist nicht f&uuml;r &auml;ltere Versionen des Internet Explorers ausgelegt';
 $langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollst&auml;ndig nutzen zu k&ouml;nnen ist mindestens der Internet Explorer 7 n&ouml;tig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> f&uuml;r den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox Browser</a> herunter.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * leftSidebar.loader.php
 */
 
@@ -303,7 +292,7 @@ $langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span
 $langFile['btn_quickmenu_categories'] = 'Kategorien';
 $langFile['btn_quickmenu_pages'] = 'Seiten von';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * home.php
 */
 
@@ -328,7 +317,7 @@ $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher geko
 $langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese Seite gekommen.';
 $langFile['home_novisitors'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * listPages.php
 */
 
@@ -352,8 +341,8 @@ $langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Statu
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';
 
 $langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['error_read_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>'.$langFile['error_save_file'].' "'.$adminConfig['basePath'].'config/website.config.php"';
 $langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['sortablePageList_setStartPage_error_save'] .= $langFile['error_save_file'].' "'.$adminConfig['basePath'].'config/website.config.php"'; // also in de.shared.php
 $langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Kategorie konnte nicht ge&auml;ndert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
 $langFile['sortablePageList_info'] = 'Du kannst die <b>Seiten-Anordnung</b> per <b>Drag and Drop</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
@@ -368,11 +357,7 @@ $langFile['sortablePageList_categoryEmpty'] = 'Keine Seiten vorhanden';
 $langFile['form_submit'] = 'Speichern';
 $langFile['form_cancel'] = 'Alle Eingaben zur&uuml;cksetzen';
 
-// ---------- ERRORWINDOW
-$langFile['form_errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
-
-
-/* ----------------------------------------------------------------------------------------------
+/*
 * adminSetup.php
 */
 
@@ -482,7 +467,7 @@ $langFile['editFilesSettings_deleteFile_question_part2'] = 'wirklich l&ouml;sche
 
 $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Die Datei konnte nicht gel&ouml;scht werden.</b>'.$langFile['error_save_file'];
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pageSetup.php
 */
 
@@ -557,7 +542,7 @@ $langFile['pageSetup_check7_tip'] = 'Sortiert die Seiten [b]aufsteigend[/b].[br 
 $langFile['pageSetup_deletCategory_question_part1'] = 'Kategorie'; // Kategorie "test" l&ouml;schen?
 $langFile['pageSetup_deletCategory_question_part2'] = 'l&ouml;schen?';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * websiteSetup.php
 */
 
@@ -579,7 +564,7 @@ $langFile['websiteSetup_websiteConfig_field5'] = 'Webseitenbeschreibung';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'Eine kurze Beschreibung die von den Suchmaschienen verwendet wird wenn Stichworte in der Webseiten-URL gefunden wurden aber nicht im inhalt.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * statisticSetup.php
 */
 
@@ -616,7 +601,7 @@ $langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Stati
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * userSetup.php
 */
 
@@ -647,7 +632,7 @@ $langFile['userSetup_admin_tip'] = 'Legt fest ob der Benutzer Administratorrecht
 $langFile['userSetup_error_create'] = '<b>Ein neuer Benutzer konnte nicht angelegt werden.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pluginSetup.php
 */
 
@@ -661,7 +646,7 @@ $langFile['pluginSetup_pluginconfig_active'] = 'Plugin aktiviert';
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
 
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * editor.php
 */
 
@@ -722,18 +707,18 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'Kursiv';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'Unterstrichen';
 $langFile['editor_htmleditor_hotkeys_or'] = 'oder';
 
-$langFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['editor_savepage_error_save'] .= $langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];// also in de.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Einstellungen';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * unsavedPage.php
 */
 
 $langFile['unsavedPage_question_h1'] = '<span class="brown">Die Seite wurde ver&auml;ndert.</span><br />Willst du die Seite jetzt speichern?';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * deletePage.php
 */
 
@@ -747,7 +732,7 @@ $langFile['deletePage_notexisting_part2'] = 'existiert nicht';
 
 $langFile['deletePage_finish_error'] = 'FEHLER: Die Seite konnte nicht gel&ouml;scht werden!';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pageThumbnailDelete.php
 */
 
@@ -762,7 +747,7 @@ $langFile['pageThumbnailDelete_notexisting_part2'] = 'existiert nicht';
 $langFile['pageThumbnailDelete_finish_error'] = 'FEHLER: Das Thumbnail konnte nicht gel&ouml;scht werden!';
 
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pageThumbnailUpload.php
 */
 
@@ -794,7 +779,7 @@ $langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Das alte Thumbnail-Bild
 $langFile['pagethumbnail_upload_response_fileexists'] = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
 $langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich hochgeladen.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * search.php
 */
 

@@ -195,7 +195,7 @@ class xssFilter {
         preg_match_all("/[A-Za-z]+/",$data,$find); //check strictly there is one alphabetic at least
         if(!empty($find[0])) {
           $find = implode('',$find[0]);
-          return ($max > 0) 
+          return ($max > 0)
            ? substr($find,0,$max) // truncate the length
            : $find;
         }

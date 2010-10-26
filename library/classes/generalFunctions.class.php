@@ -310,12 +310,7 @@ class generalFunctions {
     if((isset($_GET[$page]) && $_GET[$page] != 'new' && $this->xssFilter->int($_GET[$page]) === false) ||
        (isset($_POST[$page]) && $_POST[$page] != 'new' && $this->xssFilter->int($_POST[$page]) === false))
       die('Wrong &quot;'.$page.'&quot; parameter! Script will be terminated.');
-      
-    // check language
-    if((isset($_GET['language']) && $this->xssFilter->alphabetical($_GET['language'])) ||
-       (isset($_SESSION['language']) && $this->xssFilter->alphabetical($_GET['language'])))
-      die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
-
+    
   }
 
  /**

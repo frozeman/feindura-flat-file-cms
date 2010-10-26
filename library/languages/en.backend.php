@@ -25,7 +25,7 @@
  * NEEDS a RETURN $langFile; at the END
  */
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --- LOGIN
 */
 
@@ -52,11 +52,10 @@ $langFile['login_error_wrongPassword'] = 'wrong password';
 $langFile['login_logout_part1'] = 'Successfully logged out';
 $langFile['login_logout_part2'] = 'further to the website';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --- GENERAL
 */
 
-$langFile['header_button_logout'] = 'Logout::Click here to logout.';
 $langFile['header_button_gotowebsite'] = 'Frontend Editing::Click here to edit the pages directly in your website.';
 
 // ---------- thumbnail
@@ -134,7 +133,7 @@ $langFile['log_second_multiple'] = 'seconds';
 
 $langFile['log_browser_others'] = 'other';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- LOG TEXTs
 */
 
@@ -194,7 +193,7 @@ $langFile['user_nousers'] = 'No users';
 $langFile['user_currentuser'] = 'The user under which you\'re logged';
 $langFile['user_onlineusers'] = 'This user is also logged in::Latest activity';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- GENERAL TEXTs
 */
 
@@ -202,15 +201,7 @@ $langFile['txt_logo'] = 'Version';
 $langFile['txt_logo_gotowebsite'] = 'Click here to go to your website.';
 $langFile['txt_loading'] = 'Page is loading..';
 
-/* ----------------------------------------------------------------------------------------------
-* ---------- FRONTEND shared TEXTs
-*/
-
-$langFile['date_yesterday'] = 'Yesterday';
-$langFile['date_today'] = 'Today';
-$langFile['date_tomorrow'] = 'Tomorrow';
-
-/* ----------------------------------------------------------------------------------------------
+/*
 * --------- BUTTON-TEXT (index.php)
 */
 
@@ -240,8 +231,6 @@ $langFile['btn_pageThumbnailUpload'] = 'Upload a page thumbnail';
 $langFile['btn_pageThumbnailUpload_tip'] = 'Upload a thumbnail for this page';
 $langFile['btn_pageThumbnailDelete'] = 'Delete a page thumbnail';
 $langFile['btn_pageThumbnailDelete_tip'] = 'Delete the thumbnail of this page';
-$langFile['btn_startPage_tip'] = 'Set this page as start page';
-$langFile['btn_startPage_set'] = 'This page is the start page';
 
 // --- other
 $langFile['btn_fastUp'] = 'Up';
@@ -251,7 +240,7 @@ $langFile['categories_noncategory_name'] = 'Pages';
 $langFile['categories_noncategory_tip'] = 'Pages without category';
 $langFile['text_example'] = 'Example';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- ERROR TEXTs
 */
 
@@ -265,8 +254,7 @@ $langFile['error_folder_end'] = '&quot; Folder, it\'s subfolders and files.';
 $langFile['error_folderDatabase_end'] = '&quot; Folder, it\'s subfolders and files.'; // (or the database)
 
 
-
-/* ----------------------------------------------------------------------------------------------
+/*
 * ---------- WARNINGs
 */
 
@@ -296,7 +284,7 @@ There you set under &quote;Security&quote; &gt; &quote;Standardlevel&quote; choo
 $langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
 $langFile['warning_ieOld'] = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 7.<br /><br />Please install a newer version of the Internet Explorer,<br /> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br />or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox Browser</a>.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * leftSidebar.loader.php
 */
 
@@ -305,7 +293,7 @@ $langFile['warning_ieOld'] = 'To completely use  <span class="logoname">fein<spa
 $langFile['btn_quickmenu_categories'] = 'Categories';
 $langFile['btn_quickmenu_pages'] = 'Pages of';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * home.php
 */
 
@@ -330,7 +318,7 @@ $langFile['home_refererLog_h1'] = 'Websites from which visitors came';
 $langFile['home_refererLog_nolog'] = 'Yet there are no visitors which came from other websites.';
 $langFile['home_novisitors'] = 'There are no visitors yet';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * listPages.php
 */
 
@@ -354,7 +342,7 @@ $langFile['sortablePageList_changeStatus_linkPage'] = 'Click here to change the 
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Click here to change the status of the category.';
 
 $langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['error_read_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_setStartPage_error_save'] = '<b>Could not set the start page.</b>'.$langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;';
+$langFile['sortablePageList_setStartPage_error_save'] .= $langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;'; // also in en.shared.php
 $langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 $langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
@@ -370,11 +358,8 @@ $langFile['sortablePageList_categoryEmpty'] = 'No pages available';
 $langFile['form_submit'] = 'Save';
 $langFile['form_cancel'] = 'Reset all input';
 
-// ---------- ERRORWINDOW
-$langFile['form_errorWindow_h1'] = 'An error occured!';
 
-
-/* ----------------------------------------------------------------------------------------------
+/*
 * adminSetup.php
 */
 
@@ -484,7 +469,7 @@ $langFile['editFilesSettings_deleteFile_question_part2'] = '?';
 
 $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Could not delete the file.</b>'.$langFile['error_save_file'];
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pageSetup.php
 */
 
@@ -559,7 +544,7 @@ $langFile['pageSetup_check7_tip'] = 'Sort pages [b]ascending[/b].[br /][br /][sp
 $langFile['pageSetup_deletCategory_question_part1'] = 'Delete category'; // Kategorie "test" löschen?
 $langFile['pageSetup_deletCategory_question_part2'] = '?';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * websiteSetup.php
 */
 
@@ -581,7 +566,7 @@ $langFile['websiteSetup_websiteConfig_field5'] = 'Website description';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'A short description which will search engines use, if the searchwords were found in the website URL and not in the content.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'A short text with not more than 3 lines.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * statisticSetup.php
 */
 
@@ -618,7 +603,7 @@ $langFile['statisticSetup_clearStatistics_question_h1'] = 'Are you sure you want
 
 $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * userSetup.php
 */
 
@@ -649,7 +634,7 @@ $langFile['userSetup_admin_tip'] = 'Determines whether the user has administrato
 $langFile['userSetup_error_create'] = '<b> A new user could not be created.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pluginSetup.php
 */
 
@@ -663,7 +648,7 @@ $langFile['pluginSetup_pluginconfig_active'] = 'activate Plugin';
 $langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
 
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * editor.php
 */
 
@@ -724,18 +709,18 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'italic';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'underline';
 $langFile['editor_htmleditor_hotkeys_or'] = 'or';
 
-$langFile['editor_savepage_error_save'] = '<b>The page could not be saved.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['editor_savepage_error_save'] .= $langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];// also in en.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Settings';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * unsavedPage.php
 */
 
 $langFile['unsavedPage_question_h1'] = '<span class="brown">The page has been changed.</span><br />Do you want to save the page now?';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * deletePage.php
 */
 
@@ -749,7 +734,7 @@ $langFile['deletePage_notexisting_part2'] = 'doesn \'t exist';
 
 $langFile['deletePage_finish_error'] = 'ERROR: The page could not be deleted!';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pageThumbnailDelete.php
 */
 
@@ -764,7 +749,7 @@ $langFile['pageThumbnailDelete_notexisting_part2'] = 'doesn \'t exist';
 $langFile['pageThumbnailDelete_finish_error'] = 'ERROR: The thumbnail could not be deleted!';
 
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * pageThumbnailUpload.php
 */
 
@@ -796,7 +781,7 @@ $langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Couldn\'t delete the ol
 $langFile['pagethumbnail_upload_response_fileexists'] = 'A image with this filename already exists.<br />The uploaded file was renamed to';
 $langFile['pagethumbnail_upload_response_finish'] = 'Succesfully uploaded the image.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * search.php
 */
 

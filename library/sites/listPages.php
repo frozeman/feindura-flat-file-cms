@@ -170,7 +170,7 @@ foreach($allCategories as $category) {
       // startpage icon before the name
       if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
         $activeStartPage = ' startPage';
-        $startPageText = $langFile['btn_startPage_set'].'[br /][br /]';
+        $startPageText = $langFile['sortablePageList_functions_startPage_set'].'[br /][br /]';
       } else {
         $activeStartPage = '';
         $startPageText = '';
@@ -206,10 +206,10 @@ foreach($allCategories as $category) {
       if($adminConfig['setStartPage']) {
         if($pageContent['id'] == $websiteConfig['startPage']) {
           $activeStartPage = ' active';
-          $startPageTitle = $langFile['btn_startPage_set'];
+          $startPageTitle = $langFile['sortablePageList_functions_startPage_set'];
         } else {
           $activeStartPage = '';
-          $startPageTitle = $langFile['btn_startPage_tip'];
+          $startPageTitle = $langFile['sortablePageList_functions_startPage'];
         }        
         echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTip">&nbsp;</a>';
       }

@@ -43,7 +43,7 @@ if($newPage) {
 // -> checks for startpage, and show STARTPAGE ICON
 if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/images/sign/startPageIcon_middle.png" />';
-  $startPageTitle = ' toolTip" title="'.$langFile['btn_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
+  $startPageTitle = ' toolTip" title="'.$langFile['sortablePageList_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY

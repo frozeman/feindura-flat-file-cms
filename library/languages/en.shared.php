@@ -15,7 +15,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * ENGLISH (EN) language-file for the feindura CMS (FRONTEND)
+ * ENGLISH (EN) language-file for the feindura CMS (FRONTEND and BACKEND)
  * 
  * NEEDS a RETURN $frontendLangFile; at the END
  */
@@ -25,35 +25,28 @@
 * --- GENERAL
 */
 
-$frontendLangFile['header_button_logout'] = 'Logout::Click here to logout.';
-$frontendLangFile['header_button_gotobackend'] = 'feindura::Click here to go to the backend.';
-$frontendLangFile['editPage_functions'] = 'Edit this page in the backend';
+$sharedLangFile['header_button_logout'] = 'Logout::Click here to logout.';
+
+$sharedLangFile['sortablePageList_functions_startPage'] = 'Set this page as start page';
+$sharedLangFile['sortablePageList_functions_startPage_set'] = 'This page is the start page';
+
+/* date texts */
+
+$sharedLangFile['date_yesterday'] = 'Yesterday';
+$sharedLangFile['date_today'] = 'Today';
+$sharedLangFile['date_tomorrow'] = 'Tomorrow';
 
 /*
-* --------- FRONTEND Error texts
+* --- ERROR TEXTs
 */
 
-$frontendLangFile['error_noPage'] = 'The requested page doesn\'t exist.';
-$frontendLangFile['error_pageClosed'] = 'The requested page is currently not available.';
-
-/*
-* --------- date texts
-*/
-
-$frontendLangFile['date_yesterday'] = 'Yesterday';
-$frontendLangFile['date_today'] = 'Today';
-$frontendLangFile['date_tomorrow'] = 'Tomorrow';
-
-/*
-* --------- additional page texts
-*/
-
-$frontendLangFile['page_more'] = 'more';
-
+$sharedLangFile['errorWindow_h1'] = 'An error occured!';
+$sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Could not set the start page.</b>';
+$sharedLangFile['editor_savepage_error_save'] = '<b>The page could not be saved.</b>';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------
-return $frontendLangFile;
+return $sharedLangFile;
 
 ?>

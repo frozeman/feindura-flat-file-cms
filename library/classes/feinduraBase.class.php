@@ -179,6 +179,19 @@ class feinduraBase {
   var $languageFile = null;  
 
  /**
+  * Contains a <var>instance</var> of the {@link xssFilter::xssFilter() xssFilter} <var>class</var> for using in this <var>class</var>
+  * 
+  * The file with the {@link xssFilter::xssFilter() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
+  * A instance of the {@link xssFilter::xssFilter() xssFilter} class will be set to this property in the {@link feinduraBase()} constructor.
+  * 
+  * @var class
+  * @see feinduraBase()
+  * @see xssFilter::xssFilter()
+  *   
+  */
+  var $xssFilter;
+
+ /**
   * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>
   * 
   * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br />   
@@ -264,6 +277,7 @@ class feinduraBase {
     $this->pluginsConfig = $GLOBALS["feindura_pluginsConfig"];
     
     // GET FUNCTIONS
+    $this->xssFilter = new xssFilter();
     $this->generalFunctions = new generalFunctions();
     $this->statisticFunctions = new statisticFunctions($this->generalFunctions);    
     
@@ -300,6 +314,9 @@ class feinduraBase {
     
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
+    if(isset($language) && ($language = $this->xssFilter->alphabetical($language)) === false)
+      die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
+    
     // set the given country code
     if(is_string($language) && strlen($language) == 2) {
       $this->language = $language;
@@ -340,11 +357,14 @@ class feinduraBase {
   function loadFrontendLanguageFile($language) {
     
     // creates the frontend language file path
-    $languageFile = dirname(__FILE__).'/../languages/'.$language.'.frontend.php';
+    $frontendLangFilePath = dirname(__FILE__).'/../languages/'.$language.'.frontend.php';
+    $sharedLangFilePath = dirname(__FILE__).'/../languages/'.$language.'.shared.php';
     
     // includes the langFile
-    if(file_exists($languageFile)) {
-      $this->languageFile = include($languageFile);
+    if(file_exists($frontendLangFilePath) && file_exists($sharedLangFilePath)) {
+      $sharedLangFile = include($sharedLangFilePath);
+      $frontendLangFile = include($frontendLangFilePath);      
+      $this->languageFile = $sharedLangFile + $frontendLangFile;
       
       return $this->languageFile;
     } else

@@ -108,3 +108,72 @@ a.toWebsite:hover, a.feindura_toBackend:hover {
     width: 272px;
     height: 25px; /* org  35px; */
     }
+    
+/* --- ERRORWINDOW */
+
+#feindura_errorWindow {
+    z-index: 20;
+    position: fixed;    
+    top: 30%;
+    left: 370px;
+    width: 447px;
+    padding: 0px 40px;
+    background: url("../images/bg/errorWindow_middle.png") repeat-y;
+    font: 12px Verdana, Arial, Sans-serif, Serif;
+    }
+
+#feindura_errorWindow .feindura_top {
+    z-index: 3;
+    position: relative;
+    top: -40px;
+    left: -40px;
+    width: 527px;
+    height: 10px; /*org: 40px */
+    padding: 0px;
+    padding-top: 30px;
+    background: url("../images/bg/errorWindow_top.png") no-repeat;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #A30000;
+    overflow: visible;
+    }
+#feindura_errorWindow .feindura_content {
+    z-index: 0;
+    width: 377px;
+    padding-left: 70px;    
+    }
+#feindura_errorWindow .feindura_bottom {
+    position: relative;
+    bottom: -40px;
+    left: -40px;
+    width: 527px;
+    height: 40px;
+    background: url("../images/bg/errorWindow_bottom.png") no-repeat;
+    }
+    
+#feindura_errorWindow .feindura_content.feindura_warning {
+    min-height: 48px;
+    background: url("../images/sign/warning.png") no-repeat center left;
+    }
+    
+#feindura_errorWindow .feindura_content p {
+    padding-top: 20px;
+    color: #A30000;
+    }
+    
+/* ok button */
+
+#feindura_errorWindow .feindura_content a.feindura_ok {
+    display: block;
+    position: relative;
+    top: 20px;
+    left: 130px;
+    width: 75px;
+    height: 65px;
+    padding: 0px;
+    background: url("../images/key/errorWindow_ok.png") no-repeat;
+    }
+#feindura_errorWindow .feindura_content a.feindura_ok:hover {
+    background-position: 0px -65px;
+    }

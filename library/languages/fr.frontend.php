@@ -19,9 +19,9 @@
  * 
  * NEEDS a RETURN $frontendLangFile; at the END
  */
+
  
- 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --- GENERAL
 */
 
@@ -29,14 +29,14 @@ $frontendLangFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connex
 $frontendLangFile['header_button_gotobackend'] = 'feindura::Cliquez ici pour aller &agrave; la CMS.';
 $frontendLangFile['editPage_functions'] = 'Modifier cette page dans le backend';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --------- FRONTEND Error texts
 */
 
 $frontendLangFile['error_noPage'] = 'la page demand&eacute;e n&lsquo;existe pas.';
 $frontendLangFile['error_pageClosed'] = 'la page demand&eacute;e est d&eacute;sactiv&eacute;e.';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --------- date texts
 */
 
@@ -44,7 +44,7 @@ $frontendLangFile['date_yesterday'] = 'hier';
 $frontendLangFile['date_today'] = 'aujourd&lsquo;hui';
 $frontendLangFile['date_tomorrow'] = 'demain';
 
-/* ----------------------------------------------------------------------------------------------
+/*
 * --------- additional page texts
 */
 

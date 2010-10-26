@@ -144,7 +144,7 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
   
   <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/loading.js"></script>
+  <script type="text/javascript" src="library/javascripts/general.js"></script>
   
   <script type="text/javascript">
   window.addEvent('load',function() {  

@@ -1014,7 +1014,7 @@ class feindura extends feinduraBase {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets
-        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/general.css" />'."\n";
+        $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/shared.css" />'."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";    
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.css" />'."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/rteFeinduraSkin.css" />'."\n";
@@ -1034,29 +1034,44 @@ class feindura extends feinduraBase {
         // add raphael
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
         // add the javascripts which are shared by the backend and the frontend
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/general.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/shared.js"></script>'."\n";
         // add frontend editing integration
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
         // set fileManager
         //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
-      
+                
         // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */  
   
   // ->> SAVE PAGE
-  function feindura_savePage(page,type) {
+  function feindura_savePage(pageBlock,type) {
     if(feindura_pageSaved === false) {   
-
-      // var
-      var ids = feindura_getPageIds(page);
+      // removes eventually existing loadingCircleContainers
+      $$('.feindura_loadingCircleContainer').each(function(container){
+        container.dispose();
+      });
       
       // save the page
-      feindura_request(page,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','type='+type+'&data='+page.get('html'),'post');
+      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+pageBlock.get('html'),{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post');
   		
-  		 page.set('html',page.get('html')+'saved')
       feindura_pageSaved = true;
     }
+  }
+  
+  // ->> RENDER PAGEBAR
+  function feindura_renderPageBar(values) {
+    var startpage = '".$this->startPage."';
+    
+    if(startpage == values.pageId) {
+      values.startPageActive = ' active';
+      values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage_set']."';
+    } else {
+      values.startPageActive = '';
+      values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage']."';
+    }
+  
+    return Mooml.render('feindura_pageBarTemplate', values);
   }
   
   // ->> create TOP BAR
@@ -1071,9 +1086,9 @@ class feindura extends feinduraBase {
   // ->> create PAGE BAR  
   Mooml.register('feindura_pageBarTemplate', function(values) {
           // editPage
-          a({ href: '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', class: 'editPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, ''),
+          a({ href: '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', class: 'feindura_editPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, ''),
           // setStartPage
-          a({ href: '#', onclick: 'feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\');feindura_pageSaved = true;return false;',class: 'startPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, '')
+          a({ href: '#', onclick: 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{title: \'".$this->languageFile['errorWindow_h1']."\',text: \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;',class: 'feindura_startPage'+values.startPageActive+' feindura_toolTip', title: values.startPageText+'::' }, '')
     //'+values.pageBlockClasses+'
   });
   

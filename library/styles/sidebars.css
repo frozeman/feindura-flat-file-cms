@@ -8,7 +8,7 @@
 
 /****************/
 /* --- leftSidebar Loading Circle */
-#leftSidebarLoadingCircle {
+div.leftSidebarLoadingCircle {
     z-index: 0;
     position: absolute;
     top: 60px;

@@ -110,7 +110,7 @@ function requestLeftSidebar(category,page,site) {
   // vars
   if(!page) page = 0;
   if(!category) category = 0;
-  var jsLoadingCircleContainer = new Element('div',{id:'leftSidebarLoadingCircle'});
+  var jsLoadingCircleContainer = new Element('div',{class:'leftSidebarLoadingCircle'});
   var removeLoadingCircle;
   
   // creates the request Object
@@ -129,8 +129,8 @@ function requestLeftSidebar(category,page,site) {
         //$('leftSidebar').tween('opacity',0);
         
         // -> ADD the LOADING CIRCLE
-    		$('leftSidebar').grab(jsLoadingCircleContainer,'before'); //leftSideBarloadingCircle
-    		removeLoadingCircle = loadingCircle('leftSidebarLoadingCircle', 25, 40, 12, 4, "#999");
+    		$('leftSidebar').grab(jsLoadingCircleContainer,'before');
+    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 25, 40, 12, 4, "#999");
 
     },
     //-----------------------------------------------------------------------------
@@ -141,9 +141,11 @@ function requestLeftSidebar(category,page,site) {
 			$('leftSidebar').tween('left','0px');
 			//$('leftSidebar').tween('opacity',1);
 			
-			// -> REMOVE the LOADING CIRCLE
-      jsLoadingCircleContainer.destroy();
-      removeLoadingCircle();
+			$('leftSidebar').get('tween').chain(function(){
+        // -> REMOVE the LOADING CIRCLE
+        jsLoadingCircleContainer.destroy();
+        removeLoadingCircle();
+      });			
 			
 	    sidebarMenu();
 	    setToolTips();
