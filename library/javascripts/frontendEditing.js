@@ -120,30 +120,6 @@ var feindura_pageSaved = false;
 // ->> FUNCTIONS
 // *************
 
-// ->> ADD TOOLTIPS
-function feindura_addToolTips() {
-  // store titles and text
-  feindura_storeTipTexts('.feindura_toolTip');
-	
-	// add the tooltips to the elements
-  var feindura_toolTips = new Tips('.feindura_toolTip',{
-    className: 'feindura_toolTipBox',
-    offset: {'x': 10,'y': 15},
-    fixed: false,
-    showDelay: 200,
-    hideDelay: 0 });
-}
-
-// ->> GET PAGE ID
-function feindura_setPageIds(pageBlock) {
-  if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) {  
-    pageBlock.store('page', pageBlock.get('class').split(' ')[1].substr(15));
-    pageBlock.store('category', pageBlock.get('class').split(' ')[2].substr(19));
-    return true;
-  } else
-    return false;
-}
-
 /* ---------------------------------------------------------------------------------- */
 // FRONTEND EDITING AJAX REQUEST
 function feindura_request(pageBlock,url,data,errorTexts,method) {
@@ -151,14 +127,14 @@ function feindura_request(pageBlock,url,data,errorTexts,method) {
   // vars
   if(!method) method = 'get';
   var jsLoadingCircleContainer = new Element('div',{class:'feindura_loadingCircleContainer'});
-  var jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -20px;'});
+  var jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -25px;'});
   jsLoadingCircleContainer.grab(jsLoadingCircle);
   var finishPicture = new Element('div',{class:'feindura_requestFinish'});
   var failedPicture = new Element('div',{class:'feindura_requestFailed'});  
   var removeLoadingCircle;
     
   // creates the request Object
-  new Request({
+  new Request.HTML({
     url: url,
     method: method,
     update: pageBlock,
@@ -243,6 +219,31 @@ function feindura_request(pageBlock,url,data,errorTexts,method) {
   }).send(data);
 }
 
+// ->> ADD TOOLTIPS
+function feindura_addToolTips() {
+  // store titles and text
+  feindura_storeTipTexts('.feindura_toolTip');
+	
+	// add the tooltips to the elements
+  var feindura_toolTips = new Tips('.feindura_toolTip',{
+    className: 'feindura_toolTipBox',
+    offset: {'x': 10,'y': 15},
+    fixed: false,
+    showDelay: 200,
+    hideDelay: 0 });
+}
+
+// ->> GET PAGE ID
+function feindura_setPageIds(pageBlock) {
+  if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) {
+    var classes = pageBlock.get('class').split(' ');
+    pageBlock.store('page', classes[1].substr(15));
+    pageBlock.store('category', classes[2].substr(19));
+    return true;
+  } else
+    return false;
+}
+
 // ->> DOMREADY
 // ************
 window.addEvent('domready',function() {
@@ -255,13 +256,12 @@ window.addEvent('domready',function() {
   
   // ->> add BAR to EACH PAGE BLOCK  
   // ******************************  
-  $$('.feindura_editPage').each(function(pageBlock) {
+  $$('div.feindura_editPage').each(function(pageBlock) {
     
     //var      
     var pageBarVisible = false;
     var pageBlockFocused = false;
     var parent = pageBlock.getParent();
-    feindura_setPageIds(pageBlock);
     
     // ->> create PAGE BAR
     var pageBar = new Element('div',{class: 'feindura_pageBar'});
@@ -283,7 +283,7 @@ window.addEvent('domready',function() {
       // -> set the position of the page bar
       pageBar.setPosition({
         x: pageBlock.getPosition(parent).x + (pageBlock.getSize().x - pageBar.getSize().x),
-        y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 15}
+        y: pageBlock.getPosition(parent).y - pageBar.getSize().y - 5}
       );    
       pageBar.fade('in');
     });
@@ -316,7 +316,7 @@ window.addEvent('domready',function() {
   // -> add save button
   MooRTE.Elements.extend({
     save : { img:27, onClick: function() {
-        $$('.feindura_editPage, .feindura_editTitle').each(function(page) {                                     
+        $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {                                     
             if(MooRTE.activeField == page) {
               feindura_pageSaved = false;
               if(page.hasClass('feindura_editPage'))
@@ -328,11 +328,16 @@ window.addEvent('domready',function() {
       }}
   });
     
-  // ->> add save on blur
-  $$('.feindura_editPage, .feindura_editTitle').each(function(page) {    
-    // on blur
-    page.addEvent('blur', function(e) {
-      var page = e.target;
+  // ->> GO TROUGH ALL EDITABLE BLOCK
+  $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+    
+    // STORE page IDS in the elements storage
+    feindura_setPageIds(pageBlock);
+    
+    // save on blur
+    pageBlock.addEvent('blur', function(e) {
+      var page = $(e.target);
+      
       //alert(MooRTE.Elements.linkPop.visible);
       if(page != null && MooRTE.Elements.linkPop.visible === false) {
         if(page.hasClass('feindura_editPage'))
@@ -342,7 +347,7 @@ window.addEvent('domready',function() {
       }
     });    
     // on focus
-    page.addEvent('focus', function() {
+    pageBlock.addEvent('focus', function() {
       if(feindura_pageSaved)
         feindura_pageSaved = false;
     });

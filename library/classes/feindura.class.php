@@ -1051,9 +1051,9 @@ class feindura extends feinduraBase {
       $$('.feindura_loadingCircleContainer').each(function(container){
         container.dispose();
       });
-      
+
       // save the page
-      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+pageBlock.get('html'),{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post');
+      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+pageBlock.get('html'),{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post');
   		
       feindura_pageSaved = true;
     }
@@ -1797,7 +1797,7 @@ class feindura extends feinduraBase {
                                       $this->titleCategorySeparator);                                      
           
           if($this->loggedIn)
-            $title = '<span class="feindura_editTitle">'.$title.'</span>';
+            $title = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$title.'</span>';
           
           return $title;
           

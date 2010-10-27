@@ -301,7 +301,7 @@ class generalFunctions {
    * 
    */
   function checkMainVars($category = 'category', $page = 'page') {
-
+       
     //check category
     if((isset($_GET[$category]) && $this->xssFilter->int($_GET[$category]) === false) ||
        (isset($_POST[$category]) && $this->xssFilter->int($_POST[$category]) === false))
