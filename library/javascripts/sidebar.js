@@ -175,13 +175,13 @@ window.addEvent('domready', function() {
   if($('sidebarTaskLog') != null) {
 
     // vars
-    var minHeight = '200px';
-    var maxHeight = '450px';
+    var minHeight = 200;
+    var maxHeight = 450;
     
     // -> adds the TWEEN to the LOG-list
     $('sidebarTaskLog').setStyle('height',minHeight);
-    $('sidebarTaskLog').setStyle('overflow','hidden');
-    
+    //$('sidebarTaskLog').setStyle('overflow','hidden'); // currently deactivated
+ 
     // TWEEN OUT
     $('sidebarTaskLog').addEvent('mouseenter', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
@@ -208,12 +208,15 @@ window.addEvent('domready', function() {
     $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
+
+    // add DIV SCROLLER (DONT WOKR???)
+    var logScroller = new Scroller('sidebarTaskLog', {area: 200, velocity: 1});
+    $('sidebarTaskLog').addEvent('mouseover', logScroller.start.bind(logScroller));
+    $('sidebarTaskLog').addEvent('mouseout', logScroller.stop.bind(logScroller));
     
-    // add DIV SCROLLER
-    var logScroller = new divScroller('sidebarTaskLog', {area: 200,direction: 'y', velocity: 0.4,scrollSpeed: 60});
-  	// myContent
-  	$('sidebarTaskLog').addEvent('mouseenter', logScroller.start.bind(logScroller));
-  	$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller));
+    //var logScroller = new divScroller('sidebarTaskLog', {area: 200,direction: 'y', velocity: 0.4,scrollSpeed: 60});
+  	//$('sidebarTaskLog').addEvent('mouseenter', logScroller.start.bind(logScroller));
+  	//$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller));
 
    }
   

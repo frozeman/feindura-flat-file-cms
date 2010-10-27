@@ -150,7 +150,6 @@ if($_GET['site'] == 'addons') {
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
-  <script type="text/javascript" src="library/javascripts/divScroller.js"></script>
   <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
   <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
   <script type="text/javascript" src="library/javascripts/content.js"></script>  

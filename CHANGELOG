@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1
-Build 446
+Build 447
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1
   
+  build 447: deactivated divScroller, want to use mootols Scroller class, but isnt working right now
   build 446: worked further on frontendEditing
   build 445: worked on frontend editing
   build 444: fixed update.php

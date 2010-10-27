@@ -321,6 +321,7 @@ div.leftSidebarLoadingCircle {
   z-index: 1;
   position: relative;
   height: 450px;
+  width: 200px; /* hides the scrollbar */
   border-bottom: 1px solid #ffffff;
   overflow: auto;
   font-size: 9px;

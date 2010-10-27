@@ -143,8 +143,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
               // ->> LIST the tasks
               include(dirname(__FILE__).'/processes/showTaskLog.process.php');
               
-         echo '<br />
-              <br /></div>';
+         echo '<br /><br /></div>';
          echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
       // no log
       } else
