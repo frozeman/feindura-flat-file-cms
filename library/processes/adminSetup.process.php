@@ -197,8 +197,8 @@ RewriteRule ^page/(.*)\.html?$ ?page=$1$2 [QSA,L]
 
   $adminConfig['editor']['enterMode'] = strtolower($_POST['cfg_editorEnterMode']);
   $adminConfig['editor']['styleFile'] = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
-  $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
-  $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
+  $adminConfig['editor']['styleId'] = $xssFilter->string(str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']));  
+  $adminConfig['editor']['styleClass'] = $xssFilter->string(str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']));  
   
   // -> saved in pageSetup.php
   //$adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];

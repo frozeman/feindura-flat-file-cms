@@ -384,7 +384,7 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'N&lsquo;ecrivez rien 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'param&egrave;tres de l&lsquo;&eacute;diteur HTML';
 $langFile['adminSetup_editorSettings_field1'] = 'modus touche-entr&eacute;e';
-$langFile['adminSetup_editorSettings_field1_hint'] = 'shift + entr&eacute;e va cr&eacute;er un "<br />"';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'shift + entr&eacute;e va cr&eacute;er un &quot;<br />&quot;';
 $langFile['adminSetup_editorSettings_field1_tip'] = 'Va d&eacute;finir le HTML-tag en touchant la touche entr&eacute;e[br]wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Si la case reste vide, aucune Id sera utilis&eacute;.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Si la case reste vide, aucune classe sera utilis&eacute;.';

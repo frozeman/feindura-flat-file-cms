@@ -301,8 +301,8 @@ function saveCategories($newCategories) {
       
         // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
         $category['styleFile'] = setStylesByPriority($category['styleFile'],'styleFile',true);
-        $category['styleId'] = setStylesByPriority($category['styleId'],'styleId',true);
-        $category['styleClass'] = setStylesByPriority($category['styleClass'],'styleClass',true);
+        $category['styleId'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleId']),'styleId',true);
+        $category['styleClass'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleClass']),'styleClass',true);
         
         // -> CLEAN all " out of the strings
         foreach($category as $postKey => $post) {    

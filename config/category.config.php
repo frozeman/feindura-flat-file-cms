@@ -12,7 +12,7 @@ $categoryConfig[3]['sortbypagedate'] =  false;
 $categoryConfig[3]['sortascending'] =   false;
 
 $categoryConfig[3]['styleFile'] =       '';
-$categoryConfig[3]['styleId'] =         '';
+$categoryConfig[3]['styleId'] =         'conte_dsfnt';
 $categoryConfig[3]['styleClass'] =      '';
 
 $categoryConfig[3]['thumbWidth'] =      '';

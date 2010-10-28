@@ -128,7 +128,7 @@ if($_GET['site'] == 'addons') {
 
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Requires/Element.Pin.js"></script>
+  <!--<script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Requires/Element.Pin.js"></script>-->
   <script type="text/javascript" src="library/thirdparty/javascripts/staticScroller/Source/StaticScroller.js"></script>	
 	
 	<!-- thirdparty/Raphael -->
