@@ -314,7 +314,7 @@ class feinduraBase {
     
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
-    if(isset($language) && ($language = $this->xssFilter->alphabetical($language)) === false)
+    if(isset($language) && !empty($language) && ($language = $this->xssFilter->alphabetical($language)) === false)
       die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
     
     // set the given country code

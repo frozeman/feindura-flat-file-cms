@@ -110,15 +110,16 @@ $newVersion = '1.1';
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
   <?= $oldVersion ?> &rArr; <?= $newVersion ?><br />
   <br />
-  Good: Your current <span class="feindura"><em>fein</em>dura</span> version is <?= $version[2] ?>, so we can now proceed with the update.<br />  
   <?php
   
   $updatePossible = ($version[2] == $newVersion) ? true : false;
   
   // WARNING
-  if(!$updatePossible)
-    echo '<br /><span class="warning">You can not use this updater, it\'s for updating to '.$newVersion.' only!</span>';
-  
+  if(!$updatePossible) {
+    
+    echo 'hm... you current version is <b>'.$version[2].'</b> you cannot use this updater, :-(';
+    echo '<br /><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
+  }
   //$basePath = dirname($_SERVER['PHP_SELF']).'/';
   //$basePath = preg_replace('#\/+#','/',$basePath);
   
@@ -130,8 +131,9 @@ $newVersion = '1.1';
   
   // UPDATE QUESTION
   elseif($updatePossible && empty($_POST['asking'])) {
-
     ?>
+
+Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't updated yet?
 <div>
 <h2>Do you want to update all pages and configs, so that they work with feindura <?= $newVersion ?>?</h2>
 <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">

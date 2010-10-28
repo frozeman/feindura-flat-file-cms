@@ -1046,18 +1046,23 @@ class feindura extends feinduraBase {
   
   // ->> SAVE PAGE
   function feindura_savePage(pageBlock,type) {
-    if(feindura_pageSaved === false) {   
+    if(feindura_pageSaved === false && feindura_pageContent != pageBlock.get('html')) {
+    
       // removes eventually existing loadingCircleContainers
       $$('.feindura_loadingCircleContainer').each(function(container){
-        container.dispose();
+        container.destroy();
       });
+      
+      // url encodes the string
+      var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
 
       // save the page
-      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+pageBlock.get('html'),{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post');
+      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post',true);
   		
       feindura_pageSaved = true;
     }
   }
+  
   
   // ->> RENDER PAGEBAR
   function feindura_renderPageBar(values) {

@@ -2,7 +2,7 @@
 
 $categoryConfig[3]['id'] =              3;
 $categoryConfig[3]['name'] =            'dfgfg';
-$categoryConfig[3]['public'] =          false;
+$categoryConfig[3]['public'] =          true;
 $categoryConfig[3]['createdelete'] =    false;
 $categoryConfig[3]['thumbnail'] =       false;
 $categoryConfig[3]['plugins'] =         false;
@@ -22,7 +22,7 @@ $categoryConfig[3]['thumbRatio'] =      '';
 
 $categoryConfig[1]['id'] =              1;
 $categoryConfig[1]['name'] =            'Test';
-$categoryConfig[1]['public'] =          false;
+$categoryConfig[1]['public'] =          true;
 $categoryConfig[1]['createdelete'] =    true;
 $categoryConfig[1]['thumbnail'] =       false;
 $categoryConfig[1]['plugins'] =         true;

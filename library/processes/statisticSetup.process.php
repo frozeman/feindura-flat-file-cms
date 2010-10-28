@@ -22,6 +22,9 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
+//var
+$messageBox = false;
+
 // ------------>> SAVE the STATISTIC SETTINGS
 if($_POST['send'] && isset($_POST['statisticConfig'])) {
 
@@ -131,9 +134,9 @@ if($_POST['sendClearstatistics']) {
   
   // SHOWs the MESSAGEBOX
   if($messageBoxText !== false) {
-    echo '<div class="messageBox">';  
-    echo '<span class="red">'.$messageBoxText.'</span>';
-    echo '</div>';
+    $messageBox = '<div class="messageBox">';  
+    $messageBox .=  '<span class="red">'.$messageBoxText.'</span>';
+    $messageBox .=  '</div>';
   }
   
   $savedForm = 'clearStatistics';

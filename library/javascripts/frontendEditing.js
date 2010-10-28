@@ -116,64 +116,70 @@ window.addEvent('domready',function(){
 
 // var
 var feindura_pageSaved = false;
+var feindura_pageContent = null;
+
+var feindura_jsLoadingCircleContainer = new Element('div',{class:'feindura_loadingCircleContainer'});
+var feindura_jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -25px;'});
+feindura_jsLoadingCircleContainer.grab(feindura_jsLoadingCircle);
+var feindura_finishPicture = new Element('div',{class:'feindura_requestFinish'});
+var feindura_removeLoadingCircle;
 
 // ->> FUNCTIONS
 // *************
 
 /* ---------------------------------------------------------------------------------- */
 // FRONTEND EDITING AJAX REQUEST
-function feindura_request(pageBlock,url,data,errorTexts,method) {
+function feindura_request(pageBlock,url,data,errorTexts,method,update) {
   
   // vars
   if(!method) method = 'get';
-  var jsLoadingCircleContainer = new Element('div',{class:'feindura_loadingCircleContainer'});
-  var jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -25px;'});
-  jsLoadingCircleContainer.grab(jsLoadingCircle);
-  var finishPicture = new Element('div',{class:'feindura_requestFinish'});
-  var failedPicture = new Element('div',{class:'feindura_requestFailed'});  
-  var removeLoadingCircle;
-    
+  
   // creates the request Object
-  new Request.HTML({
+  new Request({
     url: url,
     method: method,
-    update: pageBlock,
     
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------		
       
       // -> ADD the LOADING CIRCLE
-      if(!pageBlock.get('html').contains(jsLoadingCircleContainer))
-  		  pageBlock.grab(jsLoadingCircleContainer,'top');
-  		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");  		
+      if(!pageBlock.get('html').contains(feindura_jsLoadingCircleContainer))
+  		  pageBlock.grab(feindura_jsLoadingCircleContainer,'top');
+  		feindura_removeLoadingCircle = feindura_loadingCircle(feindura_jsLoadingCircle, 24, 40, 12, 4, "#000");  		
   		// -> TWEEN jsLoadingCircleContainer    
-      jsLoadingCircleContainer.set('tween',{duration: 100});
-      jsLoadingCircleContainer.setStyle('opacity',0);
-      jsLoadingCircleContainer.tween('opacity',0.8);
+      feindura_jsLoadingCircleContainer.set('tween',{duration: 100});
+      feindura_jsLoadingCircleContainer.setStyle('opacity',0);
+      feindura_jsLoadingCircleContainer.tween('opacity',0.8);
 
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html) { //-------------------------------------------------
 			
 			// -> fade out the loadingCircle
-			jsLoadingCircleContainer.set('tween',{duration: 200});
-			jsLoadingCircleContainer.fade('out');
-			jsLoadingCircleContainer.get('tween').chain(function(){
+			feindura_jsLoadingCircleContainer.set('tween',{duration: 200});
+			feindura_jsLoadingCircleContainer.fade('out');
+			feindura_jsLoadingCircleContainer.get('tween').chain(function(){
 			   // -> REMOVE the LOADING CIRCLE
-			   removeLoadingCircle();
-         jsLoadingCircleContainer.setStyle('background','transparent');
-         jsLoadingCircleContainer.setStyle('opacity',1);
+			   feindura_removeLoadingCircle();
+         feindura_jsLoadingCircleContainer.setStyle('background','transparent');
+         feindura_jsLoadingCircleContainer.setStyle('opacity',1);
          // request finish picture
-			   jsLoadingCircleContainer.grab(finishPicture,'top');
+			   feindura_jsLoadingCircleContainer.grab(feindura_finishPicture,'top');
       });
 			
-      finishPicture.set('tween',{duration: 400});
-      finishPicture.fade('in');
-      finishPicture.get('tween').chain(function(){
-        finishPicture.tween('opacity',0);
+      feindura_finishPicture.set('tween',{duration: 400});
+      feindura_finishPicture.fade('in');
+      feindura_finishPicture.get('tween').chain(function(){
+        feindura_finishPicture.tween('opacity',0);
       }).chain(function(){
-        finishPicture.destroy();
-        jsLoadingCircleContainer.destroy();
+        feindura_finishPicture.dispose();
+        feindura_jsLoadingCircleContainer.dispose();
+        // update the pageBlock content
+        if(update) {
+          pageBlock.set('html', html);
+    			//Inject the new DOM elements into the results div.
+    			//pageBlock.adopt(html);
+        }        
       });
 
 		},
@@ -201,18 +207,17 @@ function feindura_request(pageBlock,url,data,errorTexts,method) {
       });      
       
       // -> fade out the loadingCircle
-      if(!pageBlock.get('html').contains(jsLoadingCircleContainer))
-        pageBlock.grab(jsLoadingCircleContainer,'top');
-			jsLoadingCircleContainer.set('tween',{duration: 200});
-			jsLoadingCircleContainer.fade('out');
+      if(!pageBlock.get('html').contains(feindura_jsLoadingCircleContainer))
+        pageBlock.grab(feindura_jsLoadingCircleContainer,'top');
+			feindura_jsLoadingCircleContainer.set('tween',{duration: 200});
+			feindura_jsLoadingCircleContainer.fade('out');
       
-			jsLoadingCircleContainer.get('tween').chain(function(){
+			feindura_jsLoadingCircleContainer.get('tween').chain(function(){
 			   // -> REMOVE the LOADING CIRCLE
-			   removeLoadingCircle();
-			   jsLoadingCircleContainer.destroy();
+			   feindura_removeLoadingCircle();
+			   feindura_jsLoadingCircleContainer.dispose();
 			   // add errorWindow
          $(document.body).grab(errorWindow,'top');
-
       });
 
 		}
@@ -247,12 +252,39 @@ function feindura_setPageIds(pageBlock) {
 // ->> DOMREADY
 // ************
 window.addEvent('domready',function() {
-  
+
   // ->> add TOP BAR
   // ***************
   var feindura_topBar = Mooml.render('feindura_topBarTemplate');
   feindura_topBar.inject($(document.body),'top');
   $(document.body).setStyle('padding-top','60px');
+  
+  // ->> GO TROUGH ALL EDITABLE BLOCK
+  $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+    
+    // STORE page IDS in the elements storage
+    feindura_setPageIds(pageBlock);
+    
+    // save on blur
+    pageBlock.addEvent('blur', function(e) {
+      var page = $(e.target);
+      
+      //alert(MooRTE.Elements.linkPop.visible);
+      if(page != null && MooRTE.Elements.linkPop.visible === false) {
+        if(page.hasClass('feindura_editPage'))
+          feindura_savePage(page,'content');
+        else if(page.hasClass('feindura_editTitle'))
+          feindura_savePage(page,'title');   
+      }
+    });    
+    // on focus
+    pageBlock.addEvent('focus', function() {
+      feindura_pageContent = pageBlock.get('html');
+      if(feindura_pageSaved)
+        feindura_pageSaved = false;
+    });
+    
+  });
   
   // ->> add BAR to EACH PAGE BLOCK  
   // ******************************  
@@ -288,7 +320,9 @@ window.addEvent('domready',function() {
       pageBar.fade('in');
     });
     // ->> set pageBlockFocused on focus
-    pageBlock.addEvent('focus', function(e) { pageBlockFocused = true; });
+    pageBlock.addEvent('focus', function(e) {
+      pageBlockFocused = true;
+    });
     
     // ->> remove all page bars on mouseout
     pageBlock.addEvent('mouseleave', function(e) {      
@@ -326,32 +360,6 @@ window.addEvent('domready',function() {
             }
         });
       }}
-  });
-    
-  // ->> GO TROUGH ALL EDITABLE BLOCK
-  $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-    
-    // STORE page IDS in the elements storage
-    feindura_setPageIds(pageBlock);
-    
-    // save on blur
-    pageBlock.addEvent('blur', function(e) {
-      var page = $(e.target);
-      
-      //alert(MooRTE.Elements.linkPop.visible);
-      if(page != null && MooRTE.Elements.linkPop.visible === false) {
-        if(page.hasClass('feindura_editPage'))
-          feindura_savePage(page,'content');
-        else if(page.hasClass('feindura_editTitle'))
-          feindura_savePage(page,'title');   
-      }
-    });    
-    // on focus
-    pageBlock.addEvent('focus', function() {
-      if(feindura_pageSaved)
-        feindura_pageSaved = false;
-    });
-    
   });
   
   // -> set up toolbar  

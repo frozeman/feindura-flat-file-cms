@@ -29,34 +29,29 @@ if($_POST['save']) {
   // read the page
   $pageContent = $generalFunctions->readPage($_POST['page'],$_POST['category']);
   
-  // eventually remove this string
-  $container = '';
-  $container = ($_POST['type'] == 'title')
-    ? '<span class="feindura_editTitle feindura_pageId'.$_POST['page'].' feindura_categoryId'.$_POST['category'].'">'
-    : $container;
-  $container = ($_POST['type'] == 'content')
-    ? '<div class="feindura_editPage feindura_pageId'.$_POST['page'].' feindura_categoryId'.$_POST['category'].'">'
-    : $container;
-  
-  // remove the container element if it exists
-  if(strpos($_POST['data'],$container) !== false) {
-    $_POST['data'] = str_replace($container,'',$_POST['data']);
-    
-    preg_match_all ("/<\/?div.*?>", $_POST['data'], $matches);
-    print_r(matches);
-    die('huhu');
-  }
+  // url decodes the string
+  $_POST['data'] = urldecode($_POST['data']);
+  $_POST['data'] = preg_replace('/ +/',' ',$_POST['data']);
+  $_POST['data'] = preg_replace('/\\n+/',"\n",$_POST['data']);
+  $_POST['data'] = str_replace('<br>',"<br />\n",$_POST['data']);
+  $_POST['data'] = htmlentities($_POST['data'],ENT_NOQUOTES,'UTF-8');
+  $_POST['data'] = str_replace(array('&lt;','&gt;','&amp;'),array('<','>','&'),$_POST['data']);
   
   // replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
   
   // save the page
-  $pageContent = $generalFunctions->savePage($pageContent);
+  if($generalFunctions->savePage($pageContent));
+    $statisticFunctions->saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
   
-  // the data which will be returned, to inject into the element in the frontend  
-  $return = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'] ;
-  $return = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'] ;
+  // the data which will be returned, to inject into the element in the frontend 
+  $return = '';
+  $return = ($_POST['type'] == 'title') ? $_POST['data'] : $return;
+  $return = ($_POST['type'] == 'content') ? $_POST['data'] : $return;
+  
+  $return = str_replace("\'", "'", $return);
+  $return = str_replace('\"', '"', $return);
   
   echo $return;
 }

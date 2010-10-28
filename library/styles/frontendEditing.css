@@ -172,11 +172,3 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
   margin-top: -50px;
   background: url("../images/sign/documentSaved_small.png") no-repeat;
 }
-
-.feindura_requestFailed {
-  width: 94px;
-  height: 100px;
-  margin-left: -47px;
-  margin-top: -50px;
-  background: url("../images/sign/documentSaved_failed.png") no-repeat;
-}
