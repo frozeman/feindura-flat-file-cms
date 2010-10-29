@@ -32,7 +32,7 @@ function layoutFix() {
 }
 
 // create loading circle container
-var jsLoadingCircleContainer = new Element('div', {id: 'loadingCircleContainer'});
+var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;margin: auto;width: 100%;height: 100%;'});
 
 /* LOADING-CIRCLE when the DOM is loading
 *
@@ -46,18 +46,18 @@ window.addEvent('domready', function() {
   if($('content') != null && loadingBoxContent != null &&
      $('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
     // -> add to the #content div
-    loadingBoxContent.grab(jsLoadingCircleContainer,'top');
-    var removeLoadingCircle = feindura_loadingCircle('loadingCircleContainer', 18, 30, 12, 4, "#000");
+    loadingBoxContent.grab(jsLoadingCircleContainer,'top');   
     
     // set tween
-    $('loadingBox').set('tween',{duration: 400})
-    
+    $('loadingBox').set('tween',{duration: 400});    
     // show the loadingCircle
     $('loadingBox').fade('show');
-    //$('loadingBox').setStyle('display','block');
+    
+    // add the loading circle
+    var removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");    
     
     // blend out after page is loaded 
-    window.addEvent('load', function() {
+    window.addEvent('load', function() {    
         $('loadingBox').tween('opacity','0');
     });
     
@@ -67,8 +67,7 @@ window.addEvent('domready', function() {
         loadingBoxContent.set('html','');
         $('loadingBox').setStyle('display','none');
         $('loadingBox').setStyle('opacity','1');
-    }); 
-
+    });
     
   // ->> hide loading circle, when it was not animated
   } else if(loadingBoxContent != null) {
@@ -87,7 +86,7 @@ window.addEvent('unload',  function() {
   if(loadingBox != null) {
     loadingBox.set('html','');
     loadingBox.grab(jsLoadingCircleContainer,'top');
-    feindura_loadingCircle('loadingCircleContainer', 18, 30, 12, 4, "#000");
+    feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
 
     $('loadingBox').setStyle('display','block');
   }  

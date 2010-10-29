@@ -1,7 +1,0 @@
-name: StaticScroller
-author: lehresman
-category: Effects
-tags: [scroll]
-requires: core:1.2
-demo: http://luke.ehresman.org/sandbox/StaticScroller/Example/example1.html
-current: 1.1

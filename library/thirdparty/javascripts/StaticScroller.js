@@ -9,19 +9,21 @@ authors:
   - Luke Ehresman (http://luke.ehresman.org)
   - Ryan Florence <rpforence@gmail.com>
 
+fixes
+  - Fabian Vogelsteller <fabian.vogelsteller@gmail.com>
+
 requires:
-  core/1.2.1: '*'
+  core/1.3 and more 1.3.0.1
 
 provides: [StaticScroller]
 
-...
 */
 var StaticScroller = new Class({
 	
 	Implements: Options,
 	
 		options: {
-			offset: 20,
+			offset: 0,
 			scrollElement: document
 		},
 
@@ -34,6 +36,7 @@ var StaticScroller = new Class({
 			scroll: this.scroll.bind(this),
 			resize: this.resize.bind(this)
 		};
+		this.stylePosition = this.element.getStyle('position');
 		this.attachWindow();
 		this.checkHeight();
 	},
@@ -71,14 +74,18 @@ var StaticScroller = new Class({
 		return (this.element.retrieve('pinned'));
 	},
 	
-	scroll: function(){
-		var collision = (this.scrollElement.getScroll().y >= this.originalPosition.y - this.options.offset);
+	scroll: function(){	  
+		var collision = (this.scrollElement.getScroll().y >= this.originalPosition.y - this.options.offset);		
 		var isPinned = this.isPinned();
+		
 		if(collision) {
 			if(!isPinned) {
-				this.element.pin().setStyle('top', this.options.offset.toInt());
+				this.element.pin();
+        if(this.options.offset.toInt() > 0)
+          this.element.setStyle('top', this.options.offset.toInt());
+				this.element.store('pinned',true);
 			};
-		} else {
+		} else {		  
 			if(isPinned) this.reset();
 		};
 		return this;
@@ -91,6 +98,9 @@ var StaticScroller = new Class({
 	},
 	
 	reset: function(){
-		if(this.isPinned()) this.element.unpin().setStyle('position','');
+		if(this.isPinned()) {
+      this.element.unpin().setStyle('position',this.stylePosition);
+      this.element.store('pinned',false);
+    }
 	}
 });
