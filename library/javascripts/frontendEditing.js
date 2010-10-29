@@ -118,10 +118,10 @@ window.addEvent('domready',function(){
 var feindura_pageSaved = false;
 var feindura_pageContent = null;
 
-var feindura_jsLoadingCircleContainer = new Element('div',{class:'feindura_loadingCircleContainer'});
-var feindura_jsLoadingCircle = new Element('div',{class: 'feindura_loadingCircleHolder',style:'margin-left: -40px;margin-top: -25px;'});
+var feindura_jsLoadingCircleContainer = new Element('div',{'class':'feindura_loadingCircleContainer'});
+var feindura_jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder','style':'margin-left: -40px;margin-top: -25px;'});
 feindura_jsLoadingCircleContainer.grab(feindura_jsLoadingCircle);
-var feindura_finishPicture = new Element('div',{class:'feindura_requestFinish'});
+var feindura_finishPicture = new Element('div',{'class':'feindura_requestFinish'});
 var feindura_removeLoadingCircle;
 
 // ->> FUNCTIONS
@@ -189,13 +189,13 @@ function feindura_request(pageBlock,url,data,errorTexts,method,update) {
 		onFailure: function() { //-----------------------------------------------------
       
       // creates the errorWindow
-      var errorWindow = new Element('div',{id:'feindura_errorWindow',style:'left:50%;margin-left:-260px;'});
-      errorWindow.grab(new Element('div',{class:'feindura_top',html: errorTexts.title}));
-      var errorWindowContent = new Element('div',{class:'feindura_content feindura_warning',html:'<p>'+errorTexts.text+'</p>'});
-      var errorWindowOkButton = new Element('a',{class:'feindura_ok',href:'#'});
+      var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
+      errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': errorTexts.title}));
+      var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+errorTexts.text+'</p>'});
+      var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
       errorWindowContent.grab(errorWindowOkButton);
       errorWindow.grab(errorWindowContent);
-      errorWindow.grab(new Element('div',{class:'feindura_bottom'}));     
+      errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
       
       // add functionality to the ok button
       errorWindowOkButton.addEvent('click',function(e) {
@@ -296,7 +296,7 @@ window.addEvent('domready',function() {
     var parent = pageBlock.getParent();
     
     // ->> create PAGE BAR
-    var pageBar = new Element('div',{class: 'feindura_pageBar'});
+    var pageBar = new Element('div',{'class': 'feindura_pageBar'});
     var pageBarContent = feindura_renderPageBar({ pageId: pageBlock.retrieve('page'), categoryId: pageBlock.retrieve('category'), pageBlockClasses: pageBlock.get('class') });
     pageBarContent.each(function(link){
       link.inject(pageBar,'bottom');

@@ -97,6 +97,21 @@ var select = {};
     if (currentSelection) currentSelection.changed = true;
   };
 
+  // Find the 'leaf' node (BR or text) after the given one.
+  function baseNodeAfter(node) {
+    var next = node.nextSibling;
+    if (next) {
+      while (next.firstChild) next = next.firstChild;
+      if (next.nodeType == 3 || isBR(next)) return next;
+      else return baseNodeAfter(next);
+    }
+    else {
+      var parent = node.parentNode;
+      while (parent && !parent.nextSibling) parent = parent.parentNode;
+      return parent && baseNodeAfter(parent);
+    }
+  }
+
   // This is called by the code in editor.js whenever it is replacing
   // a text node. The function sees whether the given oldNode is part
   // of the current selection, and updates this selection if it is.
@@ -120,6 +135,9 @@ var select = {};
           point.node = to;
           point.offset += (offset || 0);
         }
+      }
+      else if (select.ie_selection && point.offset == 0 && point.node == baseNodeAfter(from)) {
+        currentSelection.changed = true;
       }
     }
     replace(currentSelection.start);
@@ -297,7 +315,11 @@ var select = {};
       
       if (start == 0) {
         var test1 = selection.createRange(), test2 = test1.duplicate();
-        test2.moveToElementText(container);
+        try {
+          test2.moveToElementText(container);
+        } catch(exception) {
+          return null;
+        }
         if (test1.compareEndPoints("StartToStart", test2) == 0)
           return null;
       }
@@ -565,7 +587,7 @@ var select = {};
       return range.toString().length;
     };
 
-    function insertNodeAtCursor(node) {
+    select.insertNodeAtCursor = function(node) {
       var range = selectionRange();
       if (!range) return;
 
@@ -593,11 +615,11 @@ var select = {};
     }
 
     select.insertNewlineAtCursor = function() {
-      insertNodeAtCursor(document.createElement("BR"));
+      select.insertNodeAtCursor(document.createElement("BR"));
     };
 
     select.insertTabAtCursor = function() {
-      insertNodeAtCursor(document.createTextNode(fourSpaces));
+      select.insertNodeAtCursor(document.createTextNode(fourSpaces));
     };
 
     select.cursorPos = function(container, start) {

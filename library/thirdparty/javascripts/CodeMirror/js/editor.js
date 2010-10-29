@@ -6,7 +6,7 @@
 
 var internetExplorer = document.selection && window.ActiveXObject && /MSIE/.test(navigator.userAgent);
 var webkit = /AppleWebKit/.test(navigator.userAgent);
-var safari = /Apple Computers, Inc/.test(navigator.vendor);
+var safari = /Apple Computer, Inc/.test(navigator.vendor);
 var gecko = /gecko\/(\d{8})/i.test(navigator.userAgent);
 var mac = /Mac/.test(navigator.platform);
 
@@ -793,6 +793,11 @@ var Editor = (function(){
         }
         else {
           select.insertNewlineAtCursor();
+          if (webkit && !this.options.textWrapping) {
+            var temp = makePartSpan("\u200b");
+            select.insertNodeAtCursor(temp);
+            setTimeout(function(){removeElement(temp);}, 50);
+          }
           var mode = this.options.enterMode;
           if (mode != "flat") this.indentAtCursor(mode == "keep" ? "keep" : undefined);
           select.scrollToCursor(this.container);
@@ -938,6 +943,7 @@ var Editor = (function(){
       var self = this, whiteSpace = whiteSpaceAfter(start);
       var newIndent = 0, curIndent = whiteSpace ? whiteSpace.currentText.length : 0;
 
+      var firstText = whiteSpace ? whiteSpace.nextSibling : (start ? start.nextSibling : this.container.firstChild);
       if (direction == "keep") {
         if (start) {
           var prevWS = whiteSpaceAfter(startOfLine(start.previousSibling))
@@ -947,7 +953,6 @@ var Editor = (function(){
       else {
         // Sometimes the start of the line can influence the correct
         // indentation, so we retrieve it.
-        var firstText = whiteSpace ? whiteSpace.nextSibling : (start ? start.nextSibling : this.container.firstChild);
         var nextChars = (start && firstText && firstText.currentText) ? firstText.currentText : "";
 
         // Ask the lexical context for the correct indentation, and
@@ -1240,7 +1245,12 @@ var Editor = (function(){
 
       if (internetExplorer) {
         this.container.createTextRange().execCommand("unlink");
-        this.selectionSnapshot = select.getBookmark(this.container);
+        clearTimeout(this.saveSelectionSnapshot);
+        var self = this;
+        this.saveSelectionSnapshot = setTimeout(function() {
+          var snapshot = select.getBookmark(self.container);
+          if (snapshot) self.selectionSnapshot = snapshot;
+        }, 200);
       }
 
       var activity = this.options.cursorActivity;

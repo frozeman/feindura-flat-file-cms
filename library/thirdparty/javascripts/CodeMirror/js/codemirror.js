@@ -57,7 +57,8 @@ var CodeMirror = (function(){
     lineNumbers: false,
     firstLineNumber: 1,
     indentUnit: 2,
-    domain: null
+    domain: null,
+    noScriptCaching: false
   });
 
   function addLineNumberDiv(container, firstNum) {
@@ -95,7 +96,7 @@ var CodeMirror = (function(){
     });
     forEach(options.basefiles.concat(options.parserfile), function(file) {
       if (!/^https?:/.test(file)) file = options.path + file;
-      html.push("<script type=\"text/javascript\" src=\"" + file + "\"><" + "/script>");
+      html.push("<script type=\"text/javascript\" src=\"" + file + (options.noScriptCaching ? "?nocache=" + new Date().getTime().toString(16) : "") + "\"><" + "/script>");
     });
     html.push("</head><body style=\"border-width: 0;\" class=\"editbox\" spellcheck=\"" +
               (options.disableSpellcheck ? "false" : "true") + "\"></body></html>");
@@ -257,12 +258,12 @@ var CodeMirror = (function(){
     setEnterMode: function(mode) {this.options.enterMode = mode;},
     setLineNumbers: function(on) {
       if (on && !this.lineNumbers) {
-        this.lineNumbers = addLineNumberDiv(this.wrapping);
+        this.lineNumbers = addLineNumberDiv(this.wrapping,this.options.firstLineNumber);
         this.activateLineNumbers();
       }
       else if (!on && this.lineNumbers) {
         this.wrapping.removeChild(this.lineNumbers);
-        this.wrapping.style.marginLeft = "";
+        this.wrapping.style.paddingLeft = "";
         this.lineNumbers = null;
       }
     },
@@ -514,6 +515,7 @@ var CodeMirror = (function(){
     area.style.display = "none";
     var mirror = new CodeMirror(insert, options);
     mirror.toTextArea = function() {
+      updateField();
       area.parentNode.removeChild(mirror.wrapping);
       area.style.display = "";
       if (area.form) {
@@ -533,7 +535,7 @@ var CodeMirror = (function(){
     var match;
     if (window.opera)
       return Number(window.opera.version()) >= 9.52;
-    else if (/Apple Computers, Inc/.test(navigator.vendor) && (match = navigator.userAgent.match(/Version\/(\d+(?:\.\d+)?)\./)))
+    else if (/Apple Computer, Inc/.test(navigator.vendor) && (match = navigator.userAgent.match(/Version\/(\d+(?:\.\d+)?)\./)))
       return Number(match[1]) >= 3;
     else if (document.selection && window.ActiveXObject && (match = navigator.userAgent.match(/MSIE (\d+(?:\.\d*)?)\b/)))
       return Number(match[1]) >= 6;

@@ -110,7 +110,7 @@ function requestLeftSidebar(category,page,site) {
   // vars
   if(!page) page = 0;
   if(!category) category = 0;
-  var jsLoadingCircleContainer = new Element('div',{class:'leftSidebarLoadingCircle'});
+  var jsLoadingCircleContainer = new Element('div', {'class':'leftSidebarLoadingCircle'});
   var removeLoadingCircle;
   
   // creates the request Object
@@ -178,13 +178,16 @@ window.addEvent('domready', function() {
     var minHeight = 200;
     var maxHeight = 450;
     
+    var myScroller = new Scroller('sidebarTaskLog', {area: 150, velocity: 0.1});
+    myScroller.start();
+    
     // -> adds the TWEEN to the LOG-list
     $('sidebarTaskLog').setStyle('height',minHeight);
-    //$('sidebarTaskLog').setStyle('overflow','hidden'); // currently deactivated
+    //$('sidebarTaskLog').setStyle('overflow','hidden'); // currently deactivated, allows alos scrolling with mousewheel
  
     // TWEEN OUT
     $('sidebarTaskLog').addEvent('mouseenter', function() {
-      $('sidebarTaskLog').tween('height',maxHeight);
+      $('sidebarTaskLog').tween('height',maxHeight);      
     });
     // TWEEN IN
     $('sidebarTaskLog').addEvent('mouseleave', function() {
@@ -208,16 +211,6 @@ window.addEvent('domready', function() {
     $('sidbarTaskLogScrollDown').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
-
-    // add DIV SCROLLER (DONT WOKR???)
-    var logScroller = new Scroller('sidebarTaskLog', {area: 200, velocity: 1});
-    $('sidebarTaskLog').addEvent('mouseover', logScroller.start.bind(logScroller));
-    $('sidebarTaskLog').addEvent('mouseout', logScroller.stop.bind(logScroller));
-    
-    //var logScroller = new divScroller('sidebarTaskLog', {area: 200,direction: 'y', velocity: 0.4,scrollSpeed: 60});
-  	//$('sidebarTaskLog').addEvent('mouseenter', logScroller.start.bind(logScroller));
-  	//$('sidebarTaskLog').addEvent('mouseleave', logScroller.stop.bind(logScroller));
-
    }
   
   // ->> SIDEBAR SCROLLES LIKE FIXED

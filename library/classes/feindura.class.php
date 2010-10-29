@@ -1026,7 +1026,7 @@ class feindura extends feinduraBase {
 
         // add MooRTE and mootools
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.4.4-more.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5.1-more.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
         //add mooml template engine
@@ -1082,19 +1082,18 @@ class feindura extends feinduraBase {
   // ->> create TOP BAR
   Mooml.register('feindura_topBarTemplate', function() {
       div({id: 'feindura_topBar'},
-          a({ href: '".$_SERVER['PHP_SELF']."?feindura_logout', class: 'feindura_logout feindura_toolTip', title: '".$this->languageFile['header_button_logout']."' }, ''),
-          a({ href: '".$this->adminConfig['basePath']."', class: 'feindura_toBackend feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, ''),
-          a({ href: '".$this->adminConfig['basePath']."', id: 'feindura_logo', class: 'feindura_toolTip', title: '".$this->languageFile['header_button_gotobackend']."' }, '')
+          a({ 'href': '".$_SERVER['PHP_SELF']."?feindura_logout', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }, ''),
+          a({ 'href': '".$this->adminConfig['basePath']."', 'class': 'feindura_toBackend feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, ''),
+          a({ 'href': '".$this->adminConfig['basePath']."', 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, '')
          )
   });  
   
   // ->> create PAGE BAR  
   Mooml.register('feindura_pageBarTemplate', function(values) {
           // editPage
-          a({ href: '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', class: 'feindura_editPage feindura_toolTip', title: '".$this->languageFile['editPage_functions']."::' }, ''),
+          a({ 'href': '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': '".$this->languageFile['editPage_functions']."::' }, ''),
           // setStartPage
-          a({ href: '#', onclick: 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{title: \'".$this->languageFile['errorWindow_h1']."\',text: \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;',class: 'feindura_startPage'+values.startPageActive+' feindura_toolTip', title: values.startPageText+'::' }, '')
-    //'+values.pageBlockClasses+'
+          a({ 'href': '#', 'onclick': 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{\'title\': \'".$this->languageFile['errorWindow_h1']."\',\'text\': \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;','class': 'feindura_startPage'+values.startPageActive+' feindura_toolTip', 'title': values.startPageText+'::'})
   });
   
   /* ]]> */
