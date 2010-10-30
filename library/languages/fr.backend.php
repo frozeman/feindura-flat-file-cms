@@ -384,7 +384,7 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'N&lsquo;ecrivez rien 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'param&egrave;tres de l&lsquo;&eacute;diteur HTML';
 $langFile['adminSetup_editorSettings_field1'] = 'modus touche-entr&eacute;e';
-$langFile['adminSetup_editorSettings_field1_hint'] = 'shift + entr&eacute;e va cr&eacute;er un &quot;<br />&quot;';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'shift + entr&eacute;e va cr&eacute;er un &quot;&lt;br /&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip'] = 'Va d&eacute;finir le HTML-tag en touchant la touche entr&eacute;e[br]wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Si la case reste vide, aucune Id sera utilis&eacute;.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Si la case reste vide, aucune classe sera utilis&eacute;.';
@@ -394,7 +394,7 @@ $langFile['adminSetup_thumbnailSettings_h1'] = 'param&egrave;tres thumbnail du s
 $langFile['adminSetup_thumbnailSettings_field3'] = 'trace de sauvegarde'; // trace de sauvegarde thumbnail
 $langFile['adminSetup_thumbnailSettings_field3_tip'] = 'trace au sein de la trace upload des donn&eacute;es ou les thumbnails seront sauvegard&eacute;s.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'trace upload des donn&eacute;es';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'trace relative::d&eacute;p&eacute;ndant de la "[b]'.$adminConfig['uploadPath'].'[/b]" trace.[br /][br /]Commence sans "/"';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'trace relative::d&eacute;p&eacute;ndant de la &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; trace.[br /][br /]Commence sans &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> "thumbnails/" ';
 
 // ---------- styleFile Settings

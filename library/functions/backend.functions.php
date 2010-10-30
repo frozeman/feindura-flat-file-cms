@@ -265,13 +265,15 @@ function saveCategories($newCategories) {
   
   // öffnet die category.config.php zum schreiben
   if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
- 
+
       // *** write CATEGORIES
       flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
       
       // ->> GO through EVERY catgory and write it
       foreach($newCategories as $category) {
+        
+        $category = $GLOBALS['generalFunctions']->escapeQuotesRecursive($category);
 
         // CHECK BOOL VALUES and change to FALSE
         $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';
@@ -296,18 +298,18 @@ function saveCategories($newCategories) {
         if(!isset($category['thumbHeight']))
           $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
         
+        // -> CLEAN all " out of the strings
+        foreach($category as $postKey => $post) {
+          $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
+        }
+        
         // adds absolute path slash on the beginning and serialize the stylefiles
         $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
       
         // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
         $category['styleFile'] = setStylesByPriority($category['styleFile'],'styleFile',true);
         $category['styleId'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleId']),'styleId',true);
-        $category['styleClass'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleClass']),'styleClass',true);
-        
-        // -> CLEAN all " out of the strings
-        foreach($category as $postKey => $post) {    
-          $category[$postKey] = str_replace(array('\"',"\'"),'',$post);
-        }
+        $category['styleClass'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleClass']),'styleClass',true);        
         
         // WRITE
         fwrite($file,"\$categoryConfig[".$category['id']."]['id'] =              ".$category['id'].";\n");
@@ -326,8 +328,8 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleId'] =         '".$category['styleId']."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleClass'] =      '".$category['styleClass']."';\n\n");
         
-        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbWidth'] =      '".$category['thumbWidth']."';\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbHeight'] =     '".$category['thumbHeight']."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbWidth'] =      '".$GLOBALS['xssFilter']->int($category['thumbWidth'])."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbHeight'] =     '".$GLOBALS['xssFilter']->int($category['thumbHeight'])."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
         
       }    
@@ -522,20 +524,20 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['pages']['showtags'] = (isset($adminConfig['pages']['showtags']) && $adminConfig['pages']['showtags']) ? 'true' : 'false';
     
     flock($file,2); // LOCK_EX
-    fwrite($file,PHPSTARTTAG); //< ?php
+    fwrite($file,PHPSTARTTAG); // < ?php
     
     fwrite($file,"\$adminConfig['url'] =              '".$adminConfig['url']."';\n");
     fwrite($file,"\$adminConfig['basePath'] =         '".$adminConfig['basePath']."';\n");
-    fwrite($file,"\$adminConfig['savePath'] =         '".$adminConfig['savePath']."';\n");
-    fwrite($file,"\$adminConfig['uploadPath'] =       '".$adminConfig['uploadPath']."';\n");  
-    fwrite($file,"\$adminConfig['websitefilesPath'] = '".$adminConfig['websitefilesPath']."';\n");
-    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$adminConfig['stylesheetPath']."';\n");    
+    fwrite($file,"\$adminConfig['savePath'] =         '".$GLOBALS['xssFilter']->path($adminConfig['savePath'])."';\n");
+    fwrite($file,"\$adminConfig['uploadPath'] =       '".$GLOBALS['xssFilter']->path($adminConfig['uploadPath'])."';\n");  
+    fwrite($file,"\$adminConfig['websitefilesPath'] = '".$GLOBALS['xssFilter']->path($adminConfig['websitefilesPath'])."';\n");
+    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$GLOBALS['xssFilter']->path($adminConfig['stylesheetPath'])."';\n");    
     fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".$adminConfig['speakingUrl'].";\n\n");
     
-    fwrite($file,"\$adminConfig['varName']['page'] =     '".$adminConfig['varName']['page']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['category'] = '".$adminConfig['varName']['category']."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$adminConfig['varName']['modul']."';\n\n");
+    fwrite($file,"\$adminConfig['varName']['page'] =     '".$GLOBALS['xssFilter']->alphaNumeric($adminConfig['varName']['page'])."';\n");  
+    fwrite($file,"\$adminConfig['varName']['category'] = '".$GLOBALS['xssFilter']->alphaNumeric($adminConfig['varName']['category'])."';\n");  
+    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$GLOBALS['xssFilter']->alphaNumeric($adminConfig['varName']['modul'])."';\n\n");
     
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".$adminConfig['user']['fileManager'].";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".$adminConfig['user']['editWebsiteFiles'].";\n");
@@ -550,13 +552,13 @@ function saveAdminConfig($adminConfig) {
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".$adminConfig['editor']['enterMode']."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleId'] =    '".$adminConfig['editor']['styleId']."';\n");  
-    fwrite($file,"\$adminConfig['editor']['styleClass'] = '".$adminConfig['editor']['styleClass']."';\n\n");  
+    fwrite($file,"\$adminConfig['editor']['styleId'] =    '".$GLOBALS['xssFilter']->string($adminConfig['editor']['styleId'])."';\n");  
+    fwrite($file,"\$adminConfig['editor']['styleClass'] = '".$GLOBALS['xssFilter']->string($adminConfig['editor']['styleClass'])."';\n\n");  
   
-    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =  '".$adminConfig['pageThumbnail']['width']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['height'] = '".$adminConfig['pageThumbnail']['height']."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =  '".$GLOBALS['xssFilter']->int($adminConfig['pageThumbnail']['width'])."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['height'] = '".$GLOBALS['xssFilter']->int($adminConfig['pageThumbnail']['height'])."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =  '".$adminConfig['pageThumbnail']['ratio']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".$adminConfig['pageThumbnail']['path']."';\n\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".$GLOBALS['xssFilter']->path($adminConfig['pageThumbnail']['path'])."';\n\n");
     
     fwrite($file,"return \$adminConfig;");
        
@@ -603,8 +605,9 @@ function saveUserConfig($userConfig) {
     // *** write
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php      
-      
       foreach($userConfig as $user => $configs) {
+      
+        $configs = $GLOBALS['generalFunctions']->escapeQuotesRecursive($configs);
       
         // CHECK BOOL VALUES and change to FALSE
         $userConfig[$user]['admin'] = (isset($userConfig[$user]['admin']) && $userConfig[$user]['admin']) ? 'true' : 'false';
@@ -673,6 +676,8 @@ function saveWebsiteConfig($websiteConfig) {
     $websiteConfig['keywords'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['keywords']);
     $websiteConfig['description'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['description']);
     
+    $websiteConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($websiteConfig);
+    
     // *** write
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
@@ -726,16 +731,18 @@ function saveStatisticConfig($statisticConfig) {
     // CHECK BOOL VALUES and change to FALSE
     //$statisticConfig['noname'] = (isset($statisticConfig['noname']) && $statisticConfig['noname']) ? 'true' : 'false';
     
+    $websiteConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($websiteConfig);
+    
     // WRITE
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".$statisticConfig['number']['mostVisitedPages']."';\n");
-      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".$statisticConfig['number']['longestVisitedPages']."';\n");
-      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".$statisticConfig['number']['lastEditedPages']."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['mostVisitedPages'])."';\n");
+      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['longestVisitedPages'])."';\n");
+      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['lastEditedPages'])."';\n\n");
       
-      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".$statisticConfig['number']['refererLog']."';\n");
-      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".$statisticConfig['number']['taskLog']."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['refererLog'])."';\n");
+      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['taskLog'])."';\n\n");
       
       
       fwrite($file,"return \$statisticConfig;");
@@ -852,9 +859,10 @@ function movePage($page, $fromCategory, $toCategory) {
  * @return string the checked stylesheet files path as serialized array
  * 
  * 
- * @version 1.0
+ * @version 1.01
  * <br />
  * <b>ChangeLog</b><br />
+ *    - add xssFilter test 
  *    - 1.0 initial release
  * 
  */
@@ -871,6 +879,9 @@ function prepareStyleFilePaths($givenStyleFiles) {
       // ** adds a "/" on the beginning of all absolute paths
       if(!empty($styleFile) && !strstr($styleFile,'://') && substr($styleFile,0,1) !== '/')
           $styleFile = '/'.$styleFile;
+          
+      if(!strstr($styleFile,'://')) //check path if its not an url (urls dont pass the xssFilter :-))
+        $styleFile = $GLOBALS['xssFilter']->path($styleFile);
       
       // adds back to the string only if its not empty
       if(!empty($styleFile))

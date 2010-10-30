@@ -510,6 +510,7 @@ class generalFunctions {
       return false;
   }
 
+
  /**
   * <b>Name</b> savePage()<br>
   * 
@@ -554,6 +555,8 @@ class generalFunctions {
     
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
+      
+      $pageContent = $this->escapeQuotesRecursive($pageContent);
       
       // escaps ",',\,NULL but undescappes the double quotes again
       $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
@@ -1184,6 +1187,38 @@ class generalFunctions {
     }
       
     return $textLength;
+  }
+  
+ /**
+  * <b>Name</b> escapeQuotesRecursive()<br>
+  * 
+  * Escapes single quotes of an array or an string, and goes also deeper in the array.
+  * 
+  * @param array|string $data the data, where the quotes should be escaped
+  * 
+  * @return array|string the escaped array or string
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function escapeQuotesRecursive($data) {
+    
+    if(is_string($data)) {      
+      $data = str_replace("\'","'",$data);
+      $data = str_replace("'","\'",$data);
+      return  $data;
+      
+    } elseif(is_array($data)) {
+      $newData = array();
+      foreach($data as $key => $value) {
+        $newData[$key] = $this->escapeQuotesRecursive($value);
+      }
+      return $newData;
+    } else
+      return $data;
   }
   
  /**

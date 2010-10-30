@@ -217,9 +217,12 @@ window.addEvent('domready', function() {
   // ---------------------------
   if($('sidebarSelection') != null) {
   
-
+    if(navigator.appVersion.match(/MSIE ([0-8]\.\d)/)) {
+      $('sidebarSelection').setStyle('position','fixed');
+    } else {
       // adds static scroller
       new StaticScroller('sidebarSelection');
+    }
 
   }
   

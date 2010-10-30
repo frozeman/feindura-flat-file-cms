@@ -135,7 +135,8 @@ class xssFilter {
   * Check if the data is alphanumeric string with some special chars.
   * Allowed chars are:
   *     - ()
-  *     - []  
+  *     - []
+  *     - '  
   *     - ,
   *     - .
   *     - $
@@ -166,7 +167,7 @@ class xssFilter {
   function string($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          //start with aplhabetic, may include space, end with alhabetic
-         preg_match_all("/[\(\)\[\]\,\.\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
+         preg_match_all("/[\(\)\[\]\,\'\.\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
          //if you have caught something as alphabetic with/without space, return it 
          if(!empty($find[0])) return implode('',$find[0]);
      }
@@ -261,9 +262,9 @@ class xssFilter {
   function path($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
         $data = ($encode) ? urlencode($data) : $data;
-        preg_match_all("/^[/\.\-\s_a-zA-Z\d][\/\.\-\s_a-zA-Z\d]*$/",$data,$find); 
-         if (!empty($find)) {
-           preg_match_all("/\/\/|\.\./",$find[0],$findCatch); // disallow // or ..
+        preg_match("#^[/\.\-\s_a-zA-Z\d][\/\.\-\s_a-zA-Z\d]*$#",$data,$find); 
+         if (!empty($find[0])) {
+           preg_match("#\/\/|\.\.#",$find[0],$findCatch); // disallow // or ..
            if(!empty($findCatch))
             return $default;
            else

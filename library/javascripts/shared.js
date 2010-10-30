@@ -86,11 +86,11 @@ function feindura_storeTipTexts(elements) {
      		
      	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
   		if(content[1])
-    		content[1] = feindura_str_replace(new Array('"',"<",">","[", "]"), new Array("&quot;","&lt;","&gt;","<", ">"), content[1]);
+    		content[1] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
 
   		if(content[0])
-    		content[0] = feindura_str_replace(new Array('"',"<",">","[", "]"), new Array("&quot;","&lt;","&gt;","<", ">"), content[0]);
-
+    		content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
+      
   		element.store('tip:title', content[0]);
   		element.store('tip:text', content[1]);    		
   	}

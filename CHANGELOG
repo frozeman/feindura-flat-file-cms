@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta
-Build 455
+Build 456
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta
   
+  build 456: add escapeQuotesRecursive()
   build 455: fixed staticScroller
   build 451: fixed div scroller
   build 450: fixed a language file bug
