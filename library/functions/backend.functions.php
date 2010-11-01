@@ -271,9 +271,7 @@ function saveCategories($newCategories) {
       fwrite($file,PHPSTARTTAG); //< ?php
       
       // ->> GO through EVERY catgory and write it
-      foreach($newCategories as $category) {
-        
-        $category = $GLOBALS['generalFunctions']->escapeQuotesRecursive($category);
+      foreach($newCategories as $category) {        
 
         // CHECK BOOL VALUES and change to FALSE
         $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';
@@ -297,6 +295,9 @@ function saveCategories($newCategories) {
           $category['thumbWidth'] = $GLOBALS['categoryConfig'][$category['id']]['thumbWidth'];
         if(!isset($category['thumbHeight']))
           $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
+        
+        // escape single quotes
+        $category = $GLOBALS['generalFunctions']->escapeQuotesRecursive($category);
         
         // -> CLEAN all " out of the strings
         foreach($category as $postKey => $post) {
@@ -487,6 +488,48 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
 }
 
 /**
+ * <b>Name</b> movePage()<br />
+ * 
+ * Moves a file into a new category directory.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
+ * 
+ * @param int $page         the page ID
+ * @param int $fromCategory the ID of the category where the page is situated
+ * @param int $toCategory   the ID of the category where the file will be moved to 
+ * 
+ * @return bool TRUE if the page was succesfull moved, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function movePage($page, $fromCategory, $toCategory) {
+  
+  // if there are pages not in a category set the category to empty
+  if($fromCategory === false || $fromCategory == 0)
+    $fromCategory = '';
+  if($toCategory === false || $toCategory == 0)
+    $toCategory = '';
+    
+  // MOVE categories
+  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
+    DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$toCategory.'/'.$page.'.php') &&
+    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
+    // reset the stored page ids
+    $GLOBALS['generalFunctions']->storedPagess = null;
+    $GLOBALS['generalFunctions']->storedPagesIds = null;
+    
+    return true;
+  } else
+    return false;
+}
+
+/**
  * <b>Name</b> saveAdminConfig()<br />
  * 
  * Saves the administrator-settings config array to the "config/admin.config.php" file.
@@ -501,9 +544,10 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
  * 
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.0
+ * @version 1.01
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.01 add websitePath 
  *    - 1.0 initial release
  * 
  */
@@ -523,11 +567,15 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['pages']['plugins'] = (isset($adminConfig['pages']['plugins']) && $adminConfig['pages']['plugins']) ? 'true' : 'false';
     $adminConfig['pages']['showtags'] = (isset($adminConfig['pages']['showtags']) && $adminConfig['pages']['showtags']) ? 'true' : 'false';
     
+    // escape single quotes
+    $adminConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($adminConfig);
+    
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); // < ?php
     
     fwrite($file,"\$adminConfig['url'] =              '".$adminConfig['url']."';\n");
     fwrite($file,"\$adminConfig['basePath'] =         '".$adminConfig['basePath']."';\n");
+    fwrite($file,"\$adminConfig['websitePath'] =      '".$GLOBALS['xssFilter']->path($adminConfig['websitePath'])."';\n");
     fwrite($file,"\$adminConfig['savePath'] =         '".$GLOBALS['xssFilter']->path($adminConfig['savePath'])."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".$GLOBALS['xssFilter']->path($adminConfig['uploadPath'])."';\n");  
     fwrite($file,"\$adminConfig['websitefilesPath'] = '".$GLOBALS['xssFilter']->path($adminConfig['websitefilesPath'])."';\n");
@@ -606,7 +654,8 @@ function saveUserConfig($userConfig) {
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php      
       foreach($userConfig as $user => $configs) {
-      
+        
+        // escape single quotes
         $configs = $GLOBALS['generalFunctions']->escapeQuotesRecursive($configs);
       
         // CHECK BOOL VALUES and change to FALSE
@@ -676,6 +725,7 @@ function saveWebsiteConfig($websiteConfig) {
     $websiteConfig['keywords'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['keywords']);
     $websiteConfig['description'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['description']);
     
+    // escape single quotes
     $websiteConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($websiteConfig);
     
     // *** write
@@ -727,10 +777,8 @@ function saveStatisticConfig($statisticConfig) {
    
   // opens the file for writing
   if($file = fopen("config/statistic.config.php","w")) {
-    
-    // CHECK BOOL VALUES and change to FALSE
-    //$statisticConfig['noname'] = (isset($statisticConfig['noname']) && $statisticConfig['noname']) ? 'true' : 'false';
-    
+        
+    // escape single quotes
     $websiteConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($websiteConfig);
     
     // WRITE
@@ -782,6 +830,9 @@ function savePluginsConfig($pluginsConfig) {
   // **** opens plugin.config.php for writing
   if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","w")) {
     
+    // escape single quotes
+    $pluginsConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($pluginsConfig);
+    
     // CHECK BOOL VALUES and change to FALSE   
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
@@ -805,19 +856,23 @@ function savePluginsConfig($pluginsConfig) {
 }
 
 /**
- * <b>Name</b> movePage()<br />
+ * <b>Name</b> saveSpeakingUrl()<br />
  * 
- * Moves a file into a new category directory.
+ * Check if speakingUrl is activated and save a speakingUrl redirect (with mod_rewrite) to the .htacces file in the document root.
+ * 
+ * 
+ * <b>Used Constants</b><br />
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
  * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
- *    - <var>$generalFunctions</var> to reset the {@link getStoredPagesIds} (included in the {@link general.include.php})
+ *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
+ *    - <var>$xssFilter</var> the {@link xssFilter::xssFilter()} class instance created in the {@link general.include.php})
  * 
- * @param int $page         the page ID
- * @param int $fromCategory the ID of the category where the page is situated
- * @param int $toCategory   the ID of the category where the file will be moved to 
+ * @param false|string $errorWindow will be filled with an error message if an error occurs
  * 
- * @return bool TRUE if the page was succesfull moved, otherwise FALSE
+ * @return void
+ * 
  * 
  * @version 1.0
  * <br />
@@ -825,25 +880,115 @@ function savePluginsConfig($pluginsConfig) {
  *    - 1.0 initial release
  * 
  */
-function movePage($page, $fromCategory, $toCategory) {
+function saveSpeakingUrl(&$errorWindow) {
   
-  // if there are pages not in a category set the category to empty
-  if($fromCategory === false || $fromCategory == 0)
-    $fromCategory = '';
-  if($toCategory === false || $toCategory == 0)
-    $toCategory = '';
+  // vars
+  $save = false;
+  $data = false;
+  $htaccessFile = DOCUMENTROOT.'/.htaccess';
+  
+  $newWebsitePath = 'RewriteRule ^'.$GLOBALS['xssFilter']->path(substr($_POST['cfg_websitePath'],1));
+  $oldWebsitePath = 'RewriteRule ^'.$GLOBALS['xssFilter']->path(substr($GLOBALS['adminConfig']['websitePath'],1));
+  
+  $speakingUrlCode = '<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+# rewrite "/page/*.html" and "/category/*/*.html"
+# and also passes the session var
+RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
+'.$newWebsitePath.'category/([^/]+)/(.*)\.html?$ ?category=$1&page=$2$3 [QSA,L]
+'.$newWebsitePath.'page/(.*)\.html?$ ?page=$1$2 [QSA,L]
+</IfModule>';
+  
+  $oldSpeakingUrlCode = str_replace($newWebsitePath,$oldWebsitePath,$speakingUrlCode);
+  
+  // -> looks if the MOD_REWRITE modul exists
+  $apacheModules = (function_exists('apache_get_modules')) ? apache_get_modules() : array(false);
+  if(!in_array('mod_rewrite',$apacheModules)) {
+    $_POST['cfg_speakingUrl'] = '';
+    return;
+  }
+  
+  // **********************************
+  // ->> if a the .htaccess file exists
+  if(file_exists($htaccessFile)) {
     
-  // MOVE categories
-  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
-    DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$toCategory.'/'.$page.'.php') &&
-    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
-    // reset the stored page ids
-    $GLOBALS['generalFunctions']->storedPagess = null;
-    $GLOBALS['generalFunctions']->storedPagesIds = null;
+    // vars
+    $currrentContent = file_get_contents($htaccessFile);
+    $checkCurrrentContent = (strlen($newWebsitePath) >  strlen($oldWebsitePath))
+      ? str_replace(array($newWebsitePath,$oldWebsitePath),'',$currrentContent)
+      : str_replace(array($oldWebsitePath,$newWebsitePath),'',$currrentContent);
+    $checkSpeakingUrlCode = str_replace($newWebsitePath,'',$speakingUrlCode);
     
-    return true;
-  } else
-    return false;
+    // ->> create or change the .htaccess file
+    if($_POST['cfg_speakingUrl'] == 'true') {
+      
+      // -> if no speakingUrl code exists, add new one
+      if(strpos($checkCurrrentContent,$checkSpeakingUrlCode) === false) {
+         
+        $save = true;
+        $data = $currrentContent."\n".$speakingUrlCode;
+        
+      // -> if speakingUrl code exists, change the old one
+      } elseif($newWebsitePath != $oldWebsitePath &&
+               strpos($currrentContent,$speakingUrlCode) === false) {
+        
+        $currrentContent = str_replace($oldSpeakingUrlCode,'',$currrentContent);        
+        
+        $save = true;
+        $data = $currrentContent."\n".$speakingUrlCode;
+      }
+    
+    // ->> delete the .htaccess file or remove the speakingUrl code
+    } else {
+      
+      // -> if ONLY the SPEAKING URL code is in the .htaccess then DELTE the .htaccess file
+      if($currrentContent == $speakingUrlCode ||
+         $currrentContent == "\n".$speakingUrlCode ||
+         $currrentContent == "\n\n".$speakingUrlCode ||
+         $currrentContent == $oldSpeakingUrlCode ||
+         $currrentContent == "\n".$oldSpeakingUrlCode ||
+         $currrentContent == "\n\n".$oldSpeakingUrlCode) {
+        @unlink($htaccessFile);
+           
+      // -> looks if SPEAKING URL code EXISTs in the .htaccess file and remove it
+      } elseif(strpos($currrentContent,$speakingUrlCode) !== false ||
+               strpos($currrentContent,$oldSpeakingUrlCode) !== false) {
+        $newContent = str_replace($speakingUrlCode,'',$currrentContent);
+        $newContent = str_replace($oldSpeakingUrlCode,'',$currrentContent);
+        
+        $save = true;
+        $data = $newContent;
+      }    
+    }
+      
+  // -> if no .htaccess exists and speaking url is acitvated
+  } elseif($_POST['cfg_speakingUrl'] == 'true') {
+    $save = true;
+    $data = $speakingUrlCode;  
+  }
+    
+  // **************************
+  // ->> saves the htacces file
+  if($save && !empty($data) && $htaccess = fopen($htaccessFile,"w")) {
+    
+    $data = preg_replace("# +#"," ",$data);
+    $data = preg_replace("#\n+#","\n",$data);
+    
+    flock($htaccess,2); // LOCK_EX
+    fwrite($htaccess,$data);
+    flock($htaccess,3); //LOCK_UN
+    fclose($htaccess);
+    
+    @chmod($htaccessFile,0644);
+  
+  // ->> throw error
+  } elseif($save) {
+    $_POST['cfg_speakingUrl'] = '';
+    $errorWindow .= $GLOBALS['langFile']['adminSetup_fmsSettings_speakingUrl_error_save'];
+  }
+  
+  return;
 }
 
 /**

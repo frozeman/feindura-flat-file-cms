@@ -167,9 +167,9 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
         
         
         // shows the page link
-        if($adminConfig['speakingUrl'] == '')
-          $hostUrl = $adminConfig['url'].'/';
-        else $hostUrl = $adminConfig['url'];
+        $hostUrl = ($adminConfig['speakingUrl'])
+          ? $adminConfig['url'].substr($adminConfig['websitePath'],0,-1)
+          : $adminConfig['url'].$adminConfig['websitePath'];
         
         echo '<tr>
               <td class="left">

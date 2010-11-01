@@ -96,6 +96,16 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>
+
+      <tr><td class="left">
+      <label for="cfg_websitePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field8'].'::'.$langFile['adminSetup_fmsSettings_field8_tip'] ?>">
+      <?php echo $langFile['adminSetup_fmsSettings_field8'] ?></span></label>
+      </td><td class="right">
+      <input size="40" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip']; ?>::" />
+      <span class="hint"><?php echo $langFile['path_absolutepath']; ?></span>
+      </td></tr>
+      
+      <tr><td class="spacer"></td><td></td></tr>
       
       <tr><td class="left">
       <label for="cfg_savePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field3'].'::'.$langFile['adminSetup_fmsSettings_field3_tip'] ?>">

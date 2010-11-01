@@ -378,23 +378,23 @@ $langFile['adminSetup_fmsSettings_error_save'] = $langFile['error_save_settings'
 
 $langFile['adminSetup_fmsSettings_h1'] = 'Grund-Einstellungen';
 
-$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'] = '[span class=hint]Der Pfad sollte au&szlig;erhalb des CMS Ordners liegen, wenn der CMS Ordner passwortgesch&uuml;zt ist.[/span]';
-
-$langFile['adminSetup_fmsSettings_field1'] = 'Webseiten URL';
+$langFile['adminSetup_fmsSettings_field1'] = 'Webseiten-URL';
 $langFile['adminSetup_fmsSettings_field1_tip'] = 'Die URL ihrer Webseite wird automatisch eingef&uuml;gt.';
 $langFile['adminSetup_fmsSettings_field1_inputTip'] = 'Die URL wird automatisch eingef&uuml;gt';
 $langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Bitte speichere die Einstellungen!';
-$langFile['adminSetup_fmsSettings_field2'] = 'Hauptpfad';
-$langFile['adminSetup_fmsSettings_field2_tip'] = 'Der Hauptpfad wird automatisch ermittelt und beim Speichern der Einstellungen &uuml;bernommen.';
+$langFile['adminSetup_fmsSettings_field2'] = 'feindura-Pfad';
+$langFile['adminSetup_fmsSettings_field2_tip'] = 'Der Hauptpfad wird automatisch ermittelt und beim speichern der Einstellungen &uuml;bernommen.';
 $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'Der Pfad wird automatisch eingef&uuml;gt';
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
-$langFile['adminSetup_fmsSettings_field3'] = 'Speicherpfad';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flat-Files mit dem Seiteninhalt gespeichert werden.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
-$langFile['adminSetup_fmsSettings_field4'] = 'Daten-Upload Pfad';
-$langFile['adminSetup_fmsSettings_field4_tip'] = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen > Upload hochgeladen.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field8'] = 'Webseitenpfad';
+$langFile['adminSetup_fmsSettings_field8_tip'] = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.';
+$langFile['adminSetup_fmsSettings_field3'] = 'Seitenpfad';
+$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flat-Files mit dem Seiteninhalt gespeichert werden.';
+$langFile['adminSetup_fmsSettings_field4'] = 'Daten-Uploadpfad';
+$langFile['adminSetup_fmsSettings_field4_tip'] = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]Diese Dateien k&ouml;nnen dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]';
 $langFile['adminSetup_fmsSettings_field5'] = 'Dateipfad f&uuml;r Webseitendateien';
-$langFile['adminSetup_fmsSettings_field5_tip'] = 'Ein Verzeichnis mit Dateien. Diese Dateien k&ouml;nnen z.B. verwendet werden um eine Webseite mehrsprachig zu gestalten.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'].$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field5_tip'] = 'Ein Verzeichnis mit Dateien. Diese Dateien k&ouml;nnen z.B. verwendet werden um eine Webseite mehrsprachig zu gestalten.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_field6'] = 'Dateipfad f&uuml;r Stylesheetdateien';
 $langFile['adminSetup_fmsSettings_field6_tip'] = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden k&ouml;nnen.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_varName_ifempty'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: ';

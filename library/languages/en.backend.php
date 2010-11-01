@@ -380,23 +380,23 @@ $langFile['adminSetup_fmsSettings_error_save'] = $langFile['error_save_settings'
 
 $langFile['adminSetup_fmsSettings_h1'] = 'Basic-Settings';
 
-$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'] = '[span class=hint]The path should be outside of the CMS folder, if the CMS folder is password protected.[/span]';
-
 $langFile['adminSetup_fmsSettings_field1'] = 'Website URL';
 $langFile['adminSetup_fmsSettings_field1_tip'] = 'The URL of your website will be added automatically.';
 $langFile['adminSetup_fmsSettings_field1_inputTip'] = 'The URL will be added automatically';
 $langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Please save the settings!';
-$langFile['adminSetup_fmsSettings_field2'] = 'Base path';
+$langFile['adminSetup_fmsSettings_field2'] = 'feindura path';
 $langFile['adminSetup_fmsSettings_field2_tip'] = 'The base path will be determined automatically and saved, the first time the settings are saved.';
 $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'The path will be added automatically';
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Please save the settings!';
+$langFile['adminSetup_fmsSettings_field8'] = 'Website path';
+$langFile['adminSetup_fmsSettings_field8_tip'] = 'The [b]absolute path[/b] where the website is situated.';
 $langFile['adminSetup_fmsSettings_field3'] = 'Save path';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'The [b]absolute path[/b] where the flat files with the page content will be saved.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field3_tip'] = 'The [b]absolute path[/b] where the flat files with the page content will be saved.';
 $langFile['adminSetup_fmsSettings_field4'] = 'Upload path';
-$langFile['adminSetup_fmsSettings_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
 $langFile['adminSetup_fmsSettings_field5'] = 'File path for website files';
-$langFile['adminSetup_fmsSettings_field5_tip'] = 'A folder with files which are used by the website. E.g to make a website multi-language.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'].$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field5_tip'] = 'A folder with files which are used by the website. E.g to make a website multi-language.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_field6'] = 'File path for stylesheets';
 $langFile['adminSetup_fmsSettings_field6_tip'] = 'A [b]absolute path[/b] where stylesheet files are. E.g. which can be edited by the user.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_varName_ifempty'] = 'If the field is empty the standard name for the GET-Variablen will be used: ';

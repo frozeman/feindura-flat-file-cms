@@ -332,22 +332,24 @@ $langFile['adminSetup_error_isFolder'] = 'n&lsquo;est pas un dossier';
 // ---------- FMS Settings
 $langFile['adminSetup_fmsSettings_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/admin.config.php';
 $langFile['adminSetup_fmsSettings_h1'] = 'configuration de base';
-$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'] = '[span class=hint]la trace doit &ecirc;tre en dehors du dossier CMS, si le dossier CMS n&eacute;cessite un mot de passe.[/span]';
+
 $langFile['adminSetup_fmsSettings_field1'] = 'URL site web';
 $langFile['adminSetup_fmsSettings_field1_tip'] = 'l&lsquo;URL de votre site web sera mise automatiquement.';
 $langFile['adminSetup_fmsSettings_field1_inputTip'] = 'l&lsquo;URL sera mise automatiquement';
 $langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Svp sauvegardez la configuration!';
-$langFile['adminSetup_fmsSettings_field2'] = 'trace principale';
+$langFile['adminSetup_fmsSettings_field2'] = 'trace du feindura';
 $langFile['adminSetup_fmsSettings_field2_tip'] = 'la trace principale sera estim&eacute; automatiquement et sauvegard&eacute; avec la configuration.';
 $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'la trace principale sera mise automatiquement';
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Svp sauvegardez la configuration!';
-$langFile['adminSetup_fmsSettings_field3'] = 'r&eacute;pertoire du dossier';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'lz [b]trace absolue[/b], contenant les Flat-Files du  contenu du site web.[br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field8'] = 'trace du site web';
+$langFile['adminSetup_fmsSettings_field8_tip'] = 'le [b]trace absolue[/b], contenant les site web.';
+$langFile['adminSetup_fmsSettings_field3'] = 'trace du dossier';
+$langFile['adminSetup_fmsSettings_field3_tip'] = 'le [b]trace absolue[/b], contenant les Flat-Files du contenu du site web.';
 $langFile['adminSetup_fmsSettings_field4'] = 'trace upload';
-$langFile['adminSetup_fmsSettings_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont &ecirc;tre t&eacute;l&eacute;charg&eacute;s.[br /][br /][span class=hint]pour ins&eacute;rer des fichiers, cliquez dans le HTML-Editor ins&eacute;rer lien > upload t&eacute;l&eacute;charg&eacute;.[/span][br /][br /]'.$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont &ecirc;tre t&eacute;l&eacute;charg&eacute;s.[br /][br /][span class=hint]pour ins&eacute;rer des fichiers, cliquez dans le HTML-Editor ins&eacute;rer lien > upload transf&eacute;r&eacute; ou dans le gestionnaire de fichiers.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]ces fichiers peuvent &ecirc;tre r&eacute;dig&eacute;s plus bas ou dans le param&egrave;trages du site web (si cette option est activ&eacute; pour le site web).[br /][br /]';
 $langFile['adminSetup_fmsSettings_field5'] = 'trace du dossier du site web';
-$langFile['adminSetup_fmsSettings_field5_tip'] = 'un dossier contenant des fichiers. ces fichiers peuvent par ex. &ecirc;tre utilis&eacute;s pour avoir une version multilinguale du site web.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'].$langFile['adminSetup_fmsSettings_savePathShouldBeOutside'];
+$langFile['adminSetup_fmsSettings_field5_tip'] = 'un dossier contenant des fichiers. ces fichiers peuvent par ex. &ecirc;tre utilis&eacute;s pour avoir une version multilinguale du site web.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_field6'] = 'trace des feuilles de style';
 $langFile['adminSetup_fmsSettings_field6_tip'] = 'une trace absolue [b]trace absolue[/b] contenat les feuilles de style qui peuvent &ecirc;tre r&eacute;dig&eacute;s par ex. par les utilisateurs.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_varName_ifempty'] = 'si le panneua est vide, le nom standard des variables GET sera utilis&eacute;: ';
@@ -362,11 +364,11 @@ $langFile['adminSetup_fmsSettings_field7'] = 'format de date';
 $langFile['adminSetup_fmsSettings_field7_tip'] = 'Sera [span class=logoname]fein[span]dura[/span][/span] et le site web.[br /]mettre:[br /]DIN 5008 ('.$langFile['date_eu'].') ou[br /]ISO 8601 ('.$langFile['date_int'].')';
 $langFile['adminSetup_fmsSettings_speakingUrl'] = 'format URL';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'speaking URLs';
-$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/beispiel_category/beispiel.html';
-$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'variables avec des URL';
+$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/par_exemple_categorie/par_exemple.html';
+$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL avec variables';
 $langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&'.$adminConfig['varName']['page'].'=1';
 $langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'le format de d&lsquo;URL pour le r&eacute;f&eacute;rencement du site web.[br /][br /]Speaking URLs fonctionnent seulement si [b]Apache[/b] le [b]mod_rewrite[/b] module est disponible.';
-$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'Attention!::[span class=red]Si des erreurs se produisent pendant l&lsquo;utilisation des speaking URLs auftreten, le fichier [b].htaccess Datei[/b] dans la trace documentaire root du serveur doit &ecirc;tre &eacute;ffac&eacute;.[/span][br /][br /](dans certains logiciels FTP les fichiers cach&eacute;s doivent &ecirc;tre indiqu&eacute;s pour montrer le fichier .htaccess)';
+$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'Attention!::[span class=red]Si des erreurs se produisent pendant l&lsquo;utilisation des speaking URLs, le fichier [b].htaccess[/b] dans la trace documentaire root du serveur doit &ecirc;tre &eacute;ffac&eacute;.[/span][br /][br /](dans certains logiciels FTP les fichiers cach&eacute;s doivent &ecirc;tre indiqu&eacute;s pour montrer le fichier .htaccess)';
 
 // ---------- speaking url ERRORs
 $langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> ne pouvaient pas &ecirc;tre activ&eacute;s'.$langFile['error_save_file'].'/.htaccess';

@@ -231,6 +231,8 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       elseif(!empty($data) && substr($data,0,2) != 'a:')
         $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
     
+    $adminConfig['websitePath'] = '/';
+    
     if(saveAdminConfig($adminConfig))
       echo 'adminConfig <span class="succesfull">succesfully updated</span><br />';
     else {
