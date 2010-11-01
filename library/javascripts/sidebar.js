@@ -215,15 +215,8 @@ window.addEvent('domready', function() {
   
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
-  if($('sidebarSelection') != null) {
-  
-    if(navigator.appVersion.match(/MSIE ([0-8]\.\d)/)) {
-      $('sidebarSelection').setStyle('position','fixed');
-    } else {
-      // adds static scroller
-      new StaticScroller('sidebarSelection');
-    }
-
+  if($('sidebarSelection') != null) {  
+    // adds static scroller
+    new StaticScroller('sidebarSelection');  
   }
-  
 });

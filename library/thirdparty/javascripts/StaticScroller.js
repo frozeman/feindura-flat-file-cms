@@ -23,8 +23,8 @@ var StaticScroller = new Class({
 	Implements: Options,
 	
 		options: {
-			offset: 0,
-			scrollElement: document
+			offset: 1,
+			scrollElement: window
 		},
 
 	initialize: function(element, options) {
