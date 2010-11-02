@@ -30,7 +30,7 @@ The CMS has an easy to use interface with a simple structure, which can be fast 
 
 ### NECESSARY KNOWLEDGE
 You should have some basic knowledge in PHP so that you can implement the CMS in your website. By following the given examples it should be easy to integrate feindura in your websites.
-It's basic requirements for are web server with PHP running, however for using the CMS backend its necessary to have Javascript activated.
+It's basic requirements is a web server with PHP running, however for using the CMS backend its necessary to have Javascript activated.
 
 ### FEATURES
 * no database required
