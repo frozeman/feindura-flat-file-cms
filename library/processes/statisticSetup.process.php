@@ -23,7 +23,7 @@
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 //var
-$messageBox = false;
+$deletedStatistics = false;
 
 // ------------>> SAVE the STATISTIC SETTINGS
 if($_POST['send'] && isset($_POST['statisticConfig'])) {
@@ -44,8 +44,6 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
 
 // ------------>> CLEAR the STATISTICs
 if($_POST['sendClearstatistics']) {
-  
-  $messageBoxText = false;
   
   // ->> CLEAR PAGES-STATISTICs
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
@@ -70,7 +68,7 @@ if($_POST['sendClearstatistics']) {
     
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'<br />';
+      $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</li>';
       $statisticFunctions->saveTaskLog(20); // <- SAVE the task in a LOG FILE
     }
   }
@@ -94,7 +92,7 @@ if($_POST['sendClearstatistics']) {
     
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'<br />';
+      $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</li>';
       $statisticFunctions->saveTaskLog(21); // <- SAVE the task in a LOG FILE
     }
   }  
@@ -106,7 +104,7 @@ if($_POST['sendClearstatistics']) {
     
     // set documentSaved status
     $documentSaved = true;
-    $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'<br />';
+    $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</li>';
     $statisticFunctions->saveTaskLog(22); // <- SAVE the task in a LOG FILE
   }
   
@@ -117,7 +115,7 @@ if($_POST['sendClearstatistics']) {
     
     // set documentSaved status
     $documentSaved = true;
-    $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'<br />';
+    $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</li>';
     $statisticFunctions->saveTaskLog(23); // <- SAVE the task in a LOG FILE
   }
   
@@ -128,15 +126,16 @@ if($_POST['sendClearstatistics']) {
     
     // set documentSaved status
     $documentSaved = true;
-    $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br />';
+    $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</li>';
     $statisticFunctions->saveTaskLog(24); // <- SAVE the task in a LOG FILE
   }
   
   // SHOWs the MESSAGEBOX
-  if($messageBoxText !== false) {
-    $messageBox = '<div class="messageBox">';  
-    $messageBox .=  '<span class="red">'.$messageBoxText.'</span>';
-    $messageBox .=  '</div>';
+  if($deletedStatistics !== false) {
+    $deletedStatisticsFinal = '<ul class="red">';
+    $deletedStatisticsFinal .=  $deletedStatistics;
+    $deletedStatisticsFinal .= '</ul>';
+    $deletedStatistics = $deletedStatisticsFinal;
   }
   
   $savedForm = 'clearStatistics';

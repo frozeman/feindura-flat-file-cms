@@ -587,7 +587,7 @@ div.listPagesHead {
     text-align: right; 
     }
 
-/****************/	
+/**************************/	
 /* *** listPages CATEGORY */
 
 .listPages div.category {
@@ -614,7 +614,7 @@ div.listPagesHead {
     }
 
 /***************************/	
-/* *** PAGE FUNCTION links (also in general.css) */
+/* *** PAGE FUNCTION links (also in shared.css) */
 
 .listPages div.name a {
     display: inline-block;
@@ -746,7 +746,7 @@ div.listPagesHead {
     }
 */
 
-/****************/	
+/********************/	
 /* - PAGE-THUMBNAIL */  
 
 #content .block.pageHead a.pageThumbnailUpload {
@@ -784,8 +784,34 @@ span.info strong {
 #visitTimeMinContainer {
     width: 180px;
     }
+
+/**********************/	
+/* - BACKUP / RESTORE */
+
+a.downloadBackup {
+  display: inline-block;
+  height: 48px; /* org: 78px */
+  padding-left: 80px;
+  padding-top: 30px;
+  background: url("../images/key/backup_download.png") no-repeat;  
+}
+a.downloadBackup:hover {
+  background-position: 0px -78px;
+}
+
+a.restoreBackup {
+  display: inline-block;
+  height: 48px; /* org: 78px */
+  padding-left: 80px;
+  padding-top: 30px;
+  background: url("../images/key/backup_restore.png") no-repeat;  
+}
+a.restoreBackup:hover {
+  background-position: 0px -78px;
+}
+
     
-/* --- DASHBORAD STATISTIC ------------------------------------------------------------------------------------------------------------------- */
+/* --- DASHBORAD STATISTICS ------------------------------------------------------------------------------------------------------------------- */
     
 /* --------------------- */
 /* -------> TABLE CHART */

@@ -114,7 +114,7 @@ if($categoryRatio) {
 	<!-- file selection -->
   <h2><?php echo $langFile['pagethumbnail_field1']; ?></h2>
   
-	<input type="file" name="thumbFile" style="z-index:10;"/>
+	<input type="file" name="thumbFile" />
   <br />	
 	<br />
   

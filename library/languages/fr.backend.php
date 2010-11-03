@@ -687,6 +687,19 @@ $langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Le thumbnail r&eacute;c
 $langFile['pagethumbnail_upload_response_fileexists'] = 'Il existe d&egrave;j&agrave; un fichier avec ce nom.<br />Le nom du fichier a &eacute;t&eacute; chang&eacute; en';
 $langFile['pagethumbnail_upload_response_finish'] = 'L&lsquo;image a &eacute;t&eacute; t&eacute;l&eacute;charge avec succ&egrave;s';
 
+// -> BACKUP
+
+$langFile['BACKUP_TITLE_BACKUP'] = 'backup';
+$langFile['BACKUP_TITLE_RESTORE'] = 'r&eacute;tablir';
+
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 't&eacute;l&eacute;chargement de backup actuelle';
+$langFile['BACKUP_TEXT_RESTORE'] = 'T&eacute;l&eacute;chargez ici un <span class="logoname"><span>fein</span>dura</span> fichier de sauvegarde, de r&eacute;tablir un &eacute;tat ancien.<br /><span class="red">Tous les param&eacute;tres actuels et les pages seront &eacute;cras&eacute;s!</span>';
+
+$langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Derni&eacute;re backups';
+$langFile['BACKUP_TEXT_NOBACKUP'] = 'Pas de backup a &eacute;t&eacute; cr&eacute;&eacute; pour le moment.';
+
+$langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup n\'a pas &eacute;t&eacute; trouv&eacute; au chemin d\'acc&egrave;s:';
+
 /*
 * search.php
 */

@@ -22,9 +22,6 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-if($messageBox)
-  echo $messageBox;
-
 ?>
 <!-- OVERVIEW STATISTIC SETTINGS -->
 

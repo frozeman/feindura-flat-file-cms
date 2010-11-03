@@ -64,7 +64,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   // ----  show QUICKMENU for the CATEGORIES
   if(!empty($categoryConfig)) {
     
-    // SPACER
+    // spacer
     echo '<div class="spacer"></div>';
 
     // slide the categories menu OUT, when a category is open
@@ -93,7 +93,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   // ----  show QUICKMENU for the CATEGORY PAGES
   if(!empty($_GET['category'])) {
     
-    // SPACER
+    // spacer
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
@@ -126,7 +126,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
 
   // SWITCH the &_GET['site'] var
   switch($_GET['site']) {
-    // ***** home -------------------------------------------- **********
+    // ***** HOME -------------------------------------------- **********
     case 'home': case '':
       
       echo '<div class="sidebarInfo"><div class="content">';
@@ -193,7 +193,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '</div></div>';
       
       break;
-    // ***** adminSetup sideBar -------------------------------------------- **********
+    // ***** ADMINSETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
       
       echo '<div class="sidebarInfo"><div class="content">';
@@ -219,11 +219,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           </div></div>';
       
       break;
-    // ***** websiteSetup -------------------------------------------- **********
-    case 'websiteSetup':     
-      
-      break;
-    // ***** pageSetup -------------------------------------------- **********
+    // ***** PAGESETUP -------------------------------------------- **********
     case 'pageSetup':
       
       // -> CATEGORY ANCHOR LINKS
@@ -248,7 +244,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       } echo '</div>';
 
       break;
-    // ***** userSetup -------------------------------------------- **********
+    // ***** USERSETUP -------------------------------------------- **********
     case 'userSetup':
       
       // -> USER ANCHOR LINKS
@@ -274,14 +270,33 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       } echo '</div>';
 
       break;
-    // ***** search -------------------------------------------- **********
-    case 'search':
-
-      break;
-    // ***** deletePage -------------------------------------------- **********
-    case 'deletePage':
-
-      break;     
+    // ***** BACKUP sideBar -------------------------------------------- **********
+    case 'backup':
+      
+      echo '<div id="sidebarSelection">';
+      echo '<div class="sidebarInfo"><div class="content">';
+      
+      // link the backup files
+      $backups = $generalFunctions->readFolder($adminConfig['basePath'].'backups/');      
+      if(!empty($backups['files'])) {
+        $lastBackups = '<ul>';
+        natsort($backups['files']);
+        $backups['files'] = array_reverse($backups['files']);
+        foreach($backups['files'] as $backupFile) {
+          $backupTime = filemtime(DOCUMENTROOT.$backupFile);
+          $lastBackups .= '<li><a href="'.$backupFile.'" class="standardLink">'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($backupTime)).' '.$statisticFunctions->formatTime($backupTime).'</a></li>'."\n";
+        }
+        $lastBackups .= '</ul>';   
+      } else
+        $lastBackups = '<p>'.$langFile['BACKUP_TEXT_NOBACKUP'].'</p>';
+      
+      // FEINDURA INFO
+      echo '<h1>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h1>';
+      echo $lastBackups;
+      echo '</div></div>';
+      echo '</div>';
+      
+      break;   
   } //switch END
 
 }

@@ -45,30 +45,19 @@ if($_GET['site'] == 'pages') {
                 
       break;
     // ***** adminSetup sideBar -------------------------------------------- **********
-    case 'adminSetup':
+    case 'statisticSetup':
       
-      break;
-    // ***** websiteSetup -------------------------------------------- **********
-    case 'websiteSetup':     
+      if($deletedStatistics) {
+          echo '<div id="rightSidebarMessageBox">';
+            echo '<div id="messageBox_input" class="content">';
+            echo '<img src="library/images/sign/hintIcon.png" class="hintIcon" />';
+            echo $deletedStatistics;
+            echo '</div>';
+            echo '<div class="bottom"></div>';
+          echo '</div>';
+      }
       
-      break;
-    // ***** pageSetup -------------------------------------------- **********
-    case 'pageSetup':
-      
-
-      break;
-    // ***** userSetup -------------------------------------------- **********
-    case 'userSetup':
-
-      break;
-    // ***** search -------------------------------------------- **********
-    case 'search':
-
-      break;
-    // ***** deletePage -------------------------------------------- **********
-    case 'deletePage':
-
-      break;     
+      break; 
   } //switch END
 
 }

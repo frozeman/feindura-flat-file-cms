@@ -44,6 +44,7 @@ It's basic requirements is a web server with PHP running, however for using the 
 * set a thumbnail picture for every page
 * upload images and files
 * drag'n'drop for moving pages
+* backup system
 * plugin system (adds additional functionality to pages like contact form and image gallery)
 
 #### future features

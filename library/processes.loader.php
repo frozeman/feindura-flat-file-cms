@@ -40,39 +40,43 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   
   // SWITCHES the &_GET['site'] var
   switch($_GET['site']) {
-    // pages
+    // PAGES
     case 'pages':
       if(empty($categoryConfig))
         $_GET['category'] = 0;
       include (dirname(__FILE__).'/processes/listPages.process.php');
       break;
-    // adminSetup
+    // ADMINSETUP
     case 'adminSetup':
       include (dirname(__FILE__).'/processes/adminSetup.process.php');
       break;
-    // adminSetup
+    // ADMINSETUP
     case 'pageSetup':
       include (dirname(__FILE__).'/processes/pageSetup.process.php');
       break;
-    // websiteSetup
+    // WEBSITESETUP
     case 'websiteSetup':
       include (dirname(__FILE__).'/processes/websiteSetup.process.php');
       break;
-    // statisticSetup
+    // STATISTICSETUP
     case 'statisticSetup':
       include (dirname(__FILE__).'/processes/statisticSetup.process.php');
       break;
-    // userSetup
+    // USERSETUP
     case 'userSetup':
       include (dirname(__FILE__).'/processes/userSetup.process.php');
       break;
-    // pluginSetup
+    // PLUGINSETUP
     case 'pluginSetup':
       include (dirname(__FILE__).'/processes/pluginSetup.process.php');
       break;
-    // modulSetup
+    // MODULSETUP
     case 'modulSetup':
       include (dirname(__FILE__).'/processes/modulSetup.process.php');
+      break;
+    // BACKUP
+    case 'backup':
+      include (dirname(__FILE__).'/processes/backup.process.php');
       break;
   } //switch END
 
