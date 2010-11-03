@@ -794,8 +794,7 @@ table.tableChart {
     width: 100%;
     font-size: 10px;
     color: #000000;
-    border: 1px solid #C3C2C3;
-    border-top: 1px solid #D7D8D8;
+    border: 1px solid #fff;
     border-left: none;
     padding: 0px;
     margin: 0px;
@@ -804,7 +803,7 @@ table.tableChart {
 table.tableChart td {
     vertical-align: middle;
     padding: 0px 5px !important;
-    border-left: 1px solid #cccccc;
+    border-left: 2px solid #fff;
     height: 40px;
     max-height: 40px;
     overflow: hidden;

@@ -217,6 +217,7 @@ $langFile['btn_pageSetup'] = 'Seiten Einstellungen';
 $langFile['btn_pluginSetup'] = 'Plugins Einstellungen';
 $langFile['btn_statisticSetup'] = 'Statistik Einstellungen';
 $langFile['btn_userSetup'] = 'Benutzer Verwaltung';
+$langFile['btn_backup'] = 'Backup Wiederherst.';
 
 // --- subMenu/footer
 $langFile['btn_fileManager'] = 'Dateimanager';

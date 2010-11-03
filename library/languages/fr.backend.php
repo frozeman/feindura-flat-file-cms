@@ -193,6 +193,7 @@ $langFile['btn_pageSetup'] = 'pr&eacute;f&eacute;rences site web';
 $langFile['btn_pluginSetup'] = 'pr&eacute;f&eacute;rences plugins';
 $langFile['btn_statisticSetup'] = 'pr&eacute;f&eacute;rences statistiques';
 $langFile['btn_userSetup'] = 'gestion de l&lsquo;utilisateur';
+$langFile['btn_backup'] = 'Sauvegarde Restauration';
 
 // --- subMenu/footer
 $langFile['btn_fileManager'] = 'gestionnaire des fichiers';

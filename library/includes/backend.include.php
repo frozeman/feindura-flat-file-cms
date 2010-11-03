@@ -19,7 +19,7 @@
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
 ini_set('session.gc_maxlifetime', 10800); // saves the session for 180 minutes
-session_name("feindura");
+session_name("session");
 session_start();
 
 // INCLUDES

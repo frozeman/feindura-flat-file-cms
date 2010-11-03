@@ -168,6 +168,13 @@
 #adminMenu .content a.userSetup:hover {
     background-position: -65px 0px;
     }
+/* backup */
+#adminMenu .content a.backup {
+    background: url("../images/key/adminMenu_backup.png") no-repeat;
+    }
+#adminMenu .content a.backup:hover {
+    background-position: -65px 0px;
+    }
 
 /* --- SUBMENU ------------------------------------------------------------------------------------------------------------------- */
 

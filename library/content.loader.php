@@ -73,6 +73,10 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'statisticSetup':
       include (dirname(__FILE__).'/sites/statisticSetup.php');
       break;
+    // backup
+    case 'backup':
+      include (dirname(__FILE__).'/sites/backup.php');
+      break;
     // userSetup
     case 'userSetup':
       include (dirname(__FILE__).'/sites/userSetup.php');
