@@ -306,7 +306,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       
       // set documentSaved status
       $documentSaved = true;
-      $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_taskLog'].'<br />';
+      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br />';
       $statisticFunctions->saveTaskLog(24); // <- SAVE the task in a LOG FILE
       
       echo 'activity log <span class="succesfull">reset</span><br />';

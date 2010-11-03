@@ -22,7 +22,7 @@
 
 
 /*
-* --- GENERAL
+// -> GENERAL <-
 */
 
 $sharedLangFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';

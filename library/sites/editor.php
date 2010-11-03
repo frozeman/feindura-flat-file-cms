@@ -84,8 +84,8 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
         
       
       echo '<br /><div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
-      echo '<span class="thumbnailToolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'">'.$langFile['thumbnail_name'].'</span><br />';
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['thumbnail_tip'].'" />';
+      echo '<span class="thumbnailToolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['THUMBNAIL_TOOLTIP_PREVIEW'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br />';
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::'.$langFile['THUMBNAIL_TOOLTIP_PREVIEW'].'" />';
       echo '</div>';
     
     // -> show the thumbnail upload button if there is no thumbnail yet
@@ -93,7 +93,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
              (($_GET['category'] == 0 && $adminConfig['pages']['thumbnails']) ||
              $categoryConfig[$_GET['category']]['thumbnail'])) {  
       
-        echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\',true);return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
+        echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
     }
     ?>
     
@@ -227,17 +227,17 @@ $hidden = ' hidden';
     ?>
     <tr>
       <td class="left">
-        <?php echo $langFile['log_visitCount']; ?>
+        <?php echo $langFile['STATISTICS_TEXT_VISITORCOUNT']; ?>
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> VISIT COUNT
-        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.$statisticFunctions->formatHighNumber($pageContent['log_visitCount']).'</span>';
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.$statisticFunctions->formatHighNumber($pageContent['log_visitorcount']).'</span>';
         ?>
       </td>      
     </tr>
     <tr>
       <td class="left">
-        <?php echo $langFile['log_firstVisit']; ?>
+        <?php echo $langFile['STATISTICS_TEXT_FIRSTVISIT']; ?>
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> FIRST VISIT
@@ -248,7 +248,7 @@ $hidden = ' hidden';
     
     <tr>
       <td class="left">
-        <?php echo $langFile['log_lastVisit']; ?>
+        <?php echo $langFile['STATISTICS_TEXT_LASTVISIT']; ?>
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> LAST VISIT
@@ -261,7 +261,7 @@ $hidden = ' hidden';
     
     <tr>
       <td class="left">
-        <?php echo $langFile['log_visitTime_max']; ?>
+        <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MAX']; ?>
       </td><td class="right">
         <?php
         // -> VISIT TIME MAX
@@ -285,7 +285,7 @@ $hidden = ' hidden';
     </tr>
     <tr>
       <td class="left">
-        <?php echo $langFile['log_visitTime_min']; ?>
+        <?php echo $langFile['STATISTICS_TEXT_VISITTIME_MIN']; ?>
       </td><td class="right">
         <?php
         // -> VISIT TIME MIN
@@ -314,7 +314,7 @@ $hidden = ' hidden';
       echo '<tr>
               <td class="left">
               </td><td class="right" style="font-size:15px;">
-                '.$langFile['log_novisit'].'
+                '.$langFile['STATISTICS_TEXT_NOVISIT'].'
               </td>
             </tr>';
     }    
@@ -324,7 +324,7 @@ $hidden = ' hidden';
     
     <tr>
       <td class="left">
-        <span><?php echo $langFile['log_tags_description']; ?></span>
+        <span><?php echo $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']; ?></span>
       </td><td class="right">
       <div style="width:95%;max-height:160px;border:0px solid #cccccc;padding:0px 10px;">
       <?php
@@ -413,9 +413,9 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       // get date format
       if($adminConfig['dateFormat'] == 'eu')
-        $dateFormat = $langFile['date_eu'];
+        $dateFormat = $langFile['DATE_EU'];
       else
-        $dateFormat = $langFile['date_int'];
+        $dateFormat = $langFile['DATE_INT'];
       
       // CHECKs the DATE FORMAT
       if(!empty($pageDate) && $statisticFunctions->validateDateFormat($pageDate) === false)
@@ -514,9 +514,9 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         // shows the public or unpublic picture
         if($pageContent['public'])
-          echo '<img src="library/images/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['status_page_public'].'"'.$publicSignStyle.' />';
+          echo '<img src="library/images/sign/page_public.png" alt="public" class="toolTip" title="'.$langFile['STATUS_PAGE_PUBLIC'].'"'.$publicSignStyle.' />';
         else
-          echo '<img src="library/images/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_page_nonpublic'].'"'.$publicSignStyle.' />';
+          echo '<img src="library/images/sign/page_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['STATUS_PAGE_NONPUBLIC'].'"'.$publicSignStyle.' />';
 
         ?>
         &nbsp;<span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field4'].'::'.$langFile['editor_pageSettings_field4_tip'] ?>">
@@ -772,27 +772,27 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleFile']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
       </td><td class="right">
-      <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
-      <span class="hint" style="float:right;width:190px;"><?php echo $langFile['stylesheet_styleFile_example']; ?></span>
+      <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE'].'::[span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
+      <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       <?php
       
       echo showStyleFileInputs($generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
       ?>      
       </div>
-      <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['stylesheet_styleFile_addButton_tip']; ?>::"></a>
+      <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleId']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </td><td class="right">
       <input name="styleId" value="<?php echo $generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['stylesheet_name_styleClass']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </td><td class="right">
       <input name="styleClass" value="<?php echo $generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>

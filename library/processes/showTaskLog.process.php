@@ -52,91 +52,91 @@ foreach($logContent as $logRow) {
   // add the right languageText
   switch($logRow[2]) {
     case 0:
-        $logText = $langFile['log_page_new'];
+        $logText = $langFile['LOG_PAGE_NEW'];
         break;
     case 1:
-        $logText = $langFile['log_page_saved'];
+        $logText = $langFile['LOG_PAGE_SAVED'];
         break;
     case 2:
-        $logText = $langFile['log_page_delete'];
+        $logText = $langFile['LOG_PAGE_DELETE'];
         break;
     case 3:
-        $logText = $langFile['log_listPages_moved'];
+        $logText = $langFile['LOG_PAGE_MOVEDINCATEGORY'];
         break;
     case 4:
-        $logText = $langFile['log_listPages_sorted'];
+        $logText = $langFile['LOG_PAGE_SORTED'];
         break;
     case 5:
-        $logText = $langFile['log_pageThumbnail_delete'];
+        $logText = $langFile['LOG_THUMBNAIL_DELETE'];
         break;
     case 6:
-        $logText = $langFile['log_pageThumbnail_upload'];
+        $logText = $langFile['LOG_THUMBNAIL_UPLOAD'];
         break;
     case 7:
-        $logText = $langFile['log_websiteSetup_saved'];
+        $logText = $langFile['LOG_WEBSITESETUP_SAVED'];
         break;
     case 8:
-        $logText = $langFile['log_adminSetup_saved'];
+        $logText = $langFile['LOG_ADMINSETUP_SAVED'];
         break;
     case 9:
-        $logText = $langFile['log_adminSetup_ckstyles'];
+        $logText = $langFile['LOG_ADMINSETUP_CKSTYLES'];
         break;
     case 10:
-        $logText = $langFile['log_websiteSetup_saved'];
+        $logText = $langFile['LOG_WEBSITESETUP_SAVED'];
         break;
     case 11:
-        $logText = $langFile['log_pluginSetup_saved'];
+        $logText = $langFile['LOG_PLUGINSETUP_SAVED'];
         break;
     case 12:
-        $logText = $langFile['log_file_saved'];
+        $logText = $langFile['LOG_FILE_SAVED'];
         break;
     case 13:
-        $logText = $langFile['log_file_deleted'];
+        $logText = $langFile['LOG_FILE_DELETED'];
         break;
     case 14:
-        $logText = $langFile['log_pageSetup_saved'];
+        $logText = $langFile['LOG_PAGESETUP_SAVED'];
         break;
     case 15:
-        $logText = $langFile['log_pageSetup_new'];
+        $logText = $langFile['LOG_PAGESETUP_CATEGORIES_NEW'];
         break;
     case 16:
-        $logText = $langFile['log_pageSetup_delete'];
+        $logText = $langFile['LOG_PAGESETUP_CATEGORIES_DELETED'];
         break;
     case 17:
-        $logText = $langFile['log_pageSetup_move'];
+        $logText = $langFile['LOG_PAGESETUP_CATEGORIES_MOVED'];
         break;
     case 18:
-        $logText = $langFile['log_pageSetup_categories_saved'];
+        $logText = $langFile['LOG_PAGESETUP_CATEGORIES_SAVED'];
         break;
     case 19:
-        $logText = $langFile['log_statisticSetup_saved'];
+        $logText = $langFile['LOG_STATISTICSETUP_SAVED'];
         break;
     case 20:
-        $logText = $langFile['log_clearStatistic_pagesStatistics'];
+        $logText = $langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'];
         break;
     case 21:
-        $logText = $langFile['log_clearStatistic_pagesStaylengthStatistics'];
+        $logText = $langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'];
         break;
     case 22:
-        $logText = $langFile['log_clearStatistic_websiteStatistic'];
+        $logText = $langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'];
         break;
     case 23:
-        $logText = $langFile['log_clearStatistic_refererLog'];
+        $logText = $langFile['LOG_CLEARSTATISTICS_REFERERLOG'];
         break;
     case 24:
-        $logText = $langFile['log_clearStatistic_taskLog'];
+        $logText = $langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'];
         break;
     case 25:
-        $logText = $langFile['log_userSetup_useradd'];
+        $logText = $langFile['LOG_USER_ADD'];
         break;
     case 26:
-        $logText = $langFile['log_userSetup_userdeleted'];
+        $logText = $langFile['LOG_USER_DELETED'];
         break;
     case 27:
-        $logText = $langFile['log_userSetup_userpass_changed'];
+        $logText = $langFile['LOG_USER_PASSWORD_CHANGED'];
         break;
     case 28:
-        $logText = $langFile['log_userSetup_userchanged'];
+        $logText = $langFile['LOG_USER_SAVED'];
         break;
   }
   
@@ -162,7 +162,7 @@ foreach($logContent as $logRow) {
     
     // -> IF there is a TEXT BETWEEN page and category
     if(isset($logObject[2]) == 'moved') {
-      $taskObject .= '<br />'.$langFile['log_listPages_moved_in'].'<br />';
+      $taskObject .= '<br />'.$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'].'<br />';
       
       $foundObject = true;
     }
@@ -174,7 +174,7 @@ foreach($logContent as $logRow) {
       $categoryId = $generalFunctions->cleanSpecialChars($categoryId); // removes \n\r
       
       $categoryName = ($categoryId == 0)
-        ? $langFile['categories_noncategory_tip']
+        ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
         : $categoryConfig[$categoryId]['name'];
       
       $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" title="'.$categoryName.'">'.$generalFunctions->shortenTitle($categoryName, $maxLength).'</a>';

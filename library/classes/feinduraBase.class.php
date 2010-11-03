@@ -1133,7 +1133,7 @@ class feinduraBase {
         if($this->generalFunctions->isPageContentArray($ids) || (isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0]))) {
           return $ids;
         
-        // otherwise load the pages from the category(ies)
+        // OTHER BUTTONSwise load the pages from the category(ies)
         } else {
 	
           // checks if the categories are public         

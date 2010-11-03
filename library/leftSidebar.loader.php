@@ -37,7 +37,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = ' hidden';
     
     echo '<div class="sidebarMenu fixed'.$hidden.'">
-    <div class="top brown"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['categories_noncategory_name'].'</span><a href="#" class="toolTip" title="'.$langFile['categories_noncategory_tip'].'::">&nbsp;</a></div>
+    <div class="top brown"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
     <div class="content brown">
       <ul class="verticalButtons">';
             
@@ -169,13 +169,13 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             
             // your own user
             if($_SESSION['feinduraLogin'][IDENTITY]['username'] == $user['username'])
-              echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['user_currentuser'].'::"';
+              echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
             elseif(is_array(($sessions = $sessionLister->getSessions()))) {              
               foreach($sessions as $sessionName => $sessionData) {
                 if((time() - $sessionData["modification"]) < 1800 ) { // show only sessions within the last half hour
-                  if(isset($sessionData['raw']['login_username']) && $sessionData['raw']['login_username'] == $user['username']) {
-                    echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['user_onlineusers'].': '.date("H:i",$sessionData["modification"]).'"';
+                  if(isset($sessionData['raw']['LOGIN_INPUT_USERNAME']) && $sessionData['raw']['LOGIN_INPUT_USERNAME'] == $user['username']) {
+                    echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$sessionData["modification"]).'"';
                     break;
                   }
                 }
@@ -188,7 +188,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           echo '</ul>';
         // no users
         } else
-          echo '<span style="color:#9E0000;">'.$langFile['user_nousers'].'</span>';
+          echo '<span style="color:#9E0000;">'.$langFile['USER_TEXT_NOUSER'].'</span>';
       
       echo '</div></div>';
       
@@ -233,7 +233,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       if(!empty($categoryConfig)) {
         echo '<div class="sidebarInfo"><div class="content">';
-        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['btn_fastUp'].'">'.$langFile['btn_fastUp'].'</a>';
+        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($categoryConfig)) {
   	      echo '<hr />';
             echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
@@ -258,7 +258,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       if(!empty($userConfig)) {
         echo '<div class="sidebarInfo"><div class="content">';
-        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['btn_fastUp'].'">'.$langFile['btn_fastUp'].'</a>';
+        echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($userConfig)) {
   	      echo '<hr />';
             echo '<h1>'.$langFile['userSetup_userSelection'].'</h1>';

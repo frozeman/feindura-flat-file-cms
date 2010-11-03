@@ -43,11 +43,11 @@ if(isset($_POST) && $_POST['action'] == 'login') {
         $_SESSION['feinduraLogin'][IDENTITY]['username'] = $_POST['username'];
         $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
       } else
-        $loginError = $langFile['login_error_wrongPassword'];
+        $loginError = $langFile['LOGIN_ERROR_WRONGPASSWORD'];
     } else
-      $loginError = $langFile['login_error_wrongUser'];
+      $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
   } else
-    $loginError = $langFile['login_error_wrongUser'];
+    $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
 }
 
 // -> LOGOUT
@@ -71,8 +71,8 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       shuffle($chars);
       $newPassword = implode('', array_slice($chars, 0, 5)); 
       
-      $subject = $langFile['login_forgotPassword_email_subject'].': '.$adminConfig['url'];
-      $message = $langFile['login_forgotPassword_email_message']."\n".$_POST['username']."\n".$newPassword;
+      $subject = $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT'].': '.$adminConfig['url'];
+      $message = $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE']."\n".$_POST['username']."\n".$newPassword;
       $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail
       $header .= 'From: "feindura CMS from '.$adminConfig['url'].'" <noreply@'.str_replace(array('http://','https://','www.'),'',$adminConfig['url']).">\r\n";
       $header .= 'X-Mailer: PHP/' . phpversion();
@@ -87,13 +87,13 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
           $resetPassword = true;
           unset($_GET['resetpassword']);
         } else
-          $loginError = $langFile['login_error_forgotPassword_notsend'];
+          $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND'];
       } else
-        $loginError = $langFile['login_error_forgotPassword_notsaved'];
+        $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED'];
     } else
-      $loginError = $langFile['login_error_forgotPassword_nomail'];
+      $loginError = $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL'];
   } else
-    $loginError = $langFile['login_error_wrongUser'];
+    $loginError = $langFile['LOGIN_ERROR_WRONGUSER'];
   
 }
 
@@ -172,9 +172,9 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
       <?php      
       
       if($loggedOut)
-        echo '<h1>'.$langFile['login_logout_part1'].'</h1><a href="'.$adminConfig['url'].'">&rArr; '.$langFile['login_logout_part2'].'</a>';
+        echo '<h1>'.$langFile['LOGIN_TEXT_LOGOUT_PART1'].'</h1><a href="'.$adminConfig['url'].'">&rArr; '.$langFile['LOGIN_TEXT_LOGOUT_PART2'].'</a>';
       if($resetPassword)
-        echo '<h1>'.$langFile['login_error_forgotPassword_success'].'</h1>'.$userEmail;
+        echo '<h1>'.$langFile['LOGIN_ERROR_FORGOTPASSWORD_SUCCESS'].'</h1>'.$userEmail;
       ?>
       </div>
       <div class="bottom"></div>
@@ -183,16 +183,16 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
     <div id="loginBox">
       <form action="<?= $_SERVER['PHP_SELF']; ?><?php echo (isset($_GET['resetpassword'])) ? '?resetpassword' : ''; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
-          <input type="text" value="<?= $_POST['username'] ?>" name="username" id="username" title="<?= $langFile['login_username']; ?>" /><br />
+          <input type="text" value="<?= $_POST['username'] ?>" name="username" id="username" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" /><br />
         <?php if(!isset($_GET['resetpassword'])) { ?>
-          <input type="password" value="<?= $_POST['password'] ?>" name="password" id="password" title="<?= $langFile['login_password']; ?>" /><br />
+          <input type="password" value="<?= $_POST['password'] ?>" name="password" id="password" title="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" /><br />
         <?php } 
         if(!isset($_GET['resetpassword'])) {
           echo '<input type="hidden" name="action" value="login" />';
-          echo '<input type="submit" id="submitButton" class="button" name="loginSubmit" value="'.$langFile['login_button_login'].'" />';
+          echo '<input type="submit" id="submitButton" class="button" name="loginSubmit" value="'.$langFile['LOGIN_BUTTON_LOGIN'].'" />';
         } else {
           echo '<input type="hidden" name="action" value="resetPassword" />';
-          echo '<br /><br /><input type="submit" id="submitButton" class="button" name="resetPasswordSubmit" value="'.$langFile['login_button_forgotPassword'].'" />';
+          echo '<br /><br /><input type="submit" id="submitButton" class="button" name="resetPasswordSubmit" value="'.$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'].'" />';
         } ?>
         </div>
       </form>
@@ -206,11 +206,11 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   <?php } ?>
   <div class="info">
   <?php if(isset($_GET['resetpassword'])) {
-    echo '<a href="index.php">'.$langFile['login_forgotPassword_back'].'</a>';
+    echo '<a href="index.php">'.$langFile['LOGIN_LINK_BACKTOLOGIN'].'</a>';
   } else {
-    echo '<a href="index.php?resetpassword">'.$langFile['login_forgotPassword'].'</a>';
+    echo '<a href="index.php?resetpassword">'.$langFile['LOGIN_LINK_FORGOTPASSWORD'].'</a>';
   }?>
-    <br /><?= $langFile['login_info_cookie']; ?></div>
+    <br /><?= $langFile['LOGIN_TEXT_COOKIESNEEDED']; ?></div>
   </div>
 </body>
 </html>

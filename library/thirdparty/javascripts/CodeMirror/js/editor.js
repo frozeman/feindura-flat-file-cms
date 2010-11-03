@@ -988,7 +988,7 @@ var Editor = (function(){
           whiteSpace.firstChild.nodeValue = whiteSpace.currentText;
           select.snapshotMove(whiteSpace.firstChild, whiteSpace.firstChild, indentDiff, true);
         }
-        // Otherwise, we have to add a new whitespace node.
+        // OTHER BUTTONSwise, we have to add a new whitespace node.
         else {
           whiteSpace = makePartSpan(makeWhiteSpace(newIndent));
           whiteSpace.className = "whitespace";
@@ -1553,7 +1553,7 @@ var Editor = (function(){
             part.dirty = false;
             parts.next();
           }
-          // Otherwise, we have to fix it.
+          // OTHER BUTTONSwise, we have to fix it.
           else {
             lineDirty = true;
             // Insert the correct part.

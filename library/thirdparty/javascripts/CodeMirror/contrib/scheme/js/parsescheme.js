@@ -179,7 +179,7 @@ var SchemeParser = Editor.Parser = (function() {
 
     // Begin: if there's no elements within the begin context,
     // the indentation is that of the begin keyword's column + offset.
-    // Otherwise, find the leading element on the last line.
+    // OTHER BUTTONSwise, find the leading element on the last line.
     // Also used for default indentation.
     var beginLikeIndentation = function(context, offset) {
 	if (typeof(offset) === 'undefined') { offset = 1; }
@@ -192,7 +192,7 @@ var SchemeParser = Editor.Parser = (function() {
 	    // off the keyword.
 	    return context[indices[0]].column + offset;
 	} else {
-	    // Otherwise, we scan for the contextElement of the last line
+	    // OTHER BUTTONSwise, we scan for the contextElement of the last line
 	    for (j = indices.length -1; j > 1; j--) {
 		if (context[indices[j]].line !==
 		    context[indices[j-1]].line) {

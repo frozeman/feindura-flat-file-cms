@@ -97,9 +97,9 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
 // sort an Array with the pageContent Array by VISIT COUNT
 // -------------------------------------------------------------------------------------
 function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
-  if ($a['log_visitCount'] == $b['log_visitCount'])
+  if ($a['log_visitorcount'] == $b['log_visitorcount'])
     return 0;
-  return ($a['log_visitCount'] > $b['log_visitCount']) ? -1 : 1;
+  return ($a['log_visitorcount'] > $b['log_visitorcount']) ? -1 : 1;
 }
 
 // ** -- sortByVisitTimeMax ***************************************************************

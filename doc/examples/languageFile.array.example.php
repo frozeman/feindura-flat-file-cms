@@ -1,7 +1,7 @@
 <?php
 
-$langFile['search_title'] = 'Search';
-$langFile['title_news'] = 'What\'s new';
+$langFile['SEARCH_TITLE'] = 'Search';
+$langFile['TITLE_NEWS'] = 'What\'s new';
 ...
 
 return $langFile;

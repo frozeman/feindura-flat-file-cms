@@ -25,242 +25,221 @@
  * NEEDS a RETURN $langFile; at the END
  */
 
-/*
-* --- LOGIN
-*/
+// -> LOGIN <-
 
-$langFile['login_username'] = 'Username';
-$langFile['login_password'] = 'Password';
-$langFile['login_button_login'] = 'LOG IN';
-$langFile['login_info_cookie'] = 'Cookies must be activated';
+$langFile['LOGIN_INPUT_USERNAME'] = 'Username';
+$langFile['LOGIN_INPUT_PASSWORD'] = 'Password';
+$langFile['LOGIN_BUTTON_LOGIN'] = 'LOG IN';
+$langFile['LOGIN_TEXT_COOKIESNEEDED'] = 'Cookies must be activated';
 
-$langFile['login_forgotPassword'] = 'Forgot your password?';
-$langFile['login_forgotPassword_back'] = 'back to login';
-$langFile['login_button_forgotPassword'] = 'SEND';
-$langFile['login_forgotPassword_email_subject'] = 'You requested your feindura CMS password from';
-$langFile['login_forgotPassword_email_message'] = 'You have requested a new password for your feindura - Flat File CMS.
+$langFile['LOGIN_LINK_FORGOTPASSWORD'] = 'Forgot your password?';
+$langFile['LOGIN_LINK_BACKTOLOGIN'] = 'back to login';
+$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'] = 'SEND';
+$langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT'] = 'You requested your feindura CMS password from';
+$langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE'] = 'You have requested a new password for your feindura - Flat File CMS.
 Your username and your new password are:';
 
-$langFile['login_error_forgotPassword_nomail'] = 'The user has no E-Mail address.';
-$langFile['login_error_forgotPassword_notsend'] = 'ERROR<br /> while sending the new password to the user-specified email address';
-$langFile['login_error_forgotPassword_notsaved'] = 'ERROR<br /> Could not save the new generated password.';
-$langFile['login_error_forgotPassword_success'] = 'A new password is send to the following e-mail address';
+$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL'] = 'The user has no E-Mail address.';
+$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSEND'] = 'ERROR<br /> while sending the new password to the user-specified email address';
+$langFile['LOGIN_ERROR_FORGOTPASSWORD_NOTSAVED'] = 'ERROR<br /> Could not save the new generated password.';
+$langFile['LOGIN_ERROR_FORGOTPASSWORD_SUCCESS'] = 'A new password is send to the following e-mail address';
 
-$langFile['login_error_wrongUser'] = 'User does not exist';
-$langFile['login_error_wrongPassword'] = 'wrong password';
+$langFile['LOGIN_ERROR_WRONGUSER'] = 'User does not exist';
+$langFile['LOGIN_ERROR_WRONGPASSWORD'] = 'wrong password';
 
-$langFile['login_logout_part1'] = 'Successfully logged out';
-$langFile['login_logout_part2'] = 'further to the website';
-
-/*
-* --- GENERAL
-*/
-
-$langFile['header_button_gotowebsite'] = 'Frontend Editing::Click here to edit the pages directly in your website.';
-
-// ---------- thumbnail
-$langFile['thumbSize_unit'] = 'pixel';
-
-$langFile['thumbnail_name'] = 'Page-Thumbnail';
-$langFile['thumbnail_name_width'] = 'Standard <b>Width</b>';
-$langFile['thumbnail_name_height'] = 'Standard <b>Height</b>';
-
-$langFile['thumbnail_tip'] = 'It\'s possible that you still see the previous image after the upload, that due to the browser cache.[br /][br /]Um da To update the current image you have refresh the page (F5).';
-
-$langFile['thumbnail_width_tip'] = 'Standardwidth::The width of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
-$langFile['thumbnail_height_tip'] = 'Standardheight::The height of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
-
-$langFile['thumbnail_ratio_name'] = 'Ratio';
-$langFile['thumbnail_ratio_fieldText'] = 'keep ratio';
-$langFile['thumbnail_ratio_noRatio'] = 'fixed ratio';
-$langFile['thumbnail_ratio_noRatio_tip'] = 'Height and width is set manually';
-$langFile['thumbnail_ratio_x_tip'] = 'Will be aligned by the [i]width[/i].';
-$langFile['thumbnail_ratio_y_tip'] = 'Will be aligned by the [i]height[/i].';
-
-// ---------- stylesheet
-$langFile['stylesheet_name_styleFile'] = 'Stylesheet files';
-$langFile['stylesheet_name_styleId'] = 'Stylesheet-Id';
-$langFile['stylesheet_name_styleClass'] = 'Stylesheet-Class';
-
-$langFile['stylesheet_styleFile_tip'] = 'Here you can specify stylesheet files, which will be used to style the HTML editor content.';
-$langFile['stylesheet_styleId_tip'] = 'Here you can specify an Id-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
-$langFile['stylesheet_styleClass_tip'] = 'Here you can specify an Class-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
+$langFile['LOGIN_TEXT_LOGOUT_PART1'] = 'Successfully logged out';
+$langFile['LOGIN_TEXT_LOGOUT_PART2'] = 'further to the website';
 
 
-$langFile['stylesheet_styleFile_addButton_tip'] = 'add stylesheet file';
-$langFile['stylesheet_styleFile_example'] = '<b>Example</b> &quot;/style/layout.css&quot;';
+// -> GENERAL <-
 
-// ---------- paths
+$langFile['DATE_INT'] = 'YYYY-MM-DD';
+$langFile['DATE_EU'] = 'DD.MM.YYYY';
+$langFile['CATEGORIES_TEXT_NONCATEGORY'] = 'Pages';
+$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'] = 'Pages without category';
+$langFile['TEXT_EXAMPLE'] = 'Example';
 
-$langFile['path_absolutepath'] = 'absolute path';
-$langFile['path_relativepath'] = 'relative path';
-$langFile['path_absolutepath_tip'] = 'Absolute Path';
-$langFile['path_relativepath_tip'] = 'Relative Path';
+$langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Frontend Editing::Click here to edit the pages directly in your website.';
 
-// ---------- STATISTIC
+// THUMBNAILS
+$langFile['THUMBNAIL_TEXT_UNIT'] = 'pixel';
 
-$langFile['home_browser_h1'] = 'Browser usage of the users';
-$langFile['log_spiderCount'] = 'web spiders';
-$langFile['log_spiderCount_tip'] = 'web spider::Or webcrawler are programs of search engines which analyse and index websites.';
+$langFile['THUMBNAIL_TEXT_NAME'] = 'Page-Thumbnail';
+$langFile['THUMBNAIL_TEXT_WIDTH'] = 'Standard <b>Width</b>';
+$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Standard <b>Height</b>';
 
-$langFile['log_searchwordtothissite_part1'] = 'has'; // "wort" hat 20 mal auf diese Seite geführt
-$langFile['log_searchwordtothissite_part2'] = 'times led to this site';
-$langFile['log_searchwordtothissite_tip'] = 'Click to search for this word in the pages.';
+$langFile['THUMBNAIL_TOOLTIP_PREVIEW'] = 'It\'s possible that you still see the previous image after the upload, that due to the browser cache.[br /][br /]Um da To update the current image you have refresh the page (F5).';
 
-$langFile['log_visitCount'] = 'visitors';
-$langFile['log_currentVisitors'] = 'current visitors';
-$langFile['log_currentVisitors_lastActivity'] = 'last activity';
+$langFile['THUMBNAIL_TOOLTIP_WIDTH'] = 'Standardwidth::The width of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
+$langFile['THUMBNAIL_TOOLTIP_HEIGHT'] = 'Standardheight::The height of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
 
-$langFile['log_pageStatistics'] = 'Page Statistics';
+$langFile['THUMBNAIL_TEXT_RATIO'] = 'Ratio';
+$langFile['THUMBNAIL_TEXT_KEEPRATIO'] = 'keep ratio';
+$langFile['THUMBNAIL_TEXT_FIXEDRATIO'] = 'fixed ratio';
+$langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO'] = 'Height and width is set manually';
+$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X'] = 'Will be aligned by the [i]width[/i].';
+$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y'] = 'Will be aligned by the [i]height[/i].';
 
-$langFile['log_visitTime_max'] = 'longest length of stay';
-$langFile['log_visitTime_min'] = 'shortest length of stay';
-$langFile['log_firstVisit'] = 'first visit';
-$langFile['log_lastVisit'] = 'last visit';
-$langFile['log_novisit'] = 'Yet nobody visit this website.';
-$langFile['log_tags_description'] = 'Searchwords which led from
+// STYLESHEETS
+$langFile['STYLESHEETS_TEXT_STYLEFILE'] = 'Stylesheet files';
+$langFile['STYLESHEETS_TEXT_ID'] = 'Stylesheet-Id';
+$langFile['STYLESHEETS_TEXT_CLASS'] = 'Stylesheet-Class';
+
+$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'] = 'Here you can specify stylesheet files, which will be used to style the HTML editor content.';
+$langFile['STYLESHEETS_TOOLTIP_ID'] = 'Here you can specify an Id-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
+$langFile['STYLESHEETS_TOOLTIP_CLASS'] = 'Here you can specify an Class-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
+
+$langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'] = 'add stylesheet file';
+$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'] = '<b>Example</b> &quot;/style/layout.css&quot;';
+
+// PATHS
+$langFile['PATHS_TEXT_ABSOLUTE'] = 'absolute path';
+$langFile['PATHS_TEXT_RELATIVE'] = 'relative path';
+$langFile['PATHS_TOOLTIP_ABSOLUTE'] = 'Absolute Path';
+$langFile['PATHS_TOOLTIP_RELATIVE'] = 'Relative Path';
+
+// STATISTICS
+$langFile['STATISTICS_TITLE_BROWSERCHART'] = 'Browser usage of the users';
+$langFile['STATISTICS_TEXT_SPIDERCOUNT'] = 'web spiders';
+$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'] = 'web spider::Or webcrawler are programs of search engines which analyse and index websites.';
+
+$langFile['STATISTICS_TEXT_SEARCHWORD_PART1'] = 'led'; // "exampleword" led 20 times to this website
+$langFile['STATISTICS_TEXT_SEARCHWORD_PART2'] = 'times to this site';
+$langFile['STATISTICS_TOOLTIP_SEARCHWORD'] = 'Click to search for this word in the pages.';
+
+$langFile['STATISTICS_TEXT_VISITORCOUNT'] = 'visitors';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS'] = 'current visitors';
+$langFile['STATISTICS_TEXT_LASTACTIVITY'] = 'last activity';
+
+$langFile['STATISTICS_TITLE_PAGESTATISTICS'] = 'Page Statistics';
+
+$langFile['STATISTICS_TEXT_VISITTIME_MAX'] = 'longest length of stay';
+$langFile['STATISTICS_TEXT_VISITTIME_MIN'] = 'shortest length of stay';
+$langFile['STATISTICS_TEXT_FIRSTVISIT'] = 'first visit';
+$langFile['STATISTICS_TEXT_LASTVISIT'] = 'last visit';
+$langFile['STATISTICS_TEXT_NOVISIT'] = 'Yet nobody visit this website.';
+$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'] = 'Searchwords which led from
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> or
 <a href="http://www.bing.com">Bing (MSN)</a> to this website.';
-$langFile['log_notags'] = 'No searchwords led yet to this website.';
+$langFile['STATISTICS_TEXT_NOSEARCHWORDS'] = 'No searchwords led yet to this website.';
 
-$langFile['log_hour_single'] = 'hour';
-$langFile['log_hour_multiple'] = 'hours';
-$langFile['log_minute_single'] = 'minute';
-$langFile['log_minute_multiple'] = 'minutes';
-$langFile['log_second_single'] = 'second';
-$langFile['log_second_multiple'] = 'seconds';
+$langFile['STATISTICS_TEXT_HOUR_SINGULAR'] = 'hour';
+$langFile['STATISTICS_TEXT_HOUR_PLURAL'] = 'hours';
+$langFile['STATISTICS_TEXT_MINUTE_SINGULAR'] = 'minute';
+$langFile['STATISTICS_TEXT_MINUTE_PLURAL'] = 'minutes';
+$langFile['STATISTICS_TEXT_SECOND_SINGULAR'] = 'second';
+$langFile['STATISTICS_TEXT_SECOND_PLURAL'] = 'seconds';
 
-$langFile['log_browser_others'] = 'other';
+$langFile['STATISTICS_TEXT_BROWSERCHART_OTHERS'] = 'other';
 
-/*
-* ---------- LOG TEXTs
-*/
+// LOG TEXTS
+$langFile['LOG_PAGE_SAVED'] = 'Page saved';
+$langFile['LOG_PAGE_NEW'] = 'New page created';
+$langFile['LOG_PAGE_DELETE'] = 'Page deleted';
 
-$langFile['log_page_saved'] = 'Page saved';
-$langFile['log_page_new'] = 'New page created';
-$langFile['log_page_delete'] = 'Page deleted';
+$langFile['LOG_PAGE_MOVEDINCATEGORY'] = 'Moved page to category';
+$langFile['LOG_PAGE_MOVEDINCATEGORY_CATEGORY'] = 'in category'; // Example Page in Category
+$langFile['LOG_PAGE_SORTED'] = 'Page sorting changed';
 
-$langFile['log_listPages_moved'] = 'Moved page to category';
-$langFile['log_listPages_moved_in'] = 'in category'; // Example Page in Category
-$langFile['log_listPages_sorted'] = 'Page sorting changed';
+$langFile['LOG_THUMBNAIL_UPLOAD'] = 'New thumbnail uploaded';
+$langFile['LOG_THUMBNAIL_DELETE'] = 'Thumbnail deleted';
 
-$langFile['log_pageThumbnail_upload'] = 'New thumbnail uploaded';
-$langFile['log_pageThumbnail_delete'] = 'Thumbnail deleted';
+$langFile['LOG_USER_ADD'] = 'New user created';
+$langFile['LOG_USER_DELETED'] = 'User deleted';
+$langFile['LOG_USER_PASSWORD_CHANGED'] = 'User password changed';
+$langFile['LOG_USER_SAVED'] = 'User saved';
 
-$langFile['log_userSetup_useradd'] = 'New user created';
-$langFile['log_userSetup_userdeleted'] = 'User deleted';
-$langFile['log_userSetup_userpass_changed'] = 'User password changed';
-$langFile['log_userSetup_userchanged'] = 'User saved';
+$langFile['LOG_ADMINSETUP_SAVED'] = 'Administrator-Settings saved';
+$langFile['LOG_ADMINSETUP_CKSTYLES'] = '&quot;Formatting-Styles&quot; of the HTML-Editor saved';
 
-$langFile['log_adminSetup_saved'] = 'Administrator-Settings saved';
-$langFile['log_adminSetup_ckstyles'] = '&quot;Formatting-Styles&quot; of the HTML-Editor saved';
+$langFile['LOG_WEBSITESETUP_SAVED'] = 'Website-Settings saved';
 
-$langFile['log_websiteSetup_saved'] = 'Website-Settings saved';
+$langFile['LOG_STATISTICSETUP_SAVED'] = 'Statistic-Settings saved';
+$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'] = 'Website-Statistic deleted';
+$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'] = 'Page-Statistics deleted';
+$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'] = 'Page-Length-Of-Stay-Statistics deleted';
+$langFile['LOG_CLEARSTATISTICS_REFERERLOG'] = 'Referrer-Log deleted';
+$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'] = 'Last Activities-Log deleted';
 
-$langFile['log_statisticSetup_saved'] = 'Statistic-Settings saved';
-$langFile['log_clearStatistic_websiteStatistic'] = 'Website-Statistic deleted';
-$langFile['log_clearStatistic_pagesStatistics'] = 'Page-Statistics deleted';
-$langFile['log_clearStatistic_pagesStaylengthStatistics'] = 'Page-Length-Of-Stay-Statistics deleted';
-$langFile['log_clearStatistic_refererLog'] = 'Referrer-Log deleted';
-$langFile['log_clearStatistic_taskLog'] = 'Last Activities-Log deleted';
+$langFile['LOG_PAGESETUP_SAVED'] = 'Page-Settings saved';
+$langFile['LOG_PAGESETUP_CATEGORIES_SAVED'] = 'Categories saved';
 
-$langFile['log_pageSetup_saved'] = 'Page-Settings saved';
-$langFile['log_pageSetup_categories_saved'] = 'Categories saved';
+$langFile['LOG_PAGESETUP_CATEGORIES_NEW'] = 'New category created';
+$langFile['LOG_PAGESETUP_CATEGORIES_DELETED'] = 'Category deleted';
+$langFile['LOG_PAGESETUP_CATEGORIES_MOVED'] = 'Category moved';
 
-$langFile['log_pageSetup_saved'] = 'Category-Settings saved';
-$langFile['log_pageSetup_new'] = 'New category created';
-$langFile['log_pageSetup_delete'] = 'Category deleted';
-$langFile['log_pageSetup_move'] = 'Category moved';
+$langFile['LOG_PLUGINSETUP_SAVED'] = 'Plugin-Settings saved of';
 
-$langFile['log_pluginSetup_saved'] = 'Plugin-Settings saved of';
+$langFile['LOG_FILE_SAVED'] = 'File saved';
+$langFile['LOG_FILE_DELETED'] = 'File deleted';
 
-$langFile['log_file_saved'] = 'File saved';
+// PAGE/CATEGORY STATUS
+$langFile['STATUS_PAGE_PUBLIC'] = 'Page is public';
+$langFile['STATUS_PAGE_NONPUBLIC'] = 'Page is hidden';
 
-$langFile['log_file_deleted'] = 'File deleted';
+$langFile['STATUS_CATEGORY_PUBLIC'] = 'Category is public';
+$langFile['STATUS_CATEGORY_NONPUBLIC'] = 'Category is hidden';
 
-// ----------- page/category public/nonpuplic
+// USER LIST
+$langFile['USER_TEXT_NOUSER'] = 'No users';
+$langFile['USER_TEXT_CURRENTUSER'] = 'The user under which you\'re logged';
+$langFile['USER_TEXT_USERSONLINE'] = 'This user is also logged in::Latest activity';
 
-$langFile['status_page_public'] = 'Page is public';
-$langFile['status_page_nonpublic'] = 'Page is hidden';
-
-$langFile['status_category_public'] = 'Category is public';
-$langFile['status_category_nonpublic'] = 'Category is hidden';
-
-// ----------- leftSidebar.loader.php
-
-$langFile['user_nousers'] = 'No users';
-$langFile['user_currentuser'] = 'The user under which you\'re logged';
-$langFile['user_onlineusers'] = 'This user is also logged in::Latest activity';
-
-/*
-* ---------- GENERAL TEXTs
-*/
-
-$langFile['txt_logo'] = 'Version';
+$langFile['LOGO_TEXT'] = 'Version';
 $langFile['txt_logo_gotowebsite'] = 'Click here to go to your website.';
-$langFile['txt_loading'] = 'Page is loading..';
+$langFile['LOADING_TEXT_LOAD'] = 'Page is loading..';
 
-/*
-* --------- BUTTON-TEXT (index.php)
-*/
 
-// --- mainMenu
-$langFile['btn_home'] = 'Dashboard';
-$langFile['btn_pages'] = 'Pages';
-$langFile['btn_addons'] = 'Addons';
-$langFile['btn_settings'] = 'Website Settings';
-$langFile['btn_search'] = 'Search Pages';
+// -> BUTTON TEXTS
 
-// --- adminMenu
-$langFile['title_adminMenu'] = 'Administration';
-$langFile['btn_adminSetup'] = 'Administrator Settings';
-$langFile['btn_pageSetup'] = 'Pages Settings';
-$langFile['btn_pluginSetup'] = 'Plugins Settings';
-$langFile['btn_statisticSetup'] = 'Statistic Settings';
-$langFile['btn_userSetup'] = 'User Management';
-$langFile['btn_backup'] = 'Backup Restore';
+// MAIN MENU
+$langFile['BUTTON_HOME'] = 'Dashboard';
+$langFile['BUTTON_PAGES'] = 'Pages';
+$langFile['BUTTON_ADDONS'] = 'Addons';
+$langFile['BUTTON_WEBSITESETTINGS'] = 'Website Settings';
+$langFile['BUTTON_SEARCH'] = 'Search Pages';
 
-// --- subMenu/footer
-$langFile['btn_fileManager'] = 'File Manager';
-$langFile['btn_fileManager_tip'] = 'manage your files and pictures';
-$langFile['btn_createPage'] = 'New Page';
-$langFile['btn_createPage_tip'] = 'Create new page';
-$langFile['btn_deletePage'] = 'Delete Page';
-$langFile['btn_deletePage_tip'] = 'Delete this page';
-$langFile['btn_pageThumbnailUpload'] = 'Upload a page thumbnail';
-$langFile['btn_pageThumbnailUpload_tip'] = 'Upload a thumbnail for this page';
-$langFile['btn_pageThumbnailDelete'] = 'Delete a page thumbnail';
-$langFile['btn_pageThumbnailDelete_tip'] = 'Delete the thumbnail of this page';
+// ADMIN MENU
+$langFile['HEADER_TITLE_ADMINMENU'] = 'Administration';
+$langFile['BUTTON_ADMINSETUP'] = 'Administrator Settings';
+$langFile['BUTTON_PAGESETUP'] = 'Pages Settings';
+$langFile['BUTTON_PLUGINSETUP'] = 'Plugins Settings';
+$langFile['BUTTON_STATISTICSETUP'] = 'Statistic Settings';
+$langFile['BUTTON_USERSETUP'] = 'User Management';
+$langFile['BUTTON_BACKUP'] = 'Backup Restore';
 
-// --- other
-$langFile['btn_fastUp'] = 'Up';
-$langFile['date_int'] = 'YYYY-MM-DD';
-$langFile['date_eu'] = 'DD.MM.YYYY';
-$langFile['categories_noncategory_name'] = 'Pages';
-$langFile['categories_noncategory_tip'] = 'Pages without category';
-$langFile['text_example'] = 'Example';
+// SUB MENU/FOOTER
+$langFile['BUTTON_FILEMANAGER'] = 'File Manager';
+$langFile['BUTTON_TOOLTIP_FILEMANAGER'] = 'manage your files and pictures';
+$langFile['BUTTON_CREATEPAGE'] = 'New Page';
+$langFile['BUTTON_TOOLTIP_CREATEPAGE'] = 'Create new page';
+$langFile['BUTTON_DELETEPAGE'] = 'Delete Page';
+$langFile['BUTTON_TOOLTIP_DELETEPAGE'] = 'Delete this page';
+$langFile['BUTTON_THUMBNAIL_UPLOAD'] = 'Upload a page thumbnail';
+$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'] = 'Upload a thumbnail for this page';
+$langFile['BUTTON_THUMBNAIL_DELETE'] = 'Delete a page thumbnail';
+$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'] = 'Delete the thumbnail of this page';
 
-/*
-* ---------- ERROR TEXTs
-*/
+// OTHER BUTTONS
+$langFile['BUTTON_UP'] = 'Up';
 
-$langFile['error_save_settings'] = '<b>The settings could not be saved</b>';
-$langFile['error_save_file'] = '<br /><br />Please check the  read- and write permissions of the file: ';
 
-$langFile['error_read_folder_part1'] = '<br /><br />Please check the read permissions of the &quot;';
-$langFile['error_save_folder_part1'] = '<br /><br />Please check the write permissions of the &quot;';
+// -> GENERAL ERROR TEXTS
+$langFile['ERROR_SAVE_SETTINGS'] = '<b>The settings could not be saved</b>';
+$langFile['ERROR_SAVE_FILE'] = '<br /><br />Please check the  read- and write permissions of the file: ';
 
-$langFile['error_folder_end'] = '&quot; Folder, it\'s subfolders and files.';
-$langFile['error_folderDatabase_end'] = '&quot; Folder, it\'s subfolders and files.'; // (or the database)
+$langFile['ERROR_READ_FOLDER_PART1'] = '<br /><br />Please check the read permissions of the &quot;';
+$langFile['ERROR_SAVE_FOLDER_PART1'] = '<br /><br />Please check the write permissions of the &quot;';
 
+$langFile['ERROR_FOLDER_PART2'] = '&quot; Folder, it\'s subfolders and files.';
 
 /*
 * ---------- WARNINGs
 */
 
 $langFile['warning_startPageWarning_h1'] = 'The start page is not set!';
-$langFile['warning_startPageWarning'] = 'Please set a page as start page.<br />Go to <a href="?site=pages">'.$langFile['btn_pages'].'</a> and click on the <span class="startPageIcon"></span> icon on the desired page.';
+$langFile['warning_startPageWarning'] = 'Please set a page as start page.<br />Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="startPageIcon"></span> icon on the desired page.';
 
 
 $langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> is not configurated!';
@@ -342,17 +321,17 @@ $langFile['sortablePageList_functions_editPage'] = 'Edit page';
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Click here to change the status of the page.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Click here to change the status of the category.';
 
-$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['error_read_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_setStartPage_error_save'] .= $langFile['error_save_file'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;'; // also in en.shared.php
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_setStartPage_error_save'] .= $langFile['ERROR_SAVE_FILE'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;'; // also in en.shared.php
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
 
 $langFile['sortablePageList_info'] = 'You can change the <b>sorting</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
 $langFile['sortablePageList_save'] = 'Save new sorting ...';
 $langFile['sortablePageList_save_finished'] = 'New sorting successfully saved!';
-$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['error_read_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
+$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_categoryEmpty'] = 'No pages available';
 
 // ---------- FORMULAR
@@ -377,7 +356,7 @@ $langFile['adminSetup_error_writeAccess'] = 'is not writeable';
 $langFile['adminSetup_error_isFolder'] = 'is not a directory';
 
 // ---------- FMS Settings
-$langFile['adminSetup_fmsSettings_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/admin.config.php';
+$langFile['adminSetup_fmsSettings_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/admin.config.php';
 
 $langFile['adminSetup_fmsSettings_h1'] = 'Basic-Settings';
 
@@ -409,7 +388,7 @@ $langFile['adminSetup_fmsSettings_varName3'] = 'Modul variable name';
 $langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'The name of the [b]$_GET Variable[/b] which will be used to link the pages.';
 $langFile['adminSetup_fmsSettings_field7'] = 'Date format';
-$langFile['adminSetup_fmsSettings_field7_tip'] = 'Will be used in [span class=logoname]fein[span]dura[/span][/span] and the website.[br /]Can be:[br /]DIN 5008 ('.$langFile['date_eu'].') oder[br /]ISO 8601 ('.$langFile['date_int'].')';
+$langFile['adminSetup_fmsSettings_field7_tip'] = 'Will be used in [span class=logoname]fein[span]dura[/span][/span] and the website.[br /]Can be:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
 $langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL format';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URLs';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example_category/example.html';
@@ -419,7 +398,7 @@ $langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'The URL format, which wil
 $langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br /][br /](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
 // ---------- speaking url ERRORs
-$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> could not be activated'.$langFile['error_save_file'].'/.htaccess';
+$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> could not be activated'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
 $langFile['adminSetup_fmsSettings_speakingUrl_error_modul'] = '<b>Speaking URLs</b> could not be activated, because the Apache MOD_REWRITE modul could not be found';
 
 
@@ -429,8 +408,8 @@ $langFile['adminSetup_userSettings_check1'] = 'Edit website files in the website
 $langFile['adminSetup_userSettings_check2'] = 'Edit stylesheet files in the website-settings';
 $langFile['adminSetup_userSettings_check3'] = 'activate file manager';
 
-$langFile['adminSetup_userSettings_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['btn_home'].'</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['btn_home'].' page of [span class=logoname]fein[span]dura[/span][/span].';
+$langFile['adminSetup_userSettings_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
+$langFile['adminSetup_userSettings_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['BUTTON_HOME'].' page of [span class=logoname]fein[span]dura[/span][/span].';
 $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'If you don\'t want to display an information for the user, leave this field empty';
 
 // ---------- editor Settings
@@ -441,20 +420,20 @@ $langFile['adminSetup_editorSettings_field1_tip'] = 'Sets which HTML-Tag will be
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'If empty no Id-attribute will be used.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'If empty no Class-attribute will be used.';
 
-// ---------- thumbnail Settings
+// THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1'] = 'Page-Thumbnail-Settings';
 $langFile['adminSetup_thumbnailSettings_field3'] = 'Save path'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip'] = 'The path inside the upload path which will be used to save the thumbanils.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'The upload path';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relative path::Relative to the &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; path.[br /][br /]Starts without &quot;/&quot;';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['text_example'].'</b> &quot;thumbnails/&quot; ';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1'] = 'Edit &quot;Style Formatting&quot; of the HTML-Editors';
-$langFile['adminSetup_styleFileSettings_error_save'] = '<b>The &quot;htmlEditorStyles.xml&quot; file could no be saved.</b>'.$langFile['error_save_file'];
+$langFile['adminSetup_styleFileSettings_error_save'] = '<b>The &quot;htmlEditorStyles.xml&quot; file could no be saved.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
-$langFile['editFilesSettings_error_save'] = '<b>The file could not be saved.</b>'.$langFile['error_save_file'];
+$langFile['editFilesSettings_error_save'] = '<b>The file could not be saved.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 $langFile['editFilesSettings_h1_style'] = 'Edit stylesheet files';
 $langFile['editFilesSettings_h1_websitefiles'] = 'Edit website files';
@@ -468,7 +447,7 @@ $langFile['editFilesSettings_deleteFile'] = 'Delete this file';
 $langFile['editFilesSettings_deleteFile_question_part1'] = 'You really want to delete the file'; // Kategorie "test" löschen?
 $langFile['editFilesSettings_deleteFile_question_part2'] = '?';
 
-$langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Could not delete the file.</b>'.$langFile['error_save_file'];
+$langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Could not delete the file.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 /*
 * pageSetup.php
@@ -508,11 +487,11 @@ $langFile['pageSetup_moveCategory_moved'] = 'Category moved';
 $langFile['pageSetup_moveCategory_up_tip'] = 'Move category upwards';
 $langFile['pageSetup_moveCategory_down_tip'] = 'Move category downwards';
 
-$langFile['pageSetup_error_create'] = '<b>Could not create new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['basePath'].'config/'.$langFile['error_folderDatabase_end'];
-$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].'&quot; Ordners.';
-$langFile['pageSetup_error_delete'] = '<b>Could not delete the category</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folder_end'];
-$langFile['pageSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/category.config.php';
+$langFile['pageSetup_error_create'] = '<b>Could not create new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].'&quot; Ordners.';
+$langFile['pageSetup_error_delete'] = '<b>Could not delete the category</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
+$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['pageSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
 
 
 $langFile['pageSetup_advancedSettings'] = 'Advanced-Settings';
@@ -550,7 +529,7 @@ $langFile['pageSetup_deletCategory_question_part2'] = '?';
 */
 
 // ---------- WEBSITE SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-$langFile['websiteSetup_websiteConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/website.config.php';
+$langFile['websiteSetup_websiteConfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/website.config.php';
 
 $langFile['websiteSetup_websiteConfig_h1'] = 'Website-Settings';
 $langFile['websiteSetup_websiteConfig_field1'] = 'Website title';
@@ -562,7 +541,7 @@ $langFile['websiteSetup_websiteConfig_field3_tip'] = 'The copyright holder of th
 
 $langFile['websiteSetup_websiteConfig_field4'] = 'Search engine keywords';
 $langFile['websiteSetup_websiteConfig_field4_tip'] = 'The most search engines search the website content for keywords, however you should list some keywords here, which will be stored in the &lt;meta&gt; tags of the page.';
-$langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'The keywords must be separated with &quot;,&quot;::'.$langFile['text_example'].':[br /]stichwort1,stichwort2,etc';
+$langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'The keywords must be separated with &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br /]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_field5'] = 'Website description';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'A short description which will search engines use, if the searchwords were found in the website URL and not in the content.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'A short text with not more than 3 lines.';
@@ -572,7 +551,7 @@ $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'A short text with not
 */
 
 // ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/statistic.config.php';
+$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/statistic.config.php';
 
 $langFile['statisticSetup_statisticConfig_h1'] = 'Statistic-Settings';
 $langFile['statisticSetup_statisticConfig_field1'] = 'Number of the visible <b>most visited</b> pages';
@@ -602,7 +581,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'A list of the last ac
 
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Are you sure you want to delete these statistics?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -632,8 +611,8 @@ $langFile['userSetup_email_tip'] = 'If the user has forgotten his password, a ne
 $langFile['userSetup_admin'] = 'Administrator';
 $langFile['userSetup_admin_tip'] = 'Determines whether the user has administrator rights.';
 
-$langFile['userSetup_error_create'] = '<b> A new user could not be created.</b>'.$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
-$langFile['userSetup_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'].'config/user.config.php';
+$langFile['userSetup_error_create'] = '<b> A new user could not be created.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
+$langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
 
 /*
 * pluginSetup.php
@@ -646,7 +625,7 @@ $langFile['pluginSetup_description'] = 'Plugins provide enhanced capabilities fo
 
 $langFile['pluginSetup_editFiles_h1'] = 'Edit files';
 $langFile['pluginSetup_pluginconfig_active'] = 'activate Plugin';
-$langFile['pluginSetup_pluginconfig_error_save'] = $langFile['error_save_settings'].$langFile['error_save_file'].$adminConfig['basePath'];
+$langFile['pluginSetup_pluginconfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
 
 
 /*
@@ -710,7 +689,7 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'italic';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'underline';
 $langFile['editor_htmleditor_hotkeys_or'] = 'or';
 
-$langFile['editor_savepage_error_save'] .= $langFile['error_save_folder_part1'].$adminConfig['savePath'].$langFile['error_folderDatabase_end'];// also in en.shared.php
+$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Settings';

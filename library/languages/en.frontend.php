@@ -22,7 +22,7 @@
 
 
 /*
-* --- GENERAL
+// -> GENERAL <-
 */
 
 $frontendLangFile['header_button_logout'] = 'Logout::Click here to logout.';

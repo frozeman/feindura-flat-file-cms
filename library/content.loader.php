@@ -41,7 +41,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   
   include (dirname(__FILE__).'/sites/editor.php');
   
-// otherwise, load the sites
+// OTHER BUTTONSwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
 } else {
   

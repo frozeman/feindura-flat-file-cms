@@ -22,7 +22,7 @@
 
  
 /*
-* --- GENERAL
+// -> GENERAL <-
 */
 
 $frontendLangFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';

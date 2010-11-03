@@ -34,7 +34,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   
   include (dirname(__FILE__).'/processes/editor.process.php');
   
-// otherwise, load the sites
+// OTHER BUTTONSwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
 } else {
   

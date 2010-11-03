@@ -66,7 +66,7 @@ if($_POST['save']) {
     $_GET['category'] = $category;
     $_POST['category'] = $category;       
   
-    $pageContent['log_visitCount'] = 0;
+    $pageContent['log_visitorcount'] = 0;
     
     $logText = 0;
     
@@ -120,7 +120,7 @@ if($_POST['save']) {
     $_POST['styleClass'] = setStylesByPriority($xssFilter->string($_POST['styleClass']),'styleClass',$category);
     
     // gets the visit status
-    $_POST['log_visitCount'] = $pageContent['log_visitCount'];
+    $_POST['log_visitorcount'] = $pageContent['log_visitorcount'];
     $_POST['log_visitTime_max'] = $pageContent['log_visitTime_max'];
     $_POST['log_visitTime_min'] = $pageContent['log_visitTime_min'];
     $_POST['log_lastVisit'] = $pageContent['log_lastVisit'];

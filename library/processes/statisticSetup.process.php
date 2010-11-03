@@ -54,7 +54,7 @@ if($_POST['sendClearstatistics']) {
     foreach($pages as $pageContent) {
       
       // -> CLEAR the page stats
-      $pageContent['log_visitCount'] = '';
+      $pageContent['log_visitorcount'] = '';
       $pageContent['log_visitTime_min'] = '';
       $pageContent['log_visitTime_max'] = '';
       $pageContent['log_firstVisit'] = '';
@@ -70,7 +70,7 @@ if($_POST['sendClearstatistics']) {
     
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_pagesStatistics'].'<br />';
+      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'<br />';
       $statisticFunctions->saveTaskLog(20); // <- SAVE the task in a LOG FILE
     }
   }
@@ -94,7 +94,7 @@ if($_POST['sendClearstatistics']) {
     
     // set the messagebox; save tasklog
     if($documentSaved) {
-      $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_pagesStaylengthStatistics'].'<br />';
+      $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'<br />';
       $statisticFunctions->saveTaskLog(21); // <- SAVE the task in a LOG FILE
     }
   }  
@@ -106,7 +106,7 @@ if($_POST['sendClearstatistics']) {
     
     // set documentSaved status
     $documentSaved = true;
-    $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_websiteStatistic'].'<br />';
+    $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'<br />';
     $statisticFunctions->saveTaskLog(22); // <- SAVE the task in a LOG FILE
   }
   
@@ -117,7 +117,7 @@ if($_POST['sendClearstatistics']) {
     
     // set documentSaved status
     $documentSaved = true;
-    $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_refererLog'].'<br />';
+    $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'<br />';
     $statisticFunctions->saveTaskLog(23); // <- SAVE the task in a LOG FILE
   }
   
@@ -128,7 +128,7 @@ if($_POST['sendClearstatistics']) {
     
     // set documentSaved status
     $documentSaved = true;
-    $messageBoxText .= '&rArr; '.$langFile['log_clearStatistic_taskLog'].'<br />';
+    $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br />';
     $statisticFunctions->saveTaskLog(24); // <- SAVE the task in a LOG FILE
   }
   

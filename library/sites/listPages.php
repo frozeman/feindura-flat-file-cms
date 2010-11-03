@@ -39,7 +39,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // shows the PAGES in NO CATEGORIES (the page/ folder),
 // by adding a empty category to the $categoryConfig array
 $allCategories= $categoryConfig;
-array_unshift($allCategories,array('id' => 0,'name' => $langFile['categories_noncategory_tip']));
+array_unshift($allCategories,array('id' => 0,'name' => $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']));
 
 // -----------------------------------------------------------------------------------------------------------
 // ->> LIST CATEGORIES
@@ -61,10 +61,10 @@ foreach($allCategories as $category) {
   // show whether the category is public or nonpublic
   if($category['public']) {
     $publicClass = ' public';
-    $publicText = $langFile['status_category_public'];
+    $publicText = $langFile['STATUS_CATEGORY_PUBLIC'];
   } else {
     $publicClass = ' nonpublic';
-    $publicText = $langFile['status_category_nonpublic'];
+    $publicText = $langFile['STATUS_CATEGORY_NONPUBLIC'];
   }
   
   // shows ID and different header color if its a CATEGORY
@@ -97,7 +97,7 @@ foreach($allCategories as $category) {
       
       // create page
       if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $category['createdelete'])
-        echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['btn_createPage_tip'].'::" class="createPage toolTip">&nbsp;</a>';
+        echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['BUTTON_TOOLTIP_CREATEPAGE'].'::" class="createPage toolTip">&nbsp;</a>';
          
   echo '  </div>
         </div>
@@ -127,10 +127,10 @@ foreach($allCategories as $category) {
 
       if($pageContent['public']) {
         $publicClass = ' public';
-        $publicText = $langFile['status_page_public'];
+        $publicText = $langFile['STATUS_PAGE_PUBLIC'];
       } else {
         $publicClass = ' nonpublic';
-        $publicText = $langFile['status_page_nonpublic'];
+        $publicText = $langFile['STATUS_PAGE_NONPUBLIC'];
       }
       
       // shorten the title
@@ -181,7 +181,7 @@ foreach($allCategories as $category) {
         echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
       else
         echo '<div class="lastSaveDate">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
-      echo '<div class="counter">&nbsp;&nbsp;'.$statisticFunctions->formatHighNumber($pageContent['log_visitCount']).'</div>
+      echo '<div class="counter">&nbsp;&nbsp;'.$statisticFunctions->formatHighNumber($pageContent['log_visitorcount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS
@@ -189,18 +189,18 @@ foreach($allCategories as $category) {
  
       // thumbnail upload
       if(($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnail'])
-        echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailUpload'].'\');return false;" title="'.$langFile['btn_pageThumbnailUpload_tip'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
+        echo '<a href="?site=pageThumbnailUpload&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::" class="pageThumbnailUpload toolTip">&nbsp;</a>';
       
       // thumbnail upload delete
       if((($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
-        echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_pageThumbnailDelete'].'\');return false;" title="'.$langFile['btn_pageThumbnailDelete_tip'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
+        echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
                
       // edit page
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
       
       // delete page
       if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $allCategories[$category['id']]['createdelete'])
-        echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['btn_deletePage'].'\');return false;" title="'.$langFile['btn_deletePage'].'::" class="deletePage toolTip">&nbsp;</a>';
+        echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTip">&nbsp;</a>';
 
       // startpage
       if($adminConfig['setStartPage']) {

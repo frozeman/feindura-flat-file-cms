@@ -612,7 +612,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['styleId'] =            '".$pageContent['styleId']."';\n");
       fwrite($file,"\$pageContent['styleClass'] =         '".$pageContent['styleClass']."';\n\n");
       
-      fwrite($file,"\$pageContent['log_visitCount'] =     '".$pageContent['log_visitCount']."';\n");
+      fwrite($file,"\$pageContent['log_visitorcount'] =   '".$pageContent['log_visitorcount']."';\n");
       fwrite($file,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n");
       fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n");
       fwrite($file,"\$pageContent['log_firstVisit'] =     '".$pageContent['log_firstVisit']."';\n");
@@ -1051,7 +1051,7 @@ class generalFunctions {
     if(is_array($pageContentArrays) && isset($pageContentArrays[0])) {
     
       // CHECK if the arrays are valid $pageContent arrays
-      // otherwise return the unchanged array
+      // OTHER BUTTONSwise return the unchanged array
       if(!$this->isPageContentArray($pageContentArrays[0]))
         return $pageContentArrays;
       
@@ -1148,7 +1148,7 @@ class generalFunctions {
         ? $this->adminConfig['editor'][$styleType]
         : $this->categoryConfig[$category][$styleType];
     
-    // otherwise it passes through the $givenStyle parameter
+    // OTHER BUTTONSwise it passes through the $givenStyle parameter
     } else
       return $givenStyle;
     

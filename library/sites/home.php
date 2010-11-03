@@ -88,18 +88,18 @@ if(!empty($adminConfig['user']['info'])) {
     // --------------------------------
     // USER COUNTER
     echo '<div class="innerBlockLeft">';
-    echo '<h2>'.$langFile['log_visitCount'].'</h2>';
+    echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
       
       $latestVisitCacheTimeText = (!empty($currentVisitors[0]['time']))
-        ? $langFile['log_currentVisitors_lastActivity'].' '.$statisticFunctions->formatTime($currentVisitors[0]['time'])
-        : $langFile['log_currentVisitors'];
+        ? $langFile['STATISTICS_TEXT_LASTACTIVITY'].' '.$statisticFunctions->formatTime($currentVisitors[0]['time'])
+        : $langFile['STATISTICS_TEXT_CURRENTVISITORS'];
       
       echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
       
       echo '<span class="visitCountNumber brown">'.$statisticFunctions->formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
       
       echo '<div style="line-height: 18px;">';
-        echo '<span class="toolTip blue" title="'.$langFile['log_spiderCount_tip'].'">'.$langFile['log_spiderCount'].' '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
+        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'].'">'.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
         // CURRENT VISITORS
         $countVisitor = 0;
         $countSpider = 0;
@@ -109,7 +109,7 @@ if(!empty($adminConfig['user']['info'])) {
           else
             $countSpider++;
         }
-        echo '<span class="toolTip blue" title="'.$latestVisitCacheTimeText.'::"><b>'.$langFile['log_currentVisitors'].'</b> '.$countVisitor.' ('.$langFile['log_spiderCount'].' '.$countSpider.')</span>';
+        echo '<span class="toolTip blue" title="'.$latestVisitCacheTimeText.'::"><b>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</b> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.$countSpider.')</span>';
       echo '</div>';  
       echo '<hr class="small" />';
       echo '</div>';     
@@ -118,9 +118,9 @@ if(!empty($adminConfig['user']['info'])) {
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';       
         // FIRST VISIT
-        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['log_firstVisit'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
         // LADST VISIT
-        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['log_lastVisit'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
         
         echo '</div>';
       }
@@ -129,7 +129,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> CURRENT VISITORS
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['log_currentVisitors'].'</h2>';    
+    echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';
       
@@ -154,7 +154,7 @@ if(!empty($adminConfig['user']['info'])) {
           : '';
                 
         if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
-          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['log_currentVisitors_lastActivity'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
+          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
         
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
@@ -173,7 +173,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<br style="clear:both;" /><br />';
     
     // -> inBlockSlider
-    echo '<div style="text-align:center;"><a href="#" class="inBlockSliderLink down">'.$langFile['log_pageStatistics'].'</a></div><br />';
+    echo '<div style="text-align:center;"><a href="#" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
     
     echo '<div class="verticalSeparator"></div>';
     
@@ -190,8 +190,8 @@ if(!empty($adminConfig['user']['info'])) {
       
       $count = 1;
       foreach($pages as $page) {
-        if(!empty($page['log_visitCount'])) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitCount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
+        if(!empty($page['log_visitorcount'])) {
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitorcount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
           // count
@@ -278,7 +278,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<br />';
     
     // SHOW tag CLOUD
-    echo '<h3 style="text-align:center;">'.$langFile['log_tags_description'].'</h3>';
+    echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h3>';
     echo '<div class="tagCloud">';
     if($tagCloud = $statisticFunctions->createTagCloud($allSearchwords))
       echo $tagCloud;
@@ -290,7 +290,7 @@ if(!empty($adminConfig['user']['info'])) {
      
     // ---------------------------------
     // -> BROWSER CHART
-    echo '<h3 style="text-align:center;">'.$langFile['home_browser_h1'].'</h3>';
+    echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h3>';
     if($browserChart = $statisticFunctions->createBrowserChart($websiteStatistic['browser']))
       echo $browserChart;
     else

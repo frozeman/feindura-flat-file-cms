@@ -93,15 +93,15 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       
       <!-- THUMB WIDTH -->
       <tr><td class="left">
-      <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['thumbnail_width_tip'] ?>">
-      <?php echo $langFile['thumbnail_name_width'] ?></span></label>
+      <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_WIDTH'] ?>">
+      <?php echo $langFile['THUMBNAIL_TEXT_WIDTH'] ?></span></label>
       </td><td class="right">
         <input id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?> />
-        <?php echo $langFile['thumbSize_unit']; ?>
+        <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_x_tip']; ?>::">
+        <span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::">
           <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?> />
-          <label for="ratioX"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
+          <label for="ratioX"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
         </span>
       </td></tr>
       
@@ -121,15 +121,15 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       
       <!-- THUMB HEIGHT -->
       <tr><td class="left">
-      <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['thumbnail_height_tip'] ?>">
-      <?php echo $langFile['thumbnail_name_height'] ?></span></label>
+      <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] ?>">
+      <?php echo $langFile['THUMBNAIL_TEXT_HEIGHT'] ?></span></label>
       </td><td class="right">
         <input id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?> />
-        <?php echo $langFile['thumbSize_unit']; ?>
+        <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_y_tip']; ?>::">
+        <span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::">
           <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?> />
-          <label for="ratioY"> <?php echo $langFile['thumbnail_ratio_fieldText']; ?></label>
+          <label for="ratioY"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
         </span>
       </td></tr>
       
@@ -149,8 +149,8 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       <tr><td class="left">
       <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?> />
       </td><td class="right">
-        <span class="toolTip" title="<?php echo $langFile['thumbnail_ratio_noRatio_tip']; ?>::">
-          <label for="noRatio"> <?php echo $langFile['thumbnail_ratio_noRatio']; ?></label>
+        <span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::">
+          <label for="noRatio"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></label>
         </span>
       </td></tr>
       
@@ -355,9 +355,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';        
                 // shows the public or unpublic picture
                 if($checked[1])
-                  echo '<img src="library/images/sign/category_public.png" alt="public" class="toolTip" title="'.$langFile['status_category_public'].'"'.$publicSignStyle.' />&nbsp;';
+                  echo '<img src="library/images/sign/category_public.png" alt="public" class="toolTip" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' />&nbsp;';
                 else
-                  echo '<img src="library/images/sign/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['status_category_nonpublic'].'"'.$publicSignStyle.' />&nbsp;';
+                  echo '<img src="library/images/sign/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' />&nbsp;';
                 
                 echo '<span class="toolTip" title="'.$langFile['pageSetup_check1'].'::'.$langFile['pageSetup_check1_tip'].'">'.$langFile['pageSetup_check1'].'</span></label>
                 </td></tr>';
@@ -431,28 +431,28 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['pageSetup_advancedSettings_hint'].'</span></td></tr>';
           
           echo '<tr><td class="left">
-                <span class="toolTip" title="'.$langFile['stylesheet_name_styleFile'].'::'.$langFile['stylesheet_styleFile_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
-                '.$langFile['stylesheet_name_styleFile'].'</span>
+                <span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
+                '.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'</span>
                 </td><td class="right">
-                <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['path_absolutepath_tip'].'::[span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
-                <span class="hint" style="float:right;width:190px;">'.$langFile['stylesheet_styleFile_example'].'</span>';
+                <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['PATHS_TOOLTIP_ABSOLUTE'].'::[span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
+                <span class="hint" style="float:right;width:190px;">'.$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'].'</span>';
                 
           echo showStyleFileInputs($generalFunctions->getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
 
           echo '</div>
-                <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['stylesheet_styleFile_addButton_tip'].'::"></a>              
+                <a href="#" class="addStyleFilePath toolTip" title="'.$langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'].'::"></a>              
                 </td></tr>';
                 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['stylesheet_name_styleId'].'::'.$langFile['stylesheet_styleId_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
-                '.$langFile['stylesheet_name_styleId'].'</span></label>
+                <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
+                '.$langFile['STYLESHEETS_TEXT_ID'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.$generalFunctions->getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
                 </td></tr>';
                 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['stylesheet_name_styleClass'].'::'.$langFile['stylesheet_styleClass_tip'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
-                '.$langFile['stylesheet_name_styleClass'].'</span></label>
+                <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['pageSetup_stylesheet_ifempty'].'[/span]">
+                '.$langFile['STYLESHEETS_TEXT_CLASS'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.$generalFunctions->getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['pageSetup_stylesheet_ifempty'].'" />
                 </td></tr>';
@@ -461,15 +461,15 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
                // category thumbSize 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['thumbnail_width_tip'].'">
-                '.$langFile['thumbnail_name_width'].'</span></label>
+                <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_WIDTH'].'">
+                '.$langFile['THUMBNAIL_TEXT_WIDTH'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[9].' />
-                '.$langFile['thumbSize_unit'].'
+                '.$langFile['THUMBNAIL_TEXT_UNIT'].'
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span class="toolTip" title="'.$langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_x_tip'].'">
+                  <span class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X'].'">
                     <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[9].' />
-                    <label for="categories'.$category['id'].'ratioX"> '.$langFile['thumbnail_ratio_fieldText'].'</label>
+                    <label for="categories'.$category['id'].'ratioX"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
                   </span>
                 </td></tr>';
           
@@ -484,15 +484,15 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td></tr>';
               
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['thumbnail_height_tip'].'">
-                '.$langFile['thumbnail_name_height'].'</span></label>
+                <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_HEIGHT'].'">
+                '.$langFile['THUMBNAIL_TEXT_HEIGHT'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[10].' />
-                '.$langFile['thumbSize_unit'].'
+                '.$langFile['THUMBNAIL_TEXT_UNIT'].'
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span class="toolTip" title="'.$langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_y_tip'].'">
+                  <span class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y'].'">
                     <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[10].' />
-                    <label for="categories'.$category['id'].'ratioY"> '.$langFile['thumbnail_ratio_fieldText'].'</label>
+                    <label for="categories'.$category['id'].'ratioY"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
                   </span>
                 </td></tr>';
                 
@@ -510,8 +510,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <tr><td class="left">
                 <input type="radio" id="categories'.$category['id'].'noRatio" name="categories['.$category['id'].'][thumbRatio]" value="" '.$checked[8].' />
                 </td><td class="right">
-                  <span class="toolTip" title="'.$langFile['thumbnail_ratio_name'].'::'.$langFile['thumbnail_ratio_noRatio_tip'].'">
-                    <label for="categories'.$category['id'].'noRatio"> '.$langFile['thumbnail_ratio_noRatio'].'</label>
+                  <span class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO'].'">
+                    <label for="categories'.$category['id'].'noRatio"> '.$langFile['THUMBNAIL_TEXT_FIXEDRATIO'].'</label>
                   </span>
                 </td></tr>';
           

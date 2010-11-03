@@ -82,7 +82,7 @@ function ausgabeblock_start($count,$pageContent) {
   if(isset($categoryConfig[$pageContent['category']]['name']))
     $categoryName = '&rArr; '.$categoryConfig[$pageContent['category']]['name'];
   elseif($pageContent['category'] == 0)
-    $categoryName = '&rArr; '.$GLOBALS['langFile']['categories_noncategory_tip'];
+    $categoryName = '&rArr; '.$GLOBALS['langFile']['CATEGORIES_TOOLTIP_NONCATEGORY'];
   
   // -> RETURN OUTPUT LAYOUT
   return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>'.$categoryName.'</span></h3><p>';

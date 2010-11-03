@@ -112,7 +112,7 @@ var tokenizeXquery = (function() {
             allKeywords[keywordsList['xqueryKeywordC'][i]] = result("xqueryKeywordC", "xqueryKeyword");
         }
 
-        // other xquery keywords
+        // OTHER BUTTONS xquery keywords
         allKeywords = objectConcat(allKeywords, {
             "as": result("operator", "xqueryKeyword"),
             "in": result("operator", "xqueryKeyword"),

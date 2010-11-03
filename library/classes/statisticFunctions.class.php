@@ -482,19 +482,19 @@ class statisticFunctions {
     // get the time together
     if($hour) {
       if($hour == 1)
-        $printTime = $printTime.' <b>'.$langFile['log_hour_single'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_HOUR_SINGULAR'].'</b>';
       else
-        $printTime = $printTime.' <b>'.$langFile['log_hour_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_HOUR_PLURAL'].'</b>';
     } elseif($minute) {
       if($minute == 1)
-        $printTime = $printTime.' <b>'.$langFile['log_minute_single'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_MINUTE_SINGULAR'].'</b>';
       else
-        $printTime = $printTime.' <b>'.$langFile['log_minute_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_MINUTE_PLURAL'].'</b>';
     } elseif($second) {
       if($second == 1)
-        $printTime = $printTime.' <b>'.$langFile['log_second_single'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_SECOND_SINGULAR'].'</b>';
       else
-        $printTime = $printTime.' <b>'.$langFile['log_second_multiple'].'</b>';
+        $printTime = $printTime.' <b>'.$langFile['STATISTICS_TEXT_SECOND_PLURAL'].'</b>';
     }
     
     // RETURN formated time
@@ -838,7 +838,7 @@ class statisticFunctions {
               $browserTextColor = '#000000';
               break;
             default:
-              $browserName = $GLOBALS['langFile']['log_browser_others'];
+              $browserName = $GLOBALS['langFile']['STATISTICS_TEXT_BROWSERCHART_OTHERS'];
               $browserColor = 'url(library/images/bg/browserBg_others.png)';
               $browserLogo = 'browser_others.png';
               $browserTextColor = '#000000';
@@ -884,7 +884,7 @@ class statisticFunctions {
           }
           
           // SHOW the table cell with the right browser and color
-          $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['log_visitCount'].'">
+          $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                       <div style="position: relative;">
                       <img src="library/images/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
                       </div>
@@ -942,7 +942,7 @@ class statisticFunctions {
         else
           $tagsHref = urlencode(utf8_encode(html_entity_decode($tag['data'],ENT_QUOTES,'ISO-8859-15')));
         
-        $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['log_searchwordtothissite_part2'].'::'.$GLOBALS['langFile']['log_searchwordtothissite_tip'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
+        $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
       
       }
     }    
@@ -1530,7 +1530,7 @@ class statisticFunctions {
       // -----------------------------
       if(empty($pageContent['log_firstVisit'])) {
         $pageContent['log_firstVisit'] = time();
-        $pageContent['log_visitCount'] = 0;
+        $pageContent['log_visitorcount'] = 0;
       }
       
       // -> saves the LAST PAGE VISIT
@@ -1543,8 +1543,8 @@ class statisticFunctions {
         $_SESSION['log_visitedPages'] = array();
         
       if(in_array($pageContent['id'],$_SESSION['log_visitedPages']) === false) {
-        //echo $pageContent['id'].' -> '.$pageContent['log_visitCount'];
-        $pageContent['log_visitCount']++;
+        //echo $pageContent['id'].' -> '.$pageContent['log_visitorcount'];
+        $pageContent['log_visitorcount']++;
         // add to the array of already visited pages
         $_SESSION['log_visitedPages'][] = $pageContent['id'];
       }
