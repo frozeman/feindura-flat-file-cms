@@ -765,7 +765,7 @@ $langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich 
 $langFile['BACKUP_TITLE_BACKUP'] = 'Backup';
 $langFile['BACKUP_TITLE_RESTORE'] = 'Wiederherstellen';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup herunterladen';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
 $langFile['BACKUP_TEXT_RESTORE'] = 'Lade hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei hoch um einen alten Stand wieder herzustellen.<br /><span class="red">Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Letzte Backups';

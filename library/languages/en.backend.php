@@ -766,7 +766,7 @@ $langFile['pagethumbnail_upload_response_finish'] = 'Succesfully uploaded the im
 $langFile['BACKUP_TITLE_BACKUP'] = 'Backup';
 $langFile['BACKUP_TITLE_RESTORE'] = 'Restore';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'download current backup';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create and download current backup';
 $langFile['BACKUP_TEXT_RESTORE'] = 'Upload here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="red">All current settings and pages will be overwritten!</span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Last backups';
