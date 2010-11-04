@@ -37,9 +37,10 @@
 * @package [Plugins]
 * @subpackage imageGallery
 * 
-* @version 1.0
+* @version 1.01
 * <br />
 * <b>ChangeLog</b><br />
+*    - 1.01 fixed file extension, made to lowercase
 *    - 1.0 initial release
 * 
 */
@@ -220,7 +221,7 @@ class imageGallery {
         if($fileExtension == 'jpg' || $fileExtension == 'jpeg' || $fileExtension == 'png' || $fileExtension == 'gif') {
           $this->galleryPath = dirname($file).'/';
           
-          $this->images[$count]['filename'] = basename($file);        
+          $this->images[$count]['filename'] = basename($file);
           $this->images[$count]['text'] = (is_array($imageTexts) && array_key_exists($this->images[$count]['filename'],$imageTexts))
             ? $imageTexts[$this->images[$count]['filename']]
             : '' ;
@@ -323,7 +324,7 @@ class imageGallery {
       return false;
     
     // vars
-    $imageExtension = pathinfo($imagePath, PATHINFO_EXTENSION);    
+    $imageExtension = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));    
     $imagesize = getimagesize($_SERVER["DOCUMENT_ROOT"].$imagePath);
       
     // -> CALCULATE the RATIO, IF RATIO is X or Y
@@ -405,7 +406,7 @@ class imageGallery {
       if($sizeDifference && ($newImg = $this->resize($imagePath,$this->imageWidth,$this->imageHeight))) {
         
         // var        
-        $imageExtension = pathinfo($image['filename'], PATHINFO_EXTENSION);
+        $imageExtension = strtolower(pathinfo($image['filename'], PATHINFO_EXTENSION));
         
         // deletes the uploaded original file
         unlink($_SERVER["DOCUMENT_ROOT"].$imagePath);
@@ -500,7 +501,7 @@ class imageGallery {
       if((!file_exists($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/thumb_'.$image['filename']) || $sizeDifference) && ($newImg = $this->resize($imagePath,$this->thumbnailWidth,$this->thumbnailHeight))) {
         
         // var        
-        $imageExtension = pathinfo($image['filename'], PATHINFO_EXTENSION);
+        $imageExtension = strtolower(pathinfo($image['filename'], PATHINFO_EXTENSION));
         
         // SAVEIMAGE png
         if($imageExtension == 'gif')
