@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta
-Build 465
+Build 466
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta
   
+  build 466: worked on backup restore
   build 465: add CKEditor 3.4.2
   build 464: fixed file extension, made to lowercase in imageGallery
   build 463: fixed links to rontend and languages files

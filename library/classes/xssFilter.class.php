@@ -32,6 +32,8 @@
 * 
 * @package [Implementation]-[Backend]
 * 
+* @todo maybe use http://php.net/manual/de/function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
+* 
 * @version 0.11
 * <br>
 *  <b>ChangeLog</b><br>

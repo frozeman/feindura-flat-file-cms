@@ -80,6 +80,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
   } else
     $errorWindow .= $langFile['statisticSetup_statisticConfig_error_save'];
   
+  $savedForm = 'restorBackup';
 }
 
 ?>

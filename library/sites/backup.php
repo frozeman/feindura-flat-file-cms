@@ -25,9 +25,13 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
+
+// -> var
+$backupFolder = $adminConfig['basePath'].'backups/';
+
+// -> check if the folder is writeable
 $unwriteableList = false;
-$checkFolder = $adminConfig['basePath'].'backups/';
-$unwriteableList .= isWritableWarning($checkFolder);
+$unwriteableList .= isWritableWarning($backupFolder);
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {
@@ -55,21 +59,46 @@ if($unwriteableList && checkBasePath()) {
 </div>
 
 <!-- RESTORE -->
-<div class="block">
-  <h1><?= $langFile['BACKUP_TITLE_RESTORE']; ?></h1>
+<?php
+// shows the block below if it is the ones which is saved before
+$hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
+?>
+<div class="block<?= $hidden ?>">
+  <h1><a href="#"><?= $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>
   <div class="content">  
   
   <form action="index.php?site=backup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="restoreForm">
     <div>
     <input type="hidden" name="send" value="restore" />
     </div>
-    
-    <?= $langFile['BACKUP_TEXT_RESTORE']; ?><br />
+    <p><?= $langFile['BACKUP_TEXT_RESTORE']; ?></p><br />
     <br />
     <div style="text-align: center;">
-    <img src="library/images/sign/backup_restore.png" /><input type="file" name="backupRestoreFile" style="position: relative;top: -25px;" />
-    </div>
+    <?php
     
+    $backups = $generalFunctions->readFolder($backupFolder);      
+    if(!empty($backups['files'])) {
+      
+      echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';
+      echo '<div class="verticalSeparator"></div><br />';
+      
+      natsort($backups['files']);
+      $backups['files'] = array_reverse($backups['files']);
+      foreach($backups['files'] as $backupFile) {
+        $backupTime = filemtime(DOCUMENTROOT.$backupFile);
+        $backupTime = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($backupTime)).' '.$statisticFunctions->formatTime($backupTime);
+        echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'"> <label for="backupFile'.$backupFile.'">'.$backupTime."</label><br /><br />\n";
+      } 
+    }
+    
+    ?>
+    <br />
+    <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
+    <div class="verticalSeparator"></div>
+    <img src="library/images/sign/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
+    </div>    
+    <br />
+    <br />    
     <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
   </form>
   </div>

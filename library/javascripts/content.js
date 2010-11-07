@@ -164,6 +164,14 @@ function submitAnchor(formId,anchorName) {
 // *** ->> CONTENT - functions -----------------------------------------------------------------------------------------------------------------------
 
 // -------------------------------------------------
+// remove the checked="checked" property from a selection of elements
+function removeChecked(selector) {
+  $$(selector).each(function(selection) {
+    selection.removeProperty('checked');
+  });
+}
+
+// -------------------------------------------------
 // auto resize of the THUMBNAIL-PREVIEW
 function autoResizeThumbnailPreview() {
   $$('.thumbnailPreview').each(function(thumbnail) {
@@ -835,8 +843,7 @@ window.addEvent('domready', function() {
     // initialize the replacment
     myCfe.init({scope: $('content')});
   }
-  */
-  
+  */  
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
      

@@ -765,10 +765,13 @@ $langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich 
 $langFile['BACKUP_TITLE_BACKUP'] = 'Backup';
 $langFile['BACKUP_TITLE_RESTORE'] = 'Wiederherstellen';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
-$langFile['BACKUP_TEXT_RESTORE'] = 'Lade hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei hoch um einen alten Stand wieder herzustellen.<br /><span class="red">Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span>';
+$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Vorhandene Backups';
+$langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Backup-Datei hochladen';
 
-$langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Letzte Backups';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
+$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="red">Achtung! Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span>';
+
+$langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup-Datei wurde nicht gefunden in:';
