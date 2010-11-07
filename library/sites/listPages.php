@@ -33,7 +33,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   <div class="functions"><?php echo $langFile['sortablePageList_headText5']; ?></div>
 </div>
 
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" accept-charset="UTF-8">
+<form action="<?= $generalFunctions->getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
 <?php
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),

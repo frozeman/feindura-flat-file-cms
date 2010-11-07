@@ -314,6 +314,36 @@ class generalFunctions {
   }
 
  /**
+  * <b>Name</b> getCurrentUrl()<br>
+  * 
+  * Return the current URL ($_SERVER['REQUEST_URI']), optional with add parameters.
+  * 
+  * @param string $parameter (optional) a string of parameter(s) to add, with the following format: "key=value&key2=value2..."
+  * 
+  * @return string the current url
+  * 
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  function getCurrentUrl($parameter = null) {
+    
+    $currentURL = $_SERVER['REQUEST_URI'];
+    
+    if(!empty($parameter)) {
+      $currentUrl = (strpos($currentURL,'?') === false)
+        ? $_SERVER['REQUEST_URI'].'?'
+        : $_SERVER['REQUEST_URI'].'&';
+      
+      return $currentUrl.$parameter;
+    } else
+      return $currentURL;
+  }
+
+ /**
   * <b>Name</b> getStoredPageIds()<br>
   * 
   * Fetches the {@link $storedPageIds} property.

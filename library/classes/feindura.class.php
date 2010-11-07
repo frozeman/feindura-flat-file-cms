@@ -1040,10 +1040,6 @@ class feindura extends feinduraBase {
         // set fileManager
         //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
         
-        $currentUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false)
-        ? $_SERVER['REQUEST_URI'].'?'
-        : $_SERVER['REQUEST_URI'].'&';
-        
         // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */  
@@ -1086,7 +1082,7 @@ class feindura extends feinduraBase {
   // ->> create TOP BAR
   Mooml.register('feindura_topBarTemplate', function() {
       div({id: 'feindura_topBar'},
-          a({ 'href': '".$currentUrl."feindura_logout', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }, ''),
+          a({ 'href': '".$this->generalFunctions->getCurrentUrl('feindura_logout')."', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }, ''),
           a({ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'class': 'feindura_toBackend feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, ''),
           a({ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, '')
          )
