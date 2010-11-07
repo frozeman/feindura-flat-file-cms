@@ -2,8 +2,8 @@
 	/**
 	 * File: Browser.php
 	 * Author: Chris Schuld (http://chrisschuld.com/)
-	 * Last Modified: April 27, 2010
-	 * @version 1.8
+	 * Last Modified: August 20th, 2010
+	 * @version 1.9
 	 * @package PegasusPHP
 	 *
 	 * Copyright (C) 2008-2010 Chris Schuld  (chris@chrisschuld.com)
@@ -32,6 +32,79 @@
 	 * This implementation is based on the original work from Gary White
 	 * http://apptools.com/phptools/browser/
 	 *
+	 * UPDATES:
+	 *
+	 * 2010-08-20 (v1.9):
+	 *  + Added MSN Explorer Browser (legacy)
+	 *  + Added Bing/MSN Robot (Thanks Rob MacDonald)
+	 *  + Added the Android Platform (PLATFORM_ANDROID)
+	 *  + Fixed issue with Android 1.6/2.2 (Thanks Tom Hirashima)
+	 *
+	 * 2010-04-27 (v1.8):
+	 *  + Added iPad Support
+	 *
+	 * 2010-03-07 (v1.7):
+	 *  + *MAJOR* Rebuild (preg_match and other "slow" routine removal(s))
+	 *  + Almost allof Gary's original code has been replaced
+	 *  + Large PHPUNIT testing environment created to validate new releases and additions
+	 *  + Added FreeBSD Platform
+	 *  + Added OpenBSD Platform
+	 *  + Added NetBSD Platform
+	 *  + Added SunOS Platform
+	 *  + Added OpenSolaris Platform
+	 *  + Added support of the Iceweazel Browser
+	 *  + Added isChromeFrame() call to check if chromeframe is in use
+	 *  + Moved the Opera check in front of the Firefox check due to legacy Opera User Agents
+	 *  + Added the __toString() method (Thanks Deano)
+	 *
+	 * 2009-11-15:
+	 *  + Updated the checkes for Firefox
+	 *  + Added the NOKIA platform
+	 *  + Added Checks for the NOKIA brower(s)
+	 *  
+	 * 2009-11-08:
+	 *  + PHP 5.3 Support
+	 *  + Added support for BlackBerry OS and BlackBerry browser
+	 *  + Added support for the Opera Mini browser
+	 *  + Added additional documenation
+	 *  + Added support for isRobot() and isMobile()
+	 *  + Added support for Opera version 10
+	 *  + Added support for deprecated Netscape Navigator version 9
+	 *  + Added support for IceCat
+	 *  + Added support for Shiretoko
+	 *
+	 * 2010-04-27 (v1.8):
+	 *  + Added iPad Support
+	 *
+	 * 2009-08-18:
+	 *  + Updated to support PHP 5.3 - removed all deprecated function calls
+	 *  + Updated to remove all double quotes (") -- converted to single quotes (')
+	 *
+	 * 2009-04-27:
+	 *  + Updated the IE check to remove a typo and bug (thanks John)
+	 *
+	 * 2009-04-22:
+	 *  + Added detection for GoogleBot
+	 *  + Added detection for the W3C Validator.
+	 *  + Added detection for Yahoo! Slurp
+	 *
+	 * 2009-03-14:
+	 *  + Added detection for iPods.
+	 *  + Added Platform detection for iPhones
+	 *  + Added Platform detection for iPods
+	 *
+	 * 2009-02-16: (Rick Hale)
+	 *  + Added version detection for Android phones.
+	 *
+	 * 2008-12-09:
+	 *  + Removed unused constant
+	 *
+	 * 2008-11-07:
+	 *  + Added Google's Chrome to the detection list
+	 *  + Added isBrowser(string) to the list of functions special thanks to
+	 *    Daniel 'mavrick' Lang for the function concept (http://mavrick.id.au)
+	 *
+	 *
 	 * Gary White noted: "Since browser detection is so unreliable, I am
 	 * no longer maintaining this script. You are free to use and or
 	 * modify/update it as you want, however the author assumes no
@@ -57,69 +130,6 @@
 	 *   Added detection for BlackBerry
 	 *   Removed Netscape checks (matches heavily with firefox & mozilla)
 	 *
-	 *
-	 * ADDITIONAL UPDATES:
-	 *
-	 * 2008-11-07:
-	 *  + Added Google's Chrome to the detection list
-	 *  + Added isBrowser(string) to the list of functions special thanks to
-	 *    Daniel 'mavrick' Lang for the function concept (http://mavrick.id.au)
-	 *
-	 * 2008-12-09:
-	 *  + Removed unused constant
-	 *
-	 * 2009-02-16: (Rick Hale)
-	 *  + Added version detection for Android phones.
-	 *
-	 * 2009-03-14:
-	 *  + Added detection for iPods.
-	 *  + Added Platform detection for iPhones
-	 *  + Added Platform detection for iPods
-	 *
-	 * 2009-04-22:
-	 *  + Added detection for GoogleBot
-	 *  + Added detection for the W3C Validator.
-	 *  + Added detection for Yahoo! Slurp
-	 *
-	 * 2009-04-27:
-	 *  + Updated the IE check to remove a typo and bug (thanks John)
-	 *
-	 * 2009-08-18:
-	 *  + Updated to support PHP 5.3 - removed all deprecated function calls
-	 *  + Updated to remove all double quotes (") -- converted to single quotes (')
-	 *
-	 * 2009-11-08:
-	 *  + PHP 5.3 Support
-	 *  + Added support for BlackBerry OS and BlackBerry browser
-	 *  + Added support for the Opera Mini browser
-	 *  + Added additional documenation
-	 *  + Added support for isRobot() and isMobile()
-	 *  + Added support for Opera version 10
-	 *  + Added support for deprecated Netscape Navigator version 9
-	 *  + Added support for IceCat
-	 *  + Added support for Shiretoko
-	 * 2009-11-15:
-	 *  + Updated the checkes for Firefox
-	 *  + Added the NOKIA platform
-	 *  + Added Checks for the NOKIA brower(s)
-	 *
-	 *
-	 * 2010-03-07 (v1.7):
-	 *  + *MAJOR* Rebuild (preg_match and other "slow" routine removal(s))
-	 *  + Almost allof Gary's original code has been replaced
-	 *  + Large PHPUNIT testing environment created to validate new releases and additions
-	 *  + Added FreeBSD Platform
-	 *  + Added OpenBSD Platform
-	 *  + Added NetBSD Platform
-	 *  + Added SunOS Platform
-	 *  + Added OpenSolaris Platform
-	 *  + Added support of the Iceweazel Browser
-	 *  + Added isChromeFrame() call to check if chromeframe is in use
-	 *  + Moved the Opera check in front of the Firefox check due to legacy Opera User Agents
-	 *  + Added the __toString() method (Thanks Deano)
-	 *
-	 * 2010-04-27 (v1.8):
-	 *  + Added iPad Support
 	 */
 
 	class Browser {
@@ -164,7 +174,10 @@
 		const BROWSER_ICECAT = 'IceCat';                          // http://en.wikipedia.org/wiki/GNU_IceCat
 		const BROWSER_NOKIA_S60 = 'Nokia S60 OSS Browser';        // http://en.wikipedia.org/wiki/Web_Browser_for_S60
 		const BROWSER_NOKIA = 'Nokia Browser';                    // * all other WAP-based browsers on the Nokia Platform
-
+		const BROWSER_MSN = 'MSN Browser';                        // http://explorer.msn.com/
+		const BROWSER_MSNBOT = 'MSN Bot';                         // http://search.msn.com/msnbot.htm
+		                                                          // http://en.wikipedia.org/wiki/Msnbot  (used for Bing as well)
+		
 		const BROWSER_NETSCAPE_NAVIGATOR = 'Netscape Navigator';  // http://browser.netscape.com/ (DEPRECATED)
 		const BROWSER_GALEON = 'Galeon';                          // http://galeon.sourceforge.net/ (DEPRECATED)
 		const BROWSER_NETPOSITIVE = 'NetPositive';                // http://en.wikipedia.org/wiki/NetPositive (DEPRECATED)
@@ -187,7 +200,8 @@
 		const PLATFORM_NETBSD = 'NetBSD';
 		const PLATFORM_SUNOS = 'SunOS';
 		const PLATFORM_OPENSOLARIS = 'OpenSolaris';
-
+		const PLATFORM_ANDROID = 'Android';
+		
 		const OPERATING_SYSTEM_UNKNOWN = 'unknown';
 
 		public function Browser($useragent="") {
@@ -358,7 +372,6 @@
 				$this->checkBrowserFirefox() ||
 				$this->checkBrowserChrome() ||
 				$this->checkBrowserOmniWeb() ||
-				$this->checkBrowserSafari() ||
 
 				// common mobile
 				$this->checkBrowserAndroid() ||
@@ -370,8 +383,12 @@
 
 				// common bots
 				$this->checkBrowserGoogleBot() ||
+				$this->checkBrowserMSNBot() ||
 				$this->checkBrowserSlurp() ||
 
+				// WebKit base check (post mobile and others)
+				$this->checkBrowserSafari() ||
+				
 				// everyone else
 				$this->checkBrowserNetPositive() ||
 				$this->checkBrowserFirebird() ||
@@ -436,6 +453,22 @@
 		    return false;
 	    }
 
+		/**
+	     * Determine if the browser is the MSNBot or not (last updated 1.9)
+	     * @return boolean True if the browser is the MSNBot otherwise false
+	     */
+		protected function checkBrowserMSNBot() {
+			if( stripos($this->_agent,"msnbot") !== false ) {
+				$aresult = explode("/",stristr($this->_agent,"msnbot"));
+				$aversion = explode(" ",$aresult[1]);
+				$this->setVersion(str_replace(";","",$aversion[0]));
+				$this->_browser_name = self::BROWSER_MSNBOT;
+				$this->setRobot(true);
+				return true;
+			}
+			return false;
+		}	    
+	    
 	    /**
 	     * Determine if the browser is the W3C Validator or not (last updated 1.7)
 	     * @return boolean True if the browser is the W3C Validator otherwise false
@@ -495,10 +528,17 @@
 		    }
 		    // Test for versions > 1.5
 		    else if( stripos($this->_agent,'msie') !== false && stripos($this->_agent,'opera') === false ) {
-			    $aresult = explode(' ',stristr(str_replace(';','; ',$this->_agent),'msie'));
-			    $this->setBrowser( self::BROWSER_IE );
-			    $this->setVersion(str_replace(array('(',')',';'),'',$aresult[1]));
-			    return true;
+		    	// See if the browser is the odd MSN Explorer
+		    	if( stripos($this->_agent,'msnb') !== false ) {
+			    	$aresult = explode(' ',stristr(str_replace(';','; ',$this->_agent),'MSN'));
+				    $this->setBrowser( self::BROWSER_MSN );
+				    $this->setVersion(str_replace(array('(',')',';'),'',$aresult[1]));
+				    return true;
+		    	}
+		    	$aresult = explode(' ',stristr(str_replace(';','; ',$this->_agent),'msie'));
+		    	$this->setBrowser( self::BROWSER_IE );
+		    	$this->setVersion(str_replace(array('(',')',';'),'',$aresult[1]));
+		    	return true;
 		    }
 		    // Test for Pocket IE
 		    else if( stripos($this->_agent,'mspie') !== false || stripos($this->_agent,'pocket') !== false ) {
@@ -935,7 +975,7 @@
 	     */
 	    protected function checkBrowserAndroid() {
 		    if( stripos($this->_agent,'Android') !== false ) {
-			    $aresult = explode('/',stristr($this->_agent,'Version'));
+			    $aresult = explode(' ',stristr($this->_agent,'Android'));
 			    if( isset($aresult[1]) ) {
 				    $aversion = explode(' ',$aresult[1]);
 				    $this->setVersion($aversion[0]);
@@ -968,6 +1008,9 @@
 		    }
 		    elseif( stripos($this->_agent, 'mac') !== false ) {
 			    $this->_platform = self::PLATFORM_APPLE;
+		    }
+		    elseif( stripos($this->_agent, 'android') !== false ) {
+			    $this->_platform = self::PLATFORM_ANDROID;
 		    }
 		    elseif( stripos($this->_agent, 'linux') !== false ) {
 			    $this->_platform = self::PLATFORM_LINUX;
