@@ -18,7 +18,7 @@
 
 // fix the layout height
 function layoutFix() {  
-  if($('leftSidebar') != null) {
+  if($('leftSidebar') != null) {    
     // get the high of both elements
     var leftSideBarHeight = $('leftSidebar').getSize().y;
     var contentHeight = $('content').getSize().y;

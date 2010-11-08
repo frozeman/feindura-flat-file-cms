@@ -696,7 +696,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'choisir de backup existant';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 't&eacute;l&eacute;charger le fichier de backup';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'cr&eacute;er et t&eacute;l&eacute;chargement de backup actuelle';
-$langFile['BACKUP_TEXT_RESTORE'] = 'S&eacute;lectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de backup, de r&eacute;tablir un &eacute;tat ancien.<br /><span class="red">Attention! Tous les param&eacute;tres actuels et les pages seront &eacute;cras&eacute;s!</span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'S&eacute;lectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de backup, de r&eacute;tablir un &eacute;tat ancien.<br /><span class="red">Attention! Tous les param&eacute;tres actuels et les pages seront &eacute;cras&eacute;s!</span><br /><span class="blue">Toutefois, il est d\'abord cr&eacute;&eacute; une backup du vieux peuplement.</ span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 't&eacute;l&eacute;charger backups';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Pas de backup a &eacute;t&eacute; cr&eacute;&eacute; pour le moment.';

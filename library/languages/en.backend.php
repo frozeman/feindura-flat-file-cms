@@ -770,7 +770,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Choose existing backup';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Upload backup file';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create and download current backup';
-$langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="red">Attention! All current settings and pages will be overwritten!</span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="red">Attention! All current settings and pages will be overwritten!</span><br /><span class="blue">But first a backup of the old state will be created.</ span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Download backups';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'No backup created yet.';

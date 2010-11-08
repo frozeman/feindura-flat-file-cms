@@ -213,16 +213,14 @@ function blockSlider(givenId) {
   var blocksInDiv = '';
   
   // prepares the given container div id or class
-  if(givenId) {
+  if(givenId)
     blocksInDiv = givenId + ' ';
-  }
   
-  $$(blocksInDiv + '.block').each(function(block,i) {
-	   
+  $$(blocksInDiv + '.block').each(function(block,i) {	   
      var slideButtonH1;
 	   var slideContent;
 	   var bottomBorder;
-	   var slideVertical;	   
+	   var slideVertical;
 	   
 	   // gets the <a> tag in the <h1>
      if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
@@ -240,15 +238,12 @@ function blockSlider(givenId) {
       });      
       
       // DONT show the content bottom if IE 0-7
-      if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
+      if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         bottomBorder.setStyle('display', 'none');
-      }
-      
-      var slideContentHeightOut = slideContent.offsetHeight;
        
   	  // -> CREATE the SLIDE EFFECT
-  	  slideVertical = new Fx.Slide(slideContent,{ duration: '500', transition: Fx.Transitions.Pow.easeOut });      
-    
+  	  slideVertical = new Fx.Slide(slideContent,{ duration: '500', transition: Fx.Transitions.Back.easeOut }); //Fx.Transitions.Pow.easeOut
+      
       slideVertical.onComplete = function(el) {
         // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
   	    if(slideVertical.open) {
@@ -262,7 +257,7 @@ function blockSlider(givenId) {
         }
         layoutFix();
       }
-  
+      
       // -> set click Event for the SLIDE EFFECT to the buttons
       slideButtonH1.addEvent('click', function(e) {
       	  e.stop();

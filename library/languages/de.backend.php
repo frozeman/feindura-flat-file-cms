@@ -769,7 +769,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Vorhandenes Backup ausw&auml;hlen
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Backup-Datei hochladen';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
-$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="red">Achtung! Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="red">Achtung! Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span><br /><span class="blue">Es wird aber vorher ein Backup des alten Standes erstellt.</span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
