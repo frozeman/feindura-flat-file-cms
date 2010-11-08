@@ -54,7 +54,7 @@ a.toWebsite:hover, a.feindura_toBackend:hover {
 /* format of the toolTip box */
 .feindura_toolTipBox {
     z-index: 10;
-    font: 11px Verdana, Arial, Sans-serif, Serif;
+    font: 12px Verdana, Arial, Sans-serif, Serif;
     }
 
 .feindura_toolTipBox .tip-title	{

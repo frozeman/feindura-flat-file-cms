@@ -82,7 +82,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             $categorySelected = ' class="active"';
           else
             $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" onclick="requestLeftSidebar(\''.$category['id'].'\',\''.$_GET['page'].'\',\''.$_GET['site'].'\');return false;"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
       }        
     echo '</ul>          
       </div>

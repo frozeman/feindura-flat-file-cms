@@ -46,8 +46,9 @@ if(isset($_GET['downloadBackup'])) {
     // -> generate archive
     require_once(dirname(__FILE__).'/../thirdparty/pclzip.lib.php');
     $archive = new PclZip($backupFile);
-    $catchError = $archive->add(DOCUMENTROOT.$adminConfig['basePath'].'config/,'.DOCUMENTROOT.$adminConfig['basePath'].'statistic/,'.DOCUMENTROOT.$adminConfig['savePath'],PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$adminConfig['basePath']);
-    if ($catchError == 0) {
+    $catchError1 = $archive->add(DOCUMENTROOT.$adminConfig['basePath'].'config/,'.DOCUMENTROOT.$adminConfig['basePath'].'statistic/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$adminConfig['basePath']);
+    $catchError2 = $archive->add(DOCUMENTROOT.$adminConfig['savePath'],PCLZIP_OPT_REMOVE_PATH, dirname(DOCUMENTROOT.$adminConfig['savePath']));
+    if($catchError1 == 0 && $catchError2 == 0) {
       $errorWindow = "BACKUP ERROR: ".$archive->errorInfo(true);
     
     // -> download file
@@ -58,7 +59,7 @@ if(isset($_GET['downloadBackup'])) {
         header("Content-Type: application/octet-stream");
         header('Content-Disposition: attachment; filename="'.basename($backupFile).'"');
         header("Content-length: ".filesize($backupFile));        
-        readfile($backupFile) or die('something went wrong when reading the file?');      
+        readfile($backupFile) or die('something went wrong when reading the file?');
       } else
         $errorWindow = $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br />'.$backupFile;      
     }

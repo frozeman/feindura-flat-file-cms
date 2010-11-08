@@ -183,7 +183,7 @@ $langFile['STATUS_CATEGORY_NONPUBLIC'] = 'Category is hidden';
 
 // USER LIST
 $langFile['USER_TEXT_NOUSER'] = 'No users';
-$langFile['USER_TEXT_CURRENTUSER'] = 'The user under which you\'re logged';
+$langFile['USER_TEXT_CURRENTUSER'] = 'The user under which you\'re logged in';
 $langFile['USER_TEXT_USERSONLINE'] = 'This user is also logged in::Latest activity';
 
 $langFile['LOGO_TEXT'] = 'Version';
@@ -766,7 +766,7 @@ $langFile['pagethumbnail_upload_response_finish'] = 'Succesfully uploaded the im
 $langFile['BACKUP_TITLE_BACKUP'] = 'Backup';
 $langFile['BACKUP_TITLE_RESTORE'] = 'Restore';
 
-$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Existing backups';
+$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Choose existing backup';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Upload backup file';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create and download current backup';

@@ -59,6 +59,7 @@ window.addEvent('domready', function() {
     // blend out after page is loaded 
     window.addEvent('load', function() {    
         $('loadingBox').tween('opacity','0');
+        layoutFix();
     });
     
     // disply none the documentsaved, after blending in and out

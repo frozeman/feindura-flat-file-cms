@@ -52,7 +52,7 @@ if($unwriteableList && checkBasePath()) {
   <h1><?= $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
   <div class="content" style="text-align: center;">
   
-  <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
+  <a href="index.php?site=backup&amp;downloadBackup" target="_blank" class="downloadBackup" onclick="(function() {requestLeftSidebar('backup');}).delay(2000);"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
   
   </div>
   <div class="bottom"></div>
@@ -74,6 +74,10 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
     <p><?= $langFile['BACKUP_TEXT_RESTORE']; ?></p><br />
     <br />
     <div style="text-align: center;">
+    <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
+    <div class="verticalSeparator"></div>
+    <img src="library/images/sign/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
+    <br />
     <?php
     
     $backups = $generalFunctions->readFolder($backupFolder);      
@@ -92,11 +96,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
     }
     
     ?>
-    <br />
-    <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
-    <div class="verticalSeparator"></div>
-    <img src="library/images/sign/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
-    </div>    
+    </div>
     <br />
     <br />    
     <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />

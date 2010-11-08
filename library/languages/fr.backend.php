@@ -692,7 +692,7 @@ $langFile['pagethumbnail_upload_response_finish'] = 'L&lsquo;image a &eacute;t&e
 $langFile['BACKUP_TITLE_BACKUP'] = 'backup';
 $langFile['BACKUP_TITLE_RESTORE'] = 'r&eacute;tablir';
 
-$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'les backups existantes';
+$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'choisir de backup existant';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 't&eacute;l&eacute;charger le fichier de backup';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'cr&eacute;er et t&eacute;l&eacute;chargement de backup actuelle';

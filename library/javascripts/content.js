@@ -609,7 +609,7 @@ window.addEvent('domready', function() {
 		    }
 
 		    // RELOADS the sidebarMenu
-		    requestLeftSidebar(categoryNew,'0','pages');
+		    requestLeftSidebar('pages','0',categoryNew);
 
 		    // hide the loadingBox
 		    //$('loadingBox').setStyle('visibility','hidden');

@@ -24,11 +24,9 @@ function sidebarMenu() {
      var slideTopButton;
 	   var slideBottomButton;
 	   var slideContent;
-	   var slideVertical;
+	   var slideVertical;	   
 	   
-	   
-	   // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------
-	   
+	   // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------	   
 	   // gets the <a> tag in the <div class="content"> container and <div class="bottom">
 	   sideBarMenu.getElements('div').each(function(passedDiv) {
 	      // gets the upper toogle button
@@ -43,8 +41,7 @@ function sidebarMenu() {
         if(passedDiv.hasClass('content')) {
           slideContent = passedDiv;
         }
-     });
-	   
+     });	   
 
 	   // creates the slide effect
 	   slideVertical = new Fx.Slide(slideContent,{duration: '750', transition: Fx.Transitions.Pow.easeOut});	   
@@ -72,8 +69,7 @@ function sidebarMenu() {
           slideVertical.hide();
       }     	  
     	
-     // ->> RESIZE on MouseOver -------------------------------------------------------------------------------------------
-     
+     // ->> RESIZE on MouseOver -------------------------------------------------------------------------------------------     
      // gets the length of the longest text
       var maxTextLength = 0;
       // walk trough all <li> <a> ellements an messure the <span> length
@@ -105,11 +101,12 @@ function sidebarMenu() {
 /* ---------------------------------------------------------------------------------- */
 // SIDEBAR AJAX REQUEST
 // send a HTML request to load the new Sidebar content
-function requestLeftSidebar(category,page,site) {
+function requestLeftSidebar(site,page,category) {
   
   // vars
   if(!page) page = 0;
   if(!category) category = 0;
+  
   var jsLoadingCircleContainer = new Element('div', {'class':'leftSidebarLoadingCircle'});
   var removeLoadingCircle;
   
@@ -159,7 +156,14 @@ function requestLeftSidebar(category,page,site) {
 		  failureText.set('text','Couldn\'t load the sidebar?');
 			$('leftSidebar').set('html',failureText);
 		}
-  }).send();
+  });
+  
+  // send only the site
+  if(!page && !category)
+    requestCategory.send('site=' + site);
+  // or with the data string
+  else
+    requestCategory.send();
 }
 
 // *---------------------------------------------------------------------------------------------------*

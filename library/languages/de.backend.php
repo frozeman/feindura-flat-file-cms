@@ -765,7 +765,7 @@ $langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich 
 $langFile['BACKUP_TITLE_BACKUP'] = 'Backup';
 $langFile['BACKUP_TITLE_RESTORE'] = 'Wiederherstellen';
 
-$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Vorhandene Backups';
+$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Vorhandenes Backup ausw&auml;hlen';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Backup-Datei hochladen';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
