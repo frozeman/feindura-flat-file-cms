@@ -31,13 +31,13 @@ html,body {
 /****************/	
 /* *** GENERAL ELEMENTs FORMAT  */
 
-span.blue, label.blue, h1.blue {
+span.blue, label.blue, h1.blue, div.blue {
     color: #668CA6 !important;
     }
 span.brown, label.brown, h1.brown {
     color: #D7943C !important;
     }
-span.red, label.red, h1.red, ul.red {
+span.red, label.red, h1.red, ul.red, div.red {
     color: #A02F00 !important;
     }
 
@@ -81,6 +81,14 @@ span.red, label.red, h1.red, ul.red {
     height: 141px;
     background: url("../images/bg/headerBlock.png") no-repeat; 
     }
+
+#sessionTimer {
+  z-index: 3;
+  position: absolute;
+  top: 8px;
+  left: 140px;
+  font-size: 11px;
+}
     
 #adminMenu {
     z-index: 1;

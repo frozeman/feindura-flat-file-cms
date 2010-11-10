@@ -49,6 +49,8 @@ $langFile['LOGIN_ERROR_WRONGPASSWORD'] = 'mot de passe incorrect';
 
 $langFile['LOGIN_TEXT_LOGOUT_PART1'] = 'd&eacute;connexion avec succ&egrave;s ';
 $langFile['LOGIN_TEXT_LOGOUT_PART2'] = 'diriger vers site web';
+
+$langFile['LOGIN_TIP_AUTOLOGOUT'] = 'd&eacute;connexion automatique';
  
 
 // -> GENERAL <-

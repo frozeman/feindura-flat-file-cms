@@ -127,7 +127,11 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.js"></script>
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>	
+  <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
+  
+  <!-- thirdparty/CountDown (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/CountDown/PeriodicalExecuter.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/CountDown/CountDown.js"></script>
 	
 	<!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
@@ -150,7 +154,41 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
   <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
   <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
-  <script type="text/javascript" src="library/javascripts/content.js"></script>  
+  <script type="text/javascript" src="library/javascripts/content.js"></script>
+  
+  <!-- starts the session counter -->
+  <script>
+  /* <![CDATA[ */  
+  
+  window.addEvent('domready', function () {
+					
+			var div = $('sessionTimer'),
+				coundown = new CountDown({
+			
+					//initialized 30s from now
+					date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
+					//update every 100ms
+					frequency: 100,
+					//update the div#counter
+					onChange: function(counter) {					
+						var text = '';						
+						if(counter.hours < 1 && counter.minutes < 10) {
+              div.removeClass('blue');						
+              div.addClass('red');
+            }
+						text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
+						text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
+						text += (counter.second > 9 ? '' : '0') + counter.second;			
+						div.set('text', text);
+					},
+					//complete
+					onComplete: function () {					
+						window.location = 'index.php?logout';
+					}
+				})
+	})
+  /* ]]> */
+  </script>
   
 </head>
 <body>
@@ -176,6 +214,7 @@ if($_GET['site'] == 'addons') {
   <!-- ***************************************************************************************** -->
   <!-- ** HEADER ******************************************************************************* -->
   <div id="header">
+    <div id="sessionTimer" class="toolTip blue" title="<?= $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::"></div>
     <a id="top" name="top" class="anchorTarget"></a>
     
     <div id="headerBlock">
@@ -189,8 +228,8 @@ if($_GET['site'] == 'addons') {
         <a href="?language=fr" class="fr toolTip" title="français::"></a>
       </div>
           
-      <div id="logo" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.$version[2].' - '.$version[3]; ?>::"></div>
-      <div id="version"><?php echo $version[2]; ?></div>
+      <div id="logo"></div>
+      <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.$version[2].' - '.$version[3]; ?>::"><?php echo $version[2]; ?></div>
       
       <div id="mainMenu">
         <table>
@@ -327,7 +366,6 @@ if($_GET['site'] == 'addons') {
     <!-- ************************************************************************* -->    
     <!-- ** CONTENT ************************************************************** -->
     <div id="content"<?php if($showSubFooterMenu) echo 'class="hasSubMenu"'; ?>>
-    
       <!-- ************************************************************************* -->
       <!-- ** SUBMENU ************************************************************** -->
       <?php if($showSubFooterMenu) { ?>
@@ -433,7 +471,7 @@ if($_GET['site'] == 'addons') {
           // deletePage
           if($showDeletePage) { ?>
             <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip"><span><?php echo $langFile['BUTTON_DELETEPAGE']; ?></span></a></li>
-          <?php }          
+          <?php }
           $showSpacer = true;
           }
           

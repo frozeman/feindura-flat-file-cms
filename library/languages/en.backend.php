@@ -50,6 +50,8 @@ $langFile['LOGIN_ERROR_WRONGPASSWORD'] = 'wrong password';
 $langFile['LOGIN_TEXT_LOGOUT_PART1'] = 'Successfully logged out';
 $langFile['LOGIN_TEXT_LOGOUT_PART2'] = 'further to the website';
 
+$langFile['LOGIN_TIP_AUTOLOGOUT'] = 'Automatically logout';
+
 
 // -> GENERAL <-
 
