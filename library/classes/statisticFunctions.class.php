@@ -1557,26 +1557,23 @@ class statisticFunctions {
       if(isset($_SERVER['HTTP_REFERER']) &&
          !empty($_SERVER['HTTP_REFERER'])) {        
          
-        $searchWords = parse_url($_SERVER['HTTP_REFERER']);
+        $searchWords = $_SERVER['HTTP_REFERER'];
         // test search url strings:
-        //$searchWords = parse_url('http://www.google.de/search?q=mair%C3%A4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a');
-        //$searchWords = parse_url('http://www.google.de/search?hl=de&safe=off&client=firefox-a&rls=org.mozilla%3Ade%3Aofficial&hs=pLl&q=umlaute+aus+url+umwandeln&btnG=Suche&meta=');
-        //$searchWords = parse_url('http://www.bing.com/search?q=hll%C3%B6le+ich+such+ein+wort+f%C3%BCr+mich&go=&form=QBRE&filt=all');
-        //$searchWords = parse_url('http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=wurmi&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1');
-        //$searchWords = parse_url('http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=umlaute&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1');
-        if(strstr($searchWords['host'],'google') || strstr($searchWords['host'],'bing') || strstr($searchWords['host'],'yahoo')) {
-  
-          //sucht das suchwort beginn aus dem url-query string heraus
-          if(strstr($searchWords['host'],'yahoo'))
-            $searchWords = strstr($searchWords['query'],'p=');
-          else
-            $searchWords = strstr($searchWords['query'],'q=');
-          $searchWords = substr($searchWords,2,strpos($searchWords,'&')-2);
-  
-          $searchWords = rawurldecode($searchWords);
-          $searchWords = (strpos($searchWords,'+') !== false)
-            ? explode('+',$searchWords)
-            : explode('%2B',$searchWords);
+        //$searchWords = 'http://www.google.de/search?q=mair%C3%A4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a';
+        //$searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
+        //$searchWords = 'http://www.bing.com/search?q=halo+wich+suche+was&go=&form=QBLH&filt=all';
+        //$searchWords = 'http://de.search.yahoo.com/search;_ylt=AoJmH5FT4CkRvDpo3RuiawIqrK5_?vc=&p=hallo+ich+suche+was&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-708';
+        //$searchWords = 'http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=umlaute+fdgdfg&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1';
+        if(strpos($searchWords,'google') !== false || strpos($searchWords,'bing') !== false || strpos($searchWords,'yahoo') !== false) {
+
+          // gets the searchwords
+          $searchWords = (strpos($searchWords,'yahoo') !== false)
+            ? strstr($searchWords,'p=')
+            : strstr($searchWords,'q=');          
+          $searchWords = substr($searchWords,2,strpos($searchWords,'&')-2);          
+          $searchWords = urldecode($searchWords);
+          
+          $searchWords = explode(' ',$searchWords);
           
           // gos through searchwords and check if there already saved  
           $newSearchWords = array();

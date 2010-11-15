@@ -18,9 +18,22 @@
  * GERMAN (DE) language-file for the feindura CMS (BACKEND)
  * 
  * IMPORTANT:<br>
- * if you want to write html-code in the toolTip texts (mostly they end with ".._tip" or ".._inputTip")
- * use only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " this would end the title="" tag where the toolTip text is in.
+ * if you want to write html-code in the toolTip texts (the $langFile which have "_TOOLTIP_")
+ * uses only "[" and "]" instead of "<" and ">" for the HTML-tags and use no "! This would end the title="" tag where the toolTip text are in.
  * 
+ * <samp>
+ * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
+ * </samp>
+ * 
+ * The TYPE's can be<br />
+ *    - INPUT
+ *    - LINK
+ *    - BUTTON
+ *    - TITLE
+ *    - TEXT
+ *    - EXAMPLE
+ *    - ERROR
+ *    - TOOLTIP
  * 
  * NEEDS a RETURN $langFile; at the END
  */
