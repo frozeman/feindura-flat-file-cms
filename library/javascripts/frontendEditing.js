@@ -348,6 +348,7 @@ window.addEvent('domready',function() {
   // **************
   
   // -> add save button
+  /*
   MooRTE.Elements.extend({
     save : { img:27, onClick: function() {
         $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {                                     
@@ -356,12 +357,12 @@ window.addEvent('domready',function() {
               if(page.hasClass('feindura_editPage'))
                 feindura_savePage(page,'content');
               else if(page.hasClass('feindura_editTitle'))
-                feindura_savePage(page,'title');              
+                feindura_savePage(page,'title');      
             }
         });
       }}
   });
-  
+  */
   // -> set up toolbar  
   var feindura_MooRTEButtons = {Toolbar:['save.saveBtn','undo','redo','removeformat', // 'Html/Text'
                                         'bold','italic','underline','strikethrough',
@@ -372,5 +373,6 @@ window.addEvent('domready',function() {
                                         ]};
                                         
   // -> create editor instance to edit all divs which have the class "feindura_editPage"
-  new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: feindura_MooRTEButtons,location:'pageTop'});
+  new MooRTE('div.feindura_editPage, span.feindura_editTitle', {skin:'rteFeinduraSkin', defaults: feindura_MooRTEButtons, location:'pageTop'});
+  //new MooRTE({'div.feindura_editPage, span.feindura_editTitle', {skin:'rteFeinduraSkin', buttons: feindura_MooRTEButtons,location:'pageTop'});
 });

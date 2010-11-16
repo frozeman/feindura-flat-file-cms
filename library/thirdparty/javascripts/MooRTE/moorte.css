@@ -1,14 +1,100 @@
 /*  position to top/bottom of page, the hide/show class  */
 /* Begin General */
-div.rteFloat{ position:absolute; }
-div.MooRTE{ left:0; width:100%;}
+div.MooRTE{ left:0; width:100%; position:absolute; top:0; }
+div.MooRTE.rteFloat{ position:absolute; }
 div.MooRTE.rtePageBottom{ position:fixed; bottom:0}
-div.MooRTE.rtePageTop{ position:fixed; top: 0px;  }
+div.MooRTE.rtePageTop{ position:fixed; top:0;  }
 .rteHide{ display:none; }
-.rteShow{ border: 1px dotted #000; }
-.rteTextArea{ border:1px solid #666 }
+.rteShow{ border:2px groove #000; vertical-align:top; position:relative;}
+.rteTextArea{ border:1px solid #666; display:inline-block; word-wrap: break-word; overflow-y:hidden; overflow-x:auto; }
+div.rteTextArea{ *display:inline; }
 .rteTopDown{top:0;}
 div.MooRTE div.Word03, .bbox{ -moz-box-sizing:  border-box; -ms-box-sizing:  border-box; box-sizing:  border-box; -webkit-box-sizing:  border-box  }
-.rteShow,  .cbox{ -moz-box-sizing: content-box; -ms-box-sizing: content-box; box-sizing: content-box; -webkit-box-sizing: content-box }
-.spinWait {position:absolute; border:0}
+.rteShow, .cbox{ -moz-box-sizing: content-box; -ms-box-sizing: content-box; box-sizing: content-box; -webkit-box-sizing: content-box }
 /* End General*/
+
+/* Begin Word03 skin */
+div.MooRTE div.Word03 { left:0; bottom:0; width:100%; background-color:#B9D2F8; color:#222; font: 12px Arial; }
+div.MooRTE div.Word03    span{ height:20px; margin:1px; display:inline-block; }
+div.MooRTE div.Word03    input{ height:20px; width:100px; }
+div.MooRTE div.Word03    div.rteToolbar{ position:relative; width:100%; background-image:url(images/bg.gif) }
+div.MooRTE div.Word03    div.rteToolbar a{ height:20px; width:20px; margin:1px; display:inline-block; text-decoration:none; vertical-align:top; background-image:url(images/Word03.gif)}
+div.MooRTE div.Word03    div.rteToolbar a:hover{ border:1px solid black; margin:0; background-color:#FFB874 }
+div.MooRTE div.Word03    .rteSelected{background-color:white}
+div.MooRTE div.Word03    div.rteMenu a{margin:2px; display:inline-block; text-decoration:none; vertical-align:top; *padding:0 4px}
+div.MooRTE div.Word03    div.rteMenu a.rteText{font: 12px black Arial; color:black; }
+div.MooRTE div.Word03    span.rtestart{background-image:url(images/start.gif); height:21px; width:7px; margin:0}
+div.MooRTE div.Word03    a.rteText{background-image:url(); min-width:38px; text-align:center; text-decoration:none; color:#000; margin:0 8px; border:1px solid #B9D2F8}
+div.MooRTE div.Word03    a.rteText:hover{  border:1px solid black; background-color:#FFB874; }
+div.MooRTE div.Word03    div.rteFlyout{position:absolute; border:0; top:20px; left:-1px; xwidth:22px; background-color:#ddd}
+div.MooRTE div.Word03    a.Flyout{ position:relative; overflow:hidden;}
+div.MooRTE div.Word03    a.Flyout:hover{overflow:visible;}
+div.MooRTE div.Word03   .displayHtml{position:absolute; border:1px solid grey; left:0; top:0 }
+/* End Word03 */
+
+/* Begin rteGrey skin*/
+div.MooRTE div.rteGrey { left:0; bottom:0; width:100%; background:#BCBECD url('images/background_silver.jpg') repeat-x; color:#222; font: 12px Arial; }
+div.MooRTE div.rteGrey           span{ height:20px; margin:1px; display:inline-block; }
+div.MooRTE div.rteGrey           input{ height:20px; width:100px; }
+div.MooRTE div.rteGrey           div.rteTop{ border-bottom:1px #bbb solid; height:18px; overflow:hidden; vertical-align:bottom; text-align:left; }
+div.MooRTE div.rteGrey           .saveBtn{ background-image:url('images/Save.png'); position:absolute; top:1px; right:15px; width:75px;}
+div.MooRTE div.rteGrey           div.rteToolbar{ position:relative; width:100%; }
+div.MooRTE div.rteGrey           div.rteToolbar a{ height:20px; width:20px; margin:2px; display:inline-block; text-decoration:none; vertical-align:bottom; background-image:url(images/Word03.gif)}
+div.MooRTE div.rteGrey           div.rteToolbar a:hover{ border:2px solid black; margin:0; }
+div.MooRTE div.rteGrey           .rteSelected{ background-color:white }
+div.MooRTE div.rteGrey           a.rteText{ height:16px; min-width:38px; margin:2px; display:inline-block; text-align:center; text-decoration:none; border:1px solid grey; -moz-corner-radius:2px }
+div.MooRTE div.rteGrey           a.rteText:hover{ margin:2px; background-color:#eee}
+div.MooRTE div.rteGrey           div.rteFlyout{ position:absolute; border:0; top:20px; left:-2px; width:24px; background-color:#ddd }
+div.MooRTE div.rteGrey           a.Flyout{ position:relative; overflow:hidden;}
+div.MooRTE div.rteGrey           a.Flyout:hover{ overflow:visible }
+div.MooRTE div.rteGrey          .displayHtml{position:absolute; border:1px solid grey; left:0; top:0 }
+/* End rteGrey */
+
+/* Begin Tango skin */
+div.MooRTE div.Tango      div.rteMenu{ background-color:brown; word-wrap: normal; zoom:1}
+div.MooRTE div.Tango      div.rteMenu a{ *padding:0 4px;}
+div.MooRTE div.Tango 	.rteSelected{ background-color:#bbb }
+xdiv.MooRTE div.Tango 	{ left:0; bottom:0; width:100%; background-color:#B9D2F8; color:#222; font: 12px Arial; }
+div.MooRTE div.Tango	a{ height:20px; border:2px solid brown; width:20px; display:inline-block; text-decoration:none; vertical-align:top; background-image:url(images/Tango.gif); background-color:#fff; }
+div.MooRTE div.Tango	a:hover, div.Tango li:hover{ border-color:#000 }
+div.MooRTE div.Tango 	span{ height:20px; margin:1px; display:inline-block; }
+div.MooRTE div.Tango	input{ height:20px; width:100px; }
+div.MooRTE div.Tango	div.rteTop{ border-bottom:1px #bbb solid; height:18px; overflow:hidden; vertical-align:bottom; text-align:left; }
+div.MooRTE div.Tango      .saveBtn{ background-image:url('images/Save.png'); position:absolute; top:1px; right:15px; width:75px;}
+div.MooRTE div.Tango     .displayHtml{position:absolute; border:1px solid grey; left:0; margin:-2px;}
+div.MooRTE div.Tango      div.rteToolbar{ position:relative; xwidth:100%; background-color:brown; min-height:24px}
+div.MooRTE div.Tango      a.rteText{background-image:url(); margin:2px; min-width:38px; text-align:center; border:1px solid grey; -moz-border-radius: 2px; -webkit-border-radius: 2px; }
+div.MooRTE div.Tango      a.rteText:hover{  background-color:#eee}
+
+div.MooRTE div.Tango      a.Flyout{ position:relative; overflow:hidden; width:20px;}
+div.MooRTE div.Tango      a.Flyout:hover{ overflow:visible; }
+div.MooRTE div.Tango      div.rteFlyout{ position:absolute; border-top:2px solid black; top:20px; left:-2px; min-width:42px;}
+div.MooRTE div.Tango      div.rteFlyout a{ margin:0; border: 2px solid #ddd;}
+div.MooRTE div.Tango      div.rteFlyout a:hover{ border-color: #000;}
+
+/* End Tango */
+
+/* Begin Sheva skin */
+div.MooRTE div.Sheva 		div.rteToolbar {height:24px; background:url('images/ShevaBG.gif') repeat-x;}
+div.MooRTE div.Sheva 		a{ height:20px; width:20px; xmargin:2px; display:inline-block; vertical-align:bottom; background-image:url(images/Sheva.gif) }
+div.MooRTE div.Sheva 		a:hover{ xborder:2px solid black; xmargin:0; }
+div.MooRTE div.Sheva 		.rteSelected{ background-color:#bbb }
+/* End Tango */
+
+/* Begin Plugins */
+.rtefuUpload, .rtefuClear { cursor:pointer }
+.popup .popMid .popContent>span{ display:inline-block; width:90px; }
+.popup .popMid .popContent>input{ width:134px; margin:2px 0; }
+.popup .popMid .popContent div.radio input{ width:4px; }
+.popup .popMid .popContent div.radio { text-align:right; }
+.popup .popMid .popContent div.btns{ text-align:center; padding-top:12px; }
+.popup .popMid .popContent>#rem{ font:10px tahoma; text-align:right; }
+.popup .popMid .popContent>#rem>input{ vertical-align:middle; height:10px; }
+/* End Plugins */
+
+/* Old */
+xdiv.RTE div.rteR0{ border-bottom:1px #bbb solid; }
+xa:hover{ border:2px solid red; margin:0; }
+xa{ height:16px; width:16px; margin:2px; display:inline-block; text-decoration:none; vertical-align:bottom; background-image:url(images/i.gif)}
+div.rteFloatfalse{ position:relative;}
+div.rteFloattrue{ position:absolute;}
