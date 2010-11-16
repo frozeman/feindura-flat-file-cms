@@ -1,11 +1,11 @@
 <?php
 
-$statisticConfig['number']['mostVisitedPages']        = '';
-$statisticConfig['number']['longestVisitedPages']     = '';
-$statisticConfig['number']['lastEditedPages']         = '';
+$statisticConfig['number']['mostVisitedPages']        = '20';
+$statisticConfig['number']['longestVisitedPages']     = '20';
+$statisticConfig['number']['lastEditedPages']         = '20';
 
-$statisticConfig['number']['refererLog']    = '';
-$statisticConfig['number']['taskLog']       = '';
+$statisticConfig['number']['refererLog']    = '20';
+$statisticConfig['number']['taskLog']       = '500';
 
 return $statisticConfig;
 ?>

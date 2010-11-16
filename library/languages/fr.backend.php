@@ -717,6 +717,7 @@ $langFile['BACKUP_TITLE_LASTBACKUPS'] = 't&eacute;l&eacute;charger backups';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Pas de backup a &eacute;t&eacute; cr&eacute;&eacute; pour le moment.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup n\'a pas &eacute;t&eacute; trouv&eacute; au chemin d\'acc&egrave;s:';
+$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Aucun fichier de backup pour restaurer s&eacute;lectionn&eacute;.';
 
 /*
 * search.php

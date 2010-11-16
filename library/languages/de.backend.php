@@ -790,6 +790,7 @@ $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup-Datei wurde nicht gefunden in:';
+$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
 
 /*
 * search.php

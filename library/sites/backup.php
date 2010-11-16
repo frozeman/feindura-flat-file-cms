@@ -80,7 +80,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
     <br />
     <?php
     
-    $backups = $generalFunctions->readFolder($backupFolder);      
+    $backups = $generalFunctions->readFolder($backupFolder);
     if(!empty($backups['files'])) {
       
       echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';

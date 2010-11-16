@@ -72,14 +72,39 @@ if(isset($_GET['downloadBackup'])) {
 
 // ------------>> RESTORE THE BACKUP
 if(isset($_POST['send']) && $_POST['send'] == 'restore') {
-
-
-  if(saveStatisticConfig($_POST)) {
+  
+  // var
+  $error = false;
+  
+  // ->> use uploaded backup file
+  if(!empty($_FILES['restoreBackupUpload']['tmp_name']) && !isset($_POST['restoreBackupFile'])) {
+    // Check if the file has been correctly uploaded.
+    if($_FILES['restoreBackupUpload']['name'] == '')
+    	$error .= $langFile['pagethumbnail_upload_error_nofile'];
+    
+    if($error === false) {
+      if($_FILES['restoreBackupUpload']['tmp_name'] == '')
+        $error .= $langFile['pagethumbnail_upload_error_nouploadedfile'];
+        
+      // Check if the file filesize is not 0
+      if($_FILES['restoreBackupUpload']['size'] == 0)
+        $error .= $langFile['pagethumbnail_upload_error_filesize'].' '.ini_get('upload_max_filesize').'B';
+    }
+    
+  // ->> otherwise use existing backup file
+  } elseif(isset($_POST['restoreBackupFile'])) {
+  
+  // -> otherwise throw error
+  } else {
+    $error = $langFile['BACKUP_ERROR_NORESTROEFILE'];
+  }
+  
+  if(!$error) {
     // set documentSaved status
     $documentSaved = true;
     $statisticFunctions->saveTaskLog(19); // <- SAVE the task in a LOG FILE
   } else
-    $errorWindow .= $langFile['statisticSetup_statisticConfig_error_save'];
+    $errorWindow .= $error;
   
   $savedForm = 'restorBackup';
 }
