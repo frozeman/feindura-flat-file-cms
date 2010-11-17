@@ -409,7 +409,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TE
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1'] = 'adapter le "choix du style" dans l&lsquo;&eacute;diteur HTML';
-$langFile['adminSetup_styleFileSettings_error_save'] = '<b>le fichier "htmlEditorStyles.xml" ne pouvait pas &ecirc;tre sauvegard&eacute;.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['adminSetup_styleFileSettings_error_save'] = '<b>le fichier "htmlEditorStyles.js" ne pouvait pas &ecirc;tre sauvegard&eacute;.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
 $langFile['editFilesSettings_error_save'] = '<b>le fichier ne pouvait pas &ecirc;tre sauvegard&eacute;.</b>'.$langFile['ERROR_SAVE_FILE'];

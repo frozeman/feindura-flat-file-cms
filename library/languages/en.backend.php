@@ -445,7 +445,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TE
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1'] = 'Edit &quot;Style Formatting&quot; of the HTML-Editors';
-$langFile['adminSetup_styleFileSettings_error_save'] = '<b>The &quot;htmlEditorStyles.xml&quot; file could no be saved.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['adminSetup_styleFileSettings_error_save'] = '<b>The &quot;htmlEditorStyles.js&quot; file could no be saved.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
 $langFile['editFilesSettings_error_save'] = '<b>The file could not be saved.</b>'.$langFile['ERROR_SAVE_FILE'];

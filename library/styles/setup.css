@@ -218,7 +218,11 @@ textarea.editFiles, div.CodeMirror-wrapping {
     height:500px;
     margin-top: 15px;
     }
-    
+
+textarea#fckStyleFile, textarea#fckStyleFile + div.CodeMirror-wrapping {
+  margin-top: -45px;
+}
+
 a.addStyleFilePath {
     position: relative;
     display: block;    
