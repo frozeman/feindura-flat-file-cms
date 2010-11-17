@@ -33,7 +33,7 @@ $frontendLangFile['editPage_functions'] = 'Modifier cette page dans le backend';
 * --------- FRONTEND Error texts
 */
 
-$frontendLangFile['error_noPage'] = 'la page demand&eacute;e n&lsquo;existe pas.';
+$frontendLangFile['error_noPage'] = 'la page demand&eacute;e n\'existe pas.';
 $frontendLangFile['error_pageClosed'] = 'la page demand&eacute;e est d&eacute;sactiv&eacute;e.';
 
 /*
@@ -41,7 +41,7 @@ $frontendLangFile['error_pageClosed'] = 'la page demand&eacute;e est d&eacute;sa
 */
 
 $frontendLangFile['date_yesterday'] = 'hier';
-$frontendLangFile['date_today'] = 'aujourd&lsquo;hui';
+$frontendLangFile['date_today'] = 'aujourd\'hui';
 $frontendLangFile['date_tomorrow'] = 'demain';
 
 /*

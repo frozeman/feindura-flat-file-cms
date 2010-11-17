@@ -992,6 +992,74 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
 }
 
 /**
+ * <b>Name</b> generateBackupFileName()<br />
+ * 
+ * generates the backup file name like:
+ * 
+ * <samp>
+ * feinduraBackup_localhost_2010-11-17_17-36.zip
+ * </samp>
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $backupAppendix (optional) a name which will be appended to the backup file name
+ * 
+ * @return string the generated backup file name
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function generateBackupFileName($backupAppendix = false) {
+  
+  $backupAppendix = ($backupAppendix) ? '_'.$backupAppendix : '';
+
+  $websitePath = str_replace(array('/',"\\"),'+',$GLOBALS['adminConfig']['websitePath']);
+  $websitePath = ($websitePath != '+') ? substr($websitePath,0,-1) : '';
+  $backupName = 'feinduraBackup_'.$_SERVER['HTTP_HOST'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
+  $backupFileName = DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'backups/'.$backupName;
+  
+  return $backupFileName;
+}
+
+/**
+ * <b>Name</b> createBackup()<br />
+ * 
+ * Creates a backup file from the "config", "statistic" and "pages" folder.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $backupFileName the backup file name
+ * 
+ * @return true|string TRUE if the creation of a backup zip was successfull, otherwise a string with the error warning
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function createBackup($backupFileName) {
+  
+  // -> generate archive
+  require_once(dirname(__FILE__).'/../thirdparty/pclzip.lib.php');
+  $archive = new PclZip($backupFileName);
+  $catchError1 = $archive->add(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'config/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'statistic/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$GLOBALS['adminConfig']['basePath']);
+  $catchError2 = $archive->add(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'],PCLZIP_OPT_REMOVE_PATH, dirname(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath']));
+
+  if($catchError1 == 0 && $catchError2 == 0)
+    return $archive->errorInfo(true);
+  else
+    return true;
+}
+
+/**
  * <b>Name</b> prepareStyleFilePaths()<br />
  * 
  * Check the array with stylesheet file paths, whether they have a slash on the beginnging and that they are not empty.

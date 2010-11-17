@@ -189,6 +189,9 @@ $langFile['LOG_PLUGINSETUP_SAVED'] = 'Plugin-Settings saved of';
 $langFile['LOG_FILE_SAVED'] = 'File saved';
 $langFile['LOG_FILE_DELETED'] = 'File deleted';
 
+$langFile['LOG_BACKUP_CREATED'] = 'Backup created';
+$langFile['LOG_BACKUP_RESTORED'] = 'Backup restored';
+
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC'] = 'Page is public';
 $langFile['STATUS_PAGE_NONPUBLIC'] = 'Page is hidden';
@@ -784,14 +787,16 @@ $langFile['BACKUP_TITLE_RESTORE'] = 'Restore';
 $langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Choose existing backup';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Upload backup file';
 
+$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup before the restore';
+
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create and download current backup';
-$langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="red">Attention! All current settings and pages will be overwritten!</span><br /><span class="blue">But first a backup of the old state will be created.</ span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="blue">Before the restore a backup of the old state will be created.</ span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Download backups';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'No backup created yet.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup was not found at:';
-$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'No backup file to restore selected.';
+$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'No backup file to restore was selected.';
 
 /*
 * search.php

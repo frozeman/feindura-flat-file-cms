@@ -189,6 +189,9 @@ $langFile['LOG_PLUGINSETUP_SAVED'] = 'Plugin-Einstellungen gespeichert von';
 $langFile['LOG_FILE_SAVED'] = 'Datei gespeichert';
 $langFile['LOG_FILE_DELETED'] = 'Datei gel&ouml;scht';
 
+$langFile['LOG_BACKUP_CREATED'] = 'Backup erstellt';
+$langFile['LOG_BACKUP_RESTORED'] = 'Backup wiederhergestellt';
+
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC'] = 'Seite ist &ouml;ffentlich';
 $langFile['STATUS_PAGE_NONPUBLIC'] = 'Seite ist versteckt';
@@ -203,7 +206,6 @@ $langFile['USER_TEXT_USERSONLINE'] = 'Dieser Benutzer ist ebenfalls eingeloggt::
 
 $langFile['LOGO_TEXT'] = 'Version';
 $langFile['LOADING_TEXT_LOAD'] = 'Seite wird geladen..';
-
 
 // -> BUTTON TEXTS
 
@@ -395,11 +397,11 @@ $langFile['adminSetup_fmsSettings_field6'] = 'Dateipfad f&uuml;r Stylesheetdatei
 $langFile['adminSetup_fmsSettings_field6_tip'] = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden k&ouml;nnen.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_varName_ifempty'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: ';
 $langFile['adminSetup_fmsSettings_varName1'] = 'Seiten Variablenname';
-$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'"[b]page[/b]"';
+$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]page[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName2'] = 'Kategorie Variablenname';
-$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'"[b]category[/b]"';
+$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]category[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName3'] = 'Modul Variablenname';
-$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'"[b]modul[/b]"';
+$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
 $langFile['adminSetup_fmsSettings_field7'] = 'Datumsformat';
 $langFile['adminSetup_fmsSettings_field7_tip'] = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
@@ -783,14 +785,16 @@ $langFile['BACKUP_TITLE_RESTORE'] = 'Wiederherstellen';
 $langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Vorhandenes Backup ausw&auml;hlen';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Backup-Datei hochladen';
 
+$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup vor der Wiederherstellung';
+
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
-$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="red">Achtung! Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span><br /><span class="blue">Es wird aber vorher ein Backup des alten Standes erstellt.</span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="blue">Vor der Wiederherstellung wird ein Backup des alten Standes erstellt.</span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup-Datei wurde nicht gefunden in:';
-$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
+$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Es wurde keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
 
 /*
 * search.php

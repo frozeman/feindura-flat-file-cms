@@ -52,7 +52,7 @@ if($unwriteableList && checkBasePath()) {
   <h1><?= $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
   <div class="content" style="text-align: center;">
   
-  <a href="index.php?site=backup&amp;downloadBackup" target="_blank" class="downloadBackup" onclick="(function() {requestLeftSidebar('backup');}).delay(2000);"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
+  <a href="index.php?site=backup&amp;downloadBackup" target="_blank" class="downloadBackup" onclick="(function() {window.location = 'index.php?site=backup'}).delay(2000);"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
   
   </div>
   <div class="bottom"></div>
@@ -91,7 +91,10 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
       foreach($backups['files'] as $backupFile) {
         $backupTime = filemtime(DOCUMENTROOT.$backupFile);
         $backupTime = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($backupTime)).' '.$statisticFunctions->formatTime($backupTime);
-        echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'"> <label for="backupFile'.$backupFile.'">'.$backupTime."</label><br /><br />\n";
+        
+        echo (strpos($backupFile,'restore') === false)
+          ? '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'"> <label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$backupTime."</label><br /><br />\n"
+          : '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'"> <label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$backupTime."</label><br /><br />\n";
       } 
     }
     

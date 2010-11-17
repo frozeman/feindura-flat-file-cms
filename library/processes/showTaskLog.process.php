@@ -138,6 +138,12 @@ foreach($logContent as $logRow) {
     case 28:
         $logText = $langFile['LOG_USER_SAVED'];
         break;
+    case 29:
+        $logText = $langFile['LOG_BACKUP_CREATED'];
+        break;
+    case 30:
+        $logText = $langFile['LOG_BACKUP_RESTORED'];
+        break;
   }
   
   // ->> PROCESS LOG DATA
