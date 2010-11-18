@@ -131,9 +131,9 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       
       if($errorWindow === false) {
         // delete the old pages dir
-        delDir($adminConfig['savePath']);
+        delDir($adminConfig['basePath'].'pages/');
         // -> extract PAGES
-        if($archive->extract(PCLZIP_OPT_PATH, dirname(DOCUMENTROOT.$adminConfig['savePath']),
+        if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
                              PCLZIP_OPT_BY_PREG, '#\d+\.php$#',
                              PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
                              PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {

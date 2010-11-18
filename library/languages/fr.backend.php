@@ -309,16 +309,16 @@ $langFile['sortablePageList_sortOrder_date'] = 'tri&eacute; par ordre chronologi
 $langFile['sortablePageList_functions_editPage'] = 'r&eacute;diger la page';
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Cliquer ici pour changer le status du site web.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Cliquer ici pour changer le status de la cat&eacute;gorie.';
-$langFile['file_error_read'] = '<b>lecture du site web impossible.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['file_error_read'] = '<b>lecture du site web impossible.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_setStartPage_error_save'] .= $langFile['ERROR_SAVE_FILE'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;'; // also in fr.shared.php
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>le status du site web ne pouv&eacute; pas &ecirc;tre chang&eacute;.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>le status de la cat&eacute;gorie ne pouv&eacute; pas &ecirc;tre chang&eacute;.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>le status du site web ne pouv&eacute; pas &ecirc;tre chang&eacute;.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>le status de la cat&eacute;gorie ne pouv&eacute; pas &ecirc;tre chang&eacute;.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_info'] = 'L\'ordre du site web peut &ecirc;tre chang&eacute; <b>ordre site web</b> par <b>Drag and Drop</b> ainsi que les pages peuvent &ecirc;tre interchang&eacute;es entre les cat&eacute;gories diff&eacute;rentes.';
 $langFile['sortablePageList_save'] = 'sauvegarder le nouvel ordre ...';
 $langFile['sortablePageList_save_finished'] = 'nouvel ordre sauvegard&eacute;!';
-$langFile['sortablePageList_error_save'] = '<b>les pages ne pouvaient pas &ecirc;tre sauvgard&eacute;es.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_read'] = '<b>les pages ne pouvaient pas &ecirc;tre lus.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_move'] = '<b>la page ne pouvait pas &ecirc;tre mise dans la nouvelle cat&eacute;gorie.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_save'] = '<b>les pages ne pouvaient pas &ecirc;tre sauvgard&eacute;es.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_read'] = '<b>les pages ne pouvaient pas &ecirc;tre lus.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_move'] = '<b>la page ne pouvait pas &ecirc;tre mise dans la nouvelle cat&eacute;gorie.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_categoryEmpty'] = 'Keine Seiten vorhanden';
 
 // ---------- FORMULAR
@@ -354,8 +354,6 @@ $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'la trace principale sera 
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Svp sauvegardez la configuration!';
 $langFile['adminSetup_fmsSettings_field8'] = 'trace du site web';
 $langFile['adminSetup_fmsSettings_field8_tip'] = 'le [b]trace absolue[/b], contenant les site web.';
-$langFile['adminSetup_fmsSettings_field3'] = 'trace du dossier';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'le [b]trace absolue[/b], contenant les Flat-Files du contenu du site web.';
 $langFile['adminSetup_fmsSettings_field4'] = 'trace upload';
 $langFile['adminSetup_fmsSettings_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont &ecirc;tre t&eacute;l&eacute;charg&eacute;s.[br /][br /][span class=hint]pour ins&eacute;rer des fichiers, cliquez dans le HTML-Editor ins&eacute;rer lien > upload transf&eacute;r&eacute; ou dans le gestionnaire de fichiers.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]ces fichiers peuvent &ecirc;tre r&eacute;dig&eacute;s plus bas ou dans le param&egrave;trages du site web (si cette option est activ&eacute; pour le site web).[br /][br /]';
@@ -462,9 +460,9 @@ $langFile['pageSetup_moveCategory_moved'] = 'cat&eacute;gorie d&eacute;plac&eacu
 $langFile['pageSetup_moveCategory_up_tip'] = 'd&eacute;placer la cat&eacute;gorie vers le haut';
 $langFile['pageSetup_moveCategory_down_tip'] = 'd&eacute;placer la cat&eacute;gorie vers le bas';
 $langFile['pageSetup_error_create'] = '<b>Une nouvelle cat&eacute;gorie ne pouvait pas &ecirc;tre cr&eacute;e.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['pageSetup_error_createDir'] = '<b>Un r&eacute;pertoire de cat&eacute;gorie ne pouvait pas &ecirc;tre cr&eacute;e.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].'" Ordners.';
+$langFile['pageSetup_error_createDir'] = '<b>Un r&eacute;pertoire de cat&eacute;gorie ne pouvait pas &ecirc;tre cr&eacute;e.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.'" Ordners.';
 $langFile['pageSetup_error_delete'] = '<b>La cat&eacute;gorie ne pouvait pas &ecirc;tre &eacute;ffac&eacute;e.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Le r&eacute;pertoire de cat&eacute;gorie ne pouvait pas &ecirc;tre &eacute;ffac&eacute;.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['pageSetup_error_deleteDir'] = '<b>Le r&eacute;pertoire de cat&eacute;gorie ne pouvait pas &ecirc;tre &eacute;ffac&eacute;.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['pageSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
 $langFile['pageSetup_advancedSettings'] = 'param&egrave;tres avanc&eacute;s';
 $langFile['pageSetup_advancedSettings_hint'] = 'Si vous avez mis toutes les param&egrave;tres, les param&egrave;tres des thumbnails seront automatiquement &eacute;cras&eacute; les Wenn diese Einstellungen ausgef&uuml;llt sind &uuml;berschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die '.$langFile['adminSetup_editorSettings_h1'].' in den <a href="?site=adminSetup">Administrator-Einstellungen</a>.';
@@ -539,7 +537,7 @@ $langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Une liste avec tou
 $langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs des derni&egrave;rses activit&eacute;s';
 $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Contient une liste des derni&egrave;res activit&eacute;s.';
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Voulez vous vraiment &eacute;ffacer ces statistiques?';
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'une erreur s\'est produite pendant l\'&eacute;ffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'une erreur s\'est produite pendant l\'&eacute;ffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -642,7 +640,7 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'italique';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'soulign&eacute;';
 $langFile['editor_htmleditor_hotkeys_or'] = 'ou';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];// also in fr.shared.php
+$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];// also in fr.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'pr&eacute;f&eacute;rence plugin';

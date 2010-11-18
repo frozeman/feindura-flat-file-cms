@@ -38,7 +38,7 @@ $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.1';
+$newVersion = '1.1 beta';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -188,58 +188,57 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       return changeToSerializedData($newDataString,$separator);
     }
     
+    function copyDir($source,$target,&$copyError) {
+        if ( is_dir( $source ) ) {
+            @mkdir( $target );
+          
+            $d = dir( $source );
+          
+            while ( FALSE !== ( $entry = $d->read() ) ) {
+                if ( $entry == '.' || $entry == '..' )
+                {
+                    continue;
+                }
+              
+                $Entry = $source . '/' . $entry;          
+                if ( is_dir( $Entry ) ) {
+                    copyDir( $Entry, $target . '/' . $entry );
+                    continue;
+                }
+                
+                if(!copy( $Entry, $target . '/' . $entry ))
+                  $copyError = true;
+            }
+          
+            $d->close();
+        } else {
+            if(!copy( $source, $target ));
+              $copyError = true;
+        }
+    }
+    
     // and start!
     // *********
     
     echo '<br />';
     
-    // ->> SAVE NEW categoryConfig
-    $newCategoryConfig = array();
-    foreach($categoryConfig as $key => $category) {
-      $data = $category['styleFile'];
-        if(strpos($data,'|#|') !== false)
-          $category['styleFile'] = changeToSerializedData($data,'|#|');
-        elseif(strpos($data,'|') !== false)
-          $category['styleFile'] = changeToSerializedData($data,'|');
-      
-      $newKey = str_replace('id_','',$key);
-      $newKey = intval($newKey);
-      
-      $newCategoryConfig[$newKey] = $category;
-    }    
-    if(saveCategories($newCategoryConfig))
-      echo 'categoryConfig <span class="succesfull">succesfully updated</span><br />';
-    else {
-      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br />';
+    // try to move the pages folder
+    $copyError = false;
+    $didntCopy = false;
+    if(!empty($adminConfig['savePath'])) {
+      copyDir(DOCUMENTROOT.$adminConfig['savePath'],DOCUMENTROOT.$adminConfig['basePath'].'pages/',$copyError);
+    } else
+      $didntCopy = true;
+    if($copyError === false && $didntCopy === false) {
+      delDir($adminConfig['savePath']);
+      echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br />';
+    } elseif($didntCopy) {
+      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"?</span><br />';
+    } else {
+      echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br />';
       $succesfullUpdate = false;
     }
     
-    // ->> SAVE NEW websiteConfig
-    if(saveWebsiteConfig($websiteConfig))
-      echo 'websiteConfig <span class="succesfull">succesfully updated</span><br />';
-    else {
-      echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br />';
-      $succesfullUpdate = false;
-    }
-    
-    // ->> SAVE NEW adminConfig
-    $data = $adminConfig['editor']['styleFile'];
-      if(strpos($data,'|#|') !== false)
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
-      elseif(strpos($data,'|') !== false)
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
-      elseif(!empty($data) && substr($data,0,2) != 'a:')
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
-    
-    $adminConfig['websitePath'] = '/';
-    
-    if(saveAdminConfig($adminConfig))
-      echo 'adminConfig <span class="succesfull">succesfully updated</span><br />';
-    else {
-      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
-      $succesfullUpdate = false;
-    }
-  
     // ->> FIX PAGES
     $pages = $generalFunctions->loadPages(true);
     
@@ -297,6 +296,53 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       echo 'pages <span class="succesfull">succesfully updated</span><br />';
     else {
       echo 'pages <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
+    
+    // ->> SAVE NEW categoryConfig
+    $newCategoryConfig = array();
+    foreach($categoryConfig as $key => $category) {
+      $data = $category['styleFile'];
+        if(strpos($data,'|#|') !== false)
+          $category['styleFile'] = changeToSerializedData($data,'|#|');
+        elseif(strpos($data,'|') !== false)
+          $category['styleFile'] = changeToSerializedData($data,'|');
+      
+      $newKey = str_replace('id_','',$key);
+      $newKey = intval($newKey);
+      
+      $newCategoryConfig[$newKey] = $category;
+    }    
+    if(saveCategories($newCategoryConfig))
+      echo 'categoryConfig <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'categoryConfig <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
+    
+    // ->> SAVE NEW websiteConfig
+    if(saveWebsiteConfig($websiteConfig))
+      echo 'websiteConfig <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
+    
+    // ->> SAVE NEW adminConfig
+    $data = $adminConfig['editor']['styleFile'];
+      if(strpos($data,'|#|') !== false)
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
+      elseif(strpos($data,'|') !== false)
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
+      elseif(!empty($data) && substr($data,0,2) != 'a:')
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
+    
+    $adminConfig['websitePath'] = '/';
+    
+    if(saveAdminConfig($adminConfig))
+      echo 'adminConfig <span class="succesfull">succesfully updated</span><br />';
+    else {
+      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
       $succesfullUpdate = false;
     }
     

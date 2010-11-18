@@ -338,17 +338,17 @@ $langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Status f&uuml;r Seite zu &auml;ndern.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';
 
-$langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_setStartPage_error_save'] .= $langFile['ERROR_SAVE_FILE'].' "'.$adminConfig['basePath'].'config/website.config.php"'; // also in de.shared.php
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Kategorie konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Kategorie konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 $langFile['sortablePageList_info'] = 'Du kannst die <b>Seiten-Anordnung</b> per <b>Drag and Drop</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
 $langFile['sortablePageList_save'] = 'Speichere die neue Anordnung ...';
 $langFile['sortablePageList_save_finished'] = 'Neu Anordnung erfolgreich gespeichert!';
-$langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_read'] = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_move'] = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_read'] = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_move'] = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_categoryEmpty'] = 'Keine Seiten vorhanden';
 
 // ---------- FORMULAR
@@ -386,8 +386,6 @@ $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'Der Pfad wird automatisch
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
 $langFile['adminSetup_fmsSettings_field8'] = 'Webseitenpfad';
 $langFile['adminSetup_fmsSettings_field8_tip'] = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.';
-$langFile['adminSetup_fmsSettings_field3'] = 'Seitenpfad';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flat-Files mit dem Seiteninhalt gespeichert werden.';
 $langFile['adminSetup_fmsSettings_field4'] = 'Daten-Uploadpfad';
 $langFile['adminSetup_fmsSettings_field4_tip'] = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]Diese Dateien k&ouml;nnen dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]';
@@ -504,9 +502,9 @@ $langFile['pageSetup_moveCategory_up_tip'] = 'Kategorie nach oben verschieben';
 $langFile['pageSetup_moveCategory_down_tip'] = 'Kategorie nach unten verschieben';
 
 $langFile['pageSetup_error_create'] = '<b>Eine neue Kategorie konnte nicht erstellt werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['pageSetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].'" Ordners.';
+$langFile['pageSetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.'" Ordners.';
 $langFile['pageSetup_error_delete'] = '<b>Die Kategorie konnte nicht gel&ouml;scht werden.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['pageSetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['pageSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
 
 
@@ -597,7 +595,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste
 
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -705,7 +703,7 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'Kursiv';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'Unterstrichen';
 $langFile['editor_htmleditor_hotkeys_or'] = 'oder';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
+$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Einstellungen';

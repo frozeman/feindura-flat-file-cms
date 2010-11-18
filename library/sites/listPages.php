@@ -216,11 +216,9 @@ foreach($allCategories as $category) {
             
       echo '</div>
       </li>'."\n";
-      // backup download <a href="download.php?filename='.$pageContent['id'].'.php&amp;category='.$category['id'].'" class="extern" title="'.$adminConfig['savePath'].$gruppe['short'].'/'.$pageContent['id'].'.php">Download</a>
       // LIST PAGES END
       // -----------------------   ********  ----------------------      
-      
-      } 
+    } 
    
   } else {
     echo '<li><div style="position:relative; top:-2px; left:5px;">'.$langFile['sortablePageList_categoryEmpty'].'</div></li>';

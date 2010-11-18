@@ -580,8 +580,8 @@ class generalFunctions {
     
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
-    ? DOCUMENTROOT.$this->adminConfig['savePath'].$pageId.'.php'
-    : DOCUMENTROOT.$this->adminConfig['savePath'].$categoryId.'/'.$pageId.'.php';
+    ? DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$pageId.'.php'
+    : DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
@@ -733,7 +733,7 @@ class generalFunctions {
       //echo '<br />LOAD PAGE: '.$page.'<br />';   
       //echo 'CATEGORY: '.$category.'<br />';
     
-      if(@include(DOCUMENTROOT.$this->adminConfig['savePath'].$category.$page)) {
+      if(@include(DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$category.$page)) {
       
         // UNESCPAE the SINGLE QUOTES '
         $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
@@ -782,7 +782,7 @@ class generalFunctions {
     }
     
     // COLLECT THE DIRS in an array
-    // if $category is an array, i stores alle dirs in $this->adminConfig['savePath'] in an array
+    // if $category is an array, it stores all dirs from the pages folder in an array
     if(is_array($category)) {
       
         foreach($category as $categoryArray) {          
@@ -791,19 +791,19 @@ class generalFunctions {
           // *** if it is $this->categoryConfig settings array
           if(is_array($categoryArray) &&
              array_key_exists('id',$categoryArray)) {
-            // if category == 0, means that the files are stored in the $this->adminConfig['savePath'] folder
+            // if category == 0, means that the files are saved directly in the pages folder
             if($categoryArray['id'] == 0)
-              $dir = DOCUMENTROOT.$this->adminConfig['savePath'];
+              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/';
             elseif(is_numeric($categoryArray['id']))
-              $dir = DOCUMENTROOT.$this->adminConfig['savePath'].$categoryArray['id'];
+              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$categoryArray['id'];
           
           // *** if its just an array with the ids of the categories
           } else {
-            // if category == 0, means that the files are stored in the $this->adminConfig['savePath'] folder
+            // if category == 0, means that the files are directly saved in the pages folder
             if(is_numeric($categoryArray) && $categoryArray == 0) //$categoryArray === false ||
-              $dir = DOCUMENTROOT.$this->adminConfig['savePath'];
+              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/';
             elseif(is_numeric($categoryArray))
-              $dir = DOCUMENTROOT.$this->adminConfig['savePath'].$categoryArray;
+              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$categoryArray;
           }
           
           // stores the paths in an array
@@ -811,9 +811,9 @@ class generalFunctions {
         }
     } else {    
       if($category === false || (is_numeric($category) && $category == 0))
-        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['savePath'];
+        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/';
       elseif(is_numeric($category))
-        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['savePath'].$category;
+        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$category;
     }
     
     // LOAD THE FILES out of the dirs

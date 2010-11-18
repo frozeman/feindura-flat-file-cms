@@ -1,7 +1,7 @@
 <?php
 /*
  * feindura - Flat File Content Management System
- * Copyright (C) Fabian Vogels$adminConfig['savePath']er [frozeman.de]
+ * Copyright (C) Fabian Vogels$adminConfig['basePath'].'pages/'er [frozeman.de]
  *
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
@@ -339,17 +339,17 @@ $langFile['sortablePageList_functions_editPage'] = 'Edit page';
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Click here to change the status of the page.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Click here to change the status of the category.';
 
-$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['file_error_read'] = '<b>Could not read the page.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_setStartPage_error_save'] .= $langFile['ERROR_SAVE_FILE'].' &quot;'.$adminConfig['basePath'].'config/website.config.php&quot;'; // also in en.shared.php
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Could not change the status of the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Could not change the status of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 $langFile['sortablePageList_info'] = 'You can change the <b>sorting</b> of the pages and move pages between categories by <b>Drag and Drop</b>.';
 $langFile['sortablePageList_save'] = 'Save new sorting ...';
 $langFile['sortablePageList_save_finished'] = 'New sorting successfully saved!';
-$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_save'] = '<b>Could not save the page.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_read'] = '<b>The pages could not be read.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_move'] = '<b>Could not move the page into the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_categoryEmpty'] = 'No pages available';
 
 // ---------- FORMULAR
@@ -388,8 +388,6 @@ $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'The path will be added au
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Please save the settings!';
 $langFile['adminSetup_fmsSettings_field8'] = 'Website path';
 $langFile['adminSetup_fmsSettings_field8_tip'] = 'The [b]absolute path[/b] where the website is situated.';
-$langFile['adminSetup_fmsSettings_field3'] = 'Save path';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'The [b]absolute path[/b] where the flat files with the page content will be saved.';
 $langFile['adminSetup_fmsSettings_field4'] = 'Upload path';
 $langFile['adminSetup_fmsSettings_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
@@ -506,9 +504,9 @@ $langFile['pageSetup_moveCategory_up_tip'] = 'Move category upwards';
 $langFile['pageSetup_moveCategory_down_tip'] = 'Move category downwards';
 
 $langFile['pageSetup_error_create'] = '<b>Could not create new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].'&quot; Ordners.';
+$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.'&quot; Ordners.';
 $langFile['pageSetup_error_delete'] = '<b>Could not delete the category</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['pageSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
 
 
@@ -599,7 +597,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'A list of the last ac
 
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Are you sure you want to delete these statistics?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Error while deleting the page statistics.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -707,7 +705,7 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'italic';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'underline';
 $langFile['editor_htmleditor_hotkeys_or'] = 'or';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
+$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Settings';

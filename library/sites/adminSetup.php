@@ -29,7 +29,7 @@ if(isAdmin()) {
 // ----------------------------------------------------------------------------------------
 $checkFolders[] = $adminConfig['basePath'].'config/';
 $checkFolders[] = $adminConfig['basePath'].'statistic/';
-$checkFolders[] = $adminConfig['savePath'];
+$checkFolders[] = $adminConfig['basePath'].'pages/';
 $checkFolders[] = $adminConfig['websitefilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
@@ -99,24 +99,12 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       ?>
       <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['adminSetup_fmsSettings_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field2_inputTip']; ?>" />
       </td></tr>
-      
-      <tr><td class="spacer"></td><td></td></tr>
 
       <tr><td class="left">
       <label for="cfg_websitePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field8'].'::'.$langFile['adminSetup_fmsSettings_field8_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_field8'] ?></span></label>
       </td><td class="right">
       <input size="40" id="cfg_websitePath" name="cfg_websitePath" value="<?php echo $adminConfig['websitePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
-      <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
-      </td></tr>
-      
-      <tr><td class="spacer"></td><td></td></tr>
-      
-      <tr><td class="left">
-      <label for="cfg_savePath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field3'].'::'.$langFile['adminSetup_fmsSettings_field3_tip'] ?>">
-      <?php echo $langFile['adminSetup_fmsSettings_field3'] ?></span></label>
-      </td><td class="right">
-      <input size="40" id="cfg_savePath" name="cfg_savePath" value="<?php echo $adminConfig['savePath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
       <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </td></tr>
       

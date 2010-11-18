@@ -1,4 +1,4 @@
-CKEDITOR.addStylesSet( 'feinduraStyles',
+CKEDITOR.addStylesSet( 'htmlEditorStyles',
 [
 
 {name:'Blue Title',element:'h1',styles:{color:'Blue'}},

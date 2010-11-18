@@ -2,7 +2,7 @@
 
 $adminConfig['url'] =              'http://localhost';
 $adminConfig['basePath'] =         '/feinduraCMS/';
-$adminConfig['savePath'] =         '/feinduraCMS/page/';
+$adminConfig['websitePath'] =      '/';
 $adminConfig['uploadPath'] =       '/feinduraCMS/upload/';
 $adminConfig['websitefilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '/styles/';

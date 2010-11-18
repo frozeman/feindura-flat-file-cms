@@ -82,12 +82,12 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       $categoryConfig = array();
     
     // if there is no category dir, try to create one
-    if(@is_dir(DOCUMENTROOT.$adminConfig['savePath'].$newId)) {
+    if(@is_dir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId)) {
       $isDir = true;
     } else {
       // erstellt ein verzeichnis
-      if(!@mkdir(DOCUMENTROOT.$adminConfig['savePath'].$newId, PERMISSIONS) ||
-         !@chmod(DOCUMENTROOT.$adminConfig['savePath'].$newId, PERMISSIONS)) {
+      if(!@mkdir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, PERMISSIONS) ||
+         !@chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, PERMISSIONS)) {
           $isDir = false;
           $errorWindow .= $langFile['pageSetup_error_createDir'];      
       // save category dir could be created
@@ -130,7 +130,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     $categoryInfo = $langFile['pageSetup_deleteCategory_deleted'].': '.$storedCategoryName;
   
     // if there is a category dir, trys to delete it !important deletes all files in it
-    if(is_dir(DOCUMENTROOT.$adminConfig['savePath'].$_GET['category'])) {
+    if(is_dir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$_GET['category'])) {
     
       if($pageContents = $generalFunctions->loadPages($_GET['category'],true)) {
       
@@ -145,7 +145,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
       }
       
       // deletes the dir with subdirs and files
-      if(!delDir($adminConfig['savePath'].$_GET['category'].'/')) {
+      if(!delDir($adminConfig['basePath'].'pages/'.$_GET['category'].'/')) {
         $errorWindow .= ($errorWindow) // if there is allready an warning
           ? '<br /><br />'.$langFile['pageSetup_error_deleteDir']
           : $langFile['pageSetup_error_deleteDir'];
