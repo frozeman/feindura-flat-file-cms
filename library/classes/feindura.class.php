@@ -1000,16 +1000,17 @@ class feindura extends feinduraBase {
       
       // -> add plugin-stylesheets
       $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
-      foreach($plugins['folders'] as $pluginFolder) {
-        $pluginName = basename($pluginFolder);
-
-        if($this->pluginsConfig[$pluginName]['active'])
-          $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
+      if(is_array($plugins)) {
+        foreach($plugins['folders'] as $pluginFolder) {
+          $pluginName = basename($pluginFolder);
+  
+          if($this->pluginsConfig[$pluginName]['active'])
+            $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
+        }
       }
       
       // ->> ENABLE FRONTEND EDITING
-      // if user is logged into the CMS, add javascripts for implementing ckeditor
-      
+      // if user is logged into the CMS, add javascripts for implementing ckeditor      
       if($this->loggedIn) {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";

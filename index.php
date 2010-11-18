@@ -43,19 +43,17 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 // -----------------------------------------------------------------------------------
 // generates the DOCUMENT TYPE
 // kind of hack, because i use iframes for uploading the thumbnail
-if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
+echo ($_GET['site'] == 'pages' || !empty($_GET['page']) ||
    $_GET['site'] == 'userSetup' ||
    $_GET['site'] == 'adminSetup' ||
    $_GET['site'] == 'websiteSetup' ||
-   $_GET['site'] == 'pluginSetup') {
-  echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   $_GET['site'] == 'pluginSetup')
+   ? '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-';
-} else {
-  echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+'
+   : '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 ';
-}
 ?>
 <html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
