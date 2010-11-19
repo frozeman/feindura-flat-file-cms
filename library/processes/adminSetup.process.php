@@ -50,7 +50,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
-  saveSpeakingUrl(&$errorWindow);
+  saveSpeakingUrl($errorWindow);
   
   // -> CHECK if the VARNAMES are EMPTY, and add the previous ones, if speaking url = true
   if($_POST['cfg_speakingUrl'] == 'true') {

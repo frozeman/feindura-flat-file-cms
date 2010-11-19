@@ -142,6 +142,10 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       }
     }
     
+    // delete the tmp file
+    if(!empty($_FILES['restoreBackupUpload']['tmp_name']))
+      @unlink($_FILES['restoreBackupUpload']['tmp_name']);
+    
     // -> when restore was succesfull
     if($errorWindow === false) {
       // set documentSaved status
