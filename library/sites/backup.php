@@ -85,6 +85,14 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
       
       echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';
       echo '<div class="verticalSeparator"></div><br />';
+      echo '<table>
+     
+      <colgroup>
+      <col class="left" />
+      </colgroup>
+  
+      <tr><td class="leftTop"></td><td></td></tr>';
+
       
       natsort($backups['files']);
       $backups['files'] = array_reverse($backups['files']);
@@ -92,10 +100,16 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
         $backupTime = filemtime(DOCUMENTROOT.$backupFile);
         $backupTime = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($backupTime)).' '.$statisticFunctions->formatTime($backupTime);
         
+        echo '<tr><td class="left">';
+        echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'">';
+        echo '</td><td class="right">';
         echo (strpos($backupFile,'restore') === false)
-          ? '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'"> <label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$backupTime."</label><br /><br />\n"
-          : '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'"> <label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$backupTime."</label><br /><br />\n";
-      } 
+          ? '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$backupTime."</label>\n"
+          : '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$backupTime."</label>\n";
+        echo '</td></tr>';
+      }
+           
+      echo '</table>';
     }
     
     ?>

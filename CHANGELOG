@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta
-Build 476
+Build 477
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta
   
+  build 477: changed listing of backup files
   build 476: fixed some error with &$
   build 475: small fix when loading plugin stylesheets
   build 474: removed $adminConfig['savePath'], the save path for the pages is now always in $adminConfig['basePath'].'pages/'
