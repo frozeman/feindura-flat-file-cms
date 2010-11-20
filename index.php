@@ -122,7 +122,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
   
   <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
