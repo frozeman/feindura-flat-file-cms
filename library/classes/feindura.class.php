@@ -883,7 +883,7 @@ class feindura extends feinduraBase {
     $this->setLanguage($_SESSION['language']);
         
     // includes the langFile and returns it
-    if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))
+    if($langFile = @include($langFilesPath.$_SESSION['language'].'.php'))
       return $langFile;
     else
       return array();

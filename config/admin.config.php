@@ -7,7 +7,7 @@ $adminConfig['uploadPath'] =       '/_feindura/_upload/';
 $adminConfig['websitefilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '/_feindura.org/style/';
 $adminConfig['dateFormat'] =       'eu';
-$adminConfig['speakingUrl'] =      false;
+$adminConfig['speakingUrl'] =      true;
 
 $adminConfig['varName']['page'] =     'page';
 $adminConfig['varName']['category'] = 'category';
@@ -27,7 +27,7 @@ $adminConfig['pages']['showtags'] =     false;
 $adminConfig['editor']['enterMode'] =  'p';
 $adminConfig['editor']['styleFile'] =  'a:3:{i:0;s:32:"/_feindura.org/style/content.css";i:1;s:31:"/_feindura.org/style/layout.css";i:2;s:46:"http://fonts.googleapis.com/css?family=Molengo";}';
 $adminConfig['editor']['styleId'] =    'content';
-$adminConfig['editor']['styleClass'] = 'cxvxcv[jhg(h)j]';
+$adminConfig['editor']['styleClass'] = 'cxvxcv[jhghj]';
 
 $adminConfig['pageThumbnail']['width'] =  '100';
 $adminConfig['pageThumbnail']['height'] = '150';

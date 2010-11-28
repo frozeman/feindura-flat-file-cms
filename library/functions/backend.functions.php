@@ -895,8 +895,8 @@ RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
 RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
-'.$newWebsitePath.'category/([^/]+)/(.*)\.html?$ ?category=$1&page=$2$3 [QSA,L]
-'.$newWebsitePath.'page/(.*)\.html?$ ?page=$1$2 [QSA,L]
+'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ ?category=$1&page=$2$3 [QSA,L]
+'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ ?page=$1$2 [QSA,L]
 </IfModule>';
   
   $oldSpeakingUrlCode = str_replace($newWebsitePath,$oldWebsitePath,$speakingUrlCode);

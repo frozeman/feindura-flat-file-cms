@@ -21,11 +21,11 @@ $pageContent['styleFile'] =          '';
 $pageContent['styleId'] =            '';
 $pageContent['styleClass'] =         '';
 
-$pageContent['log_visitorcount'] =   '1';
-$pageContent['log_visitTime_min'] =  '';
-$pageContent['log_visitTime_max'] =  '';
-$pageContent['log_firstVisit'] =     '1290190711';
-$pageContent['log_lastVisit'] =      '1290190711';
+$pageContent['log_visitorcount'] =   '2';
+$pageContent['log_visitTime_min'] =  'a:1:{i:0;i:0;}';
+$pageContent['log_visitTime_max'] =  'a:2:{i:0;i:19;i:1;i:7;}';
+$pageContent['log_firstVisit'] =     '1290977875';
+$pageContent['log_lastVisit'] =      '1290978313';
 $pageContent['log_searchwords'] =    '';
 
 $pageContent['content'] = 
