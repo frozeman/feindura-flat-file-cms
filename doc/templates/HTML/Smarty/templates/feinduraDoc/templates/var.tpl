@@ -13,7 +13,10 @@
     </span>
 	</div>
 
-	{include file="docblock.tpl" sdesc=$vars[vars].sdesc desc=$vars[vars].desc tags=$vars[vars].tags}	
+  <div class="docBlock">
+  
+  <h3>Default value</h3>
+  <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br>"}</span>
 	
 	{if $vars[vars].var_overrides}
 		<hr class="separator" />
@@ -39,8 +42,11 @@
 			</li>
 		{/section}
 		</ul>
-	{/if}	
-
+	{/if}  
+  </div>
+  
+  {include file="docblock.tpl" sdesc=$vars[vars].sdesc desc=$vars[vars].desc tags=$vars[vars].tags}	
+  
 </div>
 {/if}
 {/section}
@@ -59,8 +65,11 @@
 			<!--(line <span class="line-number">{if $vars[vars].slink}{$vars[vars].slink}{else}{$vars[vars].line_number}{/if}</span>)-->
     </span>
 	</div>
-
-	{include file="docblock.tpl" sdesc=$vars[vars].sdesc desc=$vars[vars].desc tags=$vars[vars].tags}	
+  
+  <div class="docBlock">
+  
+  <h3>Default value</h3>
+  <span class="var-default">{$vars[vars].var_default|replace:"\n":"<br>"}</span>
 	
 	{if $vars[vars].var_overrides}
 		<hr class="separator" />
@@ -86,8 +95,11 @@
 			</li>
 		{/section}
 		</ul>
-	{/if}	
-
+	{/if}  
+  </div>
+  
+  {include file="docblock.tpl" sdesc=$vars[vars].sdesc desc=$vars[vars].desc tags=$vars[vars].tags}	
+  
 </div>
 {/if}
 {/section}

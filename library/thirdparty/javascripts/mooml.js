@@ -1,4 +1,4 @@
-﻿/*
+/*
 ---
 script: mooml.js
 version: 1.2.4
@@ -77,8 +77,10 @@ var Mooml = {
 			template.code = this.prepare(template.code);
 			template.prepared = true;
 		}
-
-		$splat($pick(data, {})).each(function(params, index) {
+		
+		console.log(data);
+		
+		Array.from(Array.pick(data, {})).each(function(params, index) {
 			template.code(params, index);
 			elements.extend(template.nodes.filter(function(node) {
 				return node.getParent() === null;
@@ -227,7 +229,7 @@ Mooml.Templates = {
 /**
  * Implement Mooml.Templates into Mooml and alias for backwards compatibility
  */
-$extend(Mooml, Mooml.Templates);
+Object.append(Mooml, Mooml.Templates);
 Mooml.register = Mooml.registerTemplate;
 Mooml.render = Mooml.renderTemplate;
 

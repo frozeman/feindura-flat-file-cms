@@ -32,23 +32,20 @@ echo '</head>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-  <meta http-equiv="content-language" content="de" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="content-language" content="en" />
 
   <title>
   feinduraExample.com - Welcome
   </title>
 
   <meta name="siteinfo" content="robots.txt" />
-  <meta name="robots" content="index" />
-  <meta name="robots" content="nofollow" />
-
   <meta name="revisit_after" content="12" />
 
-  <meta http-equiv="pragma" content="no-cache" /> <!-- browser/proxy does not cache -->
-  <meta http-equiv="cache-control" content="no-cache" /> <!-- browser/proxy does not cache -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <!-- enable google chrome frame, if available -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- set width for mobile devices -->
 
   <meta name="title" content="feinduraExample.com - Welcome" />
   <meta name="author" content="Fabian Vogelsteller" />

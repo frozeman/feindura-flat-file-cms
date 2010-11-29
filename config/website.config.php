@@ -2,9 +2,9 @@
 
 $websiteConfig['title']          = 'feindura Flat File CMS';
 $websiteConfig['publisher']      = 'Fabian Vogelsteller';
-$websiteConfig['copyright']      = 'Fabian Vogels&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;#039;teller';
+$websiteConfig['copyright']      = 'Fabian Vogelsteller';
 $websiteConfig['keywords']       = 'content,management,system,cms,flat,files,open,source,free,software,GPL';
-$websiteConfig['description']    = 'zuh&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;#039;&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;#039;&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;#039;&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;#039;';
+$websiteConfig['description']    = 'zuh&#039;dfsdfdsfds';
 
 $websiteConfig['startPage']      = '1';
 

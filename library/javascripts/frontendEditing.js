@@ -256,7 +256,7 @@ window.addEvent('domready',function() {
   // ->> add TOP BAR
   // ***************
   var feindura_topBar = Mooml.render('feindura_topBarTemplate');
-  feindura_topBar.inject($(document.body),'top');
+  //feindura_topBar.inject($(document.body),'top');
   $(document.body).setStyle('padding-top','60px');
   
   // ->> GO TROUGH ALL EDITABLE BLOCK
@@ -298,9 +298,12 @@ window.addEvent('domready',function() {
     // ->> create PAGE BAR
     var pageBar = new Element('div',{'class': 'feindura_pageBar'});
     var pageBarContent = feindura_renderPageBar({ pageId: pageBlock.retrieve('page'), categoryId: pageBlock.retrieve('category'), pageBlockClasses: pageBlock.get('class') });
+    console.log('->'+pageBarContent);
+    /*
     pageBarContent.each(function(link){
       link.inject(pageBar,'bottom');
     });
+    */
     // -> inject the page bar
     pageBar.inject(pageBlock,'before');
     pageBar.set('tween',{duration: 300});
@@ -373,6 +376,6 @@ window.addEvent('domready',function() {
                                         ]};
                                         
   // -> create editor instance to edit all divs which have the class "feindura_editPage"
-  new MooRTE('div.feindura_editPage, span.feindura_editTitle', {skin:'rteFeinduraSkin', defaults: feindura_MooRTEButtons, location:'pageTop'});
+  //new MooRTE('div.feindura_editPage, span.feindura_editTitle', {skin:'rteFeinduraSkin', defaults: feindura_MooRTEButtons, location:'pageTop'});
   //new MooRTE({'div.feindura_editPage, span.feindura_editTitle', {skin:'rteFeinduraSkin', buttons: feindura_MooRTEButtons,location:'pageTop'});
 });

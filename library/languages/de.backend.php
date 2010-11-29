@@ -19,7 +19,7 @@
  * 
  * IMPORTANT:<br>
  * if you want to write html-code in the toolTip texts (the $langFile which have "_TOOLTIP_")
- * uses only "[" and "]" instead of "<" and ">" for the HTML-tags and use no "! This would end the title="" tag where the toolTip text are in.
+ * uses only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " (write instead &quot;), this would end the title="" tag which contains the toolTip text.
  * 
  * <samp>
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';

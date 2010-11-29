@@ -183,7 +183,7 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
     <div id="loginBox">
       <form action="<?= $_SERVER['PHP_SELF']; ?><?php echo (isset($_GET['resetpassword'])) ? '?resetpassword' : ''; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
-          <input type="text" value="<?= $_POST['username'] ?>" name="username" id="username" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" /><br />
+          <input type="text" value="<?= $_POST['username'] ?>" name="username" id="username" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus" /><br />
         <?php if(!isset($_GET['resetpassword'])) { ?>
           <input type="password" value="<?= $_POST['password'] ?>" name="password" id="password" title="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" /><br />
         <?php } 
