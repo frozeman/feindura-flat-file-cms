@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta
-Build 480
+Build 481
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta
   
+  build 481: add old MooRTE and removed mooml template engine
   build 480: changed !DOCTYPE of the feindura index.php
   build 479: fixed mod_rewrite for speaking urls
   build 478: add new version of form.autogrow (powertools.1.0.1.js)

@@ -1022,19 +1022,17 @@ class feindura extends feinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/rteFeinduraSkin.css" />'."\n";
         
         // add mootools
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";
+        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";
         // add CKEditor
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
 
         // add MooRTE and mootools
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5.1-more.js"></script>'."\n";
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/StickyWinModalUI.js"></script>'."\n";
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
-        //add mooml template engine
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mooml.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5.1-more.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/StickyWinModalUI.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
         // add raphael
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
         // add the javascripts which are shared by the backend and the frontend
@@ -1080,26 +1078,32 @@ class feindura extends feinduraBase {
       values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage']."';
     }
     
-    return Mooml.render('feindura_pageBarTemplate', values);
+    return feindura_pageBarTemplate(values);
   }
   
   // ->> create TOP BAR
-  Mooml.register('feindura_topBarTemplate', function() {
-      div({id: 'feindura_topBar'},
-          a({ 'href': '".$this->generalFunctions->getCurrentUrl('feindura_logout')."', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }, ''),
-          a({ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'class': 'feindura_toBackend feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, ''),
-          a({ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, '')
-         )
-  });  
+  function feindura_topBarTemplate() {
+    var div = new Element('div',{id: 'feindura_topBar'});
+    var logo = new Element('a',{ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' });
+    var links = new Array();
+    links.push(new Element('a',{ 'href': '".$this->generalFunctions->getCurrentUrl('feindura_logout')."', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }));
+    links.push(new Element('a',{ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'class': 'feindura_toBackend feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }));
+    links.each(function(link){
+      div.grab(link,'bottom');
+    });
+    return [div,logo];
+  };
   
   // ->> create PAGE BAR
-  Mooml.register('feindura_pageBarTemplate', function(values) {
-          // editPage
-          a({ 'href': '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': '".$this->languageFile['editPage_functions']."::' }, ''),
-          // setStartPage
-          a({ 'href': '#', 'onclick': 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{\'title\': \'".$this->languageFile['errorWindow_h1']."\',\'text\': \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;','class': 'feindura_startPage'+values.startPageActive+' feindura_toolTip', 'title': values.startPageText+'::'})
-  });
-
+  function feindura_pageBarTemplate(values) {
+    var links = new Array();
+    // editPage
+    links.push(new Element('a',{ 'href': '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': '".$this->languageFile['editPage_functions']."::' }));
+    // setStartPage
+    links.push(new Element('a',{ 'href': '#', 'onclick': 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{\'title\': \'".$this->languageFile['errorWindow_h1']."\',\'text\': \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;','class': 'feindura_startPage'+values.startPageActive+' feindura_toolTip', 'title': values.startPageText+'::'}));
+  
+    return links;
+  }
   
   /* ]]> */
   </script>\n";

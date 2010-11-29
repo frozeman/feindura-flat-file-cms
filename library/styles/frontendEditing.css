@@ -61,19 +61,24 @@ a.logout:hover, a.toWebsite:hover {
 /* TOP BAR */
 
 #feindura_topBar {
-  z-index: 2;
+  z-index: 99;
   position: fixed;
   left: 0px;
   top: 0px;
-  height: 20px;
+  height: 50px; /* org: 60px */
   width: 100%;
   padding: 5px;
   background: url('../images/bg/frontendEditing_topBar.png') repeat-x;
+  -webkit-box-shadow: 0px 0px 5px #ccc;
+  -moz-box-shadow: 0px 0px 5px #ccc;
+  -o-box-shadow: 0px 0px 5px #ccc;
+  box-shadow: 0px 0px 5px #ccc;
 }
 
 #feindura_logo {
-  display: block;
+  z-index: 101;
   position: fixed;
+  display: block;
   top: 0px;
   right: 3px;
   width: 112px;

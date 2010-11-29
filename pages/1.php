@@ -8,7 +8,7 @@ $pageContent['sortorder'] =          3;
 $pageContent['lastsavedate'] =       '1287431111';
 $pageContent['lastsaveauthor'] =     'frozeman';
 
-$pageContent['title'] =              'Welcome';
+$pageContent['title'] =              'Welcfdgdfgdfome';
 $pageContent['description'] =        '';
 
 $pageContent['pagedate']['before'] = '';
@@ -21,15 +21,20 @@ $pageContent['styleFile'] =          '';
 $pageContent['styleId'] =            '';
 $pageContent['styleClass'] =         '';
 
-$pageContent['log_visitorcount'] =   '2';
-$pageContent['log_visitTime_min'] =  'a:1:{i:0;i:0;}';
+$pageContent['log_visitorcount'] =   '3';
+$pageContent['log_visitTime_min'] =  'a:3:{i:0;i:7;i:1;i:7;i:2;i:0;}';
 $pageContent['log_visitTime_max'] =  'a:2:{i:0;i:19;i:1;i:7;}';
 $pageContent['log_firstVisit'] =     '1290977875';
-$pageContent['log_lastVisit'] =      '1290978313';
+$pageContent['log_lastVisit'] =      '1291061972';
 $pageContent['log_searchwords'] =    '';
 
 $pageContent['content'] = 
-'Test text';
+'
+Test te<br />
+<br />
+fdgfdgdfg<br />
+xt
+';
 
 return $pageContent;
 ?>

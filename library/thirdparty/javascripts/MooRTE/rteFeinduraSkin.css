@@ -1,13 +1,9 @@
 /* overwrite General */
-div.MooRTE.rtePageTop{ position:fixed; top: 30px;  }
+div.MooRTE.rtePageTop{ z-index: 100; position: fixed; top: 30px;  }
 /* End General*/
 
 /* Begin rteFeinduraSkin skin*/
-div.MooRTE div.rteFeinduraSkin { height: 30px; left:0; bottom:0; width:100%; background: url('images/rteFeinduraSkin_bg.png') repeat-x !important; color:#222; font: 12px Arial; 
-                                -webkit-box-shadow: 0px 0px 5px #ccc;
-                                -moz-box-shadow: 0px 0px 5px #ccc;
-                                -o-box-shadow: 0px 0px 5px #ccc;
-                                box-shadow: 0px 0px 5px #ccc; }
+div.MooRTE div.rteFeinduraSkin { height: 30px; left:0; bottom:0; width:100%; color:#222; font: 12px Arial; }
 div.MooRTE div.rteFeinduraSkin   span{ height:20px; margin:1px; display:inline-block; }
 div.MooRTE div.rteFeinduraSkin   input{ height:20px; width:100px; }
 div.MooRTE div.rteFeinduraSkin   div.rteTop{ border-bottom:1px #bbb solid; height:18px; overflow:hidden; vertical-align:bottom; text-align:left; }

@@ -78,8 +78,6 @@ var Mooml = {
 			template.prepared = true;
 		}
 		
-		console.log(data);
-		
 		Array.from(Array.pick(data, {})).each(function(params, index) {
 			template.code(params, index);
 			elements.extend(template.nodes.filter(function(node) {
