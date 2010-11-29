@@ -8,7 +8,7 @@ $pageContent['sortorder'] =          3;
 $pageContent['lastsavedate'] =       '1287431111';
 $pageContent['lastsaveauthor'] =     'frozeman';
 
-$pageContent['title'] =              'Welcfdgdfgdfome';
+$pageContent['title'] =              'Welcome';
 $pageContent['description'] =        '';
 
 $pageContent['pagedate']['before'] = '';
@@ -31,8 +31,11 @@ $pageContent['log_searchwords'] =    '';
 $pageContent['content'] = 
 '
 Test te<br />
-<br />
-fdgfdgdfg<br />
+
+nvbnb<br />
+
+fdgfdgdfgfdgdfg dfg dfgfd g,m idjf&ouml;kdfk g&auml;jfd&ouml;g kdfgfdg<br />
+
 xt
 ';
 

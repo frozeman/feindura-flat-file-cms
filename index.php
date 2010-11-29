@@ -140,7 +140,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/content.js"></script>
   
   <!-- starts the session counter -->
-  <script>
+  <script type="text/javascript">
   /* <![CDATA[ */  
   
   window.addEvent('domready', function () {

@@ -1044,66 +1044,24 @@ class feindura extends feinduraBase {
         
         // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
-  /* <![CDATA[ */  
+  /* <![CDATA[ */
   
-  // ->> SAVE PAGE
-  function feindura_savePage(pageBlock,type) {
-    if(feindura_pageSaved === false && feindura_pageContent != pageBlock.get('html')) {
+  // transport PHP vars to javascript
+  var feindura_url = '".$this->adminConfig['url']."';
+  var feindura_basePath = '".$this->adminConfig['basePath']."';
+  var feindura_langFile = {
+    ERRORWINDOW_TITLE:      '".$this->languageFile['errorWindow_h1']."',
+    ERROR_SAVE:             '".$this->languageFile['editor_savepage_error_save']."',
+    ERROR_SETSTARTPAGE:     '".$this->languageFile['sortablePageList_setStartPage_error_save']."',
+    FUNCTIONS_STARTPAGE_SET:'".$this->languageFile['sortablePageList_functions_startPage_set']."',
+    FUNCTIONS_STARTPAGE:    '".$this->languageFile['sortablePageList_functions_startPage']."',
+    FUNCTIONS_EDITPAGE:     '".$this->languageFile['editPage_functions']."',
+    BUTTON_LOGOUT:          '".$this->languageFile['header_button_logout']."',
+    BUTTON_GOTOBACKEND:     '".$this->languageFile['header_button_gotobackend']."'
     
-      // removes eventually existing loadingCircleContainers
-      $$('.feindura_loadingCircleContainer').each(function(container){
-        container.destroy();
-      });
-      
-      // url encodes the string
-      var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
-
-      // save the page
-      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post',true);
-  		
-      feindura_pageSaved = true;
-    }
-  }
-  
-  
-  // ->> RENDER PAGEBAR
-  function feindura_renderPageBar(values) {
-    var startpage = '".$this->startPage."';
-    
-    if(startpage == values.pageId) {
-      values.startPageActive = ' active';
-      values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage_set']."';
-    } else {
-      values.startPageActive = '';
-      values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage']."';
-    }
-    
-    return feindura_pageBarTemplate(values);
-  }
-  
-  // ->> create TOP BAR
-  function feindura_topBarTemplate() {
-    var div = new Element('div',{id: 'feindura_topBar'});
-    var logo = new Element('a',{ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' });
-    var links = new Array();
-    links.push(new Element('a',{ 'href': '".$this->generalFunctions->getCurrentUrl('feindura_logout')."', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }));
-    links.push(new Element('a',{ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'class': 'feindura_toBackend feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }));
-    links.each(function(link){
-      div.grab(link,'bottom');
-    });
-    return [div,logo];
   };
-  
-  // ->> create PAGE BAR
-  function feindura_pageBarTemplate(values) {
-    var links = new Array();
-    // editPage
-    links.push(new Element('a',{ 'href': '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': '".$this->languageFile['editPage_functions']."::' }));
-    // setStartPage
-    links.push(new Element('a',{ 'href': '#', 'onclick': 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{\'title\': \'".$this->languageFile['errorWindow_h1']."\',\'text\': \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;','class': 'feindura_startPage'+values.startPageActive+' feindura_toolTip', 'title': values.startPageText+'::'}));
-  
-    return links;
-  }
+  var feindura_logoutUrl = '".$this->generalFunctions->getCurrentUrl('feindura_logout')."';
+  var feindura_startPage = '".$this->startPage."';
   
   /* ]]> */
   </script>\n";

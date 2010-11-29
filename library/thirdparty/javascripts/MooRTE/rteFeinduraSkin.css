@@ -1,5 +1,5 @@
 /* overwrite General */
-div.MooRTE.rtePageTop{ z-index: 100; position: fixed; top: 30px;  }
+div.MooRTE.rtePageTop{ z-index: 2; position: fixed; top: 30px;  }
 /* End General*/
 
 /* Begin rteFeinduraSkin skin*/

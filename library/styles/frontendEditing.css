@@ -61,7 +61,7 @@ a.logout:hover, a.toWebsite:hover {
 /* TOP BAR */
 
 #feindura_topBar {
-  z-index: 99;
+  z-index: 1;
   position: fixed;
   left: 0px;
   top: 0px;
@@ -76,7 +76,7 @@ a.logout:hover, a.toWebsite:hover {
 }
 
 #feindura_logo {
-  z-index: 101;
+  z-index: 3;
   position: fixed;
   display: block;
   top: 0px;
