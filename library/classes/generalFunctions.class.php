@@ -761,9 +761,10 @@ class generalFunctions {
   * 
   * @return array|false an array with page IDs and the affiliated category IDs or empty array if the category had no pages
   * 
-  * @version 1.0
+  * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.01 add scandir() to scan category dirs
   *    - 1.0 initial release
   * 
   */
@@ -818,11 +819,9 @@ class generalFunctions {
     
     // LOAD THE FILES out of the dirs
     // goes trough all category dirs and put the page arrays into an array an retun it
-    foreach($categoryDirs as $dir) {
-  
+    foreach($categoryDirs as $dir) {  
       // opens every category dir and stores the arrays of the pages in an array
       if(is_dir($dir) && $dir != DOCUMENTROOT) {
-
         $pages = array();
         
         // checks if its a category or the non-category
@@ -830,23 +829,15 @@ class generalFunctions {
           $categoryId = false;
         else
           $categoryId = basename($dir);
-      
-        $catDir = opendir($dir);
-        while(false !== ($file = readdir($catDir))) {
-        if($file != "." && $file != "..") {
-            if(is_file($dir."/".$file)){
-              // load Pages, without a category
-              if($categoryId === false) {
-	        $pages[] = array('page' => substr($file,0,-4), 'category' => 0);
-              // load Pages, with a category
-              } else {
-	        $pages[] = array('page' => substr($file,0,-4), 'category' => $categoryId);
-              }
-            }
+        
+        $readFolder = scandir($dir);      
+        foreach($readFolder as $inDirObject) {
+          if($inDirObject != "." && $inDirObject != ".." && is_file($dir."/".$inDirObject)) {         
+            $pages[] = ($categoryId === false)
+                ? array('page' => substr($inDirObject,0,-4), 'category' => 0) // load Pages, without a category                  
+                : array('page' => substr($inDirObject,0,-4), 'category' => $categoryId); // load Pages, with a category
           }
         }
-        closedir($catDir);
-        
         // adds the new sorted category to the return array
         $pagesArray = array_merge($pagesArray,$pages);
       }
@@ -1404,15 +1395,14 @@ class generalFunctions {
   * 
   * @return array|false an array with the folder elements, FALSE if the folder not is a directory
   * 
-  * @version 1.0
+  * @version 1.01
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.01 changed to scandir()
   *    - 1.0 initial release
   * 
   */
   function readFolder($folder) {
-    
-    // TODO: use scandir()
     
     if(empty($folder))
       return false;
@@ -1441,17 +1431,17 @@ class generalFunctions {
     
     // open the folder and read the content
     if(is_dir($fullFolder)) {
-      $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
-      while(false !== ($inDirObjects = @readdir($openedDir))) {
-        if($inDirObjects != "." && $inDirObjects != "..") {      
-          if(is_dir($fullFolder.$inDirObjects)) {        
-            $return['folders'][] = $folder.$inDirObjects;
-          } elseif(is_file($fullFolder.$inDirObjects)) {
-            $return['files'][] = $folder.$inDirObjects;
+      $readFolder = scandir($fullFolder);
+      
+      foreach($readFolder as $inDirObject) {
+        if($inDirObject != "." && $inDirObject != "..") {
+          if(is_dir($fullFolder.$inDirObject)) {        
+            $return['folders'][] = $folder.$inDirObject;
+          } elseif(is_file($fullFolder.$inDirObject)) {
+            $return['files'][] = $folder.$inDirObject;
           }
         }
       }
-      @closedir($openedDir);
     }
     
     return $return;  

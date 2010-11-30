@@ -287,15 +287,12 @@ class imageGallery {
     
     // open the folder and read the content
     if(is_dir($fullFolder)) {
-      $openedDir = @opendir($fullFolder);  // @ zeichen eingefügt
-      while(false !== ($inDirObjects = @readdir($openedDir))) {
-        if($inDirObjects != "." && $inDirObjects != "..") {
-          if(is_file($fullFolder.$inDirObjects)) {
-            $return[] = $folder.$inDirObjects;
-          }
+      $readFolder = @scandir($fullFolder);      
+      foreach($readFolder as $inDirObject) {
+        if($inDirObject != "." && $inDirObject != ".." && is_file($fullFolder.$inDirObject)) {         
+          $return[] = $folder.$inDirObject;
         }
       }
-      @closedir($openedDir);
     }    
     return $return;  
   }

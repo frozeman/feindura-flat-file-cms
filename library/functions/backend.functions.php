@@ -502,9 +502,10 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
  * 
  * @return bool TRUE if the page was succesfull moved, otherwise FALSE
  * 
- * @version 1.0
+ * @version 1.01
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.01 add create category folder, if not exiting
  *    - 1.0 initial release
  * 
  */
@@ -516,6 +517,10 @@ function movePage($page, $fromCategory, $toCategory) {
   if($toCategory === false || $toCategory == 0)
     $toCategory = '';
     
+  // create category folder if its not exist
+  if(!is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory))
+    @mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory);
+  
   // MOVE categories
   if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php',
     DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.'/'.$page.'.php') &&

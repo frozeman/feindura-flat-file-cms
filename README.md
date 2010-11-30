@@ -76,4 +76,4 @@ before the header is sent, which means before any HTML tag:
     
     ?>
     
-After this you can refer to the feindura class an it's methods through the $mycms->... object.
+After this you can refer to the feindura class an it's methods through the $mycms->... instance.
