@@ -116,8 +116,8 @@ if($_POST['save']) {
     
     // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
     $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
-    $_POST['styleId'] = setStylesByPriority($xssFilter->string($_POST['styleId']),'styleId',$category);
-    $_POST['styleClass'] = setStylesByPriority($xssFilter->string($_POST['styleClass']),'styleClass',$category);
+    $_POST['styleId'] = setStylesByPriority(xssFilter::string($_POST['styleId']),'styleId',$category);
+    $_POST['styleClass'] = setStylesByPriority(xssFilter::string($_POST['styleClass']),'styleClass',$category);
     
     // gets the visit status
     $_POST['log_visitorcount'] = $pageContent['log_visitorcount'];

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 486
+Build 487
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 487: set up xssFilter as a static class
   build 486: set up statisticFunctions as a static class
   build 485: set up generalFunctions as a static class
   build 484: add PHP constructor

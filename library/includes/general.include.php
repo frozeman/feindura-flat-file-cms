@@ -40,7 +40,6 @@ define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].
 define('PERMISSIONS', 0755);
 
 
-
 $phpTags = file(dirname(__FILE__)."/../processes/phptags");
 /**
  * The php start tag for us in saveing functions
@@ -51,8 +50,7 @@ define('PHPSTARTTAG',$phpTags[0]."\n");
  */ 
 define('PHPENDTAG',"\n".$phpTags[1]);
 
-// get SETTINGS
-
+// ->> get CONFIGS
 /**
  * The administrator-settings config
  * 

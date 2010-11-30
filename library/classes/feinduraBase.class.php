@@ -176,20 +176,7 @@ class feinduraBase {
   * @see feinduraBase()
   * 
   */
-  var $languageFile = null;  
-
- /**
-  * Contains a <var>instance</var> of the {@link xssFilter::__construct() xssFilter} <var>class</var> for using in this <var>class</var>
-  * 
-  * The file with the {@link xssFilter::__construct() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
-  * A instance of the {@link xssFilter::__construct() xssFilter} class will be set to this property in the {@link feinduraBase()} constructor.
-  * 
-  * @var class
-  * @see feinduraBase()
-  * @see xssFilter::__construct()
-  *   
-  */
-  var $xssFilter;
+  var $languageFile = null;
   
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -249,8 +236,7 @@ class feinduraBase {
     $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
     $this->pluginsConfig = $GLOBALS["feindura_pluginsConfig"];
     
-    // GET FUNCTIONS
-    $this->xssFilter = new xssFilter();
+    // INIT STATIC CLASSES
     generalFunctions::init();
     statisticFunctions::init();    
     

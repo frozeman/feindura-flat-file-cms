@@ -26,8 +26,7 @@ session_start();
 require_once(dirname(__FILE__)."/general.include.php");
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
-// GET FUNCTIONS
-$xssFilter = new xssFilter();
+// INIT STATIC CLASSES
 generalFunctions::init();
 statisticFunctions::init();
 
@@ -40,13 +39,13 @@ $newPage = false;
 // -> SET ERROR HANDLER
 @set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
-// ->> choose LANGUAGE START -----------------------------------------------------
+// ->> choose LANGUAGE * START * -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)
 // and includes the langFile
 
 // -> check language
-if((isset($_GET['language']) && ($_GET['language'] = $xssFilter->alphabetical($_GET['language'])) === false) ||
-   (isset($_SESSION['language']) && ($_SESSION['language'] = $xssFilter->alphabetical($_SESSION['language'])) === false))
+if((isset($_GET['language']) && ($_GET['language'] = xssFilter::alphabetical($_GET['language'])) === false) ||
+   (isset($_SESSION['language']) && ($_SESSION['language'] = xssFilter::alphabetical($_SESSION['language'])) === false))
   die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
 
 if(isset($_GET['language']))
@@ -70,7 +69,6 @@ if(file_exists($frontendLangFilePath) && file_exists($sharedLangFilePath)) {
       
   unset($backendLangFile,$sharedLangFile);
 }
-
-// *---* choose LANGUAGE END -----------------------------------------------------
+// *---* choose LANGUAGE * END * -----------------------------------------------------
 
 ?>

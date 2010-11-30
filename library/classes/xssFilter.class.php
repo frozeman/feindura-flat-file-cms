@@ -32,11 +32,12 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @todo maybe use http://php.net/manual/de/function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
+* @todo maybe use http://php.net/manual/de/public static function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
 * 
-* @version 0.11
+* @version 0.12
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.12 change to static class
 *    - 0.11 changed to preg_match_all
 *    - 0.1 initial release
 * 
@@ -44,42 +45,24 @@
 class xssFilter {
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
- /* *** PROPERTIES *** */
- /* **************************************************************************************************************************** */
- 
- // PUBLIC
- // *********
- 
-  /**
-  * Contains the administrator-settings config <var>array</var>
-  * 
-  * @var array
-  * @see generalFunctions()
-  * 
-  */ 
-  var $adminConfig;
-  
- 
- /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
  /* **************************************************************************************************************************** */
-  
- /**
+ 
+ /** 
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      xssFilter()<br>
+  * <b> Name</b>      __construct()<br>
   * 
-  * The constructor of the class, does nothing.
+  * Constructor is not callable, {@link xssFilter::init()} is used instead.
   * 
   * @return void
   * 
-  * @version 1.01
+  * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.01 add $adminConfig and $categoryConfig and creates an instance of the generalFunctions class
   *    - 1.0 initial release
   * 
   */ 
-  function __construct() {
+  private function __construct() {
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -102,7 +85,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function int($data, $default = false) {
+  public static function int($data, $default = false) {
     if(!empty($data) || $data == 0)
       return (is_numeric($data)) ? (int)$data : $default;
     else
@@ -125,7 +108,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function float($data, $default = false) {
+  public static function float($data, $default = false) {
      if(!empty($data) || $data == 0)
       return (is_numeric($data)) ? (float)$data : $default;
     else
@@ -167,7 +150,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function string($data, $max = 0, $default = false) {
+  public static function string($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          //start with aplhabetic, may include space, end with alhabetic
          preg_match_all("/[\(\)\[\]\,\'\.\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
@@ -194,7 +177,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function alphabetical($data, $max = 0, $default = false) {
+  public static function alphabetical($data, $max = 0, $default = false) {
      if(!empty($data) || $data == 0) {
         preg_match_all("/[A-Za-z]+/",$data,$find); //check strictly there is one alphabetic at least
         if(!empty($find[0])) {
@@ -229,7 +212,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function filename($data, $encode = false, $default = false){
+  public static function filename($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
         $data = ($encode) ? urlencode($data) : $data;        
         preg_match_all("/^[\.\-\s#_a-zA-Z\d]+$/",$data,$find);          
@@ -262,7 +245,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function path($data, $encode = false, $default = false){
+  public static function path($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
         $data = ($encode) ? urlencode($data) : $data;
         preg_match("#^[/\.\-\s_a-zA-Z\d][\/\.\-\s_a-zA-Z\d]*$#",$data,$find); 
@@ -298,7 +281,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function alphaSpace($data, $max = 0, $default = false) {
+  public static function alphaSpace($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          preg_match_all("/[A-Za-z]([A-Za-z\s]*[A-Za-z])*/",$data,$find); 
          if(!empty($find[0])) {
@@ -332,7 +315,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function alphaNumeric($data, $max = 0, $default = false) {
+  public static function alphaNumeric($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          preg_match_all("/[A-Za-z0-9][A-Za-z0-9]*/",$data,$find); 
          if(!empty($find[0])) {
@@ -366,7 +349,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function alphaNumericSpace($data, $max = 0, $default = false) {
+  public static function alphaNumericSpace($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s]*[A-Za-z0-9])*/",$data,$find); 
          if(!empty($find[0])) {
@@ -400,7 +383,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function alpha_Numeric($data, $max = 0, $default = false) {
+  public static function alpha_Numeric($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s]*[A-Za-z0-9])*/",$data,$find); 
          if(!empty($find[0])) {
@@ -434,7 +417,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function alpha_NumericSpace($data, $max = 0, $default = false) {
+  public static function alpha_NumericSpace($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s_]*[A-Za-z0-9])*/",$data,$find); 
          if(!empty($find[0])) {
@@ -450,7 +433,7 @@ class xssFilter {
  /**
   * <b>Name</b> textVar()<br>
   * 
-  * Change the HTML important signs to htmlentities with the htmlspecialchars function.
+  * Change the HTML important signs to htmlentities with the htmlspecialchars public static function.
   * 
   * <sample>
   * Text &lt;a href=&quot;test&quot;&gt; other text
@@ -458,7 +441,7 @@ class xssFilter {
   * 
   * @param string $data     the data to check against
   * @param int    $max      (optional) the maximal number of characters returned
-  * @param string $charset  (optional) the charset used by the htmlspecialchars function  
+  * @param string $charset  (optional) the charset used by the htmlspecialchars public static function  
   * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
@@ -469,7 +452,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  function textVar($data, $max = 0, $charset = 'UTF-8' ,$default = false) {
+  public static function textVar($data, $max = 0, $charset = 'UTF-8' ,$default = false) {
       if(!empty($data) || $data == 0) {
         $data = stripslashes($data);
         $data = str_replace('/','&#47;',$data);
