@@ -132,7 +132,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$_GET['category'])) {
     
-      if($pageContents = $generalFunctions->loadPages($_GET['category'],true)) {
+      if($pageContents = generalFunctions::loadPages($_GET['category'],true)) {
       
         // deletes possible thumbnails before deleting the category
         foreach($pageContents as $page) {
@@ -191,7 +191,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   // cleans the category names
   $catewgoriesCleaned = array();
   foreach($_POST['categories'] as $category) {
-      $category['name'] = $generalFunctions->prepareStringInput($category['name']);
+      $category['name'] = generalFunctions::prepareStringInput($category['name']);
       $categoriesCleaned[$category['id']] = $category;
   }
 
@@ -209,11 +209,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
 $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
 // RESET of the vars in the classes
-$generalFunctions->adminConfig = $adminConfig;
+generalFunctions::$adminConfig = $adminConfig;
 $statisticFunctions->adminConfig = $adminConfig;
-$generalFunctions->categoryConfig = $categoryConfig;
+generalFunctions::$categoryConfig = $categoryConfig;
 $statisticFunctions->categoryConfig = $categoryConfig;
-$generalFunctions->storedPageIds = null;
-$generalFunctions->storedPages = null;
+generalFunctions::$storedPageIds = null;
+generalFunctions::$storedPages = null;
 
 ?>

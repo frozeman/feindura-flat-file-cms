@@ -77,7 +77,7 @@ if(!empty($adminConfig['user']['info'])) {
     $rowColor = 'dark'; // starting row color
     
     // ->> LOAD all PAGES
-    $orgPages = $generalFunctions->loadPages(true,true);
+    $orgPages = generalFunctions::loadPages(true,true);
     $pages = $orgPages;
     
     // -> clear cache from visotrs over the timelimit and load current visitors

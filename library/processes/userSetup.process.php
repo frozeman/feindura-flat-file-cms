@@ -86,7 +86,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
   $newUserConfig = $_POST['users'];
   // prepare user POST data
   foreach($newUserConfig as $user => $configs) {
-    $configs['username'] = $generalFunctions->cleanSpecialChars($configs['username'],'');
+    $configs['username'] = generalFunctions::cleanSpecialChars($configs['username'],'');
     $newUserConfig[$configs['username']] = $configs;
     unset($newUserConfig[$user]);
     

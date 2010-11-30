@@ -46,7 +46,7 @@ foreach($sortOrder as $sort) {
   if($sort != '') {
     
     // ->> SORT the pages new
-    if($pageContent = $generalFunctions->readPage($sort,$_POST['categoryNew'])) {
+    if($pageContent = generalFunctions::readPage($sort,$_POST['categoryNew'])) {
       
       // -> changes the properties of the page
       $pageContent['sortorder'] = $count; // get a new sort order number
@@ -54,7 +54,7 @@ foreach($sortOrder as $sort) {
        
       
       // ->> save the new sorting
-      if($generalFunctions->savePage($pageContent)) {
+      if(generalFunctions::savePage($pageContent)) {
         $status = $langFile['sortablePageList_save_finished'];
         $count++;
         
@@ -83,7 +83,7 @@ foreach($sortOrder as $sort) {
 }
 // -> CHECKs if the category folder is empty,
 // if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
-if(!$generalFunctions->loadPages($_POST['categoryOld'],false))
+if(!generalFunctions::loadPages($_POST['categoryOld'],false))
   echo '<span></span>';
   
 echo $status;

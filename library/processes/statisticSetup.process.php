@@ -47,7 +47,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR PAGES-STATISTICs
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
-     $pages = $generalFunctions->loadPages(true,true)) {
+     $pages = generalFunctions::loadPages(true,true)) {
       
     foreach($pages as $pageContent) {
       
@@ -59,7 +59,7 @@ if($_POST['sendClearstatistics']) {
       $pageContent['log_lastVisit'] = '';
       $pageContent['log_searchwords'] = '';
       
-      if($generalFunctions->savePage($pageContent)) {        
+      if(generalFunctions::savePage($pageContent)) {        
         // set documentSaved status
         $documentSaved = true;
       } else
@@ -75,7 +75,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR PAGES-LENGTHOFSTAY-STATISTICs
   if($_POST['clearStatistics_pagesStaylengthStatistics'] == 'true' &&
-     $pages = $generalFunctions->loadPages(true,true)) {
+     $pages = generalFunctions::loadPages(true,true)) {
       
     foreach($pages as $pageContent) {
       
@@ -83,7 +83,7 @@ if($_POST['sendClearstatistics']) {
       $pageContent['log_visitTime_min'] = '';
       $pageContent['log_visitTime_max'] = '';
       
-      if($generalFunctions->savePage($pageContent)) {        
+      if(generalFunctions::savePage($pageContent)) {        
         // set documentSaved status
         $documentSaved = true;
       } else

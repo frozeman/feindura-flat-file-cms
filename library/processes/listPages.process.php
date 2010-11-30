@@ -27,13 +27,13 @@ $opendCategory = false;
 // ->> CHANGE PAGE STATUS
 if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
     
-    if($contentArray = $generalFunctions->readPage($_GET['page'],$_GET['category'])) {      
+    if($contentArray = generalFunctions::readPage($_GET['page'],$_GET['category'])) {      
          
       // change the status
       $contentArray['public'] = ($_GET['public']) ? false : true;
       
       // save the new status
-      if($generalFunctions->savePage($contentArray))
+      if(generalFunctions::savePage($contentArray))
         $documentSaved = true;
       else
         $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];

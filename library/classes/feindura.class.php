@@ -108,7 +108,7 @@ class feindura extends feinduraBase {
  /**
   * Contains the startcategory ID
   *
-  * Its fetched from the {@link $startPage} through the {@link getPageCategory()} method.<br />
+  * Its fetched from the {@link $startPage} through the {@link generalFunctions::getPageCategory()} method.<br />
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
   * and the {@link $category} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
   *   
@@ -727,12 +727,7 @@ class feindura extends feinduraBase {
     // ********************************************
     $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId needs categories
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
-  
-    echo 'page:'.$this->page;
-    echo '<br>';
-    echo 'category:'.$this->category;
-  }
- 
+  } 
   
   // ****************************************************************************************************************
   // METHODs -------------------------------------------------------------------------------------------------
@@ -748,6 +743,7 @@ class feindura extends feinduraBase {
   *
   * @uses $startPage
   * @uses $page
+  * @uses generalFunctions::getPageCategory        to get the category of the page    
   * 
   * @return void
   * 
@@ -762,7 +758,7 @@ class feindura extends feinduraBase {
     
     if(is_numeric($pageId)) {
       $this->startPage = $pageId;
-      $this->startCategory = $this->getPageCategory($pageId);
+      $this->startCategory = generalFunctions::getPageCategory($pageId);
       $this->setCurrentPageId($pageId);
     }  
   }
@@ -880,7 +876,7 @@ class feindura extends feinduraBase {
     // GET the right country code if its not in the SESSION variable
     if(empty($_SESSION['language'])) {
       // gets the BROWSER LANGUAGE
-      $_SESSION['language'] = $this->generalFunctions->checkLanguageFiles($langFilesPath,false,$this->language); // returns a COUNTRY SHORTNAME
+      $_SESSION['language'] = generalFunctions::checkLanguageFiles($langFilesPath,false,$this->language); // returns a COUNTRY SHORTNAME
     }
     
     // SET the country code to the language property
@@ -950,7 +946,7 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
 
       // -> create TITLE
-      if($this->getCurrentPageId() && ($currentPage = $this->generalFunctions->readPage($this->page,$this->category)))
+      if($this->getCurrentPageId() && ($currentPage = generalFunctions::readPage($this->page,$this->category)))
         $pageNameInTitle = $currentPage['title'].' - ';
       
       // -> add TITLE
@@ -1004,13 +1000,13 @@ class feindura extends feinduraBase {
       $metaTags .= "\n";
       
       // -> add plugin-stylesheets
-      $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
+      $plugins = generalFunctions::readFolder($this->adminConfig['basePath'].'plugins/');
       if(is_array($plugins)) {
         foreach($plugins['folders'] as $pluginFolder) {
           $pluginName = basename($pluginFolder);
   
           if($this->pluginsConfig[$pluginName]['active'])
-            $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
+            $metaTags .= generalFunctions::createStyleTags($pluginFolder,false);
         }
       }
       
@@ -1064,7 +1060,7 @@ class feindura extends feinduraBase {
     BUTTON_GOTOBACKEND:     '".$this->languageFile['header_button_gotobackend']."'
     
   };
-  var feindura_logoutUrl = '".$this->generalFunctions->getCurrentUrl('feindura_logout')."';
+  var feindura_logoutUrl = '".generalFunctions::getCurrentUrl('feindura_logout')."';
   var feindura_startPage = '".$this->startPage."';
   
   /* ]]> */
@@ -1131,8 +1127,9 @@ class feindura extends feinduraBase {
   * 
   * @param int $page a page ID
   * 
-  * @uses feinduraBase::loadPrevNextPage()	   to load the current, previous or next page depending of the $page parameter 
-  * @uses generalFunctions::createHref()   call the right createHref functions in the generalFunctions class
+  * @uses feinduraBase::loadPrevNextPage()	to load the current, previous or next page depending of the $page parameter 
+  * @uses generalFunctions::createHref()    call the right createHref functions in the generalFunctions class
+  * @uses generalFunctions::getPageCategory to get the category of the page    
   * 
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
@@ -1151,8 +1148,8 @@ class feindura extends feinduraBase {
     if($page = $this->loadPrevNextPage($page)) {
  
       // loads the $pageContent array
-      if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
-          return $this->generalFunctions->createHref($pageContent,$this->sessionId);
+      if(($pageContent = generalFunctions::readPage($page,generalFunctions::getPageCategory($page))) !== false) {
+          return generalFunctions::createHref($pageContent,$this->sessionId);
       }
         
     } else return false;    
@@ -1205,6 +1202,7 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses feinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
+  * @uses generalFunctions::getPageCategory             to get the category of the page    
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
@@ -1226,7 +1224,7 @@ class feindura extends feinduraBase {
     if($page = $this->loadPrevNextPage($page)) {
       
       // loads the $pageContent array
-      if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
+      if(($pageContent = generalFunctions::readPage($page,generalFunctions::getPageCategory($page))) !== false) {
       
         // -> CHECK status
         if($pageContent['public'] &&  $this->publicCategory($pageContent['category']) !== false) {
@@ -1245,7 +1243,7 @@ class feindura extends feinduraBase {
           } elseif(is_string($linkText) &&
                    is_numeric($this->linkLength)) {
                    
-            $linkText = shortenText($linkText, $this->generalFunctions->getRealCharacterNumber($linkText,$this->linkLength));
+            $linkText = shortenText($linkText, generalFunctions::getRealCharacterNumber($linkText,$this->linkLength));
           }
   	
           // -> sets the LINK
@@ -1390,7 +1388,7 @@ class feindura extends feinduraBase {
     
     // -> if pages should be SORTED BY CATEGORY
     if($sortByCategories === true)
-      $pages = $this->generalFunctions->sortPages($pages); 
+      $pages = generalFunctions::sortPages($pages); 
     
     // -> STOREs the LINKs in an Array
     $links = array();
@@ -1740,6 +1738,8 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::createTitle()                  to generate the page title with the right title properties
   * 
+  * @uses generalFunctions::getPageCategory            to get the category of the page
+  * 
   * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see feinduraBase::createTitle()  
@@ -1755,10 +1755,10 @@ class feindura extends feinduraBase {
     if($page = $this->loadPrevNextPage($page)) {
       
       // gets the right category
-      $category = $this->getPageCategory($page);
+      $category = generalFunctions::getPageCategory($page);
       
       // loads the $pageContent array
-      if(($pageContent = $this->generalFunctions->readPage($page,$category)) !== false) {
+      if(($pageContent = generalFunctions::readPage($page,$category)) !== false) {
       
         // -> CHECK status
         if($pageContent['public'] &&  $this->publicCategory($pageContent['category']) !== false) {
@@ -1841,6 +1841,8 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::generatePage()             to generate the array with the page elements
   * @uses statisticFunctions::savePageStats()      to save the statistic of the page
   * 
+  * @uses generalFunctions::getPageCategory        to get the category of the page
+  * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
   * @see getPageTitle()
@@ -1860,10 +1862,10 @@ class feindura extends feinduraBase {
         // *******************
         if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
                          
-          $category = $this->getPageCategory($page);               
+          $category = generalFunctions::getPageCategory($page);               
           
           // -> loads the $pageContent array
-          if(($pageContent = $this->generalFunctions->readPage($page,$category)) !== false) {
+          if(($pageContent = generalFunctions::readPage($page,$category)) !== false) {
             // -> SAVE PAGE STATISTIC
             // **********************
             if($pageContent['public'])
@@ -1878,9 +1880,9 @@ class feindura extends feinduraBase {
             
             /*
             // -> CHOOSES the RIGHT EDITOR ID and/or CLASS
-            $editorStyleFiles = $this->generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
-            $editorStyleId = $this->generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
-            $editorStyleClass = $this->generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
+            $editorStyleFiles = generalFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+            $editorStyleId = generalFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
+            $editorStyleClass = generalFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
             
             // generate the styleFiles list: fileone.css,filetwo.css
             $listStyleFiles = '';
@@ -1939,6 +1941,8 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::generatePage()                 to generate the array with the page elements
   * 
+  * @uses generalFunctions::getPageCategory            to get the category of the page    
+  * 
   * @return array|string|false with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
   * 
   * @see getPageTitle()
@@ -1961,7 +1965,7 @@ class feindura extends feinduraBase {
     if($page = $this->loadPrevNextPage($page)) {
                                 
       // LOAD the $pageContent array
-      if(($pageContent = $this->generalFunctions->readPage($page,$this->getPageCategory($page))) !== false) {
+      if(($pageContent = generalFunctions::readPage($page,generalFunctions::getPageCategory($page))) !== false) {
         
         // ->> LOAD the PLUGINS and return them 
         if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
@@ -2078,7 +2082,7 @@ class feindura extends feinduraBase {
 
     // -> if pages SORTED BY CATEGORY
     if($sortByCategories === true)
-      $pages = $this->generalFunctions->sortPages($pages);
+      $pages = generalFunctions::sortPages($pages);
     
     if($pages !== false) {      
       

@@ -30,7 +30,7 @@ $category = $_GET['category'];
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
-$pageContent = $generalFunctions->readPage($page,$category);
+$pageContent = generalFunctions::readPage($page,$category);
 
 $categoryRatio = false;
 $thumbRatioX = false;

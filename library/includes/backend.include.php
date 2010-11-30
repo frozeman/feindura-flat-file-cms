@@ -28,7 +28,7 @@ require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
 // GET FUNCTIONS
 $xssFilter = new xssFilter();
-$generalFunctions = new generalFunctions();
+generalFunctions::init();
 $statisticFunctions = new statisticFunctions($generalFunctions);
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
@@ -56,7 +56,7 @@ if(isset($_GET['language']))
 
 if(empty($_SESSION['language'])) {
   // gets the BROWSER LANGUAGE
-  $_SESSION['language'] = $generalFunctions->checkLanguageFiles(false,false,'en'); // returns a COUNTRY SHORTNAME
+  $_SESSION['language'] = generalFunctions::checkLanguageFiles(false,false,'en'); // returns a COUNTRY SHORTNAME
 }
 
 $frontendLangFilePath = dirname(__FILE__).'/../languages/'.$_SESSION['language'].'.backend.php';

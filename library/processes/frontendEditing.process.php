@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if($_POST['save']) {
   
   // read the page
-  $pageContent = $generalFunctions->readPage($_POST['page'],$_POST['category']);
+  $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
   
   // url decodes the string
   $_POST['data'] = urldecode($_POST['data']);
@@ -42,7 +42,7 @@ if($_POST['save']) {
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
   
   // save the page
-  if($generalFunctions->savePage($pageContent));
+  if(generalFunctions::savePage($pageContent));
     $statisticFunctions->saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
   
   // the data which will be returned, to inject into the element in the frontend 

@@ -199,7 +199,7 @@ if($_POST['upload']) {
           imagedestroy($oldImg);
           
           // get pageContent (ERROR)
-          if(!$pageContent = $generalFunctions->readPage($page,$category))
+          if(!$pageContent = generalFunctions::readPage($page,$category))
             $error[] = $langFile['file_error_read'];
         
           // CHECK FOR ERROR 4
@@ -217,7 +217,7 @@ if($_POST['upload']) {
             
             // saves the new thumbnail in the flatfile ---------------------  
             $pageContent['thumbnail'] = $newFileName;
-            if($generalFunctions->savePage($pageContent)) {
+            if(generalFunctions::savePage($pageContent)) {
               $response[] = $langFile['pagethumbnail_upload_response_finish'].'<br /><br /><img src="'.$uploadPath.$newFileName.'" />';
               $statisticFunctions->saveTaskLog(6,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
             }

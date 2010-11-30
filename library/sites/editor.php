@@ -175,7 +175,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
               <td class="left">
               <span class="info"><strong>'.$langFile['editor_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
-              <span class="info" style="font-size:11px;"><a href="'.$hostUrl.$generalFunctions->createHref($pageContent).'" class="extern">'.$hostUrl.$generalFunctions->createHref($pageContent).'</a></span>
+              <span class="info" style="font-size:11px;"><a href="'.$hostUrl.generalFunctions::createHref($pageContent).'" class="extern">'.$hostUrl.generalFunctions::createHref($pageContent).'</a></span>
               </td>
               </tr>';
       }
@@ -557,7 +557,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
       <?php
       
       // ->> LOAD PLUGINS      
-      $plugins = $generalFunctions->readFolder($adminConfig['basePath'].'plugins/');
+      $plugins = generalFunctions::readFolder($adminConfig['basePath'].'plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars
@@ -655,9 +655,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
 // from the Page, if empty,
 // than from the Category if empty,
 // than from the HTMl-Editor Settings
-$editorStyleFiles = $generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
-$editorStyleId = $generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
-$editorStyleClass = $generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
+$editorStyleFiles = generalFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+$editorStyleId = generalFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
+$editorStyleClass = generalFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
 
 // -> CREATES the EDITOR-INSTANCE
 // ------------------------------
@@ -778,7 +778,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       <?php
       
-      echo showStyleFileInputs($generalFunctions->getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
+      echo showStyleFileInputs(generalFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
       ?>      
       </div>
@@ -788,13 +788,13 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php echo $generalFunctions->getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleId" value="<?php echo generalFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php echo $generalFunctions->getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleClass" value="<?php echo generalFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

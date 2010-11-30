@@ -157,7 +157,7 @@ function isAdmin() {
 function getNewPageId() {
   
   // loads the file list in an array
-  $pages = $GLOBALS['generalFunctions']->getStoredPageIds();
+  $pages = generalFunctions::getStoredPageIds();
   
   $highestId = 0;
   
@@ -297,7 +297,7 @@ function saveCategories($newCategories) {
           $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
         
         // escape single quotes
-        $category = $GLOBALS['generalFunctions']->escapeQuotesRecursive($category);
+        $category = generalFunctions::escapeQuotesRecursive($category);
         
         // -> CLEAN all " out of the strings
         foreach($category as $postKey => $post) {
@@ -341,7 +341,7 @@ function saveCategories($newCategories) {
     fclose($file);
     
     // reset the stored page ids
-    $GLOBALS['generalFunctions']->storedPagesIds = null;
+    generalFunctions::$storedPagesIds = null;
     
     return true;
   } else
@@ -526,8 +526,8 @@ function movePage($page, $fromCategory, $toCategory) {
     DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.'/'.$page.'.php') &&
     unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php')) {
     // reset the stored page ids
-    $GLOBALS['generalFunctions']->storedPagess = null;
-    $GLOBALS['generalFunctions']->storedPagesIds = null;
+    generalFunctions::$storedPagess = null;
+    generalFunctions::$storedPagesIds = null;
     
     return true;
   } else
@@ -573,7 +573,7 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['pages']['showtags'] = (isset($adminConfig['pages']['showtags']) && $adminConfig['pages']['showtags']) ? 'true' : 'false';
     
     // escape single quotes
-    $adminConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($adminConfig);
+    $adminConfig = generalFunctions::escapeQuotesRecursive($adminConfig);
     
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); // < ?php
@@ -660,7 +660,7 @@ function saveUserConfig($userConfig) {
       foreach($userConfig as $user => $configs) {
         
         // escape single quotes
-        $configs = $GLOBALS['generalFunctions']->escapeQuotesRecursive($configs);
+        $configs = generalFunctions::escapeQuotesRecursive($configs);
       
         // CHECK BOOL VALUES and change to FALSE
         $userConfig[$user]['admin'] = (isset($userConfig[$user]['admin']) && $userConfig[$user]['admin']) ? 'true' : 'false';
@@ -723,14 +723,14 @@ function saveWebsiteConfig($websiteConfig) {
     $websiteConfig['keywords'] = $keywords;
     
     // format all other strings
-    $websiteConfig['title'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['title']);
-    $websiteConfig['publisher'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['publisher']);
-    $websiteConfig['copyright'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['copyright']);
-    $websiteConfig['keywords'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['keywords']);
-    $websiteConfig['description'] = $GLOBALS['generalFunctions']->prepareStringInput($websiteConfig['description']);
+    $websiteConfig['title'] = generalFunctions::prepareStringInput($websiteConfig['title']);
+    $websiteConfig['publisher'] = generalFunctions::prepareStringInput($websiteConfig['publisher']);
+    $websiteConfig['copyright'] = generalFunctions::prepareStringInput($websiteConfig['copyright']);
+    $websiteConfig['keywords'] = generalFunctions::prepareStringInput($websiteConfig['keywords']);
+    $websiteConfig['description'] = generalFunctions::prepareStringInput($websiteConfig['description']);
     
     // escape single quotes
-    $websiteConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($websiteConfig);
+    $websiteConfig = generalFunctions::escapeQuotesRecursive($websiteConfig);
     
     // *** write
     flock($file,2); //LOCK_EX
@@ -783,7 +783,7 @@ function saveStatisticConfig($statisticConfig) {
   if($file = fopen("config/statistic.config.php","w")) {
         
     // escape single quotes
-    $websiteConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($websiteConfig);
+    $websiteConfig = generalFunctions::escapeQuotesRecursive($websiteConfig);
     
     // WRITE
     flock($file,2); //LOCK_EX
@@ -835,7 +835,7 @@ function savePluginsConfig($pluginsConfig) {
   if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","w")) {
     
     // escape single quotes
-    $pluginsConfig = $GLOBALS['generalFunctions']->escapeQuotesRecursive($pluginsConfig);
+    $pluginsConfig = generalFunctions::escapeQuotesRecursive($pluginsConfig);
     
     // CHECK BOOL VALUES and change to FALSE   
     flock($file,2); // LOCK_EX
@@ -1250,7 +1250,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   $filesPath = str_replace(DOCUMENTROOT,'',$filesPath);  
   $dir = DOCUMENTROOT.$filesPath;
   if(!empty($filesPath) && is_dir($dir)) {
-    $files = $GLOBALS['generalFunctions']->readFolderRecursive($filesPath);
+    $files = generalFunctions::readFolderRecursive($filesPath);
     $files = $files['files'];
 
   	// ->> EXLUDES files or folders
@@ -1426,7 +1426,7 @@ function saveEditedFiles(&$savedForm) {
         
     //$_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile']);
     $_POST['newFile'] = str_replace( array("ä","ü","ö","ß","Ä","Ü","Ö"), array("ae","ue","oe","ss","Ae","Ue","Oe"), $_POST['newFile']);
-    $_POST['newFile'] = $GLOBALS['generalFunctions']->cleanSpecialChars($_POST['newFile'],'_');
+    $_POST['newFile'] = generalFunctions::cleanSpecialChars($_POST['newFile'],'_');
     
     echo $_POST['newFile'];
     
@@ -1466,7 +1466,7 @@ function saveEditedFiles(&$savedForm) {
  */
 function delDir($dir) {
 
-    $filesFolders = $GLOBALS['generalFunctions']->readFolderRecursive($dir);
+    $filesFolders = generalFunctions::readFolderRecursive($dir);
     
     if(is_array($filesFolders)) {
       $return = false;
@@ -1488,7 +1488,7 @@ function delDir($dir) {
       }
       
       // recheck if everything is deleted
-      $checkFilesFolders = $GLOBALS['generalFunctions']->readFolderRecursive($dir);
+      $checkFilesFolders = generalFunctions::readFolderRecursive($dir);
       
       if(rmdir(DOCUMENTROOT.$dir))
         return true;
@@ -1597,7 +1597,7 @@ function isWritableWarningRecursive($folders) {
         $return .= $isFolder;
       } else {
         $return .= isWritableWarning($folder);
-        if($readFolder = $GLOBALS['generalFunctions']->readFolderRecursive($folder)) {
+        if($readFolder = generalFunctions::readFolderRecursive($folder)) {
           if(is_array($readFolder['folders'])) {
             foreach($readFolder['folders'] as $folder) {
               $return .= isWritableWarning($folder);
@@ -1706,7 +1706,7 @@ function startPageWarning() {
   if(basePathWarning() !== false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'))
     return false;
   
-  if($GLOBALS['adminConfig']['setStartPage'] && $GLOBALS['websiteConfig']['startPage'] && ($startPageCategory = $GLOBALS['generalFunctions']->getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
+  if($GLOBALS['adminConfig']['setStartPage'] && $GLOBALS['websiteConfig']['startPage'] && ($startPageCategory = generalFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
     $startPageCategory .= '/';
   else
     $startPageCategory = '';

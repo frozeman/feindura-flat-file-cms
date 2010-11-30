@@ -33,7 +33,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   <div class="functions"><?php echo $langFile['sortablePageList_headText5']; ?></div>
 </div>
 
-<form action="<?= $generalFunctions->getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
+<form action="<?= generalFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
 <?php
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
@@ -46,7 +46,7 @@ array_unshift($allCategories,array('id' => 0,'name' => $langFile['CATEGORIES_TOO
 foreach($allCategories as $category) {
   
   // -> LOAD the PAGES FROM the CATEGORY
-  $pages = $generalFunctions->loadPages($category['id'],true);
+  $pages = generalFunctions::loadPages($category['id'],true);
   //print_r($pages);
 
   // shows after saving the right category open
@@ -134,7 +134,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = $generalFunctions->shortenTitle($pageContent['title'],31);
+      $title = generalFunctions::shortenTitle($pageContent['title'],31);
       
       // -> show lastsavedate
       $lastSaveDate = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($pageContent['lastsavedate'],$langFile)).' '.$statisticFunctions->formatTime($pageContent['lastsavedate']);

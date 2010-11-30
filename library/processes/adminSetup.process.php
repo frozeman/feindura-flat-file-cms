@@ -167,11 +167,11 @@ include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
 $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
 // RESET of the vars in the classes
-$generalFunctions->adminConfig = $adminConfig;
+generalFunctions::$adminConfig = $adminConfig;
 $statisticFunctions->adminConfig = $adminConfig;
-$generalFunctions->categoryConfig = $categoryConfig;
+generalFunctions::$categoryConfig = $categoryConfig;
 $statisticFunctions->categoryConfig = $categoryConfig;
-$generalFunctions->storedPageIds = null;
-$generalFunctions->storedPages = null;
+generalFunctions::$storedPageIds = null;
+generalFunctions::$storedPages = null;
 
 ?>

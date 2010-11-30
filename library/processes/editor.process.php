@@ -43,9 +43,9 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
-  $_POST['title'] = $generalFunctions->prepareStringInput($_POST['title']);
+  $_POST['title'] = generalFunctions::prepareStringInput($_POST['title']);
   
-  $_POST['description'] = $generalFunctions->prepareStringInput($_POST['description']);
+  $_POST['description'] = generalFunctions::prepareStringInput($_POST['description']);
   
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
@@ -70,14 +70,14 @@ if($_POST['save']) {
     
     $logText = 0;
     
-    $generalFunctions->storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
+    generalFunctions::$storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
     
   // *** SAVE PAGE ----------------------
   } else {
   
     // if flatfile exists, load $pageContent array
     // (necessary for: thumbnail, sortorder and logs)
-    if(!$pageContent = $generalFunctions->readPage($page,$category))
+    if(!$pageContent = generalFunctions::readPage($page,$category))
       $errorWindow .= $langFile['file_error_read'];
    
     $logText = 1; 
@@ -128,7 +128,7 @@ if($_POST['save']) {
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchwords'] = $pageContent['log_searchwords'];
       
-    if($generalFunctions->savePage($_POST)) {
+    if(generalFunctions::savePage($_POST)) {
       $documentSaved = true;
       $statisticFunctions->saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
     } else
@@ -140,7 +140,7 @@ if($_POST['save']) {
 }
 
 // ->> LOAD PAGE and CHECK for NEW PAGE
-if($pageContent = $generalFunctions->readPage($page,$category))
+if($pageContent = generalFunctions::readPage($page,$category))
   $newPage = false;
 else
   $newPage = true;

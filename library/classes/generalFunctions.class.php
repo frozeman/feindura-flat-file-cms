@@ -52,7 +52,7 @@ class generalFunctions {
   * @see generalFunctions()
   * 
   */ 
-  var $adminConfig;
+  public static $adminConfig;
   
   /**
   * Contains the category-settings config <var>array</var>
@@ -61,7 +61,7 @@ class generalFunctions {
   * @see generalFunctions()
   * 
   */ 
-  var $categoryConfig;
+  public static $categoryConfig;
   
    /**
   * Contains all page and category IDs on the first loading of a page.
@@ -76,7 +76,7 @@ class generalFunctions {
   * @var array
   * 
   */
-  var $storedPageIds = null;
+  public static $storedPageIds = null;
   
  /**
   * Stores page-content <var>array's</var> in this property if a page is loaded
@@ -90,19 +90,8 @@ class generalFunctions {
   * @var array
   * 
   */
-  var $storedPages = null;
-  
- /**
-  * Contains a <var>instance</var> of the {@link xssFilter::__construct() xssFilter} <var>class</var> for using in this <var>class</var>
-  * 
-  * The file with the {@link xssFilter::__construct() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
-  * A instance of the {@link xssFilter::__construct() xssFilter} class will be set to this property in the {@link xssFilter()} constructor.
-  * 
-  * @var class
-  * @see xssFilter::__construct()
-  *   
-  */
-  var $xssFilter;
+  public static $storedPages = null;
+
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -110,15 +99,9 @@ class generalFunctions {
   
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      generalFunctions()<br>
+  * <b> Name</b>      __construct()<br>
   * 
-  * The constructor of the class, gets the settings.
-  * 
-  * <b>Used Global Variables</b><br>
-  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
-  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
-  * 
-  * @param object|false $xssFilter (optional) an instance of the xssFilter class or FALSE      
+  * empty, {@link generalFunctions::init()} is used instead.
   * 
   * @return void
   * 
@@ -128,14 +111,31 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  function __construct($xssFilter = false) {
-    
-    // run the parent class constructor
-    $this->xssFilter = (is_a($xssFilter,'xssFilter')) ? $xssFilter : new xssFilter();
+  public function __construct() {
+  }
+  
+ /**
+  * <b> Type</b>      init<br>
+  * 
+  * The real constructor of the class, gets the settings.
+  * 
+  * <b>Used Global Variables</b><br>
+  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+  * 
+  * @return void
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */ 
+  public function init() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    $this->adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
-    $this->categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
+    self::$adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
+    self::$categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
 
   }
   
@@ -156,7 +156,7 @@ class generalFunctions {
   * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
   * 
   */
-  function parseDefaultLanguage($http_accept, $deflang = "en") {
+  public static function parseDefaultLanguage($http_accept, $deflang = "en") {
      if(isset($http_accept) && strlen($http_accept) > 1)  {
         # Split possible languages into array
         $x = explode(",",$http_accept);
@@ -210,7 +210,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function checkLanguageFiles($useLangPath = false, $returnLangFile = true, $standardLang = 'en') {
+  public static function checkLanguageFiles($useLangPath = false, $returnLangFile = true, $standardLang = 'en') {
      
       // checks if a path given
       if(is_string($useLangPath)) {
@@ -226,15 +226,15 @@ class generalFunctions {
         $langPath = dirname(__FILE__).'/../languages/';
        
       // -> read language folder
-      $langFiles = $this->readFolderRecursive($langPath);
+      $langFiles = self::readFolderRecursive($langPath);
       
       // -> get langFiles
       if(!empty($langFiles['files'])) {
                     
         // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
         $browserLang = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
-          ? $this->parseDefaultLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"],$standardLang)
-          : $this->parseDefaultLanguage(NULL,$standardLang);
+          ? self::parseDefaultLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"],$standardLang)
+          : self::parseDefaultLanguage(NULL,$standardLang);
         $browserLang = substr($browserLang,0,2);
         
     	  foreach($langFiles['files'] as $langFilePath) {
@@ -293,7 +293,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function getCurrentUrl($parameter = null) {
+  public static function getCurrentUrl($parameter = null) {
     
     $currentURL = $_SERVER['REQUEST_URI'];
     
@@ -328,13 +328,13 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function getStoredPageIds() { // (false or Array)
+  public static function getStoredPageIds() { // (false or Array)
     
     // load all page ids, if necessary
-    if($this->storedPageIds === null)
-      $this->storedPageIds = $this->loadPageIds(true);
+    if(self::$storedPageIds === null)
+      self::$storedPageIds = self::loadPageIds(true);
 
-    return $this->storedPageIds;
+    return self::$storedPageIds;
   }
 
  /**
@@ -356,11 +356,11 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function getStoredPages() {
+  public static function getStoredPages() {
     global $HTTP_SESSION_VARS;
     
     unset($_SESSION['storedPages']);    
-    //echo 'STORED-PAGES -> '.count($this->storedPages);
+    //echo 'STORED-PAGES -> '.count(self::$storedPages);
     
     // if its an older php version, set the session var
     if(phpversion() <= '4.1.0')
@@ -370,7 +370,7 @@ class generalFunctions {
     if(isset($_SESSION['storedPages']))
       return $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
     else
-      return $this->storedPages; // if not get the storedPages from the PROPERTY  
+      return self::$storedPages; // if not get the storedPages from the PROPERTY  
   }
 
  /**
@@ -393,7 +393,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function setStoredPages($pageContent,$remove = false) {
+  public static function setStoredPages($pageContent,$remove = false) {
     global $HTTP_SESSION_VARS;
     
     unset($_SESSION['storedPages']);
@@ -403,14 +403,14 @@ class generalFunctions {
       $_SESSION = $HTTP_SESSION_VARS;  
     
     // stores the given parameter only if its a valid $pageContent array
-    if($this->isPageContentArray($pageContent)) {
+    if(self::isPageContentArray($pageContent)) {
       
       // ->> ADD
       // -> checks if the SESSION storedPages Array exists
       if(isset($_SESSION['storedPages']))
         $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
       else {
-        $this->storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
+        self::$storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
         $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
       }
     }
@@ -437,7 +437,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function removeStoredPage($id) {
+  public static function removeStoredPage($id) {
     global $HTTP_SESSION_VARS;
     
     // var
@@ -453,8 +453,8 @@ class generalFunctions {
       if(isset($_SESSION['storedPages']) && isset($_SESSION['storedPages'][$id])) {
         unset($_SESSION['storedPages'][$id]); // if isset, remove from the storedPages in the SESSION
         return true;
-      } elseif(isset($this->storedPages[$id])) {
-        unset($this->storedPages[$id]); // if not remove from the storedPages in the PROPERTY
+      } elseif(isset(self::$storedPages[$id])) {
+        unset(self::$storedPages[$id]); // if not remove from the storedPages in the PROPERTY
         unset($_SESSION['storedPages'][$id]);
         return true;
       }
@@ -480,12 +480,12 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function getPageCategory($page) {
+  public static function getPageCategory($page) {
 
     if($page !== false && is_numeric($page)) {
       // loads only the page IDs and category IDs in an array
       // but only if it hasn't done this yet      
-      $allPageIds = $this->getStoredPageIds();
+      $allPageIds = self::getStoredPageIds();
       
       if($allPageIds) {
         // gets the category id of the given page
@@ -533,10 +533,10 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function savePage($pageContent) {
+  public static function savePage($pageContent) {
     
     // check if array is pageContent array
-    if(!$this->isPageContentArray($pageContent))
+    if(!self::isPageContentArray($pageContent))
       return false;
     
     $pageId = $pageContent['id'];
@@ -544,13 +544,13 @@ class generalFunctions {
     
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
-    ? DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$pageId.'.php'
-    : DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$categoryId.'/'.$pageId.'.php';
+    ? DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$pageId.'.php'
+    : DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
       
-      $pageContent = $this->escapeQuotesRecursive($pageContent);
+      $pageContent = self::escapeQuotesRecursive($pageContent);
       
       // escaps ",',\,NULL but undescappes the double quotes again
       $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
@@ -624,12 +624,12 @@ class generalFunctions {
       @chmod($filePath, PERMISSIONS);
       
       // writes the new saved page to the $storedPages property      
-      $this->removeStoredPage($pageContent['id']); // remove the old one
+      self::removeStoredPage($pageContent['id']); // remove the old one
       unset($pageContent);
       $pageContent = include($filePath);
-      $this->setStoredPages($pageContent);
+      self::setStoredPages($pageContent);
       // reset the stored page ids
-      $this->storedPagesIds = null;
+      self::$storedPagesIds = null;
       
       return true;
     }  
@@ -642,7 +642,7 @@ class generalFunctions {
   * Loads the $pageContent array of a page.
   * 
   * Checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
-  * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
+  * If not the {@link generalFunctions::readPage()} public static function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
   * 
   * Example of the returned $pageContent array:
@@ -665,14 +665,14 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function readPage($page,$category = false) {
+  public static function readPage($page,$category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
     
     // if $page is a valid $pageContent array return it immediately
-    if($this->isPageContentArray($page))
+    if(self::isPageContentArray($page))
       return $page;
        
-    $storedPages = $this->getStoredPages();
+    $storedPages = self::getStoredPages();
     
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
@@ -697,12 +697,12 @@ class generalFunctions {
       //echo '<br />LOAD PAGE: '.$page.'<br />';   
       //echo 'CATEGORY: '.$category.'<br />';
     
-      if(@include(DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$category.$page)) {
+      if(@include(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category.$page)) {
       
         // UNESCPAE the SINGLE QUOTES '
         $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
       
-        return $this->setStoredPages($pageContent);
+        return self::setStoredPages($pageContent);
       } else  // returns false if it couldn't include the page
         return false;
     }
@@ -732,12 +732,12 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function loadPageIds($category = false) {
+  public static function loadPageIds($category = false) {
                     
     // vars
     $pagesArray = array();
     $categoryDirs = array();
-    $categoryArray = $this->categoryConfig;
+    $categoryArray = self::$categoryConfig;
 
     // if $category === true,
     // load ALL CATEGORIES and the NON-CATEGORY
@@ -753,22 +753,22 @@ class generalFunctions {
         foreach($category as $categoryArray) {          
           $dir = '';
           
-          // *** if it is $this->categoryConfig settings array
+          // *** if it is self::$categoryConfig settings array
           if(is_array($categoryArray) &&
              array_key_exists('id',$categoryArray)) {
             // if category == 0, means that the files are saved directly in the pages folder
             if($categoryArray['id'] == 0)
-              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/';
+              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
             elseif(is_numeric($categoryArray['id']))
-              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$categoryArray['id'];
+              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryArray['id'];
           
           // *** if its just an array with the ids of the categories
           } else {
             // if category == 0, means that the files are directly saved in the pages folder
             if(is_numeric($categoryArray) && $categoryArray == 0) //$categoryArray === false ||
-              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/';
+              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
             elseif(is_numeric($categoryArray))
-              $dir = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$categoryArray;
+              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryArray;
           }
           
           // stores the paths in an array
@@ -776,9 +776,9 @@ class generalFunctions {
         }
     } else {    
       if($category === false || (is_numeric($category) && $category == 0))
-        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/';
+        $categoryDirs[0] = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
       elseif(is_numeric($category))
-        $categoryDirs[0] = DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$category;
+        $categoryDirs[0] = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category;
     }
     
     // LOAD THE FILES out of the dirs
@@ -798,8 +798,8 @@ class generalFunctions {
         foreach($readFolder as $inDirObject) {
           if($inDirObject != "." && $inDirObject != ".." && is_file($dir."/".$inDirObject)) {         
             $pages[] = ($categoryId === false)
-                ? array('page' => substr($inDirObject,0,-4), 'category' => 0) // load Pages, without a category                  
-                : array('page' => substr($inDirObject,0,-4), 'category' => $categoryId); // load Pages, with a category
+                ? array('page' => intval(substr($inDirObject,0,-4)), 'category' => 0) // load Pages, without a category                  
+                : array('page' => intval(substr($inDirObject,0,-4)), 'category' => intval($categoryId)); // load Pages, with a category
           }
         }
         // adds the new sorted category to the return array
@@ -818,7 +818,7 @@ class generalFunctions {
   * 
   * Loads all $pageContent arrays of a given category, by going through the {@link $storedPageIds} property.
   * It check first whether the current $pageContent array was not already loaded and is contained in the {@link $storedPages} property.
-  * If not the {@link generalFunctions::readPage()} function is called to include the $pagecontent array of the page
+  * If not the {@link generalFunctions::readPage()} public static function is called to include the $pagecontent array of the page
   * and store it in the {@link $storedPages} property.
   * 
   * <b>Notice</b>: after loading all $pageContent arrays of a category, the array with the containing $pageContent arrays will be sorted.
@@ -841,7 +841,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */  
-  function loadPages($category = false, $loadPagesInArray = true) {
+  public static function loadPages($category = false, $loadPagesInArray = true) {
     
     // IF $category FALSE set $category to 0
     if($category === false)
@@ -857,7 +857,7 @@ class generalFunctions {
       if($category === true) {
       	// puts the categories IDs in an array
       	$category = array(0);
-      	foreach($this->categoryConfig as $eachCategory) {
+      	foreach(self::$categoryConfig as $eachCategory) {
       	  $category[] = $eachCategory['id'];
       	}
       }
@@ -872,20 +872,20 @@ class generalFunctions {
           
           // go trough the storedPageIds and open the page in it
           $newPageContentArrays = array();
-          foreach($this->getStoredPageIds() as $pageIdAndCategory) {
+          foreach(self::getStoredPageIds() as $pageIdAndCategory) {
             // use only pages from the right category
             if($pageIdAndCategory['category'] == $categoryId) {
               //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
-              $newPageContentArrays[] = $this->readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
+              $newPageContentArrays[] = self::readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
             }
           }
           
           // sorts the category
           if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-            if($categoryId != 0 && $this->categoryConfig[$categoryId]['sortbypagedate'])
-              $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortByDate');
+            if($categoryId != 0 && self::$categoryConfig[$categoryId]['sortbypagedate'])
+              $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortByDate');
             else
-              $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortBySortOrder');
+              $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortBySortOrder');
           }
         
           // adds the new sorted category to the return array
@@ -898,8 +898,8 @@ class generalFunctions {
     // ->> RETURN ONLY the page & category IDs
     } else {
       
-      // -> uses the $this->storedPageIds an filters out only the given category ID(s)
-      $pageIds = $this->getStoredPageIds();
+      // -> uses the self::$storedPageIds an filters out only the given category ID(s)
+      $pageIds = self::getStoredPageIds();
       
       if($category !== true) {
       	 $newPageIds = false;
@@ -930,7 +930,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function isPageContentArray($page) {
+  public static function isPageContentArray($page) {
                
     return (is_array($page) && array_key_exists('content',$page)) ? true : false;
   }
@@ -958,7 +958,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function createHref($pageContent, $sessionId = false) {
+  public static function createHref($pageContent, $sessionId = false) {
     
     // vars
     $page = $pageContent['id'];
@@ -966,20 +966,20 @@ class generalFunctions {
     
     // ->> create HREF with speaking URL
     // *************************************
-    if($this->adminConfig['speakingUrl'] == 'true') {
+    if(self::$adminConfig['speakingUrl'] == 'true') {
       $speakingUrlHref = '';
       
       // adds the category to the href attribute
       if($category != 0) {
-        $categoryLink = '/category/'.$this->encodeToUrl($this->categoryConfig[$category]['name']).'/';
+        $categoryLink = '/category/'.self::encodeToUrl(self::$categoryConfig[$category]['name']).'/';
       } else $categoryLink = '';
       
       
       $speakingUrlHref .= $categoryLink;
       if($categoryLink == '')
-        $speakingUrlHref .= '/page/'.$this->encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= '/page/'.self::encodeToUrl($pageContent['title']);
       else
-        $speakingUrlHref .= $this->encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= self::encodeToUrl($pageContent['title']);
       $speakingUrlHref .= '.html';
       
       if($sessionId)
@@ -994,10 +994,10 @@ class generalFunctions {
       
       // adds the category to the href attribute
       if($category != 0)
-        $categoryLink = $this->adminConfig['varName']['category'].'='.$category.'&amp;';
+        $categoryLink = self::$adminConfig['varName']['category'].'='.$category.'&amp;';
       else $categoryLink = '';
       
-      $getVarHref = '?'.$categoryLink.$this->adminConfig['varName']['page'].'='.$page;
+      $getVarHref = '?'.$categoryLink.self::$adminConfig['varName']['page'].'='.$page;
       
       if($sessionId)
         $getVarHref .= '&amp;'.$sessionId;
@@ -1009,8 +1009,8 @@ class generalFunctions {
  /**
   * <b>Name</b> sortPages()<br>
   * 
-  * Sort an array with the <var>$pageContent</var> arrays by a given sort-function.
-  * The following sort functions can be used for the <var>$sortBy</var> parameter:<br>
+  * Sort an array with the <var>$pageContent</var> arrays by a given sort-public static function.
+  * The following sort public static functions can be used for the <var>$sortBy</var> parameter:<br>
   *   - "sortBySortOrder"
   *   - "sortByCategory"
   *   - "sortByDate"
@@ -1018,14 +1018,14 @@ class generalFunctions {
   *   - "sortByVisitTimeMax"  
   * 
   * @param array        $pageContentArrays  the $pageContent array of a page
-  * @param string|false $sortBy             (optional) the name of the sort function, if FALSE it uses automaticly the right sort-function of the category
+  * @param string|false $sortBy             (optional) the name of the sort public static function, if FALSE it uses automaticly the right sort-public static function of the category
   * 
-  * @uses $categoryConfig        to find the right sort function for every category
+  * @uses $categoryConfig        to find the right sort public static function for every category
   * @uses isPageContentArray()   to check if the given $pageContent arrays are valid
   * 
   * @return array the sorted array with the $pageContent arrays
   * 
-  * @see sort.functions.php
+  * @see sort.public static functions.php
   * 
   * @version 1.0
   * <br>
@@ -1033,16 +1033,16 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function sortPages($pageContentArrays, $sortBy = false) {
+  public static function sortPages($pageContentArrays, $sortBy = false) {
     
     if(is_array($pageContentArrays) && isset($pageContentArrays[0])) {
     
       // CHECK if the arrays are valid $pageContent arrays
       // OTHER BUTTONSwise return the unchanged array
-      if(!$this->isPageContentArray($pageContentArrays[0]))
+      if(!self::isPageContentArray($pageContentArrays[0]))
         return $pageContentArrays;
       
-      // sorts the array with the given sort function
+      // sorts the array with the given sort public static function
       //natsort($pagesArray);
       
       // first sort the ARRAY by CATEGORY
@@ -1078,7 +1078,7 @@ class generalFunctions {
         
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
-          if($category && $this->categoryConfig[$category]['sortbypagedate'])
+          if($category && self::$categoryConfig[$category]['sortbypagedate'])
             usort($categoriesArray, 'sortByDate');
           else
             usort($categoriesArray, 'sortBySortOrder');
@@ -1087,7 +1087,7 @@ class generalFunctions {
         
         
         // makes the category ascending, if its in the options
-        if($category && $this->categoryConfig[$category]['sortascending'])
+        if($category && self::$categoryConfig[$category]['sortascending'])
           $categoriesArray = array_reverse($categoriesArray);
          
         foreach($categoriesArray as $pageContent) {
@@ -1126,14 +1126,14 @@ class generalFunctions {
    *    - 1.0 initial release
    * 
    */
-  function getStylesByPriority($givenStyle,$styleType,$category) {
+  public static function getStylesByPriority($givenStyle,$styleType,$category) {
     
     // check if the $givenStyle is empty
     if(empty($givenStyle) || $givenStyle == 'a:0:{}') {
     
-      return (empty($this->categoryConfig[$category][$styleType]) || $this->categoryConfig[$category][$styleType] == 'a:0:{}')
-        ? $this->adminConfig['editor'][$styleType]
-        : $this->categoryConfig[$category][$styleType];
+      return (empty(self::$categoryConfig[$category][$styleType]) || self::$categoryConfig[$category][$styleType] == 'a:0:{}')
+        ? self::$adminConfig['editor'][$styleType]
+        : self::$categoryConfig[$category][$styleType];
     
     // OTHER BUTTONSwise it passes through the $givenStyle parameter
     } else
@@ -1157,7 +1157,7 @@ class generalFunctions {
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   */ 
-  function getRealCharacterNumber($string, $textLength = false) {
+  public static function getRealCharacterNumber($string, $textLength = false) {
     
     // get the full string length if no maximum characternumber is given
     if($textLength === false)
@@ -1191,7 +1191,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function escapeQuotesRecursive($data) {
+  public static function escapeQuotesRecursive($data) {
     
     if(is_string($data)) {      
       $data = str_replace("\'","'",$data);
@@ -1201,7 +1201,7 @@ class generalFunctions {
     } elseif(is_array($data)) {
       $newData = array();
       foreach($data as $key => $value) {
-        $newData[$key] = $this->escapeQuotesRecursive($value);
+        $newData[$key] = self::escapeQuotesRecursive($value);
       }
       return $newData;
     } else
@@ -1224,7 +1224,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function cleanSpecialChars($string,$replaceString = '') {
+  public static function cleanSpecialChars($string,$replaceString = '') {
     
     // removes multiple spaces
     $string = preg_replace("/ +/", ' ', $string);
@@ -1252,7 +1252,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function prepareStringInput($text) {
+  public static function prepareStringInput($text) {
       
       // format text
       $text = preg_replace("/ +/", " ", $text);
@@ -1279,10 +1279,10 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function shortenTitle($title, $length) {
+  public static function shortenTitle($title, $length) {
       
       //vars
-      $realLength =  $this->getRealCharacterNumber($title,$length);
+      $realLength =  self::getRealCharacterNumber($title,$length);
       
       // chek if shorting is necessary
       if(strlen($title) <= $realLength)
@@ -1307,7 +1307,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function encodeToUrl($string) {
+  public static function encodeToUrl($string) {
       
       // makes the string to lower
       $string = strtolower($string);
@@ -1368,7 +1368,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function readFolder($folder) {
+  public static function readFolder($folder) {
     
     if(empty($folder))
       return false;
@@ -1446,7 +1446,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function readFolderRecursive($folder) {
+  public static function readFolderRecursive($folder) {
     
     // TODO: use scandir()
     
@@ -1476,7 +1476,7 @@ class generalFunctions {
       // ->> GOES TROUGH folders
       foreach($goTroughFolders['folders'] as $subFolder) {
         //echo '<br /><br />'.$subFolder.'<br />';     
-        $inDirObjects = $this->readFolder($subFolder);
+        $inDirObjects = self::readFolder($subFolder);
         
         // -> add all subfolders to an array
         if(isset($inDirObjects['folders']) && is_array($inDirObjects['folders'])) {        
@@ -1525,9 +1525,9 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function folderIsEmpty($folder) {
+  public static function folderIsEmpty($folder) {
     
-    if($this->readFolder(DOCUMENTROOT.$folder) === false)
+    if(self::readFolder(DOCUMENTROOT.$folder) === false)
       return true;
     else
       return false;
@@ -1555,20 +1555,20 @@ class generalFunctions {
    *    - 1.0 initial release
    * 
    */
-  function createStyleTags($folder, $backend = true) {
+  public static function createStyleTags($folder, $backend = true) {
     
     //var
     $return = false;
     
     // ->> goes trough all folder and subfolders
-    $filesInFolder = $this->readFolderRecursive($folder);
+    $filesInFolder = self::readFolderRecursive($folder);
     if(is_array($filesInFolder['files'])) {
       foreach($filesInFolder['files'] as $file) {
         // -> check for CSS FILES
         if(substr($file,-4) == '.css') {
           // -> removes the $adminConfig('basePath')
           if($backend)          
-            $file = str_replace($this->adminConfig['basePath'],'',$file);
+            $file = str_replace(self::$adminConfig['basePath'],'',$file);
           // -> WRITES the HTML-Style-Tags
           $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'" />'."\n";
         }
@@ -1581,7 +1581,7 @@ class generalFunctions {
  /**
   * <b>Name</b> showMemoryUsage()<br>
   * 
-  * Shows the memory usage at the point of the script where this function is called.
+  * Shows the memory usage at the point of the script where this public static function is called.
   * 
   * @return void
   * 
@@ -1591,7 +1591,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  function showMemoryUsage() {
+  public static function showMemoryUsage() {
       $mem_usage = memory_get_usage(true);
       
       echo $mem_usage.' -> ';

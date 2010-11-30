@@ -46,8 +46,7 @@ include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 // RE-INCLUDE
 $websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
 // RESET of the vars in the classes
-$generalFunctions->websiteConfig = $websiteConfig;
-$generalFunctions->storedPageIds = null;
-$generalFunctions->storedPages = null;
+generalFunctions::$storedPageIds = null;
+generalFunctions::$storedPages = null;
 
 ?>

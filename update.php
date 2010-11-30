@@ -240,7 +240,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     }
     
     // ->> FIX PAGES
-    $pages = $generalFunctions->loadPages(true);
+    $pages = generalFunctions::loadPages(true);
     
     //print_r($pages);
     foreach($pages as $pageContent) {
@@ -290,7 +290,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchwords'] = changeToSerializedDataString($data,' ');
       
-      $pagesSuccesfullUpdated = ($generalFunctions->savePage($pageContent)) ? true : false;
+      $pagesSuccesfullUpdated = (generalFunctions::savePage($pageContent)) ? true : false;
     }
     if($pagesSuccesfullUpdated)
       echo 'pages <span class="succesfull">succesfully updated</span><br />';

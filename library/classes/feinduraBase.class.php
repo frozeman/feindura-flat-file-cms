@@ -190,19 +190,6 @@ class feinduraBase {
   *   
   */
   var $xssFilter;
-
- /**
-  * Contains a <var>instance</var> of the {@link generalFunctions::generalFunctions() generalFunctions} <var>class</var> for using in this <var>class</var>
-  * 
-  * The file with the {@link generalFunctions::generalFunctions() generalFunctions} class is situated at <i>"feindura-CMS/library/classes/generalFunctions.class.php"</i>.<br />   
-  * A instance of the {@link generalFunctions::generalFunctions() generalFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
-  * 
-  * @var class
-  * @see feinduraBase()
-  * @see generalFunctions::generalFunctions()
-  *   
-  */
-  var $generalFunctions;
   
  /**
   * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>
@@ -249,7 +236,6 @@ class feinduraBase {
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
   * @uses $categoryConfig                         the category-settings config array will set to this property
-  * @uses $generalFunctions                       a generalFunctions class instance will set to this property
   * @uses $statisticFunctions                     a statisticFunctions class instance will set to this property
   * @uses $loggedIn                               to set whether the visitor is logged in or not  
   * @uses $varNames                               the variable names from the administrator-settings config will set to this property
@@ -257,7 +243,8 @@ class feinduraBase {
   * @uses $language                               to set the given $language parameter to, or try to find out the browser language
   * @uses $languageFile                           set the loaded frontend language-file to this property
   * @uses statisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit AND the visit time of the last visited pages
-  * 
+  * @uses generalFunctions::init()                init the generalFucntions class 
+  *  
   * @return void
   * 
   * @example includeFeindura.example.php    
@@ -278,7 +265,7 @@ class feinduraBase {
     
     // GET FUNCTIONS
     $this->xssFilter = new xssFilter();
-    $this->generalFunctions = new generalFunctions();
+    generalFunctions::init();
     $this->statisticFunctions = new statisticFunctions($this->generalFunctions);    
     
     // eventually LOGOUT
@@ -311,7 +298,7 @@ class feinduraBase {
     
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
-    if(isset($language) && !empty($language) && ($language = $this->xssFilter->alphabetical($language)) === false)
+    if(isset($language) && !empty($language) && ($language = xssFilter::alphabetical($language)) === false)
       die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
     
     // set the given country code
@@ -320,7 +307,7 @@ class feinduraBase {
       
     // if no country code is given, try to get the BROWSER LANGUAGE
     } else
-      $this->language = $this->generalFunctions->checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME 
+      $this->language = generalFunctions::checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME 
 
     $this->loadFrontendLanguageFile($this->language);
   }
@@ -385,7 +372,7 @@ class feinduraBase {
   * 
   * @uses $varNames                     for variable names which the $_GET will use for the page ID
   * @uses $adminConfig                  to look if set startpage is allowed
-  * @uses feindura::$startPage     if no $_GET variable exists it will try to get the {@link feindura::$startPage} property
+  * @uses feindura::$startPage          if no $_GET variable exists it will try to get the {@link feindura::$startPage} property
   * @uses generalFunctions::loadPages() for loading all pages to get the right page ID, if the $_GET variable is not a ID but a page name
   * 
   * 
@@ -407,7 +394,7 @@ class feinduraBase {
        
       // set PAGE GET var
       if(!empty($_GET[$this->varNames['page']]))
-        return $_GET[$this->varNames['page']]; // get the category ID from the $_GET var
+        return intval($_GET[$this->varNames['page']]); // get the category ID from the $_GET var
     
     // ->> GET PAGE is a NAME
     // **********************
@@ -415,14 +402,14 @@ class feinduraBase {
              !empty($_GET['page'])) {
     
       // load the pages of the category
-      $pages = $this->generalFunctions->loadPages($this->category);
+      $pages = generalFunctions::loadPages($this->category);
       //print_r($this->storedPages);
       if($pages) {
         foreach($pages as $page) {          
           $transformedPage = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
 
           // RETURNs the right page Id
-          if($this->generalFunctions->encodeToUrl($page['title']) == $transformedPage) {
+          if(generalFunctions::encodeToUrl($page['title']) == $transformedPage) {
             return $page['id'];
           }
         }
@@ -479,7 +466,7 @@ class feinduraBase {
        is_numeric($_GET[$this->varNames['category']])) {
        
       // set CATEGORY GET var
-      return $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
+      return intval($_GET[$this->varNames['category']]); // get the category ID from the $_GET var
     
     // ->> GET CATEGORY is a NAME
     // **************************
@@ -490,7 +477,7 @@ class feinduraBase {
         $transformedCategory = htmlentities($_GET['category'],ENT_QUOTES,'UTF-8');
       
         // RETURNs the right category Id
-        if($this->generalFunctions->encodeToUrl($category['name']) == $transformedCategory) {
+        if(generalFunctions::encodeToUrl($category['name']) == $transformedCategory) {
           return $category['id'];
         }
       }
@@ -539,7 +526,7 @@ class feinduraBase {
     
     // sets the startPage if it exists
     if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
-      $this->startPage = $this->websiteConfig['startPage'];
+      $this->startPage = intval($this->websiteConfig['startPage']);
     }
       
     // sets the new page PROPERTY
@@ -567,12 +554,12 @@ class feinduraBase {
   * 
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   * 
-  * @uses $adminConfig              to check if setting a startpage is allowed
-  * @uses $websiteConfig            to get the startpage ID
-  * @uses feindura::$category       as the property to set
-  * @uses feindura::$startCategory  if the $setStartCategory parameter is TRUE this property will also be set
-  * @uses getPageCategory()         to get the right category ID of the startpage
-  * @uses getCurrentCategoryId()    to get the {@link feindura::$category} property or the {@link $startCategory} property
+  * @uses $adminConfig                      to check if setting a startpage is allowed
+  * @uses $websiteConfig                    to get the startpage ID
+  * @uses feindura::$category               as the property to set
+  * @uses feindura::$startCategory          if the $setStartCategory parameter is TRUE this property will also be set
+  * @uses getCurrentCategoryId()            to get the {@link feindura::$category} property or the {@link $startCategory} property
+  * @uses generalFunctions::getPageCategory to get the right category ID of the startpage
   * 
   * @return int|false the set category ID or FALSE
   * 
@@ -587,7 +574,7 @@ class feinduraBase {
     
     // sets the startPage if it exists
     if($setStartCategory === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
-      $this->startCategory = $this->getPageCategory($this->websiteConfig['startPage']);
+      $this->startCategory = generalFunctions::getPageCategory($this->websiteConfig['startPage']);
     }
 
     // sets the new category PROPERTY
@@ -664,6 +651,7 @@ class feinduraBase {
   * @uses statisticFunctions::dateDayBeforeAfter() check if the page date is "yesterday" "today" or "tomorrow"
   * @uses generalFunctions::isPageContentArray()   to check if the given array is a $pageContent array  
   * @uses generalFunctions::readPage()		         to load the page if the $page parameter is an ID
+  * @uses generalFunctions::getPageCategory        to get the category of the page   
   * 
   * 
   * @return array the generated page array, ready to display in a HTML file
@@ -719,16 +707,16 @@ class feinduraBase {
     
     // ->> LOAD the pageContent ARRAY
     // -> checks if $page is an pageContent Array
-    if($this->generalFunctions->isPageContentArray($page)) {
+    if(generalFunctions::isPageContentArray($page)) {
       $pageContent = $page;
       
     // $page is NUMBER
     } else {
       // gets the category of the page
-      $category = $this->getPageCategory($page);
+      $category = generalFunctions::getPageCategory($page);
       
       // -> if not try to load the page
-      if(!$pageContent = $this->generalFunctions->readPage($page,$category)) {
+      if(!$pageContent = generalFunctions::readPage($page,$category)) {
         // if could not load throw ERROR
         if($showErrors) {
 	        $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
@@ -1100,10 +1088,11 @@ class feinduraBase {
   * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   * 
-  * @uses publicCategory()              to check if the category(ies) or page(s) category(ies) are public
-  * @uses isPageContentArray()		      to check if the given array is a $pageContent array, if TRUE it just returns this array
-  * @uses generalFunctions::loadPages()	to load pages
-  * @uses generalFunctions::readPage()	to load a single page
+  * @uses publicCategory()                   to check if the category(ies) or page(s) category(ies) are public
+  * @uses isPageContentArray()		           to check if the given array is a $pageContent array, if TRUE it just returns this array
+  * @uses generalFunctions::loadPages()	     to load pages
+  * @uses generalFunctions::readPage()	     to load a single page
+  * @uses generalFunctions::getPageCategory  to get the category of the page
   * 
   * @return array|false an array with $pageContent array(s)
   * 
@@ -1127,7 +1116,7 @@ class feinduraBase {
       if($ids === true || is_array($ids) || is_numeric($ids)) {
         
         // if its an array with $pageContent arrays -> return this
-        if($this->generalFunctions->isPageContentArray($ids) || (isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0]))) {
+        if(generalFunctions::isPageContentArray($ids) || (isset($ids[0]) && generalFunctions::isPageContentArray($ids[0]))) {
           return $ids;
         
         // OTHER BUTTONSwise load the pages from the category(ies)
@@ -1138,7 +1127,7 @@ class feinduraBase {
 
 	          // returns the loaded pages from the CATEGORY IDs
 	          // the pages in the returned array also get SORTED
-            return $this->generalFunctions->loadPages($ids);
+            return generalFunctions::loadPages($ids);
 
           } else return false;
         }
@@ -1155,7 +1144,7 @@ class feinduraBase {
 	
 	// checks if the categories are public         
 	if(($ids = $this->publicCategory($ids)) !== false) {
-	  return $this->generalFunctions->loadPages($ids);
+	  return generalFunctions::loadPages($ids);
 	}
       
       // -----------------------------------------    
@@ -1164,7 +1153,7 @@ class feinduraBase {
       } elseif($ids && is_array($ids)) {
         
         // checks if its an Array with pageContent Arrays
-        if($this->generalFunctions->isPageContentArray($ids) || (isset($ids[0]) && $this->generalFunctions->isPageContentArray($ids[0]))) {
+        if(generalFunctions::isPageContentArray($ids) || (isset($ids[0]) && generalFunctions::isPageContentArray($ids[0]))) {
           return $ids;          
         //otherwise load the pages from the categories
         } else {
@@ -1172,9 +1161,9 @@ class feinduraBase {
           // loads all pages in an array
           foreach($ids as $page) {
       	    // get category
-      	    $category = $this->getPageCategory($page);
+      	    $category = generalFunctions::getPageCategory($page);
       	    if(($category = $this->publicCategory($category)) !== false) {
-              if($pageContent = $this->generalFunctions->readPage($page,$category)) {
+              if($pageContent = generalFunctions::readPage($page,$category)) {
                 $return[] = $pageContent;
               }
 	          }
@@ -1184,10 +1173,10 @@ class feinduraBase {
       // ->> single page ID
       // *************** 
       } elseif($ids && is_numeric($ids)) {
-        $category = $this->getPageCategory($page);
+        $category = generalFunctions::getPageCategory($page);
 	      if(($category = $this->publicCategory($category)) !== false) {
           // loads the single page in an array 
-          if($pageContent = $this->generalFunctions->readPage($ids,$category)) {
+          if($pageContent = generalFunctions::readPage($ids,$category)) {
             $return[] = $pageContent;
           } else return false;
         } else return false;
@@ -1255,19 +1244,6 @@ class feinduraBase {
     return $newIds;
   }
 
- /**
-  * <b>Name</b> getPageCategory()<br />
-  * 
-  * Gets the category ID of a page.
-  * 
-  * @uses generalFunctions::getPageCategory()
-  * @see generalFunctions::getPageCategory()
-  * 
-  */
-  function getPageCategory($page) {
-    return $this->generalFunctions->getPageCategory($page);
-  }
-
 
  /**
   * <b>Name</b> loadPrevNextPage()<br />
@@ -1278,10 +1254,10 @@ class feinduraBase {
   * 
   * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
   * 
-  * @uses getPropertyPage()		to get the right {@link feindura::$page} property
-  * @uses getPageCategory()		to get the category ID of the given page
-  * @uses generalFunctions::readPage()	to load the $pageContent array of the page and return it
-  * @uses generalFunctions::loadPages()	to load all pages in a category to find the right previous or next page and return it
+  * @uses getPropertyPage()		               to get the right {@link feindura::$page} property
+  * @uses generalFunctions::readPage()	     to load the $pageContent array of the page and return it
+  * @uses generalFunctions::loadPages()	     to load all pages in a category to find the right previous or next page and return it
+  * @uses generalFunctions::getPageCategory  to get the category ID of the given page
   * 
   * @return int|array|false the page ID of the right page or FALSE if no page could be loaded (can also return an $pageContent array)
   * 
@@ -1313,7 +1289,7 @@ class feinduraBase {
     }
     
     // CHECK if its a $pageContent array, set the $page ID to the $page parameter
-    if($this->generalFunctions->isPageContentArray($page))
+    if(generalFunctions::isPageContentArray($page))
       return $page;
     
     // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
@@ -1324,17 +1300,17 @@ class feinduraBase {
      
     // -> IF only $page ID or $pageContent array is given return loaded page
     if($prevNext === false) {
-      //return $this->generalFunctions->readPage($page,$category);
+      //return generalFunctions::readPage($page,$category);
       return $page;
       
     // ->> ELSE return the previous or the next $pageContent array in the category
     } else {
     
       // gets the category of the page
-      $category = $this->getPageCategory($page);
+      $category = generalFunctions::getPageCategory($page);
       
       // loads all pages in this category
-      $categoryWithPages = $this->generalFunctions->loadPages($category);
+      $categoryWithPages = generalFunctions::loadPages($category);
   
       if($categoryWithPages !== false) {
         $count = 0;
@@ -1565,7 +1541,7 @@ class feinduraBase {
         usort($selectedPages,'sortByDate');
       // sorts by DATE and CATEGORIES
       else
-        $selectedPages = $this->generalFunctions->sortPages($selectedPages,'sortByDate');
+        $selectedPages = generalFunctions::sortPages($selectedPages,'sortByDate');
       
       // -> flips the sorted array if $reverseList === true
       if($reverseList === true)
@@ -1701,7 +1677,7 @@ class feinduraBase {
   */
   function getStoredPageIds() {
 
-    return $this->generalFunctions->getStoredPageIds();
+    return generalFunctions::getStoredPageIds();
   }
 
  /**
@@ -1715,7 +1691,7 @@ class feinduraBase {
   */
   function getStoredPages() {
 
-    return $this->generalFunctions->getStoredPages();
+    return generalFunctions::getStoredPages();
   }
 
  /**
@@ -1752,7 +1728,7 @@ class feinduraBase {
       // getting length
       if(is_numeric($length)) {
         // gets real length, if there are htmlentities like &auml; &uuml; etc
-        $length = $this->generalFunctions->getRealCharacterNumber($string,$length);        
+        $length = generalFunctions::getRealCharacterNumber($string,$length);        
       }
       
       // shorten the string
@@ -1769,7 +1745,7 @@ class feinduraBase {
       }
       
       // adds the MORE LINK
-      if(is_string($endString) && $this->generalFunctions->isPageContentArray($pageContent)) {
+      if(is_string($endString) && generalFunctions::isPageContentArray($pageContent)) {
         $output .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
@@ -1814,7 +1790,7 @@ class feinduraBase {
       $rawText = preg_replace("/ +/", ' ', $rawText);
       
       if(is_numeric($length))
-        $length = $this->generalFunctions->getRealCharacterNumber($rawText,$length);
+        $length = generalFunctions::getRealCharacterNumber($rawText,$length);
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT
       // ***********************************************

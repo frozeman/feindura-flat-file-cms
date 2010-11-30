@@ -29,12 +29,12 @@ require_once(dirname(__FILE__)."/backend.include.php");
 
 // ->> CHECK the GET and POST variables
 // -> check CATEGORY
-if((isset($_GET[$category]) && $this->xssFilter->int($_GET[$category]) === false) ||
-   (isset($_POST[$category]) && $this->xssFilter->int($_POST[$category]) === false))
+if((isset($_GET[$category]) && xssFilter::int($_GET[$category]) === false) ||
+   (isset($_POST[$category]) && xssFilter::int($_POST[$category]) === false))
   die('Wrong &quot;'.$category.'&quot; parameter! Script will be terminated.');
 // -> check PAGE
-if((isset($_GET[$page]) && $_GET[$page] != 'new' && $this->xssFilter->int($_GET[$page]) === false) ||
-   (isset($_POST[$page]) && $_POST[$page] != 'new' && $this->xssFilter->int($_POST[$page]) === false))
+if((isset($_GET[$page]) && $_GET[$page] != 'new' && xssFilter::int($_GET[$page]) === false) ||
+   (isset($_POST[$page]) && $_POST[$page] != 'new' && xssFilter::int($_POST[$page]) === false))
   die('Wrong &quot;'.$page.'&quot; parameter! Script will be terminated.');
 
 // ->> CHECK INPUTS

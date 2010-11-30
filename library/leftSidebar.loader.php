@@ -41,7 +41,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <div class="content brown">
       <ul class="verticalButtons">';
             
-      if($pages = $generalFunctions->loadPages(0,true)) {
+      if($pages = generalFunctions::loadPages(0,true)) {
           
         foreach($pages as $page) {
           if($_GET['page'] == $page['id'])
@@ -101,7 +101,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <div class="content white">
       <ul class="verticalButtons">';      
       
-      if($pages = $generalFunctions->loadPages($_GET['category'],true)) { 
+      if($pages = generalFunctions::loadPages($_GET['category'],true)) { 
   
         foreach($pages as $page) {
           if($_GET['page'] == $page['id'])
@@ -277,7 +277,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // link the backup files
-      $backups = $generalFunctions->readFolder($adminConfig['basePath'].'backups/');      
+      $backups = generalFunctions::readFolder($adminConfig['basePath'].'backups/');      
       if(!empty($backups['files'])) {
         $lastBackups = '<ul>';
         natsort($backups['files']);

@@ -38,7 +38,7 @@ else
 $asking = $_POST['asking'];
 
 // load the page
-$pageContent = $generalFunctions->readPage($page,$category);
+$pageContent = generalFunctions::readPage($page,$category);
 $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
@@ -52,7 +52,7 @@ if(is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']
   
   // if the thumbnail doesnt exists, delete it from the pageContent
   $pageContent['thumbnail'] = '';
-  $generalFunctions->savePage($pageContent);
+  generalFunctions::savePage($pageContent);
   
   // show only the ok button
   $asking = true;
@@ -64,7 +64,7 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['page
     
     // DELETING    
     $pageContent['thumbnail'] = '';
-    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && $generalFunctions->savePage($pageContent)) {
+    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && generalFunctions::savePage($pageContent)) {
 
         // DELETING FINISH --------------
         $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />

@@ -68,7 +68,7 @@ if(!empty($searchWord)) {
 
 //$categoriesList = $categoryConfig;
 //array_unshift($categoriesList,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPageContents = $generalFunctions->loadPages(true,true);
+$allPageContents = generalFunctions::loadPages(true,true);
 
 // SEARCH RESULTS HEADLINE
 echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
@@ -123,7 +123,7 @@ function ausgabeblock_end() {
        }*/
      
       // teile $searchWord in einzelne worte auf
-      $searchWord = $generalFunctions->cleanSpecialChars($searchWord);
+      $searchWord = generalFunctions::cleanSpecialChars($searchWord);
       if(substr($searchWord,-1) == ' ') // deletes space on the ende
         $searchWord = substr($searchWord,0,-1);
       if(substr($searchWord,0,1) == ' ') // deletes space on the beginning

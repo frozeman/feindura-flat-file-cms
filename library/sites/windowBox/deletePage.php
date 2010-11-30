@@ -34,7 +34,7 @@ else
 $asking = $_POST['asking'];
 
 // load the page
-$pageContent = $generalFunctions->readPage($page,$category);
+$pageContent = generalFunctions::readPage($page,$category);
 
 // sets the none category (0) to emtpy
 if($category == 0)
@@ -63,7 +63,7 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'
         @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       }
       
-      $generalFunctions->setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
+      generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
       $statisticFunctions->saveTaskLog(2,$pageContent['title']); // <- SAVE the task in a LOG FILE
       
       // DELETING FINISH --------------
