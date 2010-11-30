@@ -132,25 +132,20 @@ if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/websit
 $GLOBALS['websiteStatistic'];
 
 
-// INCLUDES
+// -> FUNCTIONS
 /**
  * Includes the {@link sort.functions.php}
  */ 
 require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
+// ->> autoload CLASSES
 /**
- * Includes the {@link generalFunctions} <var>class</var>
- */
-require_once(dirname(__FILE__)."/../classes/generalFunctions.class.php");
+ * Autoloads all classes
+ *  
+ */ 
+function __autoload($class_name) {
+  require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+}
 
-/**
- * Includes the {@link statisticFunctions} <var>class</var>
- */
-require_once(dirname(__FILE__)."/../classes/statisticFunctions.class.php");
-
-/**
- * Includes the {@link xssFilter} <var>class</var>
- */
-require_once(dirname(__FILE__)."/../classes/xssFilter.class.php");
 
 ?>

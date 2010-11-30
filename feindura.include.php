@@ -32,21 +32,20 @@ session_name("session");
 session_start();
 
 // -> CHECKS if cookies are enabled
-if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
-    // try to set a cookie, to check in the next webpage whether its set or not
-    setcookie( "feindura_checkCookies", 'true');
-}
+if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true')    
+    setcookie( "feindura_checkCookies", 'true'); // try to set a cookie, to check in the next webpage whether its set or not
 
-// -> include all important functions and config vars
-require_once(dirname(__FILE__)."/library/includes/frontend.include.php");
-// -> change the variable names of the config arrays
+// -> INCLUDE ALL important FUNCTIONS, CLASSES and CONFIG vars
+require_once(dirname(__FILE__)."/library/includes/general.include.php");
+
+// -> rename the config var names
 $feindura_adminConfig = $adminConfig;
 $feindura_websiteConfig = $websiteConfig;
 $feindura_categoryConfig = $categoryConfig;
 $feindura_statisticConfig = $statisticConfig;
 $feindura_pluginsConfig = $pluginsConfig;
 $feindura_websiteStatistic = $websiteStatistic;
-// -> delete old config arrays
+// -> delete old config vars
 unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$pluginsConfig,$websiteStatistic);
 
 ?>

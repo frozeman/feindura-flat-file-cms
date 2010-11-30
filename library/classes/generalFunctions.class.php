@@ -93,13 +93,13 @@ class generalFunctions {
   var $storedPages = null;
   
  /**
-  * Contains a <var>instance</var> of the {@link xssFilter::xssFilter() xssFilter} <var>class</var> for using in this <var>class</var>
+  * Contains a <var>instance</var> of the {@link xssFilter::__construct() xssFilter} <var>class</var> for using in this <var>class</var>
   * 
-  * The file with the {@link xssFilter::xssFilter() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
-  * A instance of the {@link xssFilter::xssFilter() xssFilter} class will be set to this property in the {@link xssFilter()} constructor.
+  * The file with the {@link xssFilter::__construct() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
+  * A instance of the {@link xssFilter::__construct() xssFilter} class will be set to this property in the {@link xssFilter()} constructor.
   * 
   * @var class
-  * @see xssFilter::xssFilter()
+  * @see xssFilter::__construct()
   *   
   */
   var $xssFilter;
@@ -128,7 +128,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  function generalFunctions($xssFilter = false) {
+  function __construct($xssFilter = false) {
     
     // run the parent class constructor
     $this->xssFilter = (is_a($xssFilter,'xssFilter')) ? $xssFilter : new xssFilter();
@@ -275,42 +275,6 @@ class generalFunctions {
           return array();
       else
           return $standardLang;          
-  }
-  
-  /**
-   * <b>Name</b> checkMainVars()<br />
-   * 
-   * Check the "page", "category" and "language" GET variables whether they have the right type, otherwise exits the script.
-   * 
-   * <b>Notice</b>: this method will be used by the implementation classes AND the backend of the feindura-CMS.      
-   * 
-   * <b>Used Global Variables</b><br />
-   *    - <var>$_GET</var> the http request variables
-   * 
-   * @param string $category the name of the category variable
-   * @param string $page the name of the category variable   
-   * 
-   * @uses xssFilter::int()
-   * 
-   * @return void nothing just cancels the running script if necessary
-   * 
-   * @version 1.0
-   * <br />
-   * <b>ChangeLog</b><br />
-   *    - 1.0 initial release
-   * 
-   */
-  function checkMainVars($category = 'category', $page = 'page') {
-       
-    //check category
-    if((isset($_GET[$category]) && $this->xssFilter->int($_GET[$category]) === false) ||
-       (isset($_POST[$category]) && $this->xssFilter->int($_POST[$category]) === false))
-      die('Wrong &quot;'.$category.'&quot; parameter! Script will be terminated.');
-    // check page
-    if((isset($_GET[$page]) && $_GET[$page] != 'new' && $this->xssFilter->int($_GET[$page]) === false) ||
-       (isset($_POST[$page]) && $_POST[$page] != 'new' && $this->xssFilter->int($_POST[$page]) === false))
-      die('Wrong &quot;'.$page.'&quot; parameter! Script will be terminated.');
-    
   }
 
  /**
@@ -902,29 +866,31 @@ class generalFunctions {
       if(is_numeric($category))
         $category = array($category);
         
-      // go trough all given CATEGORIES       
-      foreach($category as $categoryId) {
-        
-        // go trough the storedPageIds and open the page in it
-        $newPageContentArrays = array();
-        foreach($this->getStoredPageIds() as $pageIdAndCategory) {
-          // use only pages from the right category
-          if($pageIdAndCategory['category'] == $categoryId) {
-            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
-            $newPageContentArrays[] = $this->readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
+      // go trough all given CATEGORIES
+      if(is_array($category)) {
+        foreach($category as $categoryId) {
+          
+          // go trough the storedPageIds and open the page in it
+          $newPageContentArrays = array();
+          foreach($this->getStoredPageIds() as $pageIdAndCategory) {
+            // use only pages from the right category
+            if($pageIdAndCategory['category'] == $categoryId) {
+              //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
+              $newPageContentArrays[] = $this->readPage($pageIdAndCategory['page'],$pageIdAndCategory['category']);            
+            }
           }
-        }
+          
+          // sorts the category
+          if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
+            if($categoryId != 0 && $this->categoryConfig[$categoryId]['sortbypagedate'])
+              $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortByDate');
+            else
+              $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortBySortOrder');
+          }
         
-        // sorts the category
-        if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-          if($categoryId != 0 && $this->categoryConfig[$categoryId]['sortbypagedate'])
-            $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortByDate');
-          else
-            $newPageContentArrays = $this->sortPages($newPageContentArrays, 'sortBySortOrder');
+          // adds the new sorted category to the return array
+          $pagesArray = array_merge($pagesArray,$newPageContentArrays);
         }
-      
-        // adds the new sorted category to the return array
-        $pagesArray = array_merge($pagesArray,$newPageContentArrays);
       }
       //print_r($pagesArray);
       return $pagesArray;

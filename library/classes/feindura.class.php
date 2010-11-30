@@ -695,7 +695,7 @@ class feindura extends feinduraBase {
   * 
   * The constructor of the class, sets all basic properties.
   * 
-  * Run the {@link feinduraBase::feinduraBase()} class constructor to set all necessary properties
+  * Run the {@link feinduraBase::__construct()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br />
   * If there is no page and category ID it sets the start page ID from the {@link feinduraBase::$websiteConfig website-settings config}.
   * 
@@ -704,13 +704,13 @@ class feindura extends feinduraBase {
   * 
   * @param string $language (optional) A country code like "de", "en", ... to load the right frontend language-file and is also set to the {@link feinduraBase::$language} property 
   * 
-  * @uses feinduraBase::feinduraBase()		          the constructor of the parent class to load all necessary properties
+  * @uses feinduraBase::__construct()		          the constructor of the parent class to load all necessary properties
   * @uses feinduraBase::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
   * @uses feinduraBase::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
   * 
   * @return void
   * 
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   * @version 1.0
   * <br />
@@ -718,15 +718,19 @@ class feindura extends feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function feindura($language = false) {
+  function __construct($language = false) {
     
     // RUN the feinduraBase constructor
-    $this->feinduraBase($language);
+    parent::__construct($language);
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategoryId(true);       // $_GET['category']  // first load category then the page, because getCurrentPageId needs categories
-    $this->setCurrentPageId(true);           // $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
+    $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId needs categories
+    $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
+  
+    echo 'page:'.$this->page;
+    echo '<br>';
+    echo 'category:'.$this->category;
   }
  
   
@@ -780,7 +784,7 @@ class feindura extends feinduraBase {
   * @return string|false the {@link $language language country code} or FALSE if the given $language parameter is no country code
   * 
   * @see feindura()  
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   * @version 1.0
   * <br />
@@ -812,7 +816,7 @@ class feindura extends feinduraBase {
   * @return string the {@link $language language country code}
   * 
   * @see feindura()  
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   * @version 1.0
   * <br />
@@ -946,7 +950,7 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
 
       // -> create TITLE
-      if($this->getCurrentPageId() && $currentPage = $this->generalFunctions->readPage($this->page,$this->category))
+      if($this->getCurrentPageId() && ($currentPage = $this->generalFunctions->readPage($this->page,$this->category)))
         $pageNameInTitle = $currentPage['title'].' - ';
       
       // -> add TITLE

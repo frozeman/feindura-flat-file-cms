@@ -52,8 +52,8 @@ It's basic requirements is a web server with PHP running, however for using the 
 * addon system, build your own application running in the feindura-CMS backend
  
 ### REQUIREMENTS
-* PHP >= 4.3.0 (SafeMode OFF) (PHP 5 for the FileManager)
-* apache with mod_rewrite modul if you want speaking URLs
+* PHP >= 5.0
+* apache with mod_rewrite modul if you want to have speaking URLs
 
 ### APPROPRIATE USES  
 It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.

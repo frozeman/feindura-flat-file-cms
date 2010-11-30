@@ -25,7 +25,7 @@
  * The following variables are available in this script when it gets include by the {@link feindura::showPlugins()} method:
  *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName -> the folder name of this plugin
- *     - and all other variables which are available in the {@link feindura::feindura()} class
+ *     - and all other variables which are available in the {@link feindura::__construct()} class
  * 
  * This file MUST RETURN the plugin ready to display in a HTML-page
  * 

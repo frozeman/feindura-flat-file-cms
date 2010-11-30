@@ -871,7 +871,7 @@ function savePluginsConfig($pluginsConfig) {
  * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
- *    - <var>$xssFilter</var> the {@link xssFilter::xssFilter()} class instance created in the {@link general.include.php})
+ *    - <var>$xssFilter</var> the {@link xssFilter::__construct()} class instance created in the {@link general.include.php})
  * 
  * @param false|string $errorWindow will be filled with an error message if an error occurs
  * 

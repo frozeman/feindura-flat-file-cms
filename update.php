@@ -19,7 +19,7 @@
  * for updating from 
  * 1.0 rc -> 1.1
  *
- * @version 0.12
+ * @version 0.13
  */
 
 /**
@@ -470,13 +470,15 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/process/download.php') &&
       is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/process/download.php'))
       $checkFiles[] = $adminConfig['basePath'].'library/process/download.php';
-      
+     if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/includes/frontend.include.php') &&
+      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/includes/frontend.include.php'))
+      $checkFiles[] = $adminConfig['basePath'].'library/includes/frontend.include.php';      
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';
     else {
       echo 'could not remove <span class="notSuccesfull">old files and folders,<br />
-      please check these folders, and remove them manually:<br />';
+      please check these files and folders, and remove them manually:<br />';
       foreach($checkFiles as $checkFile) {
           echo $checkFile.'<br />';
       }

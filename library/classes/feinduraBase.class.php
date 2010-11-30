@@ -94,7 +94,7 @@ class feinduraBase {
   * {@example backend/adminConfig.array.example.php}
   * 
   * @var array  
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   */
   var $adminConfig;
@@ -110,7 +110,7 @@ class feinduraBase {
   * {@example backend/websiteConfig.array.example.php}
   * 
   * @var array  
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   */
   var $websiteConfig;
@@ -126,7 +126,7 @@ class feinduraBase {
   * {@example backend/categoryConfig.array.example.php}
   * 
   * @var array
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   */
   var $categoryConfig;
@@ -142,7 +142,7 @@ class feinduraBase {
   * {@example backend/pluginsConfig.array.example.php}
   * 
   * @var array
-  * @see feinduraBase::feinduraBase()
+  * @see feinduraBase::__construct()
   * 
   */
   var $pluginsConfig;
@@ -179,14 +179,14 @@ class feinduraBase {
   var $languageFile = null;  
 
  /**
-  * Contains a <var>instance</var> of the {@link xssFilter::xssFilter() xssFilter} <var>class</var> for using in this <var>class</var>
+  * Contains a <var>instance</var> of the {@link xssFilter::__construct() xssFilter} <var>class</var> for using in this <var>class</var>
   * 
-  * The file with the {@link xssFilter::xssFilter() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
-  * A instance of the {@link xssFilter::xssFilter() xssFilter} class will be set to this property in the {@link feinduraBase()} constructor.
+  * The file with the {@link xssFilter::__construct() xssFilter} class is situated at <i>"feindura-CMS/library/classes/xssFilter.class.php"</i>.<br />   
+  * A instance of the {@link xssFilter::__construct() xssFilter} class will be set to this property in the {@link feinduraBase()} constructor.
   * 
   * @var class
   * @see feinduraBase()
-  * @see xssFilter::xssFilter()
+  * @see xssFilter::__construct()
   *   
   */
   var $xssFilter;
@@ -268,7 +268,7 @@ class feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function feinduraBase($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
+  function __construct($language = false) {   // (String) string with the COUNTRY CODE ("de", "en", ..)
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = $GLOBALS["feindura_adminConfig"];
@@ -308,9 +308,6 @@ class feinduraBase {
     if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'] != 'true') {
       $this->sessionId = htmlspecialchars(session_name().'='.session_id()); //SID
     }
-    
-    // -> CHECK the GET variables
-    $this->generalFunctions->checkMainVars($this->varNames['category'],$this->varNames['category']);
     
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
@@ -421,15 +418,16 @@ class feinduraBase {
       $pages = $this->generalFunctions->loadPages($this->category);
       //print_r($this->storedPages);
       if($pages) {
-        foreach($pages as $page) {
-          $transformedCategory = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
-          
+        foreach($pages as $page) {          
+          $transformedPage = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
+
           // RETURNs the right page Id
-          if($this->generalFunctions->encodeToUrl($page['title']) == $transformedCategory) {
+          if($this->generalFunctions->encodeToUrl($page['title']) == $transformedPage) {
             return $page['id'];
           }
         }
-      }  
+      }
+      
     } elseif($this->adminConfig['setStartPage'] && is_numeric($this->startPage)) {
       return $this->startPage;
     } else
@@ -446,7 +444,7 @@ class feinduraBase {
 
  /**
   * <b> Name</b>      getCurrentCategoryId()<br />
-  * <b> Alias</b>     getCategory()<br />
+  * <b> Alias</b>     getCategoryId()<br />
   * 
   * Returns the current category ID from the <var>$_GET</var> variable.
   * 
@@ -477,11 +475,11 @@ class feinduraBase {
     // ->> GET CATEGORY is an ID
     // *************************
     if(isset($_GET[$this->varNames['category']]) &&
+       !empty($_GET[$this->varNames['category']]) &&
        is_numeric($_GET[$this->varNames['category']])) {
        
       // set CATEGORY GET var
-      if(!empty($_GET[$this->varNames['category']]))
-        return $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
+      return $_GET[$this->varNames['category']]; // get the category ID from the $_GET var
     
     // ->> GET CATEGORY is a NAME
     // **************************
@@ -496,8 +494,7 @@ class feinduraBase {
           return $category['id'];
         }
       }
-    } elseif($this->adminConfig['setStartPage'] && is_numeric($this->startCategory)) {
-	
+    } elseif(empty($_GET['page']) && $this->adminConfig['setStartPage'] && is_numeric($this->startCategory)) {
       return $this->startCategory;
     } else
       return false;
@@ -538,7 +535,7 @@ class feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function setCurrentPageId($setStartPage = false) {  // (bool) if TRUE it sets the startPage  
+  function setCurrentPageId($setStartPage = false) {
     
     // sets the startPage if it exists
     if($setStartPage === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) { //empty($this->category)
@@ -547,7 +544,7 @@ class feinduraBase {
       
     // sets the new page PROPERTY
     $this->page = $this->getCurrentPageId();
-      
+    
     return $this->page;
   }
  /**
@@ -592,7 +589,7 @@ class feinduraBase {
     if($setStartCategory === true && $this->adminConfig['setStartPage'] && !empty($this->websiteConfig['startPage'])) {   
       $this->startCategory = $this->getPageCategory($this->websiteConfig['startPage']);
     }
-    
+
     // sets the new category PROPERTY
     $this->category = $this->getCurrentCategoryId();
     

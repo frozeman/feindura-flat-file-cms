@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta
-Build 483
+Build 484
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,7 +22,11 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
-1.1 beta
+1.1 beta 2
+  
+  build 484: add PHP constructor
+
+1.1 beta 1
   
   build 483: startet porting to PHP 5; replaced opendir with scandir
   build 482: put all frontend js into frontendEditing.js and cleaned up createMetaTags() method

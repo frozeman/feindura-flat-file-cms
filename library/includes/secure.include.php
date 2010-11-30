@@ -27,8 +27,15 @@ require_once(dirname(__FILE__)."/backend.include.php");
 // ->> Then check incoming data like category and page vars
 // *****************************
 
-// -> CHECK the GET and POST variables
-$generalFunctions->checkMainVars();
+// ->> CHECK the GET and POST variables
+// -> check CATEGORY
+if((isset($_GET[$category]) && $this->xssFilter->int($_GET[$category]) === false) ||
+   (isset($_POST[$category]) && $this->xssFilter->int($_POST[$category]) === false))
+  die('Wrong &quot;'.$category.'&quot; parameter! Script will be terminated.');
+// -> check PAGE
+if((isset($_GET[$page]) && $_GET[$page] != 'new' && $this->xssFilter->int($_GET[$page]) === false) ||
+   (isset($_POST[$page]) && $_POST[$page] != 'new' && $this->xssFilter->int($_POST[$page]) === false))
+  die('Wrong &quot;'.$page.'&quot; parameter! Script will be terminated.');
 
 // ->> CHECK INPUTS
 // ****************

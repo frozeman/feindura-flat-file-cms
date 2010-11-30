@@ -66,7 +66,8 @@ class xssFilter {
   
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      xssFilter()<br><br>
+  * <b> Name</b>      xssFilter()<br>
+  * 
   * The constructor of the class, does nothing.
   * 
   * @return void
@@ -78,7 +79,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */ 
-  function xssFilter() {
+  function __construct() {
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */

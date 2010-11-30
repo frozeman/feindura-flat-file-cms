@@ -111,14 +111,15 @@ class statisticFunctions {
   
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      statisticFunctions()<br><br>
+  * <b> Name</b>      statisticFunctions()<br>
+  * 
   * The constructor of the class, runs the gerneralFunctions constructor and gets the settings.
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$websiteStatistic</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$statisticConfig</var> the statistic-settings config (included in the {@link general.include.php})
   * 
-  * @param object|false $generalFunctions (optional) an instance of the generalFunctions class or FALSE
+  * @param object|null $generalFunctions (optional) an instance of the generalFunctions class or NULL
   * 
   * @return void
   * 
@@ -129,10 +130,10 @@ class statisticFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  function statisticFunctions($generalFunctions = false) {
+  function __construct(generalFunctions $generalFunctions = null) {
 
     // run the parent class constructor
-    $this->generalFunctions = (is_a($generalFunctions,'generalFunctions')) ? $generalFunctions : new generalFunctions();
+    $this->generalFunctions = ($generalFunctions === null) ? new generalFunctions() : $generalFunctions;
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     $this->adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
