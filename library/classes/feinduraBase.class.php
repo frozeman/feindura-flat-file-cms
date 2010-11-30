@@ -191,20 +191,6 @@ class feinduraBase {
   */
   var $xssFilter;
   
- /**
-  * Contains a <var>instance</var> of the {@link statisticFunctions::statisticFunctions() statisticFunctions} <var>class</var> for using in this <var>class</var>
-  * 
-  * The file with the {@link statisticFunctions::statisticFunctions() statisticFunctions} class is situated at <i>"feindura-CMS/library/classes/statisticFunctions.class.php"</i>.<br />
-  * A instance of the {@link statisticFunctions::statisticFunctions() statisticFunctions} class will be set to this property in the {@link feinduraBase()} constructor.
-  * 
-  * @var class
-  * @see feinduraBase()
-  * @see statisticFunctions::statisticFunctions()
-  * 
-  */
-  var $statisticFunctions;
-
-  
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -235,19 +221,19 @@ class feinduraBase {
   * 
   * @uses $adminConfig                            the administrator-settings config array will set to this property
   * @uses $websiteConfig                          the website-settings config array will set to this property
-  * @uses $categoryConfig                         the category-settings config array will set to this property
-  * @uses $statisticFunctions                     a statisticFunctions class instance will set to this property
+  * @uses $categoryConfig                         the category-settings config array will set to this property  * 
   * @uses $loggedIn                               to set whether the visitor is logged in or not  
   * @uses $varNames                               the variable names from the administrator-settings config will set to this property
   * @uses $sessionId                              the session ID string will set to this property, if cookies are deactivated
   * @uses $language                               to set the given $language parameter to, or try to find out the browser language
   * @uses $languageFile                           set the loaded frontend language-file to this property
+  * @uses generalFunctions::init()                init the generalFucntions class
+  * @uses statisticFunctions::init()              init the statisticFunctions class
   * @uses statisticFunctions::saveWebsiteStats()  save the website statistic like user visit count, first and last visit AND the visit time of the last visited pages
-  * @uses generalFunctions::init()                init the generalFucntions class 
-  *  
+  * 
   * @return void
   * 
-  * @example includeFeindura.example.php    
+  * @example includeFeindura.example.php
   * 
   * @version 1.0
   * <br />
@@ -266,7 +252,7 @@ class feinduraBase {
     // GET FUNCTIONS
     $this->xssFilter = new xssFilter();
     generalFunctions::init();
-    $this->statisticFunctions = new statisticFunctions($this->generalFunctions);    
+    statisticFunctions::init();    
     
     // eventually LOGOUT
     if(isset($_GET['feindura_logout']))
@@ -280,7 +266,7 @@ class feinduraBase {
     
     // save the website statistics
     // ***************************
-    $this->statisticFunctions->saveWebsiteStats();
+    statisticFunctions::saveWebsiteStats();
     
     // sets the varNames.. from the adminConfig
     // ****************************************
@@ -741,13 +727,13 @@ class feinduraBase {
     // -> PAGE DATE
     // *****************
     $pagedate = false;
-    if($this->statisticFunctions->checkPageDate($pageContent)) {
+    if(statisticFunctions::checkPageDate($pageContent)) {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
     	// adds spaces on before and after
     	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
     	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-    	$pagedate = $titleDateBefore.$this->statisticFunctions->formatDate($this->statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
+    	$pagedate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
@@ -915,13 +901,13 @@ class feinduraBase {
       //$fullTitle = strip_tags($pageContent['title']);
            
       // generate titleDate
-      if($titleShowPageDate && $this->statisticFunctions->checkPageDate($pageContent)) {
+      if($titleShowPageDate && statisticFunctions::checkPageDate($pageContent)) {
          $titleDateBefore = '';
          $titleDateAfter = '';
 	       // adds spaces on before and after
          if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
          if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-         $titleDate = $titleDateBefore.$this->statisticFunctions->formatDate($this->statisticFunctions->dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
+         $titleDate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
       
       

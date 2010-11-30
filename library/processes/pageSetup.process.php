@@ -56,7 +56,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
      
     // give documentSaved status
     $documentSaved = true;
-    $statisticFunctions->saveTaskLog(14); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(14); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['adminSetup_fmsSettings_error_save'];
@@ -101,7 +101,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id  
       if(saveCategories($categoryConfig)) {
          $categoryInfo = $langFile['pageSetup_createCategory_created'];
-         $statisticFunctions->saveTaskLog(15); // <- SAVE the task in a LOG FILE
+         statisticFunctions::saveTaskLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
           ? '<br /><br />'.$langFile['pageSetup_error_create']
@@ -152,7 +152,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
       }    
     }
     
-    $statisticFunctions->saveTaskLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow .= $langFile['pageSetup_error_delete'];
 
@@ -175,7 +175,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     // save the categories array
     if(saveCategories($categoryConfig)) {
       $documentSaved = true; // set documentSaved status
-      $statisticFunctions->saveTaskLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= $langFile['pageSetup_error_save'];
     
@@ -197,7 +197,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 
   if(saveCategories($categoriesCleaned)) {
     $documentSaved = true; // set documentSaved status
-    $statisticFunctions->saveTaskLog(18); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= $langFile['pageSetup_error_save'];
   
@@ -209,11 +209,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
 $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
 // RESET of the vars in the classes
-generalFunctions::$adminConfig = $adminConfig;
-$statisticFunctions->adminConfig = $adminConfig;
-generalFunctions::$categoryConfig = $categoryConfig;
-$statisticFunctions->categoryConfig = $categoryConfig;
 generalFunctions::$storedPageIds = null;
 generalFunctions::$storedPages = null;
+generalFunctions::$adminConfig = $adminConfig;
+generalFunctions::$categoryConfig = $categoryConfig;
+statisticFunctions::$adminConfig = $adminConfig;
+statisticFunctions::$categoryConfig = $categoryConfig;
 
 ?>

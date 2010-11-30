@@ -29,7 +29,7 @@ require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 // GET FUNCTIONS
 $xssFilter = new xssFilter();
 generalFunctions::init();
-$statisticFunctions = new statisticFunctions($generalFunctions);
+statisticFunctions::init();
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
 $errorWindow = false;

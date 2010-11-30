@@ -1869,7 +1869,7 @@ class feindura extends feinduraBase {
             // -> SAVE PAGE STATISTIC
             // **********************
             if($pageContent['public'])
-              $this->statisticFunctions->savePageStats($pageContent);
+              statisticFunctions::savePageStats($pageContent);
           }
           
           // -> adds the frontend editing container

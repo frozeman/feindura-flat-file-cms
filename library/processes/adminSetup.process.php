@@ -126,7 +126,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
      
     // give documentSaved status
     $documentSaved = true;
-    $statisticFunctions->saveTaskLog(8); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['adminSetup_fmsSettings_error_save'];
@@ -152,7 +152,7 @@ if(isset($_POST['saveFckStyleFile'])) {
   
     // give documentSaved status
     $documentSaved = true;
-    $statisticFunctions->saveTaskLog(9); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(9); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -167,11 +167,11 @@ include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
 $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
 // RESET of the vars in the classes
-generalFunctions::$adminConfig = $adminConfig;
-$statisticFunctions->adminConfig = $adminConfig;
-generalFunctions::$categoryConfig = $categoryConfig;
-$statisticFunctions->categoryConfig = $categoryConfig;
 generalFunctions::$storedPageIds = null;
 generalFunctions::$storedPages = null;
+generalFunctions::$adminConfig = $adminConfig;
+generalFunctions::$categoryConfig = $categoryConfig;
+statisticFunctions::$adminConfig = $adminConfig;
+statisticFunctions::$categoryConfig = $categoryConfig;
 
 ?>

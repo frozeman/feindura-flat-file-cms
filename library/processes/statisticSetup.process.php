@@ -35,7 +35,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
     if(saveStatisticConfig($_POST)) {
       // set documentSaved status
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog(19); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(19); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= $langFile['statisticSetup_statisticConfig_error_save'];
   
@@ -69,7 +69,7 @@ if($_POST['sendClearstatistics']) {
     // set the messagebox; save tasklog
     if($documentSaved) {
       $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTATISTICS'].'</li>';
-      $statisticFunctions->saveTaskLog(20); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(20); // <- SAVE the task in a LOG FILE
     }
   }
   
@@ -93,7 +93,7 @@ if($_POST['sendClearstatistics']) {
     // set the messagebox; save tasklog
     if($documentSaved) {
       $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_PAGESTAYLENGTH'].'</li>';
-      $statisticFunctions->saveTaskLog(21); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(21); // <- SAVE the task in a LOG FILE
     }
   }  
   
@@ -105,7 +105,7 @@ if($_POST['sendClearstatistics']) {
     // set documentSaved status
     $documentSaved = true;
     $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_WEBSITESTATISTIC'].'</li>';
-    $statisticFunctions->saveTaskLog(22); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(22); // <- SAVE the task in a LOG FILE
   }
   
   // ->> CLEAR REFERER-LOG
@@ -116,7 +116,7 @@ if($_POST['sendClearstatistics']) {
     // set documentSaved status
     $documentSaved = true;
     $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_REFERERLOG'].'</li>';
-    $statisticFunctions->saveTaskLog(23); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(23); // <- SAVE the task in a LOG FILE
   }
   
   // ->> CLEAR ACTIVITY-LOG
@@ -127,7 +127,7 @@ if($_POST['sendClearstatistics']) {
     // set documentSaved status
     $documentSaved = true;
     $deletedStatistics .= '<li>'.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'</li>';
-    $statisticFunctions->saveTaskLog(24); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(24); // <- SAVE the task in a LOG FILE
   }
   
   // SHOWs the MESSAGEBOX
@@ -144,6 +144,6 @@ if($_POST['sendClearstatistics']) {
 // RE-INCLUDE
 $statisticConfig = @include (dirname(__FILE__)."/../../config/statistic.config.php");
 // RESET of the vars in the classes
-$statisticFunctions->statisticConfig = $statisticConfig;
+statisticFunctions::$statisticConfig = $statisticConfig;
 
 ?>

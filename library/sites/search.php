@@ -113,7 +113,7 @@ function ausgabeblock_end() {
         $titel = strtolower($pageContent['title']);
         $categoryName = strtolower($categoryConfig[$pageContent['category']]['name']);
         $beforeDate = strtolower($pageContent['pagedate']['before']);
-        $date = $statisticFunctions->formatDate($pageContent['pagedate']['date']);
+        $date = statisticFunctions::formatDate($pageContent['pagedate']['date']);
         $afterDate = strtolower($pageContent['pagedate']['after']);
       /*} else {
        	$inhalt = '';
@@ -150,7 +150,7 @@ function ausgabeblock_end() {
 				// -> SEARCH DATE or CATEGORY
 				} elseif(strpos($beforeDate, $searchword) !== false ||
 	               strpos($afterDate, $searchword) !== false ||
-                 strpos($date, $statisticFunctions->validateDateFormat($searchword)) !== false ||
+                 strpos($date, statisticFunctions::validateDateFormat($searchword)) !== false ||
                  strpos($categoryName, $searchword) !== false) { //wenn im datum gefunden wurde
 					$findtext = false;
 					$priority = $priority + 3;

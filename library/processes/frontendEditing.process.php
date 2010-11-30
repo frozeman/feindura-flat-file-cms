@@ -43,7 +43,7 @@ if($_POST['save']) {
   
   // save the page
   if(generalFunctions::savePage($pageContent));
-    $statisticFunctions->saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
+    statisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
   
   // the data which will be returned, to inject into the element in the frontend 
   $return = '';

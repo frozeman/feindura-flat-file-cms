@@ -50,7 +50,7 @@ if(isset($_GET['downloadBackup'])) {
     } else {
       
       if(@file_exists($backupFile)) {
-        $statisticFunctions->saveTaskLog(29); // <- SAVE the task in a LOG FILE
+        statisticFunctions::saveTaskLog(29); // <- SAVE the task in a LOG FILE
          
         header("Content-Type: application/octet-stream");
         header('Content-Disposition: attachment; filename="'.basename($backupFile).'"');
@@ -150,7 +150,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
     if($errorWindow === false) {
       // set documentSaved status
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog(30); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(30); // <- SAVE the task in a LOG FILE
     }
   }
   

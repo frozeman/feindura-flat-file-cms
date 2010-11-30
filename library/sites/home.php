@@ -81,8 +81,8 @@ if(!empty($adminConfig['user']['info'])) {
     $pages = $orgPages;
     
     // -> clear cache from visotrs over the timelimit and load current visitors
-    $statisticFunctions->hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
-    $currentVisitors = $statisticFunctions->getCurrentVisitors();
+    statisticFunctions::hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
+    $currentVisitors = statisticFunctions::getCurrentVisitors();
     
     
     // --------------------------------
@@ -91,15 +91,15 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
       
       $latestVisitCacheTimeText = (!empty($currentVisitors[0]['time']))
-        ? $langFile['STATISTICS_TEXT_LASTACTIVITY'].' '.$statisticFunctions->formatTime($currentVisitors[0]['time'])
+        ? $langFile['STATISTICS_TEXT_LASTACTIVITY'].' '.statisticFunctions::formatTime($currentVisitors[0]['time'])
         : $langFile['STATISTICS_TEXT_CURRENTVISITORS'];
       
       echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
       
-      echo '<span class="visitCountNumber brown">'.$statisticFunctions->formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
+      echo '<span class="visitCountNumber brown">'.statisticFunctions::formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
       
       echo '<div style="line-height: 18px;">';
-        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'].'">'.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.$statisticFunctions->formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
+        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'].'">'.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.statisticFunctions::formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
         // CURRENT VISITORS
         $countVisitor = 0;
         $countSpider = 0;
@@ -118,9 +118,9 @@ if(!empty($adminConfig['user']['info'])) {
       if(!empty($websiteStatistic['firstVisit'])) {
         echo '<div style="width:100%; text-align:right;">';       
         // FIRST VISIT
-        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.$statisticFunctions->formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
+        echo '<span class="toolTip" title="'.statisticFunctions::formatTime($websiteStatistic['firstVisit']).'::">'.$langFile['STATISTICS_TEXT_FIRSTVISIT'].' <span class="brown">'.statisticFunctions::formatDate($websiteStatistic['firstVisit']).'</span></span><br />';
         // LADST VISIT
-        echo '<span class="toolTip" title="'.$statisticFunctions->formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><b>'.$statisticFunctions->formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
+        echo '<span class="toolTip" title="'.statisticFunctions::formatTime($websiteStatistic['lastVisit']).'::">'.$langFile['STATISTICS_TEXT_LASTVISIT'].' <span class="blue"><b>'.statisticFunctions::formatDate($websiteStatistic['lastVisit']).'</b></span></span>';
         
         echo '</div>';
       }
@@ -154,7 +154,7 @@ if(!empty($adminConfig['user']['info'])) {
           : '';
                 
         if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
-          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.$statisticFunctions->formatDate($currentVisitor['time']).'">'.$statisticFunctions->formatTime($currentVisitor['time']).'</b></td></tr>';
+          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>';
         
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
@@ -220,7 +220,7 @@ if(!empty($adminConfig['user']['info'])) {
         // get highest time
         $highestTime = unserialize($page['log_visitTime_max']);
         
-        if($pageVisitTime = $statisticFunctions->showVisitTime($highestTime[0],$langFile))
+        if($pageVisitTime = statisticFunctions::showVisitTime($highestTime[0],$langFile))
           echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';         
@@ -246,7 +246,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) { 
-        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($page['lastsavedate'])).'</b> '.$statisticFunctions->formatTime($page['lastsavedate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastsavedate'])).'</b> '.statisticFunctions::formatTime($page['lastsavedate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
         // count
@@ -269,7 +269,7 @@ if(!empty($adminConfig['user']['info'])) {
     foreach($pages as $page) {
       // if page has searchwords
       if(!empty($page['log_searchwords'])) {
-        $allSearchwords = $statisticFunctions->addDataToDataString($allSearchwords,$page['log_searchwords']);
+        $allSearchwords = statisticFunctions::addDataToDataString($allSearchwords,$page['log_searchwords']);
       }
     }
     echo '<br style="clear:both;" /><div class="verticalSeparator"></div>';
@@ -280,7 +280,7 @@ if(!empty($adminConfig['user']['info'])) {
     // SHOW tag CLOUD
     echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h3>';
     echo '<div class="tagCloud">';
-    if($tagCloud = $statisticFunctions->createTagCloud($allSearchwords))
+    if($tagCloud = statisticFunctions::createTagCloud($allSearchwords))
       echo $tagCloud;
     else
       echo '<span class="blue" style="font-size:15px;">'.$GLOBALS['langFile']['log_notags'].'</span>';
@@ -291,7 +291,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> BROWSER CHART
     echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h3>';
-    if($browserChart = $statisticFunctions->createBrowserChart($websiteStatistic['browser']))
+    if($browserChart = statisticFunctions::createBrowserChart($websiteStatistic['browser']))
       echo $browserChart;
     else
       echo $GLOBALS['langFile']['home_novisitors'];
@@ -310,8 +310,8 @@ if(!empty($adminConfig['user']['info'])) {
             <ul class="coloredList">';
       foreach($logContent as $logRow) {
         $logRow = explode('|#|',$logRow);
-        $logDate = $statisticFunctions->formatDate($logRow[0]);
-        $logTime = $statisticFunctions->formatTime($logRow[0]);
+        $logDate = statisticFunctions::formatDate($logRow[0]);
+        $logTime = statisticFunctions::formatTime($logRow[0]);
         $logUrl = $logRow[1];
  
         echo '<li class="'.$rowColor.'"><span style="font-size:11px;">'.$logDate.' '.$logTime.'</span> <a href="'.$logUrl.'" class="blue">'.str_replace('http://','',$logUrl).'</a></li>';

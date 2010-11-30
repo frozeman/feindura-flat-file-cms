@@ -97,7 +97,7 @@ if($_POST['save']) {
     $generatedPageDate = $_POST['pagedate']['year'].'-'.$_POST['pagedate']['month'].'-'.$_POST['pagedate']['day'];
     
     // VALIDATE the SORT DATE
-    if(($pageDate = $statisticFunctions->validateDateFormat($generatedPageDate)) === false)
+    if(($pageDate = statisticFunctions::validateDateFormat($generatedPageDate)) === false)
       $pageDate = $generatedPageDate;
     // if VALID set the validated date to the post var
     else {
@@ -130,7 +130,7 @@ if($_POST['save']) {
       
     if(generalFunctions::savePage($_POST)) {
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= $langFile['editor_savepage_error_save'];
   }

@@ -286,8 +286,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           $backupTime = filemtime(DOCUMENTROOT.$backupFile);
           
           $lastBackups .= (strpos($backupFile,'restore') === false)
-            ? '<li><a href="'.$backupFile.'" class="standardLink">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($backupTime)).' '.$statisticFunctions->formatTime($backupTime).'</a></li>'."\n"
-            : '<li><a href="'.$backupFile.'" class="standardLink">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($backupTime)).' '.$statisticFunctions->formatTime($backupTime).'</a></li>'."\n";
+            ? '<li><a href="'.$backupFile.'" class="standardLink">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime).'</a></li>'."\n"
+            : '<li><a href="'.$backupFile.'" class="standardLink">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime).'</a></li>'."\n";
         }
         $lastBackups .= '</ul>';   
       } else

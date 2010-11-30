@@ -43,8 +43,8 @@ foreach($logContent as $logRow) {
   $logUser = null;
   
   $logRow = explode('|#|',$logRow);
-  $logDate = $statisticFunctions->formatDate($statisticFunctions->dateDayBeforeAfter($logRow[0]));
-  $logTime = $statisticFunctions->formatTime($logRow[0]);  
+  $logDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($logRow[0]));
+  $logTime = statisticFunctions::formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))
   ? '<br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span>'
   : '';

@@ -19,6 +19,7 @@
  * 
  * @package [Implementation]-[Backend]
  */
+
 /**
 * <b>Classname</b> generalFunctions<br>
 * 
@@ -28,9 +29,10 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 1.19
+* @version 1.20
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.20 changed class to static class
 *    - 1.19 add parseDefaultLanguage() to checkLanguageFiles()
 *    - 1.18 fixed checkLanguageFiles()
 *    - 1.17 add chmod to savePage()
@@ -101,7 +103,7 @@ class generalFunctions {
   * <b> Type</b>      constructor<br>
   * <b> Name</b>      __construct()<br>
   * 
-  * empty, {@link generalFunctions::init()} is used instead.
+  * Constructor is not callable, {@link generalFunctions::init()} is used instead.
   * 
   * @return void
   * 
@@ -111,13 +113,13 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */ 
-  public function __construct() {
+  private function __construct() {
   }
   
  /**
   * <b> Type</b>      init<br>
   * 
-  * The real constructor of the class, gets the settings.
+  * The real constructor of the static class, gets the settings.
   * 
   * <b>Used Global Variables</b><br>
   *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
@@ -930,9 +932,8 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function isPageContentArray($page) {
-               
-    return (is_array($page) && array_key_exists('content',$page)) ? true : false;
+  public static function isPageContentArray($page) {               
+    return (is_array($page) && array_key_exists('id',$page) && array_key_exists('content',$page)) ? true : false;
   }
   
  /**

@@ -32,7 +32,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
     if(saveWebsiteConfig($_POST)) {
       // give documentSaved status
       $documentSaved = true;
-      $statisticFunctions->saveTaskLog(7); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(7); // <- SAVE the task in a LOG FILE
     } else
     $errorWindow .= $langFile['websiteSetup_websiteConfig_error_save'];
   
@@ -48,5 +48,6 @@ $websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php")
 // RESET of the vars in the classes
 generalFunctions::$storedPageIds = null;
 generalFunctions::$storedPages = null;
+statisticFunctions::$websiteConfig = $websiteConfig;
 
 ?>

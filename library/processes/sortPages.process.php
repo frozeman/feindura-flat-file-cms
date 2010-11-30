@@ -63,7 +63,7 @@ foreach($sortOrder as $sort) {
           $logText = ($_POST['categoryOld'] != $_POST['categoryNew'])
             ? 3 : 4;
           // save log
-          $statisticFunctions->saveTaskLog($logText,'page='.$pageContent['id'].'|-|category='.$_POST['categoryNew'].'|-|moved'); // <- SAVE the task in a LOG FILE
+          statisticFunctions::saveTaskLog($logText,'page='.$pageContent['id'].'|-|category='.$_POST['categoryNew'].'|-|moved'); // <- SAVE the task in a LOG FILE
         }
       // -X ERROR savePage
       } else {

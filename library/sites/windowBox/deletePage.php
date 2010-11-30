@@ -64,7 +64,7 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'
       }
       
       generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
-      $statisticFunctions->saveTaskLog(2,$pageContent['title']); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(2,$pageContent['title']); // <- SAVE the task in a LOG FILE
       
       // DELETING FINISH --------------
       $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
