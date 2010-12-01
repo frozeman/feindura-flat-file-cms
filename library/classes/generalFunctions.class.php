@@ -639,7 +639,7 @@ class generalFunctions {
       $pageContent = include($filePath);
       self::setStoredPages($pageContent);
       // reset the stored page ids
-      self::$storedPagesIds = null;
+      self::$storedPageIds = null;
       
       return true;
     }  

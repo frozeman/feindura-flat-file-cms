@@ -341,7 +341,7 @@ function saveCategories($newCategories) {
     fclose($file);
     
     // reset the stored page ids
-    generalFunctions::$storedPagesIds = null;
+    generalFunctions::$storedPageIds = null;
     
     return true;
   } else
@@ -526,8 +526,8 @@ function movePage($page, $fromCategory, $toCategory) {
     DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.'/'.$page.'.php') &&
     unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php')) {
     // reset the stored page ids
-    generalFunctions::$storedPagess = null;
-    generalFunctions::$storedPagesIds = null;
+    generalFunctions::$storedPages = null;
+    generalFunctions::$storedPageIds = null;
     
     return true;
   } else

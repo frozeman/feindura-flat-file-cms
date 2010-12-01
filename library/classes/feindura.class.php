@@ -47,89 +47,93 @@ class feindura extends feinduraBase {
  /* ->> GENERAL <<- */
  
  /**
-  * TRUE when the pages content should be handled as XHTML
-  *
+  * TRUE when the pages content should be handled as XHTML.
+  * 
   * In XHTML standalone tags end with " />" instead of ">".<br />
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
-  * 
+  * @access public
   */
-  var $xHtml = true;
+  public $xHtml = true;
   
  /**
-  * Contains the current page ID get from the <var>$_GET</var> variable
-  *
+  * Contains the current page ID get from the <var>$_GET</var> variable.
+  * 
   * This property is used when a page loading method is called (for example: {@link showPage()}) and no page ID parameter is given.
-  *   
+  * 
   * This property will be set in the {@link feindura()} constructor through the {@link setCurrentPageId()} method.
   * 
   * @var int
-  *
+  * @access public
+  * 
   * @see feindura()
   * @see feinduraBase::getCurrentPageId()
-  *   
+  * 
   */
-  var $page = null;
+  public $page = null;
   
  /**
-  * Contains the current category ID get from the <var>$_GET</var> variable
-  *
+  * Contains the current category ID get from the <var>$_GET</var> variable.
+  * 
   * This property is used when a page-loading method is called (for example: {@link showPage()}) and no category ID parameter is given.
-  *   
+  * 
   * This property will be set in the {@link feindura()} constructor through the {@link setCurrentCategoryId()} method.
   * 
   * @var int
-  *
+  * @access public
+  * 
   * @see feindura()
-  * @see feinduraBase::getCurrentCategoryId()  
+  * @see feinduraBase::getCurrentCategoryId()
   * 
   */
-  var $category = null;
+  public $category = null;
    
  /**
-  * Contains the startpage ID from the {@link feinduraBase::$websiteConfig website-settings config}
-  *
+  * Contains the startpage ID from the {@link feinduraBase::$websiteConfig website-settings config}.
+  * 
   * This property is set to the {@link $page} property when the <var>$_GET</var> page variable
   * and the {@link $page} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
-  *   
+  * 
   * This property will be set in the {@link feindura()} constructor through the {@link setCurrentPageId()} method.
   * 
   * @var int
-  *
+  * @access public
+  * 
   * @see $page
   * @see feindura()
-  * @see setCurrentPageId()  
+  * @see setCurrentPageId()
   * @see getCurrentPageId()
-  *   
+  * 
   */
-  var $startPage = null;
+  public $startPage = null;
   
  /**
   * Contains the startcategory ID
-  *
+  * 
   * Its fetched from the {@link $startPage} through the {@link generalFunctions::getPageCategory()} method.<br />
   * This property is set to the {@link $category} property when the <var>$_GET</var> category variable
   * and the {@link $category} property is empty and setting a startpage is activated in the {@link $adminConfig page-settings}.
-  *   
+  * 
   * This property will be set in the {@link feindura()} constructor through the {@link setCurrentCategoryId()} method.
   * 
   * @var int
-  *
+  * @access public
+  * 
   * @see $startPage
-  * @see $category  
+  * @see $category
   * @see feindura()
-  * @see setCurrentCategoryId()  
+  * @see setCurrentCategoryId()
   * @see getCurrentCategoryId()
-  *   
+  * 
   */
-  var $startCategory = null;
+  public $startCategory = null;
   
   /* ->> LINK <<- */
   
  /**
   * The number of maximal visible characters in the link text
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * The link text will be shorten to the last complete word.
   * 
@@ -139,46 +143,51 @@ class feindura extends feinduraBase {
   * </samp>
   * 
   * @var int|false Number of characters or FALSE to don't shorten the link text
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkLength = false;  
+  public $linkLength = false;  
 
  /**
   * Contains an id-Attribute which will be add to any <a ...> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page,
   * if you set this property and call {@link createMenu()} every link in the menu will get this id-Attribute.
-  *  
-  *    
+  * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkId = false;
+  public $linkId = false;
   
  /**
   * Contains an class-Attribute which will be add to any <a ...> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this class-Attribute.
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkClass = false;
+  public $linkClass = false;
   
  /**
   * Contains a string with attributes which will be add to any <a ...> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this attributes string.
   * 
@@ -188,98 +197,111 @@ class feindura extends feinduraBase {
   * </samp>
   * 
   * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkAttributes = false;
+  public $linkAttributes = false;
 
  /**
   * Contains a string which will be add before any <a></a> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
   * 
   * @var string|false If no text should be add before a link, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkBefore = false;
+  public $linkBefore = false;
   
  /**
   * Contains a string which will be add after any <a></a> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
   * 
   * @var string|false If no text should be add after a link, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkAfter = false;
+  public $linkAfter = false;
   
  /**
   * Contains a string which will be add before the link text but inside any <a></a> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
   * 
   * @var string|false If no text should be add before a link text, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkBeforeText = false;
+  public $linkBeforeText = false;
   
  /**
   * Contains a string which will be add after the link text but inside any <a></a> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
   * 
   * @var string|false If no text should be add after a link text, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkAfterText = false;
+  public $linkAfterText = false;
   
  /**
   * If TRUE and the page has a thumbnail it places the thumbnail <img> tag inside the <a></a> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
-  * 
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * @var bool Set it to FALSE to don't show the thumbnails in links
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkShowThumbnail = false;
+  public $linkShowThumbnail = false;
   
  /**
   * If TRUE and thumbnail <img> tag will be placed after the link text but inside the <a></a> tag
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * 
   * @var bool Set it to TRUE to place the thumbnail <img> tag after the link text
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkShowThumbnailAfterText = false;
+  public $linkShowThumbnailAfterText = false;
   
  /**
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the link text
-  * of any link created by {@link createLink()} or {@link createMenu()}
+  * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
@@ -292,16 +314,18 @@ class feindura extends feinduraBase {
   * </samp>
   *    
   * @var bool Set it to TRUE to place the page date before the link text
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkShowPageDate = false;
+  public $linkShowPageDate = false;
 
  /**
   * If TRUE, the category name of the page will be add before the link text
-  * with the {@link $linkCategorySpacer} property as seperator of any link created by {@link createLink()} or {@link createMenu()}
+  * with the {@link $linkCategorySpacer} property as seperator of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * The category name will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
   * 
@@ -309,58 +333,66 @@ class feindura extends feinduraBase {
   * <samp>
   * <a href="?page=2" ...>Catgory Name: Page Title</a>
   * </samp>
-  *     
+  * 
   * @var bool Set it to TRUE to place the category name before the link text
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkShowCategory = false;
+  public $linkShowCategory = false;
   
  /**
   * If the {@link $linkShowCategory} property is TRUE,
-  * this string will be used as a seperator between the category name and the link text of any link created by {@link createLink()} or {@link createMenu()}
+  * this string will be used as a seperator between the category name and the link text of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this seperator.  
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this seperator.
   * 
   * @var string
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @example createLink.example.php
   * 
   */
-  var $linkCategorySeparator = ': ';
+  public $linkCategorySeparator = ': ';
   
   /* ->> MENU <<- */
   
  /**
-  * Contains an id-Attribute which will be add to the menu tag
+  * Contains an id-Attribute which will be add to the menu tag.
   * 
   * <b>Notice 1</b>: This id-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createMenu()
   * @example createMenu.example.php
   * 
   */
-  var $menuId = false;
+  public $menuId = false;
   
  /**
-  * Contains an class-Attribute which will be add to the menu tag
+  * Contains an class-Attribute which will be add to the menu tag.
   * 
   * <b>Notice</b>: This class-Attribute will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createMenu()
   * @example createMenu.example.php
   * 
   */
-  var $menuClass = false;
+  public $menuClass = false;
   
  /**
-  * Contains a string with attributes which will be add to the menu tag
+  * Contains a string with attributes which will be add to the menu tag.
   * 
   * <b>Notice</b>: This string with attributes will only be add, if the <var>$menuTag</var> parameter in the {@link createMenu()} method is not FALSE.<br />
   * 
@@ -370,22 +402,18 @@ class feindura extends feinduraBase {
   * </samp>
   *    
   * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createMenu()
   * @example createMenu.example.php
   * 
   */
-  var $menuAttributes = false;
-  
-  /* old
-  var $menuBefore = false;                // [False or String]      -> a String which comes BEFORE the menu <$menuTag> tag
-  var $menuAfter = false;                 // [False or String]      -> a String which comes AFTER the menu </$menuTag> tag
-  var $menuBetween = false;               // [False or String]      -> a String which comes AFTER EVERY <li></li> OR <td></td> tag EXCEPT THE LAST tag
-  */
+  public $menuAttributes = false;
   
   /* ->> TITLE <<- */
   
  /**
-  * A number of maximal characters visible in the page title
+  * A number of maximal characters visible in the page title.
   * 
   * The page title will be shorten to the last complete word.
   * 
@@ -395,27 +423,30 @@ class feindura extends feinduraBase {
   * </samp>
   * 
   * @var int|false Number of characters or FALSE to don't shorten the page title
+  * @access public
+  * 
   * @see getTitle()
   * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
-  var $titleLength = false;
+  public $titleLength = false;
   
  /**
-  * If TRUE the page title is also a link to the page
-  * 
+  * If TRUE the page title is also a link to the page.
   * 
   * @var bool
+  * @access public
+  * 
   * @see getTitle()
   * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
-  var $titleAsLink = false;
+  public $titleAsLink = false;
 
  /**
-  * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title
+  * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title.
   * 
   * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend.
@@ -424,87 +455,64 @@ class feindura extends feinduraBase {
   * <samp>
   * Catgory Name: 200-12-31 Page Title
   * </samp>
-  *    
+  * 
   * @var bool Set it to TRUE to place the page date before the page title
+  * @access public
+  * 
   * @see getTitle()
   * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
-  var $titleShowPageDate = false;
+  public $titleShowPageDate = false;
   
  /**
-  * If TRUE, the category name of the page will be add before the page title with the {@link $linkCategorySpacer} property as seperator
-  * 
+  * If TRUE, the category name of the page will be add before the page title with the {@link $linkCategorySpacer} property as seperator.
   * 
   * Example:
   * <samp>
   * Catgory Name: Page Title
   * </samp>
-  *     
+  * 
   * @var bool Set it to TRUE to place the category name before the page title
+  * @access public
+  * 
   * @see getTitle()
   * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
-  var $titleShowCategory = false;
+  public $titleShowCategory = false;
   
  /**
-  * If the {@link $titleShowCategory} property is TRUE, this string will be used as a seperator between the category name and the page title
-  * 
+  * If the {@link $titleShowCategory} property is TRUE, this string will be used as a seperator between the category name and the page title.
   * 
   * @var string
+  * @access public
+  * 
   * @see getTitle()
   * @see feinduraBase::createTitle()
   * @example showPage.example.php
   * 
   */
-  var $titleCategorySeparator = ': ';
-  
-  /* old
-  var $titleTag = false;                  // [Boolean or String]    -> the title TAG which is used when creating a page title (STANDARD Tag: H1)
-  var $titleId = false;                   // [False or String]      -> the title ID which is used when creating a page title (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
-  var $titleClass = false;                // [False or String]      -> the title CLASS which is used when creating a page title
-  var $titleAttributes = false;           // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
-  var $titleBefore = false;               // [False or String]      -> a String which comes BEFORE the link <$titleTag> tag
-  var $titleAfter = false;                // [False or String]      -> a String which comes AFTER the link </$titleTag> tag
-  */
-  
-  /* ->> CONTENT <<- */
-  
-  //var $pageShowTitle = true;
-  //var $pageShowThumbnail = true;
-  //var $pageShowContent = true;
-  //var $pageShowErrors = true;
-  
-  /*
-  var $showContent = true;                    // [Boolean]              -> show the page content when SHOW Pages and LISTING Pages
-  var $contentTag = false;                // [False or String]      -> the content container TAG which is used when creating a page (STANDARD Tag: DIV; if there is a class and/or id and no TAG is set)
-  var $contentId = false;                 // [False or String]      -> the content container  ID which is used when creating a page (REMEMBER you can only set ONE ID in an HTML Page, so dont use this for listing Pages)
-  var $contentClass = false;              // [False or String]      -> the content container  CLASS which is used when creating a page
-  var $contentAttributes = false;            // [False or String]      -> a String with Attributes like: 'key="value" key2="value2"'
-  //var $contentLength = false;             // [Boolean or Number]    -> the number of maximun characters for the content, after this length it will be shorten with abc..
-  var $contentShowTitle = true;
-  var $contentShowThumbnail = true;           // [Boolean]              -> show the page thumbnails when SHOW and LISTING Pages
-  var $contentBefore = false;             // [False or String]      -> a String which comes BEFORE the link <$contentTag> tag
-  var $contentAfter = false;              // [False or String]      -> a String which comes AFTER the link </$contentTag> tag
-  */
+  public $titleCategorySeparator = ': ';
   
   /* ->> THUMBAIL <<- */
 
  /**
-  * Contains the position of the thumbnail picture, the possible values are "left", "right" or FALSE
+  * Contains the position of the thumbnail picture, the possible values are "left", "right" or FALSE.
   * 
   * If the values are "left" or "right" a style-attribute will be add to the thumbnail <img> tag with "float:left/right;".
   * 
   * <b>Notice</b>: If you set this property, you can't add any style attribute with the {@link $thumbnailAttributes} property anymore, it would not be used by the browser.
-  *
+  * 
   * <samp>
   * <img src="/path/image.png" ... style="float:left;" />
-  * </samp>     
-  *  
+  * </samp>
+  * 
   * @var string|false If no style="float:left/right;" attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @see showPage()
@@ -512,14 +520,16 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $thumbnailAlign = false;
+  public $thumbnailAlign = false;
   
  /**
-  * Contains an id-Attribute which will be add to the thumbnail <img> tag
+  * Contains an id-Attribute which will be add to the thumbnail <img> tag.
   * 
   * <b>Notice</b>: You can only set one specific id-Attribute to elements in a HTML page.
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @see showPage()
@@ -527,13 +537,14 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $thumbnailId = false;
+  public $thumbnailId = false;
   
  /**
-  * Contains an class-Attribute which will be add the thumbnail <img> tag
-  * 
+  * Contains an class-Attribute which will be add the thumbnail <img> tag.
   * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @see showPage()
@@ -541,11 +552,10 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $thumbnailClass = false;
+  public $thumbnailClass = false;
 
  /**
-  * Contains a string with attributes which will be add the thumbnail <img> tag
-  * 
+  * Contains a string with attributes which will be add the thumbnail <img> tag.
   * 
   * The string should have the following format
   * <samp>
@@ -553,6 +563,8 @@ class feindura extends feinduraBase {
   * </samp>
   * 
   * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @see showPage()
@@ -560,13 +572,14 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $thumbnailAttributes = false;
+  public $thumbnailAttributes = false;
   
  /**
-  * Contains a string which will be add before the thumbnail <img> tag
-  * 
+  * Contains a string which will be add before the thumbnail <img> tag.
   * 
   * @var string|false If no string should be add before the thumbnail <img> tag, set it to FALSE.
+  * @access public
+  * 
   * @see createLink()
   * @see createMenu()
   * @see showPage()
@@ -574,13 +587,14 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $thumbnailBefore = false;
+  public $thumbnailBefore = false;
   
  /**
-  * Contains a string which will be add after the thumbnail <img> tag
-  * 
+  * Contains a string which will be add after the thumbnail <img> tag.
   * 
   * @var string|false If no string should be add after the thumbnail <img> tag, set it to FALSE.
+  * @access public
+  *  
   * @see createLink()
   * @see createMenu()
   * @see showPage()
@@ -588,46 +602,50 @@ class feindura extends feinduraBase {
   * @example showPage.example.php
   * 
   */
-  var $thumbnailAfter = false;
+  public $thumbnailAfter = false;
   
   /* ->> ERROR <<- */
   
  /**
-  * If TRUE an error will be displayed if the requested page doesn't exists or is currently not public
-  * 
-  * Example:
-  * <samp>
-  * <span>The requested page is currently not available.</span>
-  * </samp>  
-  * 
-  * @var bool
-  * @see showPage()
-  * @see feindura:generatePage()
-  * @example showPage.example.php
-  * 
-  */
-  var $showErrors = true;
-  
- /**
-  * The tag which should be used for the error message
-  * 
-  * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add<br />
+  * If TRUE an error will be displayed if the requested page doesn't exists or is currently not public.
   * 
   * Example:
   * <samp>
   * <span>The requested page is currently not available.</span>
   * </samp>
-  *    
-  * @var string|false If no tag should be add, set it to FALSE.
+  * 
+  * @var bool
+  * @access public
+  * 
   * @see showPage()
   * @see feindura:generatePage()
   * @example showPage.example.php
   * 
   */
-  var $errorTag = 'span';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
+  public $showErrors = true;
+  
+ /**
+  * The tag which should be used for the error message.
+  * 
+  * <b>Notice</b>: If this property is no string, the {@link $errorId}, {@link $errorClass} and {@link $errorAttributes} property will not be add.<br />
+  * 
+  * Example:
+  * <samp>
+  * <span>The requested page is currently not available.</span>
+  * </samp>
+  * 
+  * @var string|false If no tag should be add, set it to FALSE.
+  * @access public
+  * 
+  * @see showPage()
+  * @see feindura:generatePage()
+  * @example showPage.example.php
+  * 
+  */
+  public $errorTag = 'span';                // [False or String]      -> the message TAG which is used when creating a message (STANDARD Tag: SPAN; if there is a class and/or id and no TAG is set)
  
  /**
-  * Contains an id-Attribute which will be add to the error tag
+  * Contains an id-Attribute which will be add to the error tag.
   * 
   * <b>Notice 1</b>: This id-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
   * <b>Notice 2</b>: You can only set one specific id-Attribute to elements in a HTML page.
@@ -638,15 +656,17 @@ class feindura extends feinduraBase {
   * </samp>
   * 
   * @var string|false If no id-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see showPage()
   * @see feindura:generatePage()
   * @example showPage.example.php
   * 
   */
-  var $errorId = false;
+  public $errorId = false;
   
  /**
-  * Contains an class-Attribute which will be add to the error tag
+  * Contains an class-Attribute which will be add to the error tag.
   * 
   * <b>Notice</b>: This class-Attribute will only be add, if the {@link $errorTag} property is a string and not FALSE.<br />
   * 
@@ -654,17 +674,19 @@ class feindura extends feinduraBase {
   * <samp>
   * <span class="exampleId">The requested page is currently not available.</span>
   * </samp>
-  *     
+  * 
   * @var string|false If no class-Attribute should be add, set it to FALSE.
+  * @access public
+  * 
   * @see showPage()
   * @see feindura:generatePage()
   * @example showPage.example.php
   * 
   */
-  var $errorClass = false;
+  public $errorClass = false;
   
  /**
-  * Contains a string with attributes which will be add the error tag
+  * Contains a string with attributes which will be add the error tag.
   * 
   * 
   * The string should have the following format
@@ -675,15 +697,17 @@ class feindura extends feinduraBase {
   * Example:
   * <samp>
   * <span key1="value" key2="value">The requested page is currently not available.</span>
-  * </samp>    
+  * </samp>
   * 
   * @var string|false If no additional attributes should be add, set it to FALSE.
+  * @access public
+  * 
   * @see showPage()
   * @see feindura:generatePage()
   * @example showPage.example.php
   * 
   */
-  var $errorAttributes = false;
+  public $errorAttributes = false;
 
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -712,13 +736,14 @@ class feindura extends feinduraBase {
   * 
   * @see feinduraBase::__construct()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function __construct($language = false) {
+  public function __construct($language = false) {
     
     // RUN the feinduraBase constructor
     parent::__construct($language);
@@ -740,21 +765,21 @@ class feindura extends feinduraBase {
   * 
   * 
   * @param int $pageId the page ID to set
-  *
+  * 
   * @uses $startPage
   * @uses $page
   * @uses generalFunctions::getPageCategory        to get the category of the page    
   * 
   * @return void
   * 
-  * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function setStartPage($pageId) {
+  public function setStartPage($pageId) {
     
     if(is_numeric($pageId)) {
       $this->startPage = $pageId;
@@ -782,13 +807,14 @@ class feindura extends feinduraBase {
   * @see feindura()  
   * @see feinduraBase::__construct()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function setLanguage($language) {
+  public function setLanguage($language) {
     
     if(is_string($language) && strlen($language) == 2) {
       
@@ -814,13 +840,14 @@ class feindura extends feinduraBase {
   * @see feindura()  
   * @see feinduraBase::__construct()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function getLanguage() {
+  public function getLanguage() {
     return $this->language;
   }
   
@@ -856,13 +883,14 @@ class feindura extends feinduraBase {
   * 
   * @see generalFunctions::checkLanguageFiles()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function getLanguageFile($langFilesPath) {
+  public function getLanguageFile($langFilesPath) {
     
     // add slash on the end
     if(substr($langFilesPath,-1) != '/')
@@ -914,7 +942,7 @@ class feindura extends feinduraBase {
   * 
   * @return string with all meta tags ready to display in a HTML page
   * 
-  * 
+  * @access public
   * @version 1.01
   * <br />
   * <b>ChangeLog</b><br />
@@ -922,7 +950,7 @@ class feindura extends feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
+  public function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
       
       // vars
       $metaTags = '';
@@ -1097,7 +1125,7 @@ class feindura extends feinduraBase {
   * Alias of {@link createMetaTags()}
   * @ignore
   */
-  function createMetaTag($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
+  public function createMetaTag($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
     // call the right function
     return $this->createMetaTags($charset, $author, $publisher, $copyright, $robotTxt, $revisitAfter);
   }
@@ -1134,16 +1162,16 @@ class feindura extends feinduraBase {
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
   * 
-  * 
   * @see generalFunctions::createHref()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function createHref($page = false) {
+  public function createHref($page = false) {
     
     if($page = $this->loadPrevNextPage($page)) {
  
@@ -1210,13 +1238,14 @@ class feindura extends feinduraBase {
   * @see createMenuByTags()
   * @see createMenuByDate()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function createLink($page = false, $linkText = true) {    
+  public function createLink($page = false, $linkText = true) {    
         
     //echo 'PAGE: '.$page;
     
@@ -1370,13 +1399,14 @@ class feindura extends feinduraBase {
   * @see createMenuByTags()
   * @see createMenuByDate()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenu($idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     
     // vars
     $menu = array();
@@ -1597,13 +1627,14 @@ class feindura extends feinduraBase {
   * @see createMenu()
   * @see createMenuByDate()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuByTags($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
                                    
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
@@ -1617,7 +1648,7 @@ class feindura extends feinduraBase {
   * Alias of {@link createMenuByTags()}
   * @ignore
   */
-  function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
+  public function createMenuByTag($tags, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false) {
     // call the right function
     return $this->createMenuByTags($tags,$idType,$ids,$menuTag,$linkText,$breakAfter,$sortByCategories);
   }
@@ -1689,13 +1720,14 @@ class feindura extends feinduraBase {
   * @see createMenu()
   * @see createMenuByTags()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function createMenuByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  public function createMenuByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
       
       // gets the right pages and sorted by page date                      
       if($pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList))
@@ -1708,7 +1740,7 @@ class feindura extends feinduraBase {
   * Alias of {@link createMenuByDate()}
   * @ignore
   */
-  function createMenuByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
+  public function createMenuByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
   }  
@@ -1744,13 +1776,14 @@ class feindura extends feinduraBase {
   * 
   * @see feinduraBase::createTitle()  
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function getPageTitle($page = false) {    
+  public function getPageTitle($page = false) {    
    
     if($page = $this->loadPrevNextPage($page)) {
       
@@ -1784,7 +1817,7 @@ class feindura extends feinduraBase {
   * Alias of {@link getPageTitle()}
   * @ignore
   */
-  function getTitle($page = false) {
+  public function getTitle($page = false) {
     // call the right function
     return $this->getPageTitle($page);
   } 
@@ -1848,13 +1881,14 @@ class feindura extends feinduraBase {
   * @see getPageTitle()
   * @see feinduraBase::generatePage()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function showPage($page = false, $shortenText = false, $useHtml = true) {    
+  public function showPage($page = false, $shortenText = false, $useHtml = true) {    
 
     if($page = $this->loadPrevNextPage($page)) {
          
@@ -1912,7 +1946,7 @@ class feindura extends feinduraBase {
   * Alias of {@link showPage()}
   * @ignore
   */
-  function showPages($page = false, $shortenText = false, $useHtml = true) {
+  public function showPages($page = false, $shortenText = false, $useHtml = true) {
     // call the right function
     return $this->showPage($page, $shortenText, $useHtml);
   }
@@ -1948,13 +1982,14 @@ class feindura extends feinduraBase {
   * @see getPageTitle()
   * @see feinduraBase::generatePage()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function showPlugins($plugins = true, $page = false) {    
+  public function showPlugins($plugins = true, $page = false) {    
     
     // var
     $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
@@ -2000,7 +2035,7 @@ class feindura extends feinduraBase {
   * Alias of {@link showPlugins()}
   * @ignore
   */
-  function showPlugin($plugins = true, $page = false) {
+  public function showPlugin($plugins = true, $page = false) {
     // call the right function
     return $this->showPlugins($plugins, $page);
   }
@@ -2064,13 +2099,14 @@ class feindura extends feinduraBase {
   * @see listPagesByTags()
   * @see listPagesByDate() 
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPages($idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     
     // vars
     $return = array();
@@ -2103,7 +2139,7 @@ class feindura extends feinduraBase {
   * Alias of {@link listPages()}
   * @ignore
   */
-  function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPage($idType = 'category', $id = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPages($idType, $id, $shortenText, $useHtml, $sortByCategories);
   }
@@ -2165,13 +2201,14 @@ class feindura extends feinduraBase {
   * @see listPages()
   * @see listPagesByDate()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPagesByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
      
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
@@ -2185,7 +2222,7 @@ class feindura extends feinduraBase {
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPagesByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }
@@ -2193,7 +2230,7 @@ class feindura extends feinduraBase {
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPageByTags($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }
@@ -2201,7 +2238,7 @@ class feindura extends feinduraBase {
   * Alias of {@link listPagesByTags()}
   * @ignore
   */
-  function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
+  public function listPageByTag($tags, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $sortByCategories = false) {
     // call the right function
     return $this->listPagesByTags($tags, $idType, $ids, $shortenText, $useHtml, $sortByCategories);
   }  
@@ -2262,13 +2299,14 @@ class feindura extends feinduraBase {
   * @see listPages()
   * @see listPagesByTags()
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function listPagesByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true, $sortByCategories = false, $reverseList = false) {
+  public function listPagesByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true, $sortByCategories = false, $reverseList = false) {
       
       // gets the right pages and sorted by page date                      
       $pageContents = $this->loadPagesByDate($idType,$ids,$monthsInThePast,$monthsInTheFuture,$sortByCategories,$reverseList);
@@ -2281,7 +2319,7 @@ class feindura extends feinduraBase {
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  function listPageByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPageByDate($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }
@@ -2289,7 +2327,7 @@ class feindura extends feinduraBase {
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  function listPageByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPageByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }  
@@ -2297,10 +2335,9 @@ class feindura extends feinduraBase {
   * Alias of {@link listPagesByDate()}
   * @ignore
   */
-  function listPagesByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
+  public function listPagesByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
   }
-
 }
 ?>

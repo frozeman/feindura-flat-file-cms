@@ -22,21 +22,20 @@ $pageContent['styleId'] =            '';
 $pageContent['styleClass'] =         '';
 
 $pageContent['log_visitorcount'] =   '4';
-$pageContent['log_visitTime_min'] =  'a:3:{i:0;i:7;i:1;i:7;i:2;i:0;}';
-$pageContent['log_visitTime_max'] =  'a:2:{i:0;i:19;i:1;i:7;}';
+$pageContent['log_visitTime_min'] =  'a:4:{i:0;i:12974;i:1;i:7;i:2;i:7;i:3;i:0;}';
+$pageContent['log_visitTime_max'] =  'a:7:{i:0;i:13032;i:1;i:12989;i:2;i:12974;i:3;i:12972;i:4;i:12971;i:5;i:19;i:6;i:7;}';
 $pageContent['log_firstVisit'] =     '1290977875';
 $pageContent['log_lastVisit'] =      '1291152455';
 $pageContent['log_searchwords'] =    '';
 
 $pageContent['content'] = 
-'
-Test te<br />
+'fdgfdg<br />
 
-nvbnb<br />
+ds fds fds<br />
 
-fdgfdgdfgfdgdfg dfg dfgfd g,m idjf&ouml;kdfk g&auml;jfd&ouml;g kdfgfdg<br />
+<br />
 
-xt
+sd fdsf fdsjbdsknfln
 ';
 
 return $pageContent;
