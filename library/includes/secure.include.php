@@ -43,10 +43,6 @@ if((isset($_GET[$page]) && $_GET[$page] != 'new' && xssFilter::int($_GET[$page])
 // -> check SITE
 if(isset($_GET['site'])) $_GET['site'] = xssFilter::alphaNumeric($_GET['site']);
 
-// -> check SEARCH
-if(isset($_GET['search'])) $_GET['search'] = xssFilter::text($_GET['search']);
-if(isset($_POST['search'])) $_POST['search'] = xssFilter::text($_POST['search']);
-
 // -> check USERNAME
 if(isset($_POST['username'])) $_POST['username'] = xssFilter::text($_POST['username']);
 // -> check PASSWORD

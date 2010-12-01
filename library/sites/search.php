@@ -19,16 +19,16 @@
 
 /* LANGUAGE-VARS
 
-$langFile['search_h1'] = 'Seiten durchsuchen';
-$langFile['search_results_h1'] = 'Suchergebnisse f&uuml;r';
-$langFile['search_results_text1'] = '&Uuml;bereinstimmungen im Titel';
-$langFile['search_results_text2'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
-$langFile['search_results_text3'] = '&Uuml;bereinstimmende W&ouml;rter:';
-$langFile['search_results_text4'] = '&Uuml;bereinstimmenden Satz gefunden';
-$langFile['search_results_text8'] = '&Uuml;bereinstimmung mit der Seiten ID';
-$langFile['search_results_count'] = 'Treffer';
-$langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden
-$langFile['search_results_time_part2'] = 'Sekunden';
+$langFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
+$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse f&uuml;r';
+$langFile['SEARCH_TEXT_MATCH_TITLE'] = '&Uuml;bereinstimmungen im Titel';
+$langFile['SEARCH_TEXT_MATCH_DATE'] = '&Uuml;bereinstimmungen im Seitendatum';
+$langFile['SEARCH_TEXT_MATCH_WORDS'] = '&Uuml;bereinstimmende W&ouml;rter:';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = '&Uuml;bereinstimmender Kategoriename';
+$langFile['SEARCH_TEXT_MATCH_ID'] = '&Uuml;bereinstimmung mit der Seiten ID';
+$langFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
+$langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
+$langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
 
 */
 
@@ -45,14 +45,14 @@ if(isset($_GET['search']))
   $_POST['search'] = urldecode($_GET['search']);
 
 // clean up the searchWord
-$searchWord = stripslashes($_POST['search']);
+$searchWord = $_POST['search'];
 //$searchWord = htmlentities($searchWord,ENT_NOQUOTES,'UTF-8');
 
 // show the form
 echo '<form action="index.php?site='.$_GET['site'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">';
 
 echo '<div class="block">
-      <h1>'.$langFile['search_h1'].'</h1>
+      <h1>'.$langFile['SEARCH_TITLE'].'</h1>
         <div class="content">
           <input name="search" type="text" size="50" value="'.$searchWord.'" style="float:left; margin-top: 12px; margin-right:10px;" />
           <input type="submit" value="" class="button search" />
@@ -66,12 +66,8 @@ $count = '0';
 // STARTS SEARCH
 if(!empty($searchWord)) {
 
-//$categoriesList = $categoryConfig;
-//array_unshift($categoriesList,array('id' => 0,'name' => $langFile['categories_nocategories_name']));
-$allPageContents = generalFunctions::loadPages(true,true);
-
 // SEARCH RESULTS HEADLINE
-echo '<div class="block"><h1>'.$langFile['search_results_h1'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
+echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
 
 // ------------------------
 // --->> OUTPUT LAYOUT
@@ -94,9 +90,6 @@ function ausgabeblock_end() {
 // --- ENDE OUTPUT LAYOUT
 // ---------------------------
 
-
-
-
 $search = new search();
 $findings = $search->find($searchWord);
 
@@ -104,14 +97,13 @@ echo '<pre>';
 var_dump($findings);
 echo '</pre>';
 
-
 	
 // AUSGABE angabe der Treffer vor ausgabe
 // LADEZEIT MESSEN ausgabe
 $time_end = microtime();
 $time = round($time_end - $time_start,2);
 
-$timeOutputText = '<h2>'.$count.' '.$langFile['search_results_count'].' <span style="font-size:10px;">'.$langFile['search_results_time_part1'].' '.$time.' '.$langFile['search_results_time_part2'].'</span></h2>';
+$timeOutputText = '<h2>'.$count.' '.$langFile['SEARCH_TEXT_RESULTS'].' <span style="font-size:10px;">'.$langFile['SEARCH_TEXT_TIME_1'].' '.$time.' '.$langFile['SEARCH_TEXT_TIME_2'].'</span></h2>';
 
 // show time and result number above
 echo $timeOutputText;

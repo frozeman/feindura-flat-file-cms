@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 491
+Build 492
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 492: keep on working on a search class, good night for today
   build 491: working on a search class
   build 490: add xssFilter to contactForm plugin
   build 489: add public namespaces to feindura class

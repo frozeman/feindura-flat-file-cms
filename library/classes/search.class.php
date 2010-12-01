@@ -106,7 +106,7 @@ class search {
   public function find($searchwords, $category = true) {
     
     // clean up the searchWord
-    $searchwords = stripslashes($searchwords);
+    //$searchwords = stripslashes($searchwords);
     
     // -> start search
     return $this->searchPages($searchwords, $category);
@@ -155,97 +155,112 @@ class search {
     } else
       $checkPages = $pages;
     
-    return $checkPages;
-    
     // ->> goes through all pages and search for the keywords
     foreach($checkPages as $pageContent)  {
       
     	// set the priority of the results to 0
     	$priority = 0;
-            
-      // bereitet $pageContent[content] vor
-      $pageContent['content'] = strip_tags($pageContent['content']);
       
-      // -> check for public only in the frontend search
-      //if($categoryConfig[$pageContent['category']]['public'] && $pageContent['public']) {
-       	$inhalt = strtolower($pageContent['content']);
-       	$id = strtolower($pageContent['id']);
-        $titel = strtolower($pageContent['title']);
-        $categoryName = strtolower($categoryConfig[$pageContent['category']]['name']);
-        $beforeDate = strtolower($pageContent['pagedate']['before']);
-        $date = statisticFunctions::formatDate($pageContent['pagedate']['date']);
-        $afterDate = strtolower($pageContent['pagedate']['after']);
-      /*} else {
-       	$inhalt = '';
-       	$titel = '';
-       	$categoryName = '';
-    	  $date = '';
-       }*/
-     
-      // teile $searchWord in einzelne worte auf
-      $searchWord = generalFunctions::cleanSpecialChars($searchWord);
-      if(substr($searchWord,-1) == ' ') // deletes space on the ende
-        $searchWord = substr($searchWord,0,-1);
-      if(substr($searchWord,0,1) == ' ') // deletes space on the beginning
-        $searchWord = substr($searchWord,1);
-      $searchWord = strtolower($searchWord);
-      $searchwords = explode(" ", $searchWord);
-          	        	              
-      // ->> SEARCH ALL WORDS
-      // *********************
-			  
+      // generate search pattern
+      $searchwords = str_replace(array(' ','.','-','/'),'|',$searchwords);
+      $searchwords = trim(xssFilter::text($searchwords));      
+      $pattern = '#'.$searchwords.'#i';
+
+     	//$content = strip_tags($pageContent['content']);
+      $search['content'] = strip_tags($pageContent['content']);
+     	$search['id'] = $pageContent['id'];
+      $search['title'] = $pageContent['title'];
+      $search['description'] = $pageContent['description'];
+      $search['categoryName'] = $categoryConfig[$pageContent['category']]['name'];
+      //$search['beforeDate'] = $pageContent['pagedate']['before'];
+      $search['date'] = statisticFunctions::formatDate($pageContent['pagedate']['date']);
+      //$search['afterDate'] = $pageContent['pagedate']['after'];
+      $search['searchword'] = $pageContent['log_searchwords'];
+
+      
+      // ->> SEARCH PROCESS
+      $results = false;
+			
+      // -> search in ID
+      if(is_numeric($searchwords) &&
+         preg_match_all($pattern,$search['id'],$matches,PREG_OFFSET_CAPTURE) != 0) {        
+        $text = $langFile['SEARCH_TEXT_MATCH_ID'];
+        $results = false;
+        $priority = 1000;
+      
+      // -> search in DATE
+      } elseif(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+        $text = $langFile['SEARCH_TEXT_MATCH_DATE'];
+        $results = $matches[0];
+        $priority = 333;
+        $priority *= count($results);
+        
+      }
+      
+      
+      
+      
+      return $priority;
+      
+
+
+
+
+
+
+
+
+
+
 		  // für jedes wort wir eine einzelne suchausgabe erstellt und mit .. getrennt
 			$zaehl = 0;
 			$if_find = false;
 			$words = 0;
 
-		  foreach($searchwords as $searchword) {
 
-				// -> SEARCH TITLE
-				if(strpos($titel, $searchword) !== false) { //wenn im titel gefunden wurde
-					$findtext = false;
-					$priority = $priority + 8;
-					$wortanzahl = $langFile['search_results_text1']; //angabe findings im titel							
-					$if_find = true;
-				// -> SEARCH DATE or CATEGORY
-				} elseif(strpos($beforeDate, $searchword) !== false ||
-	               strpos($afterDate, $searchword) !== false ||
-                 strpos($date, statisticFunctions::validateDateFormat($searchword)) !== false ||
-                 strpos($categoryName, $searchword) !== false) { //wenn im datum gefunden wurde
-					$findtext = false;
-					$priority = $priority + 3;
-					$wortanzahl = $langFile['search_results_text2']; //angabe findings im datum oder gruppe
-					$if_find = true;
-				// -> SEARCH ID
-			  } elseif($id == $searchword) { //wenn in der seiten id gefunden
-					$priority = $priority + 10;
-					$findtext = false;
-					$stelle = 0;
-					$wortanzahl = $langFile['search_results_text8']; //angabe findings in id
-					$if_find = true;
-				// -> SEARCH CONTENT
-				} elseif(strpos($inhalt, $searchword) !== false) { //wenn im inhalt gefunden wurde
-					$findtext = true;
-					$priority++;
-																			
-					$wortlaenge[$zaehl] = strlen($searchword);							
-					$stellen[$zaehl] = strpos($inhalt, $searchword);
-					$ausgabenlaenge = 40; //ausgabenlänge vor und hinter einzelnen wörtern
-					$ausgabenlaengereset = $ausgabenlaenge;
-					$words++;
-					$wortanzahl = $langFile['search_results_text3'].' '.$words; //angabe über wortanzahl bei mehreren wörtern
-					$if_find = true;
-				}
-				
-				if($if_find) {
-				  
-				
-        	// -> CREATE FINDINGS ARRAY
-          $findings[$zaehl] = array("stelle" => $stellen[$zaehl], "wortlaenge" => $wortlaenge[$zaehl], "findtext" => $findtext);
-          $zaehl++;
-			    unset($findtext);
-        }
-		  }
+			// -> SEARCH TITLE
+			if(strpos($titel, $searchword) !== false) { //wenn im titel gefunden wurde
+				$findtext = false;
+				$priority = $priority + 8;
+				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_TITLE']; //angabe findings im titel							
+				$if_find = true;
+			// -> SEARCH DATE or CATEGORY
+			} elseif(strpos($beforeDate, $searchword) !== false ||
+               strpos($afterDate, $searchword) !== false ||
+               strpos($date, statisticFunctions::validateDateFormat($searchword)) !== false ||
+               strpos($categoryName, $searchword) !== false) { //wenn im datum gefunden wurde
+				$findtext = false;
+				$priority = $priority + 3;
+				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_DATE']; //angabe findings im datum oder gruppe
+				$if_find = true;
+			// -> SEARCH ID
+		  } elseif($id == $searchword) { //wenn in der seiten id gefunden
+				$priority = $priority + 10;
+				$findtext = false;
+				$stelle = 0;
+				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_ID']; //angabe findings in id
+				$if_find = true;
+			// -> SEARCH CONTENT
+			} elseif(strpos($inhalt, $searchword) !== false) { //wenn im inhalt gefunden wurde
+				$findtext = true;
+				$priority++;
+																		
+				$wortlaenge[$zaehl] = strlen($searchword);							
+				$stellen[$zaehl] = strpos($inhalt, $searchword);
+				$ausgabenlaenge = 40; //ausgabenlänge vor und hinter einzelnen wörtern
+				$ausgabenlaengereset = $ausgabenlaenge;
+				$words++;
+				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_WORDS'].' '.$words; //angabe über wortanzahl bei mehreren wörtern
+				$if_find = true;
+			}
+			
+			if($if_find) {
+      	// -> CREATE FINDINGS ARRAY
+        $findings[$zaehl] = array("stelle" => $stellen[$zaehl], "wortlaenge" => $wortlaenge[$zaehl], "findtext" => $findtext);
+        $zaehl++;
+		    unset($findtext);
+      }
+
 							   
 			// ausgabe wenn was gefunden wurde
 			if($if_find === true) {

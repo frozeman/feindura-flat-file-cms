@@ -467,12 +467,13 @@ class xssFilter {
   */
   public static function text($data, $max = 0, $charset = 'UTF-8' ,$default = false) {
       if(!empty($data) || $data == 0) {
-        $data = stripslashes($data);        
+        $data = stripslashes($data);
+        $data = str_replace(';','&#59;',$data);
         $data = htmlentities($data,ENT_QUOTES,$charset);
         $data = str_replace('/','&#47;',$data);
         $data = str_replace('\\','&#92;',$data);
         $data = str_replace('=','&#61;',$data);
-        $data = str_replace(';','&#59;',$data);
+        
         return ($max > 0)
           ? substr($data,0,$max) // truncate the length
           : $data;

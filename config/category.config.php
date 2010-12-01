@@ -1,14 +1,14 @@
 <?php
 
 $categoryConfig[3]['id'] =              3;
-$categoryConfig[3]['name'] =            'dfgfg';
+$categoryConfig[3]['name'] =            'neu kate';
 $categoryConfig[3]['public'] =          true;
 $categoryConfig[3]['createdelete'] =    false;
 $categoryConfig[3]['thumbnail'] =       false;
 $categoryConfig[3]['plugins'] =         false;
 $categoryConfig[3]['showtags'] =        false;
-$categoryConfig[3]['showpagedate'] =    false;
-$categoryConfig[3]['sortbypagedate'] =  false;
+$categoryConfig[3]['showpagedate'] =    true;
+$categoryConfig[3]['sortbypagedate'] =  true;
 $categoryConfig[3]['sortascending'] =   false;
 
 $categoryConfig[3]['styleFile'] =       '';

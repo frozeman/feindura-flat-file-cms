@@ -796,21 +796,18 @@ $langFile['BACKUP_TEXT_NOBACKUP'] = 'No backup created yet.';
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup was not found at:';
 $langFile['BACKUP_ERROR_NORESTROEFILE'] = 'No backup file to restore was selected.';
 
-/*
-* search.php
-*/
+// -> SEARCH
 
-// ---------- SEARCH
-$langFile['search_h1'] = 'Search pages';
-$langFile['search_results_h1'] = 'Search results for';
-$langFile['search_results_text1'] = 'Matches in the title';
-$langFile['search_results_text2'] = 'Matches in the date or the category';
-$langFile['search_results_text3'] = 'Matching words:';
-$langFile['search_results_text4'] = 'Matching sentence';
-$langFile['search_results_text8'] = 'Matching with the page ID';
-$langFile['search_results_count'] = 'Results';
-$langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden
-$langFile['search_results_time_part2'] = 'seconds';
+$langFile['SEARCH_TITLE'] = 'Search pages';
+$langFile['SEARCH_TITLE_RESULTS'] = 'Search results for';
+$langFile['SEARCH_TEXT_MATCH_ID'] = 'Matching with the page ID';
+$langFile['SEARCH_TEXT_MATCH_TITLE'] = 'Matches in the title';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'Matching sentence';
+$langFile['SEARCH_TEXT_MATCH_DATE'] = 'Matches in the page date';
+$langFile['SEARCH_TEXT_MATCH_WORDS'] = 'Matching words:';
+$langFile['SEARCH_TEXT_RESULTS'] = 'results';
+$langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 matches in 0.32 seconds
+$langFile['SEARCH_TEXT_TIME_2'] = 'seconds';
 
 
 // -----------------------------------------------------------------------------------------------

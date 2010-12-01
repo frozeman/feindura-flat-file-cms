@@ -794,21 +794,19 @@ $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup-Datei wurde nicht gefunden in:';
 $langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Es wurde keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
 
-/*
-* search.php
-*/
 
-// ---------- SEARCH
-$langFile['search_h1'] = 'Seiten durchsuchen';
-$langFile['search_results_h1'] = 'Suchergebnisse f&uuml;r';
-$langFile['search_results_text1'] = '&Uuml;bereinstimmungen im Titel';
-$langFile['search_results_text2'] = '&Uuml;bereinstimmungen im Datum oder der Kategorie';
-$langFile['search_results_text3'] = '&Uuml;bereinstimmende W&ouml;rter:';
-$langFile['search_results_text4'] = '&Uuml;bereinstimmenden Satz gefunden';
-$langFile['search_results_text8'] = '&Uuml;bereinstimmung mit der Seiten ID';
-$langFile['search_results_count'] = 'Treffer';
-$langFile['search_results_time_part1'] = 'in'; // 12 Treffer in 0.32 Sekunden
-$langFile['search_results_time_part2'] = 'Sekunden';
+// -> SEARCH
+
+$langFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
+$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse f&uuml;r';
+$langFile['SEARCH_TEXT_MATCH_ID'] = '&Uuml;bereinstimmung mit der Seiten ID';
+$langFile['SEARCH_TEXT_MATCH_TITLE'] = '&Uuml;bereinstimmungen im Titel';
+$langFile['SEARCH_TEXT_MATCH_DATE'] = '&Uuml;bereinstimmungen im Seitendatum';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = '&Uuml;bereinstimmender Kategoriename';
+$langFile['SEARCH_TEXT_MATCH_WORDS'] = '&Uuml;bereinstimmende W&ouml;rter:';
+$langFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
+$langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
+$langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
 
 
 // -----------------------------------------------------------------------------------------------
