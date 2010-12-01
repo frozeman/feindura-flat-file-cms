@@ -19,6 +19,7 @@
  * 
  * @package [Implementation]-[Backend]
  * 
+ * @since Version 1.1 
  */
 
 /**
@@ -34,6 +35,7 @@
 * 
 * @todo maybe use http://php.net/manual/de/public static function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
 * 
+* @since Version 1.1
 * @version 0.12
 * <br>
 *  <b>ChangeLog</b><br>
@@ -78,7 +80,8 @@ class xssFilter {
   * @param int $default  (optional) the default value return if the $data parameter couldn't be validated
   * 
   * @return int the integer, otherwise FALSE
-  *   
+  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -102,6 +105,7 @@ class xssFilter {
   * 
   * @return number the integer, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -144,6 +148,7 @@ class xssFilter {
   * 
   * @return string|number|null an alphabetical string or number, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -171,6 +176,7 @@ class xssFilter {
   * 
   * @return string|null an alphabetical string, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -206,6 +212,7 @@ class xssFilter {
   * 
   * @return int|false a filename string, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -236,9 +243,10 @@ class xssFilter {
   * @param int  $data    the data to check against
   * @param bool $encode  (optional) tell if the filename should be urlencoded before
   * @param null $default (optional) the default value return if the $data parameter couldn't be validated  
-  *      
+  *  
   * @return int|false a path string, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -275,6 +283,7 @@ class xssFilter {
   * 
   * @return string|null an alphabetical string allowing spaces, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -309,6 +318,7 @@ class xssFilter {
   * 
   * @return string|null an alphanumerical string, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -343,6 +353,7 @@ class xssFilter {
   * 
   * @return string|null an alphanumerical string allowing spaces, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -377,6 +388,7 @@ class xssFilter {
   * 
   * @return string|null an alphanumerical string allowing underscores, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -411,6 +423,7 @@ class xssFilter {
   * 
   * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -446,6 +459,7 @@ class xssFilter {
   * 
   * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -466,7 +480,6 @@ class xssFilter {
      }
      return $default;
   }
-
 }
 
 ?>

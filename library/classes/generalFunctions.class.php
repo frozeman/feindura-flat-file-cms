@@ -50,6 +50,7 @@ class generalFunctions {
   /**
   * Contains the administrator-settings config <var>array</var>
   * 
+  * @static
   * @var array
   * @see generalFunctions()
   * 
@@ -59,6 +60,7 @@ class generalFunctions {
   /**
   * Contains the category-settings config <var>array</var>
   * 
+  * @static
   * @var array
   * @see generalFunctions()
   * 
@@ -75,6 +77,7 @@ class generalFunctions {
   * Example of the returned array:
   * {@example loadPageIds.return.example.php}
   * 
+  * @static
   * @var array
   * 
   */
@@ -89,6 +92,7 @@ class generalFunctions {
   * 
   * @example loadPages.return.example.php of the returned array
   * 
+  * @static
   * @var array
   * 
   */
@@ -127,13 +131,14 @@ class generalFunctions {
   * 
   * @return void
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   * 
   */ 
-  public function init() {
+  public static function init() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     self::$adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
@@ -156,7 +161,7 @@ class generalFunctions {
   * @copyright Copyright (c) 2008 Darrin Yeager
   * @license http://www.dyeager.org/downloads/license-bsd.php BSD license
   * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
-  * 
+  * @static
   */
   public static function parseDefaultLanguage($http_accept, $deflang = "en") {
      if(isset($http_accept) && strlen($http_accept) > 1)  {
@@ -203,7 +208,7 @@ class generalFunctions {
   * 
   * @return string|array|false a country code (like: de, en, fr..) or the language-file array or FALSE if the language file could not be opend
   * 
-  * 
+  * @static
   * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
@@ -288,7 +293,7 @@ class generalFunctions {
   * 
   * @return string the current url
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -323,7 +328,7 @@ class generalFunctions {
   * 
   * @return array the {@link $storedPageIds} property
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -352,6 +357,7 @@ class generalFunctions {
   * 
   * @example loadPages.return.example.php of the returned array
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -387,7 +393,7 @@ class generalFunctions {
   * 
   * @return array passes through the given $pageContent array
   * 
-  * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -432,7 +438,7 @@ class generalFunctions {
   * 
   * @return bool TRUE if a page with this ID exists and could be removed, otherwise FALSE
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -476,6 +482,7 @@ class generalFunctions {
   * 
   * @return int|false the right category ID or FALSE if the page ID doesn't exists
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -527,6 +534,7 @@ class generalFunctions {
   * 
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
+  * @static
   * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
@@ -661,6 +669,7 @@ class generalFunctions {
   * 
   * @return array|FALSE the $pageContent array of the requested page or FALS, if it couldn't open the file
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -727,6 +736,7 @@ class generalFunctions {
   * 
   * @return array|false an array with page IDs and the affiliated category IDs or empty array if the category had no pages
   * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -837,6 +847,7 @@ class generalFunctions {
   * 
   * @return array the $pageContent array of the requested pages
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -926,6 +937,7 @@ class generalFunctions {
   * 
   * @return bool
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -953,6 +965,7 @@ class generalFunctions {
   * 
   * @see feindura::createHref()
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1028,6 +1041,7 @@ class generalFunctions {
   * 
   * @see sort.public static functions.php
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1119,7 +1133,7 @@ class generalFunctions {
    * 
    * @return string the right stylesheet-file, ID or class
    * 
-   * 
+   * @static
    * @version 1.01
    * <br />
    * <b>ChangeLog</b><br />
@@ -1186,6 +1200,7 @@ class generalFunctions {
   * 
   * @return array|string the escaped array or string
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1219,6 +1234,7 @@ class generalFunctions {
   * 
   * @return string the cleaned string
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1247,6 +1263,7 @@ class generalFunctions {
   * 
   * @return string the cleaned string
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1274,6 +1291,7 @@ class generalFunctions {
   * 
   * @return string the shortend title or the unchanged title, if shorten is not necessary
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1302,6 +1320,7 @@ class generalFunctions {
   * 
   * @return string ready to use in an URL
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1362,6 +1381,7 @@ class generalFunctions {
   * 
   * @return array|false an array with the folder elements, FALSE if the folder not is a directory
   * 
+  * @static
   * @version 1.01
   * <br />
   * <b>ChangeLog</b><br />
@@ -1441,6 +1461,7 @@ class generalFunctions {
   * 
   * @return array|false an array with the folder elements, FALSE if the folder is not a directory
   * 
+  * @static
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -1520,6 +1541,7 @@ class generalFunctions {
   * 
   * @return bool TRUE if its empty, otherwise FALSE
   * 
+  * @static
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -1550,6 +1572,7 @@ class generalFunctions {
    * 
    * @return string|false the HTML <link> tags or FALSE if no stylesheet-file was found
    * 
+   * @static 
    * @version 1.0
    * <br />
    * <b>ChangeLog</b><br />
@@ -1586,6 +1609,7 @@ class generalFunctions {
   * 
   * @return void
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>

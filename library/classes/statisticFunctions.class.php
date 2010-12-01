@@ -54,6 +54,7 @@ class statisticFunctions {
   /**
   * Contains the administrator-settings config <var>array</var>
   * 
+  * @static
   * @var array
   * @see init()
   * 
@@ -63,6 +64,7 @@ class statisticFunctions {
   /**
   * Contains the category-settings config <var>array</var>
   * 
+  * @static
   * @var array
   * @see init()
   * 
@@ -75,6 +77,7 @@ class statisticFunctions {
   * Example array:
   * {@example backend/websiteStatistic.array.example.php}
   * 
+  * @static
   * @var array
   * @see init()
   */ 
@@ -88,6 +91,7 @@ class statisticFunctions {
   * Example array:
   * {@example backend/statisticConfig.array.example.php}
   * 
+  * @static
   * @var array
   * @see init()
   */ 
@@ -129,6 +133,7 @@ class statisticFunctions {
   * 
   * @return void
   * 
+  * @static
   * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
@@ -157,6 +162,7 @@ class statisticFunctions {
   * 
   * @return string the seconds in a readable time
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -191,6 +197,7 @@ class statisticFunctions {
   * 
   * @return string the formated date or the unchanged $timestamp parameter
   * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -224,6 +231,7 @@ class statisticFunctions {
   * 
   * @return string the formated time with or without seconds or the $timestamp parameter
   * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -256,7 +264,7 @@ class statisticFunctions {
   * 
   * @return float the converted number
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -281,7 +289,7 @@ class statisticFunctions {
   * 
   * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -327,7 +335,7 @@ class statisticFunctions {
   * 
   * @return bool
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -353,6 +361,7 @@ class statisticFunctions {
   * 
   * @return int|false the timestamp of the date or FALSE if the date is not valid
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -437,7 +446,7 @@ class statisticFunctions {
   * 
   * @return string the formated time
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -526,7 +535,7 @@ class statisticFunctions {
   * 
   * @return bool
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -580,7 +589,7 @@ class statisticFunctions {
   * 
   * @return bool
   * 
-  * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -632,7 +641,7 @@ class statisticFunctions {
   * 
   * @return string|false the right browser name or FALSE if no useragent is available
   * 
-  * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -668,6 +677,7 @@ class statisticFunctions {
   * 
   * @return string|false the browser chart or FALSE
   * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -916,6 +926,7 @@ class statisticFunctions {
   * 
   * @return string|false the tag-cloud or FALSE if the $tagString parameter is empty
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -969,6 +980,7 @@ class statisticFunctions {
   * 
   * @return string the modified data-string
   * 
+  * @static
   * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
@@ -1057,6 +1069,7 @@ class statisticFunctions {
   * 
   * @return bool TRUE if the surrent user is logged in, otherwise false
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1079,6 +1092,7 @@ class statisticFunctions {
   * 
   * @return bool TRUE if its a spider/bot/webcrawler, FALSE if not
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1148,6 +1162,7 @@ class statisticFunctions {
   * 
   * @return bool TRUE the user agent is in the cache, FALSE if not
   * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
@@ -1212,6 +1227,7 @@ class statisticFunctions {
   * 
   * @return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   * 
+  * @static
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
@@ -1267,6 +1283,7 @@ class statisticFunctions {
   * 
   * @return bool TRUE if the website-statistics were saved, otherwise FALSE
   * 
+  * @static
   * @version 1.02
   * <br>
   * <b>ChangeLog</b><br>
@@ -1502,6 +1519,7 @@ class statisticFunctions {
   * 
   * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a spider, or the $pageContent parameter is not a valid $pageContent array
   * 
+  * @static
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
