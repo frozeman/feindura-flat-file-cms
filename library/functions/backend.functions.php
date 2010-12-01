@@ -309,8 +309,8 @@ function saveCategories($newCategories) {
       
         // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
         $category['styleFile'] = setStylesByPriority($category['styleFile'],'styleFile',true);
-        $category['styleId'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleId']),'styleId',true);
-        $category['styleClass'] = setStylesByPriority($GLOBALS['xssFilter']->string($category['styleClass']),'styleClass',true);        
+        $category['styleId'] = setStylesByPriority(xssFilter::string($category['styleId']),'styleId',true);
+        $category['styleClass'] = setStylesByPriority(xssFilter::string($category['styleClass']),'styleClass',true);        
         
         // WRITE
         fwrite($file,"\$categoryConfig[".$category['id']."]['id'] =              ".$category['id'].";\n");
@@ -329,8 +329,8 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleId'] =         '".$category['styleId']."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleClass'] =      '".$category['styleClass']."';\n\n");
         
-        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbWidth'] =      '".$GLOBALS['xssFilter']->int($category['thumbWidth'])."';\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbHeight'] =     '".$GLOBALS['xssFilter']->int($category['thumbHeight'])."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbWidth'] =      '".xssFilter::int($category['thumbWidth'])."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['thumbHeight'] =     '".xssFilter::int($category['thumbHeight'])."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbRatio'] =      '".$category['thumbRatio']."';\n\n\n");
         
       }    
@@ -580,16 +580,16 @@ function saveAdminConfig($adminConfig) {
     
     fwrite($file,"\$adminConfig['url'] =              '".$adminConfig['url']."';\n");
     fwrite($file,"\$adminConfig['basePath'] =         '".$adminConfig['basePath']."';\n");
-    fwrite($file,"\$adminConfig['websitePath'] =      '".$GLOBALS['xssFilter']->path($adminConfig['websitePath'])."';\n");
-    fwrite($file,"\$adminConfig['uploadPath'] =       '".$GLOBALS['xssFilter']->path($adminConfig['uploadPath'])."';\n");  
-    fwrite($file,"\$adminConfig['websitefilesPath'] = '".$GLOBALS['xssFilter']->path($adminConfig['websitefilesPath'])."';\n");
-    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$GLOBALS['xssFilter']->path($adminConfig['stylesheetPath'])."';\n");    
+    fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'])."';\n");
+    fwrite($file,"\$adminConfig['uploadPath'] =       '".xssFilter::path($adminConfig['uploadPath'])."';\n");  
+    fwrite($file,"\$adminConfig['websitefilesPath'] = '".xssFilter::path($adminConfig['websitefilesPath'])."';\n");
+    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n");    
     fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".$adminConfig['speakingUrl'].";\n\n");
     
-    fwrite($file,"\$adminConfig['varName']['page'] =     '".$GLOBALS['xssFilter']->alphaNumeric($adminConfig['varName']['page'])."';\n");  
-    fwrite($file,"\$adminConfig['varName']['category'] = '".$GLOBALS['xssFilter']->alphaNumeric($adminConfig['varName']['category'])."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".$GLOBALS['xssFilter']->alphaNumeric($adminConfig['varName']['modul'])."';\n\n");
+    fwrite($file,"\$adminConfig['varName']['page'] =     '".xssFilter::alphaNumeric($adminConfig['varName']['page'])."';\n");  
+    fwrite($file,"\$adminConfig['varName']['category'] = '".xssFilter::alphaNumeric($adminConfig['varName']['category'])."';\n");  
+    fwrite($file,"\$adminConfig['varName']['modul'] =    '".xssFilter::alphaNumeric($adminConfig['varName']['modul'])."';\n\n");
     
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".$adminConfig['user']['fileManager'].";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".$adminConfig['user']['editWebsiteFiles'].";\n");
@@ -604,13 +604,13 @@ function saveAdminConfig($adminConfig) {
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".$adminConfig['editor']['enterMode']."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleId'] =    '".$GLOBALS['xssFilter']->string($adminConfig['editor']['styleId'])."';\n");  
-    fwrite($file,"\$adminConfig['editor']['styleClass'] = '".$GLOBALS['xssFilter']->string($adminConfig['editor']['styleClass'])."';\n\n");  
+    fwrite($file,"\$adminConfig['editor']['styleId'] =    '".xssFilter::string($adminConfig['editor']['styleId'])."';\n");  
+    fwrite($file,"\$adminConfig['editor']['styleClass'] = '".xssFilter::string($adminConfig['editor']['styleClass'])."';\n\n");  
   
-    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =  '".$GLOBALS['xssFilter']->int($adminConfig['pageThumbnail']['width'])."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['height'] = '".$GLOBALS['xssFilter']->int($adminConfig['pageThumbnail']['height'])."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['width'] =  '".xssFilter::int($adminConfig['pageThumbnail']['width'])."';\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['height'] = '".xssFilter::int($adminConfig['pageThumbnail']['height'])."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =  '".$adminConfig['pageThumbnail']['ratio']."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".$GLOBALS['xssFilter']->path($adminConfig['pageThumbnail']['path'])."';\n\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".xssFilter::path($adminConfig['pageThumbnail']['path'])."';\n\n");
     
     fwrite($file,"return \$adminConfig;");
        
@@ -789,12 +789,12 @@ function saveStatisticConfig($statisticConfig) {
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['mostVisitedPages'])."';\n");
-      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['longestVisitedPages'])."';\n");
-      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['lastEditedPages'])."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".xssFilter::int($statisticConfig['number']['mostVisitedPages'])."';\n");
+      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".xssFilter::int($statisticConfig['number']['longestVisitedPages'])."';\n");
+      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".xssFilter::int($statisticConfig['number']['lastEditedPages'])."';\n\n");
       
-      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['refererLog'])."';\n");
-      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".$GLOBALS['xssFilter']->int($statisticConfig['number']['taskLog'])."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".xssFilter::int($statisticConfig['number']['refererLog'])."';\n");
+      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".xssFilter::int($statisticConfig['number']['taskLog'])."';\n\n");
       
       
       fwrite($file,"return \$statisticConfig;");
@@ -891,8 +891,8 @@ function saveSpeakingUrl(&$errorWindow) {
   $data = false;
   $htaccessFile = DOCUMENTROOT.'/.htaccess';
   
-  $newWebsitePath = 'RewriteRule ^'.$GLOBALS['xssFilter']->path(substr($_POST['cfg_websitePath'],1));
-  $oldWebsitePath = 'RewriteRule ^'.$GLOBALS['xssFilter']->path(substr($GLOBALS['adminConfig']['websitePath'],1));
+  $newWebsitePath = 'RewriteRule ^'.xssFilter::path(substr($_POST['cfg_websitePath'],1));
+  $oldWebsitePath = 'RewriteRule ^'.xssFilter::path(substr($GLOBALS['adminConfig']['websitePath'],1));
   
   $speakingUrlCode = '<IfModule mod_rewrite.c>
 RewriteEngine on
@@ -1097,7 +1097,7 @@ function prepareStyleFilePaths($givenStyleFiles) {
           $styleFile = '/'.$styleFile;
           
       if(!strstr($styleFile,'://')) //check path if its not an url (urls dont pass the xssFilter :-))
-        $styleFile = $GLOBALS['xssFilter']->path($styleFile);
+        $styleFile = xssFilter::path($styleFile);
       
       // adds back to the string only if its not empty
       if(!empty($styleFile))

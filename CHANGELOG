@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 489
+Build 490
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 490: add xssFilter to contactForm plugin
   build 489: add public namespaces to feindura class
   build 488: add public and protected namespaces to feinduraBase class
   build 487: set up xssFilter as a static class

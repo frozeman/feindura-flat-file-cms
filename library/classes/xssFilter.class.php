@@ -444,7 +444,7 @@ class xssFilter {
   }
 
  /**
-  * <b>Name</b> textVar()<br>
+  * <b>Name</b> text()<br>
   * 
   * Change the HTML important signs to htmlentities with the htmlspecialchars public static function.
   * 
@@ -466,14 +466,14 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function textVar($data, $max = 0, $charset = 'UTF-8' ,$default = false) {
+  public static function text($data, $max = 0, $charset = 'UTF-8' ,$default = false) {
       if(!empty($data) || $data == 0) {
-        $data = stripslashes($data);
+        $data = stripslashes($data);        
+        $data = htmlentities($data,ENT_QUOTES,$charset);
         $data = str_replace('/','&#47;',$data);
         $data = str_replace('\\','&#92;',$data);
         $data = str_replace('=','&#61;',$data);
         $data = str_replace(';','&#59;',$data);
-        $data = htmlentities($data,ENT_QUOTES,$charset);
         return ($max > 0)
           ? substr($data,0,$max) // truncate the length
           : $data;

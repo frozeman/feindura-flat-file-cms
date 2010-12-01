@@ -44,20 +44,20 @@ if((isset($_GET[$page]) && $_GET[$page] != 'new' && xssFilter::int($_GET[$page])
 if(isset($_GET['site'])) $_GET['site'] = xssFilter::alphaNumeric($_GET['site']);
 
 // -> check SEARCH
-if(isset($_GET['search'])) $_GET['search'] = xssFilter::textVar($_GET['search']);
-if(isset($_POST['search'])) $_POST['search'] = xssFilter::textVar($_POST['search']);
+if(isset($_GET['search'])) $_GET['search'] = xssFilter::text($_GET['search']);
+if(isset($_POST['search'])) $_POST['search'] = xssFilter::text($_POST['search']);
 
 // -> check USERNAME
-if(isset($_POST['username'])) $_POST['username'] = xssFilter::textVar($_POST['username']);
+if(isset($_POST['username'])) $_POST['username'] = xssFilter::text($_POST['username']);
 // -> check PASSWORD
-if(isset($_POST['password'])) $_POST['password'] = xssFilter::textVar($_POST['password']);
+if(isset($_POST['password'])) $_POST['password'] = xssFilter::text($_POST['password']);
 
 // -> check USERNAME and PASSWORD while SAVING
 if(is_array($_POST['users'])) {
   foreach($_POST['users'] as $key => $users) {
-    $_POST['users'][$key]['username'] = (isset($_POST['users'][$key]['username']))? xssFilter::textVar($_POST['users'][$key]['username']) : '';
-    $_POST['users'][$key]['password'] = (isset($_POST['users'][$key]['password']))? xssFilter::textVar($_POST['users'][$key]['password']) : '';
-    $_POST['users'][$key]['password_confirm'] = (isset($_POST['users'][$key]['password_confirm']))? xssFilter::textVar($_POST['users'][$key]['password_confirm']) : '';
+    $_POST['users'][$key]['username'] = (isset($_POST['users'][$key]['username']))? xssFilter::text($_POST['users'][$key]['username']) : '';
+    $_POST['users'][$key]['password'] = (isset($_POST['users'][$key]['password']))? xssFilter::text($_POST['users'][$key]['password']) : '';
+    $_POST['users'][$key]['password_confirm'] = (isset($_POST['users'][$key]['password_confirm']))? xssFilter::text($_POST['users'][$key]['password_confirm']) : '';
   }
 }
 
