@@ -105,7 +105,6 @@ class generalFunctions {
   
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      __construct()<br>
   * 
   * Constructor is not callable, {@link generalFunctions::init()} is used instead.
   * 
@@ -203,8 +202,8 @@ class generalFunctions {
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
   * @uses $adminConfig                           for the base path of the CMS
-  * @uses generalFunctions::readFolderRecursive  to read the language folder
-  * @uses generalFunctions::parseDefaultLanguage to get the right browser language
+  * @uses generalFunctions::readFolderRecursive()  to read the language folder
+  * @uses generalFunctions::parseDefaultLanguage() to get the right browser language
   * 
   * @return string|array|false a country code (like: de, en, fr..) or the language-file array or FALSE if the language file could not be opend
   * 
@@ -869,7 +868,7 @@ class generalFunctions {
       // IF $category TRUE create array with non-category and all category IDs
       if($category === true) {
       	// puts the categories IDs in an array
-      	$category = array(0);
+      	$category = array(0); // start with the non category
       	foreach(self::$categoryConfig as $eachCategory) {
       	  $category[] = $eachCategory['id'];
       	}
@@ -927,7 +926,64 @@ class generalFunctions {
       return $newPageIds;
     }
   }
-  
+
+ /**
+  * <b>Name</b> isPublicCategory()<br />
+  * 
+  * Checks whether the given category(ies) are public and returns the ID or an array with IDs of the public ones.
+  * 
+  * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
+  * 
+  * @uses $categoryConfig      to check if a category is public
+  * 
+  * @return array|false an array with ID(s) of the public category(ies)
+  * 
+  * @access protected
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public static function isPublicCategory($ids) {
+    
+    // var
+    $newIds = false;
+    
+    // ->> ALL categories
+    if($ids === true) {
+      
+        // adds the non-category
+        $newIds[] = 0;
+        
+        foreach(self::$categoryConfig as $category) {
+          // checks if the category is public and creates a new array
+          if($category['public'])
+            $newIds[] = $category['id'];
+        }
+      // ->> MULITPLE categories
+    } elseif(is_array($ids)) {
+      // goes trough the given category IDs array
+      foreach($ids as $id) {
+        // checks if the category is public and creates a new array
+      	if($id == 0 || (isset(self::$categoryConfig[$id]) && self::$categoryConfig[$id]['public']))    
+      	  $newIds[] = $id;
+            }
+      
+    // -> SINGLE category ID
+    } elseif(is_numeric($ids)) {
+
+      // checks if the category is public
+      if($ids == 0 || self::$categoryConfig[$ids]['public'])    
+        return $ids;
+      else return false;
+    
+    } else return false;
+    
+    // and return the new category IDs array
+    return $newIds;
+  }
+
  /**
   * <b>Name</b> isPageContentArray()<br>
   * 

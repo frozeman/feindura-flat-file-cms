@@ -104,7 +104,6 @@ class statisticFunctions {
  
  /**
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      __construct()<br>
   * 
   * Constructor is not callable, {@link statisticFunctions::init()} is used instead.
   * 

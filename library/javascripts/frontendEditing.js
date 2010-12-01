@@ -327,6 +327,7 @@ window.addEvent('domready',function(){
       link.inject($(document.body),'top');
     });
     $(document.body).setStyle('padding-top','60px');
+    $(document.body).setStyle('background-position','0px 60px');
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {

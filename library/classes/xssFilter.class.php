@@ -52,7 +52,6 @@ class xssFilter {
  
  /** 
   * <b> Type</b>      constructor<br>
-  * <b> Name</b>      __construct()<br>
   * 
   * Constructor is not callable, {@link xssFilter::init()} is used instead.
   * 

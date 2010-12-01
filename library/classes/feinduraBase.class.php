@@ -21,7 +21,7 @@
  */
 
 /**
-* The basis feindura class for the implementation classes
+* The basis feindura class for the implementation classes.
 * 
 * It's methods provide necessary functions for the {@link feindura} and the {@link feinduraModules} <var>classes</var>.
 * 
@@ -196,7 +196,6 @@ class feinduraBase {
  
  /**
   * <b> Type</b>      constructor<br />
-  * <b> Name</b>      feinduraBase()<br />
   * 
   * The constructor of the class, sets all basic properties.
   * 
@@ -498,12 +497,12 @@ class feinduraBase {
   * 
   * @param bool $setStartCategory (optional) If set to TRUE it also sets the {@link $startCategory} property
   * 
-  * @uses $adminConfig                      to check if setting a startpage is allowed
-  * @uses $websiteConfig                    to get the startpage ID
-  * @uses feindura::$category               as the property to set
-  * @uses feindura::$startCategory          if the $setStartCategory parameter is TRUE this property will also be set
-  * @uses getCurrentCategoryId()            to get the {@link feindura::$category} property or the {@link $startCategory} property
-  * @uses generalFunctions::getPageCategory to get the right category ID of the startpage
+  * @uses $adminConfig                        to check if setting a startpage is allowed
+  * @uses $websiteConfig                      to get the startpage ID
+  * @uses feindura::$category                 as the property to set
+  * @uses feindura::$startCategory            if the $setStartCategory parameter is TRUE this property will also be set
+  * @uses getCurrentCategoryId()              to get the {@link feindura::$category} property or the {@link $startCategory} property
+  * @uses generalFunctions::getPageCategory() to get the right category ID of the startpage
   * 
   * @return int|false the set category ID or FALSE
   * 
@@ -625,7 +624,7 @@ class feinduraBase {
   * @uses feindura::$thumbnailBefore
   * @uses feindura::$thumbnailAfter
   * 
-  * @uses publicCategory()                         to check whether the category is public  
+  * 
   * @uses createTitle()                            to create the page title
   * @uses createThumbnail()                        to check to show thumbnails are allowed and create the thumbnail <img> tag
   * @uses createAttributes()                       to create the attributes used in the error tag
@@ -633,9 +632,10 @@ class feinduraBase {
   * @uses shortenText()                            to shorten the non HTML page content, if the $useHtml parameter is FALSE
   * @uses statisticFunctions::formatDate()         to format the page date for output
   * @uses statisticFunctions::dateDayBeforeAfter() check if the page date is "yesterday" "today" or "tomorrow"
-  * @uses generalFunctions::isPageContentArray()   to check if the given array is a $pageContent array  
+  * @uses generalFunctions::isPublicCategory()     to check whether the category is public
+  * @uses generalFunctions::isPageContentArray()   to check if the given array is a $pageContent array
   * @uses generalFunctions::readPage()		         to load the page if the $page parameter is an ID
-  * @uses generalFunctions::getPageCategory        to get the category of the page   
+  * @uses generalFunctions::getPageCategory()      to get the category of the page
   * 
   * 
   * @return array the generated page array, ready to display in a HTML file
@@ -715,7 +715,7 @@ class feinduraBase {
     }
     
     // -> PAGE is PUBLIC? if not throw ERROR
-    if(!$pageContent['public'] || $this->publicCategory($pageContent['category']) === false) {
+    if(!$pageContent['public'] || generalFunctions::isPublicCategory($pageContent['category']) === false) {
       if($showErrors) {
         $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
         return $return; 
@@ -1081,11 +1081,11 @@ class feinduraBase {
   * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
   * 
-  * @uses publicCategory()                   to check if the category(ies) or page(s) category(ies) are public
-  * @uses isPageContentArray()		           to check if the given array is a $pageContent array, if TRUE it just returns this array
-  * @uses generalFunctions::loadPages()	     to load pages
-  * @uses generalFunctions::readPage()	     to load a single page
-  * @uses generalFunctions::getPageCategory  to get the category of the page
+  * @uses isPageContentArray()		                 to check if the given array is a $pageContent array, if TRUE it just returns this array
+  * @uses generalFunctions::isPublicCategory()     to check if the category(ies) or page(s) category(ies) are public
+  * @uses generalFunctions::loadPages()	           to load pages
+  * @uses generalFunctions::readPage()	           to load a single page
+  * @uses generalFunctions::getPageCategory()      to get the category of the page
   * 
   * @return array|false an array with $pageContent array(s)
   * 
@@ -1112,11 +1112,11 @@ class feinduraBase {
         if(generalFunctions::isPageContentArray($ids) || (isset($ids[0]) && generalFunctions::isPageContentArray($ids[0]))) {
           return $ids;
         
-        // OTHER BUTTONSwise load the pages from the category(ies)
+        // OTHERWISE load the pages from the category(ies)
         } else {
 	
           // checks if the categories are public         
-          if(($ids = $this->publicCategory($ids)) !== false) {
+          if(($ids = generalFunctions::isPublicCategory($ids)) !== false) {
 
 	          // returns the loaded pages from the CATEGORY IDs
 	          // the pages in the returned array also get SORTED
@@ -1136,7 +1136,7 @@ class feinduraBase {
       if($ids === true) {
 	
 	// checks if the categories are public         
-	if(($ids = $this->publicCategory($ids)) !== false) {
+	if(($ids = generalFunctions::isPublicCategory($ids)) !== false) {
 	  return generalFunctions::loadPages($ids);
 	}
       
@@ -1155,7 +1155,7 @@ class feinduraBase {
           foreach($ids as $page) {
       	    // get category
       	    $category = generalFunctions::getPageCategory($page);
-      	    if(($category = $this->publicCategory($category)) !== false) {
+      	    if(($category = generalFunctions::isPublicCategory($category)) !== false) {
               if($pageContent = generalFunctions::readPage($page,$category)) {
                 $return[] = $pageContent;
               }
@@ -1167,7 +1167,7 @@ class feinduraBase {
       // *************** 
       } elseif($ids && is_numeric($ids)) {
         $category = generalFunctions::getPageCategory($page);
-	      if(($category = $this->publicCategory($category)) !== false) {
+	      if(($category = generalFunctions::isPublicCategory($category)) !== false) {
           // loads the single page in an array 
           if($pageContent = generalFunctions::readPage($ids,$category)) {
             $return[] = $pageContent;
@@ -1179,64 +1179,6 @@ class feinduraBase {
     // -> returns an array with the pageContent Arrays
     return $return;
   }
-  
- /**
-  * <b>Name</b> publicCategory()<br />
-  * 
-  * Checks whether the given category(ies) are public and returns the ID or an array with IDs of the public ones.
-  * 
-  * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
-  * 
-  * @uses $categoryConfig      to check if a category is public
-  * 
-  * @return array|false an array with ID(s) of the public category(ies)
-  * 
-  * @access protected
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  protected function publicCategory($ids) {
-    
-    // var
-    $newIds = false;
-    
-    // ->> ALL categories
-    if($ids === true) {
-      
-        // adds the non-category
-        $newIds[] = 0;
-        
-        foreach($this->categoryConfig as $category) {
-          // checks if the category is public and creates a new array
-          if($category['public'])
-            $newIds[] = $category['id'];
-        }
-      // ->> MULITPLE categories
-    } elseif(is_array($ids)) {
-      // goes trough the given category IDs array
-      foreach($ids as $id) {
-        // checks if the category is public and creates a new array
-      	if($id == 0 || (isset($this->categoryConfig[$id]) && $this->categoryConfig[$id]['public']))    
-      	  $newIds[] = $id;
-            }
-      
-    // -> SINGLE category ID
-    } elseif(is_numeric($ids)) {
-
-      // checks if the category is public
-      if($ids == 0 || $this->categoryConfig[$ids]['public'])    
-        return $ids;
-      else return false;
-    
-    } else return false;
-    
-    // and return the new category IDs array
-    return $newIds;
-  }
-
 
  /**
   * <b>Name</b> loadPrevNextPage()<br />
@@ -1247,10 +1189,10 @@ class feinduraBase {
   * 
   * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
   * 
-  * @uses getPropertyPage()		               to get the right {@link feindura::$page} property
-  * @uses generalFunctions::readPage()	     to load the $pageContent array of the page and return it
-  * @uses generalFunctions::loadPages()	     to load all pages in a category to find the right previous or next page and return it
-  * @uses generalFunctions::getPageCategory  to get the category ID of the given page
+  * @uses getPropertyPage()		                 to get the right {@link feindura::$page} property
+  * @uses generalFunctions::readPage()	       to load the $pageContent array of the page and return it
+  * @uses generalFunctions::loadPages()	       to load all pages in a category to find the right previous or next page and return it
+  * @uses generalFunctions::getPageCategory()  to get the category ID of the given page
   * 
   * @return int|array|false the page ID of the right page or FALSE if no page could be loaded (can also return an $pageContent array)
   * 

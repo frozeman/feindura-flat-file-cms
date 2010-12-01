@@ -141,35 +141,33 @@ if($_GET['site'] == 'addons') {
   
   <!-- starts the session counter -->
   <script type="text/javascript">
-  /* <![CDATA[ */  
-  
+  /* <![CDATA[ */
   window.addEvent('domready', function () {
-					
-			var div = $('sessionTimer'),
-				coundown = new CountDown({
-			
-					//initialized 30s from now
-					date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
-					//update every 100ms
-					frequency: 100,
-					//update the div#counter
-					onChange: function(counter) {					
-						var text = '';						
-						if(counter.hours < 1 && counter.minutes < 10) {
-              div.removeClass('blue');						
-              div.addClass('red');
-            }
-						text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
-						text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
-						text += (counter.second > 9 ? '' : '0') + counter.second;			
-						div.set('text', text);
-					},
-					//complete
-					onComplete: function () {					
-						window.location = 'index.php?logout';
-					}
-				})
-	})
+
+      var div = $('sessionTimer'),
+      coundown = new CountDown({      
+        //initialized 30s from now
+        date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
+        //update every 100ms
+        frequency: 100,
+        //update the div#counter
+        onChange: function(counter) {
+          var text = '';
+          if(counter.hours < 1 && counter.minutes < 10) {
+            div.removeClass('blue');
+            div.addClass('red');
+          }
+          text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
+          text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
+          text += (counter.second > 9 ? '' : '0') + counter.second;
+          div.set('text', text);
+        },
+        //complete
+        onComplete: function () {
+          window.location = 'index.php?logout';
+        }
+      })
+  })
   /* ]]> */
   </script>
   

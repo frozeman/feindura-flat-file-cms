@@ -19,6 +19,7 @@
  * 
  * @package [Implementation]
  */
+
 /**
 * The class for implementing feindura - Flat File Content Management System in a website.
 * 
@@ -715,7 +716,6 @@ class feindura extends feinduraBase {
   
  /**
   * <b>Type</b> constructor<br /> 
-  * <b>Name</b> feindura()<br />
   * 
   * The constructor of the class, sets all basic properties.
   * 
@@ -768,7 +768,7 @@ class feindura extends feinduraBase {
   * 
   * @uses $startPage
   * @uses $page
-  * @uses generalFunctions::getPageCategory        to get the category of the page    
+  * @uses generalFunctions::getPageCategory()        to get the category of the page    
   * 
   * @return void
   * 
@@ -1155,9 +1155,9 @@ class feindura extends feinduraBase {
   * 
   * @param int $page a page ID
   * 
-  * @uses feinduraBase::loadPrevNextPage()	to load the current, previous or next page depending of the $page parameter 
-  * @uses generalFunctions::createHref()    call the right createHref functions in the generalFunctions class
-  * @uses generalFunctions::getPageCategory to get the category of the page    
+  * @uses feinduraBase::loadPrevNextPage()	  to load the current, previous or next page depending of the $page parameter 
+  * @uses generalFunctions::createHref()      call the right createHref functions in the generalFunctions class
+  * @uses generalFunctions::getPageCategory() to get the category of the page    
   * 
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
@@ -1230,7 +1230,8 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses feinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
   * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
-  * @uses generalFunctions::getPageCategory             to get the category of the page    
+  * @uses generalFunctions::getPageCategory()           to get the category of the page
+  * @uses generalFunctions::isPublicCategory()     to check whether the category is public
   * 
   * @return string|false the created link, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
@@ -1256,7 +1257,7 @@ class feindura extends feinduraBase {
       if(($pageContent = generalFunctions::readPage($page,generalFunctions::getPageCategory($page))) !== false) {
       
         // -> CHECK status
-        if($pageContent['public'] &&  $this->publicCategory($pageContent['category']) !== false) {
+        if($pageContent['public'] &&  generalFunctions::isPublicCategory($pageContent['category']) !== false) {
           
           // -> LINK TITLE
           // *****************
@@ -1770,7 +1771,8 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::createTitle()                  to generate the page title with the right title properties
   * 
-  * @uses generalFunctions::getPageCategory            to get the category of the page
+  * @uses generalFunctions::getPageCategory()          to get the category of the page
+  * @uses generalFunctions::isPublicCategory()         to check whether the category is public  
   * 
   * @return string the generated page title, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
@@ -1794,7 +1796,7 @@ class feindura extends feinduraBase {
       if(($pageContent = generalFunctions::readPage($page,$category)) !== false) {
       
         // -> CHECK status
-        if($pageContent['public'] &&  $this->publicCategory($pageContent['category']) !== false) {
+        if($pageContent['public'] &&  generalFunctions::isPublicCategory($pageContent['category']) !== false) {
         
           // shows the TITLE
           $title = $this->createTitle($pageContent,				                           
@@ -1874,7 +1876,7 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::generatePage()             to generate the array with the page elements
   * @uses statisticFunctions::savePageStats()      to save the statistic of the page
   * 
-  * @uses generalFunctions::getPageCategory        to get the category of the page
+  * @uses generalFunctions::getPageCategory()      to get the category of the page
   * 
   * @return array with the page elements, ready to display in a HTML-page, or FALSE if the page doesn't exist or is not public
   * 
@@ -1975,7 +1977,7 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
   * @uses feinduraBase::generatePage()                 to generate the array with the page elements
   * 
-  * @uses generalFunctions::getPageCategory            to get the category of the page    
+  * @uses generalFunctions::getPageCategory()          to get the category of the page    
   * 
   * @return array|string|false with the plugin(s) HTML-code, ready to display in a HTML-page, or an empty Array, or FALSE if the plugin(s) or page doesn't exist or the page is not public
   * 
