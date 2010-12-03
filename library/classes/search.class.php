@@ -42,15 +42,37 @@ class search {
  /* *** PROPERTIES */
  /* **************************************************************************************************************************** */
  
- /* ->> GENERAL <<- */
+ // PROTECTED
+ // *********
  
  /**
+  * Contains the categories-settings config set in the CMS backend
+  * 
+  * The file with the categories-settings config array is situated at <i>"feindura-CMS/config/category.config.php"</i>.
+  *   
+  * This settings will be set to this property in the {@link __construct() search} constructor.
+  * 
+  * Example array:
+  * {@example backend/categoryConfig.array.example.php}
+  * 
+  * @var array
+  * @access protected
+  * @see search::__construct()
+  * 
+  */
+  protected $categoryConfig;
+  
+  // PUBLIC
+  // *********
+  
+  /**
   * If TRUE it only search in pages and categories which are public.
   * 
   * @var bool
   * @access public
   */
-  public $checkIfPublic = true;
+  public $checkIfPublic = true;  
+
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** CONSTRUCTOR *** */
@@ -59,11 +81,10 @@ class search {
  /**
   * <b>Type</b> constructor<br />
   * 
-  * The constructor of the class, sets all basic properties.
+  * The constructor of the class, sets the {@link $categoryConfig}.
   * 
-  * @uses feinduraBase::__construct()		          the constructor of the parent class to load all necessary properties
-  * @uses feinduraBase::setCurrentCategoryId()  to set the fetched category ID from the $_GET variable to the {@link $category} property
-  * @uses feinduraBase::setCurrentPageId()      to set the fetched page ID from the $_GET variable to the {@link $page} property
+  * <b>Used Global Variables</b><br>
+  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
   * @return void
   * 
@@ -76,7 +97,8 @@ class search {
   *    - 1.0 initial release
   * 
   */
-  public function __construct() {
+  public function __construct() {    
+    $this->categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];    
   } 
   
   // ****************************************************************************************************************
@@ -119,6 +141,7 @@ class search {
   * <b>Name</b> searchPages()<br />
   * 
   * Goes through pages and search for a matching of the searchwords.
+  * Return the results sorted by priority.
   * 
   * 
   * @param string          $searchwords  one or more searchwords to fing
@@ -126,8 +149,9 @@ class search {
   * 
   * @uses $checkPages                   if TRUE it searches only in pages which are public  
   * @uses generalFunctions::loadPages() to load the pages
+  * @uses sortByPriority                to sort the page array  
   * 
-  * @return void
+  * @return array|false array with matching searchwords or FALSE
   * 
   * @access protected
   * @version 1.0
@@ -137,6 +161,9 @@ class search {
   * 
   */
   protected function searchPages($searchwords, $category) {
+    
+    // var
+    $results = false;
     
     // -> check if the categories are public
     if($this->checkIfPublic)
@@ -158,103 +185,126 @@ class search {
     // ->> goes through all pages and search for the keywords
     foreach($checkPages as $pageContent)  {
       
+      // var
+      $changeChars = array(' ','.','-','/');
+      $pageResults = false;
+      $text = false;
+      
     	// set the priority of the results to 0
     	$priority = 0;
       
       // generate search pattern
-      $searchwords = str_replace(array(' ','.','-','/'),'|',$searchwords);
-      $searchwords = trim(xssFilter::text($searchwords));      
-      $pattern = '#'.$searchwords.'#i';
+      $searchwords = str_replace($changeChars,'|',$searchwords);
+      $searchwords = trim($searchwords,'|');
+      $searchwords = xssFilter::text($searchwords);
+      $pattern = ($searchwords != '') ? '#'.$searchwords.'#i' : '#a^#';
 
-     	//$content = strip_tags($pageContent['content']);
-      $search['content'] = strip_tags($pageContent['content']);
-     	$search['id'] = $pageContent['id'];
-      $search['title'] = $pageContent['title'];
-      $search['description'] = $pageContent['description'];
-      $search['categoryName'] = $categoryConfig[$pageContent['category']]['name'];
+      // prepare the contents to search through
+     	$search['id'] = $pageContent['id'];      
       //$search['beforeDate'] = $pageContent['pagedate']['before'];
       $search['date'] = statisticFunctions::formatDate($pageContent['pagedate']['date']);
       //$search['afterDate'] = $pageContent['pagedate']['after'];
-      $search['searchword'] = $pageContent['log_searchwords'];
-
-      
-      // ->> SEARCH PROCESS
-      $results = false;
+      $search['searchwords'] = $pageContent['log_searchwords'];
+      $search['title'] = $pageContent['title'];
+      $search['description'] = $pageContent['description'];
+      $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
+      $search['content'] = strip_tags($pageContent['content']);
+            
+      // ->> SEARCH PROCESS      
 			
-      // -> search in ID
+      // -> 1. ID
       if(is_numeric($searchwords) &&
          preg_match_all($pattern,$search['id'],$matches,PREG_OFFSET_CAPTURE) != 0) {        
-        $text = $langFile['SEARCH_TEXT_MATCH_ID'];
-        $results = false;
-        $priority = 1000;
+        $text .= $langFile['SEARCH_TEXT_MATCH_ID'];
+        $pageResults['id'] = $matches[0];
+        $priority += 100;
       
-      // -> search in DATE
-      } elseif(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-        $text = $langFile['SEARCH_TEXT_MATCH_DATE'];
-        $results = $matches[0];
-        $priority = 333;
-        $priority *= count($results);
-        
+      // -> IF NO MATCH in ID, SEARCH in OTHER PLACES
+      } else {
+        // -> 2. DATE
+        if(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
+          $pageResults['date'] = $matches[0];
+          $priority += 15;
+          $priority *= count($matches[0]);       
+        }
+        // -> 2. SEARCHWORDS
+        if(preg_match_all($pattern,$search['searchwords'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
+          $pageResults['searchwords'] = $matches[0];
+          $priority += 15;
+          $priority *= count($matches[0]);       
+        }
+        // -> 2. CATEGORY
+        if(preg_match_all($pattern,$search['categoryName'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_CATEGORY'];
+          $pageResults['category'] = $matches[0];
+          $priority += 10;
+          $priority *= count($matches[0]);          
+        }
+        // -> 2. TITLE
+        if(preg_match_all($pattern,$search['title'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_TITLE'];
+          $pageResults['title'] = $matches[0];
+          $priority += 12;
+          $priority *= count($matches[0]);          
+        }
+        // -> 2. DESCRIPTION
+        if(preg_match_all($pattern,$search['description'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
+          $pageResults['description'] = $matches[0];
+          $priority += 9;
+          $priority *= count($matches[0]);          
+        }
+        // -> 2. WORDS
+        if(preg_match_all($pattern,$search['content'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
+          $pageResults['content'] = $matches[0];
+          $priority += 7;
+          $priority *= count($matches[0]);          
+        }
       }
       
-      
-      
-      
-      return $priority;
-      
-
-
-
-
-
-
-
-
-
-
-		  // für jedes wort wir eine einzelne suchausgabe erstellt und mit .. getrennt
-			$zaehl = 0;
-			$if_find = false;
-			$words = 0;
-
-
-			// -> SEARCH TITLE
-			if(strpos($titel, $searchword) !== false) { //wenn im titel gefunden wurde
-				$findtext = false;
-				$priority = $priority + 8;
-				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_TITLE']; //angabe findings im titel							
-				$if_find = true;
-			// -> SEARCH DATE or CATEGORY
-			} elseif(strpos($beforeDate, $searchword) !== false ||
-               strpos($afterDate, $searchword) !== false ||
-               strpos($date, statisticFunctions::validateDateFormat($searchword)) !== false ||
-               strpos($categoryName, $searchword) !== false) { //wenn im datum gefunden wurde
-				$findtext = false;
-				$priority = $priority + 3;
-				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_DATE']; //angabe findings im datum oder gruppe
-				$if_find = true;
-			// -> SEARCH ID
-		  } elseif($id == $searchword) { //wenn in der seiten id gefunden
-				$priority = $priority + 10;
-				$findtext = false;
-				$stelle = 0;
-				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_ID']; //angabe findings in id
-				$if_find = true;
-			// -> SEARCH CONTENT
-			} elseif(strpos($inhalt, $searchword) !== false) { //wenn im inhalt gefunden wurde
-				$findtext = true;
-				$priority++;
-																		
-				$wortlaenge[$zaehl] = strlen($searchword);							
-				$stellen[$zaehl] = strpos($inhalt, $searchword);
-				$ausgabenlaenge = 40; //ausgabenlänge vor und hinter einzelnen wörtern
-				$ausgabenlaengereset = $ausgabenlaenge;
-				$words++;
-				$wortanzahl = $langFile['SEARCH_TEXT_MATCH_WORDS'].' '.$words; //angabe über wortanzahl bei mehreren wörtern
-				$if_find = true;
-			}
-			
-			if($if_find) {
+      // -> set results
+      if($pageResults) {
+        $pageResults['pageId'] = $pageContent['id'];
+        $pageResults['priority'] = $priority;
+        $results[] = $pageResults;
+      }
+    }
+    
+    // sort the searchresults by priority
+    if($results)
+      usort($results,'sortByPriority');
+    
+    return $results;
+  }
+  
+   /**
+  * <b>Name</b> displayResults()<br />
+  * 
+  * Create an array with 
+  * 
+  * 
+  * @param string $searchwords one or more searchwords to fing
+  * 
+  * @uses $startPage
+  * @uses generalFunctions::getPageCategory()        to get the category of the page
+  * 
+  * @return void
+  * 
+  * @access protected
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  protected function displayResults($results) {
+  
+    
+    
+    	if($if_find) {
       	// -> CREATE FINDINGS ARRAY
         $findings[$zaehl] = array("stelle" => $stellen[$zaehl], "wortlaenge" => $wortlaenge[$zaehl], "findtext" => $findtext);
         $zaehl++;
@@ -332,32 +382,6 @@ class search {
 				unset($findings,$stellen,$wortlaenge,$ausgabetext,$wortanzahl);
 				$priority = 0; //setzt priorität wieder auf 0
 			} //ende if_find=true
-		
-    }    
-  }
-  
-   /**
-  * <b>Name</b> displayResults()<br />
-  * 
-  * Starts the search.
-  * 
-  * 
-  * @param string $searchwords one or more searchwords to fing
-  * 
-  * @uses $startPage
-  * @uses generalFunctions::getPageCategory()        to get the category of the page
-  * 
-  * @return void
-  * 
-  * @access protected
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  protected function displayResults($searchwords) {   
-    
   }
  
 }

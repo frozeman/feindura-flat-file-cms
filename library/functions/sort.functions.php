@@ -116,6 +116,18 @@ function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing
   return ($aMaxVisitTime[0] > $bMaxVisitTime[0]) ? -1 : 1;
 }
 
+// ** -- sortByPriority ***************************************************************
+// sort an Array with the searchresults from {@link search::searchPages()} by PRIORITY
+// -------------------------------------------------------------------------------------
+function sortByPriority($a, $b) {     // (Array) $a = current; $b = follwing value
+
+  $aPriority = $a['priority'];
+  $bPriority = $b['priority'];
+  
+  if($aPriority == $bPriority)
+    return 0;
+  return ($aPriority > $bPriority) ? -1 : 1;
+}
 
 // * -- sortDataString ----------------------------------------------------------------------------------
 // sorts the dataString array, with data with the highest number the beginning

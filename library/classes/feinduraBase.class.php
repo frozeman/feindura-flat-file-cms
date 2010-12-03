@@ -93,7 +93,7 @@ class feinduraBase {
   * 
   * The file with the administrator-settings config array is situated at <i>"feindura-CMS/config/admin.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feinduraBase()} constructor.
+  * This settings will be set to this property in the {@link __construct() feinduraBase} constructor.
   * 
   * Example array:
   * {@example backend/adminConfig.array.example.php}
@@ -110,7 +110,7 @@ class feinduraBase {
   * 
   * The file with the website-settings config array is situated at <i>"feindura-CMS/config/website.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feinduraBase()} constructor.
+  * This settings will be set to this property in the {@link __construct() feinduraBase} constructor.
   * 
   * Example array:
   * {@example backend/websiteConfig.array.example.php}
@@ -127,7 +127,7 @@ class feinduraBase {
   * 
   * The file with the categories-settings config array is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feinduraBase()} constructor.
+  * This settings will be set to this property in the {@link __construct() feinduraBase} constructor.
   * 
   * Example array:
   * {@example backend/categoryConfig.array.example.php}
@@ -144,7 +144,7 @@ class feinduraBase {
   * 
   * The file with the plugin-settings config array is situated at <i>"feindura-CMS/config/plugin.config.php"</i>.
   *   
-  * This settings will be set to this property in the {@link feinduraBase()} constructor.
+  * This settings will be set to this property in the {@link __construct() feinduraBase} constructor.
   * 
   * Example array:
   * {@example backend/pluginsConfig.array.example.php}
@@ -180,7 +180,7 @@ class feinduraBase {
   * The frontend language file array contains texts for displaying page <i>warnings</i> or <i>errors</i> and additional texts like <i>"more"</i>, etc.<br />
   * The file is situated at <i>"feindura-CMS/library/languages/de.frontend.php"</i>.
   *   
-  * It will be <i>included</i> and set to this property in the {@link feinduraBase()} constructor.
+  * It will be <i>included</i> and set to this property in the {@link __construct() feinduraBase} constructor.
   * 
   * @var array
   * @access public
