@@ -278,17 +278,17 @@ function saveCategories($newCategories) {
         $category['createdelete'] = (isset($category['createdelete']) && $category['createdelete']) ? 'true' : 'false';
         $category['thumbnail'] = (isset($category['thumbnail']) && $category['thumbnail']) ? 'true' : 'false';
         $category['plugins'] = (isset($category['plugins']) && $category['plugins']) ? 'true' : 'false';
-        $category['showtags'] = (isset($category['showtags']) && $category['showtags']) ? 'true' : 'false';
-        $category['showpagedate'] = (isset($category['showpagedate']) && $category['showpagedate']) ? 'true' : 'false';
-        $category['sortbypagedate'] = (isset($category['sortbypagedate']) && $category['sortbypagedate']) ? 'true' : 'false';
-        $category['sortascending'] = (isset($category['sortascending']) && $category['sortascending']) ? 'true' : 'false';
+        $category['showTags'] = (isset($category['showTags']) && $category['showTags']) ? 'true' : 'false';
+        $category['showPageDate'] = (isset($category['showPageDate']) && $category['showPageDate']) ? 'true' : 'false';
+        $category['sortByPageDate'] = (isset($category['sortByPageDate']) && $category['sortByPageDate']) ? 'true' : 'false';
+        $category['sortAscending'] = (isset($category['sortAscending']) && $category['sortAscending']) ? 'true' : 'false';
         
         // -> CHECK depency of PAGEDATE
-        if($category['showpagedate'] == 'false')
-          $category['sortbypagedate'] = 'false';
+        if($category['showPageDate'] == 'false')
+          $category['sortByPageDate'] = 'false';
         
-        if($category['sortbypagedate'] == 'true')
-          $category['showpagedate'] = 'true';
+        if($category['sortByPageDate'] == 'true')
+          $category['showPageDate'] = 'true';
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
         if(!isset($category['thumbWidth']))
@@ -320,10 +320,10 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['createdelete'] =    ".$category['createdelete'].";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbnail'] =       ".$category['thumbnail'].";\n");        
         fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         ".$category['plugins'].";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['showtags'] =        ".$category['showtags'].";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['showpagedate'] =    ".$category['showpagedate'].";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['sortbypagedate'] =  ".$category['sortbypagedate'].";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['sortascending'] =   ".$category['sortascending'].";\n\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['showTags'] =        ".$category['showTags'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['showPageDate'] =    ".$category['showPageDate'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['sortByPageDate'] =  ".$category['sortByPageDate'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['sortAscending'] =   ".$category['sortAscending'].";\n\n");
         
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleFile'] =       '".$category['styleFile']."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleId'] =         '".$category['styleId']."';\n");
@@ -570,7 +570,7 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['pages']['createdelete'] = (isset($adminConfig['pages']['createdelete']) && $adminConfig['pages']['createdelete']) ? 'true' : 'false';
     $adminConfig['pages']['thumbnails'] = (isset($adminConfig['pages']['thumbnails']) && $adminConfig['pages']['thumbnails']) ? 'true' : 'false';
     $adminConfig['pages']['plugins'] = (isset($adminConfig['pages']['plugins']) && $adminConfig['pages']['plugins']) ? 'true' : 'false';
-    $adminConfig['pages']['showtags'] = (isset($adminConfig['pages']['showtags']) && $adminConfig['pages']['showtags']) ? 'true' : 'false';
+    $adminConfig['pages']['showTags'] = (isset($adminConfig['pages']['showTags']) && $adminConfig['pages']['showTags']) ? 'true' : 'false';
     
     // escape single quotes
     $adminConfig = generalFunctions::escapeQuotesRecursive($adminConfig);
@@ -600,7 +600,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['createdelete'] = ".$adminConfig['pages']['createdelete'].";\n");
     fwrite($file,"\$adminConfig['pages']['thumbnails'] =   ".$adminConfig['pages']['thumbnails'].";\n");    
     fwrite($file,"\$adminConfig['pages']['plugins'] =      ".$adminConfig['pages']['plugins'].";\n");
-    fwrite($file,"\$adminConfig['pages']['showtags'] =     ".$adminConfig['pages']['showtags'].";\n\n");
+    fwrite($file,"\$adminConfig['pages']['showTags'] =     ".$adminConfig['pages']['showTags'].";\n\n");
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".$adminConfig['editor']['enterMode']."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n");

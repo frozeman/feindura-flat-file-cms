@@ -312,6 +312,13 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     // ->> SAVE NEW categoryConfig
     $newCategoryConfig = array();
     foreach($categoryConfig as $key => $category) {
+      
+      // rename
+      $category['showTags'] = (isset($category['showtags'])) ? $category['showtags'] : $category['showTags'];
+      $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
+      $category['sortByPageDate'] = (isset($category['sortbypagedate'])) ? $category['sortbypagedate'] : $category['sortByPageDate'];
+      $category['sortAscending'] = (isset($category['sortascending'])) ? $category['sortascending'] : $category['sortAscending'];
+      
       $data = $category['styleFile'];
         if(strpos($data,'|#|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|#|');
@@ -322,7 +329,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       $newKey = intval($newKey);
       
       $newCategoryConfig[$newKey] = $category;
-    }    
+    }
     if(saveCategories($newCategoryConfig))
       echo 'categoryConfig <span class="succesfull">succesfully updated</span><br />';
     else {

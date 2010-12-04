@@ -31,7 +31,7 @@ array(
    2 => array(
     'id' => 8,
     'category' => 'Another Category',
-    'pageDate' => false, // page has no pagedate
+    'pageDate' => false, // page has no page date
     'title' => 'Title Example 3',
     'thumbnail' => '<img src="/path/thumb_page3.png" alt="Thumbnail" title="Title Example 3" />',
     'thumbnailPath' => '/path/thumb_page3.png',

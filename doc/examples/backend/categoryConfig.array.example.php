@@ -3,13 +3,13 @@
 $categoryConfig[1]['id'] =              1;
 $categoryConfig[1]['name'] =            'Example Category 1';
 $categoryConfig[1]['public'] =          true;
-$categoryConfig[1]['sortascending'] =   true;
+$categoryConfig[1]['sortAscending'] =   true;
 $categoryConfig[1]['createdelete'] =    true;
 $categoryConfig[1]['thumbnail'] =       true;
 $categoryConfig[1]['plugins'] =         true;
-$categoryConfig[1]['showtags'] =        true;
-$categoryConfig[1]['showpagedate'] =    true;
-$categoryConfig[1]['sortbypagedate'] =  true;
+$categoryConfig[1]['showTags'] =        true;
+$categoryConfig[1]['showPageDate'] =    true;
+$categoryConfig[1]['sortByPageDate'] =  true;
 
 $categoryConfig[1]['styleFile'] =       '/styles/sheet.css';
 $categoryConfig[1]['styleId'] =         'contentId';
@@ -23,13 +23,13 @@ $categoryConfig[1]['thumbRatio'] =      'x';
 $categoryConfig[2]['id'] =              2;
 $categoryConfig[2]['name'] =            'Example Category 2';
 $categoryConfig[2]['public'] =          false;
-$categoryConfig[2]['sortascending'] =   false;
+$categoryConfig[2]['sortAscending'] =   false;
 $categoryConfig[2]['createdelete'] =    false;
 $categoryConfig[2]['thumbnail'] =       false;
 $categoryConfig[2]['plugins'] =         false;
-$categoryConfig[2]['showtags'] =        false;
-$categoryConfig[2]['showpagedate'] =    false;
-$categoryConfig[2]['sortbypagedate'] =  false;
+$categoryConfig[2]['showTags'] =        false;
+$categoryConfig[2]['showPageDate'] =    false;
+$categoryConfig[2]['sortByPageDate'] =  false;
 
 $categoryConfig[2]['styleFile'] =       '';
 $categoryConfig[2]['styleId'] =         '';

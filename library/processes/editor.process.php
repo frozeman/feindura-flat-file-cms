@@ -76,7 +76,7 @@ if($_POST['save']) {
   } else {
   
     // if flatfile exists, load $pageContent array
-    // (necessary for: thumbnail, sortorder and logs)
+    // (necessary for: thumbnail, sortOrder and logs)
     if(!$pageContent = generalFunctions::readPage($page,$category))
       $errorWindow .= $langFile['file_error_read'];
    
@@ -92,9 +92,9 @@ if($_POST['save']) {
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
-    // generates pagedate
-    if(!empty($_POST['pagedate']['day']) && !empty($_POST['pagedate']['month']))
-    $generatedPageDate = $_POST['pagedate']['year'].'-'.$_POST['pagedate']['month'].'-'.$_POST['pagedate']['day'];
+    // generates pageDate
+    if(!empty($_POST['pageDate']['day']) && !empty($_POST['pageDate']['month']))
+    $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
     
     // VALIDATE the SORT DATE
     if(($pageDate = statisticFunctions::validateDateFormat($generatedPageDate)) === false)

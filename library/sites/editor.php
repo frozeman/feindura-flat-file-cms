@@ -47,7 +47,7 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-$categorySorting = ($categoryConfig[$_GET['category']]['sortbypagedate'])
+$categorySorting = ($categoryConfig[$_GET['category']]['sortByPageDate'])
   ? '&nbsp;<img src="library/images/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />'
   : '';
 
@@ -385,13 +385,13 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <?php
       
       // -> CHECK if page date or tags are activated, show the spacer
-      if($categoryConfig[$_GET['category']]['showpagedate'] ||
-         $categoryConfig[$_GET['category']]['showtags']) {
+      if($categoryConfig[$_GET['category']]['showPageDate'] ||
+         $categoryConfig[$_GET['category']]['showTags']) {
         echo '<tr><td class="spacer"></td><td></td></tr>';
       }
             
       // ->> CHECK if activated
-      if($categoryConfig[$_GET['category']]['showpagedate']) { ?>
+      if($categoryConfig[$_GET['category']]['showPageDate']) { ?>
       
       <!-- ***** SORT DATE -->      
       <?php
@@ -426,12 +426,12 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       </label>
       
       </td><td class="right">
-        <input name="pagedate[before]" value="<?php echo $pageContent['pageDate']['before']; ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
+        <input name="pageDate[before]" value="<?php echo $pageContent['pageDate']['before']; ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
         
         <?php
         
         // -> creates DAY selection
-        $pageDateTags['day'] = '<select name="pagedate[day]" class="toolTip" title="'.$langFile['editor_pageSettings_pagedate_day_inputTip'].'">'."\n";
+        $pageDateTags['day'] = '<select name="pageDate[day]" class="toolTip" title="'.$langFile['editor_pageSettings_pagedate_day_inputTip'].'">'."\n";
         for($i = 1; $i <= 31; $i++) {
           // adds following zero
           if(strlen($i) == 1)
@@ -447,7 +447,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         $pageDateTags['day'] .= '</select>'."\n";
 
         // -> creates MONTH selection
-        $pageDateTags['month'] = '<select name="pagedate[month]" class="toolTip" title="'.$langFile['editor_pageSettings_pagedate_month_inputTip'].'">'."\n";
+        $pageDateTags['month'] = '<select name="pageDate[month]" class="toolTip" title="'.$langFile['editor_pageSettings_pagedate_month_inputTip'].'">'."\n";
         for($i = 1; $i <= 12; $i++) {
           // adds following zero
           if(strlen($i) == 1)
@@ -471,7 +471,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         else
           $year = null;
           
-        $pageDateTags['year'] = '<input type="text" class="short toolTip" name="pagedate[year]" title="'.$langFile['editor_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
+        $pageDateTags['year'] = '<input type="text" class="short toolTip" name="pageDate[year]" title="'.$langFile['editor_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
         
         // -> WRITES the SORT DATE TAGS
         if($adminConfig['dateFormat'] == 'eu') {
@@ -482,12 +482,12 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         ?>
         
-        <input name="pagedate[after]" value="<?php echo $pageContent['pageDate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
+        <input name="pageDate[after]" value="<?php echo $pageContent['pageDate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
       </td></tr>
       <?php }
       
       // ->> CHECK if activated
-      if($categoryConfig[$_GET['category']]['showtags']) {
+      if($categoryConfig[$_GET['category']]['showTags']) {
       ?>      
       <!-- ***** TAGS -->
       

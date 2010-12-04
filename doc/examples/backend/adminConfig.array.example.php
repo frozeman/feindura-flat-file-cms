@@ -21,7 +21,7 @@ $adminConfig['setStartPage'] =            true;
 $adminConfig['pages']['createdelete'] =     true;
 $adminConfig['pages']['thumbnails'] = true;
 $adminConfig['pages']['plugins'] =         false;
-$adminConfig['pages']['showtags'] =        false;
+$adminConfig['pages']['showTags'] =        false;
 
 $adminConfig['editor']['enterMode'] =  'p';
 $adminConfig['editor']['styleFile'] =  '/styles/sheet.css';

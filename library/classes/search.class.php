@@ -316,7 +316,7 @@ class search {
       $title = null;
       
       // -> add date
-      $page['pagedate']
+      $page['pageDate']
       
       return $results;
     

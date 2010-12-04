@@ -56,7 +56,7 @@ foreach($allCategories as $category) {
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  $categorySorting = ($category['sortbypagedate'])? '&nbsp;<img src="library/images/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
+  $categorySorting = ($category['sortByPageDate'])? '&nbsp;<img src="library/images/sign/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
   
   // show whether the category is public or nonpublic
   if($category['public']) {
@@ -104,7 +104,7 @@ foreach($allCategories as $category) {
       <div class="content">';
   
   // -> CHECK if pages are sortable
-  $listIsSortableClass = (empty($category['sortbypagedate'])) ? ' class="sortablePageList"' : '';
+  $listIsSortableClass = (empty($category['sortByPageDate'])) ? ' class="sortablePageList"' : '';
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
@@ -136,10 +136,10 @@ foreach($allCategories as $category) {
       // shorten the title
       $title = generalFunctions::shortenTitle($pageContent['title'],31);
       
-      // -> show lastsavedate
+      // -> show lastSaveDate
       $lastSaveDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.statisticFunctions::formatTime($pageContent['lastSaveDate']);
       
-      // -> show pagedate
+      // -> show pageDate
       if(statisticFunctions::checkPageDate($pageContent)) {
         
       	$titleDateBefore = '';
@@ -156,7 +156,7 @@ foreach($allCategories as $category) {
       } else $pageDate = '';
       
       // -> show tags
-      if($category['showtags'] && !empty($pageContent['tags'])) {
+      if($category['showTags'] && !empty($pageContent['tags'])) {
         $showTags = '[br /][br /]';
         $showTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$pageContent['tags'];
       }
@@ -229,8 +229,8 @@ echo '</ul>
      <div class="bottom"></div>
   </div>';
 
-echo "\n".'<!-- transport the sortorder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortascending'].'" /> <!-- reverse order yes/no -->
+echo "\n".'<!-- transport the sortOrder to the javascript -->
+      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortAscending'].'" /> <!-- reverse order yes/no -->
       <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" /> <!-- the new page order -->';
 }
 

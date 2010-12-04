@@ -13,7 +13,7 @@ require('cms/feindura.include.php');
 // creates a new feindura instance
 $myCms = new feindura();
 
-// set this property to show the pagedate in the menu linktext
+// set this property to show the page date in the menu linktext
 // the "text before date" and "text after date:" was set in the page editor in the backend
 $myCms->linkShowPageDate = true;
 

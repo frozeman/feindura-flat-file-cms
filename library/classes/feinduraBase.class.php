@@ -728,14 +728,14 @@ class feinduraBase {
     
     // -> PAGE DATE
     // *****************
-    $pagedate = false;
+    $pageDate = false;
     if(statisticFunctions::checkPageDate($pageContent)) {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
     	// adds spaces on before and after
     	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
     	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
-    	$pagedate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
+    	$pageDate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
@@ -828,8 +828,8 @@ class feinduraBase {
     if($pageContent['category'] && $pageContent['category'] != '0')
       $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
     
-    if($pagedate)
-       $return['pageDate']  = $pagedate;
+    if($pageDate)
+       $return['pageDate']  = $pageDate;
        
     if(!empty($pageContent['title']))
        $return['title']	    = $title;
@@ -1467,7 +1467,7 @@ class feinduraBase {
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['pageDate']['date']) &&
-           ($page['category'] != 0 && $this->categoryConfig[$page['category']]['showpagedate'])) {         
+           ($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate'])) {         
            
            //echo $page['pageDate']['date'].' >= '.$pastDate.'<br />';
            

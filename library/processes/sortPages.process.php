@@ -24,8 +24,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 /* split the value of the sortation */
 $sortOrder = explode('|',$_POST['sort_order']);
 
-// dreht die reihenfolge um, wenn sortascending == true
-if(!$categoryConfig[$_POST['categoryNew']]['sortascending'])
+// dreht die reihenfolge um, wenn sortAscending == true
+if(!$categoryConfig[$_POST['categoryNew']]['sortAscending'])
   $sortOrder = array_reverse($sortOrder);
 
 // MOVE the file if it is sorted in an new category
@@ -59,7 +59,7 @@ foreach($sortOrder as $sort) {
         $count++;
         
         // -> saves the task log
-        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categoryConfig[$_POST['categoryNew']]['sortbypagedate'])) {
+        if($_POST['sortedPageId'] == $pageContent['id'] && empty($categoryConfig[$_POST['categoryNew']]['sortByPageDate'])) {
           $logText = ($_POST['categoryOld'] != $_POST['categoryNew'])
             ? 3 : 4;
           // save log

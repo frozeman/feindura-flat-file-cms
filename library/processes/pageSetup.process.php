@@ -44,7 +44,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $adminConfig['pages']['createdelete'] = $_POST['cfg_pageCreatePages'];
   $adminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
   $adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
-  $adminConfig['pages']['showtags'] = $_POST['cfg_pageTags'];
+  $adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
   
   $adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
   $adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];

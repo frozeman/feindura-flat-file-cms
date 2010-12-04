@@ -894,7 +894,7 @@ class generalFunctions {
           
           // sorts the category
           if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-            if($categoryId != 0 && self::$categoryConfig[$categoryId]['sortbypagedate'])
+            if($categoryId != 0 && self::$categoryConfig[$categoryId]['sortByPageDate'])
               $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortByDate');
             else
               $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortBySortOrder');
@@ -1149,7 +1149,7 @@ class generalFunctions {
         
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
-          if($category && self::$categoryConfig[$category]['sortbypagedate'])
+          if($category && self::$categoryConfig[$category]['sortByPageDate'])
             usort($categoriesArray, 'sortByDate');
           else
             usort($categoriesArray, 'sortBySortOrder');
@@ -1158,7 +1158,7 @@ class generalFunctions {
         
         
         // makes the category ascending, if its in the options
-        if($category && self::$categoryConfig[$category]['sortascending'])
+        if($category && self::$categoryConfig[$category]['sortAscending'])
           $categoriesArray = array_reverse($categoriesArray);
          
         foreach($categoriesArray as $pageContent) {

@@ -344,7 +344,7 @@ class statisticFunctions {
   public static function checkPageDate($pageContent) {
              
     if(isset(self::$categoryConfig[$pageContent['category']]) &&  // to prevent missing index error
-       self::$categoryConfig[$pageContent['category']]['showpagedate'] &&
+       self::$categoryConfig[$pageContent['category']]['showPageDate'] &&
        (!empty($pageContent['pageDate']['before']) || !empty($pageContent['pageDate']['date']) || !empty($pageContent['pageDate']['after'])))
        return true;
     else

@@ -813,13 +813,13 @@ window.addEvent('domready', function() {
         // -> ** categories[0-9]sortbypagedate
         if(checkboxId.match(/^categories[0-9]sortbypagedate$/)) {
           categoryNumber = checkboxId.match(/[0-9]+/);
-          myCfe.addDependency(checkbox,'categories'+categoryNumber+'showpagedate');
+          myCfe.addDependency(checkbox,'categories'+categoryNumber+'showPageDate');
           
         }
         
         /*
-        // -> ** categories[0-9]showpagedate
-        if(checkboxId.match(/^categories[0-9]showpagedate$/)) {
+        // -> ** categories[0-9]showPageDate
+        if(checkboxId.match(/^categories[0-9]showPageDate$/)) {
           checkbox.addEvent('click',function(){
             categoryNumber = checkboxId.match(/[0-9]+/);
 

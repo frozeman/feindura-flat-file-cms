@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 495: change key names in categoryConfig (ongoing)
   build 494: changed some key names in the pageContent array
   build 493: and keeping on ... with the search class
   build 492: keep on working on a search class, good night for today
