@@ -96,7 +96,7 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';
       
       // create page
-      if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $category['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['pages']['createDelete']) || $category['createDelete'])
         echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['BUTTON_TOOLTIP_CREATEPAGE'].'::" class="createPage toolTip">&nbsp;</a>';
          
   echo '  </div>
@@ -199,7 +199,7 @@ foreach($allCategories as $category) {
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
       
       // delete page
-      if(($category['id'] == 0 && $adminConfig['pages']['createdelete']) || $allCategories[$category['id']]['createdelete'])
+      if(($category['id'] == 0 && $adminConfig['pages']['createDelete']) || $allCategories[$category['id']]['createDelete'])
         echo '<a href="?site=deletePage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::" class="deletePage toolTip">&nbsp;</a>';
 
       // startpage

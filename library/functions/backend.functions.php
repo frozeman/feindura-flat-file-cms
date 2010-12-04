@@ -275,7 +275,7 @@ function saveCategories($newCategories) {
 
         // CHECK BOOL VALUES and change to FALSE
         $category['public'] = (isset($category['public']) && $category['public']) ? 'true' : 'false';
-        $category['createdelete'] = (isset($category['createdelete']) && $category['createdelete']) ? 'true' : 'false';
+        $category['createDelete'] = (isset($category['createDelete']) && $category['createDelete']) ? 'true' : 'false';
         $category['thumbnail'] = (isset($category['thumbnail']) && $category['thumbnail']) ? 'true' : 'false';
         $category['plugins'] = (isset($category['plugins']) && $category['plugins']) ? 'true' : 'false';
         $category['showTags'] = (isset($category['showTags']) && $category['showTags']) ? 'true' : 'false';
@@ -317,7 +317,7 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['name'] =            '".$category['name']."';\n");
         
         fwrite($file,"\$categoryConfig[".$category['id']."]['public'] =          ".$category['public'].";\n");        
-        fwrite($file,"\$categoryConfig[".$category['id']."]['createdelete'] =    ".$category['createdelete'].";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['createDelete'] =    ".$category['createDelete'].";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbnail'] =       ".$category['thumbnail'].";\n");        
         fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         ".$category['plugins'].";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['showTags'] =        ".$category['showTags'].";\n");
@@ -565,9 +565,9 @@ function saveAdminConfig($adminConfig) {
     $adminConfig['speakingUrl'] = (isset($adminConfig['speakingUrl']) && $adminConfig['speakingUrl']) ? 'true' : 'false';
     $adminConfig['user']['fileManager'] = (isset($adminConfig['user']['fileManager']) && $adminConfig['user']['fileManager']) ? 'true' : 'false';
     $adminConfig['user']['editWebsiteFiles'] = (isset($adminConfig['user']['editWebsiteFiles']) && $adminConfig['user']['editWebsiteFiles']) ? 'true' : 'false';
-    $adminConfig['user']['editStylesheets'] = (isset($adminConfig['user']['editStylesheets']) && $adminConfig['user']['editStylesheets']) ? 'true' : 'false';
+    $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStyleSheets']) && $adminConfig['user']['editStyleSheets']) ? 'true' : 'false';
     $adminConfig['setStartPage'] = (isset($adminConfig['setStartPage']) && $adminConfig['setStartPage']) ? 'true' : 'false';
-    $adminConfig['pages']['createdelete'] = (isset($adminConfig['pages']['createdelete']) && $adminConfig['pages']['createdelete']) ? 'true' : 'false';
+    $adminConfig['pages']['createDelete'] = (isset($adminConfig['pages']['createDelete']) && $adminConfig['pages']['createDelete']) ? 'true' : 'false';
     $adminConfig['pages']['thumbnails'] = (isset($adminConfig['pages']['thumbnails']) && $adminConfig['pages']['thumbnails']) ? 'true' : 'false';
     $adminConfig['pages']['plugins'] = (isset($adminConfig['pages']['plugins']) && $adminConfig['pages']['plugins']) ? 'true' : 'false';
     $adminConfig['pages']['showTags'] = (isset($adminConfig['pages']['showTags']) && $adminConfig['pages']['showTags']) ? 'true' : 'false';
@@ -582,7 +582,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['basePath'] =         '".$adminConfig['basePath']."';\n");
     fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'])."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".xssFilter::path($adminConfig['uploadPath'])."';\n");  
-    fwrite($file,"\$adminConfig['websitefilesPath'] = '".xssFilter::path($adminConfig['websitefilesPath'])."';\n");
+    fwrite($file,"\$adminConfig['websiteFilesPath'] = '".xssFilter::path($adminConfig['websiteFilesPath'])."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n");    
     fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".$adminConfig['speakingUrl'].";\n\n");
@@ -593,11 +593,11 @@ function saveAdminConfig($adminConfig) {
     
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".$adminConfig['user']['fileManager'].";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".$adminConfig['user']['editWebsiteFiles'].";\n");
-    fwrite($file,"\$adminConfig['user']['editStylesheets'] =  ".$adminConfig['user']['editStylesheets'].";\n");  
+    fwrite($file,"\$adminConfig['user']['editStyleSheets'] =  ".$adminConfig['user']['editStyleSheets'].";\n");  
     fwrite($file,"\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n");
     
     fwrite($file,"\$adminConfig['setStartPage'] =          ".$adminConfig['setStartPage'].";\n");
-    fwrite($file,"\$adminConfig['pages']['createdelete'] = ".$adminConfig['pages']['createdelete'].";\n");
+    fwrite($file,"\$adminConfig['pages']['createDelete'] = ".$adminConfig['pages']['createDelete'].";\n");
     fwrite($file,"\$adminConfig['pages']['thumbnails'] =   ".$adminConfig['pages']['thumbnails'].";\n");    
     fwrite($file,"\$adminConfig['pages']['plugins'] =      ".$adminConfig['pages']['plugins'].";\n");
     fwrite($file,"\$adminConfig['pages']['showTags'] =     ".$adminConfig['pages']['showTags'].";\n\n");

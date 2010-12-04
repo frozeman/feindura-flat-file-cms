@@ -137,7 +137,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
               <select name="categoryId">';
               
               // -> shows non-category selection if create pages is allowed
-              if($adminConfig['pages']['createdelete'])
+              if($adminConfig['pages']['createDelete'])
                 echo '<option value="0">'.$langFile['editor_pageinfo_category_noCategory'].'</option>';
               
               // ->> goes trough categories and list them
@@ -149,7 +149,7 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
                   $selected = '';
                 
                 // -> shows category selection if create pages is allowed
-                if($listCategory['createdelete'])
+                if($listCategory['createDelete'])
                   echo '<option value="'.$listCategory['id'].'"'.$selected.'>'.$listCategory['name'].' (ID '.$listCategory['id'].')</option>'."\n";
               }             
               

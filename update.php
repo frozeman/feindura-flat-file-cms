@@ -318,6 +318,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
       $category['sortByPageDate'] = (isset($category['sortbypagedate'])) ? $category['sortbypagedate'] : $category['sortByPageDate'];
       $category['sortAscending'] = (isset($category['sortascending'])) ? $category['sortascending'] : $category['sortAscending'];
+      $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
       
       $data = $category['styleFile'];
         if(strpos($data,'|#|') !== false)
@@ -346,6 +347,12 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     }
     
     // ->> SAVE NEW adminConfig
+    // rename
+    $adminConfig['websiteFilesPath'] = (isset($adminConfig['websitefilesPath'])) ? $adminConfig['websitefilesPath'] : $adminConfig['websiteFilesPath'];
+    $adminConfig['pages']['showTags'] = (isset($adminConfig['pages']['showtags'])) ? $adminConfig['pages']['showtags'] : $adminConfig['pages']['showTags'];
+    $adminConfig['pages']['createDelete'] = (isset($adminConfig['pages']['createdelete'])) ? $adminConfig['pages']['createdelete'] : $adminConfig['pages']['createDelete'];
+    $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
+    
     $data = $adminConfig['editor']['styleFile'];
       if(strpos($data,'|#|') !== false)
         $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');

@@ -4,7 +4,7 @@ $adminConfig['url'] =              'http://localhost';
 $adminConfig['basePath'] =         '/_feindura/';
 $adminConfig['websitePath'] =      '/';
 $adminConfig['uploadPath'] =       '/_feindura/_upload/';
-$adminConfig['websitefilesPath'] = '';
+$adminConfig['websiteFilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '/_feindura.org/style/';
 $adminConfig['dateFormat'] =       'eu';
 $adminConfig['speakingUrl'] =      true;
@@ -15,11 +15,11 @@ $adminConfig['varName']['modul'] =    'modul';
 
 $adminConfig['user']['fileManager'] =      true;
 $adminConfig['user']['editWebsiteFiles'] = true;
-$adminConfig['user']['editStylesheets'] =  true;
+$adminConfig['user']['editStyleSheets'] =  true;
 $adminConfig['user']['info'] =             '';
 
 $adminConfig['setStartPage'] =          true;
-$adminConfig['pages']['createdelete'] = true;
+$adminConfig['pages']['createDelete'] = true;
 $adminConfig['pages']['thumbnails'] =   true;
 $adminConfig['pages']['plugins'] =      true;
 $adminConfig['pages']['showTags'] =     false;

@@ -24,9 +24,9 @@ $unwriteableList = isWritableWarning($checkFolders);
 
 // check also website files if allowed
 if($adminConfig['user']['editWebsiteFiles'])
-  $unwriteableList .= isWritableWarningRecursive(array($adminConfig['websitefilesPath']));
+  $unwriteableList .= isWritableWarningRecursive(array($adminConfig['websiteFilesPath']));
 // check also stylesheet files if allowed
-if($adminConfig['user']['editStylesheets'])
+if($adminConfig['user']['editStyleSheets'])
   $unwriteableList .= isWritableWarningRecursive(array($adminConfig['stylesheetPath']));
 
 // gives the error OUTPUT if one of these files in unwriteable
@@ -115,10 +115,10 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
 
 if($adminConfig['user']['editWebsiteFiles']) {  
   // BEARBEITUNG DER ERWEITERTEN WEBSEITEN-EINSTELLUNGEN 
-  editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
+  editFiles($adminConfig['websiteFilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
 }
 
-if($adminConfig['user']['editStylesheets']) {
+if($adminConfig['user']['editStyleSheets']) {
   // BEARBEITUNG DER STYLESHEETDATEI
   editFiles($adminConfig['stylesheetPath'], $_GET['site'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
 }

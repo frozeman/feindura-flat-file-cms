@@ -30,7 +30,7 @@ if(isAdmin()) {
 $checkFolders[] = $adminConfig['basePath'].'config/';
 $checkFolders[] = $adminConfig['basePath'].'statistic/';
 $checkFolders[] = $adminConfig['basePath'].'pages/';
-$checkFolders[] = $adminConfig['websitefilesPath'];
+$checkFolders[] = $adminConfig['websiteFilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
 
@@ -119,10 +119,10 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       </td></tr>
       
       <tr><td class="left">
-      <label for="cfg_websitefilesPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field5'].'::'.$langFile['adminSetup_fmsSettings_field5_tip'] ?>">
+      <label for="cfg_websiteFilesPath"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field5'].'::'.$langFile['adminSetup_fmsSettings_field5_tip'] ?>">
       <?php echo $langFile['adminSetup_fmsSettings_field5'] ?></span></label>
       </td><td class="right">
-      <input size="40" id="cfg_websitefilesPath" name="cfg_websitefilesPath" value="<?php echo $adminConfig['websitefilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
+      <input size="40" id="cfg_websiteFilesPath" name="cfg_websiteFilesPath" value="<?php echo $adminConfig['websiteFilesPath']; ?>" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE']; ?>::" />
       <span class="hint"><?php echo $langFile['PATHS_TEXT_ABSOLUTE']; ?></span>
       </td></tr>
       
@@ -240,7 +240,7 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       </td></tr>
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStylesheets']) echo ' checked="checked"'; ?> />
+      <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStyleSheets']) echo ' checked="checked"'; ?> />
       </td><td class="right checkboxes">
       <label for="cfg_userStylesheets"><?php echo $langFile['adminSetup_userSettings_check2']; ?></label>
       </td></tr>
@@ -365,7 +365,7 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 <?php
 
 // BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['websitefilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
+editFiles($adminConfig['websiteFilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
   
 
 // BEARBEITUNG DER STYLESHEETDATEI

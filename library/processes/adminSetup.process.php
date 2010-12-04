@@ -43,8 +43,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
         $_POST['cfg_websitePath'] = '/'.$_POST['cfg_websitePath'];
   if(!empty($_POST['cfg_uploadPath']) && substr($_POST['cfg_uploadPath'],0,1) !== '/')
         $_POST['cfg_uploadPath'] = '/'.$_POST['cfg_uploadPath'];
-  if(!empty($_POST['cfg_websitefilesPath']) && substr($_POST['cfg_websitefilesPath'],0,1) !== '/')
-        $_POST['cfg_websitefilesPath'] = '/'.$_POST['cfg_websitefilesPath'];
+  if(!empty($_POST['cfg_websiteFilesPath']) && substr($_POST['cfg_websiteFilesPath'],0,1) !== '/')
+        $_POST['cfg_websiteFilesPath'] = '/'.$_POST['cfg_websiteFilesPath'];
   if(!empty($_POST['cfg_stylesheetPath']) && substr($_POST['cfg_stylesheetPath'],0,1) !== '/')
         $_POST['cfg_stylesheetPath'] = '/'.$_POST['cfg_stylesheetPath'];  
   
@@ -89,7 +89,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];
   
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
-  $adminConfig['websitefilesPath'] = $_POST['cfg_websitefilesPath'];
+  $adminConfig['websiteFilesPath'] = $_POST['cfg_websiteFilesPath'];
   $adminConfig['stylesheetPath'] = $_POST['cfg_stylesheetPath'];    
   $adminConfig['dateFormat'] = $_POST['cfg_dateFormat'];
   $adminConfig['speakingUrl'] = $_POST['cfg_speakingUrl'];
@@ -100,12 +100,12 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   $adminConfig['user']['fileManager'] = $_POST['cfg_userFileManager'];
   $adminConfig['user']['editWebsiteFiles'] = $_POST['cfg_userWebsiteFiles'];
-  $adminConfig['user']['editStylesheets'] = $_POST['cfg_userStylesheets'];  
+  $adminConfig['user']['editStyleSheets'] = $_POST['cfg_userStylesheets'];  
   $adminConfig['user']['info'] = $_POST['cfg_userInfo'];
     
   // -> saved in pageSetup.php
   //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  //$adminConfig['pages']['createdelete'] = $_POST['cfg_pageCreatePages'];
+  //$adminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
   //$adminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
   //$adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
   //$adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];

@@ -41,7 +41,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   
   // -> PREPARE CONFIG VARs
   $adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  $adminConfig['pages']['createdelete'] = $_POST['cfg_pageCreatePages'];
+  $adminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
   $adminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
   $adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
   $adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];

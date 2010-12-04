@@ -191,7 +191,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       </colgroup>  
       
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['pages']['createdelete']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_pageCreatePages" name="cfg_pageCreatePages" value="true" class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"<?php if($adminConfig['pages']['createDelete']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
       <label for="cfg_pageCreatePages"><span class="toolTip" title="<?php echo $langFile['pageSetup_pageConfig_check2'].'::'.$langFile['pageSetup_pageConfig_check2_tip']; ?>"><?php echo $langFile['pageSetup_pageConfig_check2']; ?></span></label><br />
       </td></tr>
@@ -272,7 +272,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           // checks the category settings
           $checked[1] = ($category['public']) ? 'checked="checked"' : '';
 
-          $checked[2] = ($category['createdelete']) ? 'checked="checked"' : '';
+          $checked[2] = ($category['createDelete']) ? 'checked="checked"' : '';
             
           $checked[3] = ($category['thumbnail']) ? 'checked="checked"' : '';
             
@@ -365,9 +365,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
                 
           echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'createdelete" name="categories['.$category['id'].'][createdelete]" value="true" '.$checked[2].' class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'" /><br />
+                <input type="checkbox" id="categories'.$category['id'].'createDelete" name="categories['.$category['id'].'][createDelete]" value="true" '.$checked[2].' class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'" /><br />
                 </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'createdelete"><span class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'">'.$langFile['pageSetup_check2'].'</span></label>
+                <label for="categories'.$category['id'].'createDelete"><span class="toolTip" title="'.$langFile['pageSetup_check2'].'::'.$langFile['pageSetup_check2_tip'].'">'.$langFile['pageSetup_check2'].'</span></label>
                 </td></tr>';          
           
           echo '<tr><td class="left checkboxes">

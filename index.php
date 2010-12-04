@@ -297,20 +297,20 @@ if($_GET['site'] == 'addons') {
     // -> CHECK if show createPage
     $generallyCreatePages = false;
     // check if non-category can create pages
-    if($adminConfig['pages']['createdelete'])
+    if($adminConfig['pages']['createDelete'])
       $generallyCreatePages = true;
     // if not check if one category can create pages
     else {
       foreach($categoryConfig as $category) {
-        if($category['createdelete'])
+        if($category['createDelete'])
           $generallyCreatePages = true;
       }
     }
     
     $showCreatePage = ($generallyCreatePages && $_GET['site'] == 'pages' ||
                        (!empty($_GET['page']) &&
-                       ($_GET['category'] === '0' && $adminConfig['pages']['createdelete']) ||
-                       ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createdelete']))) ? true : false;
+                       ($_GET['category'] === '0' && $adminConfig['pages']['createDelete']) ||
+                       ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
     // -> CHECK if show pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
