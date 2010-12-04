@@ -42,12 +42,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 // ---------- SAVE the editFiles
 include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 
-
 // RE-INCLUDE
 $websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
-// RESET of the vars in the classes
-generalFunctions::$storedPageIds = null;
-generalFunctions::$storedPages = null;
-statisticFunctions::$websiteConfig = $websiteConfig;
 
 ?>

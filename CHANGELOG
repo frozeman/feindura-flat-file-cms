@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 496
+Build 497
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 497: working on search.class.php
   build 496: changed key names in categoryConfig and adminConfig
   build 495: change key names in categoryConfig (ongoing)
   build 494: changed some key names in the pageContent array

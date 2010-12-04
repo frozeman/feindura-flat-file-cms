@@ -202,9 +202,9 @@ class search {
 
       // prepare the contents to search through
      	$search['id'] = $pageContent['id'];      
-      //$search['beforeDate'] = $pageContent['pageDate']['before'];
+      $search['beforeDate'] = $pageContent['pageDate']['before'];
       $search['date'] = statisticFunctions::formatDate($pageContent['pageDate']['date']);
-      //$search['afterDate'] = $pageContent['pageDate']['after'];
+      $search['afterDate'] = $pageContent['pageDate']['after'];
       $search['searchwords'] = $pageContent['log_searchWords'];
       $search['title'] = $pageContent['title'];
       $search['description'] = $pageContent['description'];
@@ -223,11 +223,23 @@ class search {
       // -> IF NO MATCH in ID, SEARCH in OTHER PLACES
       } else {
         // -> 2. DATE
+        if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
+          $pageResults['beforeDate'] = $matches[0];
+          $priority += 15;
+          $priority *= count($matches[0]);
+        }
         if(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
           $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
           $pageResults['date'] = $matches[0];
           $priority += 15;
-          $priority *= count($matches[0]);       
+          $priority *= count($matches[0]);
+        }
+        if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
+          $pageResults['afterDate'] = $matches[0];
+          $priority += 15;
+          $priority *= count($matches[0]);
         }
         // -> 2. SEARCHWORDS
         if(preg_match_all($pattern,$search['searchwords'],$matches,PREG_OFFSET_CAPTURE) != 0) {
@@ -303,24 +315,67 @@ class search {
   */
   protected function displayResults($results) {
     
+    // var
+    $tagBefore = '<b>';
+    $tagAfter = '</b>';
+    
     // return nothing when nothing was found
     if($results === false)
       return array();
     
     
-    foreach($result as $result) {
+    foreach($results as $result) {
       
       $page = generalFunctions::readPage($result['pageId'],$result['categoryId']);
     
       // ->> PREPARE the TITLE
       $title = null;
+      $date = null;
       
+      // -> add before date
+      if(isset($result['beforeDate'])) {
+        // show the parts with the searchwords on bold
+        $orgDate = $page['pageDate']['before'];
+        $lastPosition = 0;
+        foreach($result['beforeDate'] as $match) {
+          $date .= substr($orgDate,$lastPosition,$match[1] - $lastPosition).$tagBefore.$match[0].$tagAfter;
+          $lastPosition = $match[1] + strlen($match[0]);
+        }
+        // add the last part of the string
+        $date .= substr($orgDate,$lastPosition).' ';
+      }
       // -> add date
-      $page['pageDate']
+      if(isset($result['date'])) {
+        // show the parts with the searchwords on bold
+        $orgDate = statisticFunctions::formatDate($page['pageDate']['date']);
+        $lastPosition = 0;
+        foreach($result['date'] as $match) {
+          $date .= substr($orgDate,$lastPosition,$match[1] - $lastPosition).$tagBefore.$match[0].$tagAfter;
+          $lastPosition = $match[1] + strlen($match[0]);
+        }
+        // add the last part of the string
+        $date .= substr($orgDate,$lastPosition);
+      }
+      // -> add after date
+      if(isset($result['afterDate'])) {
+        $date .= ' ';
+        // show the parts with the searchwords on bold
+        $orgDate = $page['pageDate']['after'];
+        $lastPosition = 0;
+        foreach($result['afterDate'] as $match) {
+          $date .= substr($orgDate,$lastPosition,$match[1] - $lastPosition).$tagBefore.$match[0].$tagAfter;
+          $lastPosition = $match[1] + strlen($match[0]);
+        }
+        // add the last part of the string
+        $date .= substr($orgDate,$lastPosition);
+      }
+
       
-      return $results;
-    
+      
+     return $date;
     }
+    //return $results;
+    return $date;
     
     	if($if_find) {
       	// -> CREATE FINDINGS ARRAY

@@ -511,7 +511,79 @@ class generalFunctions {
     } else
       return false;
   }
-
+  
+ /**
+  * <b>Name</b> readPage()<br>
+  * 
+  * Loads the $pageContent array of a page.
+  * 
+  * Checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
+  * If not the {@link generalFunctions::readPage()} public static function is called to include the $pagecontent array of the page
+  * and store it in the {@link $storedPages} property.
+  * 
+  * Example of the returned $pageContent array:
+  * {@example readPage.return.example.php}
+  * 
+  * <b>Used Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
+  * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
+  * 
+  * @uses getStoredPages()		for getting the {@link $storedPages} property
+  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
+  * 
+  * @return array|FALSE the $pageContent array of the requested page or FALS, if it couldn't open the file
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function readPage($page,$category = false) {
+    //echo 'PAGE: '.$page.' -> '.$category.'<br />';
+    
+    // if $page is a valid $pageContent array return it immediately
+    if(self::isPageContentArray($page))
+      return $page;
+       
+    $storedPages = self::getStoredPages();
+    
+    // ->> IF the page is already loaded
+    if(isset($storedPages[$page])) {
+      //echo '<br />->USED STORED '.$page.'<br />';        
+      return $storedPages[$page];
+      
+    // ->> ELSE load the page and store it in the storePages PROPERTY
+    } else {
+         
+      // adds .php to the end if its missing
+      if(substr($page,-4) != '.php')
+        $page .= '.php';
+    
+      // adds a slash behind the $category / if she isn't empty
+      if(!empty($category))
+        if(substr($category,-1) !== '/')
+            $category = $category.'/';
+    
+      if($category === false || $category == 0)
+        $category = '';
+    
+      //echo '<br />LOAD PAGE: '.$page.'<br />';   
+      //echo 'CATEGORY: '.$category.'<br />';
+    
+      if(@include(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category.$page)) {
+      
+        // UNESCPAE the SINGLE QUOTES '
+        $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
+      
+        return self::setStoredPages($pageContent);
+      } else  // returns false if it couldn't include the page
+        return false;
+    }
+  }
 
  /**
   * <b>Name</b> savePage()<br>
@@ -643,79 +715,6 @@ class generalFunctions {
       return true;
     }  
     return false;  
-  }
-  
- /**
-  * <b>Name</b> readPage()<br>
-  * 
-  * Loads the $pageContent array of a page.
-  * 
-  * Checks first whether the given page ID was already loaded and is contained in the {@link $storedPages} property.
-  * If not the {@link generalFunctions::readPage()} public static function is called to include the $pagecontent array of the page
-  * and store it in the {@link $storedPages} property.
-  * 
-  * Example of the returned $pageContent array:
-  * {@example readPage.return.example.php}
-  * 
-  * <b>Used Constants</b><br>
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
-  * 
-  * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
-  * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
-  * 
-  * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
-  * 
-  * @return array|FALSE the $pageContent array of the requested page or FALS, if it couldn't open the file
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function readPage($page,$category = false) {
-    //echo 'PAGE: '.$page.' -> '.$category.'<br />';
-    
-    // if $page is a valid $pageContent array return it immediately
-    if(self::isPageContentArray($page))
-      return $page;
-       
-    $storedPages = self::getStoredPages();
-    
-    // ->> IF the page is already loaded
-    if(isset($storedPages[$page])) {
-      echo '<br />->USED STORED '.$page.'<br />';        
-      return $storedPages[$page];
-      
-    // ->> ELSE load the page and store it in the storePages PROPERTY
-    } else {
-         
-      // adds .php to the end if its missing
-      if(substr($page,-4) != '.php')
-        $page .= '.php';
-    
-      // adds a slash behind the $category / if she isn't empty
-      if(!empty($category))
-        if(substr($category,-1) !== '/')
-            $category = $category.'/';
-    
-      if($category === false || $category == 0)
-        $category = '';
-    
-      echo '<br />LOAD PAGE: '.$page.'<br />';   
-      //echo 'CATEGORY: '.$category.'<br />';
-    
-      if(@include(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category.$page)) {
-      
-        // UNESCPAE the SINGLE QUOTES '
-        $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
-      
-        return self::setStoredPages($pageContent);
-      } else  // returns false if it couldn't include the page
-        return false;
-    }
   }
   
  /**
