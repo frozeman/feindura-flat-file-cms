@@ -58,7 +58,7 @@ if($_POST['save']) {
     // looks fore the highest id (FLATFILES)
     $page = getNewPageId();
     $_POST['id'] = $page;
-    $_POST['sortorder'] = $page;
+    $_POST['sortOrder'] = $page;
     $_GET['page'] = $page;
     
     // sets the selected category
@@ -66,7 +66,7 @@ if($_POST['save']) {
     $_GET['category'] = $category;
     $_POST['category'] = $category;       
   
-    $pageContent['log_visitorcount'] = 0;
+    $pageContent['log_visitorCount'] = 0;
     
     $logText = 0;
     
@@ -87,8 +87,8 @@ if($_POST['save']) {
   if($errorWindow === false) {
   
     // speichert den inhalt in der flatfile
-    $_POST['lastsavedate'] = time();
-    $_POST['lastsaveauthor'] = $_SESSION['feinduraLogin'][IDENTITY]['username'];
+    $_POST['lastSaveDate'] = time();
+    $_POST['lastSaveAuthor'] = $_SESSION['feinduraLogin'][IDENTITY]['username'];
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
@@ -101,15 +101,15 @@ if($_POST['save']) {
       $pageDate = $generatedPageDate;
     // if VALID set the validated date to the post var
     else {
-      $_POST['pagedate']['date'] = $pageDate;
+      $_POST['pageDate']['date'] = $pageDate;
       unset($pageDate);
     }
     
-    //echo '<br />'.$_POST['pagedate']['before'];
-    //echo '<br />'.$_POST['pagedate']['date'];
+    //echo '<br />'.$_POST['pageDate']['before'];
+    //echo '<br />'.$_POST['pageDate']['date'];
     
-    if(empty($_POST['sortorder']))
-      $_POST['sortorder'] = $pageContent['sortorder'];
+    if(empty($_POST['sortOrder']))
+      $_POST['sortOrder'] = $pageContent['sortOrder'];
     
     // adds absolute path slash on the beginning and implode the stylefiles
     $_POST['styleFile'] = prepareStyleFilePaths($_POST['styleFile']);
@@ -120,13 +120,13 @@ if($_POST['save']) {
     $_POST['styleClass'] = setStylesByPriority(xssFilter::string($_POST['styleClass']),'styleClass',$category);
     
     // gets the visit status
-    $_POST['log_visitorcount'] = $pageContent['log_visitorcount'];
+    $_POST['log_visitorCount'] = $pageContent['log_visitorCount'];
     $_POST['log_visitTime_max'] = $pageContent['log_visitTime_max'];
     $_POST['log_visitTime_min'] = $pageContent['log_visitTime_min'];
     $_POST['log_lastVisit'] = $pageContent['log_lastVisit'];
     $_POST['log_firstVisit'] = $pageContent['log_firstVisit'];
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
-    $_POST['log_searchwords'] = $pageContent['log_searchwords'];
+    $_POST['log_searchWords'] = $pageContent['log_searchWords'];
       
     if(generalFunctions::savePage($_POST)) {
       $documentSaved = true;

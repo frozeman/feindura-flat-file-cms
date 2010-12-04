@@ -345,7 +345,7 @@ class statisticFunctions {
              
     if(isset(self::$categoryConfig[$pageContent['category']]) &&  // to prevent missing index error
        self::$categoryConfig[$pageContent['category']]['showpagedate'] &&
-       (!empty($pageContent['pagedate']['before']) || !empty($pageContent['pagedate']['date']) || !empty($pageContent['pagedate']['after'])))
+       (!empty($pageContent['pageDate']['before']) || !empty($pageContent['pageDate']['date']) || !empty($pageContent['pageDate']['after'])))
        return true;
     else
        return false;
@@ -1557,7 +1557,7 @@ class statisticFunctions {
       // -----------------------------
       if(empty($pageContent['log_firstVisit'])) {
         $pageContent['log_firstVisit'] = time();
-        $pageContent['log_visitorcount'] = 0;
+        $pageContent['log_visitorCount'] = 0;
       }
       
       // -> saves the LAST PAGE VISIT
@@ -1570,16 +1570,16 @@ class statisticFunctions {
         $_SESSION['log_visitedPages'] = array();
         
       if(in_array($pageContent['id'],$_SESSION['log_visitedPages']) === false) {
-        //echo $pageContent['id'].' -> '.$pageContent['log_visitorcount'];
-        $pageContent['log_visitorcount']++;
+        //echo $pageContent['id'].' -> '.$pageContent['log_visitorCount'];
+        $pageContent['log_visitorCount']++;
         // add to the array of already visited pages
         $_SESSION['log_visitedPages'][] = $pageContent['id'];
       }
       
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
       // -------------------------------------------------------
-      if(!isset($_SESSION['log_searchwords']))
-        $_SESSION['log_searchwords'] = array();
+      if(!isset($_SESSION['log_searchWords']))
+        $_SESSION['log_searchWords'] = array();
 
       if(isset($_SERVER['HTTP_REFERER']) &&
          !empty($_SERVER['HTTP_REFERER'])) {        
@@ -1605,15 +1605,15 @@ class statisticFunctions {
           // gos through searchwords and check if there already saved  
           $newSearchWords = array();
           foreach($searchWords as $searchWord) {
-            if(in_array($searchWord,$_SESSION['log_searchwords']) === false) {
+            if(in_array($searchWord,$_SESSION['log_searchWords']) === false) {
               $newSearchWords[] = $searchWord;
-              $_SESSION['log_searchwords'][] = $searchWord;
+              $_SESSION['log_searchWords'][] = $searchWord;
             }
           }
           
           if(!empty($newSearchWords)) {
             // adds the searchwords to the searchword data string
-            $pageContent['log_searchwords'] = self::addDataToDataString($pageContent['log_searchwords'],$searchWords);   
+            $pageContent['log_searchWords'] = self::addDataToDataString($pageContent['log_searchWords'],$searchWords);   
           }
         }
       }

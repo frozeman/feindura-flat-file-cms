@@ -577,17 +577,17 @@ class generalFunctions {
       fwrite($file,"\$pageContent['id'] =                 ".$pageContent['id'].";\n");
       fwrite($file,"\$pageContent['category'] =           ".$pageContent['category'].";\n");
       fwrite($file,"\$pageContent['public'] =             ".$pageContent['public'].";\n");
-      fwrite($file,"\$pageContent['sortorder'] =          ".$pageContent['sortorder'].";\n\n");
+      fwrite($file,"\$pageContent['sortOrder'] =          ".$pageContent['sortOrder'].";\n\n");
       
-      fwrite($file,"\$pageContent['lastsavedate'] =       '".$pageContent['lastsavedate']."';\n");
-      fwrite($file,"\$pageContent['lastsaveauthor'] =     '".$pageContent['lastsaveauthor']."';\n\n"); 
+      fwrite($file,"\$pageContent['lastSaveDate'] =       '".$pageContent['lastSaveDate']."';\n");
+      fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".$pageContent['lastSaveAuthor']."';\n\n"); 
       
       fwrite($file,"\$pageContent['title'] =              '".$pageContent['title']."';\n");
       fwrite($file,"\$pageContent['description'] =        '".$pageContent['description']."';\n\n");      
       
-      fwrite($file,"\$pageContent['pagedate']['before'] = '".$pageContent['pagedate']['before']."';\n");
-      fwrite($file,"\$pageContent['pagedate']['date'] =   '".$pageContent['pagedate']['date']."';\n");
-      fwrite($file,"\$pageContent['pagedate']['after'] =  '".$pageContent['pagedate']['after']."';\n");           
+      fwrite($file,"\$pageContent['pageDate']['before'] = '".$pageContent['pageDate']['before']."';\n");
+      fwrite($file,"\$pageContent['pageDate']['date'] =   '".$pageContent['pageDate']['date']."';\n");
+      fwrite($file,"\$pageContent['pageDate']['after'] =  '".$pageContent['pageDate']['after']."';\n");           
       fwrite($file,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n\n");
       
       // write the plugins
@@ -615,12 +615,12 @@ class generalFunctions {
       fwrite($file,"\$pageContent['styleId'] =            '".$pageContent['styleId']."';\n");
       fwrite($file,"\$pageContent['styleClass'] =         '".$pageContent['styleClass']."';\n\n");
       
-      fwrite($file,"\$pageContent['log_visitorcount'] =   '".$pageContent['log_visitorcount']."';\n");
+      fwrite($file,"\$pageContent['log_visitorCount'] =   '".$pageContent['log_visitorCount']."';\n");
       fwrite($file,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n");
       fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n");
       fwrite($file,"\$pageContent['log_firstVisit'] =     '".$pageContent['log_firstVisit']."';\n");
       fwrite($file,"\$pageContent['log_lastVisit'] =      '".$pageContent['log_lastVisit']."';\n");
-      fwrite($file,"\$pageContent['log_searchwords'] =    '".$pageContent['log_searchwords']."';\n\n");
+      fwrite($file,"\$pageContent['log_searchWords'] =    '".$pageContent['log_searchWords']."';\n\n");
       
       fwrite($file,"\$pageContent['content'] = \n'".$pageContent['content']."';\n\n");
       
@@ -686,7 +686,7 @@ class generalFunctions {
     
     // ->> IF the page is already loaded
     if(isset($storedPages[$page])) {
-      //echo '<br />->USED STORED '.$page.'<br />';        
+      echo '<br />->USED STORED '.$page.'<br />';        
       return $storedPages[$page];
       
     // ->> ELSE load the page and store it in the storePages PROPERTY
@@ -704,7 +704,7 @@ class generalFunctions {
       if($category === false || $category == 0)
         $category = '';
     
-      //echo '<br />LOAD PAGE: '.$page.'<br />';   
+      echo '<br />LOAD PAGE: '.$page.'<br />';   
       //echo 'CATEGORY: '.$category.'<br />';
     
       if(@include(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category.$page)) {

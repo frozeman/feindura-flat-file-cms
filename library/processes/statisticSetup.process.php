@@ -52,12 +52,12 @@ if($_POST['sendClearstatistics']) {
     foreach($pages as $pageContent) {
       
       // -> CLEAR the page stats
-      $pageContent['log_visitorcount'] = '';
+      $pageContent['log_visitorCount'] = '';
       $pageContent['log_visitTime_min'] = '';
       $pageContent['log_visitTime_max'] = '';
       $pageContent['log_firstVisit'] = '';
       $pageContent['log_lastVisit'] = '';
-      $pageContent['log_searchwords'] = '';
+      $pageContent['log_searchWords'] = '';
       
       if(generalFunctions::savePage($pageContent)) {        
         // set documentSaved status

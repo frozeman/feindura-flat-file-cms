@@ -121,7 +121,7 @@ foreach($allCategories as $category) {
       // vars
       $pageDate = '';
       $showTags = '';
-      $sort_order[] = $pageContent['sortorder'];
+      $sort_order[] = $pageContent['sortOrder'];
     
       // show whether the page is public or nonpublic
 
@@ -137,7 +137,7 @@ foreach($allCategories as $category) {
       $title = generalFunctions::shortenTitle($pageContent['title'],31);
       
       // -> show lastsavedate
-      $lastSaveDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastsavedate'],$langFile)).' '.statisticFunctions::formatTime($pageContent['lastsavedate']);
+      $lastSaveDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.statisticFunctions::formatTime($pageContent['lastSaveDate']);
       
       // -> show pagedate
       if(statisticFunctions::checkPageDate($pageContent)) {
@@ -145,13 +145,13 @@ foreach($allCategories as $category) {
       	$titleDateBefore = '';
       	$titleDateAfter = '';
       	// adds spaces on before and after
-      	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
-      	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
+      	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
+      	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
 	
         // CHECKs the DATE FORMAT
-        $pageDate = (statisticFunctions::validateDateFormat(statisticFunctions::formatDate($pageContent['pagedate']['date'])) === false)
-        ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pagedate']['date'].$titleDateAfter
-        : '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pagedate']['date'],$langFile)).$titleDateAfter;
+        $pageDate = (statisticFunctions::validateDateFormat(statisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)
+        ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pageDate']['date'].$titleDateAfter
+        : '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$langFile)).$titleDateAfter;
         
       } else $pageDate = '';
       
@@ -164,7 +164,7 @@ foreach($allCategories as $category) {
       
       // -----------------------   ********  ---------------------- 
       // LIST PAGES
-      // id'.$pageContent['id'].' sort'.$pageContent['sortorder'].' cat: '.$pageContent['category'].' 
+      // id'.$pageContent['id'].' sort'.$pageContent['sortOrder'].' cat: '.$pageContent['category'].' 
       echo '<li id="page'.$pageContent['id'].'">';
       
       // startpage icon before the name
@@ -177,11 +177,11 @@ foreach($allCategories as $category) {
       }
       
       echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
-      if(!empty($pageContent['lastsaveauthor']))
-        echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastsaveauthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
+      if(!empty($pageContent['lastSaveAuthor']))
+        echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
       else
         echo '<div class="lastSaveDate">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
-      echo '<div class="counter">&nbsp;&nbsp;'.statisticFunctions::formatHighNumber($pageContent['log_visitorcount']).'</div>
+      echo '<div class="counter">&nbsp;&nbsp;'.statisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS

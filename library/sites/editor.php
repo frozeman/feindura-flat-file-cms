@@ -59,11 +59,11 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
     <?php
     
     // -> show LAST SAVE DATE TIME
-    $lastSaveDate =  statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastsavedate'],$langFile));
-    $lastSaveTime =  statisticFunctions::formatTime($pageContent['lastsavedate']);
+    $lastSaveDate =  statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
+    $lastSaveTime =  statisticFunctions::formatTime($pageContent['lastSaveDate']);
     
-    $editedByUser = (!empty($pageContent['lastsaveauthor']))
-      ? '</b> '.$langFile['editor_pageinfo_lastsaveauthor'].' <b>'.$pageContent['lastsaveauthor']
+    $editedByUser = (!empty($pageContent['lastSaveAuthor']))
+      ? '</b> '.$langFile['editor_pageinfo_lastsaveauthor'].' <b>'.$pageContent['lastSaveAuthor']
       : '';
     
     echo ($newPage)
@@ -231,7 +231,7 @@ $hidden = ' hidden';
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> VISIT COUNT
-        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.statisticFunctions::formatHighNumber($pageContent['log_visitorcount']).'</span>';
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.statisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</span>';
         ?>
       </td>      
     </tr>
@@ -331,7 +331,7 @@ $hidden = ' hidden';
       
       // -> show TAG CLOUD
       echo '<div class="tagCloud">';
-      statisticFunctions::createTagCloud($pageContent['log_searchwords']);
+      statisticFunctions::createTagCloud($pageContent['log_searchWords']);
       echo '</div>';
 
       ?>
@@ -399,7 +399,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       // check if already a (wrong) pageDate exists
       $pageDate = (isset($pageDate))
         ? $pageDate
-        : $pageContent['pagedate']['date'];  
+        : $pageContent['pageDate']['date'];  
       
       // add the DATE of TODAY, if its a NEW PAGE
       $pageDate = ($newPage)
@@ -426,7 +426,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       </label>
       
       </td><td class="right">
-        <input name="pagedate[before]" value="<?php echo $pageContent['pagedate']['before']; ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
+        <input name="pagedate[before]" value="<?php echo $pageContent['pageDate']['before']; ?>" class="inputToolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_before_inputTip']; ?>" style="width:130px;" />
         
         <?php
         
@@ -482,7 +482,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         ?>
         
-        <input name="pagedate[after]" value="<?php echo $pageContent['pagedate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
+        <input name="pagedate[after]" value="<?php echo $pageContent['pageDate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:120px;" />
       </td></tr>
       <?php }
       

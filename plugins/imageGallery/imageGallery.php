@@ -617,7 +617,7 @@ class imageGallery {
     $lastEditTimestamp = @file_get_contents($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/lastmodification.log');
     // -> check if the timestamp of the lastmodification is newer than the one saved in the "thumbnails/lastedit.log"
     //echo $this->lastModification.' > '.$lastEditTimestamp;
-    if(($pageContent && $pageContent['lastsavedate'] > $lastEditTimestamp) || $this->lastModification > $lastEditTimestamp) {
+    if(($pageContent && $pageContent['lastSaveDate'] > $lastEditTimestamp) || $this->lastModification > $lastEditTimestamp) {
       $this->resizeImages();
       $this->createThumbnails();
     } 

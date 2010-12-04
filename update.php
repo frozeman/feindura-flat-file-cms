@@ -19,7 +19,7 @@
  * for updating from 
  * 1.0 rc -> 1.1
  *
- * @version 0.13
+ * @version 0.14
  */
 
 /**
@@ -245,12 +245,22 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     //print_r($pages);
     foreach($pages as $pageContent) {
       
+      // renaming of some values
+      $pageContent['sortOrder'] = (isset($pageContent['sortorder'])) ? $pageContent['sortorder'] : $pageContent['sortOrder'];
+      $pageContent['lastSaveDate'] = (isset($pageContent['lastsavedate'])) ? $pageContent['lastsavedate'] : $pageContent['lastSaveDate'];
+      $pageContent['lastSaveAuthor'] = (isset($pageContent['lastsaveauthor'])) ? $pageContent['lastsaveauthor'] : $pageContent['lastSaveAuthor'];
+      $pageContent['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
+      $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
+      $pageContent['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
+      $pageContent['log_visitorCount'] = (isset($pageContent['log_visitorcount'])) ? $pageContent['log_visitorcount'] : $pageContent['log_visitorCount'];
+      $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
+      
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
       // mktime(hour,minute,seconds,month,day,year)
       
-      $time = $pageContent['lastsavedate'];
+      $time = $pageContent['lastSaveDate'];
       if(substr($time,4,1) == '-')
-        $pageContent['lastsavedate'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+        $pageContent['lastSaveDate'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
 
       $time = $pageContent['log_firstVisit'];
       if(substr($time,4,1) == '-')
@@ -260,9 +270,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       if(substr($time,4,1) == '-')
         $pageContent['log_lastVisit'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
       
-      $time = $pageContent['pagedate']['date'];
+      $time = $pageContent['pageDate']['date'];
       if(substr($time,4,1) == '-')
-        $pageContent['pagedate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
+        $pageContent['pageDate']['date'] = mktime(substr($time,11,2),substr($time,14,2),substr($time,-2),substr($time,5,2),substr($time,8,2),substr($time,0,4));
 
       // -> change dataString separator
       $data = $pageContent['log_visitTime_min'];
@@ -282,14 +292,14 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
           $pageContent['log_visitTime_max'] = changeVisitTime($data,' ');
           
       
-      $data = $pageContent['log_searchwords'];
+      $data = $pageContent['log_searchWords'];
         if(strpos($data,'|#|') !== false)
-          $pageContent['log_searchwords'] = changeToSerializedDataString($data,'|#|');
+          $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|#|');
         elseif(strpos($data,'|') !== false)
-          $pageContent['log_searchwords'] = changeToSerializedDataString($data,'|');
+          $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
-          $pageContent['log_searchwords'] = changeToSerializedDataString($data,' ');
-      
+          $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
+
       $pagesSuccesfullUpdated = (generalFunctions::savePage($pageContent)) ? true : false;
     }
     if($pagesSuccesfullUpdated)

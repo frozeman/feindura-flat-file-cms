@@ -49,7 +49,7 @@ foreach($sortOrder as $sort) {
     if($pageContent = generalFunctions::readPage($sort,$_POST['categoryNew'])) {
       
       // -> changes the properties of the page
-      $pageContent['sortorder'] = $count; // get a new sort order number
+      $pageContent['sortOrder'] = $count; // get a new sort order number
       $pageContent['category'] = $_POST['categoryNew']; // eventually get a new category id
        
       
@@ -73,7 +73,7 @@ foreach($sortOrder as $sort) {
       /*
       echo substr($pageContent['title'],0,4).',';
       echo $pageContent['id'].',';
-      echo $pageContent['sortorder'].'|';
+      echo $pageContent['sortOrder'].'|';
       */
       
     // -X ERROR readPage 

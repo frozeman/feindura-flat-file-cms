@@ -131,9 +131,10 @@ class search {
     //$searchwords = stripslashes($searchwords);
     
     // -> start search
-    return $this->searchPages($searchwords, $category);
+    $results = $this->searchPages($searchwords, $category);
     
-    
+    // return displayable results
+    return $this->displayResults($results);
     
   }
   
@@ -201,10 +202,10 @@ class search {
 
       // prepare the contents to search through
      	$search['id'] = $pageContent['id'];      
-      //$search['beforeDate'] = $pageContent['pagedate']['before'];
-      $search['date'] = statisticFunctions::formatDate($pageContent['pagedate']['date']);
-      //$search['afterDate'] = $pageContent['pagedate']['after'];
-      $search['searchwords'] = $pageContent['log_searchwords'];
+      //$search['beforeDate'] = $pageContent['pageDate']['before'];
+      $search['date'] = statisticFunctions::formatDate($pageContent['pageDate']['date']);
+      //$search['afterDate'] = $pageContent['pageDate']['after'];
+      $search['searchwords'] = $pageContent['log_searchWords'];
       $search['title'] = $pageContent['title'];
       $search['description'] = $pageContent['description'];
       $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
@@ -268,6 +269,7 @@ class search {
       // -> set results
       if($pageResults) {
         $pageResults['pageId'] = $pageContent['id'];
+        $pageResults['categoryId'] = $pageContent['category'];
         $pageResults['priority'] = $priority;
         $results[] = $pageResults;
       }
@@ -286,12 +288,11 @@ class search {
   * Create an array with 
   * 
   * 
-  * @param string $searchwords one or more searchwords to fing
+  * @param array $results an array with the search results created by the {@link searchPages()} method.
   * 
-  * @uses $startPage
-  * @uses generalFunctions::getPageCategory()        to get the category of the page
+  * @uses generalFunctions::readPage() to read the page for displaying the title and content
   * 
-  * @return void
+  * @return array an array with the results ready to display in an HTML page
   * 
   * @access protected
   * @version 1.0
@@ -301,8 +302,25 @@ class search {
   * 
   */
   protected function displayResults($results) {
-  
     
+    // return nothing when nothing was found
+    if($results === false)
+      return array();
+    
+    
+    foreach($result as $result) {
+      
+      $page = generalFunctions::readPage($result['pageId'],$result['categoryId']);
+    
+      // ->> PREPARE the TITLE
+      $title = null;
+      
+      // -> add date
+      $page['pagedate']
+      
+      return $results;
+    
+    }
     
     	if($if_find) {
       	// -> CREATE FINDINGS ARRAY

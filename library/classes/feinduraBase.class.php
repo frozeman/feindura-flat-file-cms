@@ -733,9 +733,9 @@ class feinduraBase {
     	$titleDateBefore = '';
     	$titleDateAfter = '';
     	// adds spaces on before and after
-    	if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
-    	if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-    	$pagedate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter;
+    	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
+    	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+    	$pagedate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
     }
       
     // -> PAGE TITLE
@@ -908,9 +908,9 @@ class feinduraBase {
          $titleDateBefore = '';
          $titleDateAfter = '';
 	       // adds spaces on before and after
-         if($pageContent['pagedate']['before']) $titleDateBefore = $pageContent['pagedate']['before'].' ';
-         if($pageContent['pagedate']['after']) $titleDateAfter = ' '.$pageContent['pagedate']['after'];
-         $titleDate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pagedate']['date'],$this->languageFile)).$titleDateAfter.' ';
+         if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
+         if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+         $titleDate = $titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
       
       
@@ -1466,16 +1466,16 @@ class feinduraBase {
       $selectedPages = array();
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
-        if(!empty($page['pagedate']['date']) &&
+        if(!empty($page['pageDate']['date']) &&
            ($page['category'] != 0 && $this->categoryConfig[$page['category']]['showpagedate'])) {         
            
-           //echo $page['pagedate']['date'].' >= '.$pastDate.'<br />';
+           //echo $page['pageDate']['date'].' >= '.$pastDate.'<br />';
            
            // adds the page to the array, if:
            // -> the currentdate ist between the minus and the plus month or
            // -> mins or plus month are true (means there is no time limit)
-           if(($monthsInThePast === true || $page['pagedate']['date'] >= $pastDate) &&
-              ($monthsInTheFuture === true || $page['pagedate']['date'] <= $futureDate))
+           if(($monthsInThePast === true || $page['pageDate']['date'] >= $pastDate) &&
+              ($monthsInTheFuture === true || $page['pageDate']['date'] <= $futureDate))
              $selectedPages[] = $page;
         }
       }      

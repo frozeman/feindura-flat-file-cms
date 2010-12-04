@@ -190,8 +190,8 @@ if(!empty($adminConfig['user']['info'])) {
       
       $count = 1;
       foreach($pages as $page) {
-        if(!empty($page['log_visitorcount'])) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitorcount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
+        if(!empty($page['log_visitorCount'])) {
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitorCount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
           // count
@@ -246,7 +246,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) { 
-        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastsavedate'])).'</b> '.statisticFunctions::formatTime($page['lastsavedate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.statisticFunctions::formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
         // count
@@ -268,8 +268,8 @@ if(!empty($adminConfig['user']['info'])) {
     $allSearchwords = false;
     foreach($pages as $page) {
       // if page has searchwords
-      if(!empty($page['log_searchwords'])) {
-        $allSearchwords = statisticFunctions::addDataToDataString($allSearchwords,$page['log_searchwords']);
+      if(!empty($page['log_searchWords'])) {
+        $allSearchwords = statisticFunctions::addDataToDataString($allSearchwords,$page['log_searchWords']);
       }
     }
     echo '<br style="clear:both;" /><div class="verticalSeparator"></div>';
