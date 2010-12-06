@@ -722,19 +722,6 @@ $langFile['BACKUP_TEXT_NOBACKUP'] = 'Pas de backup a &eacute;t&eacute; cr&eacute
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup n\'a pas &eacute;t&eacute; trouv&eacute; au chemin d\'acc&egrave;s:';
 $langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Il n\'y a pas de fichier de backup pour restaurer s&eacute;lectionn&eacute;.';
 
-// -> SEARCH
-
-$langFile['SEARCH_TITLE'] = 'fouiller les pages';
-$langFile['SEARCH_TITLE_RESULTS'] = 'r&eacute;sultat de recherche pour';
-$langFile['SEARCH_TEXT_MATCH_ID'] = 'convergence avec l\'ID de la page';
-$langFile['SEARCH_TEXT_MATCH_TITLE'] = 'convergences dans le titre';
-$langFile['SEARCH_TEXT_MATCH_DATE'] = 'convergences dans la date de page';
-$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'convergences avec le nom de la cat&eacute;gorie';
-$langFile['SEARCH_TEXT_MATCH_WORDS'] = 'convergences avec les mots';
-$langFile['SEARCH_TEXT_RESULTS'] = 'r&eacute;sultat';
-$langFile['SEARCH_TEXT_TIME_1'] = 'en'; // 12 r&eacute;sultat en 0.32 secondes
-$langFile['SEARCH_TEXT_TIME_2'] = 'secondes';
-
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
 // -----------------------------------------------------------------------------------------------

@@ -1212,7 +1212,7 @@ class generalFunctions {
   }
 
  /**
-  * <b>Name</b> getRealCharacterNumber()<br>
+  * <b>Name</b> getLetterNumber()<br>
   * 
   * Shortens the given <var>$string</var> parameter to the given <var>$textLength</var> parameter and counts the contained htmlentities.
   * Then adds the length of htmlentites to the $textLength and return it.
@@ -1227,7 +1227,7 @@ class generalFunctions {
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   */ 
-  public static function getRealCharacterNumber($string, $textLength = false) {
+  public static function getLetterNumber($string, $textLength = false) {
     
     // get the full string length if no maximum characternumber is given
     if($textLength === false)
@@ -1356,7 +1356,7 @@ class generalFunctions {
   public static function shortenTitle($title, $length) {
       
       //vars
-      $realLength =  self::getRealCharacterNumber($title,$length);
+      $realLength =  self::getLetterNumber($title,$length);
       
       // chek if shorting is necessary
       if(strlen($title) <= $realLength)

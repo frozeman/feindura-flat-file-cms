@@ -137,6 +137,6 @@ function sortDataString($a, $b) {
     return 0;
   return ($a['number'] > $b['number']) ? -1 : 1;
 }
-// ---- sortDataString is used by addDataToDataString() -------------------------------
+// ---- sortDataString is used by sortDataString() -------------------------------
 
 ?>

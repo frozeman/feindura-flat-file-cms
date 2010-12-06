@@ -969,7 +969,10 @@ class statisticFunctions {
  /**
   * <b>Name</b> addDataToDataString()<br>
   * 
-  * Adds a new string to a data-string in the format: "stringa,42|stringb,23|stringc,1" and counts the string up if its already existing.
+  * Adds a new string to a data-string and counts the string up if its already existing.
+  * 
+  * Example dataString:
+  * {@example dataString.array.example.php}
   * 
   * @param string|array $dataToAdd            a string or an array with data to add, OR a unserialized data-string
   * @param string       $dataString           the data-string which the $dataToAdd parameter will be add to
@@ -1587,7 +1590,7 @@ class statisticFunctions {
         $searchWords = $_SERVER['HTTP_REFERER'];
         // test search url strings:
         //$searchWords = 'http://www.google.de/search?q=mair%C3%A4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a';
-        //$searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
+        $searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
         //$searchWords = 'http://www.bing.com/search?q=halo+wich+suche+was&go=&form=QBLH&filt=all';
         //$searchWords = 'http://de.search.yahoo.com/search;_ylt=AoJmH5FT4CkRvDpo3RuiawIqrK5_?vc=&p=hallo+ich+suche+was&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-708';
         //$searchWords = 'http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=umlaute+fdgdfg&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1';

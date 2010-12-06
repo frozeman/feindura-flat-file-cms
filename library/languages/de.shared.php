@@ -21,9 +21,7 @@
  */
 
 
-/*
 // -> GENERAL <-
-*/
 
 $sharedLangFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
 
@@ -36,9 +34,22 @@ $sharedLangFile['date_yesterday'] = 'Gestern';
 $sharedLangFile['date_today'] = 'Heute';
 $sharedLangFile['date_tomorrow'] = 'Morgen';
 
-/*
-* --- ERROR TEXTs
-*/
+
+// -> SEARCH
+
+$langFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
+$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse f&uuml;r';
+$langFile['SEARCH_TEXT_MATCH_ID'] = '&Uuml;bereinstimmung mit der Seiten ID';
+$langFile['SEARCH_TEXT_MATCH_TITLE'] = '&Uuml;bereinstimmungen im Titel';
+$langFile['SEARCH_TEXT_MATCH_DATE'] = '&Uuml;bereinstimmungen im Seitendatum';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = '&Uuml;bereinstimmender Kategoriename';
+$langFile['SEARCH_TEXT_MATCH_WORDS'] = '&Uuml;bereinstimmende W&ouml;rter:';
+$langFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
+$langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
+$langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
+
+
+// -> ERROR TEXTs
 
 $sharedLangFile['errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>';

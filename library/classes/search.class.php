@@ -46,7 +46,7 @@ class search {
  // *********
  
  /**
-  * Contains the categories-settings config set in the CMS backend
+  * Contains the categories-settings config set in the CMS backend.
   * 
   * The file with the categories-settings config array is situated at <i>"feindura-CMS/config/category.config.php"</i>.
   *   
@@ -71,7 +71,31 @@ class search {
   * @var bool
   * @access public
   */
-  public $checkIfPublic = true;  
+  public $checkIfPublic = true;
+  
+  /**
+  * if TRUE it also search in the category names.
+  * 
+  * @var bool
+  * @access public
+  */
+  public $searchInCategory = true;
+  
+  /**
+  * The start-tag to mark the finding in a text.
+  * 
+  * @var string
+  * @access public
+  */
+  public $markStartTag = '<b>';
+  
+  /**
+  * The end-tag to mark the finding in a text.
+  * 
+  * @var string
+  * @access public
+  */
+  public $markEndTag = '</b>';
 
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -245,7 +269,7 @@ class search {
         if(preg_match_all($pattern,$search['searchwords'],$matches,PREG_OFFSET_CAPTURE) != 0) {
           $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
           $pageResults['searchwords'] = $matches[0];
-          $priority += 15;
+          $priority += 20;
           $priority *= count($matches[0]);       
         }
         // -> 2. CATEGORY
@@ -294,10 +318,10 @@ class search {
     return $results;
   }
   
-   /**
+ /**
   * <b>Name</b> displayResults()<br />
   * 
-  * Create an array with 
+  * Create an array with the page title and content, with marked findings, ready to display in a HTML page.
   * 
   * 
   * @param array $results an array with the search results created by the {@link searchPages()} method.
@@ -316,67 +340,86 @@ class search {
   protected function displayResults($results) {
     
     // var
-    $tagBefore = '<b>';
-    $tagAfter = '</b>';
+    $return = array();
     
     // return nothing when nothing was found
     if($results === false)
-      return array();
-    
-    
+      return array();    
+        
+    // GO THROUGH RESULTS and mark them in the texts
     foreach($results as $result) {
       
       $page = generalFunctions::readPage($result['pageId'],$result['categoryId']);
     
+      // var
+      $id = false;
+      $date = false;
+      $category = false;
+      $title = false;
+      $searchwords = false;
+      $description = false;
+      $content = false;
+      
+      // SET ID
+      if(isset($result['id']))
+      $id = $result['id'];
+      
+      // GENERATE TITLE
+      if(isset($result['beforeDate']) ||
+         isset($result['date']) ||
+         isset($result['afterDate']) ||
+         isset($result['title'])) {
+      
+      // PREPARE DATE
+      if(isset($result['beforeDate']) || isset($result['date']) || isset($result['afterDate'])) {
+        // -> add before date
+        $date .= $this->markFindingInText($page['pageDate']['before'],$result['beforeDate']).' ';       
+        // -> add date
+        $date .= $this->markFindingInText(statisticFunctions::formatDate($page['pageDate']['date']),$result['date']);        
+        // -> add after date
+        $date .= ' '.$this->markFindingInText($page['pageDate']['after'],$result['afterDate']);
+        $date .= ' - ';
+      }
+      
       // ->> PREPARE the TITLE
-      $title = null;
-      $date = null;
+      $title = $this->markFindingInText($page['title'],$result['title']);
       
-      // -> add before date
-      if(isset($result['beforeDate'])) {
-        // show the parts with the searchwords on bold
-        $orgDate = $page['pageDate']['before'];
-        $lastPosition = 0;
-        foreach($result['beforeDate'] as $match) {
-          $date .= substr($orgDate,$lastPosition,$match[1] - $lastPosition).$tagBefore.$match[0].$tagAfter;
-          $lastPosition = $match[1] + strlen($match[0]);
-        }
-        // add the last part of the string
-        $date .= substr($orgDate,$lastPosition).' ';
+      $title = $date.$title;      
       }
-      // -> add date
-      if(isset($result['date'])) {
-        // show the parts with the searchwords on bold
-        $orgDate = statisticFunctions::formatDate($page['pageDate']['date']);
-        $lastPosition = 0;
-        foreach($result['date'] as $match) {
-          $date .= substr($orgDate,$lastPosition,$match[1] - $lastPosition).$tagBefore.$match[0].$tagAfter;
-          $lastPosition = $match[1] + strlen($match[0]);
-        }
-        // add the last part of the string
-        $date .= substr($orgDate,$lastPosition);
-      }
-      // -> add after date
-      if(isset($result['afterDate'])) {
-        $date .= ' ';
-        // show the parts with the searchwords on bold
-        $orgDate = $page['pageDate']['after'];
-        $lastPosition = 0;
-        foreach($result['afterDate'] as $match) {
-          $date .= substr($orgDate,$lastPosition,$match[1] - $lastPosition).$tagBefore.$match[0].$tagAfter;
-          $lastPosition = $match[1] + strlen($match[0]);
-        }
-        // add the last part of the string
-        $date .= substr($orgDate,$lastPosition);
-      }
-
+     
+      // ->> PREPARE the CATEGORY NAME
+      if($this->searchInCategory && isset($result['category']))
+        $category = $this->markFindingInText($this->categoryConfig[$page['category']]['name'],$result['category']);
+     
+      // ->> PREPARE the SEARCHWORDS
+      if(isset($result['searchwords'])) {     
+        $searchwords .= $this->markFindingInDataString($page['log_searchWords'],$result['searchwords']);
+      } 
+     
+      // ->> PREPARE the DESCRIPTION
+      if(isset($result['description']))
+        $description = $this->markFindingInText($page['description'],$result['description']);
       
+      // ->> PREPARE the CONTENT
+      if(isset($result['content']))
+        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],5);
+     
+      // generate return
+      $createReturn['id'] = $id;
+      $createReturn['title'] = $title;
+      $createReturn['category'] = $category;
+      $createReturn['searchwords'] = $searchwords;
+      $createReturn['description'] = $description;
+      $createReturn['content'] = $content;
       
-     return $date;
+      $return[] = $createReturn;
+     
     }
     //return $results;
-    return $date;
+    return $return;
     
+    
+    /*
     	if($if_find) {
       	// -> CREATE FINDINGS ARRAY
         $findings[$zaehl] = array("stelle" => $stellen[$zaehl], "wortlaenge" => $wortlaenge[$zaehl], "findtext" => $findtext);
@@ -455,7 +498,154 @@ class search {
 				unset($findings,$stellen,$wortlaenge,$ausgabetext,$wortanzahl);
 				$priority = 0; //setzt priorität wieder auf 0
 			} //ende if_find=true
+			*/
   }
  
+ /**
+  * <b>Name</b> markFindingInText()<br />
+  * 
+  * Marks the results from <var>preg_match_all()</var> in the given texts.
+  * 
+  * @param string     $text         the text where the result was found to mark the rsult in it
+  * @param array      $results      an array with the search results in the format: array[0][0] = 'found text', array[0][1] = 25, array[1][0] = 'other text', ...
+  * @param false@int  $extractMax   the maximal number of letters before and after the finding, if FALSE it returns the whole text
+  * 
+  * @return string the text with marked results
+  * 
+  * @access private
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  private function markFindingInText($text,$results,$extractMax = false) {
+    
+    // var
+    $separator = ' ... ';
+    
+    // show the parts with the searchwords marked
+    if(is_array($results)) {
+      
+      $text = html_entity_decode($text,ENT_QUOTES,'UTF-8');      
+      $lastPosition = 0;      
+      
+      foreach($results as $key => $match) {
+        // var
+        $before = null;
+        $after = null;
+        $cutEnd = false;
+        $cutStart = false; 
+        
+        if($extractMax) {
+        
+          // checks if the first word - $extractMax is after the beginning
+          // if then cut the beginning
+          if($lastPosition == 0 &&
+             $extractMax < $match[1]) {
+            $lastPosition = $match[1] - $extractMax;
+            $before = $separator;//'<|#|-|-|#|';
+            $cutStart = true;
+          }
+          
+          // checks if the last word + $extractMax is after the beginning
+          // if then cut the rest of the text
+          if(count($results) == ($key + 1) &&
+             ($match[1] + strlen($match[0]) + $extractMax) < strlen($text)) {
+            $untilPosition = $extractMax;
+            $cutEnd = true;
+            $after = $separator;//'|#|-|-|#|>';
+          }
+          
+          
+          
+        }       
+        
+        if(strpos($text,$match[0]) !== false) {
+          // go until a whitespace before
+          while($cutStart && substr($text,$lastPosition,1) != ' ' && substr($text,$lastPosition,6) != '&nbsp;' && $lastPosition >= 0) {
+            $lastPosition--;
+          }
+          $markedText .= $before.substr($text,$lastPosition,$match[1] - $lastPosition).$this->markStartTag.$match[0].$this->markEndTag;
+          $lastPosition = $match[1] + strlen($match[0]);
+        }
+      }
+      
+      /*
+      // go until a whitespace after
+      while($cutEnd && substr($text,$untilPosition,1) != ' ' && substr($text,$untilPosition,6) != '&nbsp;' && $untilPosition <= strlen($text)) {
+        
+        $untilPosition++;
+      }
+      */
+      
+      echo '1->'.$lastPosition.'<br>';
+      echo '2->'.$untilPosition.'<br>';
+      
+      // add the last part of the string
+      $markedText .= ($cutEnd)
+        ? substr($text,$lastPosition,$untilPosition).$after
+        : substr($text,$lastPosition);
+      
+      /*
+      // if, the rest is cuted, find the last whitespace, and cut until then
+      if(strpos($markedText,'|#|-|-|#|>') !== false)
+        $markedText = substr($markedText,0,strrpos($markedText,' ')).$separator;      
+      // if, the beginning is cuted, find the first whitespace, and cut until then
+      if(strpos($markedText,'<|#|-|-|#|') !== false)
+        $markedText = $separator.substr($markedText,strpos($markedText,' '));
+      */
+      $markedText = htmlentities($markedText,ENT_QUOTES,'UTF-8');
+      $markedText = str_replace(array('&lt;','&gt;'),array('<','>'),$markedText);
+      return $markedText;
+    } else return $text;
+  }
+  
+ /**
+  * <b>Name</b> markFindingInDataString()<br />
+  * 
+  * Marks the results from <var>preg_match_all()</var> in a given serialized dataString.
+  * 
+  * Example dataString:
+  * {@example dataString.array.example.php}
+  * 
+  * @param string $dataString a dataString
+  * @param array  $results an array with the search results in the format: array[0][0] = 'found text', array[0][1] = 25, array[1][0] = 'other text', ...
+  * 
+  * 
+  * @return string|false the elements of the dataString with marked results, or FALSE
+  * 
+  * @see statisticFunctions::addDataToDataString()
+  * 
+  * @access private
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  private function markFindingInDataString($dataString,$results) {
+    
+    // var
+    $return = false;
+    
+    if(($dataString = unserialize($dataString)) !== false) {
+  
+      if(is_array($results)) {
+        
+        foreach($dataString as $data) {        
+          foreach($results as $match) {
+            if(strpos($data['data'],$match[0]) !== false) {
+              $return .= str_replace($match[0],$this->markStartTag.$match[0].$this->markEndTag,$data['data']).' ';
+            }
+          }
+        }
+        
+        return trim($return);
+      } else
+        return $return;      
+    } else
+      return $return;
+  }
 }
 ?>

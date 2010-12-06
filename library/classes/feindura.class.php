@@ -1229,7 +1229,7 @@ class feindura extends feinduraBase {
   * @uses feinduraBase::createAttributes()              to create the attributes used by the link <a> tag
   * @uses feinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses feinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
-  * @uses generalFunctions::getRealCharacterNumber()    to get the real character number of the linktext for shorting
+  * @uses generalFunctions::getLetterNumber()    to get the real character number of the linktext for shorting
   * @uses generalFunctions::getPageCategory()           to get the category of the page
   * @uses generalFunctions::isPublicCategory()     to check whether the category is public
   * 
@@ -1273,7 +1273,7 @@ class feindura extends feinduraBase {
           } elseif(is_string($linkText) &&
                    is_numeric($this->linkLength)) {
                    
-            $linkText = shortenText($linkText, generalFunctions::getRealCharacterNumber($linkText,$this->linkLength));
+            $linkText = shortenText($linkText, generalFunctions::getLetterNumber($linkText,$this->linkLength));
           }
   	
           // -> sets the LINK

@@ -38,7 +38,7 @@ $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.1 beta';
+$newVersion = '1.1 beta2';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -155,17 +155,19 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     // changeToSerializedDataString
     function changeToSerializedDataString($oldDataString,$separator) {
       $dataArray = explode($separator,$oldDataString);
-      $newDataArry = array();    
+      $newDataArry = array();
       
       foreach($dataArray as $data) {
-        $dataExploded = explode(',',$data);
-        $newDataArry[] = array('data' => $dataExploded[0], 'number' => $dataExploded[1]);
+        if(!empty($data)) {
+          $dataExploded = explode(',',$data);
+          $newDataArry[] = array('data' => $dataExploded[0], 'number' => $dataExploded[1]);
+        }
       }    
       return serialize($newDataArry);
     }
     
     function changeToSerializedData($oldDataString,$separator) {
-      $dataArray = explode($separator,$oldDataString);   
+      $dataArray = explode($separator,$oldDataString);
       return serialize($dataArray);
     }
     

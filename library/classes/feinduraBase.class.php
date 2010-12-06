@@ -1613,7 +1613,7 @@ class feinduraBase {
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
   * @uses createHref()                                  create the href for the "more" link  
-  * @uses generalFunctions::getRealCharacterNumber()    to get the real number of characters of the string (adds the multiple characters of htmlentities)
+  * @uses generalFunctions::getLetterNumber()    to get the real number of characters of the string (adds the multiple characters of htmlentities)
   * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid
   * 
   * @return string the shortened string
@@ -1633,7 +1633,7 @@ class feinduraBase {
       // getting length
       if(is_numeric($length)) {
         // gets real length, if there are htmlentities like &auml; &uuml; etc
-        $length = generalFunctions::getRealCharacterNumber($string,$length);        
+        $length = generalFunctions::getLetterNumber($string,$length);        
       }
       
       // shorten the string
@@ -1695,7 +1695,7 @@ class feinduraBase {
       $rawText = preg_replace("/ +/", ' ', $rawText);
       
       if(is_numeric($length))
-        $length = generalFunctions::getRealCharacterNumber($rawText,$length);
+        $length = generalFunctions::getLetterNumber($rawText,$length);
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT
       // ***********************************************

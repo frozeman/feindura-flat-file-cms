@@ -21,9 +21,8 @@
  */
 
 
-/*
+
 // -> GENERAL <-
-*/
 
 $sharedLangFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
 
@@ -36,9 +35,22 @@ $sharedLangFile['date_yesterday'] = 'hier';
 $sharedLangFile['date_today'] = 'aujourd\'hui';
 $sharedLangFile['date_tomorrow'] = 'demain';
 
-/*
-* --- ERROR TEXTs
-*/
+
+// -> SEARCH
+
+$langFile['SEARCH_TITLE'] = 'fouiller les pages';
+$langFile['SEARCH_TITLE_RESULTS'] = 'r&eacute;sultat de recherche pour';
+$langFile['SEARCH_TEXT_MATCH_ID'] = 'convergence avec l\'ID de la page';
+$langFile['SEARCH_TEXT_MATCH_TITLE'] = 'convergences dans le titre';
+$langFile['SEARCH_TEXT_MATCH_DATE'] = 'convergences dans la date de page';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'convergences avec le nom de la cat&eacute;gorie';
+$langFile['SEARCH_TEXT_MATCH_WORDS'] = 'convergences avec les mots';
+$langFile['SEARCH_TEXT_RESULTS'] = 'r&eacute;sultat';
+$langFile['SEARCH_TEXT_TIME_1'] = 'en'; // 12 r&eacute;sultat en 0.32 secondes
+$langFile['SEARCH_TEXT_TIME_2'] = 'secondes';
+
+
+// -> ERROR TEXTs
 
 $sharedLangFile['errorWindow_h1'] = 'une erreur s\'est produite!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>activation de la page d\'accueil impossible.</b>';

@@ -331,7 +331,7 @@ $hidden = ' hidden';
       
       // -> show TAG CLOUD
       echo '<div class="tagCloud">';
-      statisticFunctions::createTagCloud($pageContent['log_searchWords']);
+      echo statisticFunctions::createTagCloud($pageContent['log_searchWords']);
       echo '</div>';
 
       ?>
