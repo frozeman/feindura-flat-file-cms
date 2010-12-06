@@ -41,6 +41,9 @@
 *    - 0.56 started documentation
 * 
 */ 
+
+date_default_timezone_set('Asia/Jerusalem');
+
 class statisticFunctions {
  
  /* ---------------------------------------------------------------------------------------------------------------------------- */
