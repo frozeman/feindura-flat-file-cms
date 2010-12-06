@@ -1,12 +1,12 @@
 <?php
 
 $adminConfig['url'] =              'http://localhost';
-$adminConfig['basePath'] =         '/_feindura/';
-$adminConfig['websitePath'] =      '/';
-$adminConfig['savePath'] =         '/_feindura/_pages/';
-$adminConfig['uploadPath'] =       '/_feindura/_upload/';
+$adminConfig['basePath'] =         '/feindura/CMS/';
+$adminConfig['websitePath'] =      '/feindura/';
+$adminConfig['savePath'] =         '/feindura/pages/';
+$adminConfig['uploadPath'] =       '/feindura/upload/';
 $adminConfig['websitefilesPath'] = '';
-$adminConfig['stylesheetPath'] =   '/_feindura.org/style/';
+$adminConfig['stylesheetPath'] =   '/feindura/style/';
 $adminConfig['dateFormat'] =       'eu';
 $adminConfig['speakingUrl'] =      false;
 
