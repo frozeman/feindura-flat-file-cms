@@ -35,38 +35,34 @@ if(isset($_GET['downloadBackup'])) {
   $unwriteableList .= isWritableWarning($checkFolder);
   
   // ->> create archive
-  if(!$unwriteableList) {
+  if(!$unwriteableList) {    
     
-    // -> generate filename
-    $websitePath = str_replace(array('/',"\\"),'+',$adminConfig['websitePath']);
-    $websitePath = ($websitePath != '+') ? substr($websitePath,0,-1) : '';
-    $backupName = 'feinduraBackup_'.$_SERVER['HTTP_HOST'].$websitePath.'_'.date('Y-m-d_H-i').'.zip';
-    $backupFile = DOCUMENTROOT.$adminConfig['basePath'].'backups/'.$backupName;
+    // generates the file name
+    $backupFile = generateBackupFileName();    
+    // create backup
+    $catchError = createBackup($backupFile);
     
-    // -> generate archive
-    require_once(dirname(__FILE__).'/../thirdparty/pclzip.lib.php');
-    $archive = new PclZip($backupFile);
-    $catchError1 = $archive->add(DOCUMENTROOT.$adminConfig['basePath'].'config/,'.DOCUMENTROOT.$adminConfig['basePath'].'statistic/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$adminConfig['basePath']);
-    $catchError2 = $archive->add(DOCUMENTROOT.$adminConfig['savePath'],PCLZIP_OPT_REMOVE_PATH, dirname(DOCUMENTROOT.$adminConfig['savePath']));
-    if($catchError1 == 0 && $catchError2 == 0) {
-      $errorWindow = "BACKUP ERROR: ".$archive->errorInfo(true);
-    
-    // -> download file
+    // -> throw error
+    if($catchError !== true) {
+      $errorWindow .= "BACKUP ERROR: ".$catchError;
+         
+    // -> or download file
     } else {
       
       if(@file_exists($backupFile)) {
+        $statisticFunctions->saveTaskLog(29); // <- SAVE the task in a LOG FILE
          
         header("Content-Type: application/octet-stream");
         header('Content-Disposition: attachment; filename="'.basename($backupFile).'"');
         header("Content-length: ".filesize($backupFile));        
         readfile($backupFile) or die('something went wrong when reading the file?');
       } else
-        $errorWindow = $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br />'.$backupFile;      
+        $errorWindow .= $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br />'.$backupFile;      
     }
   
   // -> throw folder error
   } else
-    $errorWindow = $unwriteableList;
+    $errorWindow .= $unwriteableList;
 }
 
 
@@ -75,13 +71,17 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
   
   // var
   $error = false;
+  $backupFile =  false;
   
   // ->> use uploaded backup file
   if(!empty($_FILES['restoreBackupUpload']['tmp_name']) && !isset($_POST['restoreBackupFile'])) {
     // Check if the file has been correctly uploaded.
-    if($_FILES['restoreBackupUpload']['name'] == '')
-    	$error .= $langFile['pagethumbnail_upload_error_nofile'];
+    //if($_FILES['restoreBackupUpload']['name'] == '')
+    	//$error .= $langFile['pagethumbnail_upload_error_nofile'];
+    	
+    $backupFile = $_FILES['restoreBackupUpload']['tmp_name'];
     
+    /*
     if($error === false) {
       if($_FILES['restoreBackupUpload']['tmp_name'] == '')
         $error .= $langFile['pagethumbnail_upload_error_nouploadedfile'];
@@ -90,21 +90,69 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       if($_FILES['restoreBackupUpload']['size'] == 0)
         $error .= $langFile['pagethumbnail_upload_error_filesize'].' '.ini_get('upload_max_filesize').'B';
     }
+    */
     
   // ->> otherwise use existing backup file
   } elseif(isset($_POST['restoreBackupFile'])) {
-  
+    $backupFile = DOCUMENTROOT.$_POST['restoreBackupFile'];  
   // -> otherwise throw error
   } else {
-    $error = $langFile['BACKUP_ERROR_NORESTROEFILE'];
+    $errorWindow .= $langFile['BACKUP_ERROR_NORESTROEFILE'];
   }
   
-  if(!$error) {
-    // set documentSaved status
-    $documentSaved = true;
-    $statisticFunctions->saveTaskLog(19); // <- SAVE the task in a LOG FILE
-  } else
-    $errorWindow .= $error;
+  // ->> start the restore process
+  if($errorWindow === false && $backupFile) {
+        
+    // create backup before
+    $backupFileName = generateBackupFileName('restore');
+    $catchError = createBackup($backupFileName);
+    if($catchError !== true)
+      $errorWindow .= "BACKUP BEFORE RESTORE ERROR: ".$catchError;
+    
+    // only proceed when the backup was succesfully created
+    if($errorWindow === false) {
+      // -> extracting the backup file
+      require_once(dirname(__FILE__).'/../thirdparty/pclzip.lib.php');
+      $archive = new PclZip($backupFile);
+      // -> extract CONFIG
+      if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
+                           PCLZIP_OPT_BY_PREG, '#([a-z]+\.config\.php$)|(htmlEditorStyles\.js$)#',
+                           PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
+                           PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
+        $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
+      }
+      // -> extract STATISTICS
+      if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
+                           PCLZIP_OPT_BY_PREG, '#([a-z]+\.statistic\.[a-z]+)#',
+                           PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
+                           PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
+        $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
+      }
+      
+      if($errorWindow === false) {
+        // delete the old pages dir
+        delDir($adminConfig['basePath'].'pages/');
+        // -> extract PAGES
+        if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
+                             PCLZIP_OPT_BY_PREG, '#\d+\.php$#',
+                             PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
+                             PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
+          $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
+        }
+      }
+    }
+    
+    // delete the tmp file
+    if(!empty($_FILES['restoreBackupUpload']['tmp_name']))
+      @unlink($_FILES['restoreBackupUpload']['tmp_name']);
+    
+    // -> when restore was succesfull
+    if($errorWindow === false) {
+      // set documentSaved status
+      $documentSaved = true;
+      $statisticFunctions->saveTaskLog(30); // <- SAVE the task in a LOG FILE
+    }
+  }
   
   $savedForm = 'restorBackup';
 }

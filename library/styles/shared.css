@@ -62,7 +62,8 @@ a.toWebsite:hover, a.feindura_toBackend:hover {
     position: relative;
     margin: 0px 30px; /* before  0px 40px; */
     padding-bottom: 3px;
-    font-weight:bold;
+    font-weight: bold;
+    font-size: 12px; 
     color:#947342;
     text-align: center;
     word-wrap: break-word;
@@ -76,7 +77,8 @@ a.toWebsite:hover, a.feindura_toBackend:hover {
     color: #666666;
     padding: 4px 35px; /* before  10px 40px; */
     padding-bottom: 0px;
-    word-wrap: break-word;    
+    word-wrap: break-word;
+    font-size: 11px;
     }
 .feindura_toolTipBox .tip-top {
     z-index: 0;

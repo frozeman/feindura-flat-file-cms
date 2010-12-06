@@ -19,7 +19,7 @@
  * 
  * IMPORTANT:<br>
  * if you want to write html-code in the toolTip texts (the $langFile which have "_TOOLTIP_")
- * uses only "[" and "]" instead of "<" and ">" for the HTML-tags and use no "! This would end the title="" tag where the toolTip text are in.
+ * uses only "[" and "]" instead of "<" and ">" for the HTML-tags and use no " (write instead &quot;), this would end the title="" tag which contains the toolTip text.
  * 
  * <samp>
  * $langFile['GROUP_TYPE_NAME'] = 'langfile example text';
@@ -189,6 +189,9 @@ $langFile['LOG_PLUGINSETUP_SAVED'] = 'Plugin-Einstellungen gespeichert von';
 $langFile['LOG_FILE_SAVED'] = 'Datei gespeichert';
 $langFile['LOG_FILE_DELETED'] = 'Datei gel&ouml;scht';
 
+$langFile['LOG_BACKUP_CREATED'] = 'Backup erstellt';
+$langFile['LOG_BACKUP_RESTORED'] = 'Backup wiederhergestellt';
+
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC'] = 'Seite ist &ouml;ffentlich';
 $langFile['STATUS_PAGE_NONPUBLIC'] = 'Seite ist versteckt';
@@ -203,7 +206,6 @@ $langFile['USER_TEXT_USERSONLINE'] = 'Dieser Benutzer ist ebenfalls eingeloggt::
 
 $langFile['LOGO_TEXT'] = 'Version';
 $langFile['LOADING_TEXT_LOAD'] = 'Seite wird geladen..';
-
 
 // -> BUTTON TEXTS
 
@@ -336,17 +338,17 @@ $langFile['sortablePageList_functions_editPage'] = 'Seite bearbeiten';
 $langFile['sortablePageList_changeStatus_linkPage'] = 'Hier klicken um den Status f&uuml;r Seite zu &auml;ndern.';
 $langFile['sortablePageList_changeStatus_linkCategory'] = 'Hier klicken um den Status f&uuml;r die Kategorie zu &auml;ndern.';
 
-$langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['file_error_read'] = '<b>Die Seite konnte nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusPage_error_save'] = '<b>Der Status der Seite konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_setStartPage_error_save'] .= $langFile['ERROR_SAVE_FILE'].' "'.$adminConfig['basePath'].'config/website.config.php"'; // also in de.shared.php
-$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Kategorie konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_changeStatusCategory_error_save'] = '<b>Der Status der Kategorie konnte nicht ge&auml;ndert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 $langFile['sortablePageList_info'] = 'Du kannst die <b>Seiten-Anordnung</b> per <b>Drag and Drop</b> ver&auml;ndern und auch Seiten zwischen den Kategorien verschieben.';
 $langFile['sortablePageList_save'] = 'Speichere die neue Anordnung ...';
 $langFile['sortablePageList_save_finished'] = 'Neu Anordnung erfolgreich gespeichert!';
-$langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_read'] = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_move'] = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_save'] = '<b>Die Seiten konnten nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_read'] = '<b>Die Seiten konnten nicht gelesen werden.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['sortablePageList_error_move'] = '<b>Konnte die Seite nicht in die neue Kategorie verschieben.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['sortablePageList_categoryEmpty'] = 'Keine Seiten vorhanden';
 
 // ---------- FORMULAR
@@ -384,8 +386,6 @@ $langFile['adminSetup_fmsSettings_field2_inputTip'] = 'Der Pfad wird automatisch
 $langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
 $langFile['adminSetup_fmsSettings_field8'] = 'Webseitenpfad';
 $langFile['adminSetup_fmsSettings_field8_tip'] = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.';
-$langFile['adminSetup_fmsSettings_field3'] = 'Seitenpfad';
-$langFile['adminSetup_fmsSettings_field3_tip'] = 'Der [b]absolute Pfad[/b], unter dem die Flat-Files mit dem Seiteninhalt gespeichert werden.';
 $langFile['adminSetup_fmsSettings_field4'] = 'Daten-Uploadpfad';
 $langFile['adminSetup_fmsSettings_field4_tip'] = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einf&uuml;gen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]Diese Dateien k&ouml;nnen dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]';
@@ -395,11 +395,11 @@ $langFile['adminSetup_fmsSettings_field6'] = 'Dateipfad f&uuml;r Stylesheetdatei
 $langFile['adminSetup_fmsSettings_field6_tip'] = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden k&ouml;nnen.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
 $langFile['adminSetup_fmsSettings_varName_ifempty'] = 'Wenn das Feld leer ist, wird der Standard Name f&uuml;r die GET-Variablen verwendet: ';
 $langFile['adminSetup_fmsSettings_varName1'] = 'Seiten Variablenname';
-$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'"[b]page[/b]"';
+$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]page[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName2'] = 'Kategorie Variablenname';
-$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'"[b]category[/b]"';
+$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]category[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName3'] = 'Modul Variablenname';
-$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'"[b]modul[/b]"';
+$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
 $langFile['adminSetup_fmsSettings_field7'] = 'Datumsformat';
 $langFile['adminSetup_fmsSettings_field7_tip'] = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
@@ -444,7 +444,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TE
 
 // ---------- styleFile Settings
 $langFile['adminSetup_styleFileSettings_h1'] = '"Stil-Auswahl" des HTML-Editors bearbeiten';
-$langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei "htmlEditorStyles.xml" konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
+$langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei "htmlEditorStyles.js" konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings
 $langFile['editFilesSettings_error_save'] = '<b>Die Datei konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
@@ -502,9 +502,9 @@ $langFile['pageSetup_moveCategory_up_tip'] = 'Kategorie nach oben verschieben';
 $langFile['pageSetup_moveCategory_down_tip'] = 'Kategorie nach unten verschieben';
 
 $langFile['pageSetup_error_create'] = '<b>Eine neue Kategorie konnte nicht erstellt werden.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['pageSetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].'" Ordners.';
+$langFile['pageSetup_error_createDir'] = '<b>Konnte keine neues Kategorie-Verzeichnis erstellen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.'" Ordners.';
 $langFile['pageSetup_error_delete'] = '<b>Die Kategorie konnte nicht gel&ouml;scht werden.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['pageSetup_error_deleteDir'] = '<b>Konnte das Kategorie-Verzeichnis nicht l&ouml;schen.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 $langFile['pageSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
 
 
@@ -595,7 +595,7 @@ $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Beinhaltet eine Liste
 
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Willst du diese Statistiken wirklich l&ouml;schen?';
 
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'Fehler beim l&ouml;schen der Seiten-Statistiken.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
@@ -703,7 +703,7 @@ $langFile['editor_htmleditor_hotkeys_field9'] = 'Kursiv';
 $langFile['editor_htmleditor_hotkeys_field10'] = 'Unterstrichen';
 $langFile['editor_htmleditor_hotkeys_or'] = 'oder';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['savePath'].$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
+$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
 
 // ---------- plugin settings
 $langFile['editor_pluginSettings_h1'] = 'Plugin Einstellungen';
@@ -783,14 +783,16 @@ $langFile['BACKUP_TITLE_RESTORE'] = 'Wiederherstellen';
 $langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'Vorhandenes Backup ausw&auml;hlen';
 $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Backup-Datei hochladen';
 
+$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup vor der Wiederherstellung';
+
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
-$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="red">Achtung! Alle derzeitigen Einstellungen und Seiten werden damit &uuml;berschrieben!</span><br /><span class="blue">Es wird aber vorher ein Backup des alten Standes erstellt.</span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="blue">Vor der Wiederherstellung wird ein Backup des alten Standes erstellt.</span>';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup-Datei wurde nicht gefunden in:';
-$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
+$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Es wurde keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
 
 /*
 * search.php

@@ -40,31 +40,14 @@ $version[3] = trim($version[3]);
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   $_GET['site'] = 'home';
 
-// -----------------------------------------------------------------------------------
-// generates the DOCUMENT TYPE
-// kind of hack, because i use iframes for uploading the thumbnail
-if($_GET['site'] == 'pages' || !empty($_GET['page']) ||
-   $_GET['site'] == 'userSetup' ||
-   $_GET['site'] == 'adminSetup' ||
-   $_GET['site'] == 'websiteSetup' ||
-   $_GET['site'] == 'pluginSetup') {
-  echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-';
-} else {
-  echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-';
-}
 ?>
+<!DOCTYPE html>
 <html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+  <meta charset="UTF-8" />
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
-  <title>      
-    feindura: <?php echo $websiteConfig['title']; ?> 
-  </title>
+  <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
@@ -124,7 +107,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
   
   <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
   
   <!-- thirdparty/StaticScroller (needs MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
@@ -157,7 +140,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/content.js"></script>
   
   <!-- starts the session counter -->
-  <script>
+  <script type="text/javascript">
   /* <![CDATA[ */  
   
   window.addEvent('domready', function () {

@@ -1450,7 +1450,7 @@ class statisticFunctions {
               $category = ($lastPage['category'] != 0) ? $lastPage['category'].'/' : '';
               
               // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
-              if(@file_exists(DOCUMENTROOT.$this->adminConfig['savePath'].$category.$lastPage['id'].'.php'))
+              if(@file_exists(DOCUMENTROOT.$this->adminConfig['basePath'].'pages/'.$category.$lastPage['id'].'.php'))
                 $this->generalFunctions->savePage($lastPage);
             }
             

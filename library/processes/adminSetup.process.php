@@ -41,8 +41,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   // ** adds a "/" on the beginning of all absolute paths
   if(!empty($_POST['cfg_websitePath']) && substr($_POST['cfg_websitePath'],0,1) !== '/')
         $_POST['cfg_websitePath'] = '/'.$_POST['cfg_websitePath'];
-  if(!empty($_POST['cfg_savePath']) && substr($_POST['cfg_savePath'],0,1) !== '/')
-        $_POST['cfg_savePath'] = '/'.$_POST['cfg_savePath'];
   if(!empty($_POST['cfg_uploadPath']) && substr($_POST['cfg_uploadPath'],0,1) !== '/')
         $_POST['cfg_uploadPath'] = '/'.$_POST['cfg_uploadPath'];
   if(!empty($_POST['cfg_websitefilesPath']) && substr($_POST['cfg_websitefilesPath'],0,1) !== '/')
@@ -89,7 +87,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   ? dirname($_SERVER['PHP_SELF'])
   : dirname($_SERVER['PHP_SELF']).'/';
   $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];
-  $adminConfig['savePath'] =  $_POST['cfg_savePath'];
   
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
   $adminConfig['websitefilesPath'] = $_POST['cfg_websitefilesPath'];

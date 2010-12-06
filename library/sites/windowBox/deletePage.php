@@ -41,12 +41,12 @@ if($category == 0)
   $category = '';
 
 // QUESTION
-if(is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
   $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {
-  $question = '<h1>'.$langFile['deletePage_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['savePath'].$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
+  $question = '<h1>'.$langFile['deletePage_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
   <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>';
   
   // show only the ok button
@@ -54,11 +54,11 @@ if(is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
 }
 
 // DELETING PROCESS
-if($asking && is_file(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
-  @chmod(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page, PERMISSIONS);
+if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
+  @chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page, PERMISSIONS);
 
     // DELETING THUMBNAIL
-    if(@unlink(DOCUMENTROOT.$adminConfig['savePath'].$category.'/'.$page.'.php')) {
+    if(@unlink(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
       if(!empty($pageContent['thumbnail'])) {
         @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       }

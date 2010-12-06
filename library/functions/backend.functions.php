@@ -517,9 +517,9 @@ function movePage($page, $fromCategory, $toCategory) {
     $toCategory = '';
     
   // MOVE categories
-  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php',
-    DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$toCategory.'/'.$page.'.php') &&
-    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$fromCategory.'/'.$page.'.php')) {
+  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php',
+    DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.'/'.$page.'.php') &&
+    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php')) {
     // reset the stored page ids
     $GLOBALS['generalFunctions']->storedPagess = null;
     $GLOBALS['generalFunctions']->storedPagesIds = null;
@@ -576,7 +576,6 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['url'] =              '".$adminConfig['url']."';\n");
     fwrite($file,"\$adminConfig['basePath'] =         '".$adminConfig['basePath']."';\n");
     fwrite($file,"\$adminConfig['websitePath'] =      '".$GLOBALS['xssFilter']->path($adminConfig['websitePath'])."';\n");
-    fwrite($file,"\$adminConfig['savePath'] =         '".$GLOBALS['xssFilter']->path($adminConfig['savePath'])."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".$GLOBALS['xssFilter']->path($adminConfig['uploadPath'])."';\n");  
     fwrite($file,"\$adminConfig['websitefilesPath'] = '".$GLOBALS['xssFilter']->path($adminConfig['websitefilesPath'])."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =   '".$GLOBALS['xssFilter']->path($adminConfig['stylesheetPath'])."';\n");    
@@ -896,8 +895,8 @@ RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
 RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
-'.$newWebsitePath.'category/([^/]+)/(.*)\.html?$ ?category=$1&page=$2$3 [QSA,L]
-'.$newWebsitePath.'page/(.*)\.html?$ ?page=$1$2 [QSA,L]
+'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ ?category=$1&page=$2$3 [QSA,L]
+'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ ?page=$1$2 [QSA,L]
 </IfModule>';
   
   $oldSpeakingUrlCode = str_replace($newWebsitePath,$oldWebsitePath,$speakingUrlCode);
@@ -989,6 +988,73 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
   }
   
   return;
+}
+
+/**
+ * <b>Name</b> generateBackupFileName()<br />
+ * 
+ * generates the backup file name like:
+ * 
+ * <samp>
+ * feinduraBackup_localhost_2010-11-17_17-36.zip
+ * </samp>
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $backupAppendix (optional) a name which will be appended to the backup file name
+ * 
+ * @return string the generated backup file name
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function generateBackupFileName($backupAppendix = false) {
+  
+  $backupAppendix = ($backupAppendix) ? '_'.$backupAppendix : '';
+
+  $websitePath = str_replace(array('/',"\\"),'+',$GLOBALS['adminConfig']['websitePath']);
+  $websitePath = ($websitePath != '+') ? substr($websitePath,0,-1) : '';
+  $backupName = 'feinduraBackup_'.$_SERVER['HTTP_HOST'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
+  $backupFileName = DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'backups/'.$backupName;
+  
+  return $backupFileName;
+}
+
+/**
+ * <b>Name</b> createBackup()<br />
+ * 
+ * Creates a backup file from the "config", "statistic" and "pages" folder.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $backupFileName the backup file name
+ * 
+ * @return true|string TRUE if the creation of a backup zip was successfull, otherwise a string with the error warning
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function createBackup($backupFileName) {
+  
+  // -> generate archive
+  require_once(dirname(__FILE__).'/../thirdparty/pclzip.lib.php');
+  $archive = new PclZip($backupFileName);
+  $catchError = $archive->add(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'config/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'statistic/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$GLOBALS['adminConfig']['basePath']);
+
+  if($catchError == 0)
+    return $archive->errorInfo(true);
+  else
+    return true;
 }
 
 /**
@@ -1632,7 +1698,7 @@ function basePathWarning() {
  */
 function startPageWarning() {
   
-  if(basePathWarning() !== false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath']))
+  if(basePathWarning() !== false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'))
     return false;
   
   if($GLOBALS['adminConfig']['setStartPage'] && $GLOBALS['websiteConfig']['startPage'] && ($startPageCategory = $GLOBALS['generalFunctions']->getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
@@ -1640,7 +1706,7 @@ function startPageWarning() {
   else
     $startPageCategory = '';
 
-  if($GLOBALS['adminConfig']['setStartPage'] && (!$GLOBALS['websiteConfig']['startPage'] || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['savePath'].$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
+  if($GLOBALS['adminConfig']['setStartPage'] && (!$GLOBALS['websiteConfig']['startPage'] || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>
             <div class="content">

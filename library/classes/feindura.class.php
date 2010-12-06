@@ -883,7 +883,7 @@ class feindura extends feinduraBase {
     $this->setLanguage($_SESSION['language']);
         
     // includes the langFile and returns it
-    if($langFile = include($langFilesPath.$_SESSION['language'].'.php'))
+    if($langFile = @include($langFilesPath.$_SESSION['language'].'.php'))
       return $langFile;
     else
       return array();
@@ -893,7 +893,9 @@ class feindura extends feinduraBase {
   * <b>Name</b>     createMetaTags()<br />
   * <b>Alias</b>    createMetaTag()<br />
   * 
-  * Creates a string with all necessary meta tags.
+  * Creates a string with basic HTML5 meta tags. See the example for a detailed list of the meta tags created.
+  * 
+  * <b>Notice</b>: You have to call this method in the <head> tags of your website, to enable the frontend editing feature.
   * 
   * Example:
   * {@example createMetaTags.example.php}
@@ -902,7 +904,7 @@ class feindura extends feinduraBase {
   * @param string|false $author       (optional) the author of the website
   * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link feinduraBase::$websiteConfig website-settings config}
   * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link feinduraBase::$websiteConfig website-settings config}
-  * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as "path/filename"
+  * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as e.g. "path/robots.txt"
   * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will not be set
   * 
   * @uses feindura::$page               to load the page title of teh righte page
@@ -928,15 +930,16 @@ class feindura extends feinduraBase {
       
       // -> clear xHTML tags from the content
       if($this->xHtml === true) {   
-        $siteType = 'application/xhtml+xml';
+        //$siteType = 'application/xhtml+xml';
         $tagEnding = ' />';
       } else {
-        $siteType = 'text/html';
+        //$siteType = 'text/html';
         $tagEnding = '>';
-      }        
+      }
       
       // -> add CHARSET
-      $metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
+      //$metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
+      $metaTags .= '<meta charset="'.$charset.'"'.$tagEnding."\n";
       
       // -> add language
       if($this->language)
@@ -954,18 +957,16 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta name="siteinfo" content="robots.txt"'.$tagEnding."\n";
       elseif(!empty($robotTxt))
         $metaTags .= '  <meta name="siteinfo" content="'.$robotTxt.'"'.$tagEnding."\n";
-      
-      if($robotTxt) {
-        $metaTags .= '  <meta name="robots" content="index, follow"'.$tagEnding."\n";
-      }
         
       // -> add REVISIT AFTER
       if($robotTxt && $revisitAfter !== false && is_numeric($revisitAfter))
         $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'"'.$tagEnding."\n\n";
       
-      // -> add other META TAGs 
-      $metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
-      $metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
+      // -> add other META TAGs
+      $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
+      $metaTags .= '  <meta name="viewport" content="width=device-width, initial-scale=1.0"'.$tagEnding.' <!-- set width for mobile devices -->'."\n\n";
+      //$metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
+      //$metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
       
       // -> add title
       $metaTags .= '  <meta name="title" content="'.$pageNameInTitle.$this->websiteConfig['title'].'"'.$tagEnding."\n";
@@ -1000,16 +1001,17 @@ class feindura extends feinduraBase {
       
       // -> add plugin-stylesheets
       $plugins = $this->generalFunctions->readFolder($this->adminConfig['basePath'].'plugins/');
-      foreach($plugins['folders'] as $pluginFolder) {
-        $pluginName = basename($pluginFolder);
-
-        if($this->pluginsConfig[$pluginName]['active'])
-          $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
+      if(is_array($plugins)) {
+        foreach($plugins['folders'] as $pluginFolder) {
+          $pluginName = basename($pluginFolder);
+  
+          if($this->pluginsConfig[$pluginName]['active'])
+            $metaTags .= $this->generalFunctions->createStyleTags($pluginFolder,false);
+        }
       }
       
       // ->> ENABLE FRONTEND EDITING
-      // if user is logged into the CMS, add javascripts for implementing ckeditor
-      
+      // if user is logged into the CMS, add javascripts for implementing ckeditor      
       if($this->loggedIn) {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
@@ -1020,18 +1022,17 @@ class feindura extends feinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/rteFeinduraSkin.css" />'."\n";
         
         // add mootools
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";
         // add CKEditor
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/ckeditor/ckeditor.js"></script>'."\n";
 
         // add MooRTE and mootools
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5.1-more.js"></script>'."\n";
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5-core.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/mootools-1.2.5.1-more.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/clientcide.moore.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/dependencies/stickywin/StickyWinModalUI.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/MooRTE/moorte.js"></script>'."\n";
-        //add mooml template engine
-        //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mooml.js"></script>'."\n";
         // add raphael
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
         // add the javascripts which are shared by the backend and the frontend
@@ -1043,61 +1044,24 @@ class feindura extends feinduraBase {
         
         // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
-  /* <![CDATA[ */  
+  /* <![CDATA[ */
   
-  // ->> SAVE PAGE
-  function feindura_savePage(pageBlock,type) {
-    if(feindura_pageSaved === false && feindura_pageContent != pageBlock.get('html')) {
+  // transport PHP vars to javascript
+  var feindura_url = '".$this->adminConfig['url']."';
+  var feindura_basePath = '".$this->adminConfig['basePath']."';
+  var feindura_langFile = {
+    ERRORWINDOW_TITLE:      '".$this->languageFile['errorWindow_h1']."',
+    ERROR_SAVE:             '".$this->languageFile['editor_savepage_error_save']."',
+    ERROR_SETSTARTPAGE:     '".$this->languageFile['sortablePageList_setStartPage_error_save']."',
+    FUNCTIONS_STARTPAGE_SET:'".$this->languageFile['sortablePageList_functions_startPage_set']."',
+    FUNCTIONS_STARTPAGE:    '".$this->languageFile['sortablePageList_functions_startPage']."',
+    FUNCTIONS_EDITPAGE:     '".$this->languageFile['editPage_functions']."',
+    BUTTON_LOGOUT:          '".$this->languageFile['header_button_logout']."',
+    BUTTON_GOTOBACKEND:     '".$this->languageFile['header_button_gotobackend']."'
     
-      // removes eventually existing loadingCircleContainers
-      $$('.feindura_loadingCircleContainer').each(function(container){
-        container.destroy();
-      });
-      
-      // url encodes the string
-      var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
-
-      // save the page
-      feindura_request(pageBlock,'".$this->adminConfig['basePath']."library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: '".$this->languageFile['errorWindow_h1']."',text: '".$this->languageFile['editor_savepage_error_save']."'},'post',true);
-  		
-      feindura_pageSaved = true;
-    }
-  }
-  
-  
-  // ->> RENDER PAGEBAR
-  function feindura_renderPageBar(values) {
-    var startpage = '".$this->startPage."';
-    
-    if(startpage == values.pageId) {
-      values.startPageActive = ' active';
-      values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage_set']."';
-    } else {
-      values.startPageActive = '';
-      values.startPageText = '".$this->languageFile['sortablePageList_functions_startPage']."';
-    }
-    
-    return Mooml.render('feindura_pageBarTemplate', values);
-  }
-  
-  // ->> create TOP BAR
-  /*
-  Mooml.register('feindura_topBarTemplate', function() {
-      div({id: 'feindura_topBar'},
-          a({ 'href': '".$this->generalFunctions->getCurrentUrl('feindura_logout')."', 'class': 'feindura_logout feindura_toolTip', 'title': '".$this->languageFile['header_button_logout']."' }, ''),
-          a({ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'class': 'feindura_toBackend feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, ''),
-          a({ 'href': '".$adminConfig['url'].$this->adminConfig['basePath']."', 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': '".$this->languageFile['header_button_gotobackend']."' }, '')
-         )
-  });  
-  
-  // ->> create PAGE BAR  
-  Mooml.register('feindura_pageBarTemplate', function(values) {
-          // editPage
-          a({ 'href': '".$this->adminConfig['basePath']."index.php?category='+values.categoryId+'&page='+values.pageId+'#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': '".$this->languageFile['editPage_functions']."::' }, ''),
-          // setStartPage
-          a({ 'href': '#', 'onclick': 'feindura_pageSaved = true;feindura_request(this.getParent(\'div\').getNext(\'div\'),\'".$this->adminConfig['basePath']."library/processes/listPages.process.php\',\'status=setStartPage&category='+values.categoryId+'&page='+values.pageId+'\',{\'title\': \'".$this->languageFile['errorWindow_h1']."\',\'text\': \'".$this->languageFile['sortablePageList_setStartPage_error_save']."\'});return false;','class': 'feindura_startPage'+values.startPageActive+' feindura_toolTip', 'title': values.startPageText+'::'})
-  });
-  */
+  };
+  var feindura_logoutUrl = '".$this->generalFunctions->getCurrentUrl('feindura_logout')."';
+  var feindura_startPage = '".$this->startPage."';
   
   /* ]]> */
   </script>\n";
