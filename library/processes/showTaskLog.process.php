@@ -161,7 +161,7 @@ foreach($logContent as $logRow) {
       $pageId = generalFunctions::cleanSpecialChars($pageId); // removes \n\r
       $pageContent = generalFunctions::readPage($pageId,generalFunctions::getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.$pageContent['title'].'">'.generalFunctions::shortenTitle($pageContent['title'], $maxLength).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.$pageContent['title'].'">'.generalFunctions::shortenString($pageContent['title'], $maxLength).'</a>';
       
       $foundObject = true;
     }
@@ -183,14 +183,14 @@ foreach($logContent as $logRow) {
         ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
         : $categoryConfig[$categoryId]['name'];
       
-      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" title="'.$categoryName.'">'.generalFunctions::shortenTitle($categoryName, $maxLength).'</a>';
+      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" title="'.$categoryName.'">'.generalFunctions::shortenString($categoryName, $maxLength).'</a>';
       
       $foundObject = true;                  
     }
     
     // -> OTHERWISE just use the task object name/text
     if($foundObject === false)
-      $taskObject = '<span title="'.$logObject[0].'">'.generalFunctions::shortenTitle($logObject[0], $maxLength).'</span>';
+      $taskObject = '<span title="'.$logObject[0].'">'.generalFunctions::shortenString($logObject[0], $maxLength).'</span>';
   }                  
   
   

@@ -1348,7 +1348,7 @@ class generalFunctions {
   }
   
  /**
-  * <b>Name</b> shortenTitle()<br>
+  * <b>Name</b> shortenString()<br>
   * 
   * Shortens a string to its letter numbers (conciders htmlentities as multiple characters).
   * 
@@ -1364,17 +1364,17 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function shortenTitle($title, $length) {
+  public static function shortenString($string, $length) {
       
       //vars
-      $realLength =  self::getLetterNumber($title,$length);
+      $string =  self::decodeToPlainText($string);
       
       // chek if shorting is necessary
-      if(strlen($title) <= $realLength)
-        return $title;
+      if(strlen($string) <= $length)
+        return self::encodePlainText($string);
       // shorten the title
       else
-        return substr($title,0,($realLength - 2)).'..'; // -2 because of the add ".."
+        return self::encodePlainText(substr($string,0,($length - 3)).'...'); // -2 because of the add ".."
   }
   
  /**
