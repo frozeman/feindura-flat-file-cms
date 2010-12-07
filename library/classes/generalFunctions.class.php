@@ -1212,39 +1212,50 @@ class generalFunctions {
   }
 
  /**
-  * <b>Name</b> getLetterNumber()<br>
+  * <b>Name</b> decodeToPlainText()<br>
   * 
-  * Shortens the given <var>$string</var> parameter to the given <var>$textLength</var> parameter and counts the contained htmlentities.
-  * Then adds the length of htmlentites to the $textLength and return it.
-  *
-  * @param string    $string       the string to find out the real length for shorting
-  * @param int|bool  $textLength   (optional) the number of which the text should be shorten or FALSE to return only the string length
-  *
-  * @return int the numbger of characters plus htmlentities characters
-  *
+  * Decodes a given <var>string</var> to a plain text, by decoding htmlentities and removing line breaks.
+  * 
+  * @param string $string the string to decode
+  * 
+  * @return string the decoded string
+  * 
+  * @see search::markFindingInText()
+  * @see search::displayResults()
+  * 
   * @version 1.0
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.0 initial release
   */ 
-  public static function getLetterNumber($string, $textLength = false) {
-    
-    // get the full string length if no maximum characternumber is given
-    if($textLength === false)
-      return strlen($string);
-      
-    // shorten the string to the maximum characternumber
-    $string = substr($string,0,$textLength);
-    
-    // find ..ml; and ..lig; etc and adds the number of findings * strlen($finding) (~6) characters to the length
-    preg_match_all('/\&[A-Za-z]{1,6}\;/', $string, $entitiesFindings);
-    foreach($entitiesFindings[0] as $finding) {
-      $finding = preg_replace("/ +/", '', $finding);
-      $textLength += (strlen($finding));
-    }
-      
-    return $textLength;
+  public static function decodeToPlainText($string) {
+    $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
+    $string = str_replace(array('&nbsp;',"\n","\r","\t"),array(' ','','',''),$string);
+    return $string;
   }
+  
+ /**
+  * <b>Name</b> encodePlainText()<br>
+  * 
+  * Encodes a given plain text to a HTML string, by encoding htmlentities and chaning "&lt;" to "<" and "&gt;" to ">".
+  * 
+  * @param string $string the string to encode
+  * 
+  * @return string the decoded string
+  * 
+  * @see search::markFindingInText()
+  * @see search::displayResults()
+  * 
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  */ 
+  public static function encodePlainText($string) {
+    $string = htmlentities($string,ENT_COMPAT,'UTF-8');
+    $string = str_replace(array('&lt;','&gt;'),array('<','>'),$string);
+    return $string;
+  }  
   
  /**
   * <b>Name</b> escapeQuotesRecursive()<br>

@@ -790,11 +790,11 @@ class feinduraBase {
           //$shortenText = $this->contentLength; // standard preview length
   
         if($useHtml)
-          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent, "...");
+          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
         else {
           // clear string of html tags (except BR)
           $pageContentEdited = strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><u><br><br />');
-          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent, "...");
+          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent);
         }
       }
       
@@ -917,7 +917,7 @@ class feinduraBase {
       /*
       // shorten the title
       if(is_numeric($titleLength))
-        $title = $this->shortenText($fullTitle, $titleLength, false, "...");
+        $title = $this->shortenText($fullTitle, $titleLength, false);
       else
         $title = $fullTitle;
       */
@@ -947,7 +947,7 @@ class feinduraBase {
       
       // shorten the title
       if(is_numeric($titleLength))
-        $title = $this->shortenText($title, $titleLength, false, "...");
+        $title = $this->shortenText($title, $titleLength, false);
         
       // -> builds the title
       // *******************
@@ -1612,9 +1612,11 @@ class feinduraBase {
   * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
-  * @uses createHref()                                  create the href for the "more" link  
-  * @uses generalFunctions::getLetterNumber()    to get the real number of characters of the string (adds the multiple characters of htmlentities)
-  * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid
+  * @uses createHref()                                  create the href for the "more" link
+  * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid  
+  * @uses generalFunctions::decodeToPlainText()         to decode the string to plain text, to shorten to the right letter number
+  * @uses generalFunctions::encodePlainText()           to encode the plain text back to a string with htmlentities
+  * 
   * 
   * @return string the shortened string
   * 
@@ -1625,38 +1627,32 @@ class feinduraBase {
   *    - 1.0 initial release  
   * 
   */
-  protected function shortenText($string, $length, $pageContent = false, $endString = "...") {
+  protected function shortenText($string, $length, $pageContent = false, $endString = " ...") {
       
-      //var
-      $output = $string;
-      
-      // getting length
-      if(is_numeric($length)) {
-        // gets real length, if there are htmlentities like &auml; &uuml; etc
-        $length = generalFunctions::getLetterNumber($string,$length);        
-      }
+      // encode to plain text to cut to zthe right letter number
+      $string = generalFunctions::decodeToPlainText($string);
       
       // shorten the string
       if($length < strlen($string)) {      
-        $output = substr($string,0,$length);
-        
-        // search last whitespace and cut until there
-        if($endPos = strrpos($output, ' '))
-          $output = substr($output, 0, $endPos);
+        // go until you found a whitespace
+        while(substr($string,$length,1) != ' ' && $length < strlen($string)) {   
+          $length++;
+        }        
+        $string = substr($string,0,$length);
 
         // adds the endString
         if(is_string($endString))
-          $output .= $endString;
+          $string .= $endString;
       }
       
       // adds the MORE LINK
       if(is_string($endString) && generalFunctions::isPageContentArray($pageContent)) {
-        $output .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
-      $output = preg_replace("/ +/", ' ', $output);
+      $string = preg_replace("/ +/", ' ', $string);
       
-      return $output;
+      return generalFunctions::encodePlainText($string);
   }
 
  /**
@@ -1674,7 +1670,8 @@ class feinduraBase {
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
   * @uses shortenText()                                 shorten the text
-  * @uses createHref()                                  create the href for the "more" link  
+  * @uses createHref()                                  create the href for the "more" link
+  * @uses generalFunctions::decodeToPlainText()         to decode the HTML string to plain text, to shorten to the right letter number  
   * 
   * @return string the shortened string
   * 
@@ -1685,25 +1682,16 @@ class feinduraBase {
   *    - 1.0 initial release
   * 
   */  
-  protected function shortenHtmlText($input, $length, $pageContent = false, $endString = '...') {
+  protected function shortenHtmlText($input, $length, $pageContent = false, $endString = ' ...') {
 
       // vars
       $textWasCut = false;
-      $rawText = strip_tags($input);      
-      $rawText = str_replace("\n", ' ', $rawText);
-      $rawText = str_replace("\r", ' ', $rawText);
-      $rawText = preg_replace("/ +/", ' ', $rawText);
-      
-      if(is_numeric($length))
-        $length = generalFunctions::getLetterNumber($rawText,$length);
+      $input = generalFunctions::decodeToPlainText($input);
+      $rawText = strip_tags($input);
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT
       // ***********************************************
       if(is_numeric($length) && $length < strlen($rawText)) {
-         
-        // wandelt umlaute um im text mit HTML tags
-        if(substr(phpversion(),0,1) >= 5)
-          $decodedContent = html_entity_decode($input, ENT_QUOTES);
         
         // -> FIND THE REAL POSITION, for LENGTH
         // find the real position in the html text
@@ -1715,10 +1703,7 @@ class feinduraBase {
         // goes trough the text and find the real position
         while($currentLength != $length) {
           // get the CURRENT CHAR
-          if(substr(phpversion(),0,1) >= 5)
-            $actualChar = substr($decodedContent, $position, 1);
-          else
-            $actualChar = substr($input, $position, 1);
+          $actualChar = substr($input, $position, 1);
           
           //echo '<br />'.$actualChar.'<br />';
           //echo 'realPos: '.$position.'<br />';
@@ -1741,6 +1726,7 @@ class feinduraBase {
         //echo 'realPos: '.$position.'<br />';
         
         // shortens the text
+        //(will also change the plain text back into one with html entities)
         $input = $this->shortenText($input,$position,false,false);
         
         // checks if there is a unclosed html tag (example: <h1..)

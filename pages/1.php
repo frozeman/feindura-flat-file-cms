@@ -59,7 +59,7 @@ $pageContent['log_searchWords'] =    'a:5:{i:0;a:2:{s:4:"data";s:8:"herovorz";s:
 
 $pageContent['content'] = 
 '<p>
-	Ein&nbsp;<b>Test</b>&nbsp;(aus altfranz&ouml;sisch&nbsp;<i>test</i>&nbsp; Tiegel, Topf f&uuml;r&nbsp;<a href="http://de.wikipedia.org/wiki/Alchemie" style="text-decoration: none; color: rgb(6, 69, 173); background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; " title="Alchemie">alchemistische</a>&nbsp;Versuche&lsquo;) ist ein Versuch, mit dem gr&ouml;&szlig;ere Sicherheit dar&uuml;ber gewonnen werden soll, ob ein technischer Apparat oder ein Vorgang innerhalb der geplanten Rahmenbedingungen funktioniert bzw. ob bestimmte Eigenschaften vorliegen oder nicht.</p>
+	Ein <b>Test</b>&nbsp;(aus altfranz&ouml;sisch&nbsp;<i>test</i>&nbsp; Tiegel, Topf f&uuml;r&nbsp;<a href="http://de.wikipedia.org/wiki/Alchemie" style="text-decoration: none; color: rgb(6, 69, 173); background-image: none; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: initial; background-position: initial initial; background-repeat: initial initial; " title="Alchemie">alchemistische</a>&nbsp;Versuche&lsquo;) ist ein Versuch, mit dem gr&ouml;&szlig;ere Sicherheit dar&uuml;ber gewonnen werden soll, ob ein technischer Apparat oder ein Vorgang innerhalb der geplanten Rahmenbedingungen funktioniert bzw. ob bestimmte Eigenschaften vorliegen oder nicht.</p>
 <p>
 	&nbsp;</p>
 <p style="margin-top: 0.4em; margin-right: 0px; margin-bottom: 0.5em; margin-left: 0px; line-height: 1.5em; ">

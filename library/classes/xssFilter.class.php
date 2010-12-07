@@ -469,7 +469,7 @@ class xssFilter {
       if(!empty($data) || $data == 0) {
         $data = stripslashes($data);
         $data = str_replace(';','&#59;',$data);
-        $data = htmlentities($data,ENT_QUOTES,$charset);
+        $data = htmlspecialchars($data,ENT_QUOTES,$charset);
         $data = str_replace('/','&#47;',$data);
         $data = str_replace('\\','&#92;',$data);
         $data = str_replace('=','&#61;',$data);

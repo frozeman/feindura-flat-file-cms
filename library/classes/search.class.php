@@ -231,9 +231,9 @@ class search {
       $search['afterDate'] = $pageContent['pageDate']['after'];
       $search['searchwords'] = $pageContent['log_searchWords'];
       $search['title'] = $pageContent['title'];
-      $search['description'] = $pageContent['description'];
+      $search['description'] = generalFunctions::decodeToPlainText($pageContent['description']);
       $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
-      $search['content'] = strip_tags($pageContent['content']);
+      $search['content'] = strip_tags(generalFunctions::decodeToPlainText($pageContent['content']));
             
       // ->> SEARCH PROCESS      
 			
@@ -326,7 +326,8 @@ class search {
   * 
   * @param array $results an array with the search results created by the {@link searchPages()} method.
   * 
-  * @uses generalFunctions::readPage() to read the page for displaying the title and content
+  * @uses generalFunctions::readPage()          to read the page for displaying the title and content
+  * @uses generalFunctions::decodeToPlainText() to decode the string to plain text, to find the right position
   * 
   * @return array an array with the results ready to display in an HTML page
   * 
@@ -402,7 +403,7 @@ class search {
       
       // ->> PREPARE the CONTENT
       if(isset($result['content']))
-        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],5);
+        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],35);
      
       // generate return
       $createReturn['id'] = $id;
@@ -510,6 +511,9 @@ class search {
   * @param array      $results      an array with the search results in the format: array[0][0] = 'found text', array[0][1] = 25, array[1][0] = 'other text', ...
   * @param false@int  $extractMax   the maximal number of letters before and after the finding, if FALSE it returns the whole text
   * 
+  * @uses generalFunctions::decodeToPlainText()  to decode the string to plain text, to shorten to the right letter number
+  * @uses generalFunctions::encodePlainText()    to encode the plain text back to a string with htmlentities
+  * 
   * @return string the text with marked results
   * 
   * @access private
@@ -524,10 +528,11 @@ class search {
     // var
     $separator = ' ... ';
     
-    // show the parts with the searchwords marked
+    // ->> show the parts with the searchwords marked
     if(is_array($results)) {
       
-      $text = html_entity_decode($text,ENT_QUOTES,'UTF-8');      
+      // -> decode html entities
+      $text = generalFunctions::decodeToPlainText($text);
       $lastPosition = 0;      
       
       foreach($results as $key => $match) {
@@ -561,26 +566,24 @@ class search {
           
         }       
         
+        // echo '2->'.$untilPosition.'-> "'.substr($text,$untilPosition,5).'"<br>';
         if(strpos($text,$match[0]) !== false) {
           // go until a whitespace before
-          while($cutStart && substr($text,$lastPosition,1) != ' ' && substr($text,$lastPosition,6) != '&nbsp;' && $lastPosition >= 0) {
+          while($cutStart && substr($text,$lastPosition,1) != ' ' && $lastPosition > 0) {
             $lastPosition--;
           }
+          // remove the ... before if its start at 0
+          if($lastPosition == 0)
+            $before = false;
           $markedText .= $before.substr($text,$lastPosition,$match[1] - $lastPosition).$this->markStartTag.$match[0].$this->markEndTag;
           $lastPosition = $match[1] + strlen($match[0]);
         }
       }
       
-      /*
       // go until a whitespace after
-      while($cutEnd && substr($text,$untilPosition,1) != ' ' && substr($text,$untilPosition,6) != '&nbsp;' && $untilPosition <= strlen($text)) {
-        
+      while($cutEnd && substr($text,($lastPosition + $untilPosition),1) != ' ' && ($lastPosition + $untilPosition) < strlen($text)) {   
         $untilPosition++;
       }
-      */
-      
-      echo '1->'.$lastPosition.'<br>';
-      echo '2->'.$untilPosition.'<br>';
       
       // add the last part of the string
       $markedText .= ($cutEnd)
@@ -595,8 +598,9 @@ class search {
       if(strpos($markedText,'<|#|-|-|#|') !== false)
         $markedText = $separator.substr($markedText,strpos($markedText,' '));
       */
-      $markedText = htmlentities($markedText,ENT_QUOTES,'UTF-8');
-      $markedText = str_replace(array('&lt;','&gt;'),array('<','>'),$markedText);
+      
+      // -> encode html entities
+      $markedText = generalFunctions::encodePlainText($markedText);
       return $markedText;
     } else return $text;
   }
