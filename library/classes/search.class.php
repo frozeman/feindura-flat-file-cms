@@ -66,6 +66,15 @@ class search {
   // *********
   
   /**
+  * If its an number it limits the found results to this number, so the search results are still demonstrable, when a lot of words were found.
+  * If FALSE all results will be displayed.  
+  * 
+  * @var int|false
+  * @access public
+  */
+  public $limitResults = 10;
+  
+  /**
   * If TRUE it only search in pages and categories which are public.
   * 
   * @var bool
@@ -79,7 +88,7 @@ class search {
   * @var bool
   * @access public
   */
-  public $searchInCategory = true;
+  public $searchInCategoryNames = true;
   
   /**
   * The start-tag to mark the finding in a text.
@@ -158,7 +167,7 @@ class search {
     $results = $this->searchPages($searchwords, $category);
     
     // return displayable results
-    return $this->displayResults($results);
+    return $this->createResultsArray($results);
     
   }
   
@@ -319,13 +328,14 @@ class search {
   }
   
  /**
-  * <b>Name</b> displayResults()<br />
+  * <b>Name</b> createResultsArray()<br />
   * 
   * Create an array with the page title and content, with marked findings, ready to display in a HTML page.
   * 
   * 
   * @param array $results an array with the search results created by the {@link searchPages()} method.
   * 
+  * @uses $searchInCategoryNames                to set if it will also search in the category names for matches  
   * @uses generalFunctions::readPage()          to read the page for displaying the title and content
   * @uses generalFunctions::decodeToPlainText() to decode the string to plain text, to find the right position
   * 
@@ -338,7 +348,7 @@ class search {
   *    - 1.0 initial release
   * 
   */
-  protected function displayResults($results) {
+  protected function createResultsArray($results) {
     
     // var
     $return = array();
@@ -346,7 +356,7 @@ class search {
     // return nothing when nothing was found
     if($results === false)
       return array();    
-        
+    
     // GO THROUGH RESULTS and mark them in the texts
     foreach($results as $result) {
       
@@ -389,7 +399,7 @@ class search {
       }
      
       // ->> PREPARE the CATEGORY NAME
-      if($this->searchInCategory && isset($result['category']))
+      if($this->searchInCategoryNames && isset($result['category']))
         $category = $this->markFindingInText($this->categoryConfig[$page['category']]['name'],$result['category']);
      
       // ->> PREPARE the SEARCHWORDS
@@ -403,7 +413,7 @@ class search {
       
       // ->> PREPARE the CONTENT
       if(isset($result['content']))
-        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],35);
+        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],10);
      
       // generate return
       $createReturn['id'] = $id;
@@ -414,92 +424,10 @@ class search {
       $createReturn['content'] = $content;
       
       $return[] = $createReturn;
-     
     }
     //return $results;
     return $return;
-    
-    
-    /*
-    	if($if_find) {
-      	// -> CREATE FINDINGS ARRAY
-        $findings[$zaehl] = array("stelle" => $stellen[$zaehl], "wortlaenge" => $wortlaenge[$zaehl], "findtext" => $findtext);
-        $zaehl++;
-		    unset($findtext);
-      }
 
-							   
-			// ausgabe wenn was gefunden wurde
-			if($if_find === true) {
-			  array_multisort($findings,SORT_ASC, SORT_REGULAR);
-			  
-			  //var_dump($findings);			  
-			  $count++;  //zählt die treffer
-			 // AUSGABE anfang
-			 $beginn_ausgabeblock = @ausgabeblock_start($count,$pageContent); 
-			 $ausgabetext = $beginn_ausgabeblock; //schreibt beginn des ausgabeblocks
-			 
-			  unset($stelle);
-			  for ($i = 0; $i < count($findings); $i++) {
-				// überprüft ob das wort am anfang steht
-				$lenge = $ausgabenlaenge;	 //länge vor dem gefunden wort		
-				  if(($findings[$i]['stelle']-$lenge)>='0'){
-				  $stellestart = $findings[$i]['stelle']-$lenge;
-				  } else {
-				  $stellestart = '0';
-				  $lenge = $findings[$i]['stelle'];
-				  }
-				
-				//echo '<br />i: '.$i.'<br />';
-				//echo '<b>stelle</b>: '.$findings[$i]['stelle'].'<br />';
-				//echo 'wortlange: '.$wortlaenge[$i].'<br />';
-				//echo $i;
-				//echo $ausgabenlaenge;
-				
-				if($findings[$i]['findtext'] === true) {	
-				
-					//überprüft ob das vorherige (davor) wort nah am jetzigen ist
-					if(isset($findings[($i-1)]['stelle']) && ($findings[($i-1)]['stelle']+$findings[($i-1)]['wortlaenge']) >= ($findings[$i]['stelle']-$ausgabenlaenge)) {
-						$auszug_v = '';
-						$priority++;
-						} else {
-						$auszug_v = '..'.substr($pageContent['content'], $stellestart, $lenge);
-						}
-										
-					// überprüft ob das nächste (dahinter) wort nah am jetzigen ist
-					if(isset($findings[($i+1)]['stelle']) && ($findings[$i]['stelle']+$findings[$i]['wortlaenge']+$ausgabenlaenge) >= $findings[($i+1)]['stelle'] && $findings[($i+1)]['stelle']-($findings[$i]['stelle']+$findings[$i]['wortlaenge']) <= $ausgabenlaenge) {
-						if(($findings[($i+1)]['stelle']-($findings[$i]['stelle']+$findings[$i]['wortlaenge'])) <= $ausgabenlaenge)
-							$ausgabenlaenge = ($findings[($i+1)]['stelle']-($findings[$i]['stelle']+$findings[$i]['wortlaenge']));
-						$auszug_h_point = '';
-						$priority++;
-						} else {
-						$ausgabenlaenge = $ausgabenlaengereset;
-						$auszug_h_point = '..';
-						}
-							
-					$auszug_m = substr($pageContent['content'], $findings[$i]['stelle'], $findings[$i]['wortlaenge']);
-					$auszug_h = substr($pageContent['content'], ($findings[$i]['stelle']+$findings[$i]['wortlaenge']), $ausgabenlaenge).$auszug_h_point;
-					} elseif($i == 0) {
-						// wenn nur im titel und datum gefunden wurde, zeige eine vorschau des inhalts
-						$auszug_v = substr($pageContent['content'], 0, 90).'..';
-					}
-															
-					// AUSGABE mitte
-					$ausgabetext .= $auszug_v.'<b>'.$auszug_m.'</b>'.$auszug_h;
-					
-					$ausgabenlaenge = $ausgabenlaengereset;
-					unset($auszug_v,$auszug_m,$auszug_h);
-				}
-				// AUSGABE ende
-				$ende_ausgabeblock = @ausgabeblock_end();
-				$ausgabetext .= $ende_ausgabeblock; //ausgabeblock ende
-				// AUSGABE WIRD IN ARRAY GESPEICHERT
-				$ausgabe[] = array('priority' => $priority, 'output' => $ausgabetext, 'words' => $wortanzahl);
-				
-				unset($findings,$stellen,$wortlaenge,$ausgabetext,$wortanzahl);
-				$priority = 0; //setzt priorität wieder auf 0
-			} //ende if_find=true
-			*/
   }
  
  /**
@@ -511,6 +439,7 @@ class search {
   * @param array      $results      an array with the search results in the format: array[0][0] = 'found text', array[0][1] = 25, array[1][0] = 'other text', ...
   * @param false@int  $extractMax   the maximal number of letters before and after the finding, if FALSE it returns the whole text
   * 
+  * @uses $limitResults                          to limit the displayed results
   * @uses generalFunctions::decodeToPlainText()  to decode the string to plain text, to shorten to the right letter number
   * @uses generalFunctions::encodePlainText()    to encode the plain text back to a string with htmlentities
   * 
@@ -527,6 +456,7 @@ class search {
     
     // var
     $separator = ' ... ';
+    $countResults = 1;
     
     // ->> show the parts with the searchwords marked
     if(is_array($results)) {
@@ -535,35 +465,39 @@ class search {
       $text = generalFunctions::decodeToPlainText($text);
       $lastPosition = 0;      
       
-      foreach($results as $key => $match) {
+      foreach($results as $key => $match) {        
+        
         // var
         $before = null;
         $after = null;
-        $cutEnd = false;
         $cutStart = false; 
+        $cutEnd = false;
+        $cutBetween = false;        
         
-        if($extractMax) {
-        
-          // checks if the first word - $extractMax is after the beginning
+        if($extractMax) {        
+          // -> CHECK if the FIRST WORD - $extractMax is after the beginning
           // if then cut the beginning
-          if($lastPosition == 0 &&
+          if($key == 0 &&
              $extractMax < $match[1]) {
             $lastPosition = $match[1] - $extractMax;
-            $before = $separator;//'<|#|-|-|#|';
+            $before = $separator;
             $cutStart = true;
           }
           
-          // checks if the last word + $extractMax is after the beginning
+          // -> CHECK if the LAST WORD + $extractMax is after the end
           // if then cut the rest of the text
-          if(count($results) == ($key + 1) &&
+          if((count($results) == ($key + 1) || ($this->limitResults !== false && $countResults == $this->limitResults)) &&
              ($match[1] + strlen($match[0]) + $extractMax) < strlen($text)) {
             $untilPosition = $extractMax;
+            $after = $separator;
             $cutEnd = true;
-            $after = $separator;//'|#|-|-|#|>';
           }
           
-          
-          
+          // -> CHECK between the words is a space more than $extractMax
+          if($key != 0 &&
+             ($match[1] - $lastPosition) > $extractMax) {            
+            $cutBetween = true;
+          }          
         }       
         
         // echo '2->'.$untilPosition.'-> "'.substr($text,$untilPosition,5).'"<br>';
@@ -571,13 +505,24 @@ class search {
           // go until a whitespace before
           while($cutStart && substr($text,$lastPosition,1) != ' ' && $lastPosition > 0) {
             $lastPosition--;
-          }
-          // remove the ... before if its start at 0
-          if($lastPosition == 0)
-            $before = false;
-          $markedText .= $before.substr($text,$lastPosition,$match[1] - $lastPosition).$this->markStartTag.$match[0].$this->markEndTag;
+          }          
+          if($lastPosition == 0) $before = false; // remove the ... before if its start at 0
+
+          $markedText .= ($cutBetween)
+            ? substr($text,$lastPosition,$extractMax).$separator.substr($text,$match[1] - $extractMax,$extractMax)
+            : $before.substr($text,$lastPosition,$match[1] - $lastPosition);
+          //$markedText .= $before.substr($text,$lastPosition,$match[1] - $lastPosition);
+          $markedText .= $this->markStartTag.$match[0].$this->markEndTag;
+          
+          // save last position
           $lastPosition = $match[1] + strlen($match[0]);
         }
+        
+        // stop the results when $this->limitResults is set
+        if($this->limitResults !== false && $countResults == $this->limitResults)
+          break;
+        else        
+          $countResults++;
       }
       
       // go until a whitespace after
@@ -589,15 +534,6 @@ class search {
       $markedText .= ($cutEnd)
         ? substr($text,$lastPosition,$untilPosition).$after
         : substr($text,$lastPosition);
-      
-      /*
-      // if, the rest is cuted, find the last whitespace, and cut until then
-      if(strpos($markedText,'|#|-|-|#|>') !== false)
-        $markedText = substr($markedText,0,strrpos($markedText,' ')).$separator;      
-      // if, the beginning is cuted, find the first whitespace, and cut until then
-      if(strpos($markedText,'<|#|-|-|#|') !== false)
-        $markedText = $separator.substr($markedText,strpos($markedText,' '));
-      */
       
       // -> encode html entities
       $markedText = generalFunctions::encodePlainText($markedText);
