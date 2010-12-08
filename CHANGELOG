@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 501
+Build 502
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 502: finished search.class.php and search.php, should add search in tags too?
   build 501: finished search.class.php?
   build 500: renamed generalFunctions::shortenTitle() to shortenString()
   build 499: removed generalFunctions::getLetterNumber() and add generalFunctions::decodeToPlainText() and generalFunctions::encodePlainText()

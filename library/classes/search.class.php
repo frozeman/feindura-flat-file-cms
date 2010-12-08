@@ -72,7 +72,7 @@ class search {
   * @var int|false
   * @access public
   */
-  public $limitResults = 10;
+  public $limitResults = 5;
   
   /**
   * If TRUE it only search in pages and categories which are public.
@@ -181,9 +181,10 @@ class search {
   * @param string          $searchwords  one or more searchwords to fing
   * @param bool|int|array  $category     the ID or an array with IDs of the category(ies) in which should be searched, if TRUE it searches in all categories, if FALSE it searches only in the non category
   * 
-  * @uses $checkPages                   if TRUE it searches only in pages which are public  
+  * @uses $checkPages                   if TRUE it searches only in pages which are public
+  * @uses sortByPriority()              to sort the page array
   * @uses generalFunctions::loadPages() to load the pages
-  * @uses sortByPriority                to sort the page array  
+  * @uses xssFilter::text()             to filter the searchwords
   * 
   * @return array|false array with matching searchwords or FALSE
   * 
@@ -238,12 +239,19 @@ class search {
       $search['beforeDate'] = $pageContent['pageDate']['before'];
       $search['date'] = statisticFunctions::formatDate($pageContent['pageDate']['date']);
       $search['afterDate'] = $pageContent['pageDate']['after'];
-      $search['searchwords'] = $pageContent['log_searchWords'];
       $search['title'] = $pageContent['title'];
       $search['description'] = generalFunctions::decodeToPlainText($pageContent['description']);
       $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
       $search['content'] = strip_tags(generalFunctions::decodeToPlainText($pageContent['content']));
-            
+      
+      // create a string of the page searchwords
+      $search['searchwords'] = unserialize($pageContent['log_searchWords']);
+      $pageSearchwords = '';
+      foreach($search['searchwords'] as $pageSearchword){
+        $pageSearchwords .= '####'.$pageSearchword['data'];
+      }
+      $search['searchwords'] = trim($pageSearchwords,'####');
+      
       // ->> SEARCH PROCESS      
 			
       // -> 1. ID
@@ -251,7 +259,7 @@ class search {
          preg_match_all($pattern,$search['id'],$matches,PREG_OFFSET_CAPTURE) != 0) {        
         $text .= $langFile['SEARCH_TEXT_MATCH_ID'];
         $pageResults['id'] = $matches[0];
-        $priority += 100;
+        $priority += 999;
       
       // -> IF NO MATCH in ID, SEARCH in OTHER PLACES
       } else {
@@ -333,6 +341,9 @@ class search {
   * Create an array with the page title and content, with marked findings, ready to display in a HTML page.
   * 
   * 
+  * Example of the returned array
+  * {@example searchResults.array.example.php}
+  * 
   * @param array $results an array with the search results created by the {@link searchPages()} method.
   * 
   * @uses $searchInCategoryNames                to set if it will also search in the category names for matches  
@@ -351,6 +362,7 @@ class search {
   protected function createResultsArray($results) {
     
     // var
+    $extractLength = 30;
     $return = array();
     
     // return nothing when nothing was found
@@ -403,19 +415,20 @@ class search {
         $category = $this->markFindingInText($this->categoryConfig[$page['category']]['name'],$result['category']);
      
       // ->> PREPARE the SEARCHWORDS
-      if(isset($result['searchwords'])) {     
+      if(isset($result['searchwords']))
         $searchwords .= $this->markFindingInDataString($page['log_searchWords'],$result['searchwords']);
-      } 
      
       // ->> PREPARE the DESCRIPTION
       if(isset($result['description']))
-        $description = $this->markFindingInText($page['description'],$result['description']);
+        $description = $this->markFindingInText($page['description'],$result['description'],$extractLength);
       
       // ->> PREPARE the CONTENT
       if(isset($result['content']))
-        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],10);
+        $content = $this->markFindingInText(strip_tags($page['content']),$result['content'],$extractLength);
      
       // generate return
+      $createReturn['page']['id'] = $result['pageId'];
+      $createReturn['page']['cateory'] = $result['categoryId'];
       $createReturn['id'] = $id;
       $createReturn['title'] = $title;
       $createReturn['category'] = $category;
@@ -569,18 +582,15 @@ class search {
     // var
     $return = false;
     
-    if(($dataString = unserialize($dataString)) !== false) {
-  
-      if(is_array($results)) {
-        
-        foreach($dataString as $data) {        
+    if(($dataString = unserialize($dataString)) !== false) {  
+      if(is_array($results)) {        
+        foreach($dataString as $data) {
           foreach($results as $match) {
             if(strpos($data['data'],$match[0]) !== false) {
               $return .= str_replace($match[0],$this->markStartTag.$match[0].$this->markEndTag,$data['data']).' ';
             }
           }
         }
-        
         return trim($return);
       } else
         return $return;      

@@ -140,27 +140,13 @@ foreach($allCategories as $category) {
       $lastSaveDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.statisticFunctions::formatTime($pageContent['lastSaveDate']);
       
       // -> show pageDate
-      if(statisticFunctions::checkPageDate($pageContent)) {
-        
-      	$titleDateBefore = '';
-      	$titleDateAfter = '';
-      	// adds spaces on before and after
-      	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
-      	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
-	
-        // CHECKs the DATE FORMAT
-        $pageDate = (statisticFunctions::validateDateFormat(statisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)
-        ? '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pageDate']['date'].$titleDateAfter
-        : '[br /][br /][b]'.$langFile['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$langFile)).$titleDateAfter;
-        
-      } else $pageDate = '';
+      $pageDate = showPageDate($pageContent);
       
       // -> show tags
       if($category['showTags'] && !empty($pageContent['tags'])) {
         $showTags = '[br /][br /]';
         $showTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$pageContent['tags'];
       }
-
       
       // -----------------------   ********  ---------------------- 
       // LIST PAGES
@@ -177,10 +163,9 @@ foreach($allCategories as $category) {
       }
       
       echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$pageContent['title']).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
-      if(!empty($pageContent['lastSaveAuthor']))
-        echo '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
-      else
-        echo '<div class="lastSaveDate">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
+      echo (!empty($pageContent['lastSaveAuthor']))
+        ? '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>'
+        : '<div class="lastSaveDate">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
       echo '<div class="counter">&nbsp;&nbsp;'.statisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       

@@ -14,7 +14,17 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// setup.php version 2.44 (BACKEND)
+/**
+ * The Backend search file.
+ * 
+ * @uses search::find() to search in the pages
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ *      
+ */ 
 
 
 /* LANGUAGE-VARS
@@ -41,91 +51,127 @@ $time_start = microtime(); //Zeitbeginn am Seitenanfang
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // set the GET searchword as the POST searchword, IF exists
-if(isset($_GET['search']))
-  $_POST['search'] = urldecode($_GET['search']);
+$searchWords = (isset($_GET['search'])) ? urldecode($_GET['search']) : $_POST['search'];
 
-// clean up the searchWord
-$searchWord = $_POST['search'];
-//$searchWord = htmlentities($searchWord,ENT_NOQUOTES,'UTF-8');
+?>
 
-// show the form
-echo '<form action="index.php?site='.$_GET['site'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">';
+<form action="index.php?site=<?= $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  <div class="block">
+  <h1><?= $langFile['SEARCH_TITLE']; ?></h1>
+    <div class="content">
+      <input name="search" type="text" size="50" value="<?= $searchWords; ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
+      <input type="submit" value="" class="button search" />
+    </div>
+    <div class="bottom"></div>
+  </div>
+</form>
+<?php
 
-echo '<div class="block">
-      <h1>'.$langFile['SEARCH_TITLE'].'</h1>
-        <div class="content">
-          <input name="search" type="text" size="50" value="'.$searchWord.'" style="float:left; margin-top: 12px; margin-right:10px;" />
-          <input type="submit" value="" class="button search" />
-        </div>
-        <div class="bottom"></div>
-      </div>
-      </form>';
-
-$count = '0';
-// -------------------------------------------------------------------------------------------
-// STARTS SEARCH
-if(!empty($searchWord)) {
-
-// SEARCH RESULTS HEADLINE
-echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.$searchWord.'&quot;</h1><div class="bottom"></div></div>';
-
-// ------------------------
-// --->> OUTPUT LAYOUT
-function ausgabeblock_start($count,$pageContent) {
-  global $categoryConfig;
+// ->> SEARCHING, if searchwords are given
+if(!empty($searchWords)) {
   
-  // set category name
-  if(isset($categoryConfig[$pageContent['category']]['name']))
-    $categoryName = '&rArr; '.$categoryConfig[$pageContent['category']]['name'];
-  elseif($pageContent['category'] == 0)
-    $categoryName = '&rArr; '.$GLOBALS['langFile']['CATEGORIES_TOOLTIP_NONCATEGORY'];
+  // var
+  $count = 0;
+
+  // SEARCH RESULTS HEADLINE
+  echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.$searchWords.'&quot;</h1><div class="bottom"></div></div>';
+    
+  // START SEARCH
+  $search = new search();
+  $results = $search->find($searchWords);
   
-  // -> RETURN OUTPUT LAYOUT
-  return '<div class="content"><h3><a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'">'.$pageContent['title'].'</a> <span>'.$categoryName.'</span></h3><p>';
-}
-function ausgabeblock_end() {
-  return '</p></div>
-  <div class="bottom"></div>';
-}
-// --- ENDE OUTPUT LAYOUT
-// ---------------------------
-
-$search = new search();
-$findings = $search->find($searchWord);
-
-echo '<pre>';
-var_dump($findings);
-echo '</pre>';
-
-	
-// AUSGABE angabe der Treffer vor ausgabe
-// LADEZEIT MESSEN ausgabe
-$time_end = microtime();
-$time = round($time_end - $time_start,2);
-
-$timeOutputText = '<h2>'.$count.' '.$langFile['SEARCH_TEXT_RESULTS'].' <span style="font-size:10px;">'.$langFile['SEARCH_TEXT_TIME_1'].' '.$time.' '.$langFile['SEARCH_TEXT_TIME_2'].'</span></h2>';
-
-// show time and result number above
-echo $timeOutputText;
-
-
-$countoutput = 0; 
-// FERTIGE AUSGABE sortiert nach prioritität 
-if(isset($ausgabe)) {
-	array_multisort($ausgabe,SORT_DESC, SORT_REGULAR);
-
-  foreach($ausgabe as $output) {
-    $countoutput++;
-    //echo '|-'.$output['priority'].'-||';
-    echo '<div class="block"><h1>'.$countoutput.'. <span style="font-size:10px;">'.$output['words'].'</span></h1>'.$output['output'].'</div>';
+  /*
+  echo '<pre>';
+  var_dump($results);
+  echo '</pre>';
+  */
+  	
+  // ->> OUTPUT
+  // **********
+  
+  // -> messure end time
+  $time_end = microtime();
+  $time = round($time_end - $time_start,2);
+  echo '<h2>'.count($results).' '.$langFile['SEARCH_TEXT_RESULTS'].' <span style="font-size:10px;">'.$langFile['SEARCH_TEXT_TIME_1'].' '.$time.' '.$langFile['SEARCH_TEXT_TIME_2'].'</span></h2>';
+  
+  // -> display results
+  $countoutput = 0; 
+  // FERTIGE AUSGABE sortiert nach prioritität 
+  if(isset($results)) {
+    foreach($results as $result) {
+      
+      $page = generalFunctions::readPage($result['page']['id'],$result['page']['category']);
+      
+      // -> generate toolTip information
+      $pageDate = showPageDate($page);
+      if($categoryConfig[$page['category']]['showTags'] && !empty($page['tags'])) {
+        $pageTags = '[br /][br /]';
+        $pageTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$page['tags'];
+      }      
+      $startPageText = ($adminConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
+        ? $langFile['sortablePageList_functions_startPage_set'].'[br /][br /]'
+        : '';
+      
+      echo '<div class="block open search"><h1>&nbsp;</h1>';
+      
+      // found ID
+      if($result['id']) {
+        echo '<span class="search matchID">';
+        echo $langFile['SEARCH_TEXT_MATCH_ID'].' &rArr; ';      
+        echo '</span>';
+      }
+      
+      // first TITLE
+      echo '<span class="search resultHeadline">';
+      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$page['title']).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
+      echo ($result['title']) ? $result['title'] : $page['title'];
+      echo '</a>';
+      echo '</span>';
+      
+      // otherwise display all results
+      if($result['id'] === false) {
+        echo '  <div class="content">';
+        
+        // CATEGORY
+        if($result['category']) {
+          echo '<br /><span class="search category">';
+          echo ' '.$langFile['SEARCH_TEXT_MATCH_CATEGORY'].': '.$result['category'];
+          echo '</span>';
+        }
+        
+        // SEARCHWORDS
+        if($result['searchwords']) {
+          echo '<br /><span class="search searchwords blue">';
+          echo ' '.$langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'].': '.$result['searchwords'];
+          echo '</span>';
+        }
+        
+        echo '<p>';
+        if($result['description'] || $result['content']) {
+          // DESCRIPTION
+          if($result['description']) {
+            echo '<span class="search description">'.$result['description'].'</span>';
+          }
+          if($result['content']) {
+            echo $result['content'];
+          }
+          
+        // if nothing in the content or description is found its shows the description
+        } elseif(!empty($page['description']))
+          echo '<span class="search description">'.$page['description'].'</span>';
+        else
+          echo substr(strip_tags($page['content']),0,200);
+          
+        echo '</p>';
+        echo '  </div>';
+      }      
+      
+      //echo '  <div class="bottom"></div>';
+      echo '</div>';
+      
+      $count++;
+    }
+    echo '<div style="height: 60px;">&nbsp;</div>';
   }
-  
-  // show time and result number below
-  //echo $timeOutputText;
 }
-
-unset($searchWord,$ausgabe);
-} // ende if suche
-
-
 ?>

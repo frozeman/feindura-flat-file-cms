@@ -606,9 +606,10 @@ class generalFunctions {
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.02
+  * @version 1.03
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.03 creates now category folder automatically  
   *    - 1.02 add preg_replace removing multiple slahses
   *    - 1.01 add chmod
   *    - 1.0 initial release
@@ -622,6 +623,10 @@ class generalFunctions {
     
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];
+    
+    // check if category folder exists
+    if(!is_dir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId))
+      @mkdir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId);
     
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)

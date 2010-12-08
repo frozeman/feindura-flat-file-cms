@@ -104,8 +104,8 @@ content.css version 0.21 */
 
 #content .block.open {
     z-index: 0;
-    margin-bottom: 0px !important;
-    padding-bottom: 0px !important;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     background: url("../images/bg/content_block_open.png") no-repeat !important; 
     }
 
@@ -893,7 +893,49 @@ table.coloredList td {
 .coloredList .dark {  
     background-color: #D4E0E0;
     }
-    
+
+/* --- SEARCH ------------------------------------------------------------------------------------------------------------------- */
+
+.block.open.search {
+  margin-bottom: -23px !important;
+  padding-bottom: 20px !important;
+}
+
+.search h1 {
+  z-index: 0;
+  position: absolute !important;
+  width: 100%;
+}
+
+.search .matchID {
+  z-index: 1;
+  position: relative;
+  top: -8px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.search .resultHeadline {
+  z-index: 1;
+  position: relative;
+  top: -8px;
+  font-size: 15px;
+}
+
+.search .category {
+  font-size: 15px;
+  color: #999;
+}
+
+.search .searchwords {
+  font-size: 15px;
+}
+
+.search .description {
+  display: block;
+  font-style: italic;
+}
+
 /* --------------------- */
 /* -------> TAG CLOUD */
 

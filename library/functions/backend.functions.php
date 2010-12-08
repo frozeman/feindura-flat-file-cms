@@ -1191,6 +1191,49 @@ function showStyleFileInputs($styleFiles,$inputNames) {
 }
 
 /**
+ * <b>Name</b> showPageDate()<br>
+ * 
+ * Shows the page date, if the date is invalid it shows an error text.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$langFile</var> the language file of the backend (included in the {@link general.include.php})
+ * 
+ * @param array        $pageContent  the $pageContent array of a page
+ * 
+ * @uses statisticFunctions::checkPageDate()      to check if the page date is a valid date
+ * @uses statisticFunctions::dateDayBeforeAfter() to check if the date was yesterday or is tomorrow
+ * @uses statisticFunctions::formatDate()         to format the unix timstamp into the right date format
+ * 
+ * @return string the page date as text string, or an error text
+ * 
+ * @static
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function showPageDate($pageContent) {
+  
+  // vars
+  $return = false;
+  $titleDateBefore = '';
+  $titleDateAfter = '';
+  
+  if(statisticFunctions::checkPageDate($pageContent)) {    	
+  	// adds spaces on before and after
+  	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
+  	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+
+    // CHECKs the DATE FORMAT
+    $return = (statisticFunctions::validateDateFormat(statisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)
+    ? '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pageDate']['date'].$titleDateAfter
+    : '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$langFile)).$titleDateAfter;
+  }    
+  return $return;
+}
+
+/**
  * <b>Name</b> editFiles()<br />
  * 
  * Generates a editable textfield with a file selection and a input for creating new files.

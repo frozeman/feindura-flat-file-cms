@@ -6,9 +6,9 @@ $categoryConfig[3]['public'] =          true;
 $categoryConfig[3]['createDelete'] =    false;
 $categoryConfig[3]['thumbnail'] =       false;
 $categoryConfig[3]['plugins'] =         false;
-$categoryConfig[3]['showTags'] =        false;
+$categoryConfig[3]['showTags'] =        true;
 $categoryConfig[3]['showPageDate'] =    true;
-$categoryConfig[3]['sortByPageDate'] =  true;
+$categoryConfig[3]['sortByPageDate'] =  false;
 $categoryConfig[3]['sortAscending'] =   false;
 
 $categoryConfig[3]['styleFile'] =       '';
@@ -27,7 +27,7 @@ $categoryConfig[1]['createDelete'] =    true;
 $categoryConfig[1]['thumbnail'] =       false;
 $categoryConfig[1]['plugins'] =         true;
 $categoryConfig[1]['showTags'] =        false;
-$categoryConfig[1]['showPageDate'] =    false;
+$categoryConfig[1]['showPageDate'] =    true;
 $categoryConfig[1]['sortByPageDate'] =  false;
 $categoryConfig[1]['sortAscending'] =   false;
 
@@ -48,7 +48,7 @@ $categoryConfig[2]['thumbnail'] =       false;
 $categoryConfig[2]['plugins'] =         false;
 $categoryConfig[2]['showTags'] =        false;
 $categoryConfig[2]['showPageDate'] =    true;
-$categoryConfig[2]['sortByPageDate'] =  true;
+$categoryConfig[2]['sortByPageDate'] =  false;
 $categoryConfig[2]['sortAscending'] =   false;
 
 $categoryConfig[2]['styleFile'] =       '';
