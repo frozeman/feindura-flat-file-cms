@@ -1645,14 +1645,15 @@ class feinduraBase {
           $string .= $endString;
       }
       
+      $string = preg_replace("/ +/", ' ', $string);
+      $string = generalFunctions::encodePlainText($string);
+      
       // adds the MORE LINK
       if(is_string($endString) && generalFunctions::isPageContentArray($pageContent)) {
         $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
       }
       
-      $string = preg_replace("/ +/", ' ', $string);
-      
-      return generalFunctions::encodePlainText($string);
+      return $string;
   }
 
  /**
