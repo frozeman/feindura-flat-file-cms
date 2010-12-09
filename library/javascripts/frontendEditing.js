@@ -420,7 +420,7 @@ window.addEvent('domready',function(){
     
     // -> add save button
    
-    MooRTE.Elements.extend({
+    Object.extend(MooRTE.Elements, {
       save : { img:27, onClick: function() {
           $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {                                     
               if(MooRTE.activeField == page) {
@@ -440,7 +440,7 @@ window.addEvent('domready',function(){
                                           'justifyleft','justifycenter','justifyright','justifyfull',
                                           'outdent','indent','superscript','subscript',
                                           'insertorderedlist','insertunorderedlist','blockquote','inserthorizontalrule',
-                                          'decreasefontsize','increasefontsize','hyperlink'
+                                          'decreasefontsize','increasefontsize'//,'hyperlink'
                                           ]};
                                           
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
