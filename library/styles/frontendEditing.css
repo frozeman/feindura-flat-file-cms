@@ -16,31 +16,6 @@
 * frontendEditing.css version 0.1
 */
 
-/*
-.cke {
-  border: 4px solid red !important;
-  margin-left: -30px;
-}
-
-.test {
-  padding: 0px !important;
-}
-
-.ckeditorBody {
-  padding: 0px !important;
-}
-*/
-
-/*
-div#feindura_topBar {
-  width: 100%;
-  height: 50px;
-  background-color: #000;
-  z-index: 99;
-}
-*/
-
-
 /* RESET styles from GENERAL.CSS */
 
 a.logout, a.toWebsite {

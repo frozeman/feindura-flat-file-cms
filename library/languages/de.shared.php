@@ -42,6 +42,7 @@ $langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse f&uuml;r';
 $langFile['SEARCH_TEXT_MATCH_ID'] = '&Uuml;bereinstimmung mit der Seiten ID';
 $langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'Kategorie';
 $langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'Suchworte';
+$langFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
 $langFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
 $langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
 $langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';

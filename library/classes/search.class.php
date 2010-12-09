@@ -240,6 +240,7 @@ class search {
       $search['date'] = statisticFunctions::formatDate($pageContent['pageDate']['date']);
       $search['afterDate'] = $pageContent['pageDate']['after'];
       $search['title'] = $pageContent['title'];
+      $search['tags'] = $pageContent['tags'];
       $search['description'] = generalFunctions::decodeToPlainText($pageContent['description']);
       $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
       $search['content'] = strip_tags(generalFunctions::decodeToPlainText($pageContent['content']));
@@ -256,63 +257,61 @@ class search {
 			
       // -> 1. ID
       if(is_numeric($searchwords) &&
-         preg_match_all($pattern,$search['id'],$matches,PREG_OFFSET_CAPTURE) != 0) {        
-        $text .= $langFile['SEARCH_TEXT_MATCH_ID'];
+         preg_match_all($pattern,$search['id'],$matches,PREG_OFFSET_CAPTURE) != 0) {
         $pageResults['id'] = $matches[0];
         $priority += 999;
       
       // -> IF NO MATCH in ID, SEARCH in OTHER PLACES
       } else {
-        // -> 2. DATE
+        // -> DATE
         if(preg_match_all($pattern,$search['beforeDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
           $pageResults['beforeDate'] = $matches[0];
           $priority += 15;
           $priority *= count($matches[0]);
         }
         if(preg_match_all($pattern,$search['date'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
           $pageResults['date'] = $matches[0];
           $priority += 15;
           $priority *= count($matches[0]);
         }
         if(preg_match_all($pattern,$search['afterDate'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_DATE'];
           $pageResults['afterDate'] = $matches[0];
           $priority += 15;
           $priority *= count($matches[0]);
         }
-        // -> 2. SEARCHWORDS
+        // -> SEARCHWORDS
         if(preg_match_all($pattern,$search['searchwords'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
           $pageResults['searchwords'] = $matches[0];
           $priority += 20;
           $priority *= count($matches[0]);       
         }
-        // -> 2. CATEGORY
+        // -> TAGS
+        if(preg_match_all($pattern,$search['tags'],$matches,PREG_OFFSET_CAPTURE) != 0) {
+          $pageResults['tags'] = $matches[0];
+          $priority += 20;
+          $priority *= count($matches[0]);          
+        }
+        // -> CATEGORY
         if(preg_match_all($pattern,$search['categoryName'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_CATEGORY'];
           $pageResults['category'] = $matches[0];
           $priority += 10;
           $priority *= count($matches[0]);          
         }
-        // -> 2. TITLE
+        // -> TITLE
         if(preg_match_all($pattern,$search['title'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_TITLE'];
           $pageResults['title'] = $matches[0];
           $priority += 12;
           $priority *= count($matches[0]);          
         }
-        // -> 2. DESCRIPTION
+        // -> DESCRIPTION
         if(preg_match_all($pattern,$search['description'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
+
           $pageResults['description'] = $matches[0];
           $priority += 9;
           $priority *= count($matches[0]);          
         }
-        // -> 2. WORDS
+        // -> WORDS
         if(preg_match_all($pattern,$search['content'],$matches,PREG_OFFSET_CAPTURE) != 0) {
-          $text .= $langFile['SEARCH_TEXT_MATCH_WORDS'];
           $pageResults['content'] = $matches[0];
           $priority += 7;
           $priority *= count($matches[0]);          
@@ -380,6 +379,7 @@ class search {
       $category = false;
       $title = false;
       $searchwords = false;
+      $tags = false;
       $description = false;
       $content = false;
       
@@ -393,21 +393,21 @@ class search {
          isset($result['afterDate']) ||
          isset($result['title'])) {
       
-      // PREPARE DATE
-      if(isset($result['beforeDate']) || isset($result['date']) || isset($result['afterDate'])) {
-        // -> add before date
-        $date .= $this->markFindingInText($page['pageDate']['before'],$result['beforeDate']).' ';       
-        // -> add date
-        $date .= $this->markFindingInText(statisticFunctions::formatDate($page['pageDate']['date']),$result['date']);        
-        // -> add after date
-        $date .= ' '.$this->markFindingInText($page['pageDate']['after'],$result['afterDate']);
-        $date .= ' - ';
-      }
+        // PREPARE DATE
+        if(isset($result['beforeDate']) || isset($result['date']) || isset($result['afterDate'])) {
+          // -> add before date
+          $date .= $this->markFindingInText($page['pageDate']['before'],$result['beforeDate']).' ';       
+          // -> add date
+          $date .= $this->markFindingInText(statisticFunctions::formatDate($page['pageDate']['date']),$result['date']);        
+          // -> add after date
+          $date .= ' '.$this->markFindingInText($page['pageDate']['after'],$result['afterDate']);
+          $date .= ' - ';
+        }
       
-      // ->> PREPARE the TITLE
-      $title = $this->markFindingInText($page['title'],$result['title']);
-      
-      $title = $date.$title;      
+        // ->> PREPARE the TITLE
+        $title = $this->markFindingInText($page['title'],$result['title']);
+        
+        $title = $date.$title;      
       }
      
       // ->> PREPARE the CATEGORY NAME
@@ -417,6 +417,10 @@ class search {
       // ->> PREPARE the SEARCHWORDS
       if(isset($result['searchwords']))
         $searchwords .= $this->markFindingInDataString($page['log_searchWords'],$result['searchwords']);
+      
+      // ->> PREPARE the TAGS
+      if(isset($result['tags']))
+        $tags .= $this->markFindingInText($page['tags'],$result['tags'],$extractLength);
      
       // ->> PREPARE the DESCRIPTION
       if(isset($result['description']))
@@ -433,6 +437,7 @@ class search {
       $createReturn['title'] = $title;
       $createReturn['category'] = $category;
       $createReturn['searchwords'] = $searchwords;
+      $createReturn['tags'] = $tags;
       $createReturn['description'] = $description;
       $createReturn['content'] = $content;
       

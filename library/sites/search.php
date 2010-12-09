@@ -78,6 +78,7 @@ if(!empty($searchWords)) {
     
   // START SEARCH
   $search = new search();
+  $search->checkIfPublic = false;
   $results = $search->find($searchWords);
   
   /*
@@ -116,13 +117,13 @@ if(!empty($searchWords)) {
       
       // found ID
       if($result['id']) {
-        echo '<span class="search matchID">';
+        echo '<span class="resultHeadline matchingID">';
         echo $langFile['SEARCH_TEXT_MATCH_ID'].' &rArr; ';      
         echo '</span>';
       }
       
       // first TITLE
-      echo '<span class="search resultHeadline">';
+      echo '<span class="resultHeadline">';
       echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$page['title']).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
       echo ($result['title']) ? $result['title'] : $page['title'];
       echo '</a>';
@@ -134,15 +135,22 @@ if(!empty($searchWords)) {
         
         // CATEGORY
         if($result['category']) {
-          echo '<br /><span class="search category">';
+          echo '<br /><span class="keywords category">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_CATEGORY'].': '.$result['category'];
           echo '</span>';
         }
         
         // SEARCHWORDS
         if($result['searchwords']) {
-          echo '<br /><span class="search searchwords blue">';
+          echo '<br /><span class="keywords blue">';
           echo ' '.$langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'].': '.$result['searchwords'];
+          echo '</span>';
+        }
+        
+        // TAGS
+        if($result['tags']) {
+          echo '<br /><span class="keywords blue">';
+          echo ' '.$langFile['SEARCH_TEXT_MATCH_TAGS'].': '.$result['tags'];
           echo '</span>';
         }
         
@@ -150,7 +158,7 @@ if(!empty($searchWords)) {
         if($result['description'] || $result['content']) {
           // DESCRIPTION
           if($result['description']) {
-            echo '<span class="search description">'.$result['description'].'</span>';
+            echo '<span class="description">'.$result['description'].'</span>';
           }
           if($result['content']) {
             echo $result['content'];
@@ -158,7 +166,7 @@ if(!empty($searchWords)) {
           
         // if nothing in the content or description is found its shows the description
         } elseif(!empty($page['description']))
-          echo '<span class="search description">'.$page['description'].'</span>';
+          echo '<span class="description">'.$page['description'].'</span>';
         else
           echo substr(strip_tags($page['content']),0,200);
           

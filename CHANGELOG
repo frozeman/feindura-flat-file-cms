@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 504
+Build 505
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 505: add search in tags to search.class.php
   build 504: add new MooRTE version, but its not complete yet (thanks to siteroller!)
   build 503: resorted thirdparty folder
   build 502: finished search.class.php and search.php, should add search in tags too?

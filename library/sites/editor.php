@@ -386,7 +386,8 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       // -> CHECK if page date or tags are activated, show the spacer
       if($categoryConfig[$_GET['category']]['showPageDate'] ||
-         $categoryConfig[$_GET['category']]['showTags']) {
+         $categoryConfig[$_GET['category']]['showTags'] ||
+         $adminConfig['pages']['showTags']) {
         echo '<tr><td class="spacer"></td><td></td></tr>';
       }
             
@@ -487,7 +488,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <?php }
       
       // ->> CHECK if activated
-      if($categoryConfig[$_GET['category']]['showTags']) {
+      if($categoryConfig[$_GET['category']]['showTags'] || $adminConfig['pages']['showTags']) {
       ?>      
       <!-- ***** TAGS -->
       

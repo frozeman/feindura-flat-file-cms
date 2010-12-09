@@ -907,28 +907,25 @@ table.coloredList td {
   width: 100%;
 }
 
-.search .matchID {
-  z-index: 1;
-  position: relative;
-  top: -8px;
-  font-weight: bold;
-  font-size: 12px;
-}
-
 .search .resultHeadline {
   z-index: 1;
   position: relative;
-  top: -8px;
+  top: -5px;
+  font-size: 18px;
+}
+
+.search .matchingID {
+  font-weight: bold;
+}
+
+.search .keywords {
+  position: relative;
+  top: -5px;
   font-size: 15px;
 }
 
-.search .category {
-  font-size: 15px;
+.search .category {  
   color: #999;
-}
-
-.search .searchwords {
-  font-size: 15px;
 }
 
 .search .description {

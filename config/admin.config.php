@@ -22,7 +22,7 @@ $adminConfig['setStartPage'] =          true;
 $adminConfig['pages']['createDelete'] = true;
 $adminConfig['pages']['thumbnails'] =   true;
 $adminConfig['pages']['plugins'] =      true;
-$adminConfig['pages']['showTags'] =     false;
+$adminConfig['pages']['showTags'] =     true;
 
 $adminConfig['editor']['enterMode'] =  'p';
 $adminConfig['editor']['styleFile'] =  'a:3:{i:0;s:32:"/_feindura.org/style/content.css";i:1;s:31:"/_feindura.org/style/layout.css";i:2;s:46:"http://fonts.googleapis.com/css?family=Molengo";}';
