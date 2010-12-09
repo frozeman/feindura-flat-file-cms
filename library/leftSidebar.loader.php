@@ -158,7 +158,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           unset($sessions,$sessionLister);
           
           // crreate an instance of sessionLister
-          if(include(dirname(__FILE__).'/thirdparty/sessionLister.php'))
+          if(include(dirname(__FILE__).'/thirdparty/php/sessionLister.php'))
             $sessionLister = new sessionLister();         
 
           // list user

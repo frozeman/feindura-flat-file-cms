@@ -650,7 +650,7 @@ class statisticFunctions {
   */
   public static function getBrowser() {
     
-    require_once(dirname(__FILE__).'/../thirdparty/BrowserDetection.php');
+    require_once(dirname(__FILE__).'/../thirdparty/php/BrowserDetection.php');
     
     $browser = new Browser();
 	  $return = $browser->getBrowser();

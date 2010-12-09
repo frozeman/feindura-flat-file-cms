@@ -113,14 +113,14 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
   
   <!-- thirdparty/CountDown (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/CountDown/PeriodicalExecuter.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/CountDown/CountDown.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CountDown/PeriodicalExecuter.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CountDown/CountDown.js"></script>
 	
 	<!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
 	
   <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/CodeMirror/js/codemirror.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>
   
   <!-- thirdparty/CustomFormElements 
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>

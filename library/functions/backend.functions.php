@@ -1052,7 +1052,7 @@ function generateBackupFileName($backupAppendix = false) {
 function createBackup($backupFileName) {
   
   // -> generate archive
-  require_once(dirname(__FILE__).'/../thirdparty/pclzip.lib.php');
+  require_once(dirname(__FILE__).'/../thirdparty/php/pclzip.lib.php');
   $archive = new PclZip($backupFileName);
   $catchError = $archive->add(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'config/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'statistic/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$GLOBALS['adminConfig']['basePath']);
 
