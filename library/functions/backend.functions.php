@@ -890,21 +890,25 @@ function saveSpeakingUrl(&$errorWindow) {
   $save = false;
   $data = false;
   $htaccessFile = DOCUMENTROOT.'/.htaccess';
+  $newWebsitePath = xssFilter::path(substr($_POST['cfg_websitePath'],1));
+  $oldWebsitePath = xssFilter::path(substr($GLOBALS['adminConfig']['websitePath'],1));
   
-  $newWebsitePath = 'RewriteRule ^'.xssFilter::path(substr($_POST['cfg_websitePath'],1));
-  $oldWebsitePath = 'RewriteRule ^'.xssFilter::path(substr($GLOBALS['adminConfig']['websitePath'],1));
+  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.$newWebsitePath.'?category=$1&page=$2$3 [QSA,L]'."\n";
+  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ '.$newWebsitePath.'?page=$1$2 [QSA,L]';
+  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.$oldWebsitePath.'?category=$1&page=$2$3 [QSA,L]'."\n";
+  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/(.*)\.html\?*(.*)$ '.$oldWebsitePath.'?page=$1$2 [QSA,L]';
   
   $speakingUrlCode = '<IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
+RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that follows only if the request doesn’t end in one of these file extensions.
 RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
-'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ ?category=$1&page=$2$3 [QSA,L]
-'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ ?page=$1$2 [QSA,L]
+'.$newRewriteRule.'
 </IfModule>';
   
-  $oldSpeakingUrlCode = str_replace($newWebsitePath,$oldWebsitePath,$speakingUrlCode);
+  $oldSpeakingUrlCode = str_replace($newRewriteRule,$oldRewriteRule,$speakingUrlCode);
   
   // -> looks if the MOD_REWRITE modul exists
   $apacheModules = (function_exists('apache_get_modules')) ? apache_get_modules() : array(false);
@@ -919,16 +923,12 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
     
     // vars
     $currrentContent = file_get_contents($htaccessFile);
-    $checkCurrrentContent = (strlen($newWebsitePath) >  strlen($oldWebsitePath))
-      ? str_replace(array($newWebsitePath,$oldWebsitePath),'',$currrentContent)
-      : str_replace(array($oldWebsitePath,$newWebsitePath),'',$currrentContent);
-    $checkSpeakingUrlCode = str_replace($newWebsitePath,'',$speakingUrlCode);
     
     // ->> create or change the .htaccess file
     if($_POST['cfg_speakingUrl'] == 'true') {
       
       // -> if no speakingUrl code exists, add new one
-      if(strpos($checkCurrrentContent,$checkSpeakingUrlCode) === false) {
+      if(strpos($currrentContent,$speakingUrlCode) === false && strpos($currrentContent,$oldSpeakingUrlCode) === false) {
          
         $save = true;
         $data = $currrentContent."\n".$speakingUrlCode;

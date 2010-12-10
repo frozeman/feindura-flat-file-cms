@@ -1017,7 +1017,7 @@ class generalFunctions {
   * @param array        $pageContent  the $pageContent array of a page
   * @param string|false $sessionId    (optional) the session ID string in the following format: "sessionName=sessionId"
   * 
-  * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page
+  * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page and the when speakingURLs, for the websitePath
   * @uses $categoryConfig for the category name if speaking URLs i activated
   * @uses encodeToUrl()   to encode the category and page name to a string useable in URLs
   *  
@@ -1041,7 +1041,8 @@ class generalFunctions {
     // ->> create HREF with speaking URL
     // *************************************
     if(self::$adminConfig['speakingUrl'] == 'true') {
-      $speakingUrlHref = '';
+    
+      $speakingUrlHref = self::$adminConfig['websitePath'];
       
       // adds the category to the href attribute
       if($category != 0) {
@@ -1059,7 +1060,7 @@ class generalFunctions {
       if($sessionId)
         $speakingUrlHref .= '?'.$sessionId;
       
-      return $speakingUrlHref;
+      return preg_replace('#/+#','/',$speakingUrlHref);
     
     // ->> create HREF with varNames und Ids
     // *************************************

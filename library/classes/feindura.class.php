@@ -980,6 +980,10 @@ class feindura extends feinduraBase {
       // -> add TITLE
       $metaTags .= '  <title>'.$pageNameInTitle.$this->websiteConfig['title'].'</title>'."\n\n";
       
+      // -> add BASE PATH if SPEAKING URLS are ON
+      if($this->adminConfig['speakingUrl'])
+        $metaTags .= '  <base href="'.$this->adminConfig['url'].$this->adminConfig['websitePath'].'"'.$tagEnding."\n\n";
+      
       // -> add robots.txt
       if($robotTxt === true)
         $metaTags .= '  <meta name="siteinfo" content="robots.txt"'.$tagEnding."\n";

@@ -363,10 +363,10 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       elseif(!empty($data) && substr($data,0,2) != 'a:')
         $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
     
-    $adminConfig['websitePath'] = '/';
+    $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
     
     if(saveAdminConfig($adminConfig))
-      echo 'adminConfig <span class="succesfull">succesfully updated</span><br />';
+      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br />';
     else {
       echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
       $succesfullUpdate = false;

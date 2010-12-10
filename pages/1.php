@@ -51,19 +51,16 @@ $pageContent['styleId'] =            '';
 $pageContent['styleClass'] =         '';
 
 $pageContent['log_visitorCount'] =   '7';
-$pageContent['log_visitTime_min'] =  'a:4:{i:0;i:12974;i:1;i:7;i:2;i:7;i:3;i:0;}';
+$pageContent['log_visitTime_min'] =  'a:5:{i:0;i:12974;i:1;i:24;i:2;i:7;i:3;i:7;i:4;i:0;}';
 $pageContent['log_visitTime_max'] =  'a:7:{i:0;i:13032;i:1;i:12989;i:2;i:12974;i:3;i:12972;i:4;i:12971;i:5;i:19;i:6;i:7;}';
 $pageContent['log_firstVisit'] =     '1290977875';
 $pageContent['log_lastVisit'] =      '1291921367';
 $pageContent['log_searchWords'] =    'a:5:{i:0;a:2:{s:4:"data";s:8:"herovorz";s:6:"number";s:2:"21";}i:1;a:2:{s:4:"data";s:5:"gallo";s:6:"number";s:1:"3";}i:2;a:2:{s:4:"data";s:5:"suche";s:6:"number";i:2;}i:3;a:2:{s:4:"data";s:3:"was";s:6:"number";i:2;}i:4;a:2:{s:4:"data";s:3:"ich";s:6:"number";i:2;}}';
 
 $pageContent['content'] = 
-'
-<div align="right">
-	&nbsp;</div>
-<p align="left">Ein <b>Test</b>&nbsp;<i>(aus altfranz&ouml;sisch&nbsp;</i><i>test</i>&nbsp; Tiegel, Topf f&uuml;r&nbsp;<a href="http://de.wikipedia.org/wiki/Alchemie" style="text-decoration: none; color: rgb(6, 69, 173); background-image: none;" title="Alchemie">alchemistische</a>&nbsp;Versuche&lsquo;) ist ein&nbsp; Versuch, mit dem gr&ouml;&szlig;ere Sicherheit dar&uuml;ber gewonnen werden soll, ob ein technischer Apparat oder ein Vorgang innerhalb der geplanten Rahmenbedingungen funktioniert bzw. ob bestimmte Eigenschaften vorliegen oder nicht.<br />
+'<div align="left">
+</div>Ein <b>Test</b>&nbsp;<i>(aus altfranz&ouml;sisch&nbsp;</i><i>test</i>&nbsp; Tiegel, Topf f&uuml;r&nbsp;<a href="http://de.wikipedia.org/wiki/Alchemie" style="text-decoration: none; color: rgb(6, 69, 173); background-image: none;" title="Alchemie">alchemistische</a>&nbsp;Versuche&lsquo;) ist ein&nbsp; Versuch, mit dem gr&ouml;&szlig;ere Sicherheit dar&uuml;ber gewonnen werden soll, ob ein technischer Apparat oder ein Vorgang innerhalb der geplanten Rahmenbedingungen funktioniert bzw. ob bestimmte Eigenschaften vorliegen oder nicht.<br />
 
-</p>
 <p style="margin: 0.4em 0px 0.5em; line-height: 1.5em;">
 	Er unterscheidet sich vom&nbsp;<a href="http://de.wikipedia.org/wiki/Experiment" style="text-decoration: none; color: rgb(6, 69, 173); background-image: none;" title="Experiment">Experiment</a>&nbsp;dadurch, dass gfhes beim Tdsfsdfsdst eine Erwartung gibt die belegt bzw. widerlegt werden soll, w&auml;hrend das Ergebnis beim Experiment offen ist oder nur vermutet werden kann. Eine Wiederholbarkeit der Ergebnisse beim Anwenden auf verschiedene Objekte ist eine Voraussetzung beim Experiment, beim Test hingegen ist das Ergebnis je nach Objekt anders. Vom&nbsp;<a href="http://de.wikipedia.org/wiki/Pr&uuml;fen" style="text-decoration: none; color: rgb(6, 69, 173); background-image: none;" title="Pr&uuml;fen">Pr&uuml;fen</a>&nbsp;unterscheidet sich Testen, dass beim Pr&uuml;fen noch eine Aussage gemacht wird, wie gut das Objekt die Anforderungen erf&uuml;llt.</p>
 <p style="margin: 0.4em 0px 0.5em; line-height: 1.5em;">
