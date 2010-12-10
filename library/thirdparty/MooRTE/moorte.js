@@ -3,16 +3,15 @@
 description: Rich Text Editor (WYSIWYG / NAWTE / Editor Framework) that can be applied directly to any collection of DOM elements.
 
 copyright:
-- November 2008, Sam Goody
+- November 2008, 2010 Sam Goody
 
 license: OSL v3.0 (http://www.opensource.org/licenses/osl-3.0.php)
 
 authors:
-- Sam Goody
+- Sam Goody <siteroller - |at| - gmail>
 
 requires:
 - core
-- more/Depender
 
 provides: [MooRTE, MooRTE.Elements, MooRTE.Utilities, MooRTE.Range, MooRTE.Path, MooRTE.ranges, MooRTE.activeField, MooRTE.activeBar ]
 
@@ -20,12 +19,11 @@ credits:
 - Based on the tutorial at - http://dev.opera.com/articles/view/rich-html-editing-in-the-browser-part-1.  Bravo, Olav!!
 - Ideas and inspiration - Guillerr, CheeAun, HugoBuriel
 - Some icons from OpenWysiwyg - http://www.openwebware.com
-- Cleanup regexs from CheeAun and Ryan's work on MooEditable (though the method of applying them is our own!)
-- MooRTE needs YOU!! Join at http://groups.google.com/group/moorte!
+- Cleanup regexs from CheeAun and Ryan's work on MooEditable (methodology is our own!)
+- MooRTE needs YOU!!
 
 Join our group at: http://groups.google.com/group/moorte
 
-Email me at siteroller - |at| - gmail.
 ...
 */
 
@@ -40,9 +38,9 @@ var MooRTE = new Class({
 	
 	Implements: [Options]
 
-	, options: { floating: true // false broken by a WK bug that an editable element may not contain non-editable content.
+	, options: { floating: true // false broken by WK bug - "an editable element may not contain non-editable content".
 			   , where: 'before' // 'top/bottom/before/after' (Mootools standard.)
-			   , padFloat: true // before/after: add to existing margins when true. top/bottom: padding always added. When false shrinks element accordingly.
+			   , padFloat: true // before/after: add to existing margins when true. top/bottom: padding always added. If false shrinks element accordingly.
 			   , stretch: false // If element grows, should it stretch the element or add toolbars. Other options abound.
 			   , location: 'elements'
 			   , buttons: 'div.Menu:[Main,File,Insert]'
@@ -307,20 +305,38 @@ MooRTE.Utilities = {
 					styles: val.img ? (isNaN(val.img) ? {'background-image':'url('+val.img+')'} : {'background-position':'0 '+(-20*val.img)+'px'}):{},
 					events:{
 						mousedown: function(e){
-							var holder
-							  , bar = MooRTE.activeBar = this.getParent('.MooRTE')
+							var bar = MooRTE.activeBar = this.getParent('.MooRTE')
 							  , source = bar.retrieve('source')
-							  , fields = bar.retrieve('fields');
-							
+							  , fields = bar.retrieve('fields')
+							  , holder = MooRTE.Range.parent();//.parentNode;
+
 							if (!fields.contains(MooRTE.activeField)) MooRTE.activeField = fields[0];//.focus()
-						console.log(1);
-							if (!( MooRTE.activeField == (holder = MooRTE.Range.parent()) || 
-								   (MooRTE.activeField.contains(holder) && MooRTE.activeField != holder)
-							)) return;
-							console.log(11);
-							if(!val.onClick && !source && (!val.element || val.element == 'a')) MooRTE.Utilities.exec(val.args||btn);
+
+// Till here, all is fine.
+// Must check if the selected textnodes ("holder") are all included within the activeField.
+// Works in FF. In WK, does not. as textfields are not picked up by "contains()".
+//console.log('bar.fields: ', fields);
+//console.log('MooRTE.activeField: ', MooRTE.activeField);
+//console.log('fields.contains(MooRTE.activeField)', fields.contains(MooRTE.activeField));
+//console.log('MooRTE.Range.parent', MooRTE.Range.parent());
+console.log('MooRTE.Range.parent.parentElement', holder, holder.nodeType, typeOf(holder));
+//console.log('holder.compareDocumentPosition(MooRTE.activeField)',holder.compareDocumentPosition(MooRTE.activeField) && Node.DOCUMENT_POSITION_CONTAINED_BY);
+//console.log('MooRTE.activeField.compareDocumentPosition(holder)',MooRTE.activeField.compareDocumentPosition(holder));					
+//	if (!( MooRTE.activeField == (holder = MooRTE.Range.parent()) || 
+//	   (MooRTE.activeField.contains(holder) && MooRTE.activeField != holder)
+//	)) return;
+//if (e && e.stop) input || textarea ? e.stopPropagation() : e.stop();
+//if (!(MooRTE.activeField == holder || MooRTE.activeField.contains(holder, true))) return; console.log('passed'); // Should be the same as 
+
+
+
+							//Workaround for https://mootools.lighthouseapp.com/projects/2706/tickets/1113-contains-not-including-textnodes
+							if (Browser.webkit && holder.nodeType == 3) holder = holder.parentElement; 
+							
+							if (!MooRTE.activeField.contains(holder)) return;
+							if (!val.onClick && !source && (!val.element || val.element == 'a')) MooRTE.Utilities.exec(val.args||btn);
 							else MooRTE.Utilities.eventHandler(source || 'onClick', this, btn);
-							if(e && e.stop) input || textarea ? e.stopPropagation() : e.stop();					//if input accept events, which means keeping it from propogating to the stop of the parent!!
+							if (e && e.stop) input || textarea ? e.stopPropagation() : e.stop();
 						}
 					}
 				}, val);
