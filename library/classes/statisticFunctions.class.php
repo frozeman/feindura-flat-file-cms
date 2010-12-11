@@ -938,7 +938,7 @@ class statisticFunctions {
     //var
     $return = false;
     
-    if(is_string($serializedTags) && !empty($serializedTags)) {
+    if(!empty($serializedTags) && is_string($serializedTags)) {
          
       $tags = unserialize($serializedTags);
       

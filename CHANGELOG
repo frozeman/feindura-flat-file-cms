@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 507
+Build 508
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 508: hide empty statictics
   build 507: fixed speakingURLS .htacces code
   build 506: fixed check pop on blur in frontendEditing.js
   build 505: add search in tags to search.class.php

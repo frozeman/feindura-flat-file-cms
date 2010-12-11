@@ -50,12 +50,12 @@ $pageContent['styleFile'] =          '';
 $pageContent['styleId'] =            '';
 $pageContent['styleClass'] =         '';
 
-$pageContent['log_visitorCount'] =   '7';
-$pageContent['log_visitTime_min'] =  'a:5:{i:0;i:12974;i:1;i:24;i:2;i:7;i:3;i:7;i:4;i:0;}';
-$pageContent['log_visitTime_max'] =  'a:7:{i:0;i:13032;i:1;i:12989;i:2;i:12974;i:3;i:12972;i:4;i:12971;i:5;i:19;i:6;i:7;}';
-$pageContent['log_firstVisit'] =     '1290977875';
-$pageContent['log_lastVisit'] =      '1291921367';
-$pageContent['log_searchWords'] =    'a:5:{i:0;a:2:{s:4:"data";s:8:"herovorz";s:6:"number";s:2:"21";}i:1;a:2:{s:4:"data";s:5:"gallo";s:6:"number";s:1:"3";}i:2;a:2:{s:4:"data";s:5:"suche";s:6:"number";i:2;}i:3;a:2:{s:4:"data";s:3:"was";s:6:"number";i:2;}i:4;a:2:{s:4:"data";s:3:"ich";s:6:"number";i:2;}}';
+$pageContent['log_visitorCount'] =   '';
+$pageContent['log_visitTime_min'] =  '';
+$pageContent['log_visitTime_max'] =  '';
+$pageContent['log_firstVisit'] =     '';
+$pageContent['log_lastVisit'] =      '';
+$pageContent['log_searchWords'] =    '';
 
 $pageContent['content'] = 
 '<div align="left">

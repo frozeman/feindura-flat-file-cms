@@ -137,7 +137,6 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'] = 'Searchwords which led fro
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> or
 <a href="http://www.bing.com">Bing (MSN)</a> to this website.';
-$langFile['STATISTICS_TEXT_NOSEARCHWORDS'] = 'No searchwords led yet to this website.';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR'] = 'hour';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL'] = 'hours';
@@ -313,7 +312,6 @@ $langFile['home_lastEditedPages_h1'] = 'last edited pages';
 $langFile['home_longestViewedPages_h1'] = 'longest viewed pages';
 
 $langFile['home_refererLog_h1'] = 'Websites from which visitors came';
-$langFile['home_refererLog_nolog'] = 'Yet there are no visitors which came from other websites.';
 $langFile['home_novisitors'] = 'There are no visitors yet';
 
 /*

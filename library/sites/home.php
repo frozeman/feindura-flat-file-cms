@@ -278,15 +278,12 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<br />';
     
     // SHOW tag CLOUD
-    echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h3>';
-    echo '<div class="tagCloud">';
-    if($tagCloud = statisticFunctions::createTagCloud($allSearchwords))
-      echo $tagCloud;
-    else
-      echo '<span class="blue" style="font-size:15px;">'.$GLOBALS['langFile']['log_notags'].'</span>';
-    echo '</div>';
-    
-    echo '<br /><hr class="small"><br />';
+    if($tagCloud = statisticFunctions::createTagCloud($allSearchwords)) {
+      echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h3>';
+      echo '<div class="tagCloud">'.$tagCloud.'</div>';
+      
+      echo '<br /><hr class="small"><br />';
+    }
      
     // ---------------------------------
     // -> BROWSER CHART
@@ -295,16 +292,14 @@ if(!empty($adminConfig['user']['info'])) {
       echo $browserChart;
     else
       echo $GLOBALS['langFile']['home_novisitors'];
-    
-    echo '<br /><br /><hr class="small"><br />';
-    
+
     // ---------------------------------
     // -> SHOW REFERER LOG
-    echo '<h3 style="text-align:center;">'.$langFile['home_refererLog_h1'].'</h3>';
-    
     if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log') &&
        $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log')) {
-      ;
+       
+      echo '<br /><br /><hr class="small"><br />';
+      echo '<h3 style="text-align:center;">'.$langFile['home_refererLog_h1'].'</h3>';
        
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';
@@ -322,9 +317,7 @@ if(!empty($adminConfig['user']['info'])) {
       echo '</ul>
             </div>';
     // no log
-    } else
-      echo $langFile['home_refererLog_nolog'];
-    
+    }    
     ?>
   </div>
   <div class="bottom"></div>

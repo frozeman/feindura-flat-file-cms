@@ -49,7 +49,7 @@ $langFile['LOGIN_LINK_FORGOTPASSWORD'] = 'Passwort vergessen?';
 $langFile['LOGIN_LINK_BACKTOLOGIN'] = 'zur&uuml;ck zum Login';
 $langFile['LOGIN_BUTTON_SENDNEWPASSWORD'] = 'SENDEN';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT'] = 'feindura CMS Passwort angefordert von';
-$langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE'] = 'Du hast ein neues Passwort f&uuml;r das feindura - Flat File CMS angefordert.
+$langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE'] = 'Du hast ein neues Passwort für dein feindura - Flat File CMS angefordert.
 Dein Benutzername und dein neues Passwort lauten:';
 
 $langFile['LOGIN_ERROR_FORGOTPASSWORD_NOEMAIL'] = 'Der Benutzer hat keine E-Mail Adressse angegeben.';
@@ -137,7 +137,6 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'] = 'Suchworte die von
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> oder
 <a href="http://www.bing.com">Bing (MSN)</a> auf diese Seite gef&uuml;hrt haben';
-$langFile['STATISTICS_TEXT_NOSEARCHWORDS'] = 'Es haben noch keine Suchworte auf diese Seite gef&uuml;hrt.';
 
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR'] = 'Stunde';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL'] = 'Stunden';
@@ -312,7 +311,6 @@ $langFile['home_lastEditedPages_h1'] = 'zuletzt bearbeitete Seiten';
 $langFile['home_longestViewedPages_h1'] = 'am l&auml;ngsten betrachteten Seiten';
 
 $langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
-$langFile['home_refererLog_nolog'] = 'Bisher sind noch keine Besucher von anderen Seiten auf diese Seite gekommen.';
 $langFile['home_novisitors'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
 
 /*

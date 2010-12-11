@@ -131,7 +131,7 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'] = 'Mot de recherche qui ont 
 <a href="http://www.google.de">Google</a>,
 <a href="http://www.yahoo.de">Yahoo</a> ou
 <a href="http://www.bing.com">Bing (MSN)</a> sur ce site web';
-$langFile['STATISTICS_TEXT_NOSEARCHWORDS'] = 'Aucun mot a m&egrave;n&eacute; sur ce site web.';
+
 $langFile['STATISTICS_TEXT_HOUR_SINGULAR'] = 'heur';
 $langFile['STATISTICS_TEXT_HOUR_PLURAL'] = 'heures';
 $langFile['STATISTICS_TEXT_MINUTE_SINGULAR'] = 'minute';
@@ -288,7 +288,6 @@ $langFile['home_mostVisitedPages_h1'] = 'pages les plus fr&eacute;quent&eacute;e
 $langFile['home_lastEditedPages_h1'] = 'derni&egrave;res pages r&eacute;dig&eacute;es';
 $langFile['home_longestViewedPages_h1'] = 'pages les plus regard&eacute;s';
 $langFile['home_refererLog_h1'] = 'sites web d\'o&ugrave; viennent les derniers visiteurs';
-$langFile['home_refererLog_nolog'] = 'actuellement il n\'y pas eu de visiteurs d\'autres sites web.';
 $langFile['home_novisitors'] = 'actuellement il n\'y a pas eu de visiteurs sur le site web.';
 
 /*
