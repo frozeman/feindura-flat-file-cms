@@ -65,6 +65,13 @@ if(isset($_GET['downloadBackup'])) {
     $errorWindow .= $unwriteableList;
 }
 
+// ------------>> DELETE BACKUP
+if(isset($_GET['status']) && $_GET['status'] == 'deleteBackup') {
+  if(!empty($_GET['file']) && unlink(DOCUMENTROOT.$_GET['file'])) {
+    statisticFunctions::saveTaskLog(31); // <- SAVE the task in a LOG FILE
+  } else
+    $errorWindow .= $langFile['BACKUP_ERROR_DELETE'];
+}
 
 // ------------>> RESTORE THE BACKUP
 if(isset($_POST['send']) && $_POST['send'] == 'restore') {

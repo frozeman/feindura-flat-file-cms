@@ -144,6 +144,9 @@ foreach($logContent as $logRow) {
     case 30:
         $logText = $langFile['LOG_BACKUP_RESTORED'];
         break;
+    case 31:
+        $logText = $langFile['LOG_BACKUP_DELETED'];
+        break;
   }
   
   // ->> PROCESS LOG DATA

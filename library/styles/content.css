@@ -814,6 +814,12 @@ span.info strong {
 /**********************/	
 /* - BACKUP / RESTORE */
 
+
+li.backupLink {
+  padding-left: 20px !important;
+  background: url("../images/key/backup_download_small.png") no-repeat left center;
+}
+
 a.downloadBackup {
   display: inline-block;
   height: 48px; /* org: 78px */

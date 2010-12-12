@@ -361,10 +361,10 @@ div.leftSidebarLoadingCircle {
 /* --------------------- */
 /* -------> SIDEBAR SELECTION */
 
-#sidebarSelection  li {
+#sidebarSelection li {
   list-style: none !important;
   margin: 0px !important;
-  padding: 8px 0px !important;
+  padding: 8px 0px;
 }
     
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */

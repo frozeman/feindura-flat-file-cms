@@ -188,6 +188,7 @@ $langFile['LOG_FILE_DELETED'] = 'Datei gel&ouml;scht';
 
 $langFile['LOG_BACKUP_CREATED'] = 'Backup erstellt';
 $langFile['LOG_BACKUP_RESTORED'] = 'Backup wiederhergestellt';
+$langFile['LOG_BACKUP_DELETED'] = 'Backup gel&ouml;scht';
 
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC'] = 'Seite ist &ouml;ffentlich';
@@ -783,12 +784,16 @@ $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup vor der Wiederher
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
 $langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="blue">Vor der Wiederherstellung wird ein Backup des alten Standes erstellt.</span>';
+$langFile['BACKUP_TOOLTIP_DELETE'] = 'Backup l&ouml;schen';
+$langFile['BACKUP_TEXT_DELETE_QUESTION1'] = ''; // backup 2010-11-05 15:03 wirklich löschen?
+$langFile['BACKUP_TEXT_DELETE_QUESTION2'] = 'wirklich l&ouml;schen?';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'Es wurde noch kein Backup erstellt.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup-Datei wurde nicht gefunden in:';
 $langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Es wurde keine Backup-Datei f&uuml;r die Wiederherstellung ausgew&auml;hlt.';
+$langFile['BACKUP_ERROR_DELETE'] = 'Backup konnte nicht gel&ouml;scht werden!';
 
 
 // -----------------------------------------------------------------------------------------------

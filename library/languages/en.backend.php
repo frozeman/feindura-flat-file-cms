@@ -188,6 +188,7 @@ $langFile['LOG_FILE_DELETED'] = 'File deleted';
 
 $langFile['LOG_BACKUP_CREATED'] = 'Backup created';
 $langFile['LOG_BACKUP_RESTORED'] = 'Backup restored';
+$langFile['LOG_BACKUP_DELETED'] = 'Backup deleted';
 
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC'] = 'Page is public';
@@ -785,12 +786,16 @@ $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup before the restor
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create and download current backup';
 $langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="blue">Before the restore a backup of the old state will be created.</ span>';
+$langFile['BACKUP_TOOLTIP_DELETE'] = 'Delete backup';
+$langFile['BACKUP_TEXT_DELETE_QUESTION1'] = 'Really delete'; // really delete backup 2010-11-05 15:03?
+$langFile['BACKUP_TEXT_DELETE_QUESTION2'] = '?';
 
 $langFile['BACKUP_TITLE_LASTBACKUPS'] = 'Download backups';
 $langFile['BACKUP_TEXT_NOBACKUP'] = 'No backup created yet.';
 
 $langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup was not found at:';
 $langFile['BACKUP_ERROR_NORESTROEFILE'] = 'No backup file to restore was selected.';
+$langFile['BACKUP_ERROR_DELETE'] = 'Backup could not be deleted!';
 
 
 // -----------------------------------------------------------------------------------------------

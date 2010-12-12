@@ -49,7 +49,8 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <meta name="siteinfo" content="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>robots.txt" />
   <meta name="robots" content="no-index,nofollow" />
@@ -69,14 +70,15 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/layout.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/menus.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/sidebars.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/content.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/setup.css" media="all" />  
-  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/shared.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" />
+  <link rel="stylesheet" type="text/css" href="library/styles/layout.css" />
+  <link rel="stylesheet" type="text/css" href="library/styles/menus.css" />
+  <link rel="stylesheet" type="text/css" href="library/styles/sidebars.css" />
+  <link rel="stylesheet" type="text/css" href="library/styles/content.css" />   
+  <link rel="stylesheet" type="text/css" href="library/styles/setup.css" />  
+  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" />
+  <link rel="stylesheet" type="text/css" href="library/styles/shared.css" />
+  
   
 <?php
 if($_GET['site'] == 'addons') {

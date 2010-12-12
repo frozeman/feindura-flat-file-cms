@@ -173,8 +173,9 @@ $langFile['LOG_PLUGINSETUP_SAVED'] = 'pr&eacute;f&eacute;rences plugins sauvegar
 $langFile['LOG_FILE_SAVED'] = 'fichier sauvegard&eacute;';
 $langFile['LOG_FILE_DELETED'] = 'fichier sauvegard&eacute;';
 
-$langFile['LOG_BACKUP_CREATED'] = 'backup cr&eacute;&eacute;e';
-$langFile['LOG_BACKUP_RESTORED'] = 'backup et restauration';
+$langFile['LOG_BACKUP_CREATED'] = 'sauvegarde cr&eacute;&eacute;e';
+$langFile['LOG_BACKUP_RESTORED'] = 'restauration de sauvegarde';
+$langFile['LOG_BACKUP_DELETED'] = 'supprim&eacute; de sauvegarde';
 
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC'] = 'site web public';
@@ -703,22 +704,26 @@ $langFile['pagethumbnail_upload_response_finish'] = 'L\'image a &eacute;t&eacute
 
 // -> BACKUP
 
-$langFile['BACKUP_TITLE_BACKUP'] = 'backup';
+$langFile['BACKUP_TITLE_BACKUP'] = 'sauvegarde';
 $langFile['BACKUP_TITLE_RESTORE'] = 'r&eacute;tablir';
 
-$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'choisir de backup existant';
-$langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 't&eacute;l&eacute;charger le fichier de backup';
+$langFile['BACKUP_TITLE_RESTORE_FROMFILES'] = 'choisir de sauvegarde existant';
+$langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 't&eacute;l&eacute;charger le fichier de sauvegarde';
 
-$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'backup avant la r&eacute;cup&eacute;ration';
+$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'sauvegarde avant la r&eacute;cup&eacute;ration';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'cr&eacute;er et t&eacute;l&eacute;chargement de backup actuelle';
-$langFile['BACKUP_TEXT_RESTORE'] = 'S&eacute;lectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de backup, de r&eacute;tablir un &eacute;tat ancien.<br /><span class="blue">Avant de restaurer une backup de l\'ancien stand est cr&eacute;&eacute;.</ span>';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'cr&eacute;er et t&eacute;l&eacute;chargement de sauvegarde actuelle';
+$langFile['BACKUP_TEXT_RESTORE'] = 'S&eacute;lectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de sauvegarde, de r&eacute;tablir un &eacute;tat ancien.<br /><span class="blue">Avant de restaurer une sauvegarde de l\'ancien stand est cr&eacute;&eacute;.</ span>';
+$langFile['BACKUP_TOOLTIP_DELETE'] = 'supprimer sauvegarde';
+$langFile['BACKUP_TEXT_DELETE_QUESTION1'] = ''; // backup 2010-11-05 15:03 supprimer?
+$langFile['BACKUP_TEXT_DELETE_QUESTION2'] = 'supprimer?';
 
-$langFile['BACKUP_TITLE_LASTBACKUPS'] = 't&eacute;l&eacute;charger backups';
-$langFile['BACKUP_TEXT_NOBACKUP'] = 'Pas de backup a &eacute;t&eacute; cr&eacute;&eacute; pour le moment.';
+$langFile['BACKUP_TITLE_LASTBACKUPS'] = 't&eacute;l&eacute;charger sauvegardes';
+$langFile['BACKUP_TEXT_NOBACKUP'] = 'Pas de sauvegarde a &eacute;t&eacute; cr&eacute;&eacute; pour le moment.';
 
-$langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Backup n\'a pas &eacute;t&eacute; trouv&eacute; au chemin d\'acc&egrave;s:';
-$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Il n\'y a pas de fichier de backup pour restaurer s&eacute;lectionn&eacute;.';
+$langFile['BACKUP_ERROR_FILENOTFOUND'] = 'Sauvegarde n\'a pas &eacute;t&eacute; trouv&eacute; au chemin d\'acc&egrave;s:';
+$langFile['BACKUP_ERROR_NORESTROEFILE'] = 'Il n\'y a pas de fichier de sauvegarde pour restaurer s&eacute;lectionn&eacute;.';
+$langFile['BACKUP_ERROR_DELETE'] = 'Sauvegarde ne peut pas &ecirc;tre supprim&eacute;!';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************
