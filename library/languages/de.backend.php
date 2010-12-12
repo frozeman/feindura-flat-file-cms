@@ -83,8 +83,6 @@ $langFile['THUMBNAIL_TEXT_NAME'] = 'Seiten-Thumbnail';
 $langFile['THUMBNAIL_TEXT_WIDTH'] = 'Standard <b>Breite</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Standard <b>H&ouml;he</b>';
 
-$langFile['THUMBNAIL_TOOLTIP_PREVIEW'] = 'M&ouml;glicherweise ist nach dem Upload noch das vorherige Bild zu sehen, dies ist bedingt durch den Browser-Cache.[br /][br /]Um das aktuelle Bild zu sehen musst du die Seite aktualisieren (F5).';
-
 $langFile['THUMBNAIL_TOOLTIP_WIDTH'] = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Gr&ouml;&szlig;e skaliert.';
 $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] = 'Standardh&ouml;he::Die H&ouml;he des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Gr&ouml;&szlig;e skaliert.';
 
@@ -226,15 +224,17 @@ $langFile['BUTTON_BACKUP'] = 'Backup Wiederherst.';
 
 // SUB MENU/FOOTER
 $langFile['BUTTON_FILEMANAGER'] = 'Dateimanager';
-$langFile['BUTTON_TOOLTIP_FILEMANAGER'] = 'Dateien und Bilder verwalten';
+$langFile['BUTTON_TOOLTIP_FILEMANAGER'] = 'Dateien und Bilder verwalten.';
 $langFile['BUTTON_CREATEPAGE'] = 'Neue Seite';
-$langFile['BUTTON_TOOLTIP_CREATEPAGE'] = 'Neue Seite erstellen';
+$langFile['BUTTON_TOOLTIP_CREATEPAGE'] = 'Neue Seite erstellen.';
 $langFile['BUTTON_DELETEPAGE'] = 'Seite l&ouml;schen';
-$langFile['BUTTON_TOOLTIP_DELETEPAGE'] = 'Diese Seite l&ouml;schen';
+$langFile['BUTTON_TOOLTIP_DELETEPAGE'] = 'Diese Seite l&ouml;schen.';
+$langFile['BUTTON_FRONTENDEDITPAGE'] = 'Seite im Frontend bearbeiten';
+$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'] = 'Diese Seite direkt auf der Website bearbeiten.';
 $langFile['BUTTON_THUMBNAIL_UPLOAD'] = 'Seiten-Thumbnail hochladen';
-$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'] = 'Thumbnail f&uuml;r diese Seite hochladen';
+$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'] = 'Thumbnail f&uuml;r diese Seite hochladen.';
 $langFile['BUTTON_THUMBNAIL_DELETE'] = 'Seiten-Thumbnail l&ouml;schen';
-$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'] = 'Thumbnail von dieser Seite l&ouml;schen';
+$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'] = 'Thumbnail von dieser Seite l&ouml;schen.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP'] = 'Nach oben';

@@ -7,7 +7,7 @@ $adminConfig['uploadPath'] =       '/_feindura/_upload/';
 $adminConfig['websiteFilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '/_feindura.org/style/';
 $adminConfig['dateFormat'] =       'eu';
-$adminConfig['speakingUrl'] =      true;
+$adminConfig['speakingUrl'] =      false;
 
 $adminConfig['varName']['page'] =     'page';
 $adminConfig['varName']['category'] = 'category';

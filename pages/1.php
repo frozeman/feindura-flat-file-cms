@@ -45,7 +45,7 @@ $pageContent['plugins']['contactForm']['phone_mandatory'] = '';
 $pageContent['plugins']['contactForm']['fax'] = '';
 $pageContent['plugins']['contactForm']['fax_mandatory'] = '';
 
-$pageContent['thumbnail'] =          '';
+$pageContent['thumbnail'] =          'thumb_page1.png';
 $pageContent['styleFile'] =          '';
 $pageContent['styleId'] =            '';
 $pageContent['styleClass'] =         '';

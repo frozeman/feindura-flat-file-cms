@@ -99,7 +99,11 @@ if(!$asking) {
 
 <!-- show a preview of the thumbnail -->
 <div style="width:100%; text-align:center; padding-top:20px;">
-<img src="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>" />
+<?php
+  // generates a random number to put on the end of the image, to prevent caching
+  $randomImage = '?'.md5(uniqid(rand(),1));
+?>
+<img src="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.$randomImage; ?>" alt="thumbnail" title="<?php echo $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail; ?>" />
 </div>
 </div>
 <?php

@@ -83,8 +83,6 @@ $langFile['THUMBNAIL_TEXT_NAME'] = 'Page-Thumbnail';
 $langFile['THUMBNAIL_TEXT_WIDTH'] = 'Standard <b>Width</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Standard <b>Height</b>';
 
-$langFile['THUMBNAIL_TOOLTIP_PREVIEW'] = 'It\'s possible that you still see the previous image after the upload, that due to the browser cache.[br /][br /]Um da To update the current image you have refresh the page (F5).';
-
 $langFile['THUMBNAIL_TOOLTIP_WIDTH'] = 'Standardwidth::The width of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
 $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] = 'Standardheight::The height of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
 
@@ -233,6 +231,8 @@ $langFile['BUTTON_CREATEPAGE'] = 'New Page';
 $langFile['BUTTON_TOOLTIP_CREATEPAGE'] = 'Create new page';
 $langFile['BUTTON_DELETEPAGE'] = 'Delete Page';
 $langFile['BUTTON_TOOLTIP_DELETEPAGE'] = 'Delete this page';
+$langFile['BUTTON_FRONTENDEDITPAGE'] = 'Edit page in the frontend';
+$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'] = 'Edit this page directly on the website.';
 $langFile['BUTTON_THUMBNAIL_UPLOAD'] = 'Upload a page thumbnail';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'] = 'Upload a thumbnail for this page';
 $langFile['BUTTON_THUMBNAIL_DELETE'] = 'Delete a page thumbnail';

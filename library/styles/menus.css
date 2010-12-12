@@ -248,6 +248,10 @@
 .subMenu a.deletePage {
     background: url("../images/key/subMenu_deletePage.png") no-repeat;
     }
+/* editPage */ 
+.subMenu a.editPage {
+    background: url("../images/key/subMenu_editPage.png") no-repeat;
+    }
 /* uploadThumb */ 
 .subMenu a.pageThumbnailUpload {
     background: url("../images/key/subMenu_uploadThumb.png") no-repeat;
@@ -295,6 +299,7 @@
     }
 #footerMenu a:hover {
     color: #dfdfdf;
+    background-position: -100px 0px !important;
     }
 /* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
 #footerMenu a span{
@@ -309,34 +314,23 @@
 #footerMenu a.fileManager {
     background: url("../images/key/footerMenu_fileManager.png") no-repeat;
     }
-#footerMenu a.fileManager:hover {
-    background-position: -100px 0px;
-    }
 /* createPage */ 
 #footerMenu a.createPage {
     background: url("../images/key/footerMenu_createPage.png") no-repeat;
-    }
-#footerMenu a.createPage:hover {
-    background-position: -100px 0px;
     }
 /* deletePage */ 
 #footerMenu a.deletePage {
     background: url("../images/key/footerMenu_deletePage.png") no-repeat;
     }
-#footerMenu a.deletePage:hover {
-    background-position: -100px 0px;
+/* editPage */ 
+#footerMenu a.editPage {
+    background: url("../images/key/footerMenu_editPage.png") no-repeat;
     }
 /* uploadThumb */ 
 #footerMenu a.pageThumbnailUpload {
     background: url("../images/key/footerMenu_uploadThumb.png") no-repeat;
     }
-#footerMenu a.pageThumbnailUpload:hover {
-    background-position: -100px 0px;
-    }
 /* deleteThumb */ 
 #footerMenu a.pageThumbnailDelete {
     background: url("../images/key/footerMenu_deleteThumb.png") no-repeat;
-    }
-#footerMenu a.pageThumbnailDelete:hover {
-    background-position: -100px 0px;
     }

@@ -312,6 +312,8 @@ if($_GET['site'] == 'addons') {
                        ($_GET['category'] === '0' && $adminConfig['pages']['createDelete']) ||
                        ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
+    $showEditPage = true;
+    
     // -> CHECK if show pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
                                 empty($_GET['site']) && !empty($_GET['page']) &&
@@ -357,19 +359,6 @@ if($_GET['site'] == 'addons') {
             <?php
             $showSpacer = false;
             
-            // file manager
-            if($adminConfig['user']['fileManager']) { ?>
-              <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
-            <?php
-              $showSpacer = true;
-            }
-            
-            if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
-              <li class="spacer">&nbsp;</li>
-            <?php 
-              $showSpacer = false;
-            } 
-            
             // create new page
             if($showCreatePage) { ?>
               <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::">&nbsp;</a></li>
@@ -379,6 +368,12 @@ if($_GET['site'] == 'addons') {
               <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
             <?php }          
               $showSpacer = true;
+            }
+            // editPage
+            if($showEditPage) { ?>
+              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
+            <?php
+            $showSpacer = true;
             }
             
             if($showSpacer && $showPageThumbnailUpload) { ?>
@@ -396,7 +391,20 @@ if($_GET['site'] == 'addons') {
               <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> class="pageThumbnailDelete toolTip">&nbsp;</a></li>
             <?php }          
               $showSpacer = true;
-            }           
+            }
+            
+            if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+              <li class="spacer">&nbsp;</li>
+            <?php 
+              $showSpacer = false;
+            } 
+            
+            // file manager
+            if($adminConfig['user']['fileManager']) { ?>
+              <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
+            <?php
+              $showSpacer = true;
+            }
             ?>          
           </ul>
         </div>        
@@ -431,20 +439,7 @@ if($_GET['site'] == 'addons') {
         <ul class="horizontalButtons">
           <?php
           $showSpacer = false;
-          
-          // file manager
-          if($adminConfig['user']['fileManager']) { ?>
-            <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>');return false;" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::"><span><?php echo $langFile['BUTTON_FILEMANAGER']; ?></span></a></li>
-          <?php
-            $showSpacer = true;
-          }
-          
-          if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
-            <li class="spacer">&nbsp;</li>
-          <?php 
-            $showSpacer = false;
-          }
-          
+
           // create new page
           if($showCreatePage) { ?>
             <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::"><span><?php echo $langFile['BUTTON_CREATEPAGE']; ?></span></a></li>
@@ -455,7 +450,12 @@ if($_GET['site'] == 'addons') {
           <?php }
           $showSpacer = true;
           }
-          
+          // editPage
+          if($showEditPage) { ?>
+            <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip"><span><?php echo $langFile['BUTTON_FRONTENDEDITPAGE']; ?></span></a></li>
+          <?php
+          $showSpacer = true;
+          }          
           
           if($showSpacer && $showPageThumbnailUpload) { ?>
             <li class="spacer">&nbsp;</li>
@@ -473,7 +473,20 @@ if($_GET['site'] == 'addons') {
             <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> class="pageThumbnailDelete toolTip"><span><?php echo $langFile['BUTTON_THUMBNAIL_DELETE']; ?></span></a></li>
           <?php }          
             $showSpacer = true;
-          }           
+          }
+          
+          if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+            <li class="spacer">&nbsp;</li>
+          <?php 
+            $showSpacer = false;
+          }
+          
+          // file manager
+          if($adminConfig['user']['fileManager']) { ?>
+            <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>');return false;" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::"><span><?php echo $langFile['BUTTON_FILEMANAGER']; ?></span></a></li>
+          <?php
+            $showSpacer = true;
+          }         
           ?>          
         </ul>
         <?php } ?>
