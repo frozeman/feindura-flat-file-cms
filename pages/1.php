@@ -2,7 +2,7 @@
 
 $pageContent['id'] =                 1;
 $pageContent['category'] =           0;
-$pageContent['public'] =             true;
+$pageContent['public'] =             false;
 $pageContent['sortOrder'] =          3;
 
 $pageContent['lastSaveDate'] =       '1291926383';

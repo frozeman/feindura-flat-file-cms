@@ -757,6 +757,9 @@ window.addEvent('domready',function(){
   </div>
 </div>
 
+<?php
+if(isAdmin()) {
+?>
 <!-- ***** ADVANCED PAGE SETTINGS -->
 <a name="advancedPageSettingsAnchor" id="advancedPageSettingsAnchor" class="anchorTarget"></a>
 <?php
@@ -814,4 +817,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
   </div>
   <div class="bottom"></div>
 </div>
+<?php } else
+  echo '<div style="height:20px;"></div>';
+?>
 </form>

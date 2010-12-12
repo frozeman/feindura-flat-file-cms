@@ -314,7 +314,7 @@ if($_GET['site'] == 'addons') {
                        ($_GET['category'] === '0' && $adminConfig['pages']['createDelete']) ||
                        ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
-    $showEditPage = true;
+    $showEditPage = ($_GET['site'] == 'pages') ? false : true;
     
     // -> CHECK if show pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
