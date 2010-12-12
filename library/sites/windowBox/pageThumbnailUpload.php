@@ -22,13 +22,13 @@
  */
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+
 $error = false;
 $response = false;
 $site = $_GET['site'];
 $page = $_GET['page'];
 $category = $_GET['category'];
-
-echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 $pageContent = generalFunctions::readPage($page,$category);
 

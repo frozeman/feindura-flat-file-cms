@@ -657,8 +657,7 @@ $langFile['unsavedPage_question_h1'] = '<span class="brown">La page a &eacute;t&
 // ---------- DELETE PAGE
 $langFile['deletePage_question_part1'] = 'Vous &ecirc;tes sur de vraiment';
 $langFile['deletePage_question_part2'] = 'vouloir &eacute;ffacer le site?';
-$langFile['deletePage_finishnotexisting_part1'] = 'le site web';
-$langFile['deletePage_finish_part2'] = 'a &eacute;t&eacute; &eacute;ffac&eacute;';
+$langFile['deletePage_notexisting_part1'] = 'le site web';
 $langFile['deletePage_notexisting_part2'] = 'n\'existe pas';
 $langFile['deletePage_finish_error'] = 'ERREUR: La page ne pouvait pas &ecirc;tre &eacute;ffac&eacute;e!';
 
@@ -670,7 +669,6 @@ $langFile['deletePage_finish_error'] = 'ERREUR: La page ne pouvait pas &ecirc;tr
 $langFile['pageThumbnailDelete_question_part1'] = 'Vous &ecirc;tes sur de vraiment';
 $langFile['pageThumbnailDelete_question_part2'] = '&eacute;ffacer le thumbnail de cette page?';
 $langFile['pageThumbnailDelete_name'] = 'le thumbnail';
-$langFile['pageThumbnailDelete_finish_part2'] = 'a &eacute;t&eacute; &eacute;ffac&eacute;!';
 $langFile['pageThumbnailDelete_notexisting_part2'] = 'n\'existe pas';
 $langFile['pageThumbnailDelete_finish_error'] = 'ERREUR: Le thumbnail ne pouvait pas &ecirc;tre &eacute;ffac&eacute;e!';
 

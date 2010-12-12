@@ -49,7 +49,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   
   <meta name="siteinfo" content="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>robots.txt" />
   <meta name="robots" content="no-index,nofollow" />

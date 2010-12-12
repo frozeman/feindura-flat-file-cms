@@ -52,7 +52,7 @@ if($unwriteableList && checkBasePath()) {
   <h1><?= $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
   <div class="content" style="text-align: center;">
   
-  <a href="index.php?site=backup&amp;downloadBackup" target="_blank" class="downloadBackup" onclick="(function() {window.location = 'index.php?site=backup'}).delay(2000);"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
+  <a href="index.php?site=backup&amp;downloadBackup" target="_blank" class="downloadBackup" onclick="(function() {requestLeftSidebar('backup')}).delay(3000);"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a><!-- (function() {window.location = 'index.php?site=backup'}).delay(3000); -->
   
   </div>
   <div class="bottom"></div>

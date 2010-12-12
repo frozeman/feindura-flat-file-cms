@@ -752,20 +752,19 @@ class generalFunctions {
     // vars
     $pagesArray = array();
     $categoryDirs = array();
-    $categoryArray = self::$categoryConfig;
 
     // if $category === true,
     // load ALL CATEGORIES and the NON-CATEGORY
-    if($category === true && is_array($categoryArray)) {
-      array_unshift($categoryArray,array('id' => 0));
-      $category = $categoryArray;
+    if($category === true) {
+      $nonCategory[0] = array('id' => 0);
+      $category = $nonCategory + self::$categoryConfig;
     }
     
     // COLLECT THE DIRS in an array
     // if $category is an array, it stores all dirs from the pages folder in an array
     if(is_array($category)) {
       
-        foreach($category as $categoryArray) {          
+        foreach($category as $categoryArray) {
           $dir = '';
           
           // *** if it is self::$categoryConfig settings array
@@ -789,7 +788,7 @@ class generalFunctions {
           // stores the paths in an array
           $categoryDirs[] = $dir;
         }
-    } else {    
+    } else {
       if($category === false || (is_numeric($category) && $category == 0))
         $categoryDirs[0] = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
       elseif(is_numeric($category))

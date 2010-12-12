@@ -398,7 +398,7 @@ window.addEvent('domready', function() {
   }
   
   // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
-    
+  
   // BLOCK SLIDE IN/OUT
 	blockSlider();
 	inBlockTableSlider();

@@ -19,7 +19,9 @@
  *
  * @version 0.1
  */
- 
+
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+
 ?>
 
 <!-- FILEMANAGER IFRAME -->

@@ -223,7 +223,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     case 'pageSetup':
       
       // -> CATEGORY ANCHOR LINKS
-      echo '<div id="sidebarSelection">';
+      echo '<div id="sidebarSelection" class="staticScroller">';
       
       echo '<a href="?site=pageSetup&amp;status=createCategory#category'.getNewCatgoryId().'" class="createCategory toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['pageSetup_createCategory'].'::"></a>'; 
       
@@ -248,7 +248,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     case 'userSetup':
       
       // -> USER ANCHOR LINKS
-      echo '<div id="sidebarSelection">';
+      echo '<div id="sidebarSelection" class="staticScroller">';
       
       echo '<a href="?site=userSetup&amp;status=createUser#userId'.getNewUserId().'" class="createUser toolTip" style="float:none; margin:10px 0px 0px 15px;" title="'.$langFile['userSetup_createUser'].'::"></a>'; 
       
@@ -301,7 +301,6 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       break;   
   } //switch END
-
 }
 
 ?>

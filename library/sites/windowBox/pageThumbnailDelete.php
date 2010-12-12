@@ -22,6 +22,8 @@
  */
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+
 // gets the vars
 if(isset($_POST['category']))
   $category = $_POST['category'];
@@ -65,12 +67,11 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['page
     // DELETING    
     $pageContent['thumbnail'] = '';
     if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && generalFunctions::savePage($pageContent)) {
-
-        // DELETING FINISH --------------
-        $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_finish_part2'].'</h1><br />
-        <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site='.$site.'&amp;category='.$category.'&amp;page='.$page.'\');return false;">&nbsp;</a>'."\n";
-        
         statisticFunctions::saveTaskLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+        
+        $question = '';
+        echo 'DONTSHOW';        
+        echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site='.$site.'&category='.$category.'&page='.$page.'\');/* ]]> */</script>';
         
     } else {
       // DELETING ERROR --------------

@@ -219,8 +219,8 @@ window.addEvent('domready', function() {
   
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
-  if($('sidebarSelection') != null) {  
+  if($('sidebarSelection') != null && $('sidebarSelection').hasClass('staticScroller')) {
     // adds static scroller
-    new StaticScroller('sidebarSelection');  
+    new StaticScroller('sidebarSelection');
   }
 });

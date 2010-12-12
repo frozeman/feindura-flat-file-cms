@@ -22,6 +22,8 @@
  */
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
+echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
+
 // gets the vars
 if(isset($_POST['category']))
   $category = $_POST['category'];
@@ -46,7 +48,7 @@ if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.
 
 // NOT EXISTING
 } else {
-  $question = '<h1>'.$langFile['deletePage_finishnotexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
+  $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
   <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>';
   
   // show only the ok button
@@ -59,16 +61,15 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'
 
     // DELETING THUMBNAIL
     if(@unlink(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
-      if(!empty($pageContent['thumbnail'])) {
+      if(!empty($pageContent['thumbnail']))
         @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-      }
       
       generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
       statisticFunctions::saveTaskLog(2,$pageContent['title']); // <- SAVE the task in a LOG FILE
       
-      // DELETING FINISH --------------
-      $question = '<h1>'.$langFile['deletePage_finish_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_finish_part2'].'</h1><br />
-      <a href="?site=pages&amp;category='.$category.'" class="ok center" onclick="closeWindowBox(\'index.php?site=pages&amp;category='.$category.'\');return false;">&nbsp;</a>'."\n";
+      $question = '';
+      echo 'DONTSHOW';        
+      echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site=pages&category='.$category.'\');/* ]]> */</script>';
 
     } else {
       // DELETING ERROR --------------

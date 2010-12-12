@@ -172,7 +172,7 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
       <?php      
       
       if($loggedOut)
-        echo '<h1>'.$langFile['LOGIN_TEXT_LOGOUT_PART1'].'</h1><a href="'.$adminConfig['url'].'">&rArr; '.$langFile['LOGIN_TEXT_LOGOUT_PART2'].'</a>';
+        echo '<h1>'.$langFile['LOGIN_TEXT_LOGOUT_PART1'].'</h1><a href="'.$adminConfig['url'].$adminConfig['websitePath'].'">&rArr; '.$langFile['LOGIN_TEXT_LOGOUT_PART2'].'</a>';
       if($resetPassword)
         echo '<h1>'.$langFile['LOGIN_ERROR_FORGOTPASSWORD_SUCCESS'].'</h1>'.$userEmail;
       ?>

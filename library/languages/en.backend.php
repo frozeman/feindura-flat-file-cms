@@ -722,8 +722,7 @@ $langFile['unsavedPage_question_h1'] = '<span class="brown">The page has been ch
 $langFile['deletePage_question_part1'] = 'You really want to delete the page';
 $langFile['deletePage_question_part2'] = '?';
 
-$langFile['deletePage_finishnotexisting_part1'] = 'The page';
-$langFile['deletePage_finish_part2'] = 'was successfully deleted';
+$langFile['deletePage_notexisting_part1'] = 'The page';
 $langFile['deletePage_notexisting_part2'] = 'doesn \'t exist';
 
 $langFile['deletePage_finish_error'] = 'ERROR: The page could not be deleted!';
@@ -737,7 +736,6 @@ $langFile['pageThumbnailDelete_question_part1'] = 'You really want to delete the
 $langFile['pageThumbnailDelete_question_part2'] = '?';
 
 $langFile['pageThumbnailDelete_name'] = 'The thumbnail';
-$langFile['pageThumbnailDelete_finish_part2'] = 'was successfully deleted';
 $langFile['pageThumbnailDelete_notexisting_part2'] = 'doesn \'t exist';
 
 $langFile['pageThumbnailDelete_finish_error'] = 'ERROR: The thumbnail could not be deleted!';

@@ -423,13 +423,39 @@ a.standardLink:active, .block a:active, #windowBox a:active {
     text-decoration: none;
     }
 
+/* image links */
+a.image {  
+  display: inline-block;
+  padding-left: 0px;
+  background: none;
+}
+
 /* anchor targets*/
 a.anchorTarget {
-    visibility: hidden;
-    padding-left: 0px;
-    height: 0px;
-    background: none;
-    }
+  visibility: hidden;
+  padding-left: 0px;
+  height: 0px;
+  background: none;
+}
+
+/* DELETE ICON */
+span.deleteIcon {
+  position: relative;
+  display: inline-block;
+}
+a.deleteIcon {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 17px;
+  padding-left: 0px;
+  background: url("../images/key/content_deleteIcon.png") no-repeat;
+}
+a.deleteIcon:hover {
+  background-position: 0px -16px;
+}
 
 /* --- LISTPAGES ------------------------------------------------------------------------------------------------------------------- */
 

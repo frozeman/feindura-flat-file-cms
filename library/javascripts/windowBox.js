@@ -133,13 +133,19 @@ function requestSite(site,siteTitle,formId) {
         }
     },
     //-----------------------------------------------------------------------------
-		onSuccess: function(html) { //-------------------------------------------------      
-      
+		onSuccess: function(html,childs,rawText) { //-------------------------------------------------      
+
       if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         removeLoadingCircle();
       
       // animate the box by a slide; set the slide
       var SlideWindowBox = new Fx.Slide('windowRequestBox', {duration: '400', transition: Fx.Transitions.Pow.easeOut});
+      
+      // ONLY slide out if, the text of the window is "DONTSHOW"
+      if(rawText.substring(1,9) == 'DONTSHOW') {
+        SlideWindowBox.slideOut();
+        return;
+      }
       
       SlideWindowBox.slideOut().chain(function() {
           
@@ -176,9 +182,6 @@ function requestSite(site,siteTitle,formId) {
     		
     		// else RESIZE ------------
   			} else {
-  			   
-  			  // slides out
-          //$('windowRequestBox').slide('show');
             
           // IE HACK, wont bring the bottom div to the bottom
     			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {

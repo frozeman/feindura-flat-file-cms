@@ -720,8 +720,7 @@ $langFile['unsavedPage_question_h1'] = '<span class="brown">Die Seite wurde ver&
 $langFile['deletePage_question_part1'] = 'M&ouml;chtest du die Seite';
 $langFile['deletePage_question_part2'] = 'wirklich l&ouml;schen?';
 
-$langFile['deletePage_finishnotexisting_part1'] = 'Die Seite';
-$langFile['deletePage_finish_part2'] = 'wurde erfolgreich gel&ouml;scht';
+$langFile['deletePage_notexisting_part1'] = 'Die Seite';
 $langFile['deletePage_notexisting_part2'] = 'existiert nicht';
 
 $langFile['deletePage_finish_error'] = 'FEHLER: Die Seite konnte nicht gel&ouml;scht werden!';
@@ -734,8 +733,7 @@ $langFile['deletePage_finish_error'] = 'FEHLER: Die Seite konnte nicht gel&ouml;
 $langFile['pageThumbnailDelete_question_part1'] = 'M&ouml;chtest du das Thumbnail von der Seite';
 $langFile['pageThumbnailDelete_question_part2'] = 'wirklich l&ouml;schen?';
 
-$langFile['pageThumbnailDelete_name'] = 'Der Thumbnail';
-$langFile['pageThumbnailDelete_finish_part2'] = 'wurde erfolgreich gel&ouml;scht';
+$langFile['pageThumbnailDelete_name'] = 'Das Thumbnail';
 $langFile['pageThumbnailDelete_notexisting_part2'] = 'existiert nicht';
 
 $langFile['pageThumbnailDelete_finish_error'] = 'FEHLER: Das Thumbnail konnte nicht gel&ouml;scht werden!';
