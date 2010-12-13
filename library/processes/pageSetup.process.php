@@ -85,9 +85,8 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
     if(@is_dir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId)) {
       $isDir = true;
     } else {
-      // erstellt ein verzeichnis
-      if(!@mkdir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, PERMISSIONS) ||
-         !@chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, PERMISSIONS)) {
+      // creates a new category folder
+      if(!@mkdir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, PERMISSIONS)) {
           $isDir = false;
           $errorWindow .= $langFile['pageSetup_error_createDir'];      
       // save category dir could be created

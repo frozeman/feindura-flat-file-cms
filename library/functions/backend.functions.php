@@ -238,6 +238,30 @@ function getNewUserId() {
 }
 
 /**
+ * <b>Name</b> createBasicFolders()<br />
+ * 
+ * Check if the config, pages and statistic folders exist, if not try to create these.
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function createBasicFolders() {  
+  // config folder
+  if(!is_dir(dirname(__FILE__).'/../../config'))
+    mkdir(dirname(__FILE__).'/../../config',PERMISSIONS);    
+  // pages folder
+  if(!is_dir(dirname(__FILE__).'/../../pages'))
+    mkdir(dirname(__FILE__).'/../../pages',PERMISSIONS);  
+  // statistic folder
+  if(!is_dir(dirname(__FILE__).'/../../statistic'))
+    mkdir(dirname(__FILE__).'/../../statistic',PERMISSIONS);
+}
+
+/**
  * <b>Name</b> saveCategories()<br />
  * 
  * Saves the category-settings config array to the "config/category.config.php" file.
@@ -262,6 +286,8 @@ function getNewUserId() {
  * 
  */
 function saveCategories($newCategories) {
+  
+  createBasicFolders();
   
   // öffnet die category.config.php zum schreiben
   if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
@@ -512,19 +538,19 @@ function moveCategories(&$categoryConfig, $category, $direction, $position = fal
 function movePage($page, $fromCategory, $toCategory) {
   
   // if there are pages not in a category set the category to empty
-  if($fromCategory === false || $fromCategory == 0)
-    $fromCategory = '';
-  if($toCategory === false || $toCategory == 0)
-    $toCategory = '';
-    
+  $fromCategory = ($fromCategory === false || $fromCategory == 0)
+    ? '' : $fromCategory.'/';
+  $toCategory = ($toCategory === false || $toCategory == 0)
+    ? '' : $toCategory.'/';
+  
   // create category folder if its not exist
-  if(!is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory))
-    @mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory);
+  if(!empty($toCategory) && !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory))
+    mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory,PERMISSIONS);
   
   // MOVE categories
-  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php',
-    DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.'/'.$page.'.php') &&
-    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.'/'.$page.'.php')) {
+  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.$page.'.php',
+    DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.$page.'.php') &&
+    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.$page.'.php')) {
     // reset the stored page ids
     generalFunctions::$storedPages = null;
     generalFunctions::$storedPageIds = null;

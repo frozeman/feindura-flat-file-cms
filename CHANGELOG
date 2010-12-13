@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 512
+Build 513
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 513: removed configs from git, and now creates important folders automatically
   build 512: hide advanced page settings when user is not an admin
   build 511: add delete backup
   build 510: add new frontendEditing button to submenu and footer in page

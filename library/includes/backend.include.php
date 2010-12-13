@@ -26,6 +26,9 @@ session_start();
 require_once(dirname(__FILE__)."/general.include.php");
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
+// create the confgi, pages and statistic folders if they dont exist
+createBasicFolders();
+
 // INIT STATIC CLASSES
 generalFunctions::init();
 statisticFunctions::init();

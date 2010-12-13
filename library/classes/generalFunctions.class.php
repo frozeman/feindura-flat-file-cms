@@ -625,7 +625,7 @@ class generalFunctions {
     $categoryId = $pageContent['category'];
     
     // check if category folder exists
-    if(!is_dir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId))
+    if($categoryId != 0 && !is_dir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId))
       @mkdir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId);
     
     // get path
