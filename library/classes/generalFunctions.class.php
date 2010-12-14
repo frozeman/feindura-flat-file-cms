@@ -1320,7 +1320,7 @@ class generalFunctions {
     $string = preg_replace('/[^\w^.^&^;^ ]/u', $replaceString, $string);
     if(!empty($replaceString))
       $string = preg_replace('/'.$replaceString.'+/', $replaceString, $string);
-    //$string = str_replace( array('å','è','ô','?','ä','|','@','[',']','ü','ç','∑','!','ó',',',";","*","∞","{",'}','^','¥','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ø',"$","ß",'"',"'","(",")"), $replaceSign, $string);
+    //$string = str_replace( array('ÔøΩ','ÔøΩ','ÔøΩ','?','ÔøΩ','|','@','[',']','ÔøΩ','ÔøΩ','ÔøΩ','!','ÔøΩ',',',";","*","ÔøΩ","{",'}','^','ÔøΩ','`','=',":"," ","%",'+','/','\\',"&",'#','!','?','ÔøΩ',"$","ÔøΩ",'"',"'","(",")"), $replaceSign, $string);
     
     return $string;
   }
@@ -1540,8 +1540,6 @@ class generalFunctions {
   * 
   */
   public static function readFolderRecursive($folder) {
-    
-    // TODO: use scandir()
     
     if(empty($folder))
       return false;

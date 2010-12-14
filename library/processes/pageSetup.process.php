@@ -29,6 +29,9 @@ $categoryInfo = false;
 // ****** ---------- SAVE PAGE CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   
+  // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
+  addSlashToPathsEnd($_POST);
+  
   // ** removes a "/" on the beginning of all relative paths
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')
         $_POST['cfg_thumbPath'] = substr($_POST['cfg_thumbPath'],1);

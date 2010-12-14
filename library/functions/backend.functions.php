@@ -238,6 +238,34 @@ function getNewUserId() {
 }
 
 /**
+ * <b>Name</b> addSlashToPathsEnd()<br />
+ * 
+ * Esures that the the post vars with a 'Path' in the key value, ending with a slash.
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function addSlashToPathsEnd($postData) {
+  foreach($postData as $postKey => $post) {
+    
+    if(strstr($postKey,'Path')) {
+      if(!empty($post) && substr($post,-1) !== '/') {
+        $post = $post.'/';        
+      }
+      $post = preg_replace("#/+#",'/',$post);
+      
+      $_POST[$postKey] = $post;
+    
+    } elseif(is_array($post))
+      addSlashToPathsEnd($post);
+  }
+}
+
+/**
  * <b>Name</b> createBasicFolders()<br />
  * 
  * Check if the config, pages and statistic folders exist, if not try to create these.

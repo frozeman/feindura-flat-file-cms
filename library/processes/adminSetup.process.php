@@ -26,17 +26,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
-  foreach($_POST as $postKey => $post) {
-    
-    if(strstr($postKey,'Path')) {
-      if(!empty($post) && substr($post,-1) !== '/') {
-        $post = $post.'/';        
-      }
-      $post = preg_replace("#/+#",'/',$post);
-      
-      $_POST[$postKey] = $post;
-    }
-  }
+  addSlashToPathsEnd($_POST);
   
   // ** adds a "/" on the beginning of all absolute paths
   if(!empty($_POST['cfg_websitePath']) && substr($_POST['cfg_websitePath'],0,1) !== '/')
