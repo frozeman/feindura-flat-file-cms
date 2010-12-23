@@ -27,6 +27,13 @@
 * 
 * This class reads an folder and creates a gallery out of the pictures in it.
 * 
+* Also looks if a "texts.txt" or "captions.txt" exists, to get image captions. The captions in this file must have the following format:
+* <samp>
+* filename.jpg###Text which sould apear under the image, when zoomed in
+* otherFilname.png###Another text which describes the picture
+* ...
+* </samp> 
+*
 * <b>Notice</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
 * <b>Notice</b>: The image gallery is surrounded by an '<div class="imageGallery">' tag to help to style the image gallery. 
 * 
@@ -37,9 +44,10 @@
 * @package [Plugins]
 * @subpackage imageGallery
 * 
-* @version 1.01
+* @version 1.02
 * <br />
 * <b>ChangeLog</b><br />
+*    - 1.02 fixed image texts
 *    - 1.01 fixed file extension, made to lowercase
 *    - 1.0 initial release
 * 
@@ -167,18 +175,25 @@ class imageGallery {
   * 
   * The constructor of the class, sets all basic properties.
   * 
+  * Also looks if a "texts.txt" or "captions.txt" exists, to get image captions. The captions in this file must have the following format:
+  * <samp>
+  * filename.jpg###Text which sould apear under the image, when zoomed in
+  * otherFilname.png###Another text which describes the picture
+  * ...
+  * </samp>
   * 
   * @param string $folder the absolut path of the folder from where a gallery should be created
   * 
-  * @uses imageGallery::$generalFunctions  
+  * @uses imageGallery::$generalFunctions
   * @uses imageGallery::readFolder() to read the files in the folder, to store the images in the {@link imageGallery::$images} property 
   * 
   * @return void
   * 
   * 
-  * @version 1.0
+  * @version 1.01
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.01 fixed image texts  
   *    - 1.0 initial release
   * 
   */
@@ -189,32 +204,36 @@ class imageGallery {
     
     // read folder
     $files = $this->readFolder($folder);
-    
+
     $count = 0;
     if(is_array($files)) {
-      natcasesort($files);
+      
+      // get image texts
       foreach($files as $file) {
-        
         // get title
-        //if(strtolower(basename($file)) == 'title.txt')
-          //$this->title = @htmlentities(@file_get_contents($_SERVER["DOCUMENT_ROOT"].$file));
+        if(strtolower(basename($file)) == 'title.txt')
+          $this->title = @htmlentities(@file_get_contents($_SERVER["DOCUMENT_ROOT"].$file));
   
         // get previewImage
-        //if(strtolower(basename($file)) == 'previewimage.txt')
-          //$this->previewImage = @file_get_contents($_SERVER["DOCUMENT_ROOT"].$file);
+        if(strtolower(basename($file)) == 'previewimage.txt')
+          $this->previewImage = @file_get_contents($_SERVER["DOCUMENT_ROOT"].$file);
         
-        // get image texts
-        if(strtolower(basename($file)) == 'texts.txt') {
+        if(strtolower(basename($file)) == 'text.txt' || strtolower(basename($file)) == 'texts.txt' || strtolower(basename($file)) == 'captions.txt') {
           $newImageTexts = array();
           if($imageTexts = @file($_SERVER["DOCUMENT_ROOT"].$file)) {
             foreach($imageTexts as $imageText) {
-              $filename = substr($imageText,0,strpos($imageText,' '));
-              $text = substr($imageText,strpos($imageText,' ') + 1);            
+              $imageText = explode('###',$imageText);
+              $filename = utf8_decode(trim($imageText[0]));
+              $text = utf8_decode(trim($imageText[1]));
               $newImageTexts[$filename] = $text;
-            }
+            }         
             $imageTexts = $newImageTexts;
           }
         }
+      }
+    
+      natcasesort($files);
+      foreach($files as $file) {
         
         // get images
         $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
@@ -275,7 +294,7 @@ class imageGallery {
     
     //clean vars  
     $folder = preg_replace("/\/+/", '/', $folder);
-    $folder = str_replace('/'.$_SERVER["DOCUMENT_ROOT"],$_SERVER["DOCUMENT_ROOT"],$folder);  
+    $folder = str_replace(array('/'.$_SERVER["DOCUMENT_ROOT"],$_SERVER["DOCUMENT_ROOT"]),'',$folder);  
     
     // vars
     $return = false;  
@@ -293,7 +312,8 @@ class imageGallery {
           $return[] = $folder.$inDirObject;
         }
       }
-    }    
+    }
+    
     return $return;  
   }
  

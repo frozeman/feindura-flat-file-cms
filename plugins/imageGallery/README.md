@@ -33,9 +33,9 @@ The imageGallery plugin can be displayed in your website with the showPlugins('i
 
 
 ### ADDITIONAL
-You can also add image captions by placing a "texts.txt" in the folder of the images with the following format:
-filename1.jpg image text
-filename2.png another image text
+You can also add image captions by placing a "texts.txt" or "captions.txt" in the folder where the images are, with the following format:
+filename1.jpg###image text
+filename2.png###another image text
 ...
 
 The imageGallery class can also be used without feindura as a image gallery in your websites!
