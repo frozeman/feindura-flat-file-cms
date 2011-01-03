@@ -190,9 +190,10 @@ class imageGallery {
   * @return void
   * 
   * 
-  * @version 1.01
+  * @version 1.02
   * <br />
   * <b>ChangeLog</b><br />
+  *    - changed thumbnail names to "thumb_filename_jpg.png"
   *    - 1.01 fixed image texts  
   *    - 1.0 initial release
   * 
@@ -212,7 +213,7 @@ class imageGallery {
       foreach($files as $file) {
         // get title
         if(strtolower(basename($file)) == 'title.txt')
-          $this->title = @htmlentities(@file_get_contents($_SERVER["DOCUMENT_ROOT"].$file));
+          $this->title = @htmlentities(@file_get_contents($_SERVER["DOCUMENT_ROOT"].$file),ENT_QUOTES,'UTF-8');
   
         // get previewImage
         if(strtolower(basename($file)) == 'previewimage.txt')
@@ -306,7 +307,7 @@ class imageGallery {
     
     // open the folder and read the content
     if(is_dir($fullFolder)) {
-      $readFolder = @scandir($fullFolder);      
+      $readFolder = scandir($fullFolder);      
       foreach($readFolder as $inDirObject) {
         if($inDirObject != "." && $inDirObject != ".." && is_file($fullFolder.$inDirObject)) {         
           $return[] = $folder.$inDirObject;
@@ -481,20 +482,19 @@ class imageGallery {
       $oldThumbnails = $thumbnails;
       // -> CHECK for old thumbnails
       foreach($this->images as $image) {
-        if(in_array($this->galleryPath.'thumbnails/thumb_'.$image['filename'],$thumbnails)) {
+        $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
+        
+        if(in_array($this->galleryPath.'thumbnails/'.$thumbnailName,$thumbnails)) {
           // unset the thumbnail which are still valid
           foreach($oldThumbnails as $key => $value) {
-            if($value == $this->galleryPath.'thumbnails/thumb_'.$image['filename']) unset($oldThumbnails[$key]);
+            if($value == $this->galleryPath.'thumbnails/'.$thumbnailName) unset($oldThumbnails[$key]);
           }
         }
       }
       
       foreach($oldThumbnails as $oldThumbnail) {
         // -> delete old thumbnails
-        $fileExtension = strtolower(pathinfo($oldThumbnail, PATHINFO_EXTENSION));
-        if($fileExtension == 'jpg' || $fileExtension == 'jpeg' || $fileExtension == 'png' || $fileExtension == 'gif') {
-          @unlink($_SERVER["DOCUMENT_ROOT"].$oldThumbnail);
-        }
+        @unlink($_SERVER["DOCUMENT_ROOT"].$oldThumbnail);
       }
     }
     
@@ -502,9 +502,10 @@ class imageGallery {
     foreach($this->images as $image) {
     
       // vars
-      $thumbnailPath = $this->galleryPath.'thumbnails/thumb_'.$image['filename'];
+      $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
+      $thumbnailPath = $this->galleryPath.'thumbnails/'.$thumbnailName;
       $imagePath = $this->galleryPath.$image['filename'];
-      $thumbnailSize = @getimagesize($_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
+      $thumbnailSize = (file_exists($_SERVER["DOCUMENT_ROOT"].$thumbnailPath)) ? getimagesize($_SERVER["DOCUMENT_ROOT"].$thumbnailPath) : array(0,0);
       $sizeDifference = ((empty($this->thumbnailHeight) && $this->thumbnailWidth == $thumbnailSize[0]) || (empty($this->thumbnailWidth) && $this->thumbnailHeight == $thumbnailSize[1]) || ($this->thumbnailWidth  == $thumbnailSize[0] && $this->thumbnailHeight == $thumbnailSize[1]))
         ? false
         : true;
@@ -515,19 +516,10 @@ class imageGallery {
           return false;
       
       // resize every thumbnail      
-      if((!file_exists($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/thumb_'.$image['filename']) || $sizeDifference) && ($newImg = $this->resize($imagePath,$this->thumbnailWidth,$this->thumbnailHeight))) {
-        
-        // var        
-        $imageExtension = strtolower(pathinfo($image['filename'], PATHINFO_EXTENSION));
+      if((!file_exists($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/'.$thumbnailName) || $sizeDifference) && ($newImg = $this->resize($imagePath,$this->thumbnailWidth,$this->thumbnailHeight))) {
         
         // SAVEIMAGE png
-        if($imageExtension == 'gif')
-          imagegif($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
-        // SAVEIMAGE jpg
-        if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
-          imagejpeg($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath,100);
-        // SAVEIMAGE png
-        if($imageExtension == 'png')
+        if($newImg)
           imagepng($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
         
         // clean memory
@@ -571,8 +563,9 @@ class imageGallery {
     $tagEnd = ($this->xHtml === true) ? ' />' : '>';
     
     foreach($this->images as $image) {
+      $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
       $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';    
-      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" rel="lightbox-gallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/thumb_'.$image['filename'].'" alt="thumbnail"'.$tagEnd.'</a>';
+      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" rel="lightbox-gallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    
@@ -598,8 +591,9 @@ class imageGallery {
     //var
     $tagEnd = ($this->xHtml === true) ? ' />' : '>';
     
-    $previewImagePath = $this->galleryPath.'thumbnails/thumb_'.$this->previewImage;
-    $previewImageSize = @getimagesize($_SERVER["DOCUMENT_ROOT"].$previewImagePath);
+    $thumbnailName = 'thumb_'.str_replace('.','_',$this->previewImage).'.png';
+    $previewImagePath = $this->galleryPath.'thumbnails/'.$thumbnailName;
+    $previewImageSize = getimagesize($_SERVER["DOCUMENT_ROOT"].$previewImagePath);
     
     $previewImage = (!empty($this->previewImage)) ? '<img src="'.$previewImagePath.'" alt="previewImage"'.$tagEnd : '';
     $linkUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false) ? $_SERVER['REQUEST_URI'].'?gallery=' : $_SERVER['REQUEST_URI'].'&amp;gallery=';

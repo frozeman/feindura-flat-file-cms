@@ -44,6 +44,7 @@ $category = $_POST['category'];
 
 // only shows anything if the post var is sended
 if($_POST['upload']) {
+  ini_set('memory_limit', '50M');   //  handle large images
 
   // stops the animation when all data is posted
   echo '<script type="text/javascript">
