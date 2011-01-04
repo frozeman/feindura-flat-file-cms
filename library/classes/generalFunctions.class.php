@@ -757,7 +757,7 @@ class generalFunctions {
     // load ALL CATEGORIES and the NON-CATEGORY
     if($category === true) {
       $nonCategory[0] = array('id' => 0);
-      $category = $nonCategory + self::$categoryConfig;
+      $category = (is_array(self::$categoryConfig)) ? $nonCategory + self::$categoryConfig : $nonCategory;
     }
     
     // COLLECT THE DIRS in an array

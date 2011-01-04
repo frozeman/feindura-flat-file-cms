@@ -375,7 +375,7 @@ if($_GET['site'] == 'addons') {
             if($showEditPage) { ?>
               <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
             <?php
-            $showSpacer = true;
+              $showSpacer = true;
             }
             
             if($showSpacer && $showPageThumbnailUpload) { ?>
@@ -395,7 +395,7 @@ if($_GET['site'] == 'addons') {
               $showSpacer = true;
             }
             
-            if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+            if($showSpacer && ($showEditPage || $showPageThumbnailUpload || $showCreatePage)) { ?>
               <li class="spacer">&nbsp;</li>
             <?php 
               $showSpacer = false;
@@ -477,7 +477,7 @@ if($_GET['site'] == 'addons') {
             $showSpacer = true;
           }
           
-          if($showSpacer && ($showPageThumbnailUpload || $showCreatePage)) { ?>
+          if($showSpacer && ($showEditPage || $showPageThumbnailUpload || $showCreatePage)) { ?>
             <li class="spacer">&nbsp;</li>
           <?php 
             $showSpacer = false;
