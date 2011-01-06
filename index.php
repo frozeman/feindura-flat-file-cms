@@ -479,7 +479,7 @@ if($_GET['site'] == 'addons') {
           
           if($showSpacer && ($showEditPage || $showPageThumbnailUpload || $showCreatePage)) { ?>
             <li class="spacer">&nbsp;</li>
-          <?php 
+          <?php
             $showSpacer = false;
           }
           

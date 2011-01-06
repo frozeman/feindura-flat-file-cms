@@ -26,7 +26,7 @@
 */
 
 $frontendLangFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
-$frontendLangFile['header_button_gotobackend'] = 'feindura::Klick hier um zur&uuml;ck zum Backend zu gelangen.';
+$frontendLangFile['header_button_gotobackend'] = 'feindura::Klick hier um zum Backend zu gelangen.';
 $frontendLangFile['editPage_functions'] = 'Seite im Backend bearbeiten';
 
 /*

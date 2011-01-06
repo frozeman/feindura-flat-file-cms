@@ -25,6 +25,7 @@
   var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder','style':'margin-left: -40px;margin-top: -25px;'});
   jsLoadingCircleContainer.grab(jsLoadingCircle);
   var finishPicture = new Element('div',{'class':'feindura_requestFinish'});
+  var editDisabledIcon = new Element('div',{'class':'feindura_editDisabledIcon'});
   var removeLoadingCircle;
   
   // ->> FUNCTIONS
@@ -161,7 +162,7 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> GET PAGE ID
   function setPageIds(pageBlock) {
-    if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editTitle')) {
+    if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editPageDisabled')  || pageBlock.hasClass('feindura_editTitle')) {
       var classes = pageBlock.get('class').split(' ');
       pageBlock.store('page', classes[1].substr(15));
       pageBlock.store('category', classes[2].substr(19));
@@ -256,10 +257,23 @@
       });
       
     });
+    $$('div.feindura_editPageDisabled').each(function(pageBlock) {
+      setPageIds(pageBlock);
+      
+      pageBlock.addEvents({
+        mouseenter: function() {
+          editDisabledIcon.inject(pageBlock);
+        },
+        mouseleave: function() {
+          editDisabledIcon.dispose();
+        }
+      });
+      
+    });
     
     // ->> add BAR to EACH PAGE BLOCK  
     // ******************************  
-    $$('div.feindura_editPage').each(function(pageBlock) {    
+    $$('div.feindura_editPage, div.feindura_editPageDisabled').each(function(pageBlock) {
       
       //var      
       var pageBarVisible = false;

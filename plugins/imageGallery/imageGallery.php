@@ -23,6 +23,12 @@
  */
 
 /**
+ * Used by the {@link Image} class
+ * 
+ */
+require_once(dirname(__FILE__).'/includes/Image.class.php');
+
+/**
 * imageGallery Plugin class
 * 
 * This class reads an folder and creates a gallery out of the pictures in it.
@@ -44,9 +50,10 @@
 * @package [Plugins]
 * @subpackage imageGallery
 * 
-* @version 1.02
+* @version 1.1
 * <br />
 * <b>ChangeLog</b><br />
+*    - 1.1 removed resize() because it uses now the {@link Image} class
 *    - 1.02 fixed image texts
 *    - 1.01 fixed file extension, made to lowercase
 *    - 1.0 initial release
@@ -67,10 +74,39 @@ class imageGallery {
   * @var bool
   * 
   */
-  var $xHtml = true; 
+  public $xHtml = true;
+  
+ /**
+  * TRUE when images shopuld also be resized, even if they are smaller, than the set width, or height values.
+  * 
+  * @var int
+  * @see imageGallery::$imageHeight
+  * @see imageGallery::$imageWidth
+  * @see imageGallery::$thumbnailHeight
+  * @see imageGallery::$thumbnailWidth
+  * @see imageGallery::resize()
+  * 
+  */
+  public $resizeWhenSmaller = false;
 
  /**
-  * the maximal width of the pictures
+  * If TRUE the original ratio will be used, when resizing the images.
+  * 
+  * If this property is FALSE and only width or height is set, it even though keeps the ratio.
+  * 
+  * 
+  * @var int
+  * @see imageGallery::$imageHeight
+  * @see imageGallery::$imageWidth
+  * @see imageGallery::$thumbnailHeight
+  * @see imageGallery::$thumbnailWidth
+  * @see imageGallery::resize()
+  * 
+  */
+  public $keepRatio = true;
+  
+ /**
+  * The maximal width of the pictures
   * 
   * All pictures will be resized to this width when the {@link imageGallery::resizeImages()} method is called.
   * 
@@ -81,10 +117,10 @@ class imageGallery {
   * @see imageGallery::resizeImages()
   * 
   */
-  var $imageWidth = 800;
+  public $imageWidth = 800;
   
  /**
-  * the maximal height of the pictures
+  * The maximal height of the pictures
   * 
   * All pictures will be resized to this height when the {@link resizeImages()} method is called.
   * 
@@ -95,10 +131,10 @@ class imageGallery {
   * @see imageGallery::resizeImages()
   * 
   */
-  var $imageHeight = null;
+  public $imageHeight = null;
   
  /**
-  * the maximal width of the thumbnails of the pictures
+  * The maximal width of the thumbnails of the pictures
   * 
   * the thumbnails will be created with this width when the {@link imageGallery::createThumbanils()} method is called.
   * 
@@ -109,10 +145,10 @@ class imageGallery {
   * @see imageGallery::createThumbanils()
   * 
   */
-  var $thumbnailWidth = 100;
+  public $thumbnailWidth = 100;
   
  /**
-  * the maximal height of the thumbnails of the pictures
+  * The maximal height of the thumbnails of the pictures
   * 
   * the thumbnails will be created with this height when the {@link imageGallery::createThumbanils()} method is called.
   * 
@@ -123,7 +159,7 @@ class imageGallery {
   * @see imageGallery::createThumbanils()
   * 
   */
-  var $thumbnailHeight = null;
+  public $thumbnailHeight = null;
   
  /**
   * An array which contains all image filenames and paths
@@ -134,7 +170,7 @@ class imageGallery {
   * @var array
   * 
   */
-  var $images = array();
+  protected $images = array();
   
 /**
   * The absolute path to the gallery
@@ -142,7 +178,7 @@ class imageGallery {
   * @var string
   * 
   */
-  var $galleryPath;
+  protected $galleryPath;
   
 /**
   * The title of the gallery, retrieved from the "title.txt"
@@ -150,7 +186,7 @@ class imageGallery {
   * @var string
   * 
   */
-  var $title = 'unnamed';
+  protected $title = 'unnamed';
   
 /**
   * The image which is shown as the preview image of the gallery, retrieved from the "previewImage.txt"
@@ -158,7 +194,7 @@ class imageGallery {
   * @var string
   * 
   */
-  var $previewImage;
+  protected $previewImage;
   
 /**
   * the timestamp of the latest modification of the files
@@ -166,12 +202,11 @@ class imageGallery {
   * @var int
   * 
   */
-  var $lastModification = 0;
+  protected $lastModification = 0;
   
   
  /**
-  * <b>Type</b> constructor<br /> 
-  * <b>Name</b> imageGallery()<br />
+  * <b>Type</b> constructor<br />
   * 
   * The constructor of the class, sets all basic properties.
   * 
@@ -198,7 +233,8 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function imageGallery($folder) {
+  public function __construct($folder) {
+    @ini_set('memory_limit', '50M');   //  handle large images
     
     // clerars the cache from other operations
     clearstatcache();
@@ -278,7 +314,7 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function readFolder($folder) {
+  private function readFolder($folder) {
     
     if(empty($folder))
       return false;
@@ -319,72 +355,6 @@ class imageGallery {
   }
  
  /**
-  * <b>Name</b> resize()<br />
-  * 
-  * Resize an image by the given image parameters and returns the image link resource.
-  * 
-  * 
-  * @param string $imagePath the absolut path to the image 
-  * 
-  * @return resource|false the image link resource to save with imagejpeg() or imagepng() or FALSE if the image couldn't be resized
-  * 
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  function resize($imagePath,$imageWidth,$imageHeight) {
-    @ini_set('memory_limit', '50M');   //  handle large images
-    
-    // quit if no image sizes are set
-    if(empty($imageWidth) && empty($imageHeight))
-      return false;
-    
-    // vars
-    $imageExtension = strtolower(pathinfo($imagePath, PATHINFO_EXTENSION));    
-    $imagesize = getimagesize($_SERVER["DOCUMENT_ROOT"].$imagePath);
-      
-    // -> CALCULATE the RATIO, IF RATIO is X or Y
-    // RATIO X
-    if(!empty($imageWidth) && empty($imageHeight)) {
-      $ratio = $imagesize[0] / $imagesize[1];
-      $imageHeight = $imageWidth / $ratio;
-      $imageHeight = round($imageHeight);
-    }  
-    // RATIO Y
-    if(empty($imageWidth) && !empty($imageHeight)) {
-      $ratio = $imagesize[1] / $imagesize[0];
-      $imageWidth = $imageHeight / $ratio;
-      $imageWidth = round($imageWidth);
-    }
-    
-    // GETIMAGE gif
-    if($imageExtension == 'gif')
-      $oldImg = imagecreatefromgif($_SERVER["DOCUMENT_ROOT"].$imagePath);
-    // GETIMAGE jpg
-    if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
-      $oldImg = imagecreatefromjpeg($_SERVER["DOCUMENT_ROOT"].$imagePath);
-    // GETIMAGE png
-    if($imageExtension == 'png')
-      $oldImg = imagecreatefrompng($_SERVER["DOCUMENT_ROOT"].$imagePath);  
-      
-    // create a blank image
-    $newImg = imagecreatetruecolor($imageWidth, $imageHeight);
-    
-    // resize (ERROR)
-    if(imagecopyresampled($newImg, $oldImg, 0,0,0,0,$imageWidth,$imageHeight,$imagesize[0],$imagesize[1])) {
-      // clean memory
-      imagedestroy($oldImg);
-      return $newImg;
-    } else {
-      // clean memory
-      imagedestroy($oldImg);
-      return false;
-    }
-  }
- 
- /**
   * <b>Name</b> resizeImages()<br />
   * 
   * Resize the images to the size set in the {@link imageGallery::$imageWidth} and {@link imageGallery::$imageHeight} property.
@@ -404,8 +374,8 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function resizeImages() {
-  
+  protected function resizeImages() {    
+    
     // quit if no image sizes are set
     if(empty($this->imageWidth) && empty($this->imageHeight))
       return false;
@@ -419,28 +389,14 @@ class imageGallery {
       $sizeDifference = ((empty($this->imageHeight) && $this->imageWidth == $imageSize[0]) || (empty($this->imageWidth) && $this->imageHeight == $imageSize[1]) || ($this->imageWidth  == $imageSize[0] && $this->imageHeight == $imageSize[1]))
         ? false
         : true;
-      
+     
       // resize every image      
-      if($sizeDifference && ($newImg = $this->resize($imagePath,$this->imageWidth,$this->imageHeight))) {
-        
-        // var        
-        $imageExtension = strtolower(pathinfo($image['filename'], PATHINFO_EXTENSION));
-        
-        // deletes the uploaded original file
-        unlink($_SERVER["DOCUMENT_ROOT"].$imagePath);
-        
-        // SAVEIMAGE png
-        if($imageExtension == 'gif')
-          imagegif($newImg,$_SERVER["DOCUMENT_ROOT"].$imagePath);
-        // SAVEIMAGE jpg
-        if($imageExtension == 'jpg' || $imageExtension == 'jpeg')
-          imagejpeg($newImg,$_SERVER["DOCUMENT_ROOT"].$imagePath,100);
-        // SAVEIMAGE png
-        if($imageExtension == 'png')
-          imagepng($newImg,$_SERVER["DOCUMENT_ROOT"].$imagePath);
-        
-        // clean memory
-        imagedestroy($newImg);
+      if($sizeDifference) {
+      
+        $resize = new Image($imagePath);
+        $resize->resize($this->imageWidth,$this->imageHeight,$this->keepRatio,$this->resizeWhenSmaller);
+        $resize->process();
+        unset($resize);
         
         $return = true;
       } else
@@ -469,7 +425,7 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function createThumbnails() {
+  protected function createThumbnails() {
     
     // quit if no image sizes are set
     if(empty($this->thumbnailWidth) && empty($this->thumbnailHeight))
@@ -516,14 +472,12 @@ class imageGallery {
           return false;
       
       // resize every thumbnail      
-      if((!file_exists($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/'.$thumbnailName) || $sizeDifference) && ($newImg = $this->resize($imagePath,$this->thumbnailWidth,$this->thumbnailHeight))) {
+      if(!file_exists($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/'.$thumbnailName) || $sizeDifference) {
         
-        // SAVEIMAGE png
-        if($newImg)
-          imagepng($newImg,$_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
-        
-        // clean memory
-        imagedestroy($newImg);
+        $resize = new Image($imagePath);
+        $resize->resize($this->thumbnailWidth,$this->thumbnailHeight,$this->keepRatio,$this->resizeWhenSmaller);
+        $resize->process('png',$_SERVER["DOCUMENT_ROOT"].$thumbnailPath);
+        unset($resize);
         
         $return = true;
       } else
@@ -556,7 +510,7 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function getImages() {
+  protected function getImages() {
     
     // var
     $return = array();
@@ -564,7 +518,7 @@ class imageGallery {
     
     foreach($this->images as $image) {
       $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
-      $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';    
+      $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : ' title="'.$image['filename'].'"';
       $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" rel="lightbox-gallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
@@ -587,7 +541,7 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function createLinkToGallery() {
+  public function createLinkToGallery() {
     //var
     $tagEnd = ($this->xHtml === true) ? ' />' : '>';
     
@@ -623,7 +577,7 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  function showGallery($tag, $breakAfter = false, $pageContent = false) {    
+  public function showGallery($tag, $breakAfter = false, $pageContent = false) {    
     
     
     

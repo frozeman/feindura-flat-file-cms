@@ -98,14 +98,14 @@ div.feindura_pageBar {
 
 /* EDITABLE BLOCKS */
 
-div.feindura_editPage, span.feindura_editTitle {
+div.feindura_editPage,  div.feindura_editPageDisabled, span.feindura_editTitle {
   position: relative;
   outline: none;
   resize: none;
   display: inline-block;
 }
 
-div.feindura_editPage:hover, span.feindura_editTitle:hover {
+div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_editTitle:hover {
   border: 1px solid #ccc;
   margin: -7px;
   padding: 6px;
@@ -125,6 +125,14 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
   box-shadow: 0px 0px 5px #ccc;
 }
 
+div.feindura_editPageDisabled:hover {
+  background-color: #fff;
+  filter: alpha(opacity=70);
+	-khtml-opacity: 0.7;
+	-moz-opacity: 0.7;
+	opacity: 0.7;
+}
+
 /* REQUESTS */
 
 /* LOADING CIRCLE */
@@ -140,7 +148,7 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
 }
 
 /* REQUEST FINSIH */
-.feindura_requestFinish, .feindura_requestFailed, .feindura_loadingCircleHolder {
+.feindura_requestFinish, .feindura_requestFailed, .feindura_loadingCircleHolder, .feindura_editDisabledIcon {
   position: absolute;
   top: 40%;
   left: 50%;  
@@ -151,4 +159,12 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
   margin-left: -47px;
   margin-top: -50px;
   background: url("../images/sign/documentSaved_small.png") no-repeat;
+}
+
+.feindura_editDisabledIcon {
+  width: 94px;
+  height: 100px;
+  margin-left: -47px;
+  margin-top: -50px;
+  background: url("../images/sign/documentSaved_small.png") no-repeat; /* editDisabledIcon */
 }

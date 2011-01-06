@@ -1872,7 +1872,7 @@ class feindura extends feinduraBase {
         // *******************
         if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
                          
-          $category = generalFunctions::getPageCategory($page);               
+          $category = generalFunctions::getPageCategory($page);   
           
           // -> loads the $pageContent array
           if(($pageContent = generalFunctions::readPage($page,$category)) !== false) {
@@ -1886,29 +1886,11 @@ class feindura extends feinduraBase {
           if($this->loggedIn && !$generatedPage['error']) {
             
             $generatedPage['title'] = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
-            $generatedPage['content'] = '<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>';
             
-            /*
-            // -> CHOOSES the RIGHT EDITOR ID and/or CLASS
-            $editorStyleFiles = generalFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
-            $editorStyleId = generalFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
-            $editorStyleClass = generalFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
-            
-            // generate the styleFiles list: fileone.css,filetwo.css
-            $listStyleFiles = '';
-            if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false) {
-              foreach($editorStyleFiles as $editorStyleFile) {$listStyleFiles .= $editorStyleFile."','";}
-              $listStyleFiles = substr($listStyleFiles,0,-3);
-            }
-            $listStyleFiles = "'".$listStyleFiles."'";
-         
-            $generatedPage['content'] = '<form action="'.$_SERVER['REQUEST_URI'].'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-<a href="#" class="feinduraPageEditingButton" onclick="feinduraEditPage('.$pageContent['id'].',['.$listStyleFiles.'],\''.$editorStyleId.'\',\''.$editorStyleClass.'\')">Edit</a>
-<div id="feinduraPage'.$pageContent['id'].'">
-'.$generatedPage['content'].'
-</div>
-</form>'; 
-*/
+            if(!preg_match('#<script.*>#',$generatedPage['content']))
+              $generatedPage['content'] = "\n".'<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>'."\n";
+            else
+              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>'."\n";
           }
           
           unset($generatedPage['error']);
