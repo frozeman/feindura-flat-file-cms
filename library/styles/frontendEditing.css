@@ -162,9 +162,9 @@ div.feindura_editPageDisabled:hover {
 }
 
 .feindura_editDisabledIcon {
-  width: 94px;
-  height: 100px;
-  margin-left: -47px;
-  margin-top: -50px;
-  background: url("../images/sign/documentSaved_small.png") no-repeat; /* editDisabledIcon */
+  width: 100px;
+  height: 107px;
+  margin-left: -50px;
+  margin-top: -52px;
+  background: url("../images/sign/editDisabledIcon.png") no-repeat; /* editDisabledIcon */
 }

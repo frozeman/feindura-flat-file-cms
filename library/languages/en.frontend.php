@@ -25,30 +25,28 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['header_button_logout'] = 'Logout::Click here to logout.';
-$frontendLangFile['header_button_gotobackend'] = 'feindura::Click here to go to the backend.';
-$frontendLangFile['editPage_functions'] = 'Edit this page in the backend';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'feindura::Click here to go to the backend.';
+$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Edit this page in the backend';
 
-/*
-* --------- FRONTEND Error texts
-*/
+$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'It\'s not possible to edit this page::This page contains [i]<script>[/i] tags and can therefore only be edited in the Backend.';
 
-$frontendLangFile['error_noPage'] = 'The requested page doesn\'t exist.';
-$frontendLangFile['error_pageClosed'] = 'The requested page is currently not available.';
 
-/*
-* --------- date texts
-*/
+// FRONTEND ERROR TEXTS
 
-$frontendLangFile['date_yesterday'] = 'Yesterday';
-$frontendLangFile['date_today'] = 'Today';
-$frontendLangFile['date_tomorrow'] = 'Tomorrow';
+$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'The requested page doesn\'t exist.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'The requested page is currently not available.';
 
-/*
-* --------- additional page texts
-*/
 
-$frontendLangFile['page_more'] = 'more';
+// DATE TEXTS
+
+$frontendLangFile['DATE_TEXT_YESTERDAY'] = 'Yesterday';
+$frontendLangFile['DATE_TEXT_TODAY'] = 'Today';
+$frontendLangFile['DATE_TEXT_TOMORROW'] = 'Tomorrow';
+
+
+// ADDITIONAL PAGE TEXTS
+
+$frontendLangFile['PAGE_TEXT_MORE'] = 'more';
 
 
 // -----------------------------------------------------------------------------------------------

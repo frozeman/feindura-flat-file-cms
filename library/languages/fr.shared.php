@@ -24,16 +24,16 @@
 
 // -> GENERAL <-
 
-$sharedLangFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
+$sharedLangFile['HEADER_BUTTON_LOGOUT'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
 
 $sharedLangFile['sortablePageList_functions_startPage'] = 'd&eacute;finir cette page comme page d\'acceuil';
 $sharedLangFile['sortablePageList_functions_startPage_set'] = 'cette page est la page d\'acceuil';
 
 /* date texts */
 
-$sharedLangFile['date_yesterday'] = 'hier';
-$sharedLangFile['date_today'] = 'aujourd\'hui';
-$sharedLangFile['date_tomorrow'] = 'demain';
+$sharedLangFile['DATE_TEXT_YESTERDAY'] = 'hier';
+$sharedLangFile['DATE_TEXT_TODAY'] = 'aujourd\'hui';
+$sharedLangFile['DATE_TEXT_TOMORROW'] = 'demain';
 
 
 // -> SEARCH

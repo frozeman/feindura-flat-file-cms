@@ -25,30 +25,27 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
-$frontendLangFile['header_button_gotobackend'] = 'feindura::Klick hier um zum Backend zu gelangen.';
-$frontendLangFile['editPage_functions'] = 'Seite im Backend bearbeiten';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'feindura::Klick hier um zum Backend zu gelangen.';
+$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Seite im Backend bearbeiten';
 
-/*
-* --------- FRONTEND Error texts
-*/
+$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Bearbeiten der Seite nicht m&ouml;glich::Die Seite enth&auml;lt [i]<script>[/i] Tags und kann deshalb nur im Backend bearbeitet werden.';
 
-$frontendLangFile['error_noPage'] = 'Die angeforderte Seite existiert nicht.';
-$frontendLangFile['error_pageClosed'] = 'Die angeforderte Seite ist deaktiviert.';
+// FRONTEND ERROR TEXTS
 
-/*
-* --------- date texts
-*/
+$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'Die angeforderte Seite existiert nicht.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'Die angeforderte Seite ist deaktiviert.';
 
-$frontendLangFile['date_yesterday'] = 'Gestern';
-$frontendLangFile['date_today'] = 'Heute';
-$frontendLangFile['date_tomorrow'] = 'Morgen';
 
-/*
-* --------- additional page texts
-*/
+// DATE TEXTS
 
-$frontendLangFile['page_more'] = 'mehr';
+$frontendLangFile['DATE_TEXT_YESTERDAY'] = 'Gestern';
+$frontendLangFile['DATE_TEXT_TODAY'] = 'Heute';
+$frontendLangFile['DATE_TEXT_TOMORROW'] = 'Morgen';
+
+
+// ADDITIONAL PAGE TEXTS
+
+$frontendLangFile['PAGE_TEXT_MORE'] = 'mehr';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

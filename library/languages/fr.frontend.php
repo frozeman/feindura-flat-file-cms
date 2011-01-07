@@ -25,30 +25,28 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['header_button_logout'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
-$frontendLangFile['header_button_gotobackend'] = 'feindura::Cliquez ici pour aller &agrave; la CMS.';
-$frontendLangFile['editPage_functions'] = 'Modifier cette page dans le backend';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'feindura::Cliquez ici pour aller &agrave; la CMS.';
+$frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Modifier cette page dans le backend';
 
-/*
-* --------- FRONTEND Error texts
-*/
+$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Il n\'est pas possible de modifier la page::La page contient [i]<script>[/i] tags et par cons&eacute;quent seulement peuvent &ecirc;tre &eacute;dit&eacute;s dans le backend.';
 
-$frontendLangFile['error_noPage'] = 'la page demand&eacute;e n\'existe pas.';
-$frontendLangFile['error_pageClosed'] = 'la page demand&eacute;e est d&eacute;sactiv&eacute;e.';
 
-/*
-* --------- date texts
-*/
+// FRONTEND ERROR TEXTS
 
-$frontendLangFile['date_yesterday'] = 'hier';
-$frontendLangFile['date_today'] = 'aujourd\'hui';
-$frontendLangFile['date_tomorrow'] = 'demain';
+$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'la page demand&eacute;e n\'existe pas.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'la page demand&eacute;e est d&eacute;sactiv&eacute;e.';
 
-/*
-* --------- additional page texts
-*/
 
-$frontendLangFile['page_more'] = 'plus';
+// DATE TEXTS
+
+$frontendLangFile['DATE_TEXT_YESTERDAY'] = 'hier';
+$frontendLangFile['DATE_TEXT_TODAY'] = 'aujourd\'hui';
+$frontendLangFile['DATE_TEXT_TOMORROW'] = 'demain';
+
+
+// ADDITIONAL PAGE TEXTS
+
+$frontendLangFile['PAGE_TEXT_MORE'] = 'plus';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

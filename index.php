@@ -202,7 +202,7 @@ if($_GET['site'] == 'addons') {
     
     <div id="headerBlock">
       
-      <a href="index.php?logout" class="logout toolTip" title="<?= $langFile['header_button_logout']; ?>"></a>
+      <a href="index.php?logout" class="logout toolTip" title="<?= $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
       <a href="<?= $adminConfig['url'].$adminConfig['websitePath'] ?>" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE']; ?>"></a>
       
       <div id="languageSelection">        

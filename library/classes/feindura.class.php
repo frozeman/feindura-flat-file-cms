@@ -1081,9 +1081,9 @@ class feindura extends feinduraBase {
     ERROR_SETSTARTPAGE:     '".$this->languageFile['sortablePageList_setStartPage_error_save']."',
     FUNCTIONS_STARTPAGE_SET:'".$this->languageFile['sortablePageList_functions_startPage_set']."',
     FUNCTIONS_STARTPAGE:    '".$this->languageFile['sortablePageList_functions_startPage']."',
-    FUNCTIONS_EDITPAGE:     '".$this->languageFile['editPage_functions']."',
-    BUTTON_LOGOUT:          '".$this->languageFile['header_button_logout']."',
-    BUTTON_GOTOBACKEND:     '".$this->languageFile['header_button_gotobackend']."'
+    FUNCTIONS_EDITPAGE:     '".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."',
+    BUTTON_LOGOUT:          '".$this->languageFile['HEADER_BUTTON_LOGOUT']."',
+    BUTTON_GOTOBACKEND:     '".$this->languageFile['HEADER_TIP_GOTOBACKEND']."'
     
   };
   var feindura_logoutUrl = '".generalFunctions::getCurrentUrl('feindura_logout')."';
@@ -1890,7 +1890,7 @@ class feindura extends feinduraBase {
             if(!preg_match('#<script.*>#',$generatedPage['content']))
               $generatedPage['content'] = "\n".'<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>'."\n";
             else
-              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled feindura_pageId'.$page.' feindura_categoryId'.$category.' feindura_toolTip" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }
           
           unset($generatedPage['error']);

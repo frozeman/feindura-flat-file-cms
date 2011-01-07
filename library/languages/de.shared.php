@@ -23,16 +23,16 @@
 
 // -> GENERAL <-
 
-$sharedLangFile['header_button_logout'] = 'Logout::Klicke hier um dich auszuloggen.';
+$sharedLangFile['HEADER_BUTTON_LOGOUT'] = 'Logout::Klicke hier um dich auszuloggen.';
 
 $sharedLangFile['sortablePageList_functions_startPage'] = 'Diese Seite als Startseite festlegen';
 $sharedLangFile['sortablePageList_functions_startPage_set'] = 'Diese Seite ist die Startseite';
 
 /* date texts */
 
-$sharedLangFile['date_yesterday'] = 'Gestern';
-$sharedLangFile['date_today'] = 'Heute';
-$sharedLangFile['date_tomorrow'] = 'Morgen';
+$sharedLangFile['DATE_TEXT_YESTERDAY'] = 'Gestern';
+$sharedLangFile['DATE_TEXT_TODAY'] = 'Heute';
+$sharedLangFile['DATE_TEXT_TOMORROW'] = 'Morgen';
 
 
 // -> SEARCH

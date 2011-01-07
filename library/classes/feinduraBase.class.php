@@ -707,7 +707,7 @@ class feinduraBase {
       if(!$pageContent = generalFunctions::readPage($page,$category)) {
         // if could not load throw ERROR
         if($showErrors) {
-	        $return['content'] = $errorStartTag.$this->languageFile['error_noPage'].$errorEndTag; // if not throw error and and the method
+	        $return['content'] = $errorStartTag.$this->languageFile['PAGE_ERROR_NOPAGE'].$errorEndTag; // if not throw error and and the method
           return $return;
         } else
           return array();
@@ -717,7 +717,7 @@ class feinduraBase {
     // -> PAGE is PUBLIC? if not throw ERROR
     if(!$pageContent['public'] || generalFunctions::isPublicCategory($pageContent['category']) === false) {
       if($showErrors) {
-        $return['content'] = $errorStartTag.$this->languageFile['error_pageClosed'].$errorEndTag; // if not throw error and and the method
+        $return['content'] = $errorStartTag.$this->languageFile['PAGE_ERROR_PAGENOTPUBLIC'].$errorEndTag; // if not throw error and and the method
         return $return; 
       } else
         return array();
@@ -1650,7 +1650,7 @@ class feinduraBase {
       
       // adds the MORE LINK
       if(is_string($endString) && generalFunctions::isPageContentArray($pageContent)) {
-        $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['PAGE_TEXT_MORE'].'</a>';
       }
       
       return $string;
@@ -1788,7 +1788,7 @@ class feinduraBase {
       
       // create the MORE LINK
       if($pageContent !== false && is_array($pageContent)) {
-        $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['page_more'].'</a>';
+        $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['PAGE_TEXT_MORE'].'</a>';
       }
       
       $output = $input;

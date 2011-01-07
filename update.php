@@ -19,7 +19,7 @@
  * for updating from 
  * 1.0 rc -> 1.1
  *
- * @version 0.14
+ * @version 0.15
  */
 
 /**
@@ -235,7 +235,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       delDir($adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br />';
     } elseif($didntCopy) {
-      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"?</span><br />';
+      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (You must copy the folder with your pages into the feindura folders, e.g. "/pages/" -> "/cms/pages/" )</span><br />';
     } else {
       echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br />';
       $succesfullUpdate = false;
@@ -461,6 +461,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     }
     
     // ->> delete old files
+    if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'.htpasswd'))
+      @unlink(DOCUMENTROOT.$adminConfig['basePath'].'.htpasswd');
+    
     $checkFiles = array();
     if(!delDir($adminConfig['basePath'].'library/javascript/') && 
       is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/javascript/'))

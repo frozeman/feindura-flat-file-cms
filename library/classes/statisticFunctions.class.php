@@ -285,7 +285,7 @@ class statisticFunctions {
   *    - <var>$langFile</var> the backend language-file array (included in the {@link backend.include.php})
   * 
   * @param int          $timestamp      the timestamp to check
-  * @param array|false  $givenLangFile  the languageFile which contains the ['date_yesterday'], ['date_today'] and ['date_tomorrow'] texts, if FALSE it loads the backend language-file
+  * @param array|false  $givenLangFile  the languageFile which contains the ['DATE_TEXT_YESTERDAY'], ['DATE_TEXT_TODAY'] and ['DATE_TEXT_TOMORROW'] texts, if FALSE it loads the backend language-file
   * 
   * @return string|int a string with "yesterday", "today" or "tomorrow" or the unchanged timestamp
   * 
@@ -309,15 +309,15 @@ class statisticFunctions {
     
     // if the date is TODAY
     if(substr($date,0,10) == date('Y-m-d'))
-      return $givenLangFile['date_today'];
+      return $givenLangFile['DATE_TEXT_TODAY'];
     
     // if the date is YESTERDAY
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')-1)))
-      return $givenLangFile['date_yesterday'];
+      return $givenLangFile['DATE_TEXT_YESTERDAY'];
     
     // if the date is TOMORROW
     elseif(substr($date,0,10) == date('Y-m-').sprintf("%02d",(date('d')+1)))
-      return $givenLangFile['date_tomorrow'];
+      return $givenLangFile['DATE_TEXT_TOMORROW'];
   
     else
       return $timestamp;
