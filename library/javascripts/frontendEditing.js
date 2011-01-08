@@ -349,7 +349,7 @@
     });
   
     // -> set up toolbar  
-    var MooRTEButtons = {Toolbar:['save.saveBtn','undo','redo','removeformat', // 'Html/Text'
+    var MooRTEButtons = {Toolbar:['save','undo','redo','removeformat', // 'Html/Text'
                                   'bold','italic','underline','strikethrough',
                                   'justifyleft','justifycenter','justifyright','justifyfull',
                                   'outdent','indent','superscript','subscript',

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 518
+Build 519
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 519: add Image.class.php to resize thumbnails
   build 518: changed backup behavior, now doesnt download automatically
   build 517: add editDisabled icon to frontendEditing, when trying to edit page with <script> tags
   build 516: add new MooRTE version and CKEditor 3.5

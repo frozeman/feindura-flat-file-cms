@@ -761,18 +761,18 @@ $langFile['pagethumbnail_thumbsize_height'] = 'Height';
 
 $langFile['pagethumbnail_submit_tip'] = 'Upload image';
 
-$langFile['pagethumbnail_upload_error_nofile'] = 'You didn\'t select any file.';
-$langFile['pagethumbnail_upload_error_nouploadedfile'] = 'No file was uploaded.';
-$langFile['pagethumbnail_upload_error_filesize'] = 'The filesize of the uploaded image is probably to big.<br />The maximum filesize is';
-$langFile['pagethumbnail_upload_error_wrongformat'] = 'The selecet file has a not supported format';
-$langFile['pagethumbnail_upload_error_nodir_part1'] = 'The thumbnail folder'; // The thumbnail-folder..
-$langFile['pagethumbnail_upload_error_nodir_part2'] = 'doesn\'t exist or couldn\'t be created.';
-$langFile['pagethumbnail_upload_error_couldntmovefile_part1'] = 'Could not move the uploaded file in the thumbnail folder'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_couldntmovefile_part2'] = '.';
-$langFile['pagethumbnail_upload_error_changeimagesize'] = 'Couldn\'t resize the image.';
-$langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Couldn\'t delete the old thumbnail.';
-$langFile['pagethumbnail_upload_response_fileexists'] = 'A image with this filename already exists.<br />The uploaded file was renamed to';
-$langFile['pagethumbnail_upload_response_finish'] = 'Succesfully uploaded the image.';
+$langFile['PAGETHUMBNAIL_ERROR_nofile'] = 'You didn\'t select any file.';
+$langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'] = 'No file was uploaded.';
+$langFile['PAGETHUMBNAIL_ERROR_filesize'] = 'The filesize of the uploaded image is probably to big.<br />The maximum filesize is';
+$langFile['PAGETHUMBNAIL_ERROR_wrongformat'] = 'The selecet file has a not supported format';
+$langFile['PAGETHUMBNAIL_ERROR_nodir_part1'] = 'The thumbnail folder'; // The thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'] = 'doesn\'t exist or couldn\'t be created.';
+$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'] = 'Could not move the uploaded file in the thumbnail folder'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'] = '.';
+$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'] = 'Couldn\'t resize the image.';
+$langFile['PAGETHUMBNAIL_ERROR_deleteoldfile'] = 'Couldn\'t delete the old thumbnail.';
+$langFile['PAGETHUMBNAIL_TEXT_fileexists'] = 'A image with this filename already exists.<br />The uploaded file was renamed to';
+$langFile['PAGETHUMBNAIL_TEXT_finish'] = 'Succesfully uploaded the image.';
 
 // -> BACKUP
 

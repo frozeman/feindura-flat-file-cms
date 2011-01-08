@@ -242,8 +242,8 @@ MooRTE.Utilities = {
 			e.stop();
 			return MooRTE.Range.insert('<br/>');
 		}
-		var be, btn, shorts = MooRTE.activeBar.retrieve('shortcuts');	
-		if(e && e.control && shorts.has(e.key)){
+		var be, btn, shorts = MooRTE.activeBar.retrieve('shortcuts');
+		if(e && e.control && shorts[e.key] != undefined){
 			e.stop();
 			btn = MooRTE.activeBar.getElement('.rte'+shorts[e.key]);
 			btn.fireEvent('mousedown', btn);

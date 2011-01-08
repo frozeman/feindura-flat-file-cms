@@ -81,18 +81,18 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
   if(!empty($_FILES['restoreBackupUpload']['tmp_name']) && !isset($_POST['restoreBackupFile'])) {
     // Check if the file has been correctly uploaded.
     //if($_FILES['restoreBackupUpload']['name'] == '')
-    	//$error .= $langFile['pagethumbnail_upload_error_nofile'];
+    	//$error .= $langFile['PAGETHUMBNAIL_ERROR_nofile'];
     	
     $backupFile = $_FILES['restoreBackupUpload']['tmp_name'];
     
     /*
     if($error === false) {
       if($_FILES['restoreBackupUpload']['tmp_name'] == '')
-        $error .= $langFile['pagethumbnail_upload_error_nouploadedfile'];
+        $error .= $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'];
         
       // Check if the file filesize is not 0
       if($_FILES['restoreBackupUpload']['size'] == 0)
-        $error .= $langFile['pagethumbnail_upload_error_filesize'].' '.ini_get('upload_max_filesize').'B';
+        $error .= $langFile['PAGETHUMBNAIL_ERROR_filesize'].' '.ini_get('upload_max_filesize').'B';
     }
     */
     

@@ -689,18 +689,18 @@ $langFile['pagethumbnail_thumbsize_h1'] = 'd&eacute;finir la taille de l\'image'
 $langFile['pagethumbnail_thumbsize_width'] = 'largeur de l\'image';
 $langFile['pagethumbnail_thumbsize_height'] = 'hauteur de l\'image';
 $langFile['pagethumbnail_submit_tip'] = 't&eacute;l&eacute;charger l\'image';
-$langFile['pagethumbnail_upload_error_nofile'] = 'Vous n\'avez pas choisi d\'image.';
-$langFile['pagethumbnail_upload_error_nouploadedfile'] = 'Aucun fichier pouvait &ecirc;tre t&eacute;l&eacute;charg&eacute;.';
-$langFile['pagethumbnail_upload_error_filesize'] = 'Le fichier t&eacute;l&eacute;charge est probablement trop grand.<br />Die maximal erlaubte Dateigr&ouml;&szlig;e betr&auml;gt';
-$langFile['pagethumbnail_upload_error_wrongformat'] = 'Le fichier choisi n\'est pas dans le bon format.';
-$langFile['pagethumbnail_upload_error_nodir_part1'] = 'le r&eacute;pertoire des thumbnails'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_nodir_part2'] = 'e\'existe pas ou il ne pouvait pas &ecirc;tre cr&eacute;e.';
-$langFile['pagethumbnail_upload_error_couldntmovefile_part1'] = 'Le fichier t&eacute;l&eacute;charg&eacute; ne pouvait pas &ecirc;tre d&eacute;plac&eacute; dans le dossier des thumbnails.'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_couldntmovefile_part2'] = 'd&eacute;placer.';
-$langFile['pagethumbnail_upload_error_changeimagesize'] = 'La taille de l\'image ne pouvait pas &ecirc;tre chang&eacute;e.';
-$langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Le thumbnail r&eacute;cent ne pouvait pas &ecirc;tre &eacute;ffac&eacute;.';
-$langFile['pagethumbnail_upload_response_fileexists'] = 'Il existe d&egrave;j&agrave; un fichier avec ce nom.<br />Le nom du fichier a &eacute;t&eacute; chang&eacute; en';
-$langFile['pagethumbnail_upload_response_finish'] = 'L\'image a &eacute;t&eacute; t&eacute;l&eacute;charge avec succ&egrave;s';
+$langFile['PAGETHUMBNAIL_ERROR_nofile'] = 'Vous n\'avez pas choisi d\'image.';
+$langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'] = 'Aucun fichier pouvait &ecirc;tre t&eacute;l&eacute;charg&eacute;.';
+$langFile['PAGETHUMBNAIL_ERROR_filesize'] = 'Le fichier t&eacute;l&eacute;charge est probablement trop grand.<br />Die maximal erlaubte Dateigr&ouml;&szlig;e betr&auml;gt';
+$langFile['PAGETHUMBNAIL_ERROR_wrongformat'] = 'Le fichier choisi n\'est pas dans le bon format.';
+$langFile['PAGETHUMBNAIL_ERROR_nodir_part1'] = 'le r&eacute;pertoire des thumbnails'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'] = 'e\'existe pas ou il ne pouvait pas &ecirc;tre cr&eacute;e.';
+$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'] = 'Le fichier t&eacute;l&eacute;charg&eacute; ne pouvait pas &ecirc;tre d&eacute;plac&eacute; dans le dossier des thumbnails.'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'] = 'd&eacute;placer.';
+$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'] = 'La taille de l\'image ne pouvait pas &ecirc;tre chang&eacute;e.';
+$langFile['PAGETHUMBNAIL_ERROR_deleteoldfile'] = 'Le thumbnail r&eacute;cent ne pouvait pas &ecirc;tre &eacute;ffac&eacute;.';
+$langFile['PAGETHUMBNAIL_TEXT_fileexists'] = 'Il existe d&egrave;j&agrave; un fichier avec ce nom.<br />Le nom du fichier a &eacute;t&eacute; chang&eacute; en';
+$langFile['PAGETHUMBNAIL_TEXT_finish'] = 'L\'image a &eacute;t&eacute; t&eacute;l&eacute;charge avec succ&egrave;s';
 
 // -> BACKUP
 

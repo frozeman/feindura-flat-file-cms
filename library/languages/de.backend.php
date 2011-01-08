@@ -759,18 +759,18 @@ $langFile['pagethumbnail_thumbsize_height'] = 'Bildh&ouml;he';
 
 $langFile['pagethumbnail_submit_tip'] = 'Bild hochladen';
 
-$langFile['pagethumbnail_upload_error_nofile'] = 'Du hast keine Datei ausgew&auml;hlt.';
-$langFile['pagethumbnail_upload_error_nouploadedfile'] = 'Es wurde keine Datei hochgeladen.';
-$langFile['pagethumbnail_upload_error_filesize'] = 'Wahrscheinlich ist die hochgeladene Datei zu gro&szlig;.<br />Die maximal erlaubte Dateigr&ouml;&szlig;e betr&auml;gt';
-$langFile['pagethumbnail_upload_error_wrongformat'] = 'Die ausgew&auml;hlte Datei hat ein nicht unterst&uuml;tztes Format';
-$langFile['pagethumbnail_upload_error_nodir_part1'] = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_nodir_part2'] = 'existiert nicht oder konnte nicht erstellt werden.';
-$langFile['pagethumbnail_upload_error_couldntmovefile_part1'] = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
-$langFile['pagethumbnail_upload_error_couldntmovefile_part2'] = 'verschieben.';
-$langFile['pagethumbnail_upload_error_changeimagesize'] = 'Die Bildgr&ouml;&szlig;e konnt nicht ge&auml;ndert werden.';
-$langFile['pagethumbnail_upload_error_deleteoldfile'] = 'Das alte Thumbnail-Bild konnte nicht gel&ouml;scht werden.';
-$langFile['pagethumbnail_upload_response_fileexists'] = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
-$langFile['pagethumbnail_upload_response_finish'] = 'Das Bild wurde erfolgreich hochgeladen.';
+$langFile['PAGETHUMBNAIL_ERROR_nofile'] = 'Du hast keine Datei ausgew&auml;hlt.';
+$langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'] = 'Es wurde keine Datei hochgeladen.';
+$langFile['PAGETHUMBNAIL_ERROR_filesize'] = 'Wahrscheinlich ist die hochgeladene Datei zu gro&szlig;.<br />Die maximal erlaubte Dateigr&ouml;&szlig;e betr&auml;gt';
+$langFile['PAGETHUMBNAIL_ERROR_wrongformat'] = 'Die ausgew&auml;hlte Datei hat ein nicht unterst&uuml;tztes Format';
+$langFile['PAGETHUMBNAIL_ERROR_nodir_part1'] = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'] = 'existiert nicht oder konnte nicht erstellt werden.';
+$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'] = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'] = 'verschieben.';
+$langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'] = 'Die Bildgr&ouml;&szlig;e konnt nicht ge&auml;ndert werden.';
+$langFile['PAGETHUMBNAIL_ERROR_deleteoldfile'] = 'Das alte Thumbnail-Bild konnte nicht gel&ouml;scht werden.';
+$langFile['PAGETHUMBNAIL_TEXT_fileexists'] = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
+$langFile['PAGETHUMBNAIL_TEXT_finish'] = 'Das Bild wurde erfolgreich hochgeladen.';
 
 // -> BACKUP
 
