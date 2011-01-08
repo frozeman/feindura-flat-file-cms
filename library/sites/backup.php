@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* sites/backup.php version 0.1
+* sites/backup.php version 0.11
 */
 
 
@@ -52,7 +52,7 @@ if($unwriteableList && checkBasePath()) {
   <h1><?= $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
   <div class="content" style="text-align: center;">
   
-  <a href="index.php?site=backup&amp;downloadBackup" target="_blank" class="downloadBackup" onclick="(function() {requestLeftSidebar('backup')}).delay(3000);"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a><!-- (function() {window.location = 'index.php?site=backup'}).delay(3000); -->
+  <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
   
   </div>
   <div class="bottom"></div>

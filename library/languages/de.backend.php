@@ -782,7 +782,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Backup-Datei hochladen';
 
 $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup vor der Wiederherstellung';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen und herunterladen';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'aktuelles Backup erstellen';
 $langFile['BACKUP_TEXT_RESTORE'] = 'W&auml;hle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="blue">Vor der Wiederherstellung wird ein Backup des alten Standes erstellt.</span>';
 $langFile['BACKUP_TOOLTIP_DELETE'] = 'Backup l&ouml;schen';
 $langFile['BACKUP_TEXT_DELETE_QUESTION1'] = ''; // backup 2010-11-05 15:03 wirklich löschen?

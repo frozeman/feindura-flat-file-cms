@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/backup.process.php version 0.1
+* processes/backup.process.php version 0.11
 */
 
 /**
@@ -51,11 +51,8 @@ if(isset($_GET['downloadBackup'])) {
       
       if(@file_exists($backupFile)) {
         statisticFunctions::saveTaskLog(29); // <- SAVE the task in a LOG FILE
-         
-        header("Content-Type: application/octet-stream");
-        header('Content-Disposition: attachment; filename="'.basename($backupFile).'"');
-        header("Content-length: ".filesize($backupFile));        
-        readfile($backupFile) or die('something went wrong when reading the file?');
+        
+        header('Location: index.php?site=backup');
       } else
         $errorWindow .= $langFile['BACKUP_ERROR_FILENOTFOUND'].'<br />'.$backupFile;      
     }

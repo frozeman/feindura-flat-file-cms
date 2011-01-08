@@ -712,7 +712,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 't&eacute;l&eacute;charger le fic
 
 $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'sauvegarde avant la r&eacute;cup&eacute;ration';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'cr&eacute;er et t&eacute;l&eacute;chargement de sauvegarde actuelle';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'cr&eacute;er de sauvegarde actuelle';
 $langFile['BACKUP_TEXT_RESTORE'] = 'S&eacute;lectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de sauvegarde, de r&eacute;tablir un &eacute;tat ancien.<br /><span class="blue">Avant de restaurer une sauvegarde de l\'ancien stand est cr&eacute;&eacute;.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE'] = 'supprimer sauvegarde';
 $langFile['BACKUP_TEXT_DELETE_QUESTION1'] = ''; // backup 2010-11-05 15:03 supprimer?

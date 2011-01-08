@@ -784,7 +784,7 @@ $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'Upload backup file';
 
 $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup before the restore';
 
-$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create and download current backup';
+$langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create current backup';
 $langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="blue">Before the restore a backup of the old state will be created.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE'] = 'Delete backup';
 $langFile['BACKUP_TEXT_DELETE_QUESTION1'] = 'Really delete'; // really delete backup 2010-11-05 15:03?
