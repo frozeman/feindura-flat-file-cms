@@ -1063,12 +1063,8 @@ class feindura extends feinduraBase {
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/raphael-1.5.2.js"></script>'."\n";
         // add the javascripts which are shared by the backend and the frontend
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/shared.js"></script>'."\n";
-        // add frontend editing integration
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
-        // set fileManager
-        //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
         
-        // ->> create templates of the TOP BAR and PAGE BAR
+                // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */
   
@@ -1092,6 +1088,11 @@ class feindura extends feinduraBase {
   /* ]]> */
   </script>\n";
       }
+        
+        // add frontend editing integration
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
+        // set fileManager
+        //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
       
       // -> show the metaTags
       return $metaTags;

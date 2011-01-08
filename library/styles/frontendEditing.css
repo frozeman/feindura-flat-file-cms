@@ -18,6 +18,10 @@
 
 /* RESET styles from GENERAL.CSS */
 
+#feindura_topBar a {
+  outline: none;
+}
+
 a.logout, a.toWebsite {
     z-index: 2;
     display: inline;
@@ -61,6 +65,22 @@ a.logout:hover, a.toWebsite:hover {
   background: url('../images/sign/frontend_header_logo.png');
 }
 
+/* hide button */
+
+a.feindura_topBarHide {
+  display: block;
+  position: absolute;
+  width: 80px;
+  height: 15px;
+  top:60px;
+  left: 50%;
+  margin-left: -80px;
+  background: url('../images/key/header_frontendtopBarHide.png') no-repeat;
+}
+a.feindura_topBarHide:hover {
+  background-position: -80px 0px;
+}
+
 /* PAGE BAR */
 div.feindura_pageBar {
   position: absolute;
@@ -74,6 +94,7 @@ div.feindura_pageBar {
   display: inline-block;
   width: 27px;
   height: 26px;
+  outline: none;
 }
 
 .feindura_pageBar a.feindura_startPage {
