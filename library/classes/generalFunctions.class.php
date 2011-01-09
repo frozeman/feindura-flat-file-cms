@@ -621,6 +621,9 @@ class generalFunctions {
     if(!self::isPageContentArray($pageContent))
       return false;
     
+    if(empty($pageContent['id']) || (empty($pageContent['category']) && $pageContent['category'] != 0))
+        return false;
+    
     $pageId = $pageContent['id'];
     $categoryId = $pageContent['category'];
     
@@ -646,6 +649,7 @@ class generalFunctions {
         
       // CHECK BOOL VALUES and change to FALSE
       $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
+      $pageContent['sortOrder'] = (empty($pageContent['sortOrder'])) ? '0' : $pageContent['sortOrder'];
       
       // WRITE
       flock($file,2);            
@@ -810,7 +814,7 @@ class generalFunctions {
         
         $readFolder = scandir($dir);      
         foreach($readFolder as $inDirObject) {
-          if($inDirObject != "." && $inDirObject != ".." && is_file($dir."/".$inDirObject)) {         
+          if(preg_match('#^[0-9]+\.php$#',$inDirObject) && is_file($dir."/".$inDirObject)) {
             $pages[] = ($categoryId === false)
                 ? array('page' => intval(substr($inDirObject,0,-4)), 'category' => 0) // load Pages, without a category                  
                 : array('page' => intval(substr($inDirObject,0,-4)), 'category' => intval($categoryId)); // load Pages, with a category

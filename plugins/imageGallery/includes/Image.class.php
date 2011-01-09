@@ -39,7 +39,7 @@ class Image {
 	 * @param string $file The path to the image file
 	 */
 	public function __construct($file){
-	  ini_set('memory_limit', '50M'); //  handle large images
+	  ini_set('memory_limit', '64M'); //  handle large images
 	  
 	  $file = str_replace('\\','/',$file);
     $file = preg_replace('#/+#','/',$file);

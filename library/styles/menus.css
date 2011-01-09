@@ -27,10 +27,11 @@
     position: absolute;
     top: 0px;
     left: 208px; /* right: 250px; */
+    width: 640px;
     }
 
 #mainMenu table {
-    width: 640px;
+    width: 100%;
     border: none;
     border-collapse: collapse;    
     }

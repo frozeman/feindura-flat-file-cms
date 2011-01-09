@@ -214,7 +214,7 @@ if($_GET['site'] == 'addons') {
       <div id="logo"></div>
       <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.$version[2].' - '.$version[3]; ?>::"><?php echo $version[2]; ?></div>
       
-      <div id="mainMenu">
+      <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
           <tr>
           <td><a href="?site=home" class="home<?php if($_GET['site'] == 'home') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_HOME']; ?>"><span><?php echo $langFile['BUTTON_HOME']; ?></span></a></td>

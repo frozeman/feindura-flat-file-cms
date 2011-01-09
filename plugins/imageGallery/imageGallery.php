@@ -234,7 +234,7 @@ class imageGallery {
   * 
   */
   public function __construct($folder) {
-    @ini_set('memory_limit', '50M');   //  handle large images
+    @ini_set('memory_limit', '64M');   //  handle large images
     
     // clerars the cache from other operations
     clearstatcache();

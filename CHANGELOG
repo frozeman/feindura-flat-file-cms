@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 520
+Build 521
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 521: fixed reading of the feindura flat files DB, menu spreads now, if user is no admin
   build 520: can now hide the topBar in the frontendEditing
   build 519: add Image.class.php to resize thumbnails
   build 518: changed backup behavior, now doesnt download automatically
