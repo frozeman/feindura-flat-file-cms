@@ -38,7 +38,7 @@ echo '</head>
   <meta http-equiv="content-language" content="en" />
 
   <title>
-  feinduraExample.com - Welcome
+   Welcome - feinduraExample.com
   </title>
 
   <meta name="siteinfo" content="robots.txt" />
