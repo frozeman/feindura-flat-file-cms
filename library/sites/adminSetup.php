@@ -47,6 +47,20 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
   echo '<div class="blockSpacer"></div>';
 }
 
+// GET timezones
+$timezones = array();
+$tab = file(dirname(__FILE__).'/../thirdparty/timezones.tab');
+foreach ($tab as $buf) {
+    if (substr($buf,0,1)=='#') continue;
+    $rec = preg_split('/\s+/',$buf);
+    $key = $rec[2];
+    $val = $rec[2];
+    $c = count($rec);
+    for ($i=3;$i<$c;$i++) $val.= ' '.$rec[$i];
+    $timezones[$key] = $val;
+    ksort($timezones);
+}
+
 ?>
 
 <!-- anchor for the adminSettings 
@@ -135,6 +149,35 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       </td></tr>      
       
       <tr><td class="spacer"></td><td></td></tr>
+      
+      <tr><td class="left">
+      <label for="cfg_timeZone"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_TEXT_TIMEZONE'].'::'.$langFile['ADMINSETUP_TIP_TIMEZONE'] ?>">
+      <?php echo $langFile['ADMINSETUP_TEXT_TIMEZONE'] ?></span></label>
+      </td><td class="right">
+      <select id="cfg_timeZone" name="cfg_timeZone" style="width: 310px;">
+        <?php
+          if(empty($adminConfig['timeZone']))
+            $adminConfig['timeZone'] = date_default_timezone_get();
+        
+          $storedContinent = '';
+          foreach($timezones as $zone => $zoneName) {
+            $continentCity = explode('/',$zoneName);
+
+            if($storedContinent != $continentCity[0]) {
+              if($storedContinent != '') 
+                echo '</optgroup>'."\n";
+              echo '<optgroup label="'.$continentCity[0].'">'."\n";
+            }
+            
+            $selected = ($adminConfig['timeZone'] == $zone) ? ' selected="selected"': '';
+            echo '<option value="'.$zone.'"'.$selected.'>'.$continentCity[1].'</option>'."\n";
+            
+            $storedContinent = $continentCity[0];
+          }        
+        ?>
+        </optgroup>
+      </select>
+      </td></tr>
       
       <tr><td class="left">
       <label for="cfg_dateFormat"><span class="toolTip" title="<?php echo $langFile['adminSetup_fmsSettings_field7'].'::'.$langFile['adminSetup_fmsSettings_field7_tip'] ?>">

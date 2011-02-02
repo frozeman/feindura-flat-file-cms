@@ -52,7 +52,7 @@ It's basic requirements is a web server with PHP running, however for using the 
 * addon system, build your own application running in the feindura-CMS backend
  
 ### REQUIREMENTS
-* PHP >= 5.0 (Safe Mode OFF, when PHP user is different than the FTP user)
+* PHP >= 5.1.0 (Safe Mode OFF, when PHP user is different than the FTP user)
 * apache with mod_rewrite modul if you want to have speaking URLs
 
 ### APPROPRIATE USES  

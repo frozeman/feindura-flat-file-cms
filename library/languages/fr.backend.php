@@ -372,6 +372,8 @@ $langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fm
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'le nom des variables [b]$_GET Variable[/b] utilis&eacute; pour le r&eacute;f&eacute;rencement du site web.';
 $langFile['adminSetup_fmsSettings_field7'] = 'format de date';
 $langFile['adminSetup_fmsSettings_field7_tip'] = 'Sera [span class=logoname]fein[span]dura[/span][/span] et le site web.[br /]mettre:[br /]DIN 5008 ('.$langFile['DATE_EU'].') ou[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_TEXT_TIMEZONE'] = 'heure locale';
+$langFile['ADMINSETUP_TIP_TIMEZONE'] = 'Ne seront utilis&eacute;es que par les [span class=logoname]fein[span]dura[/span][/span] backend.';
 $langFile['adminSetup_fmsSettings_speakingUrl'] = 'format URL';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'speaking URLs';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/par_exemple_categorie/par_exemple.html';

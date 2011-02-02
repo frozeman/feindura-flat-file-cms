@@ -185,12 +185,14 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
       $currentURL = $_SERVER['REQUEST_URI'];
     
       if(isset($_GET['resetpassword']))
-        $currentUrl = (strpos($currentURL,'?') === false)
+        $currentURL = (strpos($currentURL,'?') === false)
           ? $_SERVER['REQUEST_URI'].'?resetpassword'
           : $_SERVER['REQUEST_URI'].'&resetpassword';
+          
+      $currentURL = str_replace('logout','',$currentURL);
       
       ?>
-      <form action="<?= $currentUrl; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
+      <form action="<?= $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
           <input type="text" value="<?= $_POST['username'] ?>" name="username" id="username" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus" /><br />
         <?php if(!isset($_GET['resetpassword'])) { ?>

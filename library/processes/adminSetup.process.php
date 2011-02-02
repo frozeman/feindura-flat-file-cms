@@ -80,7 +80,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
   $adminConfig['websiteFilesPath'] = $_POST['cfg_websiteFilesPath'];
-  $adminConfig['stylesheetPath'] = $_POST['cfg_stylesheetPath'];    
+  $adminConfig['stylesheetPath'] = $_POST['cfg_stylesheetPath'];
+  $adminConfig['timeZone'] = $_POST['cfg_timeZone'];
   $adminConfig['dateFormat'] = $_POST['cfg_dateFormat'];
   $adminConfig['speakingUrl'] = $_POST['cfg_speakingUrl'];
     

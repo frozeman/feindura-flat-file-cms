@@ -402,6 +402,8 @@ $langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fm
 $langFile['adminSetup_fmsSettings_varName_tip'] = 'Der Name der [b]$_GET Variable[/b] die f&uuml;r die Seiten Verlinkung verwendet wird.';
 $langFile['adminSetup_fmsSettings_field7'] = 'Datumsformat';
 $langFile['adminSetup_fmsSettings_field7_tip'] = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_TEXT_TIMEZONE'] = 'Zeitzone';
+$langFile['ADMINSETUP_TIP_TIMEZONE'] = 'Wird nur f&uuml;r das [span class=logoname]fein[span]dura[/span][/span] Backend verwendet.';
 $langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL Format';
 $langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URLs';
 $langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/beispiel_category/beispiel.html';

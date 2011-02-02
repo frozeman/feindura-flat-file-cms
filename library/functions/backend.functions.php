@@ -637,7 +637,8 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'])."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".xssFilter::path($adminConfig['uploadPath'])."';\n");  
     fwrite($file,"\$adminConfig['websiteFilesPath'] = '".xssFilter::path($adminConfig['websiteFilesPath'])."';\n");
-    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n");    
+    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n");
+    fwrite($file,"\$adminConfig['timeZone'] =         '".$adminConfig['timeZone']."';\n"); 
     fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".$adminConfig['speakingUrl'].";\n\n");
     

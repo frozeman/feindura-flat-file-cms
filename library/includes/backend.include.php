@@ -26,7 +26,11 @@ session_start();
 require_once(dirname(__FILE__)."/general.include.php");
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
-// create the confgi, pages and statistic folders if they dont exist
+// set the time zone
+ini_set('date.timezone',$adminConfig['timeZone']);
+date_default_timezone_set($adminConfig['timeZone']);
+
+// create the config, pages and statistic folders if they dont exist
 createBasicFolders();
 
 // INIT STATIC CLASSES
