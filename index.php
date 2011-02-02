@@ -129,7 +129,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.replace.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.checkbox.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.radio.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script>-->  
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
   
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>

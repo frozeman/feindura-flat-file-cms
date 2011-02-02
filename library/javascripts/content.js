@@ -548,15 +548,6 @@ window.addEvent('domready', function() {
         });
       }
 			
-			// shows a nummeration (not in use)
-			// dreht die reihenfolge um, wenn sortdesc == true      
-			/*if($('reverse' + categoryNew).value)
-			 count_sort = count_sort+1;
-			else
-			 count_sort = 0;
-			$$('.sortablePageList span').each(function(span) { if($('reverse').value) count_sort--;	else count_sort++; span.innerHTML = count_sort + '.';});
-			*/
-			
 			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/processes/sortPages.process.php	------------------------------
 				var req = new Request({
 					url:'library/processes/sortPages.process.php',

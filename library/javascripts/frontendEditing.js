@@ -182,9 +182,11 @@
     links[0] = new Element('a',{ 'href': feindura_logoutUrl, 'class': 'feindura_logout feindura_toolTip', 'title': feindura_langFile.BUTTON_LOGOUT });
     links[1] = new Element('a',{ 'href': feindura_url + feindura_basePath, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
     
+    // Hide button
     links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND});
-    links[2].addEvent('mouseup', function() {        
+    links[2].addEvent('mouseup', function() {  
         if(topBarVisible) {
+          
           topBar.tween('top', '-55px');
           logo.tween('top', '-55px');
           $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
@@ -353,7 +355,7 @@
     // **************
     
     // -> add SAVE BUTTON
-    Object.extend(MooRTE.Elements, {
+    Object.merge(MooRTE.Elements, {
       save : { img:27, onClick: function() {
           $$('div.feindura_editPage, span.feindura_editTitle').each(function(page) {
               if(MooRTE.activeField == page) {

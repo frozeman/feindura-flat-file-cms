@@ -77,21 +77,22 @@ var MooRTE = new Class({
 						rte.addClass('rteHide'); 
 					}
 				});
-			
+
 			el.store('bar', rte)
 				.addEvents({ keydown: MooRTE.Utilities.shortcuts
-						   , keyup  : MooRTE.Utilities.updateBtns
-						   , mouseup: MooRTE.Utilities.updateBtns
-						   , focus  : function(){ MooRTE.activeField = this; MooRTE.activeBar = rte; }
-				});
+					        , keyup  : MooRTE.Utilities.updateBtns
+					        , mouseup: MooRTE.Utilities.updateBtns
+					        , focus  : function(){ MooRTE.activeField = this; MooRTE.activeBar = rte; }
+					        });
 			rte.addEvent('mouseup', MooRTE.Utilities.updateBtns);
 		});
 		rte.store('fields', els);
 		
-		MooRTE.activeBar = (MooRTE.activeField = els[0]).retrieve('bar');
+		MooRTE.activeField = els[0];
+		MooRTE.activeBar = MooRTE.activeField.retrieve('bar');
+		
 		if (l=='t') rte.addClass('rtePageTop').getFirst().addClass('rteTopDown');
 		else if (l=='b') rte.addClass('rtePageBottom');
-		
 		if (Browser.firefox) MooRTE.Utilities.exec('styleWithCSS');
 		// MooRTE.Utilities.exec('useCSS', 'true'); - FF2, perhaps other browsers?
 	}
@@ -146,7 +147,6 @@ var MooRTE = new Class({
 	}
 });
 
-if (!MooRTE.path) MooRTE.path = 'CMS/library/thirdparty/MooRTE/Source/'; //js/sources.json
 MooRTE.Range = {
 	create: function(range){
 		var sel = window.document.selection || window.getSelection();
@@ -195,7 +195,7 @@ MooRTE.Range = {
 		if (!Browser.ie){
 			var start = area.selectionStart, RE = new RegExp('(.{'+start+'})(.{'+(area.selectionEnd-start)+'})(.*)', 'm').exec(area.get('value')), El = element+RE[2]+'</'+element.match(/^<(\w+)/)[1]+'>';
 			area.set('value', RE[1]+El+RE[3]).selectionEnd = start + El.length;
-		} else { 
+		} else {
 			var El = new Element(element||'span', {html:range.get()});
 			range.pasteHTML(El);
 		}
@@ -237,13 +237,14 @@ MooRTE.Utilities = {
 		if (g) document.designMode = 'off';
 	}
 	, shortcuts: function(e){
-		if(e.key=='enter'){ 
-			if(!Browser.ie)return;
+		if (e.key=='enter'){
+			if (!Browser.ie) return;
 			e.stop();
 			return MooRTE.Range.insert('<br/>');
 		}
-		var be, btn, shorts = MooRTE.activeBar.retrieve('shortcuts');
-		if(e && e.control && shorts[e.key] != undefined){
+		var be, btn, shorts = MooRTE.activeBar.retrieve('shortcuts');	
+
+		if (e && e.control && shorts[e.key]){
 			e.stop();
 			btn = MooRTE.activeBar.getElement('.rte'+shorts[e.key]);
 			btn.fireEvent('mousedown', btn);
@@ -253,17 +254,22 @@ MooRTE.Utilities = {
 		var val, update = MooRTE.activeBar.retrieve('update');
 
 		update.state.each(function(vals){
-			if (vals[2]) vals[2].bind(vals[1])(vals[0]);
+			if (vals[2])
+				vals[2].call(vals[1], vals[0]);
 			else {
-				// insertorderedlist,insertunorderedlist, has been disabled on line 263, for throwing errors in FF when textfield is empty.
-				window.document.queryCommandState(vals[0]) ? vals[1].addClass('rteSelected') : vals[1].removeClass('rteSelected');
+				var state = false;
+				try { state = window.document.queryCommandState(vals[0]) }
+				catch(e){}
+				vals[1][(state ? 'add' : 'remove') + 'Class']('rteSelected');
+				// Try/Catch works around issue #2.
+				// insertorderedlist & insertunorderedlist have been disabled on line 263 for FF errs when textfield is empty.
 			}
 		});
 		update.value.each(function(vals){
-			if (val = window.document.queryCommandValue(vals[0])) vals[2].bind(vals[1])(vals[0], val);
+			if (val = window.document.queryCommandValue(vals[0])) vals[2].call(vals[1], vals[0], val);
 		});
 		update.custom.each(function(){
-			vals[2].bind(vals[1])(vals[0]);
+			vals[2].call(vals[1], vals[0]);
 		});
 	}
 	, addElements: function(buttons, place, relative, name){
@@ -361,10 +367,11 @@ MooRTE.Utilities = {
 		var event = MooRTE.Elements[name][onEvent];
 		switch(typeOf(event)){
 			case 'function':
-				event.bind(caller)(name,onEvent); break;
+				event.call(caller, name, onEvent); break;
 			case 'array':
 				event = Array.clone(event);
-				event.push(name,onEvent); MooRTE.Utilities[event.shift()].run(event, caller); break;
+				event.push(name, onEvent);
+				MooRTE.Utilities[event.shift()].apply(caller, event); break;
 			case 'string':
 				onEvent == 'source' && onEvent.substr(0,2) != 'on'
 					? MooRTE.Range.wrapText(event, caller)
@@ -472,7 +479,7 @@ MooRTE.Utilities = {
 		var washer;
 		if (typeOf(html)=='element'){
 			washer = html;
-			if(washer.hasChild(washer.retrieve('bar'))) washer.moorte('remove');
+			if(washer.contains(washer.retrieve('bar'))) washer.moorte('remove');
 		} else washer = $('washer') || new Element('div',{id:'washer'}).inject(document.body);
 
 		washer.getElements('p:empty'+(options.remove ? ','+options.remove : '')).destroy();
@@ -512,8 +519,11 @@ MooRTE.Utilities = {
 
 Element.implement({
 	moorte: function(){
-		var params = Array.link(arguments, {'options': Type.isObject, 'cmd': Type.isString}), cmd = params.cmd, removed, bar = this.hasClass('MooRTE') ? this : this.retrieve('bar') || '';
-		if (!cmd || (cmd == 'create')){
+		var removed
+		  , params = Array.link(arguments, {'options': Type.isObject, 'cmd': Type.isString})
+		  , bar = this.hasClass('MooRTE') ? this : this.retrieve('bar') || '';
+		
+		if (!params.cmd || (params.cmd == 'create')){
 			if (removed = this.retrieve('removed')){
 				bar.inject(removed[0], removed[1]);
 				this.eliminate('removed');
@@ -521,7 +531,7 @@ Element.implement({
 			return bar ? this.removeClass('rteHide') : new MooRTE(Object.append(params.options||{},{'elements':this}));
 		} else {
 			if (!bar) return false;
-			switch (cmd.toLowerCase()){
+			switch (params.cmd.toLowerCase()){
 				case 'remove':
 					this.store('removed', bar.getPrevious() ? [bar.getPrevious(),'after'] : [bar.getParent(),'top']);
 					new Element('span').replaces(bar).destroy(); break;
@@ -592,11 +602,11 @@ MooRTE.Elements = {
 						onClick:function(action){ Browser.firefox || Browser.webkit ? MooRTE.Elements.clipPop.show() : MooRTE.Utilities.exec(action); }
 					}
    , save			:{ img:27, src:'http://siteroller.net/test/save.php', onClick:function(){
-						var content = $H({ 'page': window.location.pathname }), next = 0; content.content=[]; 
+						var content = { 'page': window.location.pathname }, next = 0; content.content=[]; 
 						this.getParent('.MooRTE').retrieve('fields').each(function(el){
 							content['content'][next++] = MooRTE.Utilities.clean(el);
 						});
-						new Request({url:MooRTE.Elements.save.src, onComplete:function(response){alert("Your submission has been received:\n\n"+response);}}).send(content.toQueryString());
+						new Request({url:MooRTE.Elements.save.src, onComplete:function(response){alert("Your submission has been received:\n\n"+response);}}).send(Object.toQueryString(content));
 					}}
    , 'Html/Text'	:{ img:'26', onClick:['DisplayHTML']}
    , DisplayHTML	:{ element:'textarea', 'class':'displayHtml', unselectable:'off', init:function(){ 
@@ -621,7 +631,7 @@ MooRTE.Elements = {
 								MooRTE.Elements.linkPop.show();
 						}
 					   , onLoad: function(){
-							if (window.Assets) new Assets.javascript('StickyWinModalUI.js', {
+							if (window.Asset) new Asset.javascript('StickyWinModalUI.js', {
 								self: this
 								, path: 'CMS/library/thirdparty/MooRTE/Source/Assets/scripts/'
 								, onComplete: function(){
@@ -685,7 +695,7 @@ MooRTE.Elements = {
 							if(ta){
 								this.addClass('rteSelected');
 								ta.removeClass('rteHide').set('text',MooRTE.Utilities.clean(bar.retrieve('fields')[0]));
-							} else MooRTE.Utilities.group.run(['source',btn],this);
+							} else MooRTE.Utilities.group.apply(this, ['source', btn]);
 						}
 					}}
    , source			:{ element:'textarea', 'class':'displayHtml', unselectable:'off', onLoad:function(){ 
