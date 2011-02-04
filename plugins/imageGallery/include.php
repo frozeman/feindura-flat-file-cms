@@ -50,7 +50,31 @@ $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows 
 $filePath = str_replace($_SERVER["DOCUMENT_ROOT"],'',$filePath);
 $plugin = '';
 
-$plugin .= '<script type="text/javascript" src="'.$filePath.'/milkbox/milkbox.js"></script>';
+// -> add mootools if user is not logged into backend
+echo '<script type="text/javascript">
+  /* <![CDATA[ */
+  if(typeof MooTools == "undefined") {
+    function include(file)
+    {
+        var script = document.createElement("script");
+        var type = document.createAttribute("type");
+        type.nodeValue = "text/javascript";
+        script.setAttributeNode(type);
+        var source = document.createAttribute("src");
+        source.nodeValue = file;
+        script.setAttributeNode(source);
+        var head = document.getElementsByTagName("head")[0];
+        head.appendChild(script);
+    }
+    
+    include("'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js");
+    include("'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js");
+    
+  }
+  // add milkbox
+  include("'.$filePath.'/milkbox/milkbox.js");
+  /* ]]> */
+</script>';
 
 // load the imageGallery class
 require_once('imageGallery.php');

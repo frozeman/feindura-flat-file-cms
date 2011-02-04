@@ -1040,17 +1040,9 @@ class feindura extends feinduraBase {
   
           if($this->pluginsConfig[$pluginName]['active'])
             $metaTags .= generalFunctions::createStyleTags($pluginFolder,false);
-            
-          if($this->pluginsConfig[$pluginName]['mootools'])
-            $needMootools = true;
         }
       }
-      
-      // -> add mootools, if necessary
-      if($this->loggedIn || $needMootools)
-        $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";   
-      
+        
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
       if($this->loggedIn) {
@@ -1061,6 +1053,10 @@ class feindura extends feinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/styles/frontendEditing.css" />'."\n";    
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css" />'."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css" />'."\n";
+        
+        // add MOOTOOLS
+        $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";   
         
         // add MooRTE
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/moorte.js"></script>'."\n";

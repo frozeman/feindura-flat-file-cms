@@ -642,7 +642,6 @@ $langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Plugins provide enhanced capabiliti
 
 $langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'Edit files';
 $langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin activated';
-$langFile['PLUGINSETUP_TEXT_MOOTOOLS'] = 'needs MooTools';
 $langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
 
 

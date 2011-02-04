@@ -900,10 +900,8 @@ function savePluginsConfig($pluginsConfig) {
     if(is_array($pluginsConfig)) {
       foreach($pluginsConfig as $key => $value) {
         $pluginsConfig[$key]['active'] = (isset($pluginsConfig[$key]['active']) && $pluginsConfig[$key]['active']) ? 'true' : 'false';
-        $pluginsConfig[$key]['mootools'] = (isset($pluginsConfig[$key]['mootools']) && $pluginsConfig[$key]['mootools']) ? 'true' : 'false';
         
         fwrite($file,"\$pluginsConfig['$key']['active'] =     ".$pluginsConfig[$key]['active'].";\n");
-        fwrite($file,"\$pluginsConfig['$key']['mootools'] =   ".$pluginsConfig[$key]['mootools'].";\n");
       }
     }
     

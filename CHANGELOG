@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta2
-Build 525
+Build 526
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta2
   
+  build 526: removed "need mootools", found a better way to implement mootools on demand in the imageGallery plugin
   build 525: add milkbox as lightbox in imageGallery plugin and add "need mootools" to pluginSetup
   build 524: add timezone selection
   build 523: add new MooRTE version and CKEditor 3.5.1

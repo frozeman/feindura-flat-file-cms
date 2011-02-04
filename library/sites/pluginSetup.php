@@ -97,12 +97,6 @@ if($pluginFolders) {
                 <label for="plugin_<?= $pluginFolderName; ?>_active"><?php echo $langFile['PLUGINSETUP_TEXT_ACTIVE']; ?></label><br />
                 </td></tr>
                 
-                <tr><td class="left checkboxes">
-                <input type="checkbox" id="plugin_<?= $pluginFolderName; ?>_mootools" name="plugin[<?= $pluginFolderName; ?>][mootools]" value="true"<?php echo ($pluginsConfig[$pluginFolderName]['mootools']) ? ' checked="checked"' : ''; ?> />                
-                </td><td class="right checkboxes">
-                <label for="plugin_<?= $pluginFolderName; ?>_mootools"><?php echo $langFile['PLUGINSETUP_TEXT_MOOTOOLS']; ?></label><br />
-                </td></tr>
-                
                 <!--<tr><td class="leftTop"></td><td></td></tr>          
                 <tr><td class="leftBottom"></td><td></td></tr>-->
                 

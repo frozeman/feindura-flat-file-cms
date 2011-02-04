@@ -584,7 +584,6 @@ $langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Les plugins mettent en disposition 
 
 $langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'traiter les fichiers';
 $langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin activ&eacute;e';
-$langFile['PLUGINSETUP_TEXT_MOOTOOLS'] = 'besoin MooTools';
 $langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
 
 /*
