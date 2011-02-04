@@ -21,7 +21,7 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['plugin_title']        = 'gal&eacute;rie des images';
-$pluginLangFile['plugin_description']  = 'Etablit une liste des images dapr&egrave;s un dossier dans la gal&eacute;rie.Chaque image dans le dossier sera affich&eacute;e par une miniature. En cliquant sur les images, elles <a href="http://www.digitalia.be/software/slimbox2">Box</a> seront affich&eacute;es.';
+$pluginLangFile['plugin_description']  = 'Etablit une liste des images dapr&egrave;s un dossier dans la gal&eacute;rie.Chaque image dans le dossier sera affich&eacute;e par une miniature. En cliquant sur les images, elles <a href="http://reghellin.com/milkbox/">lightbox</a> seront affich&eacute;es.';
 
 /* CONFIG ************************************************************************************ */
 

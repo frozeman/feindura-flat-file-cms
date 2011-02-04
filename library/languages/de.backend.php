@@ -635,12 +635,13 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 
-$langFile['pluginSetup_h1'] = 'Plugins-Einstellungen';
-$langFile['pluginSetup_description'] = 'Plugins bieten erweiterte Funktionen f&uuml;r die Seiten der Webseite. Jeder Seite k&ouml;nnen die unten aktivierten Plugins hinzugef&uuml;gt werden, sofern Plugins in den <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, bei der jeweiligen Kategorie, aktiviert sind.<br /><br /><i>Auf der Webseite werden die Plugins mittels der <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> Methode eingebunden.</i>';
+$langFile['PLUGINSETUP_TITLE'] = 'Plugins-Einstellungen';
+$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Plugins bieten erweiterte Funktionen f&uuml;r die Seiten der Webseite. Jeder Seite k&ouml;nnen die unten aktivierten Plugins hinzugef&uuml;gt werden, sofern Plugins in den <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, bei der jeweiligen Kategorie, aktiviert sind.<br /><br /><i>Auf der Webseite werden die Plugins mittels der <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> Methode eingebunden.</i>';
 
-$langFile['pluginSetup_editFiles_h1'] = 'Dateien bearbeiten';
-$langFile['pluginSetup_pluginconfig_active'] = 'Plugin aktiviert';
-$langFile['pluginSetup_pluginconfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
+$langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'Dateien bearbeiten';
+$langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin aktivieren';
+$langFile['PLUGINSETUP_TEXT_MOOTOOLS'] = 'ben&ouml;tigt MooTools';
+$langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
 
 
 /*

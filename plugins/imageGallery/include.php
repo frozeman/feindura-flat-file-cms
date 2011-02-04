@@ -50,8 +50,7 @@ $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows 
 $filePath = str_replace($_SERVER["DOCUMENT_ROOT"],'',$filePath);
 $plugin = '';
 
-$plugin .= '<script type="text/javascript" src="'.$filePath.'/js/jquery-1.4.2.min.js"></script>';
-$plugin .= '<script type="text/javascript" src="'.$filePath.'/slimBox2/js/slimbox2.js"></script>';
+$plugin .= '<script type="text/javascript" src="'.$filePath.'/milkbox/milkbox.js"></script>';
 
 // load the imageGallery class
 require_once('imageGallery.php');

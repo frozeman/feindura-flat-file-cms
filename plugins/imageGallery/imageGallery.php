@@ -50,9 +50,10 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * @package [Plugins]
 * @subpackage imageGallery
 * 
-* @version 1.1
+* @version 1.11
 * <br />
 * <b>ChangeLog</b><br />
+*    - 1.11 add milkbox as lightbox
 *    - 1.1 removed resize() because it uses now the {@link Image} class
 *    - 1.02 fixed image texts
 *    - 1.01 fixed file extension, made to lowercase
@@ -519,7 +520,7 @@ class imageGallery {
     foreach($this->images as $image) {
       $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
       $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : ' title="'.$image['filename'].'"';
-      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" rel="lightbox-gallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" data-milkbox="imageGallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    

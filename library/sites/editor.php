@@ -569,9 +569,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars
-	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['language'].'.php'))
-	  ? $_SESSION['language']
-	  : 'en';
+      	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['language'].'.php'))
+      	  ? $_SESSION['language']
+      	  : 'en';
         unset($pluginConfig,$pluginLangFile);
         $pluginFolderName = basename($pluginFolder);       
         $pluginConfig = @include(DOCUMENTROOT.$pluginFolder.'/config.php');

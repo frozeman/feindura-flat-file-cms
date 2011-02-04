@@ -579,12 +579,13 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 
-$langFile['pluginSetup_h1'] = 'param&egrave;tres plugins';
-$langFile['pluginSetup_description'] = 'Les plugins mettent en disposition des fonctions avanc&eacute;s pour le site web. Les plugins activ&eacute;s peuvent &ecirc;tre attribu&eacute;s &agrave; chaque page, si les plugins <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, sont activ&eacute;s dans la cat&eacute;gorie.<br /><br /><i>Les plugins sur le site web sont implement&eacute;s par cette m&eacute;thode <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a>.</i>';
+$langFile['PLUGINSETUP_TITLE'] = 'param&egrave;tres plugins';
+$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Les plugins mettent en disposition des fonctions avanc&eacute;s pour le site web. Les plugins activ&eacute;s peuvent &ecirc;tre attribu&eacute;s &agrave; chaque page, si les plugins <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, sont activ&eacute;s dans la cat&eacute;gorie.<br /><br /><i>Les plugins sur le site web sont implement&eacute;s par cette m&eacute;thode <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a>.</i>';
 
-$langFile['pluginSetup_editFiles_h1'] = 'traiter les fichiers';
-$langFile['pluginSetup_pluginconfig_active'] = 'Plugin activ&eacute;';
-$langFile['pluginSetup_pluginconfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
+$langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'traiter les fichiers';
+$langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin activ&eacute;e';
+$langFile['PLUGINSETUP_TEXT_MOOTOOLS'] = 'besoin MooTools';
+$langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
 
 /*
 * editor.php

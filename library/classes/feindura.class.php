@@ -955,6 +955,7 @@ class feindura extends feinduraBase {
       // vars
       $metaTags = '';
       $pageNameInTitle = '';
+      $needMootools =  false;
       
       // -> clear xHTML tags from the content
       if($this->xHtml === true) {   
@@ -1039,8 +1040,16 @@ class feindura extends feinduraBase {
   
           if($this->pluginsConfig[$pluginName]['active'])
             $metaTags .= generalFunctions::createStyleTags($pluginFolder,false);
+            
+          if($this->pluginsConfig[$pluginName]['mootools'])
+            $needMootools = true;
         }
       }
+      
+      // -> add mootools, if necessary
+      if($this->loggedIn || $needMootools)
+        $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";   
       
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
@@ -1053,9 +1062,6 @@ class feindura extends feinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css" />'."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css" />'."\n";
         
-        // add mootools
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";   
         // add MooRTE
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/moorte.js"></script>'."\n";
         //$metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/dependencies/stickywin/StickyWinModalUI.js"></script>'."\n";
@@ -1087,12 +1093,10 @@ class feindura extends feinduraBase {
   
   /* ]]> */
   </script>\n";
-      }
-        
+
         // add frontend editing integration
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/frontendEditing.js"></script>'."\n";
-        // set fileManager
-        //$filemanager = ($this->adminConfig['user']['fileManager']) ? "'library/thirdparty/filemanager/index.php'" : "''";
+      }
       
       // -> show the metaTags
       return $metaTags;

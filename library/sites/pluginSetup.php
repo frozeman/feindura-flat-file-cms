@@ -35,9 +35,9 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
 }
 ?>
 <div class="block">
-  <h1><?php echo $langFile['pluginSetup_h1']; ?></h1>
+  <h1><?php echo $langFile['PLUGINSETUP_TITLE']; ?></h1>
   <div class="content">
-    <p><?php echo $langFile['pluginSetup_description']; ?></p>
+    <p><?php echo $langFile['PLUGINSETUP_TEXT_DESCRIPTION']; ?></p>
     
   </div>
   <div class="bottom"></div>
@@ -59,14 +59,20 @@ if($pluginFolders) {
     if($pluginSubFolders = generalFunctions::readFolderRecursive($pluginFolder)) {
       
       // VARs
-      $pluginName = basename($pluginFolder);
-      $savedForm = false;
-      
-      echo '<a name='.$pluginName.'Anchor" id="'.$pluginName.'Anchor" class="anchorTarget"></a>
-            <form action="index.php?site=pluginSetup#'.$pluginName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pluginForm">
+      $pluginFolderName = basename($pluginFolder);
+      $savedForm = false;      
+      $pluginCountryCode = (file_exists($pluginFolder.'/languages/'.$_SESSION['language'].'.php'))
+    	  ? $_SESSION['language']
+    	  : 'en';
+      unset($pluginLangFile);
+      $pluginLangFile = @include($pluginFolder.'/languages/'.$pluginCountryCode.'.php');
+      $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
+
+      echo '<a name='.$pluginFolderName.'Anchor" id="'.$pluginFolderName.'Anchor" class="anchorTarget"></a>
+            <form action="index.php?site=pluginSetup#'.$pluginFolderName.'Anchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pluginForm">
               <div>
               <input type="hidden" name="send" value="pluginsConfig" />
-              <input type="hidden" name="savedBlock" value="'.$pluginName.'" />
+              <input type="hidden" name="savedBlock" value="'.$pluginFolderName.'" />
               </div>';
  
       // -> BEGINN PLUGIN FORM
@@ -78,34 +84,34 @@ if($pluginFolders) {
       
       echo '<div class="block open">
               <h1>'.$pluginName.'</h1>';
+      echo '  <p>'.$pluginLangFile['plugin_description'].'</p>';        
   ?>
-              <table>
-         
+              <table>         
                 <colgroup>
                 <col class="left" />
-                </colgroup>
-                
+                </colgroup>                
                 
                 <tr><td class="left checkboxes">
-                <input type="checkbox" id="plugin_<?= $pluginName; ?>" name="plugin[<?= $pluginName; ?>][active]" value="true"<?php echo ($pluginsConfig[$pluginName]['active']) ? ' checked="checked"' : ''; ?> />                
+                <input type="checkbox" id="plugin_<?= $pluginFolderName; ?>_active" name="plugin[<?= $pluginFolderName; ?>][active]" value="true"<?php echo ($pluginsConfig[$pluginFolderName]['active']) ? ' checked="checked"' : ''; ?> />                
                 </td><td class="right checkboxes">
-                <label for="plugin_<?= $pluginName; ?>"><?php echo $langFile['pluginSetup_pluginconfig_active']; ?></label><br />
+                <label for="plugin_<?= $pluginFolderName; ?>_active"><?php echo $langFile['PLUGINSETUP_TEXT_ACTIVE']; ?></label><br />
                 </td></tr>
                 
-                <!--<tr><td class="leftTop"></td><td></td></tr>
-  
-          
+                <tr><td class="left checkboxes">
+                <input type="checkbox" id="plugin_<?= $pluginFolderName; ?>_mootools" name="plugin[<?= $pluginFolderName; ?>][mootools]" value="true"<?php echo ($pluginsConfig[$pluginFolderName]['mootools']) ? ' checked="checked"' : ''; ?> />                
+                </td><td class="right checkboxes">
+                <label for="plugin_<?= $pluginFolderName; ?>_mootools"><?php echo $langFile['PLUGINSETUP_TEXT_MOOTOOLS']; ?></label><br />
+                </td></tr>
+                
+                <!--<tr><td class="leftTop"></td><td></td></tr>          
                 <tr><td class="leftBottom"></td><td></td></tr>-->
                 
-              </table>
-              
+              </table>              
   <?php
         echo '<input type="submit" value="" class="button submit center" />';
-        echo '</form>';
-        
+        echo '</form>';        
               // edit plugin files
-              editFiles($pluginFolder, $_GET['site'], "edit".$pluginName,  $pluginName.' '.$langFile['pluginSetup_editFiles_h1'], $pluginName."EditFilesAnchor", "php",'plugin.config.php');
-  
+              editFiles($pluginFolder, $_GET['site'], "edit".$pluginFolderName,  $pluginName.' '.$langFile['PLUGINSETUP_TITLE_EDITFILES'], $pluginFolderName."EditFilesAnchor", "php",'plugin.config.php');
       echo '</div>';   
       
     }

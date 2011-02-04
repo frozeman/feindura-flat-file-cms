@@ -878,9 +878,10 @@ function saveStatisticConfig($statisticConfig) {
  * 
  * @example backend/pluginsConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.0
+ * @version 1.01
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.01 add mootools selection 
  *    - 1.0 initial release
  * 
  */
@@ -898,8 +899,11 @@ function savePluginsConfig($pluginsConfig) {
     
     if(is_array($pluginsConfig)) {
       foreach($pluginsConfig as $key => $value) {
-        $pluginsConfig[$key]['active'] = (isset($pluginsConfig[$key]['active']) && $pluginsConfig[$key]['active']) ? 'true' : 'false';    
-        fwrite($file,"\$pluginsConfig['$key']['active'] = ".$pluginsConfig[$key]['active'].";\n");
+        $pluginsConfig[$key]['active'] = (isset($pluginsConfig[$key]['active']) && $pluginsConfig[$key]['active']) ? 'true' : 'false';
+        $pluginsConfig[$key]['mootools'] = (isset($pluginsConfig[$key]['mootools']) && $pluginsConfig[$key]['mootools']) ? 'true' : 'false';
+        
+        fwrite($file,"\$pluginsConfig['$key']['active'] =     ".$pluginsConfig[$key]['active'].";\n");
+        fwrite($file,"\$pluginsConfig['$key']['mootools'] =   ".$pluginsConfig[$key]['mootools'].";\n");
       }
     }
     

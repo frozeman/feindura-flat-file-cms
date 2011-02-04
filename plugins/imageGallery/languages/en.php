@@ -20,7 +20,7 @@
 /* PLUGIN ************************************************************************************ */
 
 $pluginLangFile['plugin_title']        = 'Image Gallery';
-$pluginLangFile['plugin_description']  = 'Lists images from a folder. A thumbnail will be created automatically for every image. When you click on a image, it will be shown in full size in a <a href="http://www.digitalia.be/software/slimbox2">Box</a>.';
+$pluginLangFile['plugin_description']  = 'Lists images from a folder. A thumbnail will be created automatically for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/">lightbox</a>.';
 
 /* CONFIG ************************************************************************************ */
 

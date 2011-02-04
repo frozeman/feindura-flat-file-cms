@@ -28,6 +28,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
   
   // prepare vars
   $pluginsConfig[$_POST['savedBlock']]['active'] = $_POST['plugin'][$_POST['savedBlock']]['active'];
+  $pluginsConfig[$_POST['savedBlock']]['mootools'] = $_POST['plugin'][$_POST['savedBlock']]['mootools'];
   
   // **** opens admin.config.php for writing
   if(savePluginsConfig($pluginsConfig)) {
@@ -37,7 +38,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
     statisticFunctions::saveTaskLog(11,$_POST['savedBlock']); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow .= $langFile['pluginSetup_pluginconfig_error_save'].' '.$adminConfig['basePath'].'config/plugin.config.php';
+    $errorWindow .= $langFile['PLUGINSETUP_ERROR_SAVE'].' '.$adminConfig['basePath'].'config/plugin.config.php';
   
   $savedForm = $_POST['savedBlock'];
 }
