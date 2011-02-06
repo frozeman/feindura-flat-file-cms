@@ -52,7 +52,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 
 // -> LOGOUT
 if(isset($_GET['logout'])) {
-  unset($_SESSION['feinduraLogin'][IDENTITY]['username'],$_SESSION['feinduraLogin'][IDENTITY]['loggedIn']);
+  unset($_SESSION['feinduraLogin'][IDENTITY]);
   $loggedOut = true;
 }
 

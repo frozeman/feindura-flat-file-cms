@@ -127,6 +127,6 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
 
 // RE-INCLUDE
 unset($userConfig);
-$userConfig = include(dirname(__FILE__)."/../../config/user.config.php");
+$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
 
 ?>

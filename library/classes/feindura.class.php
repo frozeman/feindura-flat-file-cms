@@ -1082,7 +1082,7 @@ class feindura extends feinduraBase {
     FUNCTIONS_STARTPAGE:    '".$this->languageFile['sortablePageList_functions_startPage']."',
     FUNCTIONS_EDITPAGE:     '".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."',
     BUTTON_LOGOUT:          '".$this->languageFile['HEADER_BUTTON_LOGOUT']."',
-    BUTTON_GOTOBACKEND:     '".$this->languageFile['HEADER_TIP_GOTOBACKEND']."'
+    BUTTON_GOTOBACKEND:     '".$this->languageFile['HEADER_TIP_GOTOBACKEND']."',
     
   };
   var feindura_logoutUrl = '".generalFunctions::getCurrentUrl('feindura_logout')."';

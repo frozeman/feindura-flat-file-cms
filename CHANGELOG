@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 527
+Build 528
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 528: work on deactivation of frontend editing (still not working)
   build 527: add deactivation of frontend editing with session (still not working perfectly)
   
 1.1 beta2

@@ -278,7 +278,7 @@
     links[1] = new Element('a',{ 'href': feindura_url + feindura_basePath, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
     
     // Hide button
-    links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND});
+    links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide'});
     links[2].addEvent('mouseup', function() {
         if(topBarVisible) {
           deactivate();
