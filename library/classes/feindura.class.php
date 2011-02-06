@@ -1073,6 +1073,7 @@ class feindura extends feinduraBase {
   // transport PHP vars to javascript
   var feindura_url = '".$this->adminConfig['url']."';
   var feindura_basePath = '".$this->adminConfig['basePath']."';
+  var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraLogin'][IDENTITY]['deactivateFrontendEditing']."';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:      '".$this->languageFile['errorWindow_h1']."',
     ERROR_SAVE:             '".$this->languageFile['editor_savepage_error_save']."',
@@ -1889,7 +1890,7 @@ class feindura extends feinduraBase {
             $generatedPage['title'] = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
             
             if(!preg_match('#<script.*>#',$generatedPage['content']))
-              $generatedPage['content'] = "\n".'<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'" style="display:inline-block;">'.$generatedPage['content'].'</div>'."\n";
             else
               $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled feindura_pageId'.$page.' feindura_categoryId'.$category.' feindura_toolTip" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }

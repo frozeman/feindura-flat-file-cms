@@ -19,7 +19,10 @@
   
   // var
   var pageSaved = false;
-  var pageContent = null;  
+  var pageContent = null;
+  var editableBlocks = new Array();
+  var editableTitles = new Array();
+  var pageToolbars =  new Array();
   
   var logo = new Element('a',{ 'href': feindura_url + feindura_basePath, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
   var topBar = new Element('div',{id: 'feindura_topBar'});
@@ -176,6 +179,98 @@
   }
   
   /* ---------------------------------------------------------------------------------- */
+  // ->> deactivate frontend editing
+  function deactivate(instant) {
+      
+    topBarVisible = true;
+    
+    if(instant) {
+      logo.setStyle('top', '-55px');
+      $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
+      topBar.setStyle('top', '-55px');
+      
+      $(document.body).setStyle('padding-top','5px');
+      $(document.body).setStyle('background-position-y','5px');
+
+      $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+        pageBlock.moorte('remove');
+      });
+      
+      pageToolbars.each(function(pageToolbar){
+        pageToolbar.setStyle('display','none');
+      });
+      editableBlocks.each(function(editableBlock){
+        editableBlock.removeClass('feindura_editPage');
+      });
+      editableTitles.each(function(editableTitle){
+        editableTitle.removeClass('feindura_editTitle');
+      });
+    
+    } else {
+      
+      // set the session var
+      new Request({ url: feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=true');
+    
+      logo.tween('top', '-55px');
+      $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
+      topBar.tween('top', '-55px');
+      
+      topBar.get('tween').chain(function() {
+        $(document.body).setStyle('padding-top','5px');
+        $(document.body).setStyle('background-position-y','5px');
+  
+        $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+          pageBlock.moorte('remove');
+        });
+        
+        pageToolbars.each(function(pageToolbar){
+          pageToolbar.setStyle('display','none');
+        });
+        editableBlocks.each(function(editableBlock){
+          editableBlock.removeClass('feindura_editPage');
+        });
+        editableTitles.each(function(editableTitle){
+          editableTitle.removeClass('feindura_editTitle');
+        });
+      });
+    }
+  }
+  
+  /* ---------------------------------------------------------------------------------- */
+  // ->> activate frontend editing
+  function activate() {
+    
+    // set the session var
+    new Request({ url: feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=false');
+    
+    topBarVisible = true;
+    
+    $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+      pageBlock.moorte('create');
+    });  
+    
+    logo.tween('top', '0px');
+    $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
+    topBar.tween('top', '0px');
+    
+    topBar.get('tween').chain(function(){
+      $(document.body).setStyle('padding-top','60px');
+      $(document.body).setStyle('background-position-y','60px');
+      
+      pageToolbars.each(function(pageToolbar){
+        pageToolbar.setStyle('display','block');
+      });
+      editableBlocks.each(function(editableBlock){
+        editableBlock.addClass('feindura_editPage');
+      });
+      editableTitles.each(function(editableTitle){
+        editableTitle.addClass('feindura_editTitle');
+      });
+    });    
+    
+  }
+  
+  /* ---------------------------------------------------------------------------------- */
   // ->> create TOP BAR
   function topBarTemplate() {
     var links = new Array();
@@ -184,38 +279,24 @@
     
     // Hide button
     links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND});
-    links[2].addEvent('mouseup', function() {  
+    links[2].addEvent('mouseup', function() {
         if(topBarVisible) {
-          
-          topBar.tween('top', '-55px');
-          logo.tween('top', '-55px');
-          $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
-          topBar.get('tween').chain(function(){
-            $(document.body).setStyle('padding-top','5px');
-            $(document.body).setStyle('background-position-y','5px');
-          });
-          topBarVisible = false;
+          deactivate();
         } else {
-          topBar.tween('top', '0px');
-          logo.tween('top', '0px');
-          $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
-          topBar.get('tween').chain(function(){
-            $(document.body).setStyle('padding-top','60px');
-            $(document.body).setStyle('background-position-y','60px');
-          });
-          topBarVisible = true;
+          activate();
         }
       });
     
     links.each(function(link){
       topBar.grab(link,'bottom');
     });
+    
     return topBar;
   };
   
   /* ---------------------------------------------------------------------------------- */
   // ->> create PAGE BAR
-  function pageBarTemplate(values) {    
+  function pageBarTemplate(values) {
     if(feindura_startPage == values.pageId) {
       values.startPageActive = ' active';
       values.startPageText = feindura_langFile.FUNCTIONS_STARTPAGE_SET;
@@ -254,6 +335,11 @@
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+      
+      if(pageBlock.hasClass('feindura_editPage'))
+        editableBlocks.push(pageBlock);
+      if(pageBlock.hasClass('feindura_editTitle'))
+        editableTitles.push(pageBlock);
       
       // STORE page IDS in the elements storage
       setPageIds(pageBlock);
@@ -307,6 +393,8 @@
       pageBarContent.each(function(link){
         link.inject(pageBar,'bottom');
       });
+      
+      pageToolbars.push(pageBar);
       
       // -> inject the page bar
       pageBar.inject(pageBlock,'before');
@@ -380,6 +468,9 @@
                                           
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
     new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
-  
+    
+    // -> deactivates frontend editing on start (when the session var is set)
+    if(feindura_deactivateFrontendEditing == true)
+      deactivate(true);
   });
 })();

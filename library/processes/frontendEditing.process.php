@@ -56,4 +56,13 @@ if($_POST['save']) {
   echo $return;
 }
 
+// ACTIVATE/DEACTIVATE frontend editing
+// -----------------------------------------------------------------------------
+if($_POST['deactivateFrontendEditing']) {
+  if($_POST['deactivateFrontendEditing'] == 'true')
+    $_SESSION['feinduraLogin'][IDENTITY]['deactivateFrontendEditing'] = true;
+  if($_POST['deactivateFrontendEditing'] == 'false')
+    unset($_SESSION['feinduraLogin'][IDENTITY]['deactivateFrontendEditing']);
+}
+
 ?>

@@ -265,7 +265,7 @@ MooRTE.Utilities = {
 				// insertorderedlist & insertunorderedlist have been disabled on line 263 for FF errs when textfield is empty.
 			}
 		});
-		update.value.each(function(vals){
+		update.value.each(function(vals) {
 			if (val = window.document.queryCommandValue(vals[0])) vals[2].call(vals[1], vals[0], val);
 		});
 		update.custom.each(function(){
@@ -533,8 +533,12 @@ Element.implement({
 			if (!bar) return false;
 			switch (params.cmd.toLowerCase()){
 				case 'remove':
-					this.store('removed', bar.getPrevious() ? [bar.getPrevious(),'after'] : [bar.getParent(),'top']);
-					new Element('span').replaces(bar).destroy(); break;
+				  bar.retrieve('fields').each(function(el){
+            el.set('contentEditable',false);
+          });
+          this.store('removed', bar.getPrevious() ? [bar.getPrevious(),'after'] : [bar.getParent(),'top']);
+          bar.dispose();
+          break;
 				case 'destroy': 
 					bar.retrieve('fields').each(function(el){
 						el.removeEvents().eliminate('bar').set('contentEditable',false);
