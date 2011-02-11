@@ -26,7 +26,7 @@
   
   var logo = new Element('a',{ 'href': feindura_url + feindura_basePath, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
   var topBar = new Element('div',{id: 'feindura_topBar'});
-  var topBarVisible = false;
+  var topBarVisible = true;
   
   var jsLoadingCircleContainer = new Element('div',{'class':'feindura_loadingCircleContainer'});
   var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder','style':'margin-left: -40px;margin-top: -25px;'});
@@ -182,7 +182,7 @@
   // ->> deactivate frontend editing
   function deactivate(instant) {
       
-    topBarVisible = true;
+    topBarVisible = false;
     
     if(instant) {
       logo.setStyle('top', '-55px');
@@ -235,7 +235,7 @@
       });
     }
   }
-  
+
   /* ---------------------------------------------------------------------------------- */
   // ->> activate frontend editing
   function activate() {
@@ -280,11 +280,10 @@
     // Hide button
     links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide'});
     links[2].addEvent('mouseup', function() {
-        if(topBarVisible) {
+        if(topBarVisible)
           deactivate();
-        } else {
+        else         
           activate();
-        }
       });
     
     links.each(function(link){
@@ -331,7 +330,6 @@
     logo.inject($(document.body),'top');
     $(document.body).setStyle('padding-top','60px');
     $(document.body).setStyle('background-position-y','60px');
-    topBarVisible = true;
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
