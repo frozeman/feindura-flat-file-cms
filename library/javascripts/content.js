@@ -706,7 +706,6 @@ window.addEvent('domready', function() {
   // ADD CodeMirror TO ALL TEXTAREAs with class editFiles
   $$('textarea.editFiles').each(function(textarea){
     var textareaId = textarea.getProperty('id');
-    
     if(textareaId != null) {
       // multihighlighting
       if(textarea.hasClass('mixed')) { //textareaId.substring(0,9) == 'editFiles'
@@ -718,8 +717,8 @@ window.addEvent('domready', function() {
           textWrapping: false,
           parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js",
                       "../contrib/php/js/tokenizephp.js", "../contrib/php/js/parsephp.js", "../contrib/php/js/parsephphtmlmixed.js"],
-          stylesheet: ["library/thirdparty/javascripts/CodeMirror/css/xmlcolors.css", "library/thirdparty/javascripts/CodeMirror/css/jscolors.css", "library/thirdparty/javascripts/CodeMirror/css/csscolors.css", "library/thirdparty/javascripts/CodeMirror/contrib/php/css/phpcolors.css", "library/thirdparty/javascripts/CodeMirror/css/general.css"],
-          path: "library/thirdparty/javascripts/CodeMirror/js/"
+          stylesheet: ["library/thirdparty/CodeMirror/css/xmlcolors.css", "library/thirdparty/CodeMirror/css/jscolors.css", "library/thirdparty/CodeMirror/css/csscolors.css", "library/thirdparty/CodeMirror/contrib/php/css/phpcolors.css", "library/thirdparty/CodeMirror/css/general.css"],
+          path: "library/thirdparty/CodeMirror/js/"
         });
       
       // css highlighting
@@ -731,8 +730,8 @@ window.addEvent('domready', function() {
           iframeClass: 'editFilesIFrame',
           textWrapping: false,
           parserfile: "parsecss.js",
-          stylesheet: ["library/thirdparty/javascripts/CodeMirror/css/csscolors.css", "library/thirdparty/javascripts/CodeMirror/css/general.css"],
-          path: "library/thirdparty/javascripts/CodeMirror/js/"
+          stylesheet: ["library/thirdparty/CodeMirror/css/csscolors.css", "library/thirdparty/CodeMirror/css/general.css"],
+          path: "library/thirdparty/CodeMirror/js/"
         });        
       }
     }

@@ -29,7 +29,7 @@
 function UndoHistory(container, maxDepth, commitDelay, editor) {
   this.container = container;
   this.maxDepth = maxDepth; this.commitDelay = commitDelay;
-  this.editor = editor; this.parent = editor.parent;
+  this.editor = editor;
   // This line object represents the initial, empty editor.
   var initial = {text: "", from: null, to: null};
   // As the borders between lines are represented by BR elements, the
@@ -44,7 +44,7 @@ function UndoHistory(container, maxDepth, commitDelay, editor) {
   this.firstTouched = false;
   // History is the set of committed changes, touched is the set of
   // nodes touched since the last commit.
-  this.history = []; this.redoHistory = []; this.touched = [];
+  this.history = []; this.redoHistory = []; this.touched = []; this.lostundo = 0;
 }
 
 UndoHistory.prototype = {
@@ -52,8 +52,8 @@ UndoHistory.prototype = {
   // milliseconds).
   scheduleCommit: function() {
     var self = this;
-    this.parent.clearTimeout(this.commitTimeout);
-    this.commitTimeout = this.parent.setTimeout(function(){self.tryCommit();}, this.commitDelay);
+    parent.clearTimeout(this.commitTimeout);
+    this.commitTimeout = parent.setTimeout(function(){self.tryCommit();}, this.commitDelay);
   },
 
   // Mark a node as touched. Null is a valid argument.
@@ -92,18 +92,19 @@ UndoHistory.prototype = {
   clear: function() {
     this.history = [];
     this.redoHistory = [];
+    this.lostundo = 0;
   },
 
   // Ask for the size of the un/redo histories.
   historySize: function() {
-    return {undo: this.history.length, redo: this.redoHistory.length};
+    return {undo: this.history.length, redo: this.redoHistory.length, lostundo: this.lostundo};
   },
 
   // Push a changeset into the document.
   push: function(from, to, lines) {
     var chain = [];
     for (var i = 0; i < lines.length; i++) {
-      var end = (i == lines.length - 1) ? to : this.container.ownerDocument.createElement("BR");
+      var end = (i == lines.length - 1) ? to : document.createElement("br");
       chain.push({from: from, to: end, text: cleanText(lines[i])});
       from = end;
     }
@@ -128,7 +129,7 @@ UndoHistory.prototype = {
   // Clear the undo history, make the current document the start
   // position.
   reset: function() {
-    this.history = []; this.redoHistory = [];
+    this.history = []; this.redoHistory = []; this.lostundo = 0;
   },
 
   textAfter: function(br) {
@@ -153,7 +154,7 @@ UndoHistory.prototype = {
   // Check whether the touched nodes hold any changes, if so, commit
   // them.
   commit: function(doNotHighlight) {
-    this.parent.clearTimeout(this.commitTimeout);
+    parent.clearTimeout(this.commitTimeout);
     // Make sure there are no pending dirty nodes.
     if (!doNotHighlight) this.editor.highlightDirty(true);
     // Build set of chains.
@@ -192,7 +193,7 @@ UndoHistory.prototype = {
   },
 
   notifyEnvironment: function() {
-    if (this.onChange) this.onChange();
+    if (this.onChange) this.onChange(this.editor);
     // Used by the line-wrapping line-numbering code.
     if (window.frameElement && window.frameElement.CodeMirror.updateNumbers)
       window.frameElement.CodeMirror.updateNumbers();
@@ -235,8 +236,10 @@ UndoHistory.prototype = {
   // it than allowed.
   addUndoLevel: function(diffs) {
     this.history.push(diffs);
-    if (this.history.length > this.maxDepth)
+    if (this.history.length > this.maxDepth) {
       this.history.shift();
+      lostundo += 1;
+    }
   },
 
   // Build chains from a set of touched nodes.
