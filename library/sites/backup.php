@@ -64,7 +64,7 @@ if($unwriteableList && checkBasePath()) {
 $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
 ?>
 <div class="block<?= $hidden ?>">
-  <h1><a href="#"><?= $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>
+  <h1><a href="javascript:void(0);"><?= $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>
   <div class="content">  
   
   <form action="index.php?site=backup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="restoreForm">

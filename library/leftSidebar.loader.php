@@ -37,7 +37,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = ' hidden';
     
     echo '<div class="sidebarMenu fixed'.$hidden.'">
-    <div class="top brown"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+    <div class="top brown"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="javascript:void(0);" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
     <div class="content brown">
       <ul class="verticalButtons">';
             
@@ -52,12 +52,12 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
         }        
       } else {
-        echo '<li><a href="#"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+        echo '<li><a href="javascript:void(0);"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
       }
         
     echo '</ul>          
       </div>
-      <div class="bottom"><a href="#">&nbsp;</a></div>
+      <div class="bottom"><a href="javascript:void(0);">&nbsp;</a></div>
     </div>';
   }
   
@@ -73,7 +73,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = '';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
-    <div class="top blue"><img src="library/images/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#">&nbsp;</a></div>
+    <div class="top blue"><img src="library/images/sign/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="javascript:void(0);">&nbsp;</a></div>
     <div class="content blue">
       <ul class="verticalButtons">';      
         
@@ -86,7 +86,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       }        
     echo '</ul>          
       </div>
-      <div class="bottom"><a href="#">&nbsp;</a></div>
+      <div class="bottom"><a href="javascript:void(0);">&nbsp;</a></div>
     </div>';
   }
   
@@ -97,7 +97,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top grey"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig[$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig[$_GET['category']]['name'].'::">&nbsp;</a></div>
+    <div class="top grey"><img src="library/images/sign/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig[$_GET['category']]['name'].'</span><a href="javascript:void(0);" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig[$_GET['category']]['name'].'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -112,11 +112,11 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
         }       
       } else {
-        echo '<li><a href="#"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+        echo '<li><a href="javascript:void(0);"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
       }        
     echo '</ul>          
       </div>
-      <div class="bottom"><a href="#">&nbsp;</a></div>
+      <div class="bottom"><a href="javascript:void(0);">&nbsp;</a></div>
     </div>';
   }
 

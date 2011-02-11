@@ -207,7 +207,7 @@ if(!$newPage) {
 $hidden = ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><img src="library/images/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
+  <h1><a href="javascript:void(0);"><img src="library/images/sign/statisticIcon_small.png" alt="icon" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
   <div class="content">
   <?php
   // -> format vars
@@ -362,7 +362,7 @@ $hidden = ' hidden';
 $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
+  <h1><a href="javascript:void(0);"><?php echo $langFile['editor_pageSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -560,7 +560,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
+  <h1><a href="javascript:void(0);"><?php echo $langFile['editor_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content">
       <?php
       
@@ -695,7 +695,7 @@ window.addEvent('domready',function(){
 
     <div class="content">    
     
-    <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['editor_htmleditor_hotkeys_h1']; ?></a><br />
+    <a href="javascript:void(0);" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['editor_htmleditor_hotkeys_h1']; ?></a><br />
     <br />
     <div id="hotKeys" style="border:1px solid #B3B3B4; width: 450px; background-color:#B3B3B4;">    
     <table width="450" cellspacing="0" cellpadding="8" border="0">
@@ -772,7 +772,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
   : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#"><?php echo $langFile['editor_advancedpageSettings_h1'].$blockContentEdited; ?></a></h1>
+  <h1><a href="javascript:void(0);"><?php echo $langFile['editor_advancedpageSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content">
     <table>
      
@@ -793,7 +793,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
 
       ?>      
       </div>
-      <a href="#" class="addStyleFilePath toolTip" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
+      <a href="javascript:void(0);" class="addStyleFilePath toolTip" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
       </td></tr>
                   
       <tr><td class="left">

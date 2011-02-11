@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 530: replaced href="#" with href="javascript:void(0);"
   build 529: add stable Codemirror and fixed it's paths
   build 528: work on deactivation of frontend editing (still not working)
   build 527: add deactivation of frontend editing with session (still not working perfectly)

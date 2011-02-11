@@ -53,7 +53,7 @@ if($unwriteableList && checkBasePath()) {
 $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
 ?>
 <div class="block<?php /*echo $hidden;*/ ?>">
-  <h1><a href="#" id="websiteSettings" name="websiteSettings"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
+  <h1><a href="javascript:void(0);" id="websiteSettings" name="websiteSettings"><?php echo $langFile['websiteSetup_websiteConfig_h1']; ?></a></h1>
   <div class="content">
     <table>
      

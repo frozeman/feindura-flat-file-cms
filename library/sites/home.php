@@ -45,7 +45,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
    !preg_match("/chromeframe/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
 <div class="block warning hidden">
-  <h1><a href="#"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
+  <h1><a href="javascript:void(0);"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
   <div class="content">
     <p><?php echo $langFile['warning_ieOld']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
@@ -57,7 +57,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
 if(!empty($adminConfig['user']['info'])) {
 ?>
 <div class="block info">
-  <h1><a href="#"><?php echo $langFile['home_userInfo_h1']; ?></a></h1>
+  <h1><a href="javascript:void(0);"><?php echo $langFile['home_userInfo_h1']; ?></a></h1>
   <div class="content">
     <p><?php echo $adminConfig['user']['info']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
@@ -173,7 +173,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<br style="clear:both;" /><br />';
     
     // -> inBlockSlider
-    echo '<div style="text-align:center;"><a href="#" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
+    echo '<div style="text-align:center;"><a href="javascript:void(0);" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
     
     echo '<div class="verticalSeparator"></div>';
     

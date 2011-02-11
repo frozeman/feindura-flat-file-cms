@@ -118,7 +118,7 @@ if($categoryRatio) {
   <br />	
 	<br />
   
-	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br />
+	<a href="javascript:void(0);" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br />
 	<br clear="all"/>
 	
   <table id="thumbSize">  
