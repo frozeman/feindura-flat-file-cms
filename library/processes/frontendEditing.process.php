@@ -24,7 +24,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
-if($_POST['save']) {
+if($_POST['save'] == 'true') {
   
   // read the page
   $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
