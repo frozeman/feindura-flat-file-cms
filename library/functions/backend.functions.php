@@ -1341,7 +1341,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   echo '</div>';
   
   echo '<div class="block'.$hidden.'">
-          <h1><a href="javascript:void(0);" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
+          <h1><a href="#;" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
           <div class="content"><br />';
       
   //echo $filesPath.'<br />';      

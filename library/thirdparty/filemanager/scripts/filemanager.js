@@ -334,7 +334,7 @@ var addNode = function(path, name){
 	var ext = name.substr(name.lastIndexOf('.') + 1);
 	var thisNode = $('#filetree').find('a[rel="' + path + '"]');
 	var parentNode = thisNode.parent();
-	var newNode = '<li class="file ext_' + ext + '"><a rel="' + path + name + '/" href="javascript:void(0);">' + name + '/</a></li>';
+	var newNode = '<li class="file ext_' + ext + '"><a rel="' + path + name + '/" href="#;">' + name + '/</a></li>';
 	
 	if(!parentNode.find('ul').size()) parentNode.append('<ul></ul>');		
 	parentNode.find('ul').prepend(newNode);
@@ -393,7 +393,7 @@ var removeNode = function(path){
 // specified parent node. Called after a new folder is
 // successfully created.
 var addFolder = function(parent, name){
-	var newNode = '<li class="directory collapsed"><a rel="' + parent + name + '/" href="javascript:void(0);">' + name + '</a><ul class="jqueryFileTree" style="display: block;"></ul></li>';
+	var newNode = '<li class="directory collapsed"><a rel="' + parent + name + '/" href="#;">' + name + '</a><ul class="jqueryFileTree" style="display: block;"></ul></li>';
 	var parentNode = $('#filetree').find('a[rel="' + parent + '"]');
 	if(parent != fileRoot){
 		parentNode.next('ul').prepend(newNode).prev('a').click().click();

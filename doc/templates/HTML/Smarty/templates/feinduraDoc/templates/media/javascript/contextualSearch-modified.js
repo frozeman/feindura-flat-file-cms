@@ -147,7 +147,7 @@ var contextualSearch = new Class({
                       var inPageElementLi = new Element('li');
                       
                       var inPageElementLink = new Element('a',{
-                          'href': 'javascript:void(0)',
+                          'href': '#',
                           'html': elementText, //'..' + elementText + '..',
                           'events': {
                                 'click': function(){

@@ -53,7 +53,7 @@ if($unwriteableList && checkBasePath()) {
 $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
 ?>  
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="javascript:void(0);" id="pageConfig" name="pageConfig"><?php echo $langFile['pageSetup_pageConfig_h1']; ?></a></h1>
+  <h1><a href="#;" id="pageConfig" name="pageConfig"><?php echo $langFile['pageSetup_pageConfig_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -81,7 +81,7 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
 $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="javascript:void(0);" id="thumbnailSettings" name="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
+  <h1><a href="#;" id="thumbnailSettings" name="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -182,7 +182,7 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
 $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden' : '';
 ?>  
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="javascript:void(0);" id="pageConfig" name="pageConfig"><?php echo $langFile['pageSetup_pageConfig_noncategorypages_h1']; ?></a></h1>
+  <h1><a href="#;" id="pageConfig" name="pageConfig"><?php echo $langFile['pageSetup_pageConfig_noncategorypages_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -413,7 +413,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td></tr>';
           
           echo '<tr><td class="left checkboxes"></td>
-                <td><a href="javascript:void(0);" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['pageSetup_advancedSettings'].'</a>
+                <td><a href="#;" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['pageSetup_advancedSettings'].'</a>
                 </td></tr>';
           
           // end of the TABLE for one category
@@ -440,7 +440,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           echo showStyleFileInputs(generalFunctions::getStylesByPriority($category['styleFile'],'styleFile',$pageContent['category']),'categories['.$category['id'].'][styleFile]');
 
           echo '</div>
-                <a href="javascript:void(0);" class="addStyleFilePath toolTip" title="'.$langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'].'::"></a>              
+                <a href="#;" class="addStyleFilePath toolTip" title="'.$langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'].'::"></a>              
                 </td></tr>';
                 
           echo '<tr><td class="left">

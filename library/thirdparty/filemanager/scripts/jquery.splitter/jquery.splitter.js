@@ -128,7 +128,7 @@
 		var paneB = jQuery(divs[1]);		// right or bottom
 
 		// Focuser element, provides keyboard support
-		var focuser = jQuery('<a href="javascript:void(0)"></a>')
+		var focuser = jQuery('<a href="#"></a>')
 			.bind("focus", startSplit).bind("keydown", doSplitKey).bind("blur", endSplit)
 			.attr({accessKey: opts.accessKey, tabIndex: opts.tabIndex});
 

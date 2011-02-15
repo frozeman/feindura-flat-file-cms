@@ -78,7 +78,7 @@ foreach ($tab as $buf) {
 $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="javascript:void(0);" id="fmsSettings" name="fmsSettings"><?php echo $langFile['adminSetup_fmsSettings_h1']; ?></a></h1>
+  <h1><a href="#;" id="fmsSettings" name="fmsSettings"><?php echo $langFile['adminSetup_fmsSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -262,7 +262,7 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
 $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-<h1><a href="javascript:void(0);" id="userSettings" name="userSettings"><?php echo $langFile['adminSetup_userSettings_h1']; ?></a></h1>
+<h1><a href="#;" id="userSettings" name="userSettings"><?php echo $langFile['adminSetup_userSettings_h1']; ?></a></h1>
 <div class="content">
     <table>
      
@@ -312,7 +312,7 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="javascript:void(0);" id="editorSettings" name="editorSettings"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
+  <h1><a href="#;" id="editorSettings" name="editorSettings"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -345,7 +345,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
       ?>
       </div>
-      <a href="javascript:void(0);" class="addStyleFilePath toolTip" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
+      <a href="#;" class="addStyleFilePath toolTip" title="<?php echo $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE']; ?>::"></a>
       </td></tr>
       
       <tr><td class="left">
@@ -394,7 +394,7 @@ fclose($htmlEditorStyleFile);
 $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="javascript:void(0);" name="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
+  <h1><a href="#;" name="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles css" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
     <br /><br />

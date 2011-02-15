@@ -167,10 +167,10 @@ function requestSite(site,siteTitle,formId) {
     		  // first fill in the title
     		  if(siteTitle) {
       			//Inject the new DOM elements into the boxTop div.
-      			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="javascript:void(0);" onclick="closeWindowBox();return false;"></a>');
+      			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="#;" onclick="closeWindowBox();return false;"></a>');
     			} else {
             //Clear the boxTop <div>
-      		  $$('#windowBox .boxTop').set('html', '<a href="javascript:void(0);" onclick="closeWindowBox(false);return false;"></a>');
+      		  $$('#windowBox .boxTop').set('html', '<a href="#;" onclick="closeWindowBox(false);return false;"></a>');
           }
             
           // IE HACK, wont bring the bottom div to the bottom
