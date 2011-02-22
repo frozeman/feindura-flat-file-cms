@@ -1015,7 +1015,7 @@ class feinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.$pageContent['title'].'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.strip_tags($pageContent['title']).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;

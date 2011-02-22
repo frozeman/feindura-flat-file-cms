@@ -976,7 +976,7 @@ class feindura extends feinduraBase {
 
       // -> create TITLE
       if($this->getCurrentPageId() && ($currentPage = generalFunctions::readPage($this->page,$this->category)))
-        $pageNameInTitle = $currentPage['title'].' - ';
+        $pageNameInTitle = strip_tags($currentPage['title']).' - ';
       
       // -> add TITLE
       $metaTags .= '  <title>'.$pageNameInTitle.$this->websiteConfig['title'].'</title>'."\n\n";
@@ -1256,7 +1256,7 @@ class feindura extends feinduraBase {
           // ----------------------------  
          
           // add HREF
-          $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.$linkText.'"'; // title="'.$pageContent['title'].'"
+          $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.strip_tags($linkText).'"'; // title="'.$pageContent['title'].'"
   	      
           $linkClass = ($this->page == $pageContent['id'])
           ? $this->linkClass.' active'
