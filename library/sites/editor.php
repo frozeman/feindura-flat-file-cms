@@ -120,7 +120,6 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
               <span class="info">'.$_GET['page'].'</span>
               </td>
               </tr>';
-              
       
       if($_GET['category'] == 0) // show only if categories exist
         $categoryName = '<span style="color:#A6A6A6;">'.$langFile['editor_pageinfo_category_noCategory'].'</span>';
@@ -687,8 +686,10 @@ window.addEvent('domready',function(){
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
-  CKEDITOR.config.filebrowserBrowseUrl      = <?php if($adminConfig['user']['fileManager']) echo "'library/thirdparty/filemanager/index.php'"; else echo "''"; ?>;
-
+  CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo $adminConfig['basePath']."library/sites/windowBox/filemanager.php"; ?>';
+  CKEDITOR.config.filebrowserWindowWidth    = 1024;
+  CKEDITOR.config.filebrowserWindowHeight   = 700;//<?php if($adminConfig['user']['fileManager']) echo "'library/thirdparty/filemanager/index.php'"; else echo "''"; ?>;
+  CKEDITOR.config.filebrowserWindowFeatures = 'menubar=yes,scrollbars=no,center=yes,status=no';
 });
 /* ]]> */
 </script>

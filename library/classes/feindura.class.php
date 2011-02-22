@@ -1240,7 +1240,7 @@ class feindura extends feinduraBase {
           // -> create the text
           if($linkText === true) {
           // add the TITLE
-          $linkText = $this->createTitle($pageContent,      					                       
+          $linkText = $this->createTitle($pageContent,	                       
                                          $this->linkLength,
                                          false, // $titleAsLink
                                          $this->linkShowPageDate,
@@ -1265,7 +1265,7 @@ class feindura extends feinduraBase {
   	      $linkClass = trim($linkClass);
   	      
   	      $linkAttributes .= $this->createAttributes($this->linkId, $linkClass, $this->linkAttributes);
-                      
+          
           $linkStartTag = '<a '.$linkAttributes.">\n";
           $linkEndTag = "\n</a>";        
           

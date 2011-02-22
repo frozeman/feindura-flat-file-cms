@@ -42,7 +42,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="<?= $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
@@ -130,9 +130,20 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.checkbox.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.radio.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
+  <?php if(!empty($_GET['page'])) { ?>
   
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
+  <?php }
+  if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
+  
+  <!-- thirdparty/MooTools-FileManager -->
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
+  <?php } ?>
  
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
@@ -141,34 +152,56 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
   <script type="text/javascript" src="library/javascripts/content.js"></script>
   
-  <!-- starts the session counter -->
   <script type="text/javascript">
   /* <![CDATA[ */
   window.addEvent('domready', function () {
-
-      var div = $('sessionTimer'),
-      coundown = new CountDown({      
-        //initialized 30s from now
-        date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
-        //update every 100ms
-        frequency: 100,
-        //update the div#counter
-        onChange: function(counter) {
-          var text = '';
-          if(counter.hours < 1 && counter.minutes < 10) {
-            div.removeClass('blue');
-            div.addClass('red');
-          }
-          text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
-          text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
-          text += (counter.second > 9 ? '' : '0') + counter.second;
-          div.set('text', text);
-        },
-        //complete
-        onComplete: function () {
-          window.location = 'index.php?logout';
+    <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
+    // ->> include filemanager
+    var fileManager = new FileManager({
+        url: 'library/processes/filemanager.process.php',
+        assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
+        language: '<?= $_SESSION["language"]; ?>',
+        destroy: true,
+        upload: true,
+        rename: true,
+        download: true,
+        hideOnClick: true
+    });
+    fileManager.filemanager.setStyle('width','70%');
+    fileManager.filemanager.setStyle('height','70%');
+    // -> open filemanager when button get clicked
+    $$('a.fileManager').each(function(fileManagerButton){
+      fileManagerButton.addEvent('click',function(e){
+        e.stop();
+        fileManager.show();
+      });
+    });
+    <?php } ?>
+    
+    // ->> starts the session counter
+    var div = $('sessionTimer'),
+    coundown = new CountDown({      
+      //initialized 30s from now
+      date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
+      //update every 100ms
+      frequency: 100,
+      //update the div#counter
+      onChange: function(counter) {
+        var text = '';
+        if(counter.hours < 1 && counter.minutes < 10) {
+          div.removeClass('blue');
+          div.addClass('red');
         }
-      })
+        text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
+        text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
+        text += (counter.second > 9 ? '' : '0') + counter.second;
+        div.set('text', text);
+      },
+      //complete
+      onComplete: function () {
+        window.location = 'index.php?logout';
+      }
+    })
   })
   /* ]]> */
   </script>
@@ -326,10 +359,7 @@ if($_GET['site'] == 'addons') {
     $showPageThumbnailDelete = (empty($_GET['site']) && !empty($pageContent['thumbnail'])) ? true : false;
     
     // -> CHECK if show SUB- FOOTERMENU
-    $showSubFooterMenu = (//$_GET['status'] != 'changePageStatus' &&
-       //$_GET['status'] != 'changeCategoryStatus' &&
-       //$_GET['category'] != '' &&
-       ($_GET['site'] == 'pages' || !empty($_GET['page'])) && 
+    $showSubFooterMenu = (($_GET['site'] == 'pages' || !empty($_GET['page'])) && 
        ($showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || $adminConfig['user']['fileManager'])) ? true : false;
       
      // -> CHEACK if show DELETE PAGE
@@ -403,7 +433,8 @@ if($_GET['site'] == 'addons') {
             
             // file manager
             if($adminConfig['user']['fileManager']) { ?>
-              <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>',true);return false;" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
+              <!--onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>',true);return:false;"-->
+              <li><a href="?site=fileManager" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
             <?php
               $showSpacer = true;
             }

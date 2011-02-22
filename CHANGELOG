@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 534
+Build 535
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 535: add mootools filemanager (there are still issues)
   build 534: made activation of frontendediting animation smoother
   build 533: fixed page title when containing html tags
   build 532: add new moorte version, which fixes the removal of events
