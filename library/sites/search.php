@@ -124,8 +124,8 @@ if(!empty($searchWords)) {
       
       // first TITLE
       echo '<span class="resultHeadline">';
-      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),$page['title']).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
-      echo ($result['title']) ? $result['title'] : $page['title'];
+      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags($page['title'])).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
+      echo ($result['title']) ? $result['title'] : strip_tags($page['title']);
       echo '</a>';
       echo '</span>';
       

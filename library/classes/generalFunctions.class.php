@@ -1330,7 +1330,7 @@ class generalFunctions {
   }
   
  /**
-  * <b>Name</b> prepareStringInput()<br>
+  * <b>Name</b> prepareInputString()<br>
   * 
   * Clears a string from double withe spaces, slashes and htmlentities all special chars.
   * 
@@ -1345,7 +1345,7 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function prepareStringInput($text) {
+  public static function prepareInputString($text) {
       
       // format text
       $text = preg_replace("/ +/", " ", $text);

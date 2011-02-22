@@ -778,11 +778,11 @@ function saveWebsiteConfig($websiteConfig) {
     $websiteConfig['keywords'] = $keywords;
     
     // format all other strings
-    $websiteConfig['title'] = generalFunctions::prepareStringInput($websiteConfig['title']);
-    $websiteConfig['publisher'] = generalFunctions::prepareStringInput($websiteConfig['publisher']);
-    $websiteConfig['copyright'] = generalFunctions::prepareStringInput($websiteConfig['copyright']);
-    $websiteConfig['keywords'] = generalFunctions::prepareStringInput($websiteConfig['keywords']);
-    $websiteConfig['description'] = generalFunctions::prepareStringInput($websiteConfig['description']);
+    $websiteConfig['title'] = generalFunctions::prepareInputString($websiteConfig['title']);
+    $websiteConfig['publisher'] = generalFunctions::prepareInputString($websiteConfig['publisher']);
+    $websiteConfig['copyright'] = generalFunctions::prepareInputString($websiteConfig['copyright']);
+    $websiteConfig['keywords'] = generalFunctions::prepareInputString($websiteConfig['keywords']);
+    $websiteConfig['description'] = generalFunctions::prepareInputString($websiteConfig['description']);
     
     // escape single quotes
     $websiteConfig = generalFunctions::escapeQuotesRecursive($websiteConfig);
@@ -1341,7 +1341,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   echo '</div>';
   
   echo '<div class="block'.$hidden.'">
-          <h1><a href="#;" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
+          <h1><a href="#" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
           <div class="content"><br />';
       
   //echo $filesPath.'<br />';      

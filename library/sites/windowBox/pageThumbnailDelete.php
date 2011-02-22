@@ -45,7 +45,7 @@ $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
 if(is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
-  $question = '<h1 class="red">'.$langFile['pageThumbnailDelete_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['pageThumbnailDelete_question_part2'].'</h1>';
+  $question = '<h1 class="red">'.$langFile['pageThumbnailDelete_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['pageThumbnailDelete_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {

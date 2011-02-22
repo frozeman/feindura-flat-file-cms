@@ -44,7 +44,7 @@ if($category == 0)
 
 // QUESTION
 if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
-  $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
+  $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {
@@ -65,7 +65,7 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'
         @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       
       generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
-      statisticFunctions::saveTaskLog(2,$pageContent['title']); // <- SAVE the task in a LOG FILE
+      statisticFunctions::saveTaskLog(2,strip_tags($pageContent['title'])); // <- SAVE the task in a LOG FILE
       
       $question = '';
       echo 'DONTSHOW';        

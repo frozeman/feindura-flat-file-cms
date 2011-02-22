@@ -164,7 +164,7 @@ foreach($logContent as $logRow) {
       $pageId = generalFunctions::cleanSpecialChars($pageId); // removes \n\r
       $pageContent = generalFunctions::readPage($pageId,generalFunctions::getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.$pageContent['title'].'">'.generalFunctions::shortenString($pageContent['title'], $maxLength).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.strip_tags($pageContent['title']).'">'.generalFunctions::shortenString(strip_tags($pageContent['title']), $maxLength).'</a>';
       
       $foundObject = true;
     }
@@ -193,15 +193,15 @@ foreach($logContent as $logRow) {
     
     // -> OTHERWISE just use the task object name/text
     if($foundObject === false)
-      $taskObject = '<span title="'.$logObject[0].'">'.generalFunctions::shortenString($logObject[0], $maxLength).'</span>';
+      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.generalFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span>';
   }                  
   
   
   
   // displays 2 or 3 rows
   echo ($taskObject)
-  ? '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br /><span>'.$taskObject.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'
-  : '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>';
+  ? '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br /><span>'.$taskObject.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n"
+  : '<li><span class="blue" style="font-weight:bold;">'.$logText.'</span><br /><span class="brown">'.$logDate.' '.$logTime.'</span>'.$logUser.'</li>'."\n";
 }
 echo '</ul>';
 

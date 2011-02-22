@@ -45,7 +45,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
    !preg_match("/chromeframe/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
 <div class="block warning hidden">
-  <h1><a href="#;"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
   <div class="content">
     <p><?php echo $langFile['warning_ieOld']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
@@ -57,7 +57,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
 if(!empty($adminConfig['user']['info'])) {
 ?>
 <div class="block info">
-  <h1><a href="#;"><?php echo $langFile['home_userInfo_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['home_userInfo_h1']; ?></a></h1>
   <div class="content">
     <p><?php echo $adminConfig['user']['info']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
@@ -173,7 +173,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<br style="clear:both;" /><br />';
     
     // -> inBlockSlider
-    echo '<div style="text-align:center;"><a href="#;" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
+    echo '<div style="text-align:center;"><a href="#" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
     
     echo '<div class="verticalSeparator"></div>';
     
@@ -191,7 +191,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       foreach($pages as $page) {
         if(!empty($page['log_visitorCount'])) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitorCount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';  
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitorCount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';  
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
           // count
@@ -221,7 +221,7 @@ if(!empty($adminConfig['user']['info'])) {
         $highestTime = unserialize($page['log_visitTime_max']);
         
         if($pageVisitTime = statisticFunctions::showVisitTime($highestTime[0],$langFile))
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';         
         // count
@@ -246,7 +246,7 @@ if(!empty($adminConfig['user']['info'])) {
       $count = 1;
       $rowColor = 'dark'; // starting row color
       foreach($pages as $page) { 
-        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.statisticFunctions::formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.$page['title'].'</a></td></tr>';        
+        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.statisticFunctions::formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';        
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
         // count

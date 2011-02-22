@@ -43,9 +43,10 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
-  $_POST['title'] = generalFunctions::prepareStringInput($_POST['title']);
+  $_POST['title'] = generalFunctions::prepareInputString($_POST['title']);
+  $_POST['title'] = str_replace(array('&quot;','&lt;','&gt;'),array('"','<','>'),$_POST['title']);
   
-  $_POST['description'] = generalFunctions::prepareStringInput($_POST['description']);
+  $_POST['description'] = generalFunctions::prepareInputString($_POST['description']);
   
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
@@ -153,7 +154,7 @@ if($newPage) {
   $page = 'new';
   
 } else {  
-  $pageTitle = $pageContent['title'];  
+  $pageTitle = strip_tags($pageContent['title']);
 }
 
 ?>

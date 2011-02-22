@@ -239,7 +239,7 @@ class search {
       $search['beforeDate'] = $pageContent['pageDate']['before'];
       $search['date'] = statisticFunctions::formatDate($pageContent['pageDate']['date']);
       $search['afterDate'] = $pageContent['pageDate']['after'];
-      $search['title'] = $pageContent['title'];
+      $search['title'] = strip_tags($pageContent['title']);
       $search['tags'] = $pageContent['tags'];
       $search['description'] = generalFunctions::decodeToPlainText($pageContent['description']);
       $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
@@ -405,7 +405,7 @@ class search {
         }
       
         // ->> PREPARE the TITLE
-        $title = $this->markFindingInText($page['title'],$result['title']);
+        $title = $this->markFindingInText(strip_tags($page['title']),$result['title']);
         
         $title = $date.$title;      
       }

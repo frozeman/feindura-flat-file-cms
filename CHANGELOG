@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 532
+Build 533
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 533: fixed page title when containing html tags
   build 532: add new moorte version, which fixes the removal of events
   build 531: removed replacement href="#" with href="javascript:void(0);"; and try tp use moorte('destroy') and create ot completely new.. doesnt work perfectly yet (events get removed)
   build 530: replaced href="#" with href="javascript:void(0);"

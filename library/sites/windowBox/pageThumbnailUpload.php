@@ -87,7 +87,7 @@ if($categoryRatio) {
 }
 
 ?>
-<h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.$pageContent['title'].'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>
+<h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>
 
 <div id="thumbInfo">
 <ul>
@@ -118,7 +118,7 @@ if($categoryRatio) {
   <br />	
 	<br />
   
-	<a href="#;" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br />
+	<a href="#" id="thumbSizeToogle" class="down"><?php echo $langFile['pagethumbnail_thumbsize_h1']; ?></a><br />
 	<br clear="all"/>
 	
   <table id="thumbSize">  

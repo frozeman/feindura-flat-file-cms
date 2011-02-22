@@ -1256,7 +1256,7 @@ class feindura extends feinduraBase {
           // ----------------------------  
          
           // add HREF
-          $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.strip_tags($linkText).'"'; // title="'.$pageContent['title'].'"
+          $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.strip_tags($linkText).'"';
   	      
           $linkClass = ($this->page == $pageContent['id'])
           ? $this->linkClass.' active'

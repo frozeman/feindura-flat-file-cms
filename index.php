@@ -188,7 +188,7 @@ if($_GET['site'] == 'addons') {
   
   <div id="windowBoxContainer">
     <div id="windowBox">
-      <div class="boxTop"><?php echo $langFile['LOADING_TEXT_LOAD']; ?><a href="#;" onclick="closeWindowBox(false);return false;"></a></div>
+      <div class="boxTop"><?php echo $langFile['LOADING_TEXT_LOAD']; ?><a href="#" onclick="closeWindowBox(false);return false;"></a></div>
       <div id="windowRequestBox"></div>
       <div class="boxBottom"></div>
     </div>
