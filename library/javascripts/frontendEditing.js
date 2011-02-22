@@ -254,33 +254,32 @@
     
     topBarVisible = true;
     
+    pageToolbars.each(function(pageToolbar){
+      pageToolbar.setStyle('display','block');
+    });
+    editableBlocks.each(function(editableBlock){
+      editableBlock.addClass('feindura_editPage');
+    });
+    editableTitles.each(function(editableTitle){
+      editableTitle.addClass('feindura_editTitle');
+    });
+    
     /*
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
       pageBlock.moorte('create');
     });
     */
     
+    new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+    $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
+    
     logo.tween('top', '0px');
-    //$$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
+    $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
     
     topBar.get('tween').chain(function() {
-
       $(document.body).setStyle('padding-top','60px');
       $(document.body).setStyle('background-position-y','60px');
-      
-      pageToolbars.each(function(pageToolbar){
-        pageToolbar.setStyle('display','block');
-      });
-      editableBlocks.each(function(editableBlock){
-        editableBlock.addClass('feindura_editPage');
-      });
-      editableTitles.each(function(editableTitle){
-        editableTitle.addClass('feindura_editTitle');
-      });
-      
-      new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
-    
     });    
     
   }
