@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 536
+Build 537
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 537: setStartPage if deactivated it should also not be shown in the frontendEditing :-9
   build 536: add MooTools FileManager!
   build 535: add mootools filemanager (there are still issues)
   build 534: made activation of frontendediting animation smoother

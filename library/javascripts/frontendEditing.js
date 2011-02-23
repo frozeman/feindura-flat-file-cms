@@ -319,15 +319,18 @@
     }
     
     var links = new Array();
-    // editPage
-    links[0] = new Element('a',{ 'href': feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
+    
     // setStartPage
-    links[1] = new Element('a',{ 'href': '#', 'class': 'feindura_startPage' + values.startPageActive + ' feindura_toolTip', 'title': values.startPageText + '::'});
-    links[1].addEvent('click',function(e) {
-      e.stop();
-      pageSaved = true;
-      request(e.target.getParent('div').getNext('div'),feindura_basePath + 'library/processes/listPages.process.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
-    });
+    if(feindura_setStartPage == '1') {
+      links[0] = new Element('a',{ 'href': '#', 'class': 'feindura_startPage' + values.startPageActive + ' feindura_toolTip', 'title': values.startPageText + '::'});
+      links[0].addEvent('click',function(e) {
+        e.stop();
+        pageSaved = true;
+        request(e.target.getParent('div').getNext('div'),feindura_basePath + 'library/processes/listPages.process.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
+      });
+    }
+    // editPage
+    links[1] = new Element('a',{ 'href': feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
     
     return links;
   }
