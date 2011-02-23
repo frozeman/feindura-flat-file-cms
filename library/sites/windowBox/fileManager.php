@@ -20,8 +20,6 @@
  * @version 0.2
  */
 
-//echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
-
 /**
  * Includes the login and filters the incoming data by xssFilter
  */
@@ -34,7 +32,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
   <meta charset="UTF-8" />
   <meta http-equiv="content-language" content="<?php echo $_GET['langCode']; ?>" />
   
-  <title>feindura: FileManager</title>
+  <title>feindura <?= $langFile['BUTTON_FILEMANAGER']; ?></title>
   
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="../../thirdparty/javascripts/mootools-core-1.3.js"></script>
@@ -45,32 +43,36 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_GET['langCode']; ?>.js"></script>
+  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
 
   <script type="text/javascript">
   /* <![CDATA[ */
     function openFilemanager(){
-        var complete = function(path, file){
-          window.opener.CKEDITOR.tools.callFunction('<?= $_GET["CKEditorFuncNum"]; ?>', path);
-          window.close();
-        };
-  
-        var fileManager = new FileManager({
-            url: '../../processes/filemanager.process.php',
-            assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
-            language: '<?= $_GET["langCode"]; ?>',
-            destroy: true,
-            upload: true,
-            rename: true,
-            download: true,
-            selectable: true,
-            hideClose: true,
-            onComplete: complete
-        });
-        fileManager.filemanager.setStyle('width','100%');
-        fileManager.filemanager.setStyle('height','95%'); 
-  
-      $('filemanager_open').set('html', fileManager.show());
+      var complete = function(path, file){
+        window.opener.CKEDITOR.tools.callFunction('<?= $_GET["CKEditorFuncNum"]; ?>', path);
+        window.close();
+      };
+
+      var fileManager = new FileManager({
+          url: '../../processes/filemanager.process.php',
+          assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
+          language: '<?= $_SESSION["language"]; ?>',
+          uploadAuthData: {session: '<?= session_id(); ?>'},
+          filter: '<?= $_GET["mimType"]; ?>',
+          destroy: true,
+          upload: true,
+          rename: true,
+          download: true,
+          createFolders: true,
+          selectable: true,
+          hideClose: true,
+          hideOverlay: true,
+          onComplete: complete
+      });
+      fileManager.filemanager.setStyle('width','100%');
+      fileManager.filemanager.setStyle('height','95%'); 
+      
+      fileManager.show();
     }
     
     window.addEvent('domready', function(){
@@ -86,7 +88,6 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
   </style>
 </head>
 <body>
-<div id="filemanager_open"></div>
 </body>
 </html>
 

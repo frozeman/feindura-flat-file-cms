@@ -23,17 +23,16 @@ var uploadAnimationElement = null;
 // dimms the background and calls: requestSite(site,siteTitle);
 function openWindowBox(site,siteTitle,fixed) {
     
-  $('dimmContainer').setStyle('opacity','0');
+  $('dimmContainer').setStyle('opacity',0);
   $('dimmContainer').setStyle('display','block');
   
-  var fadeBg = new Fx.Tween($('dimmContainer'), {duration: 200, transition: Fx.Transitions.Sine.easeOut});
-  fadeBg.start('opacity', '0.5');
+  $('dimmContainer').set('fade', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
+  $('dimmContainer').tween('opacity',0.5);
   
   loadingText = $$('#windowBox .boxTop').get('html');
   
-  fadeBg.onComplete = function(e){
+  $('dimmContainer').get('tween').chain(function(e) {
     if(site) {
-      
       // if fixed is true, than the window positon is relative,
       // means its fixed in the document, and NOT scrolling with the user
       if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
@@ -46,8 +45,8 @@ function openWindowBox(site,siteTitle,fixed) {
       //$('#windowBoxContainer').setStyle('visibility','visible');
       
       // set the fade
-      $('windowBox').set('opacity','0');  			
-      $('windowBox').tween('opacity','1');
+      $('windowBox').set('opacity',0);  			
+      $('windowBox').tween('opacity',1);
 		  $('windowRequestBox').slide('show');		  
 
       // IE HACK, wont bring the bottom div to the top
@@ -58,7 +57,7 @@ function openWindowBox(site,siteTitle,fixed) {
 			// send HTML request
       requestSite(site,siteTitle);
 		}
-	}    
+	});
 }
 
 /* ---------------------------------------------------------------------------------- */
@@ -67,13 +66,13 @@ function openWindowBox(site,siteTitle,fixed) {
 function closeWindowBox(redirectAfter) {
       
 	// resize the box by a slide
-	var SlideWindowBoxClose = new Fx.Slide('windowRequestBox', {duration: '250', transition: Fx.Transitions.Pow.easeIn});
-	$('windowBox').set('fade', {duration: '100', transition: Fx.Transitions.Pow.easeOut});
-	$('dimmContainer').set('fade', {duration: '100', transition: Fx.Transitions.Pow.easeOut});
+	var SlideWindowBoxClose = new Fx.Slide('windowRequestBox', {duration: 250, transition: Fx.Transitions.Pow.easeIn});
+	$('windowBox').set('tween', {duration: 100, transition: Fx.Transitions.Pow.easeOut});
+	$('dimmContainer').set('tween', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
 	
 	// IE HACK, wont bring the bottom div to the top
 	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-		$$('#windowBox .boxBottom')[0].set('tween',{duration: '250', transition: Fx.Transitions.Pow.easeIn});
+		$$('#windowBox .boxBottom')[0].set('tween',{duration: 250, transition: Fx.Transitions.Pow.easeIn});
 		$$('#windowBox .boxBottom')[0].tween('top','0px');
 	}
 	
@@ -84,9 +83,9 @@ function closeWindowBox(redirectAfter) {
 			$('windowRequestBox').setStyle('height', 'auto');
 			
 			// fades the windowBox
-			$('windowBox').tween('opacity','0');
+			$('windowBox').tween('opacity',0);
 			// fades the dimmContainer
-      $('dimmContainer').tween('opacity','0');
+      $('dimmContainer').tween('opacity',0);
   });
   
   $('windowBox').get('tween').chain(function(e) {
@@ -176,7 +175,7 @@ function requestSite(site,siteTitle,formId) {
           // IE HACK, wont bring the bottom div to the bottom
     			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
       			$$('#windowBox .boxBottom')[0].setStyle('top','68px');
-      			$$('#windowBox .boxBottom')[0].set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
+      			$$('#windowBox .boxBottom')[0].set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
       			$$('#windowBox .boxBottom')[0].tween('top',$('windowRequestBox').getSize().y);
     			}
     		

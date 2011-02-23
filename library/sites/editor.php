@@ -686,10 +686,14 @@ window.addEvent('domready',function(){
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
-  CKEDITOR.config.filebrowserBrowseUrl      = '<?php echo $adminConfig['basePath']."library/sites/windowBox/filemanager.php"; ?>';
+  <?php if($adminConfig['user']['fileManager']) { ?>
+  CKEDITOR.config.filebrowserBrowseUrl      = '<?= $adminConfig['basePath']."library/sites/windowBox/filemanager.php"; ?>';
+  CKEDITOR.config.filebrowserImageBrowseUrl = '<?= $adminConfig['basePath']."library/sites/windowBox/filemanager.php?mimType=image"; ?>';
+  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?= $adminConfig['basePath']."library/sites/windowBox/filemanager.php?mimType=application"; ?>';
   CKEDITOR.config.filebrowserWindowWidth    = 1024;
-  CKEDITOR.config.filebrowserWindowHeight   = 700;//<?php if($adminConfig['user']['fileManager']) echo "'library/thirdparty/filemanager/index.php'"; else echo "''"; ?>;
-  CKEDITOR.config.filebrowserWindowFeatures = 'menubar=yes,scrollbars=no,center=yes,status=no';
+  CKEDITOR.config.filebrowserWindowHeight   = 700;
+  CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';
+  <?php } ?>
 });
 /* ]]> */
 </script>

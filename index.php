@@ -143,6 +143,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
+  <!--<script type="text/javascript" src="library/javascripts/filemanager.js"></script>-->
   <?php } ?>
  
   <!-- javascripts -->
@@ -157,18 +158,38 @@ if($_GET['site'] == 'addons') {
   window.addEvent('domready', function () {
     <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
     // ->> include filemanager
+    var hideFileManager = function(){this.hide();}
     var fileManager = new FileManager({
         url: 'library/processes/filemanager.process.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
         language: '<?= $_SESSION["language"]; ?>',
+        uploadAuthData: {session: '<?php echo session_id(); ?>'},
         destroy: true,
         upload: true,
         rename: true,
+        createFolders: true,
         download: true,
-        hideOnClick: true
+        hideOnClick: true,
+        hideOverlay: true,
+        onShow: function() {
+            $('dimmContainer').setStyle('opacity',0);
+            $('dimmContainer').setStyle('display','block');
+            $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+            $('dimmContainer').tween('opacity',0.5);
+            $('dimmContainer').addEvent('click',hideFileManager.bind(this));
+          },
+        onHide: function() {
+            $('dimmContainer').removeEvent('click',hideFileManager);
+            $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+            $('dimmContainer').tween('opacity',0);
+            $('dimmContainer').get('tween').chain(function() {
+              $('dimmContainer').setStyle('display','none');
+            });
+          }
     });
-    fileManager.filemanager.setStyle('width','70%');
+    fileManager.filemanager.setStyle('width','75%');
     fileManager.filemanager.setStyle('height','70%');
+
     // -> open filemanager when button get clicked
     $$('a.fileManager').each(function(fileManagerButton){
       fileManagerButton.addEvent('click',function(e){
@@ -301,7 +322,6 @@ if($_GET['site'] == 'addons') {
       </div>      
     </div>
     <?php } ?>
-    <!--<a href="http://frozeman.de" id="createdBy" title="created by Fabian Vogelsteller [frozeman.de]">&nbsp;</a>-->
   </div>     
   
   <!-- ************************************************************************* -->
@@ -342,7 +362,7 @@ if($_GET['site'] == 'addons') {
       }
     }
     
-    $showCreatePage = ($generallyCreatePages && $_GET['site'] == 'pages' ||
+    $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
                        (!empty($_GET['page']) &&
                        ($_GET['category'] === '0' && $adminConfig['pages']['createDelete']) ||
                        ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
@@ -425,7 +445,7 @@ if($_GET['site'] == 'addons') {
               $showSpacer = true;
             }
             
-            if($showSpacer && ($showEditPage || $showPageThumbnailUpload || $showCreatePage)) { ?>
+            if($showSpacer && ($showPageThumbnailUpload || $adminConfig['user']['fileManager'])) { ?>
               <li class="spacer">&nbsp;</li>
             <?php 
               $showSpacer = false;
@@ -508,7 +528,7 @@ if($_GET['site'] == 'addons') {
             $showSpacer = true;
           }
           
-          if($showSpacer && ($showEditPage || $showPageThumbnailUpload || $showCreatePage)) { ?>
+          if($showSpacer && ($showPageThumbnailUpload || $adminConfig['user']['fileManager'])) { ?>
             <li class="spacer">&nbsp;</li>
           <?php
             $showSpacer = false;

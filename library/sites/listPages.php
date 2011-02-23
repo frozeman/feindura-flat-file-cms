@@ -23,14 +23,14 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
 <div class="block open noBg">
-<h1><?php echo $langFile['sortablePageList_h1']; ?></h1>
+<h1><?= $langFile['sortablePageList_h1']; ?></h1>
 
 <div class="listPagesHead">
-  <div class="name"><?php echo $langFile['sortablePageList_headText1']; ?></div>
-  <div class="lastSaveDate"><?php echo $langFile['sortablePageList_headText2']; ?></div>
-  <div class="status"><?php echo $langFile['sortablePageList_headText3']; ?></div>
-  <div class="counter"><?php echo $langFile['sortablePageList_headText4']; ?></div>
-  <div class="functions"><?php echo $langFile['sortablePageList_headText5']; ?></div>
+  <div class="name"><?= $langFile['sortablePageList_headText1']; ?></div>
+  <div class="lastSaveDate"><?= $langFile['sortablePageList_headText2']; ?></div>
+  <div class="status"><?= $langFile['sortablePageList_headText3']; ?></div>
+  <div class="counter"><?= $langFile['sortablePageList_headText4']; ?></div>
+  <div class="functions"><?= $langFile['sortablePageList_headText5']; ?></div>
 </div>
 
 <form action="<?= generalFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
