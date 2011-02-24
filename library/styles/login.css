@@ -132,7 +132,7 @@ html,body {
 /* *** LOGIN INPUTS */
 
 #loginBox input {
-  width: 100%;
+  width: 245px;
   font-size: 25px;
   margin: 5px 0px;
   padding: 5px 12px;

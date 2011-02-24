@@ -38,9 +38,9 @@ define('REQUIREDPHPVERSION','5.1.0');
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
 
 /**
- * The permissions set to files, created by feindura
+ * The permissions set to files and folders created by feindura
  * 
- * format: 0755  
+ * format: 0755
  */ 
 define('PERMISSIONS', 0755);
 

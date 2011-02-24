@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 539
+Build 540
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 540: fixed login inputs width
   build 539: moved javascripts to the bottom
   build 538: add PHP version check
   build 537: setStartPage if deactivated it should also not be shown in the frontendEditing :-9
