@@ -54,6 +54,13 @@ html,body {
   background: url("../images/bg/loginBox.png") repeat;
 }
 
+.logoname {
+    color: #DD6C1D !important;
+    }
+.logoname span {
+    color: #3979A5 !important;
+    }
+
 /****************/
 /* *** LOGIN ERROR BOX */
 

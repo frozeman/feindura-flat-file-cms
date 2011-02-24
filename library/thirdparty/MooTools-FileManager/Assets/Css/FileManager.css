@@ -439,8 +439,9 @@ div.filemanager a.filemanager-dir-title:hover {
 }
 
 div.filemanager input.filemanager-dir {
-  margin-top: -5px;
-  background-color: #EAEBED;
+  margin-top: -4px;
+  background-color: #fbfbfb;
+  background-image: none !important;
   border: 1px solid #ccc;
   width: 70%;
 }

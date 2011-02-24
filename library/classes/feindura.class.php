@@ -1045,7 +1045,7 @@ class feindura extends feinduraBase {
         
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
-      if($this->loggedIn) {
+      if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION) {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets
@@ -1069,8 +1069,7 @@ class feindura extends feinduraBase {
                 // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */
-  
-  // transport PHP vars to javascript
+  // transport feindura PHP vars to javascript
   var feindura_url = '".$this->adminConfig['url']."';
   var feindura_basePath = '".$this->adminConfig['basePath']."';
   var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraLogin'][IDENTITY]['deactivateFrontendEditing']."';
@@ -1088,8 +1087,6 @@ class feindura extends feinduraBase {
   var feindura_logoutUrl = '".generalFunctions::getCurrentUrl('feindura_logout')."';
   var feindura_setStartPage = '".$this->adminConfig['setStartPage']."';
   var feindura_startPage = '".$this->startPage."';
-  
-  
   /* ]]> */
   </script>\n";
 
@@ -1784,7 +1781,7 @@ class feindura extends feinduraBase {
                                       $this->titleShowCategory,
                                       $this->titleCategorySeparator);                                      
           
-          if($this->loggedIn)
+          if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION)
             $title = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$title.'</span>';
           
           return $title;
@@ -1887,7 +1884,7 @@ class feindura extends feinduraBase {
           }
           
           // -> adds the frontend editing container
-          if($this->loggedIn && !$generatedPage['error']) {
+          if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
             
             $generatedPage['title'] = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
             
@@ -1896,7 +1893,6 @@ class feindura extends feinduraBase {
             else
               $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled feindura_pageId'.$page.' feindura_categoryId'.$category.' feindura_toolTip" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }
-          
           unset($generatedPage['error']);
           
           // -> returns the generated page

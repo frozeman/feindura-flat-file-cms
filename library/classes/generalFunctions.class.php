@@ -370,7 +370,7 @@ class generalFunctions {
     //echo 'STORED-PAGES -> '.count(self::$storedPages);
     
     // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
+    if(PHP_VERSION <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;    
       
     // -> checks if the SESSION storedPages Array exists
@@ -406,7 +406,7 @@ class generalFunctions {
     unset($_SESSION['storedPages']);
     
     // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
+    if(PHP_VERSION <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;  
     
     // stores the given parameter only if its a valid $pageContent array
@@ -451,7 +451,7 @@ class generalFunctions {
     $return = false;
     
     // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
+    if(PHP_VERSION <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;  
     
     // ->> REMOVE

@@ -199,21 +199,16 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // FEINDURA INFO
-      echo '<h1>'.$langFile['adminSetup_version'].'</h1>
+      echo '<h1>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h1>
             <p>'.$version[2].' - '.$version[3].'</p>';
       echo '<a href="README.md" class="standardLink">README</a><br />';
       echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br />';
       echo '<a href="LICENSE" class="standardLink">LICENSE</a>';
       echo '<hr />';
       
-      if(substr(phpversion(),0,3) >= '4.3') {
-           echo '<h1>'.$langFile['adminSetup_phpVersion'].'</h1>
-            <p>'.phpversion().'</p>';
-      } else {
-          echo '<h1 style="color:#B70000;">'.$langFile['adminSetup_phpVersion'].'</h1>
-            <p style="color:#B70000;">'.phpversion().'<br /><br /><b>'.$langFile['adminSetup_warning_phpversion'].' PHP 4.3.0</b></p>'; 
-      }
-      
+      echo '<h1>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h1>
+      <p>'.PHP_VERSION.'</p>';
+       
       echo '<h1>'.$langFile['adminSetup_srvRootPath'].'</h1>';   
       echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div></div>';

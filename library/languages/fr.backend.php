@@ -332,9 +332,8 @@ $langFile['form_cancel'] = 'r&eacute;initialiser les donn&eacute;es';
 */
 
 // ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
-$langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> Version';
-$langFile['adminSetup_phpVersion'] = 'PHP Version';
-$langFile['adminSetup_warning_phpversion'] = 'pour la fonctionalit&eacute; tu as besoin d\'au moins'; // PHP 4.3.0
+$langFile['ADMINSETUP_TEXT_VERSION'] = '<span class="logoname">fein<span>dura</span></span> Version';
+$langFile['ADMINSETUP_TEXT_PHPVERSION'] = 'PHP Version';
 $langFile['adminSetup_srvRootPath'] = 'trace Server-Root';
 $langFile['adminSetup_error_title'] = 'des erreurs se sont produites';
 $langFile['adminSetup_error_writeAccess_tip'] = 'pour les fichiers et les donn&eacute;es les droits de lecture doivent &ecirc;tre mis sur '.decoct(PERMISSIONS).'.';

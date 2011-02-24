@@ -28,6 +28,11 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
 
 /**
+ * The required PHP version
+ */ 
+define('REQUIREDPHPVERSION','5.1.0');
+
+/**
  * The identity of the user
  */ 
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));

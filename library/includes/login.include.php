@@ -75,7 +75,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       $message = $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE']."\n".$_POST['username']."\n".$newPassword;
       $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail
       $header .= 'From: "feindura CMS from '.$adminConfig['url'].'" <noreply@'.str_replace(array('http://','https://','www.'),'',$adminConfig['url']).">\r\n";
-      $header .= 'X-Mailer: PHP/' . phpversion();
+      $header .= 'X-Mailer: PHP/' . PHP_VERSION;
       
       // change users password
       $newUserConfig = $userConfig;
@@ -107,14 +107,13 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
 } else {
 
   ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
   <meta http-equiv="content-language" content="en" />
   
-  <title>      
-    feindura login
-  </title>
+  <title>feindura login</title>
   
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   

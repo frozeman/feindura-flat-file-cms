@@ -322,7 +322,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
           $header .= (empty($_POST['email']))
             ? 'From: "no-reply" <'.$this->recipient.">\r\n"
             : 'From: "'.$_POST['firstname'].' '.$_POST['lastname'].'" <'.$_POST['email'].">\r\n";          
-          $header .= 'X-Mailer: PHP/' . phpversion();
+          $header .= 'X-Mailer: PHP/'.PHP_VERSION;
           
           mail($this->recipient, $subject, $message, $header);
         

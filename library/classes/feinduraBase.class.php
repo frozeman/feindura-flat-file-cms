@@ -670,6 +670,12 @@ class feinduraBase {
     // ->> CHECKS
     // -------------------
     
+    // -> CHECK for right PHP VERSION
+    if(PHP_VERSION < REQUIREDPHPVERSION) {
+      $return['content'] = '<span style="font-size:15px;">'.$this->languageFile['ADMINSETUP_ERROR_PHPVERSION'].' '.REQUIREDPHPVERSION.'</span>'; // if not throw error and and the method
+      return $return;
+    }
+    
     // LOOKS FOR A GIVEN PAGE, IF NOT STOP THE METHOD
     if(!is_numeric($page) && !is_array($page))
       return array();
@@ -683,16 +689,16 @@ class feinduraBase {
       $errorAttributes = $this->createAttributes($this->errorId, $this->errorClass, $this->errorAttributes);
       
       if(is_string($this->errorTag)) { //|| !empty($errorAttributes)
-	// set tag
+        // set tag
         $errorTag = $this->errorTag;
-	// or uses standard tag
+        // or uses standard tag
         //else $errorTag = 'span';
                   
         $errorStartTag = '<'.$errorTag.$errorAttributes.'>';
         $errorEndTag = '</'.$errorTag.'>';
       }
     }
-    
+
     // ->> LOAD the pageContent ARRAY
     // -> checks if $page is an pageContent Array
     if(generalFunctions::isPageContentArray($page)) {
@@ -702,7 +708,6 @@ class feinduraBase {
     } else {
       // gets the category of the page
       $category = generalFunctions::getPageCategory($page);
-      
       // -> if not try to load the page
       if(!$pageContent = generalFunctions::readPage($page,$category)) {
         // if could not load throw ERROR

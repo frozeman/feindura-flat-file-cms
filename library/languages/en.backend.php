@@ -361,9 +361,8 @@ $langFile['form_cancel'] = 'Reset all input';
 */
 
 // ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
-$langFile['adminSetup_version'] = '<span class="logoname">fein<span>dura</span></span> version';
-$langFile['adminSetup_phpVersion'] = 'PHP version';
-$langFile['adminSetup_warning_phpversion'] = 'For full functionality of <span class="logoname">fein<span>dura</span></span> you need at least'; // PHP 4.3.0
+$langFile['ADMINSETUP_TEXT_VERSION'] = '<span class="logoname">fein<span>dura</span></span> version';
+$langFile['ADMINSETUP_TEXT_PHPVERSION'] = 'PHP version';
 $langFile['adminSetup_srvRootPath'] = 'Server-Root-Path';
 
 $langFile['adminSetup_error_title'] = 'Errors occured';

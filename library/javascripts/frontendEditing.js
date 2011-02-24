@@ -195,7 +195,8 @@
     
     if(instant) {
       logo.setStyle('top', '-55px');
-      $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
+      if($$('div.MooRTE.rtePageTop')[0] != null)
+        $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
       topBar.setStyle('top', '-55px');
       
       $(document.body).setStyle('padding-top','5px');
@@ -221,7 +222,8 @@
       new Request({ url: feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=true');
     
       logo.tween('top', '-55px');
-      $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
+      if($$('div.MooRTE.rtePageTop')[0] != null)
+        $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
       topBar.tween('top', '-55px');
       
       topBar.get('tween').chain(function() {
@@ -270,11 +272,14 @@
     });
     */
     
-    new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
-    $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
+    if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null) {
+      new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+      $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
+    }
     
     logo.tween('top', '0px');
-    $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
+    if($$('div.MooRTE.rtePageTop')[0] != null)
+      $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
     
     topBar.get('tween').chain(function() {
@@ -473,7 +478,8 @@
     });
                                           
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
-    new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+    if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null)
+      new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
     
     // -> deactivates frontend editing on start (when the session var is set)
     if(feindura_deactivateFrontendEditing == true)

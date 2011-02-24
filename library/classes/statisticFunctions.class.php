@@ -953,7 +953,7 @@ class statisticFunctions {
         $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
         
         // create href
-        if(substr(phpversion(),0,3) >= '5')
+        if(PHP_VERSION >= 5)
           $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
         else
           $tagsHref = urlencode(utf8_encode(html_entity_decode($tag['data'],ENT_QUOTES,'ISO-8859-15')));
@@ -1111,7 +1111,7 @@ class statisticFunctions {
       
       // hohlt die botliste aus der spiders.xml liste
       // wenn php version > 5
-      if(substr(phpversion(),0,1) >= 5) {      
+      if(PHP_VERSION >= 5) {      
         if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
           foreach($xml as $xmlData) {
               $bots[] = strtolower($xmlData['ident']);            
@@ -1302,7 +1302,7 @@ class statisticFunctions {
     
     // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
     // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
+    if(PHP_VERSION <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
       
     // doesnt save anything if visitor is a logged in user
@@ -1537,7 +1537,7 @@ class statisticFunctions {
     
     // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
     // if its an older php version, set the session var
-    if(phpversion() <= '4.1.0')
+    if(PHP_VERSION <= '4.1.0')
       $_SESSION = $HTTP_SESSION_VARS;
       
     // doesnt save anything if visitor is a logged in user
