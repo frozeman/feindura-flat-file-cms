@@ -280,13 +280,13 @@ function addSlashToPathsEnd($postData) {
 function createBasicFolders() {  
   // config folder
   if(!is_dir(dirname(__FILE__).'/../../config'))
-    mkdir(dirname(__FILE__).'/../../config',PERMISSIONS);    
+    mkdir(dirname(__FILE__).'/../../config',$adminConfig['permissions']);    
   // pages folder
   if(!is_dir(dirname(__FILE__).'/../../pages'))
-    mkdir(dirname(__FILE__).'/../../pages',PERMISSIONS);  
+    mkdir(dirname(__FILE__).'/../../pages',$adminConfig['permissions']);  
   // statistic folder
   if(!is_dir(dirname(__FILE__).'/../../statistic'))
-    mkdir(dirname(__FILE__).'/../../statistic',PERMISSIONS);
+    mkdir(dirname(__FILE__).'/../../statistic',$adminConfig['permissions']);
 }
 
 /**
@@ -573,7 +573,7 @@ function movePage($page, $fromCategory, $toCategory) {
   
   // create category folder if its not exist
   if(!empty($toCategory) && !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory))
-    mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory,PERMISSIONS);
+    mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory,$adminConfig['permissions'],true);
   
   // MOVE categories
   if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.$page.'.php',
@@ -637,7 +637,9 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'])."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".xssFilter::path($adminConfig['uploadPath'])."';\n");  
     fwrite($file,"\$adminConfig['websiteFilesPath'] = '".xssFilter::path($adminConfig['websiteFilesPath'])."';\n");
-    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n");
+    fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n\n");
+    
+    fwrite($file,"\$adminConfig['permissions'] =      ".$adminConfig['permissions'].";\n");
     fwrite($file,"\$adminConfig['timeZone'] =         '".$adminConfig['timeZone']."';\n"); 
     fwrite($file,"\$adminConfig['dateFormat'] =       '".$adminConfig['dateFormat']."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".$adminConfig['speakingUrl'].";\n\n");
@@ -1046,7 +1048,7 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
   // ->> throw error
   } elseif($save) {
     $_POST['cfg_speakingUrl'] = '';
-    $errorWindow .= $GLOBALS['langFile']['adminSetup_fmsSettings_speakingUrl_error_save'];
+    $errorWindow .= $GLOBALS['langFile']['ADMINSETUP_GENERAL_speakingUrl_error_save'];
   }
   
   return;

@@ -103,7 +103,7 @@ if($_POST['upload']) {
     // ---------------- ERROR
     // checks if the upload Dir exists
     if(!@is_dir(DOCUMENTROOT.$uploadPath))
-      if(!@mkdir(DOCUMENTROOT.$uploadPath, PERMISSIONS))
+      if(!@mkdir(DOCUMENTROOT.$uploadPath, $adminConfig['permissions'],true))
         $error[] = $langFile['PAGETHUMBNAIL_ERROR_nodir_part1'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'];
     
     
@@ -141,7 +141,7 @@ if($_POST['upload']) {
           // sets the rights of the file
         	if(is_file(DOCUMENTROOT.$filePath))	{
         		$oldumask = umask(0);
-        		@chmod( $filePath, PERMISSIONS);
+        		@chmod( $filePath, $adminConfig['permissions']);
         		umask($oldumask);
         	}  	
         	 

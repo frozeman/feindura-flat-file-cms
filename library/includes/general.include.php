@@ -37,14 +37,6 @@ define('REQUIREDPHPVERSION','5.1.0');
  */ 
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
 
-/**
- * The permissions set to files and folders created by feindura
- * 
- * format: 0755
- */ 
-define('PERMISSIONS', 0755);
-
-
 $phpTags = file(dirname(__FILE__)."/../processes/phptags");
 /**
  * The php start tag for us in saveing functions
@@ -66,6 +58,7 @@ define('PHPENDTAG',"\n".$phpTags[1]);
 if(!$adminConfig =      @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig =      array();
 $GLOBALS['adminConfig'];
+if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
 
 /**
  * The user-settings config

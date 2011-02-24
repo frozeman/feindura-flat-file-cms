@@ -31,7 +31,7 @@ if(isset($_GET['downloadBackup'])) {
   $checkFolder = $adminConfig['basePath'].'backups/';  
   // try to create folder
   if(!is_dir(DOCUMENTROOT.$checkFolder))
-    mkdir(DOCUMENTROOT.$checkFolder,PERMISSIONS); 
+    mkdir(DOCUMENTROOT.$checkFolder,$adminConfig['permissions']); 
   $unwriteableList .= isWritableWarning($checkFolder);
   
   // ->> create archive
@@ -121,14 +121,14 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       // -> extract CONFIG
       if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
                            PCLZIP_OPT_BY_PREG, '#([a-z]+\.config\.php$)|(htmlEditorStyles\.js$)#',
-                           PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
+                           PCLZIP_OPT_SET_CHMOD, $adminConfig['permissions'],
                            PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
         $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
       }
       // -> extract STATISTICS
       if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
                            PCLZIP_OPT_BY_PREG, '#([a-z]+\.statistic\.[a-z]+)#',
-                           PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
+                           PCLZIP_OPT_SET_CHMOD, $adminConfig['permissions'],
                            PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
         $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
       }
@@ -139,7 +139,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
         // -> extract PAGES
         if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
                              PCLZIP_OPT_BY_PREG, '#\d+\.php$#',
-                             PCLZIP_OPT_SET_CHMOD, PERMISSIONS,
+                             PCLZIP_OPT_SET_CHMOD, $adminConfig['permissions'],
                              PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
           $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
         }

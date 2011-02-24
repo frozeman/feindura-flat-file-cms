@@ -25,6 +25,9 @@
  */
 require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
+if(!$adminConfig['user']['fileManager'])
+  die('MooTools FileManager deactivated');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,6 +93,3 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 <body>
 </body>
 </html>
-
-<!-- FILEMANAGER IFRAME
-<iframe id="fileManagerFrame" name="fileManagerFrame" scrolling="no" src="library/thirdparty/filemanager/index.php?langCode=<?php echo $_SESSION["language"]; ?>"></iframe>-->

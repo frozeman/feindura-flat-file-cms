@@ -57,7 +57,7 @@ if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.
 
 // DELETING PROCESS
 if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
-  @chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page, PERMISSIONS);
+  @chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page, $adminConfig['permissions']);
 
     // DELETING THUMBNAIL
     if(@unlink(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {

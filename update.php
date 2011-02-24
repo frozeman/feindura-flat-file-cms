@@ -38,7 +38,7 @@ $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.1 beta2';
+$newVersion = '1.1 beta3';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -106,7 +106,14 @@ $newVersion = '1.1 beta2';
   
 </head>
 <body>
-
+  
+  <?PHP
+  // ->> CHECK PHP VERSION
+  // *********************
+  if(PHP_VERSION < REQUIREDPHPVERSION)
+    die('You have the wrong PHP version for feindura '.$newVersion.'. You need at least PHP version'.REQUIREDPHPVERSION);
+  ?>
+  
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
   <?= $oldVersion ?> &rArr; <?= $newVersion ?><br />
   <br />
@@ -192,7 +199,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     
     function copyDir($source,$target,&$copyError) {
         if ( is_dir( $source ) ) {
-            @mkdir( $target );
+            @mkdir( $target,$adminConfig['permissions'],true);
           
             $d = dir( $source );
           

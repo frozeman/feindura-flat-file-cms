@@ -81,6 +81,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
   $adminConfig['websiteFilesPath'] = $_POST['cfg_websiteFilesPath'];
   $adminConfig['stylesheetPath'] = $_POST['cfg_stylesheetPath'];
+  
+  $adminConfig['permissions'] = $_POST['cfg_permissions'];
   $adminConfig['timeZone'] = $_POST['cfg_timeZone'];
   $adminConfig['dateFormat'] = $_POST['cfg_dateFormat'];
   $adminConfig['speakingUrl'] = $_POST['cfg_speakingUrl'];
@@ -120,7 +122,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     statisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow .= $langFile['adminSetup_fmsSettings_error_save'];
+    $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
   
   $savedForm = $_POST['savedBlock'];
 

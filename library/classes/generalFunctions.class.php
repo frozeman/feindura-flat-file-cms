@@ -629,7 +629,7 @@ class generalFunctions {
     
     // check if category folder exists
     if($categoryId != 0 && !is_dir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId))
-      @mkdir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId);
+      @mkdir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId,$adminConfig['permissions'],true);
     
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
@@ -711,7 +711,7 @@ class generalFunctions {
       flock($file,3);
       fclose($file);
       
-      @chmod($filePath, PERMISSIONS);
+      @chmod($filePath, $adminConfig['permissions']);
       
       // writes the new saved page to the $storedPages property      
       self::removeStoredPage($pageContent['id']); // remove the old one

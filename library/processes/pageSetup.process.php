@@ -62,7 +62,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     statisticFunctions::saveTaskLog(14); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow .= $langFile['adminSetup_fmsSettings_error_save'];
+    $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
   
   $savedForm = $_POST['savedBlock'];
 }
@@ -89,7 +89,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       $isDir = true;
     } else {
       // creates a new category folder
-      if(!@mkdir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, PERMISSIONS)) {
+      if(!@mkdir(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$newId, $adminConfig['permissions'],true)) {
           $isDir = false;
           $errorWindow .= $langFile['pageSetup_error_createDir'];      
       // save category dir could be created
@@ -139,7 +139,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
         // deletes possible thumbnails before deleting the category
         foreach($pageContents as $page) {
           if(!empty($page['thumbnail']) && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'])) {
-            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], PERMISSIONS);          
+            @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail'], $adminConfig['permissions']);          
             // DELETING    
             @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$page['thumbnail']);
           }

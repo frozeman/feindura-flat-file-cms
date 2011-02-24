@@ -336,54 +336,56 @@ $langFile['ADMINSETUP_TEXT_VERSION'] = '<span class="logoname">fein<span>dura</s
 $langFile['ADMINSETUP_TEXT_PHPVERSION'] = 'PHP Version';
 $langFile['adminSetup_srvRootPath'] = 'trace Server-Root';
 $langFile['adminSetup_error_title'] = 'des erreurs se sont produites';
-$langFile['adminSetup_error_writeAccess_tip'] = 'pour les fichiers et les donn&eacute;es les droits de lecture doivent &ecirc;tre mis sur '.decoct(PERMISSIONS).'.';
+$langFile['adminSetup_error_writeAccess_tip'] = 'pour les fichiers et les donn&eacute;es les droits de lecture doivent &ecirc;tre mis sur '.decoct($adminConfig['permissions']).'.';
 $langFile['adminSetup_error_writeAccess'] = 'n\'est pas descriptible';
 $langFile['adminSetup_error_isFolder'] = 'n\'est pas un dossier';
 
-// ---------- FMS Settings
-$langFile['adminSetup_fmsSettings_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/admin.config.php';
-$langFile['adminSetup_fmsSettings_h1'] = 'configuration de base';
+// ---------- general Settings
+$langFile['ADMINSETUP_GENERAL_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/admin.config.php';
+$langFile['ADMINSETUP_GENERAL_h1'] = 'configuration de base';
 
-$langFile['adminSetup_fmsSettings_field1'] = 'URL site web';
-$langFile['adminSetup_fmsSettings_field1_tip'] = 'l\'URL de votre site web sera mise automatiquement.';
-$langFile['adminSetup_fmsSettings_field1_inputTip'] = 'l\'URL sera mise automatiquement';
-$langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Svp sauvegardez la configuration!';
-$langFile['adminSetup_fmsSettings_field2'] = 'trace du feindura';
-$langFile['adminSetup_fmsSettings_field2_tip'] = 'la trace principale sera estim&eacute; automatiquement et sauvegard&eacute; avec la configuration.';
-$langFile['adminSetup_fmsSettings_field2_inputTip'] = 'la trace principale sera mise automatiquement';
-$langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Svp sauvegardez la configuration!';
-$langFile['adminSetup_fmsSettings_field8'] = 'trace du site web';
-$langFile['adminSetup_fmsSettings_field8_tip'] = 'le [b]trace absolue[/b], contenant les site web.';
-$langFile['adminSetup_fmsSettings_field4'] = 'trace upload';
-$langFile['adminSetup_fmsSettings_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont &ecirc;tre t&eacute;l&eacute;charg&eacute;s.[br /][br /][span class=hint]pour ins&eacute;rer des fichiers, cliquez dans le HTML-Editor ins&eacute;rer lien > upload transf&eacute;r&eacute; ou dans le gestionnaire de fichiers.[/span]';
-$langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]ces fichiers peuvent &ecirc;tre r&eacute;dig&eacute;s plus bas ou dans le param&egrave;trages du site web (si cette option est activ&eacute; pour le site web).[br /][br /]';
-$langFile['adminSetup_fmsSettings_field5'] = 'trace du dossier du site web';
-$langFile['adminSetup_fmsSettings_field5_tip'] = 'un dossier contenant des fichiers. ces fichiers peuvent par ex. &ecirc;tre utilis&eacute;s pour avoir une version multilinguale du site web.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
-$langFile['adminSetup_fmsSettings_field6'] = 'trace des feuilles de style';
-$langFile['adminSetup_fmsSettings_field6_tip'] = 'une trace absolue [b]trace absolue[/b] contenat les feuilles de style qui peuvent &ecirc;tre r&eacute;dig&eacute;s par ex. par les utilisateurs.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
-$langFile['adminSetup_fmsSettings_varName_ifempty'] = 'si le panneua est vide, le nom standard des variables GET sera utilis&eacute;: ';
-$langFile['adminSetup_fmsSettings_varName1'] = 'page nom des variables';
-$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]page[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName2'] = 'cat&eacute;gories nom des variables';
-$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]category[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName3'] = 'module nom des variables';
-$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName_tip'] = 'le nom des variables [b]$_GET Variable[/b] utilis&eacute; pour le r&eacute;f&eacute;rencement du site web.';
-$langFile['adminSetup_fmsSettings_field7'] = 'format de date';
-$langFile['adminSetup_fmsSettings_field7_tip'] = 'Sera [span class=logoname]fein[span]dura[/span][/span] et le site web.[br /]mettre:[br /]DIN 5008 ('.$langFile['DATE_EU'].') ou[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field1'] = 'URL site web';
+$langFile['ADMINSETUP_GENERAL_field1_tip'] = 'l\'URL de votre site web sera mise automatiquement.';
+$langFile['ADMINSETUP_GENERAL_field1_inputTip'] = 'l\'URL sera mise automatiquement';
+$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'] = 'Svp sauvegardez la configuration!';
+$langFile['ADMINSETUP_GENERAL_field2'] = 'trace du feindura';
+$langFile['ADMINSETUP_GENERAL_field2_tip'] = 'la trace principale sera estim&eacute; automatiquement et sauvegard&eacute; avec la configuration.';
+$langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'la trace principale sera mise automatiquement';
+$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Svp sauvegardez la configuration!';
+$langFile['ADMINSETUP_GENERAL_field8'] = 'trace du site web';
+$langFile['ADMINSETUP_GENERAL_field8_tip'] = 'le [b]trace absolue[/b], contenant les site web.';
+$langFile['ADMINSETUP_GENERAL_field4'] = 'trace upload';
+$langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont &ecirc;tre t&eacute;l&eacute;charg&eacute;s.[br /][br /][span class=hint]pour ins&eacute;rer des fichiers, cliquez dans le HTML-Editor ins&eacute;rer lien > upload transf&eacute;r&eacute; ou dans le gestionnaire de fichiers.[/span]';
+$langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]ces fichiers peuvent &ecirc;tre r&eacute;dig&eacute;s plus bas ou dans le param&egrave;trages du site web (si cette option est activ&eacute; pour le site web).[br /][br /]';
+$langFile['ADMINSETUP_GENERAL_field5'] = 'trace du dossier du site web';
+$langFile['ADMINSETUP_GENERAL_field5_tip'] = 'un dossier contenant des fichiers. ces fichiers peuvent par ex. &ecirc;tre utilis&eacute;s pour avoir une version multilinguale du site web.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6'] = 'trace des feuilles de style';
+$langFile['ADMINSETUP_GENERAL_field6_tip'] = 'une trace absolue [b]trace absolue[/b] contenat les feuilles de style qui peuvent &ecirc;tre r&eacute;dig&eacute;s par ex. par les utilisateurs.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] = 'autorisations des fichiers et des r&eacute;pertoires';
+$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Chaque fichier ou un dossier cr&eacute;&eacute; par [span class=logoname]fein[span]dura[/span][/span] obtiendrez ces autorisations.';
+$langFile['ADMINSETUP_GENERAL_varName_ifempty'] = 'si le panneua est vide, le nom standard des variables GET sera utilis&eacute;: ';
+$langFile['ADMINSETUP_GENERAL_varName1'] = 'page nom des variables';
+$langFile['ADMINSETUP_GENERAL_varName1_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]page[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName2'] = 'cat&eacute;gories nom des variables';
+$langFile['ADMINSETUP_GENERAL_varName2_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]category[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName3'] = 'module nom des variables';
+$langFile['ADMINSETUP_GENERAL_varName3_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName_tip'] = 'le nom des variables [b]$_GET Variable[/b] utilis&eacute; pour le r&eacute;f&eacute;rencement du site web.';
+$langFile['ADMINSETUP_GENERAL_field7'] = 'format de date';
+$langFile['ADMINSETUP_GENERAL_field7_tip'] = 'Sera [span class=logoname]fein[span]dura[/span][/span] et le site web.[br /]mettre:[br /]DIN 5008 ('.$langFile['DATE_EU'].') ou[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
 $langFile['ADMINSETUP_TEXT_TIMEZONE'] = 'heure locale';
 $langFile['ADMINSETUP_TIP_TIMEZONE'] = 'Ne seront utilis&eacute;es que par les [span class=logoname]fein[span]dura[/span][/span] backend.';
-$langFile['adminSetup_fmsSettings_speakingUrl'] = 'format URL';
-$langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'speaking URLs';
-$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/par_exemple_categorie/par_exemple.html';
-$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URL avec variables';
-$langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&'.$adminConfig['varName']['page'].'=1';
-$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'le format de d\'URL pour le r&eacute;f&eacute;rencement du site web.[br /][br /]Speaking URLs fonctionnent seulement si [b]Apache[/b] le [b]mod_rewrite[/b] module est disponible.';
-$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'Attention!::[span class=red]Si des erreurs se produisent pendant l\'utilisation des speaking URLs, le fichier [b].htaccess[/b] dans la trace documentaire root du serveur doit &ecirc;tre &eacute;ffac&eacute;.[/span][br /][br /](dans certains logiciels FTP les fichiers cach&eacute;s doivent &ecirc;tre indiqu&eacute;s pour montrer le fichier .htaccess)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl'] = 'format URL';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true'] = 'speaking URLs';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'] = '/category/par_exemple_categorie/par_exemple.html';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_false'] = 'URL avec variables';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&'.$adminConfig['varName']['page'].'=1';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] = 'le format de d\'URL pour le r&eacute;f&eacute;rencement du site web.[br /][br /]Speaking URLs fonctionnent seulement si [b]Apache[/b] le [b]mod_rewrite[/b] module est disponible.';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] = 'Attention!::[span class=red]Si des erreurs se produisent pendant l\'utilisation des speaking URLs, le fichier [b].htaccess[/b] dans la trace documentaire root du serveur doit &ecirc;tre &eacute;ffac&eacute;.[/span][br /][br /](dans certains logiciels FTP les fichiers cach&eacute;s doivent &ecirc;tre indiqu&eacute;s pour montrer le fichier .htaccess)';
 
 // ---------- speaking url ERRORs
-$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> ne pouvaient pas &ecirc;tre activ&eacute;s'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['adminSetup_fmsSettings_speakingUrl_error_modul'] = '<b>Speaking URLs</b> ne pouvait pas &ecirc;tre activ&eacute; &agrave; cause du module Apache: MOD_REWRITE peut pas &ecirc;tre trouv&eacute;';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_error_save'] = '<b>Speaking URLs</b> ne pouvaient pas &ecirc;tre activ&eacute;s'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul'] = '<b>Speaking URLs</b> ne pouvait pas &ecirc;tre activ&eacute; &agrave; cause du module Apache: MOD_REWRITE peut pas &ecirc;tre trouv&eacute;';
 
 // ---------- user Settings
 $langFile['adminSetup_userSettings_h1'] = 'pr&eacute;f&eacute;rences utilisateur';

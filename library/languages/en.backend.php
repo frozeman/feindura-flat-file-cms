@@ -366,56 +366,58 @@ $langFile['ADMINSETUP_TEXT_PHPVERSION'] = 'PHP version';
 $langFile['adminSetup_srvRootPath'] = 'Server-Root-Path';
 
 $langFile['adminSetup_error_title'] = 'Errors occured';
-$langFile['adminSetup_error_writeAccess_tip'] = 'For files and directories have need to set the permissions to '.decoct(PERMISSIONS).'.';
+$langFile['adminSetup_error_writeAccess_tip'] = 'For files and directories have need to set the permissions to '.decoct($adminConfig['permissions']).'.';
 
 $langFile['adminSetup_error_writeAccess'] = 'is not writeable';
 $langFile['adminSetup_error_isFolder'] = 'is not a directory';
 
-// ---------- FMS Settings
-$langFile['adminSetup_fmsSettings_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/admin.config.php';
+// ---------- general Settings
+$langFile['ADMINSETUP_GENERAL_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/admin.config.php';
 
-$langFile['adminSetup_fmsSettings_h1'] = 'Basic-Settings';
+$langFile['ADMINSETUP_GENERAL_h1'] = 'Basic-Settings';
 
-$langFile['adminSetup_fmsSettings_field1'] = 'Website URL';
-$langFile['adminSetup_fmsSettings_field1_tip'] = 'The URL of your website will be added automatically.';
-$langFile['adminSetup_fmsSettings_field1_inputTip'] = 'The URL will be added automatically';
-$langFile['adminSetup_fmsSettings_field1_inputWarningText'] = 'Please save the settings!';
-$langFile['adminSetup_fmsSettings_field2'] = 'feindura path';
-$langFile['adminSetup_fmsSettings_field2_tip'] = 'The base path will be determined automatically and saved, the first time the settings are saved.';
-$langFile['adminSetup_fmsSettings_field2_inputTip'] = 'The path will be added automatically';
-$langFile['adminSetup_fmsSettings_field2_inputWarningText'] = 'Please save the settings!';
-$langFile['adminSetup_fmsSettings_field8'] = 'Website path';
-$langFile['adminSetup_fmsSettings_field8_tip'] = 'The [b]absolute path[/b] where the website is situated.';
-$langFile['adminSetup_fmsSettings_field4'] = 'Upload path';
-$langFile['adminSetup_fmsSettings_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor or in the file manager.[/span]';
-$langFile['adminSetup_fmsSettings_editfiles_additonal'] = '[br /][br /]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
-$langFile['adminSetup_fmsSettings_field5'] = 'File path for website files';
-$langFile['adminSetup_fmsSettings_field5_tip'] = 'A folder with files which are used by the website. E.g to make a website multi-language.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
-$langFile['adminSetup_fmsSettings_field6'] = 'File path for stylesheets';
-$langFile['adminSetup_fmsSettings_field6_tip'] = 'A [b]absolute path[/b] where stylesheet files are. E.g. which can be edited by the user.'.$langFile['adminSetup_fmsSettings_editfiles_additonal'];
-$langFile['adminSetup_fmsSettings_varName_ifempty'] = 'If the field is empty the standard name for the GET-Variablen will be used: ';
-$langFile['adminSetup_fmsSettings_varName1'] = 'Page variable name';
-$langFile['adminSetup_fmsSettings_varName1_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]page[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName2'] = 'Category variable name';
-$langFile['adminSetup_fmsSettings_varName2_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]category[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName3'] = 'Modul variable name';
-$langFile['adminSetup_fmsSettings_varName3_inputTip'] = $langFile['adminSetup_fmsSettings_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
-$langFile['adminSetup_fmsSettings_varName_tip'] = 'The name of the [b]$_GET Variable[/b] which will be used to link the pages.';
-$langFile['adminSetup_fmsSettings_field7'] = 'Date format';
-$langFile['adminSetup_fmsSettings_field7_tip'] = 'Will be used in [span class=logoname]fein[span]dura[/span][/span] and the website.[br /]Can be:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field1'] = 'Website URL';
+$langFile['ADMINSETUP_GENERAL_field1_tip'] = 'The URL of your website will be added automatically.';
+$langFile['ADMINSETUP_GENERAL_field1_inputTip'] = 'The URL will be added automatically';
+$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'] = 'Please save the settings!';
+$langFile['ADMINSETUP_GENERAL_field2'] = 'feindura path';
+$langFile['ADMINSETUP_GENERAL_field2_tip'] = 'The base path will be determined automatically and saved, the first time the settings are saved.';
+$langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'The path will be added automatically';
+$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Please save the settings!';
+$langFile['ADMINSETUP_GENERAL_field8'] = 'Website path';
+$langFile['ADMINSETUP_GENERAL_field8_tip'] = 'The [b]absolute path[/b] where the website is situated.';
+$langFile['ADMINSETUP_GENERAL_field4'] = 'Upload path';
+$langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor or in the file manager.[/span]';
+$langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
+$langFile['ADMINSETUP_GENERAL_field5'] = 'File path for website files';
+$langFile['ADMINSETUP_GENERAL_field5_tip'] = 'A folder with files which are used by the website. E.g to make a website multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6'] = 'File path for stylesheets';
+$langFile['ADMINSETUP_GENERAL_field6_tip'] = 'A [b]absolute path[/b] where stylesheet files are. E.g. which can be edited by the user.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] = 'Permissions for files and folders';
+$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Every file or folder created by [span class=logoname]fein[span]dura[/span][/span] will get these permissions.';
+$langFile['ADMINSETUP_GENERAL_varName_ifempty'] = 'If the field is empty the standard name for the GET-Variablen will be used: ';
+$langFile['ADMINSETUP_GENERAL_varName1'] = 'Page variable name';
+$langFile['ADMINSETUP_GENERAL_varName1_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]page[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName2'] = 'Category variable name';
+$langFile['ADMINSETUP_GENERAL_varName2_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]category[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName3'] = 'Modul variable name';
+$langFile['ADMINSETUP_GENERAL_varName3_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
+$langFile['ADMINSETUP_GENERAL_varName_tip'] = 'The name of the [b]$_GET Variable[/b] which will be used to link the pages.';
+$langFile['ADMINSETUP_GENERAL_field7'] = 'Date format';
+$langFile['ADMINSETUP_GENERAL_field7_tip'] = 'Will be used in [span class=logoname]fein[span]dura[/span][/span] and the website.[br /]Can be:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
 $langFile['ADMINSETUP_TEXT_TIMEZONE'] = 'Time zone';
 $langFile['ADMINSETUP_TIP_TIMEZONE'] = 'Will only be used by the [span class=logoname]fein[span]dura[/span][/span] Backend.';
-$langFile['adminSetup_fmsSettings_speakingUrl'] = 'URL format';
-$langFile['adminSetup_fmsSettings_speakingUrl_true'] = 'Speaking URLs';
-$langFile['adminSetup_fmsSettings_speakingUrl_true_example'] = '/category/example_category/example.html';
-$langFile['adminSetup_fmsSettings_speakingUrl_false'] = 'URLs with variables';
-$langFile['adminSetup_fmsSettings_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
-$langFile['adminSetup_fmsSettings_speakingUrl_tip'] = 'The URL format, which will be used to link the pages.[br /][br /]Speaking URLs work only if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
-$langFile['adminSetup_fmsSettings_speakingUrl_warning'] = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br /][br /](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl'] = 'URL format';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true'] = 'Speaking URLs';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'] = '/category/example_category/example.html';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_false'] = 'URLs with variables';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] = 'The URL format, which will be used to link the pages.[br /][br /]Speaking URLs work only if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br /][br /](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
 // ---------- speaking url ERRORs
-$langFile['adminSetup_fmsSettings_speakingUrl_error_save'] = '<b>Speaking URLs</b> could not be activated'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
-$langFile['adminSetup_fmsSettings_speakingUrl_error_modul'] = '<b>Speaking URLs</b> could not be activated, because the Apache MOD_REWRITE modul could not be found';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_error_save'] = '<b>Speaking URLs</b> could not be activated'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul'] = '<b>Speaking URLs</b> could not be activated, because the Apache MOD_REWRITE modul could not be found';
 
 
 // ---------- user Settings

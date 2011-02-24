@@ -742,37 +742,37 @@ window.addEvent('domready', function() {
   // ------------------------------------------------------------
   // makes inputs who are empty small, and resize it on mouseover
   if($$('.right input') != null) {
-        var smallSize = '50';
+        //var smallSize = 50;
+        var fade = 0.6;
         
         $$('.right input').each(function(input) {
-            
             // looks for empty inputs
             if(!input.hasClass('noResize') && (input.get('value') == '' || input.get('disabled') != false)) {
                 
                 var hasFocus = false;
                 var hasContent = false;
                 
-                var inputWidthBefore = input.getStyle('width');
-                input.setStyle('width', smallSize + 'px'); //makes the input small
+                var inputWidthBefore = input.getStyle('opacity');
+                input.setStyle('opacity', fade); //makes the input small
                 
                 input.set('tween',{duration: '500', transition: Fx.Transitions.Sine.easeOut}) //Bounce.easeOut
                 
                 input.addEvents({
                   'mouseover' : function() { // resize on mouseover
-                      input.tween('width',inputWidthBefore);
+                      input.tween('opacity',inputWidthBefore);
                   },
                   'focus' : function(){ // if onfocus set hasFocus = true
                       hasFocus = true;
-                      input.tween('width',inputWidthBefore);
+                      input.tween('opacity',inputWidthBefore);
                   },
                   'blur' : function() { // if onblur set hasFocus = false and tween to small if the input has still no content
                       hasFocus = false;
                       if(input.get('value') == '')
-                        input.tween('width',smallSize + 'px');
+                        input.tween('opacity',fade);
                   },
                   'mouseout' : function() { // onmouseout, if has not focus tween to small
                       if(!hasFocus && input.get('value') == '')
-                        input.tween('width',smallSize + 'px');
+                        input.tween('opacity',fade);
                   }
                 });
             }

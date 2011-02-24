@@ -22,12 +22,15 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
+if(!$adminConfig['user']['fileManager'])
+  die('MooTools FileManager deactivated');
+
 require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManager.php');
 
 $browser = new FileManager(array(
   'directory' => DOCUMENTROOT.$adminConfig['uploadPath'],
   'thumbnailPath' => DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],
   'assetBasePath' => dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets',
-  'chmod' => 0755
+  'chmod' => $adminConfig['permissions']
 ));
 $browser->fireEvent(!empty($_GET['event']) ? $_GET['event'] : null);

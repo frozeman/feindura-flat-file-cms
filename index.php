@@ -299,6 +299,12 @@ if($_GET['site'] == 'addons') {
             <?php
             $showSpacer = false;
             
+            // editPage
+            if($showEditPage) { ?>
+              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
+            <?php
+              $showSpacer = true;
+            }
             // create new page
             if($showCreatePage) { ?>
               <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::">&nbsp;</a></li>
@@ -307,12 +313,6 @@ if($_GET['site'] == 'addons') {
             if($showDeletePage) { ?>
               <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
             <?php }          
-              $showSpacer = true;
-            }
-            // editPage
-            if($showEditPage) { ?>
-              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
-            <?php
               $showSpacer = true;
             }
             
@@ -341,7 +341,6 @@ if($_GET['site'] == 'addons') {
             
             // file manager
             if($adminConfig['user']['fileManager']) { ?>
-              <!--onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>',true);return:false;"-->
               <li><a href="?site=fileManager" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
             <?php
               $showSpacer = true;
@@ -380,7 +379,13 @@ if($_GET['site'] == 'addons') {
         <ul class="horizontalButtons">
           <?php
           $showSpacer = false;
-
+          
+          // editPage
+          if($showEditPage) { ?>
+            <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip"><span><?php echo $langFile['BUTTON_FRONTENDEDITPAGE']; ?></span></a></li>
+          <?php
+          $showSpacer = true;
+          }
           // create new page
           if($showCreatePage) { ?>
             <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::"><span><?php echo $langFile['BUTTON_CREATEPAGE']; ?></span></a></li>
@@ -390,13 +395,7 @@ if($_GET['site'] == 'addons') {
             <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip"><span><?php echo $langFile['BUTTON_DELETEPAGE']; ?></span></a></li>
           <?php }
           $showSpacer = true;
-          }
-          // editPage
-          if($showEditPage) { ?>
-            <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip"><span><?php echo $langFile['BUTTON_FRONTENDEDITPAGE']; ?></span></a></li>
-          <?php
-          $showSpacer = true;
-          }          
+          }   
           
           if($showSpacer && $showPageThumbnailUpload) { ?>
             <li class="spacer">&nbsp;</li>
@@ -424,7 +423,7 @@ if($_GET['site'] == 'addons') {
           
           // file manager
           if($adminConfig['user']['fileManager']) { ?>
-            <li><a href="?site=fileManager" onclick="openWindowBox('library/sites/windowBox/fileManager.php','<?php echo $langFile['BUTTON_FILEMANAGER']; ?>');return false;" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::"><span><?php echo $langFile['BUTTON_FILEMANAGER']; ?></span></a></li>
+            <li><a href="?site=fileManager" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::"><span><?php echo $langFile['BUTTON_FILEMANAGER']; ?></span></a></li>
           <?php
             $showSpacer = true;
           }         
@@ -474,7 +473,6 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
-  <!--<script type="text/javascript" src="library/javascripts/filemanager.js"></script>-->
   <?php } ?>
  
   <!-- javascripts -->
