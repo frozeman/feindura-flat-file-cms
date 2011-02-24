@@ -280,13 +280,13 @@ function addSlashToPathsEnd($postData) {
 function createBasicFolders() {  
   // config folder
   if(!is_dir(dirname(__FILE__).'/../../config'))
-    mkdir(dirname(__FILE__).'/../../config',$adminConfig['permissions']);    
+    mkdir(dirname(__FILE__).'/../../config',$GLOBALS['adminConfig']['permissions']);    
   // pages folder
   if(!is_dir(dirname(__FILE__).'/../../pages'))
-    mkdir(dirname(__FILE__).'/../../pages',$adminConfig['permissions']);  
+    mkdir(dirname(__FILE__).'/../../pages',$GLOBALS['adminConfig']['permissions']);  
   // statistic folder
   if(!is_dir(dirname(__FILE__).'/../../statistic'))
-    mkdir(dirname(__FILE__).'/../../statistic',$adminConfig['permissions']);
+    mkdir(dirname(__FILE__).'/../../statistic',$GLOBALS['adminConfig']['permissions']);
 }
 
 /**
@@ -573,7 +573,7 @@ function movePage($page, $fromCategory, $toCategory) {
   
   // create category folder if its not exist
   if(!empty($toCategory) && !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory))
-    mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory,$adminConfig['permissions'],true);
+    mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory,$GLOBALS['adminConfig']['permissions'],true);
   
   // MOVE categories
   if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.$page.'.php',

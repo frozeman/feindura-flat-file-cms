@@ -501,13 +501,13 @@ if($_GET['site'] == 'addons') {
         onShow: function() {
             $('dimmContainer').setStyle('opacity',0);
             $('dimmContainer').setStyle('display','block');
-            $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
             $('dimmContainer').tween('opacity',0.5);
             $('dimmContainer').addEvent('click',hideFileManager.bind(this));
           },
         onHide: function() {
             $('dimmContainer').removeEvent('click',hideFileManager);
-            $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
             $('dimmContainer').tween('opacity',0);
             $('dimmContainer').get('tween').chain(function() {
               $('dimmContainer').setStyle('display','none');

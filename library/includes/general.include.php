@@ -57,8 +57,8 @@ define('PHPENDTAG',"\n".$phpTags[1]);
  */
 if(!$adminConfig =      @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig =      array();
-$GLOBALS['adminConfig'];
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
+$GLOBALS['adminConfig'];
 
 /**
  * The user-settings config

@@ -199,7 +199,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     
     function copyDir($source,$target,&$copyError) {
         if ( is_dir( $source ) ) {
-            @mkdir( $target,$adminConfig['permissions'],true);
+            @mkdir( $target,$GLOBALS['adminConfig']['permissions'],true);
           
             $d = dir( $source );
           
