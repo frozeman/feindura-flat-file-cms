@@ -1255,7 +1255,7 @@ class statisticFunctions {
           $returnVisitors[] = $returnVisitor;
       }
     }    
-    return $returnVisitors; 
+    return $returnVisitors;
   }
   
  /**

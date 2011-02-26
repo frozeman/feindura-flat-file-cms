@@ -128,46 +128,48 @@ if(!empty($adminConfig['user']['info'])) {
     
     // ---------------------------------
     // -> CURRENT VISITORS
-    echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';    
-      echo '<div class="innerBlockListPages">
-            <table class="coloredList">';
-      
-      /*
-       * uses GeoIPLite
-       * 
-       * @link http://geolite.maxmind.com/download/geoip/api/php/
-       * @link http://geolite.maxmind.com/download/geoip/database/
-       */
-      
-      include(dirname(__FILE__).'/../thirdparty/GeoIP/geoip.inc');
-      
-      // open geodates
-      $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
-      
-      $count = 1;      
-      foreach($currentVisitors as $currentVisitor) {
-        if($currentVisitor['ip'] == '::1') continue;
-        $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
-        $geoIPFlag = (!empty($geoIPCode))
-          ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
-          : '';
-        if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
-          echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>';
+    if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
+      echo '<div class="innerBlockRight">';    
+      echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';    
+        echo '<div class="innerBlockListPages">
+              <table class="coloredList">';
         
-        // change row color
-        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
-        // count
-        if($count == $statisticConfig['number']['longestVisitedPages']) break;
-        else $count++;
-      }
-      
-      // close geodates
-      geoip_close($geoIP);
-      
-      echo '</table>
-            </div>';                           
-    echo '</div>';
+        /*
+         * uses GeoIPLite
+         * 
+         * @link http://geolite.maxmind.com/download/geoip/api/php/
+         * @link http://geolite.maxmind.com/download/geoip/database/
+         */
+        
+        include(dirname(__FILE__).'/../thirdparty/GeoIP/geoip.inc');
+        
+        // open geodates
+        $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
+        
+        $count = 1;      
+        foreach($currentVisitors as $currentVisitor) {
+          if($currentVisitor['ip'] == '::1') continue;
+          $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
+          $geoIPFlag = (!empty($geoIPCode))
+            ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
+            : '';
+          if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
+            echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>';
+          
+          // change row color
+          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
+          // count
+          if($count == $statisticConfig['number']['longestVisitedPages']) break;
+          else $count++;
+        }
+        
+        // close geodates
+        geoip_close($geoIP);
+        
+        echo '</table>
+              </div>';                           
+      echo '</div>';
+    }
     
     echo '<br style="clear:both;" /><br />';
     
