@@ -147,12 +147,11 @@ if(!empty($adminConfig['user']['info'])) {
       
       $count = 1;      
       foreach($currentVisitors as $currentVisitor) {
-
+        if($currentVisitor['ip'] == '::1') continue;
         $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
         $geoIPFlag = (!empty($geoIPCode))
           ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
           : '';
-                
         if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
           echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>';
         
