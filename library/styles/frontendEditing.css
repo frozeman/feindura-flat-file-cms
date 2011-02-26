@@ -23,7 +23,6 @@
 }
 
 a.logout, a.toWebsite {
-    z-index: 2;
     display: inline;
     position: static;
     top: auto;
@@ -40,7 +39,7 @@ a.logout:hover, a.toWebsite:hover {
 /* TOP BAR */
 
 #feindura_topBar {
-  z-index: 1;
+  z-index: 1000;
   position: fixed;
   left: 0px;
   top: 0px;
@@ -55,7 +54,7 @@ a.logout:hover, a.toWebsite:hover {
 }
 
 #feindura_logo {
-  z-index: 3;
+  z-index: 1002;
   position: fixed;
   display: block;
   top: 0px;
@@ -83,6 +82,7 @@ a.feindura_topBarHide:hover {
 
 /* PAGE BAR */
 div.feindura_pageBar {
+  z-index: 1005;
   position: absolute;
   height: 26px;
 }

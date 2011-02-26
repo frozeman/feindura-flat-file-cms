@@ -155,7 +155,7 @@ input:focus, textarea:focus, select:focus {
     } 
 input[readonly="readonly"], textarea[readonly="readonly"] {
     border: 1px dotted #cccccc;
-    color: #555555;
+    color: #7F7F7F !important;
     }
 input[disabled="disabled"], textarea[disabled="disabled"] {
     border: 1px dotted #cccccc;

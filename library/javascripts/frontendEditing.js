@@ -83,9 +83,9 @@
     		  pageBlock.grab(jsLoadingCircleContainer,'top');
     		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");  		
     		// -> TWEEN jsLoadingCircleContainer    
-        jsLoadingCircleContainer.set('tween',{duration: 100});
-        jsLoadingCircleContainer.setStyle('opacity',0);
-        jsLoadingCircleContainer.tween('opacity',0.8);
+        //jsLoadingCircleContainer.set('tween',{duration: 100});
+        //jsLoadingCircleContainer.setStyle('opacity',0);
+        //jsLoadingCircleContainer.tween('opacity',0.8);
   
       },
       //-----------------------------------------------------------------------------

@@ -37,6 +37,12 @@ if($_POST['save'] == 'true') {
   $_POST['data'] = htmlentities($_POST['data'],ENT_NOQUOTES,'UTF-8');
   $_POST['data'] = str_replace(array('&lt;','&gt;','&amp;'),array('<','>','&'),$_POST['data']);
   
+  // TEMPORARY clean "<p id="rteMozFix">&nbsp;</p>"
+  //echo '<pre>'.$_POST['data'].'</pre>';
+  $_POST['data'] = str_replace("<p id=\"rteMozFix\"><br />\n\n</p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p id=\"rteMozFix\"><br />\n</p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p id=\"rteMozFix\"><br></p>",'',$_POST['data']);  
+  
   // replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? strip_tags($_POST['data'],'<i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>') : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];

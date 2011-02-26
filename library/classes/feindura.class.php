@@ -1055,8 +1055,8 @@ class feindura extends feinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css" />'."\n";
         
         // add MOOTOOLS
-        $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js"></script>'."\n";
-        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js"></script>'."\n";   
+        $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.1.js"></script>'."\n";
+        $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.1.1.js"></script>'."\n";   
         
         // add MooRTE
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/moorte.js"></script>'."\n";
