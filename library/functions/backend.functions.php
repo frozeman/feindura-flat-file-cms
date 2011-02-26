@@ -1503,7 +1503,9 @@ function saveEditedFiles(&$savedForm) {
     $_POST['fileContent'] = stripslashes($_POST['fileContent']);
     
     // wandelt umlaut in HTML zeichen um
-    $_POST['fileContent'] = htmlentities($_POST['fileContent'],ENT_NOQUOTES,'UTF-8');      
+    $_POST['fileContent'] = htmlentities($_POST['fileContent'],ENT_NOQUOTES,'UTF-8');
+    // changes & back, because of the $auml;
+    $_POST['fileContent'] = str_replace("&quot;", '"', $_POST['fileContent']);     
     // changes & back, because of the $auml;
     $_POST['fileContent'] = str_replace("&amp;", "&", $_POST['fileContent']);
     // wandelt die php einleitungstags wieder in zeichen um
