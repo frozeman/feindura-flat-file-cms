@@ -211,13 +211,14 @@ function autoResizeThumbnailPreview() {
 function blockSlider(givenId) {
   
   var blocksInDiv = '';
+  var scrollToElement = new Fx.Scroll(window,{duration: 300});
   
   // prepares the given container div id or class
   if(givenId)
     blocksInDiv = givenId + ' ';
   
   $$(blocksInDiv + '.block').each(function(block,i) {	   
-     var slideButtonH1;
+     var h1SlideButton;
 	   var slideContent;
 	   var bottomBorder;
 	   var slideVertical;
@@ -225,7 +226,7 @@ function blockSlider(givenId) {
 	   // gets the <a> tag in the <h1>
      if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
       
-       slideButtonH1 = block.getElement('h1').getElement('a');
+       h1SlideButton = block.getElement('h1').getElement('a');
       
        block.getElements('div').each(function(passedDiv) {
          // gets slideing content
@@ -242,34 +243,34 @@ function blockSlider(givenId) {
         bottomBorder.setStyle('display', 'none');
        
   	  // -> CREATE the SLIDE EFFECT
-  	  slideVertical = new Fx.Slide(slideContent,{ duration: '500', transition: Fx.Transitions.Back.easeOut }); //Fx.Transitions.Pow.easeOut
-      
-      slideVertical.onComplete = function(el) {
-        // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-  	    if(slideVertical.open) {
+  	  slideVertical = new Fx.Slide(slideContent,{
+        duration: '500',
+        transition: Fx.Transitions.Back.easeOut,//Fx.Transitions.Pow.easeOut
+        onComplete: function(el) {
+          // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+    	    if(this.open) {
               slideContent.setStyle('display','none'); // to allow sorting above the slided in box
-              slideVertical.wrapper.setStyle('height',slideContent.getSize().y);
-              slideVertical.open = false;       
-        } else {
-              slideVertical.wrapper.setStyle('height','auto');
-              slideVertical.open = true;
-              new Fx.Scroll(window,{duration: '300',}).start(window.getPosition().x,block.getPosition().y - 80);
+              this.wrapper.setStyle('height',slideContent.getSize().y);
+              this.open = false;
+          } else {
+              this.wrapper.setStyle('height','auto');
+              this.open = true;
+              scrollToElement.start(window.getPosition().x,block.getPosition().y - 80);
+          }
+          layoutFix();
         }
-        layoutFix();
-      }
+      });
       
       // -> set click Event for the SLIDE EFFECT to the buttons
-      slideButtonH1.addEvent('click', function(e) {
+      h1SlideButton.addEvent('click', function(e) {
       	  e.stop();
-
       	  if(!slideVertical.open) {
       	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box
       	    block.removeClass('hidden'); // to change the arrow
           } else { 
             block.addClass('hidden'); // to change the arrow
-          }
-          
-          slideVertical.toggle();          
+          }          
+          slideVertical.toggle();
       });
       
       // -> hide the block at start, if it has class "hidden"
