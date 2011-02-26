@@ -1,51 +1,18 @@
 /*
+---
 
 description: FileManager
+
+authors: Christoph Pojer (@cpojer), Fabian Vogelsteller (@frozeman)
+
+license: MIT-style license
 
 requires:
   core/1.3.1: '*'
   more/1.3.1.1: [Array.Extras, String.QueryString, Hash, Element.Delegation, Element.Measure, Fx.Scroll, Fx.SmoothScroll, Drag, Drag.Move, Assets, Tips ]
 
-provides:
-  - filemanager
+provides: Filemanager
 
-license:
-  MIT-style license
-
-inspiration:
-  - Loosely based on a Script by [Yannick Croissant](http://dev.k1der.net/dev/brooser-un-browser-de-fichier-pour-mootools/)
-
-options:
-  - url: (string) The base url to a file with an instance of the FileManager php class (FileManager.php), without QueryString
-  - assetBasePath: (string) The path to all images and swf files used by the filemanager
-  - directory: (string, relative to the directory set in to the filemanager php class) Can be used to load a subfolder instead of the base folder
-  - language: (string, defaults to *en*) The language used for the FileManager
-  - selectable: (boolean, defaults to *false*) If true, provides a button to select a file
-  - destroy: (boolean, defaults to *false*) Whether to allow deletion of files or not
-  - rename: (boolean, defaults to *false*) Whether to allow renaming of files or not
-  - download: (boolean, defaults to *false*) Whether to allow downloading of files or not
-  - createFolders: (boolean, defaults to *false*) Whether to allow creation of folders or not
-  - filter: (string) If specified, it reduces the shown and upload-able filetypes to these mimtypes. possible values are (only the strings in the quotes are possible):
-                     "image" = *.jpg; *.jpeg; *.bmp; *.gif; *.png
-                     "video" = *.avi; *.flv; *.fli; *.movie; *.mpe; *.qt; *.viv; *.mkv; *.vivo; *.mov; *.mpeg; *.mpg; *.wmv; *.mp4
-                     "audio" = *.aif; *.aifc; *.aiff; *.aif; *.au; *.mka; *.kar; *.mid; *.midi; *.mp2; *.mp3; *.mpga; *.ra; *.ram; *.rm; *.rpm; *.snd; *.wav; *.tsi
-                     "text" = *.txt; *.rtf; *.rtx; *.html; *.htm; *.css; *.as; *.xml; *.tpl
-                     "application" = *.ai; *.bin; *.ccad; *.class; *.cpt; *.dir; *.dms; *.drw; *.doc; *.dvi; *.dwg; *.eps; *.exe; *.gtar; *.gz; *.js; *.latex; *.lnk; *.lnk; *.oda; *.odt; *.ods; *.odp; *.odg; *.odc; *.odf; *.odb; *.odi; *.odm; *.ott; *.ots; *.otp; *.otg; *.pdf; *.php; *.pot; *.pps; *.ppt; *.ppz; *.pre; *.ps; *.rar; *.set; *.sh; *.skd; *.skm; *.smi; *.smil; *.spl; *.src; *.stl; *.swf; *.tar; *.tex; *.texi; *.texinfo; *.tsp; *.unv; *.vcd; *.vda; *.xlc; *.xll; *.xlm; *.xls; *.xlw; *.zip;
-  - hideClose: (boolean, defaults to *false*) Whether to hide the close button in the right corner
-  - hideOnClick: (boolean, defaults to *false*) When true, hides the FileManager when the area outside of it is clicked
-  - hideOverlay: (boolean, defaults to *false*) When true, hides the background overlay
-  
-  // set in uploader.js
-  - upload: (boolean, defaults to *true*)
-  - uploadAuthData: (object) Data to be send with the GET-Request of an Upload as Flash ignores authenticated clients
-  - resizeImages: (boolean, defaults to *true*) Whether to show the option to resize big images or not
-  
-events:
-  - onComplete(path, file): fired when a file gets selected via the "Select file" button
-  - onModify(file): fired when a file gets renamed/deleted or modified in another way
-  - onShow: fired when the FileManager opens
-  - onHide: event fired when FileManager closes
-  - onPreview: event fired when the user clicks an image in the preview
 ...
 */
 
@@ -160,7 +127,7 @@ var FileManager = new Class({
         if(typeof jsGET != 'undefined') jsGET.set('fmListType=list');
       }
       this.load(this.Directory);
-    }
+    };
     
     this.browsercontainer = new Element('div',{'class': 'filemanager-browsercontainer'}).inject(this.filemanager);
     this.browserheader = new Element('div',{'class': 'filemanager-browserheader'}).inject(this.browsercontainer);
@@ -221,7 +188,7 @@ var FileManager = new Class({
         opacity: 0.5,
         title: this.language.close,
         events: {click: this.hide.bind(this)}
-      }).inject(this.filemanager).addEvent('mouseover',function(){this.fade(1)}).addEvent('mouseout',function(){this.fade(0.5)});
+      }).inject(this.filemanager).addEvent('mouseover',function(){this.fade(1);}).addEvent('mouseout',function(){this.fade(0.5);});
     }
     
     this.tips = new Tips({
@@ -240,7 +207,7 @@ var FileManager = new Class({
       }
     });
     if(!this.options.hideClose)
-      this.tips.attach(this.closeIcon); //.appearOn(this.closeIcon, [1, 0.5]).appearOn(document, 0.5)
+      this.tips.attach(this.closeIcon);
     
     this.imageadd = new Asset.image(this.assetBasePath + 'Images/add.png', {
       'class': 'browser-add'
@@ -419,7 +386,7 @@ var FileManager = new Class({
 
   open: function(e){
     e.stop();
-    if (!this.Current) return false;
+    if (!this.Current) return;
     this.fireEvent('complete', [
       this.normalize(this.Current.retrieve('file').path),
       this.Current.retrieve('file')
@@ -429,7 +396,7 @@ var FileManager = new Class({
   
   download: function(e) {
     e.stop();
-    if (!this.Current) return false;
+    if (!this.Current) return;
     //window.open(this.normalize(this.Current.retrieve('file').path));
     window.open(this.options.url + '?event=download&file='+this.normalize(this.Current.retrieve('file').path.replace(this.root,'')));
   },
@@ -633,7 +600,7 @@ var FileManager = new Class({
           var previous = current.getParent('li').getPrevious('li').getElement('span.fi');      
           previous.addClass('hover');
           if((current.getPosition(this.browserScroll).y) <= current.getSize().y) {
-            browserScrollFx.start(current.getPosition(this.browserScroll).x,(this.browserScroll.getScroll().y - this.browserScroll.getSize().y + (current.getSize().y*2)))
+            browserScrollFx.start(current.getPosition(this.browserScroll).x,(this.browserScroll.getScroll().y - this.browserScroll.getSize().y + (current.getSize().y*2)));
           }
         }
       
@@ -749,7 +716,10 @@ var FileManager = new Class({
       els[file.mime == 'text/directory' ? 1 : 0].push(el);
       //if (file.name == '..') el.set('opacity', 0.7);
       el.inject(new Element('li',{'class':this.listType}).inject(this.browser)).store('parent', el.getParent());
-      icons = $$(icons.map(function(icon){return icon.appearOn(icon, [1, 0.7]);})).appearOn(el.getParent('li'), 0.7);
+      icons = $$(icons.map((function(icon){
+        this.showFunctions(icon,icon,0.5,1);
+        this.showFunctions(icon,el.getParent('li'),1);
+      }).bind(this)));
       
       // ->> LOAD the FILE/IMAGE from history when PAGE gets REFRESHED (only directly after refresh)
       if(this.onShow && typeof jsGET != 'undefined' && jsGET.get('fmFile') != null && file.name == jsGET.get('fmFile')) {
@@ -763,7 +733,7 @@ var FileManager = new Class({
     }, this);
     
     // -> cancel dragging
-    var self = this, revert = function(el) {
+    var revert = function(el) {
       el.set('opacity', 1).removeClass('drag').removeClass('move').setStyles({
         opacity: 1,
         'z-index': 'auto',
@@ -772,7 +742,6 @@ var FileManager = new Class({
         left: 0,
         top: 0
       }).inject(el.retrieve('parent'));
-      //el.getElements('img.browser-icon').set('opacity', 0);
       
       document.removeEvent('keydown', self.bound.keydown).removeEvent('keyup', self.bound.keydown);
       self.imageadd.fade(0);
@@ -788,7 +757,7 @@ var FileManager = new Class({
       onDrag: function(el, e){
         self.imageadd.setStyles({
           'left': e.page.x + 25,
-          'top': e.page.y + 25,
+          'top': e.page.y + 25
         });
         self.imageadd.fade('in');
       },
@@ -948,7 +917,20 @@ var FileManager = new Class({
     }, this).send();
     
   },
+  
+  showFunctions: function(icon,appearOn,opacityBefore,opacityAfter) {
+    var opacity = [opacityBefore || 1, opacityAfter || 0];
+    icon.set({
+      opacity: opacity[1],
+    });
 
+    $(appearOn).addEvents({
+      mouseenter: (function(){this.setStyle('opacity',opacity[0]);}).bind(icon),
+      mouseleave: (function(){this.setStyle('opacity',opacity[1]);}).bind(icon)
+    });
+    return icon;
+  }, 
+  
   size: function(size){
     var tab = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     for(var i = 0; size > 1024; i++)
@@ -1048,23 +1030,6 @@ Asset.javascript(__DIR__+'../Assets/js/jsGET.js', { events: {load: (function(){ 
 
 Element.implement({
   
-  appearOn: function(el) {
-    var $defined = function(obj){ return (obj != undefined); };
-    var params = Array.link(Array.from(arguments).erase(arguments[0]), {options: Type.isObject, opacity: $defined}),
-      opacity = typeOf(params.opacity) == 'array' ? [params.opacity[0] || 1, params.opacity[1] || 0] : [params.opacity || 1, 0];
-    
-    this.set({
-      opacity: opacity[1],
-      tween: params.options || {duration: 500}
-    });
-
-    $$(el).addEvents({
-      mouseenter: this.fade.pass(opacity[0],this),
-      mouseleave: this.fade.pass(opacity[1],this)
-    });
-    return this;
-  },
-  
   center: function(offsets) {
     var scroll = document.getScroll(),
       offset = document.getSize(),
@@ -1140,7 +1105,7 @@ this.Dialog = new Class({
       keyesc: (function(e){
         if (e.key == 'esc') {
           e.stopPropagation();
-          this.fireEvent('close').destroy()
+          this.fireEvent('close').destroy();
         };
       }).bind(this)
     };
@@ -1212,10 +1177,15 @@ this.Overlay = new Class({
   },
   
   hide: function(){
-    this.el.fade(0).get('tween').chain((function(){
+    if(!Browser.ie) {
+      this.el.fade(0).get('tween').chain((function(){
+        this.revertObjects();
+        this.el.setStyle('display', 'none');
+      }).bind(this));
+    } else {
       this.revertObjects();
       this.el.setStyle('display', 'none');
-    }).bind(this));
+    }
     
     window.removeEvent('resize', this.resize);
     

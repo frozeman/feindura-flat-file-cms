@@ -1,14 +1,16 @@
-/**
- * Swiff.Uploader - Flash FileReference Control
- *
- * @version    3.0
- *
- * @license    MIT License
- *
- * @author    Harald Kirschner <http://digitarald.de>
- * @author    Valerio Proietti, <http://mad4milk.net>
- * @copyright  Authors
- */
+/*
+---
+description: Swiff.Uploader
+
+authors: Harald Kirschner
+
+requires: [Core/*]
+
+provides: FileManager.Swiff.Uploader
+
+license: MIT-style license
+...
+*/
 
 Swiff.Uploader = new Class({
 
@@ -252,7 +254,7 @@ Swiff.Uploader = new Class({
     // update coordinates, manual or automatically
     coords = coords || (this.target && this.target.offsetHeight)
       ? this.target.getCoordinates(this.box.getOffsetParent())
-      : {top: window.getScrollTop(), left: 0, width: 40, height: 40}
+      : {top: window.getScrollTop(), left: 0, width: 40, height: 40};
     this.box.setStyles(coords);
     this.fireEvent('reposition', [coords, this.box, this.target]);
   },
