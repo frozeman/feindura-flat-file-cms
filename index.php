@@ -105,8 +105,8 @@ if($_GET['site'] == 'addons') {
   <!--[if IE 6]><script type="text/javascript" src="library/javascripts/ie.js"></script><![endif]-->
 
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.1.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.3.1.1.js"></script>
   
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>

@@ -152,8 +152,9 @@ if($_POST['upload']) {
           
           require_once(dirname(__FILE__).'/../thirdparty/php/Image.class.php');
           
+          $keepRatio = (empty($adminConfig['pageThumbnail']['ratio'])) ? false : true;
           $resize = new Image(DOCUMENTROOT.$filePath);
-          if(!$resize->resize($thumbWidth,$thumbHeight,true,true))
+          if(!$resize->resize($thumbWidth,$thumbHeight,$keepRatio,true))
             $error[] = $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'];
           else
             $resize->process($fileExtension,DOCUMENTROOT.$newFilePath);
