@@ -38,8 +38,8 @@ if(!$adminConfig['user']['fileManager'])
   <title>feindura <?= $langFile['BUTTON_FILEMANAGER']; ?></title>
   
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-core-1.3.js"></script>
-  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-more.js"></script>
+  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-core-1.3.1.js"></script>
+  <script type="text/javascript" src="../../thirdparty/javascripts/mootools-more-1.3.1.1.js"></script>
   
   <!-- thirdparty/MooTools-FileManager -->
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/FileManager.js"></script>

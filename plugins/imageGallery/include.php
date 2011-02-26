@@ -67,8 +67,8 @@ echo '<script type="text/javascript">
   }
   
   if(typeof MooTools == "undefined") {    
-    include("'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.js");
-    include("'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more.js");
+    include("'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.1.js");
+    include("'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.1.1.js");
   }
   // add milkbox
   include("'.$filePath.'/milkbox/milkbox.js");
