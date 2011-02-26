@@ -1,73 +1,5 @@
-/*----------------------------------------------------*/
-/*  custom styles - see below for CFE default styles  */
-/*----------------------------------------------------*/
-form{clear: both}
-
-form ul{
-    clear: both;
-    float: left;
-    list-style: none;
-    margin: 10px;
-    padding: 0;
-}
-
-form ul li{
-    clear: both;
-    float: left;
-    padding: 3px;
-}
-
-label.jsTextL ,label.jsPasswordL, label.jsFileL, label.jsSelectorL, label.jsTextareaL,
-.jsTextL span.label, .jsPasswordL span.label, .jsTextareaL span.label, .jsFileL span.label{
-    float: left;
-    margin-right: 5px;
-    padding: 4px 0;
-}
-
-.jsOption.icon1{
-    background: url(../img/lorry.png) no-repeat 4px 7px;
-    padding-left: 22px;
-}
-
-.jsOption.icon2{
-    background: url(../img/download.png) no-repeat 4px 7px;
-    padding-left: 22px;
-}
-
-/*  select boxes - custom styles              */
-.jsSelector{height: 30px}
-.jsSelector .jsSelectorContentSlide1{margin: -3px 0 0 5px}
-
-.jsSelectorSel-Norm{width: 283px}
-.jsSelectorSel-Norm .jsSelectorContent{width: 245px}
-
-.jsSelectorSel-Norm2 {width: 220px}
-.jsSelectorSel-Norm2 .jsSelectorContent{width: 180px}
-
-.jsSelectorSel-Mult .jsSelectorContent{width: 283px}
-
-/*  textarea - custom styles                  */
-.jsTextareaTextarea1 textarea
-{
-    height: 140px;
-    width: 300px;
-}
-/*  alternate checkboxes in second fieldset   */
-.chb2 .jsCheckbox img{
-    background-image: none;
-    background-color: #FFF;
-    border: 1px solid #000;
-    height: 12px;
-    margin: 3px;
-    width: 12px;
-}
-
-.chb2 .jsCheckbox.A img{background-color: #477B76}
-.chb2 .jsCheckbox.H img{background-color: #DDD}
-.chb2 .jsCheckbox.H.A img{background-color: #999}
-
 /**********************************************/
-/*  customFormElements Default Styles         */
+/*  Custom Form Elements : ClearBlue Theme    */
 /*                                            */
 /*  classes:                                  */
 /*  F - Element has focus                     */
@@ -77,34 +9,75 @@ label.jsTextL ,label.jsPasswordL, label.jsFileL, label.jsSelectorL, label.jsText
 /*                                            */
 /*  classes can be used in any combination    */
 /**********************************************/
-form *[class^=js]:focus{outline: none}
+
+/**********************************************/
+/*  CFE - Basic Form Styles                   */
+/**********************************************/
+form ul{
+  clear: both;
+  float: left;
+  list-style: none;
+  padding: 0;
+}
+
+form ul li{
+  clear: both;
+  float: left;
+  padding: 3px;
+  width: 99.7%; /* feel good little ie 7 */
+}
+
+label.cfeTextL ,label.cfePasswordL, label.cfeFileL, label.cfeSelectL, label.cfeTextareaL,
+.cfeTextL > span.label, .cfePasswordL > span.label, .cfeTextareaL > span.label, .cfeFileL > span.label{
+  float: left;
+  margin-right: 5px;
+  padding: 4px 0;
+}
+
+form input:focus, form textarea:focus{outline: none}
+
+input[type="text"], textarea{
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
 
 /**********************************************/
 /*  customFormElements :: COLORS              */
 /**********************************************/
 
 /* label */
-label.H{color:#399}
-label.F{color:#C30}
-label.D, .jsButton.D .label{color:#999}
-.jsButton.P .label{color: #666}
+label.H, label.H .label{color:#3CF}
+label.F, label.F .label{color:#F7179E}
+label.D, .cfeButton.D .label, .cfeButtonSlide.D .label{color:#999}
+.cfeButton.P .label, .cfeButtonSlide.P .label{color: #666}
 
 /* select */
-.jsSelector.D .jsOptionSelected, .jsSelector.D .jsOption{color:#999}
-.jsOption{color: #099}
+.cfeSelect.D .cfeOptionSelected, .cfeSelect.D .cfeOption{color:#999}
 
-.jsOption.H, .jsOption.H label.H
+.cfeOption.H, .cfeOption.H label.H
 {
-    background-color: #666;
-    color: #FFF;
+  background-color: #666;
+  color: #FFF;
+}
+
+.cfeSelectMultiple .cfeOption.H, .cfeSelectMultiple .cfeOption.H label.H{
+  background-color: transparent;
+  color: #333;
+}
+
+input[disabled], input[readonly],
+textarea[disabled], textarea[readonly]{
+  color: #CCC;
 }
 
 /* fieldsets */
 fieldset{border-color: #CCC}
 
 fieldset.H, fieldset.F{
-    background-color: #FFFFF0;
-    border-color: #F0E68C;
+  background-color: #FFFFF0;
+  border-color: #F0E68C;
 }
 
 fieldset.H legend{background-color: #FFFFF0}
@@ -112,10 +85,19 @@ fieldset.F legend, fieldset.P legend{background-color: #F0E68C}
 fieldset.P, fieldset.F{border-color: #F0E68C}
 
 /* tooltip */
+.cfeTip{
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background: url(../gfx/help.png);
+  margin-left: 2px;
+  margin-top: 1px;
+}
+
 .tip{
-    background-color: #FFF;
-    border-color: #399;
-    color:#666;
+  background-color: #FFF;
+  border-color: #666;
+  color: #333;
 }
 
 /**********************************************/
@@ -123,304 +105,345 @@ fieldset.P, fieldset.F{border-color: #F0E68C}
 /**********************************************/
 /* fieldsets */
 fieldset{
-    border-style: solid;
-    border-width: 2px;
+  border-style: solid;
+  border-width: 2px;
 }
 
 fieldset.H, fieldset.F{border-style: dashed}
 
 /* labels */
 label{cursor: pointer}
+label.D{cursor: default}
 
 /* tool tip related */
 .tip{
-    border-style: solid;
-    border-width: 1px;
-    font-size: .9em;
-    padding: 2px 4px;
-    z-index: 100;
+  border-style: solid;
+  border-width: 1px;
+  font-size: .9em;
+  padding: 2px 4px;
+  z-index: 100;
 }
 
-.jsQM{
-    background: url(../gfx/qm.gif) no-repeat;
-    cursor: help;
-    height: 13px;
-    margin-left: 3px;
-    vertical-align: middle;
-    width: 12px;
+.cfeQM{
+  background: url(../gfx/qm.gif) no-repeat;
+  cursor: help;
+  height: 13px;
+  margin-left: 3px;
+  vertical-align: middle;
+  width: 12px;
 }
+
+/*
+** form elements are inline-blocky
+*/
+.cfeButton, .cfeText, .cfePassword, .cfeTextarea,
+.cfeFile, .cfeFilePath, .cfeFilePath .filePath
+.cfeSelect, .cfeSelectContainer,
+.cfeSelectMultiple, .cfeSelectMultipleContainer,
+.cfeSlide, .cfeSlide1, .cfeSlide2, .cfeSlide3,
+.cfeButton .label
+{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cfeButton .label{
+  vertical-align: baseline;
+}
+
+/*
+ * BUTTON
+ * the very generic
+*/
+.cfeButton{
+  cursor: pointer;
+  background: url(../gfx/cfeButtonL.png) no-repeat;
+  margin-right: 10px;
+}
+
+.cfeButton > .cfeSlide{
+  background: url(../gfx/cfeButtonR.png) no-repeat right top;
+  margin-right: -10px;
+  padding: 0 10px 0 0;
+  text-align: center;
+  width: 100%;
+}
+
+.cfeButton.P{background-position: 0 -40px}
+.cfeButton.H{background-position: 0 -80px}
+.cfeButton.F{background-position: 0 -120px}
+.cfeButton.H.F{background-position: 0 -200px}
+.cfeButton.H.P{background-position: 0 -40px}
+.cfeButton.F.P{background-position: 0 -160px}
+.cfeButton.D{background-position: 0 -240px !important; cursor: default;}
+
+.cfeButton.P > .cfeSlide{background-position: 100% -40px}
+.cfeButton.H > .cfeSlide{background-position: 100% -80px}
+.cfeButton.F > .cfeSlide{background-position: 100% -120px}
+.cfeButton.H.F > .cfeSlide{background-position: 100% -200px}
+.cfeButton.H.P > .cfeSlide{background-position: 100% -40px}
+.cfeButton.F.P > .cfeSlide{background-position: 100% -160px}
+.cfeButton.D > .cfeSlide{background-position: 100% -240px !important}
+
+/* button labels */
+.cfeButton .label{
+  min-width: 24px;
+  min-height: 24px;
+  width: 100%;
+  height: 100%;
+  line-height: 1.8em;
+}
+
+.cfeButton > .cfeSlide > .label{
+  padding-left: 5px;
+}
+
+/* IE 7 hack for padding issue */
+* html .cfeButton > .cfeSlide > .label{
+  padding-left: 8px;
+}
+
+.cfeButton.P > .cfeSlide > .label, .cfeButton.P > .label{
+  margin: 1px -1px -1px 1px;
+}
+
+/*
+ * CHECKBOXES / RADIOBUTTONS
+ * adding a mark
+*/
+.cfeCheckbox, .cfeRadiobutton{margin-right: 0; background-position: 0 0}
+.cfeCheckbox.A.D > .label, .cfeRadiobutton.A.D > .label{opacity: .5}
+
+.cfeCheckbox{background-image: url(../gfx/cfeCheckbox.png)}
+.cfeCheckbox.A > .label{background: url(../gfx/cfeCheckboxMark.png) no-repeat 0 0}
+
+.cfeRadiobutton{background-image: url(../gfx/cfeRadiobutton.png)}
+.cfeRadiobutton.A > .label{background: url(../gfx/cfeRadiobuttonMark.png) no-repeat 0 0}
 
 /* textfields with sliding doors */
-.jsTextSlide,.jsPasswordSlide{
-    background: url(../gfx/cfeTextL.gif) no-repeat;
-    border: 0;
-    display: inline;
-    float: left;
+.cfeText, .cfePassword{
+  background: url(../gfx/cfeTextL.png) no-repeat;
+  border: 0;
+  margin-right: 10px;
 }
 
-.jsTextSlide .jsText,.jsPasswordSlide .jsPassword{
-    background: url(../gfx/cfeTextR.gif) no-repeat right top;
-    border: 0;
-    display: inline;
-    float: left;
-    height: 20px;
-    margin: 0 0 0 6px;
-    padding: 5px 6px 5px 0;
+.cfeText > .cfeSlide, .cfePassword > .cfeSlide{
+  background: url(../gfx/cfeTextR.png) no-repeat right top;
+  border: 0;
+  height: 26px;
+  margin: 0 -10px 0 3px;
+  padding: 2px 4px 1px 2px;
 }
-.jsTextSlide.F,.jsPasswordSlide.F{background-position: 0 -40px}
-.jsTextSlide.D,.jsPasswordSlide.D{background-position: 0 -80px}
-.jsTextSlide.F .jsText,.jsPasswordSlide.F .jsPassword{background-position: 100% -40px}
-.jsTextSlide.D .jsText,.jsPasswordSlide.D .jsPassword{background-position: 100% -80px}
+
+.cfeText input, .cfePassword input{
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  line-height: 100%;
+  height: 24px;
+  width: auto;
+}
+
+.cfeText.F, .cfePassword.F{background-position: 0 -40px}
+.cfeText.D, .cfePassword.D{background-position: 0 -80px}
+.cfeText.F > .cfeSlide,.cfePassword.F > .cfeSlide{background-position: 100% -40px}
+.cfeText.D > .cfeSlide,.cfePassword.D > .cfeSlide{background-position: 100% -80px}
 
 /* teaxtareas with sliding doors */
-.jsTextareaSlide{
-    background: url(../gfx/cfeTextareaB.gif) no-repeat right bottom;
-    float: left;
+/* reused for select container */
+.cfeTextarea, .cfeSelectContainerWrapper{
+  background: url(../gfx/cfeTextareaT.png) no-repeat left top;
 }
 
-.jsTextareaSlide1{
-    background: url(../gfx/cfeTextareaT.gif) no-repeat;
-    float: left;
+.cfeTextarea .cfeSlide1, .cfeSelectContainerWrapper .cfeSlide1{
+  background: url(../gfx/cfeTextareaR.png) no-repeat right top;
+  margin: 0 -10px 10px 0;
 }
 
-.jsTextareaSlide2{
-    background: url(../gfx/cfeTextareaTR.gif) no-repeat right top;
-    float: left;
+.cfeTextarea .cfeSlide2, .cfeSelectContainerWrapper .cfeSlide2{
+  background: url(../gfx/cfeTextareaB.png) no-repeat right bottom;
+  margin: 0 0 -10px 10px;
 }
 
-.jsTextareaSlide .jsTextarea{
-    background: url(../gfx/cfeTextareaBL.gif) no-repeat left bottom;
-    border: 0;
-    float: left;
-    margin: 0;
-    padding: 5px 6px;
+.cfeTextarea .cfeSlide3, .cfeSelectContainerWrapper .cfeSlide3{
+  background: url(../gfx/cfeTextareaL.png) no-repeat left bottom;
+  margin: 10px 0 0 -10px;
+  border: 0;
+  padding: 5px 3px 2px;
 }
 
-.jsTextareaSlide.F .jsTextareaSlide1{background-image: url(../gfx/cfeTextareaT-H.gif)}
-.jsTextareaSlide.F .jsTextareaSlide2{background-image: url(../gfx/cfeTextareaTR-H.gif)}
-.jsTextareaSlide.F .jsTextarea{background-image: url(../gfx/cfeTextareaBL.gif)}
-
-.jsTextareaSlide.D {background-image: url(../gfx/cfeTextareaB-D.gif)}
-.jsTextareaSlide.D .jsTextareaSlide1{background-image: url(../gfx/cfeTextareaT-D.gif)}
-.jsTextareaSlide.D .jsTextareaSlide2{background-image: url(../gfx/cfeTextareaTR-D.gif)}
-.jsTextareaSlide.D .jsTextarea{background-image: url(../gfx/cfeTextareaBL-D.gif)}
-
-
-/* checkboxes and radiobuttons */
-.jsCheckbox img,.jsRadiobutton img{
-    background-repeat: no-repeat;
-    height: 20px;
-    padding-bottom: 3px;
-    vertical-align: middle;
-    width: 20px;
-}
-.jsCheckbox img{background-image: url(../gfx/checkboxes.png)}
-.jsRadiobutton img{background-image: url(../gfx/radiobuttons.png)}
-
-.jsCheckbox.A img,.jsRadiobutton.A img{background-position: 0 -40px}
-
-.jsCheckbox.H img,.jsRadiobutton.H img{background-position: 0 -80px}
-.jsCheckbox.H.A img,.jsRadiobutton.H.A img{background-position: 0 -120px}
-
-.jsCheckbox.F img,.jsRadiobutton.F img{background-position: 0 -160px}
-.jsCheckbox.F.A img,.jsRadiobutton.F.A img{background-position: 0 -200px}
-
-.jsCheckbox.F.H img,.jsRadiobutton.F.H img{background-position: 0 -240px}
-.jsCheckbox.F.A.H img,.jsRadiobutton.F.A.H img{background-position: 0 -280px}
-
-.jsCheckbox.D img,.jsRadiobutton.D img{background-position: 0 -320px}
-.jsCheckbox.D.A img,.jsRadiobutton.D.A img{background-position: 0 -360px}
-
-/* file input */
-.jsFile{
-    background: url(../gfx/cfeFile.gif) no-repeat 0 3px;
-    height: 26px;
-    width: 125px;
+.cfeTextarea textarea{
+  margin: -10px 0 1px 0;
+  padding: 2px;
+  background: #FFF;
+  border: none;
 }
 
-.jsFile.H{background-position: 0 -76px}
-.jsFile.D{background-position: 0 -236px}
+.cfeTextarea.F, .cfeSelectContainerWrapper.F {background-image: url(../gfx/cfeTextareaT-F.png)}
+.cfeTextarea.F .cfeSlide1, .cfeSelectContainerWrapper.F .cfeSlide1{background-image: url(../gfx/cfeTextareaR-F.png)}
+.cfeTextarea.F .cfeSlide2, .cfeSelectContainerWrapper.F .cfeSlide2{background-image: url(../gfx/cfeTextareaB-F.png)}
+.cfeTextarea.F .cfeSlide3, .cfeSelectContainerWrapper.F .cfeSlide3{background-image: url(../gfx/cfeTextareaL-F.png)}
 
-.jsFile, .jsFileL{
-    display: inline;
-    float: left;
-}
-
-.jsFilePath{
-    float: left;
-    height: 20px;
-    padding: 3px 0;
-}
-.jsFilePath.hidden{display: none}
-
-.jsFile.hidden{
-    left: -999px;
-    position: absolute;
-}
-
-.jsFilePath *{
-    vertical-align: middle;
-}
-.jsFilePath .fileIcon{
-    background-image: url(../gfx/fileicons/file.gif);
-    height: 16px;
-    margin-right: 3px;
-    width: 16px;
-}
-.jsFilePath .delete .spc{
-    background-image: url(../gfx/cross.gif);
-    height: 16px;
-    margin-left: 5px;
-    width: 16px; 
-}
-
-.jsFilePath img.pdf{background-image: url(../gfx/fileicons/pdf.gif)}
-.jsFilePath img.jpg, .jsFilePath img.gif, .jsFilePath img.jpeg, .jsFilePath img.tif, .jsFilePath img.bmp{background-image: url(../gfx/fileicons/img.gif)}
-.jsFilePath img.doc{background-image: url(../gfx/fileicons/doc.gif)}
-.jsFilePath img.xls{background-image: url(../gfx/fileicons/xls.gif)}
-.jsFilePath img.sql, .jsFilePath img.db{background-image: url(../gfx/fileicons/db.gif)}
-.jsFilePath img.html, .jsFilePath img.htm{background-image: url(../gfx/fileicons/html.gif)}
-.jsFilePath img.swf, .jsFilePath img.fla{background-image: url(../gfx/fileicons/flash.gif)}
-.jsFilePath img.zip, .jsFilePath img.rar, .jsFilePath img.ace{background-image: url(../gfx/fileicons/zip.gif)}
-.jsFilePath img.txt, .jsFilePath img.odt{background-image: url(../gfx/fileicons/text.gif)}
-
-/*****************************
- * submit and reset button   *
- ****************************/
-/*	description:
-	~ this example covers sliding doors configuration
-	~ if you have slidingDoors disabled, then a simple backgroundimage will be sufficient
-	  and you may delete the ".js*******Slide"-parts
-*/
-.jsSubmit, .jsReset{
-    background: url(../gfx/cfeButtonR.gif) no-repeat right top;
-    display: inline;
-    float: left;
-    text-align: center;
-}
-
-.jsButton.jsSubmit, .jsButton.jsReset{
-    background: none;
-}
-
-.jsSubmitSlide, .jsResetSlide{
-    background: url(../gfx/cfeButtonL.gif) no-repeat;
-    display: inline;
-    float: left;
-}
-
-.jsButton .label{
-    display: inline;
-    float: left;
-    height: 100%;
-    line-height: 1.75em;
-    padding: 1px 15px;
-    /*uncomment this to hide the buttons text */
-    /*visibility:hidden;*/
-}
-.jsButton.P{background-position: 0 -40px}
-.jsButton.H{background-position: 0 -80px}
-.jsButton.F{background-position: 0 -200px}
-.jsButton.F.P{background-position: 0 -160px}
-.jsButton.H.P{background-position: 0 -40px}
-.jsButton.D{background-position: 0 -240px}
-
-.jsButton.P span{background-position: 100% -40px}
-.jsButton.H span{background-position: 100% -80px}
-.jsButton.F span{background-position: 100% -200px}
-.jsButton.F.P span{background-position: 100% -160px}
-.jsButton.H.P span{background-position: 100% -40px}
-.jsButton.D span{background-position: 100% -240px}
-
-.jsButton.P .label{
-    padding: 2px 13px 0 17px;
-}
+.cfeTextarea.D, .cfeSelectContainerWrapper.D {background-image: url(../gfx/cfeTextareaT-D.png)}
+.cfeTextarea.D .cfeSlide1, .cfeSelectContainerWrapper.D .cfeSlide1{background-image: url(../gfx/cfeTextareaR-D.png)}
+.cfeTextarea.D .cfeSlide2, .cfeSelectContainerWrapper.D .cfeSlide2{background-image: url(../gfx/cfeTextareaB-D.png)}
+.cfeTextarea.D .cfeSlide3, .cfeSelectContainerWrapper.D .cfeSlide3{background-image: url(../gfx/cfeTextareaL-D.png)}
 
 /*****************************
  * select boxes              *
  ****************************/
-.jsSelector{
-    background: url(../gfx/cfeSelectL.gif) no-repeat;
-    float: left;
+.cfeSelect > .cfeSlide > .label{
+  position: relative;
+  margin-right: 20px;
+  margin-left: 3px;
+  text-overflow: ellipsis;
+  height: 100%;
+  text-align: left;
 }
 
-.jsSelectorMultiple
+.cfeSelect.P > .cfeSlide > .label{
+  margin: 1px 19px -1px 4px;
+}
+
+/* labelArrow is IE7 only */
+.cfeSelect > .cfeSlide > .label:after, .cfeSelect > .cfeSlide > .labelArrow{
+  content: " ";
+  border-width: 6px;
+  border-color: gray transparent transparent transparent;
+  border-style: solid;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  margin-left: 3px;
+}
+
+.cfeSelect.H > .cfeSlide > .label:after, .cfeSelect.H > .cfeSlide > .labelArrow{
+  border-color: #000 transparent transparent transparent;
+}
+
+.cfeSelectContainer{
+  background-color: #FFF;
+  margin: -7px 3px 4px;
+}
+
+.cfeOption{
+  display: block;
+  cursor: pointer;
+  /* the huge padding right is to make sure even the widest option's text has enough space to be fully displayed when selected */
+  padding: 2px 30px 2px 7px;
+}
+
+/* creates a neat overlay with offset effect */
+.cfeSelectContainerWrapper{
+  position: absolute;
+  top: -3px;
+  left: 3px;
+}
+
+/* scrolling for select field */
+.cfeScrollerWrapper{
+  background: #F8F8F8;
+  position: absolute;
+  width: 30px;
+  margin: -7px 3px 4px; /* same as cfeSelectContainer */
+  /* those values compensate the padding given to the container which holds all options */
+  right: -7px;
+}
+
+.cfeScrollerWrapper > span{
+  position: absolute;
+  right:0;
+  width: 20px;
+}
+
+.cfeScrollerWrapper > .cfeButton{
+  height: 32px;
+}
+
+.cfeScrollerWrapper .scrollTop{
+  top: 0;
+}
+
+.cfeScrollerWrapper .scrollTop .label{
+  background: url(../gfx/scrollUp.gif) no-repeat center;
+}
+
+.cfeScrollerWrapper .scrollRail{
+  padding-right: 5px;
+  top: 30px;
+  bottom: 30px;
+  right: 3px;
+}
+
+.scrollRail .scrollKnob{
+  height: 25px;
+  width: 25px;
+  background: url(../gfx/scrollKnob.gif) no-repeat center;
+  cursor: pointer;
+  margin-top: -14px;
+}
+
+.cfeScrollerWrapper .scrollBottom{
+  bottom: 0;
+}
+
+.cfeScrollerWrapper .scrollBottom .label{
+  background: url(../gfx/scrollDown.gif) no-repeat center;
+}
+
+.cfeSelectMultiple
 {
-    background: none;
-    height: auto;
+  vertical-align: text-top;
 }
 
-.jsSelector.H{background-position: 0 -40px}
-.jsSelector.F{background-position: 0 -80px}
-.jsSelector.F .jsSelectorSlide{background-position: 100% -80px}
-.jsSelector.H .jsSelectorArrow{background-position: 3px -36px}
-
-.jsSelector.D{background-position: 0 -120px}
-.jsSelector.D .jsSelectorSlide{background-position: 100% -120px}
-.jsSelector.D .jsSelectorArrow{background-position: 3px -106px}
-
-.jsSelectorArrow{
-    background: url(../gfx/cfeSelectorArrow.gif) no-repeat 3px 4px;
-    height: 20px;
-    margin-right: 7px;
-    width: 20px;
-}
-.jsSelectorSlide{
-    background: url(../gfx/cfeSelectR.gif) no-repeat right top;
-    float: left;
-    padding: 6px 0 4px 0;
-    width: 100%;
+.cfeSelectMultipleContainerWrapper
+{
+  display: inline-block;
 }
 
-.jsSelector .jsOptionSelected{
-    margin:0 0 0 5px;
-    padding:0 0 0 8px;
+.cfeSelectMultiple .cfeOption .label{
+  margin: -4px 0 0 -7px;
+  width: auto;
+  vertical-align: middle;
 }
 
-.jsOption{
-    cursor: pointer;
-    height: 20px;
-    padding: 6px 6px 4px 5px;
+/* file input */
+.cfeFilePath, .cfeFilePath .filePath{
+  margin-left: 5px;
 }
 
-.jsSelectorContainer, .jsSelectorScrollerWrapper{
-    float: left;
-}
-.jsSelectorScrollerWrapper .spc{
-    cursor: pointer;
-    display: block;
-    height: 13px;
-    width: 17px;
+.cfeButton + input[type=file]{
+  cursor: pointer;
 }
 
-.jsSelectorScrollerWrapper .scrollTop .spc{background: url(../gfx/scrollUp.gif) no-repeat 3px 3px}
-.jsSelectorScrollerWrapper .scrollKnob{background: url(../gfx/scrollKnob.gif) no-repeat 3px 0}
-.jsSelectorScrollerWrapper .scrollBottom .spc{background: url(../gfx/scrollDown.gif) no-repeat 3px 3px}
-
-.jsSelectorContentSlide1{
-    background: url(../gfx/cfeTextareaB.gif) no-repeat 100% 100%;
-    float: left;
+.cfeButton.D + input[type=file]{
+  cursor: default;
 }
 
-.jsSelectorContentSlide2{
-    background: url(../gfx/cfeTextareaT.gif) no-repeat 0 0;
-    float: left;
+.cfeFilePath.hidden{display: none}
+
+.cfeFile.hidden{
+  left: -999px;
+  position: absolute;
 }
 
-.jsSelectorContentSlide3{
-    background: url(../gfx/cfeTextareaTR.gif) no-repeat right top;
-    float: left;
+.cfeFilePath .fileIcon{
+  background: url(../gfx/fileicons/file.png) no-repeat 0 50%;
+  padding-left: 20px;
 }
 
-.jsSelectorContentSlide1 .jsSelectorContent{
-    background: url(../gfx/cfeTextareaBL.gif) no-repeat left bottom;
-    border: 0;
-    float: left;
-    margin: 0;
-    padding: 3px 3px 4px;
-}
+.cfeButton.delete{height: 24px;}
+.cfeButton.delete, .cfeButton.delete > .cfeSlide{background: none;}
+.cfeButton.delete .label{background: url(../gfx/cross.png) no-repeat 50% 50%;}
+.cfeButton.delete.P .label{background-position: 52% 52%;}
 
-.jsSelectorMultiple.D .jsSelectorContentSlide1 {background-image: url(../gfx/cfeTextareaB-D.gif)}
-.jsSelectorMultiple.D .jsSelectorContentSlide2{background-image: url(../gfx/cfeTextareaT-D.gif)}
-.jsSelectorMultiple.D .jsSelectorContentSlide3{background-image: url(../gfx/cfeTextareaTR-D.gif)}
-.jsSelectorMultiple.D .jsSelectorContentSlide1 .jsSelectorContent{background-image: url(../gfx/cfeTextareaBL-D.gif)}
+.fileIcon.pdf{background-image: url(../gfx/fileicons/pdf.png)}
+.fileIcon.jpg, .fileIcon.png, .fileIcon.jpeg, .fileIcon.tif, .fileIcon.bmp{background-image: url(../gfx/fileicons/img.png)}
+.fileIcon.doc{background-image: url(../gfx/fileicons/doc.png)}
+.fileIcon.xls{background-image: url(../gfx/fileicons/xls.png)}
+.fileIcon.sql, .fileIcon.db{background-image: url(../gfx/fileicons/db.png)}
+.fileIcon.html, .fileIcon.htm{background-image: url(../gfx/fileicons/html.png)}
+.fileIcon.swf, .fileIcon.fla{background-image: url(../gfx/fileicons/flash.png)}
+.fileIcon.zip, .fileIcon.rar{background-image: url(../gfx/fileicons/zip.png)}
+.fileIcon.txt, .fileIcon.rtf, .fileIcon.odt{background-image: url(../gfx/fileicons/text.png)}

@@ -1,1 +1,0 @@
-cfe.module.password=new Class({Extends:cfe.module.text,instance:0,type:"Password",selector:"input[type=password]",createOriginal:function(){return new Element("input",{type:"password"});}});

@@ -1,4 +1,91 @@
-cfe.addon.dependencies=new Class({addDependencies:function(a,b){$each(b,function(c){this.addDependency(a,c);}.bind(this));return true;},addDependency:function(a,b){if($type(a.retrieve("deps"))!=="array"){a.store("deps",[]);}if($type(b)==="string"){b=$(b);}if($type(b)==="element"){a.retrieve("deps").push(b);
-return true;}return false;},getDependencies:function(a){return a.retrieve("deps");},attachDependencies:function(c,b,a){var d=this.getDependencies(c);if($type(d)==="array"){a.deps=d;return true;}return false;}});cfe.replace.implement(new cfe.addon.dependencies);cfe.replace.prototype.addEvent("onBeforeInitSingle",cfe.replace.prototype.attachDependencies);
-cfe.addon.dependencies.modules=new Class({resolveDependencies:function(){var a=this.o.retrieve("deps");if(a){$each(a,function(c,b){c.checked=true;c.fireEvent("change");}.bind(this));}}});cfe.generic.implement(new cfe.addon.dependencies.modules);cfe.module.checkbox.prototype.addEvent("onCheck",function(){this.resolveDependencies();
+/**
+ * @module Addon
+ */
+
+/**
+ * adds dependencies to checkboxes
+ *
+ * @class Dependencies
+ * @namespace cfe.addon
+ *
+ */
+cfe.addon.Dependencies = new Class({
+	
+    /**
+	 * adds dependencies for an element 
+	 * @param {Object} el
+	 * @param {Array} dep
+	 */
+    addDependencies: function(el, deps){
+        Array.each(deps,function(dep){
+            this.addDependency(el,dep);
+        },this);
+    },
+	
+    /**
+	 * adds dependency for an element 
+	 * @param {Object} el
+	 * @param {Object} dep
+	 */
+    addDependency: function(el, dep){
+		
+        // create an array if needed
+        if(typeOf( el.retrieve('deps') ) !== "array"){
+            el.store('deps', []);
+        }
+		
+        // deps may be objects or strings > if a string was given, try to interpret it as id and fetch element by $()
+        if(typeOf(dep) === "string" || typeOf(dep) === "element"){
+            el.retrieve('deps').push( $(dep) );
+            return true;
+        }
+		
+        return false;
+    },
+	
+    getDependencies: function(el)
+    {
+        return el.retrieve('deps');
+    },
+	
+    /**
+	 * this is called when a new item of a cfemodule gets initialized
+	 * it checks, whether there are dependencies for this element and adds them to its options
+	 * 
+	 * @param {Object} el
+	 */
+    attachDependencies: function(el,i,baseOptions)
+    {
+        var deps = this.getDependencies(el);
+		
+        if(typeOf(deps) === "array"){
+            baseOptions.deps = deps;
+            return true;
+        }
+	
+        return false;
+    }
+		
+});
+cfe.Replace.implement(new cfe.addon.Dependencies);
+cfe.Replace.prototype.addEvent("onBeforeInitSingle", cfe.Replace.prototype.attachDependencies);
+
+cfe.addon.Dependencies.Helper = new Class({
+    resolveDependencies: function()
+    {
+        var deps = this.o.retrieve('deps');
+		
+        if(deps){
+            Array.each(deps, function(dep,i){
+                dep.checked = true;
+                dep.fireEvent("change");
+            },this);
+        }
+    }
+});
+
+// support for checkboxes
+cfe.module.Checkbox.implement(new cfe.addon.Dependencies.Helper);
+cfe.module.Checkbox.prototype.addEvent("onCheck", function(){
+    this.resolveDependencies();
 });

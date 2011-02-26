@@ -456,9 +456,9 @@ if($_GET['site'] == 'addons') {
   
   <!-- thirdparty/CustomFormElements 
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.replace.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.checkbox.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/cfe.module.radio.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/replace/cfe.replace.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.checkbox.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.radio.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
   <?php if(!empty($_GET['page'])) { ?>
   

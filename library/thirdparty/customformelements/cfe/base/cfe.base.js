@@ -1,17 +1,169 @@
-var cfe={};cfe.module={};cfe.addon={};cfe.version="0.9.4";cfe.generic=new Class({Implements:[new Options,new Events],type:"Generic",instance:0,options:{spacer:"",aliasType:"span",replaces:null,label:null,name:"",disabled:false},initialize:function(a){this.instance=this.constructor.prototype.instance++;
-this.setOptions(a);if(!this.options.spacer){this.options.spacer=cfe.spacer;}this.buildWrapper();this.setupOriginal();this.addLabel($pick(this.o.getLabel(),this.setupLabel(this.options.label)));this.initializeAdv();this.build();},toElement:function(){return this.a;},toElements:function(){return[this.l,this.a];
-},getLabel:function(){return this.l;},buildWrapper:function(){this.a=new Element(this.options.aliasType);this.setupWrapper();},setupWrapper:function(){this.a.addClass("js"+this.type).addEvents({mouseover:this.hover.bind(this),mouseout:this.unhover.bind(this),mousedown:this.press.bind(this),mouseup:this.release.bind(this),disable:this.disable.bind(this),enable:this.enable.bind(this)}).setStyle("cursor","pointer");
-},setupOriginal:function(){if($defined(this.options.replaces)){this.o=this.options.replaces;this.a.inject(this.o,"before");}else{this.o=this.createOriginal();if(this.options.id){this.o.setProperty("id",this.options.id);}if(this.options.disabled){this.o.disable();}if(this.options.name){this.o.setProperty("name",this.options.name);
-if(!$chk(this.o.id)){this.o.setProperty("id",this.options.name+this.instance);}}if(this.options.value){this.o.setProperty("value",this.options.value);}this.a.adopt(this.o);}this.a.addClass("js"+this.type+this.o.id.capitalize());this.o.addEvents({focus:this.setFocus.bind(this),blur:this.removeFocus.bind(this),change:this.update.bind(this),keydown:function(a){if(a.key=="space"){this.press();
-}}.bind(this),keyup:function(a){if(a.key=="space"){this.release();}}.bind(this),onDisable:function(){this.a.fireEvent("disable");}.bind(this),onEnable:function(){this.a.fireEvent("enable");}.bind(this)});this.o.store("cfe",this);},isDisabled:function(){return this.o.getProperty("disabled");},createOriginal:function(){return new Element("img",{"src":this.options.spacer,"class":"spc"});
-},hideOriginal:function(){this.o.setStyles({position:"absolute",left:"-9999px",opacity:0.01});if(Browser.Engine.trident&&!Browser.Features.query){this.o.setStyles({width:0,height:"1px"});}},setupLabel:function(){if($defined(this.options.label)){return new Element("label").set("html",this.options.label).setProperty("for",this.o.id);
-}return null;},addLabel:function(a){if(!$defined(a)){return;}this.l=a;if(!this.dontRemoveForFromLabel){this.l.removeProperty("for");}this.l.addClass("js"+this.type+"L");if(this.o.id||this.o.name){this.l.addClass("for_"+(this.o.id||(this.o.name+this.o.value).replace("]","-").replace("[","")));}this.l.addEvents({mouseover:this.hover.bind(this),mouseout:this.unhover.bind(this),mousedown:this.press.bind(this),mouseup:this.release.bind(this)});
-if(!this.o.implicitLabel||(this.o.implicitLabel&&!Browser.Engine.gecko)){this.l.addEvent("click",this.clicked.bindWithEvent(this));}this.addEvents({"onPress":function(){this.l.addClass("P");},"onRelease":function(){this.l.removeClass("P");},"onMouseOver":function(){this.l.addClass("H");},"onMouseOut":function(){this.l.removeClass("H");
-this.l.removeClass("P");},"onFocus":function(){this.l.addClass("F");},"onBlur":function(){this.l.removeClass("F");},"onEnable":function(){this.l.removeClass("D");},"onDisable":function(){this.l.addClass("D");}});},initializeAdv:function(){if(!this.o.implicitLabel){this.a.addEvent("click",this.clicked.bindWithEvent(this));
-}if(this.isDisabled()){this.a.fireEvent("disable");}},build:function(){},press:function(){if(!this.isDisabled()){this.a.addClass("P");this.fireEvent("onPress");}},release:function(){if(!this.isDisabled()){this.a.removeClass("P");this.fireEvent("onRelease");}},hover:function(){if(!this.isDisabled()){this.a.addClass("H");
-this.fireEvent("onMouseOver");}},unhover:function(){if(!this.isDisabled()){this.a.removeClass("H");this.fireEvent("onMouseOut");this.release();}},setFocus:function(){this.a.addClass("F");this.fireEvent("onFocus");},removeFocus:function(){this.a.removeClass("F");this.fireEvent("onBlur");},clicked:function(){if(!this.isDisabled()){if($chk(this.o.click)){this.o.click();
-}this.o.focus();this.fireEvent("onClick");}},update:function(){this.fireEvent("onUpdate");},enable:function(){this.a.removeClass("D");this.fireEvent("onEnable");},disable:function(){this.a.addClass("D");this.fireEvent("onDisable");}});Element.Helpers=new Class({disableTextSelection:function(){if(Browser.Engine.trident||Browser.Engine.presto){this.setProperty("unselectable","on");
-}else{if(Browser.Engine.gecko){this.setStyle("MozUserSelect","none");}else{if(Browser.Engine.webkit){this.setStyle("KhtmlUserSelect","none");}}}},disable:function(){if($type(this)==="element"&&["button","input","option","optgroup","select","textarea"].contains(this.get("tag"))){this.setProperty("disabled",true);
-this.fireEvent("onDisable");return true;}return false;},enable:function(){if($type(this)==="element"&&["button","input","option","optgroup","select","textarea"].contains(this.get("tag"))){this.setProperty("disabled",false);this.fireEvent("onEnable");return true;}return false;},toggleDisabled:function(){if($type(this)==="element"&&["button","input","option","optgroup","select","textarea"].contains(this.get("tag"))){this.setProperty("disabled",!this.getProperty("disabled"));
-this.fireEvent(this.getProperty("disabled")?"onDisable":"onEnable");return true;}return false;},getLabel:function(){var a=null;if(this.id){a=$$("label[for="+this.id+"]")[0];}if(!a){a=this.getParent("label");if(a){this.implicitLabel=true;}}return a;},setSlidingDoors:function(e,d,f){var a=null;var b=this;
-f=$pick(f,"sd");for(var c=e;c>0;c--){a=new Element(d);a.addClass(c==e?f:c==0?f+"Slide":f+"Slide"+c);a.grab(b);b=a;}b=null;return a;}});Element.implement(new Element.Helpers);
+/**
+ * The core of custom form elements. Includes cfe.Generic and some slight addons to the native Element object. 
+ *
+ * @module Core
+ * @namespace cfe
+ */
+
+var cfe = {
+  version: "0.9.9",
+  prefix: "cfe",
+  module: {},
+  addon: {}
+};
+
+/**
+ * extend Elements with some Helper functions
+ * @class Helpers
+ * @namespace Element
+ */
+Element.Helpers = new Class({
+
+  /**
+     * cross-browser method for disabling the text selection by setting css attributes
+     * 
+     * @method disableTextSelection
+     */
+  disableTextSelection: function(){
+    if(Browser.ie || Browser.opera){
+      this.setProperty("unselectable","on");
+    }
+    else if(Browser.firefox){
+      this.setStyle("MozUserSelect","none");
+    }
+    else if(Browser.safari || Browser.chrome){
+      this.setStyle("KhtmlUserSelect","none");
+    }
+
+    return this;
+  },
+
+  /**
+     * disables a HTMLElement if its a form element by setting the disabled attribute to true
+     *
+     * @method disable
+     * @return boolean true, if element could be disabled
+     */
+  disable: function()
+  {
+    if(typeOf(this) === "element" && ["button", "input", "option", "optgroup", "select", "textarea"].contains( this.get("tag") )            )
+    {
+      this.setProperty("disabled", true);
+      this.fireEvent("onDisable");
+    }
+
+    return this;
+  },
+
+  /**
+     * enables a HTMLElement if its a form element by setting the disabled attribute to false
+     *
+     * @method enable
+     * @return {boolean} true, if element could be enabled
+     */
+  enable: function()
+  {
+    if(typeOf(this) === "element" && ["button", "input", "option", "optgroup", "select", "textarea"].contains( this.get("tag") )            )
+    {
+      this.setProperty("disabled", false);
+      this.fireEvent("onEnable");
+    }
+
+    return this;
+  },
+
+  /**
+     * enables or disabled a HTMLElement if its a form element depending on it's current state
+     *
+     * @method toggleDisabled
+     * @return {boolean} true, if element could be toggled
+     */
+  toggleDisabled: function()
+  {
+    if(typeOf(this) === "element" && ["button", "input", "option", "optgroup", "select", "textarea"].contains( this.get("tag") )            )
+    {
+      this.setProperty("disabled", !this.getProperty("disabled") );
+      this.fireEvent(this.getProperty("disabled")?"onDisable":"onEnable");
+    }
+    return this;
+  },
+
+  /**
+     * returns the label-element which belongs to this element
+     *
+     * @method getLabel
+     * @return HTMLElement or NULL
+     */
+  getLabel: function()
+  {
+    var label = null;
+
+    // get label by id/for-combo
+    if(this.id) label = $$("label[for="+this.id+"]")[0];
+        
+    // no label was found for id/for, let's see if it's implicitly labelled
+    if(!label)
+    {
+      label = this.getParent('label');
+
+      if(label) this.implicitLabel = true;
+    }
+
+    return label;
+  },
+
+  /**
+     * generates the markup used by sliding doors css technique to use with this element
+     *
+     * @method setSlidingDoors
+     *
+     * @param count
+     * @param type
+     * @param prefix
+     * 
+     * @return HTMLElement or NULL the wrapped HTMLElement
+     */
+  setSlidingDoors: function(count, type, prefix, suffixes)
+  {
+    var slide = null;
+    var wrapped = this;
+
+    prefix = [prefix, "sd"].pick();
+
+    suffixes = [suffixes, []].pick();
+
+    for(var i = count; i > 0; --i)
+    {
+      wrapped.addClass( prefix+"Slide"+( (i == 1 && count == i) ? "" : (suffixes[i] || i) ));
+      slide = new Element(type);
+
+      try{
+        wrapped = slide.wraps(wrapped);
+      }catch(e){
+        wrapped = slide.grab(wrapped);
+      }
+    }
+    wrapped = null;
+
+    return slide;
+  },
+
+  /**
+     * hide an element but keep it's vertical position and leave it tab- & screenreader-able :)
+     *
+     * @method hideInPlace
+     *
+     * @return HTMLElement
+     */
+  hideInPlace: function()
+  {
+    return this.setStyles({
+      position: "absolute",
+      left: -99999,
+      width: 1,
+      height: 1
+    });
+  }
+});
+
+Element.implement(new Element.Helpers);
