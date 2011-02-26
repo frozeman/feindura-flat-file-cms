@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 551
+Build 552
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 552: small js fixes
   build 551: hides the current visitors block when there are none
   build 550: small fix in the current visitor statistic
   build 549: forgot to change the path to new mootols version everywhere

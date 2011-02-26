@@ -51,7 +51,7 @@ function openWindowBox(site,siteTitle,fixed) {
 
       // IE HACK, wont bring the bottom div to the top
 			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-			   $$('#windowBox .boxBottom')[0].setStyle('top','68px');
+			   $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
 			}
       
 			// send HTML request
@@ -72,8 +72,8 @@ function closeWindowBox(redirectAfter) {
 	
 	// IE HACK, wont bring the bottom div to the top
 	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-		$$('#windowBox .boxBottom')[0].set('tween',{duration: 250, transition: Fx.Transitions.Pow.easeIn});
-		$$('#windowBox .boxBottom')[0].tween('top','0px');
+		$('windowBox').getChildren('.boxBottom').set('tween',{duration: 250, transition: Fx.Transitions.Pow.easeIn});
+		$('windowBox').getChildren('.boxBottom').tween('top','0px');
 	}
 	
 	// slides the windowRequestBox out
@@ -174,9 +174,9 @@ function requestSite(site,siteTitle,formId) {
             
           // IE HACK, wont bring the bottom div to the bottom
     			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-      			$$('#windowBox .boxBottom')[0].setStyle('top','68px');
-      			$$('#windowBox .boxBottom')[0].set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
-      			$$('#windowBox .boxBottom')[0].tween('top',$('windowRequestBox').getSize().y);
+      			$('windowBox').getChildren('.boxBottom').setStyle('top','68px');
+      			$('windowBox').getChildren('.boxBottom').set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
+      			$('windowBox').getChildren('.boxBottom').tween('top',$('windowRequestBox').getSize().y);
     			}
     		
     		// else RESIZE ------------
@@ -184,7 +184,7 @@ function requestSite(site,siteTitle,formId) {
             
           // IE HACK, wont bring the bottom div to the bottom
     			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-      			$$('#windowBox .boxBottom')[0].setStyle('top',$('windowRequestBox').getSize().y);
+      			$('windowBox').getChildren('.boxBottom').setStyle('top',$('windowRequestBox').getSize().y);
     			}
         }
   			

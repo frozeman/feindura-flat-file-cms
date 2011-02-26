@@ -390,7 +390,7 @@ window.addEvent('domready', function() {
     // add resize tween event
     $('adminMenu').addEvents({
       'mouseover' : function() { // resize on mouseover        
-          $('adminMenu').tween('height',($$('#adminMenu .content table')[0].offsetHeight + 36) + 'px');
+          $('adminMenu').tween('height',($('adminMenu').getChildren('.content table').offsetHeight + 36) + 'px');
       },
       'mouseout' : function() { // resize on onmouseout
           $('adminMenu').tween('height','140px');
@@ -560,7 +560,7 @@ window.addEvent('domready', function() {
             
 					
             // put the save new order - text in the loadingBox AND show the loadingBox
-            $$('#loadingBox .content')[0].set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
+            $('loadingBox').getChildren('.content').set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
             $('loadingBox').setStyle('display','block');
             $('loadingBox').fade('hide');
             $('loadingBox').fade('in');

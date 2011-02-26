@@ -39,14 +39,15 @@ var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;
 * creates loadingCircle and disappears when domready
 */
 window.addEvent('domready', function() {
-    
-  var loadingBoxContent = $$('#loadingBox .content')[0];
+  
+  var loadingBox = $('loadingBox').getChildren('.content');
+  layoutFix();
 
   // ->> SHOW the loading circle 
-  if($('content') != null && loadingBoxContent != null &&
+  if($('content') != null && loadingBox != null &&
      $('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
     // -> add to the #content div
-    loadingBoxContent.grab(jsLoadingCircleContainer,'top');   
+    loadingBox.grab(jsLoadingCircleContainer,'top');   
     
     // set tween
     $('loadingBox').set('tween',{duration: 400});    
@@ -58,21 +59,20 @@ window.addEvent('domready', function() {
     
     // blend out after page is loaded 
     window.addEvent('load', function() {    
-        $('loadingBox').tween('opacity','0');
-        layoutFix();
+        $('loadingBox').tween('opacity','0');        
     });
     
     // disply none the documentsaved, after blending in and out
     $('loadingBox').get('tween').chain(function() {
         removeLoadingCircle();
-        loadingBoxContent.set('html','');
+        loadingBox.set('html','');
         $('loadingBox').setStyle('display','none');
         $('loadingBox').setStyle('opacity','1');
     });
     
   // ->> hide loading circle, when it was not animated
   } else if(loadingBoxContent != null) {
-    loadingBoxContent.set('html','');
+    loadingBox.set('html','');
     $('loadingBox').setStyle('display','none');
     $('loadingBox').setStyle('opacity','1');
   }
@@ -81,7 +81,7 @@ window.addEvent('domready', function() {
 // LOADING-CIRCLE when the website will be left
 window.addEvent('unload',  function() {
 
-  var loadingBox = $$('#loadingBox .content')[0];
+  var loadingBox = $('loadingBox').getChildren('.content');
    
   // empties the loadingBox, and refill with the loadingCircle
   if(loadingBox != null) {
