@@ -331,7 +331,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           echo '<tr><td class="left">
                 <label for="categories'.$category['id'].'name">'.$langFile['pageSetup_field1'].'</label>
                 </td><td class="right">
-                <input type="text" id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.$category['name'].'" />
+                <input id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.$category['name'].'" />
                 </td></tr>';
           
           echo '<tr><td class="leftBottom"></td><td>';

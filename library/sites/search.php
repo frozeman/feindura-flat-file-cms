@@ -59,7 +59,7 @@ $searchWords = (isset($_GET['search'])) ? urldecode($_GET['search']) : $_POST['s
   <div class="block">
   <h1><?= $langFile['SEARCH_TITLE']; ?></h1>
     <div class="content">
-      <input name="search" type="text" size="50" value="<?= $searchWords; ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
+      <input type="text" name="search" size="50" value="<?= $searchWords; ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
       <input type="submit" value="" class="button search" />
     </div>
     <div class="bottom"></div>

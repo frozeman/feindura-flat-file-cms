@@ -198,8 +198,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   }
   
   // -> CHECK depency of PAGEDATE
-  if($category['sortByPageDate'] == 'true' && $category['showPageDate'] = 'false')
+  if($category['sortByPageDate'] == 'true' && !isset($category['showPageDate']))
     $category['showPageDate'] = 'true';
+    
+  if(!isset($category['showPageDate']) && isset($category['showPageDate']))
+    $category['sortByPageDate'] = 'true';
 
   if(saveCategories($categoriesCleaned)) {
     $documentSaved = true; // set documentSaved status

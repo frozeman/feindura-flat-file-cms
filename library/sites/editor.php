@@ -478,7 +478,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         else
           $year = null;
           
-        $pageDateTags['year'] = '<input type="text" class="short toolTip" name="pageDate[year]" title="'.$langFile['editor_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
+        $pageDateTags['year'] = '<input class="short toolTip" name="pageDate[year]" title="'.$langFile['editor_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
         
         // -> WRITES the SORT DATE TAGS
         if($adminConfig['dateFormat'] == 'eu') {

@@ -1407,7 +1407,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
     if($isFiles && isset($files)) {
       echo '<div class="editFiles left">
             <h2>'.$GLOBALS['langFile']['editFilesSettings_chooseFile'].'</h2>
-            <input type="text" value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
+            <input value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
       echo '<select onchange="changeEditFile(\''.$siteName.'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
  
             // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
