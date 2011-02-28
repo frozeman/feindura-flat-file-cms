@@ -16,14 +16,19 @@
 // javascripts/frontendEditing.js version 1.0 (requires mootools and MooRTE)
 
 (function() {
+  if(typeof jQuery != 'undefined')
+    return;
   
   // var
   var pageSaved = false;
   var pageContent = null;
+  var nonEditableBlocks = new Array();
   var editableBlocks = new Array();
   var editableTitles = new Array();
   var pageToolbars =  new Array();
   
+  var toolTips = null;
+
   var logo = new Element('a',{ 'href': feindura_url + feindura_basePath, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
   var topBar = new Element('div',{id: 'feindura_topBar'});
   var topBarVisible = true;
@@ -167,7 +172,7 @@
     feindura_storeTipTexts('.feindura_toolTip');
   	
   	// add the tooltips to the elements
-    var toolTips = new Tips('.feindura_toolTip',{
+    toolTips = new Tips('.feindura_toolTip',{
       className: 'feindura_toolTipBox',
       offset: {'x': 10,'y': 15},
       fixed: false,
@@ -209,6 +214,10 @@
       pageToolbars.each(function(pageToolbar){
         pageToolbar.setStyle('display','none');
       });
+      nonEditableBlocks.each(function(nonEditableBlock){
+        nonEditableBlock.removeClass('feindura_editPageDisabled');
+        toolTips.detach(nonEditableBlock);
+      });
       editableBlocks.each(function(editableBlock){
         editableBlock.removeClass('feindura_editPage');
       });
@@ -237,6 +246,10 @@
         pageToolbars.each(function(pageToolbar){
           pageToolbar.setStyle('display','none');
         });
+        nonEditableBlocks.each(function(nonEditableBlock){
+          nonEditableBlock.removeClass('feindura_editPageDisabled');
+          toolTips.detach(nonEditableBlock);
+        });
         editableBlocks.each(function(editableBlock){
           editableBlock.removeClass('feindura_editPage');
         });
@@ -258,6 +271,10 @@
     
     pageToolbars.each(function(pageToolbar){
       pageToolbar.setStyle('display','block');
+    });
+    nonEditableBlocks.each(function(nonEditableBlock){
+      nonEditableBlock.addClass('feindura_editPageDisabled');
+      toolTips.attach(nonEditableBlock);
     });
     editableBlocks.each(function(editableBlock){
       editableBlock.addClass('feindura_editPage');
@@ -386,16 +403,18 @@
     });
     $$('div.feindura_editPageDisabled').each(function(pageBlock) {
       setPageIds(pageBlock);
+      nonEditableBlocks.push(pageBlock);
       
       pageBlock.addEvents({
-        mouseenter: function() {
-          editDisabledIcon.inject(pageBlock);
-        },
-        mouseleave: function() {
-          editDisabledIcon.dispose();
-        }
-      });
-      
+        mouseenter: function(e) {
+          if(pageBlock.hasClass('feindura_editPageDisabled'))
+            editDisabledIcon.inject(pageBlock);
+      },
+        mouseleave: function(e) {
+          if(pageBlock.hasClass('feindura_editPageDisabled'))
+            editDisabledIcon.dispose();
+      }
+      });      
     });
     
     // ->> add BAR to EACH PAGE BLOCK  

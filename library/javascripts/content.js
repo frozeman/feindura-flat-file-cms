@@ -385,14 +385,14 @@ window.addEvent('domready', function() {
     $('adminMenu').setStyle('overflow','hidden');
     
     // set tween
-    $('adminMenu').set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
+    $('adminMenu').set('tween',{duration: 350, transition: Fx.Transitions.Quint.easeIn});
     
     // add resize tween event
     $('adminMenu').addEvents({
-      'mouseover' : function() { // resize on mouseover        
-          $('adminMenu').tween('height',($('adminMenu').getChildren('.content table').offsetHeight + 36) + 'px');
+      mouseenter : function() { // resize on mouseover
+          $('adminMenu').tween('height',($('adminMenu').getChildren('.content table')[0].offsetHeight + 40) + 'px');
       },
-      'mouseout' : function() { // resize on onmouseout
+      mouseleave : function() { // resize on onmouseout
           $('adminMenu').tween('height','140px');
       }
     });
@@ -845,9 +845,10 @@ window.addEvent('domready', function() {
     CKEDITOR.config.resize_maxWidth               = '1400';
     CKEDITOR.config.resize_minHeight              = '400';
     CKEDITOR.config.resize_maxHeight              = '900';
-    CKEDITOR.config.forcePasteAsPlainText         = false;
+    CKEDITOR.config.forcePasteAsPlainText         = true;
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
+    CKEDITOR.config.extraPlugins                  = 'Media';
     
     //CKEDITOR.config.disableNativeSpellChecker = false;
     
@@ -865,7 +866,7 @@ window.addEvent('domready', function() {
                               ['NumberedList','BulletedList'],
                               ['Blockquote','HorizontalRule','Table'],                              
                               ['Link','Unlink','Anchor'],
-                              ['Image','Flash'],
+                              ['Image','Flash','Media'],
                               ['SpecialChar'],
                                '/',
                               ['Styles','Format','FontSize'], // 'Font','FontName',

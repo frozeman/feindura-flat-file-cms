@@ -25,7 +25,8 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 /**
  * The absolut path of the webserver
  */ 
-define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
+//define('DOCUMENTROOT',$_SERVER["DOCUMENT_ROOT"]);
+define('DOCUMENTROOT', realpath((getenv('DOCUMENT_ROOT') && preg_match('#^'.preg_quote(realpath(getenv('DOCUMENT_ROOT'))).'#', realpath(__FILE__))) ? getenv('DOCUMENT_ROOT') : str_replace(dirname(@$_SERVER['PHP_SELF']), '', str_replace(DIRECTORY_SEPARATOR, '/', dirname(__FILE__)))));
 
 /**
  * The required PHP version
