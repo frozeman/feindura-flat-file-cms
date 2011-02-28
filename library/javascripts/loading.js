@@ -71,7 +71,7 @@ window.addEvent('domready', function() {
     });
     
   // ->> hide loading circle, when it was not animated
-  } else if(loadingBoxContent != null) {
+  } else if(loadingBox != null) {
     loadingBox.set('html','');
     $('loadingBox').setStyle('display','none');
     $('loadingBox').setStyle('opacity','1');

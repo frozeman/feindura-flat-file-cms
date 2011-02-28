@@ -196,6 +196,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
       $category['name'] = generalFunctions::prepareInputString($category['name']);
       $categoriesCleaned[$category['id']] = $category;
   }
+  
+  // -> CHECK depency of PAGEDATE
+  if($category['sortByPageDate'] == 'true' && $category['showPageDate'] = 'false')
+    $category['showPageDate'] = 'true';
 
   if(saveCategories($categoriesCleaned)) {
     $documentSaved = true; // set documentSaved status

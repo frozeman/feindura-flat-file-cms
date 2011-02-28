@@ -337,13 +337,6 @@ function saveCategories($newCategories) {
         $category['sortByPageDate'] = (isset($category['sortByPageDate']) && $category['sortByPageDate']) ? 'true' : 'false';
         $category['sortAscending'] = (isset($category['sortAscending']) && $category['sortAscending']) ? 'true' : 'false';
         
-        // -> CHECK depency of PAGEDATE
-        if($category['showPageDate'] == 'false')
-          $category['sortByPageDate'] = 'false';
-        
-        if($category['sortByPageDate'] == 'true')
-          $category['showPageDate'] = 'true';
-        
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
         if(!isset($category['thumbWidth']))
           $category['thumbWidth'] = $GLOBALS['categoryConfig'][$category['id']]['thumbWidth'];

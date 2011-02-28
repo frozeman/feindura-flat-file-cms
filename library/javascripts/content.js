@@ -797,12 +797,12 @@ window.addEvent('domready', function() {
     $$('input[type=checkbox]').each(function(checkbox) {
       var checkboxId = checkbox.get('id');
       var categoryNumber;
-      var sortbypagedateCheckbox = new Array();
+      var sortBypageDateCheckbox = new Array();
       
       // go trough checkboxes with id
       if(checkboxId) {
-        // -> ** categories[0-9]sortbypagedate
-        if(checkboxId.match(/^categories[0-9]sortbypagedate$/)) {
+        // -> ** categories[0-9]sortByPageDate
+        if(checkboxId.match(/^categories[0-9]sortByPageDate$/)) {
           categoryNumber = checkboxId.match(/[0-9]+/);
           myCfe.addDependency(checkbox,'categories'+categoryNumber+'showPageDate');
           
@@ -814,9 +814,9 @@ window.addEvent('domready', function() {
           checkbox.addEvent('click',function(){
             categoryNumber = checkboxId.match(/[0-9]+/);
 
-            if($('categories'+categoryNumber+'sortbypagedate').getProperty('checked')) {
-              $('categories'+categoryNumber+'sortbypagedate').removeProperty('checked');
-              //alert(myCfe($('categories'+categoryNumber+'sortbypagedate')));
+            if($('categories'+categoryNumber+'sortByPageDate').getProperty('checked')) {
+              $('categories'+categoryNumber+'sortByPageDate').removeProperty('checked');
+              //alert(myCfe($('categories'+categoryNumber+'sortByPageDate')));
             }            
           
           })
