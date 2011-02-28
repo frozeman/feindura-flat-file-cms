@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 555
+Build 556
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 556: fixed login.include.php
   build 555: fixed checking of depencies in showPageDate and sortByPageDate
   build 554: fixed input layouts
   build 553: fixed sortByPageDate (it was still lowercase in some places)
