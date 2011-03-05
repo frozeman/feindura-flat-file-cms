@@ -1109,31 +1109,12 @@ class statisticFunctions {
       // var
       $userAgent = $_SERVER['HTTP_USER_AGENT'];
       
-      // hohlt die botliste aus der spiders.xml liste
-      // wenn php version > 5
-      if(PHP_VERSION >= 5) {      
-        if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
-          foreach($xml as $xmlData) {
-              $bots[] = strtolower($xmlData['ident']);            
-          }
+      // get the list of bots from the spiders.xml
+      if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
+        foreach($xml as $xmlData) {
+            $bots[] = strtolower($xmlData['ident']);            
         }
-        
-        /*
-        // list bots so i can save them in a text file
-        foreach($bots as $bot) {
-          echo $bot.',';
-        }
-        */
-        
-      } else { // php version 4
-        // hohlt die botliste aus der spiders.txt liste
-        $filename = dirname(__FILE__)."/../thirdparty/spiders.txt";
-        $fd = fopen ($filename, "r");
-        $bots = fread ($fd, filesize($filename));
-        fclose ($fd);
-        $bots = explode(',',$bots);
       }
-      
       //var_dump($bots);
       
       $userAgent = strtolower($userAgent);
