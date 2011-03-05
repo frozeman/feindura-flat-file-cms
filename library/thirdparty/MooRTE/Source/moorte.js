@@ -40,8 +40,8 @@ var MooRTE = new Class({
 	Implements: [Options]
 
 	, options: { floating: true // false broken by WK bug - "an editable element may not contain non-editable content".
-			   , where: 'before' // 'top/bottom/before/after' (Mootools standard.)
-			   , padFloat: true // before/after: add to existing margins when true. top/bottom: padding always added. If false shrinks element accordingly.
+			   , padFloat: true // if (padFloat && where == before||after) existing margins are enlarged. top/bottom: padding always added. If false shrinks element accordingly.
+			   , where: 'before' // 'top/bottom/before/after' (Mootools standard). 'top' is the same as 'before', except that it shrinks the element accordingly.
 			   , stretch: false // If element grows, should it stretch the element or add toolbars. Other options abound.
 			   , location: 'elements'
 			   , buttons: 'div.Menu:[Main,File,Insert]'
@@ -79,7 +79,7 @@ var MooRTE = new Class({
 					}
 				});
 			
-			if (Browser.firefox) el.innerHTML += '<p id="rteMozFix"><br></p>';
+			if (Browser.firefox) el.innerHTML += "<p id='rteMozFix' style='display:none'><br></p>";
 			
 			el.store('bar', rte);
 			MooRTE.Utilities.addEvents(el, { keydown: MooRTE.Utilities.shortcuts
@@ -101,7 +101,7 @@ var MooRTE = new Class({
 	}
 	, insertToolbar: function (pos){
 		var self = this;
-		var rte = new Element( 'div', {'class':'rteRemove MooRTE '+(!pos||pos=='n'?'rteHide':''), 'contentEditable':false })
+		var rte = new Element('div', {'class':'rteRemove MooRTE '+(!pos||pos=='n'?'rteHide':''), 'contentEditable':false })
 					.adopt(new Element('div', {'class':'RTE '+self.options.skin }))
 					.inject(document.body);
 		MooRTE.activeBar = rte;
@@ -124,10 +124,10 @@ var MooRTE = new Class({
 				.height;
 
 		if (o.floating){
-			if (o.padFloat){
-				var pad = {before:'margin-top',after:'margin-after',top:'padding-top',bottom:'padding-bottom'}[o.where];
-				el.setStyle(pad, parseInt(el.getStyle(pad)) + rteHeight);
-			}
+			var pad = {before:'margin-top',after:'margin-after',top:'padding-top',bottom:'padding-bottom'}[o.where];
+			el.setStyle(pad, parseInt(el.getStyle(pad)) + rteHeight);
+			if (!o.padFloat) el.setStyle('min-height', elSize.height - rteHeight).setStyle('height', elSize.height - rteHeight);
+
 			rte
 				.setStyles({ 'left': elSize.left, 'top': (elSize.top - rteHeight > 0 ? elSize.top : elSize.bottom) })
 				.addClass('rteFloat')
@@ -142,12 +142,14 @@ var MooRTE = new Class({
 			{ text: el.get('value')
 			, 'class': 'rteTextArea '+el.get('class')
 			, 'styles': {width:el.getSize().x}
-			} ).setStyle(Browser.ie?'height':'min-height',el.getSize().y)
-				.store('textarea',el).replaces(el);
-		
+			}
+		).setStyle(Browser.ie?'height':'min-height',el.getSize().y)
+		 .store('src', el).replaces(el);
+		el.store('new', div);
+
 		var form = el.getParent('form');
 		if (form) MooRTE.Utilities.addEvents(form, {'submit': function(){
-			el.set('value', MooRTE.Utilities.clean(div)); 
+			el.set('value', MooRTE.Utilities.clean(div)).replaces(div); 
 		} });
 		return div;
 	}
@@ -260,10 +262,11 @@ MooRTE.Utilities = {
 		Object.append(el.retrieve('rteEvents',{}), events);
 		el.addEvents(events);
 	}
-	, removeEvents: function(el){
+	, removeEvents: function(el, destroy){
 		Object.each(el.retrieve('rteEvents',{}), function(fn, event){
 			el.removeEvent(event, fn);
 		});
+		if (destroy) el.eliminate('rteEvents');
 	}
 	, shortcuts: function(e){
 		if (e.key=='enter'){
@@ -450,17 +453,16 @@ MooRTE.Utilities = {
 		MooRTE.Utilities.eventHandler('onShow', this, name);
 	}
 	, clipStickyWin: function(caller){
-		// ToDo: create the instance of the AssetLoader once. Then just call the load function.
 		if (Browser.firefox || (Browser.webkit && caller=='paste')) 
-			if (window.AssetLoader) new AssetLoader({
+			if (window.AssetLoader) AssetLoader.javascript(['mootools-more.js','StickyWinModalUI.js'], {
 				onComplete: function(command){
-					var body = "For your protection, "+(Browser.webkit?"Webkit":"Firefox")+" does not allow access to the clipboard.<br/>  <b>Please use Ctrl+C to copy, Ctrl+X to cut, and Ctrl+V to paste.</b><br/>\
-						(Those lucky enough to be on a Mac use Cmd instead of Ctrl.)<br/><br/>\
+					var body = "For your protection, "+(Browser.webkit?"Webkit":"Firefox")+" does not allow access to the clipboard.<br/>\
+						<b>Please use Ctrl+C to copy, Ctrl+X to cut, and Ctrl+V to paste.</b><br/><br/>\
 						If this functionality is important, consider switching to a browser such as IE,<br/> which will allow us to easily access [and modify] your system."; 
 					MooRTE.Elements.clipPop = new StickyWin.Modal({content: StickyWin.ui('Security Restriction', body, {buttons:[{ text:'close'}]})});	
 					MooRTE.Elements.clipPop.hide();
 				}
-			}, 'StickyWinModalUI.js');
+			});
 	}
 	, clean: function(html, options){
 	
@@ -580,7 +582,8 @@ MooRTE.Utilities = {
 
 Element.implement({
 	moorte: function(){
-		var params = Array.link(arguments, {'options': Type.isObject, 'cmd': Type.isString, 'rte':Type.isElement});
+		var self = this.retrieve('new') || this
+		  , params = Array.link(arguments, {'options': Type.isObject, 'cmd': Type.isString, 'rte':Type.isElement});
 		if (params.rte) params.rte.hasClass('MooRTE')
 			? this.store('bar', params.rte)
 			: alert('err: Passed in element is not a RTE.');
@@ -588,71 +591,76 @@ Element.implement({
 			new MooRTE(Object.merge(params.options, {'elements':this}));
 			return this;
 		}
-		var bar = this.hasClass('MooRTE') ? this : this.retrieve('bar') || '';
-		
+				
+		var bar = self.hasClass('MooRTE') ? self : self.retrieve('bar') || '';
 		if ('undefined,create,show,restore,attach'.test(params.cmd,'i')){
-			var removed = bar && bar.retrieve('removed');
-			if (!removed) return bar 
-				? this.removeClass('rteHide')
-				: (new MooRTE({'elements':this}), this);
+			if (!bar){
+				new MooRTE({'elements':this});
+				return self;
+			}
+			if (bar.hasClass('rteHide')){
+				bar.removeClass('rteHide');
+				return self;
+			}
 			
-			bar.retrieve('fields').each(function(el){
-				if (el.hasClass('rteTextArea'))
-					el.retrieve('textarea').replaces(el);
-				else {
+			var els = [self]
+			  , removed = bar.retrieve('removed');
+			if (removed){
+				els = bar.retrieve('fields');
+				bar.inject(removed[0], removed[1]).eliminate('removed');
+			} else if (this == bar) return this;
+			
+			els.each(function(el){
+				var src = el.retrieve('src');
+				if (!src){
 					el.set('contentEditable', true);
 					MooRTE.Utilities.addEvents(el, el.retrieve('rteEvents'));
-				}
-			});
-			bar.inject(removed[0], removed[1]).eliminate('removed');
-			return this;
+					if (Browser.firefox) el.grab(new Element('div', {id:'retMozFix',styles:{display:'none'}}));
+				} else if (src.getParent()) el.set('html', src.get('value')).replaces(src);
+			})
+			return self;
 		}
-		
 		if (!bar) return false;
 		
 		switch (params.cmd.toLowerCase()){
 			case 'hide':
-				bar.addClass('rteHide'); break;
+				bar.addClass('rteHide');
+				return this;
+			case 'detach':
+				if (this == bar) return this;
+				self = this.retrieve('new') || this;
+				bar.retrieve('fields').erase(self); 
+				els = [self];
+				break;
 			case 'remove':
 				bar.store('removed', bar.getPrevious()
 						? [bar.getPrevious(),'after']
-						: [bar.getParent(),'top'])
-					.dispose()
-					.retrieve('fields')
-					.each(function(el){
-						el.getElement('#rteMozFix').destroy();
-						if (el.hasClass('rteTextArea'))
-							el.retrieve('textarea').set('value', el.get('html')).replaces(el);
-						else {
-							el.set('contentEditable', false);
-							MooRTE.Utilities.removeEvents(el);
-						}
-					});
-			break;
-			case 'detach':
-				if (this == bar) return this;
-				el.getElement('#rteMozFix').destroy();
-				if (this.hasClass('rteTextArea'))
-					this.retrieve('textarea').set('value', this.get('html')).replaces(this);
-				else {
-					this.set('contentEditable', false);
-					MooRTE.Utilities.removeEvents(this);
-				}
-			break;
+						: [bar.getParent(),'top']);
+				bar.dispose();
+				els = bar.retrieve('fields');
+				break;			
 			case 'destroy':
-				bar.retrieve('fields').each(function(el){
-					el.getElement('#rteMozFix').destroy();
-					if (el.hasClass('rteTextArea')){
-						el.retrieve('textarea').set('value', el.get('html')).replaces(el).eliminate('textarea');
-						el.destroy();
-					} else {
-						el.set('contentEditable', false).eliminate('bar');
-						MooRTE.Utilities.removeEvents(el);
-					}
-				});
+				var destroy = true;
+				els = bar.retrieve('fields');
 				bar.destroy();
 		}
-		return this;
+		
+		els.each(function(el){
+			if (Browser.firefox) el.getElement('#rteMozFix').destroy();
+			var src = el.retrieve('src');
+			if (src){
+				src.set('value', el.get('html')).replaces(el);
+				if (destroy){
+					src.eliminate('new');
+					el.destroy();
+				}
+			} else {
+				el.set('contentEditable', false);
+				MooRTE.Utilities.removeEvents(el, destroy);
+				if (destroy) el.eliminate('bar');
+			}
+		});
+		return this.retrieve('src') || this;
 	}
 });
 Elements.implement({

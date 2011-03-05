@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 beta3
-Build 558
+Build 559
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1 beta3
   
+  build 559: add new MooRTE version
   build 558: fixed toolTip css
   build 557: add media plugin to CKEditor; fixed frontend editing edit disabled block
   build 556: fixed login.include.php

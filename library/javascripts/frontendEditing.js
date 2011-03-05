@@ -40,6 +40,8 @@
   var editDisabledIcon = new Element('div',{'class':'feindura_editDisabledIcon'});
   var removeLoadingCircle;
   
+  var feinduraMooRTE;
+  
   // -> set up toolbar  
   var MooRTEButtons = {Toolbar:['save','undo','redo','removeformat', // 'Html/Text'
                                 'bold','italic','underline','strikethrough',
@@ -71,7 +73,7 @@
   /* ---------------------------------------------------------------------------------- */
   // FRONTEND EDITING AJAX REQUEST
   function request(pageBlock,url,data,errorTexts,method,update) {
-    
+
     // vars
     if(!method) method = 'get';
     
@@ -206,7 +208,7 @@
       
       $(document.body).setStyle('padding-top','5px');
       $(document.body).setStyle('background-position-y','5px');
-
+      
       $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
         pageBlock.moorte('destroy');
       });
@@ -235,10 +237,9 @@
         $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
       topBar.tween('top', '-55px');
       
+      $(document.body).morph({'padding-top':'5px','background-position-y':'5px'});
+      
       topBar.get('tween').chain(function() {
-        $(document.body).setStyle('padding-top','5px');
-        $(document.body).setStyle('background-position-y','5px');
-  
         $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
           pageBlock.moorte('destroy');
         });
@@ -290,7 +291,7 @@
     */
     
     if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null) {
-      new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+      feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
     }
     
@@ -298,11 +299,7 @@
     if($$('div.MooRTE.rtePageTop')[0] != null)
       $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
-    
-    topBar.get('tween').chain(function() {
-      $(document.body).setStyle('padding-top','60px');
-      $(document.body).setStyle('background-position-y','60px');
-    });    
+    $(document.body).morph({'padding-top':'60px','background-position-y':'60px'});
     
   }
   
@@ -498,7 +495,7 @@
                                           
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
     if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null)
-      new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
+      feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
     
     // -> deactivates frontend editing on start (when the session var is set)
     if(feindura_deactivateFrontendEditing == true)
