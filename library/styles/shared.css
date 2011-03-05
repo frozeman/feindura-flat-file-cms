@@ -51,69 +51,69 @@ a.feindura_toBackend {
   background: url("../images/key/header_toBackend.png") no-repeat;
 }
 a.toWebsite:hover, a.feindura_toBackend:hover {
-    background-position: 0px -26px;
+  background-position: 0px -26px;
 }
 
 /* --- TOOLTIP BOX */
 
 /* format of the toolTip box */
 .feindura_toolTipBox {
-    z-index: 1005;
-    font: 12px Verdana, Arial, Sans-serif, Serif;
-    }
+  z-index: 1005;
+  font: 12px Verdana, Arial, Sans-serif, Serif;
+}
 
 .feindura_toolTipBox .tip-title	{
-    z-index: 2;
-    position: relative;
-    margin: 0px 30px;
-    font-weight: bold;
-    font-size: 12px; 
-    color:#947342;
-    text-align: center;
-    word-wrap: break-word;
-    }
+  z-index: 2;
+  position: relative;
+  margin: 0px 30px;
+  font-weight: bold;
+  font-size: 12px; 
+  color:#947342;
+  text-align: center;
+  word-wrap: break-word;
+}
 .feindura_toolTipBox .tip-title span	{
-    color: #666666;
-    }
+  color: #666666;
+}
 .feindura_toolTipBox .tip-text	{
-    z-index: 2;
-    position: relative;
-    color: #666666;
-    padding: 2px 35px;
-    padding-bottom: 0px;
-    word-wrap: break-word;
-    font-size: 11px;
-    }
+  z-index: 2;
+  position: relative;
+  color: #666666;
+  padding: 2px 35px;
+  padding-bottom: 0px;
+  word-wrap: break-word;
+  font-size: 11px;
+}
 .feindura_toolTipBox .tip-top {
-    z-index: 0;
-    position: relative;
-    background: url("../images/bg/toolTip_top.png") top left no-repeat;
-    width:272px;
-    height:30px; /* org  40px; */
-    }
+  z-index: 0;
+  position: relative;
+  background: url("../images/bg/toolTip_top.png") top left no-repeat;
+  width:272px;
+  height:30px; /* org  40px; */
+}
 .feindura_toolTipBox .tip {
-    z-index: 1;
-    position: relative;
-    width:272px;
-    background: url("../images/bg/toolTip_middle.png") left top repeat-y;
-    line-height: 20px;
-    border: none;
-    }
+  z-index: 1;
+  position: relative;
+  width:272px;
+  background: url("../images/bg/toolTip_middle.png") left top repeat-y;
+  line-height: 20px;
+  border: none;
+}
 .feindura_toolTipBox .tip ul {
-    padding: 0px;
-    margin: 0px;
-    margin-left: 15px;
-    list-style: disc;
-    }
+  padding: 0px;
+  margin: 0px;
+  margin-left: 15px;
+  list-style: disc;
+}
 .feindura_toolTipBox .tip ul li {
-    padding: 2px 0px;
-    margin: 0px;
-    }
+  padding: 2px 0px;
+  margin: 0px;
+}
 .feindura_toolTipBox .tip-bottom	{
-    background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
-    width: 272px;
-    height: 25px; /* org  35px; */
-    }
+  background: url("../images/bg/toolTip_bottom.png") left bottom no-repeat;
+  width: 272px;
+  height: 25px; /* org  35px; */
+}
     
 /* --- ERRORWINDOW */
 

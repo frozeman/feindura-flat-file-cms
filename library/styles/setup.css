@@ -140,7 +140,7 @@ a.deleteUser:hover {
 /****************/	
 /* *** INPUT */
 
-input, textarea, select, div.CodeMirror-wrapping {
+input, input[type="text"], textarea, select, div.CodeMirror-wrapping {
     background: url("../images/bg/formularBg.png") no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;

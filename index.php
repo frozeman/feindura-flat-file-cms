@@ -70,6 +70,10 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
+  <!-- thirdparty/customformelements -->
+  <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
+  
+  <!-- feindura styles -->
   <link rel="stylesheet" type="text/css" href="library/styles/reset.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/layout.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/menus.css" />
@@ -93,9 +97,6 @@ if($_GET['site'] == 'addons') {
   <noscript>
   <link rel="stylesheet" type="text/css" href="library/styles/noJavascript.css" media="screen" />
   </noscript>
-  
-  <!-- thirdparty/customformelements -->
-  <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
   
   <!-- ************************************************************************************************************ -->
   <!-- JAVASCRIPT -->
