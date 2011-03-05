@@ -21,7 +21,7 @@ div.leftSidebarLoadingCircle {
     text-decoration: none;
     color: #3A7AA5;
     /* padding-left: 17px;
-    background: url("../images/sign/link.gif") no-repeat 0px 0px; */
+    background: url("../images/icons/link.gif") no-repeat 0px 0px; */
     }
 #leftSidebar a:hover {
     color: #666666;
@@ -138,71 +138,71 @@ div.leftSidebarLoadingCircle {
 
 /* dark */
 #leftSidebar .sidebarMenu .content.dark a {
-    background: url("../images/key/sidebarMenu_key_dark.png") repeat-x;
+    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x;
     color: #ffffff;
     }
 #leftSidebar .sidebarMenu .content.dark a.active {
-    background: url("../images/key/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
+    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
     color: #333333 !important;
     }
 #leftSidebar .sidebarMenu .content.dark a:hover {
-    background: url("../images/key/sidebarMenu_key_dark.png") repeat-x 0px -35px;
+    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -35px;
     color: #333333;
     }
 
 /* white */
 #leftSidebar .sidebarMenu .content.white a {
-    background: url("../images/key/sidebarMenu_key_white.png") repeat-x;
+    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x;
     color: #707F81;
     }
 #leftSidebar .sidebarMenu .content.white a.active {
-    background: url("../images/key/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
+    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
     color: #333 !important;
     }
 #leftSidebar .sidebarMenu .content.white a:hover {
-    background: url("../images/key/sidebarMenu_key_white.png") repeat-x 0px -35px;
+    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -35px;
     color: #ffffff;
     }
 
 /* light */
 #leftSidebar .sidebarMenu .content.light a {
-    background: url("../images/key/sidebarMenu_key_light.png") repeat-x;
+    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x;
     color: #444444;
     }
 #leftSidebar .sidebarMenu .content.light a.active {
-    background: url("../images/key/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
+    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
 #leftSidebar .sidebarMenu .content.light a:hover {
-    background: url("../images/key/sidebarMenu_key_light.png") repeat-x 0px -35px;
+    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -35px;
     color: #ffffff;
     }
     
 /* brown */
 #leftSidebar .sidebarMenu .content.brown a {
-    background: url("../images/key/sidebarMenu_key_brown.png") repeat-x;
+    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
     color: #9B6B1D;
     }
 #leftSidebar .sidebarMenu .content.brown a.active {
-    background: url("../images/key/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
+    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
 #leftSidebar .sidebarMenu .content.brown a:hover {
-    background: url("../images/key/sidebarMenu_key_brown.png") repeat-x 0px -35px;
+    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -35px;
     color: #ffffff;
     }
 
 /* blue */
 #leftSidebar .sidebarMenu .content.blue a {
-    background: url("../images/key/sidebarMenu_key_blue.png") repeat-x;
+    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x;
     color: #457A96;
     }
 #leftSidebar .sidebarMenu .content.blue a.active {
-    background: url("../images/key/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
+    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
 #leftSidebar .sidebarMenu .content.blue a:hover {
-    background: url("../images/key/sidebarMenu_key_blue.png") repeat-x 0px -35px;
+    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -35px;
     color: #ffffff;
     }
 
@@ -220,10 +220,10 @@ div.leftSidebarLoadingCircle {
     }
 
 #leftSidebar .sidebarMenu .top a {
-    background: url("../images/key/sidebarMenu_buttonUp.png") no-repeat right top;
+    background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
     }
 #leftSidebar .sidebarMenu.hidden .top a {
-    background: url("../images/key/sidebarMenu_buttonDown.png") no-repeat right top;
+    background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
     } 
         
 #leftSidebar .sidebarMenu .top a:hover {
@@ -239,7 +239,7 @@ div.leftSidebarLoadingCircle {
     width: 100%;
     height: 13px; /* original 13px */ 
     text-decoration: none;
-    background: url("../images/key/sidebarMenu_pullToogle.png") no-repeat right top;
+    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
     }
 #leftSidebar .sidebarMenu .bottom a:hover {
     background-position: right -14px;

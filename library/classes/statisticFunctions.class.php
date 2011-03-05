@@ -901,7 +901,7 @@ class statisticFunctions {
           // SHOW the table cell with the right browser and color
           $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                       <div style="position: relative;">
-                      <img src="library/images/sign/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
+                      <img src="library/images/icons/'.$browserLogo.'" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
                       </div>
                       </td>';
         

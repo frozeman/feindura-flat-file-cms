@@ -70,7 +70,7 @@ content.css version 0.21 */
     margin-top: 1px;
     padding-top: 0px;
     min-height: 48px;
-    background: url("../images/sign/warning.png") no-repeat center left;
+    background: url("../images/icons/warning.png") no-repeat center left;
     }
 #content .block.warning .content p {
     display: block;
@@ -91,7 +91,7 @@ content.css version 0.21 */
     margin-top: 1px;
     padding-top: 0px;
     min-height: 85px;
-    background: url("../images/sign/info.png") no-repeat center left;
+    background: url("../images/icons/info.png") no-repeat center left;
     }
 #content .block.info .content p {
     display: block;
@@ -246,18 +246,18 @@ content.css version 0.21 */
     width: 760px;
     min-height: 35px;
     padding: 0px;
-    background: url("../images/key/content_h1_up_off.png") no-repeat right top;
+    background: url("../images/buttons/content_h1_up_off.png") no-repeat right top;
     color: #536068;
     }
 #content .block > h1 a:hover {
     color: #536068;
-    background: url("../images/key/content_h1_up_on.png") no-repeat right top;
+    background: url("../images/buttons/content_h1_up_on.png") no-repeat right top;
     }
 #content .block.hidden > h1 a {
-    background: url("../images/key/content_h1_down_off.png") no-repeat right top;
+    background: url("../images/buttons/content_h1_down_off.png") no-repeat right top;
     }
 #content .block.hidden > h1 a:hover {
-    background: url("../images/key/content_h1_down_on.png") no-repeat right top;
+    background: url("../images/buttons/content_h1_down_on.png") no-repeat right top;
     }
     
 /****************/  
@@ -280,7 +280,7 @@ content.css version 0.21 */
     width: 66px;
     height: 65px;
     text-decoration: none;
-    background: url("../images/key/content_fastUp.png") no-repeat;
+    background: url("../images/buttons/content_fastUp.png") no-repeat;
     }
 #content a.fastUp:hover {
     background-position: 0px -68px;
@@ -293,13 +293,13 @@ content.css version 0.21 */
 a.down {
     font-weight: bold;
     padding-left: 18px;
-    background: url("../images/key/down.gif") no-repeat 0px 3px !important;
+    background: url("../images/buttons/down.gif") no-repeat 0px 3px !important;
     }
     
 a.up {
     font-weight: bold;
     padding-left: 18px;
-    background: url("../images/key/up.gif") no-repeat 0px 3px !important;
+    background: url("../images/buttons/up.gif") no-repeat 0px 3px !important;
     }
 
 /****************/  
@@ -408,7 +408,7 @@ a.up {
     padding-left: 18px;
     color: #F58218;
     text-decoration: none;
-    background: url("../images/sign/link.gif") no-repeat left center;
+    background: url("../images/icons/link.gif") no-repeat left center;
     cursor: pointer !important;
     }
 .block p a, #windowBox p a {
@@ -451,7 +451,7 @@ a.deleteIcon {
   width: 18px;
   height: 17px;
   padding-left: 0px;
-  background: url("../images/key/content_deleteIcon.png") no-repeat;
+  background: url("../images/buttons/content_deleteIcon.png") no-repeat;
 }
 a.deleteIcon:hover {
   background-position: 0px -16px;
@@ -645,12 +645,12 @@ div.listPagesHead {
 .listPages div.name a {
     display: inline-block;
     height: 27px;
-    background: url("../images/sign/pageIcon_small.png") no-repeat 0px 0px;
+    background: url("../images/icons/pageIcon_small.png") no-repeat 0px 0px;
     padding-left: 30px !important;
     }
     
 .listPages div.name a.startPage {
-    background: url("../images/key/listPages_startPage.png") no-repeat;
+    background: url("../images/buttons/listPages_startPage.png") no-repeat;
     }
 
 .listPages .functions a {
@@ -662,19 +662,19 @@ div.listPagesHead {
     }
 
 .listPages .functions a.startPage {
-    background: url("../images/key/listPages_startPage.png") no-repeat;
+    background: url("../images/buttons/listPages_startPage.png") no-repeat;
     }
 .listPages .functions a.editPage {
-    background: url("../images/key/listPages_editPage.png") no-repeat;
+    background: url("../images/buttons/listPages_editPage.png") no-repeat;
     }
 .listPages .functions a.deletePage {
-    background: url("../images/key/listPages_deletePage.png") no-repeat;
+    background: url("../images/buttons/listPages_deletePage.png") no-repeat;
     }  
 .listPages .functions a.pageThumbnailUpload {
-    background: url("../images/key/listPages_pageThumbnailUpload.png") no-repeat;
+    background: url("../images/buttons/listPages_pageThumbnailUpload.png") no-repeat;
     }
 .listPages .functions a.pageThumbnailDelete {
-    background: url("../images/key/listPages_pageThumbnailDelete.png") no-repeat;
+    background: url("../images/buttons/listPages_pageThumbnailDelete.png") no-repeat;
     } 
 
 .listPages .functions a:hover, .listPages .functions a.startPage.active {
@@ -683,7 +683,7 @@ div.listPagesHead {
 
 .startPageIcon {
     display: inline-block;
-    background: url("../images/key/listPages_startPage.png") no-repeat;
+    background: url("../images/buttons/listPages_startPage.png") no-repeat;
     width:27px;
     height: 23px;
     }
@@ -695,7 +695,7 @@ div.listPagesHead {
     display: block;
     width: 27px;
     height: 27px;
-    background: url("../images/key/listPages_createPage.png") no-repeat !important;
+    background: url("../images/buttons/listPages_createPage.png") no-repeat !important;
     }
 .listPages .createPage:hover {
     background-position: 0px -27px !important;
@@ -714,18 +714,18 @@ div.listPagesHead {
 
 /* for categories */
 .listPages .category .status a.public {
-    background: url("../images/sign/category_public.png") no-repeat !important;
+    background: url("../images/icons/category_public.png") no-repeat !important;
     }
 .listPages .category .status a.nonpublic {
-    background: url("../images/sign/category_nonpublic.png") no-repeat !important;
+    background: url("../images/icons/category_nonpublic.png") no-repeat !important;
     }
 
 /* for pages */
 .listPages .content .status.public a {     
-    background: url("../images/sign/page_public.png") no-repeat !important;
+    background: url("../images/icons/page_public.png") no-repeat !important;
     }
 .listPages .content .status.nonpublic a {
-    background: url("../images/sign/page_nonpublic.png") no-repeat !important;
+    background: url("../images/icons/page_nonpublic.png") no-repeat !important;
     }
   
     
@@ -783,7 +783,7 @@ div.listPagesHead {
     width: 90px;
     height: 75px; /* org: 40px*/
     text-decoration: none;
-    background: url("../images/key/content_pageThumbnailUpload.png") no-repeat;  
+    background: url("../images/buttons/content_pageThumbnailUpload.png") no-repeat;  
     }
 #content .block.pageHead a.pageThumbnailUpload:hover {
     background-position: 0px -76px;
@@ -817,7 +817,7 @@ span.info strong {
 
 li.backupLink {
   padding-left: 20px !important;
-  background: url("../images/key/backup_download_small.png") no-repeat left center;
+  background: url("../images/buttons/backup_download_small.png") no-repeat left center;
 }
 
 a.downloadBackup {
@@ -825,7 +825,7 @@ a.downloadBackup {
   height: 48px; /* org: 78px */
   padding-left: 80px;
   padding-top: 30px;
-  background: url("../images/key/backup_download.png") no-repeat;  
+  background: url("../images/buttons/backup_download.png") no-repeat;  
 }
 a.downloadBackup:hover {
   background-position: 0px -78px;
@@ -836,7 +836,7 @@ a.restoreBackup {
   height: 48px; /* org: 78px */
   padding-left: 80px;
   padding-top: 30px;
-  background: url("../images/key/backup_restore.png") no-repeat;  
+  background: url("../images/buttons/backup_restore.png") no-repeat;  
 }
 a.restoreBackup:hover {
   background-position: 0px -78px;
@@ -1008,7 +1008,7 @@ a.toolTip {
 /* text toolTip */
 span.toolTip, label.toolTip {
     /*color: #B46F00;*/
-    background: url("../images/sign/hint_toolTipInfo.png") no-repeat right center;
+    background: url("../images/icons/hint_toolTipInfo.png") no-repeat right center;
     padding-right: 15px;
     }
     
@@ -1029,7 +1029,7 @@ span.toolTip.noMark {
     padding-left: 75px;
     margin-bottom: 15px;
     vertical-align: middle;
-    background: url("../images/sign/hintIcon.png") no-repeat center left;
+    background: url("../images/icons/hintIcon.png") no-repeat center left;
     /*font-weight:bold;*/
     font-size:18px;
     line-height: 28px;
@@ -1041,7 +1041,7 @@ span.toolTip.noMark {
 span.hint {
     display: inline-block;
     padding-left: 16px;
-    background: url("../images/sign/hint_toolTipInfo.png") no-repeat 0px 2px !important;
+    background: url("../images/icons/hint_toolTipInfo.png") no-repeat 0px 2px !important;
     font-size: 12px;
     color: #947342;
     }
@@ -1057,7 +1057,7 @@ span.warning {
     display: inline-block;
     padding: 3px 0px;
     padding-left: 20px;
-    background: url("../images/sign/warning.gif") no-repeat 0px 6px !important;
+    background: url("../images/icons/warning.gif") no-repeat 0px 6px !important;
     font-size: 12px;
     color: #990000;
     }

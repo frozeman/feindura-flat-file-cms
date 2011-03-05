@@ -76,7 +76,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
     <div style="text-align: center;">
     <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
     <div class="verticalSeparator"></div>
-    <img src="library/images/sign/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
+    <img src="library/images/icons/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
     <br />
     <?php
     

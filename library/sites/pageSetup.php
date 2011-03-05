@@ -355,9 +355,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 $publicSignStyle = ' style="position:relative; top:-3px; float:left;"';        
                 // shows the public or unpublic picture
                 if($checked[1])
-                  echo '<img src="library/images/sign/category_public.png" alt="public" class="toolTip" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' />&nbsp;';
+                  echo '<img src="library/images/icons/category_public.png" alt="public" class="toolTip" title="'.$langFile['STATUS_CATEGORY_PUBLIC'].'"'.$publicSignStyle.' />&nbsp;';
                 else
-                  echo '<img src="library/images/sign/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' />&nbsp;';
+                  echo '<img src="library/images/icons/category_nonpublic.png" alt="closed" class="toolTip" title="'.$langFile['STATUS_CATEGORY_NONPUBLIC'].'"'.$publicSignStyle.' />&nbsp;';
                 
                 echo '<span class="toolTip" title="'.$langFile['pageSetup_check1'].'::'.$langFile['pageSetup_check1_tip'].'">'.$langFile['pageSetup_check1'].'</span></label>
                 </td></tr>';

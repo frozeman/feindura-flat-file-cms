@@ -572,7 +572,7 @@ window.addEvent('domready', function() {
 		  // FINAL SORT MESSAGE
 		  //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
 		  //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
-		  $('messageBox_input').set('html','<img src="library/images/sign/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
+		  $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
 			
 			// remove prevent clicking the link on sort
 			$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });

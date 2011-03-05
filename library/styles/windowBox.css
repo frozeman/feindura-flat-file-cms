@@ -118,7 +118,7 @@ windowBox.css version 0.2 */
     width: 35px;
     height: 35px;
     padding: 0px;
-    background: url("../images/key/windowBox_close.png") no-repeat;
+    background: url("../images/buttons/windowBox_close.png") no-repeat;
     }
 #windowBox .boxTop a:hover {
     background-position: -35px 0px;
@@ -207,7 +207,7 @@ input.thumbnailUpload {
     left: 305px;
     width: 75px;
     height: 90px;
-    background: url("../images/key/thumbnailUpload.png") no-repeat !important;
+    background: url("../images/buttons/thumbnailUpload.png") no-repeat !important;
     }
 input.thumbnailUpload:hover {
     background-position: 0px -90px !important;

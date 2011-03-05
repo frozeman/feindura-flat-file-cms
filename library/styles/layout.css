@@ -124,7 +124,7 @@ span.red, label.red, h1.red, ul.red, div.red {
     left: 0px;
     width: 205px;
     height: 140px;
-    background: url("../images/sign/logo.png") no-repeat;
+    background: url("../images/icons/logo.png") no-repeat;
     }
 #version {
     z-index: 2;
@@ -165,15 +165,15 @@ span.red, label.red, h1.red, ul.red, div.red {
     
 #languageSelection a.de {
     left: 0px;
-    background: url("../images/key/langSelection_de.png") no-repeat;
+    background: url("../images/buttons/langSelection_de.png") no-repeat;
     }
 #languageSelection a.en {
     left: 30px;
-    background: url("../images/key/langSelection_en.png") no-repeat;
+    background: url("../images/buttons/langSelection_en.png") no-repeat;
     }
 #languageSelection a.fr {
     left: 60px;
-    background: url("../images/key/langSelection_fr.png") no-repeat;
+    background: url("../images/buttons/langSelection_fr.png") no-repeat;
     }
 
 
@@ -304,9 +304,9 @@ span.red, label.red, h1.red, ul.red, div.red {
     left: 480px;
     margin-left: auto;
     margin-right: auto;
-    width: 300px;
-    height: 320px;
-    background: url("../images/sign/documentSaved.png") no-repeat;
+    width: 246px;
+    height: 264px;
+    background: url("../images/icons/documentSaved.png") no-repeat;
     }
 
 /****************/    
@@ -370,7 +370,7 @@ a.lang_de {
   padding-left: 23px;
   display: inline-block;
   text-decoration: none;
-  background: url("../images/sign/de.png") no-repeat 2px;
+  background: url("../images/icons/de.png") no-repeat 2px;
   color: #434F58;
   }
 a.lang_de:hover {
@@ -384,7 +384,7 @@ a.lang_en {
   padding-left: 23px;
   display: inline-block;
   text-decoration: none;
-  background: url("../images/sign/en.png") no-repeat 2px;
+  background: url("../images/icons/en.png") no-repeat 2px;
   color: #434F58;
   }
 a.lang_en:hover {

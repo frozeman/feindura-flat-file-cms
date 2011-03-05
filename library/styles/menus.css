@@ -35,7 +35,7 @@
     border: none;
     border-collapse: collapse;    
     }
-#mainMenu table td {
+#mainMenu td {
     text-align: center;
     vertical-align: top;
     }
@@ -76,23 +76,23 @@
     
 /* home */
 #mainMenu a.home {
-    background: url("../images/key/mainMenu_home.png") no-repeat;
+    background: url("../images/buttons/mainMenu_home.png") no-repeat;
     }
 /* pages */
 #mainMenu a.pages {
-    background: url("../images/key/mainMenu_pages.png") no-repeat;
+    background: url("../images/buttons/mainMenu_pages.png") no-repeat;
     }
 /* addons */
 #mainMenu a.addons {
-    background: url("../images/key/mainMenu_addons.png") no-repeat;
+    background: url("../images/buttons/mainMenu_addons.png") no-repeat;
     }
 /* settings */
 #mainMenu a.websiteSetup {
-    background: url("../images/key/mainMenu_settings.png") no-repeat;
+    background: url("../images/buttons/mainMenu_settings.png") no-repeat;
     }
 /* search */
 #mainMenu a.search {
-    background: url("../images/key/mainMenu_search.png") no-repeat;
+    background: url("../images/buttons/mainMenu_search.png") no-repeat;
     }
 
 /* --- ADMINMENU ------------------------------------------------------------------------------------------------------------------- */
@@ -136,42 +136,42 @@
 
 /* advancedSetup */
 #adminMenu .content a.adminSetup {
-    background: url("../images/key/adminMenu_adminSetup.png") no-repeat;
+    background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
     }
 #adminMenu .content a.adminSetup:hover {
     background-position: -65px 0px;
     }
 /* pageSetup */
 #adminMenu .content a.pageSetup {
-    background: url("../images/key/adminMenu_pageSetup.png") no-repeat;
+    background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
     }
 #adminMenu .content a.pageSetup:hover {
     background-position: -65px 0px;
     }
 /* pluginSetup */
 #adminMenu .content a.pluginSetup {
-    background: url("../images/key/adminMenu_pluginSetup.png") no-repeat;
+    background: url("../images/buttons/adminMenu_pluginSetup.png") no-repeat;
     }
 #adminMenu .content a.pluginSetup:hover {
     background-position: -65px 0px;
     }
 /* statisticSetup */
 #adminMenu .content a.statisticSetup {
-    background: url("../images/key/adminMenu_statisticSetup.png") no-repeat;
+    background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
     }
 #adminMenu .content a.statisticSetup:hover {
     background-position: -65px 0px;
     }
 /* userSetup */
 #adminMenu .content a.userSetup {
-    background: url("../images/key/adminMenu_userSetup.png") no-repeat;
+    background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
     }
 #adminMenu .content a.userSetup:hover {
     background-position: -65px 0px;
     }
 /* backup */
 #adminMenu .content a.backup {
-    background: url("../images/key/adminMenu_backup.png") no-repeat;
+    background: url("../images/buttons/adminMenu_backup.png") no-repeat;
     }
 #adminMenu .content a.backup:hover {
     background-position: -65px 0px;
@@ -220,7 +220,7 @@
 .subMenu li.spacer {
     width: 14px;
     height: 47px;
-    background: url("../images/key/subMenu_spacer.png") no-repeat;
+    background: url("../images/buttons/subMenu_spacer.png") no-repeat;
     }
     
 /****************/
@@ -239,27 +239,27 @@
 
 /* fileManager */ 
 .subMenu a.fileManager {
-    background: url("../images/key/subMenu_fileManager.png") no-repeat;
+    background: url("../images/buttons/subMenu_fileManager.png") no-repeat;
     }
 /* createPage */ 
 .subMenu a.createPage {
-    background: url("../images/key/subMenu_createPage.png") no-repeat;
+    background: url("../images/buttons/subMenu_createPage.png") no-repeat;
     }
 /* deletePage */ 
 .subMenu a.deletePage {
-    background: url("../images/key/subMenu_deletePage.png") no-repeat;
+    background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
     }
 /* editPage */ 
 .subMenu a.editPage {
-    background: url("../images/key/subMenu_editPage.png") no-repeat;
+    background: url("../images/buttons/subMenu_editPage.png") no-repeat;
     }
 /* uploadThumb */ 
 .subMenu a.pageThumbnailUpload {
-    background: url("../images/key/subMenu_uploadThumb.png") no-repeat;
+    background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
     }
 /* deleteThumb */ 
 .subMenu a.pageThumbnailDelete {
-    background: url("../images/key/subMenu_deleteThumb.png") no-repeat;
+    background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
     }
 
 
@@ -281,7 +281,7 @@
 #footerMenu li.spacer {
     width: 14px;
     height: 100px;
-    background: url("../images/key/footerMenu_spacer.png") no-repeat;
+    background: url("../images/buttons/footerMenu_spacer.png") no-repeat;
     }
     
 /****************/
@@ -313,25 +313,25 @@
 
 /* fileManager */ 
 #footerMenu a.fileManager {
-    background: url("../images/key/footerMenu_fileManager.png") no-repeat;
+    background: url("../images/buttons/footerMenu_fileManager.png") no-repeat;
     }
 /* createPage */ 
 #footerMenu a.createPage {
-    background: url("../images/key/footerMenu_createPage.png") no-repeat;
+    background: url("../images/buttons/footerMenu_createPage.png") no-repeat;
     }
 /* deletePage */ 
 #footerMenu a.deletePage {
-    background: url("../images/key/footerMenu_deletePage.png") no-repeat;
+    background: url("../images/buttons/footerMenu_deletePage.png") no-repeat;
     }
 /* editPage */ 
 #footerMenu a.editPage {
-    background: url("../images/key/footerMenu_editPage.png") no-repeat;
+    background: url("../images/buttons/footerMenu_editPage.png") no-repeat;
     }
 /* uploadThumb */ 
 #footerMenu a.pageThumbnailUpload {
-    background: url("../images/key/footerMenu_uploadThumb.png") no-repeat;
+    background: url("../images/buttons/footerMenu_uploadThumb.png") no-repeat;
     }
 /* deleteThumb */ 
 #footerMenu a.pageThumbnailDelete {
-    background: url("../images/key/footerMenu_deleteThumb.png") no-repeat;
+    background: url("../images/buttons/footerMenu_deleteThumb.png") no-repeat;
     }

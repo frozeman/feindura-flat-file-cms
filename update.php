@@ -490,6 +490,12 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir($adminConfig['basePath'].'library/style/') && 
       is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/style/'))
       $checkFiles[] = $adminConfig['basePath'].'library/style/';
+    if(!delDir($adminConfig['basePath'].'library/images/key/') && 
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/images/key/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/images/key/';
+    if(!delDir($adminConfig['basePath'].'library/images/sign/') && 
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/images/sign/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/images/sign/';
       
     if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'README')&&
       is_file(DOCUMENTROOT.$adminConfig['basePath'].'README'))

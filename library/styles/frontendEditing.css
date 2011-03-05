@@ -61,7 +61,7 @@ a.logout:hover, a.toWebsite:hover {
   right: 3px;
   width: 112px;
   height: 54px;
-  background: url('../images/sign/frontend_header_logo.png');
+  background: url('../images/icons/frontend_header_logo.png');
 }
 
 /* hide button */
@@ -74,7 +74,7 @@ a.feindura_topBarHide {
   top:60px;
   left: 50%;
   margin-left: -80px;
-  background: url('../images/key/header_frontendtopBarHide.png') no-repeat;
+  background: url('../images/buttons/header_frontendtopBarHide.png') no-repeat;
 }
 a.feindura_topBarHide:hover {
   background-position: -80px 0px;
@@ -97,19 +97,19 @@ div.feindura_pageBar {
 }
 
 .feindura_pageBar a.feindura_startPage {
-  background: url("../images/key/listPages_startPage.png") no-repeat;
+  background: url("../images/buttons/listPages_startPage.png") no-repeat;
 }
 .feindura_pageBar a.feindura_editPage {
-  background: url("../images/key/listPages_editPage.png") no-repeat;
+  background: url("../images/buttons/listPages_editPage.png") no-repeat;
 }
 .feindura_pageBar a.feindura_deletePage {
-  background: url("../images/key/listPages_deletePage.png") no-repeat;
+  background: url("../images/buttons/listPages_deletePage.png") no-repeat;
 }  
 .feindura_pageBar a.feindura_pageThumbnailUpload {
-  background: url("../images/key/listPages_pageThumbnailUpload.png") no-repeat;
+  background: url("../images/buttons/listPages_pageThumbnailUpload.png") no-repeat;
 }
 .feindura_pageBar a.feindura_pageThumbnailDelete {
-  background: url("../images/key/listPages_pageThumbnailDelete.png") no-repeat;
+  background: url("../images/buttons/listPages_pageThumbnailDelete.png") no-repeat;
 }
     
 .feindura_pageBar a:hover, .feindura_pageBar a.feindura_startPage.active {
@@ -178,7 +178,7 @@ div.feindura_editPageDisabled:hover {
   height: 100px;
   margin-left: -47px;
   margin-top: -50px;
-  background: url("../images/sign/documentSaved_small.png") no-repeat;
+  background: url("../images/icons/documentSaved_small.png") no-repeat;
 }
 
 .feindura_editDisabledIcon {
@@ -186,5 +186,5 @@ div.feindura_editPageDisabled:hover {
   height: 107px;
   margin-left: -50px;
   margin-top: -52px;
-  background: url("../images/sign/editDisabledIcon.png") no-repeat; /* editDisabledIcon */
+  background: url("../images/icons/editDisabledIcon.png") no-repeat; /* editDisabledIcon */
 }

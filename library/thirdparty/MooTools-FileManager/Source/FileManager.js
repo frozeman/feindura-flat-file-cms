@@ -236,7 +236,6 @@ var FileManager = new Class({
       }).bind(this),
       keyboardInput: (function(e) {
         if(this.dialogOpen) return;
-
         if (e.key=='esc') this.hide();
         if (e.key=='up') {
           e.preventDefault();
@@ -427,8 +426,9 @@ var FileManager = new Class({
           onRequest: self.browserLoader.set('opacity', 1),
           onSuccess: self.fill.bind(self),
           onComplete: self.browserLoader.fade(0),
-          onFailure: (function(xmlHttpRequest) {
+          onError: (function(xmlHttpRequest) {
             this.showError(xmlHttpRequest);
+            this.browserLoader.fade(0);
           }).bind(self),
           data: {
             file: input.get('value'),
@@ -467,8 +467,9 @@ var FileManager = new Class({
         this.fitSizes();
         this.browserLoader.fade(0);
       }).bind(this),
-      onFailure: (function(xmlHttpRequest) {
+      onError: (function(xmlHttpRequest) {
         this.showError(xmlHttpRequest);
+        this.browserLoader.fade(0);
       }).bind(this),
       data: {
         directory: dir,
@@ -509,8 +510,9 @@ var FileManager = new Class({
             });
           },
           onComplete: self.browserLoader.fade(0),
-          onFailure: (function(xmlHttpRequest) {
+          onError: (function(xmlHttpRequest) {
             this.showError(xmlHttpRequest);
+            this.browserLoader.fade(0);
           }).bind(self)
         }).send();
       }
@@ -553,8 +555,9 @@ var FileManager = new Class({
             self.fillInfo(file);
           }).bind(this),
           onComplete: self.browserLoader.fade(0),
-          onFailure: (function(xmlHttpRequest) {
+          onError: (function(xmlHttpRequest) {
             this.showError(xmlHttpRequest);
+            this.browserLoader.fade(0);
           }).bind(self),
           data: {
             file: file.name,
@@ -821,8 +824,9 @@ var FileManager = new Class({
           onSuccess: function(){
             if (!dir) self.load(self.Directory);
           },
-          onFailure: (function(xmlHttpRequest) {
+          onError: (function(xmlHttpRequest) {
             this.showError(xmlHttpRequest);
+            this.browserLoader.fade(0);
           }).bind(self)
         }, self).send();
 
@@ -905,7 +909,7 @@ var FileManager = new Class({
 
         }).bind(this));
       }).bind(this),
-      onFailure: (function(xmlHttpRequest) {
+      onError: (function(xmlHttpRequest) {
         this.previewLoader.dispose();
         this.showError(xmlHttpRequest);
       }).bind(this),
@@ -969,8 +973,8 @@ var FileManager = new Class({
     return this;
   },
   
-  showError: function(xmlHttpRequest) {
-    var errorText = xmlHttpRequest.responseText.toString();
+  showError: function(text) {
+    var errorText = text;
     var self = this;
     
     if(errorText.indexOf('{') != -1)
@@ -991,6 +995,7 @@ var FileManager = new Class({
   
   onRequest: function(){this.loader.set('opacity', 1);},
   onComplete: function(){this.loader.fade(0);},
+  onError: function(){this.loader.fade(0);},
   onDialogOpen: function(){this.dialogOpen = true; this.onDialogOpenWhenUpload.apply(this);},
   onDialogClose: function(){this.dialogOpen = false; this.onDialogCloseWhenUpload.apply(this);},
   onDialogOpenWhenUpload: function(){},
@@ -1000,13 +1005,15 @@ var FileManager = new Class({
 
 FileManager.Request = new Class({  
   Extends: Request.JSON,
+  secure: true,
   
   initialize: function(options, filebrowser){
     this.parent(options);
     
     if (filebrowser) this.addEvents({
       request: filebrowser.onRequest.bind(filebrowser),
-      complete: filebrowser.onComplete.bind(filebrowser)
+      complete: filebrowser.onComplete.bind(filebrowser),
+      error: filebrowser.onError.bind(filebrowser)
     });
   }
 });

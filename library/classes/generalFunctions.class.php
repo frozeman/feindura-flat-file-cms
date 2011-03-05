@@ -1471,7 +1471,7 @@ class generalFunctions {
     
     //change windows path
     $folder = str_replace('\\','/',$folder);
-    
+
     // -> adds / on the beginning of the folder
     if(substr($folder,0,1) != '/')
       $folder = '/'.$folder;
@@ -1490,6 +1490,8 @@ class generalFunctions {
     // adds the DOCUMENTROOT  
     $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);  
     $fullFolder = DOCUMENTROOT.$fullFolder; 
+    
+    
     
     // open the folder and read the content
     if(is_dir($fullFolder)) {
