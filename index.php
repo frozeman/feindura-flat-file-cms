@@ -82,15 +82,12 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <link rel="stylesheet" type="text/css" href="library/styles/setup.css" />  
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css" />
-  
-  
 <?php
 if($_GET['site'] == 'addons') {
   echo "  <!-- addons stylesheets -->\n";
   echo generalFunctions::createStyleTags($adminConfig['basePath'].'addons/');
 }
-?>
-  
+?>  
   <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/styles/ie6.css" /><![endif]-->
   <!--[if IE 7]><link rel="stylesheet" type="text/css" href="library/styles/ie7.css" /><![endif]-->
   
