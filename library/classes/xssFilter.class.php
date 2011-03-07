@@ -157,7 +157,7 @@ class xssFilter {
   public static function string($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
          //start with aplhabetic, may include space, end with alhabetic
-         preg_match_all("/[\(\)\[\]\,\'\.\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
+         preg_match_all("/[\(\)\[\]\,\.\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
          //if you have caught something as alphabetic with/without space, return it 
          if(!empty($find[0])) return implode('',$find[0]);
      }
@@ -470,6 +470,7 @@ class xssFilter {
         $data = stripslashes($data);
         $data = str_replace(';','&#59;',$data);
         $data = htmlspecialchars($data,ENT_QUOTES,$charset);
+        $data = str_replace('&amp;#59;','&#59;',$data);
         $data = str_replace('/','&#47;',$data);
         $data = str_replace('\\','&#92;',$data);
         $data = str_replace('=','&#61;',$data);

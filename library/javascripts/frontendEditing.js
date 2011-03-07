@@ -47,7 +47,7 @@
                                 'bold','italic','underline','strikethrough',
                                 'justifyleft','justifycenter','justifyright','justifyfull',
                                 'outdent','indent','superscript','subscript',
-                                'insertorderedlist','insertunorderedlist','blockquote','inserthorizontalrule',
+                                'insertorderedlist','insertunorderedlist','inserthorizontalrule', //,'blockquote'
                                 'decreasefontsize','increasefontsize'//,'hyperlink'
                                 ]};
   

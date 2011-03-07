@@ -22,12 +22,10 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+
 1.1 rc1
   
   build 564: created release 1.1 rc1
-
-1.1 beta3
-  
   build 563: add fixed filemanager
   build 562: removed spider.txt
   build 561: minified images and fixed DOCUMENTROOT
@@ -65,8 +63,8 @@ ChangeLog:
   build 529: add stable Codemirror and fixed it's paths
   build 528: work on deactivation of frontend editing (still not working)
   build 527: add deactivation of frontend editing with session (still not working perfectly)
-  
-1.1 beta2
+
+1.1 beta3
   
   build 530: add new moorte version
   build 526: removed "need mootools", found a better way to implement mootools on demand in the imageGallery plugin
@@ -113,7 +111,7 @@ ChangeLog:
   build 485: set up generalFunctions as a static class
   build 484: add PHP constructor
 
-1.1 beta1
+1.1 beta2
   
   build 483: startet porting to PHP 5; replaced opendir with scandir
   build 482: put all frontend js into frontendEditing.js and cleaned up createMetaTags() method

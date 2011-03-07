@@ -38,7 +38,7 @@ $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.1 beta3';
+$newVersion = '1.1 rc1';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -88,7 +88,7 @@ $newVersion = '1.1 beta3';
    }   
    
    .succesfull {
-    color: #476117;
+    color: #689420;
     line-height: 25px;
    }   
    .succesfull:before {

@@ -6,7 +6,7 @@
 
 $pluginConfig['recipient'] = 'name@providor.net';
 $pluginConfig['appellation'] = true;
-$pluginConfig['appellation_mandatory'] = true;
+$pluginConfig['appellation_mandatory'] = false;
 $pluginConfig['firstname'] = true;
 $pluginConfig['firstname_mandatory'] = true;
 $pluginConfig['lastname'] = true;

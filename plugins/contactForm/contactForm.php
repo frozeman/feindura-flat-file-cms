@@ -192,7 +192,7 @@ class contactForm {
     // var
     $return = '';
 
-    if($_POST['contactFormSend'] == 'true') {      
+    if($_POST['contactFormSend'] == 'true') {
       
       // -> check data
       foreach($_POST as $key => $value) {

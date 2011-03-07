@@ -271,13 +271,14 @@ function addSlashToPathsEnd($postData) {
  * Check if the config, pages and statistic folders exist, if not try to create these.
  * 
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 add backups folder 
  *    - 1.0 initial release
  * 
  */
-function createBasicFolders() {  
+function createBasicFolders() {
   // config folder
   if(!is_dir(dirname(__FILE__).'/../../config'))
     mkdir(dirname(__FILE__).'/../../config',$GLOBALS['adminConfig']['permissions']);    
@@ -287,6 +288,9 @@ function createBasicFolders() {
   // statistic folder
   if(!is_dir(dirname(__FILE__).'/../../statistic'))
     mkdir(dirname(__FILE__).'/../../statistic',$GLOBALS['adminConfig']['permissions']);
+  // backups folder
+  if(!is_dir(dirname(__FILE__).'/../../backups'))
+    mkdir(dirname(__FILE__).'/../../backups',$GLOBALS['adminConfig']['permissions']);
 }
 
 /**
