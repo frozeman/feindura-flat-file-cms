@@ -160,9 +160,6 @@ class search {
   */
   public function find($searchwords, $category = true) {
     
-    // clean up the searchWord
-    //$searchwords = stripslashes($searchwords);
-    
     // -> start search
     $results = $this->searchPages($searchwords, $category);
     

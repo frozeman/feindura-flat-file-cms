@@ -31,7 +31,7 @@ define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT']);
 /**
  * The required PHP version
  */ 
-define('REQUIREDPHPVERSION','5.1.0');
+define('REQUIREDPHPVERSION','5.2.3');
 
 /**
  * The identity of the user
@@ -136,13 +136,13 @@ $GLOBALS['websiteStatistic'];
 require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 
 // ->> autoload CLASSES
-/**
- * Autoloads all classes
- *  
- */ 
-function __autoload($class_name) {
-  require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+if(PHP_VERSION > 5) {
+  /**
+   * Autoloads all classes
+   *  
+   */
+  function __autoload($class_name) {
+    require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+  }
 }
-
-
 ?>

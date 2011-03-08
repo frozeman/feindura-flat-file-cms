@@ -639,7 +639,8 @@ class generalFunctions {
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
       
-      $pageContent = self::escapeQuotesRecursive($pageContent);
+      // escape \ and '
+      xssFilter::escapeBasics($pageContent);
       
       // escaps ",',\,NULL but undescappes the double quotes again
       $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
@@ -1264,39 +1265,6 @@ class generalFunctions {
     $string = htmlentities($string,ENT_COMPAT,'UTF-8');
     $string = str_replace(array('&lt;','&gt;'),array('<','>'),$string);
     return $string;
-  }  
-  
- /**
-  * <b>Name</b> escapeQuotesRecursive()<br>
-  * 
-  * Escapes single quotes of an array or an string, and goes also deeper in the array.
-  * 
-  * @param array|string $data the data, where the quotes should be escaped
-  * 
-  * @return array|string the escaped array or string
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function escapeQuotesRecursive($data) {
-    
-    if(is_string($data)) {      
-      $data = str_replace("\'","'",$data);
-      $data = str_replace("'","\'",$data);
-      return  $data;
-      
-    } elseif(is_array($data)) {
-      $newData = array();
-      foreach($data as $key => $value) {
-        $newData[$key] = self::escapeQuotesRecursive($value);
-      }
-      return $newData;
-    } else
-      return $data;
   }
   
  /**

@@ -28,14 +28,16 @@ require_once(dirname(__FILE__)."/backend.include.php");
 // *****************************
 
 // ->> CHECK the GET and POST variables
+// -> general check
+xssFilter::escapeBasics($_POST);
 // -> check CATEGORY
-if((isset($_GET[$category]) && xssFilter::int($_GET[$category]) === false) ||
-   (isset($_POST[$category]) && xssFilter::int($_POST[$category]) === false))
-  die('Wrong &quot;'.$category.'&quot; parameter! Script will be terminated.');
+if((isset($_GET['category']) && xssFilter::int($_GET['category']) === false) ||
+   (isset($_POST['category']) && xssFilter::int($_POST['category']) === false))
+  die('Wrong &quot;category&quot; parameter! Script will be terminated.');
 // -> check PAGE
-if((isset($_GET[$page]) && $_GET[$page] != 'new' && xssFilter::int($_GET[$page]) === false) ||
-   (isset($_POST[$page]) && $_POST[$page] != 'new' && xssFilter::int($_POST[$page]) === false))
-  die('Wrong &quot;'.$page.'&quot; parameter! Script will be terminated.');
+if((isset($_GET['page']) && $_GET['page'] != 'new' && xssFilter::int($_GET['page']) === false) ||
+   (isset($_POST['page']) && $_POST['page'] != 'new' && xssFilter::int($_POST['page']) === false))
+  die('Wrong &quot;page&quot; parameter! Script will be terminated.');
 
 // ->> CHECK INPUTS
 // ****************
@@ -59,56 +61,6 @@ if(is_array($_POST['users'])) {
 
 //echo 'GET->'.$_GET['page'].'<br>';
 //echo 'POST->'.$_POST['username'];
-
-// ->> CHECK PHP VERSION
-// *********************
-if(PHP_VERSION < REQUIREDPHPVERSION) {
-?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-  <meta http-equiv="content-language" content="en" />
-  
-  <title>feindura PHP error</title>
-  
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  
-  <meta name="siteinfo" content="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>robots.txt" />
-  <meta name="robots" content="no-index,nofollow" />
-  <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
-  <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
-  <meta http-equiv="accept-encoding" content="gzip, deflate" />
-  
-  <meta name="title" content="feindura login" />    
-  <meta name="author" content="Fabian Vogelsteller [frozeman.de]" />     
-  <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
-  <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
-  <meta name="description" content="A flat file based Content Management System, written in PHP" />    
-  <meta name="keywords" content="cms,content,management,system,flat,file" />
-   
-  <link rel="shortcut icon" href="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
-  
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all" />
-  <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all" />
-
-</head>
-<body>
-  <div id="container">
-    <div id="loginSuccessBox">
-      <div class="top"></div>
-      <div class="middle">     
-      <?php      
-      echo $langFile['ADMINSETUP_ERROR_PHPVERSION'].' '.REQUIREDPHPVERSION;
-      ?>
-      </div>
-      <div class="bottom"></div>
-    </div>
-</body>
-</html>
-<?php
-  die();
-}
 
 /**
  * Then includes the login

@@ -27,7 +27,6 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $page	= $_GET['page'];
 $category = $_GET['category'];
 
-
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
 if($_POST['save']) {

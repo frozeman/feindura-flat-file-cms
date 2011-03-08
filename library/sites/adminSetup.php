@@ -56,7 +56,7 @@ foreach ($tab as $buf) {
     $key = $rec[2];
     $val = $rec[2];
     $c = count($rec);
-    for ($i=3;$i<$c;$i++) $val.= ' '.$rec[$i];
+    for ($i=3;$i<$c;$i++) $val .= ' '.$rec[$i];
     $timezones[$key] = $val;
     ksort($timezones);
 }
@@ -152,7 +152,7 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       
       <tr><td class="left">
       <label for="cfg_permissions"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'].'::'.$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] ?>">
-      <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
+      <?php echo '->'.$adminConfig['permissions']; echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
       </td><td class="right">
       <select id="cfg_permissions" name="cfg_permissions">
         <option value="0644"<?php if($adminConfig['permissions'] == 0644) echo ' selected="selected"'; ?>>644</option>
@@ -176,17 +176,20 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
           $storedContinent = '';
           foreach($timezones as $zone => $zoneName) {
             $continentCity = explode('/',$zoneName);
-
-            if($storedContinent != $continentCity[0]) {
+            $continent = $continentCity[0];
+            array_shift($continentCity);
+            $fullCityName = implode('/',$continentCity);
+            
+            if($storedContinent != $continent) {
               if($storedContinent != '') 
                 echo '</optgroup>'."\n";
-              echo '<optgroup label="'.$continentCity[0].'">'."\n";
+              echo '<optgroup label="'.$continent.'">'."\n";
             }
             
             $selected = ($adminConfig['timeZone'] == $zone) ? ' selected="selected"': '';
-            echo '<option value="'.$zone.'"'.$selected.'>'.$continentCity[1].'</option>'."\n";
+            echo '<option value="'.$zone.'"'.$selected.'>'.$fullCityName.'</option>'."\n";
             
-            $storedContinent = $continentCity[0];
+            $storedContinent = $continent;
           }        
         ?>
         </optgroup>

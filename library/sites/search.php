@@ -52,14 +52,14 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // set the GET searchword as the POST searchword, IF exists
 $searchWords = (isset($_GET['search'])) ? urldecode($_GET['search']) : $_POST['search'];
-
+$searchWords = stripslashes($searchWords);
 ?>
 
 <form action="index.php?site=<?= $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div class="block">
   <h1><?= $langFile['SEARCH_TITLE']; ?></h1>
     <div class="content">
-      <input type="text" name="search" size="50" value="<?= $searchWords; ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
+      <input type="text" name="search" size="50" value="<?= htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
       <input type="submit" value="" class="button search" />
     </div>
     <div class="bottom"></div>
@@ -74,7 +74,7 @@ if(!empty($searchWords)) {
   $count = 0;
 
   // SEARCH RESULTS HEADLINE
-  echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.$searchWords.'&quot;</h1><div class="bottom"></div></div>';
+  echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.htmlentities($searchWords,ENT_QUOTES,'UTF-8').'&quot;</h1><div class="bottom"></div></div>';
     
   // START SEARCH
   $search = new search();

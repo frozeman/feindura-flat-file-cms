@@ -64,14 +64,16 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $_POST['cfg_userInfo'] = str_replace('&lt;','<',$_POST['cfg_userInfo']);
   $_POST['cfg_userInfo'] = str_replace('&gt;','>',$_POST['cfg_userInfo']);
   $_POST['cfg_userInfo'] = str_replace('&quot;','"',$_POST['cfg_userInfo']);
+  $htmlLawedConfig = array('comment'=>1, 'cdata'=>0,'cdata'=>1,'clean_ms_char'=>2,'safe'=>1);
+  $_POST['cfg_userInfo'] = htmLawed($_POST['cfg_userInfo'],$htmlLawedConfig);
   
   // -> CLEAN all " out of the strings
-  foreach($_POST as $postKey => $post) {    
+  foreach($_POST as $postKey => $post)
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
-  }
   
   // -> PREPARE CONFIG VARs
-    $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
+  $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
+  
   $adminConfig['url'] = $hostProtocol.$_SERVER["HTTP_HOST"];
   $adminConfig['basePath'] = (substr(dirname($_SERVER['PHP_SELF']),-1) == '/')
   ? dirname($_SERVER['PHP_SELF'])
@@ -103,7 +105,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   //$adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
   //$adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
 
-  $adminConfig['editor']['enterMode'] = strtolower($_POST['cfg_editorEnterMode']);
+  $adminConfig['editor']['enterMode'] = $_POST['cfg_editorEnterMode'];
   $adminConfig['editor']['styleFile'] = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
   $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
   $adminConfig['editor']['styleClass'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleClass']);  
@@ -116,7 +118,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($adminConfig)) {
-     
     // give documentSaved status
     $documentSaved = true;
     statisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
@@ -125,7 +126,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
   
   $savedForm = $_POST['savedBlock'];
-
 }
 
 // ---------- Speichern in fckstyles.xml
@@ -157,14 +157,15 @@ if(isset($_POST['saveFckStyleFile'])) {
 include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 
 // RE-INCLUDE
-$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
-$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
-// RESET of the vars in the classes
-generalFunctions::$storedPageIds = null;
-generalFunctions::$storedPages = null;
-generalFunctions::$adminConfig = $adminConfig;
-generalFunctions::$categoryConfig = $categoryConfig;
-statisticFunctions::$adminConfig = $adminConfig;
-statisticFunctions::$categoryConfig = $categoryConfig;
-
+if(isset($_POST['send'])) {
+  $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
+  $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+  // RESET of the vars in the classes
+  generalFunctions::$storedPageIds = null;
+  generalFunctions::$storedPages = null;
+  generalFunctions::$adminConfig = $adminConfig;
+  generalFunctions::$categoryConfig = $categoryConfig;
+  statisticFunctions::$adminConfig = $adminConfig;
+  statisticFunctions::$categoryConfig = $categoryConfig;
+}
 ?>

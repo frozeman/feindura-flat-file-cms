@@ -33,6 +33,8 @@
 * 
 * @package [Implementation]-[Backend]
 * 
+* @autohor Fabian Vogelsteller
+* 
 * @todo maybe use http://php.net/manual/de/public static function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
 * 
 * @since Version 1.1
@@ -69,7 +71,84 @@ class xssFilter {
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */
+ 
+ /**
+  * <b>Name</b> escapeBasics()<br>
+  * 
+  * Escapes basic chars like \ and ' .
+  * 
+  * @param array $array the data to escape the \ and '
+  * 
+  * @return string the escaped string
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function escapeBasics(&$array) {
+    if(is_array($array)) {
+      foreach($array as $key => &$value)
+        if(is_array($value)) self::escapeBasics($value);
+        else $array[$key] = str_replace('\'', '\\\'', str_replace('\\', "\\\\", $value));
+    }
+  }
   
+ /**
+  * <b>Name</b> bool()<br>
+  * 
+  * Check if the data is a boolean.
+  * 
+  * @param bool|string $data            the data to check against
+  * @param bool        $returnAsString  (optional) if TRUE it returns the bool as a string like: "true" or "false"
+  * @param bool        $default         (optional) the default value return if the $data parameter couldn't be validated  
+  * 
+  * @return bool the right boolean, otherwise $default
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function bool($data, $returnAsString = false ,$default = false) {
+    if(is_bool($data))
+      return $data;
+    elseif(isset($data) && !empty($data) && ($data == 'true' || $data == 'TRUE' || $data == 1 || $data == '1'))
+      return ($returnAsString) ? 'true' : true;
+    elseif(!isset($data) || empty($data) || $data == 'false' || $data == 'FALSE' || $data == 0 || $data == '0')
+      return ($returnAsString) ? 'false' : false;
+    else
+      return $default;
+  }
+ 
+ /**
+  * <b>Name</b> numeric()<br>
+  * 
+  * Check if the data is a number.
+  * 
+  * @param int $data     the data to check against
+  * @param int $default  (optional) the default value return if the $data parameter couldn't be validated
+  * 
+  * @return int the integer, otherwise FALSE
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function numeric($data, $default = false) {
+    if(!empty($data) || $data == 0)
+      return (is_numeric($data)) ? $data : $default;
+    else
+      return $default;
+  }
+
  /**
   * <b>Name</b> int()<br>
   * 
@@ -125,7 +204,8 @@ class xssFilter {
   * Allowed chars are:
   *     - ()
   *     - []
-  *     - '  
+  *     - /  
+  *     - '
   *     - ,
   *     - .
   *     - $
@@ -156,9 +236,9 @@ class xssFilter {
   */
   public static function string($data, $max = 0, $default = false) {
       if(!empty($data) || $data == 0) {
-         //start with aplhabetic, may include space, end with alhabetic
-         preg_match_all("/[\(\)\[\]\,\.\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
-         //if you have caught something as alphabetic with/without space, return it 
+         // start with aplhabetic, may include space, end with alhabetic
+         preg_match_all("/[\(\)\[\]\/\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
+         // if you have caught something return it 
          if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
@@ -233,14 +313,14 @@ class xssFilter {
   * <b>Name</b> path()<br>
   * 
   * Check if the data is local path string.
-  * The path cannot have "//" or ".."
+  * The path cannot have ".." .
   * 
   * <sample>
   * /path/to/example/file.php
   * </sample>
   * 
   * @param int  $data    the data to check against
-  * @param bool $encode  (optional) tell if the filename should be urlencoded before
+  * @param bool $encode  (optional) whether the path should be urlencoded before
   * @param null $default (optional) the default value return if the $data parameter couldn't be validated  
   *  
   * @return int|false a path string, otherwise FALSE
@@ -254,19 +334,57 @@ class xssFilter {
   */
   public static function path($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        $data = ($encode) ? urlencode($data) : $data;
-        preg_match("#^[/\.\-\s_a-zA-Z\d][\/\.\-\s_a-zA-Z\d]*$#",$data,$find); 
+        preg_match("#^[\/\.\-\s_a-zA-Z\d]*$#",$data,$find); 
          if (!empty($find[0])) {
-           preg_match("#\/\/|\.\.#",$find[0],$findCatch); // disallow // or ..
+           preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
+           $data = preg_replace('#/+#','/',$find[0]);
            if(!empty($findCatch))
             return $default;
            else
-            return $find[0];
+            return ($encode) ? urlencode($data) : $data;
          }
      }
      return $default;
   }
   
+ /**
+  * <b>Name</b> url()<br>
+  * 
+  * Check if the data is a URL.
+  * The path cannot have ".." .
+  * 
+  * <sample>
+  * http://path/to/example/file.php?var=value
+  * </sample>
+  * 
+  * @param int  $data    the data to check against
+  * @param bool $encode  (optional) whether the path should be urlencoded before
+  * @param null $default (optional) the default value return if the $data parameter couldn't be validated  
+  *  
+  * @return int|false a path string, otherwise FALSE
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function url($data, $encode = false, $default = false){
+     if(!empty($data) || $data == 0) {
+        preg_match("#^[\:\?\=\/\.\-\s_a-zA-Z\d]*$#",$data,$find);
+         if (!empty($find[0])) {
+           preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
+           $data = preg_replace('#//+#','//',$find[0]);
+           if(!empty($findCatch))
+            return $default;
+           else
+            return ($encode) ? urlencode($data) : $data;
+         }
+     }
+     return $default;
+  }
+
  /**
   * <b>Name</b> alphaSpace()<br>
   * 
@@ -445,7 +563,7 @@ class xssFilter {
  /**
   * <b>Name</b> text()<br>
   * 
-  * Change the HTML important signs to htmlentities with the htmlspecialchars public static function.
+  * Change the HTML important signs to htmlentities with the htmlspecialchars() function.
   * 
   * <sample>
   * Text &lt;a href=&quot;test&quot;&gt; other text
@@ -469,11 +587,12 @@ class xssFilter {
       if(!empty($data) || $data == 0) {
         $data = stripslashes($data);
         $data = str_replace(';','&#59;',$data);
-        $data = htmlspecialchars($data,ENT_QUOTES,$charset);
+        $data = htmlspecialchars($data,ENT_QUOTES,$charset,false);
         $data = str_replace('&amp;#59;','&#59;',$data);
         $data = str_replace('/','&#47;',$data);
         $data = str_replace('\\','&#92;',$data);
         $data = str_replace('=','&#61;',$data);
+        $data = preg_replace('#(\&\#92;)+#','&#92;',$data);
         
         return ($max > 0)
           ? substr($data,0,$max) // truncate the length

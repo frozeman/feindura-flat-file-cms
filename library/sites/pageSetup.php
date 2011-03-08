@@ -286,7 +286,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           $checked[7] = ($category['sortAscending']) ? 'checked="checked"' : '';
             
-          $checked[8] = ($category['thumbRatio']) ? 'checked="checked"' : '';
+          $checked[8] = (empty($category['thumbRatio'])) ? 'checked="checked"' : '';
             
           if($category['thumbRatio'] == 'x') {
             $checked[9] = 'checked="checked"';

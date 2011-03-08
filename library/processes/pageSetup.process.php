@@ -191,9 +191,9 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
   
   // cleans the category names
-  $catewgoriesCleaned = array();
+  $categoriesCleaned = array();
   foreach($_POST['categories'] as $category) {
-      $category['name'] = generalFunctions::prepareInputString($category['name']);
+      //$category['name'] = generalFunctions::prepareInputString($category['name']);
       $categoriesCleaned[$category['id']] = $category;
   }
 
@@ -208,14 +208,15 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 
 
 // RE-INCLUDE
-$adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
-$categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
-// RESET of the vars in the classes
-generalFunctions::$storedPageIds = null;
-generalFunctions::$storedPages = null;
-generalFunctions::$adminConfig = $adminConfig;
-generalFunctions::$categoryConfig = $categoryConfig;
-statisticFunctions::$adminConfig = $adminConfig;
-statisticFunctions::$categoryConfig = $categoryConfig;
-
+if(isset($_POST['send'])) {
+  $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
+  $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+  // RESET of the vars in the classes
+  generalFunctions::$storedPageIds = null;
+  generalFunctions::$storedPages = null;
+  generalFunctions::$adminConfig = $adminConfig;
+  generalFunctions::$categoryConfig = $categoryConfig;
+  statisticFunctions::$adminConfig = $adminConfig;
+  statisticFunctions::$categoryConfig = $categoryConfig;
+}
 ?>
