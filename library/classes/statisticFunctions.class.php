@@ -956,10 +956,7 @@ class statisticFunctions {
         $fontSize = round($fontSize * $maxFontSize) + $minFontSize;
         
         // create href
-        if(PHP_VERSION >= 5)
-          $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
-        else
-          $tagsHref = urlencode(utf8_encode(html_entity_decode($tag['data'],ENT_QUOTES,'ISO-8859-15')));
+        $tagsHref = urlencode(html_entity_decode($tag['data'],ENT_QUOTES,'UTF-8'));
         
         $return .= '<a href="?site=search&amp;search='.$tagsHref.'" style="font-size:'.$fontSize.'px;" class="toolTip" title="[span]&quot;'.$tag['data'].'&quot;[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART1'].' [span]'.$tag['number'].'[/span] '.$GLOBALS['langFile']['STATISTICS_TEXT_SEARCHWORD_PART2'].'::'.$GLOBALS['langFile']['STATISTICS_TOOLTIP_SEARCHWORD'].'">'.$tag['data'].'</a>&nbsp;&nbsp;'."\n"; //<span style="color:#888888;">('.$tag['number'].')</span>
       

@@ -20,6 +20,7 @@
  * @version 0.15
  */
 
+header('Content-type: text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 /**

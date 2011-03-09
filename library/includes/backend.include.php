@@ -83,6 +83,9 @@ require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 // set the time zone
 ini_set('date.timezone',$adminConfig['timeZone']);
 date_default_timezone_set($adminConfig['timeZone']);
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
+ini_set('default_charset','UTF-8');
 
 // create the config, pages and statistic folders if they dont exist
 createBasicFolders();

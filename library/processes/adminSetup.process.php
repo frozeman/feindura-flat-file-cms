@@ -67,7 +67,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     'clean_ms_char'=>2,
     'safe'=>1
   );
-  $_POST['cfg_userInfo'] = htmLawed($_POST['cfg_userInfo'],$htmlLawedConfig);
+  $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],$htmlLawedConfig);
   
   // -> CLEAN all " out of the strings
   foreach($_POST as $postKey => $post)

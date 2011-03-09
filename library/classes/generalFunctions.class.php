@@ -633,13 +633,12 @@ class generalFunctions {
       $pageContent['content'] = stripslashes($pageContent['content']);
       $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
       $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );
-      
-      $htmlLawedConfig = array(
-        'clean_ms_char'=>2,
-        'tidy' => 1,
-        'safe'=>1
-      );
-      
+  
+      $pageContent['title'] = preg_replace('#\\\\+#', "\\", $pageContent['title']);
+      $pageContent['title'] = stripslashes($pageContent['title']);
+      $pageContent['title'] = addslashes($pageContent['title']); //escaped ",',\,NUL
+      $pageContent['title'] = preg_replace('#\\\\"+#', '"', $pageContent['title'] );
+
       // WRITE
       flock($file,2);            
       fwrite($file,PHPSTARTTAG);
@@ -652,7 +651,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['lastSaveDate'] =       ".xssFilter::int($pageContent['lastSaveDate'],0).";\n");
       fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".xssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"); 
       
-      fwrite($file,"\$pageContent['title'] =              '".xssFilter::text($pageContent['title'])."';\n");
+      fwrite($file,"\$pageContent['title'] =              '".generalFunctions::htmLawed(strip_tags($pageContent['title'],'<a><i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>'))."';\n");
       fwrite($file,"\$pageContent['description'] =        '".xssFilter::text($pageContent['description'])."';\n\n");      
       
       fwrite($file,"\$pageContent['pageDate']['before'] = '".xssFilter::text($pageContent['pageDate']['before'])."';\n");
@@ -690,7 +689,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n"); // xssFilter in saveWebsiteStats() method in the statisticFunctions.class.php
       fwrite($file,"\$pageContent['log_searchWords'] =    '".$pageContent['log_searchWords']."';\n\n"); // xssFilter in the addDataToDataString() method in the statisticFunctions.class.php
 
-      fwrite($file,"\$pageContent['content'] = \n'".htmLawed($pageContent['content'],$htmlLawedConfig)."';\n\n");
+      fwrite($file,"\$pageContent['content'] = \n'".generalFunctions::htmLawed($pageContent['content'])."';\n\n");
       
       fwrite($file,"return \$pageContent;");
       
@@ -1307,6 +1306,37 @@ class generalFunctions {
       // shorten the title
       else
         return mb_substr($string,0,($length - 3),'UTF-8').'...'; // -3 because of the add "..."
+  }
+
+ /**
+  * <b>Name</b> htmLawed()<br>
+  * 
+  * Uses the htmLawed function but decodes first UTF-8 and after encodes again.
+  * 
+  * @param string $string   the data to check against htmlLawed
+  * @param array  $config  (optional) if given it will be used as the config array fpr the htmLawed function
+  * 
+  * @return string the checked html
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function htmLawed($string, $config = false) {
+  
+    if($config)
+      $htmlLawedConfig = $config;
+    else
+      $htmlLawedConfig = array(
+        'clean_ms_char'=>2,
+        'tidy' => 1,
+        'safe'=> 1
+      );
+    
+    return utf8_encode(htmLawed(utf8_decode($string),$htmlLawedConfig));
   }
 
 

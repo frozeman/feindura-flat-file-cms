@@ -38,7 +38,7 @@ if($_POST['save'] == 'true') {
   $_POST['data'] = str_replace("<p style=\"display: none;\">&nbsp;</p>",'',$_POST['data']);
   
   // replace the existing data with the new one  
-  $pageContent['title'] = ($_POST['type'] == 'title') ? strip_tags($_POST['data'],'<i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>') : $pageContent['title'];
+  $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
   
   // save the page

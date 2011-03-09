@@ -25,30 +25,23 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
 // gets the vars
-if(isset($_POST['category']))
-  $category = $_POST['category'];
-else
-  $category = $_GET['category'];  
-if(isset($_POST['id']))
-  $page = $_POST['id'];
-else
-  $page = $_GET['page'];
+$category = (isset($_POST['category'])) ? $_POST['category'] : $_GET['category'];  
+$page = (isset($_POST['page'])) ? $_POST['page'] : $_GET['page'];  
 $asking = $_POST['asking'];
 
 // load the page
 $pageContent = generalFunctions::readPage($page,$category);
 
 // sets the none category (0) to emtpy
-if($category == 0)
-  $category = '';
+$categoryPath = ($category == 0) ? '' : $category.'/';
 
 // QUESTION
-if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
+if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php')) {
   $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {
-  $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
+  $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
   <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>';
   
   // show only the ok button
@@ -56,26 +49,26 @@ if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.
 }
 
 // DELETING PROCESS
-if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
-  @chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page, $adminConfig['permissions']);
+if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php')) {
+  @chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page, $adminConfig['permissions']);
 
-    // DELETING THUMBNAIL
-    if(@unlink(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$category.'/'.$page.'.php')) {
-      if(!empty($pageContent['thumbnail']))
-        @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
-      
-      generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
-      statisticFunctions::saveTaskLog(2,strip_tags($pageContent['title'])); // <- SAVE the task in a LOG FILE
-      
-      $question = '';
-      echo 'DONTSHOW';        
-      echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site=pages&category='.$category.'\');/* ]]> */</script>';
+  // DELETING PAGE
+  if(@unlink(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php')) {
+    if(!empty($pageContent['thumbnail']))
+      @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
+    
+    generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
+    statisticFunctions::saveTaskLog(2,strip_tags($pageContent['title'])); // <- SAVE the task in a LOG FILE
+    
+    $question = '';
+    echo 'DONTSHOW';        
+    echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site=pages&category='.$category.'\');/* ]]> */</script>';
 
-    } else {
-      // DELETING ERROR --------------
-      $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>
-      <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
-    }
+  } else {
+    // DELETING ERROR --------------
+    $question = '<h1>'.$langFile['deletePage_finish_error'].'</h1>
+    <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
+  }
 }
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
@@ -87,12 +80,13 @@ if(!$asking) {
 ?>
 <div>
 <form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
-<input type="hidden" name="category" value="<?php echo $category; ?>" />
+<input type="hidden" name="category" value="<?= $category; ?>" />
+<input type="hidden" name="page" value="<?= $page; ?>" />
 <input type="hidden" name="id" value="<?php echo $page; ?>" />
 <input type="hidden" name="asking" value="true" />
 
 
-<a href="?site=pages&amp;category=<?php echo $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
+<a href="?site=pages&amp;category=<?= $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 <input type="submit" value="" class="button submit" />
 </form>
 </div>

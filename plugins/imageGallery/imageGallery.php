@@ -261,8 +261,8 @@ class imageGallery {
           if($imageTexts = @file($_SERVER["DOCUMENT_ROOT"].$file)) {
             foreach($imageTexts as $imageText) {
               $imageText = explode('###',$imageText);
-              $filename = utf8_decode(trim($imageText[0]));
-              $text = utf8_decode(trim($imageText[1]));
+              $filename = trim($imageText[0]);
+              $text = trim($imageText[1]);
               $newImageTexts[$filename] = $text;
             }         
             $imageTexts = $newImageTexts;

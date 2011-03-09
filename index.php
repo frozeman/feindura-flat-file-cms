@@ -45,6 +45,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <html lang="<?= $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
   <meta http-equiv="content-language" content="<?php echo $_SESSION['language']; ?>" />
   
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>

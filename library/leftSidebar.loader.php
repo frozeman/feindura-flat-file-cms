@@ -29,37 +29,34 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') {
  
   // ----  show QUICKMENU for the NONE-CATEGORY PAGES
-  if($_GET['category'] !== 0 || empty($categoryConfig)) {
-
-    // slide the categories menu IN, when a category is open
-    if(empty($_GET['category']))
-      $hidden = '';
-    else $hidden = ' hidden';
-    
-    echo '<div class="sidebarMenu fixed'.$hidden.'">
-    <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
-    <div class="content brown">
-      <ul class="verticalButtons">';
-            
-      if($pages = generalFunctions::loadPages(0,true)) {
+  // slide the categories menu IN, when a category is open
+  if(empty($_GET['category']))
+    $hidden = '';
+  else $hidden = ' hidden';
+  
+  echo '<div class="sidebarMenu fixed'.$hidden.'">
+  <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+  <div class="content brown">
+    <ul class="verticalButtons">';
           
-        foreach($pages as $page) {
-          if($_GET['page'] == $page['id'])
-            $pageSelected = ' class="active"';
-          else
-            $pageSelected = '';
-               
-          echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.strip_tags($page['title']).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
-        }        
-      } else {
-        echo '<li><a href="#" onclick="return:false"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
-      }
+    if($pages = generalFunctions::loadPages(0,true)) {
         
-    echo '</ul>          
-      </div>
-      <div class="bottom"><a href="#">&nbsp;</a></div>
-    </div>';
-  }
+      foreach($pages as $page) {
+        if($_GET['page'] == $page['id'])
+          $pageSelected = ' class="active"';
+        else
+          $pageSelected = '';
+             
+        echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.strip_tags($page['title']).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
+      }        
+    } else {
+      echo '<li><a href="#" onclick="return:false"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+    }
+      
+  echo '</ul>          
+    </div>
+    <div class="bottom"><a href="#">&nbsp;</a></div>
+  </div>';
   
   // ----  show QUICKMENU for the CATEGORIES
   if(!empty($categoryConfig)) {

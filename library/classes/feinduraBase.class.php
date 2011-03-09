@@ -765,10 +765,10 @@ class feinduraBase {
       $htmlLawedConfig = array(
         'clean_ms_char'=>2,
         'tidy' => 1,
-        'safe'=>1
+        'safe'=> 1
       );
       if($this->xHtml) $htmlLawedConfig['valid_xhtml'] = 1;
-      $pageContentEdited = htmLawed($pageContent['content'],$htmlLawedConfig);
+      $pageContentEdited = generalFunctions::htmLawed($pageContent['content'],$htmlLawedConfig);
       
       // clear Html tags?
       if(!$useHtml)

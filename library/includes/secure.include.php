@@ -31,13 +31,11 @@ require_once(dirname(__FILE__)."/backend.include.php");
 // -> general check
 xssFilter::escapeBasics($_POST);
 // -> check CATEGORY
-if((isset($_GET['category']) && xssFilter::int($_GET['category']) === false) ||
-   (isset($_POST['category']) && xssFilter::int($_POST['category']) === false))
-  die('Wrong &quot;category&quot; parameter! Script will be terminated.');
+if(isset($_GET['category'])) $_GET['category'] = xssFilter::int($_GET['category'],0);
+if(isset($_POST['category'])) $_POST['category'] = xssFilter::int($_POST['category'],0);
 // -> check PAGE
-if((isset($_GET['page']) && $_GET['page'] != 'new' && xssFilter::int($_GET['page']) === false) ||
-   (isset($_POST['page']) && $_POST['page'] != 'new' && xssFilter::int($_POST['page']) === false))
-  die('Wrong &quot;page&quot; parameter! Script will be terminated.');
+if(isset($_GET['page']) && $_GET['page'] !== 'new') $_GET['page'] = xssFilter::int($_GET['page'],0);
+if(isset($_POST['page']) && $_POST['page'] !== 'new') $_POST['page'] = xssFilter::int($_POST['page'],0);
 
 // ->> CHECK INPUTS
 // ****************
