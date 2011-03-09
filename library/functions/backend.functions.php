@@ -311,9 +311,10 @@ function createBasicFolders() {
  * 
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 add xssFilter to every value
  *    - 1.0 initial release
  * 
  */
@@ -372,7 +373,7 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['sortByPageDate'] =  ".xssFilter::bool($category['sortByPageDate'],true).";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['sortAscending'] =   ".xssFilter::bool($category['sortAscending'],true).";\n\n");
         
-        fwrite($file,"\$categoryConfig[".$category['id']."]['styleFile'] =       '".$category['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths()
+        fwrite($file,"\$categoryConfig[".$category['id']."]['styleFile'] =       '".$category['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleId'] =         '".xssFilter::string($category['styleId'])."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleClass'] =      '".xssFilter::string($category['styleClass'])."';\n\n");
         
@@ -596,10 +597,11 @@ function movePage($page, $fromCategory, $toCategory) {
  * 
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.01
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
- *    - 1.01 add websitePath 
+ *    - 1.0.2 add xssFilter to every value 
+ *    - 1.0.1 add websitePath 
  *    - 1.0 initial release
  * 
  */
@@ -642,7 +644,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n\n");
     
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".xssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths()
+    fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
     fwrite($file,"\$adminConfig['editor']['styleId'] =    '".xssFilter::string($adminConfig['editor']['styleId'])."';\n");  
     fwrite($file,"\$adminConfig['editor']['styleClass'] = '".xssFilter::string($adminConfig['editor']['styleClass'])."';\n\n");  
   
@@ -677,9 +679,10 @@ function saveAdminConfig($adminConfig) {
  * 
  * @example backend/userConfig.array.example.php of the $userConfig array
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 add xssFilter to every value 
  *    - 1.0 initial release
  * 
  */
@@ -696,7 +699,7 @@ function saveUserConfig($userConfig) {
         // escape \ and '
         xssFilter::escapeBasics($configs);
 
-        fwrite($file,"\$userConfig['".$user."']['id']       = ".xssFilter::int($configs['id']).";\n");
+        fwrite($file,"\$userConfig['".$user."']['id']       = ".xssFilter::int($configs['id'],0).";\n");
         fwrite($file,"\$userConfig['".$user."']['admin']    = ".xssFilter::bool($configs['admin'],true).";\n");
         fwrite($file,"\$userConfig['".$user."']['username'] = '".xssFilter::text($configs['username'])."';\n");
         fwrite($file,"\$userConfig['".$user."']['email']    = '".xssFilter::string($configs['email'])."';\n");
@@ -730,10 +733,11 @@ function saveUserConfig($userConfig) {
  * 
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  * 
- * @version 1.01
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
- *    - 1.01 removed $websiteconfig['email'], because its now set up in the contactForm plugin
+ *    - 1.0.2 add xssFilter to every value 
+ *    - 1.0.1 removed $websiteconfig['email'], because its now set up in the contactForm plugin
  *    - 1.0 initial release
  * 
  */
@@ -742,24 +746,6 @@ function saveWebsiteConfig($websiteConfig) {
   // opens the file for writing
   if($file = fopen(dirname(__FILE__)."/../../config/website.config.php","w")) {
     
-    // CHECK BOOL VALUES and change to FALSE
-    //$websiteConfig['noname'] = (isset($websiteConfig['noname']) && $websiteConfig['noname']) ? 'true' : 'false';
-        
-    // format keywords
-    $keywords = preg_replace("/ +/", ' ', $websiteConfig['keywords']);
-    $keywords = preg_replace("/,+/", ',', $keywords);
-    $keywords = str_replace(', ',',', $keywords);
-    $keywords = str_replace(' ,',',', $keywords);
-    $keywords = str_replace(' ',',', $keywords);
-    $websiteConfig['keywords'] = $keywords;
-    
-    // format all other strings
-    $websiteConfig['title'] = generalFunctions::prepareInputString($websiteConfig['title']);
-    $websiteConfig['publisher'] = generalFunctions::prepareInputString($websiteConfig['publisher']);
-    $websiteConfig['copyright'] = generalFunctions::prepareInputString($websiteConfig['copyright']);
-    $websiteConfig['keywords'] = generalFunctions::prepareInputString($websiteConfig['keywords']);
-    $websiteConfig['description'] = generalFunctions::prepareInputString($websiteConfig['description']);
-    
     // escape \ and '
     xssFilter::escapeBasics($websiteConfig);
     
@@ -767,13 +753,13 @@ function saveWebsiteConfig($websiteConfig) {
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($file,"\$websiteConfig['title']          = '".$websiteConfig['title']."';\n");
-      fwrite($file,"\$websiteConfig['publisher']      = '".$websiteConfig['publisher']."';\n");
-      fwrite($file,"\$websiteConfig['copyright']      = '".$websiteConfig['copyright']."';\n");
-      fwrite($file,"\$websiteConfig['keywords']       = '".$websiteConfig['keywords']."';\n");
-      fwrite($file,"\$websiteConfig['description']    = '".$websiteConfig['description']."';\n\n");
+      fwrite($file,"\$websiteConfig['title']          = '".xssFilter::text($websiteConfig['title'])."';\n");
+      fwrite($file,"\$websiteConfig['publisher']      = '".xssFilter::text($websiteConfig['publisher'])."';\n");
+      fwrite($file,"\$websiteConfig['copyright']      = '".xssFilter::text($websiteConfig['copyright'])."';\n");
+      fwrite($file,"\$websiteConfig['keywords']       = '".xssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $websiteConfig['keywords']),','))."';\n");
+      fwrite($file,"\$websiteConfig['description']    = '".xssFilter::text($websiteConfig['description'])."';\n\n");
       
-      fwrite($file,"\$websiteConfig['startPage']      = '".$websiteConfig['startPage']."';\n\n");
+      fwrite($file,"\$websiteConfig['startPage']      = ".xssFilter::int($websiteConfig['startPage'],0).";\n\n");
       
       fwrite($file,"return \$websiteConfig;");
     
@@ -802,9 +788,10 @@ function saveWebsiteConfig($websiteConfig) {
  * 
  * @example backend/statisticConfig.array.example.php of the $statisticConfig array
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 add xssFilter to every value 
  *    - 1.0 initial release
  * 
  */
@@ -820,13 +807,12 @@ function saveStatisticConfig($statisticConfig) {
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".xssFilter::int($statisticConfig['number']['mostVisitedPages'])."';\n");
-      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".xssFilter::int($statisticConfig['number']['longestVisitedPages'])."';\n");
-      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".xssFilter::int($statisticConfig['number']['lastEditedPages'])."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".xssFilter::int($statisticConfig['number']['mostVisitedPages'],10)."';\n");
+      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".xssFilter::int($statisticConfig['number']['longestVisitedPages'],10)."';\n");
+      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".xssFilter::int($statisticConfig['number']['lastEditedPages'],10)."';\n\n");
       
-      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".xssFilter::int($statisticConfig['number']['refererLog'])."';\n");
-      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".xssFilter::int($statisticConfig['number']['taskLog'])."';\n\n");
-      
+      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".xssFilter::int($statisticConfig['number']['refererLog'],100)."';\n");
+      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".xssFilter::int($statisticConfig['number']['taskLog'],50)."';\n\n");
       
       fwrite($file,"return \$statisticConfig;");
     
@@ -854,10 +840,11 @@ function saveStatisticConfig($statisticConfig) {
  * 
  * @example backend/pluginsConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.01
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
- *    - 1.01 add mootools selection 
+ *    - 1.0.2 add xssFilter to every value 
+ *    - 1.0.1 add mootools selection 
  *    - 1.0 initial release
  * 
  */
@@ -875,9 +862,7 @@ function savePluginsConfig($pluginsConfig) {
     
     if(is_array($pluginsConfig)) {
       foreach($pluginsConfig as $key => $value) {
-        $pluginsConfig[$key]['active'] = (isset($pluginsConfig[$key]['active']) && $pluginsConfig[$key]['active']) ? 'true' : 'false';
-        
-        fwrite($file,"\$pluginsConfig['$key']['active'] =     ".$pluginsConfig[$key]['active'].";\n");
+        fwrite($file,"\$pluginsConfig['$key']['active'] =     ".xssFilter::bool($pluginsConfig[$key]['active'],true).";\n");
       }
     }
     
@@ -1282,7 +1267,6 @@ function showPageDate($pageContent) {
  *    - <var>$savedForm</var> the variable to tell which form was saved (set in the {@link saveEditedFiles})
  * 
  * @param string		$filesPath	         the path where all files (also files in subfolders) will be shown for editing
- * @param string		$siteName	           a site name which will be set to the $_GET['site'] variable in the formular action attribute
  * @param string		$status		           a status name which will be set to the $_GET['status'] variable in the formular action attribute
  * @param string		$titleText	         a title text which will be displayed as the title of the edit files textfield
  * @param string		$anchorName	         the name of the anchor which will be added to the formular action attribute
@@ -1300,16 +1284,17 @@ function showPageDate($pageContent) {
  *    - 1.0 initial release
  * 
  */
-function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
+function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = false, $excluded = false) {
   
   // var
   $fileTypeText = null;
   $isFiles = false;
+  $_GET['file'] = xssFilter::path($_GET['file']);
   
   // shows the block below if it is the ones which is saved before
   $hidden = ($_GET['status'] == $status || $GLOBALS['savedForm'] === $status) ? '' : ' hidden';
 
-  echo '<form action="index.php?site='.$siteName.'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+  echo '<form action="index.php?site='.$_GET['site'].'#'.$anchorName.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
         <div>
         <input type="hidden" name="send" value="saveEditedFiles" />
         <input type="hidden" name="status" value="'.$status.'" />
@@ -1391,7 +1376,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
       echo '<div class="editFiles left">
             <h2>'.$GLOBALS['langFile']['editFilesSettings_chooseFile'].'</h2>
             <input value="'.$filesPath.'" readonly="readonly" style="width:auto;" size="'.(strlen($filesPath)-2).'" />'."\n";
-      echo '<select onchange="changeEditFile(\''.$siteName.'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
+      echo '<select onchange="changeEditFile(\''.$_GET['site'].'\',this.value,\''.$status.'\',\''.$anchorName.'\');">'."\n";
  
             // listet die Dateien aus dem Ordner als Mehrfachauswahl auf
             foreach($files as $cFile) {
@@ -1431,7 +1416,7 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
   
   if($isDir) {
     if($isFiles)
-      echo '<a href="?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/windowBox/deleteEditFiles.php?site='.$siteName.'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
+      echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
     echo '<br /><br /><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['form_submit'].'" />';
   }
   echo '</div>
@@ -1453,68 +1438,76 @@ function editFiles($filesPath, $siteName, $status, $titleText, $anchorName, $fil
  * 
  * @return bool TRUE if the file was succesfull saved, otherwise FALSE
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 add xssFilter and removed htmlentities 
  *    - 1.0 initial release
  * 
  */
 function saveEditedFiles(&$savedForm) {
-    
+
+  // var
+  $_POST['filesPath'] = DOCUMENTROOT.str_replace(DOCUMENTROOT,'',$_POST['filesPath']);
   // add DOCUMENTROOT
-  $file = str_replace(DOCUMENTROOT,'',$_POST['file']);  
-  $file = DOCUMENTROOT.$file;    
-  $_POST['filesPath'] = str_replace(DOCUMENTROOT,'',$_POST['filesPath']);  
-  $_POST['filesPath'] = DOCUMENTROOT.$_POST['filesPath'];
-  
+  $_POST['file'] = xssFilter::path($_POST['file']);
+  $_POST['file'] = str_replace(DOCUMENTROOT,'',$_POST['file']);  
+  $_POST['file'] = DOCUMENTROOT.$_POST['file'];
   
   // ->> SAVE FILE
-  if(@is_file($file) && empty($_POST['newFile'])) {
+  if(@is_file($_POST['file']) && empty($_POST['newFile'])) {
     
-    //$_POST['fileContent'] = preg_replace("#[\r\n]+#","\n",$_POST['fileContent']);
+    // encode when ISO-8859-1
+    if(mb_detect_encoding($_POST['fileContent']) == 'ISO-8859-1') $_POST['fileContent'] = utf8_encode($_POST['fileContent']);
     
+    $_POST['fileContent'] = preg_replace("#[\\r\\n]+#","\n",$_POST['fileContent']);
     $_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
     $_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
-    //$_POST['fileContent'] 	= str_replace("<br />", "", $_POST['fileContent']);
     $_POST['fileContent'] = stripslashes($_POST['fileContent']);
     
+    /*
     // wandelt umlaut in HTML zeichen um
-    $_POST['fileContent'] = htmlentities($_POST['fileContent'],ENT_NOQUOTES,'UTF-8');
+    $_POST['fileContent'] = html_entity_decode($_POST['fileContent'],ENT_NOQUOTES,'UTF-8');
     // changes & back, because of the $auml;
-    $_POST['fileContent'] = str_replace("&quot;", '"', $_POST['fileContent']);     
-    // changes & back, because of the $auml;
-    $_POST['fileContent'] = str_replace("&amp;", "&", $_POST['fileContent']);
+    $_POST['fileContent'] = str_replace("&quot;", '"', $_POST['fileContent']);
     // wandelt die php einleitungstags wieder in zeichen um
     $_POST['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$_POST['fileContent']);
-    
-    if($file = fopen($file,"w")) {
-    flock($file,2);
-    fwrite($file,$_POST['fileContent']);
-    flock($file,3);
-    fclose($file);      
-    
-    $_GET['file'] = $_POST['file'];
-    $_GET['status'] = $_POST['status'];
-    $savedForm = $_POST['status'];
+    */
+
+    if($file = fopen($_POST['file'],"w")) {
+      flock($file,2);
+      fwrite($file,$_POST['fileContent']);
+      flock($file,3);
+      fclose($file);      
+      
+      $_GET['file'] = str_replace(DOCUMENTROOT,'',$_POST['file']);
+      $_GET['status'] = $_POST['status'];
+      $savedForm = $_POST['status'];
     
       return true;      
     } else
       return false;
     
   // ->> NEW FILE
-  } else { // creates a new file if a filename was input in the field
+  } elseif(!empty($_POST['newFile'])) { // creates a new file if a filename was input in the field
         
     //$_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile']);
-    $_POST['newFile'] = str_replace( array("ä","ü","ö","ß","Ä","Ü","Ö"), array("ae","ue","oe","ss","Ae","Ue","Oe"), $_POST['newFile']);
+    $_POST['newFile'] = xssFilter::path($_POST['newFile'],false,'noname.txt');
+    
+    // check if a path is included
+    if(strpos($_POST['newFile'],'/') !== false) {
+      $directory = substr($_POST['newFile'],0,strrpos($_POST['newFile'],'/'));
+      $directory = preg_replace("/\/+/", '/', $_POST['filesPath'].'/'.$directory);
+      if(!is_dir($directory))
+        mkdir($directory,$GLOBALS['admimConfig']['permissions'],true);
+      $_POST['filesPath'] = $directory;
+      $_POST['newFile'] = substr($_POST['newFile'],strrpos($_POST['newFile'],'/')+1);
+    }
+    
     $_POST['newFile'] = generalFunctions::cleanSpecialChars($_POST['newFile'],'_');
-    
-    echo $_POST['newFile'];
-    
     $_POST['newFile'] = str_replace($_POST['fileType'],'',$_POST['newFile']);
     
     $fullFilePath = $_POST['filesPath'].'/'.$_POST['newFile'].$_POST['fileType'];
-    
-    //clean vars
     $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
     
     if($file = fopen($fullFilePath,"w")) {
@@ -1786,12 +1779,12 @@ function startPageWarning() {
   if(basePathWarning() !== false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'))
     return false;
   
-  if($GLOBALS['adminConfig']['setStartPage'] && $GLOBALS['websiteConfig']['startPage'] && ($startPageCategory = generalFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
+  if($GLOBALS['adminConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = generalFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
     $startPageCategory .= '/';
   else
     $startPageCategory = '';
 
-  if($GLOBALS['adminConfig']['setStartPage'] && (!$GLOBALS['websiteConfig']['startPage'] || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
+  if($GLOBALS['adminConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>
             <div class="content">

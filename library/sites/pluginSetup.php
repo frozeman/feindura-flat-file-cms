@@ -105,7 +105,7 @@ if($pluginFolders) {
         echo '<input type="submit" value="" class="button submit center" />';
         echo '</form>';        
               // edit plugin files
-              editFiles($pluginFolder, $_GET['site'], "edit".$pluginFolderName,  $pluginName.' '.$langFile['PLUGINSETUP_TITLE_EDITFILES'], $pluginFolderName."EditFilesAnchor", "php",'plugin.config.php');
+              editFiles($pluginFolder, "edit".$pluginFolderName,  $pluginName.' '.$langFile['PLUGINSETUP_TITLE_EDITFILES'], $pluginFolderName."EditFilesAnchor", "php",'plugin.config.php');
       echo '</div>';   
       
     }

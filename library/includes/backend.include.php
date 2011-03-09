@@ -79,7 +79,6 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 
 // INCLUDE FUNCTIONS
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
-require_once(dirname(__FILE__)."/../thirdparty/php/htmLawed.php");
 
 // set the time zone
 ini_set('date.timezone',$adminConfig['timeZone']);

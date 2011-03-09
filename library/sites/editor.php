@@ -670,7 +670,7 @@ $editorStyleClass = generalFunctions::getStylesByPriority($pageContent['styleCla
 // ------------------------------
 ?>
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-<?php echo htmlspecialchars($pageContent['content'],ENT_NOQUOTES,'UTF-8'); ?>
+<?= htmlspecialchars($pageContent['content'],ENT_NOQUOTES,'UTF-8',false); ?>
 </textarea>
 
 <script type="text/javascript">

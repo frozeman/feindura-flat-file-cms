@@ -598,6 +598,9 @@ class statisticFunctions {
   */
   public static function saveRefererLog() {
     
+    if(($_SERVER['HTTP_REFERER'] = xssFilter::url($_SERVER['HTTP_REFERER'])) === false)
+      return false;
+      
     $maxEntries = self::$statisticConfig['number']['refererLog'];
     $logFile = dirname(__FILE__).'/../../'.'statistic/referer.statistic.log';
     
@@ -975,9 +978,8 @@ class statisticFunctions {
   * Example dataString:
   * {@example dataString.array.example.php}
   * 
-  * @param string|array $dataToAdd            a string or an array with data to add, OR a unserialized data-string
   * @param string       $dataString           the data-string which the $dataToAdd parameter will be add to
-  * @param bool         $encodeSpecialChars   (optional) if TRUE it clean speacial chars and encode htmlentities before adding to the data-string
+  * @param string|array $dataToAdd            a string or an array with data to add, OR a unserialized data-string  
   * 
   * @uses generalFunctions::cleanSpecialChars() to clean the data variable
   * 
@@ -991,11 +993,10 @@ class statisticFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function addDataToDataString($dataString, $dataToAdd, $encodeSpecialChars = true) {
+  public static function addDataToDataString($dataString, $dataToAdd) {
     
     // if dataToAdd is a serialized data-string
     if(is_string($dataToAdd) && !empty($dataToAdd) && ($unserializedDataToAdd = unserialize($dataToAdd)) !== false) {
-      
       if(is_string($dataString) && !empty($dataString)) {
       
         // var
@@ -1012,7 +1013,12 @@ class statisticFunctions {
             }            
           }
         }
-
+        
+        foreach($newDataToAddArray as $key => $value) {
+          $newDataToAddArray[$key]['data'] = xssFilter::text($value['data']);
+          $newDataToAddArray[$key]['number'] = xssFilter::int($value['number'],1);
+        }
+        
         $newDataArray = array_merge($newDataArray,$newDataToAddArray);
 
         // sort the new created array
@@ -1038,7 +1044,7 @@ class statisticFunctions {
       if(is_array($exisitingData) && !empty($exisitingData)) {
         foreach($exisitingData as $key => $exisitingDataVariable) {
           // if then count up the number of the data
-          if(false !== ($foundKey = array_search(strtolower($exisitingDataVariable['data']),$newdata))) {
+          if(false !== ($foundKey = array_search(mb_strtolower($exisitingDataVariable['data'],'UTF-8'),$newdata))) {
             $newDataArray[$key]['number']++;
             // and remove the data from the $data array
             unset($newdata[$foundKey]);
@@ -1046,14 +1052,11 @@ class statisticFunctions {
         }
       }
       
-      // -> add the left new data
+      // -> add the new data
       if(is_array($newdata) && !empty($newdata)) {    
         foreach($newdata as $dataVariable) {
-          if($encodeSpecialChars === true) {
-            $dataVariable = generalFunctions::cleanSpecialChars($dataVariable,''); // clean special chars
-            $dataVariable = htmlentities($dataVariable,ENT_QUOTES, 'UTF-8');     
-          }
-          $newDataArray[] = array('data' => strtolower($dataVariable), 'number' => 1);
+          $dataVariable = xssFilter::text($dataVariable);
+          $newDataArray[] = array('data' => mb_strtolower($dataVariable,'UTF-8'), 'number' => 1);
         }
       }
       
@@ -1277,15 +1280,10 @@ class statisticFunctions {
   * 
   */
   public static function saveWebsiteStats() {
-    global $HTTP_SESSION_VARS;
     
+    // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
     //unset($_SESSION);
     
-    // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
-    // if its an older php version, set the session var
-    if(PHP_VERSION <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;
-      
     // doesnt save anything if visitor is a logged in user
     if(self::isLoggedUser())
       return false;
@@ -1354,13 +1352,13 @@ class statisticFunctions {
         flock($statisticFile,2);        
         fwrite($statisticFile,PHPSTARTTAG);  
               
-        fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".self::$websiteStatistic["userVisitCount"]."';\n");
-        fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".self::$websiteStatistic["spiderVisitCount"]."';\n\n");
+        fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".xssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n");
+        fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  ".xssFilter::int(self::$websiteStatistic["spiderVisitCount"],0).";\n\n");
         
-        fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        '".self::$websiteStatistic["firstVisit"]."';\n");
-        fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         '".self::$websiteStatistic["lastVisit"]."';\n\n");
+        fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".xssFilter::int(self::$websiteStatistic["firstVisit"],0).";\n");
+        fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".xssFilter::int(self::$websiteStatistic["lastVisit"],0).";\n\n");
         
-        fwrite($statisticFile,"\$websiteStatistic['browser'] =      '".self::$websiteStatistic["browser"]."';\n\n");
+        fwrite($statisticFile,"\$websiteStatistic['browser'] =           '".self::$websiteStatistic["browser"]."';\n\n"); // xssFilter in the addDataToDataString() method
         
         fwrite($statisticFile,"return \$websiteStatistic;");
               
@@ -1395,7 +1393,7 @@ class statisticFunctions {
             // load the last page again
             $lastPage = generalFunctions::readPage($log_lastPage,generalFunctions::getPageCategory($log_lastPage));
             
-            $visitTime = time() - $_SESSION['log_lastPage_timestamp'];
+            $visitTime = time() - xssFilter::int($_SESSION['log_lastPage_timestamp'],0);
             
             // saves times longer than 5 seconds
             if($visitTime > 5) {
@@ -1512,15 +1510,10 @@ class statisticFunctions {
   * 
   */
   public static function savePageStats($pageContent) {
-    global $HTTP_SESSION_VARS;
-    
+
+    // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
     //unset($_SESSION);
     
-    // needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
-    // if its an older php version, set the session var
-    if(PHP_VERSION <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;
-      
     // doesnt save anything if visitor is a logged in user
     if(self::isLoggedUser())
       return false;
@@ -1567,27 +1560,35 @@ class statisticFunctions {
         $_SESSION['log_searchWords'] = array();
 
       if(isset($_SERVER['HTTP_REFERER']) &&
-         !empty($_SERVER['HTTP_REFERER'])) {        
+         !empty($_SERVER['HTTP_REFERER'])) {   
          
         $searchWords = $_SERVER['HTTP_REFERER'];
         // test search url strings:
-        //$searchWords = 'http://www.google.de/search?q=mair%C3%A4nd+%26+geld+syteme%3F&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:de:official&client=firefox-a';
-        $searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
+        //$searchWords = 'http://www.google.com/search?hl=de&q=hall%C3%B6fsdfs++ds%C3%B6%C3%A4&btnG=Suche&aq=f&aqi=&oq=#sclient=psy&hl=de&q=hall%C3%B6fsdfs++da%C3%B6+%C3%9Fddd&aq=f&aqi=&aql=&oq=&pbx=1&fp=59d7fcbbee5898f6';
+        //$searchWords = 'http://www.google.de/#sclient=psy&num=10&hl=de&safe=off&q=ich+suche+was&aq=f&aqi=g1&aql=&oq=&gs_rfai=&pbx=1&fp=bea9cbc9f7597291';
         //$searchWords = 'http://www.bing.com/search?q=halo+wich+suche+was&go=&form=QBLH&filt=all';
         //$searchWords = 'http://de.search.yahoo.com/search;_ylt=AoJmH5FT4CkRvDpo3RuiawIqrK5_?vc=&p=hallo+ich+suche+was&toggle=1&cop=mss&ei=UTF-8&fr=yfp-t-708';
         //$searchWords = 'http://de.search.yahoo.com/search;_ylt=A03uv8f1RWxKvX8BGYMzCQx.?p=umlaute+fdgdfg&y=Suche&fr=yfp-t-501&fr2=sb-top&rd=r1&sao=1';
         if(strpos($searchWords,'google') !== false || strpos($searchWords,'bing') !== false || strpos($searchWords,'yahoo') !== false) {
 
           // gets the searchwords
-          $searchWords = (strpos($searchWords,'yahoo') !== false)
-            ? strstr($searchWords,'p=')
-            : strstr($searchWords,'q=');          
-          $searchWords = substr($searchWords,2,strpos($searchWords,'&')-2);          
-          $searchWords = urldecode($searchWords);
+          $parts = parse_url($searchWords);
+          parse_str($parts['query'], $query1);
+          parse_str($parts['fragment'], $query2);
+          $query = array_merge($query1, $query2);
           
+          $search_engines = array(
+              'bing' => 'q',
+              'google' => 'q',
+              'yahoo' => 'p'
+          );
+          
+          preg_match('/('.implode('|', array_keys($search_engines)).')\./', $parts['host'], $matches);
+          $searchWords = (isset($matches[1]) && isset($query[$search_engines[$matches[1]]])) ? $query[$search_engines[$matches[1]]] : '';
+          echo '-> '.$searchWords;
           $searchWords = explode(' ',$searchWords);
           
-          // gos through searchwords and check if there already saved  
+          // gos through searchwords and check if there already saved
           $newSearchWords = array();
           foreach($searchWords as $searchWord) {
             if(in_array($searchWord,$_SESSION['log_searchWords']) === false) {

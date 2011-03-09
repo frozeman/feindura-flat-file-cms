@@ -99,8 +99,8 @@ $langFile['STYLESHEETS_TEXT_ID'] = 'Stylesheet-Id';
 $langFile['STYLESHEETS_TEXT_CLASS'] = 'Stylesheet-Class';
 
 $langFile['STYLESHEETS_TOOLTIP_STYLEFILE'] = 'Here you can specify stylesheet files, which will be used to style the HTML editor content.';
-$langFile['STYLESHEETS_TOOLTIP_ID'] = 'Here you can specify an Id-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
-$langFile['STYLESHEETS_TOOLTIP_CLASS'] = 'Here you can specify an Class-attribut, which will be add to the &lt;body&gt; tag  of the HTML-Editor.';
+$langFile['STYLESHEETS_TOOLTIP_ID'] = 'Here you can specify an Id-attribut, which will be add to the <body> tag  of the HTML-Editor.';
+$langFile['STYLESHEETS_TOOLTIP_CLASS'] = 'Here you can specify an Class-attribut, which will be add to the <body> tag  of the HTML-Editor.';
 
 $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'] = 'add stylesheet file';
 $langFile['STYLESHEETS_EXAMPLE_STYLEFILE'] = '<b>Example</b> &quot;/style/layout.css&quot;';
@@ -268,16 +268,16 @@ $langFile['warning_jsWarning_h1'] = 'Please activate Javascript';
 // no <p> tag on the start and the end, its already in the home.php
 $langFile['warning_jsWarning'] = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong></p>
 <h2>in Firefox</h2>
-<p>Click on &quot;Edit&quot; &gt; &quot;Preferences&quot; and under content chedck the box &quot;activate JavaScript&quot; and finish with OK.</p>
+<p>Click on "Edit" > "Preferences" and under content chedck the box "activate JavaScript" and finish with OK.</p>
 <h2>in Internet Explorer</h2>
-<p>Click on &quot;Extras&quot; &gt; &quot;Internetoptionens&quot;.<br />
-There you set under &quote;Security&quote; &gt; &quote;Standardlevel&quote; choose &quot;adjust Level&quot; and activate under &quote;Scripting&quote; the piont &quot;activate Active Scripting&quot;.</p>
+<p>Click on "Extras" > "Internetoptionens".<br />
+There you set under &quote;Security&quote; > &quote;Standardlevel&quote; choose "adjust Level" and activate under &quote;Scripting&quote; the piont "activate Active Scripting".</p>
 <h2>in Safari</h2>
-<p>Click in the top menu bar on the icon on the right, choose &quot;Preferences&quot;. Activate under &quot;Security&quot; the point &quot;activate JavaScript&quot; and click OK to finish.</p>
+<p>Click in the top menu bar on the icon on the right, choose "Preferences". Activate under "Security" the point "activate JavaScript" and click OK to finish.</p>
 <h2>in Mozilla</h2>
-<p>Click on &quot;Edit&quot; &gt; &quot;Preferences&quot;. Under the point &quot;Advanced&quot; &gt; &quot;Scripts &amp; Plugins&quot; check &quot;Navigator&quot; and finish with OK.</p>
+<p>Click on "Edit" > "Preferences". Under the point "Advanced" > "Scripts & Plugins" check "Navigator" and finish with OK.</p>
 <h2>in Opera</h2>
-<p>Click on &quot;Extras&quot; &gt; &quot;Preferences&quot;. Under &quot;Advanced&quot; &gt; &quot;Content&quot; check &quot;activate JavaScript&quot; and click OK to finsih.';
+<p>Click on "Extras" > "Preferences". Under "Advanced" > "Content" check "activate JavaScript" and click OK to finsih.';
 
 $langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
 $langFile['warning_ieOld'] = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 7.<br /><br />Please install a newer version of the Internet Explorer,<br /> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br />or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox Browser</a>.';
@@ -387,7 +387,7 @@ $langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Please save the setti
 $langFile['ADMINSETUP_GENERAL_field8'] = 'Website path';
 $langFile['ADMINSETUP_GENERAL_field8_tip'] = 'The [b]absolute path[/b] where the website is situated.';
 $langFile['ADMINSETUP_GENERAL_field4'] = 'Upload path';
-$langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button &gt; Upload in the HTML-Editor or in the file manager.[/span]';
+$langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
 $langFile['ADMINSETUP_GENERAL_field5'] = 'File path for website files';
 $langFile['ADMINSETUP_GENERAL_field5_tip'] = 'A folder with files which are used by the website. E.g to make a website multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
@@ -411,7 +411,7 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl'] = 'URL format';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true'] = 'Speaking URLs';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'] = '/category/example_category/example.html';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false'] = 'URLs with variables';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&amp;'.$adminConfig['varName']['page'].'=1';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&'.$adminConfig['varName']['page'].'=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] = 'The URL format, which will be used to link the pages.[br /][br /]Speaking URLs work only if the [b]Apache[/b] [b]mod_rewrite[/b] modul is available.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] = 'WARNING!::[span class=red]If an error occours while using speaking URLs, you have to delete the [b].htaccess file[/b] in the document root path of your webserver.[/span][br /][br /](In some FTP programs you have to show hidden files first, to see the .htaccess file)';
 
@@ -433,7 +433,7 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'If you don\'t want to
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Settings';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Key mode';
-$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER always generates a &quot;&lt;br /&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER always generates a &quot;<br />&quot;';
 $langFile['adminSetup_editorSettings_field1_tip'] = 'Sets which HTML-Tag will be add when pressing the ENTER-Key in the HTML-Editor.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'If empty no Id-attribute will be used.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'If empty no Class-attribute will be used.';
@@ -558,7 +558,7 @@ $langFile['websiteSetup_websiteConfig_field3'] = 'Copyright';
 $langFile['websiteSetup_websiteConfig_field3_tip'] = 'The copyright holder of the website.';
 
 $langFile['websiteSetup_websiteConfig_field4'] = 'Search engine keywords';
-$langFile['websiteSetup_websiteConfig_field4_tip'] = 'The most search engines search the website content for keywords, however you should list some keywords here, which will be stored in the &lt;meta&gt; tags of the page.';
+$langFile['websiteSetup_websiteConfig_field4_tip'] = 'The most search engines search the website content for keywords, however you should list some keywords here, which will be stored in the <meta> tags of the page.';
 $langFile['websiteSetup_websiteConfig_field4_inputTip'] = 'The keywords must be separated with &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br /]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_field5'] = 'Website description';
 $langFile['websiteSetup_websiteConfig_field5_tip'] = 'A short description which will search engines use, if the searchwords were found in the website URL and not in the content.';
@@ -674,7 +674,7 @@ $langFile['editor_pageSettings_field1_inputTip'] = 'If empty it uses the descrip
 $langFile['editor_pageSettings_field1_tip'] = 'A short summary of the page content. This description will be used in the META-Tags of the page.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
 $langFile['editor_pageSettings_field2_tip'] = 'Tags are keywords for this page.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'The Tags should separated by [b]whitespaces[/b].';
+$langFile['editor_pageSettings_field2_tip_inputTip'] = 'The Tags should separated by &quot;,&quot;.';
 $langFile['editor_pageSettings_field3'] = 'Pagedate';
 $langFile['editor_pageSettings_field3_tip'] = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
 $langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text before the date::e.g. &quot;from 31st June until&quot;.';

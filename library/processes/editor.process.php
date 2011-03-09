@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -42,10 +42,10 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
-  $_POST['title'] = generalFunctions::prepareInputString($_POST['title']);
+  //$_POST['title'] = generalFunctions::prepareInputString($_POST['title']);
   $_POST['title'] = str_replace(array('&quot;','&lt;','&gt;'),array('"','<','>'),$_POST['title']);
   
-  $_POST['description'] = generalFunctions::prepareInputString($_POST['description']);
+  //$_POST['description'] = generalFunctions::prepareInputString($_POST['description']);
   
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
@@ -108,16 +108,15 @@ if($_POST['save']) {
     //echo '<br />'.$_POST['pageDate']['before'];
     //echo '<br />'.$_POST['pageDate']['date'];
     
-    if(empty($_POST['sortOrder']))
-      $_POST['sortOrder'] = $pageContent['sortOrder'];
+    if(empty($_POST['sortOrder']))  $_POST['sortOrder'] = $pageContent['sortOrder'];
     
     // adds absolute path slash on the beginning and implode the stylefiles
     $_POST['styleFile'] = prepareStyleFilePaths($_POST['styleFile']);
     
     // bubbles through the page, category and adminConfig to see if it should save the styleheet-file path, id or class-attribute
     $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
-    $_POST['styleId'] = setStylesByPriority(xssFilter::string($_POST['styleId']),'styleId',$category);
-    $_POST['styleClass'] = setStylesByPriority(xssFilter::string($_POST['styleClass']),'styleClass',$category);
+    $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
+    $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
     
     // gets the visit status
     $_POST['log_visitorCount'] = $pageContent['log_visitorCount'];

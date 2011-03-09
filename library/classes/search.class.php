@@ -570,8 +570,6 @@ class search {
   * 
   * @return string|false the elements of the dataString with marked results, or FALSE
   * 
-  * @see statisticFunctions::addDataToDataString()
-  * 
   * @access private
   * @version 1.0
   * <br />

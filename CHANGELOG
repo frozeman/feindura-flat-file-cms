@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc1
-Build 565
+Build 566
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-
+  
+  build 566: add extensive xss filtering and removed htmlentities (now only using UTF-8)
   build 565: work on XSS security, state: next is saveWebsiteConfig()
   
 1.1 rc1

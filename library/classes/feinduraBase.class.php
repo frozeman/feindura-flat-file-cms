@@ -348,11 +348,9 @@ class feinduraBase {
       $pages = generalFunctions::loadPages($this->category);
       //print_r($this->storedPages);
       if($pages) {
-        foreach($pages as $page) {          
-          $transformedPage = htmlentities($_GET['page'],ENT_QUOTES,'UTF-8');
-
+        foreach($pages as $page) {
           // RETURNs the right page Id
-          if(generalFunctions::encodeToUrl($page['title']) == $transformedPage) {
+          if(urlencode($page['title']) == $_GET['page']) {
             return $page['id'];
           }
         }
@@ -416,11 +414,9 @@ class feinduraBase {
     } elseif(isset($_GET['category']) &&
              !empty($_GET['category'])) {
       
-      foreach($this->categoryConfig as $category) {
-        $transformedCategory = htmlentities($_GET['category'],ENT_QUOTES,'UTF-8');
-      
+      foreach($this->categoryConfig as $category) {      
         // RETURNs the right category Id
-        if(generalFunctions::encodeToUrl($category['name']) == $transformedCategory) {
+        if(urlencode($category['name']) == $_GET['category']) {
           return $category['id'];
         }
       }
@@ -762,27 +758,17 @@ class feinduraBase {
     
     // ->> MODIFING pageContent
     // ************************
+    
+    
     if(!empty($pageContent['content'])) {
-      $pageContentEdited = $pageContent['content'];
       
-      /*
-      // -> adds ATTRIBUTES
-      // -----------------------
-      $contentStartTag = '';
-      $contentEndTag = '';
-      $contentAttributes = $this->createAttributes($this->contentId, $this->contentClass, $this->contentAttributes);
-        
-      if($this->contentTag || !empty($contentAttributes)) {
-	  
-	// set tag
-        if(is_string($this->contentTag)) $contentTag = $this->contentTag;
-	// or uses standard tag
-        else $contentTag = 'div';
-                  
-        $contentStartTag = '<'.$contentTag.$contentAttributes.'>';
-        $contentEndTag = '</'.$contentTag.'>';        
-      }
-      */
+      $htmlLawedConfig = array(
+        'clean_ms_char'=>2,
+        'tidy' => 1,
+        'safe'=>1
+      );
+      if($this->xHtml) $htmlLawedConfig['valid_xhtml'] = 1;
+      $pageContentEdited = htmLawed($pageContent['content'],$htmlLawedConfig);
       
       // clear Html tags?
       if(!$useHtml)
@@ -1638,12 +1624,12 @@ class feinduraBase {
       $string = generalFunctions::decodeToPlainText($string);
       
       // shorten the string
-      if($length < strlen($string)) {      
+      if($length < mb_strlen($string,'UTF-8')) {
         // go until you found a whitespace
-        while(substr($string,$length,1) != ' ' && $length < strlen($string)) {   
+        while(mb_substr($string,$length,1,'UTF-8') != ' ' && $length < mb_strlen($string,'UTF-8')) {   
           $length++;
         }        
-        $string = substr($string,0,$length);
+        $string = mb_substr($string,0,$length,'UTF-8');
 
         // adds the endString
         if(is_string($endString))
@@ -1697,7 +1683,7 @@ class feinduraBase {
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT
       // ***********************************************
-      if(is_numeric($length) && $length < strlen($rawText)) {
+      if(is_numeric($length) && $length < mb_strlen($rawText,'UTF-8')) {
         
         // -> FIND THE REAL POSITION, for LENGTH
         // find the real position in the html text
@@ -1709,7 +1695,7 @@ class feinduraBase {
         // goes trough the text and find the real position
         while($currentLength != $length) {
           // get the CURRENT CHAR
-          $actualChar = substr($input, $position, 1);
+          $actualChar = mb_substr($input, $position, 1,'UTF-8');
           
           //echo '<br />'.$actualChar.'<br />';
           //echo 'realPos: '.$position.'<br />';
@@ -1737,8 +1723,8 @@ class feinduraBase {
         
         // checks if there is a unclosed html tag (example: <h1..)
         // and shortens the string from this unclosed tag
-        if(strrpos($input, "<") !== false && strrpos($input, "<") > strrpos($input, ">")) {
-          $input = substr($input, 0, strrpos($input, "<"));
+        if(mb_strrpos($input, "<",'UTF-8') !== false && mb_strrpos($input, "<",'UTF-8') > mb_strrpos($input, ">",'UTF-8')) {
+          $input = mb_substr($input, 0, mb_strrpos($input, "<",'UTF-8'),'UTF-8');
         }
       
         // goes trough the tags and stores the opend ones in an array
@@ -1749,10 +1735,10 @@ class feinduraBase {
         if(preg_match_all('!<(/?\w+)((\s+\w+(\s*=\s*(?:".*?"|\'.*?\'|[^\'">\s]+))?)+\s*|\s*)/?\>!is', $input, $matches)) {
           foreach($matches[1] as $tag) {
             //echo 'Tag: '.$tag."<br />\n";        
-            $tag = strtolower($tag);
+            $tag = mb_strtolower($tag,'UTF-8');
             
             // looks if its a opening or closing tag
-            if(substr($tag, 0, 1) != '/') {          
+            if(mb_substr($tag, 0, 1,'UTF-8') != '/') {          
               // HTML tags which will not be closed
               if($tag != 'br' &&
               $tag != 'hr' &&
@@ -1772,7 +1758,7 @@ class feinduraBase {
               }
             } else {
               // a tag has been closed
-              $tag = substr($tag, 1, strlen($tag));
+              $tag = mb_substr($tag, 1, mb_strlen($tag,'UTF-8'),'UTF-8');
               //echo 'Tag CLOSED: '.$tag.'<br />';
               unset($opened[array_pop(array_keys($opened, $tag))]);
             }
@@ -1799,18 +1785,18 @@ class feinduraBase {
       $output = $input;
       
       // removes the last \r\n on the end
-      if(substr($output,-1) == "\n")
-        $output = substr($output,0,-2);        
-      if(substr($input,-1) == "\r")
-        $output = substr($output,0,-2);
+      if(mb_substr($output,-1,mb_strlen($output,'UTF-8'),'UTF-8') == "\n")
+        $output = mb_substr($output,0,-2,'UTF-8');        
+      if(mb_substr($input,-1,mb_strlen($input,'UTF-8'),'UTF-8') == "\r")
+        $output = mb_substr($output,0,-2,'UTF-8');
       
       // if string was shorten
       if($textWasCut) {
         // try to put the endString before the last HTML-Tag and add the more link
-        if(substr($output,-1) == '>') {
-          $lastTagPos = strrpos($output, '</');
-          $lastTag = substr($output,$lastTagPos);
-          $output = substr($output,0,$lastTagPos).$endString.$lastTag;
+        if(mb_substr($output,-1,mb_strlen($output,'UTF-8'),'UTF-8') == '>') {
+          $lastTagPos = mb_strrpos($output, '</','UTF-8');
+          $lastTag = mb_substr($output,$lastTagPos,mb_strlen($output,'UTF-8'),'UTF-8');
+          $output = mb_substr($output,0,$lastTagPos,'UTF-8').$endString.$lastTag;
         } else
           $output .= $endString;
       }

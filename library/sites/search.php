@@ -46,7 +46,7 @@ $langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
 $time_start = microtime(); //Zeitbeginn am Seitenanfang
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 

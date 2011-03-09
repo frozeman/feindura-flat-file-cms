@@ -372,7 +372,7 @@ class xssFilter {
   */
   public static function url($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("#^[\:\?\=\/\.\-\s_a-zA-Z\d]*$#",$data,$find);
+        preg_match("#^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&=\?\-_]+$#i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#//+#','//',$find[0]);
@@ -588,10 +588,7 @@ class xssFilter {
         $data = stripslashes($data);
         $data = str_replace(';','&#59;',$data);
         $data = htmlspecialchars($data,ENT_QUOTES,$charset,false);
-        $data = str_replace('&amp;#59;','&#59;',$data);
-        $data = str_replace('/','&#47;',$data);
-        $data = str_replace('\\','&#92;',$data);
-        $data = str_replace('=','&#61;',$data);
+        $data = str_replace(array('&amp;#59;','\\','=','&#92;&#039;'),array('&#59;','&#92;','&#61;','&#039;'),$data);
         $data = preg_replace('#(\&\#92;)+#','&#92;',$data);
         
         return ($max > 0)

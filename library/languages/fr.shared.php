@@ -24,9 +24,9 @@
 
 // -> GENERAL <-
 
-$sharedLangFile['HEADER_BUTTON_LOGOUT'] = 'D&eacute;connexion::D&eacute;connexion Cliquez ici pour &ecirc;tre.';
+$sharedLangFile['HEADER_BUTTON_LOGOUT'] = 'Déconnexion::Déconnexion Cliquez ici pour être.';
 
-$sharedLangFile['sortablePageList_functions_startPage'] = 'd&eacute;finir cette page comme page d\'acceuil';
+$sharedLangFile['sortablePageList_functions_startPage'] = 'définir cette page comme page d\'acceuil';
 $sharedLangFile['sortablePageList_functions_startPage_set'] = 'cette page est la page d\'acceuil';
 
 /* date texts */
@@ -39,13 +39,13 @@ $sharedLangFile['DATE_TEXT_TOMORROW'] = 'demain';
 // -> SEARCH
 
 $langFile['SEARCH_TITLE'] = 'fouiller les pages';
-$langFile['SEARCH_TITLE_RESULTS'] = 'r&eacute;sultat de recherche pour';
+$langFile['SEARCH_TITLE_RESULTS'] = 'résultat de recherche pour';
 $langFile['SEARCH_TEXT_MATCH_ID'] = 'convergence avec l\'ID de la page';
-$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'cat&eacute;gorie';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'catégorie';
 $langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'mots de recherche';
 $langFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
-$langFile['SEARCH_TEXT_RESULTS'] = 'r&eacute;sultat';
-$langFile['SEARCH_TEXT_TIME_1'] = 'en'; // 12 r&eacute;sultat en 0.32 secondes
+$langFile['SEARCH_TEXT_RESULTS'] = 'résultat';
+$langFile['SEARCH_TEXT_TIME_1'] = 'en'; // 12 résultat en 0.32 secondes
 $langFile['SEARCH_TEXT_TIME_2'] = 'secondes';
 
 
@@ -53,8 +53,8 @@ $langFile['SEARCH_TEXT_TIME_2'] = 'secondes';
 
 $sharedLangFile['errorWindow_h1'] = 'une erreur s\'est produite!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>activation de la page d\'accueil impossible.</b>';
-$sharedLangFile['editor_savepage_error_save'] = '<b>Cette page ne pouvait pas &ecirc;tre sauvegard&eacute;e.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'ERREUR<br /><br /><span class="logoname">fein<span>dura</span></span> n&eacute;cessite au moins la version de PHP'; // PHP 5.2.3
+$sharedLangFile['editor_savepage_error_save'] = '<b>Cette page ne pouvait pas être sauvegardée.</b>';
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'ERREUR<br /><br /><span class="logoname">fein<span>dura</span></span> nécessite au moins la version de PHP'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -189,15 +189,8 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
 // ****** ---------- SAVE CATEGORIES
 if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
-  
-  // cleans the category names
-  $categoriesCleaned = array();
-  foreach($_POST['categories'] as $category) {
-      //$category['name'] = generalFunctions::prepareInputString($category['name']);
-      $categoriesCleaned[$category['id']] = $category;
-  }
 
-  if(saveCategories($categoriesCleaned)) {
+  if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
     statisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE
   } else

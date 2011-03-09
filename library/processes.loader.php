@@ -17,7 +17,7 @@
 // processes.loader.php version 0.1
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/includes/secure.include.php");
 

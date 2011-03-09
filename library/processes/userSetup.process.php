@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -78,7 +78,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
 }
 
 // ****** ---------- SAVE USERS
-if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {  
+if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
   
   // var
   $userPassChanged = false;
@@ -89,6 +89,8 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
     $configs['username'] = generalFunctions::cleanSpecialChars($configs['username'],'');
     $newUserConfig[$configs['username']] = $configs;
     unset($newUserConfig[$user]);
+    $configs['password'] = xssFilter::text($configs['password']);
+    $configs['password_confirm'] = xssFilter::text($configs['password_confirm']);
     
     // CHECK for password change
     if(!empty($configs['password']) && $configs['password'] != $userConfig[$configs['username']]['password']) {
@@ -124,9 +126,10 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
     $errorWindow .= $langFile['userSetup_error_save'];
 }
 
-
 // RE-INCLUDE
-unset($userConfig);
-$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
+if($_POST['send']) {
+  unset($userConfig);
+  $userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
+}
 
 ?>

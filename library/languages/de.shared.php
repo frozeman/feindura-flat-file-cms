@@ -38,8 +38,8 @@ $sharedLangFile['DATE_TEXT_TOMORROW'] = 'Morgen';
 // -> SEARCH
 
 $langFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
-$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse f&uuml;r';
-$langFile['SEARCH_TEXT_MATCH_ID'] = '&Uuml;bereinstimmung mit der Seiten ID';
+$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse für';
+$langFile['SEARCH_TEXT_MATCH_ID'] = 'Übereinstimmung mit der Seiten ID';
 $langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'Kategorie';
 $langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'Suchworte';
 $langFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
@@ -53,7 +53,7 @@ $langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
 $sharedLangFile['errorWindow_h1'] = 'Ein Fehler ist aufgetreten!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>';
 $sharedLangFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'FEHLER<br /><br /><span class="logoname">fein<span>dura</span></span> ben&ouml;tigt mindestens PHP version'; // PHP 5.2.3
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'FEHLER<br /><br /><span class="logoname">fein<span>dura</span></span> benötigt mindestens PHP version'; // PHP 5.2.3
 
 
 // -----------------------------------------------------------------------------------------------

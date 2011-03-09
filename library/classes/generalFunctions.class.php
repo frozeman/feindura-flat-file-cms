@@ -364,14 +364,9 @@ class generalFunctions {
   * 
   */
   public static function getStoredPages() {
-    global $HTTP_SESSION_VARS;
     
     unset($_SESSION['storedPages']);    
-    //echo 'STORED-PAGES -> '.count(self::$storedPages);
-    
-    // if its an older php version, set the session var
-    if(PHP_VERSION <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;    
+    //echo 'STORED-PAGES -> '.count(self::$storedPages); 
       
     // -> checks if the SESSION storedPages Array exists
     if(isset($_SESSION['storedPages']))
@@ -401,13 +396,8 @@ class generalFunctions {
   * 
   */
   public static function setStoredPages($pageContent,$remove = false) {
-    global $HTTP_SESSION_VARS;
-    
+   
     unset($_SESSION['storedPages']);
-    
-    // if its an older php version, set the session var
-    if(PHP_VERSION <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;  
     
     // stores the given parameter only if its a valid $pageContent array
     if(self::isPageContentArray($pageContent)) {
@@ -445,14 +435,9 @@ class generalFunctions {
   * 
   */
   public static function removeStoredPage($id) {
-    global $HTTP_SESSION_VARS;
     
     // var
-    $return = false;
-    
-    // if its an older php version, set the session var
-    if(PHP_VERSION <= '4.1.0')
-      $_SESSION = $HTTP_SESSION_VARS;  
+    $return = false; 
     
     // ->> REMOVE
     if(is_numeric($id)) {
@@ -577,7 +562,7 @@ class generalFunctions {
       if(@include(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category.$page)) {
       
         // UNESCPAE the SINGLE QUOTES '
-        $pageContent['content'] = str_replace("\'", "'", $pageContent['content'] );
+        $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
       
         return self::setStoredPages($pageContent);
       } else  // returns false if it couldn't include the page
@@ -606,12 +591,13 @@ class generalFunctions {
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.03
+  * @version 1.0.4
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.03 creates now category folder automatically  
-  *    - 1.02 add preg_replace removing multiple slahses
-  *    - 1.01 add chmod
+  *    - 1.0.4 add xssFilter for every value  
+  *    - 1.0.3 creates now category folder automatically  
+  *    - 1.0.2 add preg_replace removing multiple slahses
+  *    - 1.0.1 add chmod
   *    - 1.0 initial release
   * 
   */
@@ -647,30 +633,32 @@ class generalFunctions {
       $pageContent['content'] = stripslashes($pageContent['content']);
       $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
       $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );
-        
-      // CHECK BOOL VALUES and change to FALSE
-      $pageContent['public'] = (isset($pageContent['public']) && $pageContent['public']) ? 'true' : 'false';
-      $pageContent['sortOrder'] = (empty($pageContent['sortOrder'])) ? '0' : $pageContent['sortOrder'];
+      
+      $htmlLawedConfig = array(
+        'clean_ms_char'=>2,
+        'tidy' => 1,
+        'safe'=>1
+      );
       
       // WRITE
       flock($file,2);            
       fwrite($file,PHPSTARTTAG);
       
-      fwrite($file,"\$pageContent['id'] =                 ".$pageContent['id'].";\n");
-      fwrite($file,"\$pageContent['category'] =           ".$pageContent['category'].";\n");
-      fwrite($file,"\$pageContent['public'] =             ".$pageContent['public'].";\n");
-      fwrite($file,"\$pageContent['sortOrder'] =          ".$pageContent['sortOrder'].";\n\n");
+      fwrite($file,"\$pageContent['id'] =                 ".xssFilter::int($pageContent['id'],0).";\n");
+      fwrite($file,"\$pageContent['category'] =           ".xssFilter::int($pageContent['category'],0).";\n");
+      fwrite($file,"\$pageContent['sortOrder'] =          ".xssFilter::int($pageContent['sortOrder'],0).";\n");
+      fwrite($file,"\$pageContent['public'] =             ".xssFilter::bool($pageContent['public'],true).";\n\n");
       
-      fwrite($file,"\$pageContent['lastSaveDate'] =       '".$pageContent['lastSaveDate']."';\n");
-      fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".$pageContent['lastSaveAuthor']."';\n\n"); 
+      fwrite($file,"\$pageContent['lastSaveDate'] =       ".xssFilter::int($pageContent['lastSaveDate'],0).";\n");
+      fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".xssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"); 
       
-      fwrite($file,"\$pageContent['title'] =              '".$pageContent['title']."';\n");
-      fwrite($file,"\$pageContent['description'] =        '".$pageContent['description']."';\n\n");      
+      fwrite($file,"\$pageContent['title'] =              '".xssFilter::text($pageContent['title'])."';\n");
+      fwrite($file,"\$pageContent['description'] =        '".xssFilter::text($pageContent['description'])."';\n\n");      
       
-      fwrite($file,"\$pageContent['pageDate']['before'] = '".$pageContent['pageDate']['before']."';\n");
-      fwrite($file,"\$pageContent['pageDate']['date'] =   '".$pageContent['pageDate']['date']."';\n");
-      fwrite($file,"\$pageContent['pageDate']['after'] =  '".$pageContent['pageDate']['after']."';\n");           
-      fwrite($file,"\$pageContent['tags'] =               '".$pageContent['tags']."';\n\n");
+      fwrite($file,"\$pageContent['pageDate']['before'] = '".xssFilter::text($pageContent['pageDate']['before'])."';\n");
+      fwrite($file,"\$pageContent['pageDate']['date'] =   ".xssFilter::int($pageContent['pageDate']['date'],0).";\n");
+      fwrite($file,"\$pageContent['pageDate']['after'] =  '".xssFilter::text($pageContent['pageDate']['after'])."';\n");           
+      fwrite($file,"\$pageContent['tags'] =               '".xssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $pageContent['tags']),','))."';\n\n");
       
       // write the plugins
       if(is_array($pageContent['plugins'])) {
@@ -681,30 +669,28 @@ class generalFunctions {
               // CHECK BOOL VALUES and change to FALSE
               if($pageContent['plugins'][$key][$insideKey] == 'true' ||
                  $pageContent['plugins'][$key][$insideKey] == 'false') {
-                $pageContent['plugins'][$key][$insideKey] = (isset($pageContent['plugins'][$key][$insideKey]) && $pageContent['plugins'][$key][$insideKey] !== 'false') ? 'true' : 'false';
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".$pageContent['plugins'][$key][$insideKey].";\n");
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".xssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n");
               } else
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".$pageContent['plugins'][$key][$insideKey]."';\n");
-  
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".xssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n");
             }
             fwrite($file,"\n");
           }        
         }
       }    
       
-      fwrite($file,"\$pageContent['thumbnail'] =          '".$pageContent['thumbnail']."';\n");
-      fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n");
-      fwrite($file,"\$pageContent['styleId'] =            '".$pageContent['styleId']."';\n");
-      fwrite($file,"\$pageContent['styleClass'] =         '".$pageContent['styleClass']."';\n\n");
+      fwrite($file,"\$pageContent['thumbnail'] =          '".xssFilter::string($pageContent['thumbnail'])."';\n");
+      fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
+      fwrite($file,"\$pageContent['styleId'] =            '".xssFilter::string($pageContent['styleId'])."';\n");
+      fwrite($file,"\$pageContent['styleClass'] =         '".xssFilter::string($pageContent['styleClass'])."';\n\n");
       
-      fwrite($file,"\$pageContent['log_visitorCount'] =   '".$pageContent['log_visitorCount']."';\n");
-      fwrite($file,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n");
-      fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n");
-      fwrite($file,"\$pageContent['log_firstVisit'] =     '".$pageContent['log_firstVisit']."';\n");
-      fwrite($file,"\$pageContent['log_lastVisit'] =      '".$pageContent['log_lastVisit']."';\n");
-      fwrite($file,"\$pageContent['log_searchWords'] =    '".$pageContent['log_searchWords']."';\n\n");
-      
-      fwrite($file,"\$pageContent['content'] = \n'".$pageContent['content']."';\n\n");
+      fwrite($file,"\$pageContent['log_visitorCount'] =   ".xssFilter::int($pageContent['log_visitorCount'],0).";\n");
+      fwrite($file,"\$pageContent['log_firstVisit'] =     ".xssFilter::int($pageContent['log_firstVisit'],0).";\n");
+      fwrite($file,"\$pageContent['log_lastVisit'] =      ".xssFilter::int($pageContent['log_lastVisit'],0).";\n");
+      fwrite($file,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n"); // xssFilter in saveWebsiteStats() method in the statisticFunctions.class.php
+      fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n"); // xssFilter in saveWebsiteStats() method in the statisticFunctions.class.php
+      fwrite($file,"\$pageContent['log_searchWords'] =    '".$pageContent['log_searchWords']."';\n\n"); // xssFilter in the addDataToDataString() method in the statisticFunctions.class.php
+
+      fwrite($file,"\$pageContent['content'] = \n'".htmLawed($pageContent['content'],$htmlLawedConfig)."';\n\n");
       
       fwrite($file,"return \$pageContent;");
       
@@ -1023,7 +1009,6 @@ class generalFunctions {
   * 
   * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page and the when speakingURLs, for the websitePath
   * @uses $categoryConfig for the category name if speaking URLs i activated
-  * @uses encodeToUrl()   to encode the category and page name to a string useable in URLs
   *  
   * @return string the href string ready to use in a href attribute
   * 
@@ -1050,15 +1035,15 @@ class generalFunctions {
       
       // adds the category to the href attribute
       if($category != 0) {
-        $categoryLink = '/category/'.self::encodeToUrl(self::$categoryConfig[$category]['name']).'/';
+        $categoryLink = '/category/'.urlencode(self::$categoryConfig[$category]['name']).'/';
       } else $categoryLink = '';
       
       
       $speakingUrlHref .= $categoryLink;
       if($categoryLink == '')
-        $speakingUrlHref .= '/page/'.self::encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= '/page/'.urlencode($pageContent['title']);
       else
-        $speakingUrlHref .= self::encodeToUrl($pageContent['title']);
+        $speakingUrlHref .= urlencode($pageContent['title']);
       $speakingUrlHref .= '.html';
       
       if($sessionId)
@@ -1262,7 +1247,7 @@ class generalFunctions {
   *    - 1.0 initial release
   */ 
   public static function encodePlainText($string) {
-    $string = htmlentities($string,ENT_COMPAT,'UTF-8');
+    $string = htmlentities($string,ENT_COMPAT,'UTF-8',false);
     $string = str_replace(array('&lt;','&gt;'),array('<','>'),$string);
     return $string;
   }
@@ -1298,36 +1283,9 @@ class generalFunctions {
   }
   
  /**
-  * <b>Name</b> prepareInputString()<br>
-  * 
-  * Clears a string from double withe spaces, slashes and htmlentities all special chars.
-  * 
-  * @param string $text the string to clear
-  * 
-  * @return string the cleaned string
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function prepareInputString($text) {
-      
-      // format text
-      $text = preg_replace("/ +/", " ", $text);
-      $text = preg_replace('#\\\\+#', '', $text);
-      $text = stripslashes($text);
-      $text = htmlentities($text,ENT_QUOTES,'UTF-8');
-      
-      return $text;
-  }
-  
- /**
   * <b>Name</b> shortenString()<br>
   * 
-  * Shortens a string to its letter numbers (conciders htmlentities as multiple characters).
+  * Shortens a string to its letter number (conciders htmlentities as multiple characters).
   * 
   * @param string $title  the title string to shorten
   * @param int    $length the number of letters the string should have after 
@@ -1343,59 +1301,14 @@ class generalFunctions {
   */
   public static function shortenString($string, $length) {
       
-      //vars
-      $string =  self::decodeToPlainText($string);
-      
-      // chek if shorting is necessary
-      if(strlen($string) <= $length)
-        return self::encodePlainText($string);
+      // check if shorting is necessary
+      if(mb_strlen($string,'UTF-8') <= $length)
+        return $string;
       // shorten the title
       else
-        return self::encodePlainText(substr($string,0,($length - 3)).'...'); // -2 because of the add ".."
+        return mb_substr($string,0,($length - 3),'UTF-8').'...'; // -3 because of the add "..."
   }
-  
- /**
-  * <b>Name</b> encodeToUrl()<br>
-  * 
-  * Converts a String so that it can be used in an URL.
-  * 
-  * @param string $string the strign which should be converted
-  * 
-  * @return string ready to use in an URL
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function encodeToUrl($string) {
-      
-      // makes the string to lower
-      $string = strtolower($string);
-      
-      // format string
-      $string = preg_replace("/ +/", '_', $string);    
-      
-      // changes umlaute
-      $string = str_replace('&auml;','ae',$string);
-      $string = str_replace('&uuml;','ue',$string);
-      $string = str_replace('&ouml;','oe',$string);
-      //$string = str_replace('&Auml;','Ae',$string);         
-      //$string = str_replace('&Uuml;','Ue',$string);      
-      //$string = str_replace('&Ouml;','Oe',$string);
-      
-      // clears htmlentities example: &amp;
-      $string = preg_replace('/&[a-zA-Z0-9]+;/', '', $string);
-      // allows only a-z and 0-9 and _ and -
-      $string = preg_replace('/[^\w_-]/u', '', $string);
-      
-      // clears double __
-      $string = preg_replace("/_+/", '_', $string);
-      
-      return $string;
-  }
+
 
  /**
   * <b>Name</b> readFolder()<br />

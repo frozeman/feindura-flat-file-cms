@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -152,7 +152,7 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       
       <tr><td class="left">
       <label for="cfg_permissions"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'].'::'.$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] ?>">
-      <?php echo '->'.$adminConfig['permissions']; echo $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
+      <?= $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
       </td><td class="right">
       <select id="cfg_permissions" name="cfg_permissions">
         <option value="0644"<?php if($adminConfig['permissions'] == 0644) echo ' selected="selected"'; ?>>644</option>
@@ -425,11 +425,11 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 <?php
 
 // BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['websiteFilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
+editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
   
 
 // BEARBEITUNG DER STYLESHEETDATEI
-editFiles($adminConfig['stylesheetPath'], $_GET['site'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
+editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
 
 } // <-- END isAdmin()
 ?>

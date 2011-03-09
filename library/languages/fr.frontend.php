@@ -25,16 +25,16 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'feindura::Cliquez ici pour aller &agrave; la CMS.';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'feindura::Cliquez ici pour aller à la CMS.';
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Modifier cette page dans le backend';
 
-$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Il n\'est pas possible de modifier la page::La page contient [i]<script>[/i] tags et par cons&eacute;quent seulement peuvent &ecirc;tre &eacute;dit&eacute;s dans le backend.';
+$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Il n\'est pas possible de modifier la page::La page contient [i]<script>[/i] tags et par conséquent seulement peuvent être édités dans le backend.';
 
 
 // FRONTEND ERROR TEXTS
 
-$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'la page demand&eacute;e n\'existe pas.';
-$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'la page demand&eacute;e est d&eacute;sactiv&eacute;e.';
+$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'la page demandée n\'existe pas.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'la page demandée est désactivée.';
 
 
 // DATE TEXTS

@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -60,11 +60,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   }
   
   // -> CHANGE HTMLENTITIES from the USER-INFO
-  $_POST['cfg_userInfo'] = nl2br(stripslashes(htmlentities($_POST['cfg_userInfo'],ENT_QUOTES, 'UTF-8')));
-  $_POST['cfg_userInfo'] = str_replace('&lt;','<',$_POST['cfg_userInfo']);
-  $_POST['cfg_userInfo'] = str_replace('&gt;','>',$_POST['cfg_userInfo']);
-  $_POST['cfg_userInfo'] = str_replace('&quot;','"',$_POST['cfg_userInfo']);
-  $htmlLawedConfig = array('comment'=>1, 'cdata'=>0,'cdata'=>1,'clean_ms_char'=>2,'safe'=>1);
+  $_POST['cfg_userInfo'] = nl2br(stripslashes($_POST['cfg_userInfo']));
+  $htmlLawedConfig = array(
+    'comment'=>1,
+    'cdata'=>1,
+    'clean_ms_char'=>2,
+    'safe'=>1
+  );
   $_POST['cfg_userInfo'] = htmLawed($_POST['cfg_userInfo'],$htmlLawedConfig);
   
   // -> CLEAN all " out of the strings

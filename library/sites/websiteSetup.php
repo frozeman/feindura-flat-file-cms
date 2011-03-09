@@ -115,12 +115,12 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
 
 if($adminConfig['user']['editWebsiteFiles']) {  
   // BEARBEITUNG DER ERWEITERTEN WEBSEITEN-EINSTELLUNGEN 
-  editFiles($adminConfig['websiteFilesPath'], $_GET['site'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
+  editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
 }
 
 if($adminConfig['user']['editStyleSheets']) {
   // BEARBEITUNG DER STYLESHEETDATEI
-  editFiles($adminConfig['stylesheetPath'], $_GET['site'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
+  editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
 }
 
 ?>

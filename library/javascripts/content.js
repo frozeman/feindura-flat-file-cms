@@ -848,6 +848,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.forcePasteAsPlainText         = true;
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
+    CKEDITOR.config.entities                      = false;
     CKEDITOR.config.extraPlugins                  = 'Media';
     
     //CKEDITOR.config.disableNativeSpellChecker = false;

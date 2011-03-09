@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -28,10 +28,6 @@ $deletedStatistics = false;
 // ------------>> SAVE the STATISTIC SETTINGS
 if($_POST['send'] && isset($_POST['statisticConfig'])) {
 
-    // gets the startPage var and put it in the POST var
-    $_POST['startPage'] = $websiteConfig['startPage'];
-    
-    $_POST['copyright'] = $_POST['websiteConfig_copyright'];
     if(saveStatisticConfig($_POST)) {
       // set documentSaved status
       $documentSaved = true;

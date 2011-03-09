@@ -18,7 +18,7 @@
 */
 
 /**
- * Includes the login and filters the incoming data by xssFilter
+ * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
@@ -29,19 +29,13 @@ if($_POST['save'] == 'true') {
   // read the page
   $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
   
-  // url decodes the string
-  $_POST['data'] = urldecode($_POST['data']);
-  $_POST['data'] = preg_replace('/ +/',' ',$_POST['data']);
-  $_POST['data'] = preg_replace('/\\n+/',"\n",$_POST['data']);
-  $_POST['data'] = str_replace('<br>',"<br />\n",$_POST['data']);
-  $_POST['data'] = htmlentities($_POST['data'],ENT_NOQUOTES,'UTF-8');
-  $_POST['data'] = str_replace(array('&lt;','&gt;','&amp;'),array('<','>','&'),$_POST['data']);
-  
   // TEMPORARY clean "<p id="rteMozFix">&nbsp;</p>"
-  //echo '<pre>'.$_POST['data'].'</pre>';
-  $_POST['data'] = str_replace("<p id=\"rteMozFix\"><br />\n\n</p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p id=\"rteMozFix\"><br />\n</p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p id=\"rteMozFix\"><br></p>",'',$_POST['data']);  
+  $_POST['data'] = str_replace("<p id=\"rteMozFix\" style=\"display: none;\"><br></p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p id=\"rteMozFix\" style=\"display: none;\"><br /></p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p id=\"rteMozFix\" style=\"display: none;\">&nbsp;</p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p style=\"display: none;\"><br></p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p style=\"display: none;\"><br /></p>",'',$_POST['data']);
+  $_POST['data'] = str_replace("<p style=\"display: none;\">&nbsp;</p>",'',$_POST['data']);
   
   // replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? strip_tags($_POST['data'],'<i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>') : $pageContent['title'];

@@ -134,6 +134,7 @@ $GLOBALS['websiteStatistic'];
  * Includes the {@link sort.functions.php}
  */ 
 require_once(dirname(__FILE__)."/../functions/sort.functions.php");
+require_once(dirname(__FILE__)."/../thirdparty/php/htmLawed.php");
 
 // ->> autoload CLASSES
 if(PHP_VERSION > 5) {
