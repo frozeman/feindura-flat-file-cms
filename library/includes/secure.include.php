@@ -40,7 +40,7 @@ if(isset($_POST['page']) && $_POST['page'] !== 'new') $_POST['page'] = xssFilter
 // ->> CHECK INPUTS
 // ****************
 // -> check SITE
-if(isset($_GET['site'])) $_GET['site'] = xssFilter::alphaNumeric($_GET['site']);
+if(isset($_GET['site'])) $_GET['site'] = xssFilter::stringStrict($_GET['site']);
 
 /**
  * Then includes the login

@@ -46,6 +46,7 @@ It's basic requirements is a web server with PHP running, however for using the 
 * drag'n'drop for moving pages
 * backup system
 * plugin system (adds additional functionality to pages like contact form and image gallery)
+* UTF-8 compatible
 
 #### future features
 * modul system (like search)

@@ -19,7 +19,6 @@
  * 
  * @package [Implementation]-[Backend]
  * 
- * @since Version 1.1 
  */
 
 /**
@@ -37,12 +36,14 @@
 * 
 * @todo maybe use http://php.net/manual/de/public static function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
 * 
-* @since Version 1.1
-* @version 0.12
+* @since feindura version 1.1
+* 
+* @version 0.1.3
 * <br>
 *  <b>ChangeLog</b><br>
-*    - 0.12 change to static class
-*    - 0.11 changed to preg_match_all
+*    - 0.1.3 replaced alphaNumeric xss filters with stringStrict filter
+*    - 0.1.2 change to static class
+*    - 0.1.1 changed to preg_match_all
 *    - 0.1 initial release
 * 
 */ 
@@ -222,7 +223,6 @@ class xssFilter {
   * </sample>
   * 
   * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
   * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|number|null an alphabetical string or number, otherwise FALSE
@@ -234,11 +234,40 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function string($data, $max = 0, $default = false) {
+  public static function string($data, $default = false) {
       if(!empty($data) || $data == 0) {
          // start with aplhabetic, may include space, end with alhabetic
          preg_match_all("/[\(\)\[\]\/\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
          // if you have caught something return it 
+         if(!empty($find[0])) return implode('',$find[0]);
+     }
+     return $default;
+  }
+  
+ /**
+  * <b>Name</b> stringStrict()<br>
+  * 
+  * Check if the data is a alphanumerical string, allowing only underscores "_" and spaces.
+  * 
+  * <sample>
+  * Product_With_Color 123
+  * </sample>
+  * 
+  * @param string $data     the data to check against
+  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
+  * 
+  * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function stringStrict($data, $default = false) {
+      if(!empty($data) || $data == 0) {
+         preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s_]*[A-Za-z0-9])*/",$data,$find); 
          if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
@@ -250,7 +279,6 @@ class xssFilter {
   * Check if the data is a alphabetical string.
   * 
   * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
   * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|null an alphabetical string, otherwise FALSE
@@ -262,15 +290,10 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function alphabetical($data, $max = 0, $default = false) {
+  public static function alphabetical($data, $default = false) {
      if(!empty($data) || $data == 0) {
         preg_match_all("/[A-Za-z]+/",$data,$find); //check strictly there is one alphabetic at least
-        if(!empty($find[0])) {
-          $find = implode('',$find[0]);
-          return ($max > 0)
-           ? substr($find,0,$max) // truncate the length
-           : $find;
-        }
+        if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
   }
@@ -301,10 +324,8 @@ class xssFilter {
   public static function filename($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
         $data = ($encode) ? urlencode($data) : $data;        
-        preg_match_all("/^[\.\-\s#_a-zA-Z\d]+$/",$data,$find);          
-         if(!empty($find[0])) {
-            return $find[0];
-         }
+        preg_match_all("/^[\.\-\s#_a-zA-Z\d]+$/",$data,$find);
+        if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
   }
@@ -375,186 +396,11 @@ class xssFilter {
         preg_match("#^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&=\?\-_]+$#i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
-           $data = preg_replace('#//+#','//',$find[0]);
+           $data = preg_replace('#/+#','/',$find[0]);
            if(!empty($findCatch))
             return $default;
            else
             return ($encode) ? urlencode($data) : $data;
-         }
-     }
-     return $default;
-  }
-
- /**
-  * <b>Name</b> alphaSpace()<br>
-  * 
-  * Check if the data is a alphabetical string, allowing spaces.
-  * 
-  * <sample>
-  * Fred Hubert
-  * </sample>
-  * 
-  * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
-  * 
-  * @return string|null an alphabetical string allowing spaces, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function alphaSpace($data, $max = 0, $default = false) {
-      if(!empty($data) || $data == 0) {
-         preg_match_all("/[A-Za-z]([A-Za-z\s]*[A-Za-z])*/",$data,$find); 
-         if(!empty($find[0])) {
-          $find = implode('',$find[0]);
-          return ($max > 0) 
-           ? substr($find,0,$max) // truncate the length
-           : $find;
-        }
-     }
-     return $default;
-  }
-  
- /**
-  * <b>Name</b> alphaNumeric()<br>
-  * 
-  * Check if the data is a alphanumerical string.
-  * 
-  * <sample>
-  * user123
-  * </sample>
-  * 
-  * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
-  * 
-  * @return string|null an alphanumerical string, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function alphaNumeric($data, $max = 0, $default = false) {
-      if(!empty($data) || $data == 0) {
-         preg_match_all("/[A-Za-z0-9][A-Za-z0-9]*/",$data,$find); 
-         if(!empty($find[0])) {
-          $find = implode('',$find[0]);
-          return ($max > 0) 
-           ? substr($find,0,$max) // truncate the length
-           : $find;
-         }
-     }
-     return $default;
-  }
-  
- /**
-  * <b>Name</b> alphaNumericSpace()<br>
-  * 
-  * Check if the data is a alphanumerical string, allowing spaces.
-  * 
-  * <sample>
-  * Fake Name 123
-  * </sample>
-  * 
-  * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
-  * 
-  * @return string|null an alphanumerical string allowing spaces, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function alphaNumericSpace($data, $max = 0, $default = false) {
-      if(!empty($data) || $data == 0) {
-         preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s]*[A-Za-z0-9])*/",$data,$find); 
-         if(!empty($find[0])) {
-          $find = implode('',$find[0]);
-          return ($max > 0) 
-           ? substr($find,0,$max) // truncate the length
-           : $find;
-         }
-     }
-     return $default;
-  }
-
- /**
-  * <b>Name</b> alpha_Numeric()<br>
-  * 
-  * Check if the data is a alphanumerical string, allowing underscores "_" but no spaces.
-  * 
-  * <sample>
-  * Product_With_Color123
-  * </sample>
-  * 
-  * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
-  * 
-  * @return string|null an alphanumerical string allowing underscores, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function alpha_Numeric($data, $max = 0, $default = false) {
-      if(!empty($data) || $data == 0) {
-         preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s]*[A-Za-z0-9])*/",$data,$find); 
-         if(!empty($find[0])) {
-          $find = implode('',$find[0]);
-          return ($max > 0) 
-           ? substr($find,0,$max) // truncate the length
-           : $find;
-         }
-     }
-     return $default;
-  }
-
- /**
-  * <b>Name</b> alpha_NumericSpace()<br>
-  * 
-  * Check if the data is a alphanumerical string, allowing underscores "_" and spaces.
-  * 
-  * <sample>
-  * Product_With_Color 123
-  * </sample>
-  * 
-  * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
-  * 
-  * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function alpha_NumericSpace($data, $max = 0, $default = false) {
-      if(!empty($data) || $data == 0) {
-         preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s_]*[A-Za-z0-9])*/",$data,$find); 
-         if(!empty($find[0])) {
-          $find = implode('',$find[0]);
-          return ($max > 0) 
-           ? substr($find,0,$max) // truncate the length
-           : $find;
          }
      }
      return $default;
@@ -570,7 +416,6 @@ class xssFilter {
   * </sample>
   * 
   * @param string $data     the data to check against
-  * @param int    $max      (optional) the maximal number of characters returned
   * @param string $charset  (optional) the charset used by the htmlspecialchars public static function  
   * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
@@ -583,17 +428,14 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function text($data, $max = 0, $charset = 'UTF-8' ,$default = false) {
+  public static function text($data, $charset = 'UTF-8' ,$default = false) {
       if(!empty($data) || $data == 0) {
         $data = stripslashes($data);
         $data = str_replace(';','&#59;',$data);
         $data = htmlspecialchars($data,ENT_QUOTES,$charset,false);
         $data = str_replace(array('&amp;#59;','\\','=','&#92;&#039;'),array('&#59;','&#92;','&#61;','&#039;'),$data);
         $data = preg_replace('#(\&\#92;)+#','&#92;',$data);
-        
-        return ($max > 0)
-          ? substr($data,0,$max) // truncate the length
-          : $data;
+        return $data;
      }
      return $default;
   }

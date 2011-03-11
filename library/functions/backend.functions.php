@@ -628,9 +628,9 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['dateFormat'] =       '".xssFilter::alphabetical($adminConfig['dateFormat'])."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".xssFilter::bool($adminConfig['speakingUrl'],true).";\n\n");
     
-    fwrite($file,"\$adminConfig['varName']['page'] =     '".xssFilter::alphaNumeric($adminConfig['varName']['page'])."';\n");  
-    fwrite($file,"\$adminConfig['varName']['category'] = '".xssFilter::alphaNumeric($adminConfig['varName']['category'])."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".xssFilter::alphaNumeric($adminConfig['varName']['modul'])."';\n\n");
+    fwrite($file,"\$adminConfig['varName']['page'] =     '".xssFilter::stringStrict($adminConfig['varName']['page'])."';\n");  
+    fwrite($file,"\$adminConfig['varName']['category'] = '".xssFilter::stringStrict($adminConfig['varName']['category'])."';\n");  
+    fwrite($file,"\$adminConfig['varName']['modul'] =    '".xssFilter::stringStrict($adminConfig['varName']['modul'])."';\n\n");
     
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".xssFilter::bool($adminConfig['user']['fileManager'],true).";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".xssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n");
@@ -704,7 +704,7 @@ function saveUserConfig($userConfig) {
         fwrite($file,"\$userConfig['".$user."']['admin']    = ".xssFilter::bool($configs['admin'],true).";\n");
         fwrite($file,"\$userConfig['".$user."']['username'] = '".xssFilter::text($configs['username'])."';\n");
         fwrite($file,"\$userConfig['".$user."']['email']    = '".xssFilter::string($configs['email'])."';\n");
-        fwrite($file,"\$userConfig['".$user."']['password'] = '".xssFilter::alphaNumeric($configs['password'])."';\n");  
+        fwrite($file,"\$userConfig['".$user."']['password'] = '".xssFilter::text($configs['password'])."';\n");  
         
         fwrite($file,"\n");        
       }      
