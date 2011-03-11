@@ -147,7 +147,7 @@ if($_POST['upload']) {
         	 
           // change thumbnail image width and height -------------------
           
-          $newFileName = 'thumb_page'.$page.'.'.$fileExtension;
+          $newFileName = 'thumb_page'.$page.'_'.uniqid().'.'.$fileExtension;
           $newFilePath = $uploadPath.$newFileName;
           
           require_once(dirname(__FILE__).'/../thirdparty/PHP/Image.class.php');

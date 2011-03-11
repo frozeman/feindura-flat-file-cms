@@ -1411,7 +1411,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     
     $fileType = (strtolower($fileType) == 'css') ? ' css' : ' mixed';
     
-    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles'.$fileType.'" id="editFiles'.rand(1,9999).'">'.$file.'</textarea>';
+    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles'.$fileType.'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
   }  
   
   

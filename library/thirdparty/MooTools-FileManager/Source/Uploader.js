@@ -15,24 +15,24 @@ provides: Filemanager.Uploader
 */
 
 FileManager.implement({
-  
+
   options: {
     resizeImages: true,
     upload: true,
     uploadAuthData: {}
   },
-  
+
   hooks: {
     show: {
       upload: function() {
         this.startUpload();
       }
     },
-    
+
     cleanup: {
       upload: function(){
         if (!this.options.upload  || !this.upload) return;
-        
+
         if (this.upload.uploader) this.upload.uploader.set('opacity', 0).dispose();
       }
     }
@@ -41,15 +41,15 @@ FileManager.implement({
   onDialogOpenWhenUpload: function(){
     if (this.swf && this.swf.box) this.swf.box.setStyle('visibility', 'hidden');
   },
-  
+
   onDialogCloseWhenUpload: function(){
     if (this.swf && this.swf.box) this.swf.box.setStyle('visibility', 'visible');
   },
-  
+
   startUpload: function(){
-    
+
     if (!this.options.upload || this.swf) return;
-    
+
     var self = this;
     this.upload = {
       button: this.addMenuButton('upload').inject(this.menu, 'bottom').addEvents({
@@ -74,7 +74,7 @@ FileManager.implement({
       )
     };
     this.upload.uploader.getElement('div').adopt(this.upload.list);
-    
+
     if (this.options.resizeImages){
       var resizer = new Element('div', {'class': 'checkbox'}),
         check = (function(){ this.toggleClass('checkboxChecked'); }).bind(resizer);
@@ -83,43 +83,44 @@ FileManager.implement({
         resizer, new Element('span', {text: this.language.resizeImages})
       ).addEvent('click', check).inject(this.menu);
     }
-    
+
     var File = new Class({
 
       Extends: Swiff.Uploader.File,
-      
+
       initialize: function(base, data){
 
         this.parent(base, data);
-        
+
         this.setOptions({
-          url: self.options.url + (self.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString(Object.merge({}, self.options.uploadAuthData, {
+          url: self.options.url + (self.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString(Object.merge({}, self.options.uploadAuthData, self.options.propagateData, {
             event: 'upload',
             directory: self.normalize(self.Directory),
+			filter: self.options.filter,
             resize: self.options.resizeImages && resizer.hasClass('checkboxChecked') ? 1 : 0
           }))
         });
       },
-      
+
       render: function(){
         if (this.invalid){
           var message = self.language.uploader.unknown, sub = {
             name: this.name,
             size: Swiff.Uploader.formatUnit(this.size, 'b')
           };
-          
+
           if (self.language.uploader[this.validationError])
             message = self.language.uploader[this.validationError];
-          
+
           if (this.validationError == 'sizeLimitMin')
               sub.size_min = Swiff.Uploader.formatUnit(this.base.options.fileSizeMin, 'b');
           else if (this.validationError == 'sizeLimitMax')
               sub.size_max = Swiff.Uploader.formatUnit(this.base.options.fileSizeMax, 'b');
-          
+
           new Dialog(new Element('div', {html: message.substitute(sub, /\\?\$\{([^{}]+)\}/g)}) , {language: {confirm: self.language.ok}, buttons: ['confirm']});
           return this;
         }
-        
+
         this.addEvents({
           open: this.onOpen,
           remove: this.onRemove,
@@ -128,7 +129,7 @@ FileManager.implement({
           stop: this.onStop,
           complete: this.onComplete
         });
-        
+
         this.ui = {};
         this.ui.icon = new Asset.image(self.assetBasePath+'Images/Icons/' + this.extension + '.png', {
           'class': 'icon',
@@ -137,7 +138,7 @@ FileManager.implement({
         this.ui.element = new Element('li', {'class': 'file', id: 'file-' + this.id});
         this.ui.title = new Element('span', {'class': 'file-title', text: this.name});
         this.ui.size = new Element('span', {'class': 'file-size', text: Swiff.Uploader.formatUnit(this.size, 'b')});
-        
+
         var file = this;
         this.ui.cancel = new Asset.image(self.assetBasePath+'Images/cancel.png', {'class': 'file-cancel', title: self.language.cancel}).addEvent('click', function(){
           file.remove();
@@ -145,7 +146,7 @@ FileManager.implement({
           self.tips.detach(this);
         });
         self.tips.attach(this.ui.cancel);
-        
+
         var progress = new Element('img', {'class': 'file-progress', src: self.assetBasePath+'Images/bar.gif'});
 
         this.ui.element.adopt(
@@ -155,9 +156,9 @@ FileManager.implement({
           this.ui.title,
           this.ui.size
         ).inject(self.upload.list).highlight();
-        
+
         this.ui.progress = new Fx.ProgressBar(progress).set(0);
-              
+
         this.base.reposition();
 
         return this.parent();
@@ -182,11 +183,11 @@ FileManager.implement({
       onComplete: function(){
         this.ui.progress = this.ui.progress.cancel().element.destroy();
         this.ui.cancel = this.ui.cancel.destroy();
-        
+
         var response = JSON.decode(this.response.text);
         if (!response.status)
           new Dialog(('' + response.error).substitute(self.language, /\\?\$\{([^{}]+)\}/g) , {language: {confirm: self.language.ok}, buttons: ['confirm']});
-        
+
         this.ui.element.set('tween', {duration: 2000}).highlight(response.status ? '#e6efc2' : '#f0c2c2');
         (function(){
           this.ui.element.setStyle('overflow', 'hidden').morph({
@@ -202,7 +203,7 @@ FileManager.implement({
         }).delay(5000, this);
       }
     });
-    
+
     this.getFileTypes = function() {
       var fileTypes = {};
       if(this.options.filter == 'image')
@@ -214,11 +215,11 @@ FileManager.implement({
       if(this.options.filter == 'text')
         fileTypes = {'Text (*.txt, *.rtf, *.rtx, *.html, *.htm, *.css, *.as, *.xml, *.tpl)': '*.txt; *.rtf; *.rtx; *.html; *.htm; *.css; *.as; *.xml; *.tpl'};
       if(this.options.filter == 'application')
-        fileTypes = {'Application (*.bin, *.doc, *.exe, *.iso, *.js,*.odt, *.pdf, *.php, *.ppt, *.swf, *.rar, *.zip)': '*.ai; *.bin; *.ccad; *.class; *.cpt; *.dir; *.dms; *.drw; *.doc; *.dvi; *.dwg; *.eps; *.exe; *.gtar; *.gz; *.js; *.latex; *.lnk; *.lnk; *.oda; *.odt; *.ods; *.odp; *.odg; *.odc; *.odf; *.odb; *.odi; *.odm; *.ott; *.ots; *.otp; *.otg; *.pdf; *.php; *.pot; *.pps; *.ppt; *.ppz; *.pre; *.ps; *.rar; *.set; *.sh; *.skd; *.skm; *.smi; *.smil; *.spl; *.src; *.stl; *.swf; *.tar; *.tex; *.texi; *.texinfo; *.tsp; *.unv; *.vcd; *.vda; *.xlc; *.xll; *.xlm; *.xls; *.xlw; *.zip'};
-      
+        fileTypes = {'Application (*.bin, *.doc, *.exe, *.iso, *.js, *.odt, *.pdf, *.php, *.ppt, *.swf, *.rar, *.zip)': '*.ai; *.bin; *.ccad; *.class; *.cpt; *.dir; *.dms; *.drw; *.doc; *.dvi; *.dwg; *.eps; *.exe; *.gtar; *.gz; *.js; *.latex; *.lnk; *.lnk; *.oda; *.odt; *.ods; *.odp; *.odg; *.odc; *.odf; *.odb; *.odi; *.odm; *.ott; *.ots; *.otp; *.otg; *.pdf; *.php; *.pot; *.pps; *.ppt; *.ppz; *.pre; *.ps; *.rar; *.set; *.sh; *.skd; *.skm; *.smi; *.smil; *.spl; *.src; *.stl; *.swf; *.tar; *.tex; *.texi; *.texinfo; *.tsp; *.unv; *.vcd; *.vda; *.xlc; *.xll; *.xlm; *.xls; *.xlw; *.zip'};
+
   		return fileTypes;
     };
-    
+
     this.swf = new Swiff.Uploader({
       id: 'SwiffFileManagerUpload',
       path: this.assetBasePath + 'Swiff.Uploader.swf',
@@ -226,6 +227,7 @@ FileManager.implement({
       target: this.upload.button,
       allowDuplicates: true,
       instantStart: true,
+	  appendCookieData: true, // pass along any session cookie data, etc. in the request section (PHP: $_GET[])
       fileClass: File,
       timeLimit: 260,
       fileSizeMax: 2600 * 2600 * 25,
@@ -248,5 +250,5 @@ FileManager.implement({
       }
     });
   }
-  
+
 });
