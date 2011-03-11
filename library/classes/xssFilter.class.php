@@ -205,7 +205,6 @@ class xssFilter {
   * Allowed chars are:
   *     - ()
   *     - []
-  *     - /  
   *     - '
   *     - ,
   *     - .
@@ -237,7 +236,7 @@ class xssFilter {
   public static function string($data, $default = false) {
       if(!empty($data) || $data == 0) {
          // start with aplhabetic, may include space, end with alhabetic
-         preg_match_all("/[\(\)\[\]\/\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+/",$data,$find); 
+         preg_match_all("/^[\(\)\[\]\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+$/i",$data,$find); 
          // if you have caught something return it 
          if(!empty($find[0])) return implode('',$find[0]);
      }
@@ -267,7 +266,7 @@ class xssFilter {
   */
   public static function stringStrict($data, $default = false) {
       if(!empty($data) || $data == 0) {
-         preg_match_all("/[A-Za-z0-9]([A-Za-z0-9\s_]*[A-Za-z0-9])*/",$data,$find); 
+         preg_match_all("#^[A-Za-z0-9]([A-Za-z0-9\s_]*[A-Za-z0-9])*$#i",$data,$find); 
          if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
@@ -292,7 +291,7 @@ class xssFilter {
   */
   public static function alphabetical($data, $default = false) {
      if(!empty($data) || $data == 0) {
-        preg_match_all("/[A-Za-z]+/",$data,$find); //check strictly there is one alphabetic at least
+        preg_match_all("#^[A-Za-z]+$#i",$data,$find); //check strictly there is one alphabetic at least
         if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
@@ -305,7 +304,7 @@ class xssFilter {
   * Check if the data is filename string.
   * 
   * <sample>
-  * file.php
+  * file_n-am e1.php
   * </sample>
   * 
   * @param string $data    the data to check against
@@ -324,7 +323,7 @@ class xssFilter {
   public static function filename($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
         $data = ($encode) ? urlencode($data) : $data;        
-        preg_match_all("/^[\.\-\s#_a-zA-Z\d]+$/",$data,$find);
+        preg_match_all("/^[\.\-\s#_a-zA-Z\d]+$/i",$data,$find);
         if(!empty($find[0])) return implode('',$find[0]);
      }
      return $default;
@@ -355,7 +354,7 @@ class xssFilter {
   */
   public static function path($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("#^[\/\.\-\s_a-zA-Z\d]*$#",$data,$find); 
+        preg_match("#^[\/\.\-\s_a-zA-Z\d]*$#i",$data,$find); 
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#/+#','/',$find[0]);
@@ -393,10 +392,10 @@ class xssFilter {
   */
   public static function url($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("#^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&=\?\-_]+$#i",$data,$find);
+        preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&#=\?\-_]+$/i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
-           $data = preg_replace('#/+#','/',$find[0]);
+           $data = preg_replace('#/{2,}#','//',$find[0]);
            if(!empty($findCatch))
             return $default;
            else

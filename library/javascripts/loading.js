@@ -33,6 +33,7 @@ function layoutFix() {
 
 // create loading circle container
 var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;margin: auto;width: 100%;height: 100%;'});
+var removeLoadingCircle = false;
 
 /* LOADING-CIRCLE when the DOM is loading
 *
@@ -55,7 +56,7 @@ window.addEvent('domready', function() {
     $('loadingBox').fade('show');
     
     // add the loading circle
-    var removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");    
+    removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");    
     
     // blend out after page is loaded 
     window.addEvent('load', function() {    
@@ -65,6 +66,7 @@ window.addEvent('domready', function() {
     // disply none the documentsaved, after blending in and out
     $('loadingBox').get('tween').chain(function() {
         removeLoadingCircle();
+        removeLoadingCircle = false;
         loadingBox.set('html','');
         $('loadingBox').setStyle('display','none');
         $('loadingBox').setStyle('opacity','1');
@@ -87,7 +89,8 @@ window.addEvent('unload',  function() {
   if(loadingBox != null) {
     loadingBox.set('html','');
     loadingBox.grab(jsLoadingCircleContainer,'top');
-    feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
+    if(!removeLoadingCircle)
+      feindura_loadingCircle(jsLoadingCircleContainer, 18, 30, 12, 4, "#000");
 
     $('loadingBox').setStyle('display','block');
   }  

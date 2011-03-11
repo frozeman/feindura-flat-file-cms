@@ -1708,11 +1708,9 @@ function isWritableWarningRecursive($folders) {
  * 
  */
 function checkBasePath() {
-  
-  $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
-  $baseUrl = str_replace('www.','',$GLOBALS['adminConfig']['url']);
-  $checkUrl = str_replace('www.','',$hostProtocol.$_SERVER["HTTP_HOST"]);
-  
+  $baseUrl = str_replace('www.','',substr($GLOBALS['adminConfig']['url'],(strpos($GLOBALS['adminConfig']['url'],'://') !== false)? strpos($GLOBALS['adminConfig']['url'],'://')+3 : 0));
+  $checkUrl = str_replace('www.','',substr($_SERVER["HTTP_HOST"],(strpos($_SERVER["HTTP_HOST"],'://') !== false)? strpos($_SERVER["HTTP_HOST"],'://')+3 : 0));
+
   $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
   
   if($GLOBALS['adminConfig']['basePath'] ==  $checkPath &&
@@ -1741,7 +1739,6 @@ function checkBasePath() {
  * 
  */
 function basePathWarning() {
-  
   if(checkBasePath() === false) {
     return '<div class="block warning">
             <h1>'.$GLOBALS['langFile']['warning_fmsConfWarning_h1'].'</h1>
@@ -1777,7 +1774,7 @@ function basePathWarning() {
  */
 function startPageWarning() {
   
-  if(basePathWarning() !== false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'))
+  if(checkBasePath() === false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'))
     return false;
   
   if($GLOBALS['adminConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = generalFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)

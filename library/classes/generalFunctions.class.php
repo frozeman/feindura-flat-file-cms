@@ -677,7 +677,7 @@ class generalFunctions {
         }
       }    
       
-      fwrite($file,"\$pageContent['thumbnail'] =          '".xssFilter::string($pageContent['thumbnail'])."';\n");
+      fwrite($file,"\$pageContent['thumbnail'] =          '".xssFilter::filename($pageContent['thumbnail'])."';\n");
       fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
       fwrite($file,"\$pageContent['styleId'] =            '".xssFilter::string($pageContent['styleId'])."';\n");
       fwrite($file,"\$pageContent['styleClass'] =         '".xssFilter::string($pageContent['styleClass'])."';\n\n");

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc2
-Build 569
+Build 570
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,9 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-
+  
+  build 570: fixed xssFilter and fixed loading circle (displays sometimes double)
+  
 1.1 rc2
   
   build 569: replaced alphaNumeric xss filters with stringStrict filter
