@@ -94,10 +94,11 @@ generalFunctions::init();
 statisticFunctions::init();
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
-$errorWindow = false;
-$documentSaved = false;
-$savedForm = false;
-$newPage = false;
+$errorWindow      = false; // when string the errorWindow with this string is displayed
+$documentSaved    = false; // when true the document saved icon is displayed
+$savedForm        = false; // to tell wich part fo the form was saved
+$savedSettings    = false; // to tell wich settings were saved, to re-include the settings
+$newPage          = false; // tells the editor whether a new page is created
 
 // -> SET ERROR HANDLER
 @set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING

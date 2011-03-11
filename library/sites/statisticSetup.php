@@ -26,7 +26,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <!-- OVERVIEW STATISTIC SETTINGS -->
 
 <form action="index.php?site=statisticSetup#statisticSettings" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-  <div><input type="hidden" name="send" value="true" /></div>
+  <div><input type="hidden" name="send" value="statisticSetup" /></div>
 
 <?php
 // show the block below if it is the ones which is saved before

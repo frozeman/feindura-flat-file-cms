@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1 rc3
-Build 572
+1.1 rc4
+Build 573
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
+
+1.1 rc4
+
+  build 573: fixed saving of settings
 
 1.1 rc3
 

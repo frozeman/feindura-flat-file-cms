@@ -128,6 +128,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
   
   $savedForm = $_POST['savedBlock'];
+  $savedSettings = true;
 }
 
 // ---------- Speichern in fckstyles.xml
@@ -159,15 +160,12 @@ if(isset($_POST['saveFckStyleFile'])) {
 include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 
 // RE-INCLUDE
-if(isset($_POST['send'])) {
+if($savedSettings) {
   $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
-  $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
   // RESET of the vars in the classes
   generalFunctions::$storedPageIds = null;
   generalFunctions::$storedPages = null;
   generalFunctions::$adminConfig = $adminConfig;
-  generalFunctions::$categoryConfig = $categoryConfig;
   statisticFunctions::$adminConfig = $adminConfig;
-  statisticFunctions::$categoryConfig = $categoryConfig;
 }
 ?>

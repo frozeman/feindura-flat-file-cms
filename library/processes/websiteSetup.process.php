@@ -36,13 +36,14 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
     $errorWindow .= $langFile['websiteSetup_websiteConfig_error_save'];
   
   $savedForm = 'websiteConfig';
+  $savedSettings = true;
 }
 
 // ---------- SAVE the editFiles
 include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 
 // RE-INCLUDE
-if($_POST['send']) {
+if($savedSettings) {
   unset($websiteConfig);
   $websiteConfig = @include (dirname(__FILE__)."/../../config/website.config.php");
 }

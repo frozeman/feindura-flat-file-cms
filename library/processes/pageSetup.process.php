@@ -65,6 +65,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
   
   $savedForm = $_POST['savedBlock'];
+  $savedSettings = true;
 }
 
 // ---------------------------------------------------------------------------------------------------
@@ -115,6 +116,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
     $errorWindow .= $langFile['pageSetup_error_create'];
     
   $savedForm = 'categories';
+  $savedSettings = true;
 }
 
 // ****** ---------- DELETE CATEGORY
@@ -159,6 +161,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     $errorWindow .= $langFile['pageSetup_error_delete'];
 
   $savedForm = 'categories';
+  $savedSettings = true;
 }
 
 // ****** ---------- MOVE CATEGORY
@@ -184,6 +187,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
   }
     
   $savedForm = 'categories';
+  $savedSettings = true;
 }
 
 
@@ -197,11 +201,12 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
     $errorWindow .= $langFile['pageSetup_error_save'];
   
   $savedForm = 'categories';
+  $savedSettings = true;
 }
 
 
 // RE-INCLUDE
-if(isset($_POST['send'])) {
+if($savedSettings) {
   $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
   $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
   // RESET of the vars in the classes

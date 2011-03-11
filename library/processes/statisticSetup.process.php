@@ -36,6 +36,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
       $errorWindow .= $langFile['statisticSetup_statisticConfig_error_save'];
   
   $savedForm = 'statisticConfig';
+  $savedSettings = true;
 }
 
 // ------------>> CLEAR the STATISTICs
@@ -138,8 +139,10 @@ if($_POST['sendClearstatistics']) {
 }
 
 // RE-INCLUDE
-$statisticConfig = @include (dirname(__FILE__)."/../../config/statistic.config.php");
-// RESET of the vars in the classes
-statisticFunctions::$statisticConfig = $statisticConfig;
+if($savedSettings) {
+  $statisticConfig = @include (dirname(__FILE__)."/../../config/statistic.config.php");
+  // RESET of the vars in the classes
+  statisticFunctions::$statisticConfig = $statisticConfig;
+}
 
 ?>

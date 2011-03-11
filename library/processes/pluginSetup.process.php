@@ -40,12 +40,15 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
     $errorWindow .= $langFile['PLUGINSETUP_ERROR_SAVE'].' '.$adminConfig['basePath'].'config/plugin.config.php';
   
   $savedForm = $_POST['savedBlock'];
+  $savedSettings = true;
 }
 
 // ---------- SAVE the editFiles
 include(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 
 // RE-INCLUDE
-$pluginsConfig = @include(dirname(__FILE__)."/../../config/plugins.config.php");
+if($savedSettings) {
+  $pluginsConfig = @include(dirname(__FILE__)."/../../config/plugins.config.php");
+}
 
 ?>

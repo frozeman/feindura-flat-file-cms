@@ -54,6 +54,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
   } else // throw error
     $errorWindow .= $langFile['userSetup_error_create'];
     
+  $savedSettings = true;
 }
 
 // ****** ---------- DELETE USER
@@ -75,6 +76,8 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['de
     statisticFunctions::saveTaskLog(26,$storedUserName); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= $langFile['userSetup_error_save'];
+    
+  $savedSettings = true;
 }
 
 // ****** ---------- SAVE USERS
@@ -123,10 +126,12 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
       statisticFunctions::saveTaskLog(28,$savedUsername); // <- SAVE the task in a LOG FILE
   } else
     $errorWindow .= $langFile['userSetup_error_save'];
+    
+  $savedSettings = true;
 }
 
 // RE-INCLUDE
-if($_POST['send']) {
+if($savedSettings) {
   unset($userConfig);
   $userConfig = @include(dirname(__FILE__)."/../../config/user.config.php");
 }

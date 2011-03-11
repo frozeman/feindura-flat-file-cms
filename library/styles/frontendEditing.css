@@ -160,7 +160,6 @@ div.feindura_editPageDisabled:hover {
   position: absolute;
   width: 100%;
   height: 100%;
-  text-align: center;
   background-color: #fff;
 }
 .feindura_loadingFill:hover, div.feindura_editPage:focus > .feindura_loadingFill, div.feindura_editTitle:focus > .feindura_loadingFill {
