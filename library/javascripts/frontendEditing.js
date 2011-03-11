@@ -33,10 +33,9 @@
   var topBar = new Element('div',{id: 'feindura_topBar'});
   var topBarVisible = true;
   
-  var jsLoadingCircleContainer = new Element('div',{'class':'feindura_loadingCircleContainer'});
-  var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder','style':'margin-left: -40px;margin-top: -25px;'});
-  jsLoadingCircleContainer.grab(jsLoadingCircle);
-  var finishPicture = new Element('div',{'class':'feindura_requestFinish'});
+  var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder'});
+  var loadingFill = new Element('div',{'class':'feindura_loadingFill'});
+  var finishPicture = new Element('div',{'class':'feindura_editFinishIcon'});
   var editDisabledIcon = new Element('div',{'class':'feindura_editDisabledIcon'});
   var removeLoadingCircle;
   
@@ -86,38 +85,47 @@
       onRequest: function() { //-----------------------------------------------------		
         
         // -> ADD the LOADING CIRCLE
-        if(!pageBlock.get('html').contains(jsLoadingCircleContainer))
-    		  pageBlock.grab(jsLoadingCircleContainer,'top');
-    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");  		
-    		// -> TWEEN jsLoadingCircleContainer    
-        //jsLoadingCircleContainer.set('tween',{duration: 100});
-        //jsLoadingCircleContainer.setStyle('opacity',0);
-        //jsLoadingCircleContainer.tween('opacity',0.8);
-  
+        // -> TWEEN jsLoadingCircleContainer
+    		if(!pageBlock.get('html').contains(loadingFill))
+    		  pageBlock.grab(loadingFill,'top');
+        loadingFill.set('tween',{duration: 100});
+        loadingFill.setStyle('opacity',0);
+        loadingFill.tween('opacity',0.8);
+        
+        if(!pageBlock.get('html').contains(jsLoadingCircle))
+    		  pageBlock.grab(jsLoadingCircle,'top');
+    		centerOnElement(jsLoadingCircle,pageBlock);
+    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");        
       },
       //-----------------------------------------------------------------------------
   		onSuccess: function(html) { //-------------------------------------------------
   			
+  			// -> fade out the loading fill
+  			loadingFill.set('tween',{duration: 200});
+  			loadingFill.fade('out');
+  			loadingFill.get('tween').chain(function(){
+          loadingFill.dispose();
+  			});
+  			
   			// -> fade out the loadingCircle
-  			jsLoadingCircleContainer.set('tween',{duration: 200});
-  			jsLoadingCircleContainer.fade('out');
-  			jsLoadingCircleContainer.get('tween').chain(function(){
+  			jsLoadingCircle.set('tween',{duration: 200});
+  			jsLoadingCircle.fade('out');
+  			jsLoadingCircle.get('tween').chain(function(){
   			   // -> REMOVE the LOADING CIRCLE
   			   removeLoadingCircle();
-           jsLoadingCircleContainer.setStyle('background','transparent');
-           jsLoadingCircleContainer.setStyle('opacity',1);
-           // request finish picture
-  			   jsLoadingCircleContainer.grab(finishPicture,'top');
+           jsLoadingCircle.dispose();
+           // display finish picture
+  			   pageBlock.grab(finishPicture,'top');
         });
   			
+  			centerOnElement(finishPicture,pageBlock);
         finishPicture.set('tween',{duration: 400});
         finishPicture.fade('in');
         finishPicture.get('tween').chain(function(){
           finishPicture.tween('opacity',0);
         }).chain(function(){
           finishPicture.dispose();
-          jsLoadingCircleContainer.dispose();
-          // update the pageBlock content
+          // -> UPDATE the pageBlock CONTENT
           if(update) {
             pageBlock.set('html', html);
       			//Inject the new DOM elements into the results div.
@@ -149,22 +157,69 @@
           });
         });      
         
-        // -> fade out the loadingCircle
-        if(!pageBlock.get('html').contains(jsLoadingCircleContainer))
-          pageBlock.grab(jsLoadingCircleContainer,'top');
-  			jsLoadingCircleContainer.set('tween',{duration: 200});
-  			jsLoadingCircleContainer.fade('out');
+        // -> fade out the loading fill
+  			loadingFill.set('tween',{duration: 200});
+  			loadingFill.fade('out');
+  			loadingFill.get('tween').chain(function(){
+          loadingFill.dispose();
+  			});
         
-  			jsLoadingCircleContainer.get('tween').chain(function(){
+        // -> fade out the loadingCircle
+        if(!pageBlock.get('html').contains(jsLoadingCircle))
+          pageBlock.grab(jsLoadingCircle,'top');
+  			jsLoadingCircle.set('tween',{duration: 200});
+  			jsLoadingCircle.fade('out');
+  			jsLoadingCircle.get('tween').chain(function(){
   			   // -> REMOVE the LOADING CIRCLE
   			   removeLoadingCircle();
-  			   jsLoadingCircleContainer.dispose();
+  			   jsLoadingCircle.dispose();
   			   // add errorWindow
            $(document.body).grab(errorWindow,'top');
         });
   
   		}
     }).send(data);
+  }
+
+  /* ---------------------------------------------------------------------------------- */
+  // ->> Center Icon in Element, but moves the center up when the element is scrolled away
+  function centerOnElement(icon,element) {    
+    
+  	// vars
+  	var elementXtop = element.getPosition().x - window.getScroll().x;
+  	var elementYtop = element.getPosition().y - window.getScroll().y;
+  	var elementXbottom = (window.getScroll().x + window.getSize().x) - (element.getPosition().x + element.getSize().x);
+  	var elementYbottom = (window.getScroll().y + window.getSize().y) - (element.getPosition().y + element.getSize().y);
+  	var iconX = 0;
+  	var iconY = 0;
+  	
+  	// X
+  	if(element.getPosition().x + element.getSize().x > window.getSize().x) {
+    	if(elementXtop > 0)
+        iconX = (window.getSize().x - elementXtop) / 2;
+    	else if(elementXtop < 0 && elementXbottom < 0)
+        iconX = window.getScroll().x - element.getPosition().x + (window.getSize().x / 2);
+      else if(elementXbottom > 0)
+        iconX = window.getScroll().x - element.getPosition().x + ((window.getSize().x - elementXbottom) / 2);
+    } else
+      iconX = '50%';
+  	
+  	// Y
+  	if(element.getPosition().y + element.getSize().y > window.getSize().y) {
+    	if(elementYtop > 0)
+        iconY = (window.getSize().y - elementYtop) / 2;
+    	else if(elementYtop < 0 && elementYbottom < 0)
+        iconY = window.getScroll().y - element.getPosition().y + (window.getSize().y / 2);
+      else if(elementYbottom > 0)
+        iconY = window.getScroll().y - element.getPosition().y + ((window.getSize().y - elementYbottom) / 2);
+    } else
+      iconY = '50%';
+  	
+  	// set the position
+		icon.setStyles({
+      left: iconX,
+      top: iconY
+    });
   }
   
   /* ---------------------------------------------------------------------------------- */
@@ -200,6 +255,7 @@
       
     topBarVisible = false;
     
+    // INSTANT
     if(instant) {
       logo.setStyle('top', '-55px');
       if($$('div.MooRTE.rtePageTop')[0] != null)
@@ -227,6 +283,7 @@
         editableTitle.removeClass('feindura_editTitle');
       });
     
+    // BY TWEEN
     } else {
       
       // set the session var
@@ -291,6 +348,7 @@
     */
     
     if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null) {
+      //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
       feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
     }
@@ -495,6 +553,7 @@
                                           
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
     if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null)
+      //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
       feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
     
     // -> deactivates frontend editing on start (when the session var is set)

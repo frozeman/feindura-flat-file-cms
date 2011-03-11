@@ -23,16 +23,16 @@
 }
 
 a.logout, a.toWebsite {
-    display: inline;
-    position: static;
-    top: auto;
-    left: auto;
-    width: auto;
-    height: auto;
-    background: none;
+  display: inline;
+  position: static;
+  top: auto;
+  left: auto;
+  width: auto;
+  height: auto;
+  background: none;
 }
 a.logout:hover, a.toWebsite:hover {
-    background-position: top left;
+  background-position: top left;
 }
 
 
@@ -156,28 +156,36 @@ div.feindura_editPageDisabled:hover {
 /* REQUESTS */
 
 /* LOADING CIRCLE */
-.feindura_loadingCircleContainer {
+.feindura_loadingFill {
   position: absolute;
   width: 100%;
-  height: 100%;  
+  height: 100%;
   text-align: center;
   background-color: #fff;
 }
-.feindura_loadingCircleContainer:hover, div.feindura_editPage:focus > .feindura_loadingCircleContainer, div.feindura_editTitle:focus > .feindura_loadingCircleContainer {
+.feindura_loadingFill:hover, div.feindura_editPage:focus > .feindura_loadingFill, div.feindura_editTitle:focus > .feindura_loadingFill {
   margin: -7px;
 }
 
 /* REQUEST FINSIH */
-.feindura_requestFinish, .feindura_requestFailed, .feindura_loadingCircleHolder, .feindura_editDisabledIcon {
+.feindura_editFinishIcon, .feindura_loadingCircleHolder, .feindura_editDisabledIcon {
   position: absolute;
-  top: 40%;
-  left: 50%;  
+  top: 50%;
+  left: 50%;
 }
-.feindura_requestFinish {  
-  width: 94px;
-  height: 100px;
-  margin-left: -47px;
-  margin-top: -50px;
+
+.feindura_loadingCircleHolder {
+  width: 100px;
+  height: 107px;
+  margin-left: -50px;
+  margin-top: -53px;
+}
+
+.feindura_editFinishIcon {  
+  width: 100px;
+  height: 107px;
+  margin-left: -50px;
+  margin-top: -53px;
   background: url("../images/icons/documentSaved_small.png") no-repeat;
 }
 

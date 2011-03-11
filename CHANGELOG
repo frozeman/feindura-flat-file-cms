@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1 rc2
-Build 571
+1.1 rc3
+Build 572
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-  
+
+1.1 rc3
+
+  build 572: add new moorte version and auto position now the finish savings icon in the frontend editing
   build 571: add new filemanager version
   build 570: fixed xssFilter and fixed loading circle (displays sometimes double)
   

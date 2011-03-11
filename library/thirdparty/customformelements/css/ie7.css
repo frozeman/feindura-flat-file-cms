@@ -1,0 +1,10 @@
+/* IE 7 styles */
+
+/* for IE7 please provide a width for select boxes */
+.cfeSelectSel-Norm{
+  width: 250px;
+}
+
+.cfeSelect > .cfeSlide > .labelArrow{
+  right: 3px;
+}

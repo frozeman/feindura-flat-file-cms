@@ -376,7 +376,7 @@ class generalFunctions {
   }
 
  /**
-  * <b>Name</b> setStoredPages()<br>
+  * <b>Name</b> addStoredPage()<br>
   * 
   * Adds a <var>$pageContent</var> array to the {@link $storedPages} property.
   * Its also possible to store the {@link $storedPages} property in a <var>$_SESSION</var> variable. (CURRENTLY DEACTIVATED)
@@ -395,14 +395,12 @@ class generalFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function setStoredPages($pageContent,$remove = false) {
+  public static function addStoredPage($pageContent) {
    
     unset($_SESSION['storedPages']);
     
     // stores the given parameter only if its a valid $pageContent array
     if(self::isPageContentArray($pageContent)) {
-      
-      // ->> ADD
       // -> checks if the SESSION storedPages Array exists
       if(isset($_SESSION['storedPages']))
         $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
@@ -411,7 +409,6 @@ class generalFunctions {
         $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
       }
     }
-    
     return $pageContent;
   }
   
@@ -516,7 +513,7 @@ class generalFunctions {
   * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
   * 
   * @uses getStoredPages()		for getting the {@link $storedPages} property
-  * @uses setStoredPages()		to store a new loaded $pageContent array in the {@link $storedPages} property
+  * @uses addStoredPage()		to store a new loaded $pageContent array in the {@link $storedPages} property
   * 
   * @return array|FALSE the $pageContent array of the requested page or FALS, if it couldn't open the file
   * 
@@ -564,7 +561,7 @@ class generalFunctions {
         // UNESCPAE the SINGLE QUOTES '
         $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
       
-        return self::setStoredPages($pageContent);
+        return self::addStoredPage($pageContent);
       } else  // returns false if it couldn't include the page
         return false;
     }
@@ -586,7 +583,7 @@ class generalFunctions {
   * @param array $pageContent the $pageContent array of the page to save
   * 
   * @uses $adminConfig      for the save path of the flatfiles
-  * @uses setStoredPages()  to store the saved file agiain, and overwrite th old stored page
+  * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
   * 
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
@@ -675,7 +672,7 @@ class generalFunctions {
             fwrite($file,"\n");
           }        
         }
-      }    
+      }
       
       fwrite($file,"\$pageContent['thumbnail'] =          '".xssFilter::filename($pageContent['thumbnail'])."';\n");
       fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
@@ -703,11 +700,11 @@ class generalFunctions {
       self::removeStoredPage($pageContent['id']); // remove the old one
       unset($pageContent);
       $pageContent = include($filePath);
-      self::setStoredPages($pageContent);
+      self::addStoredPage($pageContent);
       // reset the stored page ids
       self::$storedPageIds = null;
       
-      return true;
+      return $pageContent;
     }  
     return false;  
   }

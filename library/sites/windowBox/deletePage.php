@@ -57,7 +57,7 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPa
     if(!empty($pageContent['thumbnail']))
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
-    generalFunctions::setStoredPages($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
+    generalFunctions::addStoredPage($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
     statisticFunctions::saveTaskLog(2,strip_tags($pageContent['title'])); // <- SAVE the task in a LOG FILE
     
     $question = '';

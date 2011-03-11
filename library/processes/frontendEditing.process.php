@@ -26,6 +26,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // -----------------------------------------------------------------------------
 if($_POST['save'] == 'true') {
   
+  // var
+  $return = '';
+  
   // read the page
   $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
   
@@ -37,21 +40,27 @@ if($_POST['save'] == 'true') {
   $_POST['data'] = str_replace("<p style=\"display: none;\"><br /></p>",'',$_POST['data']);
   $_POST['data'] = str_replace("<p style=\"display: none;\">&nbsp;</p>",'',$_POST['data']);
   
-  // replace the existing data with the new one  
+  // -> replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
   
-  // save the page
-  if(generalFunctions::savePage($pageContent));
+  // ->> save the page
+  if($pageContent = generalFunctions::savePage($pageContent)) {
     statisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
+    // -> the data which will be returned, to inject into the element in the frontend 
+    $return = ($_POST['type'] == 'title') ? $pageContent['title'] : $return;
+    $return = ($_POST['type'] == 'content') ? $pageContent['content'] : $return;
   
-  // the data which will be returned, to inject into the element in the frontend 
-  $return = '';
-  $return = ($_POST['type'] == 'title') ? $_POST['data'] : $return;
-  $return = ($_POST['type'] == 'content') ? $_POST['data'] : $return;
+  // ->> on failure, return the unsaved data
+  } else {
+    // -> the data which will be returned, to inject into the element in the frontend 
+    $return = ($_POST['type'] == 'title') ? $_POST['data'] : $return;
+    $return = ($_POST['type'] == 'content') ? $_POST['data'] : $return;
+  }
   
   $return = str_replace("\'", "'", $return);
   $return = str_replace('\"', '"', $return);
+  $return .= '<p id="rteMozFix" style="display: none;"><br></p>';
   
   echo $return;
 }

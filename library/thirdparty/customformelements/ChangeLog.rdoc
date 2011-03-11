@@ -1,0 +1,65 @@
+CHANGE LOG FOR Custom Form Elements for Mootools 1.2
+****************************************************
+
+###CHANGELOG
+
+# XX/XX/XX - 0.9.9
+- improvements in check and radio > smaller code size
+
+# 06/16/10 - 0.9.4
+- instanceID is now obsolete and replaced by an automatic mechanism to count the instances of a cfe-class
+- getAlias has been removed in favour of toElement, which can do some mootools magic for u like: $(myCfe).addClass("foo") instead of myCfe.getAlias().addClass("foo")
+- removed ugly hack fr selection of elements with array name attributes like input[name=radio2[hallo]]
+- cleaned css a bit
+- fixed Opera 10 bug with selectors options not showing
+- updated mootools lib to 1.2.4
+- IE 8+: fixes bug with events being fired multiple times for checkboxes with implicit label
+
+# 11/08/09 - 0.9.3
+- fixed #2827036, #2800700, #2768909
+- better select keyboard behaviour (thanks for the detailed information phazei)
+- added minified version plus debugging cfe library file to release
+- updated library files to v 1.2.3
+- noticed small jumping bugs in ie8 > investigating
+
+# 14/05/09 - 0.91
+- support for disabled attribute
+- some css tweaks (thanks joss)
+- fix for width calculation of select multiple, when width is not given by css and scolling is enabled
+
+# 21/03/09 - 0.9
+- cfe.addon.dependencies needs mootools core 1.2.1 - i recommend updating anyhow
+- cfe did a huge leap forward with many enhancements and the possibility, to create cfe by javascript
+- fixed textarea, textfield sliding doors bug
+- textarea now with even more sliding doors to make resizing in every direction possible (hello safari users)
+- heavily refactored code; cfe.base did grew a bit in favour of small module script sizes
+- cfe.base now contains the generic module and some helpers
+- the replacement class for whole forms has been outsourced to cfe.replace
+- better event handling; each element does now support hover, focus and pressed state (button-like)
+- the selectAll/deselectAll checkboxes addon is now separately available as addon
+- tested successfully in Safari 3.2.1, Firefox 3.0.7, Opera 9.64, Chrome 1.0, IE 7 and IE 8 (IE 6 not supported)
+- added cfe.replace.autostart.js for out-of-the-box-use
+
+# 01/16/09 - 0.8.4
+- workaround for opera bug #2207752
+- convenience wrapper for textarea: should now look the same in all browsers when scrolling contents
+- some select improvements
+- fixed ie regression in select field
+
+# 01/16/09 - 0.8.3
+- partially fixed bug #2207752 - scrollbar is still behaving strange due to mootools <> opera getStyle() buggy
+- fixed bug #2088490
+
+#0.8.2
+- addressed bugs 2059807, 2059805, 2059800
+- created Element.disableTextSelection for better reusability
+- random code sweeping (mootools 1.2 port of Element.inject ...)
+
+#0.8.1
+- decoupling of addon tooltips and core
+- select now handles mousewheel scrolling
+- ie still buggy
+- some code sweeping
+
+#0.8b
+- initial port of cfe 0.8b for mootools 1.1

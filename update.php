@@ -252,6 +252,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     $pages = generalFunctions::loadPages(true);
     
     //print_r($pages);
+    $pagesSuccesfullUpdated = true;
     foreach($pages as $pageContent) {
       
       // renaming of some values
@@ -309,7 +310,8 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
 
-      $pagesSuccesfullUpdated = (generalFunctions::savePage($pageContent)) ? true : false;
+      if(!generalFunctions::savePage($pageContent))
+        $pagesSuccesfullUpdated = false;
     }
     if($pagesSuccesfullUpdated)
       echo 'pages <span class="succesfull">succesfully updated</span><br />';

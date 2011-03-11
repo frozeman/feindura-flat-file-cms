@@ -1,0 +1,34 @@
+= Custom Form Elements for mootools 1.3
+
+*NOT FNISHED nor STABLE atm*
+
+Custom Form Elements unites all efforts in the web to enhance web-based XHTML forms
+in terms of style, usability and accessibility by using Javascript and/or CSS.
+Basically, it's a UI library.
+
+Some resources to get you started:
+
+* {Installation instructions}[http://github.com/mediavrog/cfe/wikis/Installation---Setup]
+  on {the wiki}[http://github.com/mediavrog/cfe/wikis]
+* Got questions? Join our
+  {Google group}[http://groups.google.com/group/custom-form-elements].
+* {How to report bugs}[http://github.com/mediavrog/cfe/wikis/report-bugs]
+
+== Compatibility
+
+JavaScript-compatible A-grade Browsers
+  TODO: Add Table
+
+== Example usage
+
+See cfe/cfe.autostart.sample.js
+
+== Authors and credits
+
+Authors::  Maik Vlcek ({mediavrog}[https://github.com/mediavrog])
+Supported by::  {frozeman}[https://github.com/frozeman]
+Iconset::  Fugue Icon Set by Yusuke Kamiyamane http://p.yusukekamiyamane.com/ (CC3.0 Attribution)
+
+CFE would be nothing without the work of other great developers and designers.
+I'd like to thank you for giving me the opportunity to realize this project,
+as you build the basement for all this!
