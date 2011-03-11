@@ -651,7 +651,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['lastSaveDate'] =       ".xssFilter::int($pageContent['lastSaveDate'],0).";\n");
       fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".xssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"); 
       
-      fwrite($file,"\$pageContent['title'] =              '".generalFunctions::htmLawed(strip_tags($pageContent['title'],'<a><i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>'))."';\n");
+      fwrite($file,"\$pageContent['title'] =              '".self::htmLawed(strip_tags($pageContent['title'],'<a><i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>'))."';\n");
       fwrite($file,"\$pageContent['description'] =        '".xssFilter::text($pageContent['description'])."';\n\n");      
       
       fwrite($file,"\$pageContent['pageDate']['before'] = '".xssFilter::text($pageContent['pageDate']['before'])."';\n");
@@ -689,7 +689,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n"); // xssFilter in saveWebsiteStats() method in the statisticFunctions.class.php
       fwrite($file,"\$pageContent['log_searchWords'] =    '".$pageContent['log_searchWords']."';\n\n"); // xssFilter in the addDataToDataString() method in the statisticFunctions.class.php
 
-      fwrite($file,"\$pageContent['content'] = \n'".generalFunctions::htmLawed($pageContent['content'])."';\n\n");
+      fwrite($file,"\$pageContent['content'] = '".trim(self::htmLawed($pageContent['content']))."';\n\n");
       
       fwrite($file,"return \$pageContent;");
       
@@ -1331,12 +1331,14 @@ class generalFunctions {
       $htmlLawedConfig = $config;
     else
       $htmlLawedConfig = array(
-        'clean_ms_char'=>2,
-        'tidy' => 1,
-        'safe'=> 1
+        'comment' => 2,
+        'clean_ms_char'=> 0,
+        'tidy' => -1, // will be made tidy in the feinduraBase::generatePage() method
+        'safe'=> 0
       );
+    if($GLOBALS['adminConfig']['editor']['safeHtml']) $htmlLawedConfig['safe'] = 1;
     
-    return utf8_encode(htmLawed(utf8_decode($string),$htmlLawedConfig));
+    return htmLawed($string,$htmlLawedConfig);
   }
 
 

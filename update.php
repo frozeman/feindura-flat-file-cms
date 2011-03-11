@@ -478,6 +478,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir($adminConfig['basePath'].'library/thirdparty/javascript/') &&
       is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/thirdparty/javascript/'))
       $checkFiles[] = $adminConfig['basePath'].'library/thirdparty/javascript/';
+    if(!delDir($adminConfig['basePath'].'library/thirdparty/php/') &&
+      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/thirdparty/php/'))
+      $checkFiles[] = $adminConfig['basePath'].'library/thirdparty/php/';
     if(!delDir($adminConfig['basePath'].'library/image/') &&
       is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/image/'))
       $checkFiles[] = $adminConfig['basePath'].'library/image/';

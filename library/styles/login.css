@@ -151,10 +151,10 @@ html,body {
 
 #loginBox input.button {
   width: 135px;
-  height: 55px;
+  height: 53px;
   margin: 0px;
   margin-top: 1px;
-  padding: 18px;
+  padding: 19px;
   background: url("../images/buttons/login_button.png") no-repeat;
   border: none;
   font-size: 18px;

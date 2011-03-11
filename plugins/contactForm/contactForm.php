@@ -393,7 +393,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
     //var
     $return = '';
 
-    $return .= '<form action="'.$this->currentUrl.'" method="post" enctype="multipart/form-data">
+    $return .= '<form action="'.$this->currentUrl.'" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
     <div>
     <input type="hidden" name="contactFormSend" value="true" />
     </div>

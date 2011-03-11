@@ -643,6 +643,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['plugins'] =      ".xssFilter::bool($adminConfig['pages']['plugins'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n\n");
     
+    fwrite($file,"\$adminConfig['editor']['safeHtml'] =   ".xssFilter::bool($adminConfig['editor']['safeHtml'],true,true).";\n");
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".xssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
     fwrite($file,"\$adminConfig['editor']['styleId'] =    '".xssFilter::string($adminConfig['editor']['styleId'])."';\n");  
@@ -1070,7 +1071,7 @@ function generateBackupFileName($backupAppendix = false) {
 function createBackup($backupFileName) {
   
   // -> generate archive
-  require_once(dirname(__FILE__).'/../thirdparty/php/pclzip.lib.php');
+  require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFileName);
   $catchError = $archive->add(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'config/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'statistic/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$GLOBALS['adminConfig']['basePath']);
 

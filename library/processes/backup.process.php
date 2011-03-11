@@ -116,7 +116,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
     // only proceed when the backup was succesfully created
     if($errorWindow === false) {
       // -> extracting the backup file
-      require_once(dirname(__FILE__).'/../thirdparty/php/pclzip.lib.php');
+      require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
       $archive = new PclZip($backupFile);
       // -> extract CONFIG
       if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],

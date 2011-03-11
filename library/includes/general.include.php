@@ -20,7 +20,7 @@
  * @version 0.15
  */
 
-header('Content-type: text/html; charset=UTF-8');
+header('Content-Type:text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 /**
@@ -129,22 +129,22 @@ if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/websit
   $websiteStatistic = array();
 $GLOBALS['websiteStatistic'];
 
-
-// -> FUNCTIONS
-/**
- * Includes the {@link sort.functions.php}
- */ 
-require_once(dirname(__FILE__)."/../functions/sort.functions.php");
-require_once(dirname(__FILE__)."/../thirdparty/php/htmLawed.php");
-
 // ->> autoload CLASSES
 if(PHP_VERSION > 5) {
   /**
    * Autoloads all classes
-   *  
+   * 
    */
   function __autoload($class_name) {
     require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+    return true;
   }
 }
+
+// ->> FUNCTIONS
+/**
+ * Includes the main functions
+ */ 
+require_once(dirname(__FILE__)."/../functions/sort.functions.php");
+require_once(dirname(__FILE__)."/../thirdparty/PHP/htmLawed.php");
 ?>

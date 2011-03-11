@@ -430,8 +430,10 @@ $langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Wenn Du keine Informa
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
+$langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML'] = 'sicheres HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">Details</a>)';
+$langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML'] = 'Dadurch wird der HTML-Code mit den sichersten Einstellungen gefiltert, d.h. zum Beispiel dass keine &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; und &lt;script&gt; Tags erlaubt sind.';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Taste Modus';
-$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER erzeugt immer ein &quot;<br />&quot;';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br /&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip'] = 'Legt fest welcher HTML-Tag beim drücken der ENTER-Taste gesetzt wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Wenn das Feld leer ist, wird keine Id verwendet.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
@@ -445,7 +447,7 @@ $langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'Relativer Pfad::Re
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
-$langFile['adminSetup_styleFileSettings_h1'] = '&quot;Stil-Auswahl&quot; des HTML-Editors bearbeiten';
+$langFile['adminSetup_styleFileSettings_h1'] = '&quot;Stil&quot;-Auswahl des HTML-Editors bearbeiten';
 $langFile['adminSetup_styleFileSettings_error_save'] = '<b>Die Datei &quot;htmlEditorStyles.js&quot; konnte nicht gespeichert werden.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 // ---------- editFiles Settings

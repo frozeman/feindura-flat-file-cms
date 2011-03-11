@@ -150,7 +150,7 @@ if($_POST['upload']) {
           $newFileName = 'thumb_page'.$page.'.'.$fileExtension;
           $newFilePath = $uploadPath.$newFileName;
           
-          require_once(dirname(__FILE__).'/../thirdparty/php/Image.class.php');
+          require_once(dirname(__FILE__).'/../thirdparty/PHP/Image.class.php');
           
           $keepRatio = (empty($adminConfig['pageThumbnail']['ratio'])) ? false : true;
           $resize = new Image(DOCUMENTROOT.$filePath);

@@ -61,13 +61,12 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // -> CHANGE HTMLENTITIES from the USER-INFO
   $_POST['cfg_userInfo'] = nl2br(stripslashes($_POST['cfg_userInfo']));
-  $htmlLawedConfig = array(
-    'comment'=>1,
-    'cdata'=>1,
-    'clean_ms_char'=>2,
-    'safe'=>1
-  );
-  $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],$htmlLawedConfig);
+  $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],array(
+    'comment'=> 1,
+    'cdata'=> 1,
+    'clean_ms_char'=> 0,
+    'safe'=> 1
+  ));
   
   // -> CLEAN all " out of the strings
   foreach($_POST as $postKey => $post)
@@ -106,7 +105,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   //$adminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
   //$adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
   //$adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
-
+  
+  $adminConfig['editor']['safeHtml'] = $_POST['cfg_editorSafeHtml'];
   $adminConfig['editor']['enterMode'] = $_POST['cfg_editorEnterMode'];
   $adminConfig['editor']['styleFile'] = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
   $adminConfig['editor']['styleId'] = str_replace(array('#','.'),'',$_POST['cfg_editorStyleId']);  
