@@ -50,7 +50,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.strip_tags($page['title']).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
       }        
     } else {
-      echo '<li><a href="#" onclick="return:false"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+      echo '<li><a href="#" onclick="return:false;"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
     }
       
   echo '</ul>          
@@ -83,7 +83,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       }        
     echo '</ul>          
       </div>
-      <div class="bottom"><a href="#" onclick="return:false">&nbsp;</a></div>
+      <div class="bottom"><a href="#" onclick="return:false;">&nbsp;</a></div>
     </div>';
   }
   
@@ -109,11 +109,11 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
         }       
       } else {
-        echo '<li><a href="#" onclick="return:false"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+        echo '<li><a href="#" onclick="return:false;"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
       }        
     echo '</ul>          
       </div>
-      <div class="bottom"><a href="#" onclick="return:false">&nbsp;</a></div>
+      <div class="bottom"><a href="#" onclick="return:false;">&nbsp;</a></div>
     </div>';
   }
 

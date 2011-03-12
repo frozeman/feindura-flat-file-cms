@@ -407,7 +407,7 @@
       });
     }
     // editPage
-    links[1] = new Element('a',{ 'href': feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '#htmlEditorAnchor', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
+    links[1] = new Element('a',{ 'href': feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
     
     return links;
   }

@@ -145,18 +145,20 @@ function changeEditFile( site, fileName, status, anchorName )
 // -------------------------------------------------
 // -> on SUBMIT goto ANCHOR
 function submitAnchor(formId,anchorName) {
-  
+    
   // IE
-  if(navigator.appVersion.match(/MSIE/)) {
+  if(Browser.ie6 || Browser.ie7) {
     // get form
     var form = document.getElementById(formId);
     // create new action attribute
     var attr = document.createAttribute('action');
+    if(form.getAttributeNode('action').nodeValue.contains('#')) return;
     attr.nodeValue = form.getAttributeNode('action').nodeValue + '#' + anchorName;
     // set new action attribute
     form.setAttributeNode(attr);
   // ALL the OTHERS
   } else {
+    if($(formId).getAttribute('action').contains('#')) return;
     $(formId).setAttribute('action',($(formId).getAttribute('action') + '#' + anchorName));
   }
 }
@@ -238,14 +240,10 @@ function blockSlider(givenId) {
          }
       });      
       
-      // DONT show the content bottom if IE 0-7
-      if(navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
-        bottomBorder.setStyle('display', 'none');
-       
   	  // -> CREATE the SLIDE EFFECT
   	  slideVertical = new Fx.Slide(slideContent,{
-        duration: '500',
-        transition: Fx.Transitions.Back.easeOut,//Fx.Transitions.Pow.easeOut
+        duration: 500,
+        transition: Fx.Transitions.Back.easeInOut,
         onComplete: function(el) {
           // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
     	    if(this.open) {
@@ -261,10 +259,16 @@ function blockSlider(givenId) {
         }
       });
       
+      // DONT show the content bottom if IE 0-7
+      if(Browser.ie6 || Browser.ie7)
+        bottomBorder.setStyle('display', 'none');
+      if(Browser.ie6 || Browser.ie7 || Browser.ie8)
+        slideVertical.options.transition = Fx.Transitions.Pow.easeOut;
+      
       // -> set click Event for the SLIDE EFFECT to the buttons
       h1SlideButton.addEvent('click', function(e) {
       	  e.stop();
-      	  if(!slideVertical.open) {
+     	    if(!slideVertical.open) {
       	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box
       	    block.removeClass('hidden'); // to change the arrow
           } else { 
@@ -278,7 +282,7 @@ function blockSlider(givenId) {
         slideVertical.hide();
         slideVertical.open = false;
         slideContent.setStyle('display','none'); // to allow sorting above the slided in box	      
-      }      
+      }
     } // <-- end go trough blocks      
   });
 }
@@ -351,9 +355,6 @@ function pageContentChangedSign() {
   }
 }
 
-/* scrollToAnchor function */
-var scrollToAnchor = function(){ new Fx.Scroll(window,{duration:100}).start(0,this.getPosition().y - 50); };
-
 // *---------------------------------------------------------------------------------------------------*
 //  LOAD (if all pics are loaded)
 // *---------------------------------------------------------------------------------------------------*
@@ -362,14 +363,11 @@ window.addEvent('load', function() {
     autoResizeThumbnailPreview();    
  
     // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
-    var anchorId = window.location.hash.substring(1);
-    anchorId = $(anchorId);
-    //alert(anchorId + ' -> '+ $(anchorId).getPosition(window).y);
-    if(anchorId != null) {
-      scrollToAnchor.delay(1,anchorId);
+    if(Browser.safari || Browser.chrome) {
+      var anchorId = window.location.hash.substring(1);
+      if($(anchorId) != null)
+        (function(){ new Fx.Scroll(window,{duration:100}).set(0,this.getPosition().y); }).delay(100,$(anchorId));
     }
-
-    
 });
 
 // *---------------------------------------------------------------------------------------------------*
@@ -833,18 +831,27 @@ window.addEvent('domready', function() {
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
      
-  if($('HTMLEditor') != null) {   
+  if($('HTMLEditor') != null) { 
+    
+    // vars
+    var editorStandardHeight = 200;
+    var editorTweenToHeight = 380;
+    var editorHasFocus = false;
+    var editorSubmited = false;
+    var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
+    $('HTMLEditorSubmit').setStyle('height',0);
+    $$('#content .editor .content').setStyle('display','block');    
     
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
     CKEDITOR.config.uiColor                       = '#cccccc';
-    CKEDITOR.config.width                         = '792';
-    CKEDITOR.config.height                        = '450';
-    CKEDITOR.config.resize_minWidth               = '780';
-    CKEDITOR.config.resize_maxWidth               = '1400';
-    CKEDITOR.config.resize_minHeight              = '400';
-    CKEDITOR.config.resize_maxHeight              = '900';
+    CKEDITOR.config.width                         = 792;
+    CKEDITOR.config.height                        = editorStandardHeight;
+    CKEDITOR.config.resize_minWidth               = 792;
+    CKEDITOR.config.resize_maxWidth               = 1400;
+    CKEDITOR.config.resize_minHeight              = editorStandardHeight+136;
+    CKEDITOR.config.resize_maxHeight              = 900;
     CKEDITOR.config.forcePasteAsPlainText         = true;
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
@@ -875,10 +882,42 @@ window.addEvent('domready', function() {
                               ['ShowBlocks','-','About']
                               ];		// No comma for the last row.
   
-    // ----------------------------------------------------------------------
-    // CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
+    // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
   	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
-     
+  	
+  	// -> adds the slide in/out tweens
+  	HTMLEditor.on('instanceReady',function() {
+  	  $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
+  	  
+  	  var editorTweenTimeout;
+  	  
+      $$('div.editor').addEvent('mouseenter',function(e){
+        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(800);
+      });
+      $$('div.editor').addEvent('mouseleave',function(e){
+        clearTimeout(editorTweenTimeout);
+        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorTweenToHeight+3) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
+      });
+      
+      HTMLEditor.on('blur',function() {
+        editorHasFocus = false;
+        clearTimeout(editorTweenTimeout);
+        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() == editorTweenToHeight+3) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
+        $('HTMLEditorSubmit').tween('height',0);
+      });
+      HTMLEditor.on('focus',function() {
+        editorHasFocus = true;
+        clearTimeout(editorTweenTimeout);
+        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+        $('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+      });
+      
+      $('HTMLEditorSubmit').addEvent('mousedown',function(){
+        editorSubmited = true;
+      });
+    });
+    
+    
   }
 
   // -----------------------------------------
@@ -886,11 +925,9 @@ window.addEvent('domready', function() {
   if($('visitTimeMax') != null) {
 
      // creates the slide effect
-	   var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: 300, transition: Fx.Transitions.Pow.easeOut});  
-    
+	   var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: 300, transition: Fx.Transitions.Pow.easeOut});
      // slides the hotky div in, on start
      slideVisitTimeMax.hide();
-    
      // sets the SLIDE OUT on MOUSE ENTER
      $('visitTimeMax').addEvent('mouseenter', function(e){  	   
     		e.stop();    		
@@ -901,7 +938,6 @@ window.addEvent('domready', function() {
     		e.stop();    		
     		//slideVisitTimeMax.slideOut();
      });
-     
      // sets the SLIDE OUT on MOUSE ENTER
      $('visitTimeMaxContainer').addEvent('mouseenter', function(e){  	   
     		e.stop();    		
@@ -919,11 +955,9 @@ window.addEvent('domready', function() {
   if($('visitTimeMin') != null) {
 
      // creates the slide effect
-	   var slideVisitTimeMin = new Fx.Slide($('visitTimeMinContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});  
-    
+	   var slideVisitTimeMin = new Fx.Slide($('visitTimeMinContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});
      // slides the hotky div in, on start
      slideVisitTimeMin.hide();
-    
      // sets the SLIDE OUT on MOUSE ENTER
      $('visitTimeMin').addEvent('mouseenter', function(e){  	   
     		e.stop();    		
@@ -934,7 +968,6 @@ window.addEvent('domready', function() {
     		e.stop();
     		//slideVisitTimeMin.slideOut();
      });
-     
      // sets the SLIDE OUT on MOUSE ENTER
      $('visitTimeMinContainer').addEvent('mouseenter', function(e){  	   
     		e.stop();    		
@@ -967,7 +1000,7 @@ window.addEvent('domready', function() {
   }
   
   // -----------------------------------------
-  // ->> CHECKS if changes in the editor page was made
+  // ->> CHECKS if changes in the editor page was made and add a *
   
   // CHECK if fields are changed
   $$('#editorForm input, #editorForm textarea').each(function(formfields){

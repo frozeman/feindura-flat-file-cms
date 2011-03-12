@@ -740,11 +740,11 @@ div.listPagesHead {
     display: block;
     left: 0px;
     margin: 0px -20px;
-    margin-top: -20px; 
+    margin-bottom: -9px;
     background: url("../images/bg/content_block_normal.png") repeat-y;
     overflow: visible;
     width: 792px;
-    padding: 7px;
+    padding: 7px;    
     }
 
 #content .editor .content {
@@ -752,8 +752,10 @@ div.listPagesHead {
     }    
 
 #content .editor textarea {
+    z-index: 5;
+    position: relative;
     width: 750px !important;
-    height: 437px !important;
+    height: 360px;
     background: url("../images/bg/formularBg.png") no-repeat #ffffff !important;
     padding: 10px;
     }
@@ -763,6 +765,26 @@ div.listPagesHead {
 #content .editor textarea:focus {
     border: none !important;
     }
+
+#content .editor .content {
+  z-index: 1;
+  position: absolute;
+  margin: 8px 10px 0 10px  !important;
+  padding: 0px !important;
+  overflow: hidden;
+  display: none;
+}
+
+#HTMLEditorSubmit {
+  margin-top: 10px;
+}
+
+a#hotKeysToogle {
+  color: #F8A75D;
+}
+a#hotKeysToogle:hover {
+  color: #879095;
+}
 
 /****************/	
 /* - BLOCK EDITOR LINKS  
