@@ -295,24 +295,25 @@ $langFile['btn_quickmenu_pages'] = 'Seiten von';
 */
 
 // ---------- HOME
-$langFile['home_userInfo_h1'] = 'Benutzer Information';
+$langFile['HOME_TITLE_USERINFO'] = 'Benutzer Information';
 
-$langFile['home_welcome_h1'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
-$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['HOME_TITLE_WELCOME'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
+$langFile['HOME_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
 
-$langFile['home_statistic_h1'] = 'Webseiten-Statistik';
+$langFile['HOME_TITLE_STATISTICS'] = 'Webseiten-Statistik';
 
-$langFile['home_user_h1'] = 'Benutzer';
-$langFile['home_taskLog_h1'] = 'letzte Tätigkeiten';
-$langFile['home_taskLog_nolog'] = 'keine';
+$langFile['HOME_TITLE_USER'] = 'Benutzer';
+$langFile['HOME_TITLE_ACTIVITY'] = 'letzte Tätigkeiten';
+$langFile['HOME_TEXT_ACTIVITY_NONE'] = 'keine';
 
-$langFile['home_h1_article'] = 'die';
-$langFile['home_mostVisitedPages_h1'] = 'meist besuchten Seiten';
-$langFile['home_lastEditedPages_h1'] = 'zuletzt bearbeitete Seiten';
-$langFile['home_longestViewedPages_h1'] = 'am längsten betrachteten Seiten';
+$langFile['HOME_TITLE_STATISTICS_START'] = 'die';
+$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'] = 'meist besuchten Seiten';
+$langFile['HOME_TITLE_STATISTICS_LASTVISITED'] = 'zuletzt besuchten Seiten';
+$langFile['HOME_TITLE_STATISTICS_LASTEDITED'] = 'zuletzt bearbeiteten Seiten';
+$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'] = 'am längsten betrachteten Seiten';
 
-$langFile['home_refererLog_h1'] = 'Webseiten von denen die letzten Besucher gekommen sind';
-$langFile['home_novisitors'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
+$langFile['HOME_TITLE_REFERER'] = 'Webseiten von denen die letzten Besucher gekommen sind';
+$langFile['HOME_TEXT_NOVISITORS'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
 
 /*
 * listPages.php
@@ -569,20 +570,21 @@ $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Ein kurzer Text mit n
 */
 
 // ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/statistic.config.php';
+$langFile['STATISTICSSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/statistic.config.php';
 
-$langFile['statisticSetup_statisticConfig_h1'] = 'Statistik-Einstellungen';
-$langFile['statisticSetup_statisticConfig_field1'] = 'Anzahl der sichtbaren <b>meist besuchten</b> Seiten';
-$langFile['statisticSetup_statisticConfig_field1_tip'] = 'Gibt an wieviele meist besuchte Seiten auf der Übersicht-Seite angezeigt werden.';
-$langFile['statisticSetup_statisticConfig_field2'] = 'Anzahl der sichtbaren <b>am längsten betrachteten</b> Seiten';
-$langFile['statisticSetup_statisticConfig_field2_tip'] = 'Gibt an wieviele am längsten betrachtete Seiten auf der Übersicht-Seite angezeigt werden.';
-$langFile['statisticSetup_statisticConfig_field3'] = 'Anzahl der sichtbaren <b>zuletzt bearbeiteten</b> Seiten';
-$langFile['statisticSetup_statisticConfig_field3_tip'] = 'Gibt an wieviele zuletzt bearbeitete Seiten auf der Übersicht-Seite angezeigt werden.';
-
-$langFile['statisticSetup_statisticConfig_field4'] = 'maximale Anzahl der <b>Referrer-URLs</b>';
-$langFile['statisticSetup_statisticConfig_field4_tip'] = 'Gibt an wieviele Referrer-URLs ([i]URLs die auf diese Webseite geführt haben[/i]) maximal gespeichert werden.';
-$langFile['statisticSetup_statisticConfig_field5'] = 'maximale Anzahl der <b>Tätigkeiten-Logs</b>';
-$langFile['statisticSetup_statisticConfig_field5_tip'] = 'Gibt an wieviele Tätigkeiten-Logs maximal gespeichert werden.';
+$langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS'] = 'Statistik-Einstellungen';
+$langFile['STATISTICSSETUP_TEXT_MOSTVISTED'] = 'Anzahl der <b>meist besuchten</b> Seiten';
+$langFile['STATISTICSSETUP_TIP_MOSTVISTED'] = 'Gibt an wieviele meist besuchte Seiten auf der Übersicht-Seite angezeigt werden.';
+$langFile['STATISTICSSETUP_TEXT_LONGESTVIEWED'] = 'Anzahl der <b>am längsten betrachteten</b> Seiten';
+$langFile['STATISTICSSETUP_TIP_LONGESTVIEWED'] = 'Gibt an wieviele am längsten betrachtete Seiten auf der Übersicht-Seite angezeigt werden.';
+$langFile['STATISTICSSETUP_TEXT_LASTEDITED'] = 'Anzahl der <b>zuletzt bearbeiteten</b> Seiten';
+$langFile['STATISTICSSETUP_TIP_LASTEDITED'] = 'Gibt an wieviele zuletzt bearbeitete Seiten auf der Übersicht-Seite angezeigt werden.';
+$langFile['STATISTICSSETUP_TIP_LASTVISITED'] = 'Gibt an wieviele zuletzt besuchte Seiten auf der Übersicht-Seite angezeigt werden.';
+$langFile['STATISTICSSETUP_TEXT_LASTEDITED'] = 'Anzahl der <b>zuletzt bearbeiteten</b> Seiten';
+$langFile['STATISTICSSETUP_TEXT_REFERERNUMBER'] = 'Anzahl der <b>Referrer-URLs</b>';
+$langFile['STATISTICSSETUP_TIP_REFERERNUMBER'] = 'Gibt an wieviele Referrer-URLs ([i]URLs die auf diese Webseite geführt haben[/i]) maximal gespeichert werden.';
+$langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER'] = 'Anzahl der <b>Tätigkeiten-Logs</b>';
+$langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER'] = 'Gibt an wieviele Tätigkeiten-Logs maximal gespeichert werden.';
 
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'Statistiken löschen';

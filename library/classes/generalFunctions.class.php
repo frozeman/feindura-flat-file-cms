@@ -1082,6 +1082,8 @@ class generalFunctions {
   * 
   * @uses $categoryConfig        to find the right sort public static function for every category
   * @uses isPageContentArray()   to check if the given $pageContent arrays are valid
+  * @uses sortBySortOrder()      to sort the pages by sortorder
+  * @uses sortByDate()           to sort the pages by page date  
   * 
   * @return array the sorted array with the $pageContent arrays
   * 

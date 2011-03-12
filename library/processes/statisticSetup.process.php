@@ -33,7 +33,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
       $documentSaved = true;
       statisticFunctions::saveTaskLog(19); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow .= $langFile['statisticSetup_statisticConfig_error_save'];
+      $errorWindow .= $langFile['STATISTICSSETUP_ERROR_SAVE'];
   
   $savedForm = 'statisticConfig';
   $savedSettings = true;

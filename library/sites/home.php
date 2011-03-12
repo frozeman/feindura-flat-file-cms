@@ -19,9 +19,9 @@ home.php version 0.86
 
 ?>
 <div class="block">
-  <h1><?php echo $langFile['home_welcome_h1']; ?></h1>
+  <h1><?php echo $langFile['HOME_TITLE_WELCOME']; ?></h1>
   <div class="content">
-    <p><?php echo $langFile['home_welcome_text']; ?></p>
+    <p><?php echo $langFile['HOME_TEXT_WELCOME']; ?></p>
     
   </div>
   <div class="bottom"></div>
@@ -57,7 +57,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
 if(!empty($adminConfig['user']['info'])) {
 ?>
 <div class="block info">
-  <h1><a href="#"><?php echo $langFile['home_userInfo_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['HOME_TITLE_USERINFO']; ?></a></h1>
   <div class="content">
     <p><?php echo $adminConfig['user']['info']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
@@ -69,7 +69,7 @@ if(!empty($adminConfig['user']['info'])) {
 <!-- WEBSITE STATISTIC -->
 
 <div class="block">
-  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" /><?php echo $langFile['home_statistic_h1']; ?></h1>
+  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" /><?php echo $langFile['HOME_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
     
@@ -180,10 +180,11 @@ if(!empty($adminConfig['user']['info'])) {
     
     echo '<div class="inBlockSlider hidden">';
     
+    
     // ---------------------------------
     // -> MOST VISITED PAGE
     echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['home_h1_article'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['home_mostVisitedPages_h1'].'</h2>';    
+    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT COUNT
@@ -207,9 +208,36 @@ if(!empty($adminConfig['user']['info'])) {
     $pages = $orgPages;
     
     // ---------------------------------
-    // -> LONGEST VIEWED PAGE
+    // -> LAST VISITED PAGES
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['home_h1_article'].' '.$statisticConfig['number']['longestVisitedPages'].' '.$langFile['home_longestViewedPages_h1'].'</h2>';    
+    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastVisitedPages'].' '.$langFile['HOME_TITLE_STATISTICS_LASTVISITED'].'</h2>';    
+      echo '<div class="innerBlockListPages">
+            <table class="coloredList">';      
+      // SORT the Pages by VISIT SAVEDATE
+      usort($pages, 'sortByLastVisitDate');
+      
+      $count = 1;
+      $rowColor = 'dark'; // starting row color
+      foreach($pages as $page) {
+        if($page['log_lastVisit'] != 0) {
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['log_lastVisit'])).'</b> '.statisticFunctions::formatTime($page['log_lastVisit']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';        
+          // change row color
+          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
+          // count
+          if($count == $statisticConfig['number']['lastVisitedPages']) break;
+          else $count++;
+        }
+      }
+      echo '</table>
+            </div>';
+    echo '</div>';
+    
+    $pages = $orgPages;
+    
+    // ---------------------------------
+    // -> LONGEST VIEWED PAGE
+    echo '<div class="innerBlockLeft">';    
+    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['longestVisitedPages'].' '.$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by MAX VISIT TIME
@@ -237,8 +265,8 @@ if(!empty($adminConfig['user']['info'])) {
     
     // ---------------------------------
     // -> LAST EDITED PAGES
-    echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['home_lastEditedPages_h1'].'</h2>';    
+    echo '<div class="innerBlockRight">';    
+    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastEditedPages'].' '.$langFile['HOME_TITLE_STATISTICS_LASTEDITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE
@@ -246,13 +274,15 @@ if(!empty($adminConfig['user']['info'])) {
       
       $count = 1;
       $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) { 
-        echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.statisticFunctions::formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';        
-        // change row color
-        $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
-        // count
-        if($count == $statisticConfig['number']['lastEditedPages']) break;
-        else $count++;
+      foreach($pages as $page) {
+        if($page['lastSaveDate'] != 0) {
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($page['lastSaveDate'])).'</b> '.statisticFunctions::formatTime($page['lastSaveDate']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';        
+          // change row color
+          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
+          // count
+          if($count == $statisticConfig['number']['lastEditedPages']) break;
+          else $count++;
+        }
       }
       echo '</table>
             </div>';
@@ -292,7 +322,7 @@ if(!empty($adminConfig['user']['info'])) {
     if($browserChart = statisticFunctions::createBrowserChart($websiteStatistic['browser']))
       echo $browserChart;
     else
-      echo $GLOBALS['langFile']['home_novisitors'];
+      echo $GLOBALS['langFile']['HOME_TEXT_NOVISITORS'];
 
     // ---------------------------------
     // -> SHOW REFERER LOG
@@ -300,7 +330,7 @@ if(!empty($adminConfig['user']['info'])) {
        $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log')) {
        
       echo '<br /><br /><hr class="small"><br />';
-      echo '<h3 style="text-align:center;">'.$langFile['home_refererLog_h1'].'</h3>';
+      echo '<h3 style="text-align:center;">'.$langFile['HOME_TITLE_REFERER'].'</h3>';
        
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';

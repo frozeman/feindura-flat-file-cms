@@ -278,19 +278,20 @@ $langFile['btn_quickmenu_pages'] = 'pages de';
 */
 
 // ---------- HOME
-$langFile['home_userInfo_h1'] = 'informations utilisateur';
-$langFile['home_welcome_h1'] = 'Bienvenue au content management system <span class="logoname">fein<span>dura</span></span><br /> de ton site web';
-$langFile['home_welcome_text'] = '<span class="logoname">fein<span>dura</span></span> est un  Content Management System basé sur <span class="toolTip" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br />Ici tu peux gérer le contenu de ton site web.';
-$langFile['home_statistic_h1'] = 'statistiques du site web';
-$langFile['home_user_h1'] = 'utilisateur';
-$langFile['home_taskLog_h1'] = 'dernières activités';
-$langFile['home_taskLog_nolog'] = 'null';
-$langFile['home_h1_article'] = 'les';
-$langFile['home_mostVisitedPages_h1'] = 'pages les plus fréquentées';
-$langFile['home_lastEditedPages_h1'] = 'dernières pages rédigées';
-$langFile['home_longestViewedPages_h1'] = 'pages les plus regardés';
-$langFile['home_refererLog_h1'] = 'sites web d\'où viennent les derniers visiteurs';
-$langFile['home_novisitors'] = 'actuellement il n\'y a pas eu de visiteurs sur le site web.';
+$langFile['HOME_TITLE_USERINFO'] = 'informations utilisateur';
+$langFile['HOME_TITLE_WELCOME'] = 'Bienvenue au content management system <span class="logoname">fein<span>dura</span></span><br /> de ton site web';
+$langFile['HOME_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> est un  Content Management System basé sur <span class="toolTip" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br />Ici tu peux gérer le contenu de ton site web.';
+$langFile['HOME_TITLE_STATISTICS'] = 'statistiques du site web';
+$langFile['HOME_TITLE_USER'] = 'utilisateur';
+$langFile['HOME_TITLE_ACTIVITY'] = 'dernières activités';
+$langFile['HOME_TEXT_ACTIVITY_NONE'] = 'null';
+$langFile['HOME_TITLE_STATISTICS_START'] = 'les';
+$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'] = 'pages les plus fréquentées';
+$langFile['HOME_TITLE_STATISTICS_LASTVISITED'] = 'dernières pages visitées';
+$langFile['HOME_TITLE_STATISTICS_LASTEDITED'] = 'dernières pages rédigées';
+$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'] = 'pages les plus regardés';
+$langFile['HOME_TITLE_REFERER'] = 'sites web d\'où viennent les derniers visiteurs';
+$langFile['HOME_TEXT_NOVISITORS'] = 'actuellement il n\'y a pas eu de visiteurs sur le site web.';
 
 /*
 * listPages.php
@@ -519,18 +520,21 @@ $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Un texte court en 3 l
 */
 
 // ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-$langFile['statisticSetup_statisticConfig_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/statistic.config.php';
-$langFile['statisticSetup_statisticConfig_h1'] = 'paramètres des statistiques';
-$langFile['statisticSetup_statisticConfig_field1'] = 'nombre de pages publiées le <b>plus visitées</b>';
-$langFile['statisticSetup_statisticConfig_field1_tip'] = 'Indique le nombre de pages les plus visitées que seront listées sur la page-aperçu générale.';
-$langFile['statisticSetup_statisticConfig_field2'] = 'nombre de pages publiées <b>les plus visitées</b>';
-$langFile['statisticSetup_statisticConfig_field2_tip'] = 'Indique le nombre de pages les plus regardées sur la page -aperçu générale.';
-$langFile['statisticSetup_statisticConfig_field3'] = 'nombre de pages publiées <b>dernièrement traitées</b>';
-$langFile['statisticSetup_statisticConfig_field3_tip'] = 'Indique les pages dernièrement traitées sur la page-aperçu-générale.';
-$langFile['statisticSetup_statisticConfig_field4'] = 'nombre maximal des <b>Referrer-URLs</b>';
-$langFile['statisticSetup_statisticConfig_field4_tip'] = 'Indique le nombre maximal des Referrer-URLs ([i]URL qui ont mènés sur ce site web[/i]).';
-$langFile['statisticSetup_statisticConfig_field5'] = 'nombre maximal des <b>logs-activités</b>';
-$langFile['statisticSetup_statisticConfig_field5_tip'] = 'Indique le nombre des logs-activités seront sauvegardés au maximum.';
+$langFile['STATISTICSSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/statistic.config.php';
+$langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS'] = 'paramètres des statistiques';
+$langFile['STATISTICSSETUP_TEXT_MOSTVISTED'] = 'nombre de pages le <b>plus visitées</b>';
+$langFile['STATISTICSSETUP_TIP_MOSTVISTED'] = 'Indique le nombre de pages les plus visitées que seront listées sur la page vue globale.';
+$langFile['STATISTICSSETUP_TEXT_LONGESTVIEWED'] = 'nombre de pages <b>les plus visitées</b>';
+$langFile['STATISTICSSETUP_TIP_LONGESTVIEWED'] = 'Indique le nombre de pages les plus regardées sur la page vue globale.';
+$langFile['STATISTICSSETUP_TEXT_LASTEDITED'] = 'nombre de pages <b>dernièrement traitées</b>';
+$langFile['STATISTICSSETUP_TIP_LASTEDITED'] = 'Indique les pages dernièrement traitées sur la page vue globale.';
+$langFile['STATISTICSSETUP_TEXT_LASTVISITED'] = 'nombre de pages <b>dernièrement visité</b>';
+$langFile['STATISTICSSETUP_TIP_LASTVISITED'] = 'Indique les pages dernièrement visité sur la page vue globale.';
+$langFile['STATISTICSSETUP_TEXT_REFERERNUMBER'] = 'nombre des <b>Referrer-URLs</b>';
+$langFile['STATISTICSSETUP_TIP_REFERERNUMBER'] = 'Indique le nombre maximal des Referrer-URLs ([i]URL qui ont mènés sur ce site web[/i]).';
+$langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER'] = 'nombre des <b>logs-activités</b>';
+$langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER'] = 'Indique le nombre des logs-activités seront sauvegardés au maximum.';
+
 $langFile['statisticSetup_clearStatistic_h1'] = 'éffacer statistiques';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'statistiques du site web';
 $langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contient[/b][ul][li]tout le nombre des visiteurs[/li][li]nombre des robots d\'indexation[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]spectre des navigateurs utilisés[/li][/ul]';

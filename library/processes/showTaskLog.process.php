@@ -46,7 +46,7 @@ foreach($logContent as $logRow) {
   $logDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($logRow[0]));
   $logTime = statisticFunctions::formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))
-  ? '<br /><span>'.$langFile['home_user_h1'].': <b>'.$logRow[1].'</b></span>'
+  ? '<br /><span>'.$langFile['HOME_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
   : '';
   
   // add the right languageText

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc4
-Build 573
+Build 574
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
+  
+  build 574: add last visited pages statistic
 
 1.1 rc4
 

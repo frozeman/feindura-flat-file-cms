@@ -129,7 +129,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // -> SHOW TASK LOG
-      echo '<h1>'.$langFile['home_taskLog_h1'].'</h1>';
+      echo '<h1>'.$langFile['HOME_TITLE_ACTIVITY'].'</h1>';
       
       if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/activity.statistic.log') &&
          $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/activity.statistic.log')) {
@@ -144,12 +144,12 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
       // no log
       } else
-        echo $langFile['home_taskLog_nolog'];
+        echo $langFile['HOME_TEXT_ACTIVITY_NONE'];
       
       echo '<hr />';
       
       // -> SHOW USERs
-      echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['home_user_h1'].'</h1><br />';
+      echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['HOME_TITLE_USER'].'</h1><br />';
         if(!empty($userConfig)) {
         
           unset($sessions,$sessionLister);

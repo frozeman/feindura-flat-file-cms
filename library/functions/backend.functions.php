@@ -808,12 +808,13 @@ function saveStatisticConfig($statisticConfig) {
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php
   
-      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = '".xssFilter::int($statisticConfig['number']['mostVisitedPages'],10)."';\n");
-      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = '".xssFilter::int($statisticConfig['number']['longestVisitedPages'],10)."';\n");
-      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = '".xssFilter::int($statisticConfig['number']['lastEditedPages'],10)."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = ".xssFilter::int($statisticConfig['number']['mostVisitedPages'],10).";\n");
+      fwrite($file,"\$statisticConfig['number']['longestVisitedPages']     = ".xssFilter::int($statisticConfig['number']['longestVisitedPages'],10).";\n");
+      fwrite($file,"\$statisticConfig['number']['lastVisitedPages']        = ".xssFilter::int($statisticConfig['number']['lastVisitedPages'],10).";\n");
+      fwrite($file,"\$statisticConfig['number']['lastEditedPages']         = ".xssFilter::int($statisticConfig['number']['lastEditedPages'],10).";\n\n");
       
-      fwrite($file,"\$statisticConfig['number']['refererLog']    = '".xssFilter::int($statisticConfig['number']['refererLog'],100)."';\n");
-      fwrite($file,"\$statisticConfig['number']['taskLog']       = '".xssFilter::int($statisticConfig['number']['taskLog'],50)."';\n\n");
+      fwrite($file,"\$statisticConfig['number']['refererLog']    = ".xssFilter::int($statisticConfig['number']['refererLog'],100).";\n");
+      fwrite($file,"\$statisticConfig['number']['taskLog']       = ".xssFilter::int($statisticConfig['number']['taskLog'],50).";\n\n");
       
       fwrite($file,"return \$statisticConfig;");
     

@@ -17,15 +17,18 @@
 * 
 * library/functions/sort.functions.php
 *
-* @version 0.15
+* @version 0.1.6
 * 
 */
 
 $feindura_categories = $categoryConfig;
 
-// ** -- sortCurrentVisitorsByTime ***************************************************************
-// sort an Array with the current visitors by the TIMESTAMP
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortCurrentVisitorsByTime()<br>
+ * 
+ * Sort an Array with the current visitors by the TIMESTAMP.
+ * 
+ */
 function sortCurrentVisitorsByTime($a, $b) {     // (Array) $a = current; $b = follwing value
   
   $a = explode('|#|',$a);
@@ -33,44 +36,65 @@ function sortCurrentVisitorsByTime($a, $b) {     // (Array) $a = current; $b = f
 
   return ($a[2] > $b[2]) ? -1 : 1;
 }
-// ---- sortCurrentVisitorsByTime is used by the getCurrentVisitors() ------------------------------
 
-// ** -- sortBySortOrder ***************************************************************
-// sort an Array with the pageContent Array by SORTORDER
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortBySortOrder()<br>
+ * 
+ * Sort an Array with the pageContent Array by SORTORDER.
+ * 
+ */
 function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing value
   if ($a['sortOrder'] == $b['sortOrder']) {
     return 0;
   }
   return ($a['sortOrder'] > $b['sortOrder']) ? -1 : 1;
 }
-// ---- sortBySortOrder is used by the sortPages() ------------------------------
 
-// ** -- sortByDate ********************************************************************
-// sort an Array with the pageContent Array by DATE TIMESTAMP
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortByDate()<br>
+ * 
+ * Sort an Array with the pageContent Array by DATE TIMESTAMP.
+ * 
+ */
 function sortByDate($a, $b) {     // (Array) $a = current; $b = follwing value
   
   if ($a['pageDate']['date'] == $b['pageDate']['date'])
     return 0;
   return ($a['pageDate']['date'] > $b['pageDate']['date']) ? -1 : 1;
 }
-// ---- sortByDate is used by the sortPages() -----------------------------------
 
-// ** -- sortByLastSaveDate ********************************************************************
-// sort an Array with the pageContent Array by LASTSAVEDATE TIMESTAMP
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortByLastSaveDate()<br>
+ * 
+ * Sort an Array with the pageContent Array by LASTSAVEDATE TIMESTAMP.
+ * 
+ */
 function sortByLastSaveDate($a, $b) {     // (Array) $a = current; $b = follwing value
     
   if ($a['lastSaveDate'] == $b['lastSaveDate'])
     return 0;
   return ($a['lastSaveDate'] > $b['lastSaveDate']) ? -1 : 1;
 }
-// ---- sortByLastSaveDate is used by the sortPages() -----------------------------------
 
-// ** -- sortbyCategory ****************************************************************
-// sort an Array with the pageContent Array by CATEGORY
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortByLastVisitDate()<br>
+ * 
+ * Sort an Array with the pageContent Array by LASTVISIT TIMESTAMP.
+ * 
+ */
+function sortByLastVisitDate($a, $b) {     // (Array) $a = current; $b = follwing value
+    
+  if ($a['log_lastVisit'] == $b['log_lastVisit'])
+    return 0;
+  return ($a['log_lastVisit'] > $b['log_lastVisit']) ? -1 : 1;
+}
+
+/**
+ * <b>Name</b> sortByCategory()<br>
+ * 
+ * Sort an Array with the pageContent Array by CATEGORY.
+ * 
+ */
 function sortByCategory($a, $b) {     // (Array) $a = current; $b = following value
   global $feindura_categories;
   
@@ -91,20 +115,25 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
   // sorts the array like the categories array order is
   return (strpos($categoryIds,$a['category']) < strpos($categoryIds,$b['category'])) ? -1 : 1;
 }
-// ---- sortbyCategory is used by the sortPages() -------------------------------
 
-// ** -- sortByVisitCount ***************************************************************
-// sort an Array with the pageContent Array by VISIT COUNT
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortByVisitCount()<br>
+ * 
+ * Ssort an Array with the pageContent Array by VISIT COUNT.
+ * 
+ */
 function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
   if ($a['log_visitorCount'] == $b['log_visitorCount'])
     return 0;
   return ($a['log_visitorCount'] > $b['log_visitorCount']) ? -1 : 1;
 }
 
-// ** -- sortByVisitTimeMax ***************************************************************
-// sort an Array with the pageContent Array by MAX VISIT TIME
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortByVisitTimeMax()<br>
+ * 
+ * Sort an Array with the pageContent Array by MAX VISIT TIME.
+ * 
+ */
 function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing value
 
  // get highest time
@@ -116,9 +145,12 @@ function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing
   return ($aMaxVisitTime[0] > $bMaxVisitTime[0]) ? -1 : 1;
 }
 
-// ** -- sortByPriority ***************************************************************
-// sort an Array with the searchresults from {@link search::searchPages()} by PRIORITY
-// -------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortByPriority()<br>
+ * 
+ * Sort an Array with the searchresults from {@link search::searchPages()} by PRIORITY.
+ * 
+ */
 function sortByPriority($a, $b) {     // (Array) $a = current; $b = follwing value
 
   $aPriority = $a['priority'];
@@ -129,14 +161,16 @@ function sortByPriority($a, $b) {     // (Array) $a = current; $b = follwing val
   return ($aPriority > $bPriority) ? -1 : 1;
 }
 
-// * -- sortDataString ----------------------------------------------------------------------------------
-// sorts the dataString array, with data with the highest number the beginning
-// -----------------------------------------------------------------------------------------------------
+/**
+ * <b>Name</b> sortDataString()<br>
+ * 
+ * Sorts the dataString array, with data with the highest number the beginning.
+ * 
+ */
 function sortDataString($a, $b) {
   if($a['number'] == $b['number'])
     return 0;
   return ($a['number'] > $b['number']) ? -1 : 1;
 }
-// ---- sortDataString is used by sortDataString() -------------------------------
 
 ?>
