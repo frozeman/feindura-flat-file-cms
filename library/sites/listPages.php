@@ -1,20 +1,23 @@
 <?php
-/*  feindura - Flat File Content Management System
-    Copyright (C) Fabian Vogelsteller [frozeman.de]
-
-    This program is free software;
-    you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along with this program;
-    if not,see <http://www.gnu.org/licenses/>.
-
-* listPages.php version 0.86
-*/
+/**
+ * feindura - Flat File Content Management System
+ * Copyright (C) Fabian Vogelsteller [frozeman.de]
+ * 
+ * This program is free software;
+ * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not,see <http://www.gnu.org/licenses/>.
+ * 
+ * listPages.php 
+ * 
+ * @version 0.86
+ */
 
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
@@ -50,7 +53,7 @@ foreach($allCategories as $category) {
 
   // shows after saving the right category open
   $hidden = (is_array($pages) && !empty($pages) &&                                          // -> slide in the category if EMPTY
-             (!isset($_GET['category']) && $category['id'] == '0') ||                       // -> slide non-category in if no category is selected
+             (!isset($_GET['category']) && $category['id'] == 0) ||                       // -> slide non-category in if no category is selected
              ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))  // -> slide out the category if ACTIVE
   ? '' : ' hidden';
   

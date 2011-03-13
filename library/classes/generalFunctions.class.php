@@ -847,7 +847,7 @@ class generalFunctions {
     
     // IF $category FALSE set $category to 0
     if($category === false)
-      $category = '0';
+      $category = 0;
     
     // ->> RETURN $pageContent arrays
     if($loadPagesInArray === true) {

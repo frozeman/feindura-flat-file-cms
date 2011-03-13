@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1 rc4
-Build 575
+1.1 rc5
+Build 576
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-  
+
+1.1 rc5
+
+  build 576: finished position change of the HTMLeditor
   build 575: changed position of the HTMLeditor in "edit page"
   build 574: add last visited pages statistic
 

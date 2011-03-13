@@ -12,9 +12,9 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
+*
+* java/content.js version 0.57 (requires mootools-core and mootools-more)
 */
-// java/content.js version 0.57 (requires mootools-core and mootools-more)
-//
 
 // vars
 var deactivateType = 'disabled'; // disabled/readonly
@@ -213,7 +213,7 @@ function autoResizeThumbnailPreview() {
 function blockSlider(givenId) {
   
   var blocksInDiv = '';
-  var scrollToElement = new Fx.Scroll(window,{duration: 300});
+  var scrollToElement = new Fx.Scroll(window,{duration: 300,transition: Fx.Transitions.Quint.easeInOut});
   
   // prepares the given container div id or class
   if(givenId)
@@ -243,7 +243,8 @@ function blockSlider(givenId) {
   	  // -> CREATE the SLIDE EFFECT
   	  slideVertical = new Fx.Slide(slideContent,{
         duration: 500,
-        transition: Fx.Transitions.Back.easeInOut,
+        //transition: Fx.Transitions.Pow.easeInOut, //Fx.Transitions.Back.easeInOut
+        transition: Fx.Transitions.Quint.easeInOut,
         onComplete: function(el) {
           // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
     	    if(this.open) {
@@ -253,7 +254,7 @@ function blockSlider(givenId) {
           } else {
               this.wrapper.setStyle('height','auto');
               this.open = true;
-              scrollToElement.start(window.getPosition().x,block.getPosition().y - 80);
+              
           }
           layoutFix();
         }
@@ -263,16 +264,17 @@ function blockSlider(givenId) {
       if(Browser.ie6 || Browser.ie7)
         bottomBorder.setStyle('display', 'none');
       if(Browser.ie6 || Browser.ie7 || Browser.ie8)
-        slideVertical.options.transition = Fx.Transitions.Pow.easeOut;
+        slideVertical.options.transition = Fx.Transitions.Pow.easeInOut;
       
       // -> set click Event for the SLIDE EFFECT to the buttons
       h1SlideButton.addEvent('click', function(e) {
       	  e.stop();
      	    if(!slideVertical.open) {
-      	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box
-      	    block.removeClass('hidden'); // to change the arrow
+     	      scrollToElement.start(window.getPosition().x,block.getPosition().y - 80);
+      	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
+      	    block.removeClass('hidden'); // change the arrow
           } else { 
-            block.addClass('hidden'); // to change the arrow
+            block.addClass('hidden'); // change the arrow
           }          
           slideVertical.toggle();
       });
@@ -383,7 +385,7 @@ window.addEvent('domready', function() {
     $('adminMenu').setStyle('overflow','hidden');
     
     // set tween
-    $('adminMenu').set('tween',{duration: 350, transition: Fx.Transitions.Quint.easeIn});
+    $('adminMenu').set('tween',{duration: 350, transition: Fx.Transitions.Quint.easeInOut});
     
     // add resize tween event
     $('adminMenu').addEvents({
@@ -892,7 +894,7 @@ window.addEvent('domready', function() {
   	  var editorTweenTimeout;
   	  
       $$('div.editor').addEvent('mouseenter',function(e){
-        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(800);
+        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1500);
       });
       $$('div.editor').addEvent('mouseleave',function(e){
         clearTimeout(editorTweenTimeout);

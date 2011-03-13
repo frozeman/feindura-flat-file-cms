@@ -333,11 +333,11 @@ class feinduraBase {
     // ->> GET PAGE is an ID
     // *********************
     if(isset($_GET[$this->varNames['page']]) &&
+       !empty($_GET[$this->varNames['page']]) &&
        is_numeric($_GET[$this->varNames['page']])) {
        
-      // set PAGE GET var
-      if(!empty($_GET[$this->varNames['page']]))
-        return intval($_GET[$this->varNames['page']]); // get the category ID from the $_GET var
+      // get PAGE GET var
+      return xssFilter::int($_GET[$this->varNames['page']],0); // get the category ID from the $_GET var
     
     // ->> GET PAGE is a NAME
     // **********************
@@ -406,8 +406,8 @@ class feinduraBase {
        !empty($_GET[$this->varNames['category']]) &&
        is_numeric($_GET[$this->varNames['category']])) {
        
-      // set CATEGORY GET var
-      return intval($_GET[$this->varNames['category']]); // get the category ID from the $_GET var
+      // get CATEGORY GET var
+      return xssFilter::int($_GET[$this->varNames['category']],0); // get the category ID from the $_GET var
     
     // ->> GET CATEGORY is a NAME
     // **************************
@@ -818,7 +818,7 @@ class feinduraBase {
     if(!empty($pageContent['id']))
       $return['id'] = $pageContent['id'];
     
-    if($pageContent['category'] && $pageContent['category'] != '0')
+    if($pageContent['category'] && $pageContent['category'] != 0)
       $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
     
     if($pageDate)
@@ -983,7 +983,7 @@ class feinduraBase {
     // ->> CHECK if thumbnail exists and is allowed to show
     if(!empty($pageContent['thumbnail']) &&
       @is_file(DOCUMENTROOT.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) { //&&
-      //(($pageContent['category'] == '0' && $this->adminConfig['pages']['thumbnails']) ||
+      //(($pageContent['category'] == 0 && $this->adminConfig['pages']['thumbnails']) ||
       //($pageContent['category'] && $this->categoryConfig[$pageContent['category']]['thumbnail']))) {
       
       // set TAG ENDING (xHTML or HTML) 

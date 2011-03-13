@@ -1331,7 +1331,7 @@ class statisticFunctions {
           self::$websiteStatistic['browser'] = $browser.',1';
         
         if(!isset(self::$websiteStatistic["spiderVisitCount"]))
-          self::$websiteStatistic["spiderVisitCount"] = '0';
+          self::$websiteStatistic["spiderVisitCount"] = 0;
 
         
       // ->> COUNT the SPIDER UP

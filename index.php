@@ -2,21 +2,21 @@
 /**
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
- *
+ * 
  * This program is free software;
  * you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with this program;
  * if not,see <http://www.gnu.org/licenses/>.
- *
+ * 
  * index.php
- *
- * @version 2.02
+ * 
+ * @version 2.1
  */
 
 /**
@@ -251,15 +251,15 @@ if($_GET['site'] == 'addons') {
     
     $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
                        (!empty($_GET['page']) &&
-                       ($_GET['category'] === '0' && $adminConfig['pages']['createDelete']) ||
-                       ($_GET['category'] !== '0' && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
+                       ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
+                       ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
     $showEditPage = ($_GET['site'] == 'pages') ? false : true;
     
     // -> CHECK if show pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
                                 empty($_GET['site']) && !empty($_GET['page']) &&
-                                (($_GET['category'] === '0' && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnail'])) ? true : false;
+                                (($_GET['category'] === 0 && $adminConfig['pages']['thumbnails']) || $categoryConfig[$_GET['category']]['thumbnail'])) ? true : false;
 
     
     // -> CHECK if show pageThumbnailDelete
