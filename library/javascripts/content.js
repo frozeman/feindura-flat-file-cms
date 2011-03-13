@@ -930,7 +930,7 @@ window.addEvent('domready', function() {
     // ->> SAVE TITLE
     function saveTitle(title,type) {
       if(titleContent != title.get('html')) {
-        
+ 
         // var
         var jsLoadingCircle = new Element('div',{'class': 'smallLoadingCircle'});
         var removeLoadingCircle = function(){};
@@ -942,7 +942,7 @@ window.addEvent('domready', function() {
         
         // save the title
         new Request({
-          url: feindura_basePath + 'slibrary/processes/frontendEditing.process.php',
+          url: feindura_basePath + 'library/processes/frontendEditing.process.php',
           method: 'post',
           data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
           
@@ -965,7 +965,8 @@ window.addEvent('domready', function() {
       			  // -> UPDATE the TITLE everywhere
               title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
               $('edit_title').set('value',html);
-              $$('#leftSidebar .verticalButtons a.active span')[0].set('html',html)
+              $$('#leftSidebar .verticalButtons a.active span')[0].set('html',html);
+              titleContent = $('editablePageTitle').get('html');
         			// display document saved
         			showDocumentSaved();
             });

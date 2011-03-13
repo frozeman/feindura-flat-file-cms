@@ -110,9 +110,51 @@ if($_GET['site'] == 'addons') {
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
   
+  <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
+  
+  <!-- thirdparty/StaticScroller (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
+  
+  <!-- thirdparty/CountDown (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/CountDown/PeriodicalExecuter.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CountDown/CountDown.js"></script>
+	
+  <!-- thirdparty/CodeMirror -->
+  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>
+  
+  <!-- thirdparty/CustomFormElements 
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/replace/cfe.replace.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.checkbox.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.radio.js"></script>
+  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
+<?php
+  if(!empty($_GET['page'])) { ?>
+  
+  <!-- thirdparty/CKEditor -->
+  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
+  
+  <!-- thirdparty/MooRTE -->
+  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js"></script>
+<?php
+  }
+  if($adminConfig['user']['fileManager'] && ($_GET['site'] == 'pages' || !empty($_GET['page']))) { ?>
+  
+  <!-- thirdparty/MooTools-FileManager -->
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
+<?php } ?>
+ 
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
+  <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
+  <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
+  <script type="text/javascript" src="library/javascripts/content.js"></script>
   
   <script type="text/javascript">
   /* <![CDATA[ */
@@ -122,9 +164,78 @@ if($_GET['site'] == 'addons') {
     ERRORWINDOW_TITLE:      '<?= $langFile['errorWindow_h1']; ?>',
     ERROR_SAVE:             '<?= $langFile['editor_savepage_error_save']; ?>'    
   };
+  
+  window.addEvent('domready', function () {
+    <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
+    // ->> include filemanager
+    var hideFileManager = function(){this.hide();}
+    var fileManager = new FileManager({
+        url: 'library/processes/filemanager.process.php',
+        assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
+        language: '<?= $_SESSION["language"]; ?>',
+        uploadAuthData: {session: '<?php echo session_id(); ?>'},
+        destroy: true,
+        upload: true,
+        rename: true,
+        createFolders: true,
+        download: true,
+        hideOnClick: true,
+        hideOverlay: true,
+        onShow: function() {
+            $('dimmContainer').setStyle('opacity',0);
+            $('dimmContainer').setStyle('display','block');
+            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+            $('dimmContainer').tween('opacity',0.5);
+            $('dimmContainer').addEvent('click',hideFileManager.bind(this));
+          },
+        onHide: function() {
+            $('dimmContainer').removeEvent('click',hideFileManager);
+            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+            $('dimmContainer').tween('opacity',0);
+            $('dimmContainer').get('tween').chain(function() {
+              $('dimmContainer').setStyle('display','none');
+            });
+          }
+    });
+    fileManager.filemanager.setStyle('width','75%');
+    fileManager.filemanager.setStyle('height','70%');
+
+    // -> open filemanager when button get clicked
+    $$('a.fileManager').each(function(fileManagerButton){
+      fileManagerButton.addEvent('click',function(e){
+        e.stop();
+        fileManager.show();
+      });
+    });
+    <?php } ?>
+    
+    // ->> starts the session counter
+    var div = $('sessionTimer'),
+    coundown = new CountDown({
+      //initialized 30s from now
+      date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
+      //update every 100ms
+      frequency: 100,
+      //update the div#counter
+      onChange: function(counter) {
+        var text = '';
+        if(counter.hours < 1 && counter.minutes < 10) {
+          div.removeClass('blue');
+          div.addClass('red');
+        }
+        text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
+        text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
+        text += (counter.second > 9 ? '' : '0') + counter.second;
+        div.set('text', text);
+      },
+      //complete
+      onComplete: function () {
+        window.location = 'index.php?logout';
+      }
+    })
+  })
   /* ]]> */
   </script>
-  
 </head>
 <body>
   <div id="dimmContainer">
@@ -448,125 +559,6 @@ if($_GET['site'] == 'addons') {
     </div>
   </div>
   
-  <!-- ************************************************************************************************************ -->
-  <!-- JAVASCRIPT -->
-  
-  <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
-  
-  <!-- thirdparty/StaticScroller (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
-  
-  <!-- thirdparty/CountDown (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/CountDown/PeriodicalExecuter.js"></script>
-  <script type="text/javascript" src="library/thirdparty/CountDown/CountDown.js"></script>
-	
-  <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>
-  
-  <!-- thirdparty/CustomFormElements 
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/replace/cfe.replace.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.checkbox.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.radio.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
-<?php
-  if(!empty($_GET['page'])) { ?>
-  
-  <!-- thirdparty/CKEditor -->
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
-  
-  <!-- thirdparty/MooRTE -->
-  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js"></script>
-<?php
-  }
-  if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
-  
-  <!-- thirdparty/MooTools-FileManager -->
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
-<?php } ?>
- 
-  <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
-  <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
-  <script type="text/javascript" src="library/javascripts/content.js"></script>
-  
-  <script type="text/javascript">
-  /* <![CDATA[ */  
-  window.addEvent('domready', function () {
-    <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
-    // ->> include filemanager
-    var hideFileManager = function(){this.hide();}
-    var fileManager = new FileManager({
-        url: 'library/processes/filemanager.process.php',
-        assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
-        language: '<?= $_SESSION["language"]; ?>',
-        uploadAuthData: {session: '<?php echo session_id(); ?>'},
-        destroy: true,
-        upload: true,
-        rename: true,
-        createFolders: true,
-        download: true,
-        hideOnClick: true,
-        hideOverlay: true,
-        onShow: function() {
-            $('dimmContainer').setStyle('opacity',0);
-            $('dimmContainer').setStyle('display','block');
-            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-            $('dimmContainer').tween('opacity',0.5);
-            $('dimmContainer').addEvent('click',hideFileManager.bind(this));
-          },
-        onHide: function() {
-            $('dimmContainer').removeEvent('click',hideFileManager);
-            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-            $('dimmContainer').tween('opacity',0);
-            $('dimmContainer').get('tween').chain(function() {
-              $('dimmContainer').setStyle('display','none');
-            });
-          }
-    });
-    fileManager.filemanager.setStyle('width','75%');
-    fileManager.filemanager.setStyle('height','70%');
 
-    // -> open filemanager when button get clicked
-    $$('a.fileManager').each(function(fileManagerButton){
-      fileManagerButton.addEvent('click',function(e){
-        e.stop();
-        fileManager.show();
-      });
-    });
-    <?php } ?>
-    
-    // ->> starts the session counter
-    var div = $('sessionTimer'),
-    coundown = new CountDown({      
-      //initialized 30s from now
-      date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
-      //update every 100ms
-      frequency: 100,
-      //update the div#counter
-      onChange: function(counter) {
-        var text = '';
-        if(counter.hours < 1 && counter.minutes < 10) {
-          div.removeClass('blue');
-          div.addClass('red');
-        }
-        text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
-        text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
-        text += (counter.second > 9 ? '' : '0') + counter.second;
-        div.set('text', text);
-      },
-      //complete
-      onComplete: function () {
-        window.location = 'index.php?logout';
-      }
-    })
-  })
-  /* ]]> */
-  </script>
 </body>
 </html>
