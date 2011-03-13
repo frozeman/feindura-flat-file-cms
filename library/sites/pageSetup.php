@@ -16,7 +16,7 @@
  * 
  * sites/pageSetup.php 
  * 
- * @version 1.22
+ * @version 1.2.3
  */
 
 
@@ -318,6 +318,10 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           $categoryName = (empty($category['name']))
             ? '<i>'.$langFile['pageSetup_createCategory_unnamed'].'</i>'
             : $category['name'];
+            
+          $autofocus = (empty($category['name']))
+            ? ' autofocus="autofocus"'
+            : '';
           
           echo '<tr><td class="left">';
           echo '<span style="font-size:20px;font-weight:bold;">'.$categoryName.'</span><br />ID '.$category['id'];
@@ -333,7 +337,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           echo '<tr><td class="left">
                 <label for="categories'.$category['id'].'name">'.$langFile['pageSetup_field1'].'</label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.$category['name'].'" />
+                <input id="categories'.$category['id'].'name" name="categories['.$category['id'].'][name]" value="'.$category['name'].'"'.$autofocus.' />
                 </td></tr>';
           
           echo '<tr><td class="leftBottom"></td><td>';

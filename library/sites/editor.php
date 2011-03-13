@@ -40,9 +40,18 @@ if(!$newPage)
 <?php
 
 // shows ID and different header color if its a CATEGORY
-$headerColor = ($_GET['category'] != 0)
+$headerColorClass = ($_GET['category'] != 0)
   ? 'blue' //" comes in the h1
   : 'brown'; //" comes in the h1
+
+// adds the page and category IDs for the MooRTE saving of the title
+$titleIDs = (!$newPage)
+  ? ' data-feindura="feindura_pageId'.$_GET['page'].' feindura_categoryId'.$_GET['category'].'"'
+  : '';
+
+$titleIsEditable = (!$newPage)
+  ? ' id="editablePageTitle"'
+  : '';
 
 // -> show NEWPAGE ICON
 if($newPage) {
@@ -61,7 +70,7 @@ $categorySorting = ($categoryConfig[$_GET['category']]['sortByPageDate'])
   : '';
 
 // -> show the page PAGE HEADLINE
-echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColor.'">'.$pageTitle.$categorySorting.'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
+echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleIDs.'>'.$pageTitle.$categorySorting.'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
 
 ?>
   <div class="content">   
@@ -95,11 +104,11 @@ echo '<h1 class="'.$headerColor.$startPageTitle.'">'.$newPageIcon.$startPageIcon
       $randomImage = '?'.md5(uniqid(rand(),1));
       
       echo '<br /><div style="z-index:5; position:relative; margin-bottom: 10px; float:right; line-height:28px; text-align:center;">';
-      echo '<span class="thumbnailToolTip" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br />';
+      echo '<span class="thumbnailToolTip" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'">'.$langFile['THUMBNAIL_TEXT_NAME'].'</span><br />';
       echo '<span class="deleteIcon">';
       echo '<a href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"" class="deleteIcon toolTip"></a>';
       echo '<a href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" class="image">';
-      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'::" />';
+      echo '<img src="'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].$randomImage.'" class="thumbnailPreview thumbnailToolTip"'.$thumbnailWidth.' alt="thumbnail" title="::'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" />';
       echo '</a>';
       echo '</span>';
       echo '</div>';
@@ -381,16 +390,19 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <tr><td class="leftTop"></td><td></td></tr>
       
       <!-- ***** PAGE TITLE -->
-      
+      <?php
+        $autofocus = ($newPage)
+          ? ' autofocus="autofocus"'
+          : '';
+      ?>
       <tr><td class="left">
       <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_title'].'::'.$langFile['editor_pageSettings_title_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_title'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" style="width:492px;" value="<?php echo str_replace('"','&quot;',$pageContent['title']); ?>" />        
+        <input id="edit_title" name="title" style="width:492px;" value="<?= str_replace('"','&quot;',$pageContent['title']).'"'.$autofocus; ?> />        
       </td></tr>
       
-      <!-- ***** PAGE DESCRIPTION -->
-      
+      <!-- ***** PAGE DESCRIPTION -->      
       <tr><td class="left">
       <label for="edit_description"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_field1'].'::'.$langFile['editor_pageSettings_field1_tip']; ?>">
       <?php echo $langFile['editor_pageSettings_field1']; ?></span></label>

@@ -58,15 +58,9 @@ function feindura_loadingCircle(holderid, R1, R2, count, stroke_width, colour) {
     };
 }
 
-/* str_replace function */
-function feindura_is_array(value) {
-   if (typeof value === 'object' && value && value instanceof Array) {
-      return true;
-   }
-   return false;
-}
+// str_replace function
 function feindura_str_replace(s, r, c) {
-   if (feindura_is_array(s)) {
+   if (typeof s === 'object' && s && s instanceof Array) {
       for(i=0; i < s.length; i++) {
          c = c.split(s[i]).join(r[i]);
       }
@@ -77,7 +71,7 @@ function feindura_str_replace(s, r, c) {
    return c;
 }
 
-// stores the title text in the elements storage
+// -> STORES the title text in the elements storage
 function feindura_storeTipTexts(elements) {
   $$(elements).each(function(element,index) {
 
@@ -95,4 +89,12 @@ function feindura_storeTipTexts(elements) {
   		element.store('tip:text', content[1]);    		
   	}
 	});
+}
+
+// -> STORES the page ID and category ID in the editable element storage
+function feindura_setPageIds(editable) {
+  var ids = editable.get('data-feindura').split(' ');
+  editable.store('page', ids[0].substr(15));
+  editable.store('category', ids[1].substr(19));
+  return editable;
 }

@@ -300,8 +300,9 @@ span.red, label.red, h1.red, ul.red, div.red {
     z-index: 17;
     visibility: hidden;
     position: fixed; /* absolute */
-    top: 20%; /*top: 100px; left: 270px;*/
+    top: 50%; /*top: 100px; left: 270px;*/
     left: 480px;
+    margin-top: -132px;
     margin-left: auto;
     margin-right: auto;
     width: 246px;

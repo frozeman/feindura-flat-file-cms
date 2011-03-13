@@ -786,6 +786,42 @@ a#hotKeysToogle:hover {
   color: #879095;
 }
 
+/* EDITABLE TITLE in editor */
+span#editablePageTitle {
+  position: relative;
+  outline: none;
+  resize: none;
+  display: inline-block;
+}
+span#editablePageTitle:hover {
+  border: 1px solid #fff;
+  margin: -7px;
+  padding: 6px;
+  -webkit-box-shadow: 0px 0px 10px #ccc;
+  -moz-box-shadow: 0px 0px 10px #ccc;
+  -o-box-shadow: 0px 0px 10px #ccc;
+  box-shadow: 0px 0px 10px #ccc;
+}
+span#editablePageTitle:focus {
+  border: 1px solid #fff;
+  margin: -7px;
+  padding: 6px;
+  -webkit-box-shadow: 0px 0px 10px #ccc;
+  -moz-box-shadow: 0px 0px 10px #ccc;
+  -o-box-shadow: 0px 0px 10px #ccc;
+  box-shadow: 0px 0px 10px #ccc;
+}
+
+/* titleLoadingCircle */
+.smallLoadingCircle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 20px;
+  margin-top: -10px;
+}
+
 /****************/	
 /* - BLOCK EDITOR LINKS  
 

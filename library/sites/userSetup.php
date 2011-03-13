@@ -123,10 +123,13 @@ if($unwriteableList && checkBasePath()) {
                 $markUsername = (empty($user['username']))
                   ? ' class="toolTip red" title="'.$langFile['userSetup_username_missing'].'::"'
                   : '';
+                $autofocus = (empty($user['username']))
+                  ? ' autofocus="autofocus"'
+                  : '';
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['userSetup_username'].'</label>
                 </td><td class="right">
-                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off" />
+                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off"'.$autofocus.' />
                 </td></tr>';
                 
                 // user email

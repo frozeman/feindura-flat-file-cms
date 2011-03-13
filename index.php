@@ -114,6 +114,17 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
   <script type="text/javascript" src="library/javascripts/loading.js"></script>
   
+  <script type="text/javascript">
+  /* <![CDATA[ */
+  // transport feindura PHP vars to javascript
+  var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
+  var feindura_langFile = {
+    ERRORWINDOW_TITLE:      '<?= $langFile['errorWindow_h1']; ?>',
+    ERROR_SAVE:             '<?= $langFile['editor_savepage_error_save']; ?>'    
+  };
+  /* ]]> */
+  </script>
+  
 </head>
 <body>
   <div id="dimmContainer">
@@ -459,11 +470,16 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.checkbox.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.radio.js"></script>
   <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
-  <?php if(!empty($_GET['page'])) { ?>
+<?php
+  if(!empty($_GET['page'])) { ?>
   
   <!-- thirdparty/CKEditor -->
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
-  <?php }
+  
+  <!-- thirdparty/MooRTE -->
+  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js"></script>
+<?php
+  }
   if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
   
   <!-- thirdparty/MooTools-FileManager -->
@@ -472,7 +488,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
-  <?php } ?>
+<?php } ?>
  
   <!-- javascripts -->
   <script type="text/javascript" src="library/javascripts/sidebar.js"></script>
@@ -480,7 +496,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/javascripts/content.js"></script>
   
   <script type="text/javascript">
-  /* <![CDATA[ */
+  /* <![CDATA[ */  
   window.addEvent('domready', function () {
     <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
     // ->> include filemanager

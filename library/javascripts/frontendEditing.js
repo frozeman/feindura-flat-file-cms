@@ -37,7 +37,7 @@
   var loadingFill = new Element('div',{'class':'feindura_loadingFill'});
   var finishPicture = new Element('div',{'class':'feindura_editFinishIcon'});
   var editDisabledIcon = new Element('div',{'class':'feindura_editDisabledIcon'});
-  var removeLoadingCircle;
+  var removeLoadingCircle = function(){};
   
   var feinduraMooRTE;
   
@@ -56,11 +56,8 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> SAVE PAGE
   function savePage(pageBlock,type) {
-    if(pageSaved === false && pageContent != pageBlock.get('html')) {    
-      // removes eventually existing loadingCircleContainers
-      $$('.feindura_loadingCircleContainer').each(function(container){
-        container.destroy();
-      });      
+    if(pageSaved === false && pageContent != pageBlock.get('html')) {
+      pageBlock.getChildren('#rteMozFix').destroy();    
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
       // save the page
@@ -80,11 +77,9 @@
     new Request({
       url: url,
       method: method,
-      
-      //-----------------------------------------------------------------------------
+
       onRequest: function() { //-----------------------------------------------------		
-        
-        // -> ADD the LOADING CIRCLE
+
         // -> TWEEN jsLoadingCircleContainer
     		if(!pageBlock.get('html').contains(loadingFill))
     		  pageBlock.grab(loadingFill,'top');
@@ -92,12 +87,12 @@
         loadingFill.setStyle('opacity',0);
         loadingFill.tween('opacity',0.8);
         
+        // -> ADD the LOADING CIRCLE
         if(!pageBlock.get('html').contains(jsLoadingCircle))
     		  pageBlock.grab(jsLoadingCircle,'top');
     		centerOnElement(jsLoadingCircle,pageBlock);
     		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");        
       },
-      //-----------------------------------------------------------------------------
   		onSuccess: function(html) { //-------------------------------------------------
   			
   			// -> fade out the loading fill
@@ -111,32 +106,26 @@
   			jsLoadingCircle.set('tween',{duration: 200});
   			jsLoadingCircle.fade('out');
   			jsLoadingCircle.get('tween').chain(function(){
-  			   // -> REMOVE the LOADING CIRCLE
-  			   removeLoadingCircle();
-           jsLoadingCircle.dispose();
-           // display finish picture
-  			   pageBlock.grab(finishPicture,'top');
+          // -> REMOVE the LOADING CIRCLE
+          removeLoadingCircle();
+          jsLoadingCircle.dispose();
+          // display finish picture
+          pageBlock.grab(finishPicture,'top');
+          centerOnElement(finishPicture,pageBlock);
+          finishPicture.set('tween',{duration: 400});
+          finishPicture.fade('in');
+          finishPicture.get('tween').chain(function(){
+            finishPicture.tween('opacity',0);
+          }).chain(function(){
+            finishPicture.dispose();
+            // -> UPDATE the pageBlock CONTENT
+            if(update)
+              pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");   
+          });
         });
-  			
-  			centerOnElement(finishPicture,pageBlock);
-        finishPicture.set('tween',{duration: 400});
-        finishPicture.fade('in');
-        finishPicture.get('tween').chain(function(){
-          finishPicture.tween('opacity',0);
-        }).chain(function(){
-          finishPicture.dispose();
-          // -> UPDATE the pageBlock CONTENT
-          if(update) {
-            pageBlock.set('html', html);
-      			//Inject the new DOM elements into the results div.
-      			//pageBlock.adopt(html);
-          }        
-        });
-  
   		},
-  		//-----------------------------------------------------------------------------
-  		//Our request will most likely succeed, but just in case, we'll add an
-  		//onFailure method which will let the user know what happened.
+  		// The request will most likely succeed, but just in case, we'll add an
+  		// onFailure method which will let the user know what happened.
   		onFailure: function() { //-----------------------------------------------------
         
         // creates the errorWindow
@@ -236,19 +225,7 @@
       showDelay: 200,
       hideDelay: 0 });
   }
-  
-  /* ---------------------------------------------------------------------------------- */
-  // ->> GET PAGE ID
-  function setPageIds(pageBlock) {
-    if(pageBlock.hasClass('feindura_editPage') || pageBlock.hasClass('feindura_editPageDisabled')  || pageBlock.hasClass('feindura_editTitle')) {
-      var classes = pageBlock.get('class').split(' ');
-      pageBlock.store('page', classes[1].substr(15));
-      pageBlock.store('category', classes[2].substr(19));
-      return true;
-    } else
-      return false;
-  }
-  
+
   /* ---------------------------------------------------------------------------------- */
   // ->> deactivate frontend editing
   function deactivate(instant) {
@@ -434,7 +411,7 @@
         editableTitles.push(pageBlock);
       
       // STORE page IDS in the elements storage
-      setPageIds(pageBlock);
+      feindura_setPageIds(pageBlock);
       
       // save on blur
       pageBlock.addEvent('blur', function(e) {
@@ -457,7 +434,7 @@
       
     });
     $$('div.feindura_editPageDisabled').each(function(pageBlock) {
-      setPageIds(pageBlock);
+      feindura_setPageIds(pageBlock);
       nonEditableBlocks.push(pageBlock);
       
       pageBlock.addEvents({

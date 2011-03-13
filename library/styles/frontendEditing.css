@@ -124,7 +124,6 @@ div.feindura_editPage,  div.feindura_editPageDisabled, span.feindura_editTitle {
   resize: none;
   display: inline-block;
 }
-
 div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_editTitle:hover {
   border: 1px solid #ccc;
   margin: -7px;
@@ -134,7 +133,6 @@ div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_
   -o-box-shadow: 0px 0px 5px #ccc;
   box-shadow: 0px 0px 5px #ccc;
 }
-
 div.feindura_editPage:focus, span.feindura_editTitle:focus {
   border: 1px solid #ccc;
   margin: -7px;
@@ -144,7 +142,6 @@ div.feindura_editPage:focus, span.feindura_editTitle:focus {
   -o-box-shadow: 0px 0px 5px #ccc;
   box-shadow: 0px 0px 5px #ccc;
 }
-
 div.feindura_editPageDisabled:hover {
   background-color: #fff;
   filter: alpha(opacity=70);

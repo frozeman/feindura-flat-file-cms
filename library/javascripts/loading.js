@@ -31,6 +31,21 @@ function layoutFix() {
   }
 }
 
+function showDocumentSaved() {
+  // start tween
+  $('documentSaved').setStyle('display','block');
+  $('documentSaved').fade('hide');
+  $('documentSaved').tween('opacity','1');
+  
+  // hide the documentsaved, after blending in and out
+  $('documentSaved').get('tween').chain(function() {      
+    $('documentSaved').tween('opacity','0');
+  }).chain(function(){
+    $('documentSaved').setStyle('display','none');
+    $('documentSaved').removeClass('saved');
+  });
+}
+
 // create loading circle container
 var jsLoadingCircleContainer = new Element('div', {'style': 'position: relative;margin: auto;width: 100%;height: 100%;'});
 var removeLoadingCircle = false;
@@ -41,8 +56,8 @@ var removeLoadingCircle = false;
 */
 window.addEvent('domready', function() {
   
-  var loadingBox = $('loadingBox').getChildren('.content');
   layoutFix();
+  var loadingBox = $('loadingBox').getChildren('.content');
 
   // ->> SHOW the loading circle 
   if($('content') != null && loadingBox != null &&
@@ -112,22 +127,9 @@ window.addEvent('domready', function() {
   
   // ->> if DOCUMENT SAVED has given the class from the php script
   if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {
-
     // set tween
     $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
-    
-    // start tween
-    $('documentSaved').fade('hide');
-    $('documentSaved').tween('opacity','1');
-    
-    // hide the documentsaved, after blending in and out
-    $('documentSaved').get('tween').chain(function() {      
-      $('documentSaved').tween('opacity','0');
-    }).chain(function(){
-      $('documentSaved').setStyle('display','none');
-      $('documentSaved').removeClass('saved');
-    });
-    
-    //$('documentSaved').fireEvent('load', $('documentSaved'), 300);    
+    // display document saved
+    showDocumentSaved();  
   }
-  });
+});

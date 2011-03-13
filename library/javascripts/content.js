@@ -832,7 +832,6 @@ window.addEvent('domready', function() {
   */  
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
-     
   if($('HTMLEditor') != null) { 
     
     // vars
@@ -842,7 +841,7 @@ window.addEvent('domready', function() {
     var editorSubmited = false;
     var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
     $('HTMLEditorSubmit').setStyle('height',0);
-    $$('#content .editor .content').setStyle('display','block');    
+    $$('#content .editor .content').setStyle('display','block'); // shows the hot keys  
     
     // ------------------------------
     // CONFIG the HTMlEditor
@@ -893,8 +892,8 @@ window.addEvent('domready', function() {
   	  
   	  var editorTweenTimeout;
   	  
-      $$('div.editor').addEvent('mouseenter',function(e){
-        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1500);
+      $('cke_HTMLEditor').addEvent('mouseenter',function(e){
+        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
       });
       $$('div.editor').addEvent('mouseleave',function(e){
         clearTimeout(editorTweenTimeout);
@@ -918,8 +917,121 @@ window.addEvent('domready', function() {
         editorSubmited = true;
       });
     });
+  }
+  // ->> make PAGE TITLE EDITABLE
+  if($('editablePageTitle') != null) {
     
+    // vars
+    var titleSaved = false;
+    var titleContent = '';
     
+    $('editablePageTitle').moorte({location:'none'});
+    
+    // ->> SAVE TITLE
+    function saveTitle(title,type) {
+      if(titleContent != title.get('html')) {
+        
+        // var
+        var jsLoadingCircle = new Element('div',{'class': 'smallLoadingCircle'});
+        var removeLoadingCircle = function(){};
+        
+        // url encodes the string
+        title.getChildren('#rteMozFix').destroy();
+        var content = encodeURIComponent(title.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
+        //request(title,,,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+        
+        // save the title
+        new Request({
+          url: feindura_basePath + 'library/processes/frontendEditing.process.php',
+          method: 'post',
+          data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
+          
+          onRequest: function() {
+            
+            // -> ADD the LOADING CIRCLE     
+            if(!title.get('html').contains(jsLoadingCircle))
+        		  title.grab(jsLoadingCircle,'top');
+        		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");  
+          },
+      		onSuccess: function(html) {
+      			
+      			// -> fade out the loadingCircle
+      			jsLoadingCircle.set('tween',{duration: 200});
+      			jsLoadingCircle.fade('out');
+      			jsLoadingCircle.get('tween').chain(function(){
+              // -> REMOVE the LOADING CIRCLE
+              removeLoadingCircle();
+              jsLoadingCircle.dispose();
+      			  // -> UPDATE the TITLE everywhere
+              title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
+              $('edit_title').set('value',html);
+              $$('#leftSidebar .verticalButtons a.active span')[0].set('html',html)
+        			// display document saved
+        			showDocumentSaved();
+            });
+      		},
+      		//-----------------------------------------------------------------------------
+      		//Our request will most likely succeed, but just in case, we'll add an
+      		//onFailure method which will let the user know what happened.
+      		onFailure: function() { //-----------------------------------------------------
+            
+            // creates the errorWindow
+            var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
+            errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': feindura_langFile.ERRORWINDOW_TITLE}));
+            var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+feindura_langFile.ERROR_SAVE+'</p>'});
+            var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
+            errorWindowContent.grab(errorWindowOkButton);
+            errorWindow.grab(errorWindowContent);
+            errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
+            
+            // add functionality to the ok button
+            errorWindowOkButton.addEvent('click',function(e) {
+              e.stop();
+              errorWindow.fade('out');
+              errorWindow.get('tween').chain(function(){
+                errorWindow.destroy();
+              });
+            });
+            
+            /*
+            // -> fade out the loadingCircle
+            if(!title.get('html').contains(jsLoadingCircle))
+              pageBlock.grab(jsLoadingCircle,'top');
+      			jsLoadingCircle.set('tween',{duration: 200});
+      			jsLoadingCircle.fade('out');
+      			jsLoadingCircle.get('tween').chain(function(){
+      			   // -> REMOVE the LOADING CIRCLE
+      			   removeLoadingCircle();
+      			   jsLoadingCircle.dispose();
+      			   // add errorWindow
+               $(document.body).grab(errorWindow,'top');
+            });
+            */
+      $(document.body).grab(errorWindow,'top');
+      		}
+        }).send();
+        
+        titleSaved = true;
+      }
+    }
+    
+    // ->> GO TROUGH ALL EDITABLE BLOCK
+    
+    // STORE page IDS in the elements storage
+    feindura_setPageIds($('editablePageTitle'));
+    
+    // save on blur
+    $('editablePageTitle').addEvent('blur', function(e) {
+      if($(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
+          saveTitle($(e.target),'title');   
+      }
+    });    
+    // on focus
+    $('editablePageTitle').addEvent('focus', function() {
+      titleContent = $('editablePageTitle').get('html');
+      if(titleSaved)
+        titleSaved = false;
+    });
   }
 
   // -----------------------------------------

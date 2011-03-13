@@ -1782,7 +1782,7 @@ class feindura extends feinduraBase {
                                       $this->titleCategorySeparator);                                      
           
           if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION)
-            $title = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$title.'</span>';
+            $title = '<span class="feindura_editTitle" data-feindura="feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$title.'</span>';
           
           return $title;
           
@@ -1886,12 +1886,12 @@ class feindura extends feinduraBase {
           // -> adds the frontend editing container
           if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
             
-            $generatedPage['title'] = '<span class="feindura_editTitle feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
+            $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="feindura_pageId'.$page.' feindura_categoryId'.$category.'">'.$generatedPage['title'].'</span>';
             
             if(!preg_match('#<script.*>#',$generatedPage['content']))
-              $generatedPage['content'] = "\n".'<div class="feindura_editPage feindura_pageId'.$page.' feindura_categoryId'.$category.'" style="display:inline-block;">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="feindura_pageId'.$page.' feindura_categoryId'.$category.'" style="display:inline-block;">'.$generatedPage['content'].'</div>'."\n";
             else
-              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled feindura_pageId'.$page.' feindura_categoryId'.$category.' feindura_toolTip" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="feindura_pageId'.$page.' feindura_categoryId'.$category.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }
           unset($generatedPage['error']);
           

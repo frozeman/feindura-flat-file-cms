@@ -32,14 +32,6 @@ if($_POST['save'] == 'true') {
   // read the page
   $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
   
-  // TEMPORARY clean "<p id="rteMozFix">&nbsp;</p>"
-  $_POST['data'] = str_replace("<p id=\"rteMozFix\" style=\"display: none;\"><br></p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p id=\"rteMozFix\" style=\"display: none;\"><br /></p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p id=\"rteMozFix\" style=\"display: none;\">&nbsp;</p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p style=\"display: none;\"><br></p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p style=\"display: none;\"><br /></p>",'',$_POST['data']);
-  $_POST['data'] = str_replace("<p style=\"display: none;\">&nbsp;</p>",'',$_POST['data']);
-  
   // -> replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
@@ -60,7 +52,6 @@ if($_POST['save'] == 'true') {
   
   $return = str_replace("\'", "'", $return);
   $return = str_replace('\"', '"', $return);
-  $return .= '<p id="rteMozFix" style="display: none;"><br></p>';
   
   echo $return;
 }
