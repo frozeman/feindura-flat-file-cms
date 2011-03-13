@@ -942,7 +942,7 @@ window.addEvent('domready', function() {
         
         // save the title
         new Request({
-          url: feindura_basePath + 'library/processes/frontendEditing.process.php',
+          url: feindura_basePath + 'slibrary/processes/frontendEditing.process.php',
           method: 'post',
           data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
           
@@ -982,7 +982,9 @@ window.addEvent('domready', function() {
             var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
             errorWindowContent.grab(errorWindowOkButton);
             errorWindow.grab(errorWindowContent);
-            errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
+            errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));
+            // add errorWindow
+            $(document.body).grab(errorWindow,'top');
             
             // add functionality to the ok button
             errorWindowOkButton.addEvent('click',function(e) {
@@ -991,23 +993,19 @@ window.addEvent('domready', function() {
               errorWindow.get('tween').chain(function(){
                 errorWindow.destroy();
               });
-            });
+            });            
             
-            /*
             // -> fade out the loadingCircle
             if(!title.get('html').contains(jsLoadingCircle))
-              pageBlock.grab(jsLoadingCircle,'top');
+              title.grab(jsLoadingCircle,'top');
       			jsLoadingCircle.set('tween',{duration: 200});
       			jsLoadingCircle.fade('out');
       			jsLoadingCircle.get('tween').chain(function(){
       			   // -> REMOVE the LOADING CIRCLE
       			   removeLoadingCircle();
       			   jsLoadingCircle.dispose();
-      			   // add errorWindow
-               $(document.body).grab(errorWindow,'top');
             });
-            */
-      $(document.body).grab(errorWindow,'top');
+            
       		}
         }).send();
         
@@ -1020,6 +1018,13 @@ window.addEvent('domready', function() {
     // STORE page IDS in the elements storage
     feindura_setPageIds($('editablePageTitle'));
     
+    // save on enter
+    $('editablePageTitle').addEvent('keydown', function(e) {
+      if(e.key == 'enter' && $(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
+          e.stop();
+          saveTitle($(e.target),'title');
+      }
+    });
     // save on blur
     $('editablePageTitle').addEvent('blur', function(e) {
       if($(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {

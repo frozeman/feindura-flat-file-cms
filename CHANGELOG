@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc5
-Build 577
+Build 578
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+  build 578: direct title editing can now be saved with a hit on the enter key
   build 577: add title editing directly in the title, in "edit page"
 
 1.1 rc5
