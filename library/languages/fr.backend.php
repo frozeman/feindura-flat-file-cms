@@ -677,11 +677,9 @@ $langFile['deletePage_finish_error'] = 'ERREUR: La page ne pouvait pas être éf
 */
 
 // ---------- PAGE THUMBNAIL DELETE
-$langFile['pageThumbnailDelete_question_part1'] = 'Vous êtes sur de vraiment';
-$langFile['pageThumbnailDelete_question_part2'] = 'éffacer le thumbnail de cette page?';
-$langFile['pageThumbnailDelete_name'] = 'le thumbnail';
-$langFile['pageThumbnailDelete_notexisting_part2'] = 'n\'existe pas';
-$langFile['pageThumbnailDelete_finish_error'] = 'ERREUR: Le thumbnail ne pouvait pas être éffacée!';
+$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_START'] = 'Vous êtes sur de vraiment';
+$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END'] = 'éffacer le thumbnail de cette page?';
+$langFile['PAGETHUMBNAIL_ERROR_DELETE'] = 'ERREUR: Le thumbnail ne pouvait pas être éffacée!';
 
 /*
 * pageThumbnailUpload.php

@@ -46,24 +46,10 @@ $pageContent = generalFunctions::readPage($page,$category);
 $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
-if(is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
-  $question = '<h1 class="red">'.$langFile['pageThumbnailDelete_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['pageThumbnailDelete_question_part2'].'</h1>';
-
-// NOT EXISTING
-} else {
-  $question = '<h1>'.$langFile['pageThumbnailDelete_name'].' &quot;<span style="color:#000000;">'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail.'</span>&quot; '.$langFile['pageThumbnailDelete_notexisting_part2'].'</h1>
-  <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox(\'index.php?site='.$site.'&amp;category='.$category.'&amp;page='.$page.'\');return false;">&nbsp;</a>';
-  
-  // if the thumbnail doesnt exists, delete it from the pageContent
-  $pageContent['thumbnail'] = '';
-  generalFunctions::savePage($pageContent);
-  
-  // show only the ok button
-  $asking = true;
-}
+$question = '<h1 class="red">'.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_START'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END'].'</h1>';
 
 // DELETING PROCESS
-if($asking && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
+if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail)) {
   @chmod(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail, $adminConfig['permissions']);
     
     // DELETING    
@@ -77,7 +63,7 @@ if($asking && is_file(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['page
         
     } else {
       // DELETING ERROR --------------
-      $question = '<h1>'.$langFile['pageThumbnailDelete_finish_error'].'</h1>
+      $question = '<h1>'.$langFile['PAGETHUMBNAIL_ERROR_DELETE'].'</h1>
       <a href="?category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>'."\n";
     }
 }

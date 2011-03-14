@@ -148,4 +148,10 @@ if($newPage) {
   $pageTitle = strip_tags($pageContent['title']);
 }
 
+// -> check if the thumbnail still exists, if not clear the thumbnail state of the file
+if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
+  $pageContent['thumbnail'] = '';
+  generalFunctions::savePage($pageContent);
+}
+
 ?>

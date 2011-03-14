@@ -740,13 +740,9 @@ $langFile['deletePage_finish_error'] = 'ERROR: The page could not be deleted!';
 */
 
 // ---------- PAGE THUMBNAIL DELETE
-$langFile['pageThumbnailDelete_question_part1'] = 'You really want to delete the thumbnail of the page';
-$langFile['pageThumbnailDelete_question_part2'] = '?';
-
-$langFile['pageThumbnailDelete_name'] = 'The thumbnail';
-$langFile['pageThumbnailDelete_notexisting_part2'] = 'doesn \'t exist';
-
-$langFile['pageThumbnailDelete_finish_error'] = 'ERROR: The thumbnail could not be deleted!';
+$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_START'] = 'You really want to delete the thumbnail of the page';
+$langFile['PAGETHUMBNAIL_TEXT_DELETE_QUESTION_END'] = '?';
+$langFile['PAGETHUMBNAIL_ERROR_DELETE'] = 'ERROR: The thumbnail could not be deleted!';
 
 
 /*
