@@ -369,7 +369,6 @@ div.leftSidebarLoadingCircle {
     
 /* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
 
-/****************/
 /* --- sortPagesMessageBox */
 
 #rightSidebarMessageBox .content {
@@ -407,3 +406,18 @@ div.leftSidebarLoadingCircle {
     left: 50px;
     margin-bottom: 13px;
     }
+
+/* --- currentVisitors */
+
+#currentVisitorsSideBar td {
+  font-size: 11px;
+  padding-left: 10px;
+}
+#currentVisitorsSideBar img {
+  margin-top: 4px;
+}
+#currentVisitorsSideBar h1 {
+  text-align: center;
+  border-bottom: 1px dotted #ccc;
+  margin-bottom: 10px;
+}

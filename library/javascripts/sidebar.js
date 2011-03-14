@@ -223,4 +223,21 @@ window.addEvent('domready', function() {
     // adds static scroller
     new StaticScroller('sidebarSelection');
   }
+
+  // reload the currentVisitors statistic every 1/2 minute
+  if($('currentVisitorsSideBar') != null) {
+    (function(){
+      new Request({
+        url:'library/includes/currentVisitors.include.php',
+        data: 'request=true',
+        onSuccess: function(html) {
+          if(html) {
+            $('currentVisitorsSideBar').set('html','<h1>'+feindura_langFile['STATISTICS_TEXT_CURRENTVISITORS']+'</h1>'+html);
+            setToolTips();
+          } else
+            $('currentVisitorsSideBar').set('html','');
+        }      
+      }).send();
+    }).periodical(30000);
+  }
 });

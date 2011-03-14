@@ -19,6 +19,11 @@
  * @version 0.86
  */
 
+/**
+ * Includes the login.include.php and backend.include.php and filter the basic data
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 ?>
 <div class="block">
   <h1><?php echo $langFile['HOME_TITLE_WELCOME']; ?></h1>
@@ -81,25 +86,13 @@ if(!empty($adminConfig['user']['info'])) {
     // ->> LOAD all PAGES
     $orgPages = generalFunctions::loadPages(true,true);
     $pages = $orgPages;
-    
-    // -> clear cache from visotrs over the timelimit and load current visitors
-    statisticFunctions::hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
-    $currentVisitors = statisticFunctions::getCurrentVisitors();
-    
-    
+
     // --------------------------------
     // USER COUNTER
     echo '<div class="innerBlockLeft">';
     echo '<h2>'.$langFile['STATISTICS_TEXT_VISITORCOUNT'].'</h2>';
-      
-      $latestVisitCacheTimeText = (!empty($currentVisitors[0]['time']))
-        ? $langFile['STATISTICS_TEXT_LASTACTIVITY'].' '.statisticFunctions::formatTime($currentVisitors[0]['time'])
-        : $langFile['STATISTICS_TEXT_CURRENTVISITORS'];
-      
       echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
-      
       echo '<span class="visitCountNumber brown">'.statisticFunctions::formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
-      
       echo '<div style="line-height: 18px;">';
         echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'].'">'.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.statisticFunctions::formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
         // CURRENT VISITORS
@@ -111,7 +104,7 @@ if(!empty($adminConfig['user']['info'])) {
           else
             $countSpider++;
         }
-        echo '<span class="toolTip blue" title="'.$latestVisitCacheTimeText.'::"><b>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</b> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.$countSpider.')</span>';
+        echo '<span class="blue"><b>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</b> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.$countSpider.')</span>';
       echo '</div>';  
       echo '<hr class="small" />';
       echo '</div>';     
@@ -130,46 +123,14 @@ if(!empty($adminConfig['user']['info'])) {
     
     // ---------------------------------
     // -> CURRENT VISITORS
-    if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
+    $currentVisitorFullDetail = true;
+    $currentVisitors = include('library/includes/currentVisitors.include.php');
+    if($currentVisitors) {
       echo '<div class="innerBlockRight">';    
       echo '<h2>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h2>';    
-        echo '<div class="innerBlockListPages">
-              <table class="coloredList">';
-        
-        /*
-         * uses GeoIPLite
-         * 
-         * @link http://geolite.maxmind.com/download/geoip/api/php/
-         * @link http://geolite.maxmind.com/download/geoip/database/
-         */
-        
-        include(dirname(__FILE__).'/../thirdparty/GeoIP/geoip.inc');
-        
-        // open geodates
-        $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
-        
-        $count = 1;      
-        foreach($currentVisitors as $currentVisitor) {
-          if($currentVisitor['ip'] == '::1') continue;
-          $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
-          $geoIPFlag = (!empty($geoIPCode))
-            ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
-            : '';
-          if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider')
-            echo '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>';
-          
-          // change row color
-          $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
-          // count
-          if($count == $statisticConfig['number']['longestVisitedPages']) break;
-          else $count++;
-        }
-        
-        // close geodates
-        geoip_close($geoIP);
-        
-        echo '</table>
-              </div>';                           
+        echo '<div class="innerBlockListPages">';
+        echo $currentVisitors;
+        echo '</div>';
       echo '</div>';
     }
     

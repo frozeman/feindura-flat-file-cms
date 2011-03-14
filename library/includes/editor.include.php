@@ -18,6 +18,12 @@
  * 
  * @version 1.0
  */
+ 
+/**
+ * Includes the login.include.php and backend.include.php and filter the basic data
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+ 
 ?>
 <div class="editor">
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">

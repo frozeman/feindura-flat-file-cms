@@ -19,6 +19,11 @@
  * @version 2.0
  */
 
+/**
+ * Includes the login.include.php and backend.include.php and filter the basic data
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // ->> SHOW the FORM
 echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
       <div>

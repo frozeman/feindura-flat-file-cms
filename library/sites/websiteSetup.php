@@ -19,6 +19,11 @@
  * @version 1.9
  */
 
+/**
+ * Includes the login.include.php and backend.include.php and filter the basic data
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
+
 // CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
 $checkFolders = $adminConfig['basePath'].'config/website.config.php';

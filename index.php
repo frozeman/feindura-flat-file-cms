@@ -163,8 +163,9 @@ if($_GET['site'] == 'addons') {
   // transport feindura PHP vars to javascript
   var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
   var feindura_langFile = {
-    ERRORWINDOW_TITLE:      '<?= $langFile['errorWindow_h1']; ?>',
-    ERROR_SAVE:             '<?= $langFile['editor_savepage_error_save']; ?>'    
+    ERRORWINDOW_TITLE:                '<?= $langFile['errorWindow_h1']; ?>',
+    ERROR_SAVE:                       '<?= $langFile['editor_savepage_error_save']; ?>',
+    STATISTICS_TEXT_CURRENTVISITORS:  '<?= $langFile['STATISTICS_TEXT_CURRENTVISITORS']; ?>'
   };
   
   window.addEvent('domready', function () {

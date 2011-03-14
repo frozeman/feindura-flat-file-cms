@@ -19,6 +19,10 @@
  * @version 1.2.3
  */
 
+/**
+ * Includes the login.include.php and backend.include.php and filter the basic data
+ */
+require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
