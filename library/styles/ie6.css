@@ -23,7 +23,7 @@
     }
 
 /* hack that ie shows the dimm-container with height 100% */
-#dimmContainer {
+#dimContainer {
     position: absolute;
     }
 

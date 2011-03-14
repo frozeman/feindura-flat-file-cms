@@ -23,15 +23,15 @@ var uploadAnimationElement = null;
 // dimms the background and calls: requestSite(site,siteTitle);
 function openWindowBox(site,siteTitle,fixed) {
     
-  $('dimmContainer').setStyle('opacity',0);
-  $('dimmContainer').setStyle('display','block');
+  $('dimContainer').fade('hide');
+  $('dimContainer').setStyle('display','block');
   
-  $('dimmContainer').set('fade', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
-  $('dimmContainer').tween('opacity',0.5);
+  $('dimContainer').set('fade', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
+  $('dimContainer').fade('in');
   
   loadingText = $$('#windowBox .boxTop').get('html');
   
-  $('dimmContainer').get('tween').chain(function(e) {
+  $('dimContainer').get('tween').chain(function(e) {
     if(site) {
       // if fixed is true, than the window positon is relative,
       // means its fixed in the document, and NOT scrolling with the user
@@ -62,13 +62,13 @@ function openWindowBox(site,siteTitle,fixed) {
 
 /* ---------------------------------------------------------------------------------- */
 // fades all windows out and set windowBoxContainer to display:none;
-// and remove alle Events from dimmContainer, windowBox, windowRequestBox
+// and remove alle Events from dimContainer, windowBox, windowRequestBox
 function closeWindowBox(redirectAfter) {
       
 	// resize the box by a slide
 	var SlideWindowBoxClose = new Fx.Slide('windowRequestBox', {duration: 250, transition: Fx.Transitions.Pow.easeIn});
 	$('windowBox').set('tween', {duration: 100, transition: Fx.Transitions.Pow.easeOut});
-	$('dimmContainer').set('tween', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
+	$('dimContainer').set('tween', {duration: 150, transition: Fx.Transitions.Pow.easeOut});
 	
 	// IE HACK, wont bring the bottom div to the top
 	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
@@ -83,9 +83,9 @@ function closeWindowBox(redirectAfter) {
 			$('windowRequestBox').setStyle('height', 'auto');
 			
 			// fades the windowBox
-			$('windowBox').tween('opacity',0);
-			// fades the dimmContainer
-      $('dimmContainer').tween('opacity',0);
+			$('windowBox').fade('out');
+			// fades the dimContainer
+      $('dimContainer').fade('out');
   });
   
   $('windowBox').get('tween').chain(function(e) {
@@ -94,8 +94,8 @@ function closeWindowBox(redirectAfter) {
   });
   
   // last effect
-  $('dimmContainer').get('tween').chain(function(e) {
-	   $('dimmContainer').setStyle('display','none');
+  $('dimContainer').get('tween').chain(function(e) {
+	   $('dimContainer').setStyle('display','none');
 	   $$('#windowBox .boxTop').set('html',loadingText);
 	   
 	   if(redirectAfter)

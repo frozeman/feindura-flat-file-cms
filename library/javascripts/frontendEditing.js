@@ -81,17 +81,18 @@
       onRequest: function() { //-----------------------------------------------------		
 
         // -> TWEEN jsLoadingCircleContainer
-    		if(!pageBlock.get('html').contains(loadingFill))
+    		if(!pageBlock.contains(loadingFill))
     		  pageBlock.grab(loadingFill,'top');
         loadingFill.set('tween',{duration: 100});
         loadingFill.setStyle('opacity',0);
         loadingFill.tween('opacity',0.8);
         
         // -> ADD the LOADING CIRCLE
-        if(!pageBlock.get('html').contains(jsLoadingCircle))
+        if(!pageBlock.contains(jsLoadingCircle))
     		  pageBlock.grab(jsLoadingCircle,'top');
     		centerOnElement(jsLoadingCircle,pageBlock);
-    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");        
+    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
+    		jsLoadingCircle.fade('in');    
       },
   		onSuccess: function(html) { //-------------------------------------------------
   			
@@ -115,7 +116,7 @@
           finishPicture.set('tween',{duration: 400});
           finishPicture.fade('in');
           finishPicture.get('tween').chain(function(){
-            finishPicture.tween('opacity',0);
+            finishPicture.fade('out');
           }).chain(function(){
             finishPicture.dispose();
             // -> UPDATE the pageBlock CONTENT
@@ -154,7 +155,7 @@
   			});
         
         // -> fade out the loadingCircle
-        if(!pageBlock.get('html').contains(jsLoadingCircle))
+        if(!pageBlock.contains(jsLoadingCircle))
           pageBlock.grab(jsLoadingCircle,'top');
   			jsLoadingCircle.set('tween',{duration: 200});
   			jsLoadingCircle.fade('out');

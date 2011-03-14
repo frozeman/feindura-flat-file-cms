@@ -184,18 +184,19 @@ if($_GET['site'] == 'addons') {
         hideOnClick: true,
         hideOverlay: true,
         onShow: function() {
-            $('dimmContainer').setStyle('opacity',0);
-            $('dimmContainer').setStyle('display','block');
-            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-            $('dimmContainer').tween('opacity',0.5);
-            $('dimmContainer').addEvent('click',hideFileManager.bind(this));
+            window.location.hash = '#none';
+            $('dimContainer').setStyle('opacity',0);
+            $('dimContainer').setStyle('display','block');
+            $('dimContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+            $('dimContainer').fade('in');
+            $('dimContainer').addEvent('click',hideFileManager.bind(this));
           },
         onHide: function() {
-            $('dimmContainer').removeEvent('click',hideFileManager);
-            $('dimmContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
-            $('dimmContainer').tween('opacity',0);
-            $('dimmContainer').get('tween').chain(function() {
-              $('dimmContainer').setStyle('display','none');
+            $('dimContainer').removeEvent('click',hideFileManager);
+            $('dimContainer').set('tween', {duration: 350, transition: Fx.Transitions.Pow.easeOut});
+            $('dimContainer').fade('out');
+            $('dimContainer').get('tween').chain(function() {
+              $('dimContainer').setStyle('display','none');
             });
           }
     });
@@ -209,8 +210,10 @@ if($_GET['site'] == 'addons') {
         fileManager.show();
       });
     });
-    <?php } ?>
+    <?php }
     
+    if(!empty($userConfig)) {
+    ?>
     // ->> starts the session counter
     var div = $('sessionTimer'),
     coundown = new CountDown({
@@ -235,12 +238,13 @@ if($_GET['site'] == 'addons') {
         window.location = 'index.php?logout';
       }
     })
+    <?php } ?>
   })
   /* ]]> */
   </script>
 </head>
 <body>
-  <div id="dimmContainer">
+  <div id="dimContainer">
   </div>
 
   <!-- loadingBox -->

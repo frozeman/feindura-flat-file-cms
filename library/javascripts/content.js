@@ -971,7 +971,7 @@ window.addEvent('domready', function() {
           onRequest: function() {
             
             // -> ADD the LOADING CIRCLE     
-            if(!title.get('html').contains(jsLoadingCircle))
+            if(!title.contains(jsLoadingCircle))
         		  title.grab(jsLoadingCircle,'top');
         		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");  
           },
@@ -1019,14 +1019,14 @@ window.addEvent('domready', function() {
             });            
             
             // -> fade out the loadingCircle
-            if(!title.get('html').contains(jsLoadingCircle))
+            if(!title.contains(jsLoadingCircle))
               title.grab(jsLoadingCircle,'top');
-      			jsLoadingCircle.set('tween',{duration: 200});
-      			jsLoadingCircle.fade('out');
-      			jsLoadingCircle.get('tween').chain(function(){
-      			   // -> REMOVE the LOADING CIRCLE
-      			   removeLoadingCircle();
-      			   jsLoadingCircle.dispose();
+        			jsLoadingCircle.set('tween',{duration: 200});
+        			jsLoadingCircle.fade('out');
+        			jsLoadingCircle.get('tween').chain(function(){
+              // -> REMOVE the LOADING CIRCLE
+              removeLoadingCircle();
+              jsLoadingCircle.dispose();
             });
             
       		}

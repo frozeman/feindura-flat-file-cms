@@ -120,15 +120,15 @@ window.addEvent('domready', function() {
   // LAYOUTFIX
   layoutFix();
   
-  // IE HACK for dimmContainer
-	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimmContainer') != null) {
-		$('dimmContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
+  // IE HACK for dimContainer
+	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimContainer') != null) {
+		$('dimContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
 	}
   
   // ->> if DOCUMENT SAVED has given the class from the php script
   if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {
     // set tween
-    $('dimmContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+    $('dimContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
     // display document saved
     showDocumentSaved();  
   }
