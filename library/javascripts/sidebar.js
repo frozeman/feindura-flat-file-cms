@@ -76,7 +76,7 @@ function sidebarMenu() {
       slideContent.getElement('ul').getElements('li').each(function(passedLi) {      
         var textLength = passedLi.getElement('a').getElement('span').offsetWidth;        
         if(maxTextLength < textLength) {
-          maxTextLength = textLength + 40; //+ 10 for padding
+          maxTextLength = textLength + 40; //+ 40 for padding
         }
       });
     	

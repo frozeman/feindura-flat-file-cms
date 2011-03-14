@@ -96,10 +96,10 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       </td><td class="right">
       <?php
         $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
-      $basePath = str_replace('www.','',$adminConfig['url']);
-      $checkPath = str_replace('www.','',$hostProtocol.$_SERVER["HTTP_HOST"]);
+      $baseUrl = str_replace('www.','',$adminConfig['url']);
+      $checkUrl = str_replace('www.','',$hostProtocol.$_SERVER["HTTP_HOST"]);
       ?>
-      <input id="cfg_url" name="cfg_url"<?php if($basePath != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>" />
+      <input id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">

@@ -70,7 +70,7 @@ $categorySorting = ($categoryConfig[$_GET['category']]['sortByPageDate'])
   : '';
 
 // -> show the page PAGE HEADLINE
-echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleIDs.'>'.$pageTitle.$categorySorting.'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
+echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleIDs.'>'.$pageTitle.'</span>'.$categorySorting.'<span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
 
 ?>
   <div class="content">   

@@ -189,19 +189,19 @@ function autoResizeThumbnailPreview() {
         var orgWidth = thumbnail.getSize().x;
         
         // add the width property again
-        thumbnail.setStyle('width',oldWidth + 'px');
+        thumbnail.setStyle('width',oldWidth);
         
         // set tween
         thumbnail.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
         
         //mouseover      
         thumbnail.addEvent('mouseenter',function() {
-          thumbnail.tween('width',orgWidth+'px');
+          thumbnail.tween('width',orgWidth);
         });
         
         // mouseout
         thumbnail.addEvent('mouseleave',function() {
-        thumbnail.tween('width',oldWidth+'px');
+        thumbnail.tween('width',oldWidth);
         });
       
       }
@@ -838,6 +838,7 @@ window.addEvent('domready', function() {
     var editorStandardHeight = 200;
     var editorTweenToHeight = 380;
     var editorHasFocus = false;
+    var editorIsClicked = false;
     var editorSubmited = false;
     var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
     $('HTMLEditorSubmit').setStyle('height',0);
@@ -851,7 +852,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.height                        = editorStandardHeight;
     CKEDITOR.config.resize_minWidth               = 792;
     CKEDITOR.config.resize_maxWidth               = 1400;
-    CKEDITOR.config.resize_minHeight              = editorStandardHeight+136;
+    CKEDITOR.config.resize_minHeight              = (editorStandardHeight+136);
     CKEDITOR.config.resize_maxHeight              = 900;
     CKEDITOR.config.forcePasteAsPlainText         = true;
     CKEDITOR.config.scayt_autoStartup             = false;
@@ -886,31 +887,52 @@ window.addEvent('domready', function() {
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
   	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
   	
-  	// -> adds the slide in/out tweens
+  	// -> adds the EDITOR SLIDE IN/OUT tweens
   	HTMLEditor.on('instanceReady',function() {
   	  $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
   	  
   	  var editorTweenTimeout;
   	  
       $('cke_HTMLEditor').addEvent('mouseenter',function(e){
-        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
+        if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
+        
       });
       $$('div.editor').addEvent('mouseleave',function(e){
         clearTimeout(editorTweenTimeout);
-        if(!editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() == editorTweenToHeight+3) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
+        if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
+        editorIsClicked = false;
+      });
+      $('cke_HTMLEditor').addEvent('mousedown',function(e){
+        editorIsClicked = true;
+        $('cke_contents_HTMLEditor').get('tween').cancel();
+        clearTimeout(editorTweenTimeout);
+      });
+      $('cke_HTMLEditor').addEvent('mouseup',function(e){
+        editorIsClicked = false;
+        $('cke_contents_HTMLEditor').get('tween').cancel();
+        clearTimeout(editorTweenTimeout);
       });
       
       HTMLEditor.on('blur',function() {
         editorHasFocus = false;
         clearTimeout(editorTweenTimeout);
-        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() == editorTweenToHeight+3) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
+        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
         $('HTMLEditorSubmit').tween('height',0);
       });
       HTMLEditor.on('focus',function() {
         editorHasFocus = true;
         clearTimeout(editorTweenTimeout);
-        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() == editorStandardHeight+3) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
         $('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+      });
+      
+      HTMLEditor.on('dialogShow',function() {
+        editorHasFocus = true;
+        clearTimeout(editorTweenTimeout);
+        $('cke_contents_HTMLEditor').get('tween').cancel();
+        $('HTMLEditorSubmit').get('tween').cancel();
+        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) $('cke_contents_HTMLEditor').setStyle('height',editorTweenToHeight);
+        $('HTMLEditorSubmit').setStyle('height',editorSubmitHeight);
       });
       
       $('HTMLEditorSubmit').addEvent('mousedown',function(){
@@ -965,7 +987,7 @@ window.addEvent('domready', function() {
       			  // -> UPDATE the TITLE everywhere
               title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
               $('edit_title').set('value',html);
-              $$('#leftSidebar .verticalButtons a.active span')[0].set('html',html);
+              $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
               titleContent = $('editablePageTitle').get('html');
         			// display document saved
         			showDocumentSaved();

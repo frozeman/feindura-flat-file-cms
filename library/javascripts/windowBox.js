@@ -264,7 +264,7 @@ function stopUploadAnimation() {
 function finishUpload(frameHeight) {
 
   // shows the iframe content
-  if($('uploadTargetFrame').tween('height',frameHeight + 'px'))
+  if($('uploadTargetFrame').tween('height',frameHeight))
   
   // show the ok button
   $('pageThumbnailOkButton').setStyle('display','block');

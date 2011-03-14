@@ -618,7 +618,7 @@ function saveAdminConfig($adminConfig) {
     
     fwrite($file,"\$adminConfig['url'] =              '".xssFilter::url($adminConfig['url'])."';\n");
     fwrite($file,"\$adminConfig['basePath'] =         '".xssFilter::path($adminConfig['basePath'])."';\n");
-    fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'])."';\n");
+    fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'],false,'/')."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".xssFilter::path($adminConfig['uploadPath'])."';\n");  
     fwrite($file,"\$adminConfig['websiteFilesPath'] = '".xssFilter::path($adminConfig['websiteFilesPath'])."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n\n");
