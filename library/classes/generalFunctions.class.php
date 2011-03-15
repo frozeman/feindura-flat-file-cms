@@ -556,7 +556,7 @@ class generalFunctions {
       //echo '<br />LOAD PAGE: '.$page.'<br />';   
       //echo 'CATEGORY: '.$category.'<br />';
     
-      if(@include(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category.$page)) {
+      if(@include(dirname(__FILE__).'/../../pages/'.$category.$page)) {
       
         // UNESCPAE the SINGLE QUOTES '
         $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
@@ -611,13 +611,13 @@ class generalFunctions {
     $categoryId = $pageContent['category'];
     
     // check if category folder exists
-    if($categoryId != 0 && !is_dir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId))
-      @mkdir(DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId,self::$adminConfig['permissions'],true);
+    if($categoryId != 0 && !is_dir(dirname(__FILE__).'/../../pages/'.$categoryId))
+      @mkdir(dirname(__FILE__).'/../../pages/'.$categoryId,self::$adminConfig['permissions'],true);
     
     // get path
     $filePath = ($categoryId === false || $categoryId == 0)
-    ? DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$pageId.'.php'
-    : DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryId.'/'.$pageId.'.php';
+    ? dirname(__FILE__).'/../../pages/'.$pageId.'.php'
+    : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
@@ -759,17 +759,17 @@ class generalFunctions {
              array_key_exists('id',$categoryArray)) {
             // if category == 0, means that the files are saved directly in the pages folder
             if($categoryArray['id'] == 0)
-              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
+              $dir = dirname(__FILE__).'/../../pages/';
             elseif(is_numeric($categoryArray['id']))
-              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryArray['id'];
+              $dir = dirname(__FILE__).'/../../pages/'.$categoryArray['id'];
           
           // *** if its just an array with the ids of the categories
           } else {
             // if category == 0, means that the files are directly saved in the pages folder
             if(is_numeric($categoryArray) && $categoryArray == 0) //$categoryArray === false ||
-              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
+              $dir = dirname(__FILE__).'/../../pages/';
             elseif(is_numeric($categoryArray))
-              $dir = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$categoryArray;
+              $dir = dirname(__FILE__).'/../../pages/'.$categoryArray;
           }
           
           // stores the paths in an array
@@ -777,16 +777,16 @@ class generalFunctions {
         }
     } else {
       if($category === false || (is_numeric($category) && $category == 0))
-        $categoryDirs[0] = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/';
+        $categoryDirs[0] = dirname(__FILE__).'/../../pages/';
       elseif(is_numeric($category))
-        $categoryDirs[0] = DOCUMENTROOT.self::$adminConfig['basePath'].'pages/'.$category;
+        $categoryDirs[0] = dirname(__FILE__).'/../../pages/'.$category;
     }
     
     // LOAD THE FILES out of the dirs
     // goes trough all category dirs and put the page arrays into an array an retun it
     foreach($categoryDirs as $dir) {  
       // opens every category dir and stores the arrays of the pages in an array
-      if(is_dir($dir) && $dir != DOCUMENTROOT) {
+      if(is_dir($dir)) {
         $pages = array();
         
         // checks if its a category or the non-category
@@ -1340,6 +1340,32 @@ class generalFunctions {
     return htmLawed($string,$htmlLawedConfig);
   }
 
+ /**
+  * <b>Name</b> getRealPath()<br />
+  * 
+  * Try to get the real path from a given absolute or relative path.
+  * 
+  * 
+  * <b>Used Constants</b><br />
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * 
+  * @param string $path an absolute or relative path
+  * 
+  * @return string|false the real path, including the DOCUMENTROOT or, FALSE
+  * 
+  * @static
+  * @version 0.1
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 0.1 initial release
+  * 
+  */
+  public static function getRealPath($path) {
+    $path = preg_replace("/\\\+/",'/',$path);
+    $path = (substr($path,0,1) == '/' && strpos($path,DOCUMENTROOT) === false) ? DOCUMENTROOT.$path : $path;
+    $path = preg_replace("/\\\+/", '/',realPath($path));
+    return ($path === '') ? false : preg_replace("/\\\+/", '/',$path);
+  }
 
  /**
   * <b>Name</b> readFolder()<br />
@@ -1364,9 +1390,9 @@ class generalFunctions {
   * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
-  * @param string $folder the absolute path of an folder to read
+  * @param string $folder an absolute or relative path of an folder to read
   * 
-  * @return array|false an array with the folder elements, FALSE if the folder not is a directory
+  * @return array|false an array with the folder elements (without DOCUMENTROOT), FALSE if the folder not is a directory
   * 
   * @static
   * @version 1.01
@@ -1377,44 +1403,23 @@ class generalFunctions {
   * 
   */
   public static function readFolder($folder) {
-    
-    if(empty($folder))
-      return false;
-    
-    //change windows path
-    $folder = str_replace('\\','/',$folder);
 
-    // -> adds / on the beginning of the folder
-    if(substr($folder,0,1) != '/')
-      $folder = '/'.$folder;
-    // -> adds / on the end of the folder
-    if(substr($folder,-1) != '/')
-      $folder .= '/';
-    
-    //clean vars  
-    $folder = preg_replace("/\/+/", '/', $folder);
-    $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);  
+    //vars
+    $folder = self::getRealPath($folder);
+    if(empty($folder)) return false;
     
     // vars
     $return = false;  
-    $fullFolder = $folder;
-    
-    // adds the DOCUMENTROOT  
-    $fullFolder = str_replace(DOCUMENTROOT,'',$fullFolder);  
-    $fullFolder = DOCUMENTROOT.$fullFolder; 
-    
-    
     
     // open the folder and read the content
-    if(is_dir($fullFolder)) {
-      $readFolder = scandir($fullFolder);
-      
+    if(is_dir($folder)) {
+      $readFolder = scandir($folder);
       foreach($readFolder as $inDirObject) {
         if($inDirObject != "." && $inDirObject != "..") {
-          if(is_dir($fullFolder.$inDirObject)) {        
-            $return['folders'][] = $folder.$inDirObject;
-          } elseif(is_file($fullFolder.$inDirObject)) {
-            $return['files'][] = $folder.$inDirObject;
+          if(is_dir($folder.'/'.$inDirObject)) {            
+            $return['folders'][] = str_replace(DOCUMENTROOT,'',$folder.'/'.$inDirObject);
+          } elseif(is_file($folder.'/'.$inDirObject)) {
+            $return['files'][] = str_replace(DOCUMENTROOT,'',$folder.'/'.$inDirObject);
           }
         }
       }
@@ -1446,9 +1451,9 @@ class generalFunctions {
   * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
-  * @param string $folder the absolute path of an folder to read
+  * @param string $folder an absolute or relative path of an folder to read
   * 
-  * @return array|false an array with the folder elements, FALSE if the folder is not a directory
+  * @return array|false an array with the folder elements (without DOCUMENTROOT), FALSE if the folder is not a directory
   * 
   * @static
   * @version 1.0
@@ -1459,20 +1464,12 @@ class generalFunctions {
   */
   public static function readFolderRecursive($folder) {
     
-    if(empty($folder))
-      return false;
-    
-    // adds a slash on the beginning
-    if(substr($folder,0,1) != '/')
-      $folder = '/'.$folder;
-    
-    //clean vars
-    $folder = preg_replace("/\/+/", '/', $folder);
-    $folder = str_replace('/'.DOCUMENTROOT,DOCUMENTROOT,$folder);
+    //vars
+    $folder = self::getRealPath($folder);
+    if(empty($folder)) return false;
     
     //vars  
-    $fullFolder = DOCUMENTROOT.$folder;  
-    $goTroughFolders['folders'][0] = $fullFolder;
+    $goTroughFolders['folders'][0] = $folder;
     $goTroughFolders['files'] = array();
     $subFolders = array();
     $files = array();
@@ -1495,13 +1492,13 @@ class generalFunctions {
         // -> add folders to the $return array
         if(isset($inDirObjects['folders']) && is_array($inDirObjects['folders'])) {
           foreach($inDirObjects['folders'] as $folder) {
-            $return['folders'][] = str_replace(DOCUMENTROOT,'',$folder);
+            $return['folders'][] = $folder;
           }
         }
         // -> add files to the $return array
         if(isset($inDirObjects['files']) && is_array($inDirObjects['files'])) {
           foreach($inDirObjects['files'] as $file) {
-            $return['files'][] = str_replace(DOCUMENTROOT,'',$file);
+            $return['files'][] = $file;
           }
         }
       }
@@ -1537,7 +1534,7 @@ class generalFunctions {
   */
   public static function folderIsEmpty($folder) {
     
-    if(self::readFolder(DOCUMENTROOT.$folder) === false)
+    if(self::readFolder($folder) === false)
       return true;
     else
       return false;
@@ -1570,7 +1567,7 @@ class generalFunctions {
     
     //var
     $return = false;
-    
+
     // ->> goes trough all folder and subfolders
     $filesInFolder = self::readFolderRecursive($folder);
     if(is_array($filesInFolder['files'])) {
@@ -1578,8 +1575,7 @@ class generalFunctions {
         // -> check for CSS FILES
         if(substr($file,-4) == '.css') {
           // -> removes the $adminConfig('basePath')
-          if($backend)          
-            $file = str_replace(self::$adminConfig['basePath'],'',$file);
+          if($backend) $file = str_replace(self::$adminConfig['basePath'],'',$file);
           // -> WRITES the HTML-Style-Tags
           $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'" />'."\n";
         }

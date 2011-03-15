@@ -56,7 +56,6 @@ var removeLoadingCircle = false;
 */
 window.addEvent('domready', function() {
   
-  layoutFix();
   var loadingBox = $('loadingBox').getChildren('.content');
 
   // ->> SHOW the loading circle 

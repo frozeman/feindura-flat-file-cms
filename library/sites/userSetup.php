@@ -16,7 +16,7 @@
  * 
  * sites/userSetup.php
  * 
- * @version 0.12
+ * @version 0.1.2
  */
 
 /**
@@ -28,7 +28,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ----------------------------------------------------------------------------------------
 
 // check config files
-$unwriteableList .= isWritableWarning($adminConfig['basePath'].'config/user.config.php');
+$unwriteableList .= isWritableWarning($adminConfig['realBasePath'].'config/user.config.php');
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {

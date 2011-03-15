@@ -131,8 +131,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       // -> SHOW TASK LOG
       echo '<h1>'.$langFile['HOME_TITLE_ACTIVITY'].'</h1>';
       
-      if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/activity.statistic.log') &&
-         $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/activity.statistic.log')) {
+      if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
+         $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
          
          echo '<div id="sidbarTaskLogScrollUp" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollUp.png) no-repeat;margin-bottom:-30px;"></div>';
          echo '<div id="sidebarTaskLog"><br /><br />';
@@ -269,14 +269,14 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // link the backup files
-      $backups = generalFunctions::readFolder($adminConfig['basePath'].'backups/');      
+      $backups = generalFunctions::readFolder(dirname(__FILE__).'/../backups/');      
       if(!empty($backups['files'])) {
         $lastBackups = '<ul>';
         natsort($backups['files']);
         $backups['files'] = array_reverse($backups['files']);
         foreach($backups['files'] as $backupFile) {
           $backupTime = filemtime(DOCUMENTROOT.$backupFile);
-          
+
           $lastBackups .= '<span class="deleteIcon" style="width:100%;">';
           $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.$backupFile.'" onclick="openWindowBox(\'library/sites/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.$backupFile.'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteIcon toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::" style="top:14px;"></a>';
           $lastBackups .= (strpos($backupFile,'restore') === false)

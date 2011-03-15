@@ -28,24 +28,6 @@
  * 
  */
 
-// ** -- redirect ----------------------------------------------------------------------------------
-// leitet automatisch weiter auf die angegeben seite
-// -----------------------------------------------------------------------------------------------------
-// $goToPage      [seite auf die weitergeleitet werden soll (String)],
-// $goToCategory  [the category in which to redirect (String)],
-// $time          [the time in seconds after which it will redirect (Number)]
-//function redirect($goToCategory, $goToPage, $time = 2) {
-  //global $adminConfig;
-  
-  //echo '<meta http-equiv="refresh" content="'.$time.'; URL='.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">';
-  //echo '<script type="text/javascript">
-    /* <![CDATA[ */
-      //document.location.href = "'.$adminConfig['basePath'].'?category='.$goToCategory.'&page='.$goToPage.'"
-    /* ]]> */
-    //</script>';
-  //echo 'You should be automatically redirected, if not click <a href="'.$adminConfig['basePath'].'?category='.$goToCategory.'&amp;page='.$goToPage.'">here</a>.';
-//}
-
 /**
  * <b>Name</b> showErrorsInWindow()<br />
  * 
@@ -566,13 +548,13 @@ function movePage($page, $fromCategory, $toCategory) {
     ? '' : $toCategory.'/';
   
   // create category folder if its not exist
-  if(!empty($toCategory) && !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory))
-    mkdir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory,$GLOBALS['adminConfig']['permissions'],true);
+  if(!empty($toCategory) && !is_dir(dirname(__FILE__).'/../../pages/'.$toCategory))
+    mkdir(dirname(__FILE__).'/../../pages/'.$toCategory,$GLOBALS['adminConfig']['permissions'],true);
   
   // MOVE categories
-  if(copy(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.$page.'.php',
-    DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$toCategory.$page.'.php') &&
-    unlink(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$fromCategory.$page.'.php')) {
+  if(copy(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php',
+    dirname(__FILE__).'/../../pages/'.$toCategory.$page.'.php') &&
+    unlink(dirname(__FILE__).'/../../pages/'.$fromCategory.$page.'.php')) {
     // reset the stored page ids
     generalFunctions::$storedPages = null;
     generalFunctions::$storedPageIds = null;
@@ -615,16 +597,17 @@ function saveAdminConfig($adminConfig) {
 
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); // < ?php
-    
+
     fwrite($file,"\$adminConfig['url'] =              '".xssFilter::url($adminConfig['url'])."';\n");
     fwrite($file,"\$adminConfig['basePath'] =         '".xssFilter::path($adminConfig['basePath'])."';\n");
+    fwrite($file,"\$adminConfig['realBasePath'] =     '".xssFilter::path($adminConfig['realBasePath'])."';\n");
     fwrite($file,"\$adminConfig['websitePath'] =      '".xssFilter::path($adminConfig['websitePath'],false,'/')."';\n");
     fwrite($file,"\$adminConfig['uploadPath'] =       '".xssFilter::path($adminConfig['uploadPath'])."';\n");  
     fwrite($file,"\$adminConfig['websiteFilesPath'] = '".xssFilter::path($adminConfig['websiteFilesPath'])."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n\n");
     
     fwrite($file,"\$adminConfig['permissions'] =      ".xssFilter::numeric($adminConfig['permissions']).";\n");
-    fwrite($file,"\$adminConfig['timeZone'] =         '".xssFilter::string($adminConfig['timeZone'])."';\n"); 
+    fwrite($file,"\$adminConfig['timeZone'] =         '".xssFilter::string($adminConfig['timeZone'],'\/','Europe/London')."';\n"); 
     fwrite($file,"\$adminConfig['dateFormat'] =       '".xssFilter::alphabetical($adminConfig['dateFormat'])."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".xssFilter::bool($adminConfig['speakingUrl'],true).";\n\n");
     
@@ -1029,7 +1012,7 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
  * 
  * @param string $backupAppendix (optional) a name which will be appended to the backup file name
  * 
- * @return string the generated backup file name
+ * @return string the generated backup file name with full path
  * 
  * 
  * @version 1.0
@@ -1042,10 +1025,10 @@ function generateBackupFileName($backupAppendix = false) {
   
   $backupAppendix = ($backupAppendix) ? '_'.$backupAppendix : '';
 
-  $websitePath = str_replace(array('/',"\\"),'+',$GLOBALS['adminConfig']['websitePath']);
-  $websitePath = ($websitePath != '+') ? substr($websitePath,0,-1) : '';
-  $backupName = 'feinduraBackup_'.$_SERVER['HTTP_HOST'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
-  $backupFileName = DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'backups/'.$backupName;
+  $websitePath = str_replace(array('/',"\\"),'-',$GLOBALS['adminConfig']['websitePath']);
+  $websitePath = ($websitePath != '-') ? substr($websitePath,0,-1) : '';
+  $backupName = 'feinduraBackup_'.$_SERVER['SERVER_NAME'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
+  $backupFileName = dirname(__FILE__).'/../../backups/'.$backupName;
   
   return $backupFileName;
 }
@@ -1058,7 +1041,7 @@ function generateBackupFileName($backupAppendix = false) {
  * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
  * 
- * @param string $backupFileName the backup file name
+ * @param string $backupFileName the full path of the new backup file
  * 
  * @return true|string TRUE if the creation of a backup zip was successfull, otherwise a string with the error warning
  * 
@@ -1069,12 +1052,12 @@ function generateBackupFileName($backupAppendix = false) {
  *    - 1.0 initial release
  * 
  */
-function createBackup($backupFileName) {
+function createBackup($backupFile) {
   
   // -> generate archive
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
-  $archive = new PclZip($backupFileName);
-  $catchError = $archive->add(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'config/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'statistic/,'.DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, DOCUMENTROOT.$GLOBALS['adminConfig']['basePath']);
+  $archive = new PclZip($backupFile);
+  $catchError = $archive->add($GLOBALS['adminConfig']['realBasePath'].'config/,'.$GLOBALS['adminConfig']['realBasePath'].'statistic/,'.$GLOBALS['adminConfig']['realBasePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);
 
   if($catchError == 0)
     return $archive->errorInfo(true);
@@ -1529,7 +1512,7 @@ function saveEditedFiles(&$savedForm) {
  * 
  * Deletes a directory and all files in it.
  * 
- * @param string $dir the absolute path to the directory which will be deleted, must end with a "/"  
+ * @param string $dir the absolute path to the directory which will be deleted 
  * 
  * @return bool TRUE if the directory was succesfull deleted, otherwise FALSE
  * 
@@ -1565,14 +1548,14 @@ function delDir($dir) {
       // recheck if everything is deleted
       $checkFilesFolders = generalFunctions::readFolderRecursive($dir);
       
-      if(rmdir(DOCUMENTROOT.$dir))
+      if(rmdir($dir))
         return true;
       elseif($writeerror === false && (!empty($checkFilesFolders['folders']) || !empty($checkFilesFolders['files'])))
         delDir($dir);
       else
         return false;
     
-    } elseif(@rmdir(DOCUMENTROOT.$dir))
+    } elseif(@rmdir($dir))
       return true;
     else
       return false;
@@ -1601,10 +1584,9 @@ function delDir($dir) {
  */
 function isFolderWarning($folder) {
   
-  if(substr($folder,0,1) != '/')
-    $folder = '/'.$folder;
+  $folder = generalFunctions::getRealPath($folder);
 
-  if(is_dir(DOCUMENTROOT.$folder) === false) {
+  if(is_dir($folder) === false) {
       return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_isFolder'].'</span><br />';
   } else
     return false;
@@ -1633,10 +1615,9 @@ function isFolderWarning($folder) {
  */
 function isWritableWarning($fileFolder) {
   
-  if(substr($fileFolder,0,1) != '/')
-    $fileFolder = '/'.$fileFolder;
-  
-  if(file_exists(DOCUMENTROOT.$fileFolder) && is_writable(DOCUMENTROOT.$fileFolder) === false) {
+  $fileFolder = generalFunctions::getRealPath($fileFolder);
+
+  if(file_exists($fileFolder) && is_writable($fileFolder) === false) {
     return '<span class="warning toolTip" title="'.$fileFolder.'::'.$GLOBALS['langFile']['adminSetup_error_writeAccess_tip'].'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_writeAccess'].'</span><br />';
   } else
     return false;
@@ -1709,12 +1690,12 @@ function isWritableWarningRecursive($folders) {
  * 
  */
 function checkBasePath() {
-  $baseUrl = str_replace('www.','',substr($GLOBALS['adminConfig']['url'],(strpos($GLOBALS['adminConfig']['url'],'://') !== false)? strpos($GLOBALS['adminConfig']['url'],'://')+3 : 0));
-  $checkUrl = str_replace('www.','',substr($_SERVER["HTTP_HOST"],(strpos($_SERVER["HTTP_HOST"],'://') !== false)? strpos($_SERVER["HTTP_HOST"],'://')+3 : 0));
-
-  $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
+  $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
+  $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
   
-  if($GLOBALS['adminConfig']['basePath'] ==  $checkPath &&
+  $checkPath = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
+  
+  if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
      $baseUrl == $checkUrl)
     return true;
   else
@@ -1775,7 +1756,7 @@ function basePathWarning() {
  */
 function startPageWarning() {
   
-  if(checkBasePath() === false || !is_dir(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'))
+  if(checkBasePath() === false || !is_dir(dirname(__FILE__).'/../../pages/'))
     return false;
   
   if($GLOBALS['adminConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = generalFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
@@ -1783,7 +1764,7 @@ function startPageWarning() {
   else
     $startPageCategory = '';
 
-  if($GLOBALS['adminConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(DOCUMENTROOT.$GLOBALS['adminConfig']['basePath'].'pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
+  if($GLOBALS['adminConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>
             <div class="content">

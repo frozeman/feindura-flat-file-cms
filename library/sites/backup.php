@@ -29,7 +29,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ----------------------------------------------------------------------------------------
 
 // -> var
-$backupFolder = $adminConfig['basePath'].'backups/';
+$backupFolder = $adminConfig['realBasePath'].'backups/';
 
 // -> check if the folder is writeable
 $unwriteableList = false;
@@ -95,7 +95,6 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
   
       <tr><td class="leftTop"></td><td></td></tr>';
 
-      
       natsort($backups['files']);
       $backups['files'] = array_reverse($backups['files']);
       foreach($backups['files'] as $backupFile) {

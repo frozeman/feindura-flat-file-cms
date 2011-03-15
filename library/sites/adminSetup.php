@@ -29,9 +29,9 @@ if(isAdmin()) {
 
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 // ----------------------------------------------------------------------------------------
-$checkFolders[] = $adminConfig['basePath'].'config/';
-$checkFolders[] = $adminConfig['basePath'].'statistic/';
-$checkFolders[] = $adminConfig['basePath'].'pages/';
+$checkFolders[] = $adminConfig['realBasePath'].'config/';
+$checkFolders[] = $adminConfig['realBasePath'].'statistic/';
+$checkFolders[] = $adminConfig['realBasePath'].'pages/';
 $checkFolders[] = $adminConfig['websiteFilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
@@ -77,7 +77,7 @@ foreach ($tab as $buf) {
 <!-- FMS SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
+$hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
   <h1><a href="#" id="fmsSettings" name="fmsSettings"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
@@ -95,11 +95,10 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       <?php echo $langFile['ADMINSETUP_GENERAL_field1'] ?></span></label>
       </td><td class="right">
       <?php
-        $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
-      $baseUrl = str_replace('www.','',$adminConfig['url']);
-      $checkUrl = str_replace('www.','',$hostProtocol.$_SERVER["HTTP_HOST"]);
+      $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
+      $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
       ?>
-      <input id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>" />
+      <input id="cfg_url" name="cfg_url"<?php if($baseUrl != $checkUrl) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field1_inputWarningText'].'"'; else echo ' value="'.$adminConfig['url'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field1_inputTip']; ?>" />
       </td></tr>
       
       <tr><td class="left">
@@ -107,13 +106,9 @@ $hidden = ($savedForm != 'fmsSettings') ? ' hidden' : '';
       <?php echo $langFile['ADMINSETUP_GENERAL_field2'] ?></span></label>
       </td><td class="right">
       <?php
-      
-      $checkPath = (substr(dirname($_SERVER['PHP_SELF']),-1) == '/')
-      ? dirname($_SERVER['PHP_SELF'])
-      : dirname($_SERVER['PHP_SELF']).'/';
-      
+      $checkPath = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
       ?>
-      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>" />
+      <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>" />
       </td></tr>
 
       <tr><td class="left">

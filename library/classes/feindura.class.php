@@ -1033,11 +1033,10 @@ class feindura extends feinduraBase {
       $metaTags .= "\n";
       
       // -> add plugin-stylesheets
-      $plugins = generalFunctions::readFolder($this->adminConfig['basePath'].'plugins/');
+      $plugins = generalFunctions::readFolder($this->adminConfig['realBasePath'].'plugins/');
       if(is_array($plugins)) {
         foreach($plugins['folders'] as $pluginFolder) {
           $pluginName = basename($pluginFolder);
-  
           if($this->pluginsConfig[$pluginName]['active'])
             $metaTags .= generalFunctions::createStyleTags($pluginFolder,false);
         }

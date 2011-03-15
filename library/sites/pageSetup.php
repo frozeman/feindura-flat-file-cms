@@ -28,8 +28,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ----------------------------------------------------------------------------------------
 
 // check config files
-$unwriteableList .= isWritableWarning($adminConfig['basePath'].'config/admin.config.php');
-$unwriteableList .= isWritableWarning($adminConfig['basePath'].'config/category.config.php');  
+$unwriteableList .= isWritableWarning($adminConfig['realBasePath'].'config/admin.config.php');
+$unwriteableList .= isWritableWarning($adminConfig['realBasePath'].'config/category.config.php');  
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {

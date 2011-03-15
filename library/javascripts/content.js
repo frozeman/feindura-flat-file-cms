@@ -404,6 +404,9 @@ window.addEvent('domready', function() {
   // BLOCK SLIDE IN/OUT
 	blockSlider();
 	inBlockTableSlider();
+	
+  // fix height of the sidebar
+	layoutFix();
   
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({

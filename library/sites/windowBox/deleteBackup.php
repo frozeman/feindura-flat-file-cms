@@ -16,7 +16,7 @@
  * 
  * deleteBackup.php
  * 
- * @version 0.11
+ * @version 0.1.1
  */
 
 /**

@@ -289,8 +289,8 @@ if(!empty($adminConfig['user']['info'])) {
 
     // ---------------------------------
     // -> SHOW REFERER LOG
-    if(file_exists(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log') &&
-       $logContent = file(DOCUMENTROOT.$adminConfig['basePath'].'statistic/referer.statistic.log')) {
+    if(file_exists(dirname(__FILE__).'/../../statistic/referer.statistic.log') &&
+       $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
        
       echo '<br /><br /><hr class="small"><br />';
       echo '<h3 style="text-align:center;">'.$langFile['HOME_TITLE_REFERER'].'</h3>';

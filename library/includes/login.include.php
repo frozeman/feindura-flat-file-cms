@@ -118,7 +118,6 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
-  <meta name="siteinfo" content="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>robots.txt" />
   <meta name="robots" content="no-index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
@@ -131,7 +130,7 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   <meta name="description" content="A flat file based Content Management System, written in PHP" />    
   <meta name="keywords" content="cms,content,management,system,flat,file" /> 
    
-  <link rel="shortcut icon" href="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
+  <link rel="shortcut icon" href="favicon.ico" />
   
   <link rel="stylesheet" type="text/css" href="library/styles/reset.css" media="all" />
   <link rel="stylesheet" type="text/css" href="library/styles/login.css" media="all" />

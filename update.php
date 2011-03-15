@@ -127,7 +127,7 @@ $newVersion = '1.1 rc1';
     echo 'hm... you current version is <b>'.$version[2].'</b> you cannot use this updater, :-(';
     echo '<br /><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
   }
-  //$basePath = dirname($_SERVER['PHP_SELF']).'/';
+  //$basePath = dirname($_SERVER['SCRIPT_NAME']).'/';
   //$basePath = preg_replace('#\/+#','/',$basePath);
   
   // WRONG PATH WARNING
@@ -143,7 +143,7 @@ $newVersion = '1.1 rc1';
 Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't updated yet?
 <div>
 <h2>Do you want to update all pages and configs, so that they work with feindura <?= $newVersion ?>?</h2>
-<form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="<?= $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="hidden" name="asking" value="true" />
 <input type="submit" value="UPDATE" />
 </div>
@@ -234,15 +234,15 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     // try to move the pages folder
     $copyError = false;
     $didntCopy = false;
-    if(!empty($adminConfig['savePath'])) {
-      copyDir(DOCUMENTROOT.$adminConfig['savePath'],DOCUMENTROOT.$adminConfig['basePath'].'pages/',$copyError);
+    if(!empty($adminConfig['savePath']) && is_dir(DOCUMENTROOT.$adminConfig['savePath'])) {
+      copyDir(DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
     } else
       $didntCopy = true;
     if($copyError === false && $didntCopy === false) {
       delDir($adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br />';
     } elseif($didntCopy) {
-      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (You must copy the folder with your pages into the feindura folders, e.g. "/pages/" -> "/cms/pages/" )</span><br />';
+      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/" )</span><br />';
     } else {
       echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br />';
       $succesfullUpdate = false;
@@ -470,56 +470,56 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     }
     
     // ->> delete old files
-    if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'.htpasswd'))
-      @unlink(DOCUMENTROOT.$adminConfig['basePath'].'.htpasswd');
+    if(is_file(dirname(__FILE__).'/.htpasswd'))
+      @unlink(dirname(__FILE__).'/.htpasswd');
     
     $checkFiles = array();
-    if(!delDir($adminConfig['basePath'].'library/javascript/') && 
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/javascript/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/javascript/';
-    if(!delDir($adminConfig['basePath'].'library/thirdparty/javascript/') &&
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/thirdparty/javascript/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/thirdparty/javascript/';
-    if(!delDir($adminConfig['basePath'].'library/thirdparty/php/') &&
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/thirdparty/php/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/thirdparty/php/';
-    if(!delDir($adminConfig['basePath'].'library/image/') &&
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/image/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/image/';
-    if(!delDir($adminConfig['basePath'].'library/lang/') && 
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/lang/'))  
-      $checkFiles[] = $adminConfig['basePath'].'library/lang/';
-    if(!delDir($adminConfig['basePath'].'library/process/') && 
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/process/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/process/';
-    if(!delDir($adminConfig['basePath'].'library/style/') && 
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/style/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/style/';
-    if(!delDir($adminConfig['basePath'].'library/images/key/') && 
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/images/key/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/images/key/';
-    if(!delDir($adminConfig['basePath'].'library/images/sign/') && 
-      is_dir(DOCUMENTROOT.$adminConfig['basePath'].'library/images/sign/'))
-      $checkFiles[] = $adminConfig['basePath'].'library/images/sign/';
+    if(!delDir(dirname(__FILE__).'/library/javascript/') && 
+      is_dir(dirname(__FILE__).'/library/javascript/'))
+      $checkFiles[] = dirname(__FILE__).'/library/javascript/';
+    if(!delDir(dirname(__FILE__).'/library/thirdparty/javascript/') &&
+      is_dir(dirname(__FILE__).'/library/thirdparty/javascript/'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascript/';
+    if(!delDir(dirname(__FILE__).'/library/thirdparty/php/') &&
+      is_dir(dirname(__FILE__).'/library/thirdparty/php/'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/php/';
+    if(!delDir(dirname(__FILE__).'/library/image/') &&
+      is_dir(dirname(__FILE__).'/library/image/'))
+      $checkFiles[] = dirname(__FILE__).'/library/image/';
+    if(!delDir(dirname(__FILE__).'/library/lang/') && 
+      is_dir(dirname(__FILE__).'/library/lang/'))  
+      $checkFiles[] = dirname(__FILE__).'/library/lang/';
+    if(!delDir(dirname(__FILE__).'/library/process/') && 
+      is_dir(dirname(__FILE__).'/library/process/'))
+      $checkFiles[] = dirname(__FILE__).'/library/process/';
+    if(!delDir(dirname(__FILE__).'/library/style/') && 
+      is_dir(dirname(__FILE__).'/library/style/'))
+      $checkFiles[] = dirname(__FILE__).'/library/style/';
+    if(!delDir(dirname(__FILE__).'/library/images/key/') && 
+      is_dir(dirname(__FILE__).'/library/images/key/'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/key/';
+    if(!delDir(dirname(__FILE__).'/library/images/sign/') && 
+      is_dir(dirname(__FILE__).'/library/images/sign/'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/sign/';
       
-    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'README')&&
-      is_file(DOCUMENTROOT.$adminConfig['basePath'].'README'))
-      $checkFiles[] = $adminConfig['basePath'].'README';
-    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/general.include.php')&&
-      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/general.include.php'))
-      $checkFiles[] = $adminConfig['basePath'].'library/general.include.php';
-    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/frontend.include.php')&&
-      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/frontend.include.php'))
-      $checkFiles[] = $adminConfig['basePath'].'library/frontend.include.php';
-    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/backend.include.php') &&
-      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/backend.include.php'))
-      $checkFiles[] = $adminConfig['basePath'].'library/backend.include.php';
-    if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/process/download.php') &&
-      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/process/download.php'))
-      $checkFiles[] = $adminConfig['basePath'].'library/process/download.php';
-     if(!unlink(DOCUMENTROOT.$adminConfig['basePath'].'library/includes/frontend.include.php') &&
-      is_file(DOCUMENTROOT.$adminConfig['basePath'].'library/includes/frontend.include.php'))
-      $checkFiles[] = $adminConfig['basePath'].'library/includes/frontend.include.php';      
+    if(!unlink(dirname(__FILE__).'/README')&&
+      is_file(dirname(__FILE__).'/README'))
+      $checkFiles[] = dirname(__FILE__).'/README';
+    if(!unlink(dirname(__FILE__).'/library/general.include.php')&&
+      is_file(dirname(__FILE__).'/library/general.include.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/general.include.php';
+    if(!unlink(dirname(__FILE__).'/library/frontend.include.php')&&
+      is_file(dirname(__FILE__).'/library/frontend.include.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/frontend.include.php';
+    if(!unlink(dirname(__FILE__).'/library/backend.include.php') &&
+      is_file(dirname(__FILE__).'/library/backend.include.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/backend.include.php';
+    if(!unlink(dirname(__FILE__).'/library/process/download.php') &&
+      is_file(dirname(__FILE__).'/library/process/download.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/process/download.php';
+     if(!unlink(dirname(__FILE__).'/library/includes/frontend.include.php') &&
+      is_file(dirname(__FILE__).'/library/includes/frontend.include.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/includes/frontend.include.php';      
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';

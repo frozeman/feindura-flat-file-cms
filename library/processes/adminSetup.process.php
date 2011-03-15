@@ -73,12 +73,11 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     $_POST[$postKey] = str_replace(array('\"',"\'"),'',$post);
   
   // -> PREPARE CONFIG VARs
-  $hostProtocol = (empty($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] == 'off') ? 'http://' : 'https://';
+  $serverProtocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos($_SERVER["SERVER_PROTOCOL"],'/'))).((empty($_SERVER["HTTPS"])) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "");
   
-  $adminConfig['url'] = $hostProtocol.$_SERVER["HTTP_HOST"];
-  $adminConfig['basePath'] = (substr(dirname($_SERVER['PHP_SELF']),-1) == '/')
-  ? dirname($_SERVER['PHP_SELF'])
-  : dirname($_SERVER['PHP_SELF']).'/';
+  $adminConfig['url'] = $serverProtocol."://".$_SERVER['SERVER_NAME'];
+  $adminConfig['basePath'] = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
+  $adminConfig['realBasePath'] = preg_replace("/\\\+/", '/',realPath(preg_replace("/\\\+/",'/',dirname(__FILE__).'/../../'))).'/';
   $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];
   
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  

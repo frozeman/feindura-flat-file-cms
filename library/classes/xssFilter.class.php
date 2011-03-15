@@ -104,7 +104,7 @@ class xssFilter {
   * 
   * @param bool|string $data            the data to check against
   * @param bool        $returnAsString  (optional) if TRUE it returns the bool as a string like: "true" or "false"
-  * @param bool        $default         (optional) the default value return if the $data parameter couldn't be validated  
+  * @param mixed       $default         (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return bool the right boolean, otherwise $default
   * 
@@ -131,8 +131,8 @@ class xssFilter {
   * 
   * Check if the data is a number.
   * 
-  * @param int $data     the data to check against
-  * @param int $default  (optional) the default value return if the $data parameter couldn't be validated
+  * @param int   $data     the data to check against
+  * @param mixed $default  (optional) the default value return if the $data parameter couldn't be validated
   * 
   * @return int the integer, otherwise FALSE
   * 
@@ -155,8 +155,8 @@ class xssFilter {
   * 
   * Check if the data is a integer.
   * 
-  * @param int $data     the data to check against
-  * @param int $default  (optional) the default value return if the $data parameter couldn't be validated
+  * @param int   $data     the data to check against
+  * @param mixed $default  (optional) the default value return if the $data parameter couldn't be validated
   * 
   * @return int the integer, otherwise FALSE
   * 
@@ -180,7 +180,7 @@ class xssFilter {
   * Check if the data is a float.
   * 
   * @param number $data     the data to check against
-  * @param int    $default  (optional) the default value return if the $data parameter couldn't be validated
+  * @param mixed  $default  (optional) the default value return if the $data parameter couldn't be validated
   * 
   * @return number the integer, otherwise FALSE
   * 
@@ -204,7 +204,7 @@ class xssFilter {
   * Check if the data is alphanumeric string with some special chars.
   * Allowed chars are:
   *     - ()
-  *     - []
+  *     - []  
   *     - '
   *     - ,
   *     - .
@@ -221,8 +221,9 @@ class xssFilter {
   * Test-Name 123
   * </sample>
   * 
-  * @param string $data     the data to check against
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
+  * @param string       $data     the data to check against
+  * @param string|null  $addChars (optional) a string with allowed characters (they are implemented in a regex so some chars have to be escaped like: "\$")
+  * @param mixed        $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|number|null an alphabetical string or number, otherwise FALSE
   * 
@@ -233,10 +234,10 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function string($data, $default = false) {
+  public static function string($data, $addChars = null, $default = false) {
       if(!empty($data) || $data == 0) {
          // start with aplhabetic, may include space, end with alhabetic
-         preg_match_all("/^[\(\)\[\]\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+$/i",$data,$find); 
+         preg_match_all("/^['.$addChars.'\(\)\[\]\,\.\'\-\$\&\£\s@\?#_a-zA-Z\d]+$/i",$data,$find); 
          // if you have caught something return it 
          if(!empty($find[0])) return implode('',$find[0]);
      }
@@ -253,7 +254,7 @@ class xssFilter {
   * </sample>
   * 
   * @param string $data     the data to check against
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
+  * @param mixed  $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
   * 
@@ -278,7 +279,7 @@ class xssFilter {
   * Check if the data is a alphabetical string.
   * 
   * @param string $data     the data to check against
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
+  * @param mixed  $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|null an alphabetical string, otherwise FALSE
   * 
@@ -309,7 +310,7 @@ class xssFilter {
   * 
   * @param string $data    the data to check against
   * @param bool   $encode  (optional) tell if the filename should be urlencoded before
-  * @param null   $default (optional) the default value return if the $data parameter couldn't be validated  
+  * @param mixed  $default (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return int|false a filename string, otherwise FALSE
   * 
@@ -339,9 +340,9 @@ class xssFilter {
   * /path/to/example/file.php
   * </sample>
   * 
-  * @param int  $data    the data to check against
-  * @param bool $encode  (optional) whether the path should be urlencoded before
-  * @param null $default (optional) the default value return if the $data parameter couldn't be validated  
+  * @param int   $data    the data to check against
+  * @param bool  $encode  (optional) whether the path should be urlencoded before
+  * @param mixed $default (optional) the default value return if the $data parameter couldn't be validated  
   *  
   * @return int|false a path string, otherwise FALSE
   * 
@@ -354,7 +355,7 @@ class xssFilter {
   */
   public static function path($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("#^[\/\.\-\s_a-zA-Z\d]*$#i",$data,$find); 
+        preg_match("#^[\:\/\.\-\s_a-zA-Z\d]*$#i",$data,$find); 
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#/+#','/',$find[0]);
@@ -377,9 +378,9 @@ class xssFilter {
   * http://path/to/example/file.php?var=value
   * </sample>
   * 
-  * @param int  $data    the data to check against
-  * @param bool $encode  (optional) whether the path should be urlencoded before
-  * @param null $default (optional) the default value return if the $data parameter couldn't be validated  
+  * @param int   $data    the data to check against
+  * @param bool  $encode  (optional) whether the path should be urlencoded before
+  * @param mixed $default (optional) the default value return if the $data parameter couldn't be validated  
   *  
   * @return int|false a path string, otherwise FALSE
   * 
@@ -392,7 +393,7 @@ class xssFilter {
   */
   public static function url($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&#=\?\-_]+$/i",$data,$find);
+        preg_match("/^[a-zA-Z]+[:]{1}[\/\/]{2}[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&#=\?\-_]+$/i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#/{2,}#','//',$find[0]);
@@ -414,9 +415,9 @@ class xssFilter {
   * Text &lt;a href=&quot;test&quot;&gt; other text
   * </sample>
   * 
-  * @param string $data     the data to check against
-  * @param string $charset  (optional) the charset used by the htmlspecialchars public static function  
-  * @param null   $default  (optional) the default value return if the $data parameter couldn't be validated  
+  * @param string  $data     the data to check against
+  * @param string  $charset  (optional) the charset used by the htmlspecialchars public static function  
+  * @param mixed   $default  (optional) the default value return if the $data parameter couldn't be validated  
   * 
   * @return string|null an alphanumerical string allowing underscores and spaces, otherwise FALSE
   * 

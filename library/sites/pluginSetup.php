@@ -26,7 +26,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
-$checkFolders[] = $adminConfig['basePath'].'plugins/';
+$checkFolders[] = $adminConfig['realBasePath'].'plugins/';
 
 // gives the error OUTPUT if one of these files in unwriteable
 if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePath()) {
@@ -53,7 +53,7 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
 <?php
 // ->> GOES TROUGH every PLUGIN
 // ---------------------------------------------------------------------------------------------------------------
-$pluginFolders = generalFunctions::readFolder(DOCUMENTROOT.$adminConfig['basePath'].'plugins/'); //DOCUMENTROOT.$adminConfig['basePath'].'plugins/'; //dirname(__FILE__).'/../../plugins/'
+$pluginFolders = generalFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
 
 // VARs
   $firstLine = true;

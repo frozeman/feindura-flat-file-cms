@@ -22,16 +22,15 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-
 // ------------>> DOWNLOAD BACKUP
 if(isset($_GET['downloadBackup'])) {
 
   // -> check backup folder
   $unwriteableList = false;
-  $checkFolder = $adminConfig['basePath'].'backups/';  
+  $checkFolder = dirname(__FILE__).'/../../backups/';  
   // try to create folder
-  if(!is_dir(DOCUMENTROOT.$checkFolder))
-    mkdir(DOCUMENTROOT.$checkFolder,$adminConfig['permissions']); 
+  if(!is_dir($checkFolder))
+    mkdir($checkFolder,$adminConfig['permissions']); 
   $unwriteableList .= isWritableWarning($checkFolder);
   
   // ->> create archive
@@ -98,7 +97,7 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
     
   // ->> otherwise use existing backup file
   } elseif(isset($_POST['restoreBackupFile'])) {
-    $backupFile = DOCUMENTROOT.$_POST['restoreBackupFile'];  
+    $backupFile = DOCUMENTROOT.$_POST['restoreBackupFile'];
   // -> otherwise throw error
   } else {
     $errorWindow .= $langFile['BACKUP_ERROR_NORESTROEFILE'];
@@ -119,14 +118,14 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
       $archive = new PclZip($backupFile);
       // -> extract CONFIG
-      if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
+      if($archive->extract(PCLZIP_OPT_PATH, $adminConfig['realBasePath'],
                            PCLZIP_OPT_BY_PREG, '#([a-z]+\.config\.php$)|(htmlEditorStyles\.js$)#',
                            PCLZIP_OPT_SET_CHMOD, $adminConfig['permissions'],
                            PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
         $errorWindow .= "ERROR ON RESTORE: ".$archive->errorInfo(true);
       }
       // -> extract STATISTICS
-      if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
+      if($archive->extract(PCLZIP_OPT_PATH, $adminConfig['realBasePath'],
                            PCLZIP_OPT_BY_PREG, '#([a-z]+\.statistic\.[a-z]+)#',
                            PCLZIP_OPT_SET_CHMOD, $adminConfig['permissions'],
                            PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {
@@ -135,9 +134,9 @@ if(isset($_POST['send']) && $_POST['send'] == 'restore') {
       
       if($errorWindow === false) {
         // delete the old pages dir
-        delDir($adminConfig['basePath'].'pages/');
+        delDir(dirname(__FILE__).'/../../pages/');
         // -> extract PAGES
-        if($archive->extract(PCLZIP_OPT_PATH, DOCUMENTROOT.$adminConfig['basePath'],
+        if($archive->extract(PCLZIP_OPT_PATH, $adminConfig['realBasePath'],
                              PCLZIP_OPT_BY_PREG, '#\d+\.php$#',
                              PCLZIP_OPT_SET_CHMOD, $adminConfig['permissions'],
                              PCLZIP_OPT_REPLACE_NEWER,PCLZIP_OPT_STOP_ON_ERROR) == 0) {

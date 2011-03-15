@@ -53,7 +53,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <meta name="siteinfo" content="<?= dirname($_SERVER['PHP_SELF']).'/'; ?>robots.txt" />
   <meta name="robots" content="no-index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->
@@ -66,7 +65,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta name="description" content="A flat file based Content Management System, written in PHP" />    
   <meta name="keywords" content="cms,content,management,system,flat,file" /> 
    
-  <link rel="shortcut icon" href="<?php echo dirname($_SERVER['PHP_SELF']).'/'; ?>favicon.ico" />
+  <link rel="shortcut icon" href="favicon.ico" />
   
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
@@ -84,9 +83,11 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css" />
 <?php
-if($_GET['site'] == 'addons') {
-  echo "  <!-- addons stylesheets -->\n";
-  echo generalFunctions::createStyleTags($adminConfig['basePath'].'addons/');
+if($_GET['site'] == 'addons') {  
+  if($addonStyles = generalFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
+    echo "\n  <!-- addons stylesheets -->\n";
+    echo $addonStyles;
+  }
 }
 ?>  
   <!--[if IE 6]><link rel="stylesheet" type="text/css" href="library/styles/ie6.css" /><![endif]-->
@@ -290,7 +291,7 @@ if($_GET['site'] == 'addons') {
           <td><a href="?site=pages" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty
-          if(!generalFunctions::folderIsEmpty($adminConfig['basePath'].'addons/')) { ?>
+          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
           <td><a href="?site=addons" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
           <?php } ?>
           <td><a href="?site=websiteSetup" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?>"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
@@ -318,15 +319,15 @@ if($_GET['site'] == 'addons') {
           <td><a href="?site=statisticSetup" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
-          if(!generalFunctions::folderIsEmpty($adminConfig['basePath'].'plugins/') || !generalFunctions::folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
+          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/') || !generalFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <?php
           // CHECKS if the plugins/ folder is empty
-          if(!generalFunctions::folderIsEmpty($adminConfig['basePath'].'plugins/')) { ?>
+          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/')) { ?>
           <td><a href="?site=pluginSetup" class="pluginSetup<?php if($_GET['site'] == 'pluginSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PLUGINSETUP']; ?>"><span><?php echo $langFile['BUTTON_PLUGINSETUP']; ?></span></a></td>
           </tr>
           <?php }
           // CHECKS if the modlues/ folder is empty
-          if(!generalFunctions::folderIsEmpty($adminConfig['basePath'].'modules/')) { ?>
+          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <tr>
           <td><a href="?site=modulSetup" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
           <td</td>

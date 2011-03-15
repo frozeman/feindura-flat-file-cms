@@ -578,7 +578,7 @@ foreach($pluginsConfig as $pluginConfig) {
   if($pluginConfig['active'])
     $pluginsActive = true;    
 }
-if($pluginsActive && (($_GET['category'] == 0 && $adminConfig['pages']['plugins']) ||
+if($pluginsActive && (($_GET['category'] === 0 && $adminConfig['pages']['plugins']) ||
    $categoryConfig[$_GET['category']]['plugins'])) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
@@ -596,7 +596,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
       <?php
       
       // ->> LOAD PLUGINS      
-      $plugins = generalFunctions::readFolder($adminConfig['basePath'].'plugins/');
+      $plugins = generalFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars

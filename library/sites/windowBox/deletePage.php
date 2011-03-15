@@ -38,12 +38,12 @@ $pageContent = generalFunctions::readPage($page,$category);
 $categoryPath = ($category == 0) ? '' : $category.'/';
 
 // QUESTION
-if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php')) {
+if(is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
   $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {
-  $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
+  $question = '<h1>'.$langFile['deletePage_notexisting_part1'].' &quot;<span style="color:#000000;">'.$adminConfig['realBasePath'].'pages/'.$categoryPath.$page.'.php</span>&quot; '.$langFile['deletePage_notexisting_part2'].'</h1>
   <a href="?site=pages&amp;category='.$category.'&amp;page='.$page.'" class="ok center" onclick="closeWindowBox();return false;">&nbsp;</a>';
   
   // show only the ok button
@@ -51,11 +51,11 @@ if(is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.
 }
 
 // DELETING PROCESS
-if($asking && is_file(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php')) {
-  @chmod(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page, $adminConfig['permissions']);
+if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
+  @chmod(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page, $adminConfig['permissions']);
 
   // DELETING PAGE
-  if(@unlink(DOCUMENTROOT.$adminConfig['basePath'].'pages/'.$categoryPath.$page.'.php')) {
+  if(@unlink(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
     if(!empty($pageContent['thumbnail']))
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
@@ -81,7 +81,7 @@ if(!$asking) {
 
 ?>
 <div>
-<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?php echo $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
+<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?= $_SERVER['SCRIPT_NAME']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
 <input type="hidden" name="category" value="<?= $category; ?>" />
 <input type="hidden" name="page" value="<?= $page; ?>" />
 <input type="hidden" name="id" value="<?php echo $page; ?>" />

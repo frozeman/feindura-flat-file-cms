@@ -26,7 +26,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // CHECKs if the ncessary FILEs are WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
-$checkFolders = $adminConfig['basePath'].'config/website.config.php';
+$checkFolders = $adminConfig['realBasePath'].'config/website.config.php';
 $unwriteableList = isWritableWarning($checkFolders);
 
 // check also website files if allowed
