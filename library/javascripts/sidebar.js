@@ -232,8 +232,10 @@ window.addEvent('domready', function() {
         data: 'request=true',
         onSuccess: function(html) {
           if(html) {
-            $('currentVisitorsSideBar').set('html','<h1>'+feindura_langFile['STATISTICS_TEXT_CURRENTVISITORS']+'</h1>'+html);
-            setToolTips();
+            toolTips.detach('a.toolTip');
+            $('currentVisitorsSideBar').set('html',html);
+            feindura_storeTipTexts('a.toolTip');
+            toolTips.attach('a.toolTip');
           } else
             $('currentVisitorsSideBar').set('html','');
         }      

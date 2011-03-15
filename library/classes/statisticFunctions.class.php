@@ -1165,6 +1165,7 @@ class statisticFunctions {
     $newLines = array();
     
     // -> OPEN visit.statistic.cache for reading
+    if(!file_exists($cacheFile)) return $return;
     $cachedLines = @file($cacheFile);
     
     if(!empty($cachedLines) && is_array($cachedLines)) {
@@ -1222,8 +1223,10 @@ class statisticFunctions {
     
     //var
     $returnVisitors = array();
+    $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
     
-    if($currentVisitors = @file(dirname(__FILE__).'/../../statistic/visit.statistic.cache')) {
+    if(!file_exists($cacheFile)) return $returnVisitors;
+    if($currentVisitors = @file($cacheFile)) {
       
       // sort the visitors, the latest one first
       usort($currentVisitors, 'sortCurrentVisitorsByTime');

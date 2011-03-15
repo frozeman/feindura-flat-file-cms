@@ -123,7 +123,7 @@ if(!empty($adminConfig['user']['info'])) {
     
     // ---------------------------------
     // -> CURRENT VISITORS
-    $currentVisitorFullDetail = true;
+    $currentVisitorDashboard = true;
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
       echo '<div class="innerBlockRight">';    

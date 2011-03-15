@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc6
-Build 584
+Build 585
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 585: fixed currentVisitors info
   build 584: add currentVisitors info to the right sidebar
   build 583: add transparent dimContainer image, to save resources (dont have to make it in js)
   build 582: fixed thumbnail deletion

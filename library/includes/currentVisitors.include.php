@@ -33,11 +33,17 @@ if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
   
   // var
   $return = '';
- 
-  $return .= (!$currentVisitorFullDetail) 
-    ? '<table>'
-    : '<table class="coloredList">';
   
+  // ->> write before the listing
+  if($currentVisitorDashboard)
+    $return .= '<table class="coloredList">';
+  else {
+    $return .= '<div id="rightSidebarMessageBox">';
+    $return .= '<div class="content"><div>';
+    $return .= '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h1>';
+    $return .= '<table>';
+  }
+
   /* uses GeoIPLite
    * 
    * @link http://geolite.maxmind.com/download/geoip/api/php/
@@ -48,8 +54,7 @@ if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
   
   // open geodates
   $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
-  
-  $count = 1;      
+       
   foreach($currentVisitors as $currentVisitor) {
     if($currentVisitor['ip'] == '::1') continue;
     $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
@@ -57,21 +62,23 @@ if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
       ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
       : '';
     if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider') {
-      $return .= (!$currentVisitorFullDetail)
-        ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.statisticFunctions::formatDate($currentVisitor['time']).' - '.statisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>'
-        : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>';
+      $return .= ($currentVisitorDashboard)
+        ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.statisticFunctions::formatDate($currentVisitor['time']).'">'.statisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>'
+        : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.statisticFunctions::formatDate($currentVisitor['time']).' - '.statisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>';
     }
     // change row color
     $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
-    // count
-    if($count == $statisticConfig['number']['longestVisitedPages']) break;
-    else $count++;
-  }
-  
+  }  
   // close geodates
   geoip_close($geoIP);
   
-  $return .= '</table>';
+  // ->> write after the listing
+  if($currentVisitorDashboard)
+    $return .= '</table>';
+  else {
+    $return .= '</table>';
+    $return .= '</div></div><div class="bottom"></div></div>';
+  }
   
   if(isset($_POST['request']) && $_POST['request'] == true) echo $return;
   return $return;

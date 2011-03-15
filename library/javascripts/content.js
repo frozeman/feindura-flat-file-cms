@@ -17,6 +17,7 @@
 */
 
 // vars
+var toolTips; // holds the instance of the tooltips
 var deactivateType = 'disabled'; // disabled/readonly
 var myCfe;
 var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
@@ -32,7 +33,7 @@ function setToolTips() {
   feindura_storeTipTexts('.toolTip, .inputToolTip, .thumbnailToolTip');
   
   /* add Tooltips */
-  var toolTips = new Tips('.toolTip',{
+  toolTips = new Tips('.toolTip',{
     className: 'feindura_toolTipBox',
     //onShow: function(tip){ tip.tween('right','200px');}, //tip.fade('hide'); tip.fade('in');
     //onHide: function(tip){ tip.fade('hide'); }, //tip.fade('hide'); tip.fade('out');

@@ -16,8 +16,6 @@
 */
 // sidebar.loader.php version 0.6
 
-if(isset($_GET['site']) && !empty($_GET['site']) && $_GET['site'] != 'home')
-  echo '<div id="rightSidebarMessageBox">';
 
 // SWITCH the &_GET['site'] var
 switch($_GET['site']) {
@@ -28,20 +26,24 @@ switch($_GET['site']) {
   
   // ***** pages sideBar -------------------------------------------------- *********
   case 'pages':
-      echo '<div id="messageBox_input" class="content">';
-      echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" />'.$langFile['sortablePageList_info'];
-      // -> the javascript request of the sortable gets its error messages from this input
-      echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
-      echo '</div>';
+      echo '<div id="rightSidebarMessageBox">';
+        echo '<div id="messageBox_input" class="content">';
+        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" />'.$langFile['sortablePageList_info'];
+        // -> the javascript request of the sortable gets its error messages from this input
+        echo '<input type="hidden" id="sortablePageList_status" value="'.$langFile['sortablePageList_save'].'|'.$langFile['sortablePageList_categoryEmpty'].'" />';
+        echo '</div>';
+      echo '<div class="bottom"></div></div>';
     break;
     
   // ***** adminSetup sideBar -------------------------------------------- *********
   case 'statisticSetup':    
     if($deletedStatistics) {
-      echo '<div class="content">';
-      echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" />';
-      echo $deletedStatistics;
-      echo '</div>';
+      echo '<div id="rightSidebarMessageBox">';
+        echo '<div class="content">';
+        echo '<img src="library/images/icons/hintIcon.png" class="hintIcon" />';
+        echo $deletedStatistics;
+        echo '</div>';
+      echo '<div class="bottom"></div></div>';
     }
     break;
     
@@ -50,16 +52,12 @@ switch($_GET['site']) {
     $currentVisitorFullDetail = false;
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
-      echo '<div id="currentVisitorsSideBar" class="content">';
-      echo '<h1>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</h1>';
-      echo $currentVisitors;
-      echo '</div>';
+        echo '<div id="currentVisitorsSideBar">';
+        echo $currentVisitors;
+        echo '</div>';
     }
     break;
     
 } //switch END
-
-if(isset($_GET['site']) && !empty($_GET['site']) && $_GET['site'] != 'home')
-  echo '<div class="bottom"></div></div>';
 
 ?>

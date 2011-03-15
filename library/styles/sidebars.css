@@ -409,15 +409,29 @@ div.leftSidebarLoadingCircle {
 
 /* --- currentVisitors */
 
+#currentVisitorsSideBar .content {
+  padding: 0px 7px 0 7px;
+  width: 196px;
+}
+#currentVisitorsSideBar .content > div {
+  max-height: 500px;
+  overflow: auto;
+}
+
+#currentVisitorsSideBar table {
+  width: 100%;
+}
 #currentVisitorsSideBar td {
   font-size: 11px;
-  padding-left: 10px;
+  padding: 2px 0;
+  padding-left: 15px;
 }
 #currentVisitorsSideBar img {
-  margin-top: 4px;
+  margin-top: 3px;
 }
 #currentVisitorsSideBar h1 {
   text-align: center;
   border-bottom: 1px dotted #ccc;
   margin-bottom: 10px;
+  padding-top: 10px;
 }
