@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc6
-Build 586
+Build 587
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 587: merged setup.css into content.css and merged menus.css and sidebars.css into layout.css
   build 586: add real paths to all filesystem related functions, so when the uri space is different (e.g. because of mod_alias) it should still everything work
   build 585: fixed currentVisitors info
   build 584: add currentVisitors info to the right sidebar

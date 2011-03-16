@@ -76,10 +76,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- feindura styles -->
   <link rel="stylesheet" type="text/css" href="library/styles/reset.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/layout.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/menus.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/sidebars.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/content.css" />   
-  <link rel="stylesheet" type="text/css" href="library/styles/setup.css" />  
+  <link rel="stylesheet" type="text/css" href="library/styles/content.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" />
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css" />
 <?php

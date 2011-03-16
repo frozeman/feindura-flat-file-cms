@@ -389,3 +389,755 @@ a.lang_en {
 a.lang_en:hover {
   color: #ffffff;
   }
+
+/* --- MAINMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/
+/* --- mainMenu */
+
+#mainMenu {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 208px; /* right: 250px; */
+    width: 640px;
+    }
+
+#mainMenu table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;    
+    }
+#mainMenu td {
+    text-align: center;
+    vertical-align: top;
+    }
+
+/* --- button ul list defined in layout.css */
+
+/****************/
+/* --- buttons */
+
+#mainMenu a {
+    position: relative;
+    display: inline-block;
+    top: 0px;
+    width: 106px;
+    height: 44px; /* org: 141px */
+    padding-top: 97px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #666666;
+    line-height: 15px;
+    }
+#mainMenu a:hover {
+    color: #CF7F52;
+    }
+#mainMenu a:hover, #mainMenu a.active {
+    background-position: 0px -142px !important;
+    }
+/* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
+#mainMenu a span{
+    display: table-cell;
+    position: relative;
+    width: 106px;
+    height: 40px;
+    vertical-align: middle;
+    font-size: 12px;
+    }
+    
+/* home */
+#mainMenu a.home {
+    background: url("../images/buttons/mainMenu_home.png") no-repeat;
+    }
+/* pages */
+#mainMenu a.pages {
+    background: url("../images/buttons/mainMenu_pages.png") no-repeat;
+    }
+/* addons */
+#mainMenu a.addons {
+    background: url("../images/buttons/mainMenu_addons.png") no-repeat;
+    }
+/* settings */
+#mainMenu a.websiteSetup {
+    background: url("../images/buttons/mainMenu_settings.png") no-repeat;
+    }
+/* search */
+#mainMenu a.search {
+    background: url("../images/buttons/mainMenu_search.png") no-repeat;
+    }
+
+/* --- ADMINMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/
+/* --- adminMenu */
+
+#adminMenu .content {
+    z-index: 1;
+    position: absolute;
+    top: 37px;
+    left: 8px;
+    }
+
+
+/*#adminMenu .content table {
+  border:1px solid red;
+}*/
+
+/****************/
+/* --- buttons */
+
+#adminMenu .content a {
+    position: relative;
+    display: block;
+    width: 65px;
+    height: 30px; /* org-image-size: 65px */
+    padding-top: 70px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 9px;
+    color: #666666;
+    line-height: 11px;
+
+    }
+#adminMenu .content a:hover, #adminMenu .content a.active {
+    color: #CF7F52;
+    background-position: -65px 0px !important;
+    }
+
+/* advancedSetup */
+#adminMenu .content a.adminSetup {
+    background: url("../images/buttons/adminMenu_adminSetup.png") no-repeat;
+    }
+#adminMenu .content a.adminSetup:hover {
+    background-position: -65px 0px;
+    }
+/* pageSetup */
+#adminMenu .content a.pageSetup {
+    background: url("../images/buttons/adminMenu_pageSetup.png") no-repeat;
+    }
+#adminMenu .content a.pageSetup:hover {
+    background-position: -65px 0px;
+    }
+/* pluginSetup */
+#adminMenu .content a.pluginSetup {
+    background: url("../images/buttons/adminMenu_pluginSetup.png") no-repeat;
+    }
+#adminMenu .content a.pluginSetup:hover {
+    background-position: -65px 0px;
+    }
+/* statisticSetup */
+#adminMenu .content a.statisticSetup {
+    background: url("../images/buttons/adminMenu_statisticSetup.png") no-repeat;
+    }
+#adminMenu .content a.statisticSetup:hover {
+    background-position: -65px 0px;
+    }
+/* userSetup */
+#adminMenu .content a.userSetup {
+    background: url("../images/buttons/adminMenu_userSetup.png") no-repeat;
+    }
+#adminMenu .content a.userSetup:hover {
+    background-position: -65px 0px;
+    }
+/* backup */
+#adminMenu .content a.backup {
+    background: url("../images/buttons/adminMenu_backup.png") no-repeat;
+    }
+#adminMenu .content a.backup:hover {
+    background-position: -65px 0px;
+    }
+
+/* --- SUBMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/
+/* --- subMenu */
+
+.subMenu {
+    z-index: 1;
+    position: absolute;
+    top: -3px;
+    left: 25px; /* right: 250px; */
+    width: auto;
+    height: 56px; /* org height 64px */
+    overflow: visible;
+    background: url("../images/bg/subMenu_middle.png") repeat-x;
+    }
+    
+.subMenu .content {
+    padding: 4px 0px;
+    }
+    
+.subMenu .left {
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    width: 20px;
+    height: 58px;
+    background: url("../images/bg/subMenu_left.png") no-repeat;
+    }
+.subMenu .right {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    width: 20px;
+    height: 58px;
+    background: url("../images/bg/subMenu_right.png") no-repeat;
+    }
+
+/* ------------------------- */
+/* --- spacer (button ul list defined in layout.css)*/
+
+.subMenu li.spacer {
+    width: 14px;
+    height: 47px;
+    background: url("../images/buttons/subMenu_spacer.png") no-repeat;
+    }
+    
+/****************/
+/* --- buttons */
+
+.subMenu li a {
+    display: block;
+    width: 50px;
+    height: 48px;
+    margin: 0px 5px;
+    text-decoration: none;
+    }
+.subMenu a:hover {
+    background-position: -50px 0px !important;
+    }
+
+/* fileManager */ 
+.subMenu a.fileManager {
+    background: url("../images/buttons/subMenu_fileManager.png") no-repeat;
+    }
+/* createPage */ 
+.subMenu a.createPage {
+    background: url("../images/buttons/subMenu_createPage.png") no-repeat;
+    }
+/* deletePage */ 
+.subMenu a.deletePage {
+    background: url("../images/buttons/subMenu_deletePage.png") no-repeat;
+    }
+/* editPage */ 
+.subMenu a.editPage {
+    background: url("../images/buttons/subMenu_editPage.png") no-repeat;
+    }
+/* uploadThumb */ 
+.subMenu a.pageThumbnailUpload {
+    background: url("../images/buttons/subMenu_uploadThumb.png") no-repeat;
+    }
+/* deleteThumb */ 
+.subMenu a.pageThumbnailDelete {
+    background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
+    }
+
+
+/* --- FOOTERMENU ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/
+/* --- footerMenu */
+
+#footerMenu {
+    z-index: 0;
+    position: absolute;
+    top: 24px;
+    left: 200px;
+    }
+
+/****************/
+/* --- spacer (button ul list defined in layout.css)*/
+
+#footerMenu li.spacer {
+    width: 14px;
+    height: 100px;
+    background: url("../images/buttons/footerMenu_spacer.png") no-repeat;
+    }
+    
+/****************/
+/* --- buttons */
+
+#footerMenu a {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 45px; /* org: 100px */
+    padding-top: 97px;
+    margin: 0px 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #dfdfdf;
+    }
+#footerMenu a:hover {
+    color: #dfdfdf;
+    background-position: -100px 0px !important;
+    }
+/* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
+#footerMenu a span{
+    display: table-cell;
+    position: relative;
+    width: 100px;
+    height: 40px;
+    vertical-align: middle;
+    }
+
+/* fileManager */ 
+#footerMenu a.fileManager {
+    background: url("../images/buttons/footerMenu_fileManager.png") no-repeat;
+    }
+/* createPage */ 
+#footerMenu a.createPage {
+    background: url("../images/buttons/footerMenu_createPage.png") no-repeat;
+    }
+/* deletePage */ 
+#footerMenu a.deletePage {
+    background: url("../images/buttons/footerMenu_deletePage.png") no-repeat;
+    }
+/* editPage */ 
+#footerMenu a.editPage {
+    background: url("../images/buttons/footerMenu_editPage.png") no-repeat;
+    }
+/* uploadThumb */ 
+#footerMenu a.pageThumbnailUpload {
+    background: url("../images/buttons/footerMenu_uploadThumb.png") no-repeat;
+    }
+/* deleteThumb */ 
+#footerMenu a.pageThumbnailDelete {
+    background: url("../images/buttons/footerMenu_deleteThumb.png") no-repeat;
+    }
+
+
+/* --- LEFT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/
+/* --- leftSidebar Loading Circle */
+div.leftSidebarLoadingCircle {
+    z-index: 0;
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    }    
+
+/****************/
+/* --- SIDEBAR LINKS */
+#leftSidebar a {
+    text-decoration: none;
+    color: #3A7AA5;
+    /* padding-left: 17px;
+    background: url("../images/icons/link.gif") no-repeat 0px 0px; */
+    }
+#leftSidebar a:hover {
+    color: #666666;
+    }
+
+
+/****************/
+/* ---  SIDEBAR MENU */
+
+#leftSidebar .sidebarMenu {
+    z-index: 0;
+    position: relative;
+    width: 210px;
+    max-width: 1260px;
+    overflow: hidden;
+    /*border: 1px solid #000000;*/    
+    }
+
+/* top */
+#leftSidebar .sidebarMenu .top {
+    position: relative;
+    height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 13px;
+    text-decoration: none;    
+    }
+        
+#leftSidebar .sidebarMenu .top span {
+    position: absolute;
+    top: 10px;
+    left: 43px;
+    }
+#leftSidebar .sidebarMenu .top.blue span {
+    color: #536068; /* color: #668CA6; */    
+    }
+#leftSidebar .sidebarMenu .top.brown span {
+    color: #536068; /* color: #668CA6; */ 
+    }
+#leftSidebar .sidebarMenu .top.grey span {
+    color: #666666;
+    }
+
+/* free */
+#leftSidebar .sidebarMenu.free .top.blue {
+    background: url("../images/bg/sidebarMenu_freeTop_blue.png") repeat-x right top;
+    }
+#leftSidebar .sidebarMenu.free .top.brown {
+    background: url("../images/bg/sidebarMenu_freeTop_brown.png") repeat-x right top;
+    }
+#leftSidebar .sidebarMenu.free .top.grey {
+    background: url("../images/bg/sidebarMenu_freeTop_grey.png") repeat-x right top;
+    }
+/* fixed */
+#leftSidebar .sidebarMenu.fixed .top.blue {
+    background: url("../images/bg/sidebarMenu_fixedTop_blue.png") repeat-x right top;
+    }
+#leftSidebar .sidebarMenu.fixed .top.brown {
+    background: url("../images/bg/sidebarMenu_fixedTop_brown.png") repeat-x right top;
+    }
+#leftSidebar .sidebarMenu.fixed .top.brown {
+    border-right: 1px solid #EED2A3;
+    }
+#leftSidebar .sidebarMenu.free .top {
+    border-right: 0px solid #ffffff;
+    }
+
+#leftSidebar .sidebarMenu .top img {
+    display: inline-block;
+    height: 35px;
+    }
+#leftSidebar .sidebarMenu.fixed .top img.icon {
+    margin-left: 5px; /* -15px */
+    }
+#leftSidebar .sidebarMenu.free .top img.icon {
+    margin-left: 4px;
+    }
+    
+/* content */
+#leftSidebar .sidebarMenu .content {
+    position: relative;
+    background-color: #EEEFF7;
+    }
+
+#leftSidebar .sidebarMenu .content.dark {
+    border-right: 1px solid #666666;    
+    }
+#leftSidebar .sidebarMenu .content.white {
+    border-right: 1px solid #BDBDB9;
+    }
+#leftSidebar .sidebarMenu .content.light {
+    border-right: 1px solid #979797;
+    }
+#leftSidebar .sidebarMenu .content.brown {
+    border-right: 1px solid #E6BF7C;
+    }    
+#leftSidebar .sidebarMenu .content.blue {
+    border-right: 1px solid #89B5D6;
+    }
+
+/* ------------------------- */
+/* - buttons */
+#leftSidebar .sidebarMenu .content a {
+    display: block;
+    height: 15px; /* original 35px */
+    padding: 10px 0px;
+    padding-left: 18px;
+    font-weight: bold;
+    font-size: 11px;    
+    text-decoration: none;
+    color: #FBC279;
+    }
+
+/* dark */
+#leftSidebar .sidebarMenu .content.dark a {
+    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x;
+    color: #ffffff;
+    }
+#leftSidebar .sidebarMenu .content.dark a.active {
+    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
+    color: #333333 !important;
+    }
+#leftSidebar .sidebarMenu .content.dark a:hover {
+    background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -35px;
+    color: #333333;
+    }
+
+/* white */
+#leftSidebar .sidebarMenu .content.white a {
+    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x;
+    color: #707F81;
+    }
+#leftSidebar .sidebarMenu .content.white a.active {
+    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
+    color: #333 !important;
+    }
+#leftSidebar .sidebarMenu .content.white a:hover {
+    background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -35px;
+    color: #ffffff;
+    }
+
+/* light */
+#leftSidebar .sidebarMenu .content.light a {
+    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x;
+    color: #444444;
+    }
+#leftSidebar .sidebarMenu .content.light a.active {
+    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
+    color: #ffffff !important;
+    }
+#leftSidebar .sidebarMenu .content.light a:hover {
+    background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -35px;
+    color: #ffffff;
+    }
+    
+/* brown */
+#leftSidebar .sidebarMenu .content.brown a {
+    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x;
+    color: #9B6B1D;
+    }
+#leftSidebar .sidebarMenu .content.brown a.active {
+    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
+    color: #ffffff !important;
+    }
+#leftSidebar .sidebarMenu .content.brown a:hover {
+    background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -35px;
+    color: #ffffff;
+    }
+
+/* blue */
+#leftSidebar .sidebarMenu .content.blue a {
+    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x;
+    color: #457A96;
+    }
+#leftSidebar .sidebarMenu .content.blue a.active {
+    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
+    color: #ffffff !important;
+    }
+#leftSidebar .sidebarMenu .content.blue a:hover {
+    background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -35px;
+    color: #ffffff;
+    }
+
+/* ------------------------- */
+/* - Pull up/down link */
+
+#leftSidebar .sidebarMenu .top a {
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 208px; /* 208px */
+    height: 35px;
+    text-decoration: none;    
+    }
+
+#leftSidebar .sidebarMenu .top a {
+    background: url("../images/buttons/sidebarMenu_buttonUp.png") no-repeat right top;
+    }
+#leftSidebar .sidebarMenu.hidden .top a {
+    background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
+    } 
+        
+#leftSidebar .sidebarMenu .top a:hover {
+    background-position: right -36px;
+    }
+
+
+/* ------------------------- */
+/* - pullToogle link */
+
+#leftSidebar .sidebarMenu .bottom a {
+    display: block;
+    width: 100%;
+    height: 13px; /* original 13px */ 
+    text-decoration: none;
+    background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
+    }
+#leftSidebar .sidebarMenu .bottom a:hover {
+    background-position: right -14px;
+    }
+
+/* --- sidebarMenu SPACER */
+#leftSidebar .spacer {
+    position: relative;
+    width: 202px;
+    height: 17px;
+    background: url("../images/bg/sidebarMenu_spacer.png") no-repeat top left !important;
+    }
+
+#leftSidebar .spacer.arrow {
+    background: url("../images/bg/sidebarMenu_spacer_arrow.png") no-repeat top left !important;
+    }    
+
+/* ------------------------- */
+/* - SIDEBAR INFO */
+
+#leftSidebar .sidebarInfo {
+    position: relative;
+    top: 2px;
+    left: 1px;
+    width: 198px;
+    min-height: 260px;
+    padding: 0px;
+    background: url("../images/bg/leftSidebarInfo_bg.png") no-repeat;
+    border-top: 1px solid #ffffff;
+    }
+#leftSidebar .sidebarInfo div.content {
+    position: relative;
+    width: 165px;
+    margin: 20px 20px;
+    margin-right: 13px;
+    font-size: 10px;
+    overflow: hidden;
+    }
+  
+#leftSidebar .sidebarInfo h1 {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 4px;
+    margin-bottom: 8px;    
+    font-weight: bold;
+    font-size: 11px;
+    color: #666666;
+    }
+#leftSidebar .sidebarInfo p {
+    color: #C57F3D;
+    margin: 2px 0px;
+    margin-bottom: 12px;
+    }
+#leftSidebar .sidebarInfo hr {    
+    height: 0px;
+    margin: 15px 0px;
+    border: none;
+    border-top: 1px solid #E2E3E3;
+    }
+
+#leftSidebar .sidebarInfo ul {
+    margin: 0px;
+    margin-left: 6px;
+    }
+#leftSidebar .sidebarInfo ul li {    
+    margin: 3px 0px;
+    margin-left: 7px;
+    margin-bottom: 20px;
+    color: #888888;
+    list-style: circle;
+    }
+
+/* ------------------------- */
+/* - SIDEBAR LOG */
+
+/* --------------------- */
+/* -------> TASK LOKG */
+#sidebarTaskLog {
+  z-index: 1;
+  position: relative;
+  height: 450px;
+  width: 200px; /* hides the scrollbar */
+  border-bottom: 1px solid #ffffff;
+  overflow: auto;
+  font-size: 9px;
+  margin: 0px -10px;
+}
+
+#sidebarTaskLog ul li {
+  display: block;
+  width: 150px;
+  list-style: none !important;
+}
+    
+#leftSidebar .scrollUpDown {
+  z-index: 2;
+  position: absolute;
+  height: 30px;
+  width: 165px;
+}
+
+/* --------------------- */
+/* -------> LIST USERS */
+
+#sidebarListUsers {
+  margin-left: 27px !important;
+}
+
+#sidebarListUsers li {
+  list-style: none !important;
+  margin: 0px !important;
+  padding: 3px 0px !important;
+}
+
+#sidebarListUsers li span {
+  background: none;
+}
+
+/* --------------------- */
+/* -------> SIDEBAR SELECTION */
+
+#sidebarSelection li {
+  list-style: none !important;
+  margin: 0px !important;
+  padding: 8px 0px;
+}
+    
+/* --- RIGHT SIDEBAR ------------------------------------------------------------------------------------------------------------------- */
+
+/* --- sortPagesMessageBox */
+
+#rightSidebarMessageBox .content {
+    z-index: 2;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 170px;
+    padding: 20px;
+    padding-bottom: 5px;
+    background: url("../images/bg/rightSidebar_bg.png") repeat-y;
+    color: #666666;
+    line-height: 18px;
+    }
+#rightSidebarMessageBox .bottom {
+    z-index: 2;
+    position: absolute;
+    bottom: -25px;
+    left: 0px;
+    width: 210px;
+    height: 25px;
+    background: url("../images/bg/rightSidebar_bgBottom.png") no-repeat;
+    }
+
+#rightSidebarMessageBox ul {
+  list-style: circle;
+  padding-left: 10px;
+}
+
+/* --- hintIcon */
+
+#rightSidebarMessageBox .hintIcon {
+    position: relative;
+    display: block;
+    left: 50px;
+    margin-bottom: 13px;
+    }
+
+/* --- currentVisitors */
+
+#currentVisitorsSideBar .content {
+  padding: 0px 7px 0 7px;
+  width: 196px;
+}
+#currentVisitorsSideBar .content > div {
+  max-height: 500px;
+  overflow: auto;
+}
+
+#currentVisitorsSideBar table {
+  width: 100%;
+}
+#currentVisitorsSideBar td {
+  font-size: 11px;
+  padding: 2px 0;
+  padding-left: 15px;
+}
+#currentVisitorsSideBar img {
+  margin-top: 3px;
+}
+#currentVisitorsSideBar h1 {
+  text-align: center;
+  border-bottom: 1px dotted #ccc;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}

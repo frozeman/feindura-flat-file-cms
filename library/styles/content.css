@@ -13,7 +13,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-content.css version 0.21 */
+content.css version 0.3 */
 
 /****************/  
 /* *** BLOCK */
@@ -1119,4 +1119,328 @@ span.warning {
     background: url("../images/icons/warning.gif") no-repeat 0px 6px !important;
     font-size: 12px;
     color: #990000;
+    }
+    
+/****************/	
+/* *** BUTTONS */
+
+/* createCategory */
+a.createCategory {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../images/buttons/pageSetup_createCategory.png") no-repeat 0px 0px !important;
+    }
+a.createCategory:hover {
+    background-position: 0px -54px !important;
+    }
+    
+/* deleteCategory */
+a.deleteCategory {
+    position: relative;
+    display: block;
+    top: -8px; /* -28px */
+    right: 20px;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../images/buttons/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
+    }
+a.deleteCategory:hover {
+    background-position: 0px -54px !important;
+    }
+    
+/* categoryUp */
+a.categoryUp {
+    position: absolute;
+    right: 45px;
+    display: block;
+    width: 43px;
+    height: 31px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    background: url("../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
+    }
+a.categoryUp:hover {
+    background-position: 0px -32px !important;
+    }
+    
+/* categoryUp */
+a.categoryDown {
+    position: absolute;
+    right: 45px;
+    margin-top: 40px;
+    display: block;
+    width: 43px;
+    height: 31px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    background: url("../images/buttons/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
+    }
+a.categoryDown:hover {
+    background-position: 0px -32px !important;
+    }
+    
+/* createUser */
+a.createUser {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../images/buttons/userSetup_createUser.png") no-repeat 0px 0px !important;
+    }
+a.createUser:hover {
+    background-position: 0px -54px !important;
+    }
+    
+/* deleteUser */
+a.deleteUser {
+    position: relative;
+    display: block;
+    width: 75px;
+    height: 54px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    float: right;
+    background: url("../images/buttons/userSetup_deleteUser.png") no-repeat 0px 0px !important;
+    }
+a.deleteUser:hover {
+    background-position: 0px -54px !important;
+    }
+    
+
+/* --- THUMBNAIL ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/	
+/* *** THUMB SCALE */
+
+.scale {
+    height:10px;
+    border:1px solid #BE8500;
+    border-top:0px;
+    border-bottom:0px;
+    }
+.scale div {
+    position:relative;
+    top:4px;
+    border-top:1px solid #BE8500;
+    }
+
+/****************/	
+/* *** thumbSize - change Thumbnail Size table */
+
+#thumbSize {
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+    }
+
+    
+/* --- FORMS ------------------------------------------------------------------------------------------------------------------- */
+
+/****************/	
+/* *** INPUT */
+
+input, input[type="text"], textarea, select, div.CodeMirror-wrapping {
+    background: url("../images/bg/formularBg.png") no-repeat #ffffff;
+    border: 1px solid #BEC0C3;
+    padding: 2px 4px;
+    margin: 1px 0px;
+    font: 13px Verdana, Arial, Helvetica;
+    }
+input:hover, textarea:hover, select:hover, div.CodeMirror-wrapping:hover {
+    border: 1px dotted #CF974D;
+    } 
+input:focus, textarea:focus, select:focus {
+    border: 1px solid #CF974D;
+    } 
+input[readonly="readonly"], textarea[readonly="readonly"] {
+    border: 1px dotted #cccccc;
+    color: #7F7F7F !important;
+    }
+input[disabled="disabled"], textarea[disabled="disabled"] {
+    border: 1px dotted #cccccc;
+    color: #A0A3A1;
+    }
+    
+select {
+    padding: 1px 4px;
+    }
+
+textarea, div.CodeMirror-wrapping {
+    line-height: 20px;
+    padding: 10px;
+    }
+
+/* autogrow */
+textarea.autogrow {
+  overflow-y: hidden;
+  resize: none;
+  
+  -moz-transition-duration: 250ms;
+  -webkit-transition-duration: 250ms;
+  -o-transition-duration: 250ms;
+  transition-duration: 250ms;
+  -webkit-transition-property: height;
+  -moz-transition-property: height;
+  -o-transition-property: height;
+  transition-property: height;
+}
+  
+/****************/	
+/* *** INPUT TYPEs */
+
+input.short {
+    width: 50px !important;
+    text-align: center;
+    }
+    
+input[type="checkbox"], .checkboxes input {
+    /*width: 10px !important;*/
+    background: none !important;
+    border: none !important;
+    }
+
+input[type="radio"]{ /* works only in safari*/
+    position: relative;
+    top: 3px;
+    width: 18px !important;
+    }
+    
+input[type="file"]{ /* works only in safari*/
+    width: 300px;
+    }
+
+/****************/	
+/* *** TEXTAREA */
+
+textarea.editFiles, div.CodeMirror-wrapping {
+    width:743px;
+    height:500px;
+    margin-top: 15px;
+    }
+
+textarea#fckStyleFile, textarea#fckStyleFile + div.CodeMirror-wrapping {
+  margin-top: -45px;
+}
+
+a.addStyleFilePath {
+    position: relative;
+    display: block;    
+    width: 24px;
+    height: 24px;
+    top: 5px;
+    left: 1px;
+    background: url("../images/buttons/addStyleFilePath.png") no-repeat;
+    }
+a.addStyleFilePath:hover {
+    background-position: 0px -24px;
+    }
+a.addStyleFilePath:active {
+    background-position: 0px -48px;
+    }
+
+/****************/	
+/* *** FORM BUTTONS */
+
+input.button {
+    border: none;
+    }
+    
+/* SUBMIT */
+a.submit, a.ok {
+    display: inline-block;
+    text-decoration: none;
+    }
+input.submit, a.submit, a.ok {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    background: url("../images/buttons/form_submit.png") no-repeat !important;
+    cursor: pointer;
+    }
+input.submit:hover, a.submit:hover, a.ok:hover {
+    background-position: 1px -78px !important;
+    }
+#content .block input.submit {
+    z-index: 4;
+    position: relative;
+    bottom: 15px !important;
+    }
+    
+/* CANCEL */
+a.cancel {
+    display: inline-block;
+    text-decoration: none;    
+    }
+input.cancel, a.cancel {
+    width: 75px;
+    height: 75px;
+    background: url("../images/buttons/form_cancel.png") no-repeat !important;
+    }
+input.cancel:hover, a.cancel:hover {
+    background-position: 0px -78px !important;
+    }
+#content .block input.cancel {
+    position: relative;
+    margin-bottom: 20px;
+    }
+#content .block a.cancel {
+    position: relative;
+    bottom: -18px !important;
+    }
+    
+/* CANCEL, SUBMIT -> POSITIONS */
+#content .block input.submit.center,
+#content .block input.cancel.center,
+#content .editor input.submit.center { /* link on the right, example: ok */
+    left: 360px;
+    }
+#content .block input.submit.left, #content .block input.cancel.left { /* link on the right, example: ok */
+    float: left !important;
+    left: 15px;
+    }
+#content .block input.submit.right, #content .block input.cancel.right { /* link on the right, example: ok */
+    float: right !important;
+    right: 15px;
+    }
+
+/* SEARCH FIELD */
+input.search {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 0px !important; /* overwrites the #mainBody a*/
+    background: url("../images/buttons/form_search.png") no-repeat  0px 0px !important;
+    }
+input.search:hover {
+    background-position: 0px -50px !important;
+    }
+
+/* EDITFILES new file */
+textarea.editFiles, div.CodeMirror-wrapping {
+    position: relative;
+    top: 62px;
+    margin-bottom: 45px;
+    }
+
+div.editFiles.left {
+    position: absolute;
+    left: 7px;
+    top: 35px;
+    width: 600px;
+    white-space:nowrap;
+    }
+div.editFiles.right {
+    position: absolute;
+    right: 7px;
+    top: 35px;
+    width: 250px;
+    height: 80px;
+    padding-left: 10px;
+    background-color: #ffffff;    
     }

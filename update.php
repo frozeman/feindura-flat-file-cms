@@ -38,7 +38,7 @@ $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.1 rc1';
+$newVersion = '1.1 rc6';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -71,6 +71,14 @@ $newVersion = '1.1 rc1';
    
    h2 {
     font-size: 15px;
+   }
+   
+   a {
+    text-decoration: none;
+    color: #C2802B;
+   }
+   a:hover {
+    color: #ccc;
    }
    
    /* feindura logo inside texts */
@@ -115,7 +123,7 @@ $newVersion = '1.1 rc1';
   ?>
   
   <h1><span class="feindura"><em>fein</em>dura</span> Updater</h1>
-  <?= $oldVersion ?> &rArr; <?= $newVersion ?><br />
+  <span style="font-size:25px;"><?= $oldVersion ?> &rArr; <?= $newVersion ?></span><br />
   <br />
   <?php
   
@@ -480,14 +488,11 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir(dirname(__FILE__).'/library/thirdparty/javascript/') &&
       is_dir(dirname(__FILE__).'/library/thirdparty/javascript/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascript/';
-    if(!delDir(dirname(__FILE__).'/library/thirdparty/php/') &&
-      is_dir(dirname(__FILE__).'/library/thirdparty/php/'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/php/';
     if(!delDir(dirname(__FILE__).'/library/image/') &&
       is_dir(dirname(__FILE__).'/library/image/'))
       $checkFiles[] = dirname(__FILE__).'/library/image/';
     if(!delDir(dirname(__FILE__).'/library/lang/') && 
-      is_dir(dirname(__FILE__).'/library/lang/'))  
+      is_dir(dirname(__FILE__).'/library/lang/'))
       $checkFiles[] = dirname(__FILE__).'/library/lang/';
     if(!delDir(dirname(__FILE__).'/library/process/') && 
       is_dir(dirname(__FILE__).'/library/process/'))
@@ -517,9 +522,18 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!unlink(dirname(__FILE__).'/library/process/download.php') &&
       is_file(dirname(__FILE__).'/library/process/download.php'))
       $checkFiles[] = dirname(__FILE__).'/library/process/download.php';
-     if(!unlink(dirname(__FILE__).'/library/includes/frontend.include.php') &&
+    if(!unlink(dirname(__FILE__).'/library/includes/frontend.include.php') &&
       is_file(dirname(__FILE__).'/library/includes/frontend.include.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/includes/frontend.include.php';      
+      $checkFiles[] = dirname(__FILE__).'/library/includes/frontend.include.php';
+    if(!unlink(dirname(__FILE__).'/library/styles/setup.css') &&
+      is_file(dirname(__FILE__).'/library/styles/setup.css'))
+      $checkFiles[] = dirname(__FILE__).'/library/styles/setup.css';
+    if(!unlink(dirname(__FILE__).'/library/styles/menus.css') &&
+      is_file(dirname(__FILE__).'/library/styles/menus.css'))
+      $checkFiles[] = dirname(__FILE__).'/library/styles/menus.css';
+    if(!unlink(dirname(__FILE__).'/library/styles/sidebars.css') &&
+      is_file(dirname(__FILE__).'/library/styles/sidebars.css'))
+      $checkFiles[] = dirname(__FILE__).'/library/styles/sidebars.css';
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';
@@ -539,7 +553,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     else
       echo '<h1>something went wrong :-( could not completely update feindura, check the errors and try again.</h1>';
     
-  }  
-  ?>    
+  }
+  
+  ?>
+  <a href="index.php">&lArr; go to the <span class="feindura"><em>fein</em>dura</span> backend</a>
 </body>
 </html>
