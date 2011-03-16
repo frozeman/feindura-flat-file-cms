@@ -441,24 +441,18 @@ window.addEvent('domready', function() {
         li.addEvent('mouseover',function(e) {
           e.stop();
           
-          if(navigator.appVersion.match(/MSIE [0-8]/))
-            functionsDiv.tween('width','140px');
-          else
-            functionsDiv.tween('opacity','1');
+          if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('width','140px');
+          else functionsDiv.tween('opacity','1');
         });
         li.addEvent('mouseout',function(e) {
           e.stop();
-          if(navigator.appVersion.match(/MSIE [0-8]/))
-            functionsDiv.tween('width','0px');
-          else
-            functionsDiv.tween('opacity','0.2');
+          if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('width','0px');
+          else functionsDiv.tween('opacity','0.2');
         });      
       
         // HIDE the functions AT STARTUP
-        if(navigator.appVersion.match(/MSIE [0-8]/))
-            functionsDiv.setStyle('width','0px');
-          else
-            functionsDiv.setStyle('opacity','0.2');            
+        if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.setStyle('width','0px');
+        else functionsDiv.setStyle('opacity','0.2');          
       }
       
     });    
@@ -896,7 +890,7 @@ window.addEvent('domready', function() {
       $$('div.editor').addEvent('mouseleave',function(e){
         clearTimeout(editorTweenTimeout);
         if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
-        editorIsClicked = false;
+        //editorIsClicked = false;
       });
       $('cke_HTMLEditor').addEvent('mousedown',function(e){
         editorIsClicked = true;
