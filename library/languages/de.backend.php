@@ -80,8 +80,8 @@ $langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Frontend-Bearbeitung::Klick hier um di
 $langFile['THUMBNAIL_TEXT_UNIT'] = 'Pixel';
 
 $langFile['THUMBNAIL_TEXT_NAME'] = 'Seiten-Thumbnail';
-$langFile['THUMBNAIL_TEXT_WIDTH'] = 'Standard <b>Breite</b>';
-$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Standard <b>Höhe</b>';
+$langFile['THUMBNAIL_TEXT_WIDTH'] = 'Thumbnail <b>Breite</b>';
+$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Thumbnail <b>Höhe</b>';
 
 $langFile['THUMBNAIL_TOOLTIP_WIDTH'] = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Größe skaliert.';
 $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] = 'Standardhöhe::Die Höhe des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Größe skaliert.';

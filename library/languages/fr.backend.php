@@ -79,8 +79,8 @@ $langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'feindura::S\'il vous plaît cliquez ic
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT'] = 'pixel';
 $langFile['THUMBNAIL_TEXT_NAME'] = 'miniature de la page';
-$langFile['THUMBNAIL_TEXT_WIDTH'] = 'standard <b>largeur</b>';
-$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'standard <b>hauteur</b>';
+$langFile['THUMBNAIL_TEXT_WIDTH'] = 'thumbnail <b>largeur</b>';
+$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'thumbnail <b>hauteur</b>';
 $langFile['THUMBNAIL_TOOLTIP_WIDTH'] = 'largeur standard::La largeur du thumbnail en pixels.[br /][br /]L\'image téléchargée sera mise à l\'échelle normée.';
 $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] = 'hauteur standard::La hauteur du thumbnail en pixels.[br /][br /]L\'image téléchargée sera mise à l\'échelle normée.';
 $langFile['THUMBNAIL_TEXT_RATIO'] = 'rapport largeur/hauteur';

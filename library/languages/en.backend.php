@@ -80,8 +80,8 @@ $langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Frontend Editing::Click here to edit t
 $langFile['THUMBNAIL_TEXT_UNIT'] = 'pixel';
 
 $langFile['THUMBNAIL_TEXT_NAME'] = 'Page-Thumbnail';
-$langFile['THUMBNAIL_TEXT_WIDTH'] = 'Standard <b>Width</b>';
-$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Standard <b>Height</b>';
+$langFile['THUMBNAIL_TEXT_WIDTH'] = 'Thumbnail <b>width</b>';
+$langFile['THUMBNAIL_TEXT_HEIGHT'] = 'Thumbnail <b>height</b>';
 
 $langFile['THUMBNAIL_TOOLTIP_WIDTH'] = 'Standardwidth::The width of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
 $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] = 'Standardheight::The height of the thumbnail in pixels.[br /][br /]The image will be resized to this value after the upload.';
