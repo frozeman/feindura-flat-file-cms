@@ -1361,10 +1361,10 @@ class generalFunctions {
   * 
   */
   public static function getRealPath($path) {
-    $path = preg_replace("/\\\+/",'/',$path);
+    $path = preg_replace("/[\\\]+/",'/',$path);
     $path = (substr($path,0,1) == '/' && strpos($path,DOCUMENTROOT) === false) ? DOCUMENTROOT.$path : $path;
-    $path = preg_replace("/\\\+/", '/',realPath($path));
-    return ($path === '') ? false : preg_replace("/\\\+/", '/',$path);
+    $path = preg_replace("/[\\\]+/", '/',realPath($path));
+    return ($path === '') ? false : preg_replace("/[\\\]+/", '/',$path);
   }
 
  /**

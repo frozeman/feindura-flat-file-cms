@@ -421,8 +421,8 @@ window.addEvent('domready', function() {
   // *** ->> LISTPAGES -----------------------------------------------------------------------------------------------------------------------
     
   // -------------------------------------------------------------------------------------------
-  // HIDE FUNCTIONS of the PAGES ---------------------------------------------------------------
-  if($$('ul li div.functions') != null) {  
+  // TWEEN FUNCTIONS in LIST PAGES ---------------------------------------------------------------
+  if($$('ul li div.functions') != null) {
     
     $$('ul li').each(function(li) {
       var functionsDiv = false;
@@ -441,21 +441,21 @@ window.addEvent('domready', function() {
         li.addEvent('mouseover',function(e) {
           e.stop();
           
-          if(navigator.appVersion.match(/MSIE/))
+          if(navigator.appVersion.match(/MSIE [0-8]/))
             functionsDiv.tween('width','140px');
           else
             functionsDiv.tween('opacity','1');
         });
         li.addEvent('mouseout',function(e) {
           e.stop();
-          if(navigator.appVersion.match(/MSIE/))
+          if(navigator.appVersion.match(/MSIE [0-8]/))
             functionsDiv.tween('width','0px');
           else
             functionsDiv.tween('opacity','0.2');
         });      
       
         // HIDE the functions AT STARTUP
-        if(navigator.appVersion.match(/MSIE/))
+        if(navigator.appVersion.match(/MSIE [0-8]/))
             functionsDiv.setStyle('width','0px');
           else
             functionsDiv.setStyle('opacity','0.2');            
@@ -490,13 +490,12 @@ window.addEvent('domready', function() {
 		},
 		/* --> once an item is selected */
 		onStart: function(el,elClone) {
-			//$$('.listPagesSortable li').setStyle('cursor','move'); // ändert den Cursor
 			el.setStyle('background-position', '0px -81px');
       			
 			categoryOld = el.getParent().get('id').substr(8); // gets the category id where the element comes from
 
 		},
-    // überprüft ob sortiert wurde oder nicht		
+    // check if sorted	
 		onSort: function(el){
   		clicked = true;
   		$$('.sortablePageList a').each(function(a) { a.addEvent('click',preventLink); }); // prevent clicking the link on sort
@@ -619,13 +618,6 @@ window.addEvent('domready', function() {
         li.removeEvents(); 
         li.setStyle('cursor','auto');
       }
-      
-      /*
-      li.hasChild($$('.functions')).addEvent('mouseover',function(e) {
-        alert('dd');
-        functions.fade('in');
-      });
-      */
   });
   
   // *** ->> SETUP -----------------------------------------------------------------------------------------------------------------------
