@@ -32,6 +32,12 @@ $site = $_GET['site'];
 $page = $_GET['page'];
 $category = $_GET['category'];
 
+// ->> CHECK if the upload folder exists and is writeable
+if(empty($adminConfig['uploadPath']) || !is_dir(DOCUMENTROOT.$adminConfig['uploadPath']))
+  die('<h1>'.$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'].'</h1>');
+if($warning = isWritableWarning(DOCUMENTROOT.$adminConfig['uploadPath']))
+  die('<h1>'.$warning.'</h1>');
+
 $pageContent = generalFunctions::readPage($page,$category);
 
 $categoryRatio = false;

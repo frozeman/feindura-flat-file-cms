@@ -389,13 +389,15 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save'] = '<b>Speaking URLs</b> n
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul'] = '<b>Speaking URLs</b> ne pouvait pas être activé à cause du module Apache: MOD_REWRITE peut pas être trouvé';
 
 // ---------- user Settings
-$langFile['adminSetup_userSettings_h1'] = 'préférences utilisateur';
-$langFile['adminSetup_userSettings_check1'] = 'traiter les données du site web au sein du paramétrage du site web';
-$langFile['adminSetup_userSettings_check2'] = 'traiter les feuilles de style au sein du paramétrage du site web';
-$langFile['adminSetup_userSettings_check3'] = 'activer gestion des données';
-$langFile['adminSetup_userSettings_textarea1'] = '<strong>informations utilisateur</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'Information utilisateur::Ce texte va être publié sur [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].'.';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'N\'ecrivez rien dans la case, si vous ne voulez pas montrer des informations sur l\'utilisateur';
+$langFile['ADMINSETUP_USERPERMISSIONS_TITLE'] = 'permissions de l\'utilisateur';
+$langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'traiter les données du site web au sein du paramétrage du site web';
+$langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'traiter les feuilles de style au sein du paramétrage du site web';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'activer gestion des données';
+$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'gestionnaire de fichiers désactivé::Vous devez régler le trace upload dans la configuration de base, avant de pouvoir activer le gestionnaire de fichiers.';
+
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>informations utilisateur</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Information utilisateur::Ce texte va être publié sur [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].'.';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'N\'ecrivez rien dans la case, si vous ne voulez pas montrer des informations sur l\'utilisateur';
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'paramètres de l\'éditeur HTML';
@@ -700,8 +702,9 @@ $langFile['PAGETHUMBNAIL_ERROR_nofile'] = 'Vous n\'avez pas choisi d\'image.';
 $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'] = 'Aucun fichier pouvait être téléchargé.';
 $langFile['PAGETHUMBNAIL_ERROR_filesize'] = 'Le fichier télécharge est probablement trop grand.<br />Die maximal erlaubte Dateigröße beträgt';
 $langFile['PAGETHUMBNAIL_ERROR_wrongformat'] = 'Le fichier choisi n\'est pas dans le bon format.';
-$langFile['PAGETHUMBNAIL_ERROR_nodir_part1'] = 'le répertoire des thumbnails'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'] = 'e\'existe pas ou il ne pouvait pas être crée.';
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'] = 'le répertoire des thumbnails'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'] = 'e\'existe pas.';
+$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END'] = 'il ne pouvait pas être crée.';
 $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'] = 'Le fichier téléchargé ne pouvait pas être déplacé dans le dossier des thumbnails.'; // ..thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'] = 'déplacer.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'] = 'La taille de l\'image ne pouvait pas être changée.';

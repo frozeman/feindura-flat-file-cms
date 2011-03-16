@@ -420,14 +420,15 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul'] = '<b>Speaking URLs</b> 
 
 
 // ---------- user Settings
-$langFile['adminSetup_userSettings_h1'] = 'Benutzer-Einstellungen';
-$langFile['adminSetup_userSettings_check1'] = 'Webseitendateien in den Webseiten-Einstellungen bearbeiten';
-$langFile['adminSetup_userSettings_check2'] = 'Stylesheetdateien in den Webseiten-Einstellungen bearbeiten';
-$langFile['adminSetup_userSettings_check3'] = 'Dateimanager aktivieren';
+$langFile['ADMINSETUP_USERPERMISSIONS_TITLE'] = 'Benutzerrechte';
+$langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'Webseitendateien in den Webseiten-Einstellungen bearbeiten';
+$langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'Stylesheetdateien in den Webseiten-Einstellungen bearbeiten';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'Dateimanager aktivieren';
+$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'Dateimanager deaktiviert::Du musst erst den Daten-Uploadpfad in den Grund-Einstellungen einstellen, bevor du den Dateimanager aktivieren kannst.';
 
-$langFile['adminSetup_userSettings_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].' angezeigt.';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'Wenn Du keine Informationen für den Benutzer anzeigen möchtest lasse das Feld leer';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].' angezeigt.';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'Wenn Du keine Informationen für den Benutzer anzeigen möchtest lasse das Feld leer';
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
@@ -766,8 +767,9 @@ $langFile['PAGETHUMBNAIL_ERROR_nofile'] = 'Du hast keine Datei ausgewählt.';
 $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'] = 'Es wurde keine Datei hochgeladen.';
 $langFile['PAGETHUMBNAIL_ERROR_filesize'] = 'Wahrscheinlich ist die hochgeladene Datei zu groß.<br />Die maximal erlaubte Dateigröße beträgt';
 $langFile['PAGETHUMBNAIL_ERROR_wrongformat'] = 'Die ausgewählte Datei hat ein nicht unterstütztes Format';
-$langFile['PAGETHUMBNAIL_ERROR_nodir_part1'] = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'] = 'existiert nicht oder konnte nicht erstellt werden.';
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'] = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'] = 'existiert nicht.';
+$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END'] = 'konnte nicht erstellt werden.';
 $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'] = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'] = 'verschieben.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'] = 'Die Bildgröße konnt nicht geändert werden.';

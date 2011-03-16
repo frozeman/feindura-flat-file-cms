@@ -422,14 +422,15 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul'] = '<b>Speaking URLs</b> 
 
 
 // ---------- user Settings
-$langFile['adminSetup_userSettings_h1'] = 'User-Settings';
-$langFile['adminSetup_userSettings_check1'] = 'Edit website files in the website-settings';
-$langFile['adminSetup_userSettings_check2'] = 'Edit stylesheet files in the website-settings';
-$langFile['adminSetup_userSettings_check3'] = 'activate file manager';
+$langFile['ADMINSETUP_USERPERMISSIONS_TITLE'] = 'User permissions';
+$langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'Edit website files in the website-settings';
+$langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'Edit stylesheet files in the website-settings';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'Activate file manager';
+$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
 
-$langFile['adminSetup_userSettings_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
-$langFile['adminSetup_userSettings_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['BUTTON_HOME'].' page of [span class=logoname]fein[span]dura[/span][/span].';
-$langFile['adminSetup_userSettings_textarea1_inputTip'] = 'If you don\'t want to display an information for the user, leave this field empty';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['BUTTON_HOME'].' page of [span class=logoname]fein[span]dura[/span][/span].';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'If you don\'t want to display an information for the user, leave this field empty';
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Settings';
@@ -768,8 +769,9 @@ $langFile['PAGETHUMBNAIL_ERROR_nofile'] = 'You didn\'t select any file.';
 $langFile['PAGETHUMBNAIL_ERROR_nouploadedfile'] = 'No file was uploaded.';
 $langFile['PAGETHUMBNAIL_ERROR_filesize'] = 'The filesize of the uploaded image is probably to big.<br />The maximum filesize is';
 $langFile['PAGETHUMBNAIL_ERROR_wrongformat'] = 'The selecet file has a not supported format';
-$langFile['PAGETHUMBNAIL_ERROR_nodir_part1'] = 'The thumbnail folder'; // The thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'] = 'doesn\'t exist or couldn\'t be created.';
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_START'] = 'The thumbnail folder'; // The thumbnail-folder..
+$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'] = 'doesn\'t exist.';
+$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END'] = 'couldn\'t be created.';
 $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'] = 'Could not move the uploaded file in the thumbnail folder'; // ..thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'] = '.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE'] = 'Couldn\'t resize the image.';

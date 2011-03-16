@@ -276,38 +276,42 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
 $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-<h1><a href="#" id="userSettings" name="userSettings"><?php echo $langFile['adminSetup_userSettings_h1']; ?></a></h1>
+<h1><a href="#" id="userSettings" name="userSettings"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']; ?></a></h1>
 <div class="content">
     <table>
      
       <colgroup>
       <col class="left" />
       </colgroup>      
+      <?php
       
+      $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : '';
+      
+      ?>
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?> /><br />
       </td><td class="right checkboxes">
-      <label for="cfg_userFileManager"><?php echo $langFile['adminSetup_userSettings_check3']; ?></label><br />
+      <label for="cfg_userFileManager"<?= ($fmDisabled) ? 'class="toolTip red" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br />
       </td></tr>
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_userWebsiteFiles" name="cfg_userWebsiteFiles" value="true"<?php if($adminConfig['user']['editWebsiteFiles']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
-      <label for="cfg_userWebsiteFiles"><?php echo $langFile['adminSetup_userSettings_check1']; ?></label><br />
+      <label for="cfg_userWebsiteFiles"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check1']; ?></label><br />
       </td></tr>
       
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_userStylesheets" name="cfg_userStylesheets" value="true"<?php if($adminConfig['user']['editStyleSheets']) echo ' checked="checked"'; ?> />
       </td><td class="right checkboxes">
-      <label for="cfg_userStylesheets"><?php echo $langFile['adminSetup_userSettings_check2']; ?></label>
+      <label for="cfg_userStylesheets"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_check2']; ?></label>
       </td></tr>
       
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['adminSetup_userSettings_textarea1_tip']; ?>"><?php echo $langFile['adminSetup_userSettings_textarea1']; ?></span></label>
+      <label for="cfg_userInfo"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip']; ?>"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1']; ?></span></label>
       </td><td class="right">
-      <textarea id="cfg_userInfo" name="cfg_userInfo" cols="50" rows="2" style="white-space:normal;width:500px;" class="inputToolTip autogrow" title="<?php echo $langFile['adminSetup_userSettings_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br />','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
+      <textarea id="cfg_userInfo" name="cfg_userInfo" cols="50" rows="2" style="white-space:normal;width:500px;" class="inputToolTip autogrow" title="<?php echo $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip']; ?>"><?php echo str_replace(array('<br>','<br />','<br/>'),'',$adminConfig['user']['info']); ?></textarea>
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>
@@ -335,7 +339,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       </colgroup>
 
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if(!isset($adminConfig['editor']['safeHtml']) || $adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
       <label for="cfg_editorSafeHtml" class="toolTip" title="::<?= $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?= $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></label><br />
       </td></tr>

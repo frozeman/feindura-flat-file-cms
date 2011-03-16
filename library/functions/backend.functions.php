@@ -592,6 +592,9 @@ function saveAdminConfig($adminConfig) {
   // **** opens admin.config.php for writing
   if($file = fopen(dirname(__FILE__)."/../../config/admin.config.php","w")) {
     
+    // clear the thumbnail path, when no upload path is specified
+    if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
+    
     // escape \ and '
     xssFilter::escapeBasics($adminConfig);
 
@@ -635,7 +638,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pageThumbnail']['width'] =  '".xssFilter::int($adminConfig['pageThumbnail']['width'])."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['height'] = '".xssFilter::int($adminConfig['pageThumbnail']['height'])."';\n");
     fwrite($file,"\$adminConfig['pageThumbnail']['ratio'] =  '".xssFilter::alphabetical($adminConfig['pageThumbnail']['ratio'])."';\n");
-    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".xssFilter::path($adminConfig['pageThumbnail']['path'])."';\n\n");
+    fwrite($file,"\$adminConfig['pageThumbnail']['path'] =   '".xssFilter::path($adminConfig['pageThumbnail']['path'],false,(empty($adminConfig['uploadPath'])) ? '' : 'thumbnails/')."';\n\n");
     
     fwrite($file,"return \$adminConfig;");
        
@@ -1584,9 +1587,7 @@ function delDir($dir) {
  */
 function isFolderWarning($folder) {
   
-  $folder = generalFunctions::getRealPath($folder);
-
-  if(is_dir($folder) === false) {
+  if(!generalFunctions::getRealPath($folder) && is_dir($folder) === false) {
       return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_isFolder'].'</span><br />';
   } else
     return false;

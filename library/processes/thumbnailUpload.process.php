@@ -102,9 +102,11 @@ if($_POST['upload']) {
     
     // ---------------- ERROR
     // checks if the upload Dir exists
-    if(!@is_dir(DOCUMENTROOT.$uploadPath))
+    if(empty($adminConfig['uploadPath']) || empty($adminConfig['pageThumbnail']['path']))
+      $error[] = $langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_NODIR_END'];
+    elseif(!@is_dir(DOCUMENTROOT.$uploadPath))
       if(!@mkdir(DOCUMENTROOT.$uploadPath, $adminConfig['permissions'],true))
-        $error[] = $langFile['PAGETHUMBNAIL_ERROR_nodir_part1'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_nodir_part2'];
+        $error[] = $langFile['PAGETHUMBNAIL_ERROR_NODIR_START'].' &quot;<b>'.$uploadPath.'</b>&quot; '.$langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END'];
     
     
     // CHECK FOR ERROR 2
