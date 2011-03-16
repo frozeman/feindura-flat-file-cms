@@ -22,8 +22,12 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-if(!$adminConfig['user']['fileManager'])
-  die('MooTools FileManager deactivated');
+if(!$adminConfig['user']['fileManager'] || empty($adminConfig['uploadPath']))
+  die('MooTools FileManager is deactivated');
+
+if(!empty($adminConfig['uploadPath']) && !is_dir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path']))
+  if(!@mkdir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],$adminConfig['permissions'],true))
+    die('Couldn\'t create the thumbnail folder');
 
 require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManager.php');
 
