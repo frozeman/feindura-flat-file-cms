@@ -18,14 +18,20 @@
  * 
  * This file will be included to run the login.include.php and check untrusted data before executing the script.  
  * 
- * @version 0.1
+ * @version 0.2
  * 
  */
 
-/**
- * first includes all necessary configs, functions and classes
- */
-require_once(dirname(__FILE__)."/backend.include.php");
+if($frontendEditing)
+  /**
+   * first includes all necessary configs, functions and classes
+   */
+  require_once(dirname(__FILE__)."/../../feindura.include.php");
+else
+  /**
+   * first includes all necessary configs, functions and classes
+   */
+  require_once(dirname(__FILE__)."/backend.include.php");
 
 // ->> Then check incoming data like category and page vars
 // *****************************

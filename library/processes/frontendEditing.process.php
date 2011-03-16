@@ -17,6 +17,7 @@
 * processes/frontendEditing.process.php version 0.1
 */
 
+$frontendEditing = true; // to prevent that the backend.include.php will be included inside the secure.include.php
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */

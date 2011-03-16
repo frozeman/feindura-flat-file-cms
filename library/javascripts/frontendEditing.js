@@ -29,7 +29,7 @@
   
   var toolTips = null;
 
-  var logo = new Element('a',{ 'href': feindura_url + feindura_basePath, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
+  var logo = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
   var topBar = new Element('div',{id: 'feindura_topBar'});
   var topBarVisible = true;
   
@@ -61,7 +61,7 @@
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
       // save the page
-      request(pageBlock,feindura_basePath + 'library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+      request(pageBlock,feindura_url + feindura_basePath + 'library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
       pageSaved = true;
     }
   }
@@ -265,7 +265,7 @@
     } else {
       
       // set the session var
-      new Request({ url: feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=true');
+      new Request({ url: feindura_url + feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=true');
     
       logo.tween('top', '-55px');
       if($$('div.MooRTE.rtePageTop')[0] != null)
@@ -301,7 +301,7 @@
   function activate() {
     
     // set the session var
-    new Request({ url: feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=false');
+    new Request({ url: feindura_url + feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=false');
     
     topBarVisible = true;
     
@@ -344,7 +344,7 @@
   function topBarTemplate() {
     var links = new Array();
     links[0] = new Element('a',{ 'href': feindura_logoutUrl, 'class': 'feindura_logout feindura_toolTip', 'title': feindura_langFile.BUTTON_LOGOUT });
-    links[1] = new Element('a',{ 'href': feindura_url + feindura_basePath, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
+    links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
     
     // Hide button
     links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide'});
@@ -381,11 +381,11 @@
       links[0].addEvent('click',function(e) {
         e.stop();
         pageSaved = true;
-        request(e.target.getParent('div').getNext('div'),feindura_basePath + 'library/processes/listPages.process.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
+        request(e.target.getParent('div').getNext('div'),feindura_url + feindura_basePath + 'library/processes/listPages.process.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
       });
     }
     // editPage
-    links[1] = new Element('a',{ 'href': feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
+    links[1] = new Element('a',{ 'href': feindura_url + feindura_basePath + 'index.php?category=' + values.categoryId + '&page=' + values.pageId + '', 'class': 'feindura_editPage feindura_toolTip', 'title': feindura_langFile.FUNCTIONS_EDITPAGE + '::' });
     
     return links;
   }

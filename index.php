@@ -161,8 +161,8 @@ if($_GET['site'] == 'addons') {
   // transport feindura PHP vars to javascript
   var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
   var feindura_langFile = {
-    ERRORWINDOW_TITLE:                '<?= $langFile['errorWindow_h1']; ?>',
-    ERROR_SAVE:                       '<?= $langFile['editor_savepage_error_save']; ?>'
+    ERRORWINDOW_TITLE:                "<?= $langFile['errorWindow_h1']; ?>",
+    ERROR_SAVE:                       "<?= $langFile['editor_savepage_error_save']; ?>"
   };
   
   window.addEvent('domready', function () {
@@ -424,7 +424,7 @@ if($_GET['site'] == 'addons') {
             <?php
             $showSpacer = false;
             
-            // editPage
+            // frontend editing
             if($showEditPage) { ?>
               <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
             <?php
@@ -505,7 +505,7 @@ if($_GET['site'] == 'addons') {
           <?php
           $showSpacer = false;
           
-          // editPage
+          // frontend editing
           if($showEditPage) { ?>
             <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip"><span><?php echo $langFile['BUTTON_FRONTENDEDITPAGE']; ?></span></a></li>
           <?php

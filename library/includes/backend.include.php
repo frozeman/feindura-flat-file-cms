@@ -81,6 +81,9 @@ if(PHP_VERSION < REQUIREDPHPVERSION) {
 // INCLUDE FUNCTIONS
 require_once(dirname(__FILE__)."/../functions/backend.functions.php");
 
+// -> SET ERROR HANDLER
+@set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
+
 // set the time zone
 ini_set('date.timezone',$adminConfig['timeZone']);
 date_default_timezone_set($adminConfig['timeZone']);
@@ -95,14 +98,13 @@ generalFunctions::init();
 statisticFunctions::init();
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
+$_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
+$frontendEditing  = false; // used to include this backend.inlcude.php script into the secure.include.php, if true it only loads the feindura.include.php
 $errorWindow      = false; // when string the errorWindow with this string is displayed
 $documentSaved    = false; // when true the document saved icon is displayed
 $savedForm        = false; // to tell wich part fo the form was saved
 $savedSettings    = false; // to tell wich settings were saved, to re-include the settings
 $newPage          = false; // tells the editor whether a new page is created
-
-// -> SET ERROR HANDLER
-@set_error_handler("showErrorsInWindow",E_ALL ^ E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 // ->> choose LANGUAGE * START * -----------------------------------------------------
 // language shortname will be transfered trough a session (needs COOKIES!)

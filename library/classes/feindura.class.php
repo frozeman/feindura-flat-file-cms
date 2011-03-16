@@ -1069,23 +1069,24 @@ class feindura extends feinduraBase {
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */
   // transport feindura PHP vars to javascript
-  var feindura_url = '".$this->adminConfig['url']."';
-  var feindura_basePath = '".$this->adminConfig['basePath']."';
+  var feindura_url =                       '".$this->adminConfig['url']."';
+  var feindura_basePath =                  '".$this->adminConfig['basePath']."';
+  var feindura_currentBackendLocation =    '".$_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation']."';
   var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraLogin'][IDENTITY]['deactivateFrontendEditing']."';
   var feindura_langFile = {
-    ERRORWINDOW_TITLE:      '".$this->languageFile['errorWindow_h1']."',
-    ERROR_SAVE:             '".$this->languageFile['editor_savepage_error_save']."',
-    ERROR_SETSTARTPAGE:     '".$this->languageFile['sortablePageList_setStartPage_error_save']."',
-    FUNCTIONS_STARTPAGE_SET:'".$this->languageFile['sortablePageList_functions_startPage_set']."',
-    FUNCTIONS_STARTPAGE:    '".$this->languageFile['sortablePageList_functions_startPage']."',
-    FUNCTIONS_EDITPAGE:     '".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."',
-    BUTTON_LOGOUT:          '".$this->languageFile['HEADER_BUTTON_LOGOUT']."',
-    BUTTON_GOTOBACKEND:     '".$this->languageFile['HEADER_TIP_GOTOBACKEND']."',
+    ERRORWINDOW_TITLE:      \"".$this->languageFile['errorWindow_h1']."\",
+    ERROR_SAVE:             \"".$this->languageFile['editor_savepage_error_save']."\",
+    ERROR_SETSTARTPAGE:     \"".$this->languageFile['sortablePageList_setStartPage_error_save']."\",
+    FUNCTIONS_STARTPAGE_SET:\"".$this->languageFile['sortablePageList_functions_startPage_set']."\",
+    FUNCTIONS_STARTPAGE:    \"".$this->languageFile['sortablePageList_functions_startPage']."\",
+    FUNCTIONS_EDITPAGE:     \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",
+    BUTTON_LOGOUT:          \"".$this->languageFile['HEADER_BUTTON_LOGOUT']."\",
+    BUTTON_GOTOBACKEND:     \"".$this->languageFile['HEADER_TIP_GOTOBACKEND']."\",
     
   };
-  var feindura_logoutUrl = '".generalFunctions::getCurrentUrl('feindura_logout')."';
+  var feindura_logoutUrl =    '".generalFunctions::getCurrentUrl('feindura_logout')."';
   var feindura_setStartPage = '".$this->adminConfig['setStartPage']."';
-  var feindura_startPage = '".$this->startPage."';
+  var feindura_startPage =    '".$this->startPage."';
   /* ]]> */
   </script>\n";
 

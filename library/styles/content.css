@@ -664,6 +664,9 @@ div.listPagesHead {
 .listPages .functions a.startPage {
     background: url("../images/buttons/listPages_startPage.png") no-repeat;
     }
+.listPages .functions a.frontendEditing {
+    background: url("../images/buttons/listPages_frontendEditing.png") no-repeat;
+    }
 .listPages .functions a.editPage {
     background: url("../images/buttons/listPages_editPage.png") no-repeat;
     }

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc6
-Build 590
+Build 591
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 591: when you go now from the frontend editing back to the backend, you will get there where you been before
   build 590: changed langFile text
   build 589: add CodeMirror 0.94
   build 588: changed behavior of list pages functions for IE9
