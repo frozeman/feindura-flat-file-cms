@@ -43,17 +43,12 @@ if($_POST['save'] == 'true') {
     // -> the data which will be returned, to inject into the element in the frontend 
     $return = ($_POST['type'] == 'title') ? $pageContent['title'] : $return;
     $return = ($_POST['type'] == 'content') ? $pageContent['content'] : $return;
-  
+    $return = str_replace("\'", "'", $return);
+    $return = str_replace('\"', '"', $return);
   // ->> on failure, return the unsaved data
   } else {
-    // -> the data which will be returned, to inject into the element in the frontend 
-    $return = ($_POST['type'] == 'title') ? $_POST['data'] : $return;
-    $return = ($_POST['type'] == 'content') ? $_POST['data'] : $return;
-  }
-  
-  $return = str_replace("\'", "'", $return);
-  $return = str_replace('\"', '"', $return);
-  
+    $return = '####SAVING-ERROR####';
+  }  
   echo $return;
 }
 

@@ -246,11 +246,7 @@ class feinduraBase {
     $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
     $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
     $this->pluginsConfig = $GLOBALS["feindura_pluginsConfig"];
-    
-    // INIT STATIC CLASSES
-    generalFunctions::init();
-    statisticFunctions::init();    
-    
+
     // eventually LOGOUT
     if(isset($_GET['feindura_logout']))
       unset($_SESSION['feinduraLogin'][IDENTITY]['username'],$_SESSION['feinduraLogin'][IDENTITY]['loggedIn']);

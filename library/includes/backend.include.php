@@ -98,7 +98,6 @@ generalFunctions::init();
 statisticFunctions::init();
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
-$_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
 $frontendEditing  = false; // used to include this backend.inlcude.php script into the secure.include.php, if true it only loads the feindura.include.php
 $errorWindow      = false; // when string the errorWindow with this string is displayed
 $documentSaved    = false; // when true the document saved icon is displayed

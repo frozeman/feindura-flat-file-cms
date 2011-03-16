@@ -118,9 +118,9 @@ a.toWebsite:hover, a.feindura_toBackend:hover {
 /* --- ERRORWINDOW */
 
 #feindura_errorWindow {
-    z-index: 20;
+    z-index: 1100;
     position: fixed;    
-    top: 10%;
+    top: 15%;
     left: 370px;
     width: 447px;
     padding: 0px 40px;

@@ -36,6 +36,9 @@ $version = file("CHANGELOG");
 $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
 
+// store the current location, this will be used when the user comes back from the frontend
+$_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
+
 // if feindura starts first set page to 'home'
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   $_GET['site'] = 'home';

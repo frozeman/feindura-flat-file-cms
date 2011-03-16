@@ -67,12 +67,36 @@
   }
   
   /* ---------------------------------------------------------------------------------- */
+  // ->> DISPLAY ERROR
+  function displayError(title,errorText) {
+    // creates the errorWindow
+    var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
+    errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
+    var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+errorText+'</p>'});
+    var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
+    errorWindowContent.grab(errorWindowOkButton);
+    errorWindow.grab(errorWindowContent);
+    errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
+    
+    // add functionality to the ok button
+    errorWindowOkButton.addEvent('click',function(e) {
+      e.stop();
+      errorWindow.fade('out');
+      errorWindow.get('tween').chain(function(){
+        errorWindow.destroy();
+      });
+    });
+    
+    return errorWindow;
+  }
+  
+  /* ---------------------------------------------------------------------------------- */
   // FRONTEND EDITING AJAX REQUEST
   function request(pageBlock,url,data,errorTexts,method,update) {
 
     // vars
     if(!method) method = 'get';
-    
+
     // creates the request Object
     new Request({
       url: url,
@@ -110,43 +134,30 @@
           // -> REMOVE the LOADING CIRCLE
           removeLoadingCircle();
           jsLoadingCircle.dispose();
-          // display finish picture
-          pageBlock.grab(finishPicture,'top');
-          centerOnElement(finishPicture,pageBlock);
-          finishPicture.set('tween',{duration: 400});
-          finishPicture.fade('in');
-          finishPicture.get('tween').chain(function(){
-            finishPicture.fade('out');
-          }).chain(function(){
-            finishPicture.dispose();
-            // -> UPDATE the pageBlock CONTENT
-            if(update)
-              pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");   
-          });
+          
+          if(html.contains('####SAVING-ERROR####'))
+            document.body.grab(displayError(errorTexts.title,errorTexts.text),'top');
+          else {
+            // display finish picture
+            pageBlock.grab(finishPicture,'top');
+            centerOnElement(finishPicture,pageBlock);
+            finishPicture.set('tween',{duration: 400});
+            finishPicture.fade('in');
+            finishPicture.get('tween').chain(function(){
+              finishPicture.fade('out');
+            }).chain(function(){
+              finishPicture.dispose();
+              // -> UPDATE the pageBlock CONTENT
+              if(update)
+                pageBlock.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");   
+            });
+          }
         });
   		},
   		// The request will most likely succeed, but just in case, we'll add an
   		// onFailure method which will let the user know what happened.
   		onFailure: function() { //-----------------------------------------------------
-        
-        // creates the errorWindow
-        var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
-        errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': errorTexts.title}));
-        var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+errorTexts.text+'</p>'});
-        var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
-        errorWindowContent.grab(errorWindowOkButton);
-        errorWindow.grab(errorWindowContent);
-        errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
-        
-        // add functionality to the ok button
-        errorWindowOkButton.addEvent('click',function(e) {
-          e.stop();
-          errorWindow.fade('out');
-          errorWindow.get('tween').chain(function(){
-            errorWindow.destroy();
-          });
-        });      
-        
+
         // -> fade out the loading fill
   			loadingFill.set('tween',{duration: 200});
   			loadingFill.fade('out');
@@ -164,7 +175,7 @@
   			   removeLoadingCircle();
   			   jsLoadingCircle.dispose();
   			   // add errorWindow
-           $(document.body).grab(errorWindow,'top');
+           document.body.grab(displayError(errorTexts.title,errorTexts.text),'top');
         });
   
   		}
@@ -240,8 +251,8 @@
         $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
       topBar.setStyle('top', '-55px');
       
-      $(document.body).setStyle('padding-top','5px');
-      $(document.body).setStyle('background-position-y','5px');
+      document.body.setStyle('padding-top',5);
+      document.body.setStyle('background-position-y',5);
       
       $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
         pageBlock.moorte('destroy');
@@ -272,7 +283,7 @@
         $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
       topBar.tween('top', '-55px');
       
-      $(document.body).morph({'padding-top':'5px','background-position-y':'5px'});
+      document.body.morph({'padding-top':'5px','background-position-y':'5px'});
       
       topBar.get('tween').chain(function() {
         $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
@@ -335,7 +346,7 @@
     if($$('div.MooRTE.rtePageTop')[0] != null)
       $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
-    $(document.body).morph({'padding-top':'60px','background-position-y':'60px'});
+    document.body.morph({'padding-top':'60px','background-position-y':'60px'});
     
   }
   
@@ -398,10 +409,10 @@
     // ->> add TOP BAR
     // ***************
     var topBar = topBarTemplate();
-    topBar.inject($(document.body),'top');
-    logo.inject($(document.body),'top');
-    $(document.body).setStyle('padding-top','60px');
-    $(document.body).setStyle('background-position-y','60px');
+    topBar.inject(document.body,'top');
+    logo.inject(document.body,'top');
+    document.body.setStyle('padding-top','60px');
+    document.body.setStyle('background-position-y','60px');
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
@@ -416,7 +427,7 @@
       
       // save on blur
       pageBlock.addEvent('blur', function(e) {
-        var page = $(e.target);
+        var page = document.id(e.target);
         
         //alert(MooRTE.Elements.linkPop.visible);
         if(page != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {

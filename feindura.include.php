@@ -40,6 +40,10 @@ if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'
 // -> INCLUDE ALL important FUNCTIONS, CLASSES and CONFIG vars
 require_once(dirname(__FILE__)."/library/includes/general.include.php");
 
+// INIT STATIC CLASSES
+generalFunctions::init();
+statisticFunctions::init();
+
 // -> rename the config var names
 $feindura_adminConfig = $adminConfig;
 $feindura_websiteConfig = $websiteConfig;

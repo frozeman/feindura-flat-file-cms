@@ -693,7 +693,7 @@ class generalFunctions {
       fwrite($file,PHPENDTAG);
       flock($file,3);
       fclose($file);
-      
+
       @chmod($filePath, self::$adminConfig['permissions']);
       
       // writes the new saved page to the $storedPages property      

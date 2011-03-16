@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1 rc6
-Build 595
+1.1 rc7
+Build 596
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-  
+
+1.1 rc7
+
+  build 596: fixed frontendEditing, forgot to init static classes
   build 595: fixed filemanager thumbnailpath, if the thumbnailpath doesnt exist try to create one
   build 594: language switching doesnt jump back to the dashboard now
   build 593: check thumbnail paths now before, you are able to upload. deactivate filemanager if ther is no uploadpath set.
