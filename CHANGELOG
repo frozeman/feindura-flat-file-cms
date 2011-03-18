@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc7
-Build 596
+Build 597
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -23,7 +23,8 @@ ChangeLog:
 ---------
 
 1.1 rc7
-
+  
+  build 597: hide frontend editing button when creating a new page
   build 596: fixed frontendEditing, forgot to init static classes
   build 595: fixed filemanager thumbnailpath, if the thumbnailpath doesnt exist try to create one
   build 594: language switching doesnt jump back to the dashboard now

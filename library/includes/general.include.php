@@ -36,7 +36,7 @@ define('REQUIREDPHPVERSION','5.2.3');
 /**
  * The identity of the user
  */ 
-define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"]));
+define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER['SERVER_NAME']));
 
 $phpTags = file(dirname(__FILE__)."/../processes/phptags");
 /**

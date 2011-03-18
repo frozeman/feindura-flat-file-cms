@@ -383,7 +383,7 @@ if($_GET['site'] == 'addons') {
                        ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
                        ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
-    $showEditPage = ($_GET['site'] == 'pages') ? false : true;
+    $showFrontendEditing = ($newPage || $_GET['site'] == 'pages') ? false : true;
     
     // -> CHECK if show pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
@@ -428,7 +428,7 @@ if($_GET['site'] == 'addons') {
             $showSpacer = false;
             
             // frontend editing
-            if($showEditPage) { ?>
+            if($showFrontendEditing) { ?>
               <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
             <?php
               $showSpacer = true;
@@ -509,7 +509,7 @@ if($_GET['site'] == 'addons') {
           $showSpacer = false;
           
           // frontend editing
-          if($showEditPage) { ?>
+          if($showFrontendEditing) { ?>
             <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip"><span><?php echo $langFile['BUTTON_FRONTENDEDITPAGE']; ?></span></a></li>
           <?php
           $showSpacer = true;
