@@ -1603,8 +1603,6 @@ class feinduraBase {
   * 
   * @uses createHref()                                  create the href for the "more" link
   * @uses generalFunctions::isPageContentArray()			  check if the given $pageContent parameter is valid  
-  * @uses generalFunctions::decodeToPlainText()         to decode the string to plain text, to shorten to the right letter number
-  * @uses generalFunctions::encodePlainText()           to encode the plain text back to a string with htmlentities
   * 
   * 
   * @return string the shortened string
@@ -1617,10 +1615,7 @@ class feinduraBase {
   * 
   */
   protected function shortenText($string, $length, $pageContent = false, $endString = " ...") {
-      
-      // encode to plain text to cut to zthe right letter number
-      $string = generalFunctions::decodeToPlainText($string);
-      
+            
       // shorten the string
       if($length < mb_strlen($string,'UTF-8')) {
         // go until you found a whitespace
@@ -1635,7 +1630,6 @@ class feinduraBase {
       }
       
       $string = preg_replace("/ +/", ' ', $string);
-      $string = generalFunctions::encodePlainText($string);
       
       // adds the MORE LINK
       if(is_string($endString) && generalFunctions::isPageContentArray($pageContent)) {
@@ -1660,8 +1654,7 @@ class feinduraBase {
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
   * @uses shortenText()                                 shorten the text
-  * @uses createHref()                                  create the href for the "more" link
-  * @uses generalFunctions::decodeToPlainText()         to decode the HTML string to plain text, to shorten to the right letter number  
+  * @uses createHref()                                  create the href for the "more" link 
   * 
   * @return string the shortened string
   * 
@@ -1676,7 +1669,6 @@ class feinduraBase {
 
       // vars
       $textWasCut = false;
-      $input = generalFunctions::decodeToPlainText($input);
       $rawText = strip_tags($input);
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT

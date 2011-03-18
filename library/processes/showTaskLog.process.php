@@ -38,7 +38,7 @@ echo '<ul>';
 foreach($logContent as $logRow) {
   
   //vars
-  $maxLength = 28;
+  $maxLength = 32;
   $taskObject = null;
   $logUser = null;
   

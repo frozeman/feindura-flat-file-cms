@@ -481,6 +481,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(is_file(dirname(__FILE__).'/.htpasswd'))
       @unlink(dirname(__FILE__).'/.htpasswd');
     
+    // folders
     $checkFiles = array();
     if(!delDir(dirname(__FILE__).'/library/javascript/') && 
       is_dir(dirname(__FILE__).'/library/javascript/'))
@@ -506,7 +507,8 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir(dirname(__FILE__).'/library/images/sign/') && 
       is_dir(dirname(__FILE__).'/library/images/sign/'))
       $checkFiles[] = dirname(__FILE__).'/library/images/sign/';
-      
+    
+    // files
     if(!unlink(dirname(__FILE__).'/README')&&
       is_file(dirname(__FILE__).'/README'))
       $checkFiles[] = dirname(__FILE__).'/README';
@@ -534,6 +536,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!unlink(dirname(__FILE__).'/library/styles/sidebars.css') &&
       is_file(dirname(__FILE__).'/library/styles/sidebars.css'))
       $checkFiles[] = dirname(__FILE__).'/library/styles/sidebars.css';
+    if(!unlink(dirname(__FILE__).'/library/javascripts/sidebar.js') &&
+      is_file(dirname(__FILE__).'/library/javascripts/sidebar.js'))
+      $checkFiles[] = dirname(__FILE__).'/library/javascripts/sidebar.js';
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';

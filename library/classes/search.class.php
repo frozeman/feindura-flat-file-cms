@@ -178,10 +178,11 @@ class search {
   * @param string          $searchwords  one or more searchwords to fing
   * @param bool|int|array  $category     the ID or an array with IDs of the category(ies) in which should be searched, if TRUE it searches in all categories, if FALSE it searches only in the non category
   * 
-  * @uses $checkPages                   if TRUE it searches only in pages which are public
-  * @uses sortByPriority()              to sort the page array
-  * @uses generalFunctions::loadPages() to load the pages
-  * @uses xssFilter::text()             to filter the searchwords
+  * @uses $checkPages                           if TRUE it searches only in pages which are public
+  * @uses sortByPriority()                      to sort the page array
+  * @uses generalFunctions::isPublicCategory()  to check if the category is public
+  * @uses generalFunctions::loadPages()         to load the pages
+  * @uses xssFilter::text()                     to filter the searchwords
   * 
   * @return array|false array with matching searchwords or FALSE
   * 
@@ -238,9 +239,9 @@ class search {
       $search['afterDate'] = $pageContent['pageDate']['after'];
       $search['title'] = strip_tags($pageContent['title']);
       $search['tags'] = $pageContent['tags'];
-      $search['description'] = generalFunctions::decodeToPlainText($pageContent['description']);
+      $search['description'] = $pageContent['description'];
       $search['categoryName'] = $this->categoryConfig[$pageContent['category']]['name'];
-      $search['content'] = strip_tags(generalFunctions::decodeToPlainText($pageContent['content']));
+      $search['content'] = strip_tags($pageContent['content']);
       
       // create a string of the page searchwords
       $search['searchwords'] = unserialize($pageContent['log_searchWords']);
@@ -342,9 +343,9 @@ class search {
   * 
   * @param array $results an array with the search results created by the {@link searchPages()} method.
   * 
-  * @uses $searchInCategoryNames                to set if it will also search in the category names for matches  
+  * @uses search::markFindingInData             to mark the findings inside a serialized data string
+  * @uses search::markFindingInText             to mark the findings inside the text
   * @uses generalFunctions::readPage()          to read the page for displaying the title and content
-  * @uses generalFunctions::decodeToPlainText() to decode the string to plain text, to find the right position
   * 
   * @return array an array with the results ready to display in an HTML page
   * 
@@ -455,8 +456,6 @@ class search {
   * @param false@int  $extractMax   the maximal number of letters before and after the finding, if FALSE it returns the whole text
   * 
   * @uses $limitResults                          to limit the displayed results
-  * @uses generalFunctions::decodeToPlainText()  to decode the string to plain text, to shorten to the right letter number
-  * @uses generalFunctions::encodePlainText()    to encode the plain text back to a string with htmlentities
   * 
   * @return string the text with marked results
   * 
@@ -476,8 +475,7 @@ class search {
     // ->> show the parts with the searchwords marked
     if(is_array($results)) {
       
-      // -> decode html entities
-      $text = generalFunctions::decodeToPlainText($text);
+      // var
       $lastPosition = 0;      
       
       foreach($results as $key => $match) {        
@@ -550,8 +548,6 @@ class search {
         ? substr($text,$lastPosition,$untilPosition).$after
         : substr($text,$lastPosition);
       
-      // -> encode html entities
-      $markedText = generalFunctions::encodePlainText($markedText);
       return $markedText;
     } else return $text;
   }

@@ -1203,52 +1203,6 @@ class generalFunctions {
       return $givenStyle;
     
   }
-
- /**
-  * <b>Name</b> decodeToPlainText()<br>
-  * 
-  * Decodes a given <var>string</var> to a plain text, by decoding htmlentities and removing line breaks.
-  * 
-  * @param string $string the string to decode
-  * 
-  * @return string the decoded string
-  * 
-  * @see search::markFindingInText()
-  * @see search::displayResults()
-  * 
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  */ 
-  public static function decodeToPlainText($string) {
-    $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
-    $string = str_replace(array('&nbsp;',"\n","\r","\t"),array(' ','','',''),$string);
-    return $string;
-  }
-  
- /**
-  * <b>Name</b> encodePlainText()<br>
-  * 
-  * Encodes a given plain text to a HTML string, by encoding htmlentities and chaning "&lt;" to "<" and "&gt;" to ">".
-  * 
-  * @param string $string the string to encode
-  * 
-  * @return string the decoded string
-  * 
-  * @see search::markFindingInText()
-  * @see search::displayResults()
-  * 
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  */ 
-  public static function encodePlainText($string) {
-    $string = htmlentities($string,ENT_COMPAT,'UTF-8',false);
-    $string = str_replace(array('&lt;','&gt;'),array('<','>'),$string);
-    return $string;
-  }
   
  /**
   * <b>Name</b> cleanSpecialChars()<br>
@@ -1299,12 +1253,12 @@ class generalFunctions {
   */
   public static function shortenString($string, $length) {
       
+      $string = str_replace('&nbsp;',' ',$string);
+      
       // check if shorting is necessary
-      if(mb_strlen($string,'UTF-8') <= $length)
-        return $string;
+      if(mb_strlen($string,'UTF-8') <= $length) return $string;
       // shorten the title
-      else
-        return mb_substr($string,0,($length - 3),'UTF-8').'...'; // -3 because of the add "..."
+      else return mb_substr($string,0,($length - 3),'UTF-8').'...'; // -3 because of the add "..."
   }
 
  /**
