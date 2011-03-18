@@ -74,7 +74,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY'] = 'Seiten';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'] = 'Seiten ohne Kategorie';
 $langFile['TEXT_EXAMPLE'] = 'Beispiel';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt auf deiner Webseite zu bearbeiten.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt in der Webseite zu bearbeiten.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT'] = 'Pixel';
@@ -231,7 +231,7 @@ $langFile['BUTTON_TOOLTIP_CREATEPAGE'] = 'Neue Seite erstellen.';
 $langFile['BUTTON_DELETEPAGE'] = 'Seite löschen';
 $langFile['BUTTON_TOOLTIP_DELETEPAGE'] = 'Diese Seite löschen.';
 $langFile['BUTTON_FRONTENDEDITPAGE'] = 'Seite im Frontend bearbeiten';
-$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'] = 'Diese Seite direkt auf der Website bearbeiten.';
+$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'] = 'Diese Seite direkt in der Website bearbeiten.';
 $langFile['BUTTON_THUMBNAIL_UPLOAD'] = 'Seiten-Thumbnail hochladen';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'] = 'Thumbnail für diese Seite hochladen.';
 $langFile['BUTTON_THUMBNAIL_DELETE'] = 'Seiten-Thumbnail löschen';
