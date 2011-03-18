@@ -120,19 +120,16 @@ if($_GET['site'] == 'addons') {
   <!-- thirdparty/StaticScroller (needs MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
   
+  <!-- thirdparty/FancyForm (needs MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/fancyform.js"></script>
+  
   <!-- thirdparty/CountDown (needs MooTools) -->
   <script type="text/javascript" src="library/thirdparty/CountDown/PeriodicalExecuter.js"></script>
   <script type="text/javascript" src="library/thirdparty/CountDown/CountDown.js"></script>
 	
   <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>  
   
-  <!-- thirdparty/CustomFormElements 
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/base/cfe.base.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/replace/cfe.replace.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.checkbox.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/modules/check/cfe.module.radio.js"></script>
-  <script type="text/javascript" src="library/thirdparty/customformelements/cfe/addons/cfe.addon.dependencies.js"></script> -->
 <?php
   if(!empty($_GET['page'])) { ?>
   

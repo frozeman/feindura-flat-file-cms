@@ -74,7 +74,7 @@ foreach ($tab as $buf) {
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />
   </div>
   
-<!-- FMS SETTINGS -->
+<!-- BASIC SETTINGS -->
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
@@ -270,7 +270,7 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
   <div class="bottom"></div>
 </div>
 
-<!-- USER SETTINGS -->
+<!-- USER PERMISSIONS -->
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';

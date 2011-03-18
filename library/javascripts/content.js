@@ -1002,7 +1002,7 @@ window.addEvent('domready', function() {
   
   
   // ------------------------------------------------------------
-  // REPLACE the CHECKBOXES  
+  // ADD DEPENCIES for CHECKBOXES  
   
   /*
   if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {

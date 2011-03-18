@@ -1278,6 +1278,13 @@ textarea, div.CodeMirror-wrapping {
     padding: 10px;
     }
 
+/* fancy form */
+.fancyform_checked{border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_on.png");}
+.fancyform_unchecked{border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_off.png");}
+.fancyform_selected{border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_on.png");}
+.fancyform_unselected{border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_off.png");}
+.fancyform_focus{border-bottom:1px dotted #999;}
+
 /* autogrow */
 textarea.autogrow {
   overflow-y: hidden;

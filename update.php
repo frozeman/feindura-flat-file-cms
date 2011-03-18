@@ -489,6 +489,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir(dirname(__FILE__).'/library/thirdparty/javascript/') &&
       is_dir(dirname(__FILE__).'/library/thirdparty/javascript/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascript/';
+    if(!delDir(dirname(__FILE__).'/library/thirdparty/customformelements/') &&
+      is_dir(dirname(__FILE__).'/library/thirdparty/customformelements/'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/customformelements/';
     if(!delDir(dirname(__FILE__).'/library/image/') &&
       is_dir(dirname(__FILE__).'/library/image/'))
       $checkFiles[] = dirname(__FILE__).'/library/image/';
