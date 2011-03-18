@@ -1278,18 +1278,25 @@ textarea, div.CodeMirror-wrapping {
     padding: 10px;
     }
 
+label {
+  cursor: pointer;
+}
+
 /* fancy form */
-.fancyform_checked{border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_on.png");}
-.fancyform_unchecked{border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_off.png");}
-.fancyform_selected{border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_on.png");}
-.fancyform_unselected{border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_off.png");}
-.fancyform_focus{border-bottom:1px dotted #999;}
+.fancyform_checked{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_on.png");}
+.fancyform_checked.fancyform_disabled {cursor: default;background-image:url("../images/icons/checkbox_on_disabled.png");}
+.fancyform_unchecked{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:2px;width:16px;height:16px;background-image:url("../images/icons/checkbox_off.png");}
+.fancyform_unchecked.fancyform_disabled {cursor: default;background-image:url("../images/icons/checkbox_off_disabled.png");}
+.fancyform_selected{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_on.png");}
+.fancyform_selected.fancyform_disabled {cursor: default;background-image:url("../images/icons/radio_on_disabled.png");}
+.fancyform_unselected{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_off.png");}
+.fancyform_unselected.fancyform_disabled {cursor: default;background-image:url("../images/icons/radio_off_disabled.png");}
+.fancyform_focus{cursor: pointer;border-bottom:1px dotted #999;}
 
 /* autogrow */
 textarea.autogrow {
   overflow-y: hidden;
   resize: none;
-  
   -moz-transition-duration: 250ms;
   -webkit-transition-duration: 250ms;
   -o-transition-duration: 250ms;
@@ -1309,9 +1316,7 @@ input.short {
     }
     
 input[type="checkbox"], .checkboxes input {
-    /*width: 10px !important;*/
-    background: none !important;
-    border: none !important;
+    cursor: pointer;
     }
 
 input[type="radio"]{ /* works only in safari*/

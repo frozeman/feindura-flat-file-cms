@@ -1002,54 +1002,25 @@ window.addEvent('domready', function() {
   
   
   // ------------------------------------------------------------
-  // ADD DEPENCIES for CHECKBOXES  
+  // ADD FANCY-FORM
+  feinduraFancyForm = new FancyForm('input[type="checkbox"], input[type="radio"]');
   
-  /*
-  if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-    // path to a 1x1 pixel transparent gif
-    cfe.spacer = "library/thirdparty/customformelements/gfx/spacer.gif";
+  // ADD DEPENCIES for CHECKBOXES
+  $$('input[type="checkbox"]').each(function(checkbox) {
+    var checkboxId = checkbox.get('id');
+    var categoryNumber;
+    var sortBypageDateCheckbox = new Array();
     
-    // create a cfe replacement instance
-    myCfe =  new cfe.replace();
-
-    
-    // ->> create CHECKBOX DEPENDENCIES
-    $$('input[type=checkbox]').each(function(checkbox) {
-      var checkboxId = checkbox.get('id');
-      var categoryNumber;
-      var sortBypageDateCheckbox = new Array();
-      
-      // go trough checkboxes with id
-      if(checkboxId) {
-        // -> ** categories[0-9]sortByPageDate
-        if(checkboxId.match(/^categories[0-9]sortByPageDate$/)) {
-          categoryNumber = checkboxId.match(/[0-9]+/);
-          myCfe.addDependency(checkbox,'categories'+categoryNumber+'showPageDate');
-          
-        }
-        
-        /*
-        // -> ** categories[0-9]showPageDate
-        if(checkboxId.match(/^categories[0-9]showPageDate$/)) {
-          checkbox.addEvent('click',function(){
-            categoryNumber = checkboxId.match(/[0-9]+/);
-
-            if($('categories'+categoryNumber+'sortByPageDate').getProperty('checked')) {
-              $('categories'+categoryNumber+'sortByPageDate').removeProperty('checked');
-              //alert(myCfe($('categories'+categoryNumber+'sortByPageDate')));
-            }            
-          
-          })
-        }
-        */
-        /*
+    // go trough checkboxes with id
+    if(checkboxId) {
+      // -> ** categories[0-9]sortByPageDate
+      if(checkboxId.match(/^categories[0-9]sortByPageDate$/)) {
+        categoryNumber = checkboxId.match(/[0-9]+/);
+        feinduraFancyForm.setDepency(checkbox,$('categories'+categoryNumber+'showPageDate'));        
       }
-    });
-    
-    // initialize the replacment
-    myCfe.init({scope: $('content')});
-  }
-  */  
+    }
+  });
+  
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
   if($('HTMLEditor') != null) { 
