@@ -264,8 +264,8 @@ Cliquez sur sécurité ou sur "standard" ou bien "adapter standard" et puis acti
 <h2>dans le navigateur Opera</h2>
 <p>Cliquez dans le menu sur "extras" > "paramètres". Allez sur "avancé" > "contenu" et cochez la croix "activer JavaScript". Validez avec ok.';
 
-$langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> ne fonctionne pas avec une ancienne version de l\'Internet Explorer.';
-$langFile['warning_ieOld'] = 'Pour <span class="logoname">fein<span>dura</span></span> utiliser le CMS entièrement, version 7 de l\'IE est nécessaire.<br /><br />Svp installez une nouvelle version de l\'Internet Explorer,<br /> ou bien installez <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> pour l\'IE,<br /> ou bien téléchargez <a href="http://www.mozilla.org/firefox/">Firefox Browser</a>.';
+$langFile['DASHBOARD_TITLE_IEWARNING'] = '<span class="logoname">fein<span>dura</span></span> ne fonctionne pas avec une ancienne version de l\'Internet Explorer.';
+$langFile['DASHBOARD_TEXT_IEWARNING'] = 'Pour <span class="logoname">fein<span>dura</span></span> utiliser le CMS entièrement, version 8 de l\'IE est nécessaire.<br /><br />Svp installez une nouvelle version de l\'Internet Explorer,<br /> ou bien installez <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> pour l\'IE,<br /> ou bien téléchargez <a href="http://www.mozilla.org/firefox/">Firefox</a> ou <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 /*
 * leftSidebar.loader.php
@@ -280,20 +280,20 @@ $langFile['btn_quickmenu_pages'] = 'pages de';
 */
 
 // ---------- HOME
-$langFile['HOME_TITLE_USERINFO'] = 'informations utilisateur';
-$langFile['HOME_TITLE_WELCOME'] = 'Bienvenue au content management system <span class="logoname">fein<span>dura</span></span><br /> de ton site web';
-$langFile['HOME_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> est un  Content Management System basé sur <span class="toolTip" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br />Ici tu peux gérer le contenu de ton site web.';
-$langFile['HOME_TITLE_STATISTICS'] = 'statistiques du site web';
-$langFile['HOME_TITLE_USER'] = 'utilisateur';
-$langFile['HOME_TITLE_ACTIVITY'] = 'dernières activités';
-$langFile['HOME_TEXT_ACTIVITY_NONE'] = 'null';
-$langFile['HOME_TITLE_STATISTICS_START'] = 'les';
-$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'] = 'pages les plus fréquentées';
-$langFile['HOME_TITLE_STATISTICS_LASTVISITED'] = 'dernières pages visitées';
-$langFile['HOME_TITLE_STATISTICS_LASTEDITED'] = 'dernières pages rédigées';
-$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'] = 'pages les plus regardés';
-$langFile['HOME_TITLE_REFERER'] = 'sites web d\'où viennent les derniers visiteurs';
-$langFile['HOME_TEXT_NOVISITORS'] = 'actuellement il n\'y a pas eu de visiteurs sur le site web.';
+$langFile['DASHBOARD_TITLE_USERINFO'] = 'informations utilisateur';
+$langFile['DASHBOARD_TITLE_WELCOME'] = 'Bienvenue au content management system <span class="logoname">fein<span>dura</span></span><br /> de ton site web';
+$langFile['DASHBOARD_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> est un  Content Management System basé sur <span class="toolTip" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br />Ici tu peux gérer le contenu de ton site web.';
+$langFile['DASHBOARD_TITLE_STATISTICS'] = 'statistiques du site web';
+$langFile['DASHBOARD_TITLE_USER'] = 'utilisateur';
+$langFile['DASHBOARD_TITLE_ACTIVITY'] = 'dernières activités';
+$langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'null';
+$langFile['DASHBOARD_TITLE_STATISTICS_START'] = 'les';
+$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'pages les plus fréquentées';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'dernières pages visitées';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'dernières pages rédigées';
+$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'pages les plus regardés';
+$langFile['DASHBOARD_TITLE_REFERER'] = 'sites web d\'où viennent les derniers visiteurs';
+$langFile['DASHBOARD_TEXT_NOVISITORS'] = 'actuellement il n\'y a pas eu de visiteurs sur le site web.';
 
 /*
 * listPages.php

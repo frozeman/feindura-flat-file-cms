@@ -26,9 +26,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 ?>
 <div class="block">
-  <h1><?php echo $langFile['HOME_TITLE_WELCOME']; ?></h1>
+  <h1><?php echo $langFile['DASHBOARD_TITLE_WELCOME']; ?></h1>
   <div class="content">
-    <p><?php echo $langFile['HOME_TEXT_WELCOME']; ?></p>
+    <p><?php echo $langFile['DASHBOARD_TEXT_WELCOME']; ?></p>
     
   </div>
   <div class="bottom"></div>
@@ -51,10 +51,10 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
    !preg_match("/chromeframe/", $_SERVER['HTTP_USER_AGENT'])) {
 ?>  
-<div class="block warning hidden">
-  <h1><a href="#"><?php echo $langFile['warning_ieOld_h1']; ?></a></h1>
+<div class="block warning">
+  <h1><a href="#"><?php echo $langFile['DASHBOARD_TITLE_IEWARNING']; ?></a></h1>
   <div class="content">
-    <p><?php echo $langFile['warning_ieOld']; ?></p><!-- needs <p> tags for margin-left:..-->
+    <p><?php echo $langFile['DASHBOARD_TEXT_IEWARNING']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
   <div class="bottom"></div>
 </div>
@@ -64,7 +64,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
 if(!empty($adminConfig['user']['info'])) {
 ?>
 <div class="block info">
-  <h1><a href="#"><?php echo $langFile['HOME_TITLE_USERINFO']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['DASHBOARD_TITLE_USERINFO']; ?></a></h1>
   <div class="content">
     <p><?php echo $adminConfig['user']['info']; ?></p><!-- needs <p> tags for margin-left:..-->
   </div>
@@ -76,7 +76,7 @@ if(!empty($adminConfig['user']['info'])) {
 <!-- WEBSITE STATISTIC -->
 
 <div class="block">
-  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" /><?php echo $langFile['HOME_TITLE_STATISTICS']; ?></h1>
+  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" /><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
     
@@ -147,7 +147,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> MOST VISITED PAGE
     echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT COUNT
@@ -173,7 +173,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LAST VISITED PAGES
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastVisitedPages'].' '.$langFile['HOME_TITLE_STATISTICS_LASTVISITED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastVisitedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE
@@ -200,7 +200,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LONGEST VIEWED PAGE
     echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['longestVisitedPages'].' '.$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['longestVisitedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by MAX VISIT TIME
@@ -229,7 +229,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LAST EDITED PAGES
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['HOME_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastEditedPages'].' '.$langFile['HOME_TITLE_STATISTICS_LASTEDITED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastEditedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE
@@ -285,7 +285,7 @@ if(!empty($adminConfig['user']['info'])) {
     if($browserChart = statisticFunctions::createBrowserChart($websiteStatistic['browser']))
       echo $browserChart;
     else
-      echo $GLOBALS['langFile']['HOME_TEXT_NOVISITORS'];
+      echo $GLOBALS['langFile']['DASHBOARD_TEXT_NOVISITORS'];
 
     // ---------------------------------
     // -> SHOW REFERER LOG
@@ -293,7 +293,7 @@ if(!empty($adminConfig['user']['info'])) {
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
        
       echo '<br /><br /><hr class="small"><br />';
-      echo '<h3 style="text-align:center;">'.$langFile['HOME_TITLE_REFERER'].'</h3>';
+      echo '<h3 style="text-align:center;">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h3>';
        
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';

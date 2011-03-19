@@ -99,10 +99,6 @@ if($_GET['site'] == 'addons') {
   
   <!-- ************************************************************************************************************ -->
   <!-- JAVASCRIPT -->
-  
-  <!-- thirdparty/iePNGfix -->
-  <!--[if IE 6]><script type="text/javascript" src="library/thirdparty/iepngfix_v2/iepngfix_tilebg.js"></script><![endif]-->
-  <!--[if IE 6]><script type="text/javascript" src="library/javascripts/ie.js"></script><![endif]-->
 
   <!-- thirdparty/MooTools -->
   <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.1.js"></script>

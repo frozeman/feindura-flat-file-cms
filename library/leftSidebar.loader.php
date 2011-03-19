@@ -129,7 +129,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // -> SHOW TASK LOG
-      echo '<h1>'.$langFile['HOME_TITLE_ACTIVITY'].'</h1>';
+      echo '<h1>'.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h1>';
       
       if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
@@ -138,18 +138,18 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
          echo '<div id="sidebarTaskLog"><br /><br />';
          
               // ->> LIST the tasks
-              include(dirname(__FILE__).'/processes/showTaskLog.process.php');
+              include(dirname(__FILE__).'/includes/showTaskLog.include.php');
               
          echo '<br /><br /></div>';
          echo '<div id="sidbarTaskLogScrollDown" class="scrollUpDown" style="background: url(library/images/bg/sidebarScrollDown.png) no-repeat;margin-top:-30px;"></div>';
       // no log
       } else
-        echo $langFile['HOME_TEXT_ACTIVITY_NONE'];
+        echo $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'];
       
       echo '<hr />';
       
       // -> SHOW USERs
-      echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['HOME_TITLE_USER'].'</h1><br />';
+      echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h1><br />';
         if(!empty($userConfig)) {
         
           unset($sessions,$sessionLister);

@@ -282,8 +282,8 @@ There you set under &quote;Security&quote; > &quote;Standardlevel&quote; choose 
 <h2>in Opera</h2>
 <p>Click on "Extras" > "Preferences". Under "Advanced" > "Content" check "activate JavaScript" and click OK to finsih.';
 
-$langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
-$langFile['warning_ieOld'] = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 7.<br /><br />Please install a newer version of the Internet Explorer,<br /> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br />or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox Browser</a>.';
+$langFile['DASHBOARD_TITLE_IEWARNING'] = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
+$langFile['DASHBOARD_TEXT_IEWARNING'] = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 8.<br /><br />Please install a newer version of the Internet Explorer,<br /> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br />or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
 /*
 * leftSidebar.loader.php
@@ -299,25 +299,25 @@ $langFile['btn_quickmenu_pages'] = 'Pages of';
 */
 
 // ---------- HOME
-$langFile['HOME_TITLE_USERINFO'] = 'User Information';
+$langFile['DASHBOARD_TITLE_USERINFO'] = 'User Information';
 
-$langFile['HOME_TITLE_WELCOME'] = 'Welcome in <span class="logoname">fein<span>dura</span></span>,<br />the Content Management System of your website';
-$langFile['HOME_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
+$langFile['DASHBOARD_TITLE_WELCOME'] = 'Welcome in <span class="logoname">fein<span>dura</span></span>,<br />the Content Management System of your website';
+$langFile['DASHBOARD_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> is a <span class="toolTip" title="flat files::That are files on the server, in which the content of the website is stored.">flat file</span> based Content Management System.<br />Here you can manage the content of your website.';
 
-$langFile['HOME_TITLE_STATISTICS'] = 'Website-Statistic';
+$langFile['DASHBOARD_TITLE_STATISTICS'] = 'Website-Statistic';
 
-$langFile['HOME_TITLE_USER'] = 'User';
-$langFile['HOME_TITLE_ACTIVITY'] = 'last activities';
-$langFile['HOME_TEXT_ACTIVITY_NONE'] = 'none';
+$langFile['DASHBOARD_TITLE_USER'] = 'User';
+$langFile['DASHBOARD_TITLE_ACTIVITY'] = 'last activities';
+$langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'none';
 
-$langFile['HOME_TITLE_STATISTICS_START'] = 'the';
-$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'] = 'most visted pages';
-$langFile['HOME_TITLE_STATISTICS_LASTVISITED'] = 'last visited pages';
-$langFile['HOME_TITLE_STATISTICS_LASTEDITED'] = 'last edited pages';
-$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'] = 'longest viewed pages';
+$langFile['DASHBOARD_TITLE_STATISTICS_START'] = 'the';
+$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'most visted pages';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'last visited pages';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'last edited pages';
+$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'longest viewed pages';
 
-$langFile['HOME_TITLE_REFERER'] = 'Websites from which visitors came';
-$langFile['HOME_TEXT_NOVISITORS'] = 'There are no visitors yet';
+$langFile['DASHBOARD_TITLE_REFERER'] = 'Websites from which visitors came';
+$langFile['DASHBOARD_TEXT_NOVISITORS'] = 'There are no visitors yet';
 
 /*
 * listPages.php

@@ -281,8 +281,8 @@ Dort klickst du unter Sicherheit entweder auf "Standardstufe", oder wähle "Stuf
 <h2>im Opera</h2>
 <p>Klicke in der obersten Menüleiste auf "Extras" > "Einstellungen". Unter "Erweitert" > "Inhalte" setze ein Haken bei "JavaScript aktivieren" und klicke dann OK.';
 
-$langFile['warning_ieOld_h1'] = '<span class="logoname">fein<span>dura</span></span> ist nicht für ältere Versionen des Internet Explorers ausgelegt';
-$langFile['warning_ieOld'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 7 nötig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox Browser</a> herunter.';
+$langFile['DASHBOARD_TITLE_IEWARNING'] = '<span class="logoname">fein<span>dura</span></span> ist nicht für ältere Versionen des Internet Explorers ausgelegt';
+$langFile['DASHBOARD_TEXT_IEWARNING'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 8 nötig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
 
 /*
 * leftSidebar.loader.php
@@ -298,25 +298,25 @@ $langFile['btn_quickmenu_pages'] = 'Seiten von';
 */
 
 // ---------- HOME
-$langFile['HOME_TITLE_USERINFO'] = 'Benutzer Information';
+$langFile['DASHBOARD_TITLE_USERINFO'] = 'Benutzer Information';
 
-$langFile['HOME_TITLE_WELCOME'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
-$langFile['HOME_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
+$langFile['DASHBOARD_TITLE_WELCOME'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
+$langFile['DASHBOARD_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> ist ein auf <span class="toolTip" title="Flat-Files::Das sind Dateien auf dem Server, in denen der Inhalt der Webseite gespeichert wird.">Flat-Files</span> basierendes Content Management System.<br />Hier kannst du den Inhalt deiner Webseite verwalten.';
 
-$langFile['HOME_TITLE_STATISTICS'] = 'Webseiten-Statistik';
+$langFile['DASHBOARD_TITLE_STATISTICS'] = 'Webseiten-Statistik';
 
-$langFile['HOME_TITLE_USER'] = 'Benutzer';
-$langFile['HOME_TITLE_ACTIVITY'] = 'letzte Tätigkeiten';
-$langFile['HOME_TEXT_ACTIVITY_NONE'] = 'keine';
+$langFile['DASHBOARD_TITLE_USER'] = 'Benutzer';
+$langFile['DASHBOARD_TITLE_ACTIVITY'] = 'letzte Tätigkeiten';
+$langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'keine';
 
-$langFile['HOME_TITLE_STATISTICS_START'] = 'die';
-$langFile['HOME_TITLE_STATISTICS_MOSTVISITED'] = 'meist besuchten Seiten';
-$langFile['HOME_TITLE_STATISTICS_LASTVISITED'] = 'zuletzt besuchten Seiten';
-$langFile['HOME_TITLE_STATISTICS_LASTEDITED'] = 'zuletzt bearbeiteten Seiten';
-$langFile['HOME_TITLE_STATISTICS_LONGESTVIEWED'] = 'am längsten betrachteten Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_START'] = 'die';
+$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'meist besuchten Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'zuletzt besuchten Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'zuletzt bearbeiteten Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'am längsten betrachteten Seiten';
 
-$langFile['HOME_TITLE_REFERER'] = 'Webseiten von denen die letzten Besucher gekommen sind';
-$langFile['HOME_TEXT_NOVISITORS'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
+$langFile['DASHBOARD_TITLE_REFERER'] = 'Webseiten von denen die letzten Besucher gekommen sind';
+$langFile['DASHBOARD_TEXT_NOVISITORS'] = 'Bisher sind noch keine Besucher auf diese Seite gekommen.';
 
 /*
 * listPages.php

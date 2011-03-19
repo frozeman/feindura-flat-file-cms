@@ -1,19 +1,7 @@
 /*
 * Stylesheets for Internet Explorer 6
 * 
-* Verwendet den IE PNG Fix v1.0 / 2.0 Alpha 3 von http://www.twinhelix.com/css/iepngfix/
 */
-
-/* png transparency hack */
-#logo, #header, #headerBlock, #footer, #mainMenu a,
-/*.sidebarMenu .top a,*/ .sidebarMenu .top img,
-#rightSidebar .content, #rightSidebar .bottom,
-/* #content .block.warning .content, #content .block.info .content, */
-/*#content h1 a,*/
-#content a.fastUp,
-#errorWindow .content.warning,
-#documentSaved,
-#sidbarTaskLogScrollUp, #sidbarTaskLogScrollDown { behavior: url("library/thirdparty/iepngfix_v2/iepngfix.php") }
 
 /* documentSaved hack */
 #documentSaved {

@@ -510,6 +510,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir(dirname(__FILE__).'/library/images/sign/') && 
       is_dir(dirname(__FILE__).'/library/images/sign/'))
       $checkFiles[] = dirname(__FILE__).'/library/images/sign/';
+    if(!delDir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') && 
+      is_dir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/iepngfix_v2/';
     
     // files
     if(!unlink(dirname(__FILE__).'/README')&&
@@ -530,6 +533,12 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!unlink(dirname(__FILE__).'/library/includes/frontend.include.php') &&
       is_file(dirname(__FILE__).'/library/includes/frontend.include.php'))
       $checkFiles[] = dirname(__FILE__).'/library/includes/frontend.include.php';
+    if(!unlink(dirname(__FILE__).'/library/processes/showTaskLog.process.php') &&
+      is_file(dirname(__FILE__).'/library/processes/showTaskLog.process.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/processes/showTaskLog.process.php';
+    if(!unlink(dirname(__FILE__).'/library/processes/phptags') &&
+      is_file(dirname(__FILE__).'/library/processes/phptags'))
+      $checkFiles[] = dirname(__FILE__).'/library/processes/phptags';
     if(!unlink(dirname(__FILE__).'/library/styles/setup.css') &&
       is_file(dirname(__FILE__).'/library/styles/setup.css'))
       $checkFiles[] = dirname(__FILE__).'/library/styles/setup.css';
