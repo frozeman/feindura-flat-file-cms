@@ -47,7 +47,7 @@
                                 'justifyleft','justifycenter','justifyright','justifyfull',
                                 'outdent','indent','superscript','subscript',
                                 'insertorderedlist','insertunorderedlist','inserthorizontalrule', //,'blockquote'
-                                'decreasefontsize','increasefontsize'//,'hyperlink'
+                                'decreasefontsize','increasefontsize' //,'hyperlink'
                                 ]};
   
   // ->> FUNCTIONS

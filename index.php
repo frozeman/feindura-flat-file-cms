@@ -161,7 +161,8 @@ if($_GET['site'] == 'addons') {
   var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:                "<?= $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                       "<?= $langFile['editor_savepage_error_save']; ?>"
+    ERROR_SAVE:                       "<?= $langFile['editor_savepage_error_save']; ?>",
+    CKEDITOR_TITLE_LINKS:             "<?= (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>",
   };
   
   /* transport for CKEditor feindura links */
@@ -170,9 +171,9 @@ if($_GET['site'] == 'addons') {
     $getPages = generalFunctions::loadPages(true,true);
   ?>
 var feindura_pages = [
-['none',''],
+['-',''],
 <?php foreach($getPages as $getPage) {
-    echo "['".str_replace("'",'',$getPage['title'])."','?page=".$getPage['id']."'],\n";
+    echo "['".str_replace("'",'',$getPage['title'])."','".$adminConfig['websitePath']."?page=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   

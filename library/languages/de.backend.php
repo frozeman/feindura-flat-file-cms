@@ -205,6 +205,9 @@ $langFile['USER_TEXT_USERSONLINE'] = 'Dieser Benutzer ist ebenfalls eingeloggt::
 $langFile['LOGO_TEXT'] = 'Version';
 $langFile['LOADING_TEXT_LOAD'] = 'Seite wird geladen..';
 
+// CKEDITOR transport
+$langFile['CKEDITOR_TITLE_LINKS'] = 'feindura Seiten';
+
 // -> BUTTON TEXTS
 
 // MAIN MENU

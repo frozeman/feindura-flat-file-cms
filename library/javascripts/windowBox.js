@@ -115,7 +115,7 @@ function requestSite(site,siteTitle,formId) {
   var removeLoadingCircle;
   
   // creates the request Object
-  var requestSite = new Request.HTML({url:site,
+  new Request.HTML({url:site,
     //-----------------------------------------------------------------------------
     onRequest: function() { //-----------------------------------------------------
         

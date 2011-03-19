@@ -206,6 +206,9 @@ $langFile['LOGO_TEXT'] = 'Version';
 $langFile['txt_logo_gotowebsite'] = 'Click here to go to your website.';
 $langFile['LOADING_TEXT_LOAD'] = 'Page is loading..';
 
+// CKEDITOR transport
+$langFile['CKEDITOR_TITLE_LINKS'] = 'feindura pages';
+
 
 // -> BUTTON TEXTS
 
