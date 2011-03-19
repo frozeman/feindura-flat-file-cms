@@ -345,8 +345,9 @@ class feinduraBase {
       //print_r($this->storedPages);
       if($pages) {
         foreach($pages as $page) {
+
           // RETURNs the right page Id
-          if(urlencode($page['title']) == $_GET['page']) {
+          if($page['title'] == $_GET['page']) { //generalFunctions::urlEncode($page['title'])
             return $page['id'];
           }
         }
@@ -412,7 +413,7 @@ class feinduraBase {
       
       foreach($this->categoryConfig as $category) {      
         // RETURNs the right category Id
-        if(urlencode($category['name']) == $_GET['category']) {
+        if($category['name'] == $_GET['category']) { //generalFunctions::urlEncode($category['name'])
           return $category['id'];
         }
       }
@@ -930,7 +931,7 @@ class feinduraBase {
         
       // create a link for the title
       if($titleAsLink) {
-        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.strip_tags($title).'">'."\n"; //.$titleBefore;
+        $titleBefore = '<a href="'.$this->createHref($pageContent).'" title="'.str_replace('"','&quot;',strip_tags($title)).'">'."\n"; //.$titleBefore;
         $titleAfter = "\n</a>";
       }
       
@@ -1004,7 +1005,7 @@ class feinduraBase {
       if($this->thumbnailAfter !== true)
         $thumbnailAfter = $this->thumbnailAfter;
       
-      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.strip_tags($pageContent['title']).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
+      $pageThumbnail['thumbnail'] = $thumbnailBefore.'<img src="'.$this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'].'" alt="Thumbnail" title="'.str_replace('"','&quot;',strip_tags($pageContent['title'])).'"'.$thumbnailAttributes.$tagEnding.$thumbnailAfter;
       $pageThumbnail['thumbnailPath'] = $this->adminConfig['uploadPath'].$this->adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'];
       
       return $pageThumbnail;

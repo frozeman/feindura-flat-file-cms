@@ -220,30 +220,31 @@ function getNewUserId() {
 }
 
 /**
- * <b>Name</b> addSlashToPathsEnd()<br />
+ * <b>Name</b> addSlashesToPOSTPaths()<br />
  * 
- * Esures that the the post vars with a 'Path' in the key value, ending with a slash.
+ * Ensures that the the post vars with a 'Path' in the key value start and end with a slash.
  * 
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 add slash to start also 
  *    - 1.0 initial release
  * 
  */
-function addSlashToPathsEnd($postData) {
-  foreach($postData as $postKey => $post) {
-    
-    if(strstr($postKey,'Path')) {
-      if(!empty($post) && substr($post,-1) !== '/') {
-        $post = $post.'/';        
-      }
+function addSlashesToPOSTPaths($postData) {
+  foreach($postData as $postKey => $post) {  
+    if(strpos($postKey,'Path')!== false) {
+      if(!empty($post) && substr($post,-1) !== '/')
+        $post = $post.'/'; // add slash to the end
+      if(!empty($post) && substr($post,0,1) !== '/')
+        $post = '/'.$post; // add slash to the start
       $post = preg_replace("#/+#",'/',$post);
       
       $_POST[$postKey] = $post;
     
     } elseif(is_array($post))
-      addSlashToPathsEnd($post);
+      addSlashesToPOSTPaths($post);
   }
 }
 
@@ -896,8 +897,8 @@ function saveSpeakingUrl(&$errorWindow) {
   $save = false;
   $data = false;
   $htaccessFile = DOCUMENTROOT.'/.htaccess';
-  $newWebsitePath = xssFilter::path(substr($_POST['cfg_websitePath'],1));
-  $oldWebsitePath = xssFilter::path(substr($GLOBALS['adminConfig']['websitePath'],1));
+  $newWebsitePath = substr(generalFunctions::getDirname(xssFilter::path($_POST['cfg_websitePath'])),1);
+  $oldWebsitePath = substr(generalFunctions::getDirname(xssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
   $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.$newWebsitePath.'?category=$1&page=$2$3 [QSA,L]'."\n";
   $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ '.$newWebsitePath.'?page=$1$2 [QSA,L]';
@@ -1027,8 +1028,8 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
 function generateBackupFileName($backupAppendix = false) {
   
   $backupAppendix = ($backupAppendix) ? '_'.$backupAppendix : '';
-
-  $websitePath = str_replace(array('/',"\\"),'-',$GLOBALS['adminConfig']['websitePath']);
+  $websitePath = generalFunctions::getDirname($GLOBALS['adminConfig']['websitePath']);
+  $websitePath = str_replace(array('/',"\\"),'-',$websitePath);
   $websitePath = ($websitePath != '-') ? substr($websitePath,0,-1) : '';
   $backupName = 'feinduraBackup_'.$_SERVER['SERVER_NAME'].$websitePath.'_'.date('Y-m-d_H-i').$backupAppendix.'.zip';
   $backupFileName = dirname(__FILE__).'/../../backups/'.$backupName;

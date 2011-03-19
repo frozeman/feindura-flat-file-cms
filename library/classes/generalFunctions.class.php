@@ -312,6 +312,28 @@ class generalFunctions {
     } else
       return $currentURL;
   }
+  
+/**
+  * <b>Name</b> getDirname()<br />
+  * 
+  * use the dirname function only if there is a "." of a file in the name, or the last sign is not and "/".
+  * 
+  * @param string $dir the path to get the dirname from
+  * 
+  * @return string the changed path
+  * 
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public static function getDirname($dir) {
+    if(strpos($dir,'.') !== false || substr($dir,-1) != '/')
+      return str_replace('\\','/',dirname(self::$adminConfig['websitePath']));
+    else
+      return $dir;
+  }
 
  /**
   * <b>Name</b> getStoredPageIds()<br>
@@ -995,6 +1017,29 @@ class generalFunctions {
   }
   
  /**
+  * <b>Name</b> urlEncode()<br>
+  * 
+  * Encodes a string to url, but before it removes all tags and htmlentitites.
+  * 
+  * @param string|false $string    the string to urlencode
+  * 
+  * 
+  * @return string the url encoded string
+  * 
+  * @see feindura::createHref()
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function urlEncode($string) {
+    return urlencode(preg_replace('#&[^\s]+; +#',' ',strip_tags($string)));
+  }
+
+ /**
   * <b>Name</b> createHref()<br>
   * 
   * Creates a href-attribute from the given <var>$pageContent</var> parameter,
@@ -1011,9 +1056,10 @@ class generalFunctions {
   * @see feindura::createHref()
   * 
   * @static
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 changed websitepath; getting dirname now  
   *    - 1.0 initial release
   * 
   */
@@ -1027,19 +1073,15 @@ class generalFunctions {
     // *************************************
     if(self::$adminConfig['speakingUrl'] == 'true') {
     
-      $speakingUrlHref = self::$adminConfig['websitePath'];
+      $speakingUrlHref = generalFunctions::getDirname($adminConfig['websitePath']);
       
       // adds the category to the href attribute
-      if($category != 0) {
-        $categoryLink = '/category/'.urlencode(self::$categoryConfig[$category]['name']).'/';
-      } else $categoryLink = '';
-      
-      
-      $speakingUrlHref .= $categoryLink;
-      if($categoryLink == '')
-        $speakingUrlHref .= '/page/'.urlencode($pageContent['title']);
+      if($category != 0)
+        $speakingUrlHref .= '/category/'.self::urlEncode(self::$categoryConfig[$category]['name']).'/';
       else
-        $speakingUrlHref .= urlencode($pageContent['title']);
+        $speakingUrlHref .= '/page/';
+
+      $speakingUrlHref .= self::urlEncode($pageContent['title']);
       $speakingUrlHref .= '.html';
       
       if($sessionId)

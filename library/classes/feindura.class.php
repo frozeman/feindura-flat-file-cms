@@ -752,6 +752,7 @@ class feindura extends feinduraBase {
     // ********************************************
     $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId needs categories
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
+  
   } 
   
   // ****************************************************************************************************************
@@ -983,7 +984,7 @@ class feindura extends feinduraBase {
       
       // -> add BASE PATH if SPEAKING URLS are ON
       if($this->adminConfig['speakingUrl'])
-        $metaTags .= '  <base href="'.$this->adminConfig['url'].$this->adminConfig['websitePath'].'"'.$tagEnding."\n\n";
+        $metaTags .= '  <base href="'.$this->adminConfig['url'].generalFunctions::getDirname($this->adminConfig['websitePath']).'"'.$tagEnding."\n\n";
       
       // -> add robots.txt
       if($robotTxt === true)
@@ -1238,24 +1239,22 @@ class feindura extends feinduraBase {
           // *****************
           // -> create the text
           if($linkText === true) {
-          // add the TITLE
-          $linkText = $this->createTitle($pageContent,	                       
+            // add the TITLE
+            $linkText = $this->createTitle($pageContent,	                       
                                          $this->linkLength,
                                          false, // $titleAsLink
                                          $this->linkShowPageDate,
                                          $this->linkShowCategory,                                       
                                          $this->linkCategorySeparator);
           } elseif(is_string($linkText) &&
-                   is_numeric($this->linkLength)) {
-                   
+                   is_numeric($this->linkLength))   
             $linkText = shortenText($linkText, $this->linkLength);
-          }
   	
           // -> sets the LINK
           // ----------------------------  
          
           // add HREF
-          $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.strip_tags($linkText).'"';
+          $linkAttributes = 'href="'.$this->createHref($pageContent).'" title="'.str_replace('"','&quot;',strip_tags($linkText)).'"';
   	      
           $linkClass = ($this->page == $pageContent['id'])
           ? $this->linkClass.' active'

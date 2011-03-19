@@ -3,7 +3,7 @@
 $adminConfig['url'] =              'http://localhost';
 $adminConfig['basePath'] =         '/feinduraCMS/';
 $adminConfig['realBasePath'] =     '/var/server/feinduraCMS/';
-$adminConfig['websitePath'] =      '/';
+$adminConfig['websitePath'] =      '/'; // it's also possible: "/index.php"
 $adminConfig['uploadPath'] =       '/feinduraCMS/upload/';
 $adminConfig['websiteFilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '/styles/';

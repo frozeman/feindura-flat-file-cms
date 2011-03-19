@@ -197,7 +197,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
         
         // shows the page link
         $hostUrl = ($adminConfig['speakingUrl'])
-          ? $adminConfig['url'].substr($adminConfig['websitePath'],0,-1)
+          ? $adminConfig['url']
           : $adminConfig['url'].$adminConfig['websitePath'];
         
         echo '<tr>

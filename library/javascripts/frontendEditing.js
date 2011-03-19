@@ -359,11 +359,10 @@
     
     // Hide button
     links[2] =new Element('a',{ 'href': '#', 'class': 'feindura_topBarHide'});
-    links[2].addEvent('mouseup', function() {
-        if(topBarVisible)
-          deactivate();
-        else         
-          activate();
+    links[2].addEvent('mouseup', function(e) {
+        e.stop();
+        if(topBarVisible) deactivate();
+        else activate();
       });
     
     links.each(function(link){

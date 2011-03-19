@@ -26,17 +26,11 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
-  addSlashToPathsEnd($_POST);
+  addSlashesToPOSTPaths($_POST);
   
   // ** adds a "/" on the beginning of all absolute paths
-  if(!empty($_POST['cfg_websitePath']) && substr($_POST['cfg_websitePath'],0,1) !== '/')
-        $_POST['cfg_websitePath'] = '/'.$_POST['cfg_websitePath'];
-  if(!empty($_POST['cfg_uploadPath']) && substr($_POST['cfg_uploadPath'],0,1) !== '/')
-        $_POST['cfg_uploadPath'] = '/'.$_POST['cfg_uploadPath'];
-  if(!empty($_POST['cfg_websiteFilesPath']) && substr($_POST['cfg_websiteFilesPath'],0,1) !== '/')
-        $_POST['cfg_websiteFilesPath'] = '/'.$_POST['cfg_websiteFilesPath'];
-  if(!empty($_POST['cfg_stylesheetPath']) && substr($_POST['cfg_stylesheetPath'],0,1) !== '/')
-        $_POST['cfg_stylesheetPath'] = '/'.$_POST['cfg_stylesheetPath'];  
+  if(!empty($_POST['cfg_websitePath']) && strpos($_POST['cfg_websitePath'],'.') !== false)
+        $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
   
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
