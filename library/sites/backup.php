@@ -52,10 +52,11 @@ if($unwriteableList && checkBasePath()) {
 <!-- BACKUP -->
 <div class="block">
   <h1><?= $langFile['BACKUP_TITLE_BACKUP']; ?></h1>
-  <div class="content" style="text-align: center;">
-  
-  <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
-  
+  <div class="content">
+    <p><?= $langFile['BACKUP_TEXT_BACKUP']; ?></p><br />
+    <div style="text-align: center;">
+    <a href="index.php?site=backup&amp;downloadBackup" class="downloadBackup"><?= $langFile['BACKUP_BUTTON_DOWNLOAD']; ?></a>
+    </div>
   </div>
   <div class="bottom"></div>
 </div>
@@ -68,57 +69,57 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
 <div class="block<?= $hidden ?>">
   <h1><a href="#"><?= $langFile['BACKUP_TITLE_RESTORE']; ?></a></h1>
   <div class="content">  
-  
-  <form action="index.php?site=backup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="restoreForm">
-    <div>
-    <input type="hidden" name="send" value="restore" />
-    </div>
     <p><?= $langFile['BACKUP_TEXT_RESTORE']; ?></p><br />
-    <br />
-    <div style="text-align: center;">
-    <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
-    <div class="verticalSeparator"></div>
-    <img src="library/images/icons/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
-    <br />
-    <?php
-    
-    $backups = generalFunctions::readFolder($backupFolder);
-    if(!empty($backups['files'])) {
-      
-      echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';
-      echo '<div class="verticalSeparator"></div><br />';
-      echo '<table>
-     
-      <colgroup>
-      <col class="left" />
-      </colgroup>
   
-      <tr><td class="leftTop"></td><td></td></tr>';
-
-      natsort($backups['files']);
-      $backups['files'] = array_reverse($backups['files']);
-      foreach($backups['files'] as $backupFile) {
-        $backupTime = filemtime(DOCUMENTROOT.$backupFile);
-        $backupTime = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime);
+    <form action="index.php?site=backup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="restoreForm">
+      <div>
+      <input type="hidden" name="send" value="restore" />
+      </div>
+      <br />
+      <div style="text-align: center;">
+      <h3><?= $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD']; ?></h3>
+      <div class="verticalSeparator"></div>
+      <img src="library/images/icons/backup_restore.png" /><input type="file" name="restoreBackupUpload" style="position: relative;top: -25px;" onclick="removeChecked('.restoreBackupFiles');" />
+      <br />
+      <?php
+      
+      $backups = generalFunctions::readFolder($backupFolder);
+      if(!empty($backups['files'])) {
         
-        echo '<tr><td class="left">';
-        echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'">';
-        echo '</td><td class="right">';
-        echo (strpos($backupFile,'restore') === false)
-          ? '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$backupTime."</label>\n"
-          : '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$backupTime."</label>\n";
-        echo '</td></tr>';
-      }
-           
-      echo '</table>';
-    }
+        echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';
+        echo '<div class="verticalSeparator"></div><br />';
+        echo '<table>
+       
+        <colgroup>
+        <col class="left" />
+        </colgroup>
     
-    ?>
-    </div>
-    <br />
-    <br />    
-    <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
-  </form>
+        <tr><td class="leftTop"></td><td></td></tr>';
+  
+        natsort($backups['files']);
+        $backups['files'] = array_reverse($backups['files']);
+        foreach($backups['files'] as $backupFile) {
+          $backupTime = filemtime(DOCUMENTROOT.$backupFile);
+          $backupTime = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime);
+          
+          echo '<tr><td class="left">';
+          echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'">';
+          echo '</td><td class="right">';
+          echo (strpos($backupFile,'restore') === false)
+            ? '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.$backupTime."</label>\n"
+            : '<label for="backupFile'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.$backupTime."</label>\n";
+          echo '</td></tr>';
+        }
+             
+        echo '</table>';
+      }
+      
+      ?>
+      </div>
+      <br />
+      <br />    
+      <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    </form>
   </div>
   <div class="bottom"></div>
 </div>

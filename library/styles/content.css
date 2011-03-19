@@ -1291,7 +1291,7 @@ label {
 .fancyform_selected.fancyform_disabled {cursor: default;background-image:url("../images/icons/radio_on_disabled.png");}
 .fancyform_unselected{cursor: pointer;border-bottom:1px solid transparent;position:relative;display:inline-block;top:4px;width:16px;height:16px;background-image:url("../images/icons/radio_off.png");}
 .fancyform_unselected.fancyform_disabled {cursor: default;background-image:url("../images/icons/radio_off_disabled.png");}
-.fancyform_focus{cursor: pointer;border-bottom:1px dotted #999;}
+.fancyform_focus{cursor: pointer;border-bottom:1px dotted #CF974D;}
 
 /* autogrow */
 textarea.autogrow {

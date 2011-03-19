@@ -103,10 +103,10 @@ $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'] = 'ajouter fichier feuille de styl
 $langFile['STYLESHEETS_EXAMPLE_STYLEFILE'] = '<b>example</b> &quot;/style/layout.css&quot;';
 
 // PATHS
-$langFile['PATHS_TEXT_ABSOLUTE'] = 'trace absolue';
-$langFile['PATHS_TEXT_RELATIVE'] = 'trace relative';
-$langFile['PATHS_TOOLTIP_ABSOLUTE'] = 'trace absolue';
-$langFile['PATHS_TOOLTIP_RELATIVE'] = 'trace relative';
+$langFile['PATHS_TEXT_ABSOLUTE'] = 'chemin absolue';
+$langFile['PATHS_TEXT_RELATIVE'] = 'chemin relative';
+$langFile['PATHS_TOOLTIP_ABSOLUTE'] = 'chemin absolue';
+$langFile['PATHS_TOOLTIP_RELATIVE'] = 'chemin relative';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART'] = 'spectre des navigateurs des visiteurs';
@@ -245,7 +245,7 @@ $langFile['ERROR_FOLDER_PART2'] = '&quot; fichiers, du sous-fichier et des donn�
 $langFile['warning_startPageWarning_h1'] = 'La page d\'acceuil n\'est pas définie.';
 $langFile['warning_startPageWarning'] = 'Svp définissez une page d\'acceuil.<br />Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
 $langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> n\'a pas encore été configuré!';
-$langFile['warning_fmsConfWarning'] = 'La <i>trace de base</i>ne correspond pas avec les préférences l\'administrateur.<br />
+$langFile['warning_fmsConfWarning'] = 'La <i>chemin de base</i>ne correspond pas avec les préférences l\'administrateur.<br />
 Cliquez sur <a href="?site=adminSetup">préférences administrateur</a> et met en service ton <span class="logoname">fein<span>dura</span></span> CMS';
 $langFile['warning_jsWarning_h1'] = 'Activer le javascript';
 // no <p> tag on the start and the end, its already in the home.php
@@ -335,7 +335,7 @@ $langFile['form_cancel'] = 'réinitialiser les données';
 // ---------- ADMIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
 $langFile['ADMINSETUP_TEXT_VERSION'] = '<span class="logoname">fein<span>dura</span></span> Version';
 $langFile['ADMINSETUP_TEXT_PHPVERSION'] = 'PHP Version';
-$langFile['adminSetup_srvRootPath'] = 'trace Server-Root';
+$langFile['adminSetup_srvRootPath'] = 'chemin Server-Root';
 $langFile['adminSetup_error_title'] = 'des erreurs se sont produites';
 $langFile['adminSetup_error_writeAccess_tip'] = 'Pour les fichiers et les données les droits de lecture doivent être mis sur '.decoct($adminConfig['permissions']).'.';
 $langFile['adminSetup_error_writeAccess'] = 'n\'est pas descriptible';
@@ -349,19 +349,19 @@ $langFile['ADMINSETUP_GENERAL_field1'] = 'URL site web';
 $langFile['ADMINSETUP_GENERAL_field1_tip'] = 'L\'URL de votre site web sera mise automatiquement.';
 $langFile['ADMINSETUP_GENERAL_field1_inputTip'] = 'L\'URL sera mise automatiquement';
 $langFile['ADMINSETUP_GENERAL_field1_inputWarningText'] = 'Svp sauvegardez la configuration!';
-$langFile['ADMINSETUP_GENERAL_field2'] = 'trace du feindura';
-$langFile['ADMINSETUP_GENERAL_field2_tip'] = 'La trace principale sera estimé automatiquement et sauvegardé avec la configuration.';
-$langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'La trace principale sera mise automatiquement';
+$langFile['ADMINSETUP_GENERAL_field2'] = 'chemin du feindura';
+$langFile['ADMINSETUP_GENERAL_field2_tip'] = 'La chemin principale sera estimé automatiquement et sauvegardé avec la configuration.';
+$langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'La chemin principale sera mise automatiquement';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Svp sauvegardez la configuration!';
-$langFile['ADMINSETUP_GENERAL_field8'] = 'trace du site web';
-$langFile['ADMINSETUP_GENERAL_field8_tip'] = 'Le [b]trace absolue[/b], contenant les site web.';
-$langFile['ADMINSETUP_GENERAL_field4'] = 'trace upload';
+$langFile['ADMINSETUP_GENERAL_field8'] = 'chemin du site web';
+$langFile['ADMINSETUP_GENERAL_field8_tip'] = 'Le [b]chemin absolue[/b], contenant les site web.';
+$langFile['ADMINSETUP_GENERAL_field4'] = 'chemin upload';
 $langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont être téléchargés.[br /][br /][span class=hint]pour insérer des fichiers, cliquez dans le HTML-Editor insérer lien > upload transféré ou dans le gestionnaire de fichiers.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]ces fichiers peuvent être rédigés plus bas ou dans le paramètrages du site web (si cette option est activé pour le site web).[br /][br /]';
-$langFile['ADMINSETUP_GENERAL_field5'] = 'trace du dossier du site web';
+$langFile['ADMINSETUP_GENERAL_field5'] = 'chemin du dossier du site web';
 $langFile['ADMINSETUP_GENERAL_field5_tip'] = 'Un dossier contenant des fichiers. Ces fichiers peuvent par ex. être utilisés pour avoir une version multilinguale du site web.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
-$langFile['ADMINSETUP_GENERAL_field6'] = 'trace des feuilles de style';
-$langFile['ADMINSETUP_GENERAL_field6_tip'] = 'Une trace absolue [b]trace absolue[/b] contenat les feuilles de style qui peuvent être rédigés par ex. par les utilisateurs.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6'] = 'chemin des feuilles de style';
+$langFile['ADMINSETUP_GENERAL_field6_tip'] = 'Une chemin absolue [b]chemin absolue[/b] contenat les feuilles de style qui peuvent être rédigés par ex. par les utilisateurs.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] = 'autorisations des fichiers et des répertoires';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Chaque fichier ou un dossier créé par [span class=logoname]fein[span]dura[/span][/span] obtiendrez ces autorisations.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty'] = 'si le panneua est vide, le nom standard des variables GET sera utilisé: ';
@@ -382,7 +382,7 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'] = '/category/par_exempl
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false'] = 'URL avec variables';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'] = 'index.php?'.$adminConfig['varName']['category'].'=1&'.$adminConfig['varName']['page'].'=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip'] = 'Le format de d\'URL pour le référencement du site web.[br /][br /]Speaking URLs fonctionnent seulement si [b]Apache[/b] le [b]mod_rewrite[/b] module est disponible.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] = 'Attention!::[span class=red]Si des erreurs se produisent pendant l\'utilisation des speaking URLs, le fichier [b].htaccess[/b] dans la trace documentaire root du serveur doit être éffacé.[/span][br /][br /](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] = 'Attention!::[span class=red]Si des erreurs se produisent pendant l\'utilisation des speaking URLs, le fichier [b].htaccess[/b] dans la chemin documentaire root du serveur doit être éffacé.[/span][br /][br /](dans certains logiciels FTP les fichiers cachés doivent être indiqués pour montrer le fichier .htaccess)';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save'] = '<b>Speaking URLs</b> ne pouvaient pas être activés'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
@@ -393,7 +393,7 @@ $langFile['ADMINSETUP_USERPERMISSIONS_TITLE'] = 'permissions de l\'utilisateur';
 $langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'traiter les données du site web au sein du paramétrage du site web';
 $langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'traiter les feuilles de style au sein du paramétrage du site web';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'activer gestion des données';
-$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'gestionnaire de fichiers désactivé::Vous devez régler le trace upload dans la configuration de base, avant de pouvoir activer le gestionnaire de fichiers.';
+$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'gestionnaire de fichiers désactivé::Vous devez régler le chemin upload dans la configuration de base, avant de pouvoir activer le gestionnaire de fichiers.';
 
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>informations utilisateur</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Information utilisateur::Ce texte va être publié sur [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].'.';
@@ -411,10 +411,10 @@ $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Si la case reste vide,
 
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1'] = 'paramètres thumbnail du site';
-$langFile['adminSetup_thumbnailSettings_field3'] = 'trace de sauvegarde'; // trace de sauvegarde thumbnail
-$langFile['adminSetup_thumbnailSettings_field3_tip'] = 'Trace au sein de la trace upload des données ou les thumbnails seront sauvegardés.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'trace upload des données';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'trace relative::Dépéndant de la &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; trace.[br /][br /]Commence sans &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3'] = 'chemin de sauvegarde'; // chemin de sauvegarde thumbnail
+$langFile['adminSetup_thumbnailSettings_field3_tip'] = 'chemin au sein de la chemin upload des données ou les thumbnails seront sauvegardés.';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'chemin upload des données';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'chemin relative::Dépéndant de la &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; chemin.[br /][br /]Commence sans &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
@@ -723,7 +723,8 @@ $langFile['BACKUP_TITLE_RESTORE_FROMUPLOAD'] = 'télécharger le fichier de sauv
 $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'sauvegarde avant la récupération';
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'créer de sauvegarde actuelle';
-$langFile['BACKUP_TEXT_RESTORE'] = 'Sélectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de sauvegarde, de rétablir un état ancien.<br /><span class="blue">Avant de restaurer une sauvegarde de l\'ancien stand est créé.</ span>';
+$langFile['BACKUP_TEXT_BACKUP'] = 'Une sauvegarde crée un fichier <code>.zip</code> avec le <span class="blue">"pages", "config"</span> et <span class="blue">"statistic"</span>dossiers.<br />Le dossier de upload ne sera pas sauvé.';
+$langFile['BACKUP_TEXT_RESTORE'] = 'Sélectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de sauvegarde, de rétablir un état ancien.<br /><span class="blue">Avant de restaurer une sauvegarde de état actuel est créé.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE'] = 'Supprimer sauvegarde.';
 $langFile['BACKUP_TEXT_DELETE_QUESTION1'] = ''; // backup 2010-11-05 15:03 supprimer?
 $langFile['BACKUP_TEXT_DELETE_QUESTION2'] = 'supprimer?';
