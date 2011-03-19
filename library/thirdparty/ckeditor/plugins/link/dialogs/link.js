@@ -1,7 +1,9 @@
-﻿/*
+/*
 Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
+
+/* add feindura link plugin */
 
 CKEDITOR.dialog.add( 'link', function( editor )
 {
@@ -515,6 +517,26 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										this.getElement().show();
 								}
 							},
+							// ->> feindura link plugin *** start ***
+							{
+                id : 'feindura_link',
+								type : 'select',
+								label : 'feindura pages',
+								'default' : '',
+								onShow: function(){
+								  feindura_pages.each(function(page){
+                    if(page.contains(this.getDialog().getContentElement( 'info', 'url' ).getValue()))
+                     this.setValue(page[1]);
+                  },this); 
+                },
+                items: feindura_pages,
+								onChange : function()
+								{
+								  var	urlCmb = this.getDialog().getContentElement( 'info', 'url' );
+									urlCmb.setValue( this.getValue() );
+								}
+              },
+              // ->> feindura link plugin *** end ***
 							{
 								type : 'button',
 								id : 'browse',

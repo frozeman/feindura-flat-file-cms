@@ -164,6 +164,18 @@ if($_GET['site'] == 'addons') {
     ERROR_SAVE:                       "<?= $langFile['editor_savepage_error_save']; ?>"
   };
   
+  /* transport for CKEditor feindura links */
+  <?php
+  if(!empty($_GET['page'])) {
+    $getPages = generalFunctions::loadPages(true,true);
+  ?>
+var feindura_pages = [
+['none',''],
+<?php foreach($getPages as $getPage) {
+    echo "['".str_replace("'",'',$getPage['title'])."','?page=".$getPage['id']."'],\n";
+    } ?>  ];
+  <?php } ?>
+  
   window.addEvent('domready', function () {
     <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
     // ->> include filemanager

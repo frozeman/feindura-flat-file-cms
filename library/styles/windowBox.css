@@ -81,8 +81,6 @@ windowBox.css version 0.2 */
     padding: 50px 0px;
     text-align: center;
     background: url("../images/bg/dimContainer.png") repeat;
-    -moz-opacity:0.5; -khtml-opacity:0.5; opacity:0.5;
-    filter:Alpha(opacity=50, finishopacity=50, style=0);
     }
 
 /****************/	

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc7
-Build 603
+Build 604
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 604: add feindura link plugin for CKEditor (add inside the original link plugin of CKEditor)
   build 603: fixed website path; add getDirname() method to generalFunctions.class.php
   build 602: add description to the backup page
   build 601: add depencies to the fancy form
