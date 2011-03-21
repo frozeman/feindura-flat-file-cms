@@ -43,7 +43,7 @@ require('chapta.php');
 * @version 1.0.3
 * <br />
 * <b>ChangeLog</b><br />
-*    - 1.0.3 convert to PHP 3 class
+*    - 1.0.3 convert to PHP 5 class
 *    - 1.0.2 add xssFilter
 *    - 1.0.1 add plain mail in UTF-8 when php 4
 *    - 1.0 initial release

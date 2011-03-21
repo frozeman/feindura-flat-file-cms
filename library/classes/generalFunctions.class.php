@@ -29,10 +29,11 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 1.20
+* @version 1.3
 * <br>
 *  <b>ChangeLog</b><br>
-*    - 1.20 changed class to static class
+*    - 1.3 rewrite of checkLanguageFiles(), now loadLanguageFile()
+*    - 1.2 changed class to static class
 *    - 1.19 add parseDefaultLanguage() to checkLanguageFiles()
 *    - 1.18 fixed checkLanguageFiles()
 *    - 1.17 add chmod to savePage()
@@ -150,137 +151,109 @@ class generalFunctions {
  /* **************************************************************************************************************************** */
  
   /**
-  * <b>Name</b> parseDefaultLanguage()<br>
+  * <b>Name</b> getBrowserLanguages()<br>
   * 
-  * Checks for the browser language with the highest q-value
+  * Checks for the browser language an create an array with all languages an q-values:
+  * 
+  * <samp>
+  * Array (
+  *      [de-de] => 1
+  *      [de] => 0.8
+  *      [en-us] => 0.5
+  *      [en] => 0.3
+  *  )
+  * </samp>
   * 
   * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
   * 
-  * @author Darrin Yeager
-  * @copyright Copyright (c) 2008 Darrin Yeager
-  * @license http://www.dyeager.org/downloads/license-bsd.php BSD license
+  * @param string $standardLang the standard country code to return when no language code was get
+  * 
   * @link   http://www.dyeager.org/post/2008/10/getting-browser-default-language-php
   * @static
   */
-  public static function parseDefaultLanguage($http_accept, $deflang = "en") {
-     if(isset($http_accept) && strlen($http_accept) > 1)  {
+  public static function getBrowserLanguages($simple = true, $standardLang = "en") {
+     // var
+     $language = array(strtolower($standardLang) => 1.0);
+    
+     if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) && strlen($_SERVER["HTTP_ACCEPT_LANGUAGE"]) > 1)  {
         # Split possible languages into array
-        $x = explode(",",$http_accept);
+        $x = explode(",",$_SERVER["HTTP_ACCEPT_LANGUAGE"]);
         foreach ($x as $val) {
            #check for q-value and create associative array. No q-value means 1 by rule
            if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i",$val,$matches))
-              $lang[$matches[1]] = (float)$matches[2];
+              $lang[strtolower($matches[1])] = (float)$matches[2];
            else
-              $lang[$val] = 1.0;
+              $lang[strtolower($val)] = 1.0;
         }
-  
-        #return default language (highest q-value)
-        $qval = 0.0;
-        foreach ($lang as $key => $value) {
-           if ($value > $qval) {
-              $qval = (float)$value;
-              $deflang = $key;
-           }
-        }
+        
+        if(!empty($lang))
+          $language = $lang;
      }
-     return strtolower($deflang);
+     return $language;
   }
 
  
  /**
-  * <b>Name</b> checkLanguageFiles()<br>
+  * <b>Name</b> loadLanguageFile()<br>
   * 
-  * Checks for the browser language and looks if there is a file in the language folder with tha same country code in the filename end.
+  * Loads a language file from a folder. The <var>$currentLangCode</var> parameter can contain a language code used to try to load a language file, if empty it uses the browsers language codes.
   * 
-  * If there is a language file which matches the browser language it loads either the language-file or returns the country code,
-  * depending on the <var>$returnLangFile</var> parameter.
+  * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile.
   * 
-  * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile or returning the country code.
-  * 
-  * @param string|false $useLangPath      (optional) a absolut path to look for language files or FALSE to use the "feindura-cms/library/languages" folder
-  * @param bool         $returnLangFile   (optional) if TRUE it includes and returns the language-file which matches the browser language
+  * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
+  * @param string       $filename         (optional) the structure of the filename, which should be loaded. the "%lang%" will be replaced with the country code like "%lang%.backend.php" -> "en.backend.php"
+  * @param string@false &$currentLangCode (optional) (Note: this bvariable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't a language file which fits the browsers language code will be loaded.  
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
-  * @uses $adminConfig                           for the base path of the CMS
-  * @uses generalFunctions::readFolderRecursive()  to read the language folder
-  * @uses generalFunctions::parseDefaultLanguage() to get the right browser language
   * 
-  * @return string|array|false a country code (like: de, en, fr..) or the language-file array or FALSE if the language file could not be opend
+  * @uses generalFunctions::getBrowserLanguages() to get the right browser language
+  * 
+  * @return array the loaded language file array or an empty array
   * 
   * @static
-  * @version 1.02
+  * @version 1.0.3
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.02 add parseDefaultLanguage()
-  *    - 1.01 fixed language files check, uses now readFolder recursive  
+  *    . 1.0.3 complete rewrite!
+  *    - 1.0.2 add parseDefaultLanguage()
+  *    - 1.0.1 fixed language files check, uses now readFolder recursive
   *    - 1.0 initial release
   * 
   */
-  public static function checkLanguageFiles($useLangPath = false, $returnLangFile = true, $standardLang = 'en') {
+  public static function loadLanguageFile($langPath = false, $filename = '%lang%.php', &$currentLangCode = false, $standardLang = 'en') {
      
-      // checks if a path given
-      if(is_string($useLangPath)) {
-        // adds "/" on the beginnging for absolute path
-        if(substr($useLangPath,0,1) != '/')
-          $useLangPath = '/'.$useLangPath;
-          
-        // adds the DOCUMENTROOT  
-        $useLangPath = str_replace(DOCUMENTROOT,'',$useLangPath);  
-        $useLangPath = DOCUMENTROOT.$useLangPath;
-        
-      } else
-        $langPath = dirname(__FILE__).'/../languages/';
-       
-      // -> read language folder
-      $langFiles = self::readFolderRecursive($langPath);
+    // checks if a path given
+    if(!is_string($langPath) || empty($langPath))
+      $langPath = dirname(__FILE__).'/../languages/'; 
+    
+    // var
+    $return = array();
+    $fullPath = (strpos($fullPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$fullPath : $fullPath;
+    
+    // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
+    $browserLanguages = self::getBrowserLanguages($standardLang);
+    // add the current language code
+    if(!empty($currentLangCode)) {
+      $currentLangCode = array($currentLangCode => 2); // set it as the highest qvalue
+      //$browserLanguages = $currentLangCode + $browserLanguages;
+      $browserLanguages = array_merge($browserLanguages,$currentLangCode);
+      natsort($browserLanguages);
+      $browserLanguages = array_reverse($browserLanguages);
+    }
+    foreach($browserLanguages as $browserLanguage => $qValue) {
+    
+      $filenameReplaced = str_replace('%lang%',substr($browserLanguage,0,2),$filename);
+      $fullPath = preg_replace('#/+#','/',$langPath.'/'.$filenameReplaced);
       
-      // -> get langFiles
-      if(!empty($langFiles['files'])) {
-                    
-        // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
-        $browserLang = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
-          ? self::parseDefaultLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"],$standardLang)
-          : self::parseDefaultLanguage(NULL,$standardLang);
-        $browserLang = substr($browserLang,0,2);
-        
-    	  foreach($langFiles['files'] as $langFilePath) {
-
-          $langFile = basename($langFilePath);
-
-      		if(stristr(substr($langFile,-6,2).",", $browserLang.",") ||
-             stristr(substr($langFile,0,2).",", $browserLang.",")) {
-	  
-      		  // returns either langFile or the COUNTRY CODE
-      		  if($returnLangFile) {
-      		    if($return = include(DOCUMENTROOT.$langFilePath))
-                return $return;
-             else
-                return false;
-      		  } else {
-      			   return $browserLang;
-      			}
-      		}
-      	}
-        
-        // if there is no SUPPORTED COUNTRY CODE, use the standard Lang  	
-      	if($returnLangFile) {
-          if(!empty($langFile)) {
-            if($return = @include($langPath.substr($langFile,0,-6).$standardLang.'.php') ||
-               $return = @include($langPath.$standardLang.substr($langFile,2)))
-              return $return;
-            else
-              return false;
-          } else
-           return false;
-    	     
-    	  // return only the standard COUNTRY CODE
-    	  } else
-    		  return $standardLang;   		  
-  		  
-      } elseif($returnLangFile)
-          return array();
-      else
-          return $standardLang;          
+      //echo $fullPath."<br>\n";
+      $languageFile = @include($fullPath);
+      if(is_array($languageFile)) {
+        $return = $languageFile;
+        $currentLangCode = substr($browserLanguage,0,2);
+        break;
+      }
+    }
+    return $return;
   }
 
  /**

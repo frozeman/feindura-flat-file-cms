@@ -110,31 +110,15 @@ $newPage          = false; // tells the editor whether a new page is created
 // and includes the langFile
 
 // -> check language
-if((isset($_GET['language']) && ($_GET['language'] = xssFilter::alphabetical($_GET['language'])) === false) ||
-   (isset($_SESSION['language']) && ($_SESSION['language'] = xssFilter::alphabetical($_SESSION['language'])) === false))
-  die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
-
-if(isset($_GET['language']))
-  $_SESSION['language'] = $_GET['language'];
-
 //unset($_SESSION['language']);
+if(isset($_GET['language'])) $_GET['language'] = xssFilter::alphabetical($_GET['language']);
+if(isset($_SESSION['language'])) $_SESSION['language'] = xssFilter::alphabetical($_SESSION['language']);
+if(isset($_GET['language'])) $_SESSION['language'] = $_GET['language'];
 
-if(empty($_SESSION['language'])) {
-  // gets the BROWSER LANGUAGE
-  $_SESSION['language'] = generalFunctions::checkLanguageFiles(false,false,'en'); // returns a COUNTRY SHORTNAME
-}
-
-$frontendLangFilePath = dirname(__FILE__).'/../languages/'.$_SESSION['language'].'.backend.php';
-$sharedLangFilePath = dirname(__FILE__).'/../languages/'.$_SESSION['language'].'.shared.php';
-// includes the langFiles which is set by the session var
-if(file_exists($frontendLangFilePath) && file_exists($sharedLangFilePath)) {
-  $sharedLangFile = include($sharedLangFilePath);
-  $backendLangFile = include($frontendLangFilePath);  
-
-  $langFile = $sharedLangFile + $backendLangFile;
-      
-  unset($backendLangFile,$sharedLangFile);
-}
+$backendLangFile = generalFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['language']);
+$sharedLangFile = generalFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['language']);
+$langFile = $sharedLangFile + $backendLangFile;
+unset($backendLangFile,$sharedLangFile);
 // *---* choose LANGUAGE * END * -----------------------------------------------------
 
 ?>

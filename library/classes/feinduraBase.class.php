@@ -277,18 +277,17 @@ class feinduraBase {
     
     // sets the language PROPERTY from the session var AND the languageFile Array
     // **************************************************************************
-    if(isset($language) && !empty($language) && ($language = xssFilter::alphabetical($language)) === false)
-      die('Wrong &quot;language&quot; parameter! Parameter can only have alphabetical characters. Script will be terminated.');
+    $language = xssFilter::alphabetical($language);
     
     // set the given country code
     if(is_string($language) && strlen($language) == 2) {
       $this->language = $language;
+      $this->loadFrontendLanguageFile($this->language);
       
-    // if no country code is given, try to get the BROWSER LANGUAGE
+    // if no country code is given, it will get the country code automatically
     } else
-      $this->language = generalFunctions::checkLanguageFiles(false,false,$this->language); // returns a COUNTRY SHORTNAME 
+      $this->language = $this->loadFrontendLanguageFile();
 
-    $this->loadFrontendLanguageFile($this->language);
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -533,38 +532,29 @@ class feinduraBase {
   * Loads the frontend language file into the {@link $languageFile} property.
   * 
   * 
-  * <b>Used Constants</b><br />
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  * @param string $language  (optional) a given country code which will be used to try to load the language file
   * 
-  * @param string $language a given country code which will be used to try to laod the language file
+  * @uses generalFunctions::loadLanguageFile() to load the language files
   * 
-  * @uses language the country code from the property
-  * 
-  * @return array|false the frontend language file or FALSE if the file doesn't exist
+  * @return string the country code which was used to load the frontend language files
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.1 add new generalFunctions::loadLanguageFile() method
   *    - 1.0 initial release
   * 
   */
-  protected function loadFrontendLanguageFile($language) {
+  protected function loadFrontendLanguageFile($language = false) {
     
-    // creates the frontend language file path
-    $frontendLangFilePath = dirname(__FILE__).'/../languages/'.$language.'.frontend.php';
-    $sharedLangFilePath = dirname(__FILE__).'/../languages/'.$language.'.shared.php';
-    
-    // includes the langFile
-    if(file_exists($frontendLangFilePath) && file_exists($sharedLangFilePath)) {
-      $sharedLangFile = include($sharedLangFilePath);
-      $frontendLangFile = include($frontendLangFilePath);      
-      $this->languageFile = $sharedLangFile + $frontendLangFile;
-      
-      return $this->languageFile;
-    } else
-      return false;
-    
+    $frontendLangFile = generalFunctions::loadLanguageFile(false,'%lang%.frontend.php',$language);
+    $sharedLangFile = generalFunctions::loadLanguageFile(false,'%lang%.shared.php',$language);
+
+    // SET the FRONTEND LANGUAGE FILE
+    $this->languageFile = $sharedLangFile + $frontendLangFile;
+    unset($frontendLangFile,$sharedLangFile);
+    return $language;
   }
 
  /**

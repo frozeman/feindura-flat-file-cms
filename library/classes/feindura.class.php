@@ -32,10 +32,10 @@
 * 
 * @package [Implementation]
 * 
-* @version 1.01
+* @version 1.0.1
 * <br />
 * <b>ChangeLog</b><br />
-*    - 1.01 add setStartPage()
+*    - 1.0.1 add setStartPage()
 *    - 1.0 initial release
 * 
 */
@@ -794,10 +794,8 @@ class feindura extends feinduraBase {
   * 
   * Set the {@link feinduraBase::$language} property and reloads the frontend language file.
   * 
-  * <b>Notice</b> The country code will also be set to the <var>$_SESSION['language']</var> variable.
+  * <b>Notice</b> The country code will NOT set to any <var>$_SESSION</var> variable, you have to take care of this yourself.
   * 
-  * <b>Used Global Variables</b><br />
-  *    - <var>$_SESSION['language']</var> the country code will be stored in this SESSION variable
   * 
   * @param string $language a language country code like "en", "de", ...
   * 
@@ -818,8 +816,6 @@ class feindura extends feinduraBase {
   public function setLanguage($language) {
     
     if(is_string($language) && strlen($language) == 2) {
-      
-      $_SESSION['language'] = $language;
       
       $this->language = $language;
       $this->loadFrontendLanguageFile($this->language);
@@ -856,33 +852,26 @@ class feindura extends feinduraBase {
   * <b>Name</b>     getLanguageFile()<br />
   * 
   * 
-  * Check a specific directory for files beginning or ending with a country code (e.g. "en", "de", ...).<br />
-  * If the <var>$_SESSION['language']</var> is set, it uses the country code from this variable, otherwise it compare the files with the the browser language.
-  * If a match is found it set the country code to the {@link feinduraBase::$language} property and returns the included language file.
-  * If no match could be found it returns an empty array.
-  * 
-  * <b>Notice</b> The country code (from the <var>$_SESSION['language']</var> variable or the browser) 
-  * will also be set to the {@link feinduraBase::$language} property and the frontend language file will be reloaded with the new country code.
+  * Check a specific directory for files which have a language code inside the filename (see <var>$filename</var> parameter). hen a matching file is found it includes these and return it.
+  * If no match could be found it try to find a file with the browser language code, if this didnt work either it uses the <var>$standardLang</var> parameter.
   * 
   * Example of a language file
   * {@example languageFile.array.example.php}
   * 
-  * <b>Used Global Variables</b><br />
-  *    - <var>$_SESSION['language']</var> the country code will be stored in this SESSION variable
-  * 
   * <b>Used Constants</b><br />
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
-  * @param string $langFilesPath a absolute path where the language files are situated
+  * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
+  * @param string       $filename         (optional) the structure of the filename, which should be loaded. the "%lang%" will be replaced with the country code like "%lang%.backend.php" -> "en.backend.php"
+  * @param string@false &$currentLangCode (optional) (Note: this bvariable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't a language file which fits the browsers language code will be loaded.  
+  * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
-  * @uses feinduraBase::$language                     the language country code like "en", "de", ... which will be returned
-  * @uses feindura::setLanguage()                     to set the {@link $language} property and reload the frontend language file
-  * @uses generalFunctions::checkLanguageFiles()      check the browser language and returns the country code
   * 
+  * @uses generalFunctions::loadLanguageFile() to load the right language file 
   * 
-  * @return array the right language file or and empty array
+  * @return array the loaded language file array or an empty array
   * 
-  * @see generalFunctions::checkLanguageFiles()
+  * @see generalFunctions::loadLanguageFile()
   * 
   * @access public
   * @version 1.0
@@ -891,31 +880,20 @@ class feindura extends feinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function getLanguageFile($langFilesPath) {
+  public function getLanguageFile($langPath = false, $filename = '%lang%.php', &$currentLangCode = false, $standardLang = 'en') {
     
     // add slash on the end
-    if(substr($langFilesPath,-1) != '/')
-      $langFilesPath .= '/';
-      
+    if(substr($langPath,-1) != '/')
+      $langPath .= '/';
+    
     // adds the DOCUMENTROOT
-    $langFilesPath = str_replace('\\','/',$langFilesPath);
-    $langFilesPath = str_replace(DOCUMENTROOT,'',$langFilesPath);  
-    $langFilesPath = DOCUMENTROOT.$langFilesPath; 
+    $langPath = str_replace('\\','/',$langPath);
+    $langPath = str_replace(DOCUMENTROOT,'',$langPath);  
+    $langPath = DOCUMENTROOT.$langPath;
     
-    // GET the right country code if its not in the SESSION variable
-    if(empty($_SESSION['language'])) {
-      // gets the BROWSER LANGUAGE
-      $_SESSION['language'] = generalFunctions::checkLanguageFiles($langFilesPath,false,$this->language); // returns a COUNTRY SHORTNAME
-    }
+    $langFile = generalFunctions::loadLanguageFile($langPath,$filename,&$currentLangCode,$standardLang);
     
-    // SET the country code to the language property
-    $this->setLanguage($_SESSION['language']);
-        
-    // includes the langFile and returns it
-    if($langFile = @include($langFilesPath.$_SESSION['language'].'.php'))
-      return $langFile;
-    else
-      return array();
+    return $langFile;
   }
   
  /**
@@ -947,7 +925,7 @@ class feindura extends feinduraBase {
   * @version 1.01
   * <br />
   * <b>ChangeLog</b><br />
-  *    - 1.01 changed readPage() from getCurrentPage() to use only the page property    
+  *    - 1.01 changed readPage() from getCurrentPage() to use only the page property
   *    - 1.0 initial release
   * 
   */
@@ -973,7 +951,7 @@ class feindura extends feinduraBase {
       
       // -> add language
       if($this->language)
-        $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n"; 
+        $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n";
 
       // -> create TITLE
       if($this->getCurrentPageId() && ($currentPage = generalFunctions::readPage($this->page,$this->category)))
