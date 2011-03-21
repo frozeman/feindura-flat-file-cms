@@ -40,11 +40,12 @@ require('chapta.php');
 * @package [Plugins]
 * @subpackage contactForm
 * 
-* @version 1.02
+* @version 1.0.3
 * <br />
 * <b>ChangeLog</b><br />
-*    - 1.02 add xssFilter
-*    - 1.01 add plain mail in UTF-8 when php 4
+*    - 1.0.3 convert to PHP 3 class
+*    - 1.0.2 add xssFilter
+*    - 1.0.1 add plain mail in UTF-8 when php 4
 *    - 1.0 initial release
 * 
 */
@@ -61,6 +62,7 @@ class contactForm {
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
+  * @access public
   * 
   */
   var $xHtml = true;
@@ -69,6 +71,7 @@ class contactForm {
   * The languageFile for the texts of the contact form
   * 
   * @var string
+  * @access public
   * 
   */
   var $langFile = null;
@@ -77,7 +80,8 @@ class contactForm {
   * The receiver email adress of the form
   * 
   * @var string
-  * @see contactForm::sendForm()  
+  * @access public
+  * @see contactForm::sendForm()
   * 
   */
   var $recipient = 'name@example.net';
@@ -86,7 +90,8 @@ class contactForm {
   * The title of the website from where the contact form is send
   * 
   * @var string
-  * @see contactForm::sendForm()  
+  * @access public
+  * @see contactForm::sendForm()
   * 
   */
   var $websiteTitle = '';
@@ -95,28 +100,33 @@ class contactForm {
   * The URL of the website from where the contact form is send
   * 
   * @var string
-  * @see contactForm::sendForm()  
+  * @access public
+  * @see contactForm::sendForm()
   * 
   */
   var $websiteUrl = '';
   
  /**
   * Contains all settings for the contactForm
-  * @var bool
+  * 
+  * @var array
+  * @access public
   */
-  var $config = true;
+  var $config = array();
   
  /**
   * The string which will be used after a field, to mark the field as mandatory
   * 
   * @var string
+  * @access public  
   */
   var $mandatoryStar = ' <span style="color:#D23D30;">*</span>';
   
  /**
-  * The string which will be add to a mandatory field, when its not filled 
+  * The string which will be add to a mandatory field, when its not filled
   * 
   * @var string
+  * @access public
   */
   var $mandatoryColor = ' style="color:#D23D30;"';
   
@@ -124,12 +134,12 @@ class contactForm {
   * The current URL with ? or & add to it. (depending if GET varibales already exist or not)
   * 
   * @var string
+  * @access protected
   */
-  var $currentUrl;
+  protected $currentUrl;
 
  /**
-  * <b>Type</b> constructor<br /> 
-  * <b>Name</b> contactForm()<br />
+  * <b>Type</b> constructor<br />
   * 
   * The constructor of the class, sets the recipient of the form
   * 
@@ -138,13 +148,14 @@ class contactForm {
   * 
   * @return void
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function contactForm($recipient) {
+  public function __construct($recipient) {
     
     // sets the recipient of the form
     $this->recipient = $recipient;
@@ -179,16 +190,18 @@ class contactForm {
   * @uses contactForm::config
   * @uses contactForm::websiteTitle
   * @uses contactForm::websiteUrl
+  * @uses phpmailer
   * 
   * @return string the finish or error messages
   * 
+  * @access protected
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function sendForm(&$mandatoryfieldsOk = true, &$mandatoryFields = array()) {
+  protected function sendForm(&$mandatoryfieldsOk = true, &$mandatoryFields = array()) {
     // var
     $return = '';
 
@@ -289,7 +302,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
 </body></html>';
 
         // ->> use phpMailer
-        if(@include('phpMailer/class.phpmailer.php')) {
+        if(@include(dirname(__FILE__).'/phpMailer/class.phpmailer.php')) {
           
           $mail = new phpmailer();
           
@@ -326,7 +339,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
           
           mail($this->recipient, $subject, $message, $header);
         
-        }  
+        }
         
         $return .= '<p><b>'.$this->langFile['form_send'].'</b></p>';
         
@@ -383,13 +396,14 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
   * 
   * @return string the contact form
   * 
+  * @access protected
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function createForm($mandatoryFields = array()) {
+  protected function createForm($mandatoryFields = array()) {
     //var
     $return = '';
 
@@ -572,15 +586,16 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
   * @uses contactForm::sendForm()
   * @uese contactForm::createForm()
   * 
-  * @return string the contact form or the send messages    
+  * @return string the contact form or the send messages
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
   *    - 1.0 initial release
   * 
   */
-  function showContactForm() {
+  public function showContactForm() {
     
     // var
     $return = '';

@@ -73,6 +73,7 @@ class imageGallery {
   * Therefor when a page content is displayed and this property is <i>FALSE</i> all " />" will be changed to ">".
   * 
   * @var bool
+  * @access public
   * 
   */
   public $xHtml = true;
@@ -81,6 +82,7 @@ class imageGallery {
   * TRUE when images shopuld also be resized, even if they are smaller, than the set width, or height values.
   * 
   * @var int
+  * @access public
   * @see imageGallery::$imageHeight
   * @see imageGallery::$imageWidth
   * @see imageGallery::$thumbnailHeight
@@ -97,6 +99,7 @@ class imageGallery {
   * 
   * 
   * @var int
+  * @access public
   * @see imageGallery::$imageHeight
   * @see imageGallery::$imageWidth
   * @see imageGallery::$thumbnailHeight
@@ -114,6 +117,7 @@ class imageGallery {
   * <b>Notice</b>: If the {@link imageGallery::$imageHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
+  * @access public
   * @see imageGallery::$imageHeight
   * @see imageGallery::resizeImages()
   * 
@@ -128,6 +132,7 @@ class imageGallery {
   * <b>Notice</b>: If the {@link imageGallery::$imageWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
+  * @access public
   * @see imageGallery::$imageWidth
   * @see imageGallery::resizeImages()
   * 
@@ -142,7 +147,8 @@ class imageGallery {
   * <b>Notice</b>: If the {@link imageGallery::$thumbnailHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
-  * @see imageGallery::$thumbnailHeight  
+  * @access public
+  * @see imageGallery::$thumbnailHeight
   * @see imageGallery::createThumbanils()
   * 
   */
@@ -156,6 +162,7 @@ class imageGallery {
   * <b>Notice</b>: If the {@link imageGallery::$thumbnailWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
+  * @access public
   * @see imageGallery::$thumbnailWidth
   * @see imageGallery::createThumbanils()
   * 
@@ -169,6 +176,7 @@ class imageGallery {
   * {@example plugins/imageGallery/images.array.example.php}
   * 
   * @var array
+  * @access protected
   * 
   */
   protected $images = array();
@@ -177,6 +185,7 @@ class imageGallery {
   * The absolute path to the gallery
   * 
   * @var string
+  * @access protected
   * 
   */
   protected $galleryPath;
@@ -185,6 +194,7 @@ class imageGallery {
   * The title of the gallery, retrieved from the "title.txt"
   * 
   * @var string
+  * @access protected
   * 
   */
   protected $title = 'unnamed';
@@ -193,6 +203,7 @@ class imageGallery {
   * The image which is shown as the preview image of the gallery, retrieved from the "previewImage.txt"
   * 
   * @var string
+  * @access protected
   * 
   */
   protected $previewImage;
@@ -201,6 +212,7 @@ class imageGallery {
   * the timestamp of the latest modification of the files
   * 
   * @var int
+  * @access protected
   * 
   */
   protected $lastModification = 0;
@@ -225,7 +237,7 @@ class imageGallery {
   * 
   * @return void
   * 
-  * 
+  * @access public
   * @version 1.02
   * <br />
   * <b>ChangeLog</b><br />
@@ -309,6 +321,7 @@ class imageGallery {
   * 
   * @return array|false an array with the folder elements, FALSE if the folder is not a directory
   * 
+  * @access private
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -369,6 +382,7 @@ class imageGallery {
   * @uses imageGallery::resize()
   * @uses imageGallery::readFolder() to read the files in the folder to check if thumbnails are obsolete
   * 
+  * @access protected
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -420,6 +434,7 @@ class imageGallery {
   * @uses imageGallery::$galleryPath  
   * @uses imageGallery::resize()
   * 
+  * @access protected
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -505,6 +520,7 @@ class imageGallery {
   * 
   * @uses imageGallery::$galleryPath  
   * 
+  * @access protected
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -536,6 +552,7 @@ class imageGallery {
   * 
   * @uses imageGallery::$galleryPath
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -572,6 +589,7 @@ class imageGallery {
   * @uses imageGallery::resizeImages()      to check if the images must be resized first and do it
   * @uses imageGallery::createThumbnail()   to check if thumbnails must be created first
   * 
+  * @access public
   * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
@@ -650,7 +668,6 @@ class imageGallery {
     
     // RETURN
     return '<div class="imageGallery">'.$gallery.'</div>';
-  }
-  
+  }  
 }
 ?>
