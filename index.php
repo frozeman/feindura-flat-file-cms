@@ -41,9 +41,9 @@ $buildNumber = $buildNumber[1];
 // store the current location, this will be used when the user comes back from the frontend
 $_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
 
-// if feindura starts first set page to 'home'
+// if feindura starts first set page to 'dashboard'
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
-  $_GET['site'] = 'home';
+  $_GET['site'] = 'dashboard';
 
 ?>
 <!DOCTYPE html>
@@ -291,7 +291,7 @@ var feindura_pages = [
       <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
           <tr>
-          <td><a href="?site=home" class="home<?php if($_GET['site'] == 'home') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_HOME']; ?>"><span><?php echo $langFile['BUTTON_HOME']; ?></span></a></td>
+          <td><a href="?site=dashboard" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?>"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
           <td><a href="?site=pages" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty

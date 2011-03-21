@@ -211,7 +211,7 @@ $langFile['CKEDITOR_TITLE_LINKS'] = 'feindura Seiten';
 // -> BUTTON TEXTS
 
 // MAIN MENU
-$langFile['BUTTON_HOME'] = 'Übersicht';
+$langFile['BUTTON_DASHBOARD'] = 'Übersicht';
 $langFile['BUTTON_PAGES'] = 'Seiten';
 $langFile['BUTTON_ADDONS'] = 'Addons';
 $langFile['BUTTON_WEBSITESETTINGS'] = 'Webseiten Einstellungen';
@@ -267,7 +267,7 @@ $langFile['warning_fmsConfWarning'] = 'Der <i>Basispfad</i> stimmt nicht mit dem
 Bitte gehe in die <a href="?site=adminSetup">Administrator-Einstellungen</a> und konfiguriere dein <span class="logoname">fein<span>dura</span></span> CMS';
 
 $langFile['warning_jsWarning_h1'] = 'Bitte aktiviere Javascript';
-// no <p> tag on the start and the end, its already in the home.php
+// no <p> tag on the start and the end, its already in the dashboard.php
 $langFile['warning_jsWarning'] = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu können, muss Javascript aktiviert sein!</strong></p>
 <h2>im Firefox</h2>
 <p>Klicke in der obersten Menüleiste auf &quot;Bearbeiten&quot; > &quot;Einstellungen&quot;. Unter Inhalt aktivierst du den Punkt "JavaScript aktivieren" und bestätigst dann mit OK.</p>
@@ -294,10 +294,10 @@ $langFile['btn_quickmenu_categories'] = 'Kategorien';
 $langFile['btn_quickmenu_pages'] = 'Seiten von';
 
 /*
-* home.php
+* dashboard.php
 */
 
-// ---------- HOME
+// ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO'] = 'Benutzer Information';
 
 $langFile['DASHBOARD_TITLE_WELCOME'] = 'Willkommen in <span class="logoname">fein<span>dura</span></span>,<br />dem Content Management System deiner Webseite';
@@ -429,8 +429,8 @@ $langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'Stylesheetdateien in den Webse
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'Dateimanager aktivieren';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'Dateimanager deaktiviert::Du musst erst den Daten-Uploadpfad in den Grund-Einstellungen einstellen, bevor du den Dateimanager aktivieren kannst.';
 
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].' angezeigt.';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_DASHBOARD'].' angezeigt.';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'Wenn Du keine Informationen für den Benutzer anzeigen möchtest lasse das Feld leer';
 
 // ---------- editor Settings

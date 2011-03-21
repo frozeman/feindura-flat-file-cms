@@ -198,7 +198,7 @@ $langFile['CKEDITOR_TITLE_LINKS'] = 'pages de feindura';
 // -> BUTTON TEXTS
 
 // MAIN MENU
-$langFile['BUTTON_HOME'] = 'vue globale';
+$langFile['BUTTON_DASHBOARD'] = 'vue globale';
 $langFile['BUTTON_PAGES'] = 'pages';
 $langFile['BUTTON_ADDONS'] = 'addons';
 $langFile['BUTTON_WEBSITESETTINGS'] = 'préférences site web';
@@ -250,7 +250,7 @@ $langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura<
 $langFile['warning_fmsConfWarning'] = 'La <i>chemin de base</i>ne correspond pas avec les préférences l\'administrateur.<br />
 Cliquez sur <a href="?site=adminSetup">préférences administrateur</a> et met en service ton <span class="logoname">fein<span>dura</span></span> CMS';
 $langFile['warning_jsWarning_h1'] = 'Activer le javascript';
-// no <p> tag on the start and the end, its already in the home.php
+// no <p> tag on the start and the end, its already in the dashboard.php
 $langFile['warning_jsWarning'] = '<strong>Pour <span class="logoname">fein<span>dura</span></span> utiliser complètement le javasrcipt doit être activé!</strong></p>
 <h2>dans le navigateur Firefox</h2>
 <p>Cliquez dans le menu sur "insérer" > "paramètres". Sous contenu cliquez sur "activer JavaScript" et valider avec ok.</p>
@@ -276,10 +276,10 @@ $langFile['btn_quickmenu_categories'] = 'catégories';
 $langFile['btn_quickmenu_pages'] = 'pages de';
 
 /*
-* home.php
+* dashboard.php
 */
 
-// ---------- HOME
+// ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO'] = 'informations utilisateur';
 $langFile['DASHBOARD_TITLE_WELCOME'] = 'Bienvenue au content management system <span class="logoname">fein<span>dura</span></span><br /> de ton site web';
 $langFile['DASHBOARD_TEXT_WELCOME'] = '<span class="logoname">fein<span>dura</span></span> est un  Content Management System basé sur <span class="toolTip" title="Flat-Files.::fichiers sur un server contenant le contenu du site web">Flat-Files</span>. <br />Ici tu peux gérer le contenu de ton site web.';
@@ -397,8 +397,8 @@ $langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'traiter les feuilles de style 
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'activer gestion des données';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'gestionnaire de fichiers désactivé::Vous devez régler le chemin upload dans la configuration de base, avant de pouvoir activer le gestionnaire de fichiers.';
 
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>informations utilisateur</strong> in der <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Information utilisateur::Ce texte va être publié sur [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_HOME'].'.';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>informations utilisateur</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Information utilisateur::Ce texte va être publié sur [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_DASHBOARD'].'.';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'N\'ecrivez rien dans la case, si vous ne voulez pas montrer des informations sur l\'utilisateur';
 
 // ---------- editor Settings

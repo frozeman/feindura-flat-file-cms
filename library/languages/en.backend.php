@@ -213,7 +213,7 @@ $langFile['CKEDITOR_TITLE_LINKS'] = 'feindura pages';
 // -> BUTTON TEXTS
 
 // MAIN MENU
-$langFile['BUTTON_HOME'] = 'Dashboard';
+$langFile['BUTTON_DASHBOARD'] = 'Dashboard';
 $langFile['BUTTON_PAGES'] = 'Pages';
 $langFile['BUTTON_ADDONS'] = 'Addons';
 $langFile['BUTTON_WEBSITESETTINGS'] = 'Website Settings';
@@ -268,7 +268,7 @@ $langFile['warning_fmsConfWarning'] = 'The <i>base path</i> of the CMS doesn\'t 
 Please go to the <a href="?site=adminSetup">administrator-settings</a> and configure your <span class="logoname">fein<span>dura</span></span> CMS';
 
 $langFile['warning_jsWarning_h1'] = 'Please activate Javascript';
-// no <p> tag on the start and the end, its already in the home.php
+// no <p> tag on the start and the end, its already in the dashboard.php
 $langFile['warning_jsWarning'] = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong></p>
 <h2>in Firefox</h2>
 <p>Click on "Edit" > "Preferences" and under content chedck the box "activate JavaScript" and finish with OK.</p>
@@ -295,10 +295,10 @@ $langFile['btn_quickmenu_categories'] = 'Categories';
 $langFile['btn_quickmenu_pages'] = 'Pages of';
 
 /*
-* home.php
+* dashboard.php
 */
 
-// ---------- HOME
+// ---------- DASHBOARD
 $langFile['DASHBOARD_TITLE_USERINFO'] = 'User Information';
 
 $langFile['DASHBOARD_TITLE_WELCOME'] = 'Welcome in <span class="logoname">fein<span>dura</span></span>,<br />the Content Management System of your website';
@@ -431,8 +431,8 @@ $langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'Edit stylesheet files in the w
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'Activate file manager';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
 
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>User information</strong> in <a href="?site=home">'.$langFile['BUTTON_HOME'].'</a>';
-$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['BUTTON_HOME'].' page of [span class=logoname]fein[span]dura[/span][/span].';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
+$langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=logoname]fein[span]dura[/span][/span].';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'If you don\'t want to display an information for the user, leave this field empty';
 
 // ---------- editor Settings

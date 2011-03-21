@@ -47,9 +47,9 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   
   // SWITCHES the &_GET['site'] var
   switch($_GET['site']) {
-    // home
-    case 'home': case '':
-      include (dirname(__FILE__).'/sites/home.php');
+    // dashboard
+    case 'dashboard': case '':
+      include (dirname(__FILE__).'/sites/dashboard.php');
       break;
     // pages
     case 'pages':

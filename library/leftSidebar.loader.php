@@ -123,8 +123,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
 
   // SWITCH the &_GET['site'] var
   switch($_GET['site']) {
-    // ***** HOME -------------------------------------------- **********
-    case 'home': case '':
+    // ***** DASHBOARD -------------------------------------------- **********
+    case 'dashboard': case '':
       
       echo '<div class="sidebarInfo"><div class="content">';
       

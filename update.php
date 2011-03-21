@@ -554,6 +554,12 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!unlink(dirname(__FILE__).'/library/javascripts/sidebar.js') &&
       is_file(dirname(__FILE__).'/library/javascripts/sidebar.js'))
       $checkFiles[] = dirname(__FILE__).'/library/javascripts/sidebar.js';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/mainMenu_home.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/mainMenu_home.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/mainMenu_home.png';
+    if(!unlink(dirname(__FILE__).'/library/sites/home.php') &&
+      is_file(dirname(__FILE__).'/library/sites/home.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/sites/home.php';
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';

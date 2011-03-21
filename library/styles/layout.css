@@ -447,9 +447,9 @@ a.lang_en:hover {
     font-size: 12px;
     }
     
-/* home */
-#mainMenu a.home {
-    background: url("../images/buttons/mainMenu_home.png") no-repeat;
+/* dashboard */
+#mainMenu a.dashboard {
+    background: url("../images/buttons/mainMenu_dashboard.png") no-repeat;
     }
 /* pages */
 #mainMenu a.pages {
