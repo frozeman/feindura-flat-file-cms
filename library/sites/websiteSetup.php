@@ -41,7 +41,7 @@ if($unwriteableList && checkBasePath()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
-      <p>'.$unwriteableList.'</p><!-- needs <p> tags for margin-left:..-->
+      <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
     </div>
     <div class="bottom"></div>  
   </div>'; 

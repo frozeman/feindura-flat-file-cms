@@ -106,7 +106,7 @@ $savedSettings    = false; // to tell wich settings were saved, to re-include th
 $newPage          = false; // tells the editor whether a new page is created
 
 // ->> choose LANGUAGE * START * -----------------------------------------------------
-// language shortname will be transfered trough a session (needs COOKIES!)
+// language shortname will be transfered trough a session (need COOKIES!)
 // and includes the langFile
 
 // -> check language

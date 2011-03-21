@@ -513,6 +513,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     if(!delDir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/') && 
       is_dir(dirname(__FILE__).'/library/thirdparty/iepngfix_v2/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/iepngfix_v2/';
+    if(!delDir(dirname(__FILE__).'/library/thirdparty/CountDown/') && 
+      is_dir(dirname(__FILE__).'/library/thirdparty/CountDown/'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/CountDown/';
     
     // files
     if(!unlink(dirname(__FILE__).'/README')&&

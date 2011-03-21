@@ -17,7 +17,7 @@
 /**
  * ENGLISH (EN) language-file for the feindura CMS (FRONTEND and BACKEND)
  * 
- * NEEDS a RETURN $frontendLangFile; at the END
+ * need a RETURN $frontendLangFile; at the END
  */
 
 

@@ -39,7 +39,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <div class="block warning">
   <h1><?php echo $langFile['warning_jsWarning_h1']; ?></h1>
   <div class="content">
-    <p><?php echo $langFile['warning_jsWarning']; ?></p><!-- needs <p> tags for margin-left:..--> 
+    <p><?php echo $langFile['warning_jsWarning']; ?></p><!-- need <p> tags for margin-left:..--> 
   </div>
   <div class="bottom"></div>  
 </div>
@@ -54,7 +54,7 @@ if(preg_match("/MSIE [0-7]/", $_SERVER['HTTP_USER_AGENT']) &&
 <div class="block warning">
   <h1><a href="#"><?php echo $langFile['DASHBOARD_TITLE_IEWARNING']; ?></a></h1>
   <div class="content">
-    <p><?php echo $langFile['DASHBOARD_TEXT_IEWARNING']; ?></p><!-- needs <p> tags for margin-left:..-->
+    <p><?php echo $langFile['DASHBOARD_TEXT_IEWARNING']; ?></p><!-- need <p> tags for margin-left:..-->
   </div>
   <div class="bottom"></div>
 </div>
@@ -66,7 +66,7 @@ if(!empty($adminConfig['user']['info'])) {
 <div class="block info">
   <h1><a href="#"><?php echo $langFile['DASHBOARD_TITLE_USERINFO']; ?></a></h1>
   <div class="content">
-    <p><?php echo $adminConfig['user']['info']; ?></p><!-- needs <p> tags for margin-left:..-->
+    <p><?php echo $adminConfig['user']['info']; ?></p><!-- need <p> tags for margin-left:..-->
   </div>
   <div class="bottom"></div>
 </div>

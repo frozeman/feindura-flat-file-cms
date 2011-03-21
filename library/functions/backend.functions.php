@@ -1727,7 +1727,7 @@ function basePathWarning() {
     return '<div class="block warning">
             <h1>'.$GLOBALS['langFile']['warning_fmsConfWarning_h1'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['warning_fmsConfWarning'].'</p><!-- needs <p> tags for margin-left:..--> 
+              <p>'.$GLOBALS['langFile']['warning_fmsConfWarning'].'</p><!-- need <p> tags for margin-left:..--> 
             </div> 
             <div class="bottom"></div> 
           </div>';
@@ -1770,7 +1770,7 @@ function startPageWarning() {
     return '<div class="block info">
             <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['warning_startPageWarning'].'</p><!-- needs <p> tags for margin-left:..--> 
+              <p>'.$GLOBALS['langFile']['warning_startPageWarning'].'</p><!-- need <p> tags for margin-left:..--> 
             </div> 
             <div class="bottom"></div> 
           </div>';

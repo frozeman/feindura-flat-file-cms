@@ -1284,7 +1284,7 @@ class feinduraBase {
   *    - 1.0 initial release
   *   
   */ 
-  protected function compareTags($pageContent,  // (Array) the pageContent Array, needs the $pageContent['tags'] var
+  protected function compareTags($pageContent,  // (Array) the pageContent Array, need the $pageContent['tags'] var
                                  $tags) {       // (Array) with the search TAGs
     
     // CHECKS if the $tags are in an array,

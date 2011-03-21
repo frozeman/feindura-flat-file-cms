@@ -35,6 +35,8 @@ require_once(dirname(__FILE__)."/library/processes.loader.php");
 $version = file("CHANGELOG");
 $version[2] = trim($version[2]);
 $version[3] = trim($version[3]);
+$buildNumber = explode(' ',$version[3]);
+$buildNumber = $buildNumber[1];
 
 // store the current location, this will be used when the user comes back from the frontend
 $_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
@@ -66,22 +68,19 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <meta name="publisher" content="Fabian Vogelsteller [frozeman.de]" />
   <meta name="copyright" content="Fabian Vogelsteller [frozeman.de]" />    
   <meta name="description" content="A flat file based Content Management System, written in PHP" />    
-  <meta name="keywords" content="cms,content,management,system,flat,file" /> 
+  <meta name="keywords" content="cms,flat,file,content,management,system" /> 
    
   <link rel="shortcut icon" href="favicon.ico" />
   
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
-  <!-- thirdparty/customformelements -->
-  <link rel="stylesheet" type="text/css" href="library/thirdparty/customformelements/css/cfe.css" />
-  
   <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/layout.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/content.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css" />
-  <link rel="stylesheet" type="text/css" href="library/styles/shared.css" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?= '?v='.$buildNumber; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?= '?v='.$buildNumber; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/content.css<?= '?v='.$buildNumber; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?= '?v='.$buildNumber; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?= '?v='.$buildNumber; ?>" />
 <?php
 if($_GET['site'] == 'addons') {  
   if($addonStyles = generalFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
@@ -108,38 +107,38 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
   
   <!-- javascripts (only loading.js is up here, so the loading box appears soon) -->
-  <script type="text/javascript" src="library/javascripts/loading.js"></script>
+  <script type="text/javascript" src="library/javascripts/loading.js<?= '?v='.$buildNumber; ?>"></script>
   
-  <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (needs MooTools) -->
+  <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
   
-  <!-- thirdparty/StaticScroller (needs MooTools) -->
+  <!-- thirdparty/StaticScroller (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/StaticScroller.js"></script>
   
-  <!-- thirdparty/FancyForm (needs MooTools) -->
+  <!-- thirdparty/FancyForm (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/fancyform.js"></script>
+<?php if(!empty($userConfig)) { ?>
+
+  <!-- thirdparty/CountDown (need MooTools) -->
+  <script type="text/javascript" src="library/thirdparty/javascripts/CountDown.js"></script>
   
-  <!-- thirdparty/CountDown (needs MooTools) -->
-  <script type="text/javascript" src="library/thirdparty/CountDown/PeriodicalExecuter.js"></script>
-  <script type="text/javascript" src="library/thirdparty/CountDown/CountDown.js"></script>
-	
+<?php } ?>
   <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>  
-  
+  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>
 <?php
   if(!empty($_GET['page'])) { ?>
   
   <!-- thirdparty/CKEditor -->
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?= '?v='.$buildNumber; ?>"></script>
   
   <!-- thirdparty/MooRTE -->
-  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js<?= '?v='.$buildNumber; ?>"></script>
 <?php
   }
   if($adminConfig['user']['fileManager'] && ($_GET['site'] == 'pages' || !empty($_GET['page']))) { ?>
   
   <!-- thirdparty/MooTools-FileManager -->
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?= '?v='.$buildNumber; ?>"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
@@ -147,9 +146,9 @@ if($_GET['site'] == 'addons') {
 <?php } ?>
  
   <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/shared.js"></script>
-  <script type="text/javascript" src="library/javascripts/windowBox.js"></script>
-  <script type="text/javascript" src="library/javascripts/content.js"></script>
+  <script type="text/javascript" src="library/javascripts/shared.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/windowBox.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/content.js<?= '?v='.$buildNumber; ?>"></script>
   
   <script type="text/javascript">
   /* <![CDATA[ */

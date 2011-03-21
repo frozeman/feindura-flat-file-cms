@@ -35,7 +35,7 @@
  *    - ERROR
  *    - TOOLTIP
  * 
- * NEEDS a RETURN $langFile; at the END
+ * need a RETURN $langFile; at the END
  */
 
 // -> LOGIN <-

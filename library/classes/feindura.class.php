@@ -750,7 +750,7 @@ class feindura extends feinduraBase {
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId needs categories
+    $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId need categories
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
   
   } 
