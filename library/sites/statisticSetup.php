@@ -52,28 +52,28 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
       <label for="numberMostVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_MOSTVISTED']; ?>">
       <?php echo $langFile['STATISTICSSETUP_TEXT_MOSTVISTED']; ?></span></label>
       </td><td class="right">
-      <input id="numberMostVisitedPages" name="number[mostVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['mostVisitedPages']; ?>" />
+      <input type="number" step="5" min="0" id="numberMostVisitedPages" name="number[mostVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['mostVisitedPages']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="numberLastVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_MOSTVISTED']; ?>">
       <?php echo $langFile['STATISTICSSETUP_TEXT_MOSTVISTED']; ?></span></label>
       </td><td class="right">
-      <input id="numberLastVisitedPages" name="number[lastVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['lastVisitedPages']; ?>" />
+      <input type="number" step="5" min="0" id="numberLastVisitedPages" name="number[lastVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['lastVisitedPages']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="numberLongestVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_LONGESTVIEWED']; ?>">
       <?php echo $langFile['STATISTICSSETUP_TEXT_LONGESTVIEWED']; ?></span></label>
       </td><td class="right">
-      <input id="numberLongestVisitedPages" name="number[longestVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['longestVisitedPages']; ?>" />
+      <input type="number" step="5" min="0" id="numberLongestVisitedPages" name="number[longestVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['longestVisitedPages']; ?>" />
       </td></tr>
       
       <tr><td class="left">
       <label for="numberLastEditedPages"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_LASTEDITED']; ?>">
       <?php echo $langFile['STATISTICSSETUP_TEXT_LASTEDITED']; ?></span></label>
       </td><td class="right">
-      <input id="numberLastEditedPages" name="number[lastEditedPages]" class="short" value="<?php echo $statisticConfig['number']['lastEditedPages']; ?>" />
+      <input type="number" step="5" min="0" id="numberLastEditedPages" name="number[lastEditedPages]" class="short" value="<?php echo $statisticConfig['number']['lastEditedPages']; ?>" />
       </td></tr>
       
       <tr><td class="leftSpacer"></td><td></td></tr>
@@ -82,18 +82,15 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
       <label for="numberRefererLog"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_REFERERNUMBER']; ?>">
       <?php echo $langFile['STATISTICSSETUP_TEXT_REFERERNUMBER']; ?></span></label>
       </td><td class="right">
-      <input id="numberRefererLog" name="number[refererLog]" class="short" value="<?php echo $statisticConfig['number']['refererLog']; ?>" />
+      <input type="number" step="5" min="0" id="numberRefererLog" name="number[refererLog]" class="short" value="<?php echo $statisticConfig['number']['refererLog']; ?>" />
       </td></tr>
 
       <tr><td class="left">
       <label for="numberTaskLog"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER']; ?>">
       <?php echo $langFile['STATISTICSSETUP_TEXT_ACTIVITYNUMBER']; ?></span></label>
       </td><td class="right">
-      <input id="numberTaskLog" name="number[taskLog]" class="short" value="<?php echo $statisticConfig['number']['taskLog']; ?>" />
+      <input type="number" step="5" min="0" id="numberTaskLog" name="number[taskLog]" class="short" value="<?php echo $statisticConfig['number']['taskLog']; ?>" />
       </td></tr>
-      
-      <!--<tr><td class="spacer"></td><td></td></tr>-->
-
       
       <tr><td class="leftBottom"></td><td></td></tr>
       

@@ -102,13 +102,11 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       <label for="cfg_thumbWidth"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_WIDTH'] ?>">
       <?php echo $langFile['THUMBNAIL_TEXT_WIDTH'] ?></span></label>
       </td><td class="right">
-        <input id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?> />
+        <input type="number" step="1" min="0" id="cfg_thumbWidth" name="cfg_thumbWidth" class="short" value="<?php echo $adminConfig['pageThumbnail']['width']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' disabled="disabled"'; ?> />
         <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::">
-          <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?> />
-          <label for="ratioX"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
-        </span>
+        <input type="radio" id="ratioX" name="cfg_thumbRatio" value="x"<?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' checked="checked"'; ?> />
+        <label for="ratioX" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
       </td></tr>
       
       <!-- shows the width in a scale -->
@@ -130,13 +128,11 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       <label for="cfg_thumbHeight"><span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_HEIGHT'] ?>">
       <?php echo $langFile['THUMBNAIL_TEXT_HEIGHT'] ?></span></label>
       </td><td class="right">
-        <input id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?> />
+        <input type="number" step="1" min="0" id="cfg_thumbHeight" name="cfg_thumbHeight" class="short" value="<?php echo $adminConfig['pageThumbnail']['height']; ?>" <?php if($adminConfig['pageThumbnail']['ratio'] == 'x') echo ' disabled="disabled"'; ?> />
         <?php echo $langFile['THUMBNAIL_TEXT_UNIT']; ?>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::">
-          <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?> />
-          <label for="ratioY"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
-        </span>
+        <input type="radio" id="ratioY" name="cfg_thumbRatio" value="y"<?php if($adminConfig['pageThumbnail']['ratio'] == 'y') echo ' checked="checked"'; ?> />
+        <label for="ratioY" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_KEEPRATIO']; ?></label>
       </td></tr>
       
       <!-- shows the height in a scale -->
@@ -155,9 +151,7 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
       <tr><td class="left">
       <input type="radio" id="noRatio" name="cfg_thumbRatio" value=""<?php if($adminConfig['pageThumbnail']['ratio'] == '') echo ' checked="checked"'; ?> />
       </td><td class="right">
-        <span class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::">
-          <label for="noRatio"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></label>
-        </span>
+      <label for="noRatio" class="toolTip" title="<?php echo $langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO']; ?>::"> <?php echo $langFile['THUMBNAIL_TEXT_FIXEDRATIO']; ?></label>
       </td></tr>
       
       <tr><td class="spacer"></td><td></td></tr>
@@ -426,6 +420,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <td><a href="#" class="down inBlockSliderLink" style="position:relative; left:-20px; bottom: -15px;">'.$langFile['pageSetup_advancedSettings'].'</a>
                 </td></tr>';
           
+          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+          
           // end of the TABLE for one category
           echo '</table>';
           
@@ -474,13 +470,11 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'thumbWidth"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_WIDTH'].'">
                 '.$langFile['THUMBNAIL_TEXT_WIDTH'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[9].' />
+                <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbWidth" name="categories['.$category['id'].'][thumbWidth]" class="short" value="'.$category['thumbWidth'].'" '.$disabled[9].' />
                 '.$langFile['THUMBNAIL_TEXT_UNIT'].'
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X'].'">
-                    <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[9].' />
-                    <label for="categories'.$category['id'].'ratioX"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
-                  </span>
+                  <input type="radio" id="categories'.$category['id'].'ratioX" name="categories['.$category['id'].'][thumbRatio]" value="x" '.$checked[9].' />
+                  <label for="categories'.$category['id'].'ratioX" class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_X'].'"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
                 </td></tr>';
           
                 // <!-- shows the width in a scale -->
@@ -497,13 +491,11 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'thumbHeight"><span class="toolTip" title="'.$langFile['THUMBNAIL_TOOLTIP_HEIGHT'].'">
                 '.$langFile['THUMBNAIL_TEXT_HEIGHT'].'</span></label>
                 </td><td class="right">
-                <input id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[10].' />
+                <input type="number" step="1" min="0" id="categories'.$category['id'].'thumbHeight" name="categories['.$category['id'].'][thumbHeight]" class="short" value="'.$category['thumbHeight'].'" '.$disabled[10].' />
                 '.$langFile['THUMBNAIL_TEXT_UNIT'].'
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <span class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y'].'">
-                    <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[10].' />
-                    <label for="categories'.$category['id'].'ratioY"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
-                  </span>
+                  <input type="radio" id="categories'.$category['id'].'ratioY" name="categories['.$category['id'].'][thumbRatio]" value="y" '.$checked[10].' />
+                  <label for="categories'.$category['id'].'ratioY" class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_KEEPRATIO_Y'].'"> '.$langFile['THUMBNAIL_TEXT_KEEPRATIO'].'</label>
                 </td></tr>';
                 
                 // <!-- shows the height in a scale -->
@@ -520,9 +512,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <tr><td class="left">
                 <input type="radio" id="categories'.$category['id'].'noRatio" name="categories['.$category['id'].'][thumbRatio]" value="" '.$checked[8].' />
                 </td><td class="right">
-                  <span class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO'].'">
-                    <label for="categories'.$category['id'].'noRatio"> '.$langFile['THUMBNAIL_TEXT_FIXEDRATIO'].'</label>
-                  </span>
+                <label for="categories'.$category['id'].'noRatio" class="toolTip" title="'.$langFile['THUMBNAIL_TEXT_RATIO'].'::'.$langFile['THUMBNAIL_TOOLTIP_FIXEDRATIO'].'"> '.$langFile['THUMBNAIL_TEXT_FIXEDRATIO'].'</label>
                 </td></tr>';
           
           // finish the TABLE for one category

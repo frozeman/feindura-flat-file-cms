@@ -129,14 +129,14 @@ if($unwriteableList && checkBasePath()) {
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'username"'.$markUsername.'>'.$langFile['userSetup_username'].'</label>
                 </td><td class="right">
-                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" autocomplete="off"'.$autofocus.' />
+                <input id="users'.$user['id'].'username" name="users['.$user['id'].'][username]" value="'.$user['username'].'" required="required" autocomplete="off"'.$autofocus.' />
                 </td></tr>';
                 
                 // user email
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'email" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'">'.$langFile['userSetup_email'].'</label>
                 </td><td class="right">
-                <input id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" autocomplete="off" />
+                <input type="email" id="users'.$user['id'].'email" name="users['.$user['id'].'][email]" value="'.$user['email'].'" class="toolTip" title="'.$langFile['userSetup_email'].'::'.$langFile['userSetup_email_tip'].'" autocomplete="off" />
                 </td></tr>';
                 
           echo '<tr><td class="left spacer"></td><td>';

@@ -93,16 +93,25 @@ function addField(containerId,inputName) {
 // SET UP the REALTIME THUMBNAIL SIZE SCALE, all given vars are the object IDs
 function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) {
   
+  var scaleWidth = function(){
+        $(thumbWidthScale).tween('width',$(thumbWidth).get('value'));
+      };
+  var scaleHeight = function(){
+        $(thumbHeightScale).tween('width',$(thumbHeight).get('value'));
+      };
+  
   // thumbwidth
   if($(thumbWidth) != null) {
-      $(thumbWidth).addEvent('keyup', function(){
-          $(thumbWidthScale).tween('width',$(thumbWidth).get('value'));
+      $(thumbWidth).addEvents({
+        'keyup': scaleWidth,
+        'mouseup': scaleWidth
       });
   }
   // thumbheight
   if($(thumbHeight) != null) {
-      $(thumbHeight).addEvent('keyup', function(){
-          $(thumbHeightScale).tween('width',$(thumbHeight).get('value'));
+      $(thumbHeight).addEvents({
+        'keyup': scaleHeight,
+        'mouseup': scaleHeight
       });
   }
 }
