@@ -94,7 +94,7 @@ function feindura_storeTipTexts(elements) {
 // -> STORES the page ID and category ID in the editable element storage
 function feindura_setPageIds(editable) {
   var ids = editable.get('data-feindura').split(' ');
-  editable.store('page', ids[0].substr(15));
-  editable.store('category', ids[1].substr(19));
+  editable.store('page', ids[0]);
+  editable.store('category', ids[1]);
   return editable;
 }

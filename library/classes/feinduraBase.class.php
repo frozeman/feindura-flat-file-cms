@@ -765,17 +765,9 @@ class feinduraBase {
       
       // -> SHORTEN CONTENT   
       if($shortenText && $shortenText !== true) {
-        // -> SET the PROPERTY $contentLength
-        //if($shortenText === true)
-          //$shortenText = $this->contentLength; // standard preview length
-  
-        if($useHtml)
-          $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
-        else {
-          // clear string of html tags (except BR)
-          $pageContentEdited = strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><u><br><br />');
-          $pageContentEdited = $this->shortenText($pageContentEdited, $shortenText, $pageContent);
-        }
+        $pageContentEdited = ($useHtml)
+          ? $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent)
+          : $this->shortenText(strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><br><br />'), $shortenText, $pageContent);
       }
       
       // clear xHTML tags from the content

@@ -643,7 +643,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['lastSaveDate'] =       ".xssFilter::int($pageContent['lastSaveDate'],0).";\n");
       fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".xssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"); 
       
-      fwrite($file,"\$pageContent['title'] =              '".self::htmLawed(strip_tags($pageContent['title'],'<a><i><strong><span><b><u><abbr><acronym><big><address><center><em><dfn><code><samp><kbd><var><var><font><pre>'))."';\n");
+      fwrite($file,"\$pageContent['title'] =              '".self::htmLawed(strip_tags($pageContent['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n");
       fwrite($file,"\$pageContent['description'] =        '".xssFilter::text($pageContent['description'])."';\n\n");      
       
       fwrite($file,"\$pageContent['pageDate']['before'] = '".xssFilter::text($pageContent['pageDate']['before'])."';\n");
