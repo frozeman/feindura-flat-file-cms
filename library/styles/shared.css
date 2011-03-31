@@ -31,7 +31,7 @@ a.logout, a.feindura_logout {
     height: 26px;
     background: url("../images/buttons/header_out.png") no-repeat;
 }
-a.logout:hover, a.feindura_logout:hover {
+a.logout:hover, a.feindura_logout:hover, a.logout:focus, a.feindura_logout:focus {
     background-position: 0px -26px;
 }
 
@@ -50,7 +50,7 @@ a.toWebsite {
 a.feindura_toBackend {
   background: url("../images/buttons/header_toBackend.png") no-repeat;
 }
-a.toWebsite:hover, a.feindura_toBackend:hover {
+a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toBackend:focus {
   background-position: 0px -26px;
 }
 
@@ -180,6 +180,6 @@ a.toWebsite:hover, a.feindura_toBackend:hover {
     padding: 0px;
     background: url("../images/buttons/errorWindow_ok.png") no-repeat;
     }
-#feindura_errorWindow .feindura_content a.feindura_ok:hover {
+#feindura_errorWindow .feindura_content a.feindura_ok:hover, #feindura_errorWindow .feindura_content a.feindura_ok:focus {
     background-position: 0px -65px;
     }

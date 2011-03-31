@@ -276,8 +276,8 @@ var feindura_pages = [
     
     <div id="headerBlock">
       
-      <a href="index.php?logout" class="logout toolTip" title="<?= $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
-      <a href="<?= $adminConfig['url'].$adminConfig['websitePath']; ?>" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE']; ?>"></a>
+      <a href="index.php?logout"  tabindex="1" class="logout toolTip" title="<?= $langFile['HEADER_BUTTON_LOGOUT']; ?>"></a>
+      <a href="<?= $adminConfig['url'].$adminConfig['websitePath']; ?>"  tabindex="2" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE']; ?>"></a>
       
       <div id="languageSelection">        
         <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=de" tabindex="20" class="de toolTip" title="deutsch::"></a>
@@ -292,15 +292,15 @@ var feindura_pages = [
       <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
           <tr>
-          <td><a href="?site=dashboard" tabindex="1" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?>"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
-          <td><a href="?site=pages" tabindex="2" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
+          <td><a href="?site=dashboard" tabindex="3" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?>"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
+          <td><a href="?site=pages" tabindex="4" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty
           if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
-          <td><a href="?site=addons" tabindex="3" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
+          <td><a href="?site=addons" tabindex="5" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
           <?php } ?>
           <td><a href="?site=websiteSetup" tabindex="4" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?>"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
-          <td><a href="?site=search" tabindex="5" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?>"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
+          <td><a href="?site=search" tabindex="6" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?>"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
           </tr>
         </table>
       </div>
