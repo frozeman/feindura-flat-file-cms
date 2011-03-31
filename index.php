@@ -284,7 +284,8 @@ var feindura_pages = [
         <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=en" tabindex="21" class="en toolTip" title="english::"></a>
         <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=fr" tabindex="22" class="fr toolTip" title="français::"></a>
       </div>
-          
+      
+      <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->
       <div id="logo"></div>
       <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.$version[2].' - '.$version[3]; ?>::"><?php echo $version[2]; ?></div>
       
@@ -310,7 +311,7 @@ var feindura_pages = [
     <div id="adminMenu">
       <?php // show the admin part if the user is admin, or no other user is admin, administrator, root or superuser
       ?>
-      <h1><?php echo $langFile['HEADER_TITLE_ADMINMENU']; ?></h1>
+      <h2><?php echo $langFile['HEADER_TITLE_ADMINMENU']; ?></h2>
       <div class="content">
         <table>
           <tr>

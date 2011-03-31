@@ -134,7 +134,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // -> SHOW TASK LOG
-      echo '<h1>'.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h1>';
+      echo '<h2>'.$langFile['DASHBOARD_TITLE_ACTIVITY'].'</h2>';
       
       if(file_exists(dirname(__FILE__).'/../statistic/activity.statistic.log') &&
          $logContent = file(dirname(__FILE__).'/../statistic/activity.statistic.log')) {
@@ -154,7 +154,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<hr />';
       
       // -> SHOW USERs
-      echo '<h1><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h1><br />';
+      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br />';
         if(!empty($userConfig)) {
         
           unset($sessions,$sessionLister);
@@ -201,17 +201,17 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // FEINDURA INFO
-      echo '<h1>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h1>
+      echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>
             <p>'.$version[2].' - '.$version[3].'</p>';
       echo '<a href="README.md" class="standardLink">README</a><br />';
       echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br />';
       echo '<a href="LICENSE" class="standardLink">LICENSE</a>';
       echo '<hr />';
       
-      echo '<h1>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h1>
+      echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
       <p>'.PHP_VERSION.'</p>';
        
-      echo '<h1>'.$langFile['adminSetup_srvRootPath'].'</h1>';   
+      echo '<h3>'.$langFile['adminSetup_srvRootPath'].'</h3>';   
       echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div></div>';
       
@@ -229,7 +229,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($categoryConfig)) {
   	      echo '<hr />';
-            echo '<h1>'.$langFile['btn_quickmenu_categories'].'</h1>';
+            echo '<h2>'.$langFile['btn_quickmenu_categories'].'</h2>';
             echo '<ul>';      
           
             // -> show a anchor link to each category
@@ -254,7 +254,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         echo '<a href="#top" class="up" style="padding-top: 2px;" title="'.$langFile['BUTTON_UP'].'">'.$langFile['BUTTON_UP'].'</a>';
         if(is_array($userConfig)) {
   	      echo '<hr />';
-            echo '<h1>'.$langFile['userSetup_userSelection'].'</h1>';
+            echo '<h2>'.$langFile['userSetup_userSelection'].'</h2>';
             echo '<ul>';      
           
             // -> show a anchor link to each user
@@ -294,8 +294,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       } else
         $lastBackups = '<p>'.$langFile['BACKUP_TEXT_NOBACKUP'].'</p>';
       
-      // FEINDURA INFO
-      echo '<h1>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h1>';
+      // BACKUP DOWNLOADS
+      echo '<h2>'.$langFile['BACKUP_TITLE_LASTBACKUPS'].'</h2>';
       echo $lastBackups;
       echo '</div></div>';
       echo '</div>';

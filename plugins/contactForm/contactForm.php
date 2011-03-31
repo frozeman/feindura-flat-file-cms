@@ -419,11 +419,11 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
       
       // APPELLATION
       if($this->config['appellation']) {
-        if($this->config['appellation_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['appellation_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['appellation'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
  
         $return .= '  <label for="contactForm_field_appellation"'.$notFilled.'><b>'.$this->langFile['field_appellation'].$mandatory.'</b></label><br />
-    <select name="appellation" id="contactForm_field_appellation" size="1">
+    <select name="appellation" id="contactForm_field_appellation"'.$required.'>
       <option></option>';
               
         $checkMan = ($_SESSION['contactForm']['appellation'] == $this->langFile['field_appellation_man']) ? ' selected="selected"' : '';
@@ -439,11 +439,11 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
       
       // FIRSTNAME
       if($this->config['firstname']) {
-        if($this->config['firstname_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['firstname_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['firstname'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_firstname"'.$notFilled.'><b>'.$this->langFile['field_firstname'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="25" id="contactForm_field_firstname" name="firstname" value="'.@$_SESSION['contactForm']['firstname'].'" /><br />';
+        $return .= '<input type="text" size="25" id="contactForm_field_firstname" name="firstname" value="'.@$_SESSION['contactForm']['firstname'].'"'.$required.' /><br />';
     
       }
         
@@ -451,11 +451,11 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
       
       // LASTNAME
       if($this->config['lastname']) {
-        if($this->config['lastname_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['lastname_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['lastname'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_lastname"'.$notFilled.'><b>'.$this->langFile['field_lastname'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="28" id="contactForm_field_lastname" name="lastname" value="'.@$_SESSION['contactForm']['lastname'].'" /><br />';
+        $return .= '<input type="text" size="28" id="contactForm_field_lastname" name="lastname" value="'.@$_SESSION['contactForm']['lastname'].'"'.$required.' /><br />';
     
       }
         
@@ -463,84 +463,84 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
       
       // COMPANY
       if($this->config['company']) {
-        if($this->config['company_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['company_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['company'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_company"'.$notFilled.'><b>'.$this->langFile['field_company'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="25" id="contactForm_field_company" name="company" value="'.@$_SESSION['contactForm']['company'].'" /><br />';
+        $return .= '<input type="text" size="25" id="contactForm_field_company" name="company" value="'.@$_SESSION['contactForm']['company'].'"'.$required.' /><br />';
   
       }    
           
       $return .= '</td></tr><tr><td align="left" valign="top">';
       
       // STREET, HOUSENUMBER
-        if($this->config['street_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['street_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['street'])) $notFilled = $this->mandatoryColor; else $notFilled = '';   
       if($this->config['street']) $return .= '<label for="contactForm_field_street"'.$notFilled.'><b>'.$this->langFile['field_street'].$mandatory.'</b></label>';
         
-        if($this->config['housenumber_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['housenumber_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['housenumber'])) $notFilled = $this->mandatoryColor; else $notFilled = '';  
       if($this->config['housenumber']) $return .= ', <label for="contactForm_field_housenumber"'.$notFilled.'><b>'.$this->langFile['field_housenumber'].$mandatory.'</b></label><br />';
-      if($this->config['street']) $return .= '<input type="text" size="16" id="contactForm_field_street" name="street" value="'.@$_SESSION['contactForm']['street'].'" />';
-      if($this->config['housenumber']) $return .= '<input type="number" size="5" id="contactForm_field_housenumber" name="housenumber" value="'.@$_SESSION['contactForm']['housenumber'].'" /><br />';
+      if($this->config['street']) $return .= '<input type="text" size="16" id="contactForm_field_street" name="street" value="'.@$_SESSION['contactForm']['street'].'"'.$required.' />';
+      if($this->config['housenumber']) $return .= '<input type="number" size="5" id="contactForm_field_housenumber" name="housenumber" value="'.@$_SESSION['contactForm']['housenumber'].'"'.$required.' /><br />';
   
       
       // ZIPCODE, CITY, COUNTRY
-        if($this->config['zipcode_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['zipcode_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['zipcode'])) $notFilled = $this->mandatoryColor; else $notFilled = '';    
       if($this->config['zipcode']) $return .= '<label for="contactForm_field_zipcode"'.$notFilled.'><b>'.$this->langFile['field_zipcode'].$mandatory.'</b></label>';
       
-        if($this->config['city_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['city_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['city'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
       if($this->config['city']) $return .= ', <label for="contactForm_field_city"'.$notFilled.'><b>'.$this->langFile['field_city'].$mandatory.'</b></label><br />';
-      if($this->config['zipcode']) $return .= '<input type="number" size="5" id="contactForm_field_zipcode" name="zipcode" value="'.@$_SESSION['contactForm']['zipcode'].'" />';
-      if($this->config['city']) $return .= '<input type="text" size="16" id="contactForm_field_city" name="city" value="'.@$_SESSION['contactForm']['city'].'" /><br />';
+      if($this->config['zipcode']) $return .= '<input type="number" size="5" id="contactForm_field_zipcode" name="zipcode" value="'.@$_SESSION['contactForm']['zipcode'].'"'.$required.' />';
+      if($this->config['city']) $return .= '<input type="text" size="16" id="contactForm_field_city" name="city" value="'.@$_SESSION['contactForm']['city'].'"'.$required.' /><br />';
       
-        if($this->config['country_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['country_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['country'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
       if($this->config['country']) $return .= '<label for="contactForm_field_country"'.$notFilled.'><b>'.$this->langFile['field_country'].$mandatory.'</b></label><br />';
-      if($this->config['country']) $return .= '<input type="text" size="26"  id="contactForm_field_country" name="country" value="'.@$_SESSION['contactForm']['country'].'" />';
+      if($this->config['country']) $return .= '<input type="text" size="26"  id="contactForm_field_country" name="country" value="'.@$_SESSION['contactForm']['country'].'"'.$required.' />';
   
     
       $return .= '</td><td align="left" valign="top">';
       
       // WEBSITE
       if($this->config['website']) {
-        if($this->config['website_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['website_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['website'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_website"'.$notFilled.'><b>'.$this->langFile['field_website'].$mandatory.'</b></label><br />';
-        $return .= '<input type="url" size="28" id="contactForm_field_website" name="website" value="'.@$_SESSION['contactForm']['website'].'" /><br />';
+        $return .= '<input type="url" size="28" id="contactForm_field_website" name="website" value="'.@$_SESSION['contactForm']['website'].'"'.$required.' /><br />';
   
       }
       
       // EMAIL
       if($this->config['email']) {
-        if($this->config['email_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['email_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['email'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_email"'.$notFilled.'><b>'.$this->langFile['field_email'].$mandatory.'</b></label><br />';
-        $return .= '<input type="email" size="28" id="contactForm_field_email" name="email" value="'.@$_SESSION['contactForm']['email'].'" /><br />';
+        $return .= '<input type="email" size="28" id="contactForm_field_email" name="email" value="'.@$_SESSION['contactForm']['email'].'"'.$required.' /><br />';
   
       }
         
       // PHONE
       if($this->config['phone']) {
-        if($this->config['phone_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['phone_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['phone'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_phone"'.$notFilled.'><b>'.$this->langFile['field_phone'].$mandatory.'</b></label><br />';
-        $return .= '<input type="telephone" size="28" id="contactForm_field_phone" name="phone" value="'.@$_SESSION['contactForm']['phone'].'" /><br />';
+        $return .= '<input type="telephone" size="28" id="contactForm_field_phone" name="phone" value="'.@$_SESSION['contactForm']['phone'].'"'.$required.' /><br />';
   
       }
         
       // FAX
       if($this->config['fax']) {
-        if($this->config['fax_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
+        if($this->config['fax_mandatory']){ $mandatory = $this->mandatoryStar; $required = ' required="required"'; } else $mandatory = '';
         if(!empty($mandatoryFields['fax'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_fax"'.$notFilled.'><b>'.$this->langFile['field_fax'].$mandatory.'</b></label><br />';
-        $return .= '<input type="telephone" size="28" id="contactForm_field_fax" name="fax" value="'.@$_SESSION['contactForm']['fax'].'" /><br />';
+        $return .= '<input type="telephone" size="28" id="contactForm_field_fax" name="fax" value="'.@$_SESSION['contactForm']['fax'].'"'.$required.' /><br />';
   
       }
   

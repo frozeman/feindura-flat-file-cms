@@ -273,15 +273,15 @@ if(!empty($adminConfig['user']['info'])) {
     
     // SHOW tag CLOUD
     if($tagCloud = statisticFunctions::createTagCloud($allSearchwords)) {
-      echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h3>';
+      echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
       echo '<div class="tagCloud">'.$tagCloud.'</div>';
       
-      echo '<br /><hr class="small"><br />';
+      echo '<br /><div class="verticalSeparator"></div><br />';
     }
      
     // ---------------------------------
     // -> BROWSER CHART
-    echo '<h3 style="text-align:center;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h3>';
+    echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
     if($browserChart = statisticFunctions::createBrowserChart($websiteStatistic['browser']))
       echo $browserChart;
     else
@@ -292,8 +292,8 @@ if(!empty($adminConfig['user']['info'])) {
     if(file_exists(dirname(__FILE__).'/../../statistic/referer.statistic.log') &&
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
        
-      echo '<br /><br /><hr class="small"><br />';
-      echo '<h3 style="text-align:center;">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h3>';
+      echo '<br /><br /><div class="verticalSeparator"></div><br />';
+      echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
        
       echo '<div id="refererLogContainer">
             <ul class="coloredList">';
