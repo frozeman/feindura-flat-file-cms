@@ -40,9 +40,11 @@ require('chapta.php');
 * @package [Plugins]
 * @subpackage contactForm
 * 
-* @version 1.0.3
+* @version 1.0.5
 * <br />
 * <b>ChangeLog</b><br />
+*    - 1.0.5 fixes in chapta css
+*    - 1.0.4 add html5 input types
 *    - 1.0.3 convert to PHP 5 class
 *    - 1.0.2 add xssFilter
 *    - 1.0.1 add plain mail in UTF-8 when php 4
@@ -480,7 +482,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if(!empty($mandatoryFields['housenumber'])) $notFilled = $this->mandatoryColor; else $notFilled = '';  
       if($this->config['housenumber']) $return .= ', <label for="contactForm_field_housenumber"'.$notFilled.'><b>'.$this->langFile['field_housenumber'].$mandatory.'</b></label><br />';
       if($this->config['street']) $return .= '<input type="text" size="16" id="contactForm_field_street" name="street" value="'.@$_SESSION['contactForm']['street'].'" />';
-      if($this->config['housenumber']) $return .= '<input type="text" size="5" id="contactForm_field_housenumber" name="housenumber" value="'.@$_SESSION['contactForm']['housenumber'].'" /><br />';
+      if($this->config['housenumber']) $return .= '<input type="number" size="5" id="contactForm_field_housenumber" name="housenumber" value="'.@$_SESSION['contactForm']['housenumber'].'" /><br />';
   
       
       // ZIPCODE, CITY, COUNTRY
@@ -491,7 +493,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if($this->config['city_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
         if(!empty($mandatoryFields['city'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
       if($this->config['city']) $return .= ', <label for="contactForm_field_city"'.$notFilled.'><b>'.$this->langFile['field_city'].$mandatory.'</b></label><br />';
-      if($this->config['zipcode']) $return .= '<input type="text" size="5" id="contactForm_field_zipcode" name="zipcode" value="'.@$_SESSION['contactForm']['zipcode'].'" />';
+      if($this->config['zipcode']) $return .= '<input type="number" size="5" id="contactForm_field_zipcode" name="zipcode" value="'.@$_SESSION['contactForm']['zipcode'].'" />';
       if($this->config['city']) $return .= '<input type="text" size="16" id="contactForm_field_city" name="city" value="'.@$_SESSION['contactForm']['city'].'" /><br />';
       
         if($this->config['country_mandatory']) $mandatory = $this->mandatoryStar; else $mandatory = '';
@@ -508,7 +510,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if(!empty($mandatoryFields['website'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_website"'.$notFilled.'><b>'.$this->langFile['field_website'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="28" id="contactForm_field_website" name="website" value="'.@$_SESSION['contactForm']['website'].'" /><br />';
+        $return .= '<input type="url" size="28" id="contactForm_field_website" name="website" value="'.@$_SESSION['contactForm']['website'].'" /><br />';
   
       }
       
@@ -518,7 +520,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if(!empty($mandatoryFields['email'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_email"'.$notFilled.'><b>'.$this->langFile['field_email'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="28" id="contactForm_field_email" name="email" value="'.@$_SESSION['contactForm']['email'].'" /><br />';
+        $return .= '<input type="email" size="28" id="contactForm_field_email" name="email" value="'.@$_SESSION['contactForm']['email'].'" /><br />';
   
       }
         
@@ -528,7 +530,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if(!empty($mandatoryFields['phone'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_phone"'.$notFilled.'><b>'.$this->langFile['field_phone'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="28" id="contactForm_field_phone" name="phone" value="'.@$_SESSION['contactForm']['phone'].'" /><br />';
+        $return .= '<input type="telephone" size="28" id="contactForm_field_phone" name="phone" value="'.@$_SESSION['contactForm']['phone'].'" /><br />';
   
       }
         
@@ -538,7 +540,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
         if(!empty($mandatoryFields['fax'])) $notFilled = $this->mandatoryColor; else $notFilled = '';
         
         $return .= '<label for="contactForm_field_fax"'.$notFilled.'><b>'.$this->langFile['field_fax'].$mandatory.'</b></label><br />';
-        $return .= '<input type="text" size="28" id="contactForm_field_fax" name="fax" value="'.@$_SESSION['contactForm']['fax'].'" /><br />';
+        $return .= '<input type="telephone" size="28" id="contactForm_field_fax" name="fax" value="'.@$_SESSION['contactForm']['fax'].'" /><br />';
   
       }
   
@@ -555,8 +557,8 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
 
     $chapta = new chapta(rand(1000,9999));      
     $_SESSION['contactForm']['chaptacheck'] = $chapta->getNum();
-    $return .= '<div id="contactForm_chaptaNumbers">'.$chapta->printNumber().'</div>';      
-    $return .= '<input type="text" id="contactForm_field_chapta" name="chapta" size="4" autocomplete="off" maxlength="4" />';
+    $return .= '<div id="contactForm_chaptaNumbers">'.$chapta->printNumber().'</div>';
+    $return .= '<input type="number" id="contactForm_field_chapta" name="chapta" size="4" min="1000" max="9999" autocomplete="off" maxlength="4" />';
     
     $return .= '<br /><input type="submit" id="contactForm_button_send" value="'.$this->langFile['button_send'].'" />
     <span id="contactForm_text_mandatoryfields">'.$this->mandatoryStar.' '.$this->langFile['text_mandatoryfields'].'</span>

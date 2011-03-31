@@ -26,10 +26,10 @@
 }
 
 #contactForm_field_chapta {
-  position:relative;
+  position: relative;
   top: -30px;
   left: 70px;
-  width: 31px;
+  width: 55px;
 }
 
 #contactForm_chaptaNumbers {
@@ -46,19 +46,27 @@
 }
 
 /* ERROR */
-
 #contactForm_error {
-  
 }
 
 /* CHAPTA */
 .contactForm .chapta_letters {
+  display: inline-block;
 	color: #000;
 	background-color: #000;
-	font: 5px Verdana, Arial, Sans-serif, Serif !important;
+	line-height: 1px;
+	width: 5px;
+	height: 5px;
+	font-size: 12px;
+	padding: 0px;
 }
 .contactForm .chapta_background {
+  display: inline-block;
   color: transparent;
-	background-color: transparent;
-	font: 5px Verdana, Arial, Sans-serif, Serif !important;
+  background-color: transparent;
+  line-height: 1px;
+	width: 5px;
+	height: 5px;
+	font-size: 12px;
+	padding: 0px;
 }

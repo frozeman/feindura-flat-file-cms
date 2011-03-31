@@ -50,7 +50,7 @@
       for($row=0; $row<count($this->digits[0]->matrix); $row++) {
         foreach( $this->digits as $digit ) {
           foreach($digit->matrix[$row] as $cell)
-            $return .= ($cell === 1) ? '<span class="chapta_letters">&nbsp;&nbsp;</span>' : '<span class="chapta_background">&nbsp;&nbsp;</span>';
+            $return .= ($cell === 1) ? '<span class="chapta_letters">&nbsp;</span>' : '<span class="chapta_background">&nbsp;</span>';
           $return .= '<span class="chapta_background">&nbsp;</span>';
         }
         $return .= "<br />\n";
