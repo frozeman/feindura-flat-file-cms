@@ -27,7 +27,9 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 // if page ID is given, it LOAD THE EDITOR
 // or if $_GET['site'] == 'pages'
 if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') {
- 
+  
+  $tabIndex = 40;
+  
   // ----  show QUICKMENU for the NONE-CATEGORY PAGES
   // slide the categories menu IN, when a category is open
   if(empty($_GET['category']))
@@ -47,8 +49,9 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         else
           $pageSelected = '';
              
-        echo '<li><a href="?category=0&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.strip_tags($page['title']).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
-      }        
+        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.strip_tags($page['title']).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
+        $tabIndex++;
+      }
     } else {
       echo '<li><a href="#" onclick="return false;"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
     }
@@ -79,7 +82,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             $categorySelected = ' class="active"';
           else
             $categorySelected = '';                  
-        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
+        echo '<li><a href="?site=pages&amp;category='.$category['id'].'" tabindex="'.$tabIndex.'" onclick="requestLeftSidebar(\''.$_GET['site'].'\',\''.$_GET['page'].'\',\''.$category['id'].'\');return false;"'.$categorySelected.'><span>'.$category['name'].'</span></a></li>';        
+        $tabIndex++;
       }        
     echo '</ul>          
       </div>
@@ -106,7 +110,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
+          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></a></li>';
+          $tabIndex++;
         }       
       } else {
         echo '<li><a href="#" onclick="return false;"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';

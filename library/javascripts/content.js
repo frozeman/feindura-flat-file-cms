@@ -621,10 +621,11 @@ window.addEvent('domready', function() {
     // add resize tween event
     $('adminMenu').addEvents({
       mouseenter : function() { // resize on mouseover
-          $('adminMenu').tween('height',($('adminMenu').getChildren('.content table')[0].offsetHeight + 40) + 'px');
+        $('adminMenu').scrollTo(0,0);
+        $('adminMenu').tween('height',($('adminMenu').getChildren('.content table')[0].offsetHeight + 40) + 'px');
       },
       mouseleave : function() { // resize on onmouseout
-          $('adminMenu').tween('height','140px');
+        $('adminMenu').tween('height','140px');
       }
     });
   }

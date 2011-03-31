@@ -147,17 +147,3 @@
     top:5px;
     /*left: 20px;*/
     }
-
-/* DIV-TABLE hack */
-div.table {
-    display: block;
-    }
-div.tr {
-    zoom: 1;
-    display: inline;
-    padding: 5px 0px;
-    }
-div.td {
-    zoom: 1;
-    display: inline;
-    }

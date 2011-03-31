@@ -15,7 +15,7 @@
 
 content.css version 0.3 */
 
-/****************/  
+/**************/  
 /* *** BLOCK */
 
 #content .block {
@@ -249,14 +249,14 @@ content.css version 0.3 */
     background: url("../images/buttons/content_h1_up_off.png") no-repeat right top;
     color: #536068;
     }
-#content .block > h1 a:hover {
+#content .block > h1 a:hover, #content .block > h1 a:focus {
     color: #536068;
     background: url("../images/buttons/content_h1_up_on.png") no-repeat right top;
     }
 #content .block.hidden > h1 a {
     background: url("../images/buttons/content_h1_down_off.png") no-repeat right top;
     }
-#content .block.hidden > h1 a:hover {
+#content .block.hidden > h1 a:hover, #content .block.hidden > h1 a:focus {
     background: url("../images/buttons/content_h1_down_on.png") no-repeat right top;
     }
     
@@ -282,7 +282,7 @@ content.css version 0.3 */
     text-decoration: none;
     background: url("../images/buttons/content_fastUp.png") no-repeat;
     }
-#content a.fastUp:hover {
+#content a.fastUp:hover, #content a.fastUp:focus {
     background-position: 0px -68px;
     }
     
@@ -414,7 +414,7 @@ a.up {
 .block p a, #windowBox p a {
   background-position: 0px 4px;
 }
-a.standardLink:hover, .block a:hover, #windowBox a:hover {
+a.standardLink:hover, .block a:hover, #windowBox a:hover, a.standardLink:focus, .block a:focus, #windowBox a:focus {
     color: #536068;
     text-decoration: none;
     }
@@ -453,7 +453,7 @@ a.deleteIcon {
   padding-left: 0px;
   background: url("../images/buttons/content_deleteIcon.png") no-repeat;
 }
-a.deleteIcon:hover {
+a.deleteIcon:hover, a.deleteIcon:focus {
   background-position: 0px -16px;
 }
 
@@ -680,8 +680,12 @@ div.listPagesHead {
     background: url("../images/buttons/listPages_pageThumbnailDelete.png") no-repeat;
     } 
 
-.listPages .functions a:hover, .listPages .functions a.startPage.active {
+.listPages .functions a:hover, .listPages .functions a:focus, .listPages .functions a.startPage.active {
     background-position: 0px -27px !important;
+    filter: alpha(opacity=100) !important;
+  	-khtml-opacity: 1.0 !important;
+  	-moz-opacity: 1.0 !important;
+  	opacity: 1.0 !important;
     }
 
 .startPageIcon {
@@ -700,7 +704,7 @@ div.listPagesHead {
     height: 27px;
     background: url("../images/buttons/listPages_createPage.png") no-repeat !important;
     }
-.listPages .createPage:hover {
+.listPages .createPage:hover, .listPages .createPage:focus {
     background-position: 0px -27px !important;
     }
 
@@ -847,7 +851,7 @@ span#editablePageTitle:focus {
     text-decoration: none;
     background: url("../images/buttons/content_pageThumbnailUpload.png") no-repeat;  
     }
-#content .block.pageHead a.pageThumbnailUpload:hover {
+#content .block.pageHead a.pageThumbnailUpload:hover, #content .block.pageHead a.pageThumbnailUpload:focus {
     background-position: 0px -76px;
     }
 
@@ -889,7 +893,7 @@ a.downloadBackup {
   padding-top: 30px;
   background: url("../images/buttons/backup_download.png") no-repeat;  
 }
-a.downloadBackup:hover {
+a.downloadBackup:hover, a.downloadBackup:focus {
   background-position: 0px -78px;
 }
 
@@ -900,7 +904,7 @@ a.restoreBackup {
   padding-top: 30px;
   background: url("../images/buttons/backup_restore.png") no-repeat;  
 }
-a.restoreBackup:hover {
+a.restoreBackup:hover, a.restoreBackup:focus {
   background-position: 0px -78px;
 }
 
@@ -1137,7 +1141,7 @@ a.createCategory {
     float: right;
     background: url("../images/buttons/pageSetup_createCategory.png") no-repeat 0px 0px !important;
     }
-a.createCategory:hover {
+a.createCategory:hover, a.createCategory:focus {
     background-position: 0px -54px !important;
     }
     
@@ -1153,7 +1157,7 @@ a.deleteCategory {
     float: right;
     background: url("../images/buttons/pageSetup_deleteCategory.png") no-repeat  0px 0px !important;
     }
-a.deleteCategory:hover {
+a.deleteCategory:hover, a.deleteCategory:focus {
     background-position: 0px -54px !important;
     }
     
@@ -1167,7 +1171,7 @@ a.categoryUp {
     padding: 0px !important; /* overwrites the #mainBody a*/
     background: url("../images/buttons/pageSetup_categoryUp.png") no-repeat 0px 0px !important;
     }
-a.categoryUp:hover {
+a.categoryUp:hover, a.categoryUp:focus {
     background-position: 0px -32px !important;
     }
     
@@ -1182,7 +1186,7 @@ a.categoryDown {
     padding: 0px !important; /* overwrites the #mainBody a*/
     background: url("../images/buttons/pageSetup_categoryDown.png") no-repeat 0px 0px !important;
     }
-a.categoryDown:hover {
+a.categoryDown:hover, a.categoryDown:focus {
     background-position: 0px -32px !important;
     }
     
@@ -1196,7 +1200,7 @@ a.createUser {
     float: right;
     background: url("../images/buttons/userSetup_createUser.png") no-repeat 0px 0px !important;
     }
-a.createUser:hover {
+a.createUser:hover, a.createUser:focus {
     background-position: 0px -54px !important;
     }
     
@@ -1210,7 +1214,7 @@ a.deleteUser {
     float: right;
     background: url("../images/buttons/userSetup_deleteUser.png") no-repeat 0px 0px !important;
     }
-a.deleteUser:hover {
+a.deleteUser:hover, a.deleteUser:focus {
     background-position: 0px -54px !important;
     }
     
@@ -1351,7 +1355,7 @@ a.addStyleFilePath {
     left: 1px;
     background: url("../images/buttons/addStyleFilePath.png") no-repeat;
     }
-a.addStyleFilePath:hover {
+a.addStyleFilePath:hover, a.addStyleFilePath:focus {
     background-position: 0px -24px;
     }
 a.addStyleFilePath:active {
@@ -1377,7 +1381,7 @@ input.submit, a.submit, a.ok {
     background: url("../images/buttons/form_submit.png") no-repeat !important;
     cursor: pointer;
     }
-input.submit:hover, a.submit:hover, a.ok:hover {
+input.submit:hover, a.submit:hover, a.ok:hover, input.submit:focus, a.submit:focus, a.ok:focus {
     background-position: 1px -78px !important;
     }
 #content .block input.submit {
@@ -1396,7 +1400,7 @@ input.cancel, a.cancel {
     height: 75px;
     background: url("../images/buttons/form_cancel.png") no-repeat !important;
     }
-input.cancel:hover, a.cancel:hover {
+input.cancel:hover, a.cancel:hover, input.cancel:focus, a.cancel:focus {
     background-position: 0px -78px !important;
     }
 #content .block input.cancel {
@@ -1432,7 +1436,7 @@ input.search {
     padding: 0px !important; /* overwrites the #mainBody a*/
     background: url("../images/buttons/form_search.png") no-repeat  0px 0px !important;
     }
-input.search:hover {
+input.search:hover, input.search:focus {
     background-position: 0px -50px !important;
     }
 

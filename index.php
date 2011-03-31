@@ -280,9 +280,9 @@ var feindura_pages = [
       <a href="<?= $adminConfig['url'].$adminConfig['websitePath']; ?>" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE']; ?>"></a>
       
       <div id="languageSelection">        
-        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=de" class="de toolTip" title="deutsch::"></a>
-        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=en" class="en toolTip" title="english::"></a>
-        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=fr" class="fr toolTip" title="français::"></a>
+        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=de" tabindex="20" class="de toolTip" title="deutsch::"></a>
+        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=en" tabindex="21" class="en toolTip" title="english::"></a>
+        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=fr" tabindex="22" class="fr toolTip" title="français::"></a>
       </div>
           
       <div id="logo"></div>
@@ -291,15 +291,15 @@ var feindura_pages = [
       <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>
           <tr>
-          <td><a href="?site=dashboard" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?>"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
-          <td><a href="?site=pages" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
+          <td><a href="?site=dashboard" tabindex="1" class="dashboard<?php if($_GET['site'] == 'dashboard') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_DASHBOARD']; ?>"><span><?php echo $langFile['BUTTON_DASHBOARD']; ?></span></a></td>
+          <td><a href="?site=pages" tabindex="2" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty
           if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
-          <td><a href="?site=addons" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
+          <td><a href="?site=addons" tabindex="3" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
           <?php } ?>
-          <td><a href="?site=websiteSetup" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?>"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
-          <td><a href="?site=search" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?>"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
+          <td><a href="?site=websiteSetup" tabindex="4" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?>"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
+          <td><a href="?site=search" tabindex="5" class="search<?php if($_GET['site'] == 'search') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_SEARCH']; ?>"><span><?php echo $langFile['BUTTON_SEARCH']; ?></span></a></td>
           </tr>
         </table>
       </div>
@@ -314,26 +314,26 @@ var feindura_pages = [
       <div class="content">
         <table>
           <tr>
-          <td><a href="?site=adminSetup" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
-          <td><a href="?site=pageSetup" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
+          <td><a href="?site=adminSetup" tabindex="10" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
+          <td><a href="?site=pageSetup" tabindex="11" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
           </tr><tr>
-          <td><a href="?site=userSetup" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
-          <td><a href="?site=backup" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
+          <td><a href="?site=userSetup" tabindex="12" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
+          <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
           </tr><tr>
-          <td><a href="?site=statisticSetup" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
+          <td><a href="?site=statisticSetup" tabindex="14" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
           if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/') || !generalFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <?php
           // CHECKS if the plugins/ folder is empty
           if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/')) { ?>
-          <td><a href="?site=pluginSetup" class="pluginSetup<?php if($_GET['site'] == 'pluginSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PLUGINSETUP']; ?>"><span><?php echo $langFile['BUTTON_PLUGINSETUP']; ?></span></a></td>
+          <td><a href="?site=pluginSetup" tabindex="14" class="pluginSetup<?php if($_GET['site'] == 'pluginSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PLUGINSETUP']; ?>"><span><?php echo $langFile['BUTTON_PLUGINSETUP']; ?></span></a></td>
           </tr>
           <?php }
           // CHECKS if the modlues/ folder is empty
           if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <tr>
-          <td><a href="?site=modulSetup" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
+          <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
           <td</td>
           <?php }
           } ?>
@@ -433,17 +433,17 @@ var feindura_pages = [
             
             // frontend editing
             if($showFrontendEditing) { ?>
-              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> class="editPage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
             <?php
               $showSpacer = true;
             }
             // create new page
             if($showCreatePage) { ?>
-              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::">&nbsp;</a></li>
+              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::">&nbsp;</a></li>
             <?php
             // deletePage
             if($showDeletePage) { ?>
-              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
             <?php }          
               $showSpacer = true;
             }
@@ -456,11 +456,11 @@ var feindura_pages = [
             
             // pageThumbnailUpload
             if($showPageThumbnailUpload) { ?>
-              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> class="pageThumbnailUpload toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> tabindex="33" class="pageThumbnailUpload toolTip">&nbsp;</a></li>
             <?php
             // pageThumbnailDelete
             if($showPageThumbnailDelete) { ?>
-              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> class="pageThumbnailDelete toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> tabindex="34" class="pageThumbnailDelete toolTip">&nbsp;</a></li>
             <?php }          
               $showSpacer = true;
             }
@@ -473,7 +473,7 @@ var feindura_pages = [
             
             // file manager
             if($adminConfig['user']['fileManager']) { ?>
-              <li><a href="?site=fileManager" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
+              <li><a href="?site=fileManager" tabindex="35" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
             <?php
               $showSpacer = true;
             }

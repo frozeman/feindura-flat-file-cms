@@ -150,14 +150,13 @@ span.red, label.red, h1.red, ul.red, div.red {
     bottom: 21px;
     left: 15px;
     }
-
 #languageSelection a {
     position: absolute;
     display: block;
     width: 30px;
     height: 21px;
     }
-#languageSelection a:hover {
+#languageSelection a:hover, #languageSelection a:focus {
     background-position: 0px -21px !important;
     }
     
@@ -341,54 +340,6 @@ ul.verticalButtons {
     padding: 0px;
     margin: 0px;
     }
-    
-/****************/    
-/* --- DIV-TABLE */
-
-div.table {
-    display: table;
-    border-collapse: collapse;
-    }
-div.tr {
-    display: table-row;
-    }
-div.td { 
-    display: table-cell;
-    padding: 5px;
-    }
-div.row { 
-    display: table-row-group;
-    }
-
-/* Sprachauswahl */
-a.lang_de {
-  position: absolute;
-  top: 10px;
-  left: 60px;
-  height: 16px;
-  padding-left: 23px;
-  display: inline-block;
-  text-decoration: none;
-  background: url("../images/icons/de.png") no-repeat 2px;
-  color: #434F58;
-  }
-a.lang_de:hover {
-  color: #ffffff;
-  }
-a.lang_en {
-  position: absolute;
-  top: 10px;
-  left: 150px;
-  height: 16px;
-  padding-left: 23px;
-  display: inline-block;
-  text-decoration: none;
-  background: url("../images/icons/en.png") no-repeat 2px;
-  color: #434F58;
-  }
-a.lang_en:hover {
-  color: #ffffff;
-  }
 
 /* --- MAINMENU ------------------------------------------------------------------------------------------------------------------- */
 
@@ -434,7 +385,7 @@ a.lang_en:hover {
 #mainMenu a:hover {
     color: #CF7F52;
     }
-#mainMenu a:hover, #mainMenu a.active {
+#mainMenu a:hover, #mainMenu a:focus, #mainMenu a.active {
     background-position: 0px -142px !important;
     }
 /* this hack, position the text in the bottom of the button, but its vertical-align in the span is middle */
@@ -480,11 +431,6 @@ a.lang_en:hover {
     left: 8px;
     }
 
-
-/*#adminMenu .content table {
-  border:1px solid red;
-}*/
-
 /****************/
 /* --- buttons */
 
@@ -502,7 +448,7 @@ a.lang_en:hover {
     line-height: 11px;
 
     }
-#adminMenu .content a:hover, #adminMenu .content a.active {
+#adminMenu .content a:hover, #adminMenu .content a:focus, #adminMenu .content a.active {
     color: #CF7F52;
     background-position: -65px 0px !important;
     }
@@ -606,7 +552,7 @@ a.lang_en:hover {
     margin: 0px 5px;
     text-decoration: none;
     }
-.subMenu a:hover {
+.subMenu a:hover, .subMenu a:focus {
     background-position: -50px 0px !important;
     }
 
@@ -729,7 +675,7 @@ div.leftSidebarLoadingCircle {
     /* padding-left: 17px;
     background: url("../images/icons/link.gif") no-repeat 0px 0px; */
     }
-#leftSidebar a:hover {
+#leftSidebar a:hover, #leftSidebar a:focus {
     color: #666666;
     }
 
@@ -851,7 +797,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -70px !important;
     color: #333333 !important;
     }
-#leftSidebar .sidebarMenu .content.dark a:hover {
+#leftSidebar .sidebarMenu .content.dark a:hover, #leftSidebar .sidebarMenu .content.dark a:focus {
     background: url("../images/buttons/sidebarMenu_key_dark.png") repeat-x 0px -35px;
     color: #333333;
     }
@@ -865,7 +811,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -70px !important;
     color: #333 !important;
     }
-#leftSidebar .sidebarMenu .content.white a:hover {
+#leftSidebar .sidebarMenu .content.white a:hover, #leftSidebar .sidebarMenu .content.white a:focus {
     background: url("../images/buttons/sidebarMenu_key_white.png") repeat-x 0px -35px;
     color: #ffffff;
     }
@@ -879,7 +825,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
-#leftSidebar .sidebarMenu .content.light a:hover {
+#leftSidebar .sidebarMenu .content.light a:hover, #leftSidebar .sidebarMenu .content.light a:focus {
     background: url("../images/buttons/sidebarMenu_key_light.png") repeat-x 0px -35px;
     color: #ffffff;
     }
@@ -893,7 +839,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
-#leftSidebar .sidebarMenu .content.brown a:hover {
+#leftSidebar .sidebarMenu .content.brown a:hover, #leftSidebar .sidebarMenu .content.brown a:focus {
     background: url("../images/buttons/sidebarMenu_key_brown.png") repeat-x 0px -35px;
     color: #ffffff;
     }
@@ -907,7 +853,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -70px !important;
     color: #ffffff !important;
     }
-#leftSidebar .sidebarMenu .content.blue a:hover {
+#leftSidebar .sidebarMenu .content.blue a:hover, #leftSidebar .sidebarMenu .content.blue a:focus {
     background: url("../images/buttons/sidebarMenu_key_blue.png") repeat-x 0px -35px;
     color: #ffffff;
     }
@@ -932,7 +878,7 @@ div.leftSidebarLoadingCircle {
     background: url("../images/buttons/sidebarMenu_buttonDown.png") no-repeat right top;
     } 
         
-#leftSidebar .sidebarMenu .top a:hover {
+#leftSidebar .sidebarMenu .top a:hover, #leftSidebar .sidebarMenu .top a:focus {
     background-position: right -36px;
     }
 
@@ -947,7 +893,7 @@ div.leftSidebarLoadingCircle {
     text-decoration: none;
     background: url("../images/buttons/sidebarMenu_pullToogle.png") no-repeat right top;
     }
-#leftSidebar .sidebarMenu .bottom a:hover {
+#leftSidebar .sidebarMenu .bottom a:hover, #leftSidebar .sidebarMenu .bottom a:focus {
     background-position: right -14px;
     }
 
