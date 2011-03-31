@@ -58,7 +58,7 @@ foreach($allCategories as $category) {
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  $categorySorting = ($category['sortByPageDate'])? '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" />' : '';
+  $categorySorting = ($category['sortByPageDate'])? '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" width="27" height="23" />' : '';
   
   // show whether the category is public or nonpublic
   if($category['public']) {
@@ -73,7 +73,7 @@ foreach($allCategories as $category) {
   if($category['id'] != 0) {
     //$categoryId = '<span style="font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
     $headerColor = ' class="blue"';
-    $headerIcon = 'library/images/icons/categoryIcon_small.png';
+    $headerIcon = 'library/images/icons/categoryIcon_middle.png';
     $category['name'] = ' '.$category['name'];
   } else {
     //$categoryId = '<span style="color: #999999; font-size: 12px; font-weight: normal;">(ID <b>'.$category['id'].'</b>)</span>';
@@ -84,7 +84,7 @@ foreach($allCategories as $category) {
   // -> CREATE CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" />'.$category['name'].'</span> '.$categorySorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" />'.$category['name'].'</span> '.$categorySorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS

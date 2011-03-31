@@ -59,7 +59,7 @@ if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
     if($currentVisitor['ip'] == '::1') continue;
     $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
     $geoIPFlag = (!empty($geoIPCode))
-      ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" style="width:18px;height:12px;" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
+      ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
       : '';
     if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider') {
       $return .= ($currentVisitorDashboard)

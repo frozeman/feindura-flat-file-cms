@@ -37,7 +37,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   else $hidden = ' hidden';
   
   echo '<div class="sidebarMenu fixed'.$hidden.'">
-  <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
+  <div class="top brown"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$langFile['CATEGORIES_TEXT_NONCATEGORY'].'</span><a href="#" class="toolTip" title="'.$langFile['CATEGORIES_TOOLTIP_NONCATEGORY'].'::">&nbsp;</a></div>
   <div class="content brown">
     <ul class="verticalButtons">';
           
@@ -73,7 +73,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     else $hidden = '';
   
     echo '<div class="sidebarMenu free'.$hidden.'">
-    <div class="top blue"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#">&nbsp;</a></div>
+    <div class="top blue"><img src="library/images/icons/categoryIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$langFile['btn_quickmenu_categories'].'</span><a href="#">&nbsp;</a></div>
     <div class="content blue">
       <ul class="verticalButtons">';      
         
@@ -98,7 +98,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top grey"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" /><span>'.$categoryConfig[$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig[$_GET['category']]['name'].'::">&nbsp;</a></div>
+    <div class="top grey"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$categoryConfig[$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['btn_quickmenu_pages'].' '.$categoryConfig[$_GET['category']]['name'].'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -154,7 +154,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<hr />';
       
       // -> SHOW USERs
-      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br />';
+      echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br />';
         if(!empty($userConfig)) {
         
           unset($sessions,$sessionLister);

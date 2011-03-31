@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc8
-Build 617
+Build 618
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 618: specified image dimension for faster rendering and fixed image size of listpages h1 images
   build 617: changed thumbnail width and height fields to type="number"
   build 616: changed h1..h3 so it creates a nice html outline
   build 615: add tabindex es to all important elements

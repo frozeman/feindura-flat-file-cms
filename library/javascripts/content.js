@@ -1138,7 +1138,7 @@ window.addEvent('domready', function() {
       
       $('HTMLEditorSubmit').addEvent('mousedown',function(){
         editorSubmited = true;
-      });
+      });      
     });
   }
   // ->> make PAGE TITLE EDITABLE

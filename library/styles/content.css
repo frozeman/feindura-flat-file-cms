@@ -472,23 +472,19 @@ a.deleteIcon:hover, a.deleteIcon:focus {
 /****************/  
 /* --- SLIDE HEADER LINKS */
 
-#content .block.listPages > h1.brown a img {
+#content .block.listPages > h1 a img {
     position: relative;
     top: 10px !important;
     }
 
 #content .block.listPages > h1 a span {
     position: relative;
-    top: -5px;
+    top: -12px;
     line-height: 15px;
     font-weight: bold;
     background: none;
     padding: 0px;
     font-size:15px;
-    }
-
-#content .block.listPages > h1.brown a span {
-    top: -12px;
     }
 
 /****************/  

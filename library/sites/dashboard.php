@@ -76,7 +76,7 @@ if(!empty($adminConfig['user']['info'])) {
 <!-- WEBSITE STATISTIC -->
 
 <div class="block">
-  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" /><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
+  <h1><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27" /><?php echo $langFile['DASHBOARD_TITLE_STATISTICS']; ?></h1>
   <div class="content">
     <?php
     
