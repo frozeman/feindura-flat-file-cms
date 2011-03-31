@@ -262,10 +262,11 @@ MooRTE.Utilities = {
 		Object.append(el.retrieve('rteEvents',{}), events);
 		el.addEvents(events);
 	}
-	, removeEvents: function(el){
+	, removeEvents: function(el, destroy){
 		Object.each(el.retrieve('rteEvents',{}), function(fn, event){
 			el.removeEvent(event, fn);
 		});
+		if (destroy) el.eliminate('rteEvents');
 	}
 	, shortcuts: function(e){
 		if (e.key=='enter'){
@@ -436,6 +437,12 @@ MooRTE.Utilities = {
 					: MooRTE.Utilities.eventHandler(event, caller, name);
 		}
 	}
+	
+   /* 	ToDo:
+	* 	When group is clicked, it should show existing instead of creating new.
+	*	When group button is clicked, it should make editor the default and work.
+	*	Fix messed up logic and functions.
+	*/
 	, group: function(elements, name){
 		var self = this
 		  , bar = this.getParent('.RTE');
@@ -457,7 +464,7 @@ MooRTE.Utilities = {
 				onComplete: function(command){
 					var body = "For your protection, "+(Browser.webkit?"Webkit":"Firefox")+" does not allow access to the clipboard.<br/>\
 						<b>Please use Ctrl+C to copy, Ctrl+X to cut, and Ctrl+V to paste.</b><br/><br/>\
-						If this functionality is important, consider switching to a browser such as IE,<br/> which will allow us to easily access [and modify] your system."; 
+						If this functionality is important consider switching to Internet Explorer,<br/> which allows us to access [and modify] your system."; 
 					MooRTE.Elements.clipPop = new StickyWin.Modal({content: StickyWin.ui('Security Restriction', body, {buttons:[{ text:'close'}]})});	
 					MooRTE.Elements.clipPop.hide();
 				}
@@ -579,55 +586,41 @@ MooRTE.Utilities = {
 	}
 };
 
-Element.implement({
-	moorte: function(){
-		var self = this.retrieve('new') || this
-		  , params = Array.link(arguments, {'options': Type.isObject, 'cmd': Type.isString, 'rte':Type.isElement});
-		if (params.rte) params.rte.hasClass('MooRTE')
-			? this.store('bar', params.rte)
-			: alert('err: Passed in element is not a RTE.');
-		else if (params.options){
-			new MooRTE(Object.merge(params.options, {'elements':this}));
-			return this;
-		}
-				
-		var bar = self.hasClass('MooRTE') ? self : self.retrieve('bar') || '';
-		if ('undefined,create,show,restore,attach'.test(params.cmd,'i')){
-			if (!bar){
-				new MooRTE({'elements':this});
-				return self;
+MooRTE.extensions = function(){
+	
+	var params = Array.link(arguments, {'options': Type.isObject, 'cmd': Type.isString, 'rte':Type.isElement})
+	  , cmd = 'detach,hide,remove,destroy'.test(params.cmd,'i') ? params.cmd.toLowerCase() : ''
+	  , editables = Array.from(this);
+	
+	editables.every(function(self, i){
+
+		var bar
+		  , els
+		  , self = editables[i] = self.retrieve('new') || self;
+
+		if (params.rte){
+			bar = params.rte.hasClass('MooRTE') ? params.rte : params.rte.retrieve('bar');
+			if (!bar) return alert('Err 600: The passed in element is not connected to an RTE.'), 600;
+			if (self.retrieve('bar') != bar){
+				self.retrieve('bar').retrieve('fields').erase(self);
+				self.store('bar', bar);
+				bar.retrieve('fields').include(self);
 			}
-			if (bar.hasClass('rteHide')){
-				bar.removeClass('rteHide');
-				return self;
-			}
-			
-			var els = [self]
-			  , removed = bar.retrieve('removed');
-			if (removed){
-				els = bar.retrieve('fields');
-				bar.inject(removed[0], removed[1]).eliminate('removed');
-			} else if (this == bar) return this;
-			
-			els.each(function(el){
-				var src = el.retrieve('src');
-				if (!src){
-					el.set('contentEditable', true);
-					MooRTE.Utilities.addEvents(el, el.retrieve('rteEvents'));
-					if (Browser.firefox) el.grab(new Element('div', {id:'retMozFix',styles:{display:'none'}}));
-				} else if (src.getParent()) el.set('html', src.get('value')).replaces(src);
-			})
-			return self;
-		}
-		if (!bar) return false;
+		} else bar = self.hasClass('MooRTE') ? self : self.retrieve('bar');
+
+		if (!cmd){
+			if (!bar){ 
+				new MooRTE(Object.merge(params.options || {}, {'elements':this}));
+				editables[i] = self.retrieve('new') || self;
+				return false;
+			} else if (bar.hasClass('rteHide')) return bar.removeClass('rteHide');
+		} else if (!bar || self.retrieve('removed') || !self.getParent()) return true;
 		
-		switch (params.cmd.toLowerCase()){
+		switch (cmd){
 			case 'hide':
-				bar.addClass('rteHide');
-				return this;
+				return bar.addClass('rteHide');
 			case 'detach':
-				if (this == bar) return this;
-				self = this.retrieve('new') || this;
+				if (self == bar) return true;
 				bar.retrieve('fields').erase(self); 
 				els = [self];
 				break;
@@ -639,35 +632,53 @@ Element.implement({
 				els = bar.retrieve('fields');
 				break;			
 			case 'destroy':
-				var destroy = true;
 				els = bar.retrieve('fields');
-				bar.destroy();
+				bar = bar.destroy();
+				break;
+			default:
+				els = [self]
+				  , removed = bar.retrieve('removed');
+				if (removed){
+					els = bar.retrieve('fields');
+					bar.inject(removed[0], removed[1]).eliminate('removed');
+				} else if (self == bar) return;
+				
+				els.each(function(el){
+					bar.retrieve('fields').include(el);
+					var src = el.retrieve('src');
+					if (!src){
+						el.set('contentEditable', true);
+						MooRTE.Utilities.addEvents(el, el.retrieve('rteEvents'));
+						if (Browser.firefox && !el.getElement('#rteMozFix')) el.grab(new Element('div', {id:'retMozFix', styles:{display:'none'}}));
+					} else if (src.getParent()) el.set('html', src.get('value')).replaces(src);
+				})
+				return true;
 		}
-		
+				
+		editables[i] = self.retrieve('src') || self;
 		els.each(function(el){
-			if (Browser.firefox) el.getElement('#rteMozFix').destroy();
+			if (Browser.firefox && el.getElement('#rteMozFix')) el.getElement('#rteMozFix').destroy();
 			var src = el.retrieve('src');
 			if (src){
 				src.set('value', el.get('html')).replaces(el);
-				if (destroy){
+				if (!bar){
 					src.eliminate('new');
 					el.destroy();
 				}
 			} else {
 				el.set('contentEditable', false);
 				MooRTE.Utilities.removeEvents(el, destroy);
-				if (destroy) el.eliminate('bar').eliminate('rteEvents');
+				if (!bar) el.eliminate('bar');
 			}
 		});
-		return this.retrieve('src') || this;
-	}
-});
-Elements.implement({
-	moorte:function(){
-		var opts = Array.link(arguments, { 'options': Object.type }).options;
-		return new MooRTE(Object.append(opts||{}, {'elements':this}));
-	}
-});
+		return true;
+	}.bind(this));
+	
+	return editables;
+}
+
+Element.implement({moorte:MooRTE.extensions});
+Elements.implement({moorte:MooRTE.extensions});
 
 
 MooRTE.Elements = {
@@ -787,7 +798,7 @@ MooRTE.Elements = {
 					   , onLoad: function(){
 							if (window.Asset) new Asset.javascript('StickyWinModalUI.js', {
 								self: this
-								, path: 'CMS/library/thirdparty/MooRTE/Source/Assets/scripts/'
+								//, path: 'CMS/library/thirdparty/MooRTE/Source/Assets/scripts/'
 								, onComplete: function(){
 									var body = "<span style='display:inline-block; width:100px'>Text of Link:</span><input id='popTXT'/><br/>\
 												<span style='display:inline-block; width:100px'>Link To Location:</span><input id='popURL'/><br/>\
