@@ -658,7 +658,8 @@ class generalFunctions {
           if($pageContent['plugins'][$key]['active']) {
             foreach($value as $insideKey => $finalValue) {
               // CHECK BOOL VALUES and change to FALSE
-              if($pageContent['plugins'][$key][$insideKey] == 'true' ||
+              if(is_bool($pageContent['plugins'][$key][$insideKey]) ||
+                 $pageContent['plugins'][$key][$insideKey] == 'true' ||
                  $pageContent['plugins'][$key][$insideKey] == 'false') {
                 fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".xssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n");
               } else

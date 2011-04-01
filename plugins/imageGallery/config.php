@@ -5,8 +5,6 @@
  */ 
 
 $pluginConfig['galleryPath']         = '';
-//$pluginConfig['galleryTitle']        = 'unnamed';
-//$pluginConfig['previewImage']        = '';
 $pluginConfig['imageWidth']          = 800;
 $pluginConfig['imageHeight']         = null;
 $pluginConfig['thumbnailWidth']      = 160;

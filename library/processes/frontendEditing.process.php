@@ -32,7 +32,7 @@ if($_POST['save'] == 'true') {
   
   // read the page
   $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
-  
+
   // -> replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];

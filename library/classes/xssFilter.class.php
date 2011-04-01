@@ -93,7 +93,7 @@ class xssFilter {
     if(is_array($array)) {
       foreach($array as $key => &$value)
         if(is_array($value)) self::escapeBasics($value);
-        else $array[$key] = str_replace('\'', '\\\'', str_replace('\\', "\\\\", $value));
+        else $array[$key] = (is_bool($value)) ? $value : str_replace('\'', '\\\'', str_replace('\\', "\\\\", $value));
     }
   }
   
@@ -109,21 +109,29 @@ class xssFilter {
   * @return bool the right boolean, otherwise $default
   * 
   * @static
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 fixed checking and returning string  
   *    - 1.0 initial release
   * 
   */
   public static function bool($data, $returnAsString = false ,$default = false) {
-    if(is_bool($data))
-      return $data;
-    elseif(isset($data) && !empty($data) && ($data == 'true' || $data == 'TRUE' || $data == 1 || $data == '1'))
+    if(is_bool($data)) {
+      if($data)
+        return ($returnAsString) ? 'true' : true;
+      else
+        return ($returnAsString) ? 'false' : false;
+    } elseif(isset($data) && !empty($data) && (strtolower($data) == 'true' || $data == '1'))
       return ($returnAsString) ? 'true' : true;
-    elseif(!isset($data) || empty($data) || $data == 'false' || $data == 'FALSE' || $data == 0 || $data == '0')
+    elseif(!isset($data) || empty($data) || strtolower($data) == 'false' || $data == '0')
       return ($returnAsString) ? 'false' : false;
-    else
-      return $default;
+    else {
+      if($default)
+        return ($returnAsString) ? 'true' : true;
+      else
+        return ($returnAsString) ? 'false' : false;
+    }
   }
  
  /**
