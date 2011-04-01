@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc8
-Build 620
+Build 621
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 621: add placeholder detection
   build 620: add also focus to the logout and frontend enditing button (forgot)
   build 619: add new moorte version
   build 618: specified image dimension for faster rendering and fixed image size of listpages h1 images

@@ -146,11 +146,18 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
   <script type="text/javascript" src="library/javascripts/shared.js"></script>
   
   <script type="text/javascript">
-  window.addEvent('load',function() {  
-    new OverText('username',{positionOptions: {offset: {x: 12,y: 5}}});
+  function supports_input_placeholder() {
+    var i = document.createElement('input');
+    return 'placeholder' in i;
+  }
+  
+  window.addEvent('load',function() {
+    if(!supports_input_placeholder()) {
+      new OverText('username',{positionOptions: {offset: {x: 12,y: 5}}});
 <?php if(!isset($_GET['resetpassword'])) { ?>
-    new OverText('password',{positionOptions: {offset: {x: 12,y: 5}}});
+      new OverText('password',{positionOptions: {offset: {x: 12,y: 5}}});
 <?php } ?>
+    }
   });
   
   function startLoadingCircle() {
@@ -194,9 +201,9 @@ if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
       ?>
       <form action="<?= $currentURL; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8" onsubmit="startLoadingCircle();">
         <div id="inputsDiv">
-          <input value="<?= $_POST['username'] ?>" name="username" id="username" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus" /><br />
+          <input value="<?= $_POST['username'] ?>" name="username" id="username" placeholder="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" title="<?= $langFile['LOGIN_INPUT_USERNAME']; ?>" autofocus="autofocus" /><br />
         <?php if(!isset($_GET['resetpassword'])) { ?>
-          <input type="password" value="<?= $_POST['password'] ?>" name="password" id="password" title="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" /><br />
+          <input type="password" value="<?= $_POST['password'] ?>" name="password" id="password" placeholder="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" title="<?= $langFile['LOGIN_INPUT_PASSWORD']; ?>" /><br />
         <?php } 
         if(!isset($_GET['resetpassword'])) {
           echo '<input type="hidden" name="action" value="login" />';

@@ -57,9 +57,9 @@ $searchWords = stripslashes($searchWords);
 
 <form action="index.php?site=<?= $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div class="block">
-  <h1><?= $langFile['SEARCH_TITLE']; ?></h1>
+  <h1><?= $langFile['BUTTON_SEARCH']; ?></h1>
     <div class="content">
-      <input type="text" name="search" size="50" value="<?= htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
+      <input type="search" name="search" size="50" value="<?= htmlentities($searchWords,ENT_QUOTES,'UTF-8'); ?>" style="float:left; margin-top: 12px; margin-right:10px;" />
       <input type="submit" value="" class="button search" />
     </div>
     <div class="bottom"></div>
