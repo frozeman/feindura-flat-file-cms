@@ -51,6 +51,20 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
 }
 
 /**
+ * <b>Name</b> sortAlphabetical()<br>
+ * 
+ * Sort an Array with the pageContent Array by ALPHABETICAL by TITLE.
+ * 
+ */
+function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing value
+  if (strcasecmp($a['title'],$b['title']) == 0) {
+    return 0;
+  }
+  return (strcasecmp($a['title'],$b['title']) < 0) ? -1 : 1;
+}
+
+
+/**
  * <b>Name</b> sortByDate()<br>
  * 
  * Sort an Array with the pageContent Array by DATE TIMESTAMP.

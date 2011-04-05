@@ -1185,41 +1185,26 @@ window.addEvent('domready', function() {
               // -> REMOVE the LOADING CIRCLE
               removeLoadingCircle();
               jsLoadingCircle.dispose();
-      			  // -> UPDATE the TITLE everywhere
-              title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
-              $('edit_title').set('value',html);
-              $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
-              setSidbarMenuTextLength();
-              titleContent = $('editablePageTitle').get('html');
-        			// display document saved
-        			showDocumentSaved();
+              
+              if(html.contains('####SAVING-ERROR####'))
+                document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
+              else {
+        			  // -> UPDATE the TITLE everywhere
+                title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
+                $('edit_title').set('value',html);
+                $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
+                setSidbarMenuTextLength();
+                titleContent = $('editablePageTitle').get('html');
+          			// display document saved
+          			showDocumentSaved();
+        			}
             });
       		},
       		//-----------------------------------------------------------------------------
       		//Our request will most likely succeed, but just in case, we'll add an
       		//onFailure method which will let the user know what happened.
       		onFailure: function() { //-----------------------------------------------------
-            
-            // creates the errorWindow
-            var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
-            errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': feindura_langFile.ERRORWINDOW_TITLE}));
-            var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+feindura_langFile.ERROR_SAVE+'</p>'});
-            var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
-            errorWindowContent.grab(errorWindowOkButton);
-            errorWindow.grab(errorWindowContent);
-            errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));
-            // add errorWindow
-            $(document.body).grab(errorWindow,'top');
-            
-            // add functionality to the ok button
-            errorWindowOkButton.addEvent('click',function(e) {
-              e.stop();
-              errorWindow.fade('out');
-              errorWindow.get('tween').chain(function(){
-                errorWindow.destroy();
-              });
-            });            
-            
+
             // -> fade out the loadingCircle
             if(!title.contains(jsLoadingCircle))
               title.grab(jsLoadingCircle,'top');
@@ -1229,6 +1214,8 @@ window.addEvent('domready', function() {
               // -> REMOVE the LOADING CIRCLE
               removeLoadingCircle();
               jsLoadingCircle.dispose();
+              // add errorWindow
+              document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
             });
             
       		}

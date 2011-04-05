@@ -261,13 +261,13 @@ content.css version 0.3 */
     }
     
 /****************/  
-/* *** BLOCK H1 ICON */
+/* *** H1 ICON */
 
-.block h1 img.blockH1Icon {
-    position: relative;
-    top: 7px !important;
-    left: -2px;
-    }
+h1 img.blockH1Icon {
+  position: relative;
+  top: 8px !important;
+  left: 4px;
+}
 
 /****************/  
 /* - CONTENT FASTUP link */  
@@ -474,8 +474,15 @@ a.deleteIcon:hover, a.deleteIcon:focus {
 
 #content .block.listPages > h1 a img {
     position: relative;
-    top: 10px !important;
+    top: 10px;
+    margin-right: 5px;
     }
+
+h1 img.listPagesH1Icon {
+  position: relative;
+  top: -4px !important;
+  left: -2px;
+}
 
 #content .block.listPages > h1 a span {
     position: relative;
@@ -485,13 +492,6 @@ a.deleteIcon:hover, a.deleteIcon:focus {
     background: none;
     padding: 0px;
     font-size:15px;
-    }
-
-/****************/  
-/* *** LISTPAGES - BLOCK H1 ICON */
-
-#content .block.listPages > h1 img.blockH1Icon {
-    top: 3px !important;
     }
 
 /****************/	
@@ -520,10 +520,6 @@ a.deleteIcon:hover, a.deleteIcon:focus {
 
 .listPages ul.sortablePageList li {
     cursor: move;
-    }
-
-.listPages h1 img {
-    top: 8px !important;
     }
 
 /****************/	

@@ -58,7 +58,12 @@ foreach($allCategories as $category) {
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  $categorySorting = ($category['sortByPageDate'])? '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" width="27" height="23" />' : '';
+  if($category['sorting'] == 'byPageDate')
+    $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23" />';
+  elseif($category['sorting'] == 'alphabetical')
+    $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23" />';
+  else
+    $sorting = '';
   
   // show whether the category is public or nonpublic
   if($category['public']) {
@@ -84,7 +89,7 @@ foreach($allCategories as $category) {
   // -> CREATE CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
-    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" />'.$category['name'].'</span> '.$categorySorting.'</a></h1>
+    echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" />'.$category['name'].'</span> '.$sorting.'</a></h1>
           <div class="category">';
       
       // CATEGORY STATUS
@@ -106,7 +111,7 @@ foreach($allCategories as $category) {
       <div class="content">';
   
   // -> CHECK if pages are sortable
-  $listIsSortableClass = (empty($category['sortByPageDate'])) ? ' class="sortablePageList"' : '';
+  $listIsSortableClass = ($category['sorting'] == 'manually') ? ' class="sortablePageList"' : '';
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 
@@ -221,7 +226,7 @@ echo '</ul>
   </div>';
 
 echo "\n".'<!-- transport the sortOrder to the javascript -->
-      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortAscending'].'" /> <!-- reverse order yes/no -->
+      <input type="hidden" name="reverse" id="reverse'.$category['id'].'" value="'.$allCategories[$category['id']]['sortReverse'].'" /> <!-- reverse order yes/no -->
       <input type="hidden" name="sort_order" id="sort_order'.$category['id'].'" value="'.@implode($sort_order,'|').'" /> <!-- the new page order -->';
 }
 

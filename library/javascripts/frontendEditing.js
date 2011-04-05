@@ -67,30 +67,6 @@
   }
   
   /* ---------------------------------------------------------------------------------- */
-  // ->> DISPLAY ERROR
-  function displayError(title,errorText) {
-    // creates the errorWindow
-    var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
-    errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
-    var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+errorText+'</p>'});
-    var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
-    errorWindowContent.grab(errorWindowOkButton);
-    errorWindow.grab(errorWindowContent);
-    errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
-    
-    // add functionality to the ok button
-    errorWindowOkButton.addEvent('click',function(e) {
-      e.stop();
-      errorWindow.fade('out');
-      errorWindow.get('tween').chain(function(){
-        errorWindow.destroy();
-      });
-    });
-    
-    return errorWindow;
-  }
-  
-  /* ---------------------------------------------------------------------------------- */
   // FRONTEND EDITING AJAX REQUEST
   function request(pageBlock,url,data,errorTexts,method,update) {
 
@@ -136,7 +112,7 @@
           jsLoadingCircle.dispose();
           
           if(html.contains('####SAVING-ERROR####'))
-            document.body.grab(displayError(errorTexts.title,errorTexts.text),'top');
+            document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
           else {
             // display finish picture
             pageBlock.grab(finishPicture,'top');
@@ -175,7 +151,7 @@
   			   removeLoadingCircle();
   			   jsLoadingCircle.dispose();
   			   // add errorWindow
-           document.body.grab(displayError(errorTexts.title,errorTexts.text),'top');
+           document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
         });
   
   		}

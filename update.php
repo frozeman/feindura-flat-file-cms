@@ -335,8 +335,8 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       // rename
       $category['showTags'] = (isset($category['showtags'])) ? $category['showtags'] : $category['showTags'];
       $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
-      $category['sortByPageDate'] = (isset($category['sortbypagedate'])) ? $category['sortbypagedate'] : $category['sortByPageDate'];
-      $category['sortAscending'] = (isset($category['sortascending'])) ? $category['sortascending'] : $category['sortAscending'];
+      $category['sorting'] = (!isset($category['sorting']) && ($category['sortbypagedate'] || $category['sortByPageDate'])) ? 'byPageDate' : 'manually';
+      $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
       $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
       
       $data = $category['styleFile'];

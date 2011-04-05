@@ -334,8 +334,8 @@ $langFile['sortablePageList_headText5'] = 'Functions';
 $langFile['sortablePageList_pagedate'] = 'Page date';
 $langFile['sortablePageList_tags'] = 'Tags';
 
-$langFile['sortablePageList_sortOrder_manuell'] = 'manuell sorting';
-$langFile['sortablePageList_sortOrder_date'] = 'sort by page date';
+$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'] = 'alphabetical sorted';
+$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'] = 'sort by page date';
 
 $langFile['sortablePageList_functions_editPage'] = 'Edit page';
 
@@ -479,75 +479,79 @@ $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>Could not delete th
 */
 
 // ---------- CATEGORY SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the title attribute to "<" ">")
-$langFile['pageSetup_general_tag_tip'] = 'Tags can be used to create connections between pages (depending on the programming of the website)';
+$langFile['PAGESETUP_PAGES_TIP_TAG'] = 'Tags can be used to create connections between pages (depending on the programming of the website)';
 
 // ---------- page settings
-$langFile['pageSetup_pageConfig_h1'] = 'Page-Settings';
-$langFile['pageSetup_pageConfig_check1'] = 'Set start page';
-$langFile['pageSetup_pageConfig_check1_tip'] = 'The user can set a page as the start page.[br /][br /]The start page will be used if no page variable is given through the [i]$_GET[/i] in the website.';
+$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS'] = 'Page-Settings';
+$langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE'] = 'Set start page';
+$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE'] = 'The user can set a page as the start page.[br /][br /]The start page will be used if no page variable is given through the [i]$_GET[/i] in the website.';
 
-$langFile['pageSetup_pageConfig_noncategorypages_h1'] = 'Pages without category';
-$langFile['pageSetup_pageConfig_check2'] = 'Create/delete pages';
-$langFile['pageSetup_pageConfig_check2_tip'] = 'Specifies if the user can create and delete pages without category.';
-$langFile['pageSetup_pageConfig_check3'] = 'Upload thumbnails';
-$langFile['pageSetup_pageConfig_check3_tip'] = 'Specifies if the user can upload thumbnails for pages without category.';
-$langFile['pageSetup_pageConfig_check4'] = 'Edit tags';
-$langFile['pageSetup_pageConfig_check4_tip'] = 'Specifies if the user can edit tags in pages without category.[br /]'.$langFile['pageSetup_general_tag_tip'];
-$langFile['pageSetup_pageConfig_check5'] = 'Activate plugins';
-$langFile['pageSetup_pageConfig_check5_tip'] = 'Specifies if the user can use plugins in pages without category.';
+$langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES'] = 'Pages without category';
+$langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES'] = 'Create/delete pages';
+$langFile['PAGESETUP_PAGES_TIP_CREATEPAGES'] = 'Specifies if the user can create and delete pages without category.';
+$langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS'] = 'Upload thumbnails';
+$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS'] = 'Specifies if the user can upload thumbnails for pages without category.';
+$langFile['PAGESETUP_PAGES_TEXT_EDITTAGS'] = 'Edit tags';
+$langFile['PAGESETUP_PAGES_TIP_EDITTAGS'] = 'Specifies if the user can edit tags in pages without category.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS'] = 'Activate plugins';
+$langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS'] = 'Specifies if the user can use plugins in pages without category.';
 
 // ---------- category settings
-$langFile['pageSetup_h1'] = 'Manage-Categories';
-$langFile['pageSetup_field1'] = 'Name';
+$langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES'] = 'Manage-Categories';
+$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME'] = 'Name';
 
-$langFile['pageSetup_createCategory'] = 'Create new category';
-$langFile['pageSetup_createCategory_created'] = 'New category created';
-$langFile['pageSetup_createCategory_unnamed'] = 'Untitled category';
+$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'] = 'Create new category';
+$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'] = 'New category created';
+$langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_UNNAMED'] = 'Untitled category';
 
-$langFile['pageSetup_deleteCategory'] = 'Delete category';
-$langFile['pageSetup_deleteCategory_warning'] = 'WARNING: It will also delete all pages in this category!';
-$langFile['pageSetup_deleteCategory_deleted'] = 'Category deleted';
+$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'] = 'Delete category';
+$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'] = 'WARNING: It will also delete all pages in this category!';
+$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_DELETED'] = 'Category deleted';
+$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_START'] = 'Delete category'; // Kategorie "test" löschen?
+$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_QUESTION_END'] = '?';
 
-$langFile['pageSetup_moveCategory_moved'] = 'Category moved';
-$langFile['pageSetup_moveCategory_up_tip'] = 'Move category upwards';
-$langFile['pageSetup_moveCategory_down_tip'] = 'Move category downwards';
+$langFile['PAGESETUP_CATEGORY_TEXT_MOVECATEGORY_MOVED'] = 'Category moved';
+$langFile['PAGESETUP_CATEGORY_TIP_MOVECATEGORY_UP'] = 'Move category upwards';
+$langFile['PAGESETUP_CATEGORY_TIP_MOVECATEGORY_DOWN'] = 'Move category downwards';
 
-$langFile['pageSetup_error_create'] = '<b>Could not create new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['pageSetup_error_createDir'] = '<b>Could not the directory for the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.'&quot; Ordners.';
-$langFile['pageSetup_error_delete'] = '<b>Could not delete the category</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
-$langFile['pageSetup_error_deleteDir'] = '<b>Could not delete the directory of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['pageSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
-
-
-$langFile['pageSetup_advancedSettings'] = 'Advanced-Settings';
-$langFile['pageSetup_advancedSettings_hint'] = 'If this settings are set, they overwrite the thumbnail-settings above and the '.$langFile['adminSetup_editorSettings_h1'].' in the <a href="?site=adminSetup">administrator-settings</a>.';
-
-$langFile['pageSetup_stylesheet_ifempty'] = 'If all fields are empty, then the stylesheet settings from the '.$langFile['adminSetup_editorSettings_h1'].' will be used.';
-
-$langFile['pageSetup_check1'] = 'Status of the category';
-$langFile['pageSetup_check1_tip'] = 'Specifies if the category is visible on the website.';
-$langFile['pageSetup_check2'] = 'Create/delete pages';
-$langFile['pageSetup_check2_tip'] = 'Specifies if the user can create and delete pages in this category.';
-$langFile['pageSetup_check3'] = 'Upload Thumbnails';
-$langFile['pageSetup_check3_tip'] = 'Specifies if the user can upload thumbnails for pages in this category.';
-$langFile['pageSetup_check4'] = 'Edit tags';
-$langFile['pageSetup_check4_tip'] = 'Specifies if the user can edit tags in pages in this category.[br /]'.$langFile['pageSetup_general_tag_tip'];
-$langFile['pageSetup_check8'] = 'Activate plugins';
-$langFile['pageSetup_check8_tip'] = 'Specifies if the user can use plugins in pages in this category.';
-
-$langFile['pageSetup_check5'] = 'Edit page date';
-$langFile['pageSetup_check5_tip'] = 'The page date can be used to sort pages by date';
-
-$langFile['pageSetup_check6'] = 'Sort by page date';
-$langFile['pageSetup_check6_tip'] = 'The pages will be sorted by the page date.[br /][br /][span class=hint]Deactivates manually sorting[/span]';
-
-$langFile['pageSetup_check7'] = 'Newest page always at the bottom';
-$langFile['pageSetup_check7_tip'] = 'Sort pages [b]ascending[/b].[br /][br /][span class=hint]manual sorting overwrites this setting for the respective page.[/span]';
+$langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY'] = '<b>Could not create new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'config/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['PAGESETUP_CATEGORY_ERROR_CREATEDIR'] = '<b>Could not the directory for the new category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.'&quot; Ordners.';
+$langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'] = '<b>Could not delete the category</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
+$langFile['PAGESETUP_CATEGORY_ERROR_DELETEDIR'] = '<b>Could not delete the directory of the category.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['PAGESETUP_CATEGORY_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/category.config.php';
 
 
-// ---------- deleting category
-$langFile['pageSetup_deletCategory_question_part1'] = 'Delete category'; // Kategorie "test" löschen?
-$langFile['pageSetup_deletCategory_question_part2'] = '?';
+$langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'] = 'Advanced-Settings';
+$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'] = 'If this settings are set, they overwrite the thumbnail-settings above and the '.$langFile['adminSetup_editorSettings_h1'].' in the <a href="?site=adminSetup">administrator-settings</a>.';
+
+$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'] = 'If all fields are empty, then the stylesheet settings from the '.$langFile['adminSetup_editorSettings_h1'].' will be used.';
+
+$langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYSTATUS'] = 'Status of the category';
+$langFile['PAGESETUP_CATEGORY_TIP_CATEGORYSTATUS'] = 'Specifies if the category is visible on the website.';
+$langFile['PAGESETUP_CATEGORY_TEXT_CREATEPAGES'] = 'Create/delete pages';
+$langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES'] = 'Specifies if the user can create and delete pages in this category.';
+$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'] = 'Upload Thumbnails';
+$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'] = 'Specifies if the user can upload thumbnails for pages in this category.';
+$langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS'] = 'Edit tags';
+$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'] = 'Specifies if the user can edit tags in pages in this category.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] = 'Activate plugins';
+$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'] = 'Specifies if the user can use plugins in pages in this category.';
+
+$langFile['PAGESETUP_CATEGORY_TEXT_EDITPAGEDATE'] = 'Edit page date';
+$langFile['PAGESETUP_CATEGORY_TIP_EDITPAGEDATE'] = 'The page date can be used to sort pages by date';
+
+$langFile['PAGESETUP_CATEGORY_TIP_SORTBYPAGEDATE'] = 'Sort pages by page date';
+$langFile['PAGESETUP_CATEGORY_TIP_SORTBYDATE'] = 'Pages with a younger date appear at the [b]top[/b].[br /][br /][span class=hint]Deactivates manually sorting.[/span]';
+
+$langFile['PAGESETUP_CATEGORY_TEXT_SORTMANUALLY'] = 'Sort pages manually';
+$langFile['PAGESETUP_CATEGORY_TIP_SORTMANUALLY'] = 'Newly created pages appear at the [b]top[/b].';
+
+$langFile['PAGESETUP_CATEGORY_TEXT_SORTALPHABETICAL'] = 'Sort pages alphabetical';
+$langFile['PAGESETUP_CATEGORY_TIP_SORTALPHABETICAL'] = '[span class=hint]Deactivates manually sorting.[/span]';
+
+$langFile['PAGESETUP_CATEGORY_TEXT_SORTREVERSE'] = 'reverse sort order';
+$langFile['PAGESETUP_CATEGORY_TIP_SORTREVERSE'] = 'Reverse the sort order of the pages.';
+
 
 /*
 * websiteSetup.php
@@ -647,7 +651,7 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 // ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 
 $langFile['PLUGINSETUP_TITLE'] = 'Plugins-Settings';
-$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Plugins provide enhanced capabilities for the pages of the website. You can add the below activated plugins to every page, as far as they are acivated in the <a href="?site=pageSetup">'.$langFile['pageSetup_pageConfig_h1'].'</a>, in the respective category.<br /><br /><i>The plugins will be included in the website through the <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> method.</i>';
+$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Plugins provide enhanced capabilities for the pages of the website. You can add the below activated plugins to every page, as far as they are acivated in the <a href="?site=pageSetup">'.$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS'].'</a>, in the respective category.<br /><br /><i>The plugins will be included in the website through the <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> method.</i>';
 
 $langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'Edit files';
 $langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin activated';

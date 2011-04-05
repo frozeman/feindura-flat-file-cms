@@ -93,7 +93,7 @@ class xssFilter {
     if(is_array($array)) {
       foreach($array as $key => &$value)
         if(is_array($value)) self::escapeBasics($value);
-        else $array[$key] = (is_bool($value)) ? $value : str_replace('\'', '\\\'', str_replace('\\', "\\\\", $value));
+        else $array[$key] = (is_bool($value) || is_numeric($value)) ? $value : str_replace('\'', '\\\'', str_replace('\\', "\\\\", $value));
     }
   }
   
@@ -299,7 +299,7 @@ class xssFilter {
   * 
   */
   public static function alphabetical($data, $default = false) {
-     if(!empty($data) || $data == 0) {
+     if(!empty($data)) {
         preg_match_all("#^[A-Za-z]+$#i",$data,$find); //check strictly there is one alphabetic at least
         if(!empty($find[0])) return implode('',$find[0]);
      }

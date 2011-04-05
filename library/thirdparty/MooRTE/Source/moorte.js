@@ -252,21 +252,11 @@ MooRTE.Range = {
 		if (Browser.firefox) MooRTE.Range.selection = window.getSelection();
 		if (!Browser.ie) MooRTE.Range.content = new Element('div');
 }());
-
+MooRTE.Tabs = {};
 MooRTE.Utilities = {
 	exec: function(args){
 		args = Array.from(args);
 		document.execCommand(args[0], args[2]||null, args[1]||false);
-	}
-	, addEvents: function(el, events){
-		Object.append(el.retrieve('rteEvents',{}), events);
-		el.addEvents(events);
-	}
-	, removeEvents: function(el, destroy){
-		Object.each(el.retrieve('rteEvents',{}), function(fn, event){
-			el.removeEvent(event, fn);
-		});
-		if (destroy) el.eliminate('rteEvents');
 	}
 	, shortcuts: function(e){
 		if (e.key=='enter'){
@@ -309,6 +299,38 @@ MooRTE.Utilities = {
 			//MooRTE.Range.selection.collapseToStart();
 		}
 	}
+	, addEvents: function(el, events){
+		Object.append(el.retrieve('rteEvents',{}), events);
+		el.addEvents(events);
+	}
+	, removeEvents: function(el, destroy) {
+		Object.each(el.retrieve('rteEvents',{}), function(fn, event){
+			el.removeEvent(event, fn);
+		});
+		if (destroy) el.eliminate('rteEvents');
+	}
+	, eventHandler: function(onEvent, caller, name){
+		// Must check if orig func or string is modified now that $unlink is gone. Should be OK.
+		var event = MooRTE.Elements[name][onEvent];
+		switch(typeOf(event)){
+			case 'function':
+				event.call(caller, name, onEvent); break;
+			case 'array': 
+				// Multiple events. Untested & likely to be deprecated.
+				event = Array.clone(event).each(function(e){
+					MooRTE.eventHandler(e, caller, name);
+				}); break;
+			case 'object':
+				Object.every(Object.clone(event), function(val,key){
+					var vals = Array.from(val).append([name,onEvent]);
+					MooRTE.Utilities[key].apply(caller, vals);
+				}); break;
+			case 'string':
+				onEvent == 'source' && onEvent.substr(0,2) != 'on'
+					? MooRTE.Range.wrapText(event, caller)
+					: MooRTE.Utilities.eventHandler(event, caller, name);
+		}
+	}
 	, addElements: function(elements, place, options){
 		if (!MooRTE.btnVals.args) MooRTE.btnVals.combine(['args','shortcut','element','onClick','img','onLoad','source','contains']);
 		if (!place) place = MooRTE.activeBar.getFirst();
@@ -345,7 +367,9 @@ MooRTE.Utilities = {
 			});
 		} while (elsLoop);
 		
-		var bar = place.hasClass('MooRTE') ? place : place.getParent('.MooRTE'); 
+		var collection = []
+		, bar = place.hasClass('MooRTE') ? place : place.getParent('.MooRTE');
+		
 		els.each(function(btn){
 			if (Type.isObject(btn)){
 				var btnVals = Object.values(btn)[0];
@@ -358,7 +382,7 @@ MooRTE.Utilities = {
 			  , btn = btn.split('.')[0];
 			// console.log('addElements called. elements:',elements,', btn is:',btn,', e is:',e,', func args are:',arguments);
 		
-			if (!e || !options.useExistingEls){
+			if (!e || !options.ifExists){
 				var bgPos = 0
 				  , val = MooRTE.Elements[btn]
 				  , textarea = (val.element && val.element.toLowerCase() == 'textarea')
@@ -375,16 +399,14 @@ MooRTE.Utilities = {
 							MooRTE.activeBar = bar;
 							var source = bar.retrieve('source')
 							  , fields = bar.retrieve('fields');
-							// If the active field is not one of those controlled by the active tooolbar, update the activeField to one that is.
-							// Should probably go through all fields connected to this toolbar looking for the one which contains the selected text.
-							if (!fields.contains(MooRTE.activeField)) MooRTE.activeField = fields[0];//.focus()
 							
-							// Works around https://mootools.lighthouseapp.com/projects/2706/tickets/1113-contains-not-including-textnodes
-							// Should be: if (!MooRTE.activeField.contains(MooRTE.Range.parent())) return;
+							// Workaround, see docs.
 							var holder = MooRTE.Range.parent();
-							if (Browser.webkit && holder.nodeType == 3) holder = holder.parentElement; 
-							if (!MooRTE.activeField.contains(holder)) return;
+							if (Browser.webkit && holder.nodeType == 3) holder = holder.parentElement;
 							
+							if (!(fields.contains(MooRTE.activeField) && MooRTE.activeField.contains(holder)))
+								(MooRTE.activeField = fields[0]).focus();
+
 							if (e && e.stop) input || textarea ? e.stopPropagation() : e.stop();
 							!val.onClick && !source && (!val.element || val.element == 'a')
 								? MooRTE.Utilities.exec(val.args || btn)
@@ -411,52 +433,33 @@ MooRTE.Utilities = {
 				//if (collection.getCoordinates().top < 0)toolbar.addClass('rteTopDown'); //untested!!
 			}
 
-			var sub = btnVals || val.contains;
-			if (sub) MooRTE.Utilities.addElements(sub, e);
+			var sub = btnVals || val && val.contains;
+			if (sub && !(options.ifExists == 'stop' && !val))
+				MooRTE.Utilities.addElements(sub, e, options.inherit ? options : {});
 			e.removeClass('rteHide');
-		})
-			
-	}
-	, eventHandler: function(onEvent, caller, name){
-		// Must check if orig func or string is modified now that $unlink is gone. Should be OK.
-		var event = MooRTE.Elements[name][onEvent];
-		switch(typeOf(event)){
-			case 'function':
-				event.call(caller, name, onEvent); break;
-			case 'array': // Deprecated.
-				event = Array.clone(event);
-				event.push(name, onEvent);
-				MooRTE.Utilities[event.shift()].apply(caller, event); break;
-			case 'object':
-				Object.every(Object.clone(event), function(val,key){
-					MooRTE.Utilities[key].apply(caller, [val,name,onEvent]);
-				}); break;
-			case 'string':
-				onEvent == 'source' && onEvent.substr(0,2) != 'on'
-					? MooRTE.Range.wrapText(event, caller)
-					: MooRTE.Utilities.eventHandler(event, caller, name);
-		}
-	}
-	
-   /* 	ToDo:
-	* 	When group is clicked, it should show existing instead of creating new.
-	*	When group button is clicked, it should make editor the default and work.
-	*	Fix messed up logic and functions.
-	*/
-	, group: function(elements, name){
-		var self = this
-		  , bar = this.getParent('.RTE');
-		MooRTE.btnVals.combine(['onExpand','onHide','onShow','onUpdate']);
-		Array.each(MooRTE.Elements[name].hides || self.getSiblings('*[class*=rteAdd]'), function(el){
-			el.removeClass('rteSelected');
-			//bar.getFirst('.rteGroup_' + el.get('class').match(/rteAdd([^ ]+?)\b/)[1]).addClass('rteHide');
-			var klass = el.get('class').match(/rteAdd([^ ]+?)\b/)[1];
-			bar.getFirst('.rteGroup_' + klass).addClass('rteHide');
-			MooRTE.Utilities.eventHandler('onHide', self, name);
+			collection.push(e);
 		});
-		this.addClass('rteSelected rteAdd'+name);
-		MooRTE.Utilities.addElements(elements, this.getParent('[class*=rteGroup_]'), {className:'rteGroup_'+name}); //[this.getParent('[class*=rteGroup_]'), 'after'] //3rdel
+		
+		return collection[1] ? collection : collection[0];	
+	}
+	, tabs: function(elements, tabGroup, place, name){
+		// ToDo: temporarily hard set. Should be passed in args or set as default.
+		if (!tabGroup) tabGroup = 'tabs1';
+		
+		MooRTE.btnVals.combine(['onExpand','onHide','onShow','onUpdate']);
+		
+		Object.each(MooRTE.Tabs[tabGroup], function(els, title){
+			els[0].removeClass('rteSelected');
+			els[1].addClass('rteHide');
+			MooRTE.Utilities.eventHandler('onHide', this, name);
+		}, this);
+		
+		this.addClass('rteSelected').addClass('rteGroupBtn_'+name);
+		var group = MooRTE.Utilities.addElements(elements, place, {className:'rteGroup_'+name, ifExists:'stop'});
 		MooRTE.Utilities.eventHandler('onShow', this, name);
+		
+		if (!MooRTE.Tabs[tabGroup]) MooRTE.Tabs[tabGroup] = {};
+		if (!MooRTE.Tabs[tabGroup][name]) MooRTE.Tabs[tabGroup][name] = [this, group]//Object.set(name, );
 	}
 	, clipStickyWin: function(caller){
 		if (Browser.firefox || (Browser.webkit && caller=='paste')) 
@@ -469,6 +472,22 @@ MooRTE.Utilities = {
 					MooRTE.Elements.clipPop.hide();
 				}
 			});
+	}
+	, fontsize: function(dir, size){
+		if (size == undefined)
+			size = window.document.queryCommandValue('fontsize') 
+				|| MooRTE.Range.parent().getStyle('font-size');
+		
+		if (size == +size) size = +size + dir;
+		else {
+			// MooRTE.Utilities.convertunit(size[0],size[1],'px'); Convert em's, xx-small, etc.
+			size = size.split(/([^\d]+)/)[0];
+			[0,10,13,16,18,24,32,48].every(function(s,i){	
+				if ((s - size) < 0) return true;
+				size = !(s - size) || dir < 0 ? i + dir : i;
+			});
+		}
+		MooRTE.Utilities.exec('fontsize', size);		
 	}
 	, clean: function(html, options){
 	
@@ -568,22 +587,6 @@ MooRTE.Utilities = {
 		
 		return html.trim();
 	}
-	, fontsize: function(dir, size){
-		if (size == undefined)
-			size = window.document.queryCommandValue('fontsize') 
-				|| MooRTE.Range.parent().getStyle('font-size');
-		
-		if (size == +size) size = +size + dir;
-		else {
-			// MooRTE.Utilities.convertunit(size[0],size[1],'px'); Convert em's, xx-small, etc.
-			size = size.split(/([^\d]+)/)[0];
-			[0,10,13,16,18,24,32,48].every(function(s,i){	
-				if ((s - size) < 0) return true;
-				size = !(s - size) || dir < 0 ? i + dir : i;
-			});
-		}
-		MooRTE.Utilities.exec('fontsize', size);		
-	}
 };
 
 MooRTE.extensions = function(){
@@ -680,17 +683,22 @@ MooRTE.extensions = function(){
 Element.implement({moorte:MooRTE.extensions});
 Elements.implement({moorte:MooRTE.extensions});
 
-
+MooRTE.Groups = 
+	// Sample Groups. Stored for cleanliness; could be integrated directly into MooRTE.Elements.
+	{ Main : 'Toolbar:[start,bold,italic,underline,strikethrough,Justify,Lists,Indents,subscript,superscript]'
+   	, File : {Toolbar:['start','save','cut','copy','paste','redo','undo','selectall','removeformat','viewSource']}
+   	, Font : {Toolbar:['start','fontsize','decreasefontsize','increasefontsize','backcolor','forecolor']}
+ 	, Sert : {Toolbar:['start','inserthorizontalrule', 'blockquote','hyperlink']}
+	}
+	
 MooRTE.Elements = {
-
-   // Groups are Samples - They can be created manually, or dynamically by the download builder.
-	// Groups (Menus)
-     Main			:{text:'Main',   'class':'rteText', onClick:'onLoad', onLoad:{group: {Toolbar:['start','bold','italic','underline','strikethrough','Justify','Lists','Indents','subscript','superscript']}} }
-   , File			:{text:'File',   'class':'rteText', onClick:{group: {Toolbar:['start','save','cut','copy','paste','redo','undo','selectall','removeformat','viewSource']} } }
-   , Font			:{text:'Font',   'class':'rteText', onClick:['group',{Toolbar:['start','fontsize','decreasefontsize','increasefontsize','backcolor','forecolor']}] }
-   , Insert			:{text:'Insert', 'class':'rteText', onClick:['group',{Toolbar:['start','inserthorizontalrule', 'blockquote','hyperlink']}] }//'Upload Photo'
-   , View			:{text:'Views',  'class':'rteText', onClick:['group',{Toolbar:['start','Html/Text']}] }
-
+	// TabGroup Triggers. Samples, these can be created dynamically or manually.
+     Main			:{text:'Main'  , 'class':'rteText', onLoad :{tabs: [MooRTE.Groups.Main, 'tabs1', null]} ,onClick:'onLoad'}
+   , File			:{text:'File'  , 'class':'rteText', onClick:{tabs: [MooRTE.Groups.File, 'tabs1', null]} }
+   , Font			:{text:'Font'  , 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Font, 'tabs1', null]} }
+   , Insert			:{text:'Insert', 'class':'rteText', onClick:{tabs: [MooRTE.Groups.Sert, 'tabs1', null]} } //'Upload Photo'
+   , View			:{text:'Views' , 'class':'rteText', onClick:{tabs: {Toolbar:['start','Html/Text']}} }
+     
    // Groups (Flyouts)
    , Justify		:{img:06, 'class':'Flyout rteSelected', contains:'div.Flyout:[justifyleft,justifycenter,justifyright,justifyfull]' }
    , Lists			:{img:14, 'class':'Flyout', contains:'div.Flyout:[insertorderedlist,insertunorderedlist]' }

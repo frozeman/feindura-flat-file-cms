@@ -10,6 +10,7 @@
 .contactForm input {
   width: 180px;
 }
+
 #contactForm_field_housenumber, #contactForm_field_zipcode {
   width: 48px;
 }

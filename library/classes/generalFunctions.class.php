@@ -880,8 +880,10 @@ class generalFunctions {
           
           // sorts the category
           if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-            if($categoryId != 0 && self::$categoryConfig[$categoryId]['sortByPageDate'])
+            if($categoryId != 0 && self::$categoryConfig[$categoryId]['sorting'] == 'byPageDate')
               $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortByDate');
+            elseif($categoryId != 0 && self::$categoryConfig[$categoryId]['sorting'] == 'alphabetical')
+              $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortAlphabetical');
             else
               $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortBySortOrder');
           }
@@ -1157,16 +1159,18 @@ class generalFunctions {
         
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
-          if($category && self::$categoryConfig[$category]['sortByPageDate'])
+          if($category != 0 && self::$categoryConfig[$category]['sorting'] == 'byPageDate')
             usort($categoriesArray, 'sortByDate');
+          elseif($category && self::$categoryConfig[$category]['sorting'] == 'alphabetical')
+            usort($categoriesArray, 'sortAlphabetical');
           else
             usort($categoriesArray, 'sortBySortOrder');
         } else
             usort($categoriesArray, $sortBy);  
         
         
-        // makes the category ascending, if its in the options
-        if($category && self::$categoryConfig[$category]['sortAscending'])
+        // reverse the category, if its in the options
+        if($category != 0 && self::$categoryConfig[$category]['sortReverse'])
           $categoriesArray = array_reverse($categoriesArray);
          
         foreach($categoriesArray as $pageContent) {

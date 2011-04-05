@@ -316,10 +316,10 @@ function saveCategories($newCategories) {
       foreach($newCategories as $category) {        
         
         // -> CHECK depency of PAGEDATE
-        if(!isset($category['showPageDate']) && $category['sortByPageDate'] == 'true' && $GLOBALS['categoryConfig'][$category['id']]['showPageDate'])
-          $category['sortByPageDate'] = 'false';
+        if(!isset($category['showPageDate']) && $category['sorting'] == 'byPageDate' && $GLOBALS['categoryConfig'][$category['id']]['showPageDate'])
+          $category['sorting'] = 'manually';
         
-        if($category['sortByPageDate'] == 'true' && !isset($category['showPageDate']))
+        if($category['sorting'] == 'byPageDate' && !isset($category['showPageDate']))
           $category['showPageDate'] = 'true';
         
         // -> CHECK if the THUMBNAIL HEIGHT/WIDTH is empty, and add the previous ones
@@ -352,9 +352,10 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbnail'] =       ".xssFilter::bool($category['thumbnail'],true).";\n");        
         fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         ".xssFilter::bool($category['plugins'],true).";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['showTags'] =        ".xssFilter::bool($category['showTags'],true).";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['showPageDate'] =    ".xssFilter::bool($category['showPageDate'],true).";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['sortByPageDate'] =  ".xssFilter::bool($category['sortByPageDate'],true).";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['sortAscending'] =   ".xssFilter::bool($category['sortAscending'],true).";\n\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['showPageDate'] =    ".xssFilter::bool($category['showPageDate'],true).";\n\n");
+        
+        fwrite($file,"\$categoryConfig[".$category['id']."]['sorting'] =         '".xssFilter::alphabetical($category['sorting'],'manually')."';\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['sortReverse'] =     ".xssFilter::bool($category['sortReverse'],true).";\n\n");
         
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleFile'] =       '".$category['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
         fwrite($file,"\$categoryConfig[".$category['id']."]['styleId'] =         '".xssFilter::string($category['styleId'])."';\n");

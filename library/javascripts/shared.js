@@ -71,6 +71,30 @@ function feindura_str_replace(s, r, c) {
    return c;
 }
 
+/* ---------------------------------------------------------------------------------- */
+// ->> DISPLAY ERROR
+function feindura_displayError(title,errorText) {
+  // creates the errorWindow
+  var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
+  errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
+  var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+errorText+'</p>'});
+  var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
+  errorWindowContent.grab(errorWindowOkButton);
+  errorWindow.grab(errorWindowContent);
+  errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
+  
+  // add functionality to the ok button
+  errorWindowOkButton.addEvent('click',function(e) {
+    e.stop();
+    errorWindow.fade('out');
+    errorWindow.get('tween').chain(function(){
+      errorWindow.destroy();
+    });
+  });
+  
+  return errorWindow;
+}
+
 // -> STORES the title text in the elements storage
 function feindura_storeTipTexts(elements) {
   $$(elements).each(function(element,index) {

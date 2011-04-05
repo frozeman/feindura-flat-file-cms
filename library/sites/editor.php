@@ -50,8 +50,8 @@ $headerColorClass = ($_GET['category'] != 0)
   : 'brown'; //" comes in the h1
 
 // adds the page and category IDs for the MooRTE saving of the title
-$titleIDs = (!$newPage)
-  ? ' data-feindura="feindura_pageId'.$_GET['page'].' feindura_categoryId'.$_GET['category'].'"'
+$titleIDs = (!$newPage) // data-feindura format: "pageID categoryID"
+  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].'"'
   : '';
 
 $titleIsEditable = (!$newPage)
@@ -70,12 +70,15 @@ if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPa
 }
 
 // shows the text of the sorting of a CATEGORY
-$categorySorting = ($categoryConfig[$_GET['category']]['sortByPageDate'])
-  ? '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['sortablePageList_sortOrder_date'].'::" alt="icon" width="27" height="23" />'
-  : '';
+if($categoryConfig[$_GET['category']]['sorting'] == 'byPageDate')
+  $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23" />';
+elseif($categoryConfig[$_GET['category']]['sorting'] == 'alphabetical')
+  $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="blockH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23" />';
+else
+  $sorting = '';
 
 // -> show the page PAGE HEADLINE
-echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleIDs.'>'.$pageTitle.'</span>'.$categorySorting.'<span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
+echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPageIcon.'<span class="'.$headerColorClasses.'"'.$titleIsEditable.$titleIDs.'>'.$pageTitle.'</span>'.$sorting.'<span style="display:none;" class="toolTip noMark notSavedSignPage'.$pageContent['id'].'" title="'.$langFile['editor_pageNotSaved'].'::"> *</span></h1>';
 
 ?>
   <div class="content">   
