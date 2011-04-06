@@ -1439,9 +1439,9 @@ class feinduraBase {
       foreach($pages as $page) {
         // show the pages, if they have a date which can be sorten
         if(!empty($page['pageDate']['date']) &&
-           ($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate'])) {         
+           (($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate']) || ($page['category'] == 0 && $this->adminConfig['pages']['showPageDate']))) {         
            
-           //echo $page['pageDate']['date'].' >= '.$pastDate.'<br />';
+           // echo $page['pageDate']['date'].' >= '.$pastDate.'<br />';
            
            // adds the page to the array, if:
            // -> the currentdate ist between the minus and the plus month or

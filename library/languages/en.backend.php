@@ -537,20 +537,20 @@ $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'] = 'Specifies if the user can edit t
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] = 'Activate plugins';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'] = 'Specifies if the user can use plugins in pages in this category.';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_EDITPAGEDATE'] = 'Edit page date';
-$langFile['PAGESETUP_CATEGORY_TIP_EDITPAGEDATE'] = 'The page date can be used to sort pages by date';
+$langFile['PAGESETUP_TEXT_EDITPAGEDATE'] = 'Edit page date';
+$langFile['PAGESETUP_TIP_EDITPAGEDATE'] = 'The page date can be used to sort pages by date';
 
-$langFile['PAGESETUP_CATEGORY_TIP_SORTBYPAGEDATE'] = 'Sort pages by page date';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTBYDATE'] = 'Pages with a younger date appear at the [b]top[/b].[br /][br /][span class=hint]Deactivates manually sorting.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYPAGEDATE'] = 'Sort pages by page date';
+$langFile['PAGESETUP_TIP_SORTBYDATE'] = 'Pages with a younger date appear at the [b]top[/b].[br /][br /][span class=hint]Deactivates manually sorting.[/span]';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTMANUALLY'] = 'Sort pages manually';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTMANUALLY'] = 'Newly created pages appear at the [b]top[/b].';
+$langFile['PAGESETUP_TEXT_SORTMANUALLY'] = 'Sort pages manually';
+$langFile['PAGESETUP_TIP_SORTMANUALLY'] = 'Newly created pages appear at the [b]top[/b].';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTALPHABETICAL'] = 'Sort pages alphabetical';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTALPHABETICAL'] = '[span class=hint]Deactivates manually sorting.[/span]';
+$langFile['PAGESETUP_TEXT_SORTALPHABETICAL'] = 'Sort pages alphabetical';
+$langFile['PAGESETUP_TIP_SORTALPHABETICAL'] = '[span class=hint]Deactivates manually sorting.[/span]';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTREVERSE'] = 'reverse sort order';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTREVERSE'] = 'Reverse the sort order of the pages.';
+$langFile['PAGESETUP_TEXT_SORTREVERSE'] = 'reverse sort order';
+$langFile['PAGESETUP_TIP_SORTREVERSE'] = 'Reverse the sort order of the pages.';
 
 
 /*

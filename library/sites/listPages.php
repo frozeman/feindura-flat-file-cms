@@ -52,15 +52,17 @@ foreach($allCategories as $category) {
   //print_r($pages);
 
   // shows after saving the right category open
-  $hidden = (is_array($pages) && !empty($pages) &&                                          // -> slide in the category if EMPTY
-             (!isset($_GET['category']) && $category['id'] == 0) ||                       // -> slide non-category in if no category is selected
-             ($opendCategory === $category['id'] || $_GET['category'] == $category['id']))  // -> slide out the category if ACTIVE
+  $hidden = (is_array($pages) && !empty($pages) &&                                         // -> slide in the category if EMPTY
+             (!isset($_GET['category']) && $category['id'] == 0) ||                        // -> slide non-category in if no category is selected
+             ($opendCategory === $category['id'] || $_GET['category'] == $category['id'])) // -> slide out the category if ACTIVE
   ? '' : ' hidden';
   
   // shows the text of the sorting of a CATEGORY
-  if($category['sorting'] == 'byPageDate')
+  if(($category['id'] != 0 && $category['sorting'] == 'byPageDate') ||
+     ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'byPageDate'))
     $sorting = '&nbsp;<img src="library/images/icons/sortByDate_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE'].'::" alt="icon" width="27" height="23" />';
-  elseif($category['sorting'] == 'alphabetical')
+  elseif(($category['id'] != 0 && $category['sorting'] == 'alphabetical') ||
+         ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'alphabetical'))
     $sorting = '&nbsp;<img src="library/images/icons/sortAlphabetical_small.png" class="listPagesH1Icon toolTip" title="'.$langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL'].'::" alt="icon" width="27" height="23" />';
   else
     $sorting = '';
@@ -103,7 +105,8 @@ foreach($allCategories as $category) {
       echo '<div class="functions">';
       
       // create page
-      if(($category['id'] == 0 && $adminConfig['pages']['createDelete']) || $category['createDelete'])
+      if(($category['id'] != 0 && $category['createDelete']) ||
+         ($category['id'] == 0 && $adminConfig['pages']['createDelete']))
         echo '<a href="?category='.$category['id'].'&amp;page=new" title="'.$langFile['BUTTON_TOOLTIP_CREATEPAGE'].'::" class="createPage toolTip">&nbsp;</a>';
          
   echo '  </div>
@@ -111,7 +114,8 @@ foreach($allCategories as $category) {
       <div class="content">';
   
   // -> CHECK if pages are sortable
-  $listIsSortableClass = ($category['sorting'] == 'manually') ? ' class="sortablePageList"' : '';
+  $listIsSortableClass = (($category['id'] != 0 && $category['sorting'] == 'manually') ||
+                          ($category['id'] == 0 && $adminConfig['pages']['sorting'] == 'manually')) ? ' class="sortablePageList"' : '';
   
   echo '<ul'.$listIsSortableClass.' id="category'.$category['id'].'">';
 

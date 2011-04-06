@@ -496,20 +496,20 @@ $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS'] = 'traiter tags';
 $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'] = 'Tags peuvent être définis pour la catégorie de cette page.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] = 'activer plugins';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'] = 'Activer plugins pour les pages de cette catégorie';
-$langFile['PAGESETUP_CATEGORY_TEXT_EDITPAGEDATE'] = 'traiter la date du site web';
-$langFile['PAGESETUP_CATEGORY_TIP_EDITPAGEDATE'] = 'La date du site web peu être utilisé pour trier des pages par ordre chronologique.';
+$langFile['PAGESETUP_TEXT_EDITPAGEDATE'] = 'traiter la date du site web';
+$langFile['PAGESETUP_TIP_EDITPAGEDATE'] = 'La date du site web peu être utilisé pour trier des pages par ordre chronologique.';
 
-$langFile['PAGESETUP_CATEGORY_TIP_SORTBYPAGEDATE'] = 'pages triée par date de pages';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTBYDATE'] = 'Pages avec un plus jeune date apparaissent à la [b]top[/b].[br /][br /][span class=hint]Manuellement trier n\'est plus possible.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYPAGEDATE'] = 'pages triée par date de pages';
+$langFile['PAGESETUP_TIP_SORTBYDATE'] = 'Pages avec un plus jeune date apparaissent à la [b]top[/b].[br /][br /][span class=hint]Manuellement trier n\'est plus possible.[/span]';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTMANUALLY'] = 'trier les pages manuellement';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTMANUALLY'] = 'Nouvellement créé la pages apparaissent à la [b]top[/b].';
+$langFile['PAGESETUP_TEXT_SORTMANUALLY'] = 'trier les pages manuellement';
+$langFile['PAGESETUP_TIP_SORTMANUALLY'] = 'Nouvellement créé la pages apparaissent à la [b]top[/b].';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTALPHABETICAL'] = 'trier les pages par ordre alphabétique';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTALPHABETICAL'] = '[span class=hint]Manuellement trier n\'est plus possible.[/span]';
+$langFile['PAGESETUP_TEXT_SORTALPHABETICAL'] = 'trier les pages par ordre alphabétique';
+$langFile['PAGESETUP_TIP_SORTALPHABETICAL'] = '[span class=hint]Manuellement trier n\'est plus possible.[/span]';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTREVERSE'] = 'inverti l\' ordre de tri';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTREVERSE'] = 'Inverti l\' ordre de tris de les pages.';
+$langFile['PAGESETUP_TEXT_SORTREVERSE'] = 'inverti l\' ordre de tri';
+$langFile['PAGESETUP_TIP_SORTREVERSE'] = 'Inverti l\' ordre de tris de les pages.';
 
 
 /*

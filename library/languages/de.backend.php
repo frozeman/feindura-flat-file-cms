@@ -535,20 +535,20 @@ $langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'] = 'Es können Tags für die Seiten 
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] = 'Plugins aktivieren';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'] = 'Plugins für die Seiten in dieser Kategorie aktivieren';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_EDITPAGEDATE'] = 'Seitendatum bearbeiten';
-$langFile['PAGESETUP_CATEGORY_TIP_EDITPAGEDATE'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
+$langFile['PAGESETUP_TEXT_EDITPAGEDATE'] = 'Seitendatum bearbeiten';
+$langFile['PAGESETUP_TIP_EDITPAGEDATE'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTMANUALLY'] = 'Seiten manuell sortieren';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTMANUALLY'] = 'Neu erstellte Seiten erscheinen [b]oben[/b].';
+$langFile['PAGESETUP_TEXT_SORTMANUALLY'] = 'Seiten manuell sortieren';
+$langFile['PAGESETUP_TIP_SORTMANUALLY'] = 'Neu erstellte Seiten erscheinen [b]oben[/b].';
 
-$langFile['PAGESETUP_CATEGORY_TIP_SORTBYPAGEDATE'] = 'Seiten nach Seitendatum sortieren';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTBYDATE'] = 'Seiten mit jüngeren Datum erscheinen [b]oben[/b].[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYPAGEDATE'] = 'Seiten nach Seitendatum sortieren';
+$langFile['PAGESETUP_TIP_SORTBYDATE'] = 'Seiten mit jüngeren Datum erscheinen [b]oben[/b].[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTALPHABETICAL'] = 'Seiten alphabetisch sortieren';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTALPHABETICAL'] = '[span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
+$langFile['PAGESETUP_TEXT_SORTALPHABETICAL'] = 'Seiten alphabetisch sortieren';
+$langFile['PAGESETUP_TIP_SORTALPHABETICAL'] = '[span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
 
-$langFile['PAGESETUP_CATEGORY_TEXT_SORTREVERSE'] = 'Sortierreihenfolge umdrehen';
-$langFile['PAGESETUP_CATEGORY_TIP_SORTREVERSE'] = 'Dreht die Sortierreihenfolge der Seiten um.';
+$langFile['PAGESETUP_TEXT_SORTREVERSE'] = 'Sortierreihenfolge umdrehen';
+$langFile['PAGESETUP_TIP_SORTREVERSE'] = 'Dreht die Sortierreihenfolge der Seiten um.';
 
 
 /*

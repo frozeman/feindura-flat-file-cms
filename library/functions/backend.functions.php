@@ -581,11 +581,12 @@ function movePage($page, $fromCategory, $toCategory) {
  * 
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.0.2
+ * @version 1.1
  * <br />
  * <b>ChangeLog</b><br />
- *    - 1.0.2 add xssFilter to every value 
- *    - 1.0.1 add websitePath 
+ *    - 1.1 add sorting
+ *    - 1.0.2 add xssFilter to every value
+ *    - 1.0.1 add websitePath
  *    - 1.0 initial release
  * 
  */
@@ -596,6 +597,12 @@ function saveAdminConfig($adminConfig) {
     
     // clear the thumbnail path, when no upload path is specified
     if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
+    // -> CHECK depency of PAGEDATE
+    if(!isset($adminConfig['pages']['showPageDate']) && $adminConfig['pages']['sorting'] == 'byPageDate' && $GLOBALS['adminConfig']['pages']['showPageDate'])
+      $adminConfig['pages']['sorting'] = 'manually';
+    
+    if($adminConfig['pages']['sorting'] == 'byPageDate' && !isset($adminConfig['pages']['showPageDate']))
+      $adminConfig['pages']['showPageDate'] = 'true';
     
     // escape \ and '
     xssFilter::escapeBasics($adminConfig);
@@ -629,7 +636,11 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['createDelete'] = ".xssFilter::bool($adminConfig['pages']['createDelete'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['thumbnails'] =   ".xssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n");    
     fwrite($file,"\$adminConfig['pages']['plugins'] =      ".xssFilter::bool($adminConfig['pages']['plugins'],true).";\n");
-    fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n\n");
+    fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n");
+    fwrite($file,"\$adminConfig['pages']['showPageDate'] = ".xssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n\n");
+    
+    fwrite($file,"\$adminConfig['pages']['sorting'] =      '".xssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n");
+    fwrite($file,"\$adminConfig['pages']['sortReverse'] =  ".xssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n");
     
     fwrite($file,"\$adminConfig['editor']['safeHtml'] =   ".xssFilter::bool($adminConfig['editor']['safeHtml'],true,true).";\n");
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".xssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n");
@@ -1230,7 +1241,7 @@ function showPageDate($pageContent) {
   $titleDateBefore = '';
   $titleDateAfter = '';
   
-  if(statisticFunctions::checkPageDate($pageContent)) {    	
+  if(statisticFunctions::checkPageDate($pageContent)) {
   	// adds spaces on before and after
   	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
   	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];

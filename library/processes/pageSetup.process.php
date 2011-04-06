@@ -43,19 +43,23 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];   
   
   // -> PREPARE CONFIG VARs
-  $adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  $adminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
-  $adminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
-  $adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
-  $adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
+  $newAdminConfig = $adminConfig;
+  $newAdminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
+  $newAdminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
+  $newAdminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
+  $newAdminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
+  $newAdminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
+  $newAdminConfig['pages']['showPageDate'] = $_POST['cfg_pagePageDate'];
+  $newAdminConfig['pages']['sorting'] = $_POST['cfg_pageSorting'];
+  $newAdminConfig['pages']['sortReverse'] = $_POST['cfg_pageSortReverse'];
   
-  $adminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
-  $adminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
-  $adminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
-  $adminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
+  $newAdminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
+  $newAdminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
+  $newAdminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
+  $newAdminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
   
   // **** opens admin.config.php for writing
-  if(saveAdminConfig($adminConfig)) {
+  if(saveAdminConfig($newAdminConfig)) {
      
     // give documentSaved status
     $documentSaved = true;

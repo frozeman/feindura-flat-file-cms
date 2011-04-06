@@ -336,16 +336,16 @@ class statisticFunctions {
   * @return bool
   * 
   * @static
-  * @version 1.0
+  * @version 1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1 add pagedate for non-categories  
   *    - 1.0 initial release
   * 
   */
   public static function checkPageDate($pageContent) {
-             
-    if(isset(self::$categoryConfig[$pageContent['category']]) &&  // to prevent missing index error
-       self::$categoryConfig[$pageContent['category']]['showPageDate'] &&
+    if((isset(self::$categoryConfig[$pageContent['category']]) && ($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
+       ($pageContent['category'] == 0 && self::$adminConfig['pages']['showPageDate'])) &&
        (!empty($pageContent['pageDate']['before']) || !empty($pageContent['pageDate']['date']) || !empty($pageContent['pageDate']['after'])))
        return true;
     else

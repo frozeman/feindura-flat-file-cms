@@ -422,12 +422,14 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       // -> CHECK if page date or tags are activated, show the spacer
       if($categoryConfig[$_GET['category']]['showPageDate'] ||
          $categoryConfig[$_GET['category']]['showTags'] ||
+         $adminConfig['pages']['showPageDate'] ||
          $adminConfig['pages']['showTags']) {
         echo '<tr><td class="spacer"></td><td></td></tr>';
       }
             
       // ->> CHECK if activated
-      if($categoryConfig[$_GET['category']]['showPageDate']) { ?>
+      if(($_GET['category'] != 0 && $categoryConfig[$_GET['category']]['showPageDate']) ||
+         ($_GET['category'] == 0 && $adminConfig['pages']['showPageDate'])) { ?>
       
       <!-- ***** SORT DATE -->      
       <?php

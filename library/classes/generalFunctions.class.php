@@ -880,12 +880,7 @@ class generalFunctions {
           
           // sorts the category
           if(is_array($newPageContentArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
-            if($categoryId != 0 && self::$categoryConfig[$categoryId]['sorting'] == 'byPageDate')
-              $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortByDate');
-            elseif($categoryId != 0 && self::$categoryConfig[$categoryId]['sorting'] == 'alphabetical')
-              $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortAlphabetical');
-            else
-              $newPageContentArrays = self::sortPages($newPageContentArrays, 'sortBySortOrder');
+            $newPageContentArrays = self::sortPages($newPageContentArrays);
           }
         
           // adds the new sorted category to the return array
@@ -1159,18 +1154,20 @@ class generalFunctions {
         
         // SORTS the category the GIVEN SORTFUNCTION
         if($sortBy === false) {
-          if($category != 0 && self::$categoryConfig[$category]['sorting'] == 'byPageDate')
+          if(($category != 0 && self::$categoryConfig[$category]['sorting'] == 'byPageDate') ||
+             ($category == 0 && self::$adminConfig['pages']['sorting'] == 'byPageDate'))
             usort($categoriesArray, 'sortByDate');
-          elseif($category && self::$categoryConfig[$category]['sorting'] == 'alphabetical')
+          elseif(($category != 0 && self::$categoryConfig[$category]['sorting'] == 'alphabetical') ||
+                 ($category == 0 && self::$adminConfig['pages']['sorting'] == 'alphabetical'))
             usort($categoriesArray, 'sortAlphabetical');
           else
             usort($categoriesArray, 'sortBySortOrder');
         } else
-            usort($categoriesArray, $sortBy);  
-        
+            usort($categoriesArray, $sortBy);
         
         // reverse the category, if its in the options
-        if($category != 0 && self::$categoryConfig[$category]['sortReverse'])
+        if(($category != 0 && self::$categoryConfig[$category]['sortReverse']) ||
+           ($category == 0 && self::$adminConfig['pages']['sortReverse']))
           $categoriesArray = array_reverse($categoriesArray);
          
         foreach($categoriesArray as $pageContent) {
