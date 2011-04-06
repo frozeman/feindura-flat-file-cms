@@ -1016,20 +1016,23 @@ window.addEvent('domready', function() {
   feinduraFancyForm = new FancyForm('input[type="checkbox"], input[type="radio"]');
   
   // ADD DEPENCIES for CHECKBOXES
-  $$('input[type="checkbox"]').each(function(checkbox) {
+  $$('input[type="radio"]').each(function(checkbox) {
     var checkboxId = checkbox.get('id');
-    var categoryNumber;
-    var sortBypageDateCheckbox = new Array();
     
     // go trough checkboxes with id
     if(checkboxId) {
+
       // -> ** categories[0-9]sortByPageDate
-      if(checkboxId.match(/^categories[0-9]sortByPageDate$/)) {
-        categoryNumber = checkboxId.match(/[0-9]+/);
-        feinduraFancyForm.setDepency(checkbox,$('categories'+categoryNumber+'showPageDate'));        
+      if(checkboxId.match(/^categories[0-9]+sortByPageDate$/)) {
+        var categoryNumber = checkboxId.match(/[0-9]+/);
+        feinduraFancyForm.setDepency(checkbox,$('categories'+categoryNumber+'showPageDate'));
+        feinduraFancyForm.setDepency($('categories'+categoryNumber+'showPageDate'),$('categories'+categoryNumber+'sortByPageDate'),false,false); 
       }
     }
   });
+  // set depency for page sortingByDate
+  feinduraFancyForm.setDepency($('cfg_pageSortByPageDate'),$('cfg_pagePageDate'));
+  feinduraFancyForm.setDepency($('cfg_pagePageDate'),$('cfg_pageSortByPageDate'),false,false);
   
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
