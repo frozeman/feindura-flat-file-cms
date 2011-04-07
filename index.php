@@ -183,11 +183,14 @@ var feindura_pages = [
         uploadAuthData: {session: '<?php echo session_id(); ?>'},
         destroy: true,
         upload: true,
+        move_or_copy: true,
         rename: true,
         createFolders: true,
         download: true,
         hideOnClick: true,
         hideOverlay: true,
+        hideQonDelete: false,
+        listPaginationSize: 10,
         onShow: function() {
             window.location.hash = '#none';
             $('dimContainer').setStyle('opacity',0);

@@ -162,7 +162,8 @@ div.filemanager div.filemanager-browserscroll {
   margin: 0;
   padding: 0;
   height:100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden; /* don't show the hor. scrollbar just because a few filenames are very long: just clip them! */
 }
 
 
@@ -195,6 +196,7 @@ div.filemanager ul li {
 div.filemanager div.filemanager-browsercontainer {
   height: 100%;
   width: 35%;
+  min-width: 189px;
   border: 0;
   border-right: 1px solid #bebebe;
   background:#D7DEE8 url("../Images/filelist.png") repeat-x bottom left;
@@ -218,7 +220,7 @@ div.filemanager-browsercontainer div.filemanager-browserheader {
   height: 25px;
   background:#C3CDD9;
   border-bottom: 1px solid #bebebe;
-  text-align: right;
+  text-align: center;
 }
 
 div.filemanager-browsercontainer div.filemanager-browserheader a.listType {
@@ -229,12 +231,97 @@ div.filemanager-browsercontainer div.filemanager-browserheader a.listType {
   margin: 5px;
   cursor: pointer;
 }
-div.filemanager-browsercontainer div.filemanager-browserheader a.listType#togggle_side_list {
+div.filemanager-browsercontainer div.filemanager-browserheader a.listType#toggle_side_list {
   background: url("../Images/application_side_list.png") no-repeat;
 }
-div.filemanager-browsercontainer div.filemanager-browserheader a.listType#togggle_side_boxes {
+div.filemanager-browsercontainer div.filemanager-browserheader a.listType#toggle_side_boxes {
   background: url("../Images/application_side_boxes.png") no-repeat;
 }
+div.filemanager-browsercontainer div.filemanager-browserheader a#drag_n_drop {
+	display: inline-block;
+	float: right;
+	margin: 5px 3% 0 0;        /* 3%: keep distance variable with the total width of the FM window: looks better for tight and wide viewports */
+	cursor: help;
+	
+	background-image: url("../Images/drag_n_drop.png");
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 16px;
+	overflow: hidden;
+	background-position: 0px -16px;
+}
+
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging {
+	display: inline-block;
+	float: right;
+	margin: 1px 3% 0 0;
+	height: 19px;
+	padding: 4px 5px 0 5px;
+	/* add subtle lines to increase visual separation with the other icons up top */
+	border-left: 1px solid #BEBEBE;
+	border-right: 1px solid #BEBEBE;
+	
+}
+
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging a {
+	display: inline-block;
+	margin: 0 2px;
+}
+
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging a#paging_goto_first {
+	background-image: url("../Images/go_first.png");
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 10px;
+	overflow: hidden;
+	background-position: 50% 50%;
+	
+	position: relative;
+}
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging a#paging_goto_previous {
+	background-image: url("../Images/go_previous.png");
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 7px;
+	overflow: hidden;
+	background-position: 50% 50%;
+	
+	position: relative;
+}
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging a#paging_goto_next {
+	background-image: url("../Images/go_next.png");
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 7px;
+	overflow: hidden;
+	background-position: 50% 50%;
+	
+	position: relative;
+}
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging a#paging_goto_last {
+	background-image: url("../Images/go_last.png");
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 10px;
+	overflow: hidden;
+	background-position: 50% 50%;
+	
+	position: relative;
+}
+div.filemanager-browsercontainer div.filemanager-browserheader #fm_view_paging #paging_info {
+	margin: 0 10px;
+	/* 
+	to help the page number center vertically, we have to tweak the settings a bit oddly:
+	without the position:relative and the top:-4px, it wouldn't work. vertical-align is no use at all: 
+	'middle' does not do anything while 'top' does, but is exactly what we do not want.
+	Anyway, relative -4px it is.
+	*/
+	height: 16px;
+	position: relative;
+	top: -4px;
+	overflow: hidden;
+}
+
 
 div.filemanager-container span.fi {
   height: 21px;
@@ -254,7 +341,7 @@ div.filemanager-container span.thumb {
   overflow: hidden;
 }
 
-div.filemanager-container span.fi:hover, div.filemanager-container span.fi.hover {
+div.filemanager-container span.fi.hover {
   background:#E2EBF6;
 }
 
@@ -262,16 +349,83 @@ div.filemanager-container span.fi span, div.filemanager-container span.thumb {
   white-space: nowrap;
   display: block;
   overflow: hidden;
+  vertical-align: middle;   /* pretty useless, but keep it in? */
+  overflow: visible; 
+  /* ^^^ since the floats are all images, this does a nice graphic effect for very long filenames: 
+         the maximum width of the row is used to display the name and when hovering over it, the 
+		 icons appear on top.
+   */
 }
 
+/* forcing the text to center: see comment below where we v-center the image */
 div.filemanager-container span.thumb span {
-  margin-top: 14px;
+  /* margin-top: 14px; */
+  margin-top: 12px;  /* instead, we 'vertical center' (ahem!) the thing by pushing it down. */
+  /* display: table-cell; */
 }
 
-div.filemanager-container span.thumb img.thumb {
+/*
+ * Have the image (thumbnail) centered as well: 
+ *
+ * After several failed attempts this was done with 90% success:
+ *    http://www.brunildo.org/test/img_center.html
+ * 
+ * Note that you cannot mix 'float:left' and 'display-table-cell'
+ * in the same element. That is why the text following the image 
+ * MUST be 'display: table-cell' as well, for otherwise it would 
+ * not display on the same line. 
+ * And because the text is now it's own 'table-cell' it also needs
+ * its own 'vertical-align:middle' replacing the brute-force 
+ * margin-top downshift.
+ *
+ * HOWEVER we note that last 10%: very long filenames, i.e. spans
+ * with text that would wrap, will NOT center correctly, but instead
+ * nuke the complete layout of that particular row. No matter what you do.
+ *
+ * We can't have that so finally we go back to our old-time all-time favorite:
+ * a <span> (which is already here now that we did the previous) filled
+ * with a _background_ image: since CSS can center those very well, we're
+ * good to go. Finally.
+ */
+div.filemanager-container span.thumb span.thumb {
+  float: left;   /* 'left' for the span with background image way; 'none' for the previous method */
   width: 48px;
-  height: auto; 
+  height: 48px; 
+  vertical-align: middle;   /* pretty useless, but keep it in? */
+  text-align: center;
+  /* display: table-cell; */
+  margin: 0 5px 0 0;    /* previous method only: superfluous as it's a 'table-cell' display now: the margin is neglected, so we move the right-side gap to the padding. */
+  /* padding: 0 5px 0 0; */
+  padding: 0; 
+  
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }
+/*
+div.filemanager-container span.thumb span.thumb img, 
+div.filemanager-container span.list span.list img {
+  float: none;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+*/
+div.filemanager-container span.list span.list {
+  float: left;   /* 'left' for the span with background image way; 'none' for the previous method */
+  width: 16px;
+  height: 16px; 
+  vertical-align: middle;   /* pretty useless, but keep it in? */
+  text-align: center;
+  /* display: table-cell; */
+  margin: 0 5px 0 0;    /* previous method only: superfluous as it's a 'table-cell' display now: the margin is neglected, so we move the right-side gap to the padding. */
+  /* padding: 0 5px 0 0; */
+  padding: 0; 
+  
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
 
 div.filemanager-container span.drag span, div.filemanager-engine-trident4 ul li span.fi span, div.filemanager-engine-trident5 ul li span.fi span, div.filemanager-engine-presto ul li span.fi span, div.filemanager ul li:hover span.fi span {
   overflow: hidden;
@@ -309,10 +463,14 @@ div.filemanager-container span.fi img {
 
 }
 
+/*
+obsoleted by the new centering code. At least that one works by centering the image instead of clipping them while forcing width=48px. 
+
 div.filemanager-container span.thumb img {
   float: left;
   margin: 0 5px 0 0;
 }
+*/
 
 div.filemanager-container span.file img {
   border:none;
@@ -322,7 +480,14 @@ div.filemanager-container span.file img {
 div.filemanager-container span.fi img.browser-icon {
   float: right;
   border:none;
+  margin-top: 3px; /* vertically center the little buggers */
 }
+
+/* & and correct for thumb view: */
+div.filemanager-container span.thumb img.browser-icon {
+  margin-top: 16px; /* vertically center the little buggers */
+}
+
 
 div.filemanager-container span.move img.browser-icon {
   display: none;
@@ -358,6 +523,7 @@ div.filemanager-infos {
   left: 35%;
   top: 0;
   width: 63%;
+  min-width: 250px;
   height: 92%;
   padding: 0px 1%;
   line-height: 1.6em;
@@ -487,7 +653,8 @@ div.filemanager-preview {
 div.filemanager-preview img.preview {
   margin: 0 auto 1em;
   display: block;
-  background: transparent;
+  /* background: transparent; */
+  background: url("../Images/loader.gif") center center no-repeat;
   border: 1px solid #fff;
 }
 
@@ -501,11 +668,21 @@ div.filemanager-preview ul li img, div.filemanager-uploader ul li img {
   float: left;
 }
 
+div.filemanager-preview p.tech_info {
+  font-size: 9px;
+  line-height: 1.2em;
+}
+
+div.filemanager-preview p.err_info {
+  color: red;
+  font-weight: bold;
+}
+
 div.filemanager-engine-trident4 div.filemanager-preview img.preview {
   height: 100px;
 }
 
-div.filemanager-preview ul, div.filemanager-preview div.textpreview {
+div.filemanager-preview ul, div.filemanager-uploader ul, div.filemanager-preview div.textpreview {
   border: 1px solid #bebebe;
   background: #fff;
   

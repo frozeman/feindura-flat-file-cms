@@ -54,7 +54,7 @@ It's basic requirements is a web server with PHP running, however for using the 
  
 ### REQUIREMENTS
 * PHP >= 5.2.3 (Safe Mode OFF, when PHP user is different than the FTP user)
-* apache with mod_rewrite modul if you want to have speaking URLs
+* apache with mod_rewrite modul if you want to have speaking URLs like: "domain.com/pages/welcome.html"
 
 ### APPROPRIATE USES  
 It's not tested yet, but it should work well on websites with up to 100 vistiors per Minute.

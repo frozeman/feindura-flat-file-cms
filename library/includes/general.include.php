@@ -135,6 +135,12 @@ if(PHP_VERSION > 5) {
    * 
    */
   function __autoload($class_name) {
+    if($class_name == 'generalFunctions' ||
+       $class_name == 'statisticFunctions' ||
+       $class_name == 'xssFilter' ||
+       $class_name == 'search' ||
+       $class_name == 'feinduraBase' ||
+       $class_name == 'feindura')
     require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
     return true;
   }

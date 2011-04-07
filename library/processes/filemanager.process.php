@@ -22,19 +22,30 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-if(!$adminConfig['user']['fileManager'] || empty($adminConfig['uploadPath']))
+define("FILEMANAGER_CODE", true);
+
+if(!$adminConfig['user']['fileManager'] || empty($adminConfig['uploadPath']) || empty($adminConfig['basePath']))
   die('MooTools FileManager is deactivated');
 
 if(!empty($adminConfig['uploadPath']) && !is_dir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path']))
   if(!@mkdir(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],$adminConfig['permissions'],true))
     die('Couldn\'t create the thumbnail folder');
 
+
 require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManager.php');
 
 $browser = new FileManager(array(
-  'directory' => DOCUMENTROOT.$adminConfig['uploadPath'],
-  'thumbnailPath' => DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],
-  'assetBasePath' => dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets',
-  'chmod' => $adminConfig['permissions']
+  'directory' => $adminConfig['uploadPath'],
+  'thumbnailPath' => $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],
+  'assetBasePath' => $adminConfig['basePath'].'library/thirdparty/MooTools-FileManager/Assets',
+  'chmod' => $adminConfig['permissions'],
+  'dateFormat' => ($adminConfig['dateFormat'] == 'eu') ? 'd.m.Y H:i' : 'Y-m-d H:i',
+  'upload' => true,
+  'destroy' => true,
+  'create' => true,
+  'move' => true,
+  'download' => true,
+  'safe' => false, // If true, disallows 'exe', 'dll', 'php', 'php3', 'php4', 'php5', 'phps' and saves them as 'txt' instead.
+  
 ));
 $browser->fireEvent(!empty($_GET['event']) ? $_GET['event'] : null);

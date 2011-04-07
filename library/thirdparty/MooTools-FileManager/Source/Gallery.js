@@ -17,39 +17,39 @@ provides: FileManager.Gallery
 (function(){
 
 FileManager.Gallery = new Class({
-  
+
   Extends: FileManager,
-  
+
   initialize: function(options) {
     this.offsets = {y: -72};
-    this.galleryPlugin = true; // prevent that this.show() is called in the base class again
+    //this.galleryPlugin = true; // prevent that this.show() is called in the base class again
     this.parent(options);
-    
+
     var show = function() {
       this.galleryContainer.setStyles({
         opacity: 0,
         display: 'block'
       });
-      
+
       this.filemanager.setStyles({
         top: '10%',
         height: '60%'
       });
       this.fitSizes();
-      
+
       var size = this.filemanager.getSize(),
         pos = this.filemanager.getPosition();
-      this.galleryContainer.setStyles({        
+      this.galleryContainer.setStyles({
         top: pos.y + size.y - 1,
         left: pos.x + (size.x - this.galleryContainer.getWidth()) / 2,
         opacity: 1
       });
-      
+
       this.hideClone();
       this.wrapper.setStyle('display', 'none');
 
     };
-     
+
     this.addEvents({
       scroll: show,
       show: (function() {
@@ -67,6 +67,7 @@ FileManager.Gallery = new Class({
         this.hideClone();
         this.wrapper.setStyle('display', 'none');
       },
+
       modify: function(file){
         var name = this.normalize(file.path);
         var el = (this.gallery.getElements('li').filter(function(el){
@@ -107,34 +108,40 @@ FileManager.Gallery = new Class({
       new Element('div', {'class': 'img'}),
       new Element('button', {text: this.language.gallery.save}).addEvent('click', removeClone)
     ).inject(document.body);
-    
+
     this.droppables.push(this.gallery);
-    
+
     this.captions = {};
     this.files = [];
     this.animation = {};
 
     this.howto = new Element('div', {'class': 'howto', text: this.language.gallery.drag}).inject(this.galleryContainer);
     this.switchButton();
-    
-    if(typeof jsGET != 'undefined' && jsGET.get('fmID') == this.ID)
-        this.show();
-    else {
-      window.addEvent('jsGETloaded',(function(){
-        if(typeof jsGET != 'undefined' && jsGET.get('fmID') == this.ID)
-          this.show();
-      }).bind(this));
-      }
+
+	// invoke the parent method directly
+	this.initialShowBase();
   },
-  
+
+  // override the parent's initialShow method: we do not want to jump to the jsGET-stored position again!
+  initialShow: function() {
+  },
+
+  // override the parent's allow_DnD method: always allow drag and drop as otherwise we cannot construct our gallery!
+  allow_DnD: function(j, pagesize) {
+    return true;
+  },
+
   onDragComplete: function(el, droppable) {
+
+	this.imageadd.fade(0);
+
     if(this.howto){
       this.howto.destroy();
       this.howto = null;
     }
-    
+
     if (!droppable || droppable != this.gallery) return false;
-    
+
     var file;
     if (typeOf(el) == 'string'){
       var part = el.split('/');
@@ -146,9 +153,9 @@ FileManager.Gallery = new Class({
       el.setStyles({left: '', top: ''});
       file = el.retrieve('file');
     }
-    
-    var  self = this, name = this.normalize(file.dir + '/' + file.name);
-    
+
+    var self = this, name = this.normalize(file.dir + '/' + file.name);
+
     if (this.files.contains(name)) return true;
     this.files.push(name);
 
@@ -160,12 +167,12 @@ FileManager.Gallery = new Class({
 
     var li = new Element('li').store('file', file).adopt(
       destroyIcon,
-      new Asset.image(file.path, {
+      new Asset.image(this.normalize('/' + this.root + file.dir + '/' + file.name), {
         onload: function(){
           var el = this;
           li.setStyle('background', 'none').addEvent('click', function(e){
             if (e) e.stop();
-            
+
             var pos = el.getCoordinates();
             pos.left += el.getStyle('paddingLeft').toInt();
             pos.top += el.getStyle('paddingTop').toInt();
@@ -222,24 +229,24 @@ FileManager.Gallery = new Class({
     this.showFunctions(destroyIcon,li,1);
     this.tips.attach(destroyIcon);
     this.switchButton();
-    
+
     return true;
   },
-  
+
   removeClone: function(e){
     if (!this.clone || (e.relatedTarget && ([this.clone, this.wrapper].contains(e.relatedTarget) || (this.wrapper.contains(e.relatedTarget) && e.relatedTarget != this.wrapper)))) return;
     if (this.clone.get('morph').timer) return;
-    
+
     var file = this.clone.retrieve('file');
     if (!file) return;
-    
+
     this.captions[this.normalize(file.dir + '/' + file.name)] = this.input.get('value') || '';
-    
+
     this.clone.morph(this.animation.from).get('morph').clearChain().chain((function(){
       this.clone.retrieve('parent').set('opacity', 1);
       this.clone.destroy();
     }).bind(this));
-    
+
     this.wrapper.fade(0).get('tween').chain(function(){
       this.element.setStyle('display', 'none');
     });
@@ -257,7 +264,7 @@ FileManager.Gallery = new Class({
       display: 'none'
     });
   },
-  
+
   removePicture: function(e){
     if(e) e.stop();
 
@@ -265,7 +272,7 @@ FileManager.Gallery = new Class({
       parent = this.getParent('li'),
       file = parent.retrieve('file'),
       name = self.normalize(file.dir + '/' + file.name);
-    
+
     self.erasePicture(name, parent);
   },
 
@@ -280,7 +287,7 @@ FileManager.Gallery = new Class({
       self.switchButton();
     });
   },
-  
+
   switchButton: function(){
     if(typeof this.gallery != 'undefined') {
       var chk = !!this.gallery.getChildren().length;
@@ -294,8 +301,8 @@ FileManager.Gallery = new Class({
       this.onDragComplete(i, this.gallery);
     }, this);
   },
-  
-  serialize: function(e){
+
+  serialize_on_click: function(e){
     if(e) e.stop();
     var serialized = {};
     this.files.each(function(v){
@@ -305,7 +312,8 @@ FileManager.Gallery = new Class({
     this.hide();
     this.fireEvent('complete', [serialized]);
   }
-  
+
 });
 
 })();
+
