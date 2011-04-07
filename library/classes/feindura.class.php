@@ -1310,7 +1310,7 @@ class feindura extends feinduraBase {
   * 
   * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
-  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
   * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
   * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
   * @param bool           $sortByCategories   (optional) if TRUE it sorts the given category or page ID(s) by category
@@ -1463,7 +1463,7 @@ class feindura extends feinduraBase {
       */
       
       // if menuTag is a LIST ------
-      if($menuTagSet == 'ul' || $menuTagSet == 'ol') {
+      if($menuTagSet == 'menu' || $menuTagSet == 'ul' || $menuTagSet == 'ol') {
         $link = '<li>'.$link."</li>\n"; //.$menuBetween;
         
       // if menuTag is a TABLE -----
