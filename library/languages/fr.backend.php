@@ -301,7 +301,7 @@ $langFile['DASHBOARD_TEXT_NOVISITORS'] = 'actuellement il n\'y a pas eu de visit
 
 // ---------- PAGES SORTABLE LIST
 $langFile['sortablePageList_h1'] = 'contenu de ton site web';
-$langFile['sortablePageList_headText1'] = '';
+$langFile['sortablePageList_headText1'] = 'filtre';
 $langFile['sortablePageList_headText2'] = 'dernièrement rédigé';
 $langFile['sortablePageList_headText3'] = 'visiteurs';
 $langFile['sortablePageList_headText4'] = 'status';

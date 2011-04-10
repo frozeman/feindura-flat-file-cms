@@ -29,7 +29,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <h1><?= $langFile['sortablePageList_h1']; ?></h1>
 
 <div class="listPagesHead">
-  <div class="name"><?= $langFile['sortablePageList_headText1']; ?></div>
+  <div class="name"><?= $langFile['sortablePageList_headText1']; ?> <input type="text" value="" size="25" id="listPagesFilter" /><a href="#" id="listPagesFilterCancel"></a></div>
   <div class="lastSaveDate"><?= $langFile['sortablePageList_headText2']; ?></div>
   <div class="status"><?= $langFile['sortablePageList_headText3']; ?></div>
   <div class="counter"><?= $langFile['sortablePageList_headText4']; ?></div>
@@ -190,13 +190,12 @@ foreach($allCategories as $category) {
       // thumbnail upload delete
       if((($category['id'] == 0 && $adminConfig['pages']['thumbnails']) || $allCategories[$category['id']]['thumbnail']) && !empty($pageContent['thumbnail']))
         echo '<a href="?site=pageThumbnailDelete&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::" class="pageThumbnailDelete toolTip">&nbsp;</a>';
-       
-      // frontend editing
-      echo '<a href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$category['id'].'&amp;'.$adminConfig['varName']['page'].'='.$pageContent['id'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::" class="frontendEditing toolTip">&nbsp;</a>';
-      
-               
+            
       // edit page
       echo '<a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$langFile['sortablePageList_functions_editPage'].'::" class="editPage toolTip">&nbsp;</a>';
+      
+      // frontend editing
+      echo '<a href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$category['id'].'&amp;'.$adminConfig['varName']['page'].'='.$pageContent['id'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::" class="frontendEditing toolTip">&nbsp;</a>';
       
       // delete page
       if(($category['id'] == 0 && $adminConfig['pages']['createDelete']) || $allCategories[$category['id']]['createDelete'])
@@ -221,7 +220,7 @@ foreach($allCategories as $category) {
     } 
    
   } else {
-    echo '<li><div style="position:relative; top:-2px; left:5px;">'.$langFile['sortablePageList_categoryEmpty'].'</div></li>';
+    echo '<li><div class="emptyList">'.$langFile['sortablePageList_categoryEmpty'].'</div></li>';
   }
 
 echo '</ul>

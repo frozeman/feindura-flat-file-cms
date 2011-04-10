@@ -324,7 +324,7 @@ $langFile['DASHBOARD_TEXT_NOVISITORS'] = 'Bisher sind noch keine Besucher auf di
 
 // ---------- PAGES SORTABLE LIST
 $langFile['sortablePageList_h1'] = 'Der Inhalt deiner Webseite';
-$langFile['sortablePageList_headText1'] = '';
+$langFile['sortablePageList_headText1'] = 'Filter';
 $langFile['sortablePageList_headText2'] = 'zuletzt bearbeitet';
 $langFile['sortablePageList_headText3'] = 'Besucher';
 $langFile['sortablePageList_headText4'] = 'Status';

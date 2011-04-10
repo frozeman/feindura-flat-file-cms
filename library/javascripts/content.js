@@ -251,48 +251,44 @@ function blockSlider(givenId) {
       });      
       
   	  // -> CREATE the SLIDE EFFECT
-  	  slideVertical = new Fx.Slide(slideContent,{
+  	  slideContent.set('slide',{
         duration: 500,
         //transition: Fx.Transitions.Pow.easeInOut, //Fx.Transitions.Back.easeInOut
         transition: Fx.Transitions.Quint.easeInOut,
         onComplete: function(el) {
-          // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-    	    if(this.open) {
+          if(!this.open) {
               slideContent.setStyle('display','none'); // to allow sorting above the slided in box
               this.wrapper.setStyle('height',slideContent.getSize().y);
-              this.open = false;
+              //this.open = false;
           } else {
-              this.wrapper.setStyle('height','auto');
-              this.open = true;
-              
+              this.wrapper.setStyle('height','auto'); // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+              //this.open = true;              
           }
           layoutFix();
         }
       });
-      
+
       // DONT show the content bottom if IE 0-7
       if(Browser.ie6 || Browser.ie7)
         bottomBorder.setStyle('display', 'none');
       if(Browser.ie6 || Browser.ie7 || Browser.ie8)
-        slideVertical.options.transition = Fx.Transitions.Pow.easeInOut;
-      
+        slideContent.set('slide',{transition: Fx.Transitions.Pow.easeInOut});
+
       // -> set click Event for the SLIDE EFFECT to the buttons
       h1SlideButton.addEvent('click', function(e) {
       	  e.stop();
-     	    if(!slideVertical.open) {
+     	    if(!slideContent.get('slide').open) {
      	      scrollToElement.start(window.getPosition().x,block.getPosition().y - 80);
       	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
       	    block.removeClass('hidden'); // change the arrow
-          } else { 
+          } else
             block.addClass('hidden'); // change the arrow
-          }          
-          slideVertical.toggle();
+          slideContent.slide('toggle');
       });
       
       // -> hide the block at start, if it has class "hidden"
       if(block.hasClass('hidden'))  {
-        slideVertical.hide();
-        slideVertical.open = false;
+        slideContent.slide('hide');
         slideContent.setStyle('display','none'); // to allow sorting above the slided in box	      
       }
     } // <-- end go trough blocks      
@@ -331,7 +327,7 @@ function inBlockTableSlider() {
                 inBlockSliderInstance.open = false;
               } else {              
                 insideBlockTable.getParent().fade('show');
-                inBlockSliderInstance.open= true;
+                inBlockSliderInstance.open = true;
               }
           }
         
@@ -699,6 +695,74 @@ window.addEvent('domready', function() {
   }
   
   // -------------------------------------------------------------------------------------------
+  // FILTER LIST PAGES -------------------------------------------------------------------------
+  if($('listPagesFilter') != null) {
+    var cancelListPagesFilter = function() {$('listPagesFilter').set('value',''); $('listPagesFilter').fireEvent('keyup');};
+    var openBlocks = new Array();
+    var storedOpenBlocks = false;
+    $('listPagesFilter').addEvent('keyup',function(e){
+      
+      // vars
+      var filter = this.get('value');
+      
+      // ->> FILTER the PAGES
+      if(filter) {
+        $$('div.block.listPages li').each(function(page) {
+          if(page.getChildren('div.name a')[0] != null && !page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase()))
+            page.setStyle('display','none');
+          else
+            page.setStyle('display','block');
+        });
+      } else {
+        $$('div.block.listPages li').each(function(page) {
+          page.setStyle('display','block');
+        });
+      }
+      
+      // ->> SLIDE all blocks IN
+      if(filter.length == 1) {
+        $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
+        $('listPagesFilterCancel').setStyle('display','block');
+        
+        $$('div.block.listPages div.content').each(function(block){
+          if(block.getParent('div.listPages').hasClass('hidden')) {
+      	    block.getParent('div.listPages').removeClass('hidden'); // change the arrow
+      	    block.setStyle('display','block'); // to allow sorting above the slided in box (reset)
+      	    block.slide('show');
+      	    block.get('slide').wrapper.setStyle('height','auto');
+      	    layoutFix();
+      	  
+      	  // store the open blocks
+    	    } else if(!storedOpenBlocks) {
+            openBlocks.push(block);
+          }
+        });
+        storedOpenBlocks = true;
+        
+      // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
+      } else if(filter == '' && storedOpenBlocks) {
+        $('listPagesFilterCancel').removeEvent('click',cancelListPagesFilter);
+        $('listPagesFilterCancel').setStyle('display','none');
+        
+        $$('div.block.listPages div.content').each(function(block){
+          if(!openBlocks.contains(block)) {    	    
+      	    block.getParent('div.listPages').addClass('hidden'); // change the arrow
+            block.slide('hide');          
+            block.setStyle('display','none'); // to allow sorting above the slided in box (reset)
+            block.get('slide').wrapper.setStyle('height',block.getSize().y);
+            layoutFix();
+          }
+        });
+        // clean the stored blocks array      
+        if(storedOpenBlocks) {       
+          openBlocks.empty();
+          storedOpenBlocks = false;
+        }
+      }
+    });
+  }
+  
+  // -------------------------------------------------------------------------------------------
   // LIST PAGES SORTABLE -----------------------------------------------------------------------
   var clicked = false;
   var categoryOld;
@@ -825,7 +889,7 @@ window.addEvent('domready', function() {
 		    if(responseText.substr(0,13) == '<span></span>') {              
 		      $$('.sortablePageList').each(function(ul) {
       			if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
-      			  var newLi = new Element('li', {html: '<div>' + sortablePageList_status[1] + '</div>'});
+      			  var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
       			  newLi.setStyle('cursor','auto');
       			  ul.grab(newLi,'top');
       			}
@@ -971,12 +1035,12 @@ window.addEvent('domready', function() {
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------
     
   // ------------------------------------------------------------
-  // makes inputs who are empty small, and resize it on mouseover
+  // makes inputs who are empty transparent, and fade in on mouseover
   if($$('.right input') != null) {
         //var smallSize = 50;
         var fade = 0.6;
         
-        $$('.right input').each(function(input) {
+        $$('.right input, .listPagesHead input').each(function(input) {
             // looks for empty inputs
             if(!input.hasClass('noResize') && (input.get('value') == '' || input.get('disabled') != false)) {
                 
