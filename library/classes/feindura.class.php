@@ -971,7 +971,7 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta name="siteinfo" content="'.$robotTxt.'"'.$tagEnding."\n";
         
       // -> add REVISIT AFTER
-      if($robotTxt && $revisitAfter !== false && is_numeric($revisitAfter))
+      if($revisitAfter !== false && is_numeric($revisitAfter))
         $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'"'.$tagEnding."\n\n";
       
       // -> add other META TAGs

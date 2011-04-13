@@ -408,7 +408,7 @@ $langFile['adminSetup_editorSettings_h1'] = 'paramètres de l\'éditeur HTML';
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML'] = 'secure HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">détails</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML'] = 'Le code HTML sera filtrée avec la plus sûre paramètres. Cela signifie par exemple &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; et &lt;script&gt; tags ne sont pas autorisés.';
 $langFile['adminSetup_editorSettings_field1'] = 'modus touche-entrée';
-$langFile['adminSetup_editorSettings_field1_hint'] = 'shift + entrée va créer un &quot;&lt;br /&gt;&quot;';
+$langFile['adminSetup_editorSettings_field1_hint'] = 'shift + entrée va créer un &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip'] = 'Va définir le HTML-tag en touchant la touche entrée[br]wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip'] = 'Si la case reste vide, aucune Id sera utilisé.';
 $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Si la case reste vide, aucune classe sera utilisé.';

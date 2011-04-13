@@ -352,7 +352,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       </td><td class="right">
       <select id="cfg_editorEnterMode" name="cfg_editorEnterMode">
         <option value="p" <?php if($adminConfig['editor']['enterMode'] == 'p') echo 'selected="selected"'; ?>>&lt;p&gt;</option>
-        <option value="br" <?php if($adminConfig['editor']['enterMode'] == 'br') echo 'selected="selected"'; ?>>&lt;br /&gt;</option>
+        <option value="br" <?php if($adminConfig['editor']['enterMode'] == 'br') echo 'selected="selected"'; ?>>&lt;br&gt;</option>
       </select>
       &nbsp;<span class="hint"><?php echo $langFile['adminSetup_editorSettings_field1_hint']; ?></span>
       </td></tr>

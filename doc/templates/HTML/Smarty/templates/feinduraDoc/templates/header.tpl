@@ -3,13 +3,13 @@
 
 <html lang="en">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
   <meta http-equiv="content-language" content="en">
-  <meta name="robots" content="index,follow" />
+  <meta name="robots" content="index,follow">
 
 	<title>feindura API{if $package != "[not_documented]"} - {$title}{/if}</title>
 		
-	<link rel="shortcut icon" href="../favicon.ico">	
+	<link rel="shortcut icon" href="/favicon.ico">	
 	
 	<link rel="stylesheet" href="{$subdir}media/reset.css">
 	<link rel="stylesheet" href="{$subdir}media/layout.css">

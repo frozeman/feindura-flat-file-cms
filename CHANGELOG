@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc8
-Build 629
+Build 630
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 630: small fixes in frontend editing
   build 629: add disabled class to input (filemanager deactivated)
   build 628: add new feature: filter listpages
   build 627: add <menu> tag to the createMenu method in feindura.class.php

@@ -145,7 +145,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = generalFunctions::shortenString(strip_tags($pageContent['title']),35);
+      $title = generalFunctions::shortenString(strip_tags($pageContent['title']),32);
       
       // -> show lastSaveDate
       $lastSaveDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.statisticFunctions::formatTime($pageContent['lastSaveDate']);

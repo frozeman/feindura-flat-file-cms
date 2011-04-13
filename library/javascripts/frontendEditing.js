@@ -16,7 +16,7 @@
 // javascripts/frontendEditing.js version 1.0 (requires mootools and MooRTE)
 
 (function() {
-  if(typeof jQuery != 'undefined')
+  if(typeof jQuery != 'undefined') // check 1 (next one when DOM loaded)
     return;
   
   // var
@@ -379,8 +379,11 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> DOMREADY
   // ************
-  window.addEvent('domready',function() {
-  
+  window.addEvent('load',function() {
+    
+    if(typeof jQuery != 'undefined') // check 2 (first one on the beginning of the script)
+      return;
+    
     // ->> add TOP BAR
     // ***************
     var topBar = topBarTemplate();
