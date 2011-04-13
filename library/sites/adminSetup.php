@@ -291,7 +291,7 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_userFileManager" name="cfg_userFileManager" value="true"<?php if($adminConfig['user']['fileManager']) echo ' checked="checked"'; echo $fmDisabled; ?> /><br />
       </td><td class="right checkboxes">
-      <label for="cfg_userFileManager"<?= ($fmDisabled) ? 'class="toolTip red" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br />
+      <label for="cfg_userFileManager"<?= ($fmDisabled) ? 'class="toolTip disabled" title="'.$langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'].'"': ''; ?>><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER']; ?></label><br />
       </td></tr>
       
       <tr><td class="left checkboxes">

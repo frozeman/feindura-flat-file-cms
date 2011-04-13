@@ -1289,6 +1289,9 @@ input[disabled="disabled"], textarea[disabled="disabled"] {
     border: 1px dotted #cccccc;
     color: #A0A3A1;
     }
+label.disabled {
+  color: #ccc;
+}
 input[type=search] { -webkit-appearance:textfield; -webkit-box-sizing:content-box; }
 ::-webkit-search-decoration { display: none; }
     
