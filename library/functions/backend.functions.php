@@ -1404,14 +1404,10 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
     $editFileOpen = fopen(DOCUMENTROOT.$editFile,"r");  
     $file = @fread($editFileOpen,filesize(DOCUMENTROOT.$editFile));
     fclose($editFileOpen);
-    
-    echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
-
     $file = str_replace(array('<','>'),array('&lt;','&gt;'),$file);
     
-    $fileType = (strtolower($fileType) == 'css') ? ' css' : ' mixed';
-    
-    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles'.$fileType.'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
+    echo '<input type="hidden" name="file" value="'.$editFile.'" />'."\n";
+    echo '<textarea name="fileContent" cols="90" rows="30" class="editFiles '.substr($editFile, strrpos($editFile, '.') + 1).'" id="editFiles'.uniqid().'">'.$file.'</textarea>';
   }  
   
   
@@ -1461,7 +1457,7 @@ function saveEditedFiles(&$savedForm) {
     // encode when ISO-8859-1
     if(mb_detect_encoding($_POST['fileContent']) == 'ISO-8859-1') $_POST['fileContent'] = utf8_encode($_POST['fileContent']);
     
-    $_POST['fileContent'] = preg_replace("#[\\r\\n]+#","\n",$_POST['fileContent']);
+    //$_POST['fileContent'] = preg_replace("#[\\r\\n]+#","\n",$_POST['fileContent']);
     $_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
     $_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
     $_POST['fileContent'] = stripslashes($_POST['fileContent']);

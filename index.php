@@ -75,6 +75,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <!-- ************************************************************************************************************ -->
   <!-- STYLESHEETS -->
   
+  <!-- thirdparty/CodeMirror -->
+  <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css" />
+  
   <!-- feindura styles -->
   <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?= '?v='.$buildNumber; ?>" />
   <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?= '?v='.$buildNumber; ?>" />
@@ -124,7 +127,8 @@ if($_GET['site'] == 'addons') {
   
 <?php } ?>
   <!-- thirdparty/CodeMirror -->
-  <script type="text/javascript" src="library/thirdparty/CodeMirror/js/codemirror.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CodeMirror/codemirror-compressed.js"></script>
+  <script type="text/javascript" src="library/thirdparty/CodeMirror/modes-compressed.js"></script>
 <?php
   if(!empty($_GET['page'])) { ?>
   

@@ -147,8 +147,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
 
 // -------------------------------------------------
 // -> editFiles
-function changeEditFile( site, fileName, status, anchorName )
-{
+function changeEditFile( site, fileName, status, anchorName ) {
   window.location.href = window.location.pathname + "?site=" + site + "&status=" + status + "&file=" + fileName + "#" + anchorName ;
 }
 
@@ -256,13 +255,15 @@ function blockSlider(givenId) {
         //transition: Fx.Transitions.Pow.easeInOut, //Fx.Transitions.Back.easeInOut
         transition: Fx.Transitions.Quint.easeInOut,
         onComplete: function(el) {
-          if(!this.open) {
-              slideContent.setStyle('display','none'); // to allow sorting above the slided in box
-              this.wrapper.setStyle('height',slideContent.getSize().y);
-              //this.open = false;
-          } else {
-              this.wrapper.setStyle('height','auto'); // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-              //this.open = true;              
+          if(!slideContent.getChildren('textarea.editFiles')[0]) { // necessary for CodeMirror to calculate the size of the Codemirror div
+            if(!this.open) {
+                slideContent.setStyle('display','none'); // to allow sorting above the slided in box
+                this.wrapper.setStyle('height',slideContent.getSize().y);
+                //this.open = false;
+            } else {
+                this.wrapper.setStyle('height','auto'); // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
+                //this.open = true;              
+            }
           }
           layoutFix();
         }
@@ -289,7 +290,8 @@ function blockSlider(givenId) {
       // -> hide the block at start, if it has class "hidden"
       if(block.hasClass('hidden'))  {
         slideContent.slide('hide');
-        slideContent.setStyle('display','none'); // to allow sorting above the slided in box	      
+        if(!slideContent.getChildren('textarea.editFiles')[0]) // necessary for CodeMirror to calculate the size of the Codemirror div
+          slideContent.setStyle('display','none'); // to allow sorting above the slided in box	      
       }
     } // <-- end go trough blocks      
   });
@@ -977,59 +979,43 @@ window.addEvent('domready', function() {
   // ---------------
   
   // -> GO TROUGH every CATEGORY and add thumbScale to the advanced category settings
-  if($$('.advancedcategoryConfig') != null) {
-    
+  if($$('.advancedcategoryConfig') != null) {    
     var countCategories = 0;
-    
     // -----------------------------------------
     // ADD SLIDE TO THE ADVANCED CATEGORY SETTINGS
     // go trough every advancedcategoryConfig class and add the slide effect
     $$('.categoryConfig').each(function(categoryConfig) {
       // count categories
       countCategories++;
-
       // -----------------------------------------
       // adds realtime THUMBSCALE to the advanced category settings
       setThumbScale('categories'+countCategories+'thumbWidth','categories'+countCategories+'thumbWidthScale','categories'+countCategories+'thumbHeight','categories'+countCategories+'thumbHeightScale');
-    
       // adds THUMBRATIO deactivation
       setThumbRatio('categories'+countCategories+'thumbWidth','categories'+countCategories+'ratioX','categories'+countCategories+'thumbHeight','categories'+countCategories+'ratioY','categories'+countCategories+'noRatio'); 
     });
   }
   
-  // -----------------------------------------
+  // ----------------------------------------------------
   // ADD CodeMirror TO ALL TEXTAREAs with class editFiles
   $$('textarea.editFiles').each(function(textarea){
-    var textareaId = textarea.getProperty('id');
-    if(textareaId != null) {
-      // multihighlighting
-      if(textarea.hasClass('mixed')) { //textareaId.substring(0,9) == 'editFiles'
-
-        CodeMirror.fromTextArea(textareaId, {
-          width: "743px",
-          height: "500px",
-          iframeClass: 'editFilesIFrame',
-          textWrapping: false,
-          parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js",
-                      "../contrib/php/js/tokenizephp.js", "../contrib/php/js/parsephp.js", "../contrib/php/js/parsephphtmlmixed.js"],
-          stylesheet: ["library/thirdparty/CodeMirror/css/xmlcolors.css", "library/thirdparty/CodeMirror/css/jscolors.css", "library/thirdparty/CodeMirror/css/csscolors.css", "library/thirdparty/CodeMirror/contrib/php/css/phpcolors.css", "library/thirdparty/CodeMirror/css/general.css"],
-          path: "library/thirdparty/CodeMirror/js/"
-        });
-      
-      // css highlighting
-      } else if(textarea.hasClass('css')) {
-      
-        CodeMirror.fromTextArea(textareaId, {
-          width: "743px",
-          height: "500px",
-          iframeClass: 'editFilesIFrame',
-          textWrapping: false,
-          parserfile: "parsecss.js",
-          stylesheet: ["library/thirdparty/CodeMirror/css/csscolors.css", "library/thirdparty/CodeMirror/css/general.css"],
-          path: "library/thirdparty/CodeMirror/js/"
-        });        
+    // var
+    var hlLine;
+    var mode;
+    if(textarea.hasClass('css') || textarea.hasClass('php'))
+      mode = textarea.getProperty('class').replace('editFiles ','');
+    else if(textarea.hasClass('js'))
+      mode = 'javascript';
+    else if(textarea.hasClass('html') || textarea.hasClass('htm'))
+      mode = 'htmlmixed';
+     
+    var editor = CodeMirror.fromTextArea(textarea, {
+      mode: mode,
+      lineNumbers: true,
+      onCursorActivity: function() {
+        editor.setLineClass(hlLine, null);
+        hlLine = editor.setLineClass(editor.getCursor().line, "CodeMirrorActiveline");
       }
-    }
+    });
   });
   
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------

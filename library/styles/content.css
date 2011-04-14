@@ -38,10 +38,6 @@ content.css version 0.3 */
     padding-top: 30px;
     overflow: hidden;
     }
-#content .block.hidden .content {
-    /*display: none;*/
-    /*height: 0px !important;*/
-    }
     
 #content .block .bottom {
     position: absolute;
@@ -1268,17 +1264,17 @@ a.deleteUser:hover, a.deleteUser:focus {
 /****************/	
 /* *** INPUT */
 
-input, input[type="text"], textarea, select, div.CodeMirror-wrapping {
+input, input[type="text"], textarea, select, div.CodeMirror {
     background: url("../images/bg/formularBg.png") no-repeat #ffffff;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
     margin: 1px 0px;
     font: 13px Verdana, Arial, Helvetica;
     }
-input:hover, textarea:hover, select:hover, div.CodeMirror-wrapping:hover {
+input:hover, textarea:hover, select:hover, div.CodeMirror:hover {
     border: 1px dotted #CF974D;
     } 
-input:focus, textarea:focus, select:focus {
+input:focus, textarea:focus, select:focus, div.CodeMirror:focus {
     border: 1px solid #CF974D;
     } 
 input[readonly="readonly"], textarea[readonly="readonly"] {
@@ -1299,8 +1295,8 @@ select {
     padding: 1px 4px;
     }
 
-textarea, div.CodeMirror-wrapping {
-    line-height: 20px;
+textarea, div.CodeMirror-gutter-text, div.CodeMirror-lines {
+    line-height: 18px;
     padding: 10px;
     }
 
@@ -1358,14 +1354,22 @@ input[type="file"]{ /* works only in safari*/
 /****************/	
 /* *** TEXTAREA */
 
-textarea.editFiles, div.CodeMirror-wrapping {
-    width:743px;
-    height:500px;
-    margin-top: 15px;
-    }
-
-textarea#fckStyleFile, textarea#fckStyleFile + div.CodeMirror-wrapping {
-  margin-top: -45px;
+textarea.editFiles, div.CodeMirror {
+  width:743px;
+  height:500px;
+  margin-top: 15px;
+}
+div.CodeMirror {
+  margin-top: 75px;
+}
+textarea#fckStyleFile {
+  margin-top: -50px;
+}
+textarea#fckStyleFile + div.CodeMirror {
+  margin-top: 10px;
+}
+.CodeMirrorActiveline {
+  background-color: #E8EEF9 !important;
 }
 
 a.addStyleFilePath {
