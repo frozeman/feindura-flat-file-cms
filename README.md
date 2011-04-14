@@ -48,7 +48,7 @@ It's basic requirements is a web server with PHP running, however for using the 
 * plugin system (adds additional functionality to pages like contact form and image gallery)
 * UTF-8 compatible
 
-#### future features
+#### FUTURE FEATURES
 * modul system (like search)
 * addon system, build your own application running in the feindura-CMS backend
  
@@ -78,3 +78,8 @@ before the header is sent, which means before any HTML tag:
     ?>
     
 After this you can refer to the feindura class an it's methods through the $mycms->... instance.
+
+### CONFLICTS
+#### FRONTEND EDITING
+To activate the frontend editing you must call the createMetaTags() method of the feindura class inside the &lt;head&gt; of your website!
+When you want to use the Prototype javascript framework in your website, the frontend editing will be disabled. All other js frameworks should work.
