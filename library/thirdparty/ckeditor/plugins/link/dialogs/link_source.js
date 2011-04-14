@@ -198,7 +198,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 					var featureMatch;
 					while ( ( featureMatch = popupFeaturesRegex.exec( onclickMatch[2] ) ) )
 					{
-						if ( featureMatch[2] == 'yes' || featureMatch[2] == '1' )
+					  // Some values should remain numbers (#7300)
+						if ( ( featureMatch[2] == 'yes' || featureMatch[2] == '1' ) && !( featureMatch[1] in { height:1, width:1, top:1, left:1 } ) )
 							retval.target[ featureMatch[1] ] = true;
 						else if ( isFinite( featureMatch[2] ) )
 							retval.target[ featureMatch[1] ] = featureMatch[2];
@@ -239,6 +240,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 			advAttr( 'advCSSClasses', 'class' );
 			advAttr( 'advCharset', 'charset' );
 			advAttr( 'advStyles', 'style' );
+			advAttr( 'advRel', 'rel' );
 		}
 
 		// Find out whether we have any anchors in the editor.
@@ -1143,8 +1145,17 @@ CKEDITOR.dialog.add( 'link', function( editor )
 							},
 							{
 								type : 'hbox',
+								widths : [ '45%', '55%' ],
 								children :
 								[
+									{
+										type : 'text',
+										label : linkLang.rel,
+										'default' : '',
+										id : 'advRel',
+										setup : setupAdvParams,
+										commit : commitAdvParams
+									},
 									{
 										type : 'text',
 										label : linkLang.styles,
@@ -1152,7 +1163,6 @@ CKEDITOR.dialog.add( 'link', function( editor )
 										id : 'advStyles',
 										setup : setupAdvParams,
 										commit : commitAdvParams
-
 									}
 								]
 							}
@@ -1328,6 +1338,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 				advAttr( 'advCSSClasses', 'class' );
 				advAttr( 'advCharset', 'charset' );
 				advAttr( 'advStyles', 'style' );
+				advAttr( 'advRel', 'rel' );
 			}
 
 
@@ -1363,7 +1374,7 @@ CKEDITOR.dialog.add( 'link', function( editor )
 
 				// IE BUG: Setting the name attribute to an existing link doesn't work.
 				// Must re-create the link from weired syntax to workaround.
-				if ( CKEDITOR.env.ie && attributes.name != element.getAttribute( 'name' ) )
+				if ( CKEDITOR.env.ie && !( CKEDITOR.document.$.documentMode >= 8 ) && attributes.name != element.getAttribute( 'name' ) )
 				{
 					var newElement = new CKEDITOR.dom.element( '<a name="' + CKEDITOR.tools.htmlEncode( attributes.name ) + '">',
 							editor.document );

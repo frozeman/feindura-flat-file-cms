@@ -57,8 +57,12 @@ window.addEvent('domready',function(){
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
+<?php if(file_exists(DOCUMENTROOT.$adminConfig['basePath']."config/htmlEditorStyles.js")) { ?>
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
-<?php if($adminConfig['user']['fileManager']) { ?>
+<?php
+}
+if($adminConfig['user']['fileManager']) {
+?>
   CKEDITOR.config.filebrowserBrowseUrl      = '<?= $adminConfig['basePath']."library/sites/windowBox/filemanager.php"; ?>';
   CKEDITOR.config.filebrowserImageBrowseUrl = '<?= $adminConfig['basePath']."library/sites/windowBox/filemanager.php?mimType=image"; ?>';
   CKEDITOR.config.filebrowserFlashBrowseUrl = '<?= $adminConfig['basePath']."library/sites/windowBox/filemanager.php?mimType=application"; ?>';
