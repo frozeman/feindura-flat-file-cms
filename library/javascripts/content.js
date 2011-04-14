@@ -1010,7 +1010,7 @@ window.addEvent('domready', function() {
      
     var editor = CodeMirror.fromTextArea(textarea, {
       mode: mode,
-      lineNumbers: true,
+      lineNumbers: false,
       onCursorActivity: function() {
         editor.setLineClass(hlLine, null);
         hlLine = editor.setLineClass(editor.getCursor().line, "CodeMirrorActiveline");

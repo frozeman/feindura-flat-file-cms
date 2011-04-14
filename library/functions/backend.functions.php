@@ -1306,7 +1306,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   
   echo '<div class="block'.$hidden.'">
           <h1><a href="#" name="'.$anchorName.'" id="'.$anchorName.'">'.$titleText.'</a></h1>
-          <div class="content"><br />';
+          <div class="content editFiles"><br />';
       
   //echo $filesPath.'<br />';      
   // gets the files out of the directory --------------

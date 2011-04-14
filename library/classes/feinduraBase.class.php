@@ -1260,9 +1260,10 @@ class feinduraBase {
   * @see feindura::createMenuByTags()
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.0.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.0.1 fixed comparision, beacause i changed separarion of tags from whitespace to ,  
   *    - 1.0 initial release
   *   
   */ 
@@ -1274,13 +1275,14 @@ class feinduraBase {
     if(is_array($tags) && isset($pageContent['tags']) && !empty($pageContent['tags'])) { 
       // lowercase
       $pageTags = strtolower($pageContent['tags']);
+      $pageTags = str_replace(',',' ',$pageTags);
       
       // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
       foreach($tags as $tag) {
         // lowercase
         $tag = strtolower($tag);
         
-        if(strstr(' '.$pageTags.' ',' '.$tag.' ')) {
+        if(strpos(' '.$pageTags.' ',' '.$tag.' ') !== false) {
           return $pageContent;
         }
       }
