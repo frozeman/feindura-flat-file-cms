@@ -1281,7 +1281,7 @@ input:hover, textarea:hover, select:hover, div.CodeMirror:hover {
     } 
 input:focus, textarea:focus, select:focus, div.CodeMirror:focus {
     border: 1px solid #CF974D;
-    } 
+    }
 input[readonly="readonly"], textarea[readonly="readonly"] {
     border: 1px dotted #cccccc;
     color: #7F7F7F;

@@ -331,10 +331,6 @@ function saveCategories($newCategories) {
         // escape \ and '
         xssFilter::escapeBasics($category);
         
-        // -> CLEAN all " out of the strings
-        foreach($category as $key => $value)
-          $category[$key] = str_replace('"','',str_replace(array('\"',"\'"),'',$value));
-        
         // adds absolute path slash on the beginning and serialize the stylefiles
         $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
       
@@ -350,7 +346,7 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['public'] =          ".xssFilter::bool($category['public'],true).";\n");        
         fwrite($file,"\$categoryConfig[".$category['id']."]['createDelete'] =    ".xssFilter::bool($category['createDelete'],true).";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbnail'] =       ".xssFilter::bool($category['thumbnail'],true).";\n");        
-        fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         ".xssFilter::bool($category['plugins'],true).";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         '".$category['plugins']."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['showTags'] =        ".xssFilter::bool($category['showTags'],true).";\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['showPageDate'] =    ".xssFilter::bool($category['showPageDate'],true).";\n\n");
         
@@ -635,7 +631,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['setStartPage'] =          ".xssFilter::bool($adminConfig['setStartPage'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['createDelete'] = ".xssFilter::bool($adminConfig['pages']['createDelete'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['thumbnails'] =   ".xssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n");    
-    fwrite($file,"\$adminConfig['pages']['plugins'] =      ".xssFilter::bool($adminConfig['pages']['plugins'],true).";\n");
+    fwrite($file,"\$adminConfig['pages']['plugins'] =      '".$adminConfig['pages']['plugins']."';\n"); // no xssFilter, comes from a <select>
     fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['showPageDate'] = ".xssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n\n");
     
@@ -644,7 +640,7 @@ function saveAdminConfig($adminConfig) {
     
     fwrite($file,"\$adminConfig['editor']['safeHtml'] =   ".xssFilter::bool($adminConfig['editor']['safeHtml'],true,true).";\n");
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".xssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n");
-    fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); //xssFilter is in prepareStyleFilePaths() function
+    fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); // xssFilter is in prepareStyleFilePaths() function
     fwrite($file,"\$adminConfig['editor']['styleId'] =    '".xssFilter::string($adminConfig['editor']['styleId'])."';\n");  
     fwrite($file,"\$adminConfig['editor']['styleClass'] = '".xssFilter::string($adminConfig['editor']['styleClass'])."';\n\n");  
   
@@ -841,9 +837,10 @@ function saveStatisticConfig($statisticConfig) {
  * 
  * @example backend/pluginsConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.0.2
+ * @version 1.0.3
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.3 check now if the pluginsfolder still exist 
  *    - 1.0.2 add xssFilter to every value 
  *    - 1.0.1 add mootools selection 
  *    - 1.0 initial release
@@ -857,13 +854,17 @@ function savePluginsConfig($pluginsConfig) {
     // escape \ and '
     xssFilter::escapeBasics($pluginsConfig);
     
+    // sort the plugins alphabetical
+    ksort($pluginsConfig);
+    
     // CHECK BOOL VALUES and change to FALSE   
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); //< ?php
     
     if(is_array($pluginsConfig)) {
       foreach($pluginsConfig as $key => $value) {
-        fwrite($file,"\$pluginsConfig['$key']['active'] =     ".xssFilter::bool($pluginsConfig[$key]['active'],true).";\n");
+        if(file_exists(dirname(__FILE__).'/../../plugins/'.$key))
+          fwrite($file,"\$pluginsConfig['$key']['active'] =     ".xssFilter::bool($pluginsConfig[$key]['active'],true).";\n");
       }
     }
     

@@ -317,35 +317,30 @@ function inBlockTableSlider() {
       });
       
       block.getElements('.inBlockSlider').each(function(insideBlockTable) {        
-         // creates the slide effect
-    	   var inBlockSliderInstance = new Fx.Slide(insideBlockTable,{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
          
          // ON COMPLETE
-         inBlockSliderInstance.onComplete = function(el) {
+         insideBlockTable.get('slide').addEvent('complete', function(el) {
     
               // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-              if(inBlockSliderInstance.open) {
-                insideBlockTable.getParent().fade('hide');
-                inBlockSliderInstance.open = false;
+              if(this.open) {
+                insideBlockTable.get('slide').wrapper.fade('show');
               } else {              
-                insideBlockTable.getParent().fade('show');
-                inBlockSliderInstance.open = true;
+                insideBlockTable.get('slide').wrapper.fade('hide');
               }
-          }
+          });
         
          // slides the hotky div in, on start
          if(insideBlockTable.hasClass('hidden')) {
-           // hides the wrapper on start
-           inBlockSliderInstance.hide();
-           insideBlockTable.getParent().fade('hide');
+           //hides the wrapper on start
+           insideBlockTable.slide('hide');
+           insideBlockTable.get('slide').wrapper.fade('hide');
          }
          
          // sets the SLIDE effect to the SLIDE links
          slideLinks[count].addEvent('click', function(e) {
-            if(e.target.match('a'))
-        		  e.stop();
-        		inBlockSliderInstance.toggle();
-        		insideBlockTable.getParent().fade('show');
+            if(e.target.match('a')) e.stop();
+        		insideBlockTable.get('slide').toggle();
+        		insideBlockTable.get('slide').wrapper.fade('show');
         		insideBlockTable.toggleClass('hidden');
         	});
          

@@ -47,7 +47,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
   $newAdminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
   $newAdminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
-  $newAdminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
+  $newAdminConfig['pages']['plugins'] = serialize($_POST['cfg_pagePlugins']);
   $newAdminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
   $newAdminConfig['pages']['showPageDate'] = $_POST['cfg_pagePageDate'];
   $newAdminConfig['pages']['sorting'] = $_POST['cfg_pageSorting'];
@@ -197,7 +197,11 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
 
 // ****** ---------- SAVE CATEGORIES
 if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['saveCategories'])) {
-
+  
+  // serialize the plugins array
+  foreach($_POST['categories'] as $key => $value)
+    $_POST['categories'][$key]['plugins'] = serialize($value['plugins']);
+  
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
     statisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE

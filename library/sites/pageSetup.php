@@ -24,6 +24,16 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
+// -> save the plugin config, to remove not existing plugins from the plugins config
+savePluginsConfig($pluginsConfig);
+
+// ->> CHECK if plugins are activated
+$pluginsActive = false;
+foreach($pluginsConfig as $pluginConfig) {
+  if($pluginConfig['active'])
+    $pluginsActive = true;    
+}
+
 // CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
 
@@ -204,14 +214,6 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <label for="cfg_pageThumbnailUpload"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS'].'::'.$langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']; ?></span></label><br />
       </td></tr>
       
-      <tr><td class="spacer checkboxes"></td><td></td></tr>
-      
-      <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_pagePlugins" name="cfg_pagePlugins" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']; ?>"<?php if($adminConfig['pages']['plugins']) echo ' checked="checked"'; ?> /><br />
-      </td><td class="right checkboxes">
-      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS']; ?></span></label><br />
-      </td></tr>
-      
       <tr><td class="left checkboxes">
       <input type="checkbox" id="cfg_pageTags" name="cfg_pageTags" value="true" class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS'].'::'.$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']; ?>"<?php if($adminConfig['pages']['showTags']) echo ' checked="checked"'; ?> />
       </td><td class="right checkboxes">
@@ -224,8 +226,34 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <label for="cfg_pagePageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
       </td></tr>
       
-      <tr><td class="spacer checkboxes"></td><td>
-            
+      <?php if($pluginsActive) { ?>
+      <tr><td class="leftTop"></td><td>
+      
+      <tr><td class="left">
+      <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::' ?>">
+      <?= $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></span></label>
+      </td><td class="right">
+      <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple" style="width:250px;max-height:130px;">
+        <?php
+        foreach($pluginsConfig as $pluginName => $pluginConfig) {
+          if($pluginConfig['active']) {
+            $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
+            echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';  
+          }    
+        }
+        ?>
+      </select>
+      &nbsp;
+      <span class="hint"><?= $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] ?></span>
+      </td></tr>
+      
+      <tr><td class="leftBottom"></td><td>
+      <?php
+      } else {
+      ?>
+      <tr><td class="spacer checkboxes"></td><td></td></tr>
+      <?php } ?>
+      
       <!-- SORTING -->
       <!-- manually -->
       <tr><td class="left checkboxes">
@@ -420,14 +448,6 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'thumbnail"><span class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS'].'</span></label>             
                 </td></tr>';
-                
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
- 
-          echo '<tr><td class="left checkboxes">
-                <input type="checkbox" id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins]" value="true" '.$checked[11].' class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'" /><br />
-                </td><td class="right checkboxes">
-                <label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>
-                </td></tr>';
           
           echo '<tr><td class="left checkboxes">
                 <input type="checkbox" id="categories'.$category['id'].'showTags" name="categories['.$category['id'].'][showTags]" value="true" '.$checked[4].' class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS'].'" /><br />
@@ -440,8 +460,28 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td><td class="right checkboxes">
                 <label for="categories'.$category['id'].'showPageDate"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE'].'">'.$langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'</span></label>
                 </td></tr>';
-                
-          echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
+          
+          if($pluginsActive) {
+            echo '<tr><td class="leftTop"></td><td>';
+  
+            echo '<tr><td class="left">';
+            echo '<label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
+            echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>';
+            echo '</td><td class="right">';
+            echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple" style="width:250px;max-height:130px;">';
+              foreach($pluginsConfig as $pluginName => $pluginConfig) {
+                if($pluginConfig['active']) {
+                  $selected = (in_array($pluginName,unserialize($category['plugins']))) ? ' selected="selected"' : '' ;
+                  echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';  
+                }  
+              }            
+            echo '</select>';
+            echo '&nbsp;<span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</span>';
+            echo '</td></tr>';
+            
+            echo '<tr><td class="leftBottom"></td><td>';                
+          } else
+            echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';          
           
           // SORTING
           // manually

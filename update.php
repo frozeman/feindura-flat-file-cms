@@ -234,6 +234,16 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
         }
     }
     
+    // save all activated plugins as serialized string
+    function activateAllPluginsSerialized() {
+      $activatedPlugins = array();
+      foreach($pluginsConfig as $pluginName => $pluginConfig) {
+        if($pluginConfig['active'])
+          $activatedPlugins[] = $pluginName;    
+      }
+      return serialize($activatedPlugins);
+    }
+    
     // and start!
     // *********
     
@@ -339,6 +349,9 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
       $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
       
+      if($category['plugins'] === true || $category['plugins'] === 'true')
+      $category['plugins'] = activateAllPluginsSerialized();
+      
       $data = $category['styleFile'];
         if(strpos($data,'|#|') !== false)
           $category['styleFile'] = changeToSerializedData($data,'|#|');
@@ -371,6 +384,10 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     $adminConfig['pages']['showTags'] = (isset($adminConfig['pages']['showtags'])) ? $adminConfig['pages']['showtags'] : $adminConfig['pages']['showTags'];
     $adminConfig['pages']['createDelete'] = (isset($adminConfig['pages']['createdelete'])) ? $adminConfig['pages']['createdelete'] : $adminConfig['pages']['createDelete'];
     $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
+    
+    // save all activated plugins as serialized string
+    if($adminConfig['pages']['plugins'] === true || $adminConfig['pages']['plugins'] === 'true')
+      $adminConfig['pages']['plugins'] = activateAllPluginsSerialized();
     
     $data = $adminConfig['editor']['styleFile'];
       if(strpos($data,'|#|') !== false)

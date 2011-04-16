@@ -583,8 +583,14 @@ foreach($pluginsConfig as $pluginConfig) {
   if($pluginConfig['active'])
     $pluginsActive = true;    
 }
-if($pluginsActive && (($_GET['category'] === 0 && $adminConfig['pages']['plugins']) ||
-   $categoryConfig[$_GET['category']]['plugins'])) {
+// get the activated plugins
+if($pluginsActive) {
+  $activatedPlugins = ($_GET['category'] === 0)
+    ? unserialize($adminConfig['pages']['plugins'])
+    : unserialize($categoryConfig[$_GET['category']]['plugins']);
+}
+
+if($pluginsActive && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>
@@ -615,7 +621,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
         $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
         
         // LIST PLUGINS
-        if($pluginsConfig[$pluginFolderName]['active']) {
+        if($pluginsConfig[$pluginFolderName]['active'] && in_array($pluginFolderName,$activatedPlugins)) {
           ?>          
           <table>          
           <tr><td class="left checkboxes">
