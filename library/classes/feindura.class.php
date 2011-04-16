@@ -1695,7 +1695,114 @@ class feindura extends feinduraBase {
   public function createMenuByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $menuTag = false, $linkText = true, $breakAfter = false, $sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->createMenuByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $menuTag, $linkText, $breakAfter, $sortByCategories, $reverseList);
-  }  
+  }
+  
+ /**
+  * <b>Name</b>     createMenuBySortFunction()<br />
+  * <b>Alias</b>    createMenuBySort()<br />
+  * <b>Alias</b>    createMenuBySortCallback()<br />
+  * <b>Alias</b>    createMenuByCallback()<br />
+  * 
+  * <b>This method uses the {@link $linkLength $link...}, {@link $menuId $menu...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
+  * Creates a menu from category or page ID(s) sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
+  * 
+  * 
+  * The <var>$menuTag</var> parameter can be an "ul", "ol" or "table", it will then create the necessary HTML-tags of this element.
+  * If its any other tag name it just enclose the links with this HTML-tag.
+  * 
+  * In case no page with the given category or page ID(s) or tags exist it returns an empty array.
+  * 
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * <b>Notice</b>: the link which fits the current ID in the {@link $page} property will get the class name <i>"active"</i>.
+  * 
+  * Example:
+  * {@example createMenuBySortFunction.example.php}
+  * 
+  * @param string         $sortCallback        the name of the callback function to sort the menu (the callback function is a function which can be passed to usort())
+  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
+  * @param int|bool       $menuTag            (optional) the tag which is used to create the menu, can be an "menu", "ul", "ol", "table" or any other tag, if TRUE it uses "div" as a standard tag
+  * @param string|bool    $linkText           (optional) a string with a linktext which all links will use, if TRUE it uses the page titles of the pages, if FALSE no linktext will be used
+  * @param int|false      $breakAfter         (optional) if the $menuTag parameter is "table", this parameter defines after how many "td" tags a "tr" tag will follow, with any other tag this parameter has no effect
+  * @param bool           $reverseList        (optional) reverse the menu listing
+  *  
+  * @uses feindura::$menuId
+  * @uses feindura::$menuClass
+  * @uses feindura::$menuAttributes
+  * 
+  * @uses feindura::$linkLength
+  * @uses feindura::$linkId
+  * @uses feindura::$linkClass
+  * @uses feindura::$linkAttributes
+  * @uses feindura::$linkBefore
+  * @uses feindura::$linkAfter
+  * @uses feindura::$linkBeforeText
+  * @uses feindura::$linkAfterText
+  * @uses feindura::$linkShowThumbnail
+  * @uses feindura::$linkShowThumbnailAfterText
+  * @uses feindura::$linkShowPageDate
+  * @uses feindura::$linkShowCategory
+  * @uses feindura::$linkCategorySeparator
+  * 
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
+  * 
+  * @uses feinduraBase::loadPagesByType()   to load the pages which fit in the given time period parameters, sorted by the page date
+  * @uses createMenu()                      to create the menu from the pages load by {@link feinduraBase::hasTags()}
+  * 
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * 
+  * @see createLink()  
+  * @see createMenu()
+  * @see createMenuByDate()
+  * @see createMenuByTags()
+  * 
+  * @access public
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public function createMenuBySortFunction($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+      
+      // load the pages                   
+      $pageContents = $this->loadPagesByType($idType,$ids);
+      usort($pageContents,$sortCallback);
+      // -> flips the sorted array if $reverseList === true
+      if($reverseList === true)
+        $pageContents = array_reverse($pageContents);
+	    return $this->createMenu($idType,$pageContents,$menuTag,$linkText,$breakAfter,false);
+  }
+ /**
+  * Alias of {@link createMenuBySortFunction()}
+  * @ignore
+  */
+  public function createMenuBySort($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+      // call the right function             
+	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
+  }
+  /**
+  * Alias of {@link createMenuBySortFunction()}
+  * @ignore
+  */
+  public function createMenuBySortCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+      // call the right function             
+	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
+  }
+  /**
+  * Alias of {@link createMenuBySortFunction()}
+  * @ignore
+  */
+  public function createMenuByCallback($sortCallback, $idType = 'category', $ids = false, $menuTag = false, $linkText = true, $breakAfter = false, $reverseList = false) {
+      // call the right function             
+	    return $this->createMenuBySortFunction($sortCallback,$idType,$ids,$menuTag,$linkText,$breakAfter,$reverseList);
+  }
   
  /**
   * <b>Name</b>     getPageTitle()<br />
@@ -2273,6 +2380,110 @@ class feindura extends feinduraBase {
   public function listPagesByDates($idType = 'category', $ids = false, $monthsInThePast = true, $monthsInTheFuture = true, $shortenText = false, $useHtml = true,$sortByCategories = false, $reverseList = false) {
     // call the right function
     return $this->listPagesByDate($idType, $ids, $monthsInThePast, $monthsInTheFuture, $shortenText, $useHtml,$sortByCategories, $reverseList);
+  }
+  
+ /**
+  * <b>Name</b>     listPagesBySortFunction()<br />
+  * <b>Alias</b>    listPagesBySort()<br />
+  * <b>Alias</b>    listPagesBySortCallback()<br />
+  * <b>Alias</b>    listPagesByCallback()<br />
+  * 
+  * <b>This method uses the {@link $showErrors $error...}, {@link $titleLength $title...} and {@link $thumbnailAlign $thumbnail...} properties.</b>
+  * 
+  * List pages from category or page ID(s) sorted by a custom sort function, passed in the first parameter <var>$sortCallback</var>.
+  * 
+  * 
+  * Returns an array with multiple pages for displaying in a HTML-page.
+  * 
+  * In case no page with the given category or page ID(s) exist it returns an empty array.
+  * <b>Notice</b>: if the <var>$ids</var> parameter is FALSE it uses the {@link $page} or {@link $category} property depending on the <var>$idType</var> parameter.
+  * 
+  * Example of the returned array:
+  * {@example listPages.return.example.php}
+  * 
+  * Example usage:
+  * {@example listPagesBySortFunction.example.php}
+  * 
+  * @param string         $sortCallback        the name of the callback function to sort the pages (the callback function is a function which can be passed to usort())
+  * @param string         $idType             (optional) the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool $ids                (optional) the category or page ID(s), can be a number or an array with numbers (can also be a $pageContent array), if TRUE it loads all pages, if FALSE it uses the {@link $page} or {@link $category} property
+  * @param int|false      $shortenText	      (optional) number of the maximal content text length shown of the pages, adds a "more" link at the end or FALSE to not shorten
+  * @param bool           $useHtml            (optional) whether the content of the pages has HTML-tags or not
+  * @param bool           $reverseList        (optional) reverse the menu listing  
+  * 
+  * 
+  * @uses feindura::$xHtml
+  * @uses feindura::$showErrors
+  * @uses feindura::$errorTag
+  * @uses feindura::$errorId
+  * @uses feindura::$errorClass
+  * @uses feindura::$errorAttributes
+  * 
+  * @uses feindura::$titleLength
+  * @uses feindura::$titleAsLink
+  * @uses feindura::$titleShowPageDate
+  * @uses feindura::$titleShowCategory
+  * @uses feindura::$titleCategorySeparator
+  * 
+  * @uses feindura::$thumbnailAlign
+  * @uses feindura::$thumbnailId
+  * @uses feindura::$thumbnailClass
+  * @uses feindura::$thumbnailAttributes
+  * @uses feindura::$thumbnailBefore
+  * @uses feindura::$thumbnailAfter
+  * 
+  * @uses feinduraBase::getPropertyIdsByType()    if the $ids parameter is FALSE it gets the property category or page ID, depending on the $idType parameter
+  * @uses feinduraBase::loadPagesByType()         to load the page $pageContent array(s) from the given ID(s)
+  * @uses feinduraBase::createAttributes()        to create the attributes used in the menu tag
+  * @uses feinduraBase::generatePage()            to generate every page which will be listed
+  * @uses generalFunctions::sortPages()       to sort the $pageContent arrays by category
+  * 
+  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * 
+  * @see showPage()
+  * @see listPages()
+  * @see listPagesByTags()
+  * @see listPagesByDate()
+  * 
+  * @access public
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public function listPagesBySortFunction($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
+      // load the pages                   
+      $pageContents = $this->loadPagesByType($idType,$ids);
+      usort($pageContents,$sortCallback);
+      // -> flips the sorted array if $reverseList === true
+      if($reverseList === true)
+        $pageContents = array_reverse($pageContents);
+	    return $this->listPages($idType,$pageContents,$shortenText,$useHtml,false);
+  }
+ /**
+  * Alias of {@link listPagesBySortFunction()}
+  * @ignore
+  */
+  public function listPagesBySort($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
+      // call the right function             
+	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
+  }
+ /**
+  * Alias of {@link listPagesBySortFunction()}
+  * @ignore
+  */
+  public function listPagesBySortCallback($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
+      // call the right function             
+	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
+  }
+ /**
+  * Alias of {@link listPagesBySortFunction()}
+  * @ignore
+  */
+  public function listPagesByCallback($sortCallback, $idType = 'category', $ids = false, $shortenText = false, $useHtml = true, $reverseList = false) {
+      // call the right function             
+	    return $this->listPagesBySortFunction($sortCallback,$idType,$ids,$shortenText,$useHtml,$reverseList);
   }
 }
 ?>

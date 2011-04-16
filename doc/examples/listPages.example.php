@@ -56,7 +56,6 @@ foreach($pages as $page) {
 <a href="?category=1&amp;page=2" title="2010-12-31 Example Page 2">
 2010-12-31 Example...
 </a>
-
 <h2>Example Headline</h2>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.
 Stet clita kasd gubergren, no sea takimata sanctus.</p>
@@ -66,7 +65,6 @@ Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=1&amp;page=3" title="2010-12-31 Example Page 2">
 2010-12-31 Example...
 </a>
-
 <h2>Another Example Headline</h2>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing dolores et ea rebum.</p>
 <h2>And one more Example Headline</h2>
@@ -77,10 +75,8 @@ Stet clita kasd gubergren, no sea takimata sanctus.</p>
 <a href="?category=2&amp;page=1" title="Example Page 1">
 Example Page 1
 </a>
-
 <img src="/path/thumb_page3.png" alt="Thumbnail" title="Example Page 1" id="thumbId"
 class="thumbCLass" test="exampleAttribute1" onclick="exampleAttribute2" style="float:left;" />
-
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, ur sadipscing elitr,
 Stet clita kasd...</p>

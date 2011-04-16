@@ -1151,6 +1151,125 @@ class feinduraBase {
     // -> returns an array with the pageContent Arrays
     return $return;
   }
+  
+ /**
+  * <b>Name</b> loadPagesByDate()<br />
+  * 
+  * Loads pages by ID-type and ID, which fit in the given time period parameters.
+  * 
+  * Checks if the pages to load have a page date
+  * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
+  * All time period parameters are compared against the date of TODAY.
+  * 
+  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
+  * 
+  * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
+  * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
+  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
+  * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
+  * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
+  * 
+  * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
+  * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
+  * @uses loadPagesByType()               load the pages depending on the type
+  * @uses changeDate()                    change the current date minus or plus the months from specified in the parameters
+  * @uses gernalFunctions::sortPages()		to sort the pages by page date
+  * 
+  * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
+  * 
+  * @link http://www.php.net/manual/de/datetime.formats.php
+  * 
+  * @see feindura::listPagesByDate()
+  * @see feindura::createMenuByDate()
+  * 
+  * @access protected
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */     
+  protected function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
+
+    if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
+      $monthsInThePast = round($monthsInThePast);
+    if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
+      $monthsInTheFuture = round($monthsInTheFuture);
+    
+    $ids = $this->getPropertyIdsByType($idType,$ids);
+        
+    // LOADS the PAGES BY TYPE
+    if($pages = $this->loadPagesByType($idType,$ids)) {
+      
+      // creates the current date to compare with
+      $currentDate = time();       
+      
+      $pastDate = false;
+      $futureDate = false;
+       
+      // creates the PAST DATE
+      if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
+        $pastDate = strtotime($monthsInThePast,$currentDate);
+      elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
+        $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
+      elseif($monthsInThePast === false)
+        $pastDate = $currentDate;
+                      
+      // creates the FUTURE DATE
+      if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
+        $pastDate = strtotime($monthsInTheFuture,$currentDate);
+      if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
+        $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
+      elseif($monthsInTheFuture === false)
+        $futureDate = $currentDate;
+      
+      //echo 'currentDate: '.$currentDate.'<br />';
+      //echo 'pastDate: '.$pastDate.'<br />';
+      //echo 'futureDate: '.$futureDate.'<br /><br />';
+      
+      // -> list a category(ies)
+      // ------------------------------  
+      $selectedPages = array();
+      foreach($pages as $page) {
+        // show the pages, if they have a date which can be sorten
+        if(!empty($page['pageDate']['date']) &&
+           (($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate']) || ($page['category'] == 0 && $this->adminConfig['pages']['showPageDate']))) {         
+           
+           // echo $page['pageDate']['date'].' >= '.$pastDate.'<br />';
+           
+           // adds the page to the array, if:
+           // -> the currentdate ist between the minus and the plus month or
+           // -> mins or plus month are true (means there is no time limit)
+           if(($monthsInThePast === true || $page['pageDate']['date'] >= $pastDate) &&
+              ($monthsInTheFuture === true || $page['pageDate']['date'] <= $futureDate))
+             $selectedPages[] = $page;
+        }
+      }      
+      
+      // -> SORT the pages BY DATE
+      // sort by DATE and GIVEN ARRAY
+      if($sortByCategories === false)
+        usort($selectedPages,'sortByDate');
+      // sorts by DATE and CATEGORIES
+      else
+        $selectedPages = generalFunctions::sortPages($selectedPages,'sortByDate');
+      
+      // -> flips the sorted array if $reverseList === true
+      if($reverseList === true)
+        $selectedPages = array_reverse($selectedPages);
+      
+      
+      // -> RETURN the pages the pages    
+      if(!empty($selectedPages))
+        return $selectedPages;
+      else
+	     return false;
+ 
+      
+    } else return false;
+    //return $return;
+  }
 
  /**
   * <b>Name</b> loadPrevNextPage()<br />
@@ -1356,126 +1475,6 @@ class feinduraBase {
     }
     // RETURNs only the page who have the tags
     return $return;
-  }
-
-
- /**
-  * <b>Name</b> loadPagesByDate()<br />
-  * 
-  * Loads pages by ID-type and ID, which fit in the given time period parameters.
-  * 
-  * Checks if the pages to load have a page date
-  * and the page date fit in the given <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters.
-  * All time period parameters are compared against the date of TODAY.
-  * 
-  * The <var>$monthsInThePast</var> and <var>$monthsInTheFuture</var> parameters can also be a string with a (relative or specific) date, for more information see: {@link http://www.php.net/manual/de/datetime.formats.php}.
-  * 
-  * @param string          $idType                the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
-  * @param int|array|bool  $ids                   the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
-  * @param int|bool|string $monthsInThePast       (optional) number of months before today, if TRUE it show all pages in the past, if FALSE it loads only pages starting from today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param int|bool|string $monthsInTheFuture     (optional) number of months after today, if TRUE it show all pages in the future, if FALSE it loads only pages until today. it can also be a string with a (relative or specific) date format, for more details see: {@link http://www.php.net/manual/de/datetime.formats.php}
-  * @param bool            $sortByCategories      (optional) determine whether the pages should only by sorted by page date or also seperated by categories and sorted by page date
-  * @param bool	           $reverseList           (optional) if TRUE the pages sorting will be reversed
-  * 
-  * @uses $categoryConfig                 to check if in the category is sorting by page date allowed
-  * @uses getPropertyIdsByType()          to get the property IDs if the $ids parameter is FALSE
-  * @uses loadPagesByType()               load the pages depending on the type
-  * @uses changeDate()                    change the current date minus or plus the months from specified in the parameters
-  * @uses gernalFunctions::sortPages()		to sort the pages by page date
-  * 
-  * @return array|false an array with the $pageContent arrays or FALSE if no page has a page date or is allowed for sorting
-  * 
-  * @link http://www.php.net/manual/de/datetime.formats.php
-  * 
-  * @see feindura::listPagesByDate()
-  * @see feindura::createMenuByDate()
-  * 
-  * @access protected
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */     
-  protected function loadPagesByDate($idType, $ids, $monthsInThePast = true, $monthsInTheFuture = true, $sortByCategories = false, $reverseList = false) {
-
-    if(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-      $monthsInThePast = round($monthsInThePast);
-    if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-      $monthsInTheFuture = round($monthsInTheFuture);
-    
-    $ids = $this->getPropertyIdsByType($idType,$ids);
-        
-    // LOADS the PAGES BY TYPE
-    if($pages = $this->loadPagesByType($idType,$ids)) {
-      
-      // creates the current date to compare with
-      $currentDate = time();       
-      
-      $pastDate = false;
-      $futureDate = false;
-       
-      // creates the PAST DATE
-      if(is_string($monthsInThePast) && !is_numeric($monthsInThePast))
-        $pastDate = strtotime($monthsInThePast,$currentDate);
-      elseif(!is_bool($monthsInThePast) && is_numeric($monthsInThePast))
-        $pastDate = strtotime('-'.$monthsInThePast.' month',$currentDate);
-      elseif($monthsInThePast === false)
-        $pastDate = $currentDate;
-                      
-      // creates the FUTURE DATE
-      if(is_string($monthsInTheFuture) && !is_numeric($monthsInTheFuture))
-        $pastDate = strtotime($monthsInTheFuture,$currentDate);
-      if(!is_bool($monthsInTheFuture) && is_numeric($monthsInTheFuture))
-        $futureDate = strtotime('+'.$monthsInTheFuture.' month',$currentDate);
-      elseif($monthsInTheFuture === false)
-        $futureDate = $currentDate;
-      
-      //echo 'currentDate: '.$currentDate.'<br />';
-      //echo 'pastDate: '.$pastDate.'<br />';
-      //echo 'futureDate: '.$futureDate.'<br /><br />';
-      
-      // -> list a category(ies)
-      // ------------------------------  
-      $selectedPages = array();
-      foreach($pages as $page) {
-        // show the pages, if they have a date which can be sorten
-        if(!empty($page['pageDate']['date']) &&
-           (($page['category'] != 0 && $this->categoryConfig[$page['category']]['showPageDate']) || ($page['category'] == 0 && $this->adminConfig['pages']['showPageDate']))) {         
-           
-           // echo $page['pageDate']['date'].' >= '.$pastDate.'<br />';
-           
-           // adds the page to the array, if:
-           // -> the currentdate ist between the minus and the plus month or
-           // -> mins or plus month are true (means there is no time limit)
-           if(($monthsInThePast === true || $page['pageDate']['date'] >= $pastDate) &&
-              ($monthsInTheFuture === true || $page['pageDate']['date'] <= $futureDate))
-             $selectedPages[] = $page;
-        }
-      }      
-      
-      // -> SORT the pages BY DATE
-      // sort by DATE and GIVEN ARRAY
-      if($sortByCategories === false)
-        usort($selectedPages,'sortByDate');
-      // sorts by DATE and CATEGORIES
-      else
-        $selectedPages = generalFunctions::sortPages($selectedPages,'sortByDate');
-      
-      // -> flips the sorted array if $reverseList === true
-      if($reverseList === true)
-        $selectedPages = array_reverse($selectedPages);
-      
-      
-      // -> RETURN the pages the pages    
-      if(!empty($selectedPages))
-        return $selectedPages;
-      else
-	     return false;
- 
-      
-    } else return false;
-    //return $return;
   }
   
  /**
