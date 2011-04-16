@@ -246,10 +246,12 @@ class search {
       // create a string of the page searchwords
       $search['searchwords'] = unserialize($pageContent['log_searchWords']);
       $pageSearchwords = '';
-      foreach($search['searchwords'] as $pageSearchword){
-        $pageSearchwords .= '####'.$pageSearchword['data'];
+      if(is_array($search['searchwords'])) {
+        foreach($search['searchwords'] as $pageSearchword){
+          $pageSearchwords .= '####'.$pageSearchword['data'];
+        }
+        $search['searchwords'] = trim($pageSearchwords,'####');
       }
-      $search['searchwords'] = trim($pageSearchwords,'####');
       
       // ->> SEARCH PROCESS      
 			

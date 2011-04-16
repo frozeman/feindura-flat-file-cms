@@ -37,15 +37,15 @@ $sharedLangFile['DATE_TEXT_TOMORROW'] = 'Morgen';
 
 // -> SEARCH
 
-$langFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
-$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse für';
-$langFile['SEARCH_TEXT_MATCH_ID'] = 'Übereinstimmung mit der Seiten ID';
-$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'Kategorie';
-$langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'Suchworte';
-$langFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
-$langFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
-$langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
-$langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
+$sharedLangFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
+$sharedLangFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse für';
+$sharedLangFile['SEARCH_TEXT_MATCH_ID'] = 'Übereinstimmung mit der Seiten ID';
+$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'Kategorie';
+$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'Suchworte';
+$sharedLangFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
+$sharedLangFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
+$sharedLangFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
+$sharedLangFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
 
 
 // -> ERROR TEXTs

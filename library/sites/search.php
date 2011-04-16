@@ -30,12 +30,11 @@
 /* LANGUAGE-VARS
 
 $langFile['SEARCH_TITLE'] = 'Seiten durchsuchen';
-$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse f&uuml;r';
-$langFile['SEARCH_TEXT_MATCH_TITLE'] = '&Uuml;bereinstimmungen im Titel';
-$langFile['SEARCH_TEXT_MATCH_DATE'] = '&Uuml;bereinstimmungen im Seitendatum';
-$langFile['SEARCH_TEXT_MATCH_WORDS'] = '&Uuml;bereinstimmende W&ouml;rter:';
-$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = '&Uuml;bereinstimmender Kategoriename';
-$langFile['SEARCH_TEXT_MATCH_ID'] = '&Uuml;bereinstimmung mit der Seiten ID';
+$langFile['SEARCH_TITLE_RESULTS'] = 'Suchergebnisse für';
+$langFile['SEARCH_TEXT_MATCH_ID'] = 'Übereinstimmung mit der Seiten ID';
+$langFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'Kategorie';
+$langFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'Suchworte';
+$langFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
 $langFile['SEARCH_TEXT_RESULTS'] = 'Treffer';
 $langFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 Treffer in 0.32 Sekunden
 $langFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
@@ -160,6 +159,7 @@ if(!empty($searchWords)) {
           if($result['description']) {
             echo '<span class="description">'.$result['description'].'</span>';
           }
+          // CONTENT
           if($result['content']) {
             echo $result['content'];
           }

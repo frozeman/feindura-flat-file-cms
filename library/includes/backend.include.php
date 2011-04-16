@@ -117,7 +117,8 @@ if(isset($_GET['language'])) $_SESSION['feindura']['language'] = $_GET['language
 
 $backendLangFile = generalFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feindura']['language']);
 $sharedLangFile = generalFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feindura']['language']);
-$langFile = $sharedLangFile + $backendLangFile;
+
+$langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);
 // *---* choose LANGUAGE * END * -----------------------------------------------------
 

@@ -224,8 +224,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <label for="cfg_pagePageDate"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE'].'::'.$langFile['PAGESETUP_TIP_EDITPAGEDATE']; ?>"><?php echo $langFile['PAGESETUP_TEXT_EDITPAGEDATE']; ?></span></label>
       </td></tr>
       
-      <tr><td class="spacer checkboxes"></td><td></td></tr>
-      
+      <tr><td class="spacer checkboxes"></td><td>
+            
       <!-- SORTING -->
       <!-- manually -->
       <tr><td class="left checkboxes">
