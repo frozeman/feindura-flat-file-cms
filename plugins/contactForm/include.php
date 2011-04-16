@@ -16,16 +16,15 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /** 
- * The include file for the contactForm plugin  
+ * The include file for the contactForm plugin
  * 
- * Generates the plugin with the <var>$pluginConfig</var> array,
- * which is the config Array from this plugin, saved in the respective page and comes from the <var>$pageContent</var> array.
- * Included in the {@link feindura::showPlugins()} method and is therefor available in this file, because this file will be included in the {@link feindura::showPlugins()}.
+ * See the README.md for more.
  * 
- * The following variables are available in this script when it gets include by the {@link feindura::showPlugins()} method:
+ * The following variables are available in this script when it gets included by the {@link feindura::showPlugins()} method:
  *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName -> the folder name of this plugin
- *     - and all other variables which are available in the {@link feindura::__construct()} class
+ *     - $pageContent -> the pageContent array of the page which has this plugin activated 
+ *     - and all other variables which are available in the {@link feindura} class (use "$this->..")
  * 
  * This file MUST RETURN the plugin ready to display in a HTML-page
  * 

@@ -360,12 +360,12 @@ class generalFunctions {
   */
   public static function getStoredPages() {
     
-    unset($_SESSION['storedPages']);    
+    unset($_SESSION['feindura']['storedPages']);    
     //echo 'STORED-PAGES -> '.count(self::$storedPages); 
       
     // -> checks if the SESSION storedPages Array exists
-    if(isset($_SESSION['storedPages']))
-      return $_SESSION['storedPages']; // if isset, get the storedPages from the SESSION
+    if(isset($_SESSION['feindura']['storedPages']))
+      return $_SESSION['feindura']['storedPages']; // if isset, get the storedPages from the SESSION
     else
       return self::$storedPages; // if not get the storedPages from the PROPERTY  
   }
@@ -392,16 +392,16 @@ class generalFunctions {
   */
   public static function addStoredPage($pageContent) {
    
-    unset($_SESSION['storedPages']);
+    unset($_SESSION['feindura']['storedPages']);
     
     // stores the given parameter only if its a valid $pageContent array
     if(self::isPageContentArray($pageContent)) {
       // -> checks if the SESSION storedPages Array exists
-      if(isset($_SESSION['storedPages']))
-        $_SESSION['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
+      if(isset($_SESSION['feindura']['storedPages']))
+        $_SESSION['feindura']['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
       else {
         self::$storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
-        $_SESSION['storedPages'][$pageContent['id']] = $pageContent;
+        $_SESSION['feindura']['storedPages'][$pageContent['id']] = $pageContent;
       }
     }
     return $pageContent;
@@ -434,12 +434,12 @@ class generalFunctions {
     // ->> REMOVE
     if(is_numeric($id)) {
     // -> checks if the SESSION storedPages Array exists
-      if(isset($_SESSION['storedPages']) && isset($_SESSION['storedPages'][$id])) {
-        unset($_SESSION['storedPages'][$id]); // if isset, remove from the storedPages in the SESSION
+      if(isset($_SESSION['feindura']['storedPages']) && isset($_SESSION['feindura']['storedPages'][$id])) {
+        unset($_SESSION['feindura']['storedPages'][$id]); // if isset, remove from the storedPages in the SESSION
         return true;
       } elseif(isset(self::$storedPages[$id])) {
         unset(self::$storedPages[$id]); // if not remove from the storedPages in the PROPERTY
-        unset($_SESSION['storedPages'][$id]);
+        unset($_SESSION['feindura']['storedPages'][$id]);
         return true;
       }
     }
@@ -615,7 +615,7 @@ class generalFunctions {
     : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
-    if(is_numeric($pageContent['id']) && ($file = @fopen($filePath,"w"))) {
+    if(is_numeric($pageContent['id']) && ($file = fopen($filePath,"w"))) {
       
       // escape \ and '
       xssFilter::escapeBasics($pageContent);

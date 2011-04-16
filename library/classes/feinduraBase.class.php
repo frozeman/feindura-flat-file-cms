@@ -249,13 +249,13 @@ class feinduraBase {
 
     // eventually LOGOUT
     if(isset($_GET['feindura_logout']))
-      unset($_SESSION['feinduraLogin'][IDENTITY]['username'],$_SESSION['feinduraLogin'][IDENTITY]['loggedIn']);
+      unset($_SESSION['feindura'][IDENTITY]['username'],$_SESSION['feindura'][IDENTITY]['loggedIn']);
     // CHECK if logged in
-    $this->loggedIn = ($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) ? true : false;
+    $this->loggedIn = ($_SESSION['feindura'][IDENTITY]['loggedIn'] === true) ? true : false;
     
     // set backend language if logged in
     if($this->loggedIn)
-      $language = $_SESSION['language'];
+      $language = $_SESSION['feindura']['language'];
     
     // save the website statistics
     // ***************************

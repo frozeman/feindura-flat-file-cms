@@ -806,6 +806,11 @@ a#hotKeysToogle:hover {
   color: #879095;
 }
 
+/* hide MooRTE bar */
+div.rteHide {
+  display:none;
+}
+
 /* EDITABLE TITLE in editor */
 span#editablePageTitle {
   position: relative;

@@ -556,7 +556,7 @@ class statisticFunctions {
       $object = ($object) ? '|#|'.$object : false;
       
       // -> create the new log string
-      $newLog = time().'|#|'.$_SESSION['feinduraLogin'][IDENTITY]['username'].'|#|'.$task.$object;
+      $newLog = time().'|#|'.$_SESSION['feindura'][IDENTITY]['username'].'|#|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    
@@ -1080,8 +1080,8 @@ class statisticFunctions {
   * 
   */
   public static function isLoggedUser() {
-    return (isset($_SESSION['feinduraLogin'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn']) &&
-            $_SESSION['feinduraLogin'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn'])
+    return (isset($_SESSION['feindura'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn']) &&
+            $_SESSION['feindura'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn'])
       ? true : false;
   }
   
@@ -1293,12 +1293,12 @@ class statisticFunctions {
     
     // COUNT if the user/spider isn't already counted
     // **********************************************
-    if((isset($_SESSION['log_visited']) && $_SESSION['log_visited'] === false) ||
-       (!isset($_SESSION['log_visited']) && $hasVisitCache === false)) {
+    if((isset($_SESSION['feindura']['log']['visited']) && $_SESSION['feindura']['log']['visited'] === false) ||
+       (!isset($_SESSION['feindura']['log']['visited']) && $hasVisitCache === false)) {
    
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
-         (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = self::isSpider()) === false)) {
+      if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
+         (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = self::isSpider()) === false)) {
    
         // -------------------------------------------------------------------------------------
         // -->> --------------------------------------------------------------------------------
@@ -1338,11 +1338,11 @@ class statisticFunctions {
 
         
       // ->> COUNT the SPIDER UP
-      } elseif($_SESSION['log_isSpider'] === true && 
+      } elseif($_SESSION['feindura']['log']['isSpider'] === true && 
                (!isset(self::$websiteStatistic['spiderVisitCount']) ||
                (isset(self::$websiteStatistic['spiderVisitCount']) && self::$websiteStatistic['spiderVisitCount'] == ''))) {
         self::$websiteStatistic['spiderVisitCount'] = '1';
-      }elseif($_SESSION['log_isSpider'] === true) {
+      }elseif($_SESSION['feindura']['log']['isSpider'] === true) {
         self::$websiteStatistic['spiderVisitCount']++;
       }
       
@@ -1367,14 +1367,14 @@ class statisticFunctions {
         fclose($statisticFile);
         
         // saves the user as visited
-        $_SESSION['log_visited'] = true;
+        $_SESSION['feindura']['log']['visited'] = true;
         
       }
     } else {
       
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
-         (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = self::isSpider()) === false)) {
+      if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
+         (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = self::isSpider()) === false)) {
         
         // -------------------------------------------------------------------------------------
         // ->> VISIT TIME of PAGES
@@ -1385,15 +1385,15 @@ class statisticFunctions {
         $maxCount = 10;
 
         // -> count the time difference, between the last page and the current
-        if(isset($_SESSION['log_lastPages']) && isset($_SESSION['log_lastPage_timestamp'])) {
+        if(isset($_SESSION['feindura']['log']['lastPages']) && isset($_SESSION['feindura']['log']['lastTimestamp'])) {
           
           // ->> start of foreach(lastPages)
-          foreach($_SESSION['log_lastPages'] as $log_lastPage) {
+          foreach($_SESSION['feindura']['log']['lastPages'] as $log_lastPage) {
           
             // load the last page again
             $lastPage = generalFunctions::readPage($log_lastPage,generalFunctions::getPageCategory($log_lastPage));
             
-            $visitTime = time() - xssFilter::int($_SESSION['log_lastPage_timestamp'],0);
+            $visitTime = time() - xssFilter::int($_SESSION['feindura']['log']['lastTimestamp'],0);
             
             // saves times longer than 5 seconds
             if($visitTime > 5) {
@@ -1463,14 +1463,14 @@ class statisticFunctions {
           } // <- end of foreach(lastPages)          
           
           // -> clear the lastPages IDs, after saved their visit time
-          unset($_SESSION['log_lastPages']);
-          $_SESSION['log_lastPages'] = array();
+          unset($_SESSION['feindura']['log']['lastPages']);
+          $_SESSION['feindura']['log']['lastPages'] = array();
         }
       }
     }
     
     // -> store the visitime start
-    $_SESSION['log_lastPage_timestamp'] = time();
+    $_SESSION['feindura']['log']['lastTimestamp'] = time();
   }
   
  /**
@@ -1521,15 +1521,15 @@ class statisticFunctions {
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER
-    if((isset($_SESSION['log_isSpider']) && $_SESSION['log_isSpider'] === false) ||
-       (!isset($_SESSION['log_isSpider']) && ($_SESSION['log_isSpider'] = self::isSpider()) === false)) {
+    if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
+       (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = self::isSpider()) === false)) {
          
       // CHECK if the $pageContent parameter is a valid $pageContent array
       if(generalFunctions::isPageContentArray($pageContent) === false)
         return false;
       
       // STORE last visited page IDs in a session array and the time
-      $_SESSION['log_lastPages'][] = $pageContent['id'];      
+      $_SESSION['feindura']['log']['lastPages'][] = $pageContent['id'];      
       
       // -> saves the FIRST PAGE VISIT
       // -----------------------------
@@ -1544,20 +1544,20 @@ class statisticFunctions {
       
       // -> COUNT UP, if the user haven't already visited this page in this session
       // --------------------------------------------------------------------------
-      if(!isset($_SESSION['log_visitedPages']))
-        $_SESSION['log_visitedPages'] = array();
+      if(!isset($_SESSION['feindura']['log']['visitedPages']))
+        $_SESSION['feindura']['log']['visitedPages'] = array();
         
-      if(in_array($pageContent['id'],$_SESSION['log_visitedPages']) === false) {
+      if(in_array($pageContent['id'],$_SESSION['feindura']['log']['visitedPages']) === false) {
         //echo $pageContent['id'].' -> '.$pageContent['log_visitorCount'];
         $pageContent['log_visitorCount']++;
         // add to the array of already visited pages
-        $_SESSION['log_visitedPages'][] = $pageContent['id'];
+        $_SESSION['feindura']['log']['visitedPages'][] = $pageContent['id'];
       }
       
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
       // -------------------------------------------------------
-      if(!isset($_SESSION['log_searchWords']))
-        $_SESSION['log_searchWords'] = array();
+      if(!isset($_SESSION['feindura']['log']['searchwords']))
+        $_SESSION['feindura']['log']['searchwords'] = array();
 
       if(isset($_SERVER['HTTP_REFERER']) &&
          !empty($_SERVER['HTTP_REFERER'])) {   
@@ -1591,9 +1591,9 @@ class statisticFunctions {
           // gos through searchwords and check if there already saved
           $newSearchWords = array();
           foreach($searchWords as $searchWord) {
-            if(in_array($searchWord,$_SESSION['log_searchWords']) === false) {
+            if(in_array($searchWord,$_SESSION['feindura']['log']['searchwords']) === false) {
               $newSearchWords[] = $searchWord;
-              $_SESSION['log_searchWords'][] = $searchWord;
+              $_SESSION['feindura']['log']['searchwords'][] = $searchWord;
             }
           }
           

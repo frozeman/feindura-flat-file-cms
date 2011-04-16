@@ -41,7 +41,7 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * </samp> 
 *
 * <b>Notice</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
-* <b>Notice</b>: The image gallery is surrounded by an '<div class="imageGallery">' tag to help to style the image gallery. 
+* <b>Notice</b>: The image gallery is surrounded by an '<div class="plugin_imageGallery">' tag to help to style the image gallery. 
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
@@ -667,7 +667,7 @@ class imageGallery {
     }
     
     // RETURN
-    return '<div class="imageGallery">'.$gallery.'</div>';
+    return '<div class="plugin_imageGallery">'.$gallery.'</div>';
   }  
 }
 ?>

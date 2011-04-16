@@ -1050,8 +1050,8 @@ class feindura extends feinduraBase {
   // transport feindura PHP vars to javascript
   var feindura_url =                       '".$this->adminConfig['url']."';
   var feindura_basePath =                  '".$this->adminConfig['basePath']."';
-  var feindura_currentBackendLocation =    '".$_SESSION['feinduraLogin'][IDENTITY]['currentBackendLocation']."';
-  var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraLogin'][IDENTITY]['deactivateFrontendEditing']."';
+  var feindura_currentBackendLocation =    '".$_SESSION['feindura'][IDENTITY]['currentBackendLocation']."';
+  var feindura_deactivateFrontendEditing = '".$_SESSION['feindura'][IDENTITY]['deactivateFrontendEditing']."';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:      \"".$this->languageFile['errorWindow_h1']."\",
     ERROR_SAVE:             \"".$this->languageFile['editor_savepage_error_save']."\",
@@ -1060,8 +1060,7 @@ class feindura extends feinduraBase {
     FUNCTIONS_STARTPAGE:    \"".$this->languageFile['sortablePageList_functions_startPage']."\",
     FUNCTIONS_EDITPAGE:     \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",
     BUTTON_LOGOUT:          \"".$this->languageFile['HEADER_BUTTON_LOGOUT']."\",
-    BUTTON_GOTOBACKEND:     \"".$this->languageFile['HEADER_TIP_GOTOBACKEND']."\",
-    
+    BUTTON_GOTOBACKEND:     \"".$this->languageFile['HEADER_TIP_GOTOBACKEND']."\"
   };
   var feindura_logoutUrl =    '".generalFunctions::getCurrentUrl('feindura_logout')."';
   var feindura_setStartPage = '".$this->adminConfig['setStartPage']."';
@@ -1892,8 +1891,8 @@ class feindura extends feinduraBase {
   * <b>Alias</b> showPlugin()<br />  
   * 
   * Returns the plugin(s) of a page ready for displaying in a HTML page.
-  * It can return an array with the contents of the plugins requested,
-  * or if the <var>$plugins</var> parameter is a string with a plugin name, it returns only a string with one content of the plugin.   
+  * It can return an array where each element contain the HTML of a plugin (only the activated ones),
+  * or if the <var>$plugins</var> parameter is a string with a plugin name (the foldername of the plugin, inside "../feindura_folder/plugins/"), it returns only a string with the HTML of this plugin.   
   * 
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 

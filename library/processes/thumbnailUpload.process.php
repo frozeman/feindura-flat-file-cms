@@ -32,11 +32,10 @@ $category = $_POST['category'];
 //print_r($_POST);
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="<?php echo $_SESSION['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="<?php echo $_SESSION['feindura']['language']; ?>">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8" />
   <link rel="stylesheet" type="text/css" href="../styles/windowBox.css" media="screen" />
 </head>
 <body id="thumbnailUploadFrame">

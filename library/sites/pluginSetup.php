@@ -68,8 +68,8 @@ if($pluginFolders) {
       // VARs
       $pluginFolderName = basename($pluginFolder);
       $savedForm = false;      
-      $pluginCountryCode = (file_exists($pluginFolder.'/languages/'.$_SESSION['language'].'.php'))
-    	  ? $_SESSION['language']
+      $pluginCountryCode = (file_exists($pluginFolder.'/languages/'.$_SESSION['feindura']['language'].'.php'))
+    	  ? $_SESSION['feindura']['language']
     	  : 'en';
       unset($pluginLangFile);
       $pluginLangFile = @include($pluginFolder.'/languages/'.$pluginCountryCode.'.php');

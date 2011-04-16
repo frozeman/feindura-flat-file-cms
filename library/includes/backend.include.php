@@ -110,13 +110,13 @@ $newPage          = false; // tells the editor whether a new page is created
 // and includes the langFile
 
 // -> check language
-//unset($_SESSION['language']);
+//unset($_SESSION['feindura']['language']);
 if(isset($_GET['language'])) $_GET['language'] = xssFilter::alphabetical($_GET['language']);
-if(isset($_SESSION['language'])) $_SESSION['language'] = xssFilter::alphabetical($_SESSION['language']);
-if(isset($_GET['language'])) $_SESSION['language'] = $_GET['language'];
+if(isset($_SESSION['feindura']['language'])) $_SESSION['feindura']['language'] = xssFilter::alphabetical($_SESSION['feindura']['language']);
+if(isset($_GET['language'])) $_SESSION['feindura']['language'] = $_GET['language'];
 
-$backendLangFile = generalFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['language']);
-$sharedLangFile = generalFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['language']);
+$backendLangFile = generalFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feindura']['language']);
+$sharedLangFile = generalFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feindura']['language']);
 $langFile = $sharedLangFile + $backendLangFile;
 unset($backendLangFile,$sharedLangFile);
 // *---* choose LANGUAGE * END * -----------------------------------------------------

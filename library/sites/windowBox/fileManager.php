@@ -45,7 +45,7 @@ if(!$adminConfig['user']['fileManager'])
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['language']; ?>.js"></script>
+  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feindura']['language']; ?>.js"></script>
 
   <script type="text/javascript">
   /* <![CDATA[ */
@@ -58,7 +58,7 @@ if(!$adminConfig['user']['fileManager'])
       var fileManager = new FileManager({
           url: '../../processes/filemanager.process.php',
           assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
-          language: '<?= $_SESSION["language"]; ?>',
+          language: '<?= $_SESSION["feindura"]["language"]; ?>',
           uploadAuthData: {session: '<?= session_id(); ?>'},
           filter: '<?= $_GET["mimType"]; ?>',
           destroy: true,

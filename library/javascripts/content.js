@@ -1005,7 +1005,7 @@ window.addEvent('domready', function() {
       mode = textarea.getProperty('class').replace('editFiles ','');
     else if(textarea.hasClass('js'))
       mode = 'javascript';
-    else if(textarea.hasClass('html') || textarea.hasClass('htm'))
+    else
       mode = 'htmlmixed';
      
     var editor = CodeMirror.fromTextArea(textarea, {

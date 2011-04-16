@@ -27,10 +27,11 @@ Fabian Vogelsteller <http://frozeman.de>
 This plugin creates automaticly an gallery from a folder containing images. On the first load of the plugin in the website,
 the images will be resized to the size set in the plugin settings and thumbnails will be created.
 
-
 ### USAGE
 The imageGallery plugin can be displayed in your website with the showPlugins('imageGallery',$pageId) method from the feindura class (when activated in the page with the $pageId).
 
+### STYLING
+To style the imageGallery with css use the ".plugin_imageGallery" class.
 
 ### ADDITIONAL
 You can also add image captions by placing a "texts.txt" or "captions.txt" in the folder where the images are, with the following format:
@@ -42,5 +43,5 @@ The imageGallery class can also be used without feindura as a image gallery in y
 
 
 ### USES
-SlimBox2 http://www.digitalia.be/software/slimbox2
-jQuery http://jquery.com/
+milkbox http://reghellin.com/milkbox/
+MooTools http://mootools.net/ (Attention!! could have conflicts with other frameworks your website uses!!)

@@ -20,6 +20,17 @@
 * @version 0.1.6
 * 
 */
+/**
+ * This file contains the sort functions used by the backend and the frontend.
+ * 
+ * @package [Backend]
+ * 
+ * @version 0.1.2
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 0.1.2 add this file comment
+ * 
+ */
 
 $feindura_categories = $categoryConfig;
 

@@ -29,8 +29,8 @@ if(isset($_POST['password'])) $_POST['password'] = xssFilter::text($_POST['passw
 
 // -> if NO USER EXISTS
 if(empty($userConfig)) {
-  $_SESSION['feinduraLogin'][IDENTITY]['username'] = false;
-  $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
+  $_SESSION['feindura'][IDENTITY]['username'] = false;
+  $_SESSION['feindura'][IDENTITY]['loggedIn'] = true;
 }
 
 // ->> LOGIN FORM SEND
@@ -41,8 +41,8 @@ if(isset($_POST) && $_POST['action'] == 'login') {
   
     if(!empty($_POST['username']) && array_key_exists($_POST['username'],$userConfig)) {
       if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
-        $_SESSION['feinduraLogin'][IDENTITY]['username'] = $_POST['username'];
-        $_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] = true;
+        $_SESSION['feindura'][IDENTITY]['username'] = $_POST['username'];
+        $_SESSION['feindura'][IDENTITY]['loggedIn'] = true;
       } else
         $loginError = $langFile['LOGIN_ERROR_WRONGPASSWORD'];
     } else
@@ -53,7 +53,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 
 // -> LOGOUT
 if(isset($_GET['logout'])) {
-  unset($_SESSION['feinduraLogin'][IDENTITY]);
+  unset($_SESSION['feindura'][IDENTITY]);
   $loggedOut = true;
 }
 
@@ -100,7 +100,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
 
 // ->> CHECK if user is logged in
 // *****************************************************
-if($_SESSION['feinduraLogin'][IDENTITY]['loggedIn'] === true) {
+if($_SESSION['feindura'][IDENTITY]['loggedIn'] === true) {
    
    // does nothing :-)
 

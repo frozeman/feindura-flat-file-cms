@@ -170,7 +170,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             echo '<li><span';
             
             // your own user
-            if($_SESSION['feinduraLogin'][IDENTITY]['username'] == $user['username'])
+            if($_SESSION['feindura'][IDENTITY]['username'] == $user['username'])
               echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
             elseif(is_array(($sessions = $sessionLister->getSessions()))) {              
