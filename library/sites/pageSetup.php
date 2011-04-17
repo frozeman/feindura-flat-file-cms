@@ -38,8 +38,8 @@ foreach($pluginsConfig as $pluginConfig) {
 // ----------------------------------------------------------------------------------------
 
 // check config files
-$unwriteableList .= isWritableWarning($adminConfig['realBasePath'].'config/admin.config.php');
-$unwriteableList .= isWritableWarning($adminConfig['realBasePath'].'config/category.config.php');  
+$unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/admin.config.php');
+$unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/category.config.php');  
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {

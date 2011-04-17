@@ -29,15 +29,15 @@ if(isAdmin()) {
 
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 // ----------------------------------------------------------------------------------------
-$checkFolders[] = $adminConfig['realBasePath'].'config/';
-$checkFolders[] = $adminConfig['realBasePath'].'statistic/';
-$checkFolders[] = $adminConfig['realBasePath'].'pages/';
+$checkFolders[] = dirname(__FILE__).'/../../config/';
+$checkFolders[] = dirname(__FILE__).'/../../statistic/';
+$checkFolders[] = dirname(__FILE__).'/../../pages/';
 $checkFolders[] = $adminConfig['websiteFilesPath'];
 $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
 
 // gives the error OUTPUT if one of these files in unwriteable
-if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePath()) {
+if($unwriteableList = isWritableWarningRecursive($checkFolders)) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">

@@ -28,7 +28,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ----------------------------------------------------------------------------------------
 
 // check config files
-$unwriteableList .= isWritableWarning($adminConfig['realBasePath'].'config/user.config.php');
+$unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/user.config.php');
 
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePath()) {

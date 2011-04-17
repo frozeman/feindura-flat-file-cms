@@ -1659,7 +1659,7 @@ function isWritableWarningRecursive($folders) {
   $return = false;
   
   foreach($folders as $folder) {
-    if(!empty($folder)) {
+    if(!empty($folder)) {    
       if($isFolder = isFolderWarning($folder)) {
         $return .= $isFolder;
       } else {
@@ -1679,7 +1679,6 @@ function isWritableWarningRecursive($folders) {
       }
     }
   }
-  
   return $return;
 }
 
