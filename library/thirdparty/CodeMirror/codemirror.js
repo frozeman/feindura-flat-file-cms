@@ -17,11 +17,13 @@ var CodeMirror = (function() {
     // (if enabled).
     var wrapper = document.createElement("div");
     wrapper.className = "CodeMirror";
+    // Work around http://www.quirksmode.org/bugreports/archives/2006/09/Overflow_Hidden_not_hiding.html
+    if (window.ActiveXObject && /MSIE [1-7][\b\.]/.test(navigator.userAgent))
+      wrapper.style.position = "relative";
     // This mess creates the base DOM structure for the editor.
     wrapper.innerHTML =
       '<div style="position: relative">' + // Set to the height of the text, causes scrolling
-        '<pre style="position: relative; height: 0; visibility: hidden; overflow: hidden;">' + // To measure line/char size
-           '<span>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></pre>' +
+        '<div style="position: absolute; height: 0; width: 0; overflow: hidden;"></div>' +
         '<div style="position: relative">' + // Moved around its parent to cover visible view
           '<div class="CodeMirror-gutter"><div class="CodeMirror-gutter-text"></div></div>' +
           '<div style="overflow: hidden; position: absolute; width: 0; left: 0">' + // Wraps and hides input textarea
@@ -67,6 +69,9 @@ var CodeMirror = (function() {
     // bracketHighlighted is used to remember that a backet has been
     // marked.
     var editing, bracketHighlighted;
+    // Tracks the maximum line length so that the horizontal scrollbar
+    // can be kept static when scrolling.
+    var maxLine = "";
 
     // Initialize the content. Somewhat hacky (delayed prepareInput)
     // to work around browser issues.
@@ -132,8 +137,8 @@ var CodeMirror = (function() {
       charCoords: function(pos){return pageCoords(clipPos(pos));},
       coordsChar: function(coords) {
         var off = eltOffset(lineSpace);
-        var line = Math.min(showingTo - 1, showingFrom + Math.floor(coords.y / lineHeight()));
-        return clipPos({line: line, ch: charFromX(clipLine(line), coords.x)});
+        var line = clipLine(Math.min(lines.length - 1, showingFrom + Math.floor((coords.y - off.top) / lineHeight())));
+        return clipPos({line: line, ch: charFromX(clipLine(line), coords.x - off.left)});
       },
       getSearchCursor: function(query, pos, caseFold) {return new SearchCursor(query, pos, caseFold);},
       markText: operation(function(a, b, c){return operation(markText(a, b, c));}),
@@ -373,6 +378,11 @@ var CodeMirror = (function() {
     function redo() {unredoHelper(history.undone, history.done);}
 
     function updateLinesNoUndo(from, to, newText, selFrom, selTo) {
+      var recomputeMaxLength = false, maxLineLength = maxLine.length;
+      for (var i = from.line; i < to.line; ++i) {
+        if (lines[i].text.length == maxLineLength) {recomputeMaxLength = true; break;}
+      }
+
       var nlines = to.line - from.line, firstLine = lines[from.line], lastLine = lines[to.line];
       // First adjust the line structure, taking some care to leave highlighting intact.
       if (firstLine == lastLine) {
@@ -399,6 +409,24 @@ var CodeMirror = (function() {
         lines.splice.apply(lines, spliceargs);
       }
 
+
+      for (var i = from.line, e = i + newText.length; i < e; ++i) {
+        var l = lines[i].text;
+        if (l.length > maxLineLength) {
+          maxLine = l; maxLineLength = l.length;
+          recomputeMaxLength = false;
+        }
+      }
+      if (recomputeMaxLength) {
+        maxLineLength = 0;
+        for (var i = 0, e = lines.length; i < e; ++i) {
+          var l = lines[i].text;
+          if (l.length > maxLineLength) {
+            maxLineLength = l.length; maxLine = l;
+          }
+        }
+      }
+
       // Add these lines to the work array, so that they will be
       // highlighted. Adjust work lines if lines were added/removed.
       var newWork = [], lendiff = newText.length - nlines - 1;
@@ -412,7 +440,7 @@ var CodeMirror = (function() {
       startWorker(100);
       // Remember that these lines changed, for updating the display
       changes.push({from: from.line, to: to.line + 1, diff: lendiff});
-      textChanged = true;
+      textChanged = {from: from, to: to, text: newText};
 
       // Update the selection
       function updateLine(n) {return n <= Math.min(to.line, to.line + lendiff) ? n : n + lendiff;}
@@ -499,9 +527,7 @@ var CodeMirror = (function() {
       if (!sr) return false;
       var changed = editing.text != text, rs = reducedSelection;
       var moved = changed || sr.start != editing.start || sr.end != (rs ? editing.start : editing.end);
-      if (reducedSelection && !moved && sel.from.line == 0 && sel.from.ch == 0)
-        reducedSelection = null;
-      else if (!moved) return false;
+      if (!moved && !rs) return false;
       if (changed) {
         shiftSelecting = reducedSelection = null;
         if (options.readOnly) {updateInput = true; return "changed";}
@@ -682,6 +708,9 @@ var CodeMirror = (function() {
         code.style.height = (lines.length * lineHeight() + 2 * paddingTop()) + "px";
         updateGutter();
       }
+
+      var textWidth = stringWidth(maxLine);
+      lineSpace.style.width = textWidth > wrapper.clientWidth ? textWidth + "px" : "";
 
       // Since this is all rather error prone, it is honoured with the
       // only assertion in the whole file.
@@ -1001,35 +1030,44 @@ var CodeMirror = (function() {
       return {line: n, text: line.text, markerText: marker && marker.text, markerClass: marker && marker.style};
     }
 
+    function stringWidth(str) {
+      measure.innerHTML = "<pre><span>x</span></pre>";
+      measure.firstChild.firstChild.firstChild.nodeValue = str;
+      return measure.firstChild.firstChild.offsetWidth || 10;
+    }
     // These are used to go from pixel positions to character
-    // positions, taking tabs into account.
+    // positions, taking varying character widths into account.
     function charX(line, pos) {
-      var text = lines[line].text, span = measure.firstChild;
-      if (text.lastIndexOf("\t", pos) == -1) return pos * charWidth();
-      var old = span.firstChild.nodeValue;
-      try {
-        span.firstChild.nodeValue = text.slice(0, pos);
-        return span.offsetWidth;
-      } finally {span.firstChild.nodeValue = old;}
+      if (pos == 0) return 0;
+      measure.innerHTML = "<pre><span>" + lines[line].getHTML(null, null, false, pos) + "</span></pre>";
+      return measure.firstChild.firstChild.offsetWidth;
     }
     function charFromX(line, x) {
-      var text = lines[line].text, cw = charWidth();
       if (x <= 0) return 0;
-      if (text.indexOf("\t") == -1) return Math.min(text.length, Math.round(x / cw));
-      var mspan = measure.firstChild, mtext = mspan.firstChild, old = mtext.nodeValue;
-      try {
-        mtext.nodeValue = text;
-        var from = 0, fromX = 0, to = text.length, toX = mspan.offsetWidth;
-        if (x > toX) return to;
-        for (;;) {
-          if (to - from <= 1) return (toX - x > x - fromX) ? from : to;
-          var middle = Math.ceil((from + to) / 2);
-          mtext.nodeValue = text.slice(0, middle);
-          var curX = mspan.offsetWidth;
-          if (curX > x) {to = middle; toX = curX;}
-          else {from = middle; fromX = curX;}
-        }
-      } finally {mtext.nodeValue = old;}
+      var lineObj = lines[line], text = lineObj.text;
+      function getX(len) {
+        measure.innerHTML = "<pre><span>" + lineObj.getHTML(null, null, false, len) + "</span></pre>";
+        return measure.firstChild.firstChild.offsetWidth;
+      }
+      var from = 0, fromX = 0, to = text.length, toX;
+      // Guess a suitable upper bound for our search.
+      var estimated = Math.min(to, Math.ceil(x / stringWidth("x")));
+      for (;;) {
+        var estX = getX(estimated);
+        if (estX <= x && estimated < to) estimated = Math.min(to, Math.ceil(estimated * 1.2));
+        else {toX = estX; to = estimated; break;}
+      }
+      if (x > toX) return to;
+      // Try to guess a suitable lower bound as well.
+      estimated = Math.floor(to * 0.8); estX = getX(estimated);
+      if (estX < x) {from = estimated; fromX = estX;}
+      // Do a binary search between these bounds.
+      for (;;) {
+        if (to - from <= 1) return (toX - x > x - fromX) ? from : to;
+        var middle = Math.ceil((from + to) / 2), middleX = getX(middle);
+        if (middleX > x) {to = middle; toX = middleX;}
+        else {from = middle; fromX = middleX;}
+      }
     }
 
     function localCoords(pos, inLineWrap) {
@@ -1044,9 +1082,9 @@ var CodeMirror = (function() {
     function lineHeight() {
       var nlines = lineDiv.childNodes.length;
       if (nlines) return lineDiv.offsetHeight / nlines;
-      else return measure.firstChild.offsetHeight || 1;
+      measure.innerHTML = "<pre>x</pre>";
+      return measure.firstChild.offsetHeight || 1;
     }
-    function charWidth() {return (measure.firstChild.offsetWidth || 320) / 40;}
     function paddingTop() {return lineSpace.offsetTop;}
     function paddingLeft() {return lineSpace.offsetLeft;}
 
@@ -1054,7 +1092,11 @@ var CodeMirror = (function() {
       var off = eltOffset(lineSpace),
           x = e.pageX() - off.left,
           y = e.pageY() - off.top;
-      if (!liberal && e.target() != lineSpace.parentNode && !(e.target() == wrapper && y > (lines.length * lineHeight())))
+      // This is a mess of a heuristic to try and determine whether a
+      // scroll-bar was clicked or not, and to return null if one was
+      // (and !liberal).
+      if (!liberal && e.target() != lineSpace.parentNode &&
+          !(e.target() == wrapper && y > (lines.length * lineHeight()) && wrapper.clientHeight > code.offsetHeight))
         for (var n = e.target(); n != lineDiv && n != cursor; n = n.parentNode)
           if (!n || n == wrapper) return null;
       var line = showingFrom + Math.floor(y / lineHeight());
@@ -1216,15 +1258,16 @@ var CodeMirror = (function() {
       if (!leaveInputAlone && (updateInput === true || (updateInput !== false && selectionChanged)))
         prepareInput();
 
-      if (selectionChanged && options.onCursorActivity)
-        options.onCursorActivity(instance);
-      if (textChanged && options.onChange)
-        options.onChange(instance);
       if (selectionChanged && options.matchBrackets)
         setTimeout(operation(function() {
           if (bracketHighlighted) {bracketHighlighted(); bracketHighlighted = null;}
           matchBrackets(false);
         }), 20);
+      var tc = textChanged; // textChanged can be reset by cursoractivity callback
+      if (selectionChanged && options.onCursorActivity)
+        options.onCursorActivity(instance);
+      if (tc && options.onChange)
+        options.onChange(instance, tc);
     }
     var nestedOperation = 0;
     function operation(f) {
@@ -1607,7 +1650,7 @@ var CodeMirror = (function() {
     indentation: function() {return countColumn(this.text);},
     // Produces an HTML fragment for the line, taking selection,
     // marking, and highlighting into account.
-    getHTML: function(sfrom, sto, includePre) {
+    getHTML: function(sfrom, sto, includePre, endAt) {
       var html = [];
       if (includePre)
         html.push(this.className ? '<pre class="' + this.className + '">': "<pre>");
@@ -1618,11 +1661,18 @@ var CodeMirror = (function() {
       }
       var st = this.styles, allText = this.text, marked = this.marked;
       if (sfrom == sto) sfrom = null;
+      var len = allText.length;
+      if (endAt != null) len = Math.min(endAt, len);
 
-      if (!allText)
+      if (!allText && endAt == null)
         span(" ", sfrom != null && sto == null ? "CodeMirror-selected" : null);
       else if (!marked && sfrom == null)
-        for (var i = 0, e = st.length; i < e; i+=2) span(st[i], st[i+1]);
+        for (var i = 0, ch = 0; ch < len; i+=2) {
+          var str = st[i], l = str.length;
+          if (ch + l > len) str = str.slice(0, len - ch);
+          ch += l;
+          span(str, st[i+1]);
+        }
       else {
         var pos = 0, i = 0, text = "", style, sg = 0;
         var markpos = -1, mark = null;
@@ -1633,8 +1683,8 @@ var CodeMirror = (function() {
           }
         }
         nextMark();        
-        while (pos < allText.length) {
-          var upto = allText.length;
+        while (pos < len) {
+          var upto = len;
           var extraStyle = "";
           if (sfrom != null) {
             if (sfrom > pos) upto = sfrom;
