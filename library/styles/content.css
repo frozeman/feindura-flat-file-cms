@@ -63,6 +63,8 @@ content.css version 0.3 */
     margin-left: 65px;
     }
 #content .block.warning .content {
+    max-height: 500px;
+    overflow: auto;
     margin-top: 1px;
     padding-top: 0px;
     min-height: 48px;

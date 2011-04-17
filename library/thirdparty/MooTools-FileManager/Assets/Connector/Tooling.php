@@ -49,38 +49,77 @@ if (!function_exists('safe_glob'))
 	 * @updates
 	 * - 080324 Added support for additional flags: GLOB_NODIR, GLOB_PATH,
 	 *   GLOB_NODOTS, GLOB_RECURSE
-	 * - [i_a] Added support for GLOB_NOHIDDEN
+	 * - [i_a] Added support for GLOB_NOHIDDEN, split output in directories and files subarrays
 	 */
 	function safe_glob($pattern, $flags = 0)
 	{
-		$split = explode('/', str_replace('\\', '/', $pattern));
+		$split = explode('/', strtr($pattern, '\\', '/'));
 		$mask = array_pop($split);
 		$path = implode('/', $split);
 		if (($dir = @opendir($path)) !== false)
 		{
-			$glob = array();
+			$dirs = array();
+			$files = array();
 			while(($file = readdir($dir)) !== false)
 			{
-				// Recurse subdirectories (GLOB_RECURSE); speedup: no need to sort the intermediate results
-				if (($flags & GLOB_RECURSE) && is_dir($file) && (!in_array($file, array('.', '..'))))
+				// HACK/TWEAK: PHP5 and below are completely b0rked when it comes to international filenames   :-(
+				//             --> do not show such files/directories in the list as they won't be accessible anyway!
+				//
+				// The regex charset is limited even within the ASCII range, due to    http://en.wikipedia.org/wiki/Filename#Comparison%5Fof%5Ffile%5Fname%5Flimitations
+				// Although the filtered characters here are _possible_ on UNIX file systems, they're severely frowned upon.
+				if (preg_match('/[^ -)+-.0-;=@-\[\]-{}~]/', $file))  // filesystem-illegal characters are not part of the set:   * > < ? / \ |
 				{
-					$glob = array_merge($glob, array_prepend(safe_glob($path . '/' . $file . '/' . $mask, $flags | GLOB_NOSORT), ($flags & GLOB_PATH ? '' : $file . '/')));
+					// simply do NOT list anything that we cannot cope with.
+					// That includes clearly inaccessible files (and paths) with non-ASCII characters:
+					// PHP5 and below are a real mess when it comes to handling Unicode filesystems
+					// (see the php.net site too: readdir / glob / etc. user comments and the official
+					// notice that PHP will support filesystem UTF-8/Unicode only when PHP6 is released.
+					//
+					// Big, fat bummer!
+					continue;
+				}
+				//$temp = unpack("H*",$file);
+				//echo 'hexdump of filename = ' . $temp[1] . ' for filename = ' . $file . "<br>\n";
+
+				$filepath = $path . '/' . $file;
+				$isdir = is_dir($filepath);
+
+				// Recurse subdirectories (GLOB_RECURSE); speedup: no need to sort the intermediate results
+				if (($flags & GLOB_RECURSE) && $isdir && !($file == '.' || $file == '..'))
+				{
+					$subsect = safe_glob($filepath . '/' . $mask, $flags | GLOB_NOSORT);
+					if (is_array($subsect))
+					{
+						$dirs = array_merge($dirs, array_prepend($subject['dirs'], ($flags & GLOB_PATH ? '' : $file . '/')));
+						$files = array_merge($files, array_prepend($subject['files'], ($flags & GLOB_PATH ? '' : $file . '/')));
+					}
 				}
 				// Match file mask
 				if (fnmatch($mask, $file))
 				{
-					if ( ( (!($flags & GLOB_ONLYDIR)) || is_dir($path . '/' . $file) )
-					  && ( (!($flags & GLOB_NODIR)) || (!is_dir($path . '/' . $file)) )
-					  && ( (!($flags & GLOB_NODOTS)) || (!in_array($file, array('.', '..'))) ) 
+					if ( ( (!($flags & GLOB_ONLYDIR)) || $isdir )
+					  && ( (!($flags & GLOB_NODIR)) || !$isdir )
+					  && ( (!($flags & GLOB_NODOTS)) || !($file == '.' || $file == '..') )
 					  && ( (!($flags & GLOB_NOHIDDEN)) || ($file[0] != '.' || $file == '..')) )
 					{
-						$glob[] = ($flags & GLOB_PATH ? $path . '/' : '') . $file . (($flags & GLOB_MARK) && is_dir($path . '/' . $file) ? '/' : '');
+						if ($isdir)
+						{
+							$dirs[] = ($flags & GLOB_PATH ? $path . '/' : '') . $file . (($flags & GLOB_MARK) ? '/' : '');
+						}
+						else
+						{
+							$files[] = ($flags & GLOB_PATH ? $path . '/' : '') . $file;
+						}
 					}
 				}
 			}
 			closedir($dir);
-			if (!($flags & GLOB_NOSORT)) sort($glob);
-			return $glob;
+			if (!($flags & GLOB_NOSORT))
+			{
+				sort($dirs);
+				sort($files);
+			}
+			return array('dirs' => $dirs, 'files' => $files);
 		}
 		else
 		{
@@ -311,7 +350,7 @@ if (!function_exists('get_response_code_string'))
  *
  * See also:
  *
- * http://nl2.php.net/manual/en/function.header.php
+ *   http://nl2.php.net/manual/en/function.header.php
  */
 if (!function_exists('send_response_status_header'))
 {
@@ -333,6 +372,64 @@ if (!function_exists('send_response_status_header'))
 }
 
 
+
+
+
+
+/*
+ * http://www.php.net/manual/en/function.image-type-to-extension.php#77354
+ * -->
+ * http://www.php.net/manual/en/function.image-type-to-extension.php#79688
+ */
+if (!function_exists('image_type_to_extension'))
+{
+    function image_type_to_extension($type, $dot = true)
+    {
+        $e = array(1 => 'gif', 'jpeg', 'png', 'swf', 'psd', 'bmp', 'tiff', 'tiff', 'jpc', 'jp2', 'jpf', 'jb2', 'swc', 'aiff', 'wbmp', 'xbm');
+
+        // We are expecting an integer.
+        $t = (int)$type;
+        if (!$t) 
+		{
+            trigger_error('invalid IMAGETYPE_XXX(' . $type . ') passed to image_type_to_extension()', E_USER_NOTICE);
+            return null;
+        }
+        if (!isset($e[$t]))
+		{
+            trigger_error('unidentified IMAGETYPE_XXX(' . $type . ') passed to image_type_to_extension()', E_USER_NOTICE);
+            return null;
+        }
+
+        return ($dot ? '.' : '') . $e[$t];
+    }
+}
+
+
+if (!function_exists('image_type_to_mime_type')) 
+{
+    function image_type_to_mime_type($type)
+    {
+        $m = array(1 => 'image/gif', 'image/jpeg', 'image/png',
+            'application/x-shockwave-flash', 'image/psd', 'image/bmp',
+            'image/tiff', 'image/tiff', 'application/octet-stream',
+            'image/jp2', 'application/octet-stream', 'application/octet-stream',
+            'application/x-shockwave-flash', 'image/iff', 'image/vnd.wap.wbmp', 'image/xbm');
+
+        // We are expecting an integer.
+        $t = (int)$type;
+        if (!$t) 
+		{
+            trigger_error('invalid IMAGETYPE_XXX(' . $type . ') passed to image_type_to_mime_type()', E_USER_NOTICE);
+            return null;
+        }
+        if (!isset($m[$t]))
+		{
+            trigger_error('unidentified IMAGETYPE_XXX(' . $type . ') passed to image_type_to_mime_type()', E_USER_NOTICE);
+            return null;
+        }
+        return $m[$t];
+    }
+}
 
 
 

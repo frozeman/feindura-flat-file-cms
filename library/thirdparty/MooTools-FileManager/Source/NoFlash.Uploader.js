@@ -1,24 +1,26 @@
 /*
- * ---
- *
- * description: Implements Upload functionality into the FileManager without using Flash
- *              While the flash uploader is preferable, sometimes it is not possible to use it due to
- *              server restrictions (eg, mod_security), or perhaps users refuse to use flash.
- *
- *              This Upload handler will allow the MFM to continue to function, without multiple-upload-at-once
- *              function and without progress bars.  But otherwise, it should work.
- *
- * authors: James Sleeman (@sleemanj)
- *
- * license: MIT-style license.
- *
- * requires: [Core/*]
- *
- * provides: Filemanager.Uploader
- *
- * ...
- */
+---
 
+description: Implements Upload functionality into the FileManager without using Flash
+
+authors: James Sleeman (@sleemanj)
+
+license: MIT-style license.
+
+requires: [Core/*]
+
+provides: Filemanager.NoFlashUploader
+
+...
+*/
+
+/*
+ * While the flash uploader is preferable, sometimes it is not possible to use it due to
+ * server restrictions (eg, mod_security), or perhaps users refuse to use flash.
+ *
+ * This Upload handler will allow the MFM to continue to function, without multiple-upload-at-once
+ * function and without progress bars.  But otherwise, it should work.
+ */
 FileManager.implement({
 
 	options: {
@@ -106,9 +108,9 @@ FileManager.implement({
 						event: 'upload',
 						directory: self.normalize(mfm.Directory),
 						filter: mfm.options.filter,
-						resize: (this.label && this.label.getElement('.checkbox').hasClass('checkboxChecked')) ? 1 : 0,
-            reportContentType: 'text/plain' // Safer for iframes
-					  }));
+						resize: ((this.label && this.label.getElement('.checkbox').hasClass('checkboxChecked')) ? 1 : 0),
+						reportContentType: 'text/plain'        // Safer for iframes: the default 'application/json' mime type would cause FF3.X to pop up a save/view dialog!
+					}));
           f.getElement('input[name=directory]').value = mfm.Directory;
 				f.submit();
 			},
@@ -199,3 +201,4 @@ FileManager.implement({
 		});
 	}
 });
+

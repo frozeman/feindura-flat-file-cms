@@ -1,18 +1,18 @@
 /*
- * ---
- *
- * description: Implements Upload functionality into the FileManager based on [FancyUpload](http://digitarald.de)
- *
- * authors: Christoph Pojer (@cpojer)
- *
- * license: MIT-style license.
- *
- * requires: [Core/*]
- *
- * provides: Filemanager.Uploader
- *
- * ...
- */
+---
+
+description: Implements Upload functionality into the FileManager based on [FancyUpload](http://digitarald.de)
+
+authors: Christoph Pojer (@cpojer)
+
+license: MIT-style license.
+
+requires: [Core/*]
+
+provides: Filemanager.Uploader
+
+...
+*/
 
 FileManager.implement({
 
@@ -31,12 +31,14 @@ FileManager.implement({
 
 		cleanup: {
 			upload: function(){
-				if (!this.options.upload  || !this.upload) return;
+				if (!this.options.upload || !this.upload) return;
 
 				if (this.upload.uploader) this.upload.uploader.set('opacity', 0).dispose();
 			}
 		}
 	},
+
+	_lastFileUploaded: null,  // name of the last successfully uploaded file; will be preselected in the list view
 
 	onDialogOpenWhenUpload: function(){
 		if (this.swf && this.swf.box) this.swf.box.setStyle('visibility', 'hidden');
@@ -99,7 +101,7 @@ FileManager.implement({
 					//data: Object.merge({}, base.options.data, self.options.uploadAuthData),
 					url: self.options.url + (self.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString(Object.merge({}, (self.options.propagateType == 'GET' ? self.options.propagateData : {}), {
 						event: 'upload',
-						directory: self.normalize(self.Directory),
+						directory: self.Directory,
 						filter: self.options.filter,
 						resize: self.options.resizeImages && resizer.hasClass('checkboxChecked') ? 1 : 0
 					}))
@@ -213,14 +215,18 @@ FileManager.implement({
 					}).get('morph').chain(function(){
 						this.element.destroy();
 						if (!self.upload.list.getElements('li').length)
+						{
 							self.upload.uploader.fade(0).get('tween').chain(function(){
 								self.upload.uploader.setStyle('display', 'none');
-								self.onShow = true;
-								self.load(self.Directory, self._lastFileUploaded);
-								// self.fillInfo();
 							});
+						}
 					});
 				}).delay(response.status ? 1000 : 5000, this);
+
+				// don't wait for the cute delays to start updating the directory view!
+				self.onShow = true;
+				self.load(self.Directory, self._lastFileUploaded);
+				// self.fillInfo();
 			}
 		});
 
@@ -241,6 +247,7 @@ FileManager.implement({
 		};
 
 		//if (typeof console !== 'undefined' && console.log) console.log('Uploader: SWF init');
+		this._lastFileUploaded = null;
 		this.swf = new Swiff.Uploader({
 			id: 'SwiffFileManagerUpload',
 			path: this.assetBasePath + 'Swiff.Uploader.swf',
@@ -260,7 +267,7 @@ FileManager.implement({
 			zIndex: this.SwiffZIndex || 9999,
 			onSelectSuccess: function(){
 				self.fillInfo();
-				self.info.getElement('h2.filemanager-headline').setStyle('display', 'none');
+				//self.info.getElement('h2.filemanager-headline').setStyle('display', 'none');
 				self.info.adopt(self.upload.uploader.setStyle('display', 'block'));
 				self.upload.uploader.fade(1);
 			},

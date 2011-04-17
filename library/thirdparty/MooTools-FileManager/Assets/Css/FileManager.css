@@ -179,7 +179,7 @@ div.filemanager ul {
   padding: 0;
   position: relative;
   line-height: 1.8em;
-  zoom: 1;
+  zoom: 1;					/*:: < IE 9.0    :: Microsoft Internet Explorer hack */
 }
 
 div.filemanager ul li {
@@ -427,7 +427,11 @@ div.filemanager-container span.list span.list {
 }
 
 
-div.filemanager-container span.drag span, div.filemanager-engine-trident4 ul li span.fi span, div.filemanager-engine-trident5 ul li span.fi span, div.filemanager-engine-presto ul li span.fi span, div.filemanager ul li:hover span.fi span {
+div.filemanager-container span.drag span, 
+div.filemanager-engine-trident4 ul li span.fi span, 
+div.filemanager-engine-trident5 ul li span.fi span, 
+div.filemanager-engine-presto   ul li span.fi span, 
+div.filemanager                 ul li:hover span.fi span {
   overflow: hidden;
 }
 
@@ -554,13 +558,20 @@ div.filemanager h1 {
   background-color: transparent;
 }
 
-div.filemanager h2 {
+div.filemanager h2, div.filemanager h3 {
   margin: 0;
   border-top: 1px solid #bebebe;
-  font-size: 14px;
   font-weight: bold;
   padding: 2px 0 0 5px;
   clear: both;
+}
+
+div.filemanager h2 {
+  font-size: 14px;
+}
+
+div.filemanager h3 {
+  font-size: 12px;
 }
 
 div.filemanager dl {
@@ -584,7 +595,7 @@ div.filemanager dt {
 }
 
 div.filemanager dd {
-  width: 60%;
+  /* width: 60%;    -- Safari4 renders H scrollbar for items which are a little too wide for this, yet still fit on the line :-( */
   white-space: nowrap;
   overflow: auto;
 }
@@ -678,9 +689,15 @@ div.filemanager-preview p.err_info {
   font-weight: bold;
 }
 
+div.filemanager-preview div.preview_err_report {
+  background-color: #fcc;
+}
+
+/*
 div.filemanager-engine-trident4 div.filemanager-preview img.preview {
   height: 100px;
 }
+*/
 
 div.filemanager-preview ul, div.filemanager-uploader ul, div.filemanager-preview div.textpreview {
   border: 1px solid #bebebe;
@@ -827,11 +844,17 @@ div.filemanager-gallery ul li {
   background: url("../Images/loader.gif") center center no-repeat;
 }
 
-div.filemanager-gallery ul li img {
+div.filemanager-gallery ul li span.gallery-image {
   padding: 2px;
   width: 75px;
   height: 56px;
   cursor: pointer;
+}
+
+div.filemanager-gallery ul li span.gallery-image img {
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 div.filemanager-gallery ul li img.filemanager-remove {
