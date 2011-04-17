@@ -2047,14 +2047,19 @@ class feindura extends feinduraBase {
         // ->> LOAD the PLUGINS and return them 
         if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
           if(is_array($pageContent['plugins'])) {
+            // get the activated plugins
+            $activatedPlugins = ($pageContent['category'] === 0)
+              ? unserialize($this->adminConfig['pages']['plugins'])
+              : unserialize($this->categoryConfig[$_GET['category']]['plugins']);
           
             foreach($pageContent['plugins'] as $pluginName => $plugin) {
 
               // go through all plugins and load the required ones
-              if((is_bool($plugins) || in_array($pluginName,$plugins)) &&
-                 $plugin['active'] &&
-                 $this->pluginsConfig[$pluginName]['active'] &&
-                 (($pageContent['category'] == 0 && $this->adminConfig['pages']['plugins']) || ($pageContent['category'] != 0 && $this->categoryConfig[$pageContent['category']]['plugins']))) {
+              if((is_bool($plugins) || in_array($pluginName,$plugins)) && // is in the requested plugins array
+                 $this->pluginsConfig[$pluginName]['active'] && // activated in the pluginsConfig
+                 is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins) && // activated in the adminConfig or categoryConfig
+                 $plugin['active'] // activated in the page                 
+                 ) {
                
                 // create plugin config
                 $pluginConfig = $plugin;
