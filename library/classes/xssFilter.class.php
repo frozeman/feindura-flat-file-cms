@@ -417,7 +417,7 @@ class xssFilter {
  /**
   * <b>Name</b> text()<br>
   * 
-  * Change the HTML important signs to htmlentities with the htmlspecialchars() function.
+  * Change the HTML important signs to htmlspecialchars with the htmlspecialchars() function.
   * 
   * <sample>
   * Text &lt;a href=&quot;test&quot;&gt; other text

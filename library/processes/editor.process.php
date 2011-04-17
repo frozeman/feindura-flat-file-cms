@@ -40,7 +40,6 @@ if($_POST['save']) {
   // format tags  
   $_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
-  $_POST['tags'] = htmlentities($_POST['tags'], ENT_QUOTES, 'UTF-8');
   
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );  

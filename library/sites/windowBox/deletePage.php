@@ -73,7 +73,6 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
   }
 }
 
-echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 echo $question;
 
 

@@ -68,7 +68,6 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
     }
 }
 
-echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 echo $question;
 
 if(!$asking) {

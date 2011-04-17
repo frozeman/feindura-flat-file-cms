@@ -31,7 +31,7 @@ define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT']);
 /**
  * The required PHP version
  */ 
-define('REQUIREDPHPVERSION','5.2.3');
+define('REQUIREDPHPVERSION','5.1');
 
 /**
  * The identity of the user

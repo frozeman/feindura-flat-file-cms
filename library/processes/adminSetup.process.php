@@ -53,7 +53,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
       $_POST['cfg_varNameModul'] = 'modul';
   }
   
-  // -> CHANGE HTMLENTITIES from the USER-INFO
+  // -> add <br> to the USER-INFO and check html code
   $_POST['cfg_userInfo'] = nl2br(stripslashes($_POST['cfg_userInfo']));
   $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],array(
     'comment'=> 1,
