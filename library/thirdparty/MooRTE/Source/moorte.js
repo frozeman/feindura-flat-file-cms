@@ -303,7 +303,7 @@ MooRTE.Utilities = {
 		Object.append(el.retrieve('rteEvents',{}), events);
 		el.addEvents(events);
 	}
-	, removeEvents: function(el, destroy) {
+	, removeEvents: function(el, destroy){
 		Object.each(el.retrieve('rteEvents',{}), function(fn, event){
 			el.removeEvent(event, fn);
 		});
@@ -628,6 +628,9 @@ MooRTE.extensions = function(){
 				els = [self];
 				break;
 			case 'remove':
+				// Don't store 'removed' if already stored. Alternatively could check if element is in DOM by if (!bar.getParent()). 
+				// ToDo: Added as a hotfix, but why is this check neccessary?
+				if (bar.retrieve('removed')) return true;
 				bar.store('removed', bar.getPrevious()
 						? [bar.getPrevious(),'after']
 						: [bar.getParent(),'top']);
@@ -670,7 +673,7 @@ MooRTE.extensions = function(){
 				}
 			} else {
 				el.set('contentEditable', false);
-				MooRTE.Utilities.removeEvents(el, destroy);
+				MooRTE.Utilities.removeEvents(el, 'destroy');
 				if (!bar) el.eliminate('bar');
 			}
 		});
