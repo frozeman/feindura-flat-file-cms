@@ -685,7 +685,7 @@ $langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist, wird
 $langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
 $langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte für diese Seite.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Tags sollten mit &quot;,&quot; getrennt werden.';
+$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Tags müssen mit &quot;,&quot; getrennt werden.';
 $langFile['editor_pageSettings_field3'] = 'Seitendatum';
 $langFile['editor_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Datum zu sortieren. (z.B. bei Veranstaltungen)';
 $langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. &quot;vom 31. Juni bis&quot;.';

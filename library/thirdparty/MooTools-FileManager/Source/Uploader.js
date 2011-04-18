@@ -19,7 +19,9 @@ FileManager.implement({
 	options: {
 		resizeImages: true,
 		upload: true,
-		uploadAuthData: {}            // deprecated; use FileManager.propagateData instead!
+		uploadAuthData: {},            // deprecated; use FileManager.propagateData instead!
+		uploadTimeLimit: 260,
+		uploadFileSizeMax: 2600 * 2600 * 25
 	},
 
 	hooks: {
@@ -123,7 +125,7 @@ FileManager.implement({
 					else if (this.validationError == 'sizeLimitMax')
 						sub.size_max = Swiff.Uploader.formatUnit(this.base.options.fileSizeMax, 'b');
 
-					new FileManager.Dialog(new Element('div', {html: message.substitute(sub, /\\?\$\{([^{}]+)\}/g)}) , {language: {confirm: self.language.ok}, buttons: ['confirm']});
+					this.showError(message.substitute(sub, /\\?\$\{([^{}]+)\}/g));
 					return this;
 				}
 
@@ -186,28 +188,37 @@ FileManager.implement({
 				this.remove();
 			},
 
-			onComplete: function(file_obj) {
+			onComplete: function(file_obj)
+			{
+				var response = null;
+				var failure = true;
+
 				this.ui.progress = this.ui.progress.cancel().element.destroy();
 				this.ui.cancel = this.ui.cancel.destroy();
 
 				try
 				{
-					var response = JSON.decode(this.response.text);
+					response = JSON.decode(this.response.text);
 				}
 				catch(e)
 				{
 					if (typeof console !== 'undefined' && console.log) console.log(this.response);
 				}
 
-				if (!response)
+				if (typeof response === 'undefined' || response == null)
 				{
-					new FileManager.Dialog(self.language.uploader.mod_security, {language: {confirm: self.language.ok}, buttons: ['confirm']});
+					self.showError(self.language.uploader.mod_security);
+				}
+				else if (!response.status)
+				{
+					self.showError(('' + response.error).substitute(self.language, /\\?\$\{([^{}]+)\}/g));
+				}
+				else
+				{
+					failure = false;
 				}
 
-				if (!response.status)
-					new FileManager.Dialog(('' + response.error).substitute(self.language, /\\?\$\{([^{}]+)\}/g) , {language: {confirm: self.language.ok}, buttons: ['confirm']});
-
-				this.ui.element.set('tween', {duration: 2000}).highlight(response.status ? '#e6efc2' : '#f0c2c2');
+				this.ui.element.set('tween', {duration: 2000}).highlight(!failure ? '#e6efc2' : '#f0c2c2');
 				(function(){
 					this.ui.element.setStyle('overflow', 'hidden').morph({
 						opacity: 0,
@@ -221,7 +232,7 @@ FileManager.implement({
 							});
 						}
 					});
-				}).delay(response.status ? 1000 : 5000, this);
+				}).delay(!failure ? 1000 : 5000, this);
 
 				// don't wait for the cute delays to start updating the directory view!
 				self.onShow = true;
@@ -261,8 +272,8 @@ FileManager.implement({
 				(self.options.uploadAuthData || {})
 			),
 			fileClass: File,
-			timeLimit: 260,
-			fileSizeMax: 2600 * 2600 * 25,
+			timeLimit: self.options.uploadTimeLimit,
+			fileSizeMax: self.options.uploadFileSizeMax,
 			typeFilter: this.getFileTypes(),
 			zIndex: this.SwiffZIndex || 9999,
 			onSelectSuccess: function(){
@@ -278,9 +289,9 @@ FileManager.implement({
 				self._lastFileUploaded = f.name;
 			},
 			onFail: function(error) {
-				if (error != 'empty') {
+				if (error !== 'empty') {
 					$$(self.upload.button, self.upload.label).dispose();
-					new FileManager.Dialog(new Element('div', {html: self.language.flash[error] || self.language.flash.flash}), {language: {confirm: self.language.ok}, buttons: ['confirm']});
+					self.showError(self.language.flash[error] || self.language.flash.flash);
 				}
 			}
 		});

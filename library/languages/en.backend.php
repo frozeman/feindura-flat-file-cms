@@ -687,7 +687,7 @@ $langFile['editor_pageSettings_field1_inputTip'] = 'If empty it uses the descrip
 $langFile['editor_pageSettings_field1_tip'] = 'A short summary of the page content. This description will be used in the META-Tags of the page.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
 $langFile['editor_pageSettings_field2'] = 'Tags';
 $langFile['editor_pageSettings_field2_tip'] = 'Tags are keywords for this page.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'The Tags should separated by &quot;,&quot;.';
+$langFile['editor_pageSettings_field2_tip_inputTip'] = 'The Tags must be separated by &quot;,&quot;.';
 $langFile['editor_pageSettings_field3'] = 'Pagedate';
 $langFile['editor_pageSettings_field3_tip'] = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
 $langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text before the date::e.g. &quot;from 31st June until&quot;.';

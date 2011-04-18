@@ -640,7 +640,7 @@ class generalFunctions {
       fwrite($file,"\$pageContent['pageDate']['before'] = '".xssFilter::text($pageContent['pageDate']['before'])."';\n");
       fwrite($file,"\$pageContent['pageDate']['date'] =   ".xssFilter::int($pageContent['pageDate']['date'],0).";\n");
       fwrite($file,"\$pageContent['pageDate']['after'] =  '".xssFilter::text($pageContent['pageDate']['after'])."';\n");           
-      fwrite($file,"\$pageContent['tags'] =               '".xssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $pageContent['tags']),','))."';\n\n");
+      fwrite($file,"\$pageContent['tags'] =               '".xssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContent['tags']),','))."';\n\n");
       
       // write the plugins
       if(is_array($pageContent['plugins'])) {

@@ -42,7 +42,9 @@ if($_POST['save']) {
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   
   // removes double whitespaces and slashes
-  $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );  
+  $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
+  $_POST['HTMLEditor'] = str_replace('\"', '"', $_POST['HTMLEditor'] );
+  $_POST['HTMLEditor'] = str_replace("\'", "'", $_POST['HTMLEditor'] ); 
   
   // *** CREATE NEW PAGE ----------------------
   if ($page == 'new') {
