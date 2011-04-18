@@ -918,7 +918,10 @@ function saveSpeakingUrl(&$errorWindow) {
   $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.$oldWebsitePath.'?category=$1&page=$2$3 [QSA,L]'."\n";
   $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/(.*)\.html\?*(.*)$ '.$oldWebsitePath.'?page=$1$2 [QSA,L]';
   
-  $speakingUrlCode = '<IfModule mod_rewrite.c>
+  $speakingUrlCode = '#
+# feindura -flat file cms - speakingURL activation
+#
+<IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
@@ -996,8 +999,7 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
   // ->> saves the htacces file
   if($save && !empty($data) && $htaccess = fopen($htaccessFile,"wb")) {
     
-    $data = preg_replace("# +#"," ",$data);
-    $data = preg_replace("#\n+#","\n",$data);
+    $data = preg_replace("#\\n+$#","\n",$data); // prevent growing of the file with line endings
     
     flock($htaccess,2); // LOCK_EX
     fwrite($htaccess,$data);
