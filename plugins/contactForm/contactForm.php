@@ -283,7 +283,9 @@ class contactForm {
           else $fax = '';
           
           // entfernt die \ aus dem text
-          $message = stripslashes($message);
+          $message = (method_exists('generalFunctions','smartStripslashes'))
+            ? generalFunctions::smartStripslashes($message)
+            : stripslashes($message);
           
           $subject = $this->websiteTitle.' '.$this->langFile['message_subject'];
               

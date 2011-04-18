@@ -407,7 +407,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     }
     
     // ->> CLEAR activity log
-    if($taskLogFile = fopen(dirname(__FILE__)."/statistic/activity.statistic.log","w")) {
+    if($taskLogFile = fopen(dirname(__FILE__)."/statistic/activity.statistic.log","wb")) {
       fclose($taskLogFile);
       
       // set documentSaved status
@@ -438,7 +438,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
       elseif(!empty($data) && substr($data,0,2) != 'a:')
         $websiteStatistic['browser'] = changeToSerializedDataString($data,' ');
     
-    if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","w")) {
+    if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","wb")) {
       
       flock($statisticFile,2);        
       fwrite($statisticFile,PHPSTARTTAG);  
@@ -466,7 +466,7 @@ Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't
     // ->> SAVE referer log
     $oldLog = file(dirname(__FILE__)."/statistic/referer.statistic.log");
     
-    if($logFile = fopen(dirname(__FILE__)."/statistic/referer.statistic.log","w")) {
+    if($logFile = fopen(dirname(__FILE__)."/statistic/referer.statistic.log","wb")) {
         
       // -> write the new log file
       flock($logFile,2);

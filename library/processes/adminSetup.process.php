@@ -54,7 +54,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   }
   
   // -> add <br> to the USER-INFO and check html code
-  $_POST['cfg_userInfo'] = nl2br(stripslashes($_POST['cfg_userInfo']));
+  $_POST['cfg_userInfo'] = nl2br(generalFunctions::smartStripslashes($_POST['cfg_userInfo']));
   $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],array(
     'comment'=> 1,
     'cdata'=> 1,
@@ -156,11 +156,9 @@ if(isset($_POST['saveFckStyleFile'])) {
 
 ]);";
   
-  $fckstylewrite 	= str_replace('\"', '"', $fckstylewrite);
-  $fckstylewrite 	= str_replace("\'", "'", $fckstylewrite);
-  $fckstylewrite 	= stripslashes($fckstylewrite);
+  $fckstylewrite 	= generalFunctions::smartStripslashes($fckstylewrite);
   
-  if($file = fopen("config/htmlEditorStyles.js","w")) {
+  if($file = fopen("config/htmlEditorStyles.js","wb")) {
     flock($file,2);
     fwrite($file,$fckstylewrite);
     flock($file,3);

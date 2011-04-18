@@ -615,21 +615,12 @@ class generalFunctions {
     : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
-    if(is_numeric($pageContent['id']) && ($file = fopen($filePath,"w"))) {
+    if(is_numeric($pageContent['id']) && ($file = fopen($filePath,"wb"))) {
       
       // escape \ and '
       xssFilter::escapeBasics($pageContent);
-      
-      // escaps ",',\,NULL but undescappes the double quotes again
-      $pageContent['content'] = preg_replace('#\\\\+#', "\\", $pageContent['content']);
-      $pageContent['content'] = stripslashes($pageContent['content']);
-      $pageContent['content'] = addslashes($pageContent['content']); //escaped ",',\,NUL
-      $pageContent['content'] = preg_replace('#\\\\"+#', '"', $pageContent['content'] );
-  
-      $pageContent['title'] = preg_replace('#\\\\+#', "\\", $pageContent['title']);
-      $pageContent['title'] = stripslashes($pageContent['title']);
-      $pageContent['title'] = addslashes($pageContent['title']); //escaped ",',\,NUL
-      $pageContent['title'] = preg_replace('#\\\\"+#', '"', $pageContent['title'] );
+      $pageContent['content'] = generalFunctions::smartStripslashes($pageContent['content']);
+      $pageContent['title'] = generalFunctions::smartStripslashes($pageContent['title']);
 
       // WRITE
       flock($file,2);            
@@ -1554,6 +1545,36 @@ class generalFunctions {
     }
     
     return $return;
+  }
+  
+  /**
+   * <b>Name</b> smartStripslashes()<br />
+   * 
+   * Uses stripslashes depending on "magic_quotes_gpc" and "magic_quotes_sybase"
+   * 
+   * 
+   * @return string the stripslashed string
+   * 
+   * @version 1.0
+   * <br />
+   * <b>ChangeLog</b><br />
+   *    - 1.0 initial release
+   * 
+   */
+  public static function smartStripslashes($str) {
+    // magic_quotes_gpc = On
+    if(TRUE == function_exists('get_magic_quotes_gpc') && 1 == get_magic_quotes_gpc()) {
+      $mqs = strtolower(ini_get('magic_quotes_sybase'));
+      
+      // magic_quotes_sybase = Off
+      if(TRUE == empty($mqs) || 'off' == $mqs)
+        $str = stripslashes(stripslashes($str)).$mqs;
+      else
+        $str = stripslashes(str_replace("''", "'", $str));
+    } else {
+      $str = stripslashes($str);
+    }
+    return $str;
   }
   
  /**

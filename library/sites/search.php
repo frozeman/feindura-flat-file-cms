@@ -51,7 +51,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // set the GET searchword as the POST searchword, IF exists
 $searchWords = (isset($_GET['search'])) ? urldecode($_GET['search']) : $_POST['search'];
-$searchWords = stripslashes($searchWords);
+$searchWords = generalFunctions::smartStripslashes($searchWords);
 ?>
 
 <form action="index.php?site=<?= $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">

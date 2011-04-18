@@ -550,7 +550,7 @@ class statisticFunctions {
     if(file_exists($logFilePath))
       $oldLog = file($logFilePath);
       
-    if($logFile = @fopen($logFilePath,"w")) {
+    if($logFile = @fopen($logFilePath,"wb")) {
       
       // adds the Object
       $object = ($object) ? '|#|'.$object : false;
@@ -611,7 +611,7 @@ class statisticFunctions {
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
        strpos($_SERVER['HTTP_REFERER'],str_replace('www.','',self::$adminConfig['url'])) === false && // checks if referer is not the own page
-       $logFile = @fopen($logFile,"w")) {
+       $logFile = @fopen($logFile,"wb")) {
       
       // -> create the new log string
       $newLog = time().'|#|'.$_SERVER['HTTP_REFERER'];
@@ -1191,7 +1191,7 @@ class statisticFunctions {
     }
     
     // ->> OPEN visit.statistic.cache for writing
-    if($cache = @fopen($cacheFile,"w")) {      
+    if($cache = @fopen($cacheFile,"wb")) {      
       flock($cache,2);
       foreach($newLines as $newLine) {
         $newLine = preg_replace('#[\r\n]+#','',$newLine);
@@ -1347,7 +1347,7 @@ class statisticFunctions {
       }
       
       // ->> OPEN website.statistic.php for writing
-      if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","w")) {
+      if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","wb")) {
         
         flock($statisticFile,2);        
         fwrite($statisticFile,PHPSTARTTAG);  

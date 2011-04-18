@@ -438,7 +438,7 @@ class xssFilter {
   */
   public static function text($data, $charset = 'UTF-8' ,$default = false) {
       if(!empty($data) || $data == 0) {
-        $data = stripslashes($data);
+        $data = generalFunctions::smartStripslashes($data);
         $data = str_replace(';','&#59;',$data);
         $data = htmlspecialchars($data,ENT_QUOTES,$charset,false);
         $data = str_replace(array('&amp;#59;','\\','=','&#92;&#039;'),array('&#59;','&#92;','&#61;','&#039;'),$data);

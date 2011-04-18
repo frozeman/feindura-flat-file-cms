@@ -306,7 +306,7 @@ function saveCategories($newCategories) {
   createBasicFolders();
   
   // öffnet die category.config.php zum schreiben
-  if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","wb")) {
 
       // *** write CATEGORIES
       flock($file,2); //LOCK_EX
@@ -589,7 +589,7 @@ function movePage($page, $fromCategory, $toCategory) {
 function saveAdminConfig($adminConfig) {
 
   // **** opens admin.config.php for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/admin.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/admin.config.php","wb")) {
     
     // clear the thumbnail path, when no upload path is specified
     if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
@@ -685,7 +685,7 @@ function saveAdminConfig($adminConfig) {
 function saveUserConfig($userConfig) {
    
   // opens the file for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/user.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/user.config.php","wb")) {
     
     // *** write
     flock($file,2); //LOCK_EX
@@ -740,7 +740,7 @@ function saveUserConfig($userConfig) {
 function saveWebsiteConfig($websiteConfig) {
    
   // opens the file for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/website.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/website.config.php","wb")) {
     
     // escape \ and '
     xssFilter::escapeBasics($websiteConfig);
@@ -794,7 +794,7 @@ function saveWebsiteConfig($websiteConfig) {
 function saveStatisticConfig($statisticConfig) {
    
   // opens the file for writing
-  if($file = fopen("config/statistic.config.php","w")) {
+  if($file = fopen("config/statistic.config.php","wb")) {
         
     // escape \ and '
     xssFilter::escapeBasics($statisticConfig);
@@ -849,7 +849,7 @@ function saveStatisticConfig($statisticConfig) {
 function savePluginsConfig($pluginsConfig) {
 
   // **** opens plugin.config.php for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","w")) {
+  if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","wb")) {
     
     // escape \ and '
     xssFilter::escapeBasics($pluginsConfig);
@@ -994,7 +994,7 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
     
   // **************************
   // ->> saves the htacces file
-  if($save && !empty($data) && $htaccess = fopen($htaccessFile,"w")) {
+  if($save && !empty($data) && $htaccess = fopen($htaccessFile,"wb")) {
     
     $data = preg_replace("# +#"," ",$data);
     $data = preg_replace("#\n+#","\n",$data);
@@ -1322,16 +1322,12 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   	if($excluded !== false) {
   	  
   	  // -> is string convert to array
-  	  if(is_string($excluded)) {
+  	  if(is_string($excluded))
   	    $excluded = explode(',',$excluded);
-  	  }
   	  
-  	  if(is_array($excluded)) {
-  	    
-  	    foreach($files as $file) {
-  	      
-  	      $foundToExclud = false;
-  	      
+  	  if(is_array($excluded)) {  	    
+  	    foreach($files as $file) {  	      
+  	      $foundToExclud = false;  	      
   	      // looks if any of a excluded file is found
   	      foreach($excluded as $excl) {
   	        if(strstr($file,$excl))
@@ -1344,8 +1340,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   	    }
   	    // set new files array to the old one
   	    $files = $newFiles;
-  	  }
-  	  
+  	  }  	  
   	}
   	$isDir = true;	
   	
@@ -1457,26 +1452,16 @@ function saveEditedFiles(&$savedForm) {
     
     // encode when ISO-8859-1
     if(mb_detect_encoding($_POST['fileContent']) == 'ISO-8859-1') $_POST['fileContent'] = utf8_encode($_POST['fileContent']);
-    
     //$_POST['fileContent'] = preg_replace("#[\\r\\n]+#","\n",$_POST['fileContent']);
-    $_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
-    $_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
-    $_POST['fileContent'] = stripslashes($_POST['fileContent']);
+    //$_POST['fileContent'] = preg_replace('#(\\r?\\n)#', '$1', $_POST['fileContent']);    
+    //$_POST['fileContent'] = preg_replace('#\\\+#','\\',$_POST['fileContent']);
+    //$_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
+    //$_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
+    $_POST['fileContent'] = generalFunctions::smartStripslashes($_POST['fileContent']);    
+    $_POST['fileContent'] = preg_replace("#\\n#","",$_POST['fileContent']); // prevent double line breaks
     
-    /*
-    // wandelt umlaut in HTML zeichen um
-    $_POST['fileContent'] = html_entity_decode($_POST['fileContent'],ENT_NOQUOTES,'UTF-8');
-    // changes & back, because of the $auml;
-    $_POST['fileContent'] = str_replace("&quot;", '"', $_POST['fileContent']);
-    // wandelt die php einleitungstags wieder in zeichen um
-    $_POST['fileContent'] = str_replace(array('&lt;','&gt;'),array('<','>'),$_POST['fileContent']);
-    */
-
-    if($file = fopen($_POST['file'],"w")) {
-      flock($file,2);
-      fwrite($file,$_POST['fileContent']);
-      flock($file,3);
-      fclose($file);      
+    // -> SAVE
+    if(file_put_contents($_POST['file'],$_POST['fileContent'],LOCK_EX) !== false) {
       
       $_GET['file'] = str_replace(DOCUMENTROOT,'',$_POST['file']);
       $_GET['status'] = $_POST['status'];
@@ -1508,7 +1493,7 @@ function saveEditedFiles(&$savedForm) {
     $fullFilePath = $_POST['filesPath'].'/'.$_POST['newFile'].$_POST['fileType'];
     $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
     
-    if($file = fopen($fullFilePath,"w")) {
+    if($file = fopen($fullFilePath,"wb")) {
       
       $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);       
       $_GET['status'] = $_POST['status'];
