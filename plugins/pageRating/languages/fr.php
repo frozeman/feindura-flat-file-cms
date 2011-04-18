@@ -25,8 +25,8 @@ $pluginLangFile['plugin_description']  = 'Affiche une cote de 5 étoiles.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['value'] = 'cote';
-$pluginLangFile['votes'] = 'nombre de cote';
+$pluginLangFile['valueNumber'] = 'cote';
+$pluginLangFile['votesNumber'] = 'nombre de cote';
 
 
 // -----------------------------------------------------------------------------------------------

@@ -24,8 +24,8 @@ $pluginLangFile['plugin_description']  = 'Zeigt eine 5 Sterne Bewertungsmöglich
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['value'] = 'Bewertung';
-$pluginLangFile['votes'] = 'Anazhl der Bewertungen';
+$pluginLangFile['valueNumber'] = 'Bewertung';
+$pluginLangFile['votesNumber'] = 'Anazhl der Bewertungen';
 
 
 // -----------------------------------------------------------------------------------------------

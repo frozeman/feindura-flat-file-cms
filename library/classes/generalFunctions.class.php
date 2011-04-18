@@ -649,11 +649,18 @@ class generalFunctions {
           if($pageContent['plugins'][$key]['active']) {
             foreach($value as $insideKey => $finalValue) {
               // CHECK BOOL VALUES and change to FALSE
-              if(is_bool($pageContent['plugins'][$key][$insideKey]) ||
+              if(strpos(strtolower($insideKey),'bool') !== false ||
+                 is_bool($pageContent['plugins'][$key][$insideKey]) ||
                  $pageContent['plugins'][$key][$insideKey] == 'true' ||
-                 $pageContent['plugins'][$key][$insideKey] == 'false') {
+                 $pageContent['plugins'][$key][$insideKey] == 'false')
                 fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".xssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n");
-              } else
+              elseif(strpos(strtolower($insideKey),'url') !== false)
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".xssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n");
+              elseif(strpos(strtolower($insideKey),'path') !== false)
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".xssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n");
+              elseif(strpos(strtolower($insideKey),'number') !== false)
+                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".xssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n");
+              else
                 fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".xssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n");
             }
             fwrite($file,"\n");

@@ -614,7 +614,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['websiteFilesPath'] = '".xssFilter::path($adminConfig['websiteFilesPath'])."';\n");
     fwrite($file,"\$adminConfig['stylesheetPath'] =   '".xssFilter::path($adminConfig['stylesheetPath'])."';\n\n");
     
-    fwrite($file,"\$adminConfig['permissions'] =      ".xssFilter::numeric($adminConfig['permissions']).";\n");
+    fwrite($file,"\$adminConfig['permissions'] =      ".xssFilter::number($adminConfig['permissions']).";\n");
     fwrite($file,"\$adminConfig['timeZone'] =         '".xssFilter::string($adminConfig['timeZone'],'\/','Europe/London')."';\n"); 
     fwrite($file,"\$adminConfig['dateFormat'] =       '".xssFilter::alphabetical($adminConfig['dateFormat'])."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".xssFilter::bool($adminConfig['speakingUrl'],true).";\n\n");

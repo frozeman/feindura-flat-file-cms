@@ -24,8 +24,8 @@ $pluginLangFile['plugin_description']  = 'Displays a 5 star rating.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['value'] = 'Rating';
-$pluginLangFile['votes'] = 'Number of votes';
+$pluginLangFile['valueNumber'] = 'Rating';
+$pluginLangFile['votesNumber'] = 'Number of votes';
 
 
 // -----------------------------------------------------------------------------------------------

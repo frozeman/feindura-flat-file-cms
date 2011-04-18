@@ -135,7 +135,7 @@ class xssFilter {
   }
  
  /**
-  * <b>Name</b> numeric()<br>
+  * <b>Name</b> number()<br>
   * 
   * Check if the data is a number.
   * 
@@ -151,7 +151,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function numeric($data, $default = false) {
+  public static function number($data, $default = 0) {
     if(!empty($data) || $data == 0)
       return (is_numeric($data)) ? $data : $default;
     else
@@ -175,7 +175,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function int($data, $default = false) {
+  public static function int($data, $default = 0) {
     if(!empty($data) || $data == 0)
       return (is_numeric($data)) ? (int)$data : $default;
     else
@@ -199,7 +199,7 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function float($data, $default = false) {
+  public static function float($data, $default = 0) {
      if(!empty($data) || $data == 0)
       return (is_numeric($data)) ? (float)$data : $default;
     else
@@ -401,7 +401,7 @@ class xssFilter {
   */
   public static function url($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("/^[a-zA-Z]+[:]{1}[\/\/]{2}[A-Za-z0-9\-_]+\.*[A-Za-z0-9\.\/%&#=\?\-_]+$/i",$data,$find);
+        preg_match("/^[a-zA-Z]+[:]{1}[\/\/]{2}[A-Za-z0-9\-_]+\.*[\[\]A-Za-z0-9\.\/%&#=\?\-_]++$/i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#/{2,}#','//',$find[0]);

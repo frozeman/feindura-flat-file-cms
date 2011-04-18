@@ -63,12 +63,14 @@ if(!$adminConfig['user']['fileManager'])
           filter: '<?= $_GET["mimType"]; ?>',
           destroy: true,
           upload: true,
+          move_or_copy: true,
           rename: true,
           download: true,
           createFolders: true,
           selectable: true,
           hideClose: true,
           hideOverlay: true,
+          listPaginationSize: 100,
           onComplete: complete
       });
       fileManager.filemanager.setStyle('width','100%');
