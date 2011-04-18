@@ -647,7 +647,7 @@ class feinduraBase {
     $return['content'] = false;
     $return['description'] = false;  
     $return['tags'] = false;
-    
+    $return['plugins'] = array();
     $return['error'] = true;
 
     // ->> CHECKS
@@ -819,6 +819,9 @@ class feinduraBase {
     
     if(!empty($pageContent['tags']))
        $return['tags']   = $pageContent['tags'];
+    
+    if(isset($pageContent['plugins']))  
+      $return['plugins'] = $pageContent['plugins'];
     
     $return['error'] = false;
     

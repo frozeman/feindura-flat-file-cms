@@ -10,7 +10,23 @@ array(
   'content' => "\n".'<p>Content Text</p>'."\n", // the content has line breaks before and after
   'description' => 'Short description of the page',
   'tags' => 'tag1 tag2 tag3',
-  'plugins' => array (?)
+  'plugins' => array(
+          'imageGallery' => array(
+              'active'          = true,
+              'galleryPath'     = '/upload/gallery/',
+              'imageWidth'      = 800,
+              'imageHeight'     = null,
+              'thumbnailWidth'  = 160,
+              'thumbnailHeight' = null,
+              'tag'             = 'table',
+              'breakAfter'      = 3
+          ),
+          'pageRating' => array(
+              'active' = false,
+              'value'  = 0,
+              'votes'  = 0
+          )
+      )
   )
 
 ?>
