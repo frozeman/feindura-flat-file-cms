@@ -556,7 +556,7 @@ class statisticFunctions {
       $object = ($object) ? '|#|'.$object : false;
       
       // -> create the new log string
-      $newLog = time().'|#|'.$_SESSION['feindura'][IDENTITY]['username'].'|#|'.$task.$object;
+      $newLog = time().'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$task.$object;
       
       // -> write the new log file
       flock($logFile,2);    

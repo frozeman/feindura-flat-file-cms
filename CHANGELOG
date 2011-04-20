@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc8
-Build 650
+Build 651
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 651: fixed upload error
   build 650: add new MooRTE version, finaly finxed the deactivation bug :-)
   build 649: fixed editor saving problem (removed links); add new filemanager
   build 648: add plugins config filters (can now be set by the keyname)

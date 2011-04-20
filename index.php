@@ -39,7 +39,7 @@ $buildNumber = explode(' ',$version[3]);
 $buildNumber = $buildNumber[1];
 
 // store the current location, this will be used when the user comes back from the frontend
-$_SESSION['feindura'][IDENTITY]['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
+$_SESSION['feindura']['session']['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
 
 // if feindura starts first set page to 'dashboard'
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
@@ -184,7 +184,6 @@ var feindura_pages = [
         url: 'library/processes/filemanager.process.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
         language: '<?= $_SESSION["feindura"]["language"]; ?>',
-        uploadAuthData: {session: '<?php echo session_id(); ?>'},
         destroy: true,
         upload: true,
         move_or_copy: true,

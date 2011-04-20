@@ -29,8 +29,9 @@ if(isset($_POST['password'])) $_POST['password'] = xssFilter::text($_POST['passw
 
 // -> if NO USER EXISTS
 if(empty($userConfig)) {
-  $_SESSION['feindura'][IDENTITY]['username'] = false;
-  $_SESSION['feindura'][IDENTITY]['loggedIn'] = true;
+  $_SESSION['feindura']['session']['username'] = false;
+  $_SESSION['feindura']['session']['loggedIn'] = true;
+  $_SESSION['feindura']['session']['identity'] = IDENTITY;
 }
 
 // ->> LOGIN FORM SEND
@@ -41,8 +42,9 @@ if(isset($_POST) && $_POST['action'] == 'login') {
   
     if(!empty($_POST['username']) && array_key_exists($_POST['username'],$userConfig)) {
       if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
-        $_SESSION['feindura'][IDENTITY]['username'] = $_POST['username'];
-        $_SESSION['feindura'][IDENTITY]['loggedIn'] = true;
+        $_SESSION['feindura']['session']['username'] = $_POST['username'];
+        $_SESSION['feindura']['session']['loggedIn'] = true;
+        $_SESSION['feindura']['session']['identity'] = IDENTITY;
       } else
         $loginError = $langFile['LOGIN_ERROR_WRONGPASSWORD'];
     } else
@@ -53,7 +55,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 
 // -> LOGOUT
 if(isset($_GET['logout'])) {
-  unset($_SESSION['feindura'][IDENTITY]);
+  unset($_SESSION['feindura']['session']);
   $loggedOut = true;
 }
 
@@ -98,9 +100,21 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
   
 }
 
+/*
+// LOG
+echo session_name().'<br />';
+echo 'userID: '.IDENTITY.'<br />';
+echo 'flashID: '.IDENTITYFLASH.'<br />';
+echo 'storedID: '.$_SESSION['feindura']['session']['identity'].'<br />';
+echo '<pre>';
+//print_r($_SESSION);
+echo '</pre>';
+*/
+
 // ->> CHECK if user is logged in
 // *****************************************************
-if($_SESSION['feindura'][IDENTITY]['loggedIn'] === true) {
+if($_SESSION['feindura']['session']['loggedIn'] === true &&
+   ($_SESSION['feindura']['session']['identity'] === IDENTITY || IDENTITY === IDENTITYFLASH)) {
    
    // does nothing :-)
 

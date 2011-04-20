@@ -86,6 +86,9 @@ var FileManager = new Class({
 		hideClose: false,
 		hideOverlay: false,
 		hideQonDelete: false,
+		verbose: false,
+		zIndex: 1000,
+		styles: {},
 		listPaginationSize: 100,          // add pagination per N items for huge directories (speed up interaction)
 		listPaginationAvgWaitTime: 2000,  // adaptive pagination: strive to, on average, not spend more than this on rendering a directory chunk
 		propagateData: {},                // extra query parameters sent with every request to the backend
@@ -105,7 +108,6 @@ var FileManager = new Class({
 	initialize: function(options) {
 		this.setOptions(options);
 		this.ID = String.uniqueID();
-		this.dragZIndex = 1300;
 		this.droppables = [];
 		this.assetBasePath = this.options.assetBasePath.replace(/(\/|\\)*$/, '/');
 		this.Directory = this.options.directory;
@@ -132,10 +134,35 @@ var FileManager = new Class({
 			this.language = Object.merge(this.language, FileManager.Language[this.options.language]);
 		}
 
-		this.container = new Element('div', {'class': 'filemanager-container' + (Browser.opera ? ' filemanager-engine-presto' : '') + (Browser.ie ? ' filemanager-engine-trident' : '') + (Browser.ie8 ? '4' : '') + (Browser.ie9 ? '5' : '')});
-		this.filemanager = new Element('div', {'class': 'filemanager'}).inject(this.container);
-		this.header = new Element('div', {'class': 'filemanager-header'}).inject(this.filemanager);
-		this.menu = new Element('div', {'class': 'filemanager-menu'}).inject(this.filemanager);
+		this.container = new Element('div', {
+			'class': 'filemanager-container' + (Browser.opera ? ' filemanager-engine-presto' : '') + (Browser.ie ? ' filemanager-engine-trident' : '') + (Browser.ie8 ? '4' : '') + (Browser.ie9 ? '5' : ''),
+			styles:
+			{
+				'z-index': this.options.zIndex
+			}
+		});
+		this.filemanager = new Element('div', {
+			'class': 'filemanager',
+			styles: Object.append({},
+			this.options.styles,
+			{
+				'z-index': this.options.zIndex + 1
+			})
+		}).inject(this.container);
+		this.header = new Element('div', {
+			'class': 'filemanager-header' /* ,
+			styles:
+			{
+				'z-index': this.options.zIndex + 3
+			} */
+		}).inject(this.filemanager);
+		this.menu = new Element('div', {
+			'class': 'filemanager-menu' /* ,
+			styles:
+			{
+				'z-index': this.options.zIndex + 2
+			} */
+		}).inject(this.filemanager);
 		this.loader = new Element('div', {'class': 'loader', opacity: 0, tween: {duration: 'short'}}).inject(this.header);
 		this.previewLoader = new Element('div', {'class': 'loader', opacity: 0, tween: {duration: 'short'}});
 		this.browserLoader = new Element('div', {'class': 'loader', opacity: 0, tween: {duration: 'short'}});
@@ -162,7 +189,7 @@ var FileManager = new Class({
 		this.browserheader.adopt(this.browserLoader);
 		this.browserScroll = new Element('div', {'class': 'filemanager-browserscroll'}).inject(this.browsercontainer).addEvents({
 			'mouseover': (function(e){
-					//if (typeof console !== 'undefined' && console.log) console.log('mouseover: ' + e.relatedTarget + ', ' + e.target);
+					//this.diag.log('mouseover: ', e);
 
 					// sync mouse and keyboard-driven browsing: the keyboard requires that we keep track of the hovered item,
 					// so we cannot simply leave it to a :hover CSS style. Instead, we find out which element is currently
@@ -211,7 +238,7 @@ var FileManager = new Class({
 
 			/* 'mouseout' */
 			'mouseleave': (function(e){
-					//if (typeof console !== 'undefined' && console.log) console.log('mouseout: ' + e.relatedTarget + ', ' + e.target);
+					//this.diag.log('mouseout: ', e);
 
 					// only bother us when the mouse cursor has just left the browser area; anything inside there is handled
 					// by the recurring 'mouseover' event above...
@@ -285,9 +312,15 @@ var FileManager = new Class({
 		if (this.options.download) this.addMenuButton('download');
 		if (this.options.selectable) this.addMenuButton('open');
 
-		this.info = new Element('div', {'class': 'filemanager-infos', opacity: 0}).inject(this.filemanager);
+		this.info = new Element('div', {'class': 'filemanager-infos'});
 
-		var head = new Element('div', {'class': 'filemanager-head'}).adopt([
+		this.info_head = new Element('div', {
+			'class': 'filemanager-head',
+			styles:
+			{
+				opacity: 0
+			}
+		}).adopt([
 			new Element('img', {'class': 'filemanager-icon'}),
 			new Element('h1')
 		]);
@@ -296,8 +329,14 @@ var FileManager = new Class({
 		// use some CSS to reorganise a bit.  So we create "infoarea" which
 		// will contain the h2 and list for the "Information", that is
 		// modification date, size, directory etc...
-		var infoarea = new Element('div', {'class': 'filemanager-info-area'});
-		this.info.adopt([head, infoarea.adopt(new Element('h2', {text: this.language.information}))]);
+		this.info_area = new Element('div', {
+			'class': 'filemanager-info-area',
+			styles:
+			{
+				opacity: 0
+			}
+		});
+		this.info.adopt([this.info_head, this.info_area.adopt(new Element('h2', {text: this.language.information}))]);
 
 		new Element('dl').adopt([
 			new Element('dt', {text: this.language.modified}),
@@ -306,7 +345,7 @@ var FileManager = new Class({
 			new Element('dd', {'class': 'filemanager-type'}),
 			new Element('dt', {text: this.language.size}),
 			new Element('dd', {'class': 'filemanager-size'})
-		]).inject(infoarea);
+		]).inject(this.info_area);
 
 		this.preview = new Element('div', {'class': 'filemanager-preview'}).addEvent('click:relay(img.preview)', function(){
 			self.fireEvent('preview', [this.get('src'), self, this]);
@@ -316,10 +355,17 @@ var FileManager = new Class({
 		// use some CSS to reorganise it a bit in the custom event handler.  So we create "filemanager-preview-area" which
 		// will contain the h2 for the preview and also the preview content returned from
 		// Backend/FileManager.php
-		this.info.adopt((new Element('div', {'class': 'filemanager-preview-area'})).adopt([
+		this.preview_area = new Element('div', {'class': 'filemanager-preview-area',
+			styles:
+			{
+				opacity: 0
+			}
+		});
+		this.preview_area.adopt([
 			new Element('h2', {'class': 'filemanager-headline', text: this.language.more}),
 			this.preview
-		]));
+		]);
+		this.info.adopt(this.preview_area).inject(this.filemanager);
 
 		if (!this.options.hideClose) {
 			this.closeIcon = new Element('a', {
@@ -341,7 +387,7 @@ var FileManager = new Class({
 			showDelay: 50,
 			hideDelay: 50,
 			onShow: function(){
-				this.tip.set('tween', {duration: 'short'}).setStyle('display', 'block').fade(1);
+				this.tip.setStyle('z-index', self.options.zIndex + 201).set('tween', {duration: 'short'}).setStyle('display', 'block').fade(1);
 			},
 			onHide: function(){
 				this.tip.fade(0).get('tween').chain(function(){
@@ -353,16 +399,26 @@ var FileManager = new Class({
 			this.tips.attach(this.closeIcon);
 
 		this.imageadd = new Asset.image(this.assetBasePath + 'Images/add.png', {
-			'class': 'browser-add'
+			'class': 'browser-add',
+			styles:
+			{
+				'z-index': this.options.zIndex + 2000
+			}
 		}).set('opacity', 0).set('tween', {duration: 'short'}).inject(this.container);
 
 		this.container.inject(document.body);
 		if (!this.options.hideOverlay) {
-			this.overlay = new Overlay(this.options.hideOnClick ? {
+			this.overlay = new Overlay(Object.append((this.options.hideOnClick ? {
 				events: {
 					click: this.hide.bind(this)
 				}
-			} : null);
+			} : {}),
+			{
+				styles:
+				{
+					'z-index': this.options.zIndex - 1
+				}
+			}));
 		}
 
 		this.bound = {
@@ -370,7 +426,7 @@ var FileManager = new Class({
 			{
 				// at least FF on Win will trigger this function multiple times when keys are depressed for a long time. Hence time consuming actions are don in 'keyup' whenever possible.
 
-				//if (typeof console !== 'undefined' && console.log) console.log('keydown: key press: ' + e.key + ', ctrl: ' + e.control);
+				this.diag.log('keydown: key press: ', e);
 				if (e.control || e.meta)
 				{
 					if (this.drag_is_active && !this.ctrl_key_pressed)
@@ -509,7 +565,7 @@ var FileManager = new Class({
 			this.storeHistory = true;
 
 			var file = el.retrieve('file');
-			//if (typeof console !== 'undefined' && console.log) console.log('on relayClick file = ' + file.mime + ': ' + file.path + ' : ' + file.name + ' : ' + this.Directory + ', source = ' + 'retrieve');
+			this.diag.log('on relayClick file = ', file, this.Directory);
 			if (el.retrieve('edit')) {
 				el.eliminate('edit');
 				return;
@@ -555,7 +611,7 @@ var FileManager = new Class({
 			this.listType = 'list';
 			if (typeof jsGET !== 'undefined') jsGET.set('fmListType=list');
 		}
-		//if (typeof console !== 'undefined' && console.log) console.log('on toggleList dir = ' + this.Directory + ', source = ' + '---');
+		this.diag.log('on toggleList dir = ', this.Directory, e);
 		this.load(this.Directory);
 	},
 
@@ -573,12 +629,12 @@ var FileManager = new Class({
 	hashHistory: function(vars)
 	{
 		this.storeHistory = false;
-		//if (typeof console !== 'undefined' && console.log) console.log(vars);
+		this.diag.log(vars);
 		if (vars.changed['fmPath'] === '')
 			vars.changed['fmPath'] = '/';
 
 		Object.each(vars.changed, function(value, key) {
-			//if (typeof console !== 'undefined' && console.log) console.log('on hashHistory key = ' + key + ', value = ' + value + ', source = ' + '---');
+			this.diag.log('on hashHistory key = ', key, 'value = ', value);
 			switch (key)
 			{
 			case 'fmPath':
@@ -601,7 +657,7 @@ var FileManager = new Class({
 							this.Current = current.getParent('span.fi');
 							new Fx.Scroll(this.browserScroll,{duration: 'short', offset: {x: 0, y: -(this.browserScroll.getSize().y/4)}}).toElement(this.Current);
 							this.Current.addClass('selected');
-							//if (typeof console !== 'undefined' && console.log) console.log('on hashHistory @ fillInfo key = ' + key + ', value = ' + value + ', source = ' + ' - file = ' + current.getParent('span.fi').retrieve('file').name);
+							this.diag.log('on hashHistory @ fillInfo key = ', key, 'value = ', value, 'source = ', current, 'file = ', current.getParent('span.fi').retrieve('file'));
 							this.fillInfo(this.Current.retrieve('file'));
 						}
 					}).bind(this));
@@ -613,15 +669,17 @@ var FileManager = new Class({
 
 	// Add the ability to specify a path (relative to the base directory) and a file to preselect
 	show: function(e, loaddir, preselect) {
-		//if (typeof console !== 'undefined' && console.log) console.log('on show');
 		if (e) e.stop();
-		if (this.fmShown) return;
+		this.diag.log('on show');
+		if (this.fmShown) {
+			return;
+		}
 		this.fmShown = true;
 		this.onShow = false;
 
 		if (typeof preselect === 'undefined') preselect = null;
 
-		//if (typeof console !== 'undefined' && console.log) console.log('on show file = ' + this.Directory + ', source = ' + '---');
+		this.diag.log('on show file = ', this.Directory);
 		if (typeof loaddir !== 'undefined' && loaddir != null)
 		{
 			this.Directory = loaddir;
@@ -658,7 +716,7 @@ var FileManager = new Class({
 			this.overlay.show();
 		}
 
-		this.info.fade(0);
+		this.show_our_info_sections(false);
 		this.container.fade(0).setStyles({
 				display: 'block'
 			});
@@ -683,9 +741,11 @@ var FileManager = new Class({
 	},
 
 	hide: function(e){
-		//if (typeof console !== 'undefined' && console.log) console.log('on hide');
 		if (e) e.stop();
-		if (!this.fmShown) return;
+		this.diag.log('on hide');
+		if (!this.fmShown) {
+			return;
+		}
 		this.fmShown = false;
 
 		// stop hashListener
@@ -715,6 +775,28 @@ var FileManager = new Class({
 		this.fireEvent('hide', [this]);
 	},
 
+	// hide the FM info <div>s. do NOT hide the outer info <div> itself, as the Uploader (and possibly other derivatives) may choose to show their own content there!
+	show_our_info_sections: function(state) {
+		if (!state)
+		{
+			this.info_head.fade(0).get('tween').chain(function(){
+				this.element.setStyle('display', 'none');
+			});
+			this.info_area.fade(0).get('tween').chain(function(){
+				this.element.setStyle('display', 'none');
+			});
+			this.preview_area.fade(0).get('tween').chain(function(){
+				this.element.setStyle('display', 'none');
+			});
+		}
+		else
+		{
+			this.info_head.setStyle('display', 'block').fade(1);
+			this.info_area.setStyle('display', 'block').fade(1);
+			this.preview_area.setStyle('display', 'block').fade(1);
+		}
+	},
+
 	open_on_click: function(e){
 		e.stop();
 		if (!this.Current) return;
@@ -729,8 +811,10 @@ var FileManager = new Class({
 
 	download_on_click: function(e) {
 		e.stop();
-		if (!this.Current) return;
-		//if (typeof console !== 'undefined' && console.log) console.log('download: ' + this.Current.retrieve('file').path + ', ' + this.normalize(this.Current.retrieve('file').path));
+		if (!this.Current) {
+			return;
+		}
+		this.diag.log('download: ', this.Current.retrieve('file'), this.normalize(this.Current.retrieve('file').path));
 		var file = this.Current.retrieve('file');
 		this.download(file);
 	},
@@ -795,13 +879,14 @@ var FileManager = new Class({
 			content: [
 				input
 			],
+			zIndex: this.options.zIndex + 1000,
 			onOpen: this.onDialogOpen.bind(this),
 			onClose: (function() {
 				input.removeEvent('keyup', click_ok_f);
 				this.onDialogClose();
 			}).bind(this),
 			onShow: (function(){
-				//if (typeof console !== 'undefined' && console.log) console.log('add key up on create dialog:onshow');
+				this.diag.log('add key up on create dialog:onshow');
 				input.addEvent('keyup', click_ok_f).focus();
 			}).bind(this),
 			onConfirm: (function() {
@@ -828,7 +913,7 @@ var FileManager = new Class({
 						}
 
 						this.deselect();
-						this.info.fade(0);
+						this.show_our_info_sections(false);
 
 						// make sure we store the JSON list!
 						this.reset_view_fill_store(j);
@@ -850,8 +935,10 @@ var FileManager = new Class({
 	},
 
 	deselect: function(el) {
-		if (el && this.Current != el) return;
-		//if (typeof console !== 'undefined' && console.log) console.log('deselect:Current');
+		if (el && this.Current != el) {
+			return;
+		}
+		this.diag.log('deselect:Current', el);
 		if (el) {
 			this.fillInfo();
 		}
@@ -868,16 +955,16 @@ var FileManager = new Class({
 		if (typeof preselect === 'undefined') preselect = null;
 
 		this.deselect();
-		this.info.fade(0);
+		this.show_our_info_sections(false);
 
 		if (this.Request) this.Request.cancel();
 
-		//if (typeof console !== 'undefined' && console.log) console.log("### 'view' request: onRequest invoked");
+		this.diag.log("### 'view' request: onRequest invoked");
 
 		// abort any still running ('antiquated') fill chunks and reset the store before we set up a new one:
 		this.reset_view_fill_store();
 
-		//if (typeof console !== 'undefined' && console.log) console.log('view URI: ' + this.options.url + ', ' + (this.options.url.indexOf('?') == -1 ? '?' : '&') + ', ' + Object.toQueryString(Object.merge({}, this.options.propagateData, {    event: 'view'  })));
+		this.diag.log('view URI: ', this.options.url, dir, this.listType, preselect, this.options.propagateData);
 		this.Request = new FileManager.Request({
 			url: this.options.url + (this.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString(Object.merge({}, {
 				event: 'view'
@@ -890,7 +977,7 @@ var FileManager = new Class({
 			},
 			onRequest: function(){},
 			onSuccess: (function(j) {
-				//if (typeof console !== 'undefined' && console.log) console.log("### 'view' request: onSuccess invoked");
+				this.diag.log("### 'view' request: onSuccess invoked", j);
 				if (!j || !j.status) {
 					this.browserLoader.fade(0);
 					return;
@@ -912,17 +999,17 @@ var FileManager = new Class({
 				//this.browserLoader.fade(0);
 			}).bind(this),
 			onComplete: (function() {
-				//if (typeof console !== 'undefined' && console.log) console.log("### 'view' request: onComplete invoked");
+				this.diag.log("### 'view' request: onComplete invoked");
 				this.fitSizes();
 			}).bind(this),
 			onError: (function(text, error) {
 				// a JSON error
-				//if (typeof console !== 'undefined' && console.log) console.log("### 'view' request: onError invoked");
+				this.diag.log("### 'view' request: onError invoked", text, error);
 				this.browserLoader.fade(0);
 			}).bind(this),
 			onFailure: (function(xmlHttpRequest) {
 				// a generic (non-JSON) communication failure
-				//if (typeof console !== 'undefined' && console.log) console.log("### 'view' request: onFailure invoked");
+				this.diag.log("### 'view' request: onFailure invoked", xmlHttpRequest);
 				this.browserLoader.fade(0);
 			}).bind(this)
 		}, this).send();
@@ -1041,6 +1128,7 @@ var FileManager = new Class({
 					confirm: this.language.destroy,
 					decline: this.language.cancel
 				},
+				zIndex: this.options.zIndex + 1000,
 				onOpen: this.onDialogOpen.bind(this),
 				onClose: this.onDialogClose.bind(this),
 				onConfirm: (function() {
@@ -1064,16 +1152,17 @@ var FileManager = new Class({
 			content: [
 				input
 			],
+			zIndex: this.options.zIndex + 1000,
 			onOpen: this.onDialogOpen.bind(this),
 			onClose: this.onDialogClose.bind(this),
-			onShow: function(){
-				//if (typeof console !== 'undefined' && console.log) console.log('add key up on rename dialog:onshow');
+			onShow: (function(){
+				this.diag.log('add key up on rename dialog:onshow');
 				input.addEvent('keyup', function(e) {
 					if (e.key === 'enter') {
 						e.target.getParent('div.filemanager-dialog').getElement('button.filemanager-dialog-confirm').fireEvent('click');
 					}
 				}).focus();
-			},
+			}).bind(this),
 			onConfirm: (function(){
 				if (this.Request) this.Request.cancel();
 
@@ -1099,7 +1188,7 @@ var FileManager = new Class({
 						file.element.getElement('span.filemanager-filename').set('text', j.name).set('title', j.name);
 						file.element.addClass('selected');
 						file.name = j.name;
-						//if (typeof console !== 'undefined' && console.log) console.log('move : onSuccess: fillInfo: file = ' + file.name);
+						this.diag.log('move : onSuccess: fillInfo: file = ', file);
 						this.fillInfo(file);
 						this.browserLoader.fade(0);
 					}).bind(this),
@@ -1118,7 +1207,7 @@ var FileManager = new Class({
 	browserSelection: function(direction) {
 		var csel;
 
-		//if (typeof console !== 'undefined' && console.log) console.log('browserSelection : direction = ' + direction);
+		this.diag.log('browserSelection : direction = ', direction);
 		if (this.browser.getElement('li') == null) return;
 
 		if (direction === 'go-bottom')
@@ -1183,7 +1272,7 @@ var FileManager = new Class({
 			/* fallthrough */
 		case 'down':
 			current = current.getParent('li');
-			//if (typeof console !== 'undefined' && console.log) console.log('key DOWN: stepsize = ' + stepsize);
+			this.diag.log('key DOWN: stepsize = ', stepsize);
 
 			// when we're at the bottom of the view and there are more pages, go to the next page:
 			next = current.getNext('li');
@@ -1223,7 +1312,7 @@ var FileManager = new Class({
 			/* fallthrough */
 		case 'up':
 			current = current.getParent('li');
-			//if (typeof console !== 'undefined' && console.log) console.log('key UP: stepsize = ' + stepsize);
+			this.diag.log('key UP: stepsize = ', stepsize);
 
 			// when we're at the top of the view and there are pages before us, go to the previous page:
 			var previous = current.getPrevious('li');
@@ -1259,7 +1348,7 @@ var FileManager = new Class({
 
 			current.addClass('selected');
 			currentFile = current.retrieve('file');
-			//if (typeof console !== 'undefined' && console.log) console.log('on key ENTER file = ' + currentFile.mime + ': ' + currentFile.path + ', source = ' + 'retrieve');
+			this.diag.log('on key ENTER file = ', currentFile);
 			if (currentFile.mime === 'text/directory') {
 				this.load(currentFile.dir + currentFile.name /*.replace(this.root,'')*/);
 			}
@@ -1288,7 +1377,7 @@ var FileManager = new Class({
 			}
 
 			currentFile = current.retrieve('file');
-			//if (typeof console !== 'undefined' && console.log) console.log('on key DELETE file = ' + currentFile.mime + ': ' + currentFile.path + ', source = ' + 'retrieve');
+			this.diag.log('on key DELETE file = ', currentFile);
 			this.destroy(currentFile);
 
 			current = next;
@@ -1298,15 +1387,15 @@ var FileManager = new Class({
 
 		// make sure to scroll the view so the selected/'hovered' item is within visible range:
 
-		//if (typeof console !== 'undefined' && console.log) console.log('key DOWN: current Y = ' + current.getPosition(this.browserScroll).y + ', H = ' + this.browserScroll.getSize().y + ', 1U = ' + current.getSize().y);
-		//if (typeof console !== 'undefined' && console.log) console.log('key UP: current Y = ' + current.getPosition(this.browserScroll).y + ', H = ' + this.browserScroll.getSize().y + ', 1U = ' + current.getSize().y + ', SCROLL = ' + this.browserScroll.getScroll().y + ', SIZE = ' + this.browserScroll.getSize().y);
+		this.diag.log('key DOWN: current Y = ' + current.getPosition(this.browserScroll).y + ', H = ' + this.browserScroll.getSize().y + ', 1U = ' + current.getSize().y);
+		this.diag.log('key UP: current Y = ' + current.getPosition(this.browserScroll).y + ', H = ' + this.browserScroll.getSize().y + ', 1U = ' + current.getSize().y + ', SCROLL = ' + this.browserScroll.getScroll().y + ', SIZE = ' + this.browserScroll.getSize().y);
 		var dy, browserScrollFx;
 		if (direction !== 'up' && current.getPosition(this.browserScroll).y + current.getSize().y * 2 >= this.browserScroll.getSize().y)
 		{
 			// make scroll duration slightly dependent on the distance to travel:
 			dy = (current.getPosition(this.browserScroll).y + current.getSize().y * 2 - this.browserScroll.getSize().y);
 			dy = 50 * dy / this.browserScroll.getSize().y;
-			//if (typeof console !== 'undefined' && console.log) console.log('key UP: DUR: ' + dy);
+			this.diag.log('key UP: DUR: ', dy);
 			browserScrollFx = new Fx.Scroll(this.browserScroll, { duration: (dy < 150 ? 150 : dy > 1000 ? 1000 : dy.toInt()) });
 			browserScrollFx.toElement(current);
 		}
@@ -1317,7 +1406,7 @@ var FileManager = new Class({
 			// make scroll duration slightly dependent on the distance to travel:
 			dy = this.browserScroll.getScroll().y - sy;
 			dy = 50 * dy / this.browserScroll.getSize().y;
-			//if (typeof console !== 'undefined' && console.log) console.log('key UP: SY = ' + sy + ', DUR: ' + dy);
+			this.diag.log('key UP: SY = ' + sy + ', DUR: ' + dy);
 			browserScrollFx = new Fx.Scroll(this.browserScroll, { duration: (dy < 150 ? 150 : dy > 1000 ? 1000 : dy.toInt()) });
 			browserScrollFx.start(current.getPosition(this.browserScroll).x, (sy >= 0 ? sy : 0));
 		}
@@ -1389,7 +1478,7 @@ var FileManager = new Class({
 	{
 		// similar activity as load(), but without the server communication...
 		this.deselect();
-		this.info.fade(0);
+		this.show_our_info_sections(false);
 
 		// if (this.Request) this.Request.cancel();
 
@@ -1455,7 +1544,7 @@ var FileManager = new Class({
 		this.Directory = j.path;
 		this.CurrentDir = j.dir;
 		if (!this.onShow) {
-			//if (typeof console !== 'undefined' && console.log) console.log('fill internal: fillInfo: file = ' + j.dir.name);
+			this.diag.log('fill internal: fillInfo: file = ', j, j.dir);
 			this.fillInfo(j.dir); // XXXX
 		}
 		this.browser.empty();
@@ -1483,7 +1572,7 @@ var FileManager = new Class({
 
 			pre.push(folderName);
 			var path = ('/'+pre.join('/')+'/').replace(j.root,'');
-			//if (typeof console !== 'undefined' && console.log) console.log('on fill file = ' + j.root + ' : ' + path + ' : ' + folderName + ', source = ' + 'JSON');
+			this.diag.log('on fill file = ' + j.root + ' : ' + path + ' : ' + folderName + ', source = ' + 'JSON');
 			if (rootPath.contains(folderName)) {
 				// add non-clickable path
 				text.push(new Element('span', {'class': 'icon', text: folderName}));
@@ -1536,7 +1625,7 @@ var FileManager = new Class({
 		 */
 		var support_DnD_for_this_dir = this.allow_DnD(j, pagesize);
 		var starttime = new Date().getTime();
-		//if (typeof console !== 'undefined' && console.log) console.log('fill list size = ' + j_item_count);
+		this.diag.log('fill list size = ' + j_item_count);
 
 		var endindex = j_item_count;
 		var paging_now = 0;
@@ -1633,7 +1722,7 @@ var FileManager = new Class({
 		var fmFile = (typeof jsGET !== 'undefined' ? jsGET.get('fmFile') : null);
 
 		var duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log(' + fill_chunkwise_1(' + startindex + ') @ ' + duration);
+		this.diag.log(' + fill_chunkwise_1(' + startindex + ') @ ' + duration);
 
 		/*
 		 * Note that the '< j.dirs.length' / '< j.files.length' checks MUST be kept around: one of the fastest ways to abort/cancel
@@ -1655,7 +1744,7 @@ var FileManager = new Class({
 				// try not to spend more than 100 msecs per (UI blocking!) loop run!
 				loop_duration = new Date().getTime() - loop_starttime;
 				duration = new Date().getTime() - starttime;
-				//if (typeof console !== 'undefined' && console.log) console.log('time taken so far = ' + duration + ' / ' + loop_duration + ' @ elcnt = ' + idx);
+				this.diag.log('time taken so far = ' + duration + ' / ' + loop_duration + ' @ elcnt = ' + idx);
 
 				/*
 				 * Are we running in adaptive pagination mode? yes: calculate estimated new pagesize and adjust average (EMA) when needed.
@@ -1678,7 +1767,7 @@ var FileManager = new Class({
 			//var newDate = new Date;
 			//uniqueId = newDate.getTime();
 
-			//if (typeof console !== 'undefined' && console.log) console.log('thumbnail: "' + file.thumbnail + '"');
+			this.diag.log('thumbnail: "' + file.thumbnail + '"');
 			//var icon = (this.listType === 'thumb') ? new Asset.image(file.thumbnail /* +'?'+uniqueId */, {'class':this.listType}) : new Asset.image(file.thumbnail);
 
 			// This is just a raw image
@@ -1743,7 +1832,7 @@ var FileManager = new Class({
 					// try not to spend more than 100 msecs per (UI blocking!) loop run!
 					loop_duration = new Date().getTime() - loop_starttime;
 					duration = new Date().getTime() - starttime;
-					//if (typeof console !== 'undefined' && console.log) console.log('time taken so far = ' + duration + ' / ' + loop_duration + ' @ elcnt = ' + idx);
+					this.diag.log('time taken so far = ' + duration + ' / ' + loop_duration + ' @ elcnt = ' + idx);
 
 					/*
 					 * Are we running in adaptive pagination mode? yes: calculate estimated new pagesize and adjust average (EMA) when needed.
@@ -1766,7 +1855,7 @@ var FileManager = new Class({
 				//var newDate = new Date;
 				//uniqueId = newDate.getTime();
 
-				//if (typeof console !== 'undefined' && console.log) console.log('thumbnail: "' + file.thumbnail + '"');
+				this.diag.log('thumbnail: "' + file.thumbnail + '"');
 				//var icon = (this.listType === 'thumb') ? new Asset.image(file.thumbnail /* +'?'+uniqueId */, {'class':this.listType}) : new Asset.image(file.thumbnail);
 
 				if (file.thumbnail.indexOf('.php?') == -1)
@@ -1930,7 +2019,7 @@ var FileManager = new Class({
 				//}).bind(this)));
 
 				// ->> LOAD the FILE/IMAGE from history when PAGE gets REFRESHED (only directly after refresh)
-				//if (typeof console !== 'undefined' && console.log) console.log('fill on PRESELECT: onShow = ' + this.onShow + ', file = ' + file.name + ', fmFile = ' + fmFile + ', preselect = ' + (preselect ? preselect : '???'));
+				this.diag.log('fill on PRESELECT: onShow = ' + this.onShow + ', file = ' + file.name + ', fmFile = ' + fmFile + ', preselect = ' + (preselect ? preselect : '???'));
 				if (this.onShow)
 				{
 					if (preselect)
@@ -1968,7 +2057,7 @@ var FileManager = new Class({
 
 		// check how much we've consumed so far:
 		duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log('time taken in array traversal = ' + duration);
+		this.diag.log('time taken in array traversal = ' + duration);
 		//starttime = new Date().getTime();
 
 		// go to the next stage, right after these messages... ;-)
@@ -1982,11 +2071,11 @@ var FileManager = new Class({
 	fill_chunkwise_2: function(render_count, pagesize, support_DnD_for_this_dir, starttime, els, kbd_dir) {
 
 		var duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log(' + fill_chunkwise_2() @ ' + duration);
+		this.diag.log(' + fill_chunkwise_2() @ ' + duration);
 
 		// check how much we've consumed so far:
 		duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log('time taken in array traversal + revert = ' + duration);
+		this.diag.log('time taken in array traversal + revert = ' + duration);
 		//starttime = new Date().getTime();
 
 		if (support_DnD_for_this_dir) {
@@ -2007,7 +2096,7 @@ var FileManager = new Class({
 					if (typeof console !== 'undefined' && console.log) console.log('draggable:onBeforeStart');
 					var position = el.getPosition();
 					el.addClass('drag').setStyles({
-						'z-index': this.dragZIndex,
+						'z-index': this.options.zIndex + 1300,
 						'position': 'absolute',
 						'width': el.getWidth() - el.getStyle('paddingLeft').toInt() - el.getStyle('paddingRight').toInt(),
 						'left': position.x,
@@ -2095,7 +2184,7 @@ var FileManager = new Class({
 					this.revert_drag_n_drop(el);       // do not send the 'detail' request in here: this.drop_pending takes care of that!
 
 					var file = el.retrieve('file');
-					//if (typeof console !== 'undefined' && console.log) console.log('on drop file = ' + file.name + ' : ' + this.Directory + ', source = ' + 'retrieve; droppable = "' + droppable + '"');
+					this.diag.log('on drop file = ' + file.name + ' : ' + this.Directory + ', source = ' + 'retrieve; droppable = "' + droppable + '"');
 
 					if (this.Request) this.Request.cancel();
 
@@ -2194,14 +2283,14 @@ var FileManager = new Class({
 
 		// check how much we've consumed so far:
 		duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log(' + time taken in make draggable = ' + duration);
+		this.diag.log(' + time taken in make draggable = ' + duration);
 		//starttime = new Date().getTime();
 
 		$$(els[0].combine(els[1])).setStyles({'left': 0, 'top': 0});
 
 		// check how much we've consumed so far:
 		duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log(' + time taken in setStyles = ' + duration);
+		this.diag.log(' + time taken in setStyles = ' + duration);
 
 		this.adaptive_update_pagination_size(render_count, render_count, render_count, pagesize, duration, 1.0 / 7.0, 1.02, 0.1 / 1000);
 
@@ -2216,14 +2305,14 @@ var FileManager = new Class({
 	fill_chunkwise_3: function(render_count, pagesize, support_DnD_for_this_dir, starttime, kbd_dir) {
 
 		var duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log(' + fill_chunkwise_3() @ ' + duration);
+		this.diag.log(' + fill_chunkwise_3() @ ' + duration);
 
 		this.tips.attach(this.browser.getElements('img.browser-icon'));
 		this.browser_dragndrop_info.fade(1);
 
 		// check how much we've consumed so far:
 		duration = new Date().getTime() - starttime;
-		//if (typeof console !== 'undefined' && console.log) console.log(' + time taken in tips.attach = ' + duration);
+		this.diag.log(' + time taken in tips.attach = ' + duration);
 
 		// when a render is completed, we have maximum knowledge, i.e. maximum prognosis power: shorter tail on the EMA is our translation of that.
 		this.adaptive_update_pagination_size(render_count, render_count, render_count, pagesize, duration, 1.0 / 5.0, 1.0, 0);
@@ -2281,7 +2370,7 @@ var FileManager = new Class({
 				if (newpsize < 20)
 					newpsize = 20;
 
-				//if (typeof console !== 'undefined' && console.log) console.log('::auto-tune pagination: new page = ' + newpsize + ' @ tail:' + tail + ', p_est: ' + p_est + ', psize:' + pagesize + ', render:' + render_count + ', done%:' + done_so_far + '(' + (currentindex - orig_startindex) + '), t_est:' + t_est + ', dur:' + duration + ', pdelta: ' + delta);
+				this.diag.log('::auto-tune pagination: new page = ' + newpsize + ' @ tail:' + tail + ', p_est: ' + p_est + ', psize:' + pagesize + ', render:' + render_count + ', done%:' + done_so_far + '(' + (currentindex - orig_startindex) + '), t_est:' + t_est + ', dur:' + duration + ', pdelta: ' + delta);
 				this.options.listPaginationSize = newpsize;
 			}
 		}
@@ -2293,7 +2382,7 @@ var FileManager = new Class({
 		if (!file) return;
 
 		// set file history
-		//if (typeof console !== 'undefined' && console.log) console.log(this.storeHistory);
+		this.diag.log(this.storeHistory);
 		if (typeof jsGET !== 'undefined' && this.storeHistory) {
 			if (file.mime !== 'text/directory')
 				jsGET.set({'fmFile': file.name});
@@ -2333,7 +2422,7 @@ var FileManager = new Class({
 				onRequest: (function() {
 					this.previewLoader.inject(this.preview);
 					this.previewLoader.fade(1);
-					this.info.fade(0);
+					this.show_our_info_sections(false);
 				}).bind(this),
 				onSuccess: (function(j) {
 
@@ -2347,24 +2436,25 @@ var FileManager = new Class({
 					// speed up DOM tree manipulation: detach .info from document temporarily:
 					this.info.dispose();
 
-					this.info.getElement('img').set({
+					this.info_head.getElement('img').set({
 							src: icon,
 							alt: file.mime
 						});
 
-					this.info.getElement('h1').set('text', file.name);
-					this.info.getElement('h1').set('title', file.name);
+					this.info_head.getElement('h1').set('text', file.name);
+					this.info_head.getElement('h1').set('title', file.name);
 
-					this.info.getElement('dd.filemanager-modified').set('text', j.date);
-					this.info.getElement('dd.filemanager-type').set('text', j.mime);
-					this.info.getElement('dd.filemanager-size').set('text', !size[0] && size[1] === 'Bytes' ? '-' : (size.join(' ') + (size[1] !== 'Bytes' ? ' (' + j.size + ' Bytes)' : '')));
-					//this.info.getElement('h2.filemanager-headline').setStyle('display', j.mime === 'text/directory' ? 'none' : 'block');
+					this.info_area.getElement('dd.filemanager-modified').set('text', j.date);
+					this.info_area.getElement('dd.filemanager-type').set('text', j.mime);
+					this.info_area.getElement('dd.filemanager-size').set('text', !size[0] && size[1] === 'Bytes' ? '-' : (size.join(' ') + (size[1] !== 'Bytes' ? ' (' + j.size + ' Bytes)' : '')));
+					//this.info_area.getElement('h2.filemanager-headline').setStyle('display', j.mime === 'text/directory' ? 'none' : 'block');
 
 					// don't wait for the fade to finish to set up the new content
 					var prev = this.preview.removeClass('filemanager-loading').set('html', (j.content ? j.content.substitute(this.language, /\\?\$\{([^{}]+)\}/g) : '')).getElement('img.preview');
 
 					// and plug in the manipulated DOM subtree again:
-					this.info.inject(this.filemanager).fade(1);
+					this.info.inject(this.filemanager);
+					this.show_our_info_sections(true);
 
 					this.previewLoader.fade(0).get('tween').chain((function() {
 						this.previewLoader.dispose();
@@ -2554,6 +2644,7 @@ var FileManager = new Class({
 				content: [
 					errorText
 				],
+				zIndex: this.options.zIndex + 1000,
 				onOpen: this.onDialogOpen.bind(this),
 				onClose: function()
 				{
@@ -2574,6 +2665,7 @@ var FileManager = new Class({
 			content: [
 				textOrElement
 			],
+			zIndex: this.options.zIndex + 1000,
 			onOpen: this.onDialogOpen.bind(this),
 			onClose: this.onDialogClose.bind(this)
 		});
@@ -2619,9 +2711,18 @@ var FileManager = new Class({
 		},
 		log: function(/* ... */)
 		{
-			if (typeof console !== 'undefined' && console.log)
+			if (typeof this.options !== 'undefined' && this.options.verbose) return;
+
+			if (typeof console !== 'undefined')
 			{
-				console.log(arguments);
+				if (console.info)
+				{
+					console.info.apply(console, arguments);
+				}
+				else if (console.log)
+				{
+					console.log.apply(console, arguments);
+				}
 			}
 		}
 	}
@@ -2748,28 +2849,42 @@ FileManager.Dialog = new Class({
 		 */
 		request: null,
 		buttons: ['confirm', 'decline'],
-		language: {}
+		language: {},
+		zIndex: 2000
 	},
 
 	initialize: function(text, options){
 		this.setOptions(options);
 		this.dialogOpen = false;
 
+		this.content_el = new Element('div', {
+			'class': 'filemanager-dialog-content'
+		}).adopt([
+			typeOf(text) === 'string' ? this.str2el(text) : text
+		]);
+
 		this.el = new Element('div', {
 			'class': 'filemanager-dialog' + (Browser.ie ? ' filemanager-dialog-engine-trident' : '') + (Browser.ie ? ' filemanager-dialog-engine-trident' : '') + (Browser.ie8 ? '4' : '') + (Browser.ie9 ? '5' : ''),
 			opacity: 0,
-			tween: {duration: 'short'}
-		}).adopt([
-			typeOf(text) === 'string' ? new Element('div', {text: text}) : text
-		]);
+			tween: {duration: 'short'},
+			styles:
+			{
+				'z-index': this.options.zIndex
+			}
+		}).adopt(this.content_el);
 
 		if (typeof this.options.content !== 'undefined') {
 			this.options.content.each((function(content){
-				if (content && typeOf(content) === 'element') {
-					this.el.getElement('div').adopt(content);
-				}
-				else if (content) {
-					this.el.getElement('div').set('html',this.el.getElement('div').get('html')+'<br>'+content);
+				if (content)
+				{
+					if (typeOf(content) !== 'string')
+					{
+						this.content_el.adopt(content);
+					}
+					else
+					{
+						this.content_el.adopt(this.str2el(content));
+					}
 				}
 			}).bind(this));
 		}
@@ -2789,7 +2904,11 @@ FileManager.Dialog = new Class({
 			events: {
 				click: this.fireEvent.pass('close',this)
 			},
-			tween: {duration: 'short'}
+			//tween: {duration: 'short'},
+			styles:
+			{
+				'z-index': this.options.zIndex - 1
+			}
 		});
 
 		this.bound = {
@@ -2801,7 +2920,7 @@ FileManager.Dialog = new Class({
 			}).bind(this),
 
 			keyesc: (function(e){
-				//if (typeof console !== 'undefined' && console.log) console.log('keyEsc: key press: ' + e.key);
+				window.FileManager.prototype.diag.log('keyEsc: key press: ', e);
 				if (e.key === 'esc') {
 					e.stopPropagation();
 					this.destroy();
@@ -2813,20 +2932,20 @@ FileManager.Dialog = new Class({
 	},
 
 	show: function(){
-		if (!this.options.hideOverlay) {
-			this.overlay.show();
-		}
+		this.overlay.show();
+
 		var self = this;
 		this.fireEvent('open');
-		this.el.setStyle('display', 'block').inject(document.body).center().fade(1).get('tween').chain(function(){
-		});
+		this.el.setStyle('display', 'block').inject(document.body);
+		this.restrictSize();
+		this.el.center().fade(1);
 		var button = (this.el.getElement('button.filemanager-dialog-confirm') || this.el.getElement('button'));
 		if (button) {
 			button.focus();
 		}
 		self.fireEvent('show');
 
-		//if (typeof console !== 'undefined' && console.log) console.log('add key up(ESC)/resize/scroll on show 1500');
+		window.FileManager.prototype.diag.log('add key up(ESC)/resize/scroll on show 1500');
 		document.addEvents({
 			'scroll': this.bound.scroll,
 			'resize': this.bound.scroll,
@@ -2835,9 +2954,68 @@ FileManager.Dialog = new Class({
 	},
 
 	appendMessage: function(text) {
-		this.el.adopt([
-			typeOf(text) === 'string' ? new Element('div', {text: text}) : text
+		this.content_el.adopt([
+			typeOf(text) === 'string' ? this.str2el(text) : text
 		]);
+		this.restrictSize();
+		this.el.center();
+	},
+
+	restrictSize: function()
+	{
+		// make sure the dialog never is larger than the viewport!
+		var ddim = this.el.getSize();
+		var vdim = window.getSize();
+		var maxx = (vdim.x - 20) * 0.85; // heuristic: make dialog a little smaller than the screen itself and keep a place for possible outer scrollbars
+		if (ddim.x >= maxx)
+		{
+			this.el.setStyles({ width: maxx.toInt() });
+		}
+		ddim = this.el.getSize();
+		var cdim = this.content_el.getSize();
+		var maxy = (vdim.y - 20) * 0.85; // heuristic: make dialog a little less high than the screen itself and keep a place for possible outer scrollbars
+		if (ddim.y >= maxy)
+		{
+			// first attempt to correct this by making the dialog wider:
+			var x = ddim.x * 2.0;
+			while (x < maxx && ddim.y >= maxy)
+			{
+				this.el.setStyles({ width: x.toInt() });
+				ddim = this.el.getSize();
+				x = ddim.x * 1.3;
+			}
+
+			cdim = this.content_el.getSize();
+			if (ddim.y >= maxy)
+			{
+				var y = maxy - ddim.y + cdim.y;
+				this.content_el.setStyles({
+					height: y.toInt(),
+					overflow: 'auto'
+				});
+			}
+		}
+	},
+
+	str2el: function(text)
+	{
+		var el = new Element('div');
+		if (text.indexOf('<') != -1 && text.indexOf('>') != -1)
+		{
+			try
+			{
+				el.set('html', text);
+			}
+			catch(e)
+			{
+				el.set('text', text);
+			}
+		}
+		else
+		{
+			el.set('text', text);
+		}
+		return el;
 	},
 
 	destroy: function() {
@@ -2849,7 +3027,7 @@ FileManager.Dialog = new Class({
 				this.el.destroy();
 			}).bind(this));
 		}
-		//if (typeof console !== 'undefined' && console.log) console.log('remove key up(ESC) on destroy');
+		window.FileManager.prototype.diag.log('remove key up(ESC) on destroy');
 		document.removeEvent('scroll', this.bound.scroll).removeEvent('resize', this.bound.scroll).removeEvent('keyup', this.bound.keyesc);
 		this.fireEvent('close');
 	}

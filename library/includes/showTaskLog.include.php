@@ -35,6 +35,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 echo '<ul>';
 // ->> LIST the tasks
+$count = 100;
 foreach($logContent as $logRow) {
   
   //vars
@@ -164,7 +165,7 @@ foreach($logContent as $logRow) {
       $pageId = generalFunctions::cleanSpecialChars($pageId); // removes \n\r
       $pageContent = generalFunctions::readPage($pageId,generalFunctions::getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" title="'.strip_tags($pageContent['title']).'">'.generalFunctions::shortenString(strip_tags($pageContent['title']), $maxLength).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags($pageContent['title']).'">'.generalFunctions::shortenString(strip_tags($pageContent['title']), $maxLength).'</a>';
       
       $foundObject = true;
     }
@@ -176,6 +177,9 @@ foreach($logContent as $logRow) {
       $foundObject = true;
     }
     
+    // COUNT the tabindex here
+    $count++;
+    
     // -> IF there is an CATEGORY set also
     if(substr($logObject[0],0,9) == 'category=' || substr($logObject[1],0,9) == 'category=') {
       
@@ -186,7 +190,7 @@ foreach($logContent as $logRow) {
         ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
         : $categoryConfig[$categoryId]['name'];
       
-      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" title="'.$categoryName.'">'.generalFunctions::shortenString($categoryName, $maxLength).'</a>';
+      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.generalFunctions::shortenString($categoryName, $maxLength).'</a>';
       
       $foundObject = true;                  
     }

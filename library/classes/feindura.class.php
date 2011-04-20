@@ -1050,8 +1050,8 @@ class feindura extends feinduraBase {
   // transport feindura PHP vars to javascript
   var feindura_url =                       '".$this->adminConfig['url']."';
   var feindura_basePath =                  '".$this->adminConfig['basePath']."';
-  var feindura_currentBackendLocation =    '".$_SESSION['feindura'][IDENTITY]['currentBackendLocation']."';
-  var feindura_deactivateFrontendEditing = '".$_SESSION['feindura'][IDENTITY]['deactivateFrontendEditing']."';
+  var feindura_currentBackendLocation =    '".$_SESSION['feindura']['session']['currentBackendLocation']."';
+  var feindura_deactivateFrontendEditing = '".$_SESSION['feindura']['session']['deactivateFrontendEditing']."';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:      \"".$this->languageFile['errorWindow_h1']."\",
     ERROR_SAVE:             \"".$this->languageFile['editor_savepage_error_save']."\",

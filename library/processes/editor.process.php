@@ -82,7 +82,7 @@ if($_POST['save']) {
   
     // speichert den inhalt in der flatfile
     $_POST['lastSaveDate'] = time();
-    $_POST['lastSaveAuthor'] = $_SESSION['feindura'][IDENTITY]['username'];
+    $_POST['lastSaveAuthor'] = $_SESSION['feindura']['session']['username'];
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     

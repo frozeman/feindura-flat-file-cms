@@ -137,7 +137,7 @@ if(!empty($adminConfig['user']['info'])) {
     echo '<br style="clear:both;" /><br />';
     
     // -> inBlockSlider
-    echo '<div style="text-align:center;"><a href="#" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
+    echo '<div style="text-align:center;"><a href="#" tabindex="30" class="inBlockSliderLink down">'.$langFile['STATISTICS_TITLE_PAGESTATISTICS'].'</a></div><br />';
     
     echo '<div class="verticalSeparator"></div>';
     
