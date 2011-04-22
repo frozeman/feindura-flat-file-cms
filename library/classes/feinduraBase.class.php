@@ -346,7 +346,7 @@ class feinduraBase {
         foreach($pages as $page) {
 
           // RETURNs the right page Id
-          if($page['title'] == $_GET['page']) { //generalFunctions::urlEncode($page['title'])
+          if(generalFunctions::urlEncode($page['title']) == generalFunctions::urlEncode($_GET['page'])) { //generalFunctions::urlEncode($page['title'])
             return $page['id'];
           }
         }
@@ -412,7 +412,7 @@ class feinduraBase {
       
       foreach($this->categoryConfig as $category) {      
         // RETURNs the right category Id
-        if($category['name'] == $_GET['category']) { //generalFunctions::urlEncode($category['name'])
+        if(generalFunctions::urlEncode($category['name']) == generalFunctions::urlEncode($_GET['category'])) { //generalFunctions::urlEncode($category['name'])
           return $category['id'];
         }
       }

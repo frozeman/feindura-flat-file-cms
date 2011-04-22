@@ -1003,7 +1003,12 @@ class generalFunctions {
   * 
   */
   public static function urlEncode($string) {
-    return urlencode(preg_replace('#&[^\s]+; +#',' ',strip_tags($string)));
+    $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
+    $string = strip_tags($string);
+    preg_match_all('#[\wa-zA-Z0-9\s-_]+#u',$string,$matches);
+    $string = implode('-',$matches[0]);
+    $string = str_replace(' ','_',$string);
+    return urlencode($string);
   }
 
  /**
