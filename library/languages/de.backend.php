@@ -539,6 +539,10 @@ $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] = 'Halte die STRG-Taste ged
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE'] = 'Seitendatum bearbeiten';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE'] = 'Das Seitendatum kann dazu verwendet werden, Seiten auf der Webseite nach Datum zu sortieren';
 
+$langFile['PAGESETUP_TEXT_FEEDS'] = 'Feeds aktivieren';
+$langFile['PAGESETUP_TIP_FEEDS'] = 'RSS 2.0 und Atom Feed für diese Seiten aktivieren.';
+$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'] = 'RSS 2.0 und Atom Feed für diese Kategorie aktivieren.';
+
 $langFile['PAGESETUP_TEXT_SORTMANUALLY'] = 'Seiten manuell sortieren';
 $langFile['PAGESETUP_TIP_SORTMANUALLY'] = 'Neu erstellte Seiten erscheinen [b]oben[/b].';
 

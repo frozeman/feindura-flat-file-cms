@@ -541,6 +541,10 @@ $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] = 'Hold the CTRL-key to sel
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE'] = 'Edit page date';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE'] = 'The page date can be used to sort pages by date';
 
+$langFile['PAGESETUP_TEXT_FEEDS'] = 'Activate feeds';
+$langFile['PAGESETUP_TIP_FEEDS'] = 'Activate RSS 2.0 and Atom Feed for the pages without category.';
+$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'] = 'Activate RSS 2.0 and Atom Feed for the pages in this category.';
+
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE'] = 'Sort pages by page date';
 $langFile['PAGESETUP_TIP_SORTBYDATE'] = 'Pages with a younger date appear at the [b]top[/b].[br /][br /][span class=hint]Deactivates manually sorting.[/span]';
 

@@ -92,7 +92,12 @@ var FileManager = new Class({
 		listPaginationSize: 100,          // add pagination per N items for huge directories (speed up interaction)
 		listPaginationAvgWaitTime: 2000,  // adaptive pagination: strive to, on average, not spend more than this on rendering a directory chunk
 		propagateData: {},                // extra query parameters sent with every request to the backend
-		propagateType: 'GET'              // either POST or GET
+		propagateType: 'GET',             // either POST or GET
+
+		isDirectImageURL: function(url)	  // override this one when the '.php?' check doesn't work for you; done as a function so you can use any suitable logic to check the URL
+		{
+			return (url.indexOf('.php?') != -1);
+		}
 	},
 
 	/*
@@ -107,6 +112,7 @@ var FileManager = new Class({
 
 	initialize: function(options) {
 		this.setOptions(options);
+		this.diag.verbose = this.options.verbose;
 		this.ID = String.uniqueID();
 		this.droppables = [];
 		this.assetBasePath = this.options.assetBasePath.replace(/(\/|\\)*$/, '/');
@@ -170,7 +176,7 @@ var FileManager = new Class({
 		this.clickablePath = new Element('span', {'class': 'filemanager-dir'});
 		this.selectablePath = new Element('input',{'type': 'text', 'class': 'filemanager-dir', 'readonly': 'readonly'});
 		this.pathTitle = new Element('a', {href:'#','class': 'filemanager-dir-title',text: this.language.dir}).addEvent('click',(function(e){
-			if (typeof console !== 'undefined' && console.log) console.log('pathTitle-click event: ' + e.target + ': ' + e.type + ' @ ' + e.target.outerHTML);
+			this.diag.log('pathTitle-click event: ' + e.target + ': ' + e.type + ' @ ' + e.target.outerHTML);
 			e.stop();
 			if (this.header.getElement('span.filemanager-dir') != null) {
 				this.selectablePath.setStyle('width',(this.header.getSize().x - this.pathTitle.getSize().x - 55));
@@ -439,7 +445,7 @@ var FileManager = new Class({
 			}).bind(this),
 			keyup: (function(e)
 			{
-				if (typeof console !== 'undefined' && console.log) console.log('keyup: key press: ' + e.key + ', ctrl: ' + e.control);
+				this.diag.log('keyup: key press: ' + e.key + ', ctrl: ' + e.control);
 				if (!e.control && !e.meta)
 				{
 					if (/* this.drag_is_active && */ this.ctrl_key_pressed)
@@ -467,7 +473,7 @@ var FileManager = new Class({
 			}).bind(this),
 			keyboardInput: (function(e)
 			{
-				if (typeof console !== 'undefined' && console.log) console.log('keyboardInput key press: ' + e.key);
+				this.diag.log('keyboardInput key press: ' + e.key);
 				if (this.dialogOpen) return;
 				switch (e.key)
 				{
@@ -726,7 +732,7 @@ var FileManager = new Class({
 			'resize': this.bound.scroll
 		});
 		// add keyboard navigation
-		if (typeof console !== 'undefined' && console.log) console.log('add keyboard nav on show file = ' + this.Directory + ', source = ' + '---');
+		this.diag.log('add keyboard nav on show file = ' + this.Directory + ', source = ' + '---');
 		document.addEvent('keydown', this.bound.keydown);
 		document.addEvent('keyup', this.bound.keyup);
 		if ((Browser.Engine && (Browser.Engine.trident || Browser.Engine.webkit)) || (Browser.ie || Browser.chrome || Browser.safari))
@@ -762,7 +768,7 @@ var FileManager = new Class({
 		this.container.setStyle('display', 'none');
 
 		// remove keyboard navigation
-		if (typeof console !== 'undefined' && console.log) console.log('REMOVE keyboard nav on hide');
+		this.diag.log('REMOVE keyboard nav on hide');
 		window.removeEvent('scroll', this.bound.scroll).removeEvent('resize', this.bound.scroll);
 		document.removeEvent('keydown', this.bound.keydown);
 		document.removeEvent('keyup', this.bound.keyup);
@@ -1429,7 +1435,7 @@ var FileManager = new Class({
 			});
 		}
 
-		if (typeof console !== 'undefined' && console.log) console.log('DISABLE keyboard up/down on revert');
+		this.diag.log('DISABLE keyboard up/down on revert');
 		//document.removeEvent('keydown', this.bound.keydown).removeEvent('keyup', this.bound.keyup);
 		this.drag_is_active = false;
 		this.imageadd.fade(0);
@@ -1490,9 +1496,8 @@ var FileManager = new Class({
 		return this.fill(null, startindex, pagesize, kbd_dir);
 	},
 
-	// Xinha: add the ability to preselect a file in the dir
-	fill: function(j, startindex, pagesize, kbd_dir, preselect) {
-
+	fill: function(j, startindex, pagesize, kbd_dir, preselect)
+	{
 		var j_item_count;
 
 		if (typeof preselect === 'undefined') preselect = null;
@@ -1583,7 +1588,7 @@ var FileManager = new Class({
 						href: '#',
 						text: folderName
 					}).addEvent('click', (function(e){
-						if (typeof console !== 'undefined' && console.log) console.log('path section - click event: ' + e.target + ' (' + path + ') : ' + e.type + ' @ ' + e.target.outerHTML);
+						this.diag.log('path section - click event: ' + e.target + ' (' + path + ') : ' + e.type + ' @ ' + e.target.outerHTML);
 						e.stop();
 						this.load(path);
 					}).bind(this))
@@ -1593,9 +1598,12 @@ var FileManager = new Class({
 		}).bind(this));
 
 		text.pop();
-		text[text.length-1].addClass('selected').removeEvents('click').addEvent('click', function(e) {
+		text[text.length-1].addClass('selected').removeEvents('click').addEvent('click', (function(e) {
 			e.stop();
-		});
+			// show the 'directory' info in the detail pane again (this is a way to get back from previewing single files to previewing the directory as a gallery)
+			this.diag.log('click: fillInfo: current directory!');
+			this.fillInfo();
+		}).bind(this));
 		this.selectablePath.set('value', '/'+this.CurrentPath);
 		this.clickablePath.empty().adopt(new Element('span', {text: '/ '}), text);
 
@@ -1773,9 +1781,9 @@ var FileManager = new Class({
 			// This is just a raw image
 			el = this.list_row_maker(file.thumbnail, file);
 
-			if (typeof console !== 'undefined' && console.log) console.log('add DIRECTORY click event to ' + file.name);
+			this.diag.log('add DIRECTORY click event to ' + file.name);
 			el.addEvent('click', (function(e) {
-				if (typeof console !== 'undefined' && console.log) console.log('is_dir:CLICK: ' + e.target + ': ' + e.type + ' @ ' + e.target.outerHTML);
+				self.diag.log('is_dir:CLICK: ' + e.target + ': ' + e.type + ' @ ' + e.target.outerHTML);
 				//var node = $((event.currentTarget) ? e.event.currentTarget : e.event.srcElement);
 				//var node = el;
 				var node = this;
@@ -1858,7 +1866,7 @@ var FileManager = new Class({
 				this.diag.log('thumbnail: "' + file.thumbnail + '"');
 				//var icon = (this.listType === 'thumb') ? new Asset.image(file.thumbnail /* +'?'+uniqueId */, {'class':this.listType}) : new Asset.image(file.thumbnail);
 
-				if (file.thumbnail.indexOf('.php?') == -1)
+				if (!this.options.isDirectImageURL(file.thumbnail))
 				{
 					// This is just a raw image
 					el = this.list_row_maker(file.thumbnail, file);
@@ -1873,6 +1881,7 @@ var FileManager = new Class({
 					// actually returning the binary image data, thus the iframe contents becoming the thumbnail image.
 
 					el = (function(file) {           // Closure
+						var iconpath = this.assetBasePath + 'Images/Icons/' + (this.listType === 'list' ? '' : 'Large/') + 'default-error.png';
 						var list_row = this.list_row_maker(null, file);
 
 						new FileManager.Request({
@@ -1883,7 +1892,6 @@ var FileManager = new Class({
 							fmDisplayErrors: false,   // Should we display the error here? No, we just display the general error icon instead
 							onRequest: function(){},
 							onSuccess: (function(j) {
-								var iconpath = this.assetBasePath + 'Images/Icons/' + (this.listType === 'list' ? '' : 'Large/') + 'default-error.png';
 								if (!j || !j.status)
 								{
 									list_row.getElement('span.fm-thumb-bg').setStyle('background-image', 'url(' + iconpath + ')');
@@ -1898,11 +1906,9 @@ var FileManager = new Class({
 								}
 							}).bind(this),
 							onError: (function(text, error) {
-								var iconpath = this.assetBasePath + 'Images/Icons/' + (this.listType === 'list' ? '' : 'Large/') + 'default-error.png';
 								list_row.getElement('span.fm-thumb-bg').setStyle('background-image', 'url(' + iconpath + ')');
 							}).bind(this),
 							onFailure: (function(xmlHttpRequest) {
-								var iconpath = this.assetBasePath + 'Images/Icons/' + (this.listType === 'list' ? '' : 'Large/') + 'default-error.png';
 								list_row.getElement('span.fm-thumb-bg').setStyle('background-image', 'url(' + iconpath + ')');
 							}).bind(this)
 						}, this).send();
@@ -1975,9 +1981,9 @@ var FileManager = new Class({
 				// 2011/04/09: only register the 'click' event when the element is NOT a draggable:
 				if (!support_DnD_for_this_dir)
 				{
-					if (typeof console !== 'undefined' && console.log) console.log('add FILE click event to ' + file.name + ' : ' + file.mime);
+					self.diag.log('add FILE click event to ' + file.name + ' : ' + file.mime);
 					el.addEvent('click', (function(e) {
-						if (typeof console !== 'undefined' && console.log) console.log('is_file:CLICK: ' + e.target + ': ' + e.type + ' @ ' + e.target.outerHTML);
+						self.diag.log('is_file:CLICK: ' + e.target + ': ' + e.type + ' @ ' + e.target.outerHTML);
 						//var node = $((event.currentTarget) ? e.event.currentTarget : e.event.srcElement);
 						//var node = el;
 						var node = this;
@@ -2030,7 +2036,7 @@ var FileManager = new Class({
 							this.Current = file.element;
 							new Fx.Scroll(this.browserScroll,{duration: 'short', offset: {x: 0, y: -(this.browserScroll.getSize().y/4)}}).toElement(file.element);
 							file.element.addClass('selected');
-							if (typeof console !== 'undefined' && console.log) console.log('fill on PRESELECT: fillInfo: file = ' + file.name);
+							this.diag.log('fill on PRESELECT: fillInfo: file = ' + file.name);
 							this.fillInfo(file);
 						}
 					}
@@ -2042,13 +2048,13 @@ var FileManager = new Class({
 							this.Current = file.element;
 							new Fx.Scroll(this.browserScroll,{duration: 'short', offset: {x: 0, y: -(this.browserScroll.getSize().y/4)}}).toElement(file.element);
 							file.element.addClass('selected');
-							if (typeof console !== 'undefined' && console.log) console.log('fill: fillInfo: file = ' + file.name);
+							this.diag.log('fill: fillInfo: file = ' + file.name);
 							this.fillInfo(file);
 						}
 					}
 					else if (fmFile == null)
 					{
-						if (typeof console !== 'undefined' && console.log) console.log('fill: RESET onShow: file = ' + file.name);
+						this.diag.log('fill: RESET onShow: file = ' + file.name);
 						this.onShow = false;
 					}
 				}
@@ -2093,7 +2099,7 @@ var FileManager = new Class({
 				}).bind(this),
 
 				onBeforeStart: (function(el){
-					if (typeof console !== 'undefined' && console.log) console.log('draggable:onBeforeStart');
+					this.diag.log('draggable:onBeforeStart');
 					var position = el.getPosition();
 					el.addClass('drag').setStyles({
 						'z-index': this.options.zIndex + 1300,
@@ -2106,7 +2112,7 @@ var FileManager = new Class({
 
 				// FIX: do not deselect item when aborting dragging _another_ item!
 				onCancel: (function(el) {
-					if (typeof console !== 'undefined' && console.log) console.log('draggable:onCancel');
+					this.diag.log('draggable:onCancel');
 					this.revert_drag_n_drop(el);
 					/*
 					 * Fixing the 'click' on FF+Opera (other browsers do get that event for any item which is made draggable):
@@ -2121,13 +2127,13 @@ var FileManager = new Class({
 				}).bind(this),
 
 				onStart: (function(el) {
-					if (typeof console !== 'undefined' && console.log) console.log('draggable:onStart');
+					this.diag.log('draggable:onStart');
 					//this.deselect(el);
 					this.tips.hide();
 
 					el.fade(0.7).addClass('move');
 
-					if (typeof console !== 'undefined' && console.log) console.log('ENABLE keyboard up/down on drag start');
+					this.diag.log('ENABLE keyboard up/down on drag start');
 					//document.addEvents({
 					//  keydown: this.bound.keydown,
 					//  keyup: this.bound.keyup
@@ -2148,7 +2154,7 @@ var FileManager = new Class({
 				},
 
 				onDrop: (function(el, droppable, e){
-					if (typeof console !== 'undefined' && console.log) console.log('draggable:onDrop');
+					this.diag.log('draggable:onDrop');
 
 					var is_a_move = !(e.control || e.meta);
 					this.drop_pending = 1 + is_a_move;
@@ -2171,7 +2177,7 @@ var FileManager = new Class({
 						}
 
 						dir = droppable.retrieve('file');
-						if (typeof console !== 'undefined' && console.log) console.log('on drop dir = ' + dir.dir + ' : ' + dir.name + ', source = ' + 'retrieve');
+						this.diag.log('on drop dir = ' + dir.dir + ' : ' + dir.name + ', source = ' + 'retrieve');
 					}
 
 					if ((!this.options.move_or_copy) || (is_a_move && !droppable)) {
@@ -2462,7 +2468,16 @@ var FileManager = new Class({
 
 					if (prev) {
 						prev.addEvent('load', function(){
-							this.setStyle('background', 'none');
+							// when the thumb250 image has loaded, remove the loader animation in the background ...
+							//this.setStyle('background', 'none');
+							// ... AND blow away the encoded 'width' and 'height' styles: after all, the thumb250 generation MAY have failed.
+							// In that case, an icon is produced by the backend, but it will have different dimensions, and we don't want to
+							// distort THAT one, either.
+							this.setStyles({
+								'background': 'none',
+								'width': '',
+								'height': ''
+							});
 						});
 					}
 
@@ -2705,13 +2720,14 @@ var FileManager = new Class({
 	// always return a string; dump object/array/... in 'arr' to human readable string:
 	diag:
 	{
+		verbose: false,
 		dump: function(arr, level, max_depth, max_lines, no_show)
 		{
 			return '';
 		},
 		log: function(/* ... */)
 		{
-			if (typeof this.options !== 'undefined' && this.options.verbose) return;
+			if (!this.verbose) return;
 
 			if (typeof console !== 'undefined')
 			{
@@ -2969,7 +2985,7 @@ FileManager.Dialog = new Class({
 		var maxx = (vdim.x - 20) * 0.85; // heuristic: make dialog a little smaller than the screen itself and keep a place for possible outer scrollbars
 		if (ddim.x >= maxx)
 		{
-			this.el.setStyles({ width: maxx.toInt() });
+			this.el.setStyle('width', maxx.toInt());
 		}
 		ddim = this.el.getSize();
 		var cdim = this.content_el.getSize();
@@ -2980,7 +2996,7 @@ FileManager.Dialog = new Class({
 			var x = ddim.x * 2.0;
 			while (x < maxx && ddim.y >= maxy)
 			{
-				this.el.setStyles({ width: x.toInt() });
+				this.el.setStyle('width', x.toInt());
 				ddim = this.el.getSize();
 				x = ddim.x * 1.3;
 			}

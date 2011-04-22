@@ -189,7 +189,6 @@ FileManager.Gallery = new Class({
 			file = el.retrieve('file');
 		}
 
-		var self = this;
 		var name = this.normalize(file.dir + '/' + file.name);
 
 		// when the item already exists in the gallery, do not add it again:
@@ -284,12 +283,12 @@ FileManager.Gallery = new Class({
 					});
 				},
 				onError: function() {
-					if (typeof console !== 'undefined' && console.log) console.log('image asset: error!');
+					self.diag.log('image asset: error!');
 					var iconpath = self.assetBasePath + 'Images/Icons/Large/default-error.png';
 					img.src = iconpath;
 				},
 				onAbort: function() {
-					if (typeof console !== 'undefined' && console.log) console.log('image asset: ABORT!');
+					self.diag.log('image asset: ABORT!');
 					var iconpath = self.assetBasePath + 'Images/Icons/Large/default-error.png';
 					img.src = iconpath;
 				}
@@ -350,7 +349,7 @@ FileManager.Gallery = new Class({
 					//this.onDragComplete(li, droppable);
 					this.metadata[name].file = file;
 
-					img_injector(file, imgcontainer, self);
+					img_injector(file, imgcontainer, this);
 
 				}).bind(this),
 				onError: (function(text, error) {
@@ -364,7 +363,7 @@ FileManager.Gallery = new Class({
 		else
 		{
 			// we already have all required information. Go show the image in the gallery pane!
-			img_injector(file, imgcontainer, self);
+			img_injector(file, imgcontainer, this);
 		}
 
 		return true;
@@ -448,9 +447,9 @@ FileManager.Gallery = new Class({
 
 	populate: function(data)
 	{
-		if (typeof console !== 'undefined' && console.log) console.log('GALLERY.populate: ' + debug.dump(data));
+		this.diag.log('GALLERY.populate: ' + debug.dump(data));
 		Object.each(data || {}, function(v, i){
-			if (typeof console !== 'undefined' && console.log) console.log('GALLERY.populate: index = ' + i + ', value = ' + v);
+			this.diag.log('GALLERY.populate: index = ' + i + ', value = ' + v);
 			this.onDragComplete(i, this.gallery);
 			this.metadata[i].caption = v;
 		}, this);

@@ -501,6 +501,10 @@ $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'] = 'Maintenez la touche CTRL
 $langFile['PAGESETUP_TEXT_EDITPAGEDATE'] = 'traiter la date du site web';
 $langFile['PAGESETUP_TIP_EDITPAGEDATE'] = 'La date du site web peu être utilisé pour trier des pages par ordre chronologique.';
 
+$langFile['PAGESETUP_TEXT_FEEDS'] = 'activez Feeds';
+$langFile['PAGESETUP_TIP_FEEDS'] = 'Activer RSS 2.0 et Atom Feed pour les pages sans catégorie.';
+$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'] = 'Activer RSS 2.0 et Atom Feed pour les pages de cette catégorie.';
+
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE'] = 'pages triée par date de pages';
 $langFile['PAGESETUP_TIP_SORTBYDATE'] = 'Pages avec un plus jeune date apparaissent à la [b]top[/b].[br /][br /][span class=hint]Manuellement trier n\'est plus possible.[/span]';
 

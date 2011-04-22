@@ -346,7 +346,8 @@ function saveCategories($newCategories) {
         fwrite($file,"\$categoryConfig[".$category['id']."]['thumbnail'] =       ".xssFilter::bool($category['thumbnail'],true).";\n");        
         fwrite($file,"\$categoryConfig[".$category['id']."]['plugins'] =         '".$category['plugins']."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['showTags'] =        ".xssFilter::bool($category['showTags'],true).";\n");
-        fwrite($file,"\$categoryConfig[".$category['id']."]['showPageDate'] =    ".xssFilter::bool($category['showPageDate'],true).";\n\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['showPageDate'] =    ".xssFilter::bool($category['showPageDate'],true).";\n");
+        fwrite($file,"\$categoryConfig[".$category['id']."]['feeds'] =            ".xssFilter::bool($category['feeds'],true).";\n\n");
         
         fwrite($file,"\$categoryConfig[".$category['id']."]['sorting'] =         '".xssFilter::alphabetical($category['sorting'],'manually')."';\n");
         fwrite($file,"\$categoryConfig[".$category['id']."]['sortReverse'] =     ".xssFilter::bool($category['sortReverse'],true).";\n\n");
@@ -631,7 +632,8 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['thumbnails'] =   ".xssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n");    
     fwrite($file,"\$adminConfig['pages']['plugins'] =      '".$adminConfig['pages']['plugins']."';\n"); // no xssFilter, comes from a <select>
     fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n");
-    fwrite($file,"\$adminConfig['pages']['showPageDate'] = ".xssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n\n");
+    fwrite($file,"\$adminConfig['pages']['showPageDate'] = ".xssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n");
+    fwrite($file,"\$adminConfig['pages']['feeds'] =         ".xssFilter::bool($adminConfig['pages']['feeds'],true).";\n\n");
     
     fwrite($file,"\$adminConfig['pages']['sorting'] =      '".xssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n");
     fwrite($file,"\$adminConfig['pages']['sortReverse'] =  ".xssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n");
@@ -1018,14 +1020,14 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
 /**
  * <b>Name</b> saveFeeds()<br />
  * 
- * Saves an Atom and RSS feed for the given category.
+ * Saves an Atom and RSS 2.0 Feed for the given category.
  * 
  * <b>Used Global Variables</b><br />
  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
  * 
- * @param string $category the category of which a feed should be created
+ * @param string $category the category of which feeds should be created
  * 
  * @return bool whether the saveing of the feeds succeed or not
  * 
@@ -1047,7 +1049,8 @@ function saveFeeds($category) {
     : dirname(__FILE__).'/../../pages/'.$category.'/rss2.xml';
   
   // ->> DELETE the xml files, if category is deactivated, or nor rss feeds are activated for that
-  if($category != 0 && !$GLOBALS['categoryConfig'][$category]['public'] && !$GLOBALS['categoryConfig'][$category]['feeds']) {
+  if(($category != 0 && (!$GLOBALS['categoryConfig'][$category]['public'] || !$GLOBALS['categoryConfig'][$category]['feeds'])) ||
+     ($category == 0 && !$GLOBALS['adminConfig']['pages']['feeds'])) {
     if(is_file($atomFileName)) unlink($atomFileName);
     if(is_file($rss2FileName)) unlink($rss2FileName);
     return false;
@@ -1057,12 +1060,12 @@ function saveFeeds($category) {
   require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
   
   // vars
-  $feedPages = generalFunctions::loadPages($category,true);
+  $feedsPages = generalFunctions::loadPages($category,true);
   $channelTitle = ($category == 0)
     ? $GLOBALS['websiteConfig']['title']
     : $GLOBALS['categoryConfig'][$category]['name'].' - '.$GLOBALS['websiteConfig']['title'];
   
-  // ->> START FEEDS
+  // ->> START feedsS
   $atom = new FeedWriter(ATOM);
   $rss2 = new FeedWriter(RSS2);
 
@@ -1083,42 +1086,42 @@ function saveFeeds($category) {
   $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
   $rss2->setChannelElement('copyright', $GLOBALS['websiteConfig']['copyright']);	
   
-  // ->> adds the FEED ENTRIES/ITEMS
-  foreach($feedPages as $feedPage) {
+  // ->> adds the feed ENTRIES/ITEMS
+  foreach($feedsPages as $feedsPage) {
     
-    if($feedPage['public']) {
+    if($feedsPage['public']) {
       // shows the page link
-      $hostUrl = ($GLOBALS['adminConfig'])
+      $hostUrl = ($GLOBALS['adminConfig']['speakingUrl'])
         ? $GLOBALS['adminConfig']['url']
         : $GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['websitePath'];
-      $link = $hostUrl.generalFunctions::createHref($feedPage);
+      $link = $hostUrl.generalFunctions::createHref($feedsPage);
       
       // ATOM
     	$atomItem = $atom->createNewItem();  	
-    	$atomItem->setTitle(strip_tags($feedPage['title']));
+    	$atomItem->setTitle(strip_tags($feedsPage['title']));
     	$atomItem->setLink($link);
     	$atomItem->setDate(time());
-      $atomItem->addElement('content',$feedPage['content'],array('src'=>$link));
+      $atomItem->addElement('content',$feedsPage['content'],array('src'=>$link));
     
       // RSS2
       $rssItem = $rss2->createNewItem();    
-      $rssItem->setTitle(strip_tags($feedPage['title']));
+      $rssItem->setTitle(strip_tags($feedsPage['title']));
       $rssItem->setLink($link);
       $rssItem->setDate(time());
       $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
       
       // BOTH
-      if(empty($feedPage['description'])) {
-        $atomItem->setDescription(strip_tags(generalFunctions::shortenString($feedPage['content'],450)));
-        $rssItem->setDescription(strip_tags(generalFunctions::shortenString($feedPage['content'],450)));
+      if(empty($feedsPage['description'])) {
+        //$atomItem->setDescription(strip_tags(generalFunctions::shortenString($feedsPage['content'],450)));
+        $rssItem->setDescription(strip_tags(generalFunctions::shortenString($feedsPage['content'],450)));
       } else {
-        $atomItem->setDescription($feedPage['description']);
-        $rssItem->setDescription($feedPage['description']);
+        $atomItem->setDescription($feedsPage['description']);
+        $rssItem->setDescription($feedsPage['description']);
       }
       
-    	//Now add the feed item	
+    	//Now add the feeds item	
     	$atom->addItem($atomItem);
-    	//Now add the feed item	
+    	//Now add the feeds item	
     	$rss2->addItem($rssItem);
   	}
   }

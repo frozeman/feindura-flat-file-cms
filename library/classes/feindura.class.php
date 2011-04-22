@@ -1009,6 +1009,30 @@ class feindura extends feinduraBase {
       if($this->websiteConfig['keywords'])
         $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'"'.$tagEnding."\n";
       
+      // -> add FEEDS
+      $nonCategory[0] = array('id' => 0);
+      $allCategories = $nonCategory + $this->categoryConfig;
+      // -----------------------------------------------------------------------------------------------------------
+      // ->> LIST CATEGORIES
+      foreach($allCategories as $category) {
+        
+        if(($category['id'] != 0 && $category['public'] && $category['feeds']) ||
+           ($category['id'] == 0 && $this->adminConfig['pages']['feeds'])) {
+          
+          $channelTitle = ($category['id'] == 0)
+            ? $this->websiteConfig['title']
+            : $category['name'].' - '.$this->websiteConfig['title'];
+          
+          $feedsLink = ($category['id'] == 0)
+            ? $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'
+            : $this->adminConfig['url'].$this->adminConfig['basePath'].'pages/'.$category['id'].'/';
+          
+          $metaTags .= '  <link rel="alternate" type="application/atom+xml" title="'.$channelTitle.' (Atom)" href="'.$feedsLink.'atom.xml"'.$tagEnding."\n";
+          $metaTags .= '  <link rel="alternate" type="application/rss+xml" title="'.$channelTitle.' (RSS 2.0)" href="'.$feedsLink.'rss2.xml"'.$tagEnding."\n";
+        }
+      }
+      
+      
       $metaTags .= "\n";
       
       // -> add plugin-stylesheets

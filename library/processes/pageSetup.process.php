@@ -50,6 +50,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pages']['plugins'] = serialize($_POST['cfg_pagePlugins']);
   $newAdminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
   $newAdminConfig['pages']['showPageDate'] = $_POST['cfg_pagePageDate'];
+  $newAdminConfig['pages']['feeds'] = $_POST['cfg_pagefeeds'];
   $newAdminConfig['pages']['sorting'] = $_POST['cfg_pageSorting'];
   $newAdminConfig['pages']['sortReverse'] = $_POST['cfg_pageSortReverse'];
   
