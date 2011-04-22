@@ -89,12 +89,22 @@ class xssFilter {
   *    - 1.0 initial release
   * 
   */
-  public static function escapeBasics(&$array) {
+  public static function escapeBasics($array) {
     if(is_array($array)) {
       foreach($array as $key => &$value)
-        if(is_array($value)) self::escapeBasics($value);
-        else $array[$key] = (is_bool($value) || is_numeric($value)) ? $value : str_replace('\'', '\\\'', str_replace('\\', "\\\\", $value));
+        if(is_array($value)) $value = self::escapeBasics($value);
+        else {
+          if(is_bool($value) || is_numeric($value)) 
+            $array[$key] = $value;
+          else {
+            $value = generalFunctions::smartStripslashes($value);
+            $value = addslashes($value);
+            $value = str_replace('\"','"',$value);
+            $array[$key] = $value;
+          }
+        }
     }
+    return $array;
   }
   
  /**
@@ -438,11 +448,32 @@ class xssFilter {
   */
   public static function text($data, $charset = 'UTF-8' ,$default = false) {
       if(!empty($data) || $data == 0) {
-        $data = generalFunctions::smartStripslashes($data);
-        $data = str_replace(';','&#59;',$data);
-        $data = htmlspecialchars($data,ENT_QUOTES,$charset,false);
-        $data = str_replace(array('&amp;#59;','\\','=','&#92;&#039;'),array('&#59;','&#92;','&#61;','&#039;'),$data);
-        $data = preg_replace('#(\&\#92;)+#','&#92;',$data);
+        
+        //$data = htmlspecialchars_decode($data,ENT_QUOTES);
+        //$data = str_replace(';','&#59;',$data);
+        //$data = htmlspecialchars($data,ENT_QUOTES,$charset);
+        //$data = str_replace(array('&amp;#59;','\\','=','&#92;&#039;'),array('&#59;','&#92;','&#61;','&#039;'),$data);
+        $data = str_replace(array(
+          '>',
+          '<',
+          '=',
+          ':',          
+          "\'",
+          "'",          
+          '"',
+          //"\\"
+          ),array(
+          '&gt;',
+          '&lt;',
+          '&#61;',
+          '&#58;',          
+          '&#39;',
+          '&#39;',
+          '&#34;',
+          //'&#92;'
+          ),$data);
+        
+        //$data = preg_replace('#(\&\#92\;)+#','&#92;',$data);
         return $data;
      }
      return $default;

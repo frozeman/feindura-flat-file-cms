@@ -313,12 +313,10 @@ function saveCategories($newCategories) {
       fwrite($file,PHPSTARTTAG); //< ?php
       
       // ->> GO through EVERY catgory and write it
-      foreach($newCategories as $category) {        
-        
+      foreach($newCategories as $category) {
         // -> CHECK depency of PAGEDATE
         if(!isset($category['showPageDate']) && $category['sorting'] == 'byPageDate' && $GLOBALS['categoryConfig'][$category['id']]['showPageDate'])
           $category['sorting'] = 'manually';
-        
         if($category['sorting'] == 'byPageDate' && !isset($category['showPageDate']))
           $category['showPageDate'] = 'true';
         
@@ -328,9 +326,9 @@ function saveCategories($newCategories) {
         if(!isset($category['thumbHeight']))
           $category['thumbHeight'] = $GLOBALS['categoryConfig'][$category['id']]['thumbHeight'];
         
-        // escape \ and '
-        xssFilter::escapeBasics($category);
-        
+        // -> escape \ and '
+        $category = xssFilter::escapeBasics($category);
+              
         // adds absolute path slash on the beginning and serialize the stylefiles
         $category['styleFile'] = prepareStyleFilePaths($category['styleFile']);
       
@@ -600,9 +598,9 @@ function saveAdminConfig($adminConfig) {
     if($adminConfig['pages']['sorting'] == 'byPageDate' && !isset($adminConfig['pages']['showPageDate']))
       $adminConfig['pages']['showPageDate'] = 'true';
     
-    // escape \ and '
-    xssFilter::escapeBasics($adminConfig);
-
+    // -> escape \ and '
+    $adminConfig = xssFilter::escapeBasics($adminConfig);
+    
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); // < ?php
 
@@ -619,9 +617,9 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['dateFormat'] =       '".xssFilter::alphabetical($adminConfig['dateFormat'])."';\n");
     fwrite($file,"\$adminConfig['speakingUrl'] =      ".xssFilter::bool($adminConfig['speakingUrl'],true).";\n\n");
     
-    fwrite($file,"\$adminConfig['varName']['page'] =     '".xssFilter::stringStrict($adminConfig['varName']['page'])."';\n");  
-    fwrite($file,"\$adminConfig['varName']['category'] = '".xssFilter::stringStrict($adminConfig['varName']['category'])."';\n");  
-    fwrite($file,"\$adminConfig['varName']['modul'] =    '".xssFilter::stringStrict($adminConfig['varName']['modul'])."';\n\n");
+    fwrite($file,"\$adminConfig['varName']['page'] =     '".xssFilter::stringStrict($adminConfig['varName']['page'],'page')."';\n");  
+    fwrite($file,"\$adminConfig['varName']['category'] = '".xssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n");  
+    fwrite($file,"\$adminConfig['varName']['modul'] =    '".xssFilter::stringStrict($adminConfig['varName']['modul'],'modul')."';\n\n");
     
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".xssFilter::bool($adminConfig['user']['fileManager'],true).";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".xssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n");
@@ -687,13 +685,13 @@ function saveUserConfig($userConfig) {
   // opens the file for writing
   if($file = fopen(dirname(__FILE__)."/../../config/user.config.php","wb")) {
     
+    // -> escape \ and '
+    $userConfig = xssFilter::escapeBasics($userConfig);
+    
     // *** write
     flock($file,2); //LOCK_EX
       fwrite($file,PHPSTARTTAG); //< ?php      
       foreach($userConfig as $user => $configs) {
-        
-        // escape \ and '
-        xssFilter::escapeBasics($configs);
 
         fwrite($file,"\$userConfig['".$user."']['id']       = ".xssFilter::int($configs['id'],0).";\n");
         fwrite($file,"\$userConfig['".$user."']['admin']    = ".xssFilter::bool($configs['admin'],true).";\n");
@@ -741,9 +739,9 @@ function saveWebsiteConfig($websiteConfig) {
    
   // opens the file for writing
   if($file = fopen(dirname(__FILE__)."/../../config/website.config.php","wb")) {
-    
-    // escape \ and '
-    xssFilter::escapeBasics($websiteConfig);
+  
+    // -> escape \ and '
+    $websiteConfig = xssFilter::escapeBasics($websiteConfig);
     
     // *** write
     flock($file,2); //LOCK_EX
@@ -795,9 +793,9 @@ function saveStatisticConfig($statisticConfig) {
    
   // opens the file for writing
   if($file = fopen("config/statistic.config.php","wb")) {
-        
-    // escape \ and '
-    xssFilter::escapeBasics($statisticConfig);
+    
+    // -> escape \ and '
+    $statisticConfig = xssFilter::escapeBasics($statisticConfig);
     
     // WRITE
     flock($file,2); //LOCK_EX
@@ -851,9 +849,9 @@ function savePluginsConfig($pluginsConfig) {
   // **** opens plugin.config.php for writing
   if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","wb")) {
     
-    // escape \ and '
-    xssFilter::escapeBasics($pluginsConfig);
-    
+    // -> escape \ and '
+    $pluginsConfig = xssFilter::escapeBasics($pluginsConfig);
+     
     // sort the plugins alphabetical
     ksort($pluginsConfig);
     
@@ -1018,9 +1016,123 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
 }
 
 /**
+ * <b>Name</b> saveFeeds()<br />
+ * 
+ * Saves an Atom and RSS feed for the given category.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+ *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+ *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+ * 
+ * @param string $category the category of which a feed should be created
+ * 
+ * @return bool whether the saveing of the feeds succeed or not
+ * 
+ * 
+ * @version 0.1
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 0.1 initial release
+ * 
+ */
+function saveFeeds($category) {
+  
+  // vars
+  $atomFileName = ($category == 0) 
+    ? dirname(__FILE__).'/../../pages/atom.xml'
+    : dirname(__FILE__).'/../../pages/'.$category.'/atom.xml';
+  $rss2FileName = ($category == 0) 
+    ? dirname(__FILE__).'/../../pages/rss2.xml'
+    : dirname(__FILE__).'/../../pages/'.$category.'/rss2.xml';
+  
+  // ->> DELETE the xml files, if category is deactivated, or nor rss feeds are activated for that
+  if($category != 0 && !$GLOBALS['categoryConfig'][$category]['public'] && !$GLOBALS['categoryConfig'][$category]['feeds']) {
+    if(is_file($atomFileName)) unlink($atomFileName);
+    if(is_file($rss2FileName)) unlink($rss2FileName);
+    return false;
+  }
+  
+  // get the FeedWriter class
+  require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
+  
+  // vars
+  $feedPages = generalFunctions::loadPages($category,true);
+  $channelTitle = ($category == 0)
+    ? $GLOBALS['websiteConfig']['title']
+    : $GLOBALS['categoryConfig'][$category]['name'].' - '.$GLOBALS['websiteConfig']['title'];
+  
+  // ->> START FEEDS
+  $atom = new FeedWriter(ATOM);
+  $rss2 = new FeedWriter(RSS2);
+
+	// ->> CHANNEL
+	// -> ATOM
+	$atom->setTitle($channelTitle);	
+	$atom->setLink($GLOBALS['adminConfig']['url']);	
+	$atom->setChannelElement('updated', date(DATE_ATOM , time()));
+	$atom->setChannelElement('author', array('name'=>$GLOBALS['websiteConfig']['publisher']));
+	$atom->setChannelElement('rights', $GLOBALS['websiteConfig']['copyright']);
+	$atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
+	
+	// -> RSS2
+	$rss2->setTitle($channelTitle);
+	$rss2->setLink($GLOBALS['adminConfig']['url']);	
+	$rss2->setDescription($GLOBALS['websiteConfig']['description']);
+  //$rss2->setChannelElement('language', 'en-us');
+  $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
+  $rss2->setChannelElement('copyright', $GLOBALS['websiteConfig']['copyright']);	
+  
+  // ->> adds the FEED ENTRIES/ITEMS
+  foreach($feedPages as $feedPage) {
+    
+    if($feedPage['public']) {
+      // shows the page link
+      $hostUrl = ($GLOBALS['adminConfig'])
+        ? $GLOBALS['adminConfig']['url']
+        : $GLOBALS['adminConfig']['url'].$GLOBALS['adminConfig']['websitePath'];
+      $link = $hostUrl.generalFunctions::createHref($feedPage);
+      
+      // ATOM
+    	$atomItem = $atom->createNewItem();  	
+    	$atomItem->setTitle(strip_tags($feedPage['title']));
+    	$atomItem->setLink($link);
+    	$atomItem->setDate(time());
+      $atomItem->addElement('content',$feedPage['content'],array('src'=>$link));
+    
+      // RSS2
+      $rssItem = $rss2->createNewItem();    
+      $rssItem->setTitle(strip_tags($feedPage['title']));
+      $rssItem->setLink($link);
+      $rssItem->setDate(time());
+      $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
+      
+      // BOTH
+      if(empty($feedPage['description'])) {
+        $atomItem->setDescription(strip_tags(generalFunctions::shortenString($feedPage['content'],450)));
+        $rssItem->setDescription(strip_tags(generalFunctions::shortenString($feedPage['content'],450)));
+      } else {
+        $atomItem->setDescription($feedPage['description']);
+        $rssItem->setDescription($feedPage['description']);
+      }
+      
+    	//Now add the feed item	
+    	$atom->addItem($atomItem);
+    	//Now add the feed item	
+    	$rss2->addItem($rssItem);
+  	}
+  }
+    
+  // -> SAVE
+  return (file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
+          file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false)
+    ? true : false;
+}
+
+/**
  * <b>Name</b> generateBackupFileName()<br />
  * 
- * generates the backup file name like:
+ * Generates the backup file name like:
  * 
  * <samp>
  * feinduraBackup_localhost_2010-11-17_17-36.zip
@@ -1454,12 +1566,7 @@ function saveEditedFiles(&$savedForm) {
     
     // encode when ISO-8859-1
     if(mb_detect_encoding($_POST['fileContent']) == 'ISO-8859-1') $_POST['fileContent'] = utf8_encode($_POST['fileContent']);
-    //$_POST['fileContent'] = preg_replace("#[\\r\\n]+#","\n",$_POST['fileContent']);
-    //$_POST['fileContent'] = preg_replace('#(\\r?\\n)#', '$1', $_POST['fileContent']);    
-    //$_POST['fileContent'] = preg_replace('#\\\+#','\\',$_POST['fileContent']);
-    //$_POST['fileContent'] = str_replace('\"', '"', $_POST['fileContent']);
-    //$_POST['fileContent'] = str_replace("\'", "'", $_POST['fileContent']);
-    $_POST['fileContent'] = generalFunctions::smartStripslashes($_POST['fileContent']);    
+    $_POST['fileContent'] = generalFunctions::smartStripslashes($_POST['fileContent']);
     $_POST['fileContent'] = preg_replace("#\\n#","",$_POST['fileContent']); // prevent double line breaks
     
     // -> SAVE

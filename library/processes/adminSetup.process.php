@@ -54,7 +54,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   }
   
   // -> add <br> to the USER-INFO and check html code
-  $_POST['cfg_userInfo'] = nl2br(generalFunctions::smartStripslashes($_POST['cfg_userInfo']));
+  $_POST['cfg_userInfo'] = nl2br($_POST['cfg_userInfo']);
   $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],array(
     'comment'=> 1,
     'cdata'=> 1,
@@ -129,7 +129,7 @@ if(isset($_POST['saveFckStyleFile'])) {
 
   $fckstylewrite = $_POST['fckStyleFile'];
   
-  // fill when with standard its empty
+  // -> fill when with standard styles when its empty
   if(strpos($fckstylewrite,'CKEDITOR.addStylesSet') === false)
     $fckstylewrite = "CKEDITOR.addStylesSet( 'htmlEditorStyles',
 [

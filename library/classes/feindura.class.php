@@ -2050,7 +2050,7 @@ class feindura extends feinduraBase {
             // get the activated plugins
             $activatedPlugins = ($pageContent['category'] === 0)
               ? unserialize($this->adminConfig['pages']['plugins'])
-              : unserialize($this->categoryConfig[$_GET['category']]['plugins']);
+              : unserialize($this->categoryConfig[$this->category]['plugins']);
           
             foreach($pageContent['plugins'] as $pluginName => $plugin) {
 

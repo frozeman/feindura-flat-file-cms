@@ -27,7 +27,7 @@ var CodeMirror = (function() {
         '<div style="position: relative">' + // Moved around its parent to cover visible view
           '<div class="CodeMirror-gutter"><div class="CodeMirror-gutter-text"></div></div>' +
           '<div style="overflow: hidden; position: absolute; width: 0; left: 0">' + // Wraps and hides input textarea
-            '<textarea style="height: 1px; position: absolute; width: 1px;" wrap="off"></textarea></div>' +
+            '<textarea style="position: absolute; width: 100000px;" wrap="off"></textarea></div>' +
           // Provides positioning relative to (visible) text origin
           '<div class="CodeMirror-lines"><div style="position: relative">' +
             '<pre class="CodeMirror-cursor">&#160;</pre>' + // Absolutely positioned blinky cursor
@@ -58,7 +58,7 @@ var CodeMirror = (function() {
     // whether the user is holding shift. reducedSelection is a hack
     // to get around the fact that we can't create inverted
     // selections. See below.
-    var shiftSelecting, reducedSelection;
+    var shiftSelecting, reducedSelection, lastDoubleClick;
     // Variables used by startOperation/endOperation to track what
     // happened during the operation.
     var updateInput, changes, textChanged, selectionChanged, leaveInputAlone;
@@ -197,6 +197,7 @@ var CodeMirror = (function() {
     }
 
     function onMouseDown(e) {
+      var ld = lastDoubleClick; lastDoubleClick = null;
       // First, see if this is a click in the gutter
       for (var n = e.target(); n != wrapper; n = n.parentNode)
         if (n.parentNode == gutterText) {
@@ -212,10 +213,12 @@ var CodeMirror = (function() {
       // selection.
       var start = posFromMouse(e), last = start, going;
       if (!start) {if (e.target() == wrapper) e.stop(); return;}
-      setCursor(start.line, start.ch, false);
 
       if (!focused) onFocus();
       e.stop();
+      if (ld && +new Date - ld < 400) return selectLine(start.line);
+
+      setCursor(start.line, start.ch, false);
       // And then we have to see if it's a drag event, in which case
       // the dragged-over text must be selected.
       function end() {
@@ -254,6 +257,7 @@ var CodeMirror = (function() {
       if (!pos) return;
       selectWordAt(pos);
       e.stop();
+      lastDoubleClick = +new Date;
     }
     function onDrop(e) {
       var pos = posFromMouse(e, true), files = e.e.dataTransfer.files;
@@ -290,7 +294,10 @@ var CodeMirror = (function() {
       if (options.onKeyEvent && options.onKeyEvent(instance, addStop(e.e))) return;
 
       if (code == 33 || code == 34) {scrollPage(code == 34); return e.stop();} // page up/down
-      if (mod && (code == 36 || code == 35)) {scrollEnd(code == 36); return e.stop();} // ctrl-home/end
+      if (mod && ((code == 36 || code == 35) || // ctrl-home/end
+                  mac && (code == 38 || code == 40))) { // cmd-up/down
+        scrollEnd(code == 36 || code == 38); return e.stop();
+      }
       if (mod && code == 65) {selectAll(); return e.stop();} // ctrl-a
       if (!options.readOnly) {
         if (!anyMod && code == 13) {return;} // enter
@@ -888,8 +895,11 @@ var CodeMirror = (function() {
       var line = lines[pos.line].text;
       var start = pos.ch, end = pos.ch;
       while (start > 0 && /\w/.test(line.charAt(start - 1))) --start;
-      while (end < line.length - 1 && /\w/.test(line.charAt(end))) ++end;
+      while (end < line.length && /\w/.test(line.charAt(end))) ++end;
       setSelection({line: pos.line, ch: start}, {line: pos.line, ch: end});
+    }
+    function selectLine(line) {
+      setSelection({line: line, ch: 0}, {line: line, ch: lines[line].text.length});
     }
     function handleEnter() {
       replaceSelection("\n", "end");
@@ -1613,7 +1623,8 @@ var CodeMirror = (function() {
     // array, which contains alternating fragments of text and CSS
     // classes.
     highlight: function(mode, state) {
-      var stream = new StringStream(this.text), st = this.styles, pos = 0, changed = false;
+      var stream = new StringStream(this.text), st = this.styles, pos = 0;
+      var changed = false, curWord = st[0], prevWord;
       while (!stream.eol()) {
         var style = mode.token(stream, state);
         var substr = this.text.slice(stream.start, stream.pos);
@@ -1621,8 +1632,9 @@ var CodeMirror = (function() {
         if (pos && st[pos-1] == style)
           st[pos-2] += substr;
         else if (substr) {
-          if (!changed && st[pos] != substr || st[pos+1] != style) changed = true;
+          if (!changed && (st[pos+1] != style || (pos && st[pos-2] != prevWord))) changed = true;
           st[pos++] = substr; st[pos++] = style;
+          prevWord = curWord; curWord = st[pos];
         }
         // Give up when line is ridiculously long
         if (stream.pos > 5000) {
@@ -1631,6 +1643,7 @@ var CodeMirror = (function() {
         }
       }
       if (st.length != pos) {st.length = pos; changed = true;}
+      if (pos && st[pos-2] != prevWord) changed = true;
       return changed;
     },
     // Fetch the parser token for a given character. Useful for hacks

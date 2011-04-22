@@ -202,7 +202,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       // FEINDURA INFO
       echo '<h2>'.$langFile['ADMINSETUP_TEXT_VERSION'].'</h2>
-            <p>'.$version[2].' - '.$version[3].'</p>';
+            <p>'.VERSION.' - Build '.BUILD.'</p>';
       echo '<a href="README.md" class="standardLink">README</a><br />';
       echo '<a href="CHANGELOG" class="standardLink">CHANGELOG</a><br />';
       echo '<a href="LICENSE" class="standardLink">LICENSE</a>';

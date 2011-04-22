@@ -33,9 +33,6 @@ $wrongDiractory = (include("library/includes/backend.include.php"))
 error_reporting(E_ALL ^ E_NOTICE);
 
 // gets the version of the feindura CMS
-$version = @file("CHANGELOG");
-$version[2] = trim($version[2]);
-$version[3] = trim($version[3]);
 
 $oldVersion = '1.0 rc';
 $newVersion = '1.1 rc7';
@@ -127,12 +124,12 @@ $newVersion = '1.1 rc7';
   <br />
   <?php
   
-  $updatePossible = ($version[2] == $newVersion) ? true : false;
+  $updatePossible = (VERSION == $newVersion) ? true : false;
   
   // WARNING
   if(!$updatePossible) {
     
-    echo 'hm... you current version is <b>'.$version[2].'</b> you cannot use this updater, :-(';
+    echo 'hm... you current version is <b>'.VERSION.'</b> you cannot use this updater, :-(';
     echo '<br /><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
   }
   //$basePath = dirname($_SERVER['SCRIPT_NAME']).'/';
@@ -148,7 +145,7 @@ $newVersion = '1.1 rc7';
   elseif($updatePossible && empty($_POST['asking'])) {
     ?>
 
-Good, your current version is <b><?= $version[2]; ?></b>, but your content isn't updated yet?
+Good, your current version is <b><?= VERSION; ?></b>, but your content isn't updated yet?
 <div>
 <h2>Do you want to update all pages and configs, so that they work with feindura <?= $newVersion ?>?</h2>
 <form action="<?= $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">

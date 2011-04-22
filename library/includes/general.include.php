@@ -52,6 +52,21 @@ define('PHPSTARTTAG',$phpTags[0]."\n");
  */ 
 define('PHPENDTAG',"\n".$phpTags[1]);
 
+// -> GET VERSION and BUILD nr
+$changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
+$version = trim($changelogFile[2]);
+$buildNr = explode(' ',$changelogFile[3]);
+
+/**
+ * The version of feindura
+ */ 
+define('VERSION',$version);
+
+/**
+ * The build number of feindura
+ */ 
+define('BUILD',trim($buildNr[1]));
+
 // ->> get CONFIGS
 /**
  * The administrator-settings config

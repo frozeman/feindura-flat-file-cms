@@ -37,8 +37,6 @@ else
 // *****************************
 
 // ->> CHECK the GET and POST variables
-// -> general check
-xssFilter::escapeBasics($_POST);
 // -> check CATEGORY
 if(isset($_GET['category'])) $_GET['category'] = xssFilter::int($_GET['category'],0);
 if(isset($_POST['category'])) $_POST['category'] = xssFilter::int($_POST['category'],0);

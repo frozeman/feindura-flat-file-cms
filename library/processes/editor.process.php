@@ -44,7 +44,6 @@ if($_POST['save']) {
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
   $_POST['HTMLEditor'] = str_replace('\"', '"', $_POST['HTMLEditor'] );
-  $_POST['HTMLEditor'] = str_replace("\'", "'", $_POST['HTMLEditor'] ); 
   
   // *** CREATE NEW PAGE ----------------------
   if ($page == 'new') {
@@ -120,10 +119,14 @@ if($_POST['save']) {
     $_POST['log_firstVisit'] = $pageContent['log_firstVisit'];
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchWords'] = $pageContent['log_searchWords'];
-      
-    if(generalFunctions::savePage($_POST)) {
+    
+    if(generalFunctions::savePage($_POST, false)) {
       $documentSaved = true;
       statisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
+      
+      // ->> save the FEEDS, if activated
+      saveFeeds($pageContent['category']);
+      
     } else
       $errorWindow .= $langFile['editor_savepage_error_save'];
   }

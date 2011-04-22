@@ -31,13 +31,6 @@ require_once(dirname(__FILE__)."/library/processes.loader.php");
 
 // VARs
 // -----------------------------------------------------------------------------------
-// gets the version of the feindura CMS
-$version = file("CHANGELOG");
-$version[2] = trim($version[2]);
-$version[3] = trim($version[3]);
-$buildNumber = explode(' ',$version[3]);
-$buildNumber = $buildNumber[1];
-
 // store the current location, this will be used when the user comes back from the frontend
 $_SESSION['feindura']['session']['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
 
@@ -293,7 +286,7 @@ var feindura_pages = [
       
       <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->
       <div id="logo"></div>
-      <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.$version[2].' - '.$version[3]; ?>::"><?php echo $version[2]; ?></div>
+      <div id="version" class="toolTip" title="<?php echo $langFile['LOGO_TEXT'].' '.VERSION.' - Build '.BUILD; ?>::"><?= VERSION; ?></div>
       
       <div id="mainMenu"<?php if(!isAdmin()) echo ' style="width:830px"'; ?>>
         <table>

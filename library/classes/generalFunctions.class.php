@@ -575,7 +575,7 @@ class generalFunctions {
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
   * 
-  * @param array $pageContent the $pageContent array of the page to save
+  * @param array $pageContent    the $pageContent array of the page to save
   * 
   * @uses $adminConfig      for the save path of the flatfiles
   * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
@@ -616,12 +616,10 @@ class generalFunctions {
     
     // open the flatfile
     if(is_numeric($pageContent['id']) && ($file = fopen($filePath,"wb"))) {
-      
-      // escape \ and '
-      xssFilter::escapeBasics($pageContent);
-      $pageContent['content'] = generalFunctions::smartStripslashes($pageContent['content']);
-      $pageContent['title'] = generalFunctions::smartStripslashes($pageContent['title']);
 
+      // escape \ and '
+      $pageContent = xssFilter::escapeBasics($pageContent);
+     
       // WRITE
       flock($file,2);            
       fwrite($file,PHPSTARTTAG);
@@ -1575,11 +1573,9 @@ class generalFunctions {
       
       // magic_quotes_sybase = Off
       if(TRUE == empty($mqs) || 'off' == $mqs)
-        $str = stripslashes(stripslashes($str)).$mqs;
+        $str = stripslashes($str);
       else
-        $str = stripslashes(str_replace("''", "'", $str));
-    } else {
-      $str = stripslashes($str);
+        $str = str_replace("''", "'", $str);
     }
     return $str;
   }
