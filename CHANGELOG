@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1 rc8
-Build 654
+1.1 rc9
+Build 655
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,9 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+1.1 rc9
+
+  build 655: updated Image.class.php
   build 654: add Feed Feature
   build 653: fixed speakingUrl urlEncoding
   build 652: fixed magic_quotes problem

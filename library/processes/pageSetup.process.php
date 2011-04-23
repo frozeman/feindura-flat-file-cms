@@ -61,7 +61,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($newAdminConfig)) {
-     
     // give documentSaved status
     $documentSaved = true;
     statisticFunctions::saveTaskLog(14); // <- SAVE the task in a LOG FILE
@@ -206,6 +205,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
     statisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE
+    
   } else
     $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
   
@@ -225,5 +225,12 @@ if($savedSettings) {
   generalFunctions::$categoryConfig = $categoryConfig;
   statisticFunctions::$adminConfig = $adminConfig;
   statisticFunctions::$categoryConfig = $categoryConfig;
+  
+  // ->> save the FEEDS for non-category pages, if activated
+  saveFeeds(0);
+  
+  // ->> save the FEEDS for categories, if activated
+  foreach($categoryConfig as $category)
+    saveFeeds($category['id']);
 }
 ?>

@@ -54,6 +54,9 @@ echo '</head>
   <meta name="description" content="This example website is intended to show
   how easy it is to use feindura CMS." />
   <meta name="keywords" content="keyword1,keyword2,keyword3,keyword4" />
+  
+  <link rel="alternate" type="application/atom+xml" title="News - feinduraExample.com (Atom)" href="http://feinduraexample.com/cms/pages/1/atom.xml" />
+  <link rel="alternate" type="application/rss+xml" title="News - feinduraExample.com (RSS 2.0)" href="http://feinduraexample.com/cms/pages/1/rss2.xml" />
    
 </head>
 <body>

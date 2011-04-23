@@ -1305,6 +1305,8 @@ class generalFunctions {
         'comment' => 2,
         'clean_ms_char'=> 0,
         'tidy' => -1, // will be made tidy in the feinduraBase::generatePage() method
+        'no_deprecated_attr' => 0,
+        'unique_ids' => 0,
         'safe'=> 0
       );
     if($GLOBALS['adminConfig']['editor']['safeHtml']) $htmlLawedConfig['safe'] = 1;

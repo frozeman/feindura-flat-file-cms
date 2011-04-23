@@ -753,6 +753,8 @@ class feinduraBase {
         'comment' => 2,
         'clean_ms_char'=> 0,
         'tidy' => 1,
+        'no_deprecated_attr' => 0,
+        'unique_ids' => 0,
         'safe'=> 0
       );
       if($this->adminConfig['editor']['safeHtml']) $htmlLawedConfig['safe'] = 1;

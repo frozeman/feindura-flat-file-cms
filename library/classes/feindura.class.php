@@ -903,6 +903,7 @@ class feindura extends feinduraBase {
   * Creates a string with basic HTML5 meta tags. See the example for a detailed list of the meta tags created.
   * 
   * <b>Notice</b>: You have to call this method in the <head> tags of your website, to enable the frontend editing feature.
+  * <b>Notice</b>: This method also adds the Feed tags.  
   * 
   * Example:
   * {@example createMetaTags.example.php}
@@ -975,7 +976,7 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'"'.$tagEnding."\n\n";
       
       // -> add other META TAGs
-      $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
+      $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n";
       $metaTags .= '  <meta name="viewport" content="width=device-width, initial-scale=1.0"'.$tagEnding.' <!-- set width for mobile devices -->'."\n\n";
       //$metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
       //$metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
@@ -1004,10 +1005,12 @@ class feindura extends feinduraBase {
         $metaTags .= '  <meta name="description" content="'.$currentPage['description'].'"'.$tagEnding."\n";
       elseif($this->websiteConfig['description'])
         $metaTags .= '  <meta name="description" content="'.$this->websiteConfig['description'].'"'.$tagEnding."\n";
-        
+      
       // -> add keywords
       if($this->websiteConfig['keywords'])
         $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'"'.$tagEnding."\n";
+      
+      $metaTags .= "\n";
       
       // -> add FEEDS
       $nonCategory[0] = array('id' => 0);
@@ -1031,7 +1034,6 @@ class feindura extends feinduraBase {
           $metaTags .= '  <link rel="alternate" type="application/rss+xml" title="'.$channelTitle.' (RSS 2.0)" href="'.$feedsLink.'rss2.xml"'.$tagEnding."\n";
         }
       }
-      
       
       $metaTags .= "\n";
       

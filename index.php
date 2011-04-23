@@ -72,11 +72,11 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <link rel="stylesheet" type="text/css" href="library/thirdparty/CodeMirror/codemirror-unified.css" />
   
   <!-- feindura styles -->
-  <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?= '?v='.$buildNumber; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?= '?v='.$buildNumber; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/content.css<?= '?v='.$buildNumber; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?= '?v='.$buildNumber; ?>" />
-  <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?= '?v='.$buildNumber; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/reset.css<?= '?v='.BUILD; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/layout.css<?= '?v='.BUILD; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/content.css<?= '?v='.BUILD; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/windowBox.css<?= '?v='.BUILD; ?>" />
+  <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?= '?v='.BUILD; ?>" />
 <?php
 if($_GET['site'] == 'addons') {  
   if($addonStyles = generalFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
@@ -103,7 +103,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>
   
   <!-- javascripts (only loading.js is up here, so the loading box appears soon) -->
-  <script type="text/javascript" src="library/javascripts/loading.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/loading.js<?= '?v='.BUILD; ?>"></script>
   
   <!-- thirdparty/AutoGrow [http://cpojer.net/PowerTools/] (need MooTools) -->
   <script type="text/javascript" src="library/thirdparty/javascripts/powertools-1.0.1.js"></script>
@@ -126,16 +126,16 @@ if($_GET['site'] == 'addons') {
   if(!empty($_GET['page'])) { ?>
   
   <!-- thirdparty/CKEditor -->
-  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?= '?v='.BUILD; ?>"></script>
   
   <!-- thirdparty/MooRTE -->
-  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js<?= '?v='.BUILD; ?>"></script>
 <?php
   }
   if($adminConfig['user']['fileManager'] && ($_GET['site'] == 'pages' || !empty($_GET['page']))) { ?>
   
   <!-- thirdparty/MooTools-FileManager -->
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?= '?v='.BUILD; ?>"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
@@ -143,9 +143,9 @@ if($_GET['site'] == 'addons') {
 <?php } ?>
  
   <!-- javascripts -->
-  <script type="text/javascript" src="library/javascripts/shared.js<?= '?v='.$buildNumber; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/windowBox.js<?= '?v='.$buildNumber; ?>"></script>
-  <script type="text/javascript" src="library/javascripts/content.js<?= '?v='.$buildNumber; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/shared.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/windowBox.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/javascripts/content.js<?= '?v='.BUILD; ?>"></script>
   
   <script type="text/javascript">
   /* <![CDATA[ */
