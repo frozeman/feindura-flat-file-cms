@@ -5003,7 +5003,8 @@ class FileManager
 				}
 				else
 				{
-					$this->getid3->analyze($file);
+					if(substr($file,-1) != '.')
+            $this->getid3->analyze($file);
 
 					$rv = $this->getid3->info;
 					if (empty($rv['mime_type']))
