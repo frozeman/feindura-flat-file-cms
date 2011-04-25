@@ -1100,14 +1100,14 @@ function saveFeeds($category) {
     	$atomItem = $atom->createNewItem();  	
     	$atomItem->setTitle(strip_tags($feedsPage['title']));
     	$atomItem->setLink($link);
-    	$atomItem->setDate(time());
+    	$atomItem->setDate($feedsPage['lastSaveDate']);
       $atomItem->addElement('content',$feedsPage['content'],array('src'=>$link));
     
       // RSS2
       $rssItem = $rss2->createNewItem();    
       $rssItem->setTitle(strip_tags($feedsPage['title']));
       $rssItem->setLink($link);
-      $rssItem->setDate(time());
+      $rssItem->setDate($feedsPage['lastSaveDate']);
       $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
       
       // BOTH
