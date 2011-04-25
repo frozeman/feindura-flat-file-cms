@@ -19,12 +19,8 @@
 // fix the layout height
 function layoutFix() {  
   if($('leftSidebar') != null) {    
-    // get the high of both elements
-    var leftSideBarHeight = $('leftSidebar').getSize().y;
-    var contentHeight = $('content').getSize().y;
-    
-    if(leftSideBarHeight > contentHeight) {
-      $('mainBody').setStyle('height',leftSideBarHeight);
+    if($('leftSidebar').offsetHeight > $('content').offsetHeight) {
+      $('mainBody').setStyle('height',$('leftSidebar').offsetHeight);
     } else {
     	$('mainBody').setStyle('height', 'auto');
     }
@@ -74,7 +70,7 @@ window.addEvent('domready', function() {
     
     // blend out after page is loaded 
     window.addEvent('load', function() {    
-        $('loadingBox').tween('opacity','0');        
+        $('loadingBox').tween('opacity','0');
     });
     
     // disply none the documentsaved, after blending in and out
@@ -92,6 +88,22 @@ window.addEvent('domready', function() {
     $('loadingBox').setStyle('display','none');
     $('loadingBox').setStyle('opacity','1');
   }
+  
+  // fix height of the sidebar
+	layoutFix();  
+  
+  // IE HACK for dimContainer
+	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimContainer') != null) {
+		$('dimContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
+	}
+  
+  // ->> if DOCUMENT SAVED has given the class from the php script
+  if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {
+    // set tween
+    $('dimContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
+    // display document saved
+    showDocumentSaved();  
+  }
 });
 
 // LOADING-CIRCLE when the website will be left
@@ -108,27 +120,4 @@ window.addEvent('unload',  function() {
 
     $('loadingBox').setStyle('display','block');
   }  
-});
-
-
-/* ---------------------------------------------------------------------------------
-* when the DOM is ready
-*/
-window.addEvent('domready', function() {
-  
-  // LAYOUTFIX
-  layoutFix();
-  
-  // IE HACK for dimContainer
-	if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/) && $('dimContainer') != null) {
-		$('dimContainer').setStyle('height',$(document.body).offsetHeight); //,$('window').getSize().y);
-	}
-  
-  // ->> if DOCUMENT SAVED has given the class from the php script
-  if($('documentSaved') != null && $('documentSaved').hasClass('saved')) {
-    // set tween
-    $('dimContainer').set('tween', {duration: 200, transition: Fx.Transitions.Pow.easeOut});
-    // display document saved
-    showDocumentSaved();  
-  }
 });

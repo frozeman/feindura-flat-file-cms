@@ -232,7 +232,6 @@ function blockSlider(givenId) {
      var h1SlideButton;
 	   var slideContent;
 	   var bottomBorder;
-	   var slideVertical;
 	   
 	   // gets the <a> tag in the <h1>
      if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
@@ -255,6 +254,7 @@ function blockSlider(givenId) {
         //transition: Fx.Transitions.Pow.easeInOut, //Fx.Transitions.Back.easeInOut
         transition: Fx.Transitions.Quint.easeInOut,
         onComplete: function(el) {
+          layoutFix();
           if(!slideContent.getChildren('textarea.editFiles')[0]) { // necessary for CodeMirror to calculate the size of the Codemirror div
             if(!this.open) {
                 slideContent.setStyle('display','none'); // to allow sorting above the slided in box
@@ -265,7 +265,6 @@ function blockSlider(givenId) {
                 //this.open = true;              
             }
           }
-          layoutFix();
         }
       });
 
@@ -291,7 +290,7 @@ function blockSlider(givenId) {
       if(block.hasClass('hidden'))  {
         slideContent.slide('hide');
         if(!slideContent.getChildren('textarea.editFiles')[0]) // necessary for CodeMirror to calculate the size of the Codemirror div
-          slideContent.setStyle('display','none'); // to allow sorting above the slided in box	      
+          slideContent.setStyle('display','none'); // to allow sorting above the slided in box	    
       }
     } // <-- end go trough blocks      
   });
@@ -320,7 +319,7 @@ function inBlockTableSlider() {
          
          // ON COMPLETE
          insideBlockTable.get('slide').addEvent('complete', function(el) {
-    
+              layoutFix();
               // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
               if(this.open) {
                 insideBlockTable.get('slide').wrapper.fade('show');
@@ -384,47 +383,42 @@ function sidebarMenu() {
     setSidbarMenuTextLength();
   
   	$$('.sidebarMenu').each(function(sideBarMenu) {
-	   
-    var slideTopButton;
-    var slideBottomButton;
-    var slideContent;
-    var slideVertical;	   
-    
+	       
     // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------	   
     // gets the <a> tag in the <div class="content"> container and <div class="bottom">
     
     // gets the upper toogle button    
-    slideTopButton = sideBarMenu.getChildren('div.top a')[0];    
+    var slideTopButton = sideBarMenu.getChildren('div.top a')[0];    
     // gets the bottom toogle button    
-    slideBottomButton = sideBarMenu.getChildren('div.bottom a')[0];    
+    var slideBottomButton = sideBarMenu.getChildren('div.bottom a')[0];    
     // gets slideing content
-    slideContent = sideBarMenu.getChildren('div.content')[0];
+    var slideContent = sideBarMenu.getChildren('div.content')[0];
     
     
     // creates the slide effect
-    slideVertical = new Fx.Slide(slideContent,{duration: '750', transition: Fx.Transitions.Pow.easeOut});	   
+    slideContent.set('slide',{duration: '750', transition: Fx.Transitions.Pow.easeOut});	   
     
     // changes the up and down button class from the <div class="top">
     // so that the picture of the upper Toogle Buttons changes
-    slideVertical.onComplete = function(el) {
+    slideContent.get('slide').addEvent('complete', function(el) {
         if(!navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
           sideBarMenu.toggleClass('hidden');
-        layoutFix();          
-    }
+        layoutFix();
+    });
     
     // -> sets the SLIDE EFFECT to the buttons
     slideTopButton.addEvent('click', function(e){
     	e.stop();    		
-    	slideVertical.toggle();
+    	slideContent.get('slide').toggle();
     });
     slideBottomButton.addEvent('click', function(e){
     	e.stop();
-    	slideVertical.toggle();
+    	slideContent.get('slide').toggle();
     });
     
     // -> HIDE the Menu IF it has CLASS "HIDDEN"
     if(sideBarMenu.hasClass('hidden')) {
-        slideVertical.hide();
+      slideContent.get('slide').hide();
     }     	  
     
     // ->> RESIZE on MouseOver -------------------------------------------------------------------------------------------     
@@ -637,9 +631,6 @@ window.addEvent('domready', function() {
   // BLOCK SLIDE IN/OUT
 	blockSlider();
 	inBlockTableSlider();
-	
-  // fix height of the sidebar
-	layoutFix();
   
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
@@ -1416,4 +1407,6 @@ window.addEvent('domready', function() {
       });
     }    
   });
+  
+  layoutFix();
 });
