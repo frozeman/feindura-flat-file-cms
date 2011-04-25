@@ -663,7 +663,7 @@ class statisticFunctions {
 	  if($return == 'Internet Explorer' && $browser->getVersion() <= 6)
 	   $return = 'Internet Explorer old';	 
     
-    if($return == 'Shiretoko')
+    if($return == 'Shiretoko')// || $return == 'Mozilla')
       $return = 'Firefox';
     
     // -> return
@@ -692,24 +692,27 @@ class statisticFunctions {
     
     //var
     $return = false;
+    $listBrowser = array();
     
     if(isset($browserString) && !empty($browserString)) {
          
       $browsers = unserialize($browserString);
       
       if(is_array($browsers)) {
-      
+        
+        //  number of all visits
         $sumOfNumbers = 0;
         foreach($browsers as $browser) {
           $sumOfNumbers += $browser['number'];
         }
         
-        $return = '<table class="tableChart"><tr>';
         foreach($browsers as $browser) {
           
-          $tablePercent = $browser['number'] / $sumOfNumbers;
-          $tablePercent = round($tablePercent * 100);
+          // var
+          $default = false;
           
+          //echo $browser['data'].' - '.$browser['number'].'<br>';
+
           // change the Names and the Colors
           switch($browser['data']) {
             case 'firefox':
@@ -783,6 +786,7 @@ class statisticFunctions {
               $browserColor = 'url(library/images/bg/browserBg_iphone.png)';
               $browserLogo = 'browser_iphone.png';
               $browserTextColor = '#ffffff';
+              break;
             case 'ipad':
               $browserName = 'iPad';
               $browserColor = 'url(library/images/bg/browserBg_ipad.png)';
@@ -843,6 +847,12 @@ class statisticFunctions {
               $browserLogo = 'browser_blackberry.png';
               $browserTextColor = '#000000';
               break;
+            case 'android':
+              $browserName = 'Android';
+              $browserColor = 'url(library/images/bg/browserBg_android.png)';
+              $browserLogo = 'browser_android.png';
+              $browserTextColor = '#ffffff';
+              break;
             case 'icecat':
               $browserName = 'IceCat';
               $browserColor = 'url(library/images/bg/browserBg_icecat.png)';
@@ -856,24 +866,48 @@ class statisticFunctions {
               $browserTextColor = '#000000';
               break;
             default:
+              $default = true;
               $browserName = $GLOBALS['langFile']['STATISTICS_TEXT_BROWSERCHART_OTHERS'];
               $browserColor = 'url(library/images/bg/browserBg_others.png)';
               $browserLogo = 'browser_others.png';
               $browserTextColor = '#000000';
               break;
-          } 
-      
+          }
+          
+          if($default) {            
+            $listBrowser['unknown']['name'] = $browserName;
+            $listBrowser['unknown']['bgImage'] = $browserColor;
+            $listBrowser['unknown']['logo'] = $browserLogo;
+            $listBrowser['unknown']['textColor'] = $browserTextColor;
+            $listBrowser['unknown']['percent'] = round((($browser['number'] + $listBrowser['unknown']['number'])  / $sumOfNumbers) * 100);
+            $listBrowser['unknown']['number'] += $browser['number'];
+          } else {   
+            $listBrowser[$browser['data']]['name'] = $browserName;
+            $listBrowser[$browser['data']]['bgImage'] = $browserColor;
+            $listBrowser[$browser['data']]['logo'] = $browserLogo;
+            $listBrowser[$browser['data']]['textColor'] = $browserTextColor;
+            $listBrowser[$browser['data']]['percent'] = round(($browser['number'] / $sumOfNumbers) * 100);
+            $listBrowser[$browser['data']]['number'] = $browser['number'];
+          }
+        }
+        
+        // sort by number
+        usort($listBrowser,'sortDataString');
+        
+        $return = '<table class="tableChart"><tr>';        
+        foreach($listBrowser as $displayBrowser) {
+        
           // calculates the text width and the cell width
-          $textWidth = round(((strlen($browserName) + strlen($browser['number']) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
-          $cellWidth = round(780 * ($tablePercent / 100)); // 780px = the width of the 100% table    
+          $textWidth = round(((strlen($displayBrowser['name']) + strlen($displayBrowser['number']) + 15) * 4) + 45); // +45 = logo width + padding; +15 = for the "(54)"; the visitor count
+          $cellWidth = round(780 * ($displayBrowser['percent'] / 100)); // 780px = the width of the 100% table    
           //$return .= '<div style="border-bottom:1px solid red;width:'.$textWidth.'px;">'.$cellWidth.' -> '.$textWidth.'</div>';
           
-          // show tex only if cell is big enough
+          // show text only if cell is big enough
           if($cellWidth < $textWidth) {
             $cellText = '';
             $cellWidth -= 10;
             
-            //$return .= $browserName.': '.$cellWidth.'<br>';
+            //echo $displayBrowser['name'].': '.$cellWidth.'<br>';
             
             // makes the browser logo smaller
             if($cellWidth < 40) {// 40 = logo width
@@ -895,19 +929,20 @@ class statisticFunctions {
               
             $bigLogo = false;
           } else {      
-            $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$browserName.'</b> ('.$browser['number'].')</span>';
+            $cellText = '<span style="position: absolute; left: 45px; top: 13px;"><b>'.$displayBrowser['name'].'</b> ('.$displayBrowser['percent'].'%)</span>';
             $logoSize = '';
             $bigLogo = true;
             $cellpadding = '';
           }
           
           // SHOW the table cell with the right browser and color
-          $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$browserTextColor.'; width: '.$tablePercent.'%; background: '.$browserColor.' repeat-x;" class="toolTip" title="[span]'.$browserName.'[/span] ('.$tablePercent.'%)::'.$browser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
+          $return .= '<td valign="middle" style="padding: '.$cellpadding.'; color: '.$displayBrowser['textColor'].'; width: '.$displayBrowser['percent'].'%; background: '.$displayBrowser['bgImage'].' repeat-x;" class="toolTip" title="[span]'.$displayBrowser['name'].'[/span] ('.$displayBrowser['percent'].'%)::'.$displayBrowser['number'].' '.$GLOBALS['langFile']['STATISTICS_TEXT_VISITORCOUNT'].'">
                       <div style="position: relative;">
-                      <img src="library/images/icons/'.$browserLogo.'" width="40" height="40" style="float: left; '.$logoSize.';" alt="browser logo" />'.$cellText.'
+                      <img src="library/images/icons/'.$displayBrowser['logo'].'" style="float: left;'.$logoSize.';" alt="browser logo" />'.$cellText.'
                       </div>
                       </td>';
-        
+                      
+          unset($logoSize,$cellText);
         }
         $return .= '</tr></table>';
         

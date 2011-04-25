@@ -47,7 +47,7 @@ $langFile['LOGIN_TEXT_COOKIESNEEDED'] = 'Cookies doivent être activés';
 
 $langFile['LOGIN_LINK_FORGOTPASSWORD'] = 'Mot de passe oublié?';
 $langFile['LOGIN_LINK_BACKTOLOGIN'] = 'Aller au login';
-$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'] = 'ENVOYER';
+$langFile['LOGIN_BUTTON_SENDNEWPASSWORD'] = 'OBTENIR';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_SUBJECT'] = 'mot de passe feindura CMS commandé';
 $langFile['LOGIN_TEXT_NEWPASSWORDEMAIL_MESSAGE'] = 'Tu as commandé un nouveau mot de passe pour ton feindura - Flat File CMS.
 Le login et ton nouveau mot de passe sont:';

@@ -807,7 +807,7 @@
 					$this->setBrowser(self::BROWSER_FIREFOX);
 					return true;
 				}
-				else if( preg_match("/Firefox$/i",$this->_agent,$matches) ) {
+				else if( preg_match("/Firefox/i",$this->_agent,$matches) ) {
 					$this->setVersion("");
 					$this->setBrowser(self::BROWSER_FIREFOX);
 					return true;

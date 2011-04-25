@@ -588,6 +588,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     }
     
     // -> final success text or failure warning
+    echo '<h1>If you have any &lt;script&gt; tags in your code, make sure you deactivate "safe HTML" under the HTML-Editor-Settings in the AdminSetup, BEFORE you visit your website!!</h1>';
     if($succesfullUpdate)
       echo '<h1>You can now delete the "update.php" file.</h1>';
     else

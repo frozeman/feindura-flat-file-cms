@@ -20,7 +20,7 @@
  */
 
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
-ini_set('session.gc_maxlifetime', 10800); // saves the session for 180 minutes
+ini_set('session.gc_maxlifetime', 5400); // saves the session for 90 minutes
 session_name("session");
 session_start();
 
