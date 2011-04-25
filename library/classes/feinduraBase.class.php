@@ -1399,14 +1399,14 @@ class feinduraBase {
     if(is_array($tags) && isset($pageContent['tags']) && !empty($pageContent['tags'])) { 
       // lowercase
       $pageTags = strtolower($pageContent['tags']);
-      $pageTags = str_replace(',',' ',$pageTags);
+      //$pageTags = str_replace(',',' ',$pageTags);
       
       // goes trough the given TAG Array, and look of one tga is in the pageContent['tags'} var
       foreach($tags as $tag) {
         // lowercase
         $tag = strtolower($tag);
         
-        if(strpos(' '.$pageTags.' ',' '.$tag.' ') !== false) {
+        if(strpos(','.$pageTags.',',','.$tag.',') !== false) {
           return $pageContent;
         }
       }
@@ -1463,7 +1463,7 @@ class feinduraBase {
     // if array clear whitespaces in array
     } elseif(is_array($tags)) {
      foreach($tags as $tag) {
-       $newTags[] = preg_replace("/ +/", '', $tag);
+       $newTags[] = trim(preg_replace("/ +/", ' ', $tag));
     }
       $tags = $newTags;
     } else

@@ -520,7 +520,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         
         ?>
         
-        <input name="pageDate[after]" value="<?php echo $pageContent['pageDate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:132px;" />
+        <input name="pageDate[after]" value="<?php echo $pageContent['pageDate']['after']; ?>" class="toolTip" title="<?php echo $langFile['editor_pageSettings_pagedate_after_inputTip']; ?>" style="width:122px;" />
       </td></tr>
       <?php }
       

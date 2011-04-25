@@ -38,7 +38,7 @@ if($_POST['save']) {
   $_GET['category'] = $category;  
   
   // format tags  
-  $_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
+  //$_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
   $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   
   // removes double whitespaces and slashes
