@@ -19,8 +19,10 @@
  * @version 0.25
  */
 
+$sessionLifeTime = (60 * 60 * 3); // 3 hours
+
 // -> START SESSION (for the login, language and storedPages [currently deactivated])
-ini_set('session.gc_maxlifetime', 5400); // saves the session for 90 minutes
+ini_set('session.gc_maxlifetime', $sessionLifeTime); // saves the session for 3 hours minutes
 session_name("session");
 session_start();
 

@@ -32,6 +32,7 @@ if(empty($userConfig)) {
   $_SESSION['feindura']['session']['username'] = false;
   $_SESSION['feindura']['session']['loggedIn'] = true;
   $_SESSION['feindura']['session']['identity'] = IDENTITY;
+  $_SESSION['feindura']['session']['end'] = time() + $sessionLifeTime; // $sessionLifeTime is set in the backend.include.php
 }
 
 // ->> LOGIN FORM SEND
@@ -45,6 +46,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
         $_SESSION['feindura']['session']['username'] = $_POST['username'];
         $_SESSION['feindura']['session']['loggedIn'] = true;
         $_SESSION['feindura']['session']['identity'] = IDENTITY;
+        $_SESSION['feindura']['session']['end'] = time() + $sessionLifeTime; // $sessionLifeTime is set in the backend.include.php
       } else
         $loginError = $langFile['LOGIN_ERROR_WRONGPASSWORD'];
     } else
@@ -54,7 +56,7 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 }
 
 // -> LOGOUT
-if(isset($_GET['logout'])) {
+if(isset($_GET['logout']) || (isset($_SESSION['feindura']['session']['end']) && $_SESSION['feindura']['session']['end'] <= time())) { // automatically logout after 5 hours
   $_SESSION['feindura']['session'] = array();
   unset($_SESSION['feindura']['session']);
   $loggedOut = true;
@@ -115,7 +117,7 @@ echo '</pre>';
 // ->> CHECK if user is logged in
 // *****************************************************
 if($_SESSION['feindura']['session']['loggedIn'] === true &&
-   ($_SESSION['feindura']['session']['identity'] === IDENTITY) {// || IDENTITY === IDENTITYFLASH)) {
+   $_SESSION['feindura']['session']['identity'] === IDENTITY) {// || IDENTITY === IDENTITYFLASH)) {
    
    // does nothing :-)
 

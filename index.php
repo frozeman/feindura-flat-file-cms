@@ -222,15 +222,16 @@ var feindura_pages = [
     var div = $('sessionTimer'),
     coundown = new CountDown({
       //initialized 30s from now
-      date: new Date(new Date().getTime() + <?= ini_get('session.gc_maxlifetime').'000'; ?>),
+      date: new Date(<?= $_SESSION['feindura']['session']['end'].'000'; ?>),
       //update every 100ms
-      frequency: 100,
+      frequency: 1000,
       //update the div#counter
       onChange: function(counter) {
         var text = '';
         if(counter.hours < 1 && counter.minutes < 10) {
           div.removeClass('blue');
           div.addClass('red');
+          div.setStyle('font-weight','bold');
         }
         text += (counter.hours > 9 ? '' : '0') + counter.hours + ':';
         text += (counter.minutes > 9 ? '' : '0') + counter.minutes + ':';
