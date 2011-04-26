@@ -36,12 +36,12 @@ define('REQUIREDPHPVERSION','5.1');
 /**
  * The identity of the user
  */ 
-define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER['SERVER_NAME']));
-/**
+define('IDENTITY', md5($_SERVER['SERVER_NAME'])); //$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.
+/*
  * The identity of a flash connection
- */ 
+ 
 define('IDENTITYFLASH', md5('Shockwave Flash::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER['SERVER_NAME']));
-
+*/ 
 $phpTags = file(dirname(__FILE__)."/../includes/phpTags.include.php");
 /**
  * The php start tag for us in saveing functions

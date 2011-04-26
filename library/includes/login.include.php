@@ -115,7 +115,7 @@ echo '</pre>';
 // ->> CHECK if user is logged in
 // *****************************************************
 if($_SESSION['feindura']['session']['loggedIn'] === true &&
-   ($_SESSION['feindura']['session']['identity'] === IDENTITY || IDENTITY === IDENTITYFLASH)) {
+   ($_SESSION['feindura']['session']['identity'] === IDENTITY) {// || IDENTITY === IDENTITYFLASH)) {
    
    // does nothing :-)
 
