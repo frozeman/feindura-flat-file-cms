@@ -16,7 +16,7 @@
  * 
  * backend.include.php 
  * 
- * @version 0.25
+ * @version 0.3
  */
 
 $sessionLifeTime = (60 * 60 * 3); // 3 hours

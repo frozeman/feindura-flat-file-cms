@@ -367,6 +367,8 @@ function saveCategories($newCategories) {
     flock($file,3); //LOCK_UN
     fclose($file);
     
+    @chmod(dirname(__FILE__)."/../../config/category.config.php", $GLOBALS['adminConfig']['permissions']);
+    
     // reset the stored page ids
     generalFunctions::$storedPageIds = null;
     
@@ -653,7 +655,9 @@ function saveAdminConfig($adminConfig) {
        
     fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
-    fclose($file);   
+    fclose($file);
+    
+    @chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
     
     return true;
   } else
@@ -708,6 +712,8 @@ function saveUserConfig($userConfig) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
+    
+    @chmod(dirname(__FILE__)."/../../config/user.config.php", $GLOBALS['adminConfig']['permissions']);
   
     return true;
   } else
@@ -762,6 +768,8 @@ function saveWebsiteConfig($websiteConfig) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
+    
+    @chmod(dirname(__FILE__)."/../../config/website.config.php", $GLOBALS['adminConfig']['permissions']);
   
     return true;
   } else
@@ -816,6 +824,8 @@ function saveStatisticConfig($statisticConfig) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
+    
+    @chmod(dirname(__FILE__)."/../../config/statistic.config.php", $GLOBALS['adminConfig']['permissions']);
   
     return true;
   } else
@@ -872,7 +882,9 @@ function savePluginsConfig($pluginsConfig) {
        
     fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
-    fclose($file);   
+    fclose($file);
+    
+    @chmod(dirname(__FILE__)."/../../config/plugins.config.php", $GLOBALS['adminConfig']['permissions']);
     
     return true;
   } else
@@ -1127,9 +1139,13 @@ function saveFeeds($category) {
   }
     
   // -> SAVE
-  return (file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
-          file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false)
-    ? true : false;
+  if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
+          file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
+    @chmod($atomFileName, $GLOBALS['adminConfig']['permissions']);
+    @chmod($rss2FileName, $GLOBALS['adminConfig']['permissions']);
+    return true; 
+  } else
+    return false;
 }
 
 /**
@@ -1192,11 +1208,13 @@ function createBackup($backupFile) {
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFile);
   $catchError = $archive->add($GLOBALS['adminConfig']['realBasePath'].'config/,'.$GLOBALS['adminConfig']['realBasePath'].'statistic/,'.$GLOBALS['adminConfig']['realBasePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);
-
+  
   if($catchError == 0)
     return $archive->errorInfo(true);
-  else
+  else {
+    @chmod($backupFile, $GLOBALS['adminConfig']['permissions']);
     return true;
+  }
 }
 
 /**
@@ -1575,6 +1593,7 @@ function saveEditedFiles(&$savedForm) {
     // -> SAVE
     if(file_put_contents($_POST['file'],$_POST['fileContent'],LOCK_EX) !== false) {
       
+      @chmod($_POST['file'], $GLOBALS['adminConfig']['permissions']);
       $_GET['file'] = str_replace(DOCUMENTROOT,'',$_POST['file']);
       $_GET['status'] = $_POST['status'];
       $savedForm = $_POST['status'];
@@ -1606,7 +1625,8 @@ function saveEditedFiles(&$savedForm) {
     $fullFilePath = preg_replace("/\/+/", '/', $fullFilePath);
     
     if($file = fopen($fullFilePath,"wb")) {
-      
+    
+      @chmod($fullFilePath, $GLOBALS['adminConfig']['permissions']);  
       $_GET['file'] = str_replace(DOCUMENTROOT,'',$fullFilePath);       
       $_GET['status'] = $_POST['status'];
       $savedForm = $_POST['status'];
