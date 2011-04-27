@@ -35,7 +35,7 @@ if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
       if(generalFunctions::savePage($contentArray)) {
         $documentSaved = true;        
         // ->> save the FEEDS, if activated
-        saveFeeds($_GET['category']);
+        generalFunctions::saveFeeds($_GET['category']);
         
       } else
         $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];
@@ -57,7 +57,8 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
       if(saveCategories($categoryConfig)) {
         $documentSaved = true;
         // ->> save the FEEDS, if activated
-        saveFeeds($_GET['category']);
+        generalFunctions::$categoryConfig = $categoryConfig;
+        generalFunctions::saveFeeds($_GET['category']);
         
       } else
         $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];

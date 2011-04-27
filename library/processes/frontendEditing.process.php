@@ -45,6 +45,10 @@ if($_POST['save'] == 'true') {
     $return = ($_POST['type'] == 'content') ? $pageContent['content'] : $return;
     $return = str_replace("\'", "'", $return);
     $return = str_replace('\"', '"', $return);
+    
+    // ->> save the FEEDS, if activated
+    generalFunctions::saveFeeds($pageContent['category']);
+    
   // ->> on failure, return the unsaved data
   } else {
     $return = '####SAVING-ERROR####';

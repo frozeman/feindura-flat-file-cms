@@ -57,7 +57,8 @@ if($_POST['save']) {
     // sets the selected category
     $category = $_POST['categoryId'];
     $_GET['category'] = $category;
-    $_POST['category'] = $category;       
+    $_POST['category'] = $category;
+    $pageContent['category'] = $category;     
   
     $pageContent['log_visitorCount'] = 0;
     
@@ -125,7 +126,7 @@ if($_POST['save']) {
       statisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       
       // ->> save the FEEDS, if activated
-      saveFeeds($pageContent['category']);
+      generalFunctions::saveFeeds($pageContent['category']);
       
     } else
       $errorWindow .= $langFile['editor_savepage_error_save'];

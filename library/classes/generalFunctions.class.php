@@ -67,6 +67,16 @@ class generalFunctions {
   * 
   */ 
   public static $categoryConfig;
+
+  /**
+  * Contains the website-settings config <var>array</var>
+  * 
+  * @static
+  * @var array
+  * @see generalFunctions()
+  * 
+  */ 
+  public static $websiteConfig;
   
    /**
   * Contains all page and category IDs on the first loading of a page.
@@ -143,7 +153,7 @@ class generalFunctions {
     // GET CONFIG FILES and SET CONFIG PROPERTIES
     self::$adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
     self::$categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
-
+    self::$websiteConfig = (isset($GLOBALS["websiteConfig"])) ? $GLOBALS["websiteConfig"] : $GLOBALS["feindura_websiteConfig"];
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -984,6 +994,125 @@ class generalFunctions {
   }
   
  /**
+  * <b>Name</b> saveFeeds()<br />
+  * 
+  * Saves an Atom and RSS 2.0 Feed for the given category.
+  * 
+  * <b>Used Global Variables</b><br />
+  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+  * 
+  * @param string $category the category of which feeds should be created
+  * 
+  * @return bool whether the saveing of the feeds succeed or not
+  * 
+  * 
+  * @version 0.1
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 0.1 initial release
+  * 
+  */
+  public static function saveFeeds($category) {
+    
+    // vars
+    $atomFileName = ($category == 0) 
+      ? dirname(__FILE__).'/../../pages/atom.xml'
+      : dirname(__FILE__).'/../../pages/'.$category.'/atom.xml';
+    $rss2FileName = ($category == 0) 
+      ? dirname(__FILE__).'/../../pages/rss2.xml'
+      : dirname(__FILE__).'/../../pages/'.$category.'/rss2.xml';
+    
+    // ->> DELETE the xml files, if category is deactivated, or nor rss feeds are activated for that
+    if(($category != 0 && (!self::$categoryConfig[$category]['public'] || !self::$categoryConfig[$category]['feeds'])) ||
+       ($category == 0 && !self::$adminConfig['pages']['feeds'])) {
+      if(is_file($atomFileName)) unlink($atomFileName);
+      if(is_file($rss2FileName)) unlink($rss2FileName);
+      return false;
+    }
+    
+    // get the FeedWriter class
+    require_once(dirname(__FILE__).'/../thirdparty/FeedWriter/FeedWriter.php');
+    
+    // vars
+    $feedsPages = self::loadPages($category,true);
+    $channelTitle = ($category == 0)
+      ? self::$websiteConfig['title']
+      : self::$categoryConfig[$category]['name'].' - '.self::$websiteConfig['title'];
+    
+    // ->> START feedsS
+    $atom = new FeedWriter(ATOM);
+    $rss2 = new FeedWriter(RSS2);
+  
+  	// ->> CHANNEL
+  	// -> ATOM
+  	$atom->setTitle($channelTitle);	
+  	$atom->setLink(self::$adminConfig['url']);	
+  	$atom->setChannelElement('updated', date(DATE_ATOM , time()));
+  	$atom->setChannelElement('author', array('name'=>self::$websiteConfig['publisher']));
+  	$atom->setChannelElement('rights', self::$websiteConfig['copyright']);
+  	$atom->setChannelElement('generator', 'feindura - flat file cms',array('uri'=>'http://feindura.org','version'=>VERSION));
+  	
+  	// -> RSS2
+  	$rss2->setTitle($channelTitle);
+  	$rss2->setLink(self::$adminConfig['url']);	
+  	$rss2->setDescription(self::$websiteConfig['description']);
+    //$rss2->setChannelElement('language', 'en-us');
+    $rss2->setChannelElement('pubDate', date(DATE_RSS, time()));
+    $rss2->setChannelElement('copyright', self::$websiteConfig['copyright']);	
+    
+    // ->> adds the feed ENTRIES/ITEMS
+    foreach($feedsPages as $feedsPage) {
+      
+      if($feedsPage['public']) {
+        // shows the page link
+        $hostUrl = (self::$adminConfig['speakingUrl'])
+          ? self::$adminConfig['url']
+          : self::$adminConfig['url'].self::$adminConfig['websitePath'];
+        $link = $hostUrl.generalFunctions::createHref($feedsPage);
+        
+        // ATOM
+      	$atomItem = $atom->createNewItem();  	
+      	$atomItem->setTitle(strip_tags($feedsPage['title']));
+      	$atomItem->setLink($link);
+      	$atomItem->setDate($feedsPage['lastSaveDate']);
+        $atomItem->addElement('content',$feedsPage['content'],array('src'=>$link));
+      
+        // RSS2
+        $rssItem = $rss2->createNewItem();    
+        $rssItem->setTitle(strip_tags($feedsPage['title']));
+        $rssItem->setLink($link);
+        $rssItem->setDate($feedsPage['lastSaveDate']);
+        $rssItem->addElement('guid', $link,array('isPermaLink'=>'true'));
+        
+        // BOTH
+        if(empty($feedsPage['description'])) {
+          //$atomItem->setDescription(strip_tags(generalFunctions::shortenString($feedsPage['content'],450)));
+          $rssItem->setDescription(strip_tags(self::shortenString($feedsPage['content'],450)));
+        } else {
+          $atomItem->setDescription($feedsPage['description']);
+          $rssItem->setDescription($feedsPage['description']);
+        }
+        
+      	//Now add the feeds item	
+      	$atom->addItem($atomItem);
+      	//Now add the feeds item	
+      	$rss2->addItem($rssItem);
+    	}
+    }
+      
+    // -> SAVE
+    if(file_put_contents($atomFileName,$atom->generateFeed(),LOCK_EX) !== false &&
+            file_put_contents($rss2FileName,$rss2->generateFeed(),LOCK_EX) !== false) {
+      @chmod($atomFileName, self::$adminConfig['permissions']);
+      @chmod($rss2FileName, self::$adminConfig['permissions']);
+      return true; 
+    } else
+      return false;
+  }
+  
+ /**
   * <b>Name</b> urlEncode()<br>
   * 
   * Encodes a string to url, but before it removes all tags and htmlentitites.
@@ -1309,7 +1438,7 @@ class generalFunctions {
         'unique_ids' => 0,
         'safe'=> 0
       );
-    if($GLOBALS['adminConfig']['editor']['safeHtml']) $htmlLawedConfig['safe'] = 1;
+    if(self::$adminConfig['editor']['safeHtml']) $htmlLawedConfig['safe'] = 1;
     
     return htmLawed($string,$htmlLawedConfig);
   }

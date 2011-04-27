@@ -227,10 +227,9 @@ if($savedSettings) {
   statisticFunctions::$categoryConfig = $categoryConfig;
   
   // ->> save the FEEDS for non-category pages, if activated
-  saveFeeds(0);
-  
+  generalFunctions::saveFeeds(0);
   // ->> save the FEEDS for categories, if activated
   foreach($categoryConfig as $category)
-    saveFeeds($category['id']);
+    generalFunctions::saveFeeds($category['id']);
 }
 ?>

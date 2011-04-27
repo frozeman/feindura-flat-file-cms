@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc9
-Build 665
+Build 666
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 666: moved saveFeeds to generalFunctions class
   build 665: add frontend editing deactivation button, to the adminSetup
   build 664: fixed frontend editing moveing of the website when the topbar is not loaded
   build 663: fixed layoutFix issue
