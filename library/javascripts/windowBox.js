@@ -31,33 +31,31 @@ function openWindowBox(site,siteTitle,fixed) {
   
   loadingText = $$('#windowBox .boxTop').get('html');
   
-  $('dimContainer').get('tween').chain(function(e) {
-    if(site) {
-      // if fixed is true, than the window positon is relative,
-      // means its fixed in the document, and NOT scrolling with the user
-      if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-        $('windowBox').setStyle('position','relative');
-      else
-        $('windowBox').setStyle('position','fixed');
-      
-      // set the display to block
-      $('windowBoxContainer').fade('show');
-      //$('#windowBoxContainer').setStyle('visibility','visible');
-      
-      // set the fade
-      $('windowBox').set('opacity',0);  			
-      $('windowBox').tween('opacity',1);
-		  $('windowRequestBox').slide('show');		  
+  if(site) {
+    // if fixed is true, than the window positon is relative,
+    // means its fixed in the document, and NOT scrolling with the user
+    if(fixed || navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+      $('windowBox').setStyle('position','relative');
+    else
+      $('windowBox').setStyle('position','fixed');
+    
+    // set the display to block
+    $('windowBoxContainer').fade('show');
+    //$('#windowBoxContainer').setStyle('visibility','visible');
+    
+    // set the fade
+    $('windowBox').set('opacity',0);  			
+    $('windowBox').tween('opacity',1);
+	  $('windowRequestBox').slide('show');		  
 
-      // IE HACK, wont bring the bottom div to the top
-			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-			   $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
-			}
-      
-			// send HTML request
-      requestSite(site,siteTitle);
+    // IE HACK, wont bring the bottom div to the top
+		if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+		   $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
 		}
-	});
+    
+		// send HTML request
+    requestSite(site,siteTitle);
+	}
 }
 
 /* ---------------------------------------------------------------------------------- */

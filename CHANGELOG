@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc9
-Build 662
+Build 663
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 663: fixed layoutFix issue
   build 662: fixed FancyForm jump issue
   build 661: set permissions now to every saved file (configs, feeds, editFiles)
   build 660: automatically logout after 3 hours

@@ -18,8 +18,8 @@
 
 // fix the layout height
 function layoutFix() {  
-  if($('leftSidebar') != null) {    
-    if($('leftSidebar').offsetHeight > $('content').offsetHeight) {
+  if($('leftSidebar') != null) {
+    if(($('leftSidebar').offsetHeight + 15) > $('content').offsetHeight) {
       $('mainBody').setStyle('height',$('leftSidebar').offsetHeight);
     } else {
     	$('mainBody').setStyle('height', 'auto');
