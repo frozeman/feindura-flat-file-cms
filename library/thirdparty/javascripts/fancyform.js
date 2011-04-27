@@ -99,7 +99,7 @@ var FancyForm = new Class ({
 		newChks.each((function(chk){
 		  // replace the imput element
 			var c = chk.inputElement;
-			c.setStyle('position', 'absolute');
+			c.setStyle('position', 'fixed'); // absolute
 			c.setStyle('left', '-9999px');
 			chk.addEvent('selectStart', function(f){f.stop()});
 			chk.name = c.getProperty('name');
