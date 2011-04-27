@@ -31,7 +31,7 @@
 
   var logo = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'id': 'feindura_logo', 'class': 'feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
   var topBar = new Element('div',{id: 'feindura_topBar'});
-  var topBarVisible = true;
+  var topBarVisible = (feindura_deactivateFrontendEditing) ? false : true;
   
   var jsLoadingCircle = new Element('div',{'class': 'feindura_loadingCircleHolder'});
   var loadingFill = new Element('div',{'class':'feindura_loadingFill'});
@@ -379,7 +379,7 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> DOMREADY
   // ************
-  window.addEvent('load',function() {
+  window.addEvent('domready',function() {
     
     if(!window.MooTools || window.Prototype) // CHECK js libraries - 2 (first one on the beginning of the script)
       return;
@@ -389,8 +389,12 @@
     var topBar = topBarTemplate();
     topBar.inject(document.body,'top');
     logo.inject(document.body,'top');
-    document.body.setStyle('padding-top','60px');
-    document.body.setStyle('background-position-y','60px');
+    if(!feindura_deactivateFrontendEditing) {
+      document.body.setStyle('padding-top','60px');
+      document.body.setStyle('background-position-y','60px');
+    }
+    $('feindura_bodyStyle').destroy(); // removes the <style> tag where it set body padding before the domready event
+    
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
@@ -519,12 +523,11 @@
     });
                                           
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
-    if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null)
+    if(!feindura_deactivateFrontendEditing && $$('div.feindura_editPage, span.feindura_editTitle')[0] != null)
       //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
       feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
     
-    // -> deactivates frontend editing on start (when the session var is set)
-    if(feindura_deactivateFrontendEditing == true)
+    if(feindura_deactivateFrontendEditing)
       deactivate(true);
   });
 })();

@@ -1058,6 +1058,22 @@ class feindura extends feinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/Source/Assets/moorte.css" />'."\n";
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css" />'."\n";
         
+        // -> move body padding, if frontend edititng is not deactivated
+        if(!$_SESSION['feindura']['session']['deactivateFrontendEditing'])
+          $metaTags .= '<style type="text/css" id="feindura_bodyStyle">
+   body {
+     padding-top: 60px !important;
+     background-position-y: 60px !important;
+   }
+ </style>';
+        else
+          $metaTags .= '<style type="text/css" id="feindura_bodyStyle">
+   body {
+     padding-top: 5px !important;
+     background-position-y: 5px !important;
+   }
+ </style>';
+        
         // add MOOTOOLS
         $metaTags .= "\n".'  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.1.js"></script>'."\n";
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.1.1.js"></script>'."\n";   
@@ -1070,7 +1086,7 @@ class feindura extends feinduraBase {
         // add the javascripts which are shared by the backend and the frontend
         $metaTags .= '  <script type="text/javascript" src="'.$this->adminConfig['basePath'].'library/javascripts/shared.js"></script>'."\n";
         
-                // ->> create templates of the TOP BAR and PAGE BAR
+        // ->> create templates of the TOP BAR and PAGE BAR
         $metaTags .= "  <script type=\"text/javascript\">
   /* <![CDATA[ */
   // transport feindura PHP vars to javascript
