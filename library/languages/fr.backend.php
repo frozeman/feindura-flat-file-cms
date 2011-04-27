@@ -238,7 +238,7 @@ $langFile['ERROR_SAVE_FILE'] = '<br /><br />Svp contrôlez les droits d\'écritu
 $langFile['ERROR_READ_FOLDER_PART1'] = '<br /><br />Svp contrôlez les droits de lecture des &quot;';
 $langFile['ERROR_SAVE_FOLDER_PART1'] = '<br /><br />Svp contrôlez les droits d\'écriture des &quot;';
 
-$langFile['ERROR_FOLDER_PART2'] = '&quot; fichiers, du sous-fichier et des données.';
+$langFile['ERROR_FOLDER_PART2'] = '&quot; fichiers, du sous-fichier et des dossier.';
 
 /*
 * ---------- WARNINGs
@@ -329,7 +329,7 @@ $langFile['sortablePageList_categoryEmpty'] = 'Keine Seiten vorhanden';
 
 // ---------- FORMULAR
 $langFile['form_submit'] = 'sauvegarder';
-$langFile['form_cancel'] = 'réinitialiser les données';
+$langFile['form_cancel'] = 'réinitialiser les dossiers';
 
 
 /*
@@ -341,7 +341,7 @@ $langFile['ADMINSETUP_TEXT_VERSION'] = '<span class="logoname">fein<span>dura</s
 $langFile['ADMINSETUP_TEXT_PHPVERSION'] = 'PHP Version';
 $langFile['adminSetup_srvRootPath'] = 'chemin Server-Root';
 $langFile['adminSetup_error_title'] = 'des erreurs se sont produites';
-$langFile['adminSetup_error_writeAccess_tip'] = 'Pour les fichiers et les données les droits de lecture doivent être mis sur '.decoct($adminConfig['permissions']).'.';
+$langFile['adminSetup_error_writeAccess_tip'] = 'Pour les fichiers et les dossiers les droits de lecture doivent être mis sur '.decoct($adminConfig['permissions']).'.';
 $langFile['adminSetup_error_writeAccess'] = 'n\'est pas descriptible';
 $langFile['adminSetup_error_isFolder'] = 'n\'est pas un dossier';
 
@@ -394,10 +394,11 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_error_modul'] = '<b>Speaking URLs</b> 
 
 // ---------- user Settings
 $langFile['ADMINSETUP_USERPERMISSIONS_TITLE'] = 'permissions de l\'utilisateur';
-$langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'traiter les données du site web au sein du paramétrage du site web';
-$langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'traiter les feuilles de style au sein du paramétrage du site web';
-$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'activer gestion des données';
+$langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'modifier les fichiers du site web au sein du paramétrage du site web';
+$langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'modifier les fichiers de style au sein du paramétrage du site web';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'activer gestionnaire de fichiers';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'gestionnaire de fichiers désactivé::Vous devez régler le chemin upload dans la configuration de base, avant de pouvoir activer le gestionnaire de fichiers.';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING'] = 'activer pour modifier la page dans le frontend';
 
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>informations utilisateur</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Information utilisateur::Ce texte va être publié sur [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_DASHBOARD'].'.';
@@ -416,8 +417,8 @@ $langFile['adminSetup_editorSettings_field4_inputTip'] = 'Si la case reste vide,
 // THUMBNAILS Settings
 $langFile['adminSetup_thumbnailSettings_h1'] = 'paramètres thumbnail du site';
 $langFile['adminSetup_thumbnailSettings_field3'] = 'chemin de sauvegarde'; // chemin de sauvegarde thumbnail
-$langFile['adminSetup_thumbnailSettings_field3_tip'] = 'chemin au sein de la chemin upload des données ou les thumbnails seront sauvegardés.';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'chemin upload des données';
+$langFile['adminSetup_thumbnailSettings_field3_tip'] = 'chemin au sein de la chemin upload des dossiers ou les thumbnails seront sauvegardés.';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip1'] = 'chemin upload des dossiers';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip2'] = 'chemin relative::Dépéndant de la &quot;[b]'.$adminConfig['uploadPath'].'[/b]&quot; chemin.[br /][br /]Commence sans &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3'] = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
@@ -428,15 +429,15 @@ $langFile['adminSetup_styleFileSettings_error_save'] = '<b>le fichier &quot;html
 // ---------- editFiles Settings
 $langFile['editFilesSettings_error_save'] = '<b>le fichier ne pouvait pas être sauvegardé.</b>'.$langFile['ERROR_SAVE_FILE'];
 $langFile['editFilesSettings_h1_style'] = 'traiter les feuilles de style';
-$langFile['editFilesSettings_h1_websitefiles'] = 'traiter les données du site web';
+$langFile['editFilesSettings_h1_websitefiles'] = 'traiter les dossiers du site web';
 $langFile['editFilesSettings_noDir'] = 'pas de dossier valable!';
 $langFile['editFilesSettings_chooseFile'] = 'choisir fichier';
 $langFile['editFilesSettings_createFile'] = 'créer nouveau fichier';
 $langFile['editFilesSettings_createFile_inputTip'] = 'Si vous mettez le nom d\'un fichier ici, un nouveau fichier sera crée,[br /]et [b]le donnée choisi actuellement ne sera pas sauvegardé![/b]';
-$langFile['editFilesSettings_noFile'] = 'Actuellement pas de données';
+$langFile['editFilesSettings_noFile'] = 'Actuellement pas de dossiers';
 $langFile['editFilesSettings_deleteFile'] = 'éffacer fichier';
 $langFile['editFilesSettings_deleteFile_question_part1'] = 'fichier'; // éffacer la catégorie "test"?
-$langFile['editFilesSettings_deleteFile_question_part2'] = 'voulez-vous vraiment éffacer ces données?';
+$langFile['editFilesSettings_deleteFile_question_part2'] = 'voulez-vous vraiment éffacer ces dossiers?';
 $langFile['editFilesSettings_deleteFile_error_delete'] = '<b>le fichier ne pouvait pas être éffacé.</b>'.$langFile['ERROR_SAVE_FILE'];
 
 /*

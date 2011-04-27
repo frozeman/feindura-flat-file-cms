@@ -284,7 +284,14 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
      
       <colgroup>
       <col class="left" />
-      </colgroup>      
+      </colgroup>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_userFrontendEditing" name="cfg_userFrontendEditing" value="true"<?php if(!isset($adminConfig['user']['frontendEditing']) || $adminConfig['user']['frontendEditing']) echo ' checked="checked"'; echo $fmDisabled; ?> /><br />
+      </td><td class="right checkboxes">
+      <label for="cfg_userFrontendEditing"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING']; ?></label><br />
+      </td></tr>
+          
       <?php
       
       $fmDisabled = (empty($adminConfig['uploadPath'])) ? ' disabled="disabled"' : '';

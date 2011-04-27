@@ -430,6 +430,7 @@ $langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'Edit website files in the webs
 $langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'Edit stylesheet files in the website-settings';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'Activate file manager';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'File manager deactivated::You must set the upload path in the basic-settings, before you can activate the file manager.';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING'] = 'Activate frontend editing';
 
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>User information</strong> in <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'User Information::This text will be shown in the '.$langFile['BUTTON_DASHBOARD'].' page of [span class=logoname]fein[span]dura[/span][/span].';

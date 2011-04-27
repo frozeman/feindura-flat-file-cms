@@ -1049,7 +1049,7 @@ class feindura extends feinduraBase {
         
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
-      if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION) {
+      if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {
         
         $metaTags .= "\n  <!--- add feindura frontend editing -->\n";
         // add frontend editing stylesheets

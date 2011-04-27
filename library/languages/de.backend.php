@@ -428,6 +428,7 @@ $langFile['ADMINSETUP_USERPERMISSIONS_check1'] = 'Webseitendateien in den Websei
 $langFile['ADMINSETUP_USERPERMISSIONS_check2'] = 'Stylesheetdateien in den Webseiten-Einstellungen bearbeiten';
 $langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FILEMANAGER'] = 'Dateimanager aktivieren';
 $langFile['ADMINSETUP_USERPERMISSIONS_TIP_WARNING_FILEMANAGER'] = 'Dateimanager deaktiviert::Du musst erst den Daten-Uploadpfad in den Grund-Einstellungen einstellen, bevor du den Dateimanager aktivieren kannst.';
+$langFile['ADMINSETUP_USERPERMISSIONS_TEXT_FRONTENDEDITING'] = 'Frontend-Bearbeitung aktivieren';
 
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1'] = '<strong>Benutzerinformation</strong> in der <a href="?site=dashboard">'.$langFile['BUTTON_DASHBOARD'].'</a>';
 $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_tip'] = 'Benutzerinformationen::Dieser Text wird auf der [span class=logoname]fein[span]dura[/span][/span] '.$langFile['BUTTON_DASHBOARD'].' angezeigt.';

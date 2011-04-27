@@ -624,6 +624,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['varName']['category'] = '".xssFilter::stringStrict($adminConfig['varName']['category'],'category')."';\n");  
     fwrite($file,"\$adminConfig['varName']['modul'] =    '".xssFilter::stringStrict($adminConfig['varName']['modul'],'modul')."';\n\n");
     
+    fwrite($file,"\$adminConfig['user']['frontendEditing'] =  ".xssFilter::bool($adminConfig['user']['frontendEditing'],true).";\n");
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".xssFilter::bool($adminConfig['user']['fileManager'],true).";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".xssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n");
     fwrite($file,"\$adminConfig['user']['editStyleSheets'] =  ".xssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n");  
@@ -635,12 +636,12 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['plugins'] =      '".$adminConfig['pages']['plugins']."';\n"); // no xssFilter, comes from a <select>
     fwrite($file,"\$adminConfig['pages']['showTags'] =     ".xssFilter::bool($adminConfig['pages']['showTags'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['showPageDate'] = ".xssFilter::bool($adminConfig['pages']['showPageDate'],true).";\n");
-    fwrite($file,"\$adminConfig['pages']['feeds'] =         ".xssFilter::bool($adminConfig['pages']['feeds'],true).";\n\n");
+    fwrite($file,"\$adminConfig['pages']['feeds'] =        ".xssFilter::bool($adminConfig['pages']['feeds'],true).";\n\n");
     
     fwrite($file,"\$adminConfig['pages']['sorting'] =      '".xssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n");
     fwrite($file,"\$adminConfig['pages']['sortReverse'] =  ".xssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n");
     
-    fwrite($file,"\$adminConfig['editor']['safeHtml'] =   ".xssFilter::bool($adminConfig['editor']['safeHtml'],true,true).";\n");
+    fwrite($file,"\$adminConfig['editor']['safeHtml'] =   ".xssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n");
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".xssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); // xssFilter is in prepareStyleFilePaths() function
     fwrite($file,"\$adminConfig['editor']['styleId'] =    '".xssFilter::string($adminConfig['editor']['styleId'])."';\n");  
