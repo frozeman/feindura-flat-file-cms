@@ -377,17 +377,18 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           // slide container (help for the javascript to find the right elements)
           echo '<div class="categoryConfig">';
-          // anchor
-          echo '<a name="category'.$category['id'].'" id="category'.$category['id'].'" class="anchorTarget"></a>';
-          
+
           // --------------------------------------
           // first TABLE (normal category settings)
           echo '<table>     
                 <colgroup>
                 <col class="left" />
-                </colgroup>
+                </colgroup>';
                 
-                <tr><td class="leftTop"></td><td></td></tr>';
+          // category anchor
+          echo '<tr><td class="leftTop">
+                <a name="category'.$category['id'].'" id="category'.$category['id'].'" class="anchorTarget"></a>
+                </td><td></td></tr>';
           
           // category NAME
           $categoryName = (empty($category['name']))

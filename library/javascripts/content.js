@@ -516,7 +516,7 @@ function requestLeftSidebar(site,page,category) {
 window.addEvent('load', function() {
 
     autoResizeThumbnailPreview();    
- 
+    
     // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
     if(Browser.safari || Browser.chrome) {
       var anchorId = window.location.hash.substring(1);

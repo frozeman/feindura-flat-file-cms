@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc9
-Build 668
+Build 669
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 669: fixed anchor scroll in user and pages setup in opera
   build 668: fixed fancyForms in opera
   build 667: fixed session lister (show whos logged in)
   build 666: moved saveFeeds to generalFunctions class

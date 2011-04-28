@@ -91,17 +91,17 @@ if($unwriteableList && checkBasePath()) {
           // checks the user settings
           $checked[1] = ($user['admin']) ? 'checked="checked"' : '';
           
-          // anchor
-          echo '<a name="userId'.$user['id'].'" id="userId'.$user['id'].'" class="anchorTarget"></a>';
-          
           // --------------------------------------
           // basic user settings
           echo '<table>     
                 <colgroup>
                 <col class="left" />
-                </colgroup>
-                
-                <tr><td class="leftTop"></td><td></td></tr>';
+                </colgroup>';
+          
+          // user anchor    
+          echo '<tr><td class="leftTop">
+                <a name="userId'.$user['id'].'" id="userId'.$user['id'].'" class="anchorTarget"></a>
+                </td><td></td></tr>';
           
           // user NAME
           $userName = (empty($user['username']))
