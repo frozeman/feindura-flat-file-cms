@@ -175,8 +175,9 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             // users who are online too
             elseif(is_array(($sessions = $sessionLister->getSessions()))) {              
               foreach($sessions as $sessionName => $sessionData) {
+              //print_r($sessionData['raw']);
                 if((time() - $sessionData["modification"]) < 1800 ) { // show only sessions within the last half hour
-                  if(isset($sessionData['raw']['LOGIN_INPUT_USERNAME']) && $sessionData['raw']['LOGIN_INPUT_USERNAME'] == $user['username']) {
+                  if(isset($sessionData['raw']['feindura']['session']) && $sessionData['raw']['feindura']['session']['loggedIn'] && $sessionData['raw']['feindura']['session']['username'] == $user['username']) {
                     echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$sessionData["modification"]).'"';
                     break;
                   }
