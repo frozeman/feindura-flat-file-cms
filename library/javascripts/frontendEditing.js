@@ -393,7 +393,7 @@
       document.body.setStyle('padding-top','60px');
       document.body.setStyle('background-position-y','60px');
     }
-    $('feindura_bodyStyle').destroy(); // removes the <style> tag where it set body padding before the domready event
+    document.id('feindura_bodyStyle').destroy(); // removes the <style> tag where it set body padding before the domready event
     
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
