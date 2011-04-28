@@ -1,5 +1,5 @@
 /*
-* FancyForm 1.1.1
+* FancyForm 1.1.2
 * 
 * Author
 * Vacuous Virtuoso, lipidity.com
@@ -100,6 +100,7 @@ var FancyForm = new Class ({
 		  // replace the imput element
 			var c = chk.inputElement;
 			c.setStyle('position', 'fixed'); // absolute
+			c.setStyle('top', '0px');
 			c.setStyle('left', '-9999px');
 			chk.addEvent('selectStart', function(f){f.stop()});
 			chk.name = c.getProperty('name');
