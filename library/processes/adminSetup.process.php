@@ -58,7 +58,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],array(
     'comment'=> 1,
     'cdata'=> 1,
-    'clean_ms_char'=> 0,
     'safe'=> 1
   ));
   

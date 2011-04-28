@@ -1099,6 +1099,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.colorButton_enableMore        = true;
     CKEDITOR.config.entities                      = false;
     CKEDITOR.config.extraPlugins                  = 'Media';
+    CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
     
     //CKEDITOR.config.disableNativeSpellChecker = false;
     

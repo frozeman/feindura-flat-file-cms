@@ -1426,21 +1426,23 @@ class generalFunctions {
   * 
   */
   public static function htmLawed($string, $config = false) {
-  
-    if($config)
-      $htmlLawedConfig = $config;
-    else
-      $htmlLawedConfig = array(
-        'comment' => 2,
-        'clean_ms_char'=> 0,
-        'tidy' => -1, // will be made tidy in the feinduraBase::generatePage() method
-        'no_deprecated_attr' => 0,
-        'unique_ids' => 0,
-        'safe'=> 0
-      );
-    if(self::$adminConfig['editor']['safeHtml']) $htmlLawedConfig['safe'] = 1;
     
-    return htmLawed($string,$htmlLawedConfig);
+    // default
+    $htmlLawedConfig = array(
+      'comment' => 2,
+      'clean_ms_char'=> 0,
+      'tidy' => -1, // will be made tidy in the feinduraBase::generatePage() method
+      'no_deprecated_attr' => 0,
+      'and_mark' => 1, // change & to \x06
+      'unique_ids' => 0
+    );
+    // turn safe mode on, if activated
+    $htmlLawedConfig['safe'] = (self::$adminConfig['editor']['safeHtml']) ? 1 : 0;
+    // add custom config
+    if($config) $htmlLawedConfig = array_replace($htmlLawedConfig,$config);
+    
+    $string = htmLawed($string,$htmlLawedConfig);
+    return str_replace("\x06", '&', $string); 
   }
 
  /**
