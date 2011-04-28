@@ -33,7 +33,7 @@ var contextualSearch = new Class({
          css: 'style.css' 
     },
 
-    boxInit: '<div id="moo-search-module" class="fadeBox"><div class="hd"><p class="title">Search on {site}</p></div>'+
+    boxInit: '<div id="moo-search-module" class="fadeBox">'+
                      '<div class="bd"><div id="moo-search-module-inputs"><input type="text" id="search-input" title="Search..." accesskey="d">'+
                      '<button id="search-button">Search!</button></div>'+
                      '<div id="moo-search-module-results"></div></div></div>',
@@ -63,11 +63,30 @@ var contextualSearch = new Class({
     fetchData: function(){
 
             // this gets the user input for the search
-            var input = $('search-input').get('value'),
-            root = "http://query.yahooapis.com/v1/public/yql?q=",
+            var input = escape($('search-input').get('value'));
+            
+            /* PAGE-SEARCH-ENGINE: search for inpage elements */
+            var resultsOutput = $('moo-search-module-results');                     
+            // blend out the results after clicking somwhere
+            $('moo-search-module-results').setStyle('display','block');
+             
+            resultsOutput.set("html",'<p><b>Loading...</b></p>'); 
+                          
+            var elementsInPage = new Array();
+            if(input) {
+              $$('[class$=title]').each(function(element) {    
+               if(element.getProperty('text') && element.getProperty('text').test(input,"i"))
+                  elementsInPage.push(element);                      
+              });
+            }
+            
+            
+            
+            /*
+            var root = "http://search.yahooapis.com/WebSearchService/V1/webSearch?",
 
             // make the YQL call. Use the path var from above and what the user has typed into the input box
-            yqlQuery = 'select title,url,abstract from search.web where query="' + input + '" and  sites="'+this.options.site+'"';
+            yqlQuery = 'appid=qXuRMjfV34FFJvpyxZUUSjio9tojhxo3gCcvim_InTIFtLwPcSo2eZnbbUzaApUDaHyg34NLyeHD&query=' + input + '&site='+this.options.site;
 
             url = root + encodeURIComponent(yqlQuery) + '&format=json';
             
@@ -78,7 +97,7 @@ var contextualSearch = new Class({
                 url: url,
 
                 onRequest: function(){
-
+                    
                      this.fireEvent('request');
 
                      var resultsOutput = $('moo-search-module-results');                     
@@ -87,7 +106,7 @@ var contextualSearch = new Class({
                      
                      resultsOutput.set("html",'<p><b>Loading...</b></p>');                    
                     
-                    /* PAGE-SEARCH-ENGINE: search for inpage elements */                  
+                    // PAGE-SEARCH-ENGINE: search for inpage elements                  
                     if(input) {
                       $$('[class$=title]').each(function(element) {    
                        if(element.getProperty('text') && element.getProperty('text').test(input,"i"))
@@ -97,11 +116,11 @@ var contextualSearch = new Class({
                      
 
                 }.bind(this), 
-
+                onFailure: function(error) { console.log(error); },
                 onComplete: function(searchResults) {
 
-                     var resultsOutput = $('moo-search-module-results'),liTemplate = "<li><a href=\"{url}\">{title}</a></li>", markup = '',i;
-
+                   var resultsOutput = $('moo-search-module-results'),liTemplate = "<li><a href=\"{url}\">{title}</a></li>", markup = '',i;
+                   console.log(searchResults);
                     //if we have one result then save
                    if(searchResults && (searchResults.query.count == 1)) {
                         markup = '<ul>';
@@ -123,15 +142,16 @@ var contextualSearch = new Class({
                   } else {
                     markup = "<p>Nothing found in the API by Yahoo</p>";
                   }      
-                 
+                 */
                  // BLEND OUT results if clicked somwhere     
                  document.addEvent('click',function(){
                     $('moo-search-module-results').setStyle('display','none');
                  });
                  
                  // PAGE-SEARCH-ENGINE: add list for elements in page results
+                 var markup = '';
                  if (elementsInPage.length >= 1) {                   
-                   markup += '<span id="elementsInPageResultHeadline">Results from this page</span><br /><ul id="elementsInPageResult"></ul>';
+                   markup += '<ul id="elementsInPageResult"></ul>';
                  }
                    
                  // hook the markup on the DOM now that it's complete
@@ -161,10 +181,9 @@ var contextualSearch = new Class({
                       $('elementsInPageResult').grab(inPageElementLi,'bottom');
                   });
                  
-                 this.fireEvent('complete',[searchResults]);
-                }.bind(this)
+                //}.bind(this)
 
-            }).send();  
+            //}).send();  
 
         return this;
     },
