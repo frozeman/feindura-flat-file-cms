@@ -644,7 +644,7 @@ this.Milkbox = new Class({
 		}.bind(this));
 
 		//keyboard next/prev/close
-		window.document.addEvent('keydown',function(e){
+		window.document.addEvent('keypress',function(e){
 			if(this.busy == true || this.closed){
 				return;
 			}

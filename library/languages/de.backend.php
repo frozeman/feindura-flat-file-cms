@@ -396,7 +396,7 @@ $langFile['ADMINSETUP_GENERAL_field5_tip'] = 'Ein Verzeichnis mit Dateien. Diese
 $langFile['ADMINSETUP_GENERAL_field6'] = 'Dateipfad für Stylesheetdateien';
 $langFile['ADMINSETUP_GENERAL_field6_tip'] = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] = 'Schreibrechte für Dateien und Verzeichnisse';
-$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Jede von [span class=logoname]fein[span]dura[/span][/span] erstellten Datei oder Verzeichnis wird versucht diese Schreibrechte zuzuweisen.';
+$langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Jeder von [span class=logoname]fein[span]dura[/span][/span] erstellten Datei oder Verzeichnis wird versucht diese Schreibrechte zuzuweisen.';
 $langFile['ADMINSETUP_GENERAL_varName_ifempty'] = 'Wenn das Feld leer ist, wird der Standard Name für die GET-Variablen verwendet: ';
 $langFile['ADMINSETUP_GENERAL_varName1'] = 'Seiten Variablenname';
 $langFile['ADMINSETUP_GENERAL_varName1_inputTip'] = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]page[/b]&quot;';

@@ -574,6 +574,8 @@ class statisticFunctions {
       flock($logFile,3);
       fclose($logFile);
       
+      @chmod($logFilePath, self::$adminConfig['permissions']);
+      
       return true;
     } else
       return false;
@@ -629,6 +631,8 @@ class statisticFunctions {
       }    
       flock($logFile,3);
       fclose($logFile);
+      
+      @chmod($logFile, self::$adminConfig['permissions']);
       
       return true;
     } else
@@ -1226,14 +1230,16 @@ class statisticFunctions {
     }
     
     // ->> OPEN visit.statistic.cache for writing
-    if($cache = @fopen($cacheFile,"wb")) {      
+    if($cache = @fopen($cacheFile,"wb")) {
       flock($cache,2);
       foreach($newLines as $newLine) {
         $newLine = preg_replace('#[\r\n]+#','',$newLine);
         fwrite($cache,$newLine."\n");
       }
       flock($cache,3);
-      fclose($cache);      
+      fclose($cache);
+      
+      @chmod($cacheFile, self::$adminConfig['permissions']);   
     }
     
     // return the right value
@@ -1400,6 +1406,8 @@ class statisticFunctions {
         fwrite($statisticFile,PHPENDTAG);        
         flock($statisticFile,3);
         fclose($statisticFile);
+        
+        @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", self::$adminConfig['permissions']);
         
         // saves the user as visited
         $_SESSION['feindura']['log']['visited'] = true;
