@@ -1072,12 +1072,17 @@ class generalFunctions {
           : self::$adminConfig['url'].self::$adminConfig['websitePath'];
         $link = $hostUrl.generalFunctions::createHref($feedsPage);
         
+        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail']'"><br>': '';
+        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p>');
+        $content = preg_replace('#<h[0-6]>#','<strong>',$content);
+        $content = preg_replace('#</h[0-6]>#','</strong>',$content);
+        
         // ATOM
       	$atomItem = $atom->createNewItem();  	
       	$atomItem->setTitle(strip_tags($feedsPage['title']));
       	$atomItem->setLink($link);
       	$atomItem->setDate($feedsPage['lastSaveDate']);
-        $atomItem->addElement('content',$feedsPage['content'],array('src'=>$link));
+        $atomItem->addElement('content',$thumbnail.$content,array('src'=>$link));
       
         // RSS2
         $rssItem = $rss2->createNewItem();    
@@ -1088,11 +1093,11 @@ class generalFunctions {
         
         // BOTH
         if(empty($feedsPage['description'])) {
-          //$atomItem->setDescription(strip_tags(generalFunctions::shortenString($feedsPage['content'],450)));
-          $rssItem->setDescription(strip_tags(self::shortenString($feedsPage['content'],450)));
+          //$atomItem->setDescription($thumbnail.generalFunctions::shortenString(strip_tags($content),450)); // dont create Atom description when, there is already an content tag
+          $rssItem->setDescription($thumbnail.self::shortenString(strip_tags($content),450));
         } else {
-          $atomItem->setDescription($feedsPage['description']);
-          $rssItem->setDescription($feedsPage['description']);
+          $atomItem->setDescription($thumbnail.$feedsPage['description']);
+          $rssItem->setDescription($thumbnail.$feedsPage['description']);
         }
         
       	//Now add the feeds item	
