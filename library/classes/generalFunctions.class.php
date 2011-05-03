@@ -1072,7 +1072,7 @@ class generalFunctions {
           : self::$adminConfig['url'].self::$adminConfig['websitePath'];
         $link = $hostUrl.generalFunctions::createHref($feedsPage);
         
-        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail']'"><br>': '';
+        $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
         $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p>');
         $content = preg_replace('#<h[0-6]>#','<strong>',$content);
         $content = preg_replace('#</h[0-6]>#','</strong>',$content);
@@ -1444,7 +1444,7 @@ class generalFunctions {
     // turn safe mode on, if activated
     $htmlLawedConfig['safe'] = (self::$adminConfig['editor']['safeHtml']) ? 1 : 0;
     // add custom config
-    if($config) $htmlLawedConfig = array_replace($htmlLawedConfig,$config);
+    if($config) $htmlLawedConfig = array_merge($htmlLawedConfig,$config);
     
     $string = htmLawed($string,$htmlLawedConfig);
     return str_replace("\x06", '&', $string); 

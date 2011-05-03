@@ -96,7 +96,7 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR WEBSITE-STATISTIC
   if($_POST['clearStatistics_websiteStatistic'] == 'true' &&
-     file_exists(dirname(__FILE__)."/../../statistic/website.statistic.php") &&
+     is_file(dirname(__FILE__)."/../../statistic/website.statistic.php") &&
      unlink(dirname(__FILE__)."/../../statistic/website.statistic.php")) {
     
     // set documentSaved status

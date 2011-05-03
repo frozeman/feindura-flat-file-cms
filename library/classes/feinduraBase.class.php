@@ -750,7 +750,7 @@ class feinduraBase {
     if(!empty($pageContent['content'])) {
       
       $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
-      $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) $htmlLawedConfig['valid_xhtml'] ? 1 : 0;
+      $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) ? 1 : 0;
       $pageContentEdited = generalFunctions::htmLawed($pageContent['content'],$htmlLawedConfig);
       
       // clear Html tags?

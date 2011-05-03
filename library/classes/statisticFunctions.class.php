@@ -1363,7 +1363,7 @@ class statisticFunctions {
         // -> COUNT the USER UP
         if(!isset(self::$websiteStatistic['userVisitCount']) ||
            (isset(self::$websiteStatistic['userVisitCount']) && self::$websiteStatistic['userVisitCount'] == ''))
-          self::$websiteStatistic['userVisitCount'] = '1';
+          self::$websiteStatistic['userVisitCount'] = 1;
         else
           self::$websiteStatistic['userVisitCount']++;
         
@@ -1382,7 +1382,7 @@ class statisticFunctions {
       } elseif($_SESSION['feindura']['log']['isSpider'] === true && 
                (!isset(self::$websiteStatistic['spiderVisitCount']) ||
                (isset(self::$websiteStatistic['spiderVisitCount']) && self::$websiteStatistic['spiderVisitCount'] == ''))) {
-        self::$websiteStatistic['spiderVisitCount'] = '1';
+        self::$websiteStatistic['spiderVisitCount'] = 1;
       }elseif($_SESSION['feindura']['log']['isSpider'] === true) {
         self::$websiteStatistic['spiderVisitCount']++;
       }

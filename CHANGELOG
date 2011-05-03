@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc9
-Build 673
+Build 674
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,7 +22,8 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
-  build 673: reomved tags from Feeds and also add the thumbnail
+  build 674: fixed feed and htmlLawed config
+  build 673: removed tags from Feeds and also add the thumbnail
   build 672: add chmod also to the statistic files
   build 671: its not possible to save <?php ?> values (as entities) to display php code, in the editor
   build 670: removed the last $ from the frontendEditing.js + add new FileManager version
