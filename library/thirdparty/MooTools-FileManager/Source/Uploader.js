@@ -32,11 +32,11 @@ FileManager.implement({
 		},
 
 		cleanup: {
-			upload: function(){
+			upload: function() {
 				if (!this.options.upload || !this.upload) return;
 
 				if (this.upload.uploader) {
-					this.upload.uploader.fade(0).get('tween').chain(function(){
+					this.upload.uploader.fade(0).get('tween').chain(function() {
 						this.element.dispose();
 					});
 				}
@@ -44,36 +44,32 @@ FileManager.implement({
 		}
 	},
 
-	lastFileUploaded: null,  // name of the last successfully uploaded file; will be preselected in the list view
-	error_count: 0,
-
-
-	onDialogOpenWhenUpload: function(){
+	onDialogOpenWhenUpload: function() {
 		if (this.swf && this.swf.box) this.swf.box.setStyle('visibility', 'hidden');
 	},
 
-	onDialogCloseWhenUpload: function(){
+	onDialogCloseWhenUpload: function() {
 		if (this.swf && this.swf.box) this.swf.box.setStyle('visibility', 'visible');
 	},
 
-	startUpload: function(){
+	startUpload: function() {
 
 		if (!this.options.upload || this.swf) return;
 
 		var self = this;
 		this.upload = {
 			button: this.addMenuButton('upload').inject(this.menu, 'bottom').addEvents({
-				click: function(){
+				click: function() {
 					return false;
 				},
-				mouseenter: function(){
+				mouseenter: function() {
 					this.addClass('hover');
 				},
-				mouseleave: function(){
+				mouseleave: function() {
 					this.removeClass('hover');
 					this.blur();
 				},
-				mousedown: function(){
+				mousedown: function() {
 					this.focus();
 				}
 			}),
@@ -81,13 +77,15 @@ FileManager.implement({
 			uploader: new Element('div', {opacity: 0, 'class': 'filemanager-uploader-area'}).adopt(
 				new Element('h2', {text: this.language.upload}),
 				new Element('div', {'class': 'filemanager-uploader'})
-			)
+			),
+			lastFileUploaded: null,  // name of the last successfully uploaded file; will be preselected in the list view
+			error_count: 0
 		};
 		this.upload.uploader.getElement('div').adopt(this.upload.list);
 
-		if (this.options.resizeImages){
+		if (this.options.resizeImages) {
 			var resizer = new Element('div', {'class': 'checkbox'});
-			var check = (function(){
+			var check = (function() {
 					this.toggleClass('checkboxChecked');
 				}).bind(resizer);
 			check();
@@ -101,27 +99,24 @@ FileManager.implement({
 
 			Extends: Swiff.Uploader.File,
 
-			initialize: function(base, data){
+			initialize: function(base, data) {
 
 				this.parent(base, data);
 				this.has_completed = false;
 
-				self.diag.log('Uploader: setOptions');
-				this.setOptions({
-					//data: Object.merge({}, base.options.data, self.options.uploadAuthData),
-					url: self.options.url + (self.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString({
-						event: 'upload',
-					}),
-					data: {
-						directory: self.Directory,
-						filter: self.options.filter,
-						resize: (self.options.resizeImages && resizer.hasClass('checkboxChecked')) ? 1 : 0
-					}
-				});
+				var tx_cfg = self.options.mkServerRequestURL(self, 'upload', {
+								directory: self.CurrentDir.path,
+								filter: self.options.filter,
+								resize: (self.options.resizeImages && resizer.hasClass('checkboxChecked')) ? 1 : 0
+							});
+
+				self.diag.log('Uploader: setOptions', tx_cfg);
+
+				this.setOptions(tx_cfg);
 			},
 
-			render: function(){
-				if (this.invalid){
+			render: function() {
+				if (this.invalid) {
 					var message = self.language.uploader.unknown;
 					var sub = {
 						name: this.name,
@@ -153,7 +148,7 @@ FileManager.implement({
 				this.ui = {};
 				this.ui.icon = new Asset.image(self.assetBasePath+'Images/Icons/' + this.extension + '.png', {
 					'class': 'icon',
-					onerror: function(){
+					onerror: function() {
 						new Asset.image(self.assetBasePath + 'Images/Icons/default.png').replaces(this);
 					}
 				});
@@ -167,7 +162,7 @@ FileManager.implement({
 				this.ui.size = new Element('span', {'class': 'file-size', text: Swiff.Uploader.formatUnit(this.size, 'b')});
 
 				var file = this;
-				this.ui.cancel = new Asset.image(self.assetBasePath+'Images/cancel.png', {'class': 'file-cancel', title: self.language.cancel}).addEvent('click', function(){
+				this.ui.cancel = new Asset.image(self.assetBasePath+'Images/cancel.png', {'class': 'file-cancel', title: self.language.cancel}).addEvent('click', function() {
 					file.remove();
 					self.tips.hide();
 					self.tips.detach(this);
@@ -191,34 +186,34 @@ FileManager.implement({
 				return this.parent();
 			},
 
-			onOpen: function(){
+			onOpen: function() {
 				this.ui.element.addClass('file-running');
 			},
 
-			onRemove: function(){
+			onRemove: function() {
 				this.ui = this.ui.element.destroy();
 
 				// when all items in the list have been cancelled/removed, and the transmission of the files is done, i.e. after the onComplete has fired, destroy the list!
 				var cnt = self.upload.list.getElements('li').length;
 				if (cnt == 0 && this.has_completed)
 				{
-					self.upload.uploader.fade(0).get('tween').chain(function(){
+					self.upload.uploader.fade(0).get('tween').chain(function() {
 						self.upload.uploader.setStyle('display', 'none');
 					});
 				}
 			},
 
-			onProgress: function(){
+			onProgress: function() {
 				this.ui.progress.start(this.progress.percentLoaded);
 			},
 
-			onStop: function(){
+			onStop: function() {
 				this.remove();
 			},
 
 			onComplete: function(file_obj)
 			{
-				self.diag.log('File-onComplete', arguments, self.swf.fileList.length);
+				self.diag.log('File-onComplete', arguments, ', fileList: ', self.swf.fileList);
 
 				var response = null;
 				var failure = true;
@@ -260,16 +255,16 @@ FileManager.implement({
 				}
 
 				this.ui.element.set('tween', {duration: 2000}).highlight(!failure ? '#e6efc2' : '#f0c2c2');
-				(function(){
+				(function() {
 					this.ui.element.setStyle('overflow', 'hidden').morph({
 						opacity: 0,
 						height: 0
-					}).get('morph').chain(function(){
+					}).get('morph').chain(function() {
 						this.element.destroy();
 						var cnt = self.upload.list.getElements('li').length;
 						if (cnt == 0)
 						{
-							self.upload.uploader.fade(0).get('tween').chain(function(){
+							self.upload.uploader.fade(0).get('tween').chain(function() {
 								self.upload.uploader.setStyle('display', 'none');
 							});
 						}
@@ -278,16 +273,13 @@ FileManager.implement({
 
 				if (failure)
 				{
-					self.error_count++;
+					self.upload.error_count++;
 				}
 
 				// don't wait for the cute delays to start updating the directory view!
 				var cnt = self.upload.list.getElements('li').length;
 				var fcnt = self.swf.fileList.length;
 				self.diag.log('upload:onComplete for FILE', file_obj, cnt, fcnt);
-				//self.onShow = true;
-				//self.load(self.Directory, self.lastFileUploaded);
-				//// self.fillInfo();
 			}
 		});
 
@@ -308,8 +300,6 @@ FileManager.implement({
 		};
 
 		this.diag.log('Uploader: SWF init');
-		this.lastFileUploaded = null;
-		this.error_count = 0;
 		this.swf = new Swiff.Uploader({
 			id: 'SwiffFileManagerUpload',
 			path: this.assetBasePath + 'Swiff.Uploader.swf',
@@ -328,16 +318,16 @@ FileManager.implement({
 			fileSizeMax: self.options.uploadFileSizeMax,
 			typeFilter: this.getFileTypes(),
 			zIndex: this.options.zIndex + 3000,
-			onSelectSuccess: function(){
-				self.diag.log('onSelectSuccess', arguments, self.swf.fileList.length);
+			onSelectSuccess: function() {
+				self.diag.log('FlashUploader: onSelectSuccess', arguments, ', fileList: ', self.swf.fileList);
 				//self.fillInfo();
 				self.show_our_info_sections(false);
 				//self.info.getElement('h2.filemanager-headline').setStyle('display', 'none');
 				self.info.adopt(self.upload.uploader.setStyle('display', 'block'));
 				self.upload.uploader.fade(1);
 			},
-			onComplete: function(info){
-				this.diag.log('onComplete', arguments, self.swf.fileList.length);
+			onComplete: function(info) {
+				this.diag.log('FlashUploader: onComplete', arguments, ', fileList: ', self.swf.fileList);
 
 				// don't wait for the cute delays to start updating the directory view!
 				var cnt = this.upload.list.getElements('li').length;
@@ -345,88 +335,87 @@ FileManager.implement({
 				this.diag.log('upload:onComplete', info, cnt, fcnt);
 				// add a 5 second delay when there were upload errors:
 				(function() {
-					this.onShow = true;
-					this.load(this.Directory, this.lastFileUploaded);
+					this.load(this.CurrentDir.path, this.upload.lastFileUploaded);
 					// this.fillInfo();
-				}).bind(this).delay(this.error_count > 0 ? 5500 : 1);
+				}).bind(this).delay(this.upload.error_count > 0 ? 5500 : 1);
 			}.bind(this),
-			onFileComplete: function(f){
-				self.diag.log('onFileComplete', arguments, self.swf.fileList.length);
-				self.lastFileUploaded = f.name;
+			onFileComplete: function(f) {
+				self.diag.log('FlashUploader: onFileComplete', arguments, ', fileList: ', self.swf.fileList);
+				self.upload.lastFileUploaded = f.name;
 			},
 			onFail: function(error) {
-				self.diag.log('onFail', arguments, self.swf.fileList.length);
+				self.diag.log('FlashUploader: onFail', arguments, ', swf: ', self.swf, ', fileList: ', (typeof self.swf !== 'undefined' ? self.swf : '---'));
 				if (error !== 'empty') {
 					$$(self.upload.button, self.upload.label).dispose();
 					self.showError(self.language.flash[error] || self.language.flash.flash);
 				}
 			},
 
-			onLoad: function(){
-				self.diag.log('onLoad', arguments, self.swf.fileList.length);
+			onLoad: function() {
+				self.diag.log('FlashUploader: onLoad', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onStart: function(){
-				self.diag.log('onStart', arguments, self.swf.fileList.length);
+			onStart: function() {
+				self.diag.log('FlashUploader: onStart', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onQueue: function(){
-				self.diag.log('onQueue', arguments, self.swf.fileList.length);
+			onQueue: function() {
+				self.diag.log('FlashUploader: onQueue', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onBrowse: function(){
-				self.diag.log('onBrowse', arguments, self.swf.fileList.length);
+			onBrowse: function() {
+				self.diag.log('FlashUploader: onBrowse', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onDisabledBrowse: function(){
-				self.diag.log('onDisabledBrowse', arguments, self.swf.fileList.length);
+			onDisabledBrowse: function() {
+				self.diag.log('FlashUploader: onDisabledBrowse', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onCancel: function(){
-				self.diag.log('onCancel', arguments, self.swf.fileList.length);
+			onCancel: function() {
+				self.diag.log('FlashUploader: onCancel', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onSelect: function(){
-				self.diag.log('onSelect', arguments, self.swf.fileList.length);
+			onSelect: function() {
+				self.diag.log('FlashUploader: onSelect', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onSelectFail: function(){
-				self.diag.log('onSelectFail', arguments, self.swf.fileList.length);
-			},
-
-			onButtonEnter: function(){
-				self.diag.log('onButtonEnter', arguments, self.swf.fileList.length);
-			},
-			onButtonLeave: function(){
-				self.diag.log('onButtonLeave', arguments, self.swf.fileList.length);
-			},
-			onButtonDown: function(){
-				self.diag.log('onButtonDown', arguments, self.swf.fileList.length);
-			},
-			onButtonDisable: function(){
-				self.diag.log('onButtonDisable', arguments, self.swf.fileList.length);
+			onSelectFail: function() {
+				self.diag.log('FlashUploader: onSelectFail', arguments, ', fileList: ', self.swf.fileList);
 			},
 
-			onFileStart: function(){
-				self.diag.log('onFileStart', arguments, self.swf.fileList.length);
+			onButtonEnter: function() {
+				self.diag.log('FlashUploader: onButtonEnter', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onFileStop: function(){
-				self.diag.log('onFileStop', arguments, self.swf.fileList.length);
+			onButtonLeave: function() {
+				self.diag.log('FlashUploader: onButtonLeave', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onFileRequeue: function(){
-				self.diag.log('onFileRequeue', arguments, self.swf.fileList.length);
+			onButtonDown: function() {
+				self.diag.log('FlashUploader: onButtonDown', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onFileOpen: function(){
-				self.diag.log('onFileOpen', arguments, self.swf.fileList.length);
-			},
-			onFileProgress: function(){
-				self.diag.log('onFileProgress', arguments, self.swf.fileList.length);
-			},
-			onFileRemove: function(){
-				self.diag.log('onFileRemove', arguments, self.swf.fileList.length);
+			onButtonDisable: function() {
+				self.diag.log('FlashUploader: onButtonDisable', arguments, ', fileList: ', self.swf.fileList);
 			},
 
-			onBeforeStart: function(){
-				self.diag.log('onBeforeStart', arguments, self.swf.fileList.length);
+			onFileStart: function() {
+				self.diag.log('FlashUploader: onFileStart', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onBeforeStop: function(){
-				self.diag.log('onBeforeStop', arguments, self.swf.fileList.length);
+			onFileStop: function() {
+				self.diag.log('FlashUploader: onFileStop', arguments, ', fileList: ', self.swf.fileList);
 			},
-			onBeforeRemove: function(){
-				self.diag.log('onBeforeRemove', arguments, self.swf.fileList.length);
+			onFileRequeue: function() {
+				self.diag.log('FlashUploader: onFileRequeue', arguments, ', fileList: ', self.swf.fileList);
+			},
+			onFileOpen: function() {
+				self.diag.log('FlashUploader: onFileOpen', arguments, ', fileList: ', self.swf.fileList);
+			},
+			onFileProgress: function() {
+				self.diag.log('FlashUploader: onFileProgress', arguments, ', fileList: ', self.swf.fileList);
+			},
+			onFileRemove: function() {
+				self.diag.log('FlashUploader: onFileRemove', arguments, ', fileList: ', self.swf.fileList);
+			},
+
+			onBeforeStart: function() {
+				self.diag.log('FlashUploader: onBeforeStart', arguments, ', fileList: ', self.swf.fileList);
+			},
+			onBeforeStop: function() {
+				self.diag.log('FlashUploader: onBeforeStop', arguments, ', fileList: ', self.swf.fileList);
+			},
+			onBeforeRemove: function() {
+				self.diag.log('FlashUploader: onBeforeRemove', arguments, ', fileList: ', self.swf.fileList);
 			}
 		});
 	}

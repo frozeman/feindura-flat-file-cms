@@ -54,8 +54,8 @@ echo '<script type="text/javascript">
   /* <![CDATA[ */
   // add mootools if user is not logged into backend
   if(!window.MooTools) {
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.1.js"%3E%3C/script%3E\'));
-    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.1.1.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.2.js"%3E%3C/script%3E\'));
+    document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.2.1.js"%3E%3C/script%3E\'));
   }
   // add milkbox
   document.write(unescape(\'%3Cscript src="'.$filePath.'/milkbox/milkbox.js"%3E%3C/script%3E\')); 

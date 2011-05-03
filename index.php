@@ -96,8 +96,8 @@ if($_GET['site'] == 'addons') {
   <!-- JAVASCRIPT -->
 
   <!-- thirdparty/MooTools -->
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.1.js"></script>
-  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.3.1.1.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-core-1.3.2.js"></script>
+  <script type="text/javascript" src="library/thirdparty/javascripts/mootools-more-1.3.2.1.js"></script>
   
   <!-- thirdparty/Raphael -->
   <script type="text/javascript" src="library/thirdparty/javascripts/raphael-1.5.2.js"></script>

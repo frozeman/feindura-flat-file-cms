@@ -7,24 +7,42 @@ authors: Christoph Pojer (@cpojer)
 
 license: MIT-style license.
 
-requires: [Core/*]
+requires:
+  core/1.3.1: '*'
+  more/1.3.1.1: [Sortables]
 
 provides: FileManager.Gallery
 
 ...
 */
 
-(function(){
+(function() {
 
 FileManager.Gallery = new Class({
 
 	Extends: FileManager,
+
+	options:
+	{
+		closeCaptionEditorOnMouseOut: true  // TRUE: will save & close caption editor popup dialog when you move the mouse out there
+	},
+
+	hooks: {
+		fill: {
+			populate: function() {
+				// now we have a valid 'this.root' and we need that to preprocess the paths specified on populate(). So we have a go!
+				this.startPopulatingTheGallery();
+			}
+		}
+	},
 
 	initialize: function(options)
 	{
 		this.offsets = {y: -72};
 		this.imgContainerSize = { x: 75, y: 56 };
 		this.captionImgContainerSize = { x: 250, y: 250 };
+		this.isSorting = false;
+		this.populate_queue = [];
 
 		// make sure our 'complete' event does NOT clash with the base class event by simply never allowing it: you CANNOT have options.selectable and gallery mode at the same time!
 		// (If you do, the caller will have a hard time detecting /who/ sent the 'complete' event; the only way would be to inspect the argument list and deduce the 'origin' from there.)
@@ -45,8 +63,7 @@ FileManager.Gallery = new Class({
 			hide: function(self) {
 				if (!self.keepGalleryData) {
 					self.gallery.empty();
-					self.metadata = [];
-					self.files = [];
+					self.files = {};
 				}
 				else {
 					self.keepGalleryData = false;
@@ -59,8 +76,7 @@ FileManager.Gallery = new Class({
 				// mode is one of (destroy, rename, move, copy): only when mode=copy, does the file remain where it was before!
 				if (mode !== 'copy')
 				{
-					var name = self.normalize(file.dir + '/' + file.name);
-					self.erasePicture(name);
+					self.erasePicture(file.path);
 				}
 			}
 		});
@@ -75,14 +91,11 @@ FileManager.Gallery = new Class({
 		}).inject(this.container);
 		this.gallery = new Element('ul').inject(this.galleryContainer);
 
-		var timer;
+		var timer = null;
 		var self = this;
 
-		this.input = new Element('input', {name: 'imgCaption'}).addEvent('keyup', function(e){
-			if (e.key == 'enter') {
-				self.removeClone(e, this);
-			}
-		});
+		this.input = new Element('textarea', {name: 'imgCaption'});
+
 		var imgdiv = new Element('div', {'class': 'img'});
 		this.wrapper = new Element('div', {
 			'class': 'filemanager-wrapper',
@@ -93,14 +106,21 @@ FileManager.Gallery = new Class({
 			tween: {duration: 'short'},
 			opacity: 0,
 			events: {
-				mouseenter: function(){
-					clearTimeout(timer);
+				mouseenter: function() {
+					if (self.options.closeCaptionEditorOnMouseOut)
+					{
+						clearTimeout(timer);
+					}
 				},
-				mouseleave: function(e){
+				mouseleave: function(e) {
 					var target = this;
-					timer = (function(){
-						self.removeClone(e, target);
-					}).delay(500);
+
+					if (self.options.closeCaptionEditorOnMouseOut)
+					{
+						timer = (function() {
+							self.removeClone(e, target);
+						}).delay(500);
+					}
 				}
 			}
 		}).adopt(
@@ -110,7 +130,41 @@ FileManager.Gallery = new Class({
 			new Element('button', {text: this.language.gallery.save}).addEvent('click', function(e) {
 				self.removeClone(e, this);
 			})
-		).inject(document.body);
+		);
+
+		// stop filemanager window events when you hit enter
+		this.gallery_keyboard_handler = (function(e)
+		{
+			this.diag.log('gallery KEYBOARD handler: key press: ', e);
+
+			if (this.dialogOpen) return;
+
+			// don't propagate any keyboard code to the filemanager keyboard handler (e.g. TAB)
+			e.stopPropagation();
+
+			if (e.key == 'enter')
+			{
+				// deactivated to allow multiple line caption. \n will later be transformed into <br>
+				//self.removeClone(e, this);
+			}
+		}).bind(this);
+
+		if ((Browser.Engine && (Browser.Engine.trident || Browser.Engine.webkit)) || (Browser.ie || Browser.chrome || Browser.safari))
+		{
+			this.input.addEvent('keydown', this.gallery_keyboard_handler);
+			// also make sure keyboard navigation actually works in the caption editor pane: catch ENTER on button, etc. from bubbling up to the filemanager handler:
+			this.wrapper.addEvent('keydown', this.gallery_keyboard_handler);
+		}
+		else
+		{
+			this.input.addEvent('keypress', this.gallery_keyboard_handler);
+			// also make sure keyboard navigation actually works in the caption editor pane: catch ENTER on button, etc. from bubbling up to the filemanager handler:
+			this.wrapper.addEvent('keypress', this.gallery_keyboard_handler);
+		}
+		// also make sure keyboard navigation actually works in the caption editor pane: catch ENTER on button, etc. from bubbling up to the filemanager handler:
+		this.wrapper.addEvent('keyup', this.gallery_keyboard_handler);
+
+		this.wrapper.inject(document.body);
 
 		var wrapper_pos = this.wrapper.getCoordinates();
 		var imgdiv_pos = imgdiv.getCoordinates();
@@ -124,8 +178,7 @@ FileManager.Gallery = new Class({
 		this.droppables.push(this.gallery);
 
 		this.keepGalleryData = false;
-		this.metadata = [];
-		this.files = [];
+		this.files = {};
 		this.animation = {};
 
 		this.howto = new Element('div', {
@@ -140,6 +193,44 @@ FileManager.Gallery = new Class({
 
 		// invoke the parent method directly
 		this.initialShowBase();
+
+		// add CAPTION OVERLAY
+		this.captionOverlay = new Overlay({
+			'class': 'filemanager-overlay filemanager-overlay-dialog filemanager-overlay-caption',
+			events: {
+				click: (function() {
+					this.removeClone();
+					this.captionOverlay.hide();
+				}).bind(this)
+			},
+			styles: {
+				'z-index': this.options.zIndex + 11
+			}
+		});
+
+
+		// -> create SORTABLE list
+		this.sortable = new Sortables(this.gallery, {
+			clone: false,
+			//revert: true,
+			//opacity: 1,
+			onStart: (function() {
+				this.isSorting = true;
+			}).bind(this),
+			onSort: (function(li) {
+				newOrder = this.sortable.serialize((function(element, index) {
+					return this.files[element.retrieve('imageName')];
+				}).bind(this));
+
+				// create new order of images
+				this.files = {};
+				newOrder.each(function(file) {
+					if (file) {
+						this.files[file.legal_path] = file;
+					}
+				}, this);
+			}).bind(this)
+		});
 	},
 
 	// override the parent's initialShow method: we do not want to jump to the jsGET-stored position again!
@@ -157,13 +248,35 @@ FileManager.Gallery = new Class({
 			top: '10%',
 			height: '60%'
 		});
+
 		this.fitSizes();
 
 		var size = this.filemanager.getSize();
 		var pos = this.filemanager.getPosition();
+
+		// determine how many images we can show next to one another:
+		var galWidthComp = 2;    // 2px not accounted for in the Width calculation; without these the width slowly grows instead of 'jump' to fit one more/less image horizontally
+		var imgMarginWidth = 4;  // 4px unaccounted for in the element width
+		var radiiCorr = 40;      // correction for the radii in the FileManager container: looks better that way; must at least be 20
+		var imgWidth = 84;       // derived from current CSS; bad form to do it this way, but this is a good guess when there's no image in there yet.
+		var scrollbarCorr = 20;  // correction for optional Y scrollbar when the number of images doesn't fit in two rows anymore.
+
+		var imgs = this.galleryContainer.getElements('li');
+		if (imgs && imgs[0])
+		{
+			// when we HAVE images, derive the width from one of those!
+			imgWidth = imgs[0].getWidth() + imgMarginWidth;
+		}
+		var galWidth = this.galleryContainer.getWidth();
+		var g_rem = (galWidth - scrollbarCorr) % imgWidth;
+		var img_cnt = Math.floor((size.x - g_rem - scrollbarCorr - radiiCorr) / imgWidth);
+		if (img_cnt < 3) img_cnt = 3;
+		var gw = img_cnt * imgWidth + g_rem + scrollbarCorr;
+
 		this.galleryContainer.setStyles({
 			top: pos.y + size.y - 1,
-			left: pos.x + (size.x - this.galleryContainer.getWidth()) / 2,
+			left: pos.x + (size.x - gw) / 2,
+			width: gw - 2,
 			opacity: 1
 		});
 
@@ -178,7 +291,15 @@ FileManager.Gallery = new Class({
 
 	show_caption_editor: function(img_el, li_wrapper, file)
 	{
-		var name = this.normalize(file.dir + '/' + file.name);
+		var self = this;
+
+		// -> add overlay
+		$$('filemanager-overlay-caption').addEvent('click', function(e) {
+			this.removeClone(null,li_wrapper);
+		}.bind(this));
+		this.captionOverlay.show();
+
+		var name = file.path;
 
 		var pos = img_el.getCoordinates();
 		var oml = img_el.getStyle('margin-left').toInt();
@@ -249,12 +370,10 @@ FileManager.Gallery = new Class({
 			}
 		};
 
-		var self = this;
-		this.input.removeEvents('blur').addEvent('blur', function(){
-			var index = self.files.indexOf(name);
-			if (index < 0)
+		this.input.removeEvents('blur').addEvent('blur', function() {
+			if (!self.files[name])
 				return;
-			self.metadata[index].caption = (this.get('value') || '');
+			self.files[name].caption = (this.value || '');
 		});
 
 		//li_wrapper.set('opacity', 0);
@@ -266,24 +385,22 @@ FileManager.Gallery = new Class({
 				'z-index': this.options.zIndex + 800
 			},
 			events: {
-				click: function(e){
-					var index = self.files.indexOf(name);
-					if (index < 0)
+				click: function(e) {
+					if (!self.files[name])
 						return;
-					self.fireEvent('galleryPreview', [file.path, self.metadata[index], li_wrapper, self]);
+					self.fireEvent('galleryPreview', [file.path, self.files[name], li_wrapper, self]);
 				}
 			}
-		}).inject(document.body).morph(this.animation.to).get('morph').chain(function(){
-			var index = self.files.indexOf(name);
-			if (index < 0)
+		}).inject(document.body).morph(this.animation.to).get('morph').chain(function() {
+			if (!self.files[name])
 				return;
-			self.input.set('value', self.metadata[index].caption || '');
+			self.input.set('value', self.files[name].caption || '');
 			self.wrapper.setStyles({
 				opacity: 1,
 				display: 'block',
 				left: self.animation.to.left + self.captionDialogOffsets.x /* -12 */,
 				top: self.animation.to.top + self.captionDialogOffsets.y /* -53 */
-			}).fade(1).get('tween').chain(function(){
+			}).fade(1).get('tween').chain(function() {
 				self.input.focus();
 			});
 		});
@@ -326,7 +443,7 @@ FileManager.Gallery = new Class({
 		mb = ch - mt - h;
 
 		var self = this;
-		var img = new Asset.image(pic, {
+		var img = Asset.image(pic, {
 			styles: {
 				width: w,
 				height: h,
@@ -335,12 +452,14 @@ FileManager.Gallery = new Class({
 				'margin-left': ml,
 				'margin-right': mr
 			},
-			onLoad: function(){
+			onLoad: function() {
 				var img_el = this;
-				li_wrapper.setStyle('background', 'none').addEvent('click', function(e){
+				li_wrapper.setStyle('background', 'none').addEvent('click', function(e) {
 					if (e) e.stop();
-
-					self.show_caption_editor(img_el, li_wrapper, file);
+					if (!self.isSorting) {
+						 self.show_caption_editor(img_el, li_wrapper, file);
+					}
+					self.isSorting = false;
 				});
 			},
 			onError: function() {
@@ -366,7 +485,7 @@ FileManager.Gallery = new Class({
 
 		this.imageadd.fade(0);
 
-		if (this.howto){
+		if (this.howto) {
 			this.howto.destroy();
 			this.howto = null;
 		}
@@ -380,7 +499,7 @@ FileManager.Gallery = new Class({
 			var part = el.split('/');
 			file = {
 				name: part.pop(),
-				dir: part.join('/'),
+				path: this.normalize(el),
 				mime: 'unknown/unknown',
 				thumbs_deferred: true
 			};
@@ -391,17 +510,15 @@ FileManager.Gallery = new Class({
 			file = el.retrieve('file');
 		}
 
-		var name = this.normalize(file.dir + '/' + file.name);
+		var name = file.path;
 
 		// when the item already exists in the gallery, do not add it again:
-		if (this.files.contains(name))
+		if (this.files[name])
 			return true;
 
 		// store & display item in gallery:
-		var index = this.files.push(name)  - 1;
-
 		var self = this;
-		var destroyIcon = new Asset.image(this.assetBasePath + 'Images/destroy.png').set({
+		var destroyIcon = Asset.image(this.assetBasePath + 'Images/destroy.png').set({
 			'class': 'filemanager-remove',
 			title: this.language.gallery.remove,
 			events: {
@@ -413,25 +530,28 @@ FileManager.Gallery = new Class({
 			}
 		});
 
-		//var imgpath = this.normalize('/' + this.root + file.dir + '/' + file.name);
-
 		/*
 		 * as 'imgcontainer.getSize() won't deliver the dimensions as set in the CSS, we turn it the other way around:
 		 * we set the w/h of the image container here explicitly; the CSS can be used for other bits of styling.
 		 */
-		var imgcontainer = new Element('span', {
+		var imgcontainer = new Element('div', {
 			'class': 'gallery-image',
+			'title': file.name,
 			styles: {
 				width: this.imgContainerSize.x,
 				height: this.imgContainerSize.y
 			}
 		});
-		var li = new Element('li').store('file', file).adopt(
-			destroyIcon,
-			imgcontainer
+		this.tips.attach(imgcontainer);
+
+		// STORE the IMAGE PATH in the li FOR the SORTABLE
+		var li = new Element('li').store('imageName', name).adopt(
+			imgcontainer,
+			destroyIcon
 		).inject(this.gallery);
 
-		this.metadata[index] = {
+		this.files[name] = {
+			legal_path: name,
 			caption: caption,
 			file: file,
 			element: li
@@ -449,28 +569,26 @@ FileManager.Gallery = new Class({
 
 			// do NOT set this.Request as this is a parallel request; mutiple ones may be fired when onDragComplete is, for instance, invoked from the array-loop inside populate()
 
+			var tx_cfg = this.options.mkServerRequestURL(this, 'detail', {
+							directory: this.dirname(file.path),
+							file: file.name,
+							filter: this.options.filter,
+							mode: 'direct'                          // provide direct links to the thumbnail files
+						});
+
 			var req = new FileManager.Request({
-				url: this.options.url + (this.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString(Object.merge({},  {
-					event: 'detail'
-				})),
-				data: {
-					directory: file.dir,
-					// fixup for *directory* detail requests
-					file: (file.mime == 'text/directory' ? '.' : file.name),
-					filter: this.options.filter,
-					mode: 'direct'                          // provide direct links to the thumbnail files
-				},
+				url: tx_cfg.url,
+				data: tx_cfg.data,
 				onRequest: function() {},
 				onSuccess: (function(j)
 				{
-					var index = this.files.indexOf(name);
-					if (index < 0)
+					if (!this.files[name])
 						return;
 
 					if (!j || !j.status) {
 						var msg = ('' + j.error).substitute(this.language, /\\?\$\{([^{}]+)\}/g);
 
-						this.metadata[index].caption = msg;
+						this.files[name].caption = msg;
 						return;
 					}
 
@@ -498,7 +616,7 @@ FileManager.Gallery = new Class({
 					li.store('file', file);
 
 					//this.onDragComplete(li, droppable);
-					this.metadata[index].file = file;
+					this.files[name].file = file;
 
 					this.img_injector(file, imgcontainer, li);
 
@@ -509,7 +627,7 @@ FileManager.Gallery = new Class({
 				}).bind(this)
 			}, this);
 
-			this.RequestQueue.addRequest(String.uniqueID(), req);
+			this.RequestQueue.addRequest('populate:' + String.uniqueID(), req);
 			req.send();
 
 			// while the 'details' request is sent off, keep a 'loader' animation in the spot where the thumbnail/image should end up once we've got that info from the 'details' request
@@ -520,13 +638,20 @@ FileManager.Gallery = new Class({
 			this.img_injector(file, imgcontainer, li);
 		}
 
+		// -> add this list item to the SORTABLE
+		this.sortable.addItems(li);
+
 		return true;
 	},
 
-	removeClone: function(e, target){
+	removeClone: function(e, target) {
 		if (e) e.stop();
 
-		if (!this.clone || (e.relatedTarget && ([this.clone, this.wrapper].contains(e.relatedTarget) || (this.wrapper.contains(e.relatedTarget) && e.relatedTarget != this.wrapper))))
+		// remove the overlay
+		$$('filemanager-overlay-caption').removeEvents('click');
+		this.captionOverlay.hide();
+
+		if (!this.clone || (e && e.relatedTarget && ([this.clone, this.wrapper].contains(e.relatedTarget) || (e && this.wrapper.contains(e.relatedTarget) && e.relatedTarget != this.wrapper))))
 			return;
 		if (this.clone.get('morph').timer)
 			return;
@@ -535,24 +660,24 @@ FileManager.Gallery = new Class({
 		if (!file)
 			return;
 
-		var name = this.normalize(file.dir + '/' + file.name);
-		var index = this.files.indexOf(name);
-		if (index < 0)
+		var name = file.path;
+
+		if (!this.files[name])
 			return;
 
-		this.metadata[index].caption = (this.input.get('value') || '');
+		this.files[name].caption = (this.input.value || '');
 
-		this.clone.morph(this.animation.from).get('morph').clearChain().chain((function(){
+		this.clone.morph(this.animation.from).get('morph').clearChain().chain((function() {
 			//this.clone.retrieve('parent').set('opacity', 1);
 			this.clone.destroy();
 		}).bind(this));
 
-		this.wrapper.fade(0).get('tween').chain(function(){
+		this.wrapper.fade(0).get('tween').chain(function() {
 			this.element.setStyle('display', 'none');
 		});
 	},
 
-	hideClone: function(){
+	hideClone: function() {
 		if (!this.clone)
 			return;
 
@@ -569,50 +694,108 @@ FileManager.Gallery = new Class({
 	},
 
 	erasePicture: function(name) {
-		var index = this.files.indexOf(name);
-		if (index >= 0)
+		if (this.files[name])
 		{
-			var meta = this.metadata[index];
-
-			this.metadata.splice(index, 1);
-			this.files.splice(index, 1);
-
 			this.tips.hide();
 
 			var self = this;
-			meta.element.set('tween', {duration: 'short'}).removeEvents('click').fade(0).get('tween').chain(function(){
+			this.files[name].element.set('tween', {duration: 'short'}).removeEvents('click').fade(0).get('tween').chain(function() {
 				this.element.destroy();
 				self.switchButton();
+				delete self.files[name];
 			});
 		}
 	},
 
-	switchButton: function(){
+	switchButton: function() {
 		if (typeof this.gallery != 'undefined') {
 			var chk = !!this.gallery.getChildren().length;
 			this.menu.getElement('button.filemanager-serialize').set('disabled', !chk)[(chk ? 'remove' : 'add') + 'Class']('disabled');
 		}
 	},
 
-	populate: function(data)
+	populate: function(data, path_is_urlencoded /* default = TRUE */)
 	{
-		this.diag.log('GALLERY.populate: ' + debug.dump(data));
-		Object.each(data || {}, function(v, i){
-			this.diag.log('GALLERY.populate: index = ' + i + ', value = ' + v);
-			this.onDragComplete(i, this.gallery, v);
+		this.diag.log('GALLERY.populate: ', data, ', is_urlencoded: ', path_is_urlencoded);
+
+		if (typeof path_is_urlencoded == 'undefined' || path_is_urlencoded === null)
+			path_is_urlencoded = true;    // set default to TRUE
+		else
+			path_is_urlencoded = !!path_is_urlencoded;
+
+		//
+		// WARNING: these items are abs.path encoded and we to convert them to 'legal URL' directory space or the server will reject these on security grounds.
+		//          But we don't know the 'legal URL root' path as that is a server-side setting, so we MUST delay the population of the gallery until our first
+		//          request has arrived with this desperately needed item.
+		//          We wait for the dirscan ('view' request) to complete; actually we wait until the fill() has finished as by that time we'll be sure
+		//          to have a valid this.root (or a grandiose server comm failure!)
+		//          Until that time, we push all items to populate the gallery with on the populate stack.
+
+		Object.each(data || {}, function(v, i) {
+			this.diag.log('GALLERY.populate push: index = ', i, ', value = ', v, ', enc: ', (1 * path_is_urlencoded));
+			if (path_is_urlencoded)
+			{
+				i = this.unescapeRFC3986(i);
+			}
+			this.populate_queue.push({
+					path: i,
+					caption: v
+				});
 		}, this);
 	},
 
-	serialize_on_click: function(e){
+	startPopulatingTheGallery: function()
+	{
+		if (!this.root)
+		{
+			this.diag.log('### FATAL error in startPopulatingTheGallery(): no valid .root path!');
+			return;
+		}
+
+		var count = this.populate_queue.length;
+		if (count)
+		{
+			// we've got work to do, folks!
+			var i;
+			for (i = 0; i < count; ++i)
+			{
+				// LIFO queue:
+				var item = this.populate_queue.shift();
+				var path = item.path;
+
+				// coded so that we support 'legal URL space' items and 'absolute URL path' items at the same time:
+				// when paths start with the root directory, we'll strip that off to make them 'legal URL space' compliant filespecs.
+				if (path.indexOf(this.root) === 0)
+				{
+					path = path.substr(this.root.length);
+				}
+				if (path)
+				{
+					this.onDragComplete(path, this.gallery, item.caption);
+				}
+				else
+				{
+					this.diag.log('### gallery populate: invalid input (not in legal URL space): ', item, ', root: ', this.root);
+				}
+			}
+		}
+	},
+
+	serialize_on_click: function(e) {
 		if (e) e.stop();
 
 		var serialized = {};
-		this.files.each(function(v, i){
-			serialized[v] = (this.metadata[i].caption || '');
+		var metas = {};
+		var index = 0;
+		Object.each(this.files,function(file) {
+			serialized[file.legal_path] = (file.caption || '');
+			var m = Object.clone(file.file);
+			m['order_no'] = index++;
+			metas[file.legal_path] = m;
 		}, this);
 		this.keepGalleryData = true;
 		this.hide(e);
-		this.fireEvent('complete', [serialized, this.metadata, this]);
+		this.fireEvent('complete', [serialized, metas, this.root, this]);
 	}
 });
 
