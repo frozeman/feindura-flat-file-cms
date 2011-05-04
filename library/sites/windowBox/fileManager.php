@@ -71,7 +71,8 @@ if(!$adminConfig['user']['fileManager'])
           hideClose: true,
           hideOverlay: true,
           listPaginationSize: 100,
-          onComplete: complete
+          onComplete: complete,
+          detailInfoMode: false
       });
       fileManager.filemanager.setStyle('width','100%');
       fileManager.filemanager.setStyle('height','95%'); 

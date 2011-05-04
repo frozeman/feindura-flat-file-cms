@@ -573,7 +573,7 @@ FileManager.Gallery = new Class({
 							directory: this.dirname(file.path),
 							file: file.name,
 							filter: this.options.filter,
-							mode: 'direct'                          // provide direct links to the thumbnail files
+							mode: 'direct' + this.options.detailInfoMode           // provide direct links to the thumbnail files
 						});
 
 			var req = new FileManager.Request({
@@ -787,11 +787,16 @@ FileManager.Gallery = new Class({
 		var serialized = {};
 		var metas = {};
 		var index = 0;
-		Object.each(this.files,function(file) {
-			serialized[file.legal_path] = (file.caption || '');
+		Object.each(this.files,function(file)
+		{
+			var path = this.escapeRFC3986(this.normalize('/' + this.root + file.file.path));  // the absolute URL for the given file, rawURLencoded
+			var caption = (file.caption || '');
+			serialized[path] = caption;
 			var m = Object.clone(file.file);
 			m['order_no'] = index++;
-			metas[file.legal_path] = m;
+			m['caption'] = caption;
+			m['pathRFC3986'] = path;
+			metas[path] = m;
 		}, this);
 		this.keepGalleryData = true;
 		this.hide(e);

@@ -79,7 +79,23 @@ before the header is sent, which means before any HTML tag:
     
 After this you can refer to the feindura class an it's methods through the $mycms->... instance.
 
-### CONFLICTS
+Read first: <http://feindura.org/?site=gettingstarted>.
+Take a look at the examples here: <http://feindura.org/?site=examples>.
+For details and more methods, see the feindura class - API reference <http://feindura.org/api/%5BImplementation%5D/feindura.html>.
+
+### NOTE
+
 #### FRONTEND EDITING
-To activate the frontend editing you must call the createMetaTags() method of the feindura class inside the &lt;head&gt; of your website!
+In order to enable frontend editing and be able to use Atom/RSS 2.0 feeds, you have to call the createMetaTags() method as first inside &lt;head&gt; tags of your website!
+It will create all basic and necessary meta tags, like charset, page title, keywords, description, etc.
+See http://feindura.org/api/%5BImplementation%5D/feindura.html#createMetaTags for more information.
+
 When you want to use the Prototype javascript framework in your website, the frontend editing will be disabled. All other js frameworks should work.
+
+#### MooTools
+When you want to use the MooTools framework in you website, you must add this in th follwoing way (at best on the end of your website):
+
+     <script>!window.MooTools && document.write(unescape('%3Cscript src="js/libs/mootools-core-1.3.1.js"%3E%3C/script%3E'))</script>
+     
+Otherwise you will have problems with the frontend editing.
+If don't care about that, you can deactivate the frontendediting mode inside the admin setup.

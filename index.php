@@ -187,6 +187,7 @@ var feindura_pages = [
         hideOverlay: true,
         hideQonDelete: false,
         listPaginationSize: 100,
+        detailInfoMode: false,
         onShow: function() {
             window.location.hash = '#none';
             $('dimContainer').setStyle('opacity',0);

@@ -1549,6 +1549,16 @@ class FileManager
 	 *                         will neglect to provide those, expecting the frontend to
 	 *                         delay-load them through another 'event=detail / mode=direct'
 	 *                         request later on.
+	 *                         'metaHTML': show the metadata as extra HTML content in 
+	 *                         the preview pane (you can also turn that off using CSS:
+	 *                             div.filemanager div.filemanager-diag-dump 
+	 *                             {
+	 *                                 display: none;
+	 *                             }
+	 *                         'metaJSON': deliver the extra getID3 metadata in JSON format
+	 *                         in the json['metadata'] field.
+	 *
+	 *                         Modes can be mixed by adding a '+' between them.
 	 *
 	 * Errors will produce a JSON encoded error report, including at least two fields:
 	 *
@@ -1570,6 +1580,11 @@ class FileManager
 			$v_ex_code = 'nofile';
 
 			$mode = $this->getPOSTparam('mode');
+			$mode = explode('+', $mode);
+			if (empty($mode))
+			{
+				$mode = array();
+			}
 
 			$file_arg = $this->getPOSTparam('file');
 
@@ -2385,6 +2400,9 @@ class FileManager
 					// (default quality is 100% for JPEG so we get the cleanest resized images here)
 					$img->resize($this->options['maxImageDimension']['width'], $this->options['maxImageDimension']['height'])->save();
 					unset($img);
+					
+					// source image has changed: nuke the cached metadata and then refetch the metadata = forced refetch
+					$meta = $this->getFileInfo($file, $legal_url, true);
 				}
 			}
 
@@ -2393,7 +2411,7 @@ class FileManager
 			 * so we'll have a very fast performance viewing this file's details and thumbnails both from this point forward!
 			 */
 			$jsbogus = array('status' => 1);
-			$jsbogus = $this->extractDetailInfo($jsbogus, $legal_url, $meta, $mime_filter, $mime_filters, 'direct');
+			$jsbogus = $this->extractDetailInfo($jsbogus, $legal_url, $meta, $mime_filter, $mime_filters, array('direct'));
 
 			$this->sendHttpHeaders('Content-Type: ' . $this->getPOSTparam('reportContentType', 'application/json'));
 
@@ -2704,9 +2722,11 @@ class FileManager
 	 *
 	 * Throw an exception on error.
 	 */
-	public function extractDetailInfo($json_in, $legal_url, &$meta, $mime_filter, $mime_filters, $thumbnail_gen_mode)
+	public function extractDetailInfo($json_in, $legal_url, &$meta, $mime_filter, $mime_filters, $mode)
 	{
-		$auto_thumb_gen_mode = ($thumbnail_gen_mode !== 'direct');
+		$auto_thumb_gen_mode = in_array('direct', $mode, true);
+		$metaHTML_mode = in_array('metaHTML', $mode, true);
+		$metaJSON_mode = in_array('metaJSON', $mode, true);
 
 		$url = $this->legal2abs_url_path($legal_url);
 		$filename = basename($url);
@@ -3291,6 +3311,7 @@ class FileManager
 			$json['icon'] = $icon_e;
 		}
 
+		$fi4dump = null;
 		if (!empty($fi))
 		{
 			try
@@ -3324,22 +3345,17 @@ class FileManager
 			//$content .= '<h3>${preview}</h3>';
 			$content .= '<div class="filemanager-preview-content">' . $preview_HTML . '</div>';
 		}
-		if (!empty($postdiag_err_HTML) || !empty($postdiag_dump_HTML))
+		if (!empty($postdiag_err_HTML))
 		{
-			//$content .= '<h3>Diagnostics</h3>';
-			//$content .= '<div class="filemanager-detail-diag">';
-			if (!empty($postdiag_err_HTML))
-			{
-				$content .= '<div class="filemanager-errors">' . $postdiag_err_HTML . '</div>';
-			}
-			if (!empty($postdiag_dump_HTML))
-			{
-				$content .= '<div class="filemanager-diag-dump">' . $postdiag_dump_HTML . '</div>';
-			}
-			//$content .= '</div>';
+			$content .= '<div class="filemanager-errors">' . $postdiag_err_HTML . '</div>';
+		}
+		if (!empty($postdiag_dump_HTML) && $metaHTML_mode)
+		{
+			$content .= '<div class="filemanager-diag-dump">' . $postdiag_dump_HTML . '</div>';
 		}
 
 		$json['content'] = self::compressHTML($content);
+		$json['metadata'] = ($metaJSON_mode ? $fi4dump : null);
 
 		return array_merge((is_array($json_in) ? $json_in : array()), $json);
 	}
@@ -4815,13 +4831,13 @@ class FileManager
 	 *
 	 * @return the info array as produced by getID3::analyze(), as part of a MTFMCacheEntry reference
 	 */
-	public function getFileInfo($file, $legal_url)
+	public function getFileInfo($file, $legal_url, $force_recheck = false)
 	{
 		// when hash exists in cache, return that one:
 		$meta = &$this->getid3_cache->pick($legal_url, $this);
 		assert($meta != null);
 		$mime_check = $meta->fetch('mime_type');
-		if (empty($mime_check))
+		if (empty($mime_check) || $force_recheck)
 		{
 			// cache entry is not yet filled: we'll have to do the hard work now and store it.
 			if (is_dir($file))

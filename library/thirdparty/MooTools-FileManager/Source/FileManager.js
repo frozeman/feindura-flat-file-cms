@@ -83,6 +83,7 @@ var FileManager = new Class({
 		download: false,
 		createFolders: false,
 		filter: '',
+		detailInfoMode: '+metaHTML',      // (string) whether you want to receive extra metadata on select/etc. and/or view this metadata in the preview pane (modes: '', '+metaHTML', '+metaJSON'. Modes may be combined)
 		hideOnClick: false,
 		hideClose: false,
 		hideOverlay: false,
@@ -1313,6 +1314,19 @@ var FileManager = new Class({
 
 		this.browserLoader.fade(1);
 
+		if ((typeof jsGET !== 'undefined') && this.storeHistory)
+		{
+			if (file.mime !== 'text/directory')
+			{
+				// TODO: really, a full check should also check whether the fmPath equals the this.CurrentDir.path
+				if (file.name === jsGET.get('fmFile'))
+				{
+					// this will ensure the subsequent fill() action will revert the detail view to the directory details.
+					jsGET.remove(['fmFile']);
+				}
+			}
+		}
+
 		var tx_cfg = this.options.mkServerRequestURL(this, 'destroy', {
 						file: file.name,
 						directory: this.CurrentDir.path,
@@ -2044,6 +2058,8 @@ var FileManager = new Class({
 		mt = Math.round((ds - ih) / 2);
 		mb = ds - mt - ih;
 
+		var self = this;
+
 		Asset.image(img_url, {
 			styles: {
 				width: iw,
@@ -2248,7 +2264,7 @@ var FileManager = new Class({
 										directory: this.dirname(file.path),
 										file: file.name,
 										filter: this.options.filter,
-										mode: 'direct'
+										mode: 'direct' + this.options.detailInfoMode
 									});
 
 						var req = new FileManager.Request({
@@ -2439,8 +2455,8 @@ var FileManager = new Class({
 						},
 						'dblclick': function(e)
 						{
-							clearTimeout(this.dir_gallery_click_timer);
-							this.dir_gallery_click_timer = self.relayDblClick.delay(0, self, [e, this, dg_el, file, 2]);
+							clearTimeout(self.dir_gallery_click_timer);
+							self.dir_gallery_click_timer = self.relayDblClick.delay(0, self, [e, this, dg_el, file, 2]);
 						}
 					});
 
@@ -2820,7 +2836,7 @@ var FileManager = new Class({
 			if (file.mime !== 'text/directory')
 				jsGET.set({'fmFile': file.name});
 			else
-				jsGET.set({'fmFile': ''});
+				jsGET.remove(['fmFile']);
 		}
 
 		var icon = file.icon;
@@ -2848,7 +2864,8 @@ var FileManager = new Class({
 							// fixup for root directory detail requests:
 							file: (file.mime === 'text/directory' && file.path === '/') ? '/' : file.name,
 							filter: this.options.filter,
-							mode: 'auto'                    // provide either direct links to the thumbnails (when available in cache) or PHP event trigger URLs for delayed thumbnail image creation (performance optimization: faster page render)
+							// provide either direct links to the thumbnails (when available in cache) or PHP event trigger URLs for delayed thumbnail image creation (performance optimization: faster page render):
+							mode: 'auto' + this.options.detailInfoMode
 						});
 
 			this.Request = new FileManager.Request({
@@ -2924,7 +2941,7 @@ var FileManager = new Class({
 										directory: this.dirname(file.path),
 										file: file.name,
 										filter: this.options.filter,
-										mode: 'direct'
+										mode: 'direct' + this.options.detailInfoMode
 									});
 
 						var req = new FileManager.Request({
