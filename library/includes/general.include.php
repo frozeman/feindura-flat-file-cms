@@ -159,7 +159,7 @@ if(PHP_VERSION > 5) {
        $class_name == 'XssFilter' ||
        $class_name == 'Search' ||
        $class_name == 'FeinduraBase' ||
-       $class_name == 'feindura')
+       $class_name == 'Feindura')
     require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
     return true;
   }

@@ -38,7 +38,6 @@ $_SESSION['feindura']['session']['currentBackendLocation'] = (strpos($_SERVER['R
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   $_GET['site'] = 'dashboard';
 
-
 ?>
 <!DOCTYPE html>
 <html lang="<?= $_SESSION['feindura']['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">

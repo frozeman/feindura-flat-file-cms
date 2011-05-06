@@ -39,7 +39,7 @@
 *    - 1.0 initial release
 * 
 */
-class feindura extends FeinduraBase {
+class Feindura extends FeinduraBase {
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
