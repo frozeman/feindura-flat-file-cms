@@ -574,6 +574,12 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/sites/home.php') &&
       is_file(dirname(__FILE__).'/library/sites/home.php'))
       $checkFiles[] = dirname(__FILE__).'/library/sites/home.php';
+    if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js') &&
+      is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js';
+    if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js') &&
+      is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';

@@ -1541,7 +1541,7 @@ class feindura extends feinduraBase {
       $menuEndTag = "</tr>\n".$menuEndTag;
     
     // SHOW END-TAG
-    if($menuStartTag) {
+    if($menuEndTag) {
       //echo $menuEndTag.$menuAfter;
       $menu[] = $menuEndTag; //$menuEndTag.$menuAfter;
     }

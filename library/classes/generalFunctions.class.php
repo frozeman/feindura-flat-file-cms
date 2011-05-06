@@ -1660,7 +1660,7 @@ class generalFunctions {
    *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
    * 
    * @param string $folder  the absolute path of the folder to look for stylesheet files
-   * @param bool   $backend if TRUE is substract the {@link feinduraBase::$adminConfig $adminConfig['basePath']} from the stylesheet link
+   * @param bool   $backend if TRUE is substract the {@link generalFunctions::$adminConfig $adminConfig['basePath']} from the stylesheet link
    * 
    * @uses generalFunctions::readFolderRecursive() to read the folder
    * 
