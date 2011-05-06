@@ -41,7 +41,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
   <div class="content brown">
     <ul class="verticalButtons">';
           
-    if($pages = generalFunctions::loadPages(0,true)) {
+    if($pages = GeneralFunctions::loadPages(0,true)) {
         
       foreach($pages as $page) {
         if($_GET['page'] == $page['id'])
@@ -102,7 +102,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     <div class="content white">
       <ul class="verticalButtons">';      
       
-      if($pages = generalFunctions::loadPages($_GET['category'],true)) { 
+      if($pages = GeneralFunctions::loadPages($_GET['category'],true)) { 
   
         foreach($pages as $page) {
           if($_GET['page'] == $page['id'])
@@ -275,7 +275,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<div class="sidebarInfo"><div class="content">';
       
       // link the backup files
-      $backups = generalFunctions::readFolder(dirname(__FILE__).'/../backups/');      
+      $backups = GeneralFunctions::readFolder(dirname(__FILE__).'/../backups/');      
       if(!empty($backups['files'])) {
         $lastBackups = '<ul>';
         natsort($backups['files']);
@@ -286,8 +286,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           $lastBackups .= '<span class="deleteIcon" style="width:100%;">';
           $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.$backupFile.'" onclick="openWindowBox(\'library/sites/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.$backupFile.'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteIcon toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::" style="top:14px;"></a>';
           $lastBackups .= (strpos($backupFile,'restore') === false)
-            ? '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime).'</a></li>'."\n"
-            : '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime).'</a></li>'."\n";
+            ? '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n"
+            : '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n";
           
           $lastBackups .= '</span>';
         }

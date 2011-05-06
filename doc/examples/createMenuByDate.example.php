@@ -10,8 +10,8 @@ for a detailed menu example see createMenu()
 // which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
-$myCms = new feindura();
+// creates a new Feindura instance
+$myCms = new Feindura();
 
 // set this property to show the page date in the menu linktext
 // the "text before date" and "text after date:" was set in the page editor in the backend

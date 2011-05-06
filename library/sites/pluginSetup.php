@@ -53,7 +53,7 @@ if(($unwriteableList = isWritableWarningRecursive($checkFolders)) && checkBasePa
 <?php
 // ->> GOES TROUGH every PLUGIN
 // ---------------------------------------------------------------------------------------------------------------
-$pluginFolders = generalFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
+$pluginFolders = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
 
 // VARs
   $firstLine = true;
@@ -63,7 +63,7 @@ if($pluginFolders) {
   foreach($pluginFolders['folders'] as $pluginFolder) {
     
     // ->> IF plugin folder HAS FILES
-    if($pluginSubFolders = generalFunctions::readFolderRecursive($pluginFolder)) {
+    if($pluginSubFolders = GeneralFunctions::readFolderRecursive($pluginFolder)) {
       
       // VARs
       $pluginFolderName = basename($pluginFolder);

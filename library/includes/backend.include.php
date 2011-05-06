@@ -96,8 +96,8 @@ mb_http_output('UTF-8');
 createBasicFolders();
 
 // INIT STATIC CLASSES
-generalFunctions::init();
-statisticFunctions::init();
+GeneralFunctions::init();
+StatisticFunctions::init();
 
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
 $frontendEditing  = false; // used to include this backend.inlcude.php script into the secure.include.php, if true it only loads the feindura.include.php
@@ -113,12 +113,12 @@ $newPage          = false; // tells the editor whether a new page is created
 
 // -> check language
 //unset($_SESSION['feindura']['language']);
-if(isset($_GET['language'])) $_GET['language'] = xssFilter::alphabetical($_GET['language']);
-if(isset($_SESSION['feindura']['language'])) $_SESSION['feindura']['language'] = xssFilter::alphabetical($_SESSION['feindura']['language']);
+if(isset($_GET['language'])) $_GET['language'] = XssFilter::alphabetical($_GET['language']);
+if(isset($_SESSION['feindura']['language'])) $_SESSION['feindura']['language'] = XssFilter::alphabetical($_SESSION['feindura']['language']);
 if(isset($_GET['language'])) $_SESSION['feindura']['language'] = $_GET['language'];
 
-$backendLangFile = generalFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feindura']['language']);
-$sharedLangFile = generalFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feindura']['language']);
+$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feindura']['language']);
+$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feindura']['language']);
 
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);

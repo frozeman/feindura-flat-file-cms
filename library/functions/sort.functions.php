@@ -173,7 +173,7 @@ function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing
 /**
  * <b>Name</b> sortByPriority()<br>
  * 
- * Sort an Array with the searchresults from {@link search::searchPages()} by PRIORITY.
+ * Sort an Array with the searchresults from {@link Search::searchPages()} by PRIORITY.
  * 
  */
 function sortByPriority($a, $b) {     // (Array) $a = current; $b = follwing value

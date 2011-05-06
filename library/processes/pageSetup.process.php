@@ -63,7 +63,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   if(saveAdminConfig($newAdminConfig)) {
     // give documentSaved status
     $documentSaved = true;
-    statisticFunctions::saveTaskLog(14); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(14); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
@@ -108,7 +108,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST[
       $categoryConfig[$newId] = array('id' => $newId); // gives the new category a id  
       if(saveCategories($categoryConfig)) {
          $categoryInfo = $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY_CREATED'];
-         statisticFunctions::saveTaskLog(15); // <- SAVE the task in a LOG FILE
+         StatisticFunctions::saveTaskLog(15); // <- SAVE the task in a LOG FILE
       } else { // throw error
         $errorWindow .= ($errorWindow) // if there is allready an warning
           ? '<br /><br />'.$langFile['PAGESETUP_CATEGORY_ERROR_CREATECATEGORY']
@@ -140,7 +140,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
     // if there is a category dir, trys to delete it !important deletes all files in it
     if(is_dir(dirname(__FILE__).'/../../pages/'.$_GET['category'])) {
     
-      if($pageContents = generalFunctions::loadPages($_GET['category'],true)) {
+      if($pageContents = GeneralFunctions::loadPages($_GET['category'],true)) {
       
         // deletes possible thumbnails before deleting the category
         foreach($pageContents as $page) {
@@ -160,7 +160,7 @@ if(((isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST
       }    
     }
     
-    statisticFunctions::saveTaskLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(16,$storedCategoryName); // <- SAVE the task in a LOG FILE
   } else // throw error
     $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_DELETECATEGORY'];
 
@@ -184,7 +184,7 @@ if(substr($_GET['status'],0,12) == 'moveCategory' && !empty($_GET['category']) &
     // save the categories array
     if(saveCategories($categoryConfig)) {
       $documentSaved = true; // set documentSaved status
-      statisticFunctions::saveTaskLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
+      StatisticFunctions::saveTaskLog(17,'category='.$_GET['category']); // <- SAVE the task in a LOG FILE
     } else
       $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
     
@@ -204,7 +204,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
   
   if(saveCategories($_POST['categories'])) {
     $documentSaved = true; // set documentSaved status
-    statisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(18); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'];
@@ -219,17 +219,17 @@ if($savedSettings) {
   $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
   $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
   // RESET of the vars in the classes
-  generalFunctions::$storedPageIds = null;
-  generalFunctions::$storedPages = null;
-  generalFunctions::$adminConfig = $adminConfig;
-  generalFunctions::$categoryConfig = $categoryConfig;
-  statisticFunctions::$adminConfig = $adminConfig;
-  statisticFunctions::$categoryConfig = $categoryConfig;
+  GeneralFunctions::$storedPageIds = null;
+  GeneralFunctions::$storedPages = null;
+  GeneralFunctions::$adminConfig = $adminConfig;
+  GeneralFunctions::$categoryConfig = $categoryConfig;
+  StatisticFunctions::$adminConfig = $adminConfig;
+  StatisticFunctions::$categoryConfig = $categoryConfig;
   
   // ->> save the FEEDS for non-category pages, if activated
-  generalFunctions::saveFeeds(0);
+  GeneralFunctions::saveFeeds(0);
   // ->> save the FEEDS for categories, if activated
   foreach($categoryConfig as $category)
-    generalFunctions::saveFeeds($category['id']);
+    GeneralFunctions::saveFeeds($category['id']);
 }
 ?>

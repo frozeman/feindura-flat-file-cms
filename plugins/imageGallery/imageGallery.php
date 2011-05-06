@@ -232,7 +232,7 @@ class imageGallery {
   * 
   * @param string $folder the absolut path of the folder from where a gallery should be created
   * 
-  * @uses imageGallery::$generalFunctions
+  * @uses imageGallery::$GeneralFunctions
   * @uses imageGallery::readFolder() to read the files in the folder, to store the images in the {@link imageGallery::$images} property 
   * 
   * @return void

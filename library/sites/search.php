@@ -17,7 +17,7 @@
  * 
  * The Backend search file.
  * 
- * @uses search::find() to search in the pages
+ * @uses Search::find() to search in the pages
  * 
  * @version 1.0
  * <br />
@@ -51,7 +51,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // set the GET searchword as the POST searchword, IF exists
 $searchWords = (isset($_GET['search'])) ? urldecode($_GET['search']) : $_POST['search'];
-$searchWords = generalFunctions::smartStripslashes($searchWords);
+$searchWords = GeneralFunctions::smartStripslashes($searchWords);
 ?>
 
 <form action="index.php?site=<?= $_GET['site']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -76,7 +76,7 @@ if(!empty($searchWords)) {
   echo '<div class="block"><h1>'.$langFile['SEARCH_TITLE_RESULTS'].' &quot;'.htmlentities($searchWords,ENT_QUOTES,'UTF-8').'&quot;</h1><div class="bottom"></div></div>';
     
   // START SEARCH
-  $search = new search();
+  $search = new Search();
   $search->checkIfPublic = false;
   $results = $search->find($searchWords);
   
@@ -100,7 +100,7 @@ if(!empty($searchWords)) {
   if(isset($results)) {
     foreach($results as $result) {
       
-      $page = generalFunctions::readPage($result['page']['id'],$result['page']['category']);
+      $page = GeneralFunctions::readPage($result['page']['id'],$result['page']['category']);
       
       // -> generate toolTip information
       $pageDate = showPageDate($page);

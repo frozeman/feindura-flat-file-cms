@@ -20,7 +20,7 @@
  * 
  * See the README.md for more.
  * 
- * The following variables are available in this script when it gets included by the {@link feindura::showPlugins()} method:
+ * The following variables are available in this script when it gets included by the {@link Feindura::showPlugins()} method:
  *     - $pluginConfig -> contains the changed settings from the "config.php" from this plugin
  *     - $pluginName -> the folder name of this plugin
  *     - $pageContent -> the pageContent array of the page which has this plugin activated 

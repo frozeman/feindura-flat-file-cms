@@ -23,8 +23,8 @@
 $loginError = false;
 $loggedOut = false;
 $resetPassword = false;
-if(isset($_POST['username'])) $_POST['username'] = xssFilter::text($_POST['username']);
-if(isset($_POST['password'])) $_POST['password'] = xssFilter::text($_POST['password']);
+if(isset($_POST['username'])) $_POST['username'] = XssFilter::text($_POST['username']);
+if(isset($_POST['password'])) $_POST['password'] = XssFilter::text($_POST['password']);
 //unset($_SESSION);
 
 // -> if NO USER EXISTS

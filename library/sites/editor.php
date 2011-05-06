@@ -85,8 +85,8 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
     <?php
     
     // -> show LAST SAVE DATE TIME
-    $lastSaveDate =  statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
-    $lastSaveTime =  statisticFunctions::formatTime($pageContent['lastSaveDate']);
+    $lastSaveDate =  StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile));
+    $lastSaveTime =  StatisticFunctions::formatTime($pageContent['lastSaveDate']);
     
     $editedByUser = (!empty($pageContent['lastSaveAuthor']))
       ? '</b> '.$langFile['editor_pageinfo_lastsaveauthor'].' <b>'.$pageContent['lastSaveAuthor']
@@ -207,7 +207,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
               <td class="left">
               <span class="info"><strong>'.$langFile['editor_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
-              <span class="info" style="font-size:11px;"><a href="'.$hostUrl.generalFunctions::createHref($pageContent).'" class="extern">'.$hostUrl.generalFunctions::createHref($pageContent).'</a></span>
+              <span class="info" style="font-size:11px;"><a href="'.$hostUrl.GeneralFunctions::createHref($pageContent).'" class="extern">'.$hostUrl.GeneralFunctions::createHref($pageContent).'</a></span>
               </td>
               </tr>';
       }
@@ -237,10 +237,10 @@ $hidden = ' hidden';
   <?php
   // -> format vars
   // --------------
-  $firstVisitDate = statisticFunctions::formatDate($pageContent['log_firstVisit']);
-  $firstVisitTime = statisticFunctions::formatTime($pageContent['log_firstVisit']);
-  $lastVisitDate = statisticFunctions::formatDate($pageContent['log_lastVisit']);
-  $lastVisitTime = statisticFunctions::formatTime($pageContent['log_lastVisit']);
+  $firstVisitDate = StatisticFunctions::formatDate($pageContent['log_firstVisit']);
+  $firstVisitTime = StatisticFunctions::formatTime($pageContent['log_firstVisit']);
+  $lastVisitDate = StatisticFunctions::formatDate($pageContent['log_lastVisit']);
+  $lastVisitTime = StatisticFunctions::formatTime($pageContent['log_lastVisit']);
   
   $visitTimes_max = unserialize($pageContent['log_visitTime_max']);
   $visitTimes_min = unserialize($pageContent['log_visitTime_min']);
@@ -263,7 +263,7 @@ $hidden = ' hidden';
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> VISIT COUNT
-        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.statisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</span>';
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.StatisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</span>';
         ?>
       </td>      
     </tr>
@@ -300,7 +300,7 @@ $hidden = ' hidden';
         $showTimeHead = true;
         if(is_array($visitTimes_max)) {
           foreach($visitTimes_max as $visitTime_max) {
-            if($visitTime_max_formated = statisticFunctions::showVisitTime($visitTime_max,$langFile)) {
+            if($visitTime_max_formated = StatisticFunctions::showVisitTime($visitTime_max,$langFile)) {
               if($showTimeHead)
                 echo '<span class="blue" id="visitTimeMax">'.$visitTime_max_formated.'</span><br />
                 <div id="visitTimeMaxContainer">';
@@ -325,7 +325,7 @@ $hidden = ' hidden';
         if(is_array($visitTimes_max)) {
           $visitTimes_min = array_reverse($visitTimes_min);
           foreach($visitTimes_min as $visitTime_min) {          
-            if($visitTime_min_formated = statisticFunctions::showVisitTime($visitTime_min,$langFile)) {
+            if($visitTime_min_formated = StatisticFunctions::showVisitTime($visitTime_min,$langFile)) {
               if($showTimeHead)
                 echo '<span class="blue" id="visitTimeMin">'.$visitTime_min_formated.'</span><br />
                 <div id="visitTimeMinContainer">';
@@ -363,7 +363,7 @@ $hidden = ' hidden';
       
       // -> show TAG CLOUD
       echo '<div class="tagCloud">';
-      echo statisticFunctions::createTagCloud($pageContent['log_searchWords']);
+      echo StatisticFunctions::createTagCloud($pageContent['log_searchWords']);
       echo '</div>';
 
       ?>
@@ -456,7 +456,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
         $dateFormat = $langFile['DATE_INT'];
       
       // CHECKs the DATE FORMAT
-      if(!empty($pageDate) && statisticFunctions::validateDateFormat($pageDate) === false)
+      if(!empty($pageDate) && StatisticFunctions::validateDateFormat($pageDate) === false)
         echo '<span class="toolTip red" title="'.$langFile['editor_pageSettings_pagedate_error'].'::'.$langFile['editor_pageSettings_pagedate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['editor_pageSettings_pagedate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['editor_pageSettings_field3'].'::'.$langFile['editor_pageSettings_field3_tip'].'">'.$langFile['editor_pageSettings_field3'].'</span>';
@@ -607,7 +607,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
       <?php
       
       // ->> LOAD PLUGINS      
-      $plugins = generalFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
+      $plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars
@@ -726,7 +726,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
       <?php
       
-      echo showStyleFileInputs(generalFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
+      echo showStyleFileInputs(GeneralFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']),'styleFile');
 
       ?>      
       </div>
@@ -736,13 +736,13 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </td><td class="right">
-      <input name="styleId" value="<?php echo generalFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
                   
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </td><td class="right">
-      <input name="styleClass" value="<?php echo generalFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
+      <input name="styleClass" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
 
       <tr><td class="leftBottom"></td><td></td></tr>

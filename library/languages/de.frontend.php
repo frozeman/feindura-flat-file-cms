@@ -25,7 +25,7 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'feindura::Klick hier um zum Backend zu gelangen.';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'Feindura::Klick hier um zum Backend zu gelangen.';
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Seite im Backend bearbeiten';
 
 $frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Bearbeiten der Seite nicht möglich::Die Seite enthält [i]<script>[/i] Tags und kann deshalb nur im Backend bearbeitet werden.';

@@ -264,7 +264,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     }
     
     // ->> FIX PAGES
-    $pages = generalFunctions::loadPages(true);
+    $pages = GeneralFunctions::loadPages(true);
     
     //print_r($pages);
     $pagesSuccesfullUpdated = true;
@@ -325,7 +325,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
 
-      if(!generalFunctions::savePage($pageContent))
+      if(!GeneralFunctions::savePage($pageContent))
         $pagesSuccesfullUpdated = false;
     }
     if($pagesSuccesfullUpdated)
@@ -410,7 +410,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       // set documentSaved status
       $documentSaved = true;
       $messageBoxText .= '&rArr; '.$langFile['LOG_CLEARSTATISTICS_ACTIVITYLOG'].'<br />';
-      statisticFunctions::saveTaskLog(24); // <- SAVE the task in a LOG FILE
+      StatisticFunctions::saveTaskLog(24); // <- SAVE the task in a LOG FILE
       
       echo 'activity log <span class="succesfull">reset</span><br />';
     } else {
@@ -580,6 +580,28 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js') &&
       is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
+    
+    // delet lowercase class names
+    if(strpos(strtolower(PHP_OS),'win') === false) {
+      if(!unlink(dirname(__FILE__).'/library/classes/feindura.class.php') &&
+        is_file(dirname(__FILE__).'/library/classes/feindura.class.php'))
+        $checkFiles[] = dirname(__FILE__).'/library/classes/feindura.class.php';
+      if(!unlink(dirname(__FILE__).'/library/classes/feinduraBase.class.php') &&
+        is_file(dirname(__FILE__).'/library/classes/feinduraBase.class.php'))
+        $checkFiles[] = dirname(__FILE__).'/library/classes/feinduraBase.class.php';
+      if(!unlink(dirname(__FILE__).'/library/classes/generalFunctions.class.php') &&
+        is_file(dirname(__FILE__).'/library/classes/generalFunctions.class.php'))
+        $checkFiles[] = dirname(__FILE__).'/library/classes/generalFunctions.class.php';
+      if(!unlink(dirname(__FILE__).'/library/classes/search.class.php') &&
+        is_file(dirname(__FILE__).'/library/classes/search.class.php'))
+        $checkFiles[] = dirname(__FILE__).'/library/classes/search.class.php';
+      if(!unlink(dirname(__FILE__).'/library/classes/statisticFunctions.class.php') &&
+        is_file(dirname(__FILE__).'/library/classes/statisticFunctions.class.php'))
+        $checkFiles[] = dirname(__FILE__).'/library/classes/statisticFunctions.class.php';
+      if(!unlink(dirname(__FILE__).'/library/classes/xssFilter.class.php') &&
+        is_file(dirname(__FILE__).'/library/classes/xssFilter.class.php'))
+        $checkFiles[] = dirname(__FILE__).'/library/classes/xssFilter.class.php';
+    }
       
     if(empty($checkFiles))
       echo 'removed <span class="succesfull">old files and folders</span><br />';

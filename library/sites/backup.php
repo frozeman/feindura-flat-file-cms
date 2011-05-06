@@ -83,7 +83,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
       <br />
       <?php
       
-      $backups = generalFunctions::readFolder($backupFolder);
+      $backups = GeneralFunctions::readFolder($backupFolder);
       if(!empty($backups['files'])) {
         
         echo '<h3>'.$langFile['BACKUP_TITLE_RESTORE_FROMFILES'].'</h3>';
@@ -100,7 +100,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
         $backups['files'] = array_reverse($backups['files']);
         foreach($backups['files'] as $backupFile) {
           $backupTime = filemtime(DOCUMENTROOT.$backupFile);
-          $backupTime = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($backupTime)).' '.statisticFunctions::formatTime($backupTime);
+          $backupTime = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime);
           
           echo '<tr><td class="left">';
           echo '<input type="radio" name="restoreBackupFile" class="restoreBackupFiles" id="backupFile'.$backupFile.'" value="'.$backupFile.'">';

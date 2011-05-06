@@ -64,14 +64,14 @@ if($_POST['save']) {
     
     $logText = 0;
     
-    generalFunctions::$storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
+    GeneralFunctions::$storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
     
   // *** SAVE PAGE ----------------------
   } else {
   
     // if flatfile exists, load $pageContent array
     // (necessary for: thumbnail, sortOrder and logs)
-    if(!$pageContent = generalFunctions::readPage($page,$category))
+    if(!$pageContent = GeneralFunctions::readPage($page,$category))
       $errorWindow .= $langFile['file_error_read'];
    
     $logText = 1; 
@@ -91,7 +91,7 @@ if($_POST['save']) {
     $generatedPageDate = $_POST['pageDate']['year'].'-'.$_POST['pageDate']['month'].'-'.$_POST['pageDate']['day'];
     
     // VALIDATE the SORT DATE
-    if(($pageDate = statisticFunctions::validateDateFormat($generatedPageDate)) === false)
+    if(($pageDate = StatisticFunctions::validateDateFormat($generatedPageDate)) === false)
       $pageDate = $generatedPageDate;
     // if VALID set the validated date to the post var
     else {
@@ -121,12 +121,12 @@ if($_POST['save']) {
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchWords'] = $pageContent['log_searchWords'];
     
-    if(generalFunctions::savePage($_POST, false)) {
+    if(GeneralFunctions::savePage($_POST, false)) {
       $documentSaved = true;
-      statisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
+      StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       
       // ->> save the FEEDS, if activated
-      generalFunctions::saveFeeds($pageContent['category']);
+      GeneralFunctions::saveFeeds($pageContent['category']);
       
     } else
       $errorWindow .= $langFile['editor_savepage_error_save'];
@@ -137,7 +137,7 @@ if($_POST['save']) {
 }
 
 // ->> LOAD PAGE and CHECK for NEW PAGE
-if($pageContent = generalFunctions::readPage($page,$category))
+if($pageContent = GeneralFunctions::readPage($page,$category))
   $newPage = false;
 else
   $newPage = true;
@@ -156,7 +156,7 @@ if($newPage) {
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
 if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
   $pageContent['thumbnail'] = '';
-  generalFunctions::savePage($pageContent);
+  GeneralFunctions::savePage($pageContent);
 }
 
 ?>

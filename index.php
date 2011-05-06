@@ -38,6 +38,7 @@ $_SESSION['feindura']['session']['currentBackendLocation'] = (strpos($_SERVER['R
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   $_GET['site'] = 'dashboard';
 
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= $_SESSION['feindura']['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
@@ -79,7 +80,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <link rel="stylesheet" type="text/css" href="library/styles/shared.css<?= '?v='.BUILD; ?>" />
 <?php
 if($_GET['site'] == 'addons') {  
-  if($addonStyles = generalFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
+  if($addonStyles = GeneralFunctions::createStyleTags(dirname(__FILE__).'/addons/')) {
     echo "\n  <!-- addons stylesheets -->\n";
     echo $addonStyles;
   }
@@ -160,7 +161,7 @@ if($_GET['site'] == 'addons') {
   /* transport for CKEditor feindura links */
   <?php
   if(!empty($_GET['page'])) {
-    $getPages = generalFunctions::loadPages(true,true);
+    $getPages = GeneralFunctions::loadPages(true,true);
   ?>
 var feindura_pages = [
 ['-',''],
@@ -297,7 +298,7 @@ var feindura_pages = [
           <td><a href="?site=pages" tabindex="4" class="pages<?php if($_GET['site'] == 'pages' || !empty($_GET['page'])) echo ' active'; ?>" title="<?php echo $langFile['BUTTON_PAGES']; ?>"><span><?php echo $langFile['BUTTON_PAGES']; ?></span></a></td>
           <?php
           // CHECKS if the addons/ folder is empty
-          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
+          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/addons/')) { ?>
           <td><a href="?site=addons" tabindex="5" class="addons<?php if($_GET['site'] == 'addons') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_ADDONS']; ?>"><span><?php echo $langFile['BUTTON_ADDONS']; ?></span></a></td>
           <?php } ?>
           <td><a href="?site=websiteSetup" tabindex="4" class="websiteSetup<?php if($_GET['site'] == 'websiteSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?>"><span><?php echo $langFile['BUTTON_WEBSITESETTINGS']; ?></span></a></td>
@@ -325,15 +326,15 @@ var feindura_pages = [
           <td><a href="?site=statisticSetup" tabindex="14" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
-          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/') || !generalFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
+          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/') || !GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <?php
           // CHECKS if the plugins/ folder is empty
-          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/')) { ?>
+          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/')) { ?>
           <td><a href="?site=pluginSetup" tabindex="14" class="pluginSetup<?php if($_GET['site'] == 'pluginSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PLUGINSETUP']; ?>"><span><?php echo $langFile['BUTTON_PLUGINSETUP']; ?></span></a></td>
           </tr>
           <?php }
           // CHECKS if the modlues/ folder is empty
-          if(!generalFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
+          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <tr>
           <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
           <td</td>

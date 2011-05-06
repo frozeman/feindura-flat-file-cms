@@ -11,8 +11,8 @@ and you have a simple array with links of the pages from this category.
 // which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
-$myCms = new feindura();
+// creates a new Feindura instance
+$myCms = new Feindura();
 
 // create the sort function, which we use with the createMenuBySortFunction() method
 function sortByLastEditDate($a,$b) {

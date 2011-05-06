@@ -34,7 +34,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
      
     // give documentSaved status
     $documentSaved = true;
-    statisticFunctions::saveTaskLog(11,$_POST['savedBlock']); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(11,$_POST['savedBlock']); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['PLUGINSETUP_ERROR_SAVE'].' '.$adminConfig['basePath'].'config/plugin.config.php';

@@ -55,7 +55,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // -> add <br> to the USER-INFO and check html code
   $_POST['cfg_userInfo'] = nl2br($_POST['cfg_userInfo']);
-  $_POST['cfg_userInfo'] = generalFunctions::htmLawed($_POST['cfg_userInfo'],array(
+  $_POST['cfg_userInfo'] = GeneralFunctions::htmLawed($_POST['cfg_userInfo'],array(
     'comment'=> 1,
     'cdata'=> 1,
     'safe'=> 1
@@ -115,7 +115,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   if(saveAdminConfig($adminConfig)) {
     // give documentSaved status
     $documentSaved = true;
-    statisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
     
   } else
     $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
@@ -156,7 +156,7 @@ if(isset($_POST['saveFckStyleFile'])) {
 
 ]);";
   
-  $fckstylewrite 	= generalFunctions::smartStripslashes($fckstylewrite);
+  $fckstylewrite 	= GeneralFunctions::smartStripslashes($fckstylewrite);
   
   if($file = fopen("config/htmlEditorStyles.js","wb")) {
     flock($file,2);
@@ -166,7 +166,7 @@ if(isset($_POST['saveFckStyleFile'])) {
   
     // give documentSaved status
     $documentSaved = true;
-    statisticFunctions::saveTaskLog(9); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(9); // <- SAVE the task in a LOG FILE
   } else {
     $errorWindow .= $langFile['adminSetup_styleFileSettings_error_save'];
   }
@@ -181,9 +181,9 @@ include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
 if($savedSettings) {
   $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
   // RESET of the vars in the classes
-  generalFunctions::$storedPageIds = null;
-  generalFunctions::$storedPages = null;
-  generalFunctions::$adminConfig = $adminConfig;
-  statisticFunctions::$adminConfig = $adminConfig;
+  GeneralFunctions::$storedPageIds = null;
+  GeneralFunctions::$storedPages = null;
+  GeneralFunctions::$adminConfig = $adminConfig;
+  StatisticFunctions::$adminConfig = $adminConfig;
 }
 ?>

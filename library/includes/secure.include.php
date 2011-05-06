@@ -38,16 +38,16 @@ else
 
 // ->> CHECK the GET and POST variables
 // -> check CATEGORY
-if(isset($_GET['category'])) $_GET['category'] = xssFilter::int($_GET['category'],0);
-if(isset($_POST['category'])) $_POST['category'] = xssFilter::int($_POST['category'],0);
+if(isset($_GET['category'])) $_GET['category'] = XssFilter::int($_GET['category'],0);
+if(isset($_POST['category'])) $_POST['category'] = XssFilter::int($_POST['category'],0);
 // -> check PAGE
-if(isset($_GET['page']) && $_GET['page'] !== 'new') $_GET['page'] = xssFilter::int($_GET['page'],0);
-if(isset($_POST['page']) && $_POST['page'] !== 'new') $_POST['page'] = xssFilter::int($_POST['page'],0);
+if(isset($_GET['page']) && $_GET['page'] !== 'new') $_GET['page'] = XssFilter::int($_GET['page'],0);
+if(isset($_POST['page']) && $_POST['page'] !== 'new') $_POST['page'] = XssFilter::int($_POST['page'],0);
 
 // ->> CHECK INPUTS
 // ****************
 // -> check SITE
-if(isset($_GET['site'])) $_GET['site'] = xssFilter::stringStrict($_GET['site']);
+if(isset($_GET['site'])) $_GET['site'] = XssFilter::stringStrict($_GET['site']);
 
 /**
  * Then includes the login

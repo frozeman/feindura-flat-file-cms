@@ -37,9 +37,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // from the Page, if empty,
 // than from the Category if empty,
 // than from the HTMl-Editor Settings
-$editorStyleFiles = generalFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
-$editorStyleId = generalFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
-$editorStyleClass = generalFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
+$editorStyleFiles = GeneralFunctions::getStylesByPriority($pageContent['styleFile'],'styleFile',$pageContent['category']);
+$editorStyleId = GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']);
+$editorStyleClass = GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']);
 
 // -> CREATES the EDITOR-INSTANCE
 // ------------------------------

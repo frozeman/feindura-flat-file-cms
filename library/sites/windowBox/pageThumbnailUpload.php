@@ -38,7 +38,7 @@ if(empty($adminConfig['uploadPath']) || !is_dir(DOCUMENTROOT.$adminConfig['uploa
 if($warning = isWritableWarning(DOCUMENTROOT.$adminConfig['uploadPath']))
   die('<h1>'.$warning.'</h1>');
 
-$pageContent = generalFunctions::readPage($page,$category);
+$pageContent = GeneralFunctions::readPage($page,$category);
 
 $categoryRatio = false;
 $thumbRatioX = false;

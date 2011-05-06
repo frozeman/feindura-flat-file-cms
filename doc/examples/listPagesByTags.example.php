@@ -10,8 +10,8 @@ for a detailed example see listPages()
 // which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
-$myCms = new feindura();
+// creates a new Feindura instance
+$myCms = new Feindura();
 
 // the tags where the pages in the menu should have atleast one
 $tags = 'winter summer spring';

@@ -34,14 +34,14 @@ if(isset($_POST['rating'])) {
     die('###RATED###');
   
   // read the page
-  $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
+  $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
   $currentSum = $pageContent['plugins']['pageRating']['value'] * $pageContent['plugins']['pageRating']['votes'];
   $pageContent['plugins']['pageRating']['value'] = ($currentSum + $_POST['rating']) / ++$pageContent['plugins']['pageRating']['votes'];
   $pageContent['plugins']['pageRating']['value'] = round($pageContent['plugins']['pageRating']['value'],3);
 
   // ->> save the page
-  if(generalFunctions::savePage($pageContent)) {
+  if(GeneralFunctions::savePage($pageContent)) {
     $_SESSION['plugin_pageRating'][$_POST['page']]['rated'] = 'true';
   // ->> on failure, return the unsaved data
   } else {

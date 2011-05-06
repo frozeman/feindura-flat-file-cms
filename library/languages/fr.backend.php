@@ -74,7 +74,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY'] = 'pages';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'] = 'pages sans catégorie';
 $langFile['TEXT_EXAMPLE'] = 'example';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'feindura::S\'il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Feindura::S\'il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT'] = 'pixel';

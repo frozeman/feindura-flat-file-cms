@@ -47,7 +47,7 @@ foreach($sortOrder as $sort) {
   if($sort != '') {
     
     // ->> SORT the pages new
-    if($pageContent = generalFunctions::readPage($sort,$_POST['categoryNew'])) {
+    if($pageContent = GeneralFunctions::readPage($sort,$_POST['categoryNew'])) {
       
       // -> changes the properties of the page
       $pageContent['sortOrder'] = $count; // get a new sort order number
@@ -55,7 +55,7 @@ foreach($sortOrder as $sort) {
        
       
       // ->> save the new sorting
-      if(generalFunctions::savePage($pageContent)) {
+      if(GeneralFunctions::savePage($pageContent)) {
         $status = $langFile['sortablePageList_save_finished'];
         $count++;
         
@@ -64,7 +64,7 @@ foreach($sortOrder as $sort) {
           $logText = ($_POST['categoryOld'] != $_POST['categoryNew'])
             ? 3 : 4;
           // save log
-          statisticFunctions::saveTaskLog($logText,'page='.$pageContent['id'].'|-|category='.$_POST['categoryNew'].'|-|moved'); // <- SAVE the task in a LOG FILE
+          StatisticFunctions::saveTaskLog($logText,'page='.$pageContent['id'].'|-|category='.$_POST['categoryNew'].'|-|moved'); // <- SAVE the task in a LOG FILE
         }
       // -X ERROR savePage
       } else {
@@ -84,7 +84,7 @@ foreach($sortOrder as $sort) {
 }
 // -> CHECKs if the category folder is empty,
 // if yes: the "&nbsp;" is read by the sortPages.js and it puts, a "no pages" - notice
-if(!generalFunctions::loadPages($_POST['categoryOld'],false))
+if(!GeneralFunctions::loadPages($_POST['categoryOld'],false))
   echo '<span></span>';
   
 echo $status;

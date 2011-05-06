@@ -11,8 +11,8 @@ and it shows the current page given by the $_GET variable.
 // which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
-$myCms = new feindura();
+// creates a new Feindura instance
+$myCms = new Feindura();
 
 // set properties
 $myCms->xHtml =                  true;

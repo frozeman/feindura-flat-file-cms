@@ -32,7 +32,7 @@ $page = (isset($_POST['page'])) ? $_POST['page'] : $_GET['page'];
 $asking = $_POST['asking'];
 
 // load the page
-$pageContent = generalFunctions::readPage($page,$category);
+$pageContent = GeneralFunctions::readPage($page,$category);
 
 // sets the none category (0) to emtpy
 $categoryPath = ($category == 0) ? '' : $category.'/';
@@ -59,8 +59,8 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
     if(!empty($pageContent['thumbnail']))
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
-    generalFunctions::addStoredPage($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
-    statisticFunctions::saveTaskLog(2,strip_tags($pageContent['title'])); // <- SAVE the task in a LOG FILE
+    GeneralFunctions::addStoredPage($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
+    StatisticFunctions::saveTaskLog(2,strip_tags($pageContent['title'])); // <- SAVE the task in a LOG FILE
     
     $question = '';
     echo 'DONTSHOW';        

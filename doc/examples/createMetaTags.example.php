@@ -8,8 +8,8 @@
 // which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
-$myCms = new feindura();
+// creates a new Feindura instance
+$myCms = new Feindura();
 
 // start to write HTML page
 echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

@@ -10,8 +10,8 @@ You can also request only single plugins, it will then only return a string, wit
 // which means before any HTML Tag.
 require('cms/feindura.include.php');
 
-// creates a new feindura instance
-$myCms = new feindura();
+// creates a new Feindura instance
+$myCms = new Feindura();
 
 // get the all plugins, which are activated in the page with ID "2"
 $plugins = $myCms->showPlugins(true,2);

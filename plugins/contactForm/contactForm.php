@@ -46,7 +46,7 @@ require('chapta.php');
 *    - 1.0.5 fixes in chapta css
 *    - 1.0.4 add html5 input types
 *    - 1.0.3 convert to PHP 5 class
-*    - 1.0.2 add xssFilter
+*    - 1.0.2 add XssFilter
 *    - 1.0.1 add plain mail in UTF-8 when php 4
 *    - 1.0 initial release
 * 
@@ -211,7 +211,7 @@ class contactForm {
       
       // -> check data
       foreach($_POST as $key => $value) {
-        $_POST[$key] = xssFilter::text($value);
+        $_POST[$key] = XssFilter::text($value);
       }
 
       // -> transfer data to the session
@@ -283,8 +283,8 @@ class contactForm {
           else $fax = '';
           
           // entfernt die \ aus dem text
-          $message = (method_exists('generalFunctions','smartStripslashes'))
-            ? generalFunctions::smartStripslashes($message)
+          $message = (method_exists('GeneralFunctions','smartStripslashes'))
+            ? GeneralFunctions::smartStripslashes($message)
             : stripslashes($message);
           
           $subject = $this->websiteTitle.' '.$this->langFile['message_subject'];

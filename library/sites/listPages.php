@@ -36,7 +36,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
   <div class="functions"><?= $langFile['sortablePageList_headText5']; ?></div>
 </div>
 
-<form action="<?= generalFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
+<form action="<?= GeneralFunctions::getCurrentUrl(); ?>" method="post" accept-charset="UTF-8">
 <?php
 
 // shows the PAGES in NO CATEGORIES (the page/ folder),
@@ -48,7 +48,7 @@ $allCategories = $nonCategory + $categoryConfig;
 foreach($allCategories as $category) {
   
   // -> LOAD the PAGES FROM the CATEGORY
-  $pages = generalFunctions::loadPages($category['id'],true);
+  $pages = GeneralFunctions::loadPages($category['id'],true);
   //print_r($pages);
 
   // shows after saving the right category open
@@ -145,10 +145,10 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = generalFunctions::shortenString(strip_tags($pageContent['title']),32);
+      $title = GeneralFunctions::shortenString(strip_tags($pageContent['title']),32);
       
       // -> show lastSaveDate
-      $lastSaveDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.statisticFunctions::formatTime($pageContent['lastSaveDate']);
+      $lastSaveDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.StatisticFunctions::formatTime($pageContent['lastSaveDate']);
       
       // -> show pageDate
       $pageDate = showPageDate($pageContent);
@@ -177,7 +177,7 @@ foreach($allCategories as $category) {
       echo (!empty($pageContent['lastSaveAuthor']))
         ? '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
-      echo '<div class="counter">&nbsp;&nbsp;'.statisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</div>
+      echo '<div class="counter">&nbsp;&nbsp;'.StatisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS

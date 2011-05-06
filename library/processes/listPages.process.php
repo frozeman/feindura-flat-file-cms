@@ -27,15 +27,15 @@ $opendCategory = false;
 // ->> CHANGE PAGE STATUS
 if(isset($_GET['status']) && $_GET['status'] == 'changePageStatus') {
     
-    if($contentArray = generalFunctions::readPage($_GET['page'],$_GET['category'])) {
+    if($contentArray = GeneralFunctions::readPage($_GET['page'],$_GET['category'])) {
       // change the status
       $contentArray['public'] = ($_GET['public']) ? false : true;
       
       // save the new status
-      if(generalFunctions::savePage($contentArray)) {
+      if(GeneralFunctions::savePage($contentArray)) {
         $documentSaved = true;        
         // ->> save the FEEDS, if activated
-        generalFunctions::saveFeeds($_GET['category']);
+        GeneralFunctions::saveFeeds($_GET['category']);
         
       } else
         $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];
@@ -57,8 +57,8 @@ if(isset($_GET['status']) && $_GET['status'] == 'changeCategoryStatus') {
       if(saveCategories($categoryConfig)) {
         $documentSaved = true;
         // ->> save the FEEDS, if activated
-        generalFunctions::$categoryConfig = $categoryConfig;
-        generalFunctions::saveFeeds($_GET['category']);
+        GeneralFunctions::$categoryConfig = $categoryConfig;
+        GeneralFunctions::saveFeeds($_GET['category']);
         
       } else
         $errorWindow .= $langFile['sortablePageList_changeStatusPage_error_save'];

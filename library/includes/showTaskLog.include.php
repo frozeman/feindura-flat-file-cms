@@ -44,8 +44,8 @@ foreach($logContent as $logRow) {
   $logUser = null;
   
   $logRow = explode('|#|',$logRow);
-  $logDate = statisticFunctions::formatDate(statisticFunctions::dateDayBeforeAfter($logRow[0]));
-  $logTime = statisticFunctions::formatTime($logRow[0]);  
+  $logDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($logRow[0]));
+  $logTime = StatisticFunctions::formatTime($logRow[0]);  
   $logUser = (!empty($logRow[1]))
   ? '<br /><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
   : '';
@@ -162,10 +162,10 @@ foreach($logContent as $logRow) {
     if(substr($logObject[0],0,5) == 'page=') {
       
       $pageId = substr($logObject[0],5);
-      $pageId = generalFunctions::cleanSpecialChars($pageId); // removes \n\r
-      $pageContent = generalFunctions::readPage($pageId,generalFunctions::getPageCategory($pageId));
+      $pageId = GeneralFunctions::cleanSpecialChars($pageId); // removes \n\r
+      $pageContent = GeneralFunctions::readPage($pageId,GeneralFunctions::getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags($pageContent['title']).'">'.generalFunctions::shortenString(strip_tags($pageContent['title']), $maxLength).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags($pageContent['title']).'">'.GeneralFunctions::shortenString(strip_tags($pageContent['title']), $maxLength).'</a>';
       
       $foundObject = true;
     }
@@ -184,20 +184,20 @@ foreach($logContent as $logRow) {
     if(substr($logObject[0],0,9) == 'category=' || substr($logObject[1],0,9) == 'category=') {
       
       $categoryId = (substr($logObject[0],0,9) == 'category=') ? substr($logObject[0],9) : substr($logObject[1],9);
-      $categoryId = generalFunctions::cleanSpecialChars($categoryId); // removes \n\r
+      $categoryId = GeneralFunctions::cleanSpecialChars($categoryId); // removes \n\r
       
       $categoryName = ($categoryId == 0)
         ? $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']
         : $categoryConfig[$categoryId]['name'];
       
-      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.generalFunctions::shortenString($categoryName, $maxLength).'</a>';
+      $taskObject .= '<a href="?site=pages&amp;category='.$categoryId.'" tabindex="'.$count.'" title="'.$categoryName.'">'.GeneralFunctions::shortenString($categoryName, $maxLength).'</a>';
       
       $foundObject = true;                  
     }
     
     // -> OTHERWISE just use the task object name/text
     if($foundObject === false)
-      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.generalFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span>';
+      $taskObject = '<span title="'.strip_tags($logObject[0]).'">'.GeneralFunctions::shortenString(strip_tags($logObject[0]), $maxLength).'</span>';
   }                  
   
   

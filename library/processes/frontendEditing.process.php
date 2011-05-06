@@ -31,15 +31,15 @@ if($_POST['save'] == 'true') {
   $return = '';
   
   // read the page
-  $pageContent = generalFunctions::readPage($_POST['page'],$_POST['category']);
+  $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
   // -> replace the existing data with the new one  
   $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
   
   // ->> save the page
-  if($pageContent = generalFunctions::savePage($pageContent)) {
-    statisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
+  if($pageContent = GeneralFunctions::savePage($pageContent)) {
+    StatisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
     // -> the data which will be returned, to inject into the element in the frontend 
     $return = ($_POST['type'] == 'title') ? $pageContent['title'] : $return;
     $return = ($_POST['type'] == 'content') ? $pageContent['content'] : $return;
@@ -47,7 +47,7 @@ if($_POST['save'] == 'true') {
     $return = str_replace('\"', '"', $return);
     
     // ->> save the FEEDS, if activated
-    generalFunctions::saveFeeds($pageContent['category']);
+    GeneralFunctions::saveFeeds($pageContent['category']);
     
   // ->> on failure, return the unsaved data
   } else {

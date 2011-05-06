@@ -42,7 +42,7 @@ else
 $asking = $_POST['asking'];
 
 // load the page
-$pageContent = generalFunctions::readPage($page,$category);
+$pageContent = GeneralFunctions::readPage($page,$category);
 $thumbnail = $pageContent['thumbnail'];
 
 // QUESTION
@@ -54,8 +54,8 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
     
     // DELETING    
     $pageContent['thumbnail'] = '';
-    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && generalFunctions::savePage($pageContent)) {
-        statisticFunctions::saveTaskLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+    if(unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$thumbnail) && GeneralFunctions::savePage($pageContent)) {
+        StatisticFunctions::saveTaskLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
         
         $question = '';
         echo 'DONTSHOW';        
