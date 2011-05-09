@@ -411,7 +411,7 @@ class GeneralFunctions {
         $_SESSION['feindura']['storedPages'][$pageContent['id']] = $pageContent; // if isset, save the storedPages in the SESSION
       else {
         self::$storedPages[$pageContent['id']] = $pageContent; // if not save the storedPages in the PROPERTY
-        $_SESSION['feindura']['storedPages'][$pageContent['id']] = $pageContent;
+        //$_SESSION['feindura']['storedPages'][$pageContent['id']] = $pageContent;
       }
     }
     return $pageContent;
@@ -608,7 +608,7 @@ class GeneralFunctions {
     // check if array is pageContent array
     if(!self::isPageContentArray($pageContent))
       return false;
-    
+
     if(empty($pageContent['id']) || (empty($pageContent['category']) && $pageContent['category'] != 0))
         return false;
     
@@ -695,8 +695,6 @@ class GeneralFunctions {
       fwrite($file,PHPENDTAG);
       flock($file,3);
       fclose($file);
-
-      @chmod($filePath, self::$adminConfig['permissions']);
       
       // writes the new saved page to the $storedPages property      
       self::removeStoredPage($pageContent['id']); // remove the old one
@@ -1073,7 +1071,7 @@ class GeneralFunctions {
         $link = $hostUrl.GeneralFunctions::createHref($feedsPage);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p>');
+        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li>');
         $content = preg_replace('#<h[0-6]>#','<strong>',$content);
         $content = preg_replace('#</h[0-6]>#','</strong>',$content);
         

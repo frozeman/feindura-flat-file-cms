@@ -26,7 +26,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
 // ---------------------------------
 // -> CURRENT VISITORS
-// -> clear cache from visotrs over the timelimit and load current visitors
+// -> clear cache from visitors over the timelimit and load current visitors
 StatisticFunctions::hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
 $currentVisitors = StatisticFunctions::getCurrentVisitors();
 if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {

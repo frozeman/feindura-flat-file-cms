@@ -186,4 +186,18 @@ if($savedSettings) {
   GeneralFunctions::$adminConfig = $adminConfig;
   StatisticFunctions::$adminConfig = $adminConfig;
 }
+
+// ->> SET PERMISSIONS
+if(is_file(dirname(__FILE__)."/../../statistic/activity.statistic.log")) chmod(dirname(__FILE__)."/../../statistic/activity.statistic.log", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../statistic/referer.statistic.log")) chmod(dirname(__FILE__)."/../../statistic/referer.statistic.log", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", $adminConfig['permissions']);
+
+if(is_file(dirname(__FILE__)."/../../config/admin.config.php")) chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../config/category.config.php")) chmod(dirname(__FILE__)."/../../config/category.config.php", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../config/plugins.config.php")) chmod(dirname(__FILE__)."/../../config/plugins.config.php", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../config/statistic.config.php")) chmod(dirname(__FILE__)."/../../config/statistic.config.php", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../config/user.config.php")) chmod(dirname(__FILE__)."/../../config/user.config.php", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../config/website.config.php")) chmod(dirname(__FILE__)."/../../config/website.config.php", $adminConfig['permissions']);
+if(is_file(dirname(__FILE__)."/../../config/htmlEditorStyles.js")) chmod(dirname(__FILE__)."/../../config/htmlEditorStyles.js", $adminConfig['permissions']);
+
 ?>

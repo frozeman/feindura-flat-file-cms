@@ -148,23 +148,21 @@ if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/websit
 $GLOBALS['websiteStatistic'];
 
 // ->> autoload CLASSES
-if(PHP_VERSION > 5) {
-  /**
-   * Autoloads all classes
-   * 
-   */
-  function __autoload($class_name) {
-    if($class_name == 'GeneralFunctions' ||
-       $class_name == 'StatisticFunctions' ||
-       $class_name == 'XssFilter' ||
-       $class_name == 'Search' ||
-       $class_name == 'FeinduraBase' ||
-       $class_name == 'Feindura')
-    require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
-    return true;
-  }
+/**
+ * Autoloads all classes
+ * 
+ */
+function __autoload($class_name) {
+  if($class_name == 'GeneralFunctions' ||
+     $class_name == 'StatisticFunctions' ||
+     $class_name == 'XssFilter' ||
+     $class_name == 'Search' ||
+     $class_name == 'FeinduraBase' ||
+     $class_name == 'Feindura')
+  require_once(dirname(__FILE__)."/../classes/".$class_name.".class.php");
+  return true;
 }
-
+  
 // ->> FUNCTIONS
 /**
  * Includes the main functions

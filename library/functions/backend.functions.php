@@ -367,8 +367,6 @@ function saveCategories($newCategories) {
     flock($file,3); //LOCK_UN
     fclose($file);
     
-    @chmod(dirname(__FILE__)."/../../config/category.config.php", $GLOBALS['adminConfig']['permissions']);
-    
     // reset the stored page ids
     GeneralFunctions::$storedPageIds = null;
     
@@ -603,6 +601,8 @@ function saveAdminConfig($adminConfig) {
     
     // -> escape \ and '
     $adminConfig = XssFilter::escapeBasics($adminConfig);
+        
+    @chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
     
     flock($file,2); // LOCK_EX
     fwrite($file,PHPSTARTTAG); // < ?php
@@ -657,9 +657,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
-    
-    @chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
-    
+
     return true;
   } else
     return false;
@@ -713,9 +711,7 @@ function saveUserConfig($userConfig) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
-    
-    @chmod(dirname(__FILE__)."/../../config/user.config.php", $GLOBALS['adminConfig']['permissions']);
-  
+
     return true;
   } else
     return false;
@@ -769,9 +765,7 @@ function saveWebsiteConfig($websiteConfig) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
-    
-    @chmod(dirname(__FILE__)."/../../config/website.config.php", $GLOBALS['adminConfig']['permissions']);
-  
+
     return true;
   } else
     return false;
@@ -825,9 +819,7 @@ function saveStatisticConfig($statisticConfig) {
       fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
-    
-    @chmod(dirname(__FILE__)."/../../config/statistic.config.php", $GLOBALS['adminConfig']['permissions']);
-  
+
     return true;
   } else
     return false;
@@ -884,9 +876,7 @@ function savePluginsConfig($pluginsConfig) {
     fwrite($file,PHPENDTAG); //? >
     flock($file,3); //LOCK_UN
     fclose($file);
-    
-    @chmod(dirname(__FILE__)."/../../config/plugins.config.php", $GLOBALS['adminConfig']['permissions']);
-    
+
     return true;
   } else
     return false;

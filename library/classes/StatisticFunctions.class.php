@@ -546,6 +546,7 @@ class StatisticFunctions {
     
     $maxEntries = self::$statisticConfig['number']['taskLog'];
     $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
+    $oldLog = false;
     
     if(file_exists($logFilePath))
       $oldLog = file($logFilePath);
@@ -559,10 +560,10 @@ class StatisticFunctions {
       $newLog = time().'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$task.$object;
       
       // -> write the new log file
-      flock($logFile,2);    
+      flock($logFile,LOCK_EX);    
       fwrite($logFile,$newLog."\n");    
       $count = 2;
-      if(!empty($oldLog)) {
+      if(is_array($oldLog)) {
         foreach($oldLog as $oldLogRow) {
           fwrite($logFile,$oldLogRow);
           // stops the log after 120 entries
@@ -570,11 +571,12 @@ class StatisticFunctions {
             break;
           $count++;
         }
-      }  
-      flock($logFile,3);
+      }
+      flock($logFile,LOCK_UN);
       fclose($logFile);
       
-      @chmod($logFilePath, self::$adminConfig['permissions']);
+      // -> add permissions on the first creation
+      if(!$oldLog) @chmod($logFilePath, self::$adminConfig['permissions']);
       
       return true;
     } else
@@ -604,35 +606,39 @@ class StatisticFunctions {
       return false;
       
     $maxEntries = self::$statisticConfig['number']['refererLog'];
-    $logFile = dirname(__FILE__).'/../../'.'statistic/referer.statistic.log';
+    $logFilePath = dirname(__FILE__).'/../../'.'statistic/referer.statistic.log';
+    $oldLog =  false;
     
-    if(file_exists($logFile))
-      $oldLog = file($logFile);
+    if(file_exists($logFilePath))
+      $oldLog = file($logFilePath);
     
     // -> SAVE REFERER LOG
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
        strpos($_SERVER['HTTP_REFERER'],str_replace('www.','',self::$adminConfig['url'])) === false && // checks if referer is not the own page
-       $logFile = @fopen($logFile,"wb")) {
+       $logFile = @fopen($logFilePath,"wb")) {
       
       // -> create the new log string
       $newLog = time().'|#|'.$_SERVER['HTTP_REFERER'];
       
       // -> write the new log file
-      flock($logFile,2);
+      flock($logFile,LOCK_EX);
       fwrite($logFile,$newLog."\n");    
       $count = 2;
-      foreach($oldLog as $oldLogRow) {
-        fwrite($logFile,$oldLogRow);
-        // stops the log after 120 entries
-        if($count == $maxEntries)
-          break;      
-        $count++;
-      }    
-      flock($logFile,3);
+      if(is_array($oldLog)) {
+        foreach($oldLog as $oldLogRow) {
+          fwrite($logFile,$oldLogRow);
+          // stops the log after 120 entries
+          if($count == $maxEntries)
+            break;      
+          $count++;
+        }
+      }
+      flock($logFile,LOCK_UN);
       fclose($logFile);
       
-      @chmod($logFile, self::$adminConfig['permissions']);
+      // -> add permissions on the first creation
+      if(!$oldLog) @chmod($logFilePath, self::$adminConfig['permissions']);
       
       return true;
     } else
@@ -1199,24 +1205,24 @@ class StatisticFunctions {
     $return = false;
     $maxTime = 700; // 3600 seconds = 1 hour
     $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
-    $currentDate = time(); //date("YmdHis");
+    $timeStamp = time();
     $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
     $newLines = array();
+    $cachedLines = false;
     
     // -> OPEN visit.statistic.cache for reading
-    if(!file_exists($cacheFile)) return $return;
-    $cachedLines = @file($cacheFile);
+    if(is_file($cacheFile))
+      $cachedLines = @file($cacheFile);
     
-    if(!empty($cachedLines) && is_array($cachedLines)) {
-      
+    if(is_array($cachedLines)) {
       foreach($cachedLines as $cachedLine) {
         $cachedLineArray = explode('|#|', $cachedLine);
         
-        // stores the agent again with new timestamp, if the user was less than 1h on the page,
-        // after 1 hour the agent is deleted form the cache
-        if($currentDate - $cachedLineArray[3] < $maxTime) {
-          if($clear === false && $cachedLineArray[1] == $userAgentMd5) {          
-            $newLines[] = $cachedLineArray[0].'|#|'.$cachedLineArray[1].'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$currentDate;
+        // stores the agent again with new timestamp, if the user was less than $maxTime on the page,
+        // after that the agent is deleted form the cache
+        if($timeStamp - $cachedLineArray[3] < $maxTime) {
+          if($clear === false && $cachedLineArray[1] == $userAgentMd5) {
+            $newLines[] = $cachedLineArray[0].'|#|'.$cachedLineArray[1].'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$timeStamp;
             $return = true;
           } else
             $newLines[] = $cachedLine;
@@ -1226,20 +1232,21 @@ class StatisticFunctions {
     // agent doesn't exist, create a new cache
     if($return === false && $clear === false) {
       $spider = (self::isSpider()) ? 'spider' : 'visitor';
-      $newLines[] = $spider.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$currentDate;
+      $newLines[] = $spider.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$timeStamp;
     }
     
     // ->> OPEN visit.statistic.cache for writing
     if($cache = @fopen($cacheFile,"wb")) {
-      flock($cache,2);
+      flock($cache,LOCK_EX);
       foreach($newLines as $newLine) {
         $newLine = preg_replace('#[\r\n]+#','',$newLine);
         fwrite($cache,$newLine."\n");
       }
-      flock($cache,3);
+      flock($cache,LOCK_UN);
       fclose($cache);
       
-      @chmod($cacheFile, self::$adminConfig['permissions']);   
+      // -> add permissions on the first creation
+      if(!$cachedLines) @chmod($cacheFile, self::$adminConfig['permissions']);   
     }
     
     // return the right value
@@ -1362,7 +1369,7 @@ class StatisticFunctions {
         
         // -> COUNT the USER UP
         if(!isset(self::$websiteStatistic['userVisitCount']) ||
-           (isset(self::$websiteStatistic['userVisitCount']) && self::$websiteStatistic['userVisitCount'] == ''))
+           (isset(self::$websiteStatistic['userVisitCount']) && empty(self::$websiteStatistic['userVisitCount'])))
           self::$websiteStatistic['userVisitCount'] = 1;
         else
           self::$websiteStatistic['userVisitCount']++;
@@ -1381,7 +1388,7 @@ class StatisticFunctions {
       // ->> COUNT the SPIDER UP
       } elseif($_SESSION['feindura']['log']['isSpider'] === true && 
                (!isset(self::$websiteStatistic['spiderVisitCount']) ||
-               (isset(self::$websiteStatistic['spiderVisitCount']) && self::$websiteStatistic['spiderVisitCount'] == ''))) {
+               (isset(self::$websiteStatistic['spiderVisitCount']) && empty(self::$websiteStatistic['spiderVisitCount'])))) {
         self::$websiteStatistic['spiderVisitCount'] = 1;
       }elseif($_SESSION['feindura']['log']['isSpider'] === true) {
         self::$websiteStatistic['spiderVisitCount']++;
@@ -1390,7 +1397,7 @@ class StatisticFunctions {
       // ->> OPEN website.statistic.php for writing
       if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","wb")) {
         
-        flock($statisticFile,2);        
+        flock($statisticFile,LOCK_EX);
         fwrite($statisticFile,PHPSTARTTAG);  
               
         fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n");
@@ -1404,14 +1411,14 @@ class StatisticFunctions {
         fwrite($statisticFile,"return \$websiteStatistic;");
               
         fwrite($statisticFile,PHPENDTAG);        
-        flock($statisticFile,3);
+        flock($statisticFile,LOCK_UN);
         fclose($statisticFile);
         
-        @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", self::$adminConfig['permissions']);
+        // -> add permissions on the first creation
+        if(self::$websiteStatistic["userVisitCount"] === 1) @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", self::$adminConfig['permissions']);
         
         // saves the user as visited
         $_SESSION['feindura']['log']['visited'] = true;
-        
       }
     } else {
       
@@ -1585,7 +1592,7 @@ class StatisticFunctions {
       // ----------------------------
       $pageContent['log_lastVisit'] = time();
       
-      // -> COUNT UP, if the user haven't already visited this page in this session
+      // -> COUNT vistor, if the user haven't already visited this page in this session
       // --------------------------------------------------------------------------
       if(!isset($_SESSION['feindura']['log']['visitedPages']))
         $_SESSION['feindura']['log']['visitedPages'] = array();

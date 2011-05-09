@@ -121,9 +121,15 @@ if($_POST['save']) {
     $_POST['log_lastIP'] = $pageContent['log_lastIP'];
     $_POST['log_searchWords'] = $pageContent['log_searchWords'];
     
-    if(GeneralFunctions::savePage($_POST, false)) {
+    if($pageContent = GeneralFunctions::savePage($_POST)) {
       $documentSaved = true;
       StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
+      
+      // set PERMISSIONS of the page
+      $filePath = ($pageContent['category'] == 0)
+        ? dirname(__FILE__).'/../../pages/'.$pageContent['id'].'.php'
+        : dirname(__FILE__).'/../../pages/'.$pageContent['category'].'/'.$pageContent['id'].'.php';
+      chmod($filePath, $adminConfig['permissions']);
       
       // ->> save the FEEDS, if activated
       GeneralFunctions::saveFeeds($pageContent['category']);
