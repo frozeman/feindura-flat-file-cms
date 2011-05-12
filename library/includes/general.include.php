@@ -75,8 +75,8 @@ define('BUILD',trim($buildNr[1]));
  * 
  * @global array $GLOBALS['adminConfig']
  */
-if(!$adminConfig =      @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
-  $adminConfig =      array();
+if(!$adminConfig = @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
+  $adminConfig = array();
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
 $GLOBALS['adminConfig'];
 
@@ -87,8 +87,8 @@ $GLOBALS['adminConfig'];
  * 
  * @global array $GLOBALS['userConfig']
  */
-if(!$userConfig =      @include_once(dirname(__FILE__)."/../../config/user.config.php"))
-  $userConfig =      array();
+if(!$userConfig = @include_once(dirname(__FILE__)."/../../config/user.config.php"))
+  $userConfig = array();
 $GLOBALS['userConfig'];
 
 /**
@@ -98,8 +98,8 @@ $GLOBALS['userConfig'];
  * 
  * @global array $GLOBALS['websiteConfig']
  */
-if(!$websiteConfig =    @include_once(dirname(__FILE__)."/../../config/website.config.php"))
-  $websiteConfig =    array();
+if(!$websiteConfig = @include_once(dirname(__FILE__)."/../../config/website.config.php"))
+  $websiteConfig = array();
 $GLOBALS['websiteConfig'];
 
 /**
@@ -109,8 +109,8 @@ $GLOBALS['websiteConfig'];
  * 
  * @global array $GLOBALS['categoryConfig']
  */
-if(!$categoryConfig =   @include_once(dirname(__FILE__)."/../../config/category.config.php"))
-  $categoryConfig =       array();
+if(!$categoryConfig = @include_once(dirname(__FILE__)."/../../config/category.config.php"))
+  $categoryConfig = array();
 $GLOBALS['categoryConfig'];
 
 /**
@@ -120,8 +120,8 @@ $GLOBALS['categoryConfig'];
  * 
  * @global array $GLOBALS['statisticConfig']
  */
-if(!$statisticConfig =  @include_once(dirname(__FILE__)."/../../config/statistic.config.php"))
-  $statisticConfig =  array();
+if(!$statisticConfig = @include_once(dirname(__FILE__)."/../../config/statistic.config.php"))
+  $statisticConfig = array();
 $GLOBALS['statisticConfig'];
 
 /**
@@ -131,8 +131,8 @@ $GLOBALS['statisticConfig'];
  * 
  * @global array $GLOBALS['pluginsConfig']
  */
-if(!$pluginsConfig =  @include_once(dirname(__FILE__)."/../../config/plugins.config.php"))
-  $pluginsConfig =  array();
+if(!$pluginsConfig = @include_once(dirname(__FILE__)."/../../config/plugins.config.php"))
+  $pluginsConfig = array();
 $GLOBALS['pluginsConfig'];
 
 
@@ -143,9 +143,15 @@ $GLOBALS['pluginsConfig'];
  * 
  * @global array $GLOBALS['websiteStatistic']
  */
-if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/website.statistic.php"))
+if($fp = @fopen(dirname(__FILE__).'/../../statistic/website.statistic.php','r')) {
+  flock($fp,LOCK_SH);
+  if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/website.statistic.php")) $websiteStatistic = array();
+  flock($fp,LOCK_UN);
+  fclose($fp);
+} else
   $websiteStatistic = array();
 $GLOBALS['websiteStatistic'];
+
 
 // ->> autoload CLASSES
 /**

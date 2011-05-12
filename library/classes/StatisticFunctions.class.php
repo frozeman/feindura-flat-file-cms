@@ -1506,7 +1506,7 @@ class StatisticFunctions {
               $category = ($lastPage['category'] != 0) ? $lastPage['category'].'/' : '';
               
               // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
-              if(@file_exists(dirname(__FILE__).'/../../pages/'.$category.$lastPage['id'].'.php'))
+              if(@is_file(dirname(__FILE__).'/../../pages/'.$category.$lastPage['id'].'.php'))
                 GeneralFunctions::savePage($lastPage);
             }
             

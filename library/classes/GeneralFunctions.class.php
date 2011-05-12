@@ -532,6 +532,9 @@ class GeneralFunctions {
   public static function readPage($page,$category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
     
+    // var
+    $pageContent = false;
+    
     // if $page is a valid $pageContent array return it immediately
     if(self::isPageContentArray($page))
       return $page;
@@ -560,12 +563,18 @@ class GeneralFunctions {
     
       //echo '<br />LOAD PAGE: '.$page.'<br />';   
       //echo 'CATEGORY: '.$category.'<br />';
-    
-      if(@include(dirname(__FILE__).'/../../pages/'.$category.$page)) {
       
+      // ->> INCLUDE
+      if($fp = @fopen(dirname(__FILE__).'/../../pages/'.$category.$page,'r')) {
+        flock($fp,LOCK_SH);
+        $pageContent = @include(dirname(__FILE__).'/../../pages/'.$category.$page);
+        flock($fp,LOCK_UN);
+        fclose($fp);
+      }
+      
+      if($pageContent) {
         // UNESCPAE the SINGLE QUOTES '
         $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
-      
         return self::addStoredPage($pageContent);
       } else  // returns false if it couldn't include the page
         return false;
@@ -631,7 +640,7 @@ class GeneralFunctions {
       $pageContent = XssFilter::escapeBasics($pageContent);
      
       // WRITE
-      flock($file,2);            
+      flock($file,LOCK_EX);
       fwrite($file,PHPSTARTTAG);
       
       fwrite($file,"\$pageContent['id'] =                 ".XssFilter::int($pageContent['id'],0).";\n");
@@ -693,7 +702,7 @@ class GeneralFunctions {
       fwrite($file,"return \$pageContent;");
       
       fwrite($file,PHPENDTAG);
-      flock($file,3);
+      flock($file,LOCK_UN);
       fclose($file);
       
       // writes the new saved page to the $storedPages property      
@@ -1071,7 +1080,7 @@ class GeneralFunctions {
         $link = $hostUrl.GeneralFunctions::createHref($feedsPage);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li>');
+        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br>');
         $content = preg_replace('#<h[0-6]>#','<strong>',$content);
         $content = preg_replace('#</h[0-6]>#','</strong>',$content);
         

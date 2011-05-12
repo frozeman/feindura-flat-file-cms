@@ -49,7 +49,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <meta name="robots" content="no-index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->

@@ -29,7 +29,11 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // -> clear cache from visitors over the timelimit and load current visitors
 StatisticFunctions::hasVisitCache(true); // clear the visit cache, from agents wich are over the timeframe
 $currentVisitors = StatisticFunctions::getCurrentVisitors();
-if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
+
+// CHECK if visitors will be displayed
+$showVisitors = false;
+foreach($currentVisitors as $currentVisitor) if($currentVisitor['ip'] != '::1' && $currentVisitor['type'] != 'spider') $showVisitors = true;
+if(!empty($currentVisitors) && $showVisitors) {
   
   // var
   $return = '';
@@ -64,7 +68,7 @@ if(!empty($currentVisitors) && $currentVisitors[0]['ip'] != '::1') {
     if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider') {
       $return .= ($currentVisitorDashboard)
         ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.StatisticFunctions::formatDate($currentVisitor['time']).'">'.StatisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>'
-        : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.StatisticFunctions::formatDate($currentVisitor['time']).' - '.StatisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>';
+        : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.StatisticFunctions::formatDate($currentVisitor['time']).' - '.StatisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>';
     }
     // change row color
     $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
