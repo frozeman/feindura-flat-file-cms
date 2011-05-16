@@ -96,6 +96,7 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div style="line-height: 18px;">';
         echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'].'">'.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.StatisticFunctions::formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
         // CURRENT VISITORS
+        $currentVisitors = StatisticFunctions::getCurrentVisitors();
         $countVisitor = 0;
         $countSpider = 0;
         foreach($currentVisitors as $currentVisitor) {

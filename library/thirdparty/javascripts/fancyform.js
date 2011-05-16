@@ -61,11 +61,13 @@ var FancyForm = new Class ({
 		}
 		this.chks = [];
 		this.add();
-		Array.each($$('form'), function(x) {
-			x.addEvent('reset', function(a) {
-				window.setTimeout(function(){this.chks.each(function(x){this.update(x);x.inputElement.blur()})}, 200);
-			});
-		});
+		if(!Browser.ie6 && !Browser.ie7 && !Browser.ie8) {
+  		$$('form').each(function(x) {
+  			x.addEvent('reset', function(a) {
+  				window.setTimeout(function(){this.chks.each(function(x){this.update(x);x.inputElement.blur()})}, 200);
+  			});
+  		});
+		}
 	},
 	add: function(){
 		this.initing = 1;
