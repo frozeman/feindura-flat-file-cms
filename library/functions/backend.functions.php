@@ -576,9 +576,10 @@ function movePage($page, $fromCategory, $toCategory) {
  * 
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.1
+ * @version 1.1.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.1.1 fixed chmod permissions
  *    - 1.1 add sorting
  *    - 1.0.2 add XssFilter to every value
  *    - 1.0.1 add websitePath
@@ -601,10 +602,13 @@ function saveAdminConfig($adminConfig) {
     
     // -> escape \ and '
     $adminConfig = XssFilter::escapeBasics($adminConfig);
-        
-    @chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
     
-    flock($file,2); // LOCK_EX
+    $permissions = (is_string($adminConfig['permissions']))
+       ? octdec($adminConfig['permissions'])
+       : $adminConfig['permissions'];
+    @chmod(dirname(__FILE__)."/../../config/admin.config.php", $permissions);
+    
+    flock($file,LOCK_EX);
     fwrite($file,PHPSTARTTAG); // < ?php
 
     fwrite($file,"\$adminConfig['url'] =              '".XssFilter::url($adminConfig['url'])."';\n");
@@ -655,7 +659,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"return \$adminConfig;");
        
     fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
+    flock($file,LOCK_UN);
     fclose($file);
 
     return true;
@@ -1079,7 +1083,7 @@ function createBackup($backupFile) {
   // -> generate archive
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFile);
-  $catchError = $archive->add($GLOBALS['adminConfig']['realBasePath'].'config/,'.$GLOBALS['adminConfig']['realBasePath'].'statistic/,'.$GLOBALS['adminConfig']['realBasePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);
+  $catchError = $archive->add($GLOBALS['adminConfig']['realBasePath'].'config/,'.$GLOBALS['adminConfig']['realBasePath'].'statistic/,'.$GLOBALS['adminConfig']['realBasePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
   
   if($catchError == 0)
     return $archive->errorInfo(true);

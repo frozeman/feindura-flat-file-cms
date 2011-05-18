@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc9
-Build 680
+Build 681
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 681: fixed chmod permissions in saveAdminConfig()
   build 680: fixed dashboard current visitors
   build 679: add LOCK_EX when including pages and websiteconfig
   build 678: fixed visit cache
