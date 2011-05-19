@@ -254,7 +254,7 @@ class FeinduraBase {
     $this->loggedIn = ($_SESSION['feindura']['session']['loggedIn'] === true && $_SESSION['feindura']['session']['identity'] === IDENTITY) ? true : false;
     
     // set backend language if logged in
-    if($this->loggedIn)
+    if($this->loggedIn && $language === false)
       $language = $_SESSION['feindura']['language'];
     
     // save the website statistics
@@ -550,7 +550,7 @@ class FeinduraBase {
     
     $frontendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.frontend.php',$language);
     $sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$language);
-
+    
     // SET the FRONTEND LANGUAGE FILE
     $this->languageFile = $sharedLangFile + $frontendLangFile;
     unset($frontendLangFile,$sharedLangFile);

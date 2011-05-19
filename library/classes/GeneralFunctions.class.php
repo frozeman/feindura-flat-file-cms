@@ -212,7 +212,7 @@ class GeneralFunctions {
   * 
   * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
   * @param string       $filename         (optional) the structure of the filename, which should be loaded. the "%lang%" will be replaced with the country code like "%lang%.backend.php" -> "en.backend.php"
-  * @param string@false &$currentLangCode (optional) (Note: this bvariable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't a language file which fits the browsers language code will be loaded.  
+  * @param string@false &$currentLangCode (optional) (Note: this variable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't a language file which fits the browsers language code will be loaded.  
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
   * 

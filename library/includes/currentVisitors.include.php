@@ -67,7 +67,7 @@ if(!empty($currentVisitors) && $showVisitors) {
       : '';
     if(!empty($currentVisitor) && $currentVisitor['type'] != 'spider') {
       $return .= ($currentVisitorDashboard)
-        ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.StatisticFunctions::formatDate($currentVisitor['time']).'">'.StatisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>'
+        ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.StatisticFunctions::formatDate($currentVisitor['time']).'">'.StatisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>'
         : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.StatisticFunctions::formatDate($currentVisitor['time']).' - '.StatisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>';
     }
     // change row color
