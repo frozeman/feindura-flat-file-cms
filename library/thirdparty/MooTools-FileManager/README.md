@@ -115,7 +115,7 @@ Events
 
 Backend
 
-* See Assets/Connector/FileManager.php and Assets/Connector/FMgr4Alias.php for all available server-side options
+* See Assets/Connector/FileManager.php and Assets/Connector/FileManagerWithAliasSupport.php for all available server-side options
 
 * Note that you can configure these items by changing the related PHP define:
 

@@ -243,7 +243,7 @@ FileManager.implement({
 				}
 			);
 
-			j = JSON.decode(response);
+			var j = JSON.decode(response);
 
 			if (j && !j.status)
 			{

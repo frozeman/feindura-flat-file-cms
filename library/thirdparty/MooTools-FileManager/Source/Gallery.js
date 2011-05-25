@@ -56,6 +56,9 @@ FileManager.Gallery = new Class({
 			},
 
 			show: function(self) {
+				self.gallery.empty();
+				self.files = {};
+
 				self.show_gallery();
 				self.populate();
 			},
@@ -757,6 +760,8 @@ FileManager.Gallery = new Class({
 		{
 			// we've got work to do, folks!
 			var i;
+			var abs_root = this.normalize('/' + this.root);
+
 			for (i = 0; i < count; ++i)
 			{
 				// LIFO queue:
@@ -765,7 +770,7 @@ FileManager.Gallery = new Class({
 
 				// coded so that we support 'legal URL space' items and 'absolute URL path' items at the same time:
 				// when paths start with the root directory, we'll strip that off to make them 'legal URL space' compliant filespecs.
-				if (path.indexOf(this.root) === 0)
+				if (path.indexOf(abs_root) === 0)
 				{
 					path = path.substr(this.root.length);
 				}
@@ -789,7 +794,7 @@ FileManager.Gallery = new Class({
 		var index = 0;
 		Object.each(this.files,function(file)
 		{
-			var path = this.escapeRFC3986(this.normalize('/' + this.root + file.file.path));  // the absolute URL for the given file, rawURLencoded
+			var path = (this.options.deliverPathAsLegalURL ? file.file.path : this.escapeRFC3986(this.normalize('/' + this.root + file.file.path)));  // the absolute URL for the given file, rawURLencoded
 			var caption = (file.caption || '');
 			serialized[path] = caption;
 			var m = Object.clone(file.file);

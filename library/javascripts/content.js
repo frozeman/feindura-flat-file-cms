@@ -1098,7 +1098,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.scayt_autoStartup             = false;
     CKEDITOR.config.colorButton_enableMore        = true;
     CKEDITOR.config.entities                      = false;
-    CKEDITOR.config.extraPlugins                  = 'Media';
+    CKEDITOR.config.extraPlugins                  = 'stylesheetparser,Media';
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
     
     //CKEDITOR.config.disableNativeSpellChecker = false;

@@ -72,7 +72,7 @@ var FileManager = new Class({
 		 *                         fmobj   // reference to the FileManager instance which fired the event
 		 *                        )
 		 */
-		directory: '',
+		directory: '',                    // (string) the directory (relative path) which should be loaded on startup (show).
 		url: null,
 		assetBasePath: null,
 		language: 'en',
@@ -83,7 +83,8 @@ var FileManager = new Class({
 		download: false,
 		createFolders: false,
 		filter: '',
-		detailInfoMode: '+metaHTML',      // (string) whether you want to receive extra metadata on select/etc. and/or view this metadata in the preview pane (modes: '', '+metaHTML', '+metaJSON'. Modes may be combined)
+		detailInfoMode: '',               // (string) whether you want to receive extra metadata on select/etc. and/or view this metadata in the preview pane (modes: '', '+metaHTML', '+metaJSON'. Modes may be combined)
+		deliverPathAsLegalURL: false,     // (boolean) TRUE: deliver 'legal URL' paths, i.e. 'directory'-rooted, FALSE: deliver absolute URI paths.
 		hideOnClick: false,
 		hideClose: false,
 		hideOverlay: false,
@@ -691,11 +692,14 @@ var FileManager = new Class({
 	 *   url:  (string) contains the URL sent to the server for the given event/request (which is always transmitted as a POST request)
 	 *   data: (assoc. array): extra parameters added to this POST. (Mainly there in case a framework wants to have the 'event' parameter
 	 *         transmitted as a POST data element, rather than having it included in the request URL itself in some form.
+	 *
+	 * WARNING: 'this' in here is actually **NOT** pointing at the FM instance; use 'fm_obj' for that!
+	 *
+	 *          In fact, 'this' points at the 'fm_obj.options' object, but consider that an 'undocumented feature'
+	 *          as it may change in the future without notice!
 	 */
 	mkServerRequestURL: function(fm_obj, request_code, post_data)
 	{
-		// WARNING: 'this' in here is actually **NOT** pointing at the FM instance; use 'fm_obj' for that!  (In fact, 'this' points at the 'options' object, but consider that an 'undocumented feature' as it may change in the future without notice!)
-
 		return {
 			url: fm_obj.options.url + (fm_obj.options.url.indexOf('?') == -1 ? '?' : '&') + Object.toQueryString({
 					event: request_code
@@ -740,7 +744,7 @@ var FileManager = new Class({
 		return encodeURI(s.toString()).replace(/\+/g, '%2B').replace(/#/g, '%23');
 	},
 	unescapeRFC3986: function(s) {
-		return decodeURI(s.toString());
+		return decodeURI(s.toString().replace(/%23/g, '#').replace(/%2B/g, '+'));
 	},
 
 	// -> catch a click on an element in the file/folder browser
@@ -1060,7 +1064,7 @@ var FileManager = new Class({
 
 		var file = this.Current.retrieve('file');
 		this.fireEvent('complete', [
-			this.escapeRFC3986(this.normalize('/' + this.root + file.path)), // the absolute URL for the selected file, rawURLencoded
+			(this.options.deliverPathAsLegalURL ? file.path : this.escapeRFC3986(this.normalize('/' + this.root + file.path))), // the absolute URL for the selected file, rawURLencoded
 			file,                 // the file specs: .name, .path, .size, .date, .mime, .icon, .icon48, .thumb48, .thumb250
 			this
 		]);
@@ -1083,6 +1087,9 @@ var FileManager = new Class({
 	},
 
 	download: function(file) {
+		var self = this;
+		var dummyframe_active = false;
+
 		// the chained display:none code inside the Tips class doesn't fire when the 'Save As' dialog box appears right away (happens in FF3.6.15 at least):
 		if (this.tips.tip) {
 			this.tips.tip.setStyle('display', 'none');
@@ -1102,7 +1109,50 @@ var FileManager = new Class({
 			this.downloadForm = null;
 		}
 
-		this.downloadIframe = (new IFrame()).set({src: 'about:blank', name: '_downloadIframe'}).setStyles({display:'none'});
+		this.downloadIframe = new IFrame({
+				src: 'about:blank',
+				name: '_downloadIframe',
+				styles: {
+					display: 'none'
+				},
+			    events: {
+					load: function()
+					{
+						var iframe = this;
+						self.diag.log('download response: ', this, ', iframe: ', self.downloadIframe, ', ready: ', (1 * dummyframe_active));
+
+						// make sure we don't act on premature firing of the event in MSIE / Safari browsers:
+						if (!dummyframe_active)
+							return;
+
+						var response = null;
+						Function.attempt(function() {
+								response = iframe.contentDocument.documentElement.textContent;
+							},
+							function() {
+								response = iframe.contentWindow.document.innerText;
+							},
+							function() {
+								response = iframe.contentDocument.innerText;
+							},
+							function() {
+								response = "{status: 0, error: \"Download: download assumed okay: can't find response.\"}";
+							}
+						);
+
+						var j = JSON.decode(response);
+
+						if (j && !j.status)
+						{
+							self.showError('' + j.error);
+						}
+						else if (!j)
+						{
+							self.showError('bugger! No or faulty JSON response! ' + response);
+						}
+					}
+				}
+			});
 		this.menu.adopt(this.downloadIframe);
 
 		this.downloadForm = new Element('form', {target: '_downloadIframe', method: 'post', enctype: 'multipart/form-data'});
@@ -1122,6 +1172,8 @@ var FileManager = new Class({
 					{
 						this.downloadForm.adopt((new Element('input')).set({type: 'hidden', name: k, value: v}));
 					}.bind(this));
+
+		dummyframe_active = true;
 
 		return this.downloadForm.submit();
 	},
@@ -2384,12 +2436,9 @@ var FileManager = new Class({
 				}
 
 				editButtons = [];
-				// download icon
-				if (this.options.download) {
-					if (this.options.download) editButtons.push('download');
-				}
 
-				// rename, delete icon
+				// download, rename, delete icon
+				if (this.options.download) editButtons.push('download');
 				if (this.options.rename) editButtons.push('rename');
 				if (this.options.destroy) editButtons.push('destroy');
 
