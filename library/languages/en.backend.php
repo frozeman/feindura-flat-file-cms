@@ -113,8 +113,8 @@ $langFile['PATHS_TOOLTIP_RELATIVE'] = 'Relative Path';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART'] = 'Browser usage of the users';
-$langFile['STATISTICS_TEXT_SPIDERCOUNT'] = 'web spiders';
-$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'] = 'web spider::Or webcrawler are programs of search engines which analyse and index websites.';
+$langFile['STATISTICS_TEXT_ROBOTCOUNT'] = 'web-crawler';
+$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'] = 'web-crawler::Or robots are programs of search engines which analyse and index websites.';
 
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART1'] = 'led'; // "exampleword" led 20 times to this website
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2'] = 'times to this site';
@@ -605,7 +605,7 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER'] = 'Specifies how much Activities
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'Delete statistics';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Website-Statistic';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contains[/b][ul][li]Total number of visitors[/li][li]Total number of web spiders[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contains[/b][ul][li]Total number of visitors[/li][li]Total number of web-crawler[/li][li]Date of the first visit[/li][li]Date of the last visit[/li][li]Browser spectrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Page-Statistics';
 $langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Contains[/b][ul][li]Number of page visitors[/li][li]Date of the first page visit[/li][li]Date of the last page visit[/li][li]shortest length of stay[/li][li]longest length of stay[/li][li]Keywords which led to this site[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'] = 'only the Page-Length-Of-Stay-Statistics';

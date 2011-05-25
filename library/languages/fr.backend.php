@@ -110,8 +110,8 @@ $langFile['PATHS_TOOLTIP_RELATIVE'] = 'chemin relative';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART'] = 'spectre des navigateurs des visiteurs';
-$langFile['STATISTICS_TEXT_SPIDERCOUNT'] = 'web spiders';
-$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'] = 'robot d\'indexation::Aussi nommé Webcrawler sont des scripts des moteurs de recherche qui analysent et indicent des sites web.';
+$langFile['STATISTICS_TEXT_ROBOTCOUNT'] = 'web-crawler';
+$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'] = 'web-crawler::Aussi nommé robot d\'indexation sont des scripts des moteurs de recherche qui analysent et indicent des sites web.';
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART1'] = 'a'; // "exampleword" led 20 times to this website
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2'] = 'mèné sur ce site';
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD'] = 'Cliquez dessus pour chercher le mot de recherche dans toutes les pages.';
@@ -561,7 +561,7 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER'] = 'Indique le nombre des logs-ac
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'éffacer statistiques';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'statistiques du site web';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contient[/b][ul][li]tout le nombre des visiteurs[/li][li]nombre des robots d\'indexation[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]spectre des navigateurs utilisés[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Contient[/b][ul][li]tout le nombre des visiteurs[/li][li]nombre des web-crawler[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]spectre des navigateurs utilisés[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'statistiques des pages';
 $langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Contient[/b][ul][li]nombre de visiteurs[/li][li]date de la première visite[/li][li]date de la dernière visite[/li][li]temps de visite le plus court[/li][li]temps de visite le plus long[/li][li]mots-clé des moteurs de recherche qui ont mènés sur le site web[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'] = 'seulement les statistiques temps-de-visite';

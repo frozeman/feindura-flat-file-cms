@@ -1,7 +1,7 @@
 <?php
 
 $websiteStatistic['userVisitCount'] =    '1234';
-$websiteStatistic['spiderVisitCount'] =  '100';
+$websiteStatistic['robotVisitCount'] =  '100';
 
 $websiteStatistic['firstVisit'] =        '1282348800'; // UNIX-Timestamp
 $websiteStatistic['lastVisit'] =         '1282348900'; // UNIX-Timestamp

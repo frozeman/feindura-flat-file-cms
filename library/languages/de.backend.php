@@ -113,8 +113,8 @@ $langFile['PATHS_TOOLTIP_RELATIVE'] = 'Relativer Pfad';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART'] = 'Browserspektrum der Besucher';
-$langFile['STATISTICS_TEXT_SPIDERCOUNT'] = 'Web-Spiders';
-$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'] = 'Web-Spiders::Oder auch Webcrawler genannt sind Programmscripte von Suchmaschienen, die Seiten analysieren und indizieren.';
+$langFile['STATISTICS_TEXT_ROBOTCOUNT'] = 'Web-Crawler';
+$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'] = 'Web-Crawler::Oder auch Robots genannt sind Programmscripte von Suchmaschienen, die Seiten analysieren und indizieren.';
 
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART1'] = 'hat'; // "exampleword" led 20 times to this website
 $langFile['STATISTICS_TEXT_SEARCHWORD_PART2'] = 'mal auf diese Seite geführt';
@@ -521,7 +521,7 @@ $langFile['PAGESETUP_CATEGORY_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$l
 
 
 $langFile['PAGESETUP_CATEGORY_TITLE_ADVANCEDSETTINGS'] = 'Erweiterte-Einstellungen';
-$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'] = 'Wenn diese Einstellungen ausgefüllt sind überschreiben sie die Seiten-Thumbnail-Einstellungen weiter oben und die '.$langFile['adminSetup_editorSettings_h1'].' in den <a href="?site=adminSetup">Administrator-Einstellungen</a>.';
+$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'] = 'Wenn diese Einstellungen ausgefüllt sind werden die Seiten-Thumbnail-Einstellungen weiter oben und die '.$langFile['adminSetup_editorSettings_h1'].' in den <a href="?site=adminSetup">Administrator-Einstellungen</a> überschrieben.';
 
 $langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'] = 'Wenn alle Felder leer sind, dann werden die Stylesheet-Einstellungen aus den '.$langFile['adminSetup_editorSettings_h1'].' verwendet.';
 
@@ -603,7 +603,7 @@ $langFile['STATISTICSSETUP_TIP_ACTIVITYNUMBER'] = 'Gibt an wieviele Tätigkeiten
 
 $langFile['statisticSetup_clearStatistic_h1'] = 'Statistiken löschen';
 $langFile['statisticSetup_clearStatistics_websiteStatistic'] = 'Webseiten-Statistik';
-$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Web-Spider[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
+$langFile['statisticSetup_clearStatistics_websiteStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Gesamtanzahl der Besucher[/li][li]Gesamtanzahl der Web-Crawler[/li][li]Datum des ersten Besuchs[/li][li]Datum des letzten Besuchs[/li][li]Browserspektrum[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStatistic'] = 'Seiten-Statistiken';
 $langFile['statisticSetup_clearStatistics_pagesStatistic_tip'] = '[b]Beinhaltet[/b][ul][li]Anzahl der Seitenbesucher[/li][li]Datum des ersten Seitenbesuchs[/li][li]Datum des letzten Seitenbesuchs[/li][li]kürzeste Verweildauer[/li][li]längste Verweildauer[/li][li]Suchmaschienen-Stichworte welche auf diese Seite geführt haben[/li][/ul]';
 $langFile['statisticSetup_clearStatistics_pagesStaylengthStatistics'] = 'nur die Seiten-Verweildauer-Statistiken';

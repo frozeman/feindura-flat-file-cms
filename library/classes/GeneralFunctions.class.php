@@ -1084,7 +1084,7 @@ class GeneralFunctions {
         $link = $hostUrl.GeneralFunctions::createHref($feedsPage);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
-        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br>');
+        $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><strong><small><span>');
         $content = preg_replace('#<h[0-6]>#','<strong>',$content);
         $content = preg_replace('#</h[0-6]>#','</strong>',$content);
         

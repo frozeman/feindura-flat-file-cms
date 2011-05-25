@@ -72,9 +72,9 @@ for($i = 1; $i <= 5; $i++) {
 $plugin .= '</ul>';
 $plugin .= '</div>';
 
-// ->> add script for the pageRating, ONLY when not a spider
-if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
-         (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = StatisticFunctions::isSpider()) === false)) {
+// ->> add script for the pageRating, ONLY when not a robot
+if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
+         (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = StatisticFunctions::isRobot()) === false)) {
 $plugin .= '<script type="text/javascript">
   /* <![CDATA[ */
   

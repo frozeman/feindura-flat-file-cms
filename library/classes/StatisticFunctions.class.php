@@ -37,7 +37,7 @@
 *    - 0.61 doesnt extend GeneralFunctions anymore, no creates an instance of it
 *    - 0.60 add hasVistiCache()
 *    - 0.59 savePageStats(): prevent save searchwords to be counted miltuple times
-*    - 0.58 fixed isSpider() and saveWebsiteStatistic()
+*    - 0.58 fixed isRobot() and saveWebsiteStatistic()
 *    - 0.57 add new browsers to createBrowserChart() 
 *    - 0.56 started documentation
 * 
@@ -1131,10 +1131,10 @@ class StatisticFunctions {
   }
   
  /**
-  * <b>Name</b> isSpider()<br>
+  * <b>Name</b> isRobot()<br>
   * 
   * Check if the user-agent is a spider/bot/webcrawler.
-  * This method uses the "library/thirdparty/spiders.xml" or "library/thirdparty/spiders.txt" (depending on the php version)
+  * This method uses the "library/thirdparty/spider.xml".
   * 
   * The list of spiders it uses is from: {@link http://www.wolfshead-solutions.com/spiders-list}
   * 
@@ -1147,7 +1147,7 @@ class StatisticFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function isSpider() {
+  public static function isRobot() {
 
     if(isset($_SERVER['HTTP_USER_AGENT'])) {
       
@@ -1195,7 +1195,7 @@ class StatisticFunctions {
   * @version 1.01
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.01 add type, which can be "spider" or "visitor" 
+  *    - 1.01 add type, which can be "robot" or "visitor" 
   *    - 1.0 initial release
   * 
   */
@@ -1231,8 +1231,8 @@ class StatisticFunctions {
     }
     // agent doesn't exist, create a new cache
     if($return === false && $clear === false) {
-      $spider = (self::isSpider()) ? 'spider' : 'visitor';
-      $newLines[] = $spider.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$timeStamp;
+      $robot = (self::isRobot()) ? 'robot' : 'visitor';
+      $newLines[] = $robot.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$timeStamp;
     }
     
     // ->> OPEN visit.statistic.cache for writing
@@ -1310,7 +1310,7 @@ class StatisticFunctions {
   * 
   * @uses $websiteStatistic         for the old website-statistics
   * @uses saveRefererLog()          to save the referer log-file
-  * @uses isSpider()                to check whether the user-agent is a spider or a human
+  * @uses isRobot()                to check whether the user-agent is a robot or a human
   * @uses addDataToDataString()     to add a browser to the browser data-string
   * @uses GeneralFunctions::readPage()        to read the last page again, to save the time spend on the page
   * @uses GeneralFunctions::getPageCategory() to get the category of the last page
@@ -1323,13 +1323,13 @@ class StatisticFunctions {
   * <br>
   * <b>ChangeLog</b><br>
   *    - 1.02 fixed save visit Time with unix timestamps
-  *    - 1.01 if spider it will only be counted nothing else
+  *    - 1.01 if Robot it will only be counted nothing else
   *    - 1.0 initial release
   * 
   */
   public static function saveWebsiteStats() {
     
-    // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
+    // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
     
     // doesnt save anything if visitor is a logged in user
@@ -1339,14 +1339,14 @@ class StatisticFunctions {
     // refresh the visit cache
     $hasVisitCache = self::hasVisitCache();
     
-    // COUNT if the user/spider isn't already counted
+    // COUNT if the user/robot isn't already counted
     // **********************************************
     if((isset($_SESSION['feindura']['log']['visited']) && $_SESSION['feindura']['log']['visited'] === false) ||
        (!isset($_SESSION['feindura']['log']['visited']) && $hasVisitCache === false)) {
    
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
-         (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = self::isSpider()) === false)) {
+      if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
+         (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
    
         // -------------------------------------------------------------------------------------
         // -->> --------------------------------------------------------------------------------
@@ -1381,17 +1381,17 @@ class StatisticFunctions {
         else
           self::$websiteStatistic['browser'] = $browser.',1';
         
-        if(!isset(self::$websiteStatistic["spiderVisitCount"]))
-          self::$websiteStatistic["spiderVisitCount"] = 0;
+        if(!isset(self::$websiteStatistic["robotVisitCount"]))
+          self::$websiteStatistic["robotVisitCount"] = 0;
 
         
-      // ->> COUNT the SPIDER UP
-      } elseif($_SESSION['feindura']['log']['isSpider'] === true && 
-               (!isset(self::$websiteStatistic['spiderVisitCount']) ||
-               (isset(self::$websiteStatistic['spiderVisitCount']) && empty(self::$websiteStatistic['spiderVisitCount'])))) {
-        self::$websiteStatistic['spiderVisitCount'] = 1;
-      }elseif($_SESSION['feindura']['log']['isSpider'] === true) {
-        self::$websiteStatistic['spiderVisitCount']++;
+      // ->> COUNT the ROBOT UP
+      } elseif($_SESSION['feindura']['log']['isRobot'] === true && 
+               (!isset(self::$websiteStatistic['robotVisitCount']) ||
+               (isset(self::$websiteStatistic['robotVisitCount']) && empty(self::$websiteStatistic['robotVisitCount'])))) {
+        self::$websiteStatistic['robotVisitCount'] = 1;
+      }elseif($_SESSION['feindura']['log']['isRobot'] === true) {
+        self::$websiteStatistic['robotVisitCount']++;
       }
       
       // ->> OPEN website.statistic.php for writing
@@ -1401,7 +1401,7 @@ class StatisticFunctions {
         fwrite($statisticFile,PHPSTARTTAG);  
               
         fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n");
-        fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  ".XssFilter::int(self::$websiteStatistic["spiderVisitCount"],0).";\n\n");
+        fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =   ".XssFilter::int(self::$websiteStatistic["robotVisitCount"],0).";\n\n");
         
         fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".XssFilter::int(self::$websiteStatistic["firstVisit"],0).";\n");
         fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".XssFilter::int(self::$websiteStatistic["lastVisit"],0).";\n\n");
@@ -1423,8 +1423,8 @@ class StatisticFunctions {
     } else {
       
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
-         (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = self::isSpider()) === false)) {
+      if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
+         (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
         
         // -------------------------------------------------------------------------------------
         // ->> VISIT TIME of PAGES
@@ -1535,7 +1535,7 @@ class StatisticFunctions {
   *   - which searchwords and how often they occured
   * 
   * <b>Used Global Variables</b><br>
-  *    - <var>$_SESSION</var> to store whether the user is a spider and save the time and ID of the last page to calculate the time viewed the pages
+  *    - <var>$_SESSION</var> to store whether the user is a robots and save the time and ID of the last page to calculate the time viewed the pages
   *     
   * <b>Used Constants</b><br>
   *    - <var>PHPSTARTTAG</var> the php start tag
@@ -1543,13 +1543,13 @@ class StatisticFunctions {
   * 
   * @param $pageContent     the $pageContent array of the page
   * 
-  * @uses $adminConfig                    for the save path of the pages
-  * @uses isSpider()                      to check whether the user-agent is a spider or a human
-  * @uses addDataToDataString()               to add the searchwords to the searchword data-string
-  * @uses GeneralFunctions::isPageContentArray() check if the $pageContent parameter is a valid pageContent array    
-  * @uses GeneralFunctions::savePage()    to save the page and also the last visited page with the calculated view-time
+  * @uses $adminConfig                            for the save path of the pages
+  * @uses isRobot()                               to check whether the user-agent is a robot or a human
+  * @uses addDataToDataString()                   to add the searchwords to the searchword data-string
+  * @uses GeneralFunctions::isPageContentArray()  check if the $pageContent parameter is a valid pageContent array    
+  * @uses GeneralFunctions::savePage()            to save the page and also the last visited page with the calculated view-time
   * 
-  * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a spider, or the $pageContent parameter is not a valid $pageContent array
+  * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a robot, or the $pageContent parameter is not a valid $pageContent array
   * 
   * @static
   * @version 1.01
@@ -1561,7 +1561,7 @@ class StatisticFunctions {
   */
   public static function savePageStats($pageContent) {
 
-    // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isSpider() public static function
+    // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
     
     // doesnt save anything if visitor is a logged in user
@@ -1571,8 +1571,8 @@ class StatisticFunctions {
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER
-    if((isset($_SESSION['feindura']['log']['isSpider']) && $_SESSION['feindura']['log']['isSpider'] === false) ||
-       (!isset($_SESSION['feindura']['log']['isSpider']) && ($_SESSION['feindura']['log']['isSpider'] = self::isSpider()) === false)) {
+    if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
+       (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
          
       // CHECK if the $pageContent parameter is a valid $pageContent array
       if(GeneralFunctions::isPageContentArray($pageContent) === false)

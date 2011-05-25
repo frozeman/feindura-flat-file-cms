@@ -435,13 +435,16 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       elseif(!empty($data) && substr($data,0,2) != 'a:')
         $websiteStatistic['browser'] = changeToSerializedDataString($data,' ');
     
+    // rename
+    $websiteStatistic['robotVisitCount'] = (isset($websiteStatistic['spiderVisitCount'])) ? $websiteStatistic['spiderVisitCount'] : $websiteStatistic['robotVisitCount'];
+    
     if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","wb")) {
       
       flock($statisticFile,2);        
       fwrite($statisticFile,PHPSTARTTAG);  
             
       fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
-      fwrite($statisticFile,"\$websiteStatistic['spiderVisitCount'] =  '".$websiteStatistic["spiderVisitCount"]."';\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  '".$websiteStatistic["robotVisitCount"]."';\n\n");
       
       fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        '".$websiteStatistic["firstVisit"]."';\n");
       fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         '".$websiteStatistic["lastVisit"]."';\n\n");
@@ -580,6 +583,10 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js') &&
       is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-more-1.3.1.1.js';
+    if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.txt') &&
+      is_file(dirname(__FILE__).'/library/thirdparty/spiders.txt'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.txt';
+
     
     // delet lowercase class names
     if(strpos(strtolower(PHP_OS),'win') === false) {

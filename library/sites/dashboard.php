@@ -94,18 +94,18 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div style="width:100%; text-align:center;margin-top: -10px;">';
       echo '<span class="visitCountNumber brown">'.StatisticFunctions::formatHighNumber($websiteStatistic['userVisitCount']).'</span><br />';
       echo '<div style="line-height: 18px;">';
-        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_SPIDERCOUNT'].'">'.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.StatisticFunctions::formatHighNumber($websiteStatistic['spiderVisitCount']).'</span><br />';
+        echo '<span class="toolTip blue" title="'.$langFile['STATISTICS_TOOLTIP_ROBOTCOUNT'].'">'.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.StatisticFunctions::formatHighNumber($websiteStatistic['robotVisitCount']).'</span><br />';
         // CURRENT VISITORS
         $currentVisitors = StatisticFunctions::getCurrentVisitors();
         $countVisitor = 0;
-        $countSpider = 0;
+        $countRobots = 0;
         foreach($currentVisitors as $currentVisitor) {
           if($currentVisitor['type'] == 'visitor')
             $countVisitor++;
           else
-            $countSpider++;
+            $countRobots++;
         }
-        echo '<span class="blue"><b>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</b> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_SPIDERCOUNT'].' '.$countSpider.')</span>';
+        echo '<span class="blue"><b>'.$langFile['STATISTICS_TEXT_CURRENTVISITORS'].'</b> '.$countVisitor.' ('.$langFile['STATISTICS_TEXT_ROBOTCOUNT'].' '.$countRobots.')</span>';
       echo '</div>';  
       echo '<hr class="small" />';
       echo '</div>';     
