@@ -293,7 +293,6 @@ $langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'dernières pages visitée
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'dernières pages rédigées';
 $langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'pages les plus regardés';
 $langFile['DASHBOARD_TITLE_REFERER'] = 'sites web d\'où viennent les derniers visiteurs';
-$langFile['DASHBOARD_TEXT_NOVISITORS'] = 'actuellement il n\'y a pas eu de visiteurs sur le site web.';
 
 /*
 * listPages.php

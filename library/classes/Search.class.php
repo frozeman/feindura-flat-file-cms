@@ -66,7 +66,7 @@ class Search {
   // *********
   
   /**
-  * If its an number it limits the found results to this number, so the search results are still demonstrable, when a lot of words were found.
+  * If its an number it limits the found results to this number, so the search results are still displayable, when a lot of words were found.
   * If FALSE all results will be displayed.  
   * 
   * @var int|false
@@ -244,7 +244,8 @@ class Search {
       $search['content'] = strip_tags($pageContent['content']);
       
       // create a string of the page searchwords
-      $search['searchwords'] = unserialize($pageContent['log_searchWords']);
+      $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+      $search['searchwords'] = unserialize($pageStatistics['searchWords']);
       $pageSearchwords = '';
       if(is_array($search['searchwords'])) {
         foreach($search['searchwords'] as $pageSearchword){
@@ -361,7 +362,7 @@ class Search {
   protected function createResultsArray($results) {
     
     // var
-    $extractLength = 30;
+    $extractLength = 50;
     $return = array();
     
     // return nothing when nothing was found
@@ -372,6 +373,7 @@ class Search {
     foreach($results as $result) {
       
       $page = GeneralFunctions::readPage($result['pageId'],$result['categoryId']);
+      $pageStats = GeneralFunctions::readPageStatistics($result['pageId']);
     
       // var
       $id = false;
@@ -416,7 +418,7 @@ class Search {
      
       // ->> PREPARE the SEARCHWORDS
       if(isset($result['searchwords']))
-        $searchwords .= $this->markFindingInDataString($page['log_searchWords'],$result['searchwords']);
+        $searchwords .= $this->markFindingInDataString($pageStats['searchWords'],$result['searchwords']);
       
       // ->> PREPARE the TAGS
       if(isset($result['tags']))

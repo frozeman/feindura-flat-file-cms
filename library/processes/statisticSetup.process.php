@@ -41,22 +41,22 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
 
 // ------------>> CLEAR the STATISTICs
 if($_POST['sendClearstatistics']) {
-  
+
   // ->> CLEAR PAGES-STATISTICs
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
-     $pages = GeneralFunctions::loadPages(true,true)) {
-      
-    foreach($pages as $pageContent) {
+     $pagesStats = GeneralFunctions::loadPagesStatistics(true)) {
+
+    foreach($pagesStats as $pageStatistics) {
       
       // -> CLEAR the page stats
-      $pageContent['log_visitorCount'] = '';
-      $pageContent['log_visitTime_min'] = '';
-      $pageContent['log_visitTime_max'] = '';
-      $pageContent['log_firstVisit'] = '';
-      $pageContent['log_lastVisit'] = '';
-      $pageContent['log_searchWords'] = '';
+      $pageStatistics['visitorCount'] = 0;
+      $pageStatistics['firstVisit'] = 0;
+      $pageStatistics['lastVisit'] = 0;
+      $pageStatistics['visitTimeMin'] = '';
+      $pageStatistics['visitTimeMax'] = '';
+      $pageStatistics['searchWords'] = '';
       
-      if(GeneralFunctions::savePage($pageContent)) {        
+      if(GeneralFunctions::savePageStatistics($pageStatistics)) {
         // set documentSaved status
         $documentSaved = true;
       } else
@@ -72,15 +72,15 @@ if($_POST['sendClearstatistics']) {
   
   // ->> CLEAR PAGES-LENGTHOFSTAY-STATISTICs
   if($_POST['clearStatistics_pagesStaylengthStatistics'] == 'true' &&
-     $pages = GeneralFunctions::loadPages(true,true)) {
+     $pagesStats = GeneralFunctions::loadPagesStatistics(true,true)) {
       
-    foreach($pages as $pageContent) {
+    foreach($pagesStats as $pageStatistics) {
       
-      // -> CLEAR the page stats
-      $pageContent['log_visitTime_min'] = '';
-      $pageContent['log_visitTime_max'] = '';
+      // -> CLEAR the page time stats
+      $pageStatistics['visitTimeMin'] = '';
+      $pageStatistics['visitTimeMax'] = '';
       
-      if(GeneralFunctions::savePage($pageContent)) {        
+      if(GeneralFunctions::savePageStatistics($pageStatistics)) {
         // set documentSaved status
         $documentSaved = true;
       } else

@@ -1083,24 +1083,28 @@ window.addEvent('domready', function() {
   if($('HTMLEditor') != null) { 
     
     // vars
-    var editorStandardHeight = 200;
-    var editorTweenToHeight = 380;
+    var editorStartHeight = window.getSize().y * 0.25;
+    var editorTweenToHeight = (window.getSize().y * 0.42 > 380) ? window.getSize().y * 0.42 : 380;
+    console.log(window.getSize().y * 0.42);
     var editorHasFocus = false;
     var editorIsClicked = false;
     var editorSubmited = false;
     var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
     //$('HTMLEditorSubmit').setStyle('height',0);
     $$('#content .editor .content').setStyle('display','block'); // shows the hot keys  
-    
+
     // ------------------------------
     // CONFIG the HTMlEditor
     CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
     CKEDITOR.config.uiColor                       = '#cccccc';
     CKEDITOR.config.width                         = 792;
-    CKEDITOR.config.height                        = editorStandardHeight;
+    if($('documentSaved') != null && $('documentSaved').hasClass('saved'))
+      CKEDITOR.config.height                      = editorTweenToHeight;
+    else
+      CKEDITOR.config.height                      = editorStartHeight;
     CKEDITOR.config.resize_minWidth               = 792;
     CKEDITOR.config.resize_maxWidth               = 1400;
-    CKEDITOR.config.resize_minHeight              = (editorStandardHeight+136);
+    CKEDITOR.config.resize_minHeight              = (editorStartHeight+136);
     CKEDITOR.config.resize_maxHeight              = 900;
     CKEDITOR.config.forcePasteAsPlainText         = true;
     CKEDITOR.config.scayt_autoStartup             = false;
@@ -1137,63 +1141,65 @@ window.addEvent('domready', function() {
   	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
   	
   	// -> adds the EDITOR SLIDE IN/OUT tweens
-  	HTMLEditor.on('instanceReady',function() {
-  	  $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
-  	  
-  	  var editorTweenTimeout;
-  	  
-      $('cke_HTMLEditor').addEvent('mouseenter',function(e){
-        if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
+  	if($('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
+    	HTMLEditor.on('instanceReady',function() {
+    	  $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
+    	  
+    	  var editorTweenTimeout;
+    	  
+        $('cke_HTMLEditor').addEvent('mouseenter',function(e){
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
+          
+        });
+        $$('div.editor').addEvent('mouseleave',function(e){
+          clearTimeout(editorTweenTimeout);
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
+          //editorIsClicked = false;
+        });
+        /*
+        $('cke_HTMLEditor').addEvent('mousedown',function(e){
+          editorIsClicked = true;
+          $('cke_contents_HTMLEditor').get('tween').cancel();
+          clearTimeout(editorTweenTimeout);
+        });
+        $('cke_HTMLEditor').addEvent('mouseup',function(e){
+          editorIsClicked = false;
+          $('cke_contents_HTMLEditor').get('tween').cancel();
+          clearTimeout(editorTweenTimeout);
+        });
+        */
         
+        /*
+        HTMLEditor.on('blur',function() {
+          editorHasFocus = false;
+          clearTimeout(editorTweenTimeout);
+          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
+          //$('HTMLEditorSubmit').tween('height',0);
+        });
+        */
+        HTMLEditor.on('focus',function() {
+          editorHasFocus = true;
+          clearTimeout(editorTweenTimeout);
+          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
+          //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+        });
+        
+        /*
+        HTMLEditor.on('dialogShow',function() {
+          editorHasFocus = true;
+          clearTimeout(editorTweenTimeout);
+          $('cke_contents_HTMLEditor').get('tween').cancel();
+          //$('HTMLEditorSubmit').get('tween').cancel();
+          if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) $('cke_contents_HTMLEditor').setStyle('height',editorTweenToHeight);
+          //$('HTMLEditorSubmit').setStyle('height',editorSubmitHeight);
+        });
+        */
+        
+        $('HTMLEditorSubmit').addEvent('mousedown',function(){
+          editorSubmited = true;
+        });      
       });
-      $$('div.editor').addEvent('mouseleave',function(e){
-        clearTimeout(editorTweenTimeout);
-        if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
-        //editorIsClicked = false;
-      });
-      /*
-      $('cke_HTMLEditor').addEvent('mousedown',function(e){
-        editorIsClicked = true;
-        $('cke_contents_HTMLEditor').get('tween').cancel();
-        clearTimeout(editorTweenTimeout);
-      });
-      $('cke_HTMLEditor').addEvent('mouseup',function(e){
-        editorIsClicked = false;
-        $('cke_contents_HTMLEditor').get('tween').cancel();
-        clearTimeout(editorTweenTimeout);
-      });
-      */
-      
-      /*
-      HTMLEditor.on('blur',function() {
-        editorHasFocus = false;
-        clearTimeout(editorTweenTimeout);
-        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
-        //$('HTMLEditorSubmit').tween('height',0);
-      });
-      */
-      HTMLEditor.on('focus',function() {
-        editorHasFocus = true;
-        clearTimeout(editorTweenTimeout);
-        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
-        //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
-      });
-      
-      /*
-      HTMLEditor.on('dialogShow',function() {
-        editorHasFocus = true;
-        clearTimeout(editorTweenTimeout);
-        $('cke_contents_HTMLEditor').get('tween').cancel();
-        //$('HTMLEditorSubmit').get('tween').cancel();
-        if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) $('cke_contents_HTMLEditor').setStyle('height',editorTweenToHeight);
-        //$('HTMLEditorSubmit').setStyle('height',editorSubmitHeight);
-      });
-      */
-      
-      $('HTMLEditorSubmit').addEvent('mousedown',function(){
-        editorSubmited = true;
-      });      
-    });
+    }
   }
   // ->> make PAGE TITLE EDITABLE
   if($('editablePageTitle') != null) {

@@ -86,6 +86,8 @@ if(!empty($adminConfig['user']['info'])) {
     // ->> LOAD all PAGES
     $orgPages = GeneralFunctions::loadPages(true,true);
     $pages = $orgPages;
+    $orgPagesStats = GeneralFunctions::loadPagesStatistics(true);
+    $pagesStats = $orgPagesStats;
 
     // --------------------------------
     // USER COUNTER
@@ -144,7 +146,6 @@ if(!empty($adminConfig['user']['info'])) {
     
     echo '<div class="inBlockSlider hidden">';
     
-    
     // ---------------------------------
     // -> MOST VISITED PAGE
     echo '<div class="innerBlockLeft">';    
@@ -152,12 +153,19 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT COUNT
-      usort($pages, 'sortByVisitCount');
+      usort($pagesStats, 'sortByVisitCount');
       
       $count = 1;
-      foreach($pages as $page) {
-        if(!empty($page['log_visitorCount'])) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$page['log_visitorCount'].'</b></td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';  
+      foreach($pagesStats as $pageStats) {
+        if(!empty($pageStats['visitorCount'])) {
+          // get page category and title
+          foreach($pages as $page) {
+            if($pageStats['id'] == $page['id']) {
+              $pageStats['title'] = $page['title'];
+              $pageStats['category'] = $page['category'];
+            }
+          }
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;"><b>'.$pageStats['visitorCount'].'</b></td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';  
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
           // count
@@ -169,7 +177,7 @@ if(!empty($adminConfig['user']['info'])) {
             </div>';
     echo '</div>';
     
-    $pages = $orgPages;
+    $pagesStats = $orgPagesStats;
     
     // ---------------------------------
     // -> LAST VISITED PAGES
@@ -178,13 +186,20 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE
-      usort($pages, 'sortByLastVisitDate');
+      usort($pagesStats, 'sortByLastVisitDate');
       
       $count = 1;
       $rowColor = 'dark'; // starting row color
-      foreach($pages as $page) {
-        if($page['log_lastVisit'] != 0) {
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($page['log_lastVisit'])).'</b> '.StatisticFunctions::formatTime($page['log_lastVisit']).'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';        
+      foreach($pagesStats as $pageStats) {
+        if($pageStats['lastVisit'] != 0) {
+          // get page category and title
+          foreach($pages as $page) {
+            if($pageStats['id'] == $page['id']) {
+              $pageStats['title'] = $page['title'];
+              $pageStats['category'] = $page['category'];
+            }
+          }
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:left;"><b>'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageStats['lastVisit'])).'</b> '.StatisticFunctions::formatTime($pageStats['lastVisit']).'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';        
           // change row color
           $rowColor = ($rowColor == 'light') ? 'dark' : 'light';    
           // count
@@ -196,7 +211,7 @@ if(!empty($adminConfig['user']['info'])) {
             </div>';
     echo '</div>';
     
-    $pages = $orgPages;
+    $pagesStats = $orgPagesStats;
     
     // ---------------------------------
     // -> LONGEST VIEWED PAGE
@@ -205,16 +220,23 @@ if(!empty($adminConfig['user']['info'])) {
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by MAX VISIT TIME
-      usort($pages, 'sortByVisitTimeMax');
+      usort($pagesStats, 'sortByVisitTimeMax');
       
       $count = 1;
-      foreach($pages as $page) {
-        
+      foreach($pagesStats as $pageStats) {
+        // get page category and title
+        foreach($pages as $page) {
+          if($pageStats['id'] == $page['id']) {
+            $pageStats['title'] = $page['title'];
+            $pageStats['category'] = $page['category'];
+          }
+        }
+          
         // get highest time
-        $highestTime = unserialize($page['log_visitTime_max']);
+        $highestTime = unserialize($pageStats['visitTimeMax']);
         
         if($pageVisitTime = StatisticFunctions::showVisitTime($highestTime[0],$langFile))
-          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="blue">'.strip_tags($page['title']).'</a></td></tr>';
+          echo '<tr class="'.$rowColor.'"><td style="font-size:11px;text-align:center;">'.$pageVisitTime.'</td><td><a href="?category='.$pageStats['category'].'&amp;page='.$pageStats['id'].'" class="blue">'.strip_tags($pageStats['title']).'</a></td></tr>';
         // change row color
         $rowColor = ($rowColor == 'light') ? 'dark' : 'light';         
         // count
@@ -225,7 +247,7 @@ if(!empty($adminConfig['user']['info'])) {
             </div>';                        
     echo '</div>';
     
-    $pages = $orgPages;
+    $pagesStats = $orgPagesStats;
     
     // ---------------------------------
     // -> LAST EDITED PAGES
@@ -254,46 +276,44 @@ if(!empty($adminConfig['user']['info'])) {
     
     $pages = $orgPages;    
     
-    echo '<br style="clear:both;" />';
+    echo '<br style="clear:both;" /><br /><div class="verticalSeparator"></div>';
+    echo '</div>'; // <- inBlockSlider End
+    
+    echo '<br />';
     
     // ---------------------------------
     // ->> SEARCHWORD CLOUD    
     
     // -> create SEARCHWORD DATASTRING of ALL PAGES
     $allSearchwords = false;
-    foreach($pages as $page) {
+    foreach($pagesStats as $pageStats) {
       // if page has searchwords
-      if(!empty($page['log_searchWords'])) {
-        $allSearchwords = StatisticFunctions::addDataToDataString($allSearchwords,$page['log_searchWords']);
+      if(!empty($pageStats['searchWords'])) {
+        $allSearchwords = StatisticFunctions::addDataToDataString($allSearchwords,$pageStats['searchWords']);
       }
     }
-    echo '<br style="clear:both;" /><div class="verticalSeparator"></div>';
-    echo '</div>'; // <- inBlockSlider End
-    
-    echo '<br />';
     
     // SHOW tag CLOUD
     if($tagCloud = StatisticFunctions::createTagCloud($allSearchwords)) {
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
       echo '<div class="tagCloud">'.$tagCloud.'</div>';
-      
       echo '<br /><div class="verticalSeparator"></div><br />';
     }
      
     // ---------------------------------
     // -> BROWSER CHART
-    echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
-    if($browserChart = StatisticFunctions::createBrowserChart($websiteStatistic['browser']))
+    
+    if($browserChart = StatisticFunctions::createBrowserChart($websiteStatistic['browser'])) {
+      echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
       echo $browserChart;
-    else
-      echo $GLOBALS['langFile']['DASHBOARD_TEXT_NOVISITORS'];
+      echo '<br /><br /><div class="verticalSeparator"></div><br />';
+    }
 
     // ---------------------------------
     // -> SHOW REFERER LOG
     if(file_exists(dirname(__FILE__).'/../../statistic/referer.statistic.log') &&
        $logContent = file(dirname(__FILE__).'/../../statistic/referer.statistic.log')) {
        
-      echo '<br /><br /><div class="verticalSeparator"></div><br />';
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['DASHBOARD_TITLE_REFERER'].'</h2>';
        
       echo '<div id="refererLogContainer">

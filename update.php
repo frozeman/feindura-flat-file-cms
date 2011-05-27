@@ -327,6 +327,21 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
 
       if(!GeneralFunctions::savePage($pageContent))
         $pagesSuccesfullUpdated = false;
+        
+        
+      // save page stats
+      $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+      if(!$pageStatistics) {
+        $pageStatistics['id'] = $pageContent['id'];
+        $pageStatistics['visitorCount'] = $pageContent['log_visitorCount'];
+        $pageStatistics['firstVisit'] = $pageContent['log_firstVisit'];
+        $pageStatistics['lastVisit'] = $pageContent['log_lastVisit'];
+        $pageStatistics['visitTimeMin'] = $pageContent['log_visitTime_min'];
+        $pageStatistics['visitTimeMax'] = $pageContent['log_visitTime_max'];
+        $pageStatistics['searchWords'] = $pageContent['log_searchWords'];
+        GeneralFunctions::savePageStatistics($pageStatistics);
+      }
+      
     }
     if($pagesSuccesfullUpdated)
       echo 'pages <span class="succesfull">succesfully updated</span><br />';

@@ -58,9 +58,7 @@ if($_POST['save']) {
     $category = $_POST['categoryId'];
     $_GET['category'] = $category;
     $_POST['category'] = $category;
-    $pageContent['category'] = $category;     
-  
-    $pageContent['log_visitorCount'] = 0;
+    $pageContent['category'] = $category;
     
     $logText = 0;
     
@@ -112,16 +110,7 @@ if($_POST['save']) {
     $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
     
-    // gets the visit status
-    $_POST['log_visitorCount'] = $pageContent['log_visitorCount'];
-    $_POST['log_visitTime_max'] = $pageContent['log_visitTime_max'];
-    $_POST['log_visitTime_min'] = $pageContent['log_visitTime_min'];
-    $_POST['log_lastVisit'] = $pageContent['log_lastVisit'];
-    $_POST['log_firstVisit'] = $pageContent['log_firstVisit'];
-    $_POST['log_lastIP'] = $pageContent['log_lastIP'];
-    $_POST['log_searchWords'] = $pageContent['log_searchWords'];
-    
-    if($pageContent = GeneralFunctions::savePage($_POST)) {
+    if(GeneralFunctions::savePage($_POST)) {
       $documentSaved = true;
       StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
       

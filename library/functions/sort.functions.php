@@ -109,9 +109,9 @@ function sortByLastSaveDate($a, $b) {     // (Array) $a = current; $b = follwing
  */
 function sortByLastVisitDate($a, $b) {     // (Array) $a = current; $b = follwing value
     
-  if ($a['log_lastVisit'] == $b['log_lastVisit'])
+  if ($a['lastVisit'] == $b['lastVisit'])
     return 0;
-  return ($a['log_lastVisit'] > $b['log_lastVisit']) ? -1 : 1;
+  return ($a['lastVisit'] > $b['lastVisit']) ? -1 : 1;
 }
 
 /**
@@ -148,9 +148,9 @@ function sortByCategory($a, $b) {     // (Array) $a = current; $b = following va
  * 
  */
 function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing value
-  if ($a['log_visitorCount'] == $b['log_visitorCount'])
+  if ($a['visitorCount'] == $b['visitorCount'])
     return 0;
-  return ($a['log_visitorCount'] > $b['log_visitorCount']) ? -1 : 1;
+  return ($a['visitorCount'] > $b['visitorCount']) ? -1 : 1;
 }
 
 /**
@@ -162,8 +162,8 @@ function sortByVisitCount($a, $b) {     // (Array) $a = current; $b = follwing v
 function sortByVisitTimeMax($a, $b) {     // (Array) $a = current; $b = follwing value
 
  // get highest time
-  $aMaxVisitTime = unserialize($a['log_visitTime_max']);
-  $bMaxVisitTime = unserialize($b['log_visitTime_max']);
+  $aMaxVisitTime = unserialize($a['visitTimeMax']);
+  $bMaxVisitTime = unserialize($b['visitTimeMax']);
 
   if ($aMaxVisitTime[0] == $bMaxVisitTime[0])
     return 0;

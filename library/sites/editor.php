@@ -235,15 +235,16 @@ $hidden = ' hidden';
   <h1><a href="#"><img src="library/images/icons/statisticIcon_small.png" alt="icon" width="30" height="27" /><?php echo $langFile['editor_pagestatistics_h1']; ?></a></h1>
   <div class="content">
   <?php
-  // -> format vars
+  $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
+  // -> statistic vars
   // --------------
-  $firstVisitDate = StatisticFunctions::formatDate($pageContent['log_firstVisit']);
-  $firstVisitTime = StatisticFunctions::formatTime($pageContent['log_firstVisit']);
-  $lastVisitDate = StatisticFunctions::formatDate($pageContent['log_lastVisit']);
-  $lastVisitTime = StatisticFunctions::formatTime($pageContent['log_lastVisit']);
+  $firstVisitDate = StatisticFunctions::formatDate($pageStatistics['firstVisit']);
+  $firstVisitTime = StatisticFunctions::formatTime($pageStatistics['firstVisit']);
+  $lastVisitDate = StatisticFunctions::formatDate($pageStatistics['lastVisit']);
+  $lastVisitTime = StatisticFunctions::formatTime($pageStatistics['lastVisit']);
   
-  $visitTimes_max = unserialize($pageContent['log_visitTime_max']);
-  $visitTimes_min = unserialize($pageContent['log_visitTime_min']);
+  $visitTimes_max = unserialize($pageStatistics['visitTimeMax']);
+  $visitTimes_min = unserialize($pageStatistics['visitTimeMin']);
   ?>  
   <table>   
     
@@ -255,7 +256,7 @@ $hidden = ' hidden';
     
     <?php
     
-    if($pageContent['log_firstVisit']) {
+    if($pageStatistics['firstVisit']) {
     ?>
     <tr>
       <td class="left">
@@ -263,7 +264,7 @@ $hidden = ' hidden';
       </td><td class="right" style="font-size:15px;">
         <?php
         // -> VISIT COUNT
-        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.StatisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</span>';
+        echo '<span class="brown" style="font-weight:bold;font-size:20px;">'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'</span>';
         ?>
       </td>      
     </tr>
@@ -363,7 +364,7 @@ $hidden = ' hidden';
       
       // -> show TAG CLOUD
       echo '<div class="tagCloud">';
-      echo StatisticFunctions::createTagCloud($pageContent['log_searchWords']);
+      echo StatisticFunctions::createTagCloud($pageStatistics['searchWords']);
       echo '</div>';
 
       ?>

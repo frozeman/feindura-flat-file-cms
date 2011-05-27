@@ -1975,9 +1975,9 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   * 
-  * @uses FeinduraBase::loadPrevNextPage()         to load the current, previous or next page depending of the $page parameter
-  * @uses FeinduraBase::generatePage()             to generate the array with the page elements
-  * @uses StatisticFunctions::savePageStats()      to save the statistic of the page
+  * @uses FeinduraBase::loadPrevNextPage()                      to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::generatePage()                          to generate the array with the page elements
+  * @uses StatisticFunctions::countAndSavePageStatistics()      to save the statistic of the page
   * 
   * @uses GeneralFunctions::getPageCategory()      to get the category of the page
   * 
@@ -2008,7 +2008,7 @@ class Feindura extends FeinduraBase {
             // -> SAVE PAGE STATISTIC
             // **********************
             if($pageContent['public'])
-              StatisticFunctions::savePageStats($pageContent);
+              StatisticFunctions::countAndSavePageStatistics($pageContent['id']);
           }
           
           // -> adds the frontend editing container

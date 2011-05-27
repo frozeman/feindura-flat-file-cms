@@ -36,7 +36,7 @@
 *    - 0.62 change to static class
 *    - 0.61 doesnt extend GeneralFunctions anymore, no creates an instance of it
 *    - 0.60 add hasVistiCache()
-*    - 0.59 savePageStats(): prevent save searchwords to be counted miltuple times
+*    - 0.59 countAndSavePageStatistics(): prevent save searchwords to be counted miltuple times
 *    - 0.58 fixed isRobot() and saveWebsiteStatistic()
 *    - 0.57 add new browsers to createBrowserChart() 
 *    - 0.56 started documentation
@@ -1314,7 +1314,7 @@ class StatisticFunctions {
   * @uses addDataToDataString()     to add a browser to the browser data-string
   * @uses GeneralFunctions::readPage()        to read the last page again, to save the time spend on the page
   * @uses GeneralFunctions::getPageCategory() to get the category of the last page
-  * @uses GeneralFunctions::savePage()        to save the current page statictics
+  * @uses GeneralFunctions::Statistics()        to save the current page statictics
   * 
   * @return bool TRUE if the website-statistics were saved, otherwise FALSE
   * 
@@ -1420,6 +1420,8 @@ class StatisticFunctions {
         // saves the user as visited
         $_SESSION['feindura']['log']['visited'] = true;
       }
+    
+    // ->> save the time of the last visited page
     } else {
       
       // ->> CHECKS if the user is NOT a BOT/SPIDER
@@ -1432,28 +1434,29 @@ class StatisticFunctions {
         
         $newMinVisitTimes = '';
         $newMaxVisitTimes = '';
-        $maxCount = 10;
+        $maxCount = 10; // the maximal number of visit time (min and max) saved
 
         // -> count the time difference, between the last page and the current
         if(isset($_SESSION['feindura']['log']['lastPages']) && isset($_SESSION['feindura']['log']['lastTimestamp'])) {
           
           // ->> start of foreach(lastPages)
-          foreach($_SESSION['feindura']['log']['lastPages'] as $log_lastPage) {
+          foreach($_SESSION['feindura']['log']['lastPages'] as $lastPageId) {
           
             // load the last page again
-            $lastPage = GeneralFunctions::readPage($log_lastPage,GeneralFunctions::getPageCategory($log_lastPage));
+            $lastPage = GeneralFunctions::readPageStatistics($lastPageId);
+            if(!$lastPage) $lastPage['id'] = $lastPageId;
             
             $visitTime = time() - XssFilter::int($_SESSION['feindura']['log']['lastTimestamp'],0);
             
-            // saves times longer than 5 seconds
+            // saves time only when longer than 5 seconds
             if($visitTime > 5) {
               $isNotMax = true;
 
               // -> saves the MAX visitTime
               // **************************
-              if(!empty($lastPage['log_visitTime_max'])) {
+              if(!empty($lastPage['visitTimeMax'])) {
               
-                $maxVisitTimes = unserialize($lastPage['log_visitTime_max']);
+                $maxVisitTimes = unserialize($lastPage['visitTimeMax']);
     
                 // adds the new time if it is bigger than the highest min time
                 if($visitTime > $maxVisitTimes[0]) {
@@ -1474,9 +1477,9 @@ class StatisticFunctions {
               
               // -> saves the MIN visitTime
               // **************************
-              if(!empty($lastPage['log_visitTime_min']) && $isNotMax) {
+              if(!empty($lastPage['visitTimeMin']) && $isNotMax) {
               
-                $minVisitTimes = unserialize($lastPage['log_visitTime_min']);
+                $minVisitTimes = unserialize($lastPage['visitTimeMin']);
                 
                 // adds the new time if it is bigger than the highest min time
                 if($visitTime > $minVisitTimes[count($minVisitTimes)-1]) {
@@ -1491,8 +1494,8 @@ class StatisticFunctions {
                 // make array to string
                 $newMinVisitTimes = serialize($newMinVisitTimes);
               
-              } elseif(!empty($lastPage['log_visitTime_min']))
-                $newMinVisitTimes = $lastPage['log_visitTime_min'];
+              } elseif(!empty($lastPage['visitTimeMin']))
+                $newMinVisitTimes = $lastPage['visitTimeMin'];
               else
                 $newMinVisitTimes = serialize(array(0));
               
@@ -1500,14 +1503,10 @@ class StatisticFunctions {
               //echo 'MIN -> '.$newMinVisitTimes.'<br />';
                    
               // -> adds the new max times to the pageContent Array
-              $lastPage['log_visitTime_max'] = $newMaxVisitTimes;
-              $lastPage['log_visitTime_min'] = $newMinVisitTimes;
+              $lastPage['visitTimeMax'] = $newMaxVisitTimes;
+              $lastPage['visitTimeMin'] = $newMinVisitTimes;
               
-              $category = ($lastPage['category'] != 0) ? $lastPage['category'].'/' : '';
-              
-              // -> SAVE the LAST PAGE // if file exists (problem when sorting pages, and user is on the page)
-              if(@is_file(dirname(__FILE__).'/../../pages/'.$category.$lastPage['id'].'.php'))
-                GeneralFunctions::savePage($lastPage);
+              GeneralFunctions::savePageStatistics($lastPage);
             }
             
           } // <- end of foreach(lastPages)          
@@ -1524,7 +1523,7 @@ class StatisticFunctions {
   }
   
  /**
-  * <b>Name</b> savePageStats()<br>
+  * <b>Name</b> countAndSavePageStatistics()<br>
   * 
   * Saves the following values of the page-statistic:<br>
   *   - number of user visits
@@ -1547,7 +1546,7 @@ class StatisticFunctions {
   * @uses isRobot()                               to check whether the user-agent is a robot or a human
   * @uses addDataToDataString()                   to add the searchwords to the searchword data-string
   * @uses GeneralFunctions::isPageContentArray()  check if the $pageContent parameter is a valid pageContent array    
-  * @uses GeneralFunctions::savePage()            to save the page and also the last visited page with the calculated view-time
+  * @uses GeneralFunctions::savePageStatistics()  to save the page statistics
   * 
   * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a robot, or the $pageContent parameter is not a valid $pageContent array
   * 
@@ -1559,7 +1558,7 @@ class StatisticFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function savePageStats($pageContent) {
+  public static function countAndSavePageStatistics($pageId) {
 
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
@@ -1574,34 +1573,34 @@ class StatisticFunctions {
     if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
        (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
          
-      // CHECK if the $pageContent parameter is a valid $pageContent array
-      if(GeneralFunctions::isPageContentArray($pageContent) === false)
-        return false;
+      // LOAD the $pageStatistics array
+      $pageStatistics = GeneralFunctions::readPageStatistics($pageId);
+      if(!$pageStatistics) $pageStatistics['id'] = $pageId;
       
       // STORE last visited page IDs in a session array and the time
-      $_SESSION['feindura']['log']['lastPages'][] = $pageContent['id'];      
+      $_SESSION['feindura']['log']['lastPages'][] = $pageStatistics['id'];      
       
       // -> saves the FIRST PAGE VISIT
       // -----------------------------
-      if(empty($pageContent['log_firstVisit'])) {
-        $pageContent['log_firstVisit'] = time();
-        $pageContent['log_visitorCount'] = 0;
+      if(empty($pageStatistics['firstVisit'])) {
+        $pageStatistics['firstVisit'] = time();
+        $pageStatistics['visitorCount'] = 0;
       }
       
       // -> saves the LAST PAGE VISIT
       // ----------------------------
-      $pageContent['log_lastVisit'] = time();
+      $pageStatistics['lastVisit'] = time();
       
       // -> COUNT vistor, if the user haven't already visited this page in this session
       // --------------------------------------------------------------------------
       if(!isset($_SESSION['feindura']['log']['visitedPages']))
         $_SESSION['feindura']['log']['visitedPages'] = array();
         
-      if(in_array($pageContent['id'],$_SESSION['feindura']['log']['visitedPages']) === false) {
-        //echo $pageContent['id'].' -> '.$pageContent['log_visitorCount'];
-        $pageContent['log_visitorCount']++;
+      if(in_array($pageStatistics['id'],$_SESSION['feindura']['log']['visitedPages']) === false) {
+        //echo $pageContent['id'].' -> '.$pageContent['visitorCount'];
+        $pageStatistics['visitorCount']++;
         // add to the array of already visited pages
-        $_SESSION['feindura']['log']['visitedPages'][] = $pageContent['id'];
+        $_SESSION['feindura']['log']['visitedPages'][] = $pageStatistics['id'];
       }
       
       // ->> SAVE THE SEARCHWORDs from GOOGLE, YAHOO, MSN (Bing)
@@ -1649,13 +1648,13 @@ class StatisticFunctions {
           
           if(!empty($newSearchWords)) {
             // adds the searchwords to the searchword data string
-            $pageContent['log_searchWords'] = self::addDataToDataString($pageContent['log_searchWords'],$searchWords);   
+            $pageStatistics['searchWords'] = self::addDataToDataString($pageContent['searchWords'],$searchWords);   
           }
         }
       }
       
       // -> SAVE the PAGE STATISTICS
-      return GeneralFunctions::savePage($pageContent);
+      return GeneralFunctions::savePageStatistics($pageStatistics);
       
     } else
       return false;

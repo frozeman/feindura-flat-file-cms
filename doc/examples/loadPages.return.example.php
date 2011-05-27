@@ -21,12 +21,6 @@ array(
       "styleFile" => '',
       "styleId" => '',
       "styleClass" => '',
-      "log_visitorCount" => '125',
-      "log_visitTime_min" => '00:00:05',
-      "log_visitTime_max" => '00:25:00',
-      "log_firstVisit" => '1282348800', // UNIX-Timestamp
-      "log_lastVisit" => '1282348900', // UNIX-Timestamp
-      "log_searchWords" => 'test,50|example,120|cms,2|open,5',
       "content" => '<p>Example Content</p>'
       ),
     
@@ -50,12 +44,6 @@ array(
       "styleFile" => '',
       "styleId" => '',
       "styleClass" => '',
-      "log_visitorCount" => '5',
-      "log_visitTime_min" => '00:00:05',
-      "log_visitTime_max" => '00:25:00',
-      "log_firstVisit" => '1282348800', // UNIX-Timestamp
-      "log_lastVisit" => '1282349800', // UNIX-Timestamp
-      "log_searchWords" => 'test,13|example,10',
       "content" => '<p>Example Content</p>'
       )
 

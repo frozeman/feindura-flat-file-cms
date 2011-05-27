@@ -133,7 +133,8 @@ if($_SESSION['feindura']['session']['loggedIn'] === true &&
   
   <title>feindura login</title>
   
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <meta name="robots" content="no-index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->

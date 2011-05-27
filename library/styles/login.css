@@ -171,6 +171,7 @@ html,body {
 
 div.info {
   width: 100%;
+  padding-bottom: 20%;
   text-align: center;
   color: #ccc;
   font-size: 10px;

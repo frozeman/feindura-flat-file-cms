@@ -317,7 +317,6 @@ $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'last edited pages';
 $langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'longest viewed pages';
 
 $langFile['DASHBOARD_TITLE_REFERER'] = 'Websites from which visitors came';
-$langFile['DASHBOARD_TEXT_NOVISITORS'] = 'There are no visitors yet';
 
 /*
 * listPages.php

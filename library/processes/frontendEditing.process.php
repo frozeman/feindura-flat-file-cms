@@ -38,7 +38,7 @@ if($_POST['save'] == 'true') {
   $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
   
   // ->> save the page
-  if($pageContent = GeneralFunctions::savePage($pageContent)) {
+  if(GeneralFunctions::savePage($pageContent)) {
     StatisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
     // -> the data which will be returned, to inject into the element in the frontend 
     $return = ($_POST['type'] == 'title') ? $pageContent['title'] : $return;

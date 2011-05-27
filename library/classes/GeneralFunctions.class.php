@@ -515,16 +515,13 @@ class GeneralFunctions {
   * Example of the returned $pageContent array:
   * {@example readPage.return.example.php}
   * 
-  * <b>Used Constants</b><br>
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
-  * 
   * @param int|array  $page           a page ID or a $pageContent array (will then returned immediately)
   * @param int        $category       (optional) a category ID, if FALSE it will try to load this page from the non-category
   * 
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses addStoredPage()		to store a new loaded $pageContent array in the {@link $storedPages} property
   * 
-  * @return array|FALSE the $pageContent array of the requested page or FALS, if it couldn't open the file
+  * @return array|FALSE the $pageContent array of the requested page or FALSE, if it couldn't open the file
   * 
   * @static
   * @version 1.0
@@ -535,7 +532,6 @@ class GeneralFunctions {
   */
   public static function readPage($page,$category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
-    
     // var
     $pageContent = false;
     
@@ -594,7 +590,6 @@ class GeneralFunctions {
   * {@example readPage.return.example.php}
   * 
   * <b>Used Constants</b><br>
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
   * 
@@ -606,9 +601,10 @@ class GeneralFunctions {
   * @return bool TRUE if the page was succesfull saved, otherwise FALSE
   * 
   * @static
-  * @version 1.0.4
+  * @version 1.0.5
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.5 removed page statistics  
   *    - 1.0.4 add XssFilter for every value  
   *    - 1.0.3 creates now category folder automatically  
   *    - 1.0.2 add preg_replace removing multiple slahses
@@ -693,13 +689,6 @@ class GeneralFunctions {
       fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"); //XssFilter is in prepareStyleFilePaths() function
       fwrite($file,"\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n");
       fwrite($file,"\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n");
-      
-      fwrite($file,"\$pageContent['log_visitorCount'] =   ".XssFilter::int($pageContent['log_visitorCount'],0).";\n");
-      fwrite($file,"\$pageContent['log_firstVisit'] =     ".XssFilter::int($pageContent['log_firstVisit'],0).";\n");
-      fwrite($file,"\$pageContent['log_lastVisit'] =      ".XssFilter::int($pageContent['log_lastVisit'],0).";\n");
-      fwrite($file,"\$pageContent['log_visitTime_min'] =  '".$pageContent['log_visitTime_min']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-      fwrite($file,"\$pageContent['log_visitTime_max'] =  '".$pageContent['log_visitTime_max']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-      fwrite($file,"\$pageContent['log_searchWords'] =    '".$pageContent['log_searchWords']."';\n\n"); // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
 
       fwrite($file,"\$pageContent['content'] = '".trim(self::htmLawed($pageContent['content']))."';\n\n");
       
@@ -717,8 +706,122 @@ class GeneralFunctions {
       // reset the stored page ids
       self::$storedPageIds = null;
       
-      return $pageContent;
+      return true;
     }  
+    return false;  
+  }
+
+ /**
+  * <b>Name</b> readPageStatistics()<br>
+  * 
+  * Loads the $pageContent array of a page.
+  * 
+  * Includes the page statistics.
+  * 
+  * Example of the returned $pageStatistics array:
+  * {@example readPageStatistics.return.example.php}
+  * 
+  * @param int $pageId a page ID or a $pageStatistics array (will then returned immediately)
+  * 
+  * 
+  * @return array|FALSE the $pageStatistics array of the requested page or FALSE, if it couldn't open the file
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function readPageStatistics($pageId) {
+    //echo 'PAGE: '.$pageId.'<br />';
+    // var
+    $pageStatistics = false;
+    
+    // if $page is a valid $pageStatistics array return it immediately
+    if(self::isPageStatisticsArray($pageId))
+      return $pageId;
+    
+    // adds .php to the end if its missing
+    if(substr($pageId,-4) != '.statistics.php')
+      $pageId .= '.statistics.php';
+    // ->> INCLUDE
+    if($fp = @fopen(dirname(__FILE__).'/../../pages/statistics/'.$pageId,'r')) {
+      flock($fp,LOCK_SH);
+      $pageStatistics = @include(dirname(__FILE__).'/../../pages/statistics/'.$pageId);
+      flock($fp,LOCK_UN);
+      fclose($fp);
+    }
+
+    if($pageStatistics) {
+      return $pageStatistics;
+    } else  // returns false if it couldn't include the page stats
+      return false;
+  }
+
+ /**
+  * <b>Name</b> savePageStatistics()<br>
+  * 
+  * Save a page statistics to it's flatfile.
+  * 
+  * Example of the saved $pageContent array:
+  * {@example readPageStatistics.return.example.php}
+  * 
+  * <b>Used Constants</b><br>
+  *    - <var>PHPSTARTTAG</var> the php start tag
+  *    - <var>PHPENDTAG</var> the php end tag
+  * 
+  * @param array $pageStatistics    the $pageStatistics array of the page to save
+  * 
+  * @uses $adminConfig      for the save path of the flatfiles
+  * 
+  * @return bool TRUE if the page was succesfull saved, otherwise FALSE
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function savePageStatistics($pageStatistics) {
+
+    // check if array is pageContent array
+    if(!self::isPageStatisticsArray($pageStatistics))
+      return false;
+
+    // check if statistics folder exists
+    if(!is_dir(dirname(__FILE__).'/../../pages/statistics/'))
+      @mkdir(dirname(__FILE__).'/../../pages/statistics/',self::$adminConfig['permissions'],true);
+    
+    // open the flatfile
+    if($file = fopen(dirname(__FILE__).'/../../pages/statistics/'.$pageStatistics['id'].'.statistics.php',"wb")) {
+
+      // escape \ and '
+      //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
+     
+      // WRITE
+      flock($file,LOCK_EX);
+      fwrite($file,PHPSTARTTAG);
+      
+      fwrite($file,"\$pageStatistics['id'] =             ".XssFilter::int($pageStatistics['id'],0).";\n");
+      fwrite($file,"\$pageStatistics['visitorCount'] =   ".XssFilter::int($pageStatistics['visitorCount'],0).";\n");
+      fwrite($file,"\$pageStatistics['firstVisit'] =     ".XssFilter::int($pageStatistics['firstVisit'],0).";\n");
+      fwrite($file,"\$pageStatistics['lastVisit'] =      ".XssFilter::int($pageStatistics['lastVisit'],0).";\n");
+      fwrite($file,"\$pageStatistics['visitTimeMin'] =  '".$pageStatistics['visitTimeMin']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+      fwrite($file,"\$pageStatistics['visitTimeMax'] =  '".$pageStatistics['visitTimeMax']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+      fwrite($file,"\$pageStatistics['searchWords'] =    '".$pageStatistics['searchWords']."';\n\n"); // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
+      
+      fwrite($file,"return \$pageStatistics;");
+      
+      fwrite($file,PHPENDTAG);
+      flock($file,LOCK_UN);
+      fclose($file);
+      
+      @chmod(dirname(__FILE__).'/../../pages/statistics/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
+      
+      return true;
+    }
     return false;  
   }
   
@@ -847,7 +950,7 @@ class GeneralFunctions {
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses readPage()			    to load the $pageContent array of the page
   * 
-  * @return array the $pageContent array of the requested pages
+  * @return array an array with the $pageContent arrays of the requested pages
   * 
   * @static
   * @version 1.0
@@ -926,6 +1029,85 @@ class GeneralFunctions {
       return $newPageIds;
     }
   }
+  
+ /**
+  * <b>Name</b> loadPages()<br>
+  * 
+  * Loads the $pageContent arrays from pages in a specific category(ies) or all categories.
+  * 
+  * Loads all $pageStatistics arrays of a given category, by going through the {@link $storedPageIds} property and load the right "[pageID].statistics.php".
+  * 
+  * <b>Notice</b>: after loading all $pageStatistics arrays of a category, the array with the containing $pageStatistics arrays will be sorted.
+  * 
+  * Example of the returned $pageStatistics arrays:
+  * {@example loadPagesStatistics.return.example.php}
+  * 
+  * @param bool|int|array  $category           (optional) a category ID, or an array with category IDs. TRUE to load all categories (including the non-category) or FALSE to load only the non-category pages
+  * 
+  * @uses $categoryConfig               to get the sorting of the category
+  * @uses getStoredPages()		          for getting the {@link $storedPages} property
+  * @uses readPageStatistics()			    to load the $pageStatistics array of the page
+  * 
+  * @return array an array with the $pageStatistic arrays of the requested pages
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */  
+  public static function loadPagesStatistics($category = false) {
+    
+    // IF $category FALSE set $category to 0
+    if($category === false)
+      $category = 0;
+      
+    //vars
+    $pagesStatsArray = array();
+
+    // IF $category TRUE create array with non-category and all category IDs
+    if($category === true) {
+    	// puts the categories IDs in an array
+    	$category = array(0); // start with the non category
+    	foreach(self::$categoryConfig as $eachCategory) {
+    	  $category[] = $eachCategory['id'];
+    	}
+    }
+    
+    // change category into array
+    if(is_numeric($category))
+      $category = array($category);
+      
+    // go trough all given CATEGORIES
+    if(is_array($category)) {
+      foreach($category as $categoryId) {
+        
+        // go trough the storedPageIds and open the page in it
+        $pageStatisticsArrays = array();
+        foreach(self::getStoredPageIds() as $pageIdAndCategory) {
+          // use only pages from the right category
+          if($pageIdAndCategory['category'] == $categoryId) {
+            //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
+            $pageStatisticsArrays[] = self::readPageStatistics($pageIdAndCategory['page']);            
+          }
+        }
+        
+        /*
+        // sorts the category
+        if(is_array($pageStatisticsArrays)) { // && !empty($categoryId) <- prevents sorting of the non-category
+          $newPageContentArrays = self::sortPages($newPageContentArrays);
+        }
+        */
+      
+        // adds the new sorted category to the return array
+        $pagesStatsArray = array_merge($pagesStatsArray,$pageStatisticsArrays);
+      }
+    }
+    //print_r($pagesArray);
+    return $pagesStatsArray;
+
+  }
 
  /**
   * <b>Name</b> isPublicCategory()<br />
@@ -1002,6 +1184,26 @@ class GeneralFunctions {
   */
   public static function isPageContentArray($page) {               
     return (is_array($page) && array_key_exists('id',$page) && array_key_exists('content',$page)) ? true : false;
+  }
+  
+ /**
+  * <b>Name</b> isPageStatisticsArray()<br>
+  * 
+  * Checks the given <var>$page</var> parameter is a valid <var>$pageStatistics</var> array.
+  * 
+  * @param int|array $page   the variable to check 
+  * 
+  * @return bool
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function isPageStatisticsArray($page) {
+    return (is_array($page) && array_key_exists('id',$page) && array_key_exists('visitorCount',$page)) ? true : false;
   }
   
  /**

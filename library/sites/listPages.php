@@ -128,6 +128,8 @@ foreach($allCategories as $category) {
   
     // zählt die $pages durch
     foreach ($pages as $pageContent) {
+    
+      $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
 
       // vars
       $pageDate = '';
@@ -177,7 +179,7 @@ foreach($allCategories as $category) {
       echo (!empty($pageContent['lastSaveAuthor']))
         ? '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">&nbsp;&nbsp;'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">&nbsp;&nbsp;'.$lastSaveDate.'</div>';
-      echo '<div class="counter">&nbsp;&nbsp;'.StatisticFunctions::formatHighNumber($pageContent['log_visitorCount']).'</div>
+      echo '<div class="counter">&nbsp;&nbsp;'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS
