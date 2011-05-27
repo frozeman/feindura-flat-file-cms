@@ -267,15 +267,3 @@ iframe#fileManagerFrame {
     height: 470px;
     margin: -20px -14px;
     }
-    
-/* --- ERRORWINDOW ------------------------------------------------------------------------------------------------------------------- */
-/* more in shared.css */
-
-#feindura_errorWindow .rawError {
-    display: block;
-    margin: 0px -10px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px dotted #999999;
-    color: #444;
-    }

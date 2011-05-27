@@ -149,6 +149,12 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
     width: 377px;
     padding-left: 70px;    
     }
+#feindura_errorWindow .feindura_content div.scroll {
+    display: block;
+    max-height: 500px;
+    overflow: auto;
+    color: #A30000;
+}
 #feindura_errorWindow .feindura_bottom {
     position: relative;
     bottom: -40px;
@@ -162,10 +168,15 @@ a.toWebsite:hover, a.feindura_toBackend:hover, a.toWebsite:focus, a.feindura_toB
     min-height: 48px;
     background: url("../images/icons/warning.png") no-repeat center left;
     }
-    
-#feindura_errorWindow .feindura_content p {
-    padding-top: 20px;
-    color: #A30000;
+
+#feindura_errorWindow .rawError {
+    display: block;
+    width: 345px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px dotted #999999;
+    color: #444;
+    word-wrap: break-word;
     }
     
 /* ok button */

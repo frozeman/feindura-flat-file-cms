@@ -535,6 +535,14 @@ window.addEvent('domready', function() {
   // makes sidebarmenu dynamic
   sidebarMenu();
   
+  // let the errorWindow clos by ESC or ENTER keys
+  if($('feindura_errorWindow') != null) {
+    document.addEvent('keyup',function(e){
+      if(e.key == 'esc' || e.key == 'enter')
+        feindura_closeErrorWindow(e);
+    });
+  }
+  
   // ->> LOG LIST
   // ------------
   if($('sidebarTaskLog') != null) {

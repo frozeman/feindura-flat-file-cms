@@ -77,22 +77,27 @@ function feindura_displayError(title,errorText) {
   // creates the errorWindow
   var errorWindow = new Element('div',{id:'feindura_errorWindow', 'style':'left:50%;margin-left:-260px;'});
   errorWindow.grab(new Element('div',{'class':'feindura_top', 'html': title}));
-  var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<p>'+errorText+'</p>'});
+  var errorWindowContent = new Element('div',{'class':'feindura_content feindura_warning', 'html':'<div class="scroll">'+errorText+'</div>'});
   var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
   errorWindowContent.grab(errorWindowOkButton);
   errorWindow.grab(errorWindowContent);
   errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
   
   // add functionality to the ok button
-  errorWindowOkButton.addEvent('click',function(e) {
-    e.stop();
-    errorWindow.fade('out');
-    errorWindow.get('tween').chain(function(){
-      errorWindow.destroy();
-    });
+  errorWindowOkButton.addEvent('click',feindura_closeErrorWindow);
+  document.addEvent('keypress',function(e){
+    if(e.key == 'esc' || e.key == 'enter')
+      feindura_closeErrorWindow(e);
   });
   
   return errorWindow;
+}
+function feindura_closeErrorWindow(e) {
+  if(e) e.stop();
+  $('feindura_errorWindow').fade('out');
+    $('feindura_errorWindow').get('tween').chain(function(){
+    $('feindura_errorWindow').destroy();
+  });
 }
 
 // -> STORES the title text in the elements storage

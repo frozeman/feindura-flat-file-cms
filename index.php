@@ -49,6 +49,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
   
   <meta name="robots" content="no-index,nofollow" />
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
@@ -355,7 +356,7 @@ var feindura_pages = [
   <div id="feindura_errorWindow">
     <div class="feindura_top"><?php echo $langFile['errorWindow_h1'];?></div>
     <div class="feindura_content feindura_warning">
-      <p><?php echo $errorWindow; ?></p>
+      <div class="scroll"><?php echo $errorWindow; ?></div>
       <a href="?site=<?php echo $_GET['site'] ?>" onclick="$('feindura_errorWindow').fade('out');return false;" class="feindura_ok"></a>
     </div>
     <div class="feindura_bottom"></div>
