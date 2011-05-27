@@ -1089,7 +1089,7 @@ window.addEvent('domready', function() {
     var editorIsClicked = false;
     var editorSubmited = false;
     var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
-    $('HTMLEditorSubmit').setStyle('height',0);
+    //$('HTMLEditorSubmit').setStyle('height',0);
     $$('#content .editor .content').setStyle('display','block'); // shows the hot keys  
     
     // ------------------------------
@@ -1151,6 +1151,7 @@ window.addEvent('domready', function() {
         if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
         //editorIsClicked = false;
       });
+      /*
       $('cke_HTMLEditor').addEvent('mousedown',function(e){
         editorIsClicked = true;
         $('cke_contents_HTMLEditor').get('tween').cancel();
@@ -1161,28 +1162,33 @@ window.addEvent('domready', function() {
         $('cke_contents_HTMLEditor').get('tween').cancel();
         clearTimeout(editorTweenTimeout);
       });
+      */
       
+      /*
       HTMLEditor.on('blur',function() {
         editorHasFocus = false;
         clearTimeout(editorTweenTimeout);
         if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorStandardHeight);
-        $('HTMLEditorSubmit').tween('height',0);
+        //$('HTMLEditorSubmit').tween('height',0);
       });
+      */
       HTMLEditor.on('focus',function() {
         editorHasFocus = true;
         clearTimeout(editorTweenTimeout);
         if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
-        $('HTMLEditorSubmit').tween('height',editorSubmitHeight);
+        //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
       });
       
+      /*
       HTMLEditor.on('dialogShow',function() {
         editorHasFocus = true;
         clearTimeout(editorTweenTimeout);
         $('cke_contents_HTMLEditor').get('tween').cancel();
-        $('HTMLEditorSubmit').get('tween').cancel();
+        //$('HTMLEditorSubmit').get('tween').cancel();
         if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStandardHeight+20)) $('cke_contents_HTMLEditor').setStyle('height',editorTweenToHeight);
-        $('HTMLEditorSubmit').setStyle('height',editorSubmitHeight);
+        //$('HTMLEditorSubmit').setStyle('height',editorSubmitHeight);
       });
+      */
       
       $('HTMLEditorSubmit').addEvent('mousedown',function(){
         editorSubmited = true;

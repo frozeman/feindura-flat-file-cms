@@ -194,9 +194,9 @@ if($savedSettings) {
 
 // ->> SET PERMISSIONS
 if(!empty($adminConfig['permissions']) && !is_string($adminConfig['permissions'])) {
-  if(is_file(dirname(__FILE__)."/../../statistic/activity.statistic.log")) chmod(dirname(__FILE__)."/../../hstatistic/activity.statistic.log", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../statistic/referer.statistic.log")) chmod(dirname(__FILE__)."/../../hstatistic/referer.statistic.log", $adminConfig['permissions']);
-  if(is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) chmod(dirname(__FILE__)."/../../hstatistic/website.statistic.php", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../statistic/activity.statistic.log")) chmod(dirname(__FILE__)."/../../statistic/activity.statistic.log", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../statistic/referer.statistic.log")) chmod(dirname(__FILE__)."/../../statistic/referer.statistic.log", $adminConfig['permissions']);
+  if(is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", $adminConfig['permissions']);
   
   if(is_file(dirname(__FILE__)."/../../config/admin.config.php")) chmod(dirname(__FILE__)."/../../config/admin.config.php", $adminConfig['permissions']);
   if(is_file(dirname(__FILE__)."/../../config/category.config.php")) chmod(dirname(__FILE__)."/../../config/category.config.php", $adminConfig['permissions']);

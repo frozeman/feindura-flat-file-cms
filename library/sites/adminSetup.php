@@ -409,12 +409,21 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
 <div class="blockSpacer"></div>
 
+<?php
+
+// BEARBEITUNG DER SPRACHDATEI
+editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
+  
+
+// BEARBEITUNG DER STYLESHEETDATEI
+editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
+
+} // <-- END isAdmin()
+?>
 
 <!-- HIER BEGINNT DIE STIL-AUSWAHL BEARBEITUNG DES HTML EDITORS -->
-
 <form action="index.php?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
   <div><input type="hidden" name="saveFckStyleFile" value="true" /></div>
-
 <?php
 
 $htmlEditorStyleFilePath = "config/htmlEditorStyles.js";
@@ -436,15 +445,3 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
   <div class="bottom"></div>
 </div>
 </form>
-
-<?php
-
-// BEARBEITUNG DER SPRACHDATEI
-editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
-  
-
-// BEARBEITUNG DER STYLESHEETDATEI
-editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
-
-} // <-- END isAdmin()
-?>
