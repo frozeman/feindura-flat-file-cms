@@ -32,9 +32,7 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @autohor Fabian Vogelsteller
-* 
-* @todo maybe use http://php.net/manual/de/public static function.filter-var.php and http://php.net/manual/en/filter.filters.sanitize.php ?
+* @author Fabian Vogelsteller
 * 
 * @since feindura version 1.1
 * 
@@ -235,7 +233,7 @@ class XssFilter {
   *     - _
   *     - -
   * 
-  * <sample>
+  * <samp>
   * Test-Name 123
   * </sample>
   * 
@@ -267,7 +265,7 @@ class XssFilter {
   * 
   * Check if the data is a alphanumerical string, allowing only underscores "_" and spaces.
   * 
-  * <sample>
+  * <samp>
   * Product_With_Color 123
   * </sample>
   * 
@@ -322,7 +320,7 @@ class XssFilter {
   * 
   * Check if the data is filename string.
   * 
-  * <sample>
+  * <samp>
   * file_n-am e1.php
   * </sample>
   * 
@@ -354,7 +352,7 @@ class XssFilter {
   * Check if the data is local path string.
   * The path cannot have ".." .
   * 
-  * <sample>
+  * <samp>
   * /path/to/example/file.php
   * </sample>
   * 
@@ -392,7 +390,7 @@ class XssFilter {
   * Check if the data is a URL.
   * The path cannot have ".." .
   * 
-  * <sample>
+  * <samp>
   * http://path/to/example/file.php?var=value
   * </sample>
   * 
@@ -429,9 +427,9 @@ class XssFilter {
   * 
   * Change the HTML important signs to htmlspecialchars with the htmlspecialchars() function.
   * 
-  * <sample>
+  * <samp>
   * Text &lt;a href=&quot;test&quot;&gt; other text
-  * </sample>
+  * </samp>
   * 
   * @param string  $data     the data to check against
   * @param string  $charset  (optional) the charset used by the htmlspecialchars public static function  

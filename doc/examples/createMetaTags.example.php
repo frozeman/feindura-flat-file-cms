@@ -45,7 +45,7 @@ echo '</head>
   <meta name="revisit_after" content="12" />
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <!-- enable google chrome frame, if available -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- set width for mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=0.5" /> <!-- set width for mobile devices -->
 
   <meta name="title" content="feinduraExample.com - Welcome" />
   <meta name="author" content="Fabian Vogelsteller" />
