@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/websiteSetup.process.php version 1.9
+* controllers/websiteSetup.controller.php version 1.9
 */
 
 /**
@@ -40,7 +40,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 }
 
 // ---------- SAVE the editFiles
-include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
+include_once(dirname(__FILE__).'/../controllers/saveEditFiles.controller.php');
 
 // RE-INCLUDE
 if($savedSettings) {

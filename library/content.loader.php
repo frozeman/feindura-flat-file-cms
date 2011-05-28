@@ -39,7 +39,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
   
-  include (dirname(__FILE__).'/sites/editor.php');
+  include (dirname(__FILE__).'/views/editor.php');
   
 // OTHER BUTTONSwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
@@ -49,65 +49,65 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   switch($_GET['site']) {
     // dashboard
     case 'dashboard': case '':
-      include (dirname(__FILE__).'/sites/dashboard.php');
+      include (dirname(__FILE__).'/views/dashboard.php');
       break;
     // pages
     case 'pages':
       if(empty($categoryConfig))
         $_GET['category'] = 0;
-      include (dirname(__FILE__).'/sites/listPages.php');
+      include (dirname(__FILE__).'/views/listPages.php');
       break;
     // adminSetup
     case 'adminSetup':
-      include (dirname(__FILE__).'/sites/adminSetup.php');
+      include (dirname(__FILE__).'/views/adminSetup.php');
       break;
     // adminSetup
     case 'pageSetup':
-      include (dirname(__FILE__).'/sites/pageSetup.php');
+      include (dirname(__FILE__).'/views/pageSetup.php');
       break;
     // websiteSetup
     case 'websiteSetup':
-      include (dirname(__FILE__).'/sites/websiteSetup.php');
+      include (dirname(__FILE__).'/views/websiteSetup.php');
       break;
     // statisticSetup
     case 'statisticSetup':
-      include (dirname(__FILE__).'/sites/statisticSetup.php');
+      include (dirname(__FILE__).'/views/statisticSetup.php');
       break;
     // backup
     case 'backup':
-      include (dirname(__FILE__).'/sites/backup.php');
+      include (dirname(__FILE__).'/views/backup.php');
       break;
     // userSetup
     case 'userSetup':
-      include (dirname(__FILE__).'/sites/userSetup.php');
+      include (dirname(__FILE__).'/views/userSetup.php');
       break;
     // pluginSetup
     case 'pluginSetup':
-      include (dirname(__FILE__).'/sites/pluginSetup.php');
+      include (dirname(__FILE__).'/views/pluginSetup.php');
       break;
     // modulSetup
     case 'modulSetup':
-      include (dirname(__FILE__).'/sites/modulSetup.php');
+      include (dirname(__FILE__).'/views/modulSetup.php');
       break;
     // search
     case 'search':
-      include (dirname(__FILE__).'/sites/search.php');
+      include (dirname(__FILE__).'/views/search.php');
       break;
     // fileManager
     case 'fileManager':
-      include (dirname(__FILE__).'/sites/windowBox/fileManager.php');
+      include (dirname(__FILE__).'/views/windowBox/fileManager.php');
       break; 
     // deletePage
     case 'deletePage':
-      include (dirname(__FILE__).'/sites/windowBox/deletePage.php');
+      include (dirname(__FILE__).'/views/windowBox/deletePage.php');
       break;
     // pageThumbnailUpload
     case 'pageThumbnailUpload':
-      include (dirname(__FILE__).'/sites/windowBox/pageThumbnailUpload.php');
+      include (dirname(__FILE__).'/views/windowBox/pageThumbnailUpload.php');
       break;
     // pageThumbnailDelete
     case 'pageThumbnailDelete':
-      include (dirname(__FILE__).'/sites/windowBox/pageThumbnailDelete.php');
+      include (dirname(__FILE__).'/views/windowBox/pageThumbnailDelete.php');
       break;
   } //switch END
 

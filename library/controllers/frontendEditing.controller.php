@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
     
-* processes/frontendEditing.process.php version 0.1
+* controllers/frontendEditing.controller.php version 0.1
 */
 
 $frontendEditing = true; // to prevent that the backend.include.php will be included inside the secure.include.php

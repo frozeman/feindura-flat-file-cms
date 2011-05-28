@@ -56,7 +56,7 @@ if(!$adminConfig['user']['fileManager'])
       };
 
       var fileManager = new FileManager({
-          url: '../../processes/filemanager.process.php',
+          url: '../../controllers/filemanager.controller.php',
           assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
           language: '<?= $_SESSION["feindura"]["language"]; ?>',
           uploadAuthData: {session: '<?= session_id(); ?>'},

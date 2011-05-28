@@ -632,7 +632,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['user']['fileManager'] =      ".XssFilter::bool($adminConfig['user']['fileManager'],true).";\n");
     fwrite($file,"\$adminConfig['user']['editWebsiteFiles'] = ".XssFilter::bool($adminConfig['user']['editWebsiteFiles'],true).";\n");
     fwrite($file,"\$adminConfig['user']['editStyleSheets'] =  ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n");  
-    fwrite($file,"\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n"); // htmLawed in adminSetup.process.php
+    fwrite($file,"\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n"); // htmLawed in adminSetup.controller.php
     
     fwrite($file,"\$adminConfig['setStartPage'] =          ".XssFilter::bool($adminConfig['setStartPage'],true).";\n");
     fwrite($file,"\$adminConfig['pages']['createDelete'] = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n");
@@ -1420,7 +1420,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   
   if($isDir) {
     if($isFiles)
-      echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/sites/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
+      echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
     echo '<br /><br /><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['form_submit'].'" />';
   }
   echo '</div>

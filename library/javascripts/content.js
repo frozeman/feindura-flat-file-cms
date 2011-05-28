@@ -846,9 +846,9 @@ window.addEvent('domready', function() {
         });
       }
 			
-			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/processes/sortPages.process.php	------------------------------
+			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/controllers/sortPages.controller.php	------------------------------
 				var req = new Request({
-					url:'library/processes/sortPages.process.php',
+					url:'library/controllers/sortPages.controller.php',
 					method:'post',
 					//autoCancel:true,
 					data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked
@@ -1224,7 +1224,7 @@ window.addEvent('domready', function() {
         
         // save the title
         new Request({
-          url: feindura_basePath + 'library/processes/frontendEditing.process.php',
+          url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
           method: 'post',
           data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
           
@@ -1422,7 +1422,7 @@ window.addEvent('domready', function() {
       link.addEvent('click',function(e) {
         if(pageContentChanged) {
           e.stop();
-          openWindowBox('library/sites/windowBox/unsavedPage.php?target=' + escape(href),false,false);
+          openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
         }
       });
     }    

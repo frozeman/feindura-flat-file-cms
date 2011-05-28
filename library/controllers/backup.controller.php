@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/backup.process.php version 0.11
+* controllers/backup.controller.php version 0.11
 */
 
 /**

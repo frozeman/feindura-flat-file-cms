@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/statisticSetup.process.php version 0.12
+* controllers/statisticSetup.controller.php version 0.12
 */
 
 /**

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/adminSetup.process.php version 2.36
+* controllers/adminSetup.controller.php version 2.36
 */
 
 /**
@@ -175,7 +175,7 @@ if(isset($_POST['saveFckStyleFile'])) {
 }
 
 // ---------- SAVE the editFiles
-include_once(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
+include_once(dirname(__FILE__).'/../controllers/saveEditFiles.controller.php');
 
 // RE-INCLUDE
 if($savedSettings) {

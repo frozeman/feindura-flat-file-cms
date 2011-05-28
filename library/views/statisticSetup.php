@@ -157,7 +157,7 @@ if($savedForm == 'clearStatistics')
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="openWindowBox('library/sites/windowBox/clearStatistics.php','<?php echo $langFile['statisticSetup_clearStatistic_h1']; ?>');return false;" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="openWindowBox('library/views/windowBox/clearStatistics.php','<?php echo $langFile['statisticSetup_clearStatistic_h1']; ?>');return false;" />
   </div>
   <div class="bottom"></div>
 </div>

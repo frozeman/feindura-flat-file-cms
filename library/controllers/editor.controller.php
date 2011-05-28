@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
     
-* processes/editor.process.php version 1.97
+* controllers/editor.controller.php version 1.97
 */
 
 /**

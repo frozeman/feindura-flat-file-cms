@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/pluginSetup.process.php version 0.1
+* controllers/pluginSetup.controller.php version 0.1
 */
 
 /**
@@ -44,7 +44,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pluginsConfig') {
 }
 
 // ---------- SAVE the editFiles
-include(dirname(__FILE__).'/../processes/saveEditFiles.process.php');
+include(dirname(__FILE__).'/../controllers/saveEditFiles.controller.php');
 
 // RE-INCLUDE
 if($savedSettings) {

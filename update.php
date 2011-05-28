@@ -548,6 +548,12 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!delDir(dirname(__FILE__).'/library/thirdparty/CountDown/') && 
       is_dir(dirname(__FILE__).'/library/thirdparty/CountDown/'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/CountDown/';
+    if(!delDir(dirname(__FILE__).'/library/processes/') && 
+      is_dir(dirname(__FILE__).'/library/processes/'))
+      $checkFiles[] = dirname(__FILE__).'/library/processes/';
+    if(!delDir(dirname(__FILE__).'/library/sites/') && 
+      is_dir(dirname(__FILE__).'/library/sites/'))
+      $checkFiles[] = dirname(__FILE__).'/library/sites/';
     
     // files
     if(!unlink(dirname(__FILE__).'/README')&&
@@ -562,18 +568,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/backend.include.php') &&
       is_file(dirname(__FILE__).'/library/backend.include.php'))
       $checkFiles[] = dirname(__FILE__).'/library/backend.include.php';
-    if(!unlink(dirname(__FILE__).'/library/process/download.php') &&
-      is_file(dirname(__FILE__).'/library/process/download.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/process/download.php';
     if(!unlink(dirname(__FILE__).'/library/includes/frontend.include.php') &&
       is_file(dirname(__FILE__).'/library/includes/frontend.include.php'))
       $checkFiles[] = dirname(__FILE__).'/library/includes/frontend.include.php';
-    if(!unlink(dirname(__FILE__).'/library/processes/showTaskLog.process.php') &&
-      is_file(dirname(__FILE__).'/library/processes/showTaskLog.process.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/processes/showTaskLog.process.php';
-    if(!unlink(dirname(__FILE__).'/library/processes/phptags') &&
-      is_file(dirname(__FILE__).'/library/processes/phptags'))
-      $checkFiles[] = dirname(__FILE__).'/library/processes/phptags';
     if(!unlink(dirname(__FILE__).'/library/styles/setup.css') &&
       is_file(dirname(__FILE__).'/library/styles/setup.css'))
       $checkFiles[] = dirname(__FILE__).'/library/styles/setup.css';
@@ -589,9 +586,6 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/images/buttons/mainMenu_home.png') &&
       is_file(dirname(__FILE__).'/library/images/buttons/mainMenu_home.png'))
       $checkFiles[] = dirname(__FILE__).'/library/images/buttons/mainMenu_home.png';
-    if(!unlink(dirname(__FILE__).'/library/sites/home.php') &&
-      is_file(dirname(__FILE__).'/library/sites/home.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/sites/home.php';
     if(!unlink(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js') &&
       is_file(dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/javascripts/mootools-core-1.3.1.js';
@@ -638,7 +632,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     }
     
     // -> final success text or failure warning
-    echo '<h1>If you have any &lt;script&gt; tags in your code, make sure you deactivate "safe HTML" under the HTML-Editor-Settings in the AdminSetup, BEFORE you visit your website!!</h1>';
+    echo '<h1>If you have any &lt;script&gt; tags in your code, make sure you deactivate "safe HTML" under the HTML-Editor-Settings in the Admin-Setup, before saving these pages again.</h1>';
     if($succesfullUpdate)
       echo '<h1>You can now delete the "update.php" file.</h1>';
     else

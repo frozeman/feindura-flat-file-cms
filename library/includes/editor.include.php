@@ -62,9 +62,9 @@ window.addEvent('domready',function(){
 }
 if($adminConfig['user']['fileManager']) {
 ?>
-  CKEDITOR.config.filebrowserBrowseUrl      = '<?= $adminConfig['basePath']."library/sites/windowBox/fileManager.php"; ?>';
-  CKEDITOR.config.filebrowserImageBrowseUrl = '<?= $adminConfig['basePath']."library/sites/windowBox/fileManager.php?mimType=image"; ?>';
-  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?= $adminConfig['basePath']."library/sites/windowBox/fileManager.php?mimType=application"; ?>';
+  CKEDITOR.config.filebrowserBrowseUrl      = '<?= $adminConfig['basePath']."library/views/windowBox/fileManager.php"; ?>';
+  CKEDITOR.config.filebrowserImageBrowseUrl = '<?= $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=image"; ?>';
+  CKEDITOR.config.filebrowserFlashBrowseUrl = '<?= $adminConfig['basePath']."library/views/windowBox/fileManager.php?mimType=application"; ?>';
   CKEDITOR.config.filebrowserWindowWidth    = 1024;
   CKEDITOR.config.filebrowserWindowHeight   = 700;
   CKEDITOR.config.filebrowserWindowFeatures = 'scrollbars=no,center=yes,status=no';

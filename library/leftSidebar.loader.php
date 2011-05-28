@@ -284,7 +284,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           $backupTime = filemtime(DOCUMENTROOT.$backupFile);
 
           $lastBackups .= '<span class="deleteIcon" style="width:100%;">';
-          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.$backupFile.'" onclick="openWindowBox(\'library/sites/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.$backupFile.'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteIcon toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::" style="top:14px;"></a>';
+          $lastBackups .= '<a href="?site=backup&amp;status=deleteBackup&amp;file='.$backupFile.'" onclick="openWindowBox(\'library/views/windowBox/deleteBackup.php?status=deleteBackup&amp;file='.$backupFile.'\',\''.$langFile['BACKUP_TITLE_BACKUP'].'\');return false;" class="deleteIcon toolTip" title="'.$langFile['BACKUP_TOOLTIP_DELETE'].'::" style="top:14px;"></a>';
           $lastBackups .= (strpos($backupFile,'restore') === false)
             ? '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TITLE_BACKUP'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n"
             : '<li class="backupLink"><a href="'.$backupFile.'">'.$langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime).'</a></li>'."\n";

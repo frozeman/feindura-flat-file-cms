@@ -61,7 +61,7 @@
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
       // save the page
-      request(pageBlock,feindura_url + feindura_basePath + 'library/processes/frontendEditing.process.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
       pageSaved = true;
     }
   }
@@ -252,7 +252,7 @@
     } else {
       
       // set the session var
-      new Request({ url: feindura_url + feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=true');
+      new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php' }).send('deactivateFrontendEditing=true');
     
       logo.tween('top', '-55px');
       if($$('div.MooRTE.rtePageTop')[0] != null)
@@ -288,7 +288,7 @@
   function activate() {
     
     // set the session var
-    new Request({ url: feindura_url + feindura_basePath + 'library/processes/frontendEditing.process.php' }).send('deactivateFrontendEditing=false');
+    new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php' }).send('deactivateFrontendEditing=false');
     
     topBarVisible = true;
     
@@ -367,7 +367,7 @@
       links[0].addEvent('click',function(e) {
         e.stop();
         pageSaved = true;
-        request(e.target.getParent('div').getNext('div'),feindura_url + feindura_basePath + 'library/processes/listPages.process.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
+        request(e.target.getParent('div').getNext('div'),feindura_url + feindura_basePath + 'library/controllers/listPages.controller.php','status=setStartPage&category=' + values.categoryId + '&page=' + values.pageId,{'title': feindura_langFile.ERRORWINDOW_TITLE,'text': feindura_langFile.ERROR_SETSTARTPAGE});
       });
     }
     // editPage

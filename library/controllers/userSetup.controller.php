@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 
-* processes/userSetup.process.php version 0.1
+* controllers/userSetup.controller.php version 0.1
 */
 
 /**

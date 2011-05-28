@@ -174,7 +174,7 @@ var feindura_pages = [
     // ->> include filemanager
     var hideFileManager = function(){this.hide();}
     var fileManager = new FileManager({
-        url: 'library/processes/filemanager.process.php',
+        url: 'library/controllers/filemanager.controller.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
         language: '<?= $_SESSION["feindura"]["language"]; ?>',
         destroy: true,
@@ -217,7 +217,7 @@ var feindura_pages = [
     });
     <?php }
     
-    if(!empty($userConfig)) {
+    if(!empty($userConfig) && isset($_SESSION['feindura']['session']['end'])) {
     ?>
     // ->> starts the session counter
     var div = $('sessionTimer'),
@@ -445,7 +445,7 @@ var feindura_pages = [
             <?php
             // deletePage
             if($showDeletePage) { ?>
-              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
             <?php }          
               $showSpacer = true;
             }
@@ -458,11 +458,11 @@ var feindura_pages = [
             
             // pageThumbnailUpload
             if($showPageThumbnailUpload) { ?>
-              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> tabindex="33" class="pageThumbnailUpload toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> tabindex="33" class="pageThumbnailUpload toolTip">&nbsp;</a></li>
             <?php
             // pageThumbnailDelete
             if($showPageThumbnailDelete) { ?>
-              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> tabindex="34" class="pageThumbnailDelete toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> tabindex="34" class="pageThumbnailDelete toolTip">&nbsp;</a></li>
             <?php }          
               $showSpacer = true;
             }
@@ -526,7 +526,7 @@ var feindura_pages = [
           <?php
           // deletePage
           if($showDeletePage) { ?>
-            <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip"><span><?php echo $langFile['BUTTON_DELETEPAGE']; ?></span></a></li>
+            <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> class="deletePage toolTip"><span><?php echo $langFile['BUTTON_DELETEPAGE']; ?></span></a></li>
           <?php }
           $showSpacer = true;
           }   
@@ -540,11 +540,11 @@ var feindura_pages = [
           
           // pageThumbnailUpload
           if($showPageThumbnailUpload) { ?>
-            <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> class="pageThumbnailUpload toolTip"><span><?php echo $langFile['BUTTON_THUMBNAIL_UPLOAD']; ?></span></a></li>
+            <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> class="pageThumbnailUpload toolTip"><span><?php echo $langFile['BUTTON_THUMBNAIL_UPLOAD']; ?></span></a></li>
           <?php
           // pageThumbnailDelete
           if($showPageThumbnailDelete) { ?>
-            <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/sites/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> class="pageThumbnailDelete toolTip"><span><?php echo $langFile['BUTTON_THUMBNAIL_DELETE']; ?></span></a></li>
+            <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\');return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> class="pageThumbnailDelete toolTip"><span><?php echo $langFile['BUTTON_THUMBNAIL_DELETE']; ?></span></a></li>
           <?php }          
             $showSpacer = true;
           }
