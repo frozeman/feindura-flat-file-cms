@@ -16,7 +16,7 @@
  * 
  * This file is inlcuded in the index.php and all standalone files
  * 
- * @version 0.11
+ * @version 0.2
  */
 
 // var
@@ -32,7 +32,6 @@ if(empty($userConfig)) {
   $_SESSION['feindura']['session']['username'] = false;
   $_SESSION['feindura']['session']['loggedIn'] = true;
   $_SESSION['feindura']['session']['identity'] = IDENTITY;
-  $_SESSION['feindura']['session']['end'] = time() + $sessionLifeTime; // $sessionLifeTime is set in the backend.include.php
 }
 
 // ->> LOGIN FORM SEND
@@ -107,10 +106,9 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
 // LOG
 echo session_name().'<br />';
 echo 'userID: '.IDENTITY.'<br />';
-echo 'flashID: '.IDENTITYFLASH.'<br />';
 echo 'storedID: '.$_SESSION['feindura']['session']['identity'].'<br />';
 echo '<pre>';
-//print_r($_SESSION);
+print_r($_SESSION);
 echo '</pre>';
 */
 
@@ -118,7 +116,6 @@ echo '</pre>';
 // *****************************************************
 if($_SESSION['feindura']['session']['loggedIn'] === true &&
    $_SESSION['feindura']['session']['identity'] === IDENTITY) {// || IDENTITY === IDENTITYFLASH)) {
-   
    // does nothing :-)
 
 // ->> SHOW LOGIN FORM

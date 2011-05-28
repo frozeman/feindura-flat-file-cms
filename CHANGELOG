@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc9
-Build 688
+Build 689
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 689: fixed frontend edititng when no user exists
   build 688: fixed XssFilter::url
   build 687: add pageId.statistics.php files, to separate page content and page statistics
   build 686: changed editor resize behavior

@@ -1085,7 +1085,6 @@ window.addEvent('domready', function() {
     // vars
     var editorStartHeight = window.getSize().y * 0.25;
     var editorTweenToHeight = (window.getSize().y * 0.42 > 380) ? window.getSize().y * 0.42 : 380;
-    console.log(window.getSize().y * 0.42);
     var editorHasFocus = false;
     var editorIsClicked = false;
     var editorSubmited = false;
