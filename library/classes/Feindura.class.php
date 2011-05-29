@@ -2049,7 +2049,7 @@ class Feindura extends FeinduraBase {
   * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
   * 
   * Example of the returned array:
-  * {@example showPlugins.return.example.php}
+  * {@example showPlugins.array.example.php}
   * 
   * Example usage:
   * {@example showPlugins.example.php}
@@ -2076,7 +2076,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function showPlugins($plugins = true, $page = false) {    
+ public function showPlugins($plugins = true, $page = false) {    
     
     // var
     $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
@@ -2085,7 +2085,7 @@ class Feindura extends FeinduraBase {
       $plugins = array($plugins);
     
     if($page = $this->loadPrevNextPage($page)) {
-                                
+      
       // LOAD the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($page,GeneralFunctions::getPageCategory($page))) !== false) {
         
@@ -2095,7 +2095,7 @@ class Feindura extends FeinduraBase {
             // get the activated plugins
             $activatedPlugins = ($pageContent['category'] === 0)
               ? unserialize($this->adminConfig['pages']['plugins'])
-              : unserialize($this->categoryConfig[$this->category]['plugins']);
+              : unserialize($this->categoryConfig[$pageContent['category']]['plugins']);
           
             foreach($pageContent['plugins'] as $pluginName => $plugin) {
 
@@ -2105,7 +2105,7 @@ class Feindura extends FeinduraBase {
                  is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins) && // activated in the adminConfig or categoryConfig
                  $plugin['active'] // activated in the page                 
                  ) {
-               
+            
                 // create plugin config
                 $pluginConfig = $plugin;
                 unset($pluginConfig['active']); // remove the active value from the plugin config

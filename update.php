@@ -35,7 +35,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 // gets the version of the feindura CMS
 
 $oldVersion = '1.0 rc';
-$newVersion = '1.1 rc9';
+$newVersion = '1.1 rc10';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">

@@ -746,9 +746,9 @@ class GeneralFunctions {
     if(substr($pageId,-4) != '.statistics.php')
       $pageId .= '.statistics.php';
     // ->> INCLUDE
-    if($fp = @fopen(dirname(__FILE__).'/../../pages/statistics/'.$pageId,'r')) {
+    if($fp = @fopen(dirname(__FILE__).'/../../statistic/pages/'.$pageId,'r')) {
       flock($fp,LOCK_SH);
-      $pageStatistics = @include(dirname(__FILE__).'/../../pages/statistics/'.$pageId);
+      $pageStatistics = @include(dirname(__FILE__).'/../../statistic/pages/'.$pageId);
       flock($fp,LOCK_UN);
       fclose($fp);
     }
@@ -791,11 +791,11 @@ class GeneralFunctions {
       return false;
 
     // check if statistics folder exists
-    if(!is_dir(dirname(__FILE__).'/../../pages/statistics/'))
-      @mkdir(dirname(__FILE__).'/../../pages/statistics/',self::$adminConfig['permissions'],true);
+    if(!is_dir(dirname(__FILE__).'/../../statistic/pages/'))
+      @mkdir(dirname(__FILE__).'/../../statistic/pages/',self::$adminConfig['permissions'],true);
     
     // open the flatfile
-    if($file = fopen(dirname(__FILE__).'/../../pages/statistics/'.$pageStatistics['id'].'.statistics.php',"wb")) {
+    if($file = fopen(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',"wb")) {
 
       // escape \ and '
       //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
@@ -818,7 +818,7 @@ class GeneralFunctions {
       flock($file,LOCK_UN);
       fclose($file);
       
-      @chmod(dirname(__FILE__).'/../../pages/statistics/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
+      @chmod(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
       
       return true;
     }

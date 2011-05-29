@@ -29,7 +29,7 @@
 #contactForm_field_chapta {
   position: relative;
   top: -30px;
-  left: 70px;
+  left: 80px;
   width: 55px;
 }
 
@@ -51,7 +51,7 @@
 }
 
 /* CHAPTA */
-.contactForm .chapta_letters {
+.plugin_contactForm .chapta_letters {
   display: inline-block;
 	color: #000;
 	background-color: #000;
@@ -61,7 +61,7 @@
 	font-size: 12px;
 	padding: 0px;
 }
-.contactForm .chapta_background {
+.plugin_contactForm .chapta_background {
   display: inline-block;
   color: transparent;
   background-color: transparent;

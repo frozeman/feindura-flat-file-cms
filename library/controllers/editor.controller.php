@@ -51,6 +51,7 @@ if($_POST['save']) {
     // looks fore the highest id (FLATFILES)
     $page = getNewPageId();
     $_POST['id'] = $page;
+    $pageContent['id'] = $page;
     $_POST['sortOrder'] = $page;
     $_GET['page'] = $page;
     
