@@ -455,7 +455,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     
     if($statisticFile = fopen(dirname(__FILE__)."/statistic/website.statistic.php","wb")) {
       
-      flock($statisticFile,2);        
+      flock($statisticFile,LOCK_EX);        
       fwrite($statisticFile,PHPSTARTTAG);  
             
       fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
@@ -469,7 +469,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       fwrite($statisticFile,"return \$websiteStatistic;");
             
       fwrite($statisticFile,PHPENDTAG);        
-      flock($statisticFile,3);
+      flock($statisticFile,LOCK_UN);
       fclose($statisticFile);
       
       echo 'website statistic <span class="succesfull">succesfully updated</span><br />';      
@@ -484,7 +484,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if($logFile = fopen(dirname(__FILE__)."/statistic/referer.statistic.log","wb")) {
         
       // -> write the new log file
-      flock($logFile,2);
+      flock($logFile,LOCK_EX);
       foreach($oldLog as $oldLogRow) {
         
        if(strpos($oldLogRow,'|#|') === false) {
@@ -499,7 +499,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
         } else
           fwrite($logFile,$oldLogRow);
       }    
-      flock($logFile,3);
+      flock($logFile,LOCK_UN);
       fclose($logFile);
       
       echo 'referer <span class="succesfull">Succesfully updated</span><br />';
@@ -595,9 +595,15 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.txt') &&
       is_file(dirname(__FILE__).'/library/thirdparty/spiders.txt'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.txt';
+    if(!unlink(dirname(__FILE__).'/statistic/visit.statistic.cache') &&
+      is_file(dirname(__FILE__).'/statistic/visit.statistic.cache'))
+      $checkFiles[] = dirname(__FILE__).'/statistic/visit.statistic.cache';
+    if(!unlink(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php') &&
+      is_file(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';      
 
     
-    // delet lowercase class names
+    // delete lowercase class names
     if(strpos(strtolower(PHP_OS),'win') === false) {
       if(!unlink(dirname(__FILE__).'/library/classes/feindura.class.php') &&
         is_file(dirname(__FILE__).'/library/classes/feindura.class.php'))

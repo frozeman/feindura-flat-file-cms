@@ -120,6 +120,118 @@ function isAdmin() {
 }
 
 /**
+ * <b>Name</b> isBlocked()<br>
+ * 
+ * Check if an other user is on the current site.
+ * 
+ * @return string|false The #contentBlocked DIV, if another user is on that site, otherwise FALSE
+ * 
+ * @static
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function isBlocked() {
+  foreach($GLOBALS['userCache'] as $cachedUser) {
+    if($cachedUser['username'] != $_SESSION['feindura']['session']['username'] &&
+       ($cachedUser['location'] == $_GET['page'] || $cachedUser['location'] == $_GET['site'])) {
+      return '<div id="contentBlocked">Seite in bearbeitung</div>';;
+    }
+  }
+  
+  return false;
+}
+
+/**
+ * <b>Name</b> userCache()<br>
+ * 
+ * Creates a <var>user.statistic.cache</var> file and store the username and the currently visited site/page.
+ * 
+ * An example of the saved cache lines
+ * <samp>
+ * 1306733465|#|username|#|dashboard
+ * 1306745654|#|username|#|15
+ * </samp>
+ * 
+ * 
+ * @return array an array with all users and current sites/pages
+ * 
+ * @static
+ * @version 1.0
+ * <br>
+ * <b>ChangeLog</b><br>
+ *    - 1.0 initial release
+ * 
+ */
+function userCache() {
+
+  //var
+  $location = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : $_GET['site'];
+  $return = array();
+  $stored = false;
+  $maxTime = 150; // 2min, 3600 seconds = 1 hour
+  $timeStamp = time();
+  $cacheFile = dirname(__FILE__)."/../../statistic/user.statistic.cache";
+  $newLines = array();
+  $cachedLines = false;
+  
+    // -> OPEN user.statistic.cache for reading
+    if($cache = @fopen($cacheFile,"r")) {
+      flock($cache,LOCK_SH);
+      if(is_file($cacheFile))
+        $cachedLines = @file($cacheFile);
+      flock($cache,LOCK_UN);
+      fclose($cache);
+    }
+    
+    // store old cache lines
+    if(is_array($cachedLines)) {
+      foreach($cachedLines as $cachedLine) {
+        $cachedLineArray = explode('|#|', $cachedLine);
+        
+        // stores the user AGAIN with new timestamp, if the user was less than $maxTime on the page,
+        // otherwise remove the user form the cache (dont save his line)
+        if($timeStamp - $cachedLineArray[0] < $maxTime) {
+          
+          if($cachedLineArray[1] == $_SESSION['feindura']['session']['username']) {
+            $newLines[] = $timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location;
+            $return[] = array('oldTimestamp' => $cachedLineArray[0], 'timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
+            $stored = true;
+          } else {
+            $newLines[] = $cachedLine;
+            $return[] = array('oldTimestamp' => $cachedLineArray[0], 'timestamp' => $timeStamp, 'username' => $cachedLineArray[1], 'location' => $cachedLineArray[2]);
+          }
+        }
+      }
+    }
+    // user doesn't exist, create a new cache line
+    if($stored === false) {
+      $newLines[] = $timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location;
+      $return[] = array('timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
+    }
+  
+  // ->> OPEN user.statistic.cache for writing
+  if($cache = @fopen($cacheFile,"wb")) {
+    flock($cache,LOCK_EX);
+    
+    foreach($newLines as $newLine) {
+      $newLine = preg_replace('#[\r\n]+#','',$newLine);
+      fwrite($cache,$newLine."\n");
+    }
+    flock($cache,LOCK_UN);
+    fclose($cache);
+    
+    // -> add permissions on the first creation
+    if(!$cachedLines) @chmod($cacheFile, $GLOBALS['adminConfig']['permissions']);   
+  }
+  
+  // return the right users
+  return $return;
+}
+
+/**
  * <b>Name</b> getNewPageId()<br />
  * 
  * Returns a new page ID, which is the highest page ID + 1.
@@ -309,7 +421,7 @@ function saveCategories($newCategories) {
   if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","wb")) {
 
       // *** write CATEGORIES
-      flock($file,2); //LOCK_EX
+      flock($file,LOCK_EX);
       fwrite($file,PHPSTARTTAG); //< ?php
       
       // ->> GO through EVERY catgory and write it
@@ -364,7 +476,7 @@ function saveCategories($newCategories) {
       fwrite($file,'return $categoryConfig;');
       
       fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
+    flock($file,LOCK_UN);
     fclose($file);
     
     // reset the stored page ids
@@ -698,7 +810,7 @@ function saveUserConfig($userConfig) {
     $userConfig = XssFilter::escapeBasics($userConfig);
     
     // *** write
-    flock($file,2); //LOCK_EX
+    flock($file,LOCK_EX);
       fwrite($file,PHPSTARTTAG); //< ?php      
       foreach($userConfig as $user => $configs) {
 
@@ -713,7 +825,7 @@ function saveUserConfig($userConfig) {
       fwrite($file,"return \$userConfig;");
     
       fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
+    flock($file,LOCK_UN);
     fclose($file);
 
     return true;
@@ -753,7 +865,7 @@ function saveWebsiteConfig($websiteConfig) {
     $websiteConfig = XssFilter::escapeBasics($websiteConfig);
     
     // *** write
-    flock($file,2); //LOCK_EX
+    flock($file,LOCK_EX);
       fwrite($file,PHPSTARTTAG); //< ?php
   
       fwrite($file,"\$websiteConfig['title']          = '".XssFilter::text($websiteConfig['title'])."';\n");
@@ -767,7 +879,7 @@ function saveWebsiteConfig($websiteConfig) {
       fwrite($file,"return \$websiteConfig;");
     
       fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
+    flock($file,LOCK_UN);
     fclose($file);
 
     return true;
@@ -807,7 +919,7 @@ function saveStatisticConfig($statisticConfig) {
     $statisticConfig = XssFilter::escapeBasics($statisticConfig);
     
     // WRITE
-    flock($file,2); //LOCK_EX
+    flock($file,LOCK_EX);
       fwrite($file,PHPSTARTTAG); //< ?php
   
       fwrite($file,"\$statisticConfig['number']['mostVisitedPages']        = ".XssFilter::int($statisticConfig['number']['mostVisitedPages'],10).";\n");
@@ -821,7 +933,7 @@ function saveStatisticConfig($statisticConfig) {
       fwrite($file,"return \$statisticConfig;");
     
       fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
+    flock($file,LOCK_UN);
     fclose($file);
 
     return true;
@@ -865,7 +977,7 @@ function savePluginsConfig($pluginsConfig) {
     ksort($pluginsConfig);
     
     // CHECK BOOL VALUES and change to FALSE   
-    flock($file,2); // LOCK_EX
+    flock($file,LOCK_EX); 
     fwrite($file,PHPSTARTTAG); //< ?php
     
     if(is_array($pluginsConfig)) {
@@ -878,7 +990,7 @@ function savePluginsConfig($pluginsConfig) {
     fwrite($file,"\nreturn \$pluginsConfig;");
        
     fwrite($file,PHPENDTAG); //? >
-    flock($file,3); //LOCK_UN
+    flock($file,LOCK_UN);
     fclose($file);
 
     return true;
@@ -1008,9 +1120,9 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
     
     $data = preg_replace("#\\n+$#","\n",$data); // prevent growing of the file with line endings
     
-    flock($htaccess,2); // LOCK_EX
+    flock($htaccess,LOCK_EX);
     fwrite($htaccess,$data);
-    flock($htaccess,3); //LOCK_UN
+    flock($htaccess,LOCK_UN);
     fclose($htaccess);
     
     @chmod($htaccessFile,0644);

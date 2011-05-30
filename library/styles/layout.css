@@ -502,7 +502,7 @@ ul.verticalButtons {
 /* --- subMenu */
 
 .subMenu {
-    z-index: 1;
+    z-index: 7;
     position: absolute;
     top: -3px;
     left: 25px; /* right: 250px; */

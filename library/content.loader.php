@@ -28,13 +28,17 @@ echo basePathWarning();
 // if not throw a warning
 echo startPageWarning();
 
+// ***********************************************************************
+// CHECKs if another user is on this site
+echo isBlocked();
+
 // start of loading the content
 // -------------------------------------------------------------------------------------------------------------
 
 // if page ID is given, it loads the HTML-Editor
 // --------------------------------------------
 if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category'])) && !empty($_GET['page'])) {
-  
+
   // set the category 0 if there are no categories in the categoriesSettings.php
   if(empty($categoryConfig))
     $_GET['category'] = 0;

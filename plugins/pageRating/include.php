@@ -73,8 +73,7 @@ $plugin .= '</ul>';
 $plugin .= '</div>';
 
 // ->> add script for the pageRating, ONLY when not a robot
-if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
-         (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = StatisticFunctions::isRobot()) === false)) {
+if(StatisticFunctions::isRobot() === false) {
 $plugin .= '<script type="text/javascript">
   /* <![CDATA[ */
   

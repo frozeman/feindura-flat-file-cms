@@ -156,6 +156,8 @@ if($_GET['site'] == 'addons') {
     ERROR_SAVE:                       "<?= $langFile['editor_savepage_error_save']; ?>",
     CKEDITOR_TITLE_LINKS:             "<?= (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>"
   };
+  var currentSite = '<?= $_GET["site"]; ?>';
+  var currentPage = '<?= $_GET["page"]; ?>';
   
   /* transport for CKEditor feindura links */
   <?php

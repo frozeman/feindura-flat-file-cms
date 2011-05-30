@@ -530,6 +530,14 @@ window.addEvent('load', function() {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
   
+  // UPDATE the USER-CACHE every 5 minutes
+  (function(){
+    new Request({
+      url:'library/includes/backend.include.php',
+      method: 'get'
+    }).send('site='+currentSite+'&page='+currentPage);
+  }).periodical(150000);
+  
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
   
   // makes sidebarmenu dynamic

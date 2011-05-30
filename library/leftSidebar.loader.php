@@ -155,13 +155,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       
       // -> SHOW USERs
       echo '<h2><img src="library/images/icons/userIcon_small.png" alt="icon" width="22" height="21" style="position:relative;top:5px;" /> '.$langFile['DASHBOARD_TITLE_USER'].'</h2><br />';
-        if(!empty($userConfig)) {
-        
-          unset($sessions,$sessionLister);
-          
-          // crreate an instance of sessionLister
-          if(include(dirname(__FILE__).'/thirdparty/PHP/sessionLister.php'))
-            $sessionLister = new sessionLister();         
+        if(!empty($userConfig)) {        
 
           // list user
           echo '<ul id="sidebarListUsers">';
@@ -173,17 +167,14 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
             if($_SESSION['feindura']['session']['username'] == $user['username'])
               echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
-            elseif(is_array(($sessions = $sessionLister->getSessions()))) {              
-              foreach($sessions as $sessionName => $sessionData) {
-              //print_r($sessionData['raw']);
-                if((time() - $sessionData["modification"]) < 1800 ) { // show only sessions within the last half hour
-                  if(isset($sessionData['raw']['feindura']['session']) && $sessionData['raw']['feindura']['session']['loggedIn'] && $sessionData['raw']['feindura']['session']['username'] == $user['username']) {
-                    echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$sessionData["modification"]).'"';
+            else {
+              foreach($userCache as $cachedUser) { 
+                if($user['username'] == $cachedUser['username']) {
+                  echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
                     break;
-                  }
-                }
+                }              
               }
-            }  
+            }
               
             // list users
             echo '>'.$user['username'].'</span></li>';

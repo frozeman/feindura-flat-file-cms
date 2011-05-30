@@ -106,6 +106,7 @@ $documentSaved    = false; // when true the document saved icon is displayed
 $savedForm        = false; // to tell wich part fo the form was saved
 $savedSettings    = false; // to tell wich settings were saved, to re-include the settings
 $newPage          = false; // tells the editor whether a new page is created
+$userCache        = userCache();
 
 // ->> choose LANGUAGE * START * -----------------------------------------------------
 // language shortname will be transfered trough a session (need COOKIES!)

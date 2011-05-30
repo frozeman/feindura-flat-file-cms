@@ -159,9 +159,9 @@ if(isset($_POST['saveFckStyleFile'])) {
   $fckstylewrite 	= GeneralFunctions::smartStripslashes($fckstylewrite);
   
   if($file = fopen("config/htmlEditorStyles.js","wb")) {
-    flock($file,2);
+    flock($file,LOCK_EX);
     fwrite($file,$fckstylewrite);
-    flock($file,3);
+    flock($file,LOCK_UN);
     fclose($file);
   
     // give documentSaved status

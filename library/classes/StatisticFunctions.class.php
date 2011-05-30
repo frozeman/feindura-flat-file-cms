@@ -548,8 +548,13 @@ class StatisticFunctions {
     $logFilePath = dirname(__FILE__).'/../../'.'statistic/activity.statistic.log';
     $oldLog = false;
     
-    if(file_exists($logFilePath))
-      $oldLog = file($logFilePath);
+    if($logFile = @fopen($logFilePath,"r")) {
+      flock($logFile,LOCK_SH);
+      if(is_file($logFilePath))
+        $oldLog = @file($logFilePath);
+      flock($logFile,LOCK_UN);
+      fclose($logFile);
+    }
       
     if($logFile = @fopen($logFilePath,"wb")) {
       
@@ -609,8 +614,13 @@ class StatisticFunctions {
     $logFilePath = dirname(__FILE__).'/../../'.'statistic/referer.statistic.log';
     $oldLog =  false;
     
-    if(file_exists($logFilePath))
-      $oldLog = file($logFilePath);
+    if($logFile = @fopen($logFilePath,"r")) {
+      flock($logFile,LOCK_SH);
+      if(is_file($logFilePath))
+        $oldLog = @file($logFilePath);
+      flock($logFile,LOCK_UN);
+      fclose($logFile);
+    }
     
     // -> SAVE REFERER LOG
     if(isset($_SERVER['HTTP_REFERER']) &&
@@ -1108,27 +1118,6 @@ class StatisticFunctions {
       return serialize($newDataArray);
     }
   }
-
- /**
-  * <b>Name</b> isLoggedUser()<br>
-  * 
-  * Check if the current session user is logged into the feindura backend
-  * 
-  * 
-  * @return bool TRUE if the surrent user is logged in, otherwise false
-  * 
-  * @static
-  * @version 1.0
-  * <br>
-  * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
-  * 
-  */
-  public static function isLoggedUser() {
-    return (isset($_SESSION['feindura'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn']) &&
-            $_SESSION['feindura'][md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR'].'::'.$_SERVER["HTTP_HOST"])]['loggedIn'])
-      ? true : false;
-  }
   
  /**
   * <b>Name</b> isRobot()<br>
@@ -1141,14 +1130,18 @@ class StatisticFunctions {
   * @return bool TRUE if its a spider/bot/webcrawler, FALSE if not
   * 
   * @static
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 store the isRobot value directly in the session and return it  
   *    - 1.0 initial release
   * 
   */
   public static function isRobot() {
-
+    
+    if(isset($_SESSION['feindura']['log']['isRobot']))
+      return $_SESSION['feindura']['log']['isRobot'];
+    
     if(isset($_SERVER['HTTP_USER_AGENT'])) {
       
       // var
@@ -1169,25 +1162,32 @@ class StatisticFunctions {
       foreach($bots as $bot) {
         if(strpos(strtolower($userAgent), strtolower($bot)) !== false) {
           //echo $_SERVER['HTTP_USER_AGENT'].'<br>'.$bot;
-          return true; // User-Agent is a Bot
+          $_SESSION['feindura']['log']['isRobot'] = true; // User-Agent is a Bot
         }           
       }
       // User-Agent is no Bot
-      return false;
+      $_SESSION['feindura']['log']['isRobot'] = false;
 
     } else
-      return false; // no HTTP_USER_AGENT available
+      $_SESSION['feindura']['log']['isRobot'] = false; // no HTTP_USER_AGENT available
+    
+    return $_SESSION['feindura']['log']['isRobot'];
   }
   
  /**
-  * <b>Name</b> hasVisitCache()<br>
+  * <b>Name</b> visitorCache()<br>
   * 
-  * Creates a <var>visit.statistic.cache</var> file and store the md5 sum of the user agent + ip with a timestamp.
+  * Creates a <var>visitor.statistic.cache</var> file and store the md5 sum of the user agent + ip with a timestamp.
   * If the agent load again the website, it check if the agent is already in the cache and the timelimit of 10 min is not passed.
   * 
   * This public static function is used when the session ID cannot be transfered, because of deactivated cookies or no session ID in the link was transfered. 
   * 
-  * @param bool $clear if this is TRUE, it only check if the agents in the cache are still up to date, without adding a user agent
+  * An example of the saved cache lines
+  * <samp>
+  * 1306733465|#|visitor|#|c5b5533c8475801044fb7680059d5846|#|192.168.0.1
+  * </samp>
+  * 
+  * @param bool $add if this is FALSE, it only check if the agents in the cache are still up to date, without adding a user agent
   * 
   * @return bool TRUE the user agent is in the cache, FALSE if not
   * 
@@ -1199,43 +1199,48 @@ class StatisticFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function hasVisitCache($clear = false) {
+  public static function visitorCache($add = true) {
     
     //var
     $return = false;
-    $maxTime = 700; // 3600 seconds = 1 hour
+    $maxTime = 600; // 3600 seconds = 1 hour
     $userAgentMd5 = md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']);
     $timeStamp = time();
-    $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
+    $cacheFile = dirname(__FILE__)."/../../statistic/visitor.statistic.cache";
     $newLines = array();
     $cachedLines = false;
     
-    // -> OPEN visit.statistic.cache for reading
-    if(is_file($cacheFile))
-      $cachedLines = @file($cacheFile);
-    
-    if(is_array($cachedLines)) {
-      foreach($cachedLines as $cachedLine) {
-        $cachedLineArray = explode('|#|', $cachedLine);
-        
-        // stores the agent again with new timestamp, if the user was less than $maxTime on the page,
-        // after that the agent is deleted form the cache
-        if($timeStamp - $cachedLineArray[3] < $maxTime) {
-          if($clear === false && $cachedLineArray[1] == $userAgentMd5) {
-            $newLines[] = $cachedLineArray[0].'|#|'.$cachedLineArray[1].'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$timeStamp;
-            $return = true;
-          } else
-            $newLines[] = $cachedLine;
+    // -> OPEN visitor.statistic.cache for reading
+    if($cache = @fopen($cacheFile,"r")) {
+      flock($cache,LOCK_SH);
+      if(is_file($cacheFile))
+        $cachedLines = @file($cacheFile);
+      flock($cache,LOCK_UN);
+      fclose($cache);
+    }
+      
+      if(is_array($cachedLines)) {
+        foreach($cachedLines as $cachedLine) {
+          $cachedLineArray = explode('|#|', $cachedLine);
+          
+          // stores the agent AGAIN with new timestamp, if the visitor was less than $maxTime on the page,
+          // otherwise remove the agent form the cache (dont save his line)
+          if($timeStamp - $cachedLineArray[0] < $maxTime) {
+            if($add && $cachedLineArray[2] == $userAgentMd5) {
+              $newLines[] = $timeStamp.'|#|'.$cachedLineArray[1].'|#|'.$cachedLineArray[2].'|#|'.$_SERVER['REMOTE_ADDR'];
+              $return = true;
+            } else
+              $newLines[] = $cachedLine;
+          }
         }
       }
-    }
-    // agent doesn't exist, create a new cache
-    if($return === false && $clear === false) {
-      $robot = (self::isRobot()) ? 'robot' : 'visitor';
-      $newLines[] = $robot.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'].'|#|'.$timeStamp;
-    }
+      // agent doesn't exist, create a new cache line
+      if($add && $return === false) {
+        $type = (self::isRobot()) ? 'robot' : 'visitor';
+        $newLines[] = $timeStamp.'|#|'.$type.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'];
+      }
     
-    // ->> OPEN visit.statistic.cache for writing
+    // ->> OPEN visitor.statistic.cache for writing
     if($cache = @fopen($cacheFile,"wb")) {
       flock($cache,LOCK_EX);
       foreach($newLines as $newLine) {
@@ -1256,7 +1261,7 @@ class StatisticFunctions {
  /**
   * <b>Name</b> getCurrentVisitors()<br>
   * 
-  * Gets the current user from the visitCache file (<var>statistic/visit.statistic.cache</var>)
+  * Gets the current user from the visitCache file (<var>statistic/visitor.statistic.cache</var>)
   * 
   * @return array the current visitors with $returnVisitors['ip'], $returnVisitors['time'] and $returnVisitors['type']
   * 
@@ -1271,7 +1276,7 @@ class StatisticFunctions {
     
     //var
     $returnVisitors = array();
-    $cacheFile = dirname(__FILE__)."/../../statistic/visit.statistic.cache";
+    $cacheFile = dirname(__FILE__)."/../../statistic/visitor.statistic.cache";
     
     if(!file_exists($cacheFile)) return $returnVisitors;
     if($currentVisitors = @file($cacheFile)) {
@@ -1281,9 +1286,9 @@ class StatisticFunctions {
     
       foreach($currentVisitors as $currentVisitor) {
         $currentVisitor = explode('|#|',$currentVisitor);
-          $returnVisitor['type'] = $currentVisitor[0];
-          $returnVisitor['ip'] = $currentVisitor[2];
-          $returnVisitor['time'] = $currentVisitor[3];
+          $returnVisitor['time'] = $currentVisitor[0];
+          $returnVisitor['type'] = $currentVisitor[1];
+          $returnVisitor['ip'] = $currentVisitor[3];
           $returnVisitors[] = $returnVisitor;
       }
     }    
@@ -1333,20 +1338,19 @@ class StatisticFunctions {
     //unset($_SESSION);
     
     // doesnt save anything if visitor is a logged in user
-    if(self::isLoggedUser())
+    if($_SESSION['feindura']['session']['loggedIn'])
       return false;
     
     // refresh the visit cache
-    $hasVisitCache = self::hasVisitCache();
+    $hasVisitorInCache = self::visitorCache();
     
     // COUNT if the user/robot isn't already counted
     // **********************************************
     if((isset($_SESSION['feindura']['log']['visited']) && $_SESSION['feindura']['log']['visited'] === false) ||
-       (!isset($_SESSION['feindura']['log']['visited']) && $hasVisitCache === false)) {
+       (!isset($_SESSION['feindura']['log']['visited']) && $hasVisitorInCache === false)) {
    
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
-         (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
+      if(self::isRobot() === false) {
    
         // -------------------------------------------------------------------------------------
         // -->> --------------------------------------------------------------------------------
@@ -1386,11 +1390,11 @@ class StatisticFunctions {
 
         
       // ->> COUNT the ROBOT UP
-      } elseif($_SESSION['feindura']['log']['isRobot'] === true && 
+      } elseif(self::isRobot() === true && 
                (!isset(self::$websiteStatistic['robotVisitCount']) ||
                (isset(self::$websiteStatistic['robotVisitCount']) && empty(self::$websiteStatistic['robotVisitCount'])))) {
         self::$websiteStatistic['robotVisitCount'] = 1;
-      }elseif($_SESSION['feindura']['log']['isRobot'] === true) {
+      }elseif(self::isRobot() === true) {
         self::$websiteStatistic['robotVisitCount']++;
       }
       
@@ -1425,8 +1429,7 @@ class StatisticFunctions {
     } else {
       
       // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
-         (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
+      if(self::isRobot() === false) {
         
         // -------------------------------------------------------------------------------------
         // ->> VISIT TIME of PAGES
@@ -1564,14 +1567,13 @@ class StatisticFunctions {
     //unset($_SESSION);
     
     // doesnt save anything if visitor is a logged in user
-    if(self::isLoggedUser())
+    if($_SESSION['feindura']['session']['loggedIn'])
       return false;
 
     // -------------------------------------------------------------------------------------
     // -->> --------------------------------------------------------------------------------
     // CHECKS if the user is NOT a BOT/SPIDER
-    if((isset($_SESSION['feindura']['log']['isRobot']) && $_SESSION['feindura']['log']['isRobot'] === false) ||
-       (!isset($_SESSION['feindura']['log']['isRobot']) && ($_SESSION['feindura']['log']['isRobot'] = self::isRobot()) === false)) {
+    if(self::isRobot() === false) {
          
       // LOAD the $pageStatistics array
       $pageStatistics = GeneralFunctions::readPageStatistics($pageId);

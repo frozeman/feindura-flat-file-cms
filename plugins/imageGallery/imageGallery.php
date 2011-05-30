@@ -502,9 +502,9 @@ class imageGallery {
     
     // -> create a timestamp when the gallery was edited
     if($file = @fopen($_SERVER["DOCUMENT_ROOT"].$this->galleryPath.'thumbnails/lastmodification.log',"wb")) {
-      flock($file,2); //LOCK_EX
+      flock($file,LOCK_EX);
         fwrite($file,time());
-      flock($file,3); //LOCK_UN
+      flock($file,LOCK_UN);
       fclose($file);    
     }
     
