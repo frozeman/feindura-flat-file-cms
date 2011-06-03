@@ -135,12 +135,13 @@ function isAdmin() {
  */
 function isBlocked() {
   foreach($GLOBALS['userCache'] as $cachedUser) {
-    if($cachedUser['username'] != $_SESSION['feindura']['session']['username'] &&
-       ($cachedUser['location'] == $_GET['page'] || $cachedUser['location'] == $_GET['site'])) {
-      return '<div id="contentBlocked">Seite in bearbeitung</div>';;
+    $location = trim($cachedUser['location']);
+    if($cachedUser['identity'] != IDENTITY &&
+       $cachedUser['edit'] &&
+       ($location == $_GET['page'] || $location == $_GET['site'])) {
+      return '<div id="contentBlocked">'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'].'<br /><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span></div>';;
     }
   }
-  
   return false;
 }
 
@@ -151,8 +152,8 @@ function isBlocked() {
  * 
  * An example of the saved cache lines
  * <samp>
- * 1306733465|#|username|#|dashboard
- * 1306745654|#|username|#|15
+ * c5b5533c8475801044fb7680059d5846|#|1306781298|#|frozeman|#|websiteSetup|#|edit
+ * 4afe1d41e2f2edbf07086b1c2c492c10|#|1306781299|#|test|#|websiteSetup
  * </samp>
  * 
  * 
@@ -169,55 +170,77 @@ function userCache() {
 
   //var
   $location = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : $_GET['site'];
+  if(empty($location)) $location = 'dashboard';
   $return = array();
   $stored = false;
-  $maxTime = 150; // 2min, 3600 seconds = 1 hour
+  $maxTime = 200; // 2min+, 3600 seconds = 1 hour
   $timeStamp = time();
   $cacheFile = dirname(__FILE__)."/../../statistic/user.statistic.cache";
   $newLines = array();
   $cachedLines = false;
   
-    // -> OPEN user.statistic.cache for reading
-    if($cache = @fopen($cacheFile,"r")) {
-      flock($cache,LOCK_SH);
-      if(is_file($cacheFile))
-        $cachedLines = @file($cacheFile);
-      flock($cache,LOCK_UN);
-      fclose($cache);
+  // -> OPEN user.statistic.cache for reading
+  if($cache = @fopen($cacheFile,"r")) {
+    flock($cache,LOCK_SH);
+    if(is_file($cacheFile))
+      $cachedLines = @file($cacheFile);
+    flock($cache,LOCK_UN);
+    fclose($cache);
+  }
+  
+  // store old cache lines
+  if(is_array($cachedLines)) {
+    
+    // check if a user is already on the current location
+    $free = true;
+    foreach($cachedLines as $cachedLine) {
+      $cachedLineArray = explode('|#|', $cachedLine);
+      if(isset($cachedLineArray[4]) && IDENTITY != trim($cachedLineArray[0]) && trim($cachedLineArray[3]) == $location) $free = false;
     }
     
-    // store old cache lines
-    if(is_array($cachedLines)) {
-      foreach($cachedLines as $cachedLine) {
-        $cachedLineArray = explode('|#|', $cachedLine);
+    foreach($cachedLines as $cachedLine) {
+      $cachedLineArray = explode('|#|', $cachedLine);
+      
+      $oldLocation = trim($cachedLineArray[3]);
+      
+      // stores the user AGAIN with new timestamp, if the user was less than $maxTime on the page,
+      // otherwise remove the user form the cache (dont save his line)
+      if(!empty($location) && $timeStamp - $cachedLineArray[1] < $maxTime) {
         
-        // stores the user AGAIN with new timestamp, if the user was less than $maxTime on the page,
-        // otherwise remove the user form the cache (dont save his line)
-        if($timeStamp - $cachedLineArray[0] < $maxTime) {
-          
-          if($cachedLineArray[1] == $_SESSION['feindura']['session']['username']) {
-            $newLines[] = $timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location;
-            $return[] = array('oldTimestamp' => $cachedLineArray[0], 'timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
-            $stored = true;
-          } else {
-            $newLines[] = $cachedLine;
-            $return[] = array('oldTimestamp' => $cachedLineArray[0], 'timestamp' => $timeStamp, 'username' => $cachedLineArray[1], 'location' => $cachedLineArray[2]);
-          }
+        //$currentUserEdit = (($oldLocation == $location && isset($cachedLineArray[3])) || $free);
+        
+        if($cachedLineArray[0] == IDENTITY) {
+          $edit = ($free) ? '|#|edit' : false;
+          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location.$edit;
+          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
+          if($free) $addArray['edit'] = true;
+          $return[] = $addArray;
+          $stored = true;
+        } elseif(!empty($cachedLineArray[0])) {
+          $newLines[] = $cachedLine;
+          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => $cachedLineArray[3]);
+          if(isset($cachedLineArray[4])) $addArray['edit'] = true;
+          $return[] = $addArray;
         }
       }
     }
-    // user doesn't exist, create a new cache line
-    if($stored === false) {
-      $newLines[] = $timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location;
-      $return[] = array('timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
-    }
+  }
+
+  // user doesn't exist, create a new cache line
+  if($stored === false && !empty($location)) {
+    $edit = ($free) ? '|#|edit' : false;
+    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location.$edit;
+    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
+    if($free) $addArray['edit'] = true;
+    $return[] = $addArray;
+  }
   
   // ->> OPEN user.statistic.cache for writing
   if($cache = @fopen($cacheFile,"wb")) {
     flock($cache,LOCK_EX);
     
     foreach($newLines as $newLine) {
-      $newLine = preg_replace('#[\r\n]+#','',$newLine);
+      $newLine = trim($newLine);
       fwrite($cache,$newLine."\n");
     }
     flock($cache,LOCK_UN);

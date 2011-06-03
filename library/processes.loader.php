@@ -21,9 +21,6 @@
  */
 require_once(dirname(__FILE__)."/includes/secure.include.php");
 
-// start of loading the processes
-// -------------------------------------------------------------------------------------------------------------
-
 // if page ID is given, it loads the HTML-Editor
 // --------------------------------------------
 if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category'])) && !empty($_GET['page'])) {
@@ -32,7 +29,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
   
-  include (dirname(__FILE__).'/controllers/editor.controller.php');
+  include (dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
   
 // OTHER BUTTONSwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
@@ -48,30 +45,37 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // ADMINSETUP
     case 'adminSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/adminSetup.controller.php');
       break;
     // ADMINSETUP
     case 'pageSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/pageSetup.controller.php');
       break;
     // WEBSITESETUP
     case 'websiteSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/websiteSetup.controller.php');
       break;
     // STATISTICSETUP
     case 'statisticSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/statisticSetup.controller.php');
       break;
     // USERSETUP
     case 'userSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/userSetup.controller.php');
       break;
     // PLUGINSETUP
     case 'pluginSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/pluginSetup.controller.php');
       break;
     // MODULSETUP
     case 'modulSetup':
+      if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/modulSetup.controller.php');
       break;
     // BACKUP

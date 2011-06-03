@@ -31,10 +31,10 @@ html,body {
 /****************/	
 /* *** GENERAL ELEMENTs FORMAT  */
 
-span.blue, label.blue, h1.blue, div.blue {
+span.blue, label.blue, h1.blue, div.blue, li.blue {
     color: #668CA6 !important;
     }
-span.brown, label.brown, h1.brown {
+span.brown, label.brown, h1.brown, li.brown {
     color: #D7943C !important;
     }
 span.red, label.red, h1.red, ul.red, div.red {
@@ -1001,16 +1001,18 @@ div.leftSidebarLoadingCircle {
 
 #sidebarListUsers {
   margin-left: 27px !important;
+  
 }
 
 #sidebarListUsers li {
-  list-style: none !important;
+  list-style-image: url("../images/icons/user_offline.png") !important;
   margin: 0px !important;
-  padding: 3px 0px !important;
+  padding: 4px 0px !important;
+  font-weight:bold;
 }
 
-#sidebarListUsers li span {
-  background: none;
+#sidebarListUsers li.online {
+  list-style-image: url("../images/icons/user_online.png") !important;
 }
 
 /* --------------------- */

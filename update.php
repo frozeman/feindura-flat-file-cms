@@ -266,6 +266,36 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     // ->> FIX PAGES
     $pages = GeneralFunctions::loadPages(true);
     
+    // ->> SAVE NEW adminConfig
+    // rename
+    $adminConfig['websiteFilesPath'] = (isset($adminConfig['websitefilesPath'])) ? $adminConfig['websitefilesPath'] : $adminConfig['websiteFilesPath'];
+    $adminConfig['pages']['showTags'] = (isset($adminConfig['pages']['showtags'])) ? $adminConfig['pages']['showtags'] : $adminConfig['pages']['showTags'];
+    $adminConfig['pages']['createDelete'] = (isset($adminConfig['pages']['createdelete'])) ? $adminConfig['pages']['createdelete'] : $adminConfig['pages']['createDelete'];
+    $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
+    if(!isset($adminConfig['editor']['safeHtml'])) $adminConfig['editor']['safeHtml'] = false;
+    
+    // save all activated plugins as serialized string
+    if($adminConfig['pages']['plugins'] === true || $adminConfig['pages']['plugins'] === 'true')
+      $adminConfig['pages']['plugins'] = activateAllPluginsSerialized();
+    
+    $data = $adminConfig['editor']['styleFile'];
+      if(strpos($data,'|#|') !== false)
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
+      elseif(strpos($data,'|') !== false)
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
+      elseif(!empty($data) && substr($data,0,2) != 'a:')
+        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
+    
+    $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
+    
+    if(saveAdminConfig($adminConfig))
+      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br />';
+    else {
+      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
+      $succesfullUpdate = false;
+    }
+    GeneralFunctions::$adminConfig = $adminConfig;
+    
     //print_r($pages);
     $pagesSuccesfullUpdated = true;
     foreach($pages as $pageContent) {
@@ -357,7 +387,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       // rename
       $category['showTags'] = (isset($category['showtags'])) ? $category['showtags'] : $category['showTags'];
       $category['showPageDate'] = (isset($category['showpagedate'])) ? $category['showpagedate'] : $category['showPageDate'];
-      $category['sorting'] = (!isset($category['sorting']) && ($category['sortbypagedate'] || $category['sortByPageDate'])) ? 'byPageDate' : 'manually';
+      if(!isset($category['sorting'])) $category['sorting'] = ($category['sortbypagedate'] || $category['sortByPageDate']) ? 'byPageDate' : 'manually';
       $category['sortReverse'] = ($category['sortascending'] || $category['sortAscending']) ? 'true' : $category['sortReverse'];
       $category['createDelete'] = (isset($category['createdelete'])) ? $category['createdelete'] : $category['createDelete'];
       
@@ -387,34 +417,6 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       echo 'websiteConfig <span class="succesfull">succesfully updated</span><br />';
     else {
       echo 'websiteConfig <span class="notSuccesfull">could not be updated</span><br />';
-      $succesfullUpdate = false;
-    }
-    
-    // ->> SAVE NEW adminConfig
-    // rename
-    $adminConfig['websiteFilesPath'] = (isset($adminConfig['websitefilesPath'])) ? $adminConfig['websitefilesPath'] : $adminConfig['websiteFilesPath'];
-    $adminConfig['pages']['showTags'] = (isset($adminConfig['pages']['showtags'])) ? $adminConfig['pages']['showtags'] : $adminConfig['pages']['showTags'];
-    $adminConfig['pages']['createDelete'] = (isset($adminConfig['pages']['createdelete'])) ? $adminConfig['pages']['createdelete'] : $adminConfig['pages']['createDelete'];
-    $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
-    
-    // save all activated plugins as serialized string
-    if($adminConfig['pages']['plugins'] === true || $adminConfig['pages']['plugins'] === 'true')
-      $adminConfig['pages']['plugins'] = activateAllPluginsSerialized();
-    
-    $data = $adminConfig['editor']['styleFile'];
-      if(strpos($data,'|#|') !== false)
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|#|');
-      elseif(strpos($data,'|') !== false)
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,'|');
-      elseif(!empty($data) && substr($data,0,2) != 'a:')
-        $adminConfig['editor']['styleFile'] = changeToSerializedData($data,' ');
-    
-    $adminConfig['websitePath'] = (isset($adminConfig['websitePath'])) ? $adminConfig['websitePath'] : '/';
-    
-    if(saveAdminConfig($adminConfig))
-      echo 'adminConfig <span class="succesfull">succesfully updated</span> (if you had SPEAKING URLS activated, you must delete the mod_rewrite code from your .htaccess file, in the root of your webserver and save the administrator settings to create a new one!)<br />';
-    else {
-      echo 'adminConfig <span class="notSuccesfull">could not be updated</span><br />';
       $succesfullUpdate = false;
     }
     
@@ -638,7 +640,6 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     }
     
     // -> final success text or failure warning
-    echo '<h1>If you have any &lt;script&gt; tags in your code, make sure you deactivate "safe HTML" under the HTML-Editor-Settings in the Admin-Setup, before saving these pages again.</h1>';
     if($succesfullUpdate)
       echo '<h1>You can now delete the "update.php" file.</h1>';
     else

@@ -284,6 +284,8 @@ Dort klickst du unter Sicherheit entweder auf "Standardstufe", oder wähle "Stuf
 $langFile['DASHBOARD_TITLE_IEWARNING'] = '<span class="logoname">fein<span>dura</span></span> ist nicht für ältere Versionen des Internet Explorers ausgelegt';
 $langFile['DASHBOARD_TEXT_IEWARNING'] = 'Um das <span class="logoname">fein<span>dura</span></span> CMS vollständig nutzen zu können ist mindestens der Internet Explorer 8 nötig.<br /><br />Bitte installiere eine neuere Version des Internet Explorers,<br /> oder installiere das <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> für den Internet Explorer,<br />oder lade dir den kostenlosen <a href="http://www.mozilla.org/firefox/">Firefox</a> oder <a href="http://www.google.com/chrome/">Chrome</a> Browser herunter.';
 
+$langFile['GENERAL_TEXT_CURRENTLYEDITED'] = 'Seite wird gerade bearbeitet...';
+
 /*
 * leftSidebar.loader.php
 */

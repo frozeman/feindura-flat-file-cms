@@ -251,7 +251,7 @@ class FeinduraBase {
     if(isset($_GET['feindura_logout']))
       unset($_SESSION['feindura']['session']);
     // CHECK if logged in
-    $this->loggedIn = ($_SESSION['feindura']['session']['loggedIn'] === true && $_SESSION['feindura']['session']['identity'] === IDENTITY) ? true : false;
+    $this->loggedIn = ($_SESSION['feindura']['session']['loggedIn'] === true && $_SESSION['feindura']['session']['host'] === HOST) ? true : false;
     
     // set backend language if logged in
     if($this->loggedIn && $language === false)

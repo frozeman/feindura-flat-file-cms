@@ -267,6 +267,8 @@ Cliquez sur sécurité ou sur "standard" ou bien "adapter standard" et puis acti
 $langFile['DASHBOARD_TITLE_IEWARNING'] = '<span class="logoname">fein<span>dura</span></span> ne fonctionne pas avec une ancienne version de l\'Internet Explorer.';
 $langFile['DASHBOARD_TEXT_IEWARNING'] = 'Pour <span class="logoname">fein<span>dura</span></span> utiliser le CMS entièrement, version 8 de l\'IE est nécessaire.<br /><br />Svp installez une nouvelle version de l\'Internet Explorer,<br /> ou bien installez <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> pour l\'IE,<br /> ou bien téléchargez <a href="http://www.mozilla.org/firefox/">Firefox</a> ou <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
 
+$langFile['GENERAL_TEXT_CURRENTLYEDITED'] = 'Page est actuellement en cours de modification...';
+
 /*
 * leftSidebar.loader.php
 */

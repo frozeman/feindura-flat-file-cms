@@ -1586,7 +1586,7 @@ class StatisticFunctions {
       // -----------------------------
       if(empty($pageStatistics['firstVisit'])) {
         $pageStatistics['firstVisit'] = time();
-        $pageStatistics['visitorCount'] = 0;
+        $pageStatistics['visitorCount'] = 1;
       }
       
       // -> saves the LAST PAGE VISIT

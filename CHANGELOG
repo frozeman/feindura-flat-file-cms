@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1 rc10
-Build 692
+Build 693
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,8 +21,9 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-
-  build 692: started to creak contentBlocked, when an other user is logged in and at the same page
+  
+  build 693: finished contentBlocked
+  build 692: started to create contentBlocked, when an other user is logged in and at the same page
 
 1.1 rc10
   

@@ -161,23 +161,22 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           echo '<ul id="sidebarListUsers">';
           foreach($userConfig as $user) {
             
-            echo '<li><span';
-            
+            echo '<li';
             // your own user
             if($_SESSION['feindura']['session']['username'] == $user['username'])
-              echo ' class="toolTip brown" style="font-weight:bold;" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
+              echo ' class="toolTip online brown" title="'.$langFile['USER_TEXT_CURRENTUSER'].'::"';
             // users who are online too
             else {
               foreach($userCache as $cachedUser) { 
                 if($user['username'] == $cachedUser['username']) {
-                  echo ' class="toolTip blue" style="font-weight:bold;" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
+                  echo ' class="toolTip online" title="'.$langFile['USER_TEXT_USERSONLINE'].': '.date("H:i",$cachedUser["timestamp"]).'"';
                     break;
                 }              
               }
             }
               
             // list users
-            echo '>'.$user['username'].'</span></li>';
+            echo '>'.$user['username'].'</li>';
           }
           echo '</ul>';
         // no users

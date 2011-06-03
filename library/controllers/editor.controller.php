@@ -29,7 +29,7 @@ $category = $_GET['category'];
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
-if($_POST['save']) {
+if($_POST['save'] && isBlocked() === false) {
   
   // vars
   $page	= $_POST['id'];
@@ -150,7 +150,7 @@ if($newPage) {
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
-if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail'])) {
+if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']) && isBlocked() === false) {
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
 }

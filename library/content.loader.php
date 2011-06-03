@@ -28,10 +28,6 @@ echo basePathWarning();
 // if not throw a warning
 echo startPageWarning();
 
-// ***********************************************************************
-// CHECKs if another user is on this site
-echo isBlocked();
-
 // start of loading the content
 // -------------------------------------------------------------------------------------------------------------
 
@@ -43,6 +39,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   if(empty($categoryConfig))
     $_GET['category'] = 0;
   
+  echo isBlocked();
   include (dirname(__FILE__).'/views/editor.php');
   
 // OTHER BUTTONSwise, load the sites
@@ -63,18 +60,22 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // adminSetup
     case 'adminSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/adminSetup.php');
       break;
     // adminSetup
     case 'pageSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/pageSetup.php');
       break;
     // websiteSetup
     case 'websiteSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/websiteSetup.php');
       break;
     // statisticSetup
     case 'statisticSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/statisticSetup.php');
       break;
     // backup
@@ -83,14 +84,17 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       break;
     // userSetup
     case 'userSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/userSetup.php');
       break;
     // pluginSetup
     case 'pluginSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/pluginSetup.php');
       break;
     // modulSetup
     case 'modulSetup':
+      echo isBlocked();
       include (dirname(__FILE__).'/views/modulSetup.php');
       break;
     // search

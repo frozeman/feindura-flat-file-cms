@@ -534,9 +534,13 @@ window.addEvent('domready', function() {
   (function(){
     new Request({
       url:'library/includes/backend.include.php',
-      method: 'get'
-    }).send('site='+currentSite+'&page='+currentPage);
-  }).periodical(150000);
+      method: 'get',
+      onSuccess: function(html) {
+        if(html == 'releaseBlock' && $('contentBlocked') != null)
+          $('contentBlocked').destroy();
+      }
+    }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
+  }).periodical(180000);
   
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
   

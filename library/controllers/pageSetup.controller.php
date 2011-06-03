@@ -229,7 +229,9 @@ if($savedSettings) {
   // ->> save the FEEDS for non-category pages, if activated
   GeneralFunctions::saveFeeds(0);
   // ->> save the FEEDS for categories, if activated
-  foreach($categoryConfig as $category)
-    GeneralFunctions::saveFeeds($category['id']);
+  if(is_array($categoryConfig)) {
+    foreach($categoryConfig as $category)
+      GeneralFunctions::saveFeeds($category['id']);
+  }
 }
 ?>

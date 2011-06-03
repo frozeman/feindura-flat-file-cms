@@ -108,6 +108,11 @@ $savedSettings    = false; // to tell wich settings were saved, to re-include th
 $newPage          = false; // tells the editor whether a new page is created
 $userCache        = userCache();
 
+// ->> send info to content.js, so when updated the user config and a page gets free, it can remove the "contentBlocked" DIV
+if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
+  echo 'releaseBlock';
+}
+
 // ->> choose LANGUAGE * START * -----------------------------------------------------
 // language shortname will be transfered trough a session (need COOKIES!)
 // and includes the langFile
