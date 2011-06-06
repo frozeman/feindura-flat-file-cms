@@ -23,7 +23,7 @@
  */
 
 // include the chapta
-require('chapta.php');
+require(dirname(__FILE__).'/chapta.php');
 
 /**
 * contactForm Plugin class
