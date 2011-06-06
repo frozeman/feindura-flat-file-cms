@@ -1427,7 +1427,7 @@ class Feindura extends FeinduraBase {
           // adds the link to an array
           $links[] = $pageLink;
         }
-      }      
+      }
     } else 
       return array(false);
  

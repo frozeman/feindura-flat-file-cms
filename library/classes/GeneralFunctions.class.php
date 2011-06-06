@@ -532,12 +532,15 @@ class GeneralFunctions {
   */
   public static function readPage($page,$category = false) {
     //echo 'PAGE: '.$page.' -> '.$category.'<br />';
+
     // var
     $pageContent = false;
     
     // if $page is a valid $pageContent array return it immediately
     if(self::isPageContentArray($page))
       return $page;
+    elseif(!is_numeric($page))
+      return false;
        
     $storedPages = self::getStoredPages();
     
@@ -741,6 +744,8 @@ class GeneralFunctions {
     // if $page is a valid $pageStatistics array return it immediately
     if(self::isPageStatisticsArray($pageId))
       return $pageId;
+    elseif(!is_numeric($pageId))
+      return false;
     
     // adds .php to the end if its missing
     if(substr($pageId,-4) != '.statistics.php')
@@ -808,8 +813,8 @@ class GeneralFunctions {
       fwrite($file,"\$pageStatistics['visitorCount'] =   ".XssFilter::int($pageStatistics['visitorCount'],0).";\n");
       fwrite($file,"\$pageStatistics['firstVisit'] =     ".XssFilter::int($pageStatistics['firstVisit'],0).";\n");
       fwrite($file,"\$pageStatistics['lastVisit'] =      ".XssFilter::int($pageStatistics['lastVisit'],0).";\n");
-      fwrite($file,"\$pageStatistics['visitTimeMin'] =  '".$pageStatistics['visitTimeMin']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-      fwrite($file,"\$pageStatistics['visitTimeMax'] =  '".$pageStatistics['visitTimeMax']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+      fwrite($file,"\$pageStatistics['visitTimeMin'] =   '".$pageStatistics['visitTimeMin']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+      fwrite($file,"\$pageStatistics['visitTimeMax'] =   '".$pageStatistics['visitTimeMax']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
       fwrite($file,"\$pageStatistics['searchWords'] =    '".$pageStatistics['searchWords']."';\n\n"); // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
       
       fwrite($file,"return \$pageStatistics;");
@@ -1089,7 +1094,8 @@ class GeneralFunctions {
           // use only pages from the right category
           if($pageIdAndCategory['category'] == $categoryId) {
             //echo 'PAGE: '.$pageIdAndCategory['page'].' -> '.$categoryId.'<br />';
-            $pageStatisticsArrays[] = self::readPageStatistics($pageIdAndCategory['page']);            
+            if($pageStat = self::readPageStatistics($pageIdAndCategory['page']))
+              $pageStatisticsArrays[] = $pageStat;
           }
         }
         

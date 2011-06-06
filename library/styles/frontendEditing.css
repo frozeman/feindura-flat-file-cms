@@ -85,6 +85,8 @@ div.feindura_pageBar {
   z-index: 1005;
   position: absolute;
   height: 26px;
+  width: 100px;
+  text-align: right;
 }
 
 /* PAGE BAR FUNCTIONs links (also in content.css) */

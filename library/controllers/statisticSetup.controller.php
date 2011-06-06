@@ -45,7 +45,6 @@ if($_POST['sendClearstatistics']) {
   // ->> CLEAR PAGES-STATISTICs
   if($_POST['clearStatistics_pagesStatistics'] == 'true' &&
      $pagesStats = GeneralFunctions::loadPagesStatistics(true)) {
-
     foreach($pagesStats as $pageStatistics) {
       
       // -> CLEAR the page stats

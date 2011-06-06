@@ -34,8 +34,8 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 // gets the version of the feindura CMS
 
-$oldVersion = '1.0 rc';
-$newVersion = '1.1 rc10';
+$oldVersion = '1.0 rc and 1.1rc*';
+$newVersion = '1.1';
 
 ?>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -257,7 +257,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       delDir($adminConfig['savePath']);
       echo 'pages <span class="succesfull">succesfully copied to "feindura_folder/pages/"</span><br />';
     } elseif($didntCopy) {
-      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/" )</span><br />';
+      echo 'old pages folder <span class="succesfull" style="color:#3A74AB;">already copied to "feindura_folder/pages/"? (<strong>You must copy the folder with your pages (set in the "save path" setting) to your feindura folder, e.g. "/pages/" -> "/feindura_folder/pages/"</strong>)</span><br />';
     } else {
       echo 'pages <span class="notSuccesfull">could not be copied! Please move the folder with your pages (1.php, 2.php, etc..) to "feindura_folder/pages/" manually and run this updater again.</span><br />';
       $succesfullUpdate = false;
@@ -354,10 +354,6 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,'|');
         elseif(!empty($data) && substr($data,0,2) != 'a:')
           $pageContent['log_searchWords'] = changeToSerializedDataString($data,' ');
-
-      if(!GeneralFunctions::savePage($pageContent))
-        $pagesSuccesfullUpdated = false;
-        
         
       // save page stats
       $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
@@ -372,6 +368,8 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
         GeneralFunctions::savePageStatistics($pageStatistics);
       }
       
+      if(!GeneralFunctions::savePage($pageContent))
+        $pagesSuccesfullUpdated = false;
     }
     if($pagesSuccesfullUpdated)
       echo 'pages <span class="succesfull">succesfully updated</span><br />';

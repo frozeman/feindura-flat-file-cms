@@ -24,9 +24,6 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// didnt show the Setup for non-adminstrators
-if(isAdmin()) {
-
 // CHECKs if the necessary FILEs are WRITEABLE, otherwise show an warnings
 // ----------------------------------------------------------------------------------------
 $checkFolders[] = dirname(__FILE__).'/../../config/';
@@ -152,10 +149,9 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
       <?= $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
       </td><td class="right">
       <select id="cfg_permissions" name="cfg_permissions">
-        <option value="0644"<?php if($adminConfig['permissions'] == 0644) echo ' selected="selected"'; ?>>644</option>
         <option value="0744"<?php if($adminConfig['permissions'] == 0744) echo ' selected="selected"'; ?>>744</option>
+        <option value="0754"<?php if($adminConfig['permissions'] == 0754) echo ' selected="selected"'; ?>>754</option>
         <option value="0755"<?php if($adminConfig['permissions'] == 0755) echo ' selected="selected"'; ?>>755</option>
-        <option value="0774"<?php if($adminConfig['permissions'] == 0774) echo ' selected="selected"'; ?>>774</option>
         <option value="0775"<?php if($adminConfig['permissions'] == 0775) echo ' selected="selected"'; ?>>775</option>
         <option value="0777"<?php if($adminConfig['permissions'] == 0777) echo ' selected="selected"'; ?>>777</option>
       </select>
@@ -413,17 +409,15 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
 // BEARBEITUNG DER SPRACHDATEI
 editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
-  
 
 // BEARBEITUNG DER STYLESHEETDATEI
 editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
 
-} // <-- END isAdmin()
 ?>
 
 <!-- HIER BEGINNT DIE STIL-AUSWAHL BEARBEITUNG DES HTML EDITORS -->
 <form action="index.php?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-  <div><input type="hidden" name="saveFckStyleFile" value="true" /></div>
+<div><input type="hidden" name="saveFckStyleFile" value="true" /></div>
 <?php
 
 $htmlEditorStyleFilePath = "config/htmlEditorStyles.js";

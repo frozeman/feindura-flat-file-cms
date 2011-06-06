@@ -43,44 +43,44 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
         $_GET['category'] = 0;
       include (dirname(__FILE__).'/controllers/listPages.controller.php');
       break;
-    // ADMINSETUP
-    case 'adminSetup':
-      if(isBlocked()) break;
-      include (dirname(__FILE__).'/controllers/adminSetup.controller.php');
-      break;
-    // ADMINSETUP
-    case 'pageSetup':
-      if(isBlocked()) break;
-      include (dirname(__FILE__).'/controllers/pageSetup.controller.php');
-      break;
-    // WEBSITESETUP
+    // WEBSITE SETUP
     case 'websiteSetup':
       if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/websiteSetup.controller.php');
       break;
-    // STATISTICSETUP
+    // ADMIN SETUP
+    case 'adminSetup':
+      if(isBlocked()) break;
+      if(isAdmin()) include (dirname(__FILE__).'/controllers/adminSetup.controller.php');
+      break;
+    // PAGE SETUP
+    case 'pageSetup':
+      if(isBlocked()) break;
+      if(isAdmin()) include (dirname(__FILE__).'/controllers/pageSetup.controller.php');
+      break;
+    // STATISTIC SETUP
     case 'statisticSetup':
       if(isBlocked()) break;
-      include (dirname(__FILE__).'/controllers/statisticSetup.controller.php');
+      if(isAdmin()) include (dirname(__FILE__).'/controllers/statisticSetup.controller.php');
       break;
-    // USERSETUP
+    // USER SETUP
     case 'userSetup':
       if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/userSetup.controller.php');
       break;
-    // PLUGINSETUP
+    // PLUGIN SETUP
     case 'pluginSetup':
       if(isBlocked()) break;
-      include (dirname(__FILE__).'/controllers/pluginSetup.controller.php');
+      if(isAdmin()) include (dirname(__FILE__).'/controllers/pluginSetup.controller.php');
       break;
-    // MODULSETUP
+    // MODUL SETUP
     case 'modulSetup':
       if(isBlocked()) break;
-      include (dirname(__FILE__).'/controllers/modulSetup.controller.php');
+      if(isAdmin()) include (dirname(__FILE__).'/controllers/modulSetup.controller.php');
       break;
     // BACKUP
     case 'backup':
-      include (dirname(__FILE__).'/controllers/backup.controller.php');
+      if(isAdmin()) include (dirname(__FILE__).'/controllers/backup.controller.php');
       break;
   } //switch END
 

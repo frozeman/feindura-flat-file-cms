@@ -321,9 +321,6 @@ var feindura_pages = [
           <td><a href="?site=adminSetup" tabindex="10" class="adminSetup<?php if($_GET['site'] == 'adminSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_ADMINSETUP']; ?>"><span><?php echo $langFile['BUTTON_ADMINSETUP']; ?></span></a></td>
           <td><a href="?site=pageSetup" tabindex="11" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
           </tr><tr>
-          <td><a href="?site=userSetup" tabindex="12" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
-          <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
-          </tr><tr>
           <td><a href="?site=statisticSetup" tabindex="14" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
           <?php
           // CHECKS if one of the plugins/ or modules/ folders is empty
@@ -338,10 +335,14 @@ var feindura_pages = [
           if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
           <tr>
           <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
-          <td</td>
+          <td></td>
           <?php }
           } ?>
-          </tr>       
+          </tr>
+          <tr>
+          <td><a href="?site=userSetup" tabindex="12" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
+          <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
+          </tr>      
         </table>
       </div>      
     </div>
@@ -441,6 +442,13 @@ var feindura_pages = [
             <?php
               $showSpacer = true;
             }
+            
+            if($showSpacer && ($showCreatePage || $showCreateDelete)) { ?>
+              <li class="spacer">&nbsp;</li>
+            <?php 
+              $showSpacer = false;
+            }
+            
             // create new page
             if($showCreatePage) { ?>
               <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::">&nbsp;</a></li>
@@ -469,7 +477,7 @@ var feindura_pages = [
               $showSpacer = true;
             }
             
-            if($showSpacer && ($showPageThumbnailUpload || $adminConfig['user']['fileManager'])) { ?>
+            if($showSpacer && $adminConfig['user']['fileManager']) { ?>
               <li class="spacer">&nbsp;</li>
             <?php 
               $showSpacer = false;
@@ -522,6 +530,13 @@ var feindura_pages = [
           <?php
           $showSpacer = true;
           }
+          
+          if($showSpacer && ($showCreatePage || $showCreateDelete)) { ?>
+              <li class="spacer">&nbsp;</li>
+            <?php 
+              $showSpacer = false;
+            }
+          
           // create new page
           if($showCreatePage) { ?>
             <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::"><span><?php echo $langFile['BUTTON_CREATEPAGE']; ?></span></a></li>
@@ -551,7 +566,7 @@ var feindura_pages = [
             $showSpacer = true;
           }
           
-          if($showSpacer && ($showPageThumbnailUpload || $adminConfig['user']['fileManager'])) { ?>
+          if($showSpacer && $adminConfig['user']['fileManager']) { ?>
             <li class="spacer">&nbsp;</li>
           <?php
             $showSpacer = false;

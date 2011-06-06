@@ -42,80 +42,80 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   echo isBlocked();
   include (dirname(__FILE__).'/views/editor.php');
   
-// OTHER BUTTONSwise, load the sites
+// otherwise, load the sites
 // -------------------------------------------------------------------------------------------------------------
 } else {
   
   // SWITCHES the &_GET['site'] var
   switch($_GET['site']) {
-    // dashboard
+    // DASHBOARD
     case 'dashboard': case '':
       include (dirname(__FILE__).'/views/dashboard.php');
       break;
-    // pages
+    // PAGES
     case 'pages':
       if(empty($categoryConfig))
         $_GET['category'] = 0;
       include (dirname(__FILE__).'/views/listPages.php');
       break;
-    // adminSetup
-    case 'adminSetup':
-      echo isBlocked();
-      include (dirname(__FILE__).'/views/adminSetup.php');
+    // SEARCH
+    case 'search':
+      include (dirname(__FILE__).'/views/search.php');
       break;
-    // adminSetup
-    case 'pageSetup':
-      echo isBlocked();
-      include (dirname(__FILE__).'/views/pageSetup.php');
+    // FILEMANAGER
+    case 'fileManager':
+      include (dirname(__FILE__).'/views/windowBox/fileManager.php');
+      break; 
+    // DELETPAGE
+    case 'deletePage':
+      include (dirname(__FILE__).'/views/windowBox/deletePage.php');
       break;
-    // websiteSetup
+    // PGAETHUMBNAIL UPLOAD
+    case 'pageThumbnailUpload':
+      include (dirname(__FILE__).'/views/windowBox/pageThumbnailUpload.php');
+      break;
+    // PGAETHUMBNAIL DELETE
+    case 'pageThumbnailDelete':
+      include (dirname(__FILE__).'/views/windowBox/pageThumbnailDelete.php');
+      break;
+    // WEBSITE SETUP
     case 'websiteSetup':
       echo isBlocked();
       include (dirname(__FILE__).'/views/websiteSetup.php');
       break;
-    // statisticSetup
+    // ADMIN SETUP
+    case 'adminSetup':
+      echo isBlocked();
+      if(isAdmin()) include (dirname(__FILE__).'/views/adminSetup.php');
+      break;
+    // PAGE SETUP
+    case 'pageSetup':
+      echo isBlocked();
+      if(isAdmin()) include (dirname(__FILE__).'/views/pageSetup.php');
+      break;
+    // STATISTIC SETUP
     case 'statisticSetup':
       echo isBlocked();
-      include (dirname(__FILE__).'/views/statisticSetup.php');
+      if(isAdmin()) include (dirname(__FILE__).'/views/statisticSetup.php');
       break;
-    // backup
-    case 'backup':
-      include (dirname(__FILE__).'/views/backup.php');
-      break;
-    // userSetup
+    // USER SETUP
     case 'userSetup':
       echo isBlocked();
-      include (dirname(__FILE__).'/views/userSetup.php');
+      if(isAdmin()) include (dirname(__FILE__).'/views/userSetup.php');
       break;
-    // pluginSetup
+    // PLUGIN SETUP
     case 'pluginSetup':
       echo isBlocked();
-      include (dirname(__FILE__).'/views/pluginSetup.php');
+      if(isAdmin()) include (dirname(__FILE__).'/views/pluginSetup.php');
       break;
-    // modulSetup
+    // MODUL SETUP
     case 'modulSetup':
       echo isBlocked();
-      include (dirname(__FILE__).'/views/modulSetup.php');
+      if(isAdmin()) include (dirname(__FILE__).'/views/modulSetup.php');
       break;
-    // search
-    case 'search':
-      include (dirname(__FILE__).'/views/search.php');
-      break;
-    // fileManager
-    case 'fileManager':
-      include (dirname(__FILE__).'/views/windowBox/fileManager.php');
-      break; 
-    // deletePage
-    case 'deletePage':
-      include (dirname(__FILE__).'/views/windowBox/deletePage.php');
-      break;
-    // pageThumbnailUpload
-    case 'pageThumbnailUpload':
-      include (dirname(__FILE__).'/views/windowBox/pageThumbnailUpload.php');
-      break;
-    // pageThumbnailDelete
-    case 'pageThumbnailDelete':
-      include (dirname(__FILE__).'/views/windowBox/pageThumbnailDelete.php');
+    // BACKUP
+    case 'backup':
+      if(isAdmin()) include (dirname(__FILE__).'/views/backup.php');
       break;
   } //switch END
 

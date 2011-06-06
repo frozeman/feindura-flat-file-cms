@@ -58,18 +58,16 @@ if(!empty($currentVisitors) && $showVisitors) {
   
   // open geodates
   $geoIP = geoip_open(dirname(__FILE__).'/../thirdparty/GeoIP/GeoIP.dat',GEOIP_STANDARD);
-       
+  
   foreach($currentVisitors as $currentVisitor) {
-    if($currentVisitor['ip'] == '::1') continue;
-    $geoIPCode = geoip_country_code_by_addr($geoIP, $currentVisitor['ip']);        
+    if(empty($currentVisitor) || $currentVisitor['type'] == 'robot' ||$currentVisitor['ip'] == '::1') continue;
+    $geoIPCode = geoip_country_code_by_addr($geoIP, trim($currentVisitor['ip']));
     $geoIPFlag = (!empty($geoIPCode))
-      ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, $currentVisitor['ip']).'" />'
+      ? '<img src="library/thirdparty/GeoIP/flags/'.$geoIPCode.'.png" class="toolTip" width="18" height="12" title="'.geoip_country_name_by_addr($geoIP, trim($currentVisitor['ip'])).'" />'
       : '';
-    if(!empty($currentVisitor) && $currentVisitor['type'] != 'robot') {
-      $return .= ($currentVisitorDashboard)
-        ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.StatisticFunctions::formatDate($currentVisitor['time']).'">'.StatisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>'
-        : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.StatisticFunctions::formatDate($currentVisitor['time']).' - '.StatisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>';
-    }
+    $return .= ($currentVisitorDashboard)
+      ? '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td style="font-size:11px;text-align:left;"><b><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank">'.$currentVisitor['ip'].'</a></b></td><td>'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].' <b class="toolTip" title="'.StatisticFunctions::formatDate($currentVisitor['time']).'">'.StatisticFunctions::formatTime($currentVisitor['time']).'</b></td></tr>'
+      : '<tr class="'.$rowColor.'"><td style="text-align:center; vertical-align:middle;">'.$geoIPFlag.'</td><td><a href="http://www.ip2location.com/'.$currentVisitor['ip'].'" target="_blank" class="standardLink toolTip" title="'.$langFile['STATISTICS_TEXT_LASTACTIVITY'].'::'.StatisticFunctions::formatDate($currentVisitor['time']).' - '.StatisticFunctions::formatTime($currentVisitor['time']).'">'.$currentVisitor['ip'].'</a></td></tr>';
     // change row color
     $rowColor = ($rowColor == 'light') ? 'dark' : 'light';        
   }  
