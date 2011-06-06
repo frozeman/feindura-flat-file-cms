@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <searchspiders>
-  <spider ident="sitebot">
-		<name>SiteBot/0.1</name>
-		<info>http://www.sitebot.org/robot/</info>
+	<spider ident="VoilaBot">
+		<name>Voila</name>
+		<info>http://www.voila.com/</info>
+		<email>support.voilabot@orange-ftgroup.com</email>
+	</spider>
+	<spider ident="searchdnabot">
+		<name>SearchDNA</name>
+		<info>http://searchenginedna.com/</info>
+		<email>crawl at searchenginedna dot com</email>
+	</spider>
+	<spider ident="kalooga/KaloogaBot">
+		<name>KaloogaBot</name>
+		<info>http://www.kalooga.com</info>
+		<email>info@kalooga.com</email>
+	</spider>
+	<spider ident="iajaBot">
+		<name>IajaBot</name>
+	</spider>
+	<spider ident="Girafabot">
+		<name>Girafa</name>
+		<info>http://www.girafa.com/</info>
+		<email>girafabot at girafa dot com</email>
+	</spider>
+	<spider ident="Gigabot">
+		<name>Giga Blast</name>
+		<info>http://www.gigablast.com/spider.html</info>
+	</spider>
+	<spider ident="ExaBot">
+		<name>ExaLead Beta</name>
+		<info>http://beta.exalead.com/search/C=0/2p=Help.7</info>
+		<email>crawler@exalead.com</email>
+	</spider>
+	<spider ident="Exabot">
+		<name>Exabot</name>
+		<info>http://www.exabot.com/go/robot</info>
+	</spider>
+	<spider ident="EnaBot">
+		<name>EnaBall</name>
+		<info>http://www.enaball.com/crawler.html</info>
+	</spider>
+	<spider ident="DNAbot/1.0">
+		<name>DNAbot</name>
+	</spider>
+	<spider ident="facebookexternalhit">
+		<name>Facebook</name>
+		<info>http://www.facebook.com/externalhit_uatext.php</info>
+	</spider>
+	<spider ident="Googlebot-Image">
+		<name>Google Images</name>
+		<info>http://www.google.com/webmasters/bot.html</info>
+	</spider>
+	<spider ident="ichiro/mobile">
+		<name>Ichiro Mobile</name>
+		<info>http://help.goo.ne.jp/door/crawler.html</info>
+		<email>https://goo.e-srvc.com/cgi-bin/goo.cfg/php/enduser/ask.php</email>
+	</spider>
+	<spider ident="008/0.83">
+		<name>80legs</name>
+		<info>http://www.80legs.com/spider.html</info>
 	</spider>
 	<spider ident="urlfan-bot">
 		<name>://URLFAN</name>
@@ -36,7 +92,7 @@
 	</spider>
 	<spider ident="aconon Index">
 		<name>Aconon Index</name>
-		<info>raubfische.de</info>
+		<info>http://raubfische.de</info>
 	</spider>
 	<spider ident="Ahoy!">
 		<name>Ahoy!</name>
@@ -62,6 +118,10 @@
 	<spider ident="scooter">
 		<name>AltaVista</name>
 	</spider>
+	<spider ident="crawler/3.0.0">
+		<name>Amazon AWS Cloud Based</name>
+		<info>http://www.notconfigured.com/</info>
+	</spider>
 	<spider ident="JS-Kit URL Resolver">
 		<name>Amazon AWS Cloud Based</name>
 		<info>http://aws.amazon.com/ec2/</info>
@@ -73,6 +133,10 @@
 		<name>Anthill</name>
 		<info>http://www.robotstxt.org/wc/active/html/anthill.html</info>
 		<email>info@anthill.org</email>
+	</spider>
+	<spider ident="Synapse">
+		<name>Apache Synapse ESB</name>
+		<info>http://synapse.apache.org/</info>
 	</spider>
 	<spider ident="Robot/v1.34">
 		<name>Apnoti Search Robot</name>
@@ -160,17 +224,17 @@
 		<info>http://www.robotstxt.org/wc/active/html/backrub.html</info>
 		<email>page@leland.stanford.edu</email>
 	</spider>
-	<spider ident="BaiduMobaider">
+	<spider ident="Baiduspider">
 		<name>Baidu</name>
-		<info>http://www.baidu.jp/spider/</info>
+		<info>http://www.baidu.com/search/spider_jp.html</info>
 	</spider>
 	<spider ident="BaiduImagespider">
 		<name>Baidu</name>
 		<info>http://www.baidu.jp/spider/</info>
 	</spider>
-	<spider ident="Baiduspider">
+	<spider ident="BaiduMobaider">
 		<name>Baidu</name>
-		<info>http://www.baidu.com/search/spider_jp.html</info>
+		<info>http://www.baidu.jp/spider/</info>
 	</spider>
 	<spider ident="BecomeBot">
 		<name>Become</name>
@@ -196,25 +260,9 @@
 		<name>Bigmir</name>
 		<info>http://www.bigmir.net/</info>
 	</spider>
-	<spider ident="msnbot">
+	<spider ident="bingbot">
 		<name>Bing</name>
-		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
-	</spider>
-	<spider ident="msnbot-media">
-		<name>Bing Media Search</name>
-		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
-	</spider>
-	<spider ident="msnbot-mobile">
-		<name>Bing Mobile</name>
-		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
-	</spider>
-	<spider ident="msnbot-newsblogs">
-		<name>Bing News Search</name>
-		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
-	</spider>
-	<spider ident="msnbot-products">
-		<name>Bing Product Search</name>
-		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
+		<info>http://www.bing.com/bingbot.htm</info>
 	</spider>
 	<spider ident="Bitacle bot">
 		<name>Bitacle</name>
@@ -353,9 +401,9 @@
 	<spider ident="Checkbot">
 		<name>Checkbot</name>
 	</spider>
-	<spider ident="Chitika Linx">
-		<name>Chitika Linx</name>
-		<info>http://chitika.com</info>
+	<spider ident="ChitikaBot">
+		<name>ChitikaBot</name>
+		<info>http://chitika.com/blog/bot/</info>
 	</spider>
 	<spider ident="ChristCrawler.com">
 		<name>Christ Crawler</name>
@@ -377,6 +425,10 @@
 		<name>Clicksor.com</name>
 		<info>http://www.yesup.net/bot.html</info>
 	</spider>
+	<spider ident="CligooRobot">
+		<name>Cligoo</name>
+		<info>http://www.cligoo.de/wk/technik.php</info>
+	</spider>
 	<spider ident="CLX.ru Bot">
 		<name>CLX.ru</name>
 		<info>http://www.clx.ru</info>
@@ -392,12 +444,16 @@
 	</spider>
 	<spider ident="Crawler (cometsearch@cometsystems.com)">
 		<name>Comet Systems</name>
-		<info>cometsystems.com</info>
+		<info>http://www.cometsystems.com</info>
+		<email>cometsearch@cometsystems.com</email>
 	</spider>
 	<spider ident="CCBot">
 		<name>CommonCrawl</name>
 		<info>http://www.commoncrawl.org/</info>
 		<email>ccbot@commoncrawl.org</email>
+	</spider>
+	<spider ident="COMODOspider">
+		<name>COMODO</name>
 	</spider>
 	<spider ident="ComputingSite Robi">
 		<name>ComputingSite Robi</name>
@@ -411,6 +467,11 @@
 	</spider>
 	<spider ident="CoolBot">
 		<name>CoolBot</name>
+	</spider>
+	<spider ident="Covario">
+		<name>Covario</name>
+		<info>http://www.covario.com/ids</info>
+		<email>support@covario.com</email>
 	</spider>
 	<spider ident="twiceler.">
 		<name>Cuil</name>
@@ -481,9 +542,6 @@
 		<info>http://www.discoveryengine.com/discobot.html</info>
 		<email>discobot@discoveryengine.com</email>
 	</spider>
-	<spider ident="DNAbot/1.0">
-		<name>DNAbot</name>
-	</spider>
 	<spider ident="Dolphin">
 		<name>Dolphin</name>
 		<info>http://telehouse.ru/crawler.html</info>
@@ -540,9 +598,9 @@
 	<spider ident="Emacs-w3/v[0-9\.]+">
 		<name>Emacs-w3 Search Engine</name>
 	</spider>
-	<spider ident="EnaBot">
-		<name>EnaBall</name>
-		<info>http://www.enaball.com/crawler.html</info>
+	<spider ident="Embedly">
+		<name>Embedly</name>
+		<info>http://support.embed.ly/</info>
 	</spider>
 	<spider ident="envolk">
 		<name>envolk</name>
@@ -569,31 +627,25 @@
 	<spider ident="Evliya Celebi">
 		<name>Evliya Celebi</name>
 	</spider>
-	<spider ident="Exabot">
-		<name>Exabot</name>
-		<info>http://www.exabot.com/go/robot</info>
-	</spider>
-	<spider ident="ExactSeek_Spider">
-		<name>Exact Seek</name>
-		<info>http://www.askjeevs.com</info>
-	</spider>
 	<spider ident="exactseek-pagereaper">
 		<name>Exact Seek</name>
 		<info>www.exactseek.com</info>
 		<email><![CDATA[crawler [at] exactseek [dot]com]]></email>
 	</spider>
+	<spider ident="ExactSeek_Spider">
+		<name>Exact Seek</name>
+		<info>http://www.askjeevs.com</info>
+	</spider>
 	<spider ident="NG/2.0">
 		<name>ExaLead</name>
 		<info>http://botspotter.net/bs-389.html</info>
 	</spider>
-	<spider ident="ExaBot">
-		<name>ExaLead Beta</name>
-		<info>http://beta.exalead.com/search/C=0/2p=Help.7</info>
-		<email>crawler@exalead.com</email>
+	<spider ident="Ezooms">
+		<name>Ezooms</name>
+		<email>ezooms.bot@gmail.com</email>
 	</spider>
-	<spider ident="facebookexternalhit">
-		<name>Facebook</name>
-		<info>http://www.facebook.com/externalhit_uatext.php</info>
+	<spider ident="Facebook">
+		<name>Facebook share follower</name>
 	</spider>
 	<spider ident="factbot">
 		<name>FactBites</name>
@@ -727,18 +779,14 @@
 	<spider ident="GetURL.rexx">
 		<name>GetURL</name>
 	</spider>
-	<spider ident="Gigabot">
-		<name>Giga Blast</name>
-		<info>http://www.gigablast.com/spider.html</info>
-	</spider>
 	<spider ident="GingerCrawler">
 		<name>GingerCrawler</name>
 		<info>http://www.gingersoftware.com/crawler_agent.htm</info>
 	</spider>
-	<spider ident="Girafabot">
-		<name>Girafa</name>
-		<info>http://www.girafa.com/</info>
-		<email>girafabot at girafa dot com</email>
+	<spider ident="UnwindFetchor">
+		<name>GNIP</name>
+		<info>http://www.gnip.com</info>
+		<email>info@gnip.com</email>
 	</spider>
 	<spider ident="Goku">
 		<name>Goku</name>
@@ -751,6 +799,11 @@
 	<spider ident="gonzo">
 		<name>Gonzo</name>
 		<email><![CDATA[crawleradmin [dot] t-info [at] telekom [dot] de]]></email>
+	</spider>
+	<spider ident="gooblogsearch">
+		<name>Goo Blog Search</name>
+		<info>http://help.goo.ne.jp/help/article/704/</info>
+		<email>https://goo.e-srvc.com/cgi-bin/goo.cfg/php/enduser/ask.php</email>
 	</spider>
 	<spider ident="Googlebot">
 		<name>Google</name>
@@ -769,9 +822,8 @@
 		<name>Google FeedFetcher</name>
 		<info>http://www.google.com/feedfetcher.html</info>
 	</spider>
-	<spider ident="Googlebot-Image">
-		<name>Google Images</name>
-		<info>http://www.google.com/webmasters/bot.html</info>
+	<spider ident="kw-lp-suggest">
+		<name>Google LP Keyword Checker Bot</name>
 	</spider>
 	<spider ident="Googlebot-Mobile">
 		<name>Google Mobile</name>
@@ -789,6 +841,11 @@
 	</spider>
 	<spider ident="Google Wireless Transcoder">
 		<name>Google Wireless Transcoder</name>
+	</spider>
+	<spider ident="GosoSpider">
+		<name>Goso</name>
+		<info>http://www.goso.cn/spider.html</info>
+		<email>gosospider@goso.cn</email>
 	</spider>
 	<spider ident="Gpostbot">
 		<name>Gpost</name>
@@ -841,6 +898,10 @@
 	<spider ident="Hometown">
 		<name>Hometown</name>
 	</spider>
+	<spider ident="HostTracker.com/1.0">
+		<name>HostTracker</name>
+		<info>http://host-tracker.com</info>
+	</spider>
 	<spider ident="htdig">
 		<name>ht://Dig</name>
 	</spider>
@@ -852,9 +913,6 @@
 	</spider>
 	<spider ident="I Robot">
 		<name>I, Robot</name>
-	</spider>
-	<spider ident="iajaBot">
-		<name>IajaBot</name>
 	</spider>
 	<spider ident="http://www.almaden.ibm.com/cs/crawler">
 		<name>IBM Almaden</name>
@@ -900,8 +958,10 @@
 	<spider ident="Infoseek Sidewinder">
 		<name>Infoseek Sidewinder</name>
 	</spider>
-	<spider ident="Info">
-		<name>InfoSpiders</name>
+	<spider ident="infoSpider">
+		<name>infoSpider</name>
+		<info>http://www.infospider.com</info>
+		<email>support@infospider.com</email>
 	</spider>
 	<spider ident="INGRID">
 		<name>Ingrid</name>
@@ -991,11 +1051,6 @@
 		<name>Jyxo</name>
 		<info>http://jyxo.cz/</info>
 	</spider>
-	<spider ident="kalooga/KaloogaBot">
-		<name>KaloogaBot</name>
-		<info>http://www.kalooga.com</info>
-		<email>info@kalooga.com</email>
-	</spider>
 	<spider ident="image.kapsi.net">
 		<name>Kapsi Images</name>
 		<info>image.kapsi.net</info>
@@ -1027,6 +1082,11 @@
 		<name>LeapTag News Reader</name>
 		<info>http://www.leaptag.com/privatebeta/faq.php</info>
 		<email>support@leaptag.com</email>
+	</spider>
+	<spider ident="LexxeBot">
+		<name>Lexxe</name>
+		<info>http://lexxe.com/about/webmasters.cfm</info>
+		<email>lexxebot@lexxe.com</email>
 	</spider>
 	<spider ident="lwp-trivial">
 		<name>libwww-perl</name>
@@ -1155,6 +1215,26 @@
 		<name>Mp3Realm</name>
 		<info>http://mp3realm.org/mp3bot/</info>
 		<email>help@mp3realm.org</email>
+	</spider>
+	<spider ident="msnbot">
+		<name>MSNBot</name>
+		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
+	</spider>
+	<spider ident="msnbot-media">
+		<name>MSNBot (Media Search)</name>
+		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
+	</spider>
+	<spider ident="msnbot-mobile">
+		<name>MSNBot (Mobile)</name>
+		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
+	</spider>
+	<spider ident="msnbot-newsblogs">
+		<name>MSNBot (News Search)</name>
+		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
+	</spider>
+	<spider ident="msnbot-products">
+		<name>MSNBot (Product Search)</name>
+		<info><![CDATA[http://help.live.com/help.aspx?mkt=en-gb&project=wl_webmasters]]></info>
 	</spider>
 	<spider ident="MSRBOT">
 		<name>MSRBot</name>
@@ -1350,6 +1430,10 @@
 	<spider ident="pingalink">
 		<name>Ping A Link</name>
 	</spider>
+	<spider ident="pingdom.com_bot">
+		<name>Pingdom.com Bot</name>
+		<info>http://www.pingdom.com/</info>
+	</spider>
 	<spider ident="Pioneer">
 		<name>Pioneer</name>
 	</spider>
@@ -1401,12 +1485,12 @@
 		<name>Qango</name>
 		<info>http://www.qango.com</info>
 	</spider>
-	<spider ident="R6_FeedFetcher">
+	<spider ident="R6_CommentReader">
 		<name>Radian6</name>
 		<info>http://www.radian6.com/crawler/</info>
 		<email>support@radian6.com</email>
 	</spider>
-	<spider ident="R6_CommentReader">
+	<spider ident="R6_FeedFetcher">
 		<name>Radian6</name>
 		<info>http://www.radian6.com/crawler/</info>
 		<email>support@radian6.com</email>
@@ -1530,6 +1614,9 @@
 		<info>http://www.seoprofiler.com/bot/</info>
 		<email>spbot _AT_ seoprofiler -DOT- com</email>
 	</spider>
+	<spider ident="ServiceUptime.robot">
+		<name>ServiceUptime</name>
+	</spider>
 	<spider ident="SeznamBot">
 		<name>Seznam Fulltext Blog</name>
 		<info>http://fulltext.sblog.cz/robot/</info>
@@ -1567,6 +1654,10 @@
 	<spider ident="http://www.site-list.net">
 		<name>Site-List RSS</name>
 		<info>http://www.site-list.net</info>
+	</spider>
+	<spider ident="SiteBot">
+		<name>SiteBot</name>
+		<info>http://www.sitebot.org/robot/</info>
 	</spider>
 	<spider ident="SiteTech-Rover">
 		<name>SiteTech-Rover</name>
@@ -1607,6 +1698,11 @@
 	</spider>
 	<spider ident="Snooper">
 		<name>Snooper</name>
+	</spider>
+	<spider ident="socbot">
+		<name>SocBot</name>
+		<info>http://www.socbay.com</info>
+		<email>search@socbay.com</email>
 	</spider>
 	<spider ident="Sogou web spider">
 		<name>Sogou</name>
@@ -1671,6 +1767,11 @@
 	<spider ident="superbot.com">
 		<name>Super.info Search Bot</name>
 		<info>http://www.super.info</info>
+	</spider>
+	<spider ident="Superfeedr">
+		<name>Superfeedr</name>
+		<info>http://blog.superfeedr.com</info>
+		<email>parser@superfeedr.com</email>
 	</spider>
 	<spider ident="Synthesio">
 		<name>Synthesio</name>
@@ -1809,6 +1910,11 @@
 	<spider ident="Valkyrie">
 		<name>Valkyrie</name>
 	</spider>
+	<spider ident="ClickSense">
+		<name>ValueClick LM</name>
+		<info>http://www.lucidmedia.com/</info>
+		<email>support@lucidmedia.com</email>
+	</spider>
 	<spider ident="Mozilla/4.0 (vBSEO; http://www.vbseo.com)">
 		<name>vBSEO</name>
 		<info>http://www.vbseo.com/</info>
@@ -1826,11 +1932,6 @@
 		<name>Visions</name>
 		<info>http://www.italicvisions.com/</info>
 		<email>info@italicvisions.com</email>
-	</spider>
-	<spider ident="VoilaBot">
-		<name>Voila</name>
-		<info>http://www.voila.com/</info>
-		<email>support.voilabot@orange-ftgroup.com</email>
 	</spider>
 	<spider ident="voyager/1.0">
 		<name>Voyager</name>
@@ -1850,6 +1951,10 @@
 	<spider ident="W3C_Validator">
 		<name>W3C Validator</name>
 		<info>http://validator.w3.org/</info>
+	</spider>
+	<spider ident="Unicorn">
+		<name><![CDATA[W3C's United Validator]]></name>
+		<info>http://validator.w3.org/unicorn/</info>
 	</spider>
 	<spider ident="W3M2">
 		<name>W3M2</name>
@@ -1957,11 +2062,18 @@
 		<name>Whois Source</name>
 		<info>http://www.whois.sc/info/webmasters/surveybot.html</info>
 	</spider>
+	<spider ident="wikiwix">
+		<name>Wikiwix</name>
+		<info><![CDATA[http://www.wikiwix.com/?about=true&disp=robot]]></info>
+	</spider>
 	<spider ident="Hazel's Ferret Web hopper">
 		<name>Wild Ferret Web Hopper</name>
 	</spider>
 	<spider ident="Willow Internet Crawler by Twotrees">
 		<name>Willow</name>
+	</spider>
+	<spider ident="Windows-Live-Social-Object-Extractor-Engine">
+		<name>Windows Live SOEE</name>
 	</spider>
 	<spider ident="Windows-RSS-Platform/1.0">
 		<name>Windows RSS Platform 1.0</name>
@@ -1977,16 +2089,19 @@
 	<spider ident="wired-digital-newsbot">
 		<name>Wired Digital</name>
 	</spider>
-	<spider ident="Bilbo">
+	<spider ident="Vagabondo">
 		<name>Wise-Guys</name>
 		<info>http://www.wise-guys.nl/webcrawler.php</info>
 	</spider>
-	<spider ident="Vagabondo">
+	<spider ident="Bilbo">
 		<name>Wise-Guys</name>
 		<info>http://www.wise-guys.nl/webcrawler.php</info>
 	</spider>
 	<spider ident="zyborg">
 		<name>WiseNut</name>
+	</spider>
+	<spider ident="WordPress">
+		<name>WordPress</name>
 	</spider>
 	<spider ident="woriobot">
 		<name>Worio</name>
@@ -2058,20 +2173,77 @@
 	<spider ident="Yahoo-VerticalCrawler">
 		<name>Yahoo! Vertical Crawler</name>
 	</spider>
-	<spider ident="Yandex">
-		<name>Yandex</name>
-		<info>http://www.yandex.ru/</info>
-	</spider>
-	<spider ident="YaDirectBot">
-		<name>Yandex Direct</name>
-		<info>http://direct.yandex.ru/</info>
+	<spider ident="YandexAntivirus">
+		<name>Yandex Antivirus</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
 	</spider>
 	<spider ident="YandexBlog">
-		<name>YandexBlog</name>
-		<info>http://blogs.yandex.ru/</info>
+		<name>Yandex Blog</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
 	</spider>
 	<spider ident="YandexBot">
-		<name>YandexBot</name>
+		<name>Yandex Bot</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexCatalog">
+		<name>Yandex Catalog</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexDirect">
+		<name>Yandex Direct</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexFavicon">
+		<name>Yandex Favicon</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexImageResizer">
+		<name>Yandex ImageResizer</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexImages">
+		<name>Yandex Images</name>
+		<info>http://yandex.com/bots</info>
+	</spider>
+	<spider ident="YandexMedia">
+		<name>Yandex Media</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexMetrika">
+		<name>Yandex Metrika</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexNews">
+		<name>Yandex News</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexPagechecker">
+		<name>Yandex Pagechecker</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexVideo">
+		<name>Yandex Video</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexWebmaster">
+		<name>Yandex Webmaster</name>
+		<info>http://yandex.com/bots</info>
+		<email>support@search.yandex.com</email>
+	</spider>
+	<spider ident="YandexZakladki">
+		<name>Yandex Zakladki</name>
 		<info>http://yandex.com/bots</info>
 		<email>support@search.yandex.com</email>
 	</spider>
@@ -2109,6 +2281,10 @@
 		<name>Youdao</name>
 		<info>http://www.youdao.com/help/webmaster/spider/</info>
 	</spider>
+	<spider ident="YRSpider">
+		<name>YunRang</name>
+		<info>http://www.yunrang.com/yrspider.html</info>
+	</spider>
 	<spider ident="zeus">
 		<name>Zeus Internet Marketing</name>
 		<info>http://www.cyber-robotics.com/</info>
@@ -2119,8 +2295,8 @@
 	</spider>
 </searchspiders>
 
-<!-- There are a total of 569 spiders in this list.
-You downloaded this list on Monday 12th July 2010 at 07:33 PM.
+<!-- There are a total of 608 spiders in this list.
+You downloaded this list on Sunday 5th June 2011 at 10:52 AM.
 This vBulletin Spiders List was generated by Wolfshead Solutions' Spider List Generator.
-The Spiders List Database was last updated on: Thursday 8th July 2010 at 08:40 AM.
-Visit the Wolfshead Solutions' Spider List @ http://www.wolfhead-solutions.com/spiders-list -->
+The Spiders List Database was last updated on: Thursday 19th May 2011 at 12:15 AM.
+Visit the Wolfshead Solutions' Spider List @ http://www.wolfshead-solutions.com/spiders-list -->

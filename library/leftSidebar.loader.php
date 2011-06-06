@@ -186,8 +186,9 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '</div></div>';
       
       break;
-    // ***** ADMINSETUP sideBar -------------------------------------------- **********
+    // ***** ADMIN SETUP sideBar -------------------------------------------- **********
     case 'adminSetup':
+      if(!isAdmin()) break;
       
       echo '<div class="sidebarInfo"><div class="content">';
       
@@ -209,6 +210,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       break;
     // ***** PAGESETUP -------------------------------------------- **********
     case 'pageSetup':
+      if(!isAdmin()) break;
       
       // -> CATEGORY ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
@@ -234,6 +236,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       break;
     // ***** USERSETUP -------------------------------------------- **********
     case 'userSetup':
+      if(!isAdmin()) break;
       
       // -> USER ANCHOR LINKS
       echo '<div id="sidebarSelection" class="staticScroller">';
@@ -260,6 +263,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       break;
     // ***** BACKUP sideBar -------------------------------------------- **********
     case 'backup':
+      if(!isAdmin()) break;
       
       echo '<div id="sidebarSelection">';
       echo '<div class="sidebarInfo"><div class="content">';

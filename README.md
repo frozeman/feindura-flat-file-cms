@@ -73,7 +73,7 @@ before the header is sent, which means before any HTML tag:
 
     include('cms/feindura.include.php');
     
-    $myCms = new feindura();
+    $myCms = new Feindura();
     
     ?>
     
@@ -86,16 +86,20 @@ For details and more methods, see the feindura class - API reference <http://fei
 ### NOTE
 
 #### FRONTEND EDITING
-In order to enable frontend editing and be able to use Atom/RSS 2.0 feeds, you have to call the createMetaTags() method as first inside &lt;head&gt; tags of your website!
+In order to enable frontend editing and be able to use Atom/RSS 2.0 feeds, you have to call the createMetaTags() method as first inside <head> tags of your website!
 It will create all basic and necessary meta tags, like charset, page title, keywords, description, etc.
 See http://feindura.org/api/%5BImplementation%5D/feindura.html#createMetaTags for more information.
+You also have to enable frontend editing inside the admin setup > user permissions.
 
-When you want to use the Prototype javascript framework in your website, the frontend editing will be disabled. All other js frameworks should work.
+#### Javascript Frameworks and the Frontend Editing mode
+All javascript frameworks, except Prototype, should work with the frontend editing mode.
+If Prototype is detected the frontend editing will be automatically blocked .
 
-#### MooTools
-When you want to use the MooTools framework in you website, you must add this in th follwoing way (at best on the end of your website):
+##### MooTools
+If you want to use the MooTools framework in your website and you have activated the fronend editing mode,
+you should include the script at the end of your page (before the closing </body> tag) as follow.
 
-     <script>!window.MooTools && document.write(unescape('%3Cscript src="js/libs/mootools-core-1.3.1.js"%3E%3C/script%3E'))</script>
+     <script>!window.MooTools && document.write(unescape('%3Cscript src="your/path/mootools-core-1.3.1.js"%3E%3C/script%3E'))</script>
      
 Otherwise you will have problems with the frontend editing.
-If don't care about that, you can deactivate the frontendediting mode inside the admin setup.
+If don't care about that, you can deactivate the frontendediting mode inside the admin setup > user permissions.

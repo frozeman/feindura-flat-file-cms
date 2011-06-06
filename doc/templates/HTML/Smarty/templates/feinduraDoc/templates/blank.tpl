@@ -7,7 +7,9 @@ To impelement <span class="feindura"><em>fein</em>dura</span> in your website yo
 before the header of your HTML page is sent, which means before any HTML tag.<br>
 Take a look in the <a href="{$subdir}[Implementation]/feindura.html#sec-method-summary">methods</a> of this class to see what you can do with <span class="feindura"><em>fein</em>dura</span>.</p>
 
-<p><i>The <a href="{$subdir}[Implementation]/feinduraBase.html">feinduraBase class</a> is the basis class for the <a href="{$subdir}[Implementation]/feindura.html">feindura class</a> and should not be called directly.</i></p>
+<p><i>Note: The <a href="{$subdir}[Implementation]/feinduraBase.html">feinduraBase class</a> is the basis class for the <a href="{$subdir}[Implementation]/feindura.html">feindura class</a> and should not be called directly.</i></p>
+
+<p>You need this reference offline? You can download the whole API reference <a href="{$subdir}download/feindura_api-reference.zip">here</a>.</p>
 </div>
 
 <hr>

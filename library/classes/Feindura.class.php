@@ -1427,7 +1427,7 @@ class Feindura extends FeinduraBase {
           // adds the link to an array
           $links[] = $pageLink;
         }
-      }      
+      }
     } else 
       return array(false);
  
@@ -1909,7 +1909,7 @@ class Feindura extends FeinduraBase {
                                       $this->titleShowCategory,
                                       $this->titleCategorySeparator);                                      
           
-          if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION) // data-feindura format: "pageID categoryID"
+          if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) // data-feindura format: "pageID categoryID"
             $title = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.'">'.$title.'</span>';
           
           return $title;
@@ -2012,7 +2012,7 @@ class Feindura extends FeinduraBase {
           }
           
           // -> adds the frontend editing container
-          if($this->loggedIn && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
+          if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
             
             // data-feindura format: "pageID categoryID"
             $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.'">'.$generatedPage['title'].'</span>';

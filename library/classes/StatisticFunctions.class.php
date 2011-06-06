@@ -1158,16 +1158,15 @@ class StatisticFunctions {
       $userAgent = strtolower($userAgent);
       $i = 0;
       $summe = count($bots);
-
+      
+      // User-Agent is no Bot
+      $_SESSION['feindura']['log']['isRobot'] = false;
       foreach($bots as $bot) {
         if(strpos(strtolower($userAgent), strtolower($bot)) !== false) {
           //echo $_SERVER['HTTP_USER_AGENT'].'<br>'.$bot;
           $_SESSION['feindura']['log']['isRobot'] = true; // User-Agent is a Bot
-        }           
+        }
       }
-      // User-Agent is no Bot
-      $_SESSION['feindura']['log']['isRobot'] = false;
-
     } else
       $_SESSION['feindura']['log']['isRobot'] = false; // no HTTP_USER_AGENT available
     
@@ -1394,7 +1393,7 @@ class StatisticFunctions {
                (!isset(self::$websiteStatistic['robotVisitCount']) ||
                (isset(self::$websiteStatistic['robotVisitCount']) && empty(self::$websiteStatistic['robotVisitCount'])))) {
         self::$websiteStatistic['robotVisitCount'] = 1;
-      }elseif(self::isRobot() === true) {
+      } elseif(self::isRobot() === true) {
         self::$websiteStatistic['robotVisitCount']++;
       }
       
@@ -1426,98 +1425,94 @@ class StatisticFunctions {
       }
     
     // ->> save the time of the last visited page
-    } else {
+    } elseif(self::isRobot() === false) { // ->> CHECKS if the user is NOT a BOT/SPIDER
       
-      // ->> CHECKS if the user is NOT a BOT/SPIDER
-      if(self::isRobot() === false) {
-        
-        // -------------------------------------------------------------------------------------
-        // ->> VISIT TIME of PAGES
-        // -----------------------
-        
-        $newMinVisitTimes = '';
-        $newMaxVisitTimes = '';
-        $maxCount = 10; // the maximal number of visit time (min and max) saved
+      // -------------------------------------------------------------------------------------
+      // ->> VISIT TIME of PAGES
+      // -----------------------
+      
+      $newMinVisitTimes = '';
+      $newMaxVisitTimes = '';
+      $maxCount = 10; // the maximal number of visit time (min and max) saved
 
-        // -> count the time difference, between the last page and the current
-        if(isset($_SESSION['feindura']['log']['lastPages']) && isset($_SESSION['feindura']['log']['lastTimestamp'])) {
+      // -> count the time difference, between the last page and the current
+      if(isset($_SESSION['feindura']['log']['lastPages']) && isset($_SESSION['feindura']['log']['lastTimestamp'])) {
+        
+        // ->> start of foreach(lastPages)
+        foreach($_SESSION['feindura']['log']['lastPages'] as $lastPageId) {
+        
+          // load the last page again
+          $lastPage = GeneralFunctions::readPageStatistics($lastPageId);
+          if(!$lastPage) $lastPage['id'] = $lastPageId;
           
-          // ->> start of foreach(lastPages)
-          foreach($_SESSION['feindura']['log']['lastPages'] as $lastPageId) {
+          $visitTime = time() - XssFilter::int($_SESSION['feindura']['log']['lastTimestamp'],0);
           
-            // load the last page again
-            $lastPage = GeneralFunctions::readPageStatistics($lastPageId);
-            if(!$lastPage) $lastPage['id'] = $lastPageId;
-            
-            $visitTime = time() - XssFilter::int($_SESSION['feindura']['log']['lastTimestamp'],0);
-            
-            // saves time only when longer than 5 seconds
-            if($visitTime > 5) {
-              $isNotMax = true;
+          // saves time only when longer than 5 seconds
+          if($visitTime > 5) {
+            $isNotMax = true;
 
-              // -> saves the MAX visitTime
-              // **************************
-              if(!empty($lastPage['visitTimeMax'])) {
+            // -> saves the MAX visitTime
+            // **************************
+            if(!empty($lastPage['visitTimeMax'])) {
+            
+              $maxVisitTimes = unserialize($lastPage['visitTimeMax']);
+  
+              // adds the new time if it is bigger than the highest min time
+              if($visitTime > $maxVisitTimes[0]) {
+                array_unshift($maxVisitTimes,$visitTime);
+                $isNotMax = false;
+              }
+              // adds the new time on the beginnig of the array          
+              $newMaxVisitTimes = array_slice($maxVisitTimes,0,$maxCount);
               
-                $maxVisitTimes = unserialize($lastPage['visitTimeMax']);
+              // sort array
+              natsort($newMaxVisitTimes);
+              $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
+              // make array to string
+              $newMaxVisitTimes = serialize($newMaxVisitTimes);
+              
+            } else
+              $newMaxVisitTimes = serialize(array($visitTime));
+            
+            // -> saves the MIN visitTime
+            // **************************
+            if(!empty($lastPage['visitTimeMin']) && $isNotMax) {
+            
+              $minVisitTimes = unserialize($lastPage['visitTimeMin']);
+              
+              // adds the new time if it is bigger than the highest min time
+              if($visitTime > $minVisitTimes[count($minVisitTimes)-1]) {
+                array_unshift($minVisitTimes,$visitTime);
+              }
+              // adds the new time on the beginnig of the array  
+              $newMinVisitTimes = array_slice($minVisitTimes,0,$maxCount);
     
-                // adds the new time if it is bigger than the highest min time
-                if($visitTime > $maxVisitTimes[0]) {
-                  array_unshift($maxVisitTimes,$visitTime);
-                  $isNotMax = false;
-                }
-                // adds the new time on the beginnig of the array          
-                $newMaxVisitTimes = array_slice($maxVisitTimes,0,$maxCount);
-                
-                // sort array
-                natsort($newMaxVisitTimes);
-                $newMaxVisitTimes = array_reverse($newMaxVisitTimes);
-                // make array to string
-                $newMaxVisitTimes = serialize($newMaxVisitTimes);
-                
-              } else
-                $newMaxVisitTimes = serialize(array($visitTime));
-              
-              // -> saves the MIN visitTime
-              // **************************
-              if(!empty($lastPage['visitTimeMin']) && $isNotMax) {
-              
-                $minVisitTimes = unserialize($lastPage['visitTimeMin']);
-                
-                // adds the new time if it is bigger than the highest min time
-                if($visitTime > $minVisitTimes[count($minVisitTimes)-1]) {
-                  array_unshift($minVisitTimes,$visitTime);
-                }
-                // adds the new time on the beginnig of the array  
-                $newMinVisitTimes = array_slice($minVisitTimes,0,$maxCount);
-      
-                // sort array
-                natsort($newMinVisitTimes);
-                $newMinVisitTimes = array_reverse($newMinVisitTimes);
-                // make array to string
-                $newMinVisitTimes = serialize($newMinVisitTimes);
-              
-              } elseif(!empty($lastPage['visitTimeMin']))
-                $newMinVisitTimes = $lastPage['visitTimeMin'];
-              else
-                $newMinVisitTimes = serialize(array(0));
-              
-              //echo 'MAX -> '.$newMaxVisitTimes.'<br />';
-              //echo 'MIN -> '.$newMinVisitTimes.'<br />';
-                   
-              // -> adds the new max times to the pageContent Array
-              $lastPage['visitTimeMax'] = $newMaxVisitTimes;
-              $lastPage['visitTimeMin'] = $newMinVisitTimes;
-              
-              GeneralFunctions::savePageStatistics($lastPage);
-            }
+              // sort array
+              natsort($newMinVisitTimes);
+              $newMinVisitTimes = array_reverse($newMinVisitTimes);
+              // make array to string
+              $newMinVisitTimes = serialize($newMinVisitTimes);
             
-          } // <- end of foreach(lastPages)          
+            } elseif(!empty($lastPage['visitTimeMin']))
+              $newMinVisitTimes = $lastPage['visitTimeMin'];
+            else
+              $newMinVisitTimes = serialize(array(0));
+            
+            //echo 'MAX -> '.$newMaxVisitTimes.'<br />';
+            //echo 'MIN -> '.$newMinVisitTimes.'<br />';
+                 
+            // -> adds the new max times to the pageContent Array
+            $lastPage['visitTimeMax'] = $newMaxVisitTimes;
+            $lastPage['visitTimeMin'] = $newMinVisitTimes;
+            
+            GeneralFunctions::savePageStatistics($lastPage);
+          }
           
-          // -> clear the lastPages IDs, after saved their visit time
-          unset($_SESSION['feindura']['log']['lastPages']);
-          $_SESSION['feindura']['log']['lastPages'] = array();
-        }
+        } // <- end of foreach(lastPages)          
+        
+        // -> clear the lastPages IDs, after saved their visit time
+        unset($_SESSION['feindura']['log']['lastPages']);
+        $_SESSION['feindura']['log']['lastPages'] = array();
       }
     }
     
@@ -1586,7 +1581,7 @@ class StatisticFunctions {
       // -----------------------------
       if(empty($pageStatistics['firstVisit'])) {
         $pageStatistics['firstVisit'] = time();
-        $pageStatistics['visitorCount'] = 1;
+        $pageStatistics['visitorCount'] = 0;
       }
       
       // -> saves the LAST PAGE VISIT

@@ -572,7 +572,7 @@ $langFile['statisticSetup_clearStatistics_refererLog_tip'] = 'Une liste avec tou
 $langFile['statisticSetup_clearStatistics_taskLog'] = 'Logs des dernièrses activités';
 $langFile['statisticSetup_clearStatistics_taskLog_tip'] = 'Contient une liste des dernières activités.';
 $langFile['statisticSetup_clearStatistics_question_h1'] = 'Voulez vous vraiment éffacer ces statistiques?';
-$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'une erreur s\'est produite pendant l\'éffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'pages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'] = 'une erreur s\'est produite pendant l\'éffacement des statistiques du site web.'.$langFile['ERROR_SAVE_FOLDER_PART1'].$adminConfig['basePath'].'statistic/pages/'.$langFile['ERROR_FOLDER_PART2'];
 
 /*
 * userSetup.php
