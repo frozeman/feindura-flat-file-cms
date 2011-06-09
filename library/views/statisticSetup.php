@@ -56,8 +56,8 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
       </td></tr>
       
       <tr><td class="left">
-      <label for="numberLastVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_MOSTVISTED']; ?>">
-      <?php echo $langFile['STATISTICSSETUP_TEXT_MOSTVISTED']; ?></span></label>
+      <label for="numberLastVisitedPages"><span class="toolTip" title="<?php echo '::'.$langFile['STATISTICSSETUP_TIP_LASTVISITED']; ?>">
+      <?php echo $langFile['STATISTICSSETUP_TEXT_LASTVISITED']; ?></span></label>
       </td><td class="right">
       <input type="number" step="5" min="0" id="numberLastVisitedPages" name="number[lastVisitedPages]" class="short" value="<?php echo $statisticConfig['number']['lastVisitedPages']; ?>" />
       </td></tr>

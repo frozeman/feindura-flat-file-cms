@@ -546,6 +546,7 @@ $langFile['websiteSetup_websiteConfig_field5_inputTip'] = 'Un texte court en 3 l
 
 // ---------- STATISITC SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
 $langFile['STATISTICSSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/statistic.config.php';
+
 $langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS'] = 'paramètres des statistiques';
 $langFile['STATISTICSSETUP_TEXT_MOSTVISTED'] = 'nombre de pages le <b>plus visitées</b>';
 $langFile['STATISTICSSETUP_TIP_MOSTVISTED'] = 'Indique le nombre de pages les plus visitées que seront listées sur la page vue globale.';
