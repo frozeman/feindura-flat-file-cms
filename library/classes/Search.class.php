@@ -17,7 +17,7 @@
 /**
  * This file contains the {@link feindura} class for implementing the CMS in a website.
  * 
- * @package [backend]
+ * @package [Backend]
  */
 
 /**
@@ -28,7 +28,7 @@
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
-* @package [backend]
+* @package [Backend]
 * 
 * @version 1.0
 * <br />
