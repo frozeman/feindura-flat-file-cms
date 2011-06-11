@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1
-Build 696
+Build 697
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 967: fixed checkBasePath()
   build 696: fixed statistics setup texts
   build 695: fixed currentVisitors.include.php
   

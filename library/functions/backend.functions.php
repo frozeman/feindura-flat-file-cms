@@ -1828,8 +1828,8 @@ function isWritableWarningRecursive($folders) {
  * 
  */
 function checkBasePath() {
-  $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$GLOBALS['adminConfig']['url']);
-  $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}#','',$_SERVER["SERVER_NAME"]);
+  $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
+  $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
   
   $checkPath = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
   

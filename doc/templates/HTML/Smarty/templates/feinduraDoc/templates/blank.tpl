@@ -3,11 +3,11 @@
 
 <div class="large">
 <p>
-To impelement <span class="feindura"><em>fein</em>dura</span> in your website you need to create an instance of the <a href="{$subdir}[Implementation]/feindura.html">feindura class</a> 
+To impelement <span class="feindura"><em>fein</em>dura</span> in your website you need to create an instance of the <a href="{$subdir}[Implementation]/Feindura.html">Feindura class</a> 
 before the header of your HTML page is sent, which means before any HTML tag.<br>
-Take a look in the <a href="{$subdir}[Implementation]/feindura.html#sec-method-summary">methods</a> of this class to see what you can do with <span class="feindura"><em>fein</em>dura</span>.</p>
+Take a look in the <a href="{$subdir}[Implementation]/Feindura.html#sec-method-summary">methods</a> of this class to see what you can do with <span class="feindura"><em>fein</em>dura</span>.</p>
 
-<p><i>Note: The <a href="{$subdir}[Implementation]/feinduraBase.html">feinduraBase class</a> is the basis class for the <a href="{$subdir}[Implementation]/feindura.html">feindura class</a> and should not be called directly.</i></p>
+<p><i>Note: The <a href="{$subdir}[Implementation]/FeinduraBase.html">FeinduraBase class</a> is the basis class for the <a href="{$subdir}[Implementation]/Feindura.html">Feindura class</a> and should not be called directly.</i></p>
 
 <p>You need this reference offline? You can download the whole API reference <a href="{$subdir}download/feindura_api-reference.zip">here</a>.</p>
 </div>
@@ -15,8 +15,8 @@ Take a look in the <a href="{$subdir}[Implementation]/feindura.html#sec-method-s
 <hr>
 
 <p>
-For more advanced usage of <span class="feindura"><em>fein</em>dura</span> you can take a look in the <a href="{$subdir}li_[Implementation]-[backend].html">[Implementation]-[backend]</a> package.<br>
-If you want to improve feindura, the <a href="{$subdir}li_[backend].html">[backend]</a> and <a href="{$subdir}li_[Implementation]-[backend].html">[Implementation]-[backend]</a> package 
+For more advanced usage of <span class="feindura"><em>fein</em>dura</span> you can take a look in the <a href="{$subdir}li_[Implementation]-[Backend].html">[Implementation]-[Backend]</a> package.<br>
+If you want to improve feindura, the <a href="{$subdir}li_[Backend].html">[Backend]</a> and <a href="{$subdir}li_[Implementation]-[Backend].html">[Implementation]-[Backend]</a> package 
 should be interesting for you.</p>
 
 
