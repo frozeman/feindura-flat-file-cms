@@ -48,6 +48,8 @@ if($_POST['save'] == 'true') {
     
     // ->> save the FEEDS, if activated
     GeneralFunctions::saveFeeds($pageContent['category']);
+    // ->> save the SITEMAP
+    GeneralFunctions::saveSitemap();
     
   // ->> on failure, return the unsaved data
   } else {

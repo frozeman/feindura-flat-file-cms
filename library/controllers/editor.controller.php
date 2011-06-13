@@ -123,6 +123,8 @@ if($_POST['save'] && isBlocked() === false) {
       
       // ->> save the FEEDS, if activated
       GeneralFunctions::saveFeeds($pageContent['category']);
+      // ->> save the SITEMAP
+      GeneralFunctions::saveSitemap();
       
     } else
       $errorWindow .= $langFile['editor_savepage_error_save'];

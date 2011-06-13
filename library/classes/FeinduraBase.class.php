@@ -645,7 +645,7 @@ class FeinduraBase {
     $return['thumbnail'] = false;
     $return['thumbnailPath'] = false;
     $return['content'] = false;
-    $return['description'] = false;  
+    $return['description'] = false;
     $return['tags'] = false;
     $return['plugins'] = array();
     $return['error'] = true;

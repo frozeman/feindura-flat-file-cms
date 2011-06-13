@@ -1051,7 +1051,8 @@ function saveSpeakingUrl(&$errorWindow) {
   // vars
   $save = false;
   $data = false;
-  $htaccessFile = DOCUMENTROOT.'/.htaccess';
+  $websitePath = (substr($_POST['cfg_websitePath'],-1) == '/') ? $_POST['cfg_websitePath'] : dirname($_POST['cfg_websitePath']);
+  $htaccessFile = DOCUMENTROOT.$websitePath.'.htaccess';
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   

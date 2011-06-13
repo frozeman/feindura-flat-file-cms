@@ -233,5 +233,7 @@ if($savedSettings) {
     foreach($categoryConfig as $category)
       GeneralFunctions::saveFeeds($category['id']);
   }
+  // ->> save the SITEMAP
+  GeneralFunctions::saveSitemap();
 }
 ?>

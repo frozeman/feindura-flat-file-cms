@@ -1224,7 +1224,7 @@ class GeneralFunctions {
   * 
   * @param string $category the category of which feeds should be created
   * 
-  * @return bool whether the saveing of the feeds succeed or not
+  * @return bool whether the saving of the feeds succeed or not
   * 
   * 
   * @version 0.1
@@ -1236,6 +1236,7 @@ class GeneralFunctions {
   public static function saveFeeds($category) {
     
     // vars
+    $feedWebsitePath = (substr($_POST['cfg_websitePath'],-1) == '/') ? $_POST['cfg_websitePath'] : dirname($_POST['cfg_websitePath']);
     $atomFileName = ($category == 0) 
       ? dirname(__FILE__).'/../../pages/atom.xml'
       : dirname(__FILE__).'/../../pages/'.$category.'/atom.xml';
@@ -1260,7 +1261,7 @@ class GeneralFunctions {
       ? self::$websiteConfig['title']
       : self::$categoryConfig[$category]['name'].' - '.self::$websiteConfig['title'];
     
-    // ->> START feedsS
+    // ->> START feeds
     $atom = new FeedWriter(ATOM);
     $rss2 = new FeedWriter(RSS2);
   
@@ -1288,7 +1289,7 @@ class GeneralFunctions {
         // shows the page link
         $hostUrl = (self::$adminConfig['speakingUrl'])
           ? self::$adminConfig['url']
-          : self::$adminConfig['url'].self::$adminConfig['websitePath'];
+          : self::$adminConfig['url'].$feedWebsitePath;
         $link = $hostUrl.GeneralFunctions::createHref($feedsPage);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
@@ -1334,6 +1335,65 @@ class GeneralFunctions {
       return true; 
     } else
       return false;
+  }
+  
+ /**
+  * <b>Name</b> saveSitemap()<br />
+  * 
+  * Saves a sitemap xml file (see http://www.sitemaps.org).
+  * 
+  * <b>Used Global Variables</b><br />
+  *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php}) 
+  *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
+  *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
+  * 
+  * 
+  * @return bool whether the saving of the sitemap was done or not
+  * 
+  * @link http://www.sitemaps.org
+  * @version 0.1
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 0.1 initial release
+  * 
+  */
+  public static function saveSitemap() {
+    
+    // vars
+    $sitemapWebsitePath = (substr($_POST['cfg_websitePath'],-1) == '/') ? $_POST['cfg_websitePath'] : dirname($_POST['cfg_websitePath']);
+    
+    // get the Sitemap class
+    require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
+    
+    // vars
+    $sitemapPages = self::loadPages(true,true);
+    
+    // ->> START sitemap
+    $sitemap = new Sitemap(false);
+    
+    $sitemap->page('pages');
+    
+    // ->> adds the sitemap ENTRIES
+    foreach($sitemapPages as $sitemapPage) {
+      
+      // ->> if category is deactivated continue
+      if($sitemapPage['category'] != 0 && !self::$categoryConfig[$sitemapPage['category']]['public'])
+        continue;
+      
+      if($sitemapPage['public']) {
+        // generate page link
+        $hostUrl = (self::$adminConfig['speakingUrl'])
+          ? self::$adminConfig['url']
+          : self::$adminConfig['url'].$sitemapWebsitePath;
+        $link = $hostUrl.GeneralFunctions::createHref($sitemapPage);
+        // add page to sitemap
+        $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'monthly'); 
+    	}
+    }
+    
+    $sitemap->close(); 
+    unset ($sitemap);
+    return true;
   }
   
  /**
