@@ -316,8 +316,8 @@ class GeneralFunctions {
   * 
   */
   public static function getDirname($dir) {
-    if(strpos($dir,'.') !== false || substr($dir,-1) != '/')
-      return str_replace('\\','/',dirname(self::$adminConfig['websitePath']));
+    if(!empty($dir) && (strpos($dir,'.') !== false || substr($dir,-1) != '/'))
+      return preg_replace('#/+#','/',str_replace('\\','/',dirname(self::$adminConfig['websitePath'])).'/');
     else
       return $dir;
   }
@@ -1235,8 +1235,7 @@ class GeneralFunctions {
   */
   public static function saveFeeds($category) {
     
-    // vars
-    $feedWebsitePath = (substr($_POST['cfg_websitePath'],-1) == '/') ? $_POST['cfg_websitePath'] : dirname($_POST['cfg_websitePath']);
+    // vars    
     $atomFileName = ($category == 0) 
       ? dirname(__FILE__).'/../../pages/atom.xml'
       : dirname(__FILE__).'/../../pages/'.$category.'/atom.xml';
@@ -1287,10 +1286,7 @@ class GeneralFunctions {
       
       if($feedsPage['public']) {
         // shows the page link
-        $hostUrl = (self::$adminConfig['speakingUrl'])
-          ? self::$adminConfig['url']
-          : self::$adminConfig['url'].$feedWebsitePath;
-        $link = $hostUrl.GeneralFunctions::createHref($feedsPage);
+        $link = self::createHref($feedsPage,false,true);
         
         $thumbnail = (!empty($feedsPage['thumbnail'])) ? '<img src="'.self::$adminConfig['url'].self::$adminConfig['uploadPath'].self::$adminConfig['pageThumbnail']['path'].$feedsPage['thumbnail'].'"><br>': '';
         $content = strip_tags($feedsPage['content'],'<h1><h2><h3><h4><h5><h6><p><ul><ol><li><br><a><b><i><strong><small><span>');
@@ -1360,7 +1356,8 @@ class GeneralFunctions {
   public static function saveSitemap() {
     
     // vars
-    $sitemapWebsitePath = (substr($_POST['cfg_websitePath'],-1) == '/') ? $_POST['cfg_websitePath'] : dirname($_POST['cfg_websitePath']);
+    $websitePath = self::getDirname(self::$adminConfig['websitePath']);
+    $baseUrl = self::$adminConfig['url'].$websitePath;
     
     // get the Sitemap class
     require_once(dirname(__FILE__).'/../thirdparty/PHP/Sitemap.php');
@@ -1369,8 +1366,8 @@ class GeneralFunctions {
     $sitemapPages = self::loadPages(true,true);
     
     // ->> START sitemap
-    $sitemap = new Sitemap(false);
-    
+    $sitemap = new Sitemap($baseUrl,DOCUMENTROOT.$websitePath,false); // gzip encoded
+    $sitemap->showError =  false;
     $sitemap->page('pages');
     
     // ->> adds the sitemap ENTRIES
@@ -1382,10 +1379,7 @@ class GeneralFunctions {
       
       if($sitemapPage['public']) {
         // generate page link
-        $hostUrl = (self::$adminConfig['speakingUrl'])
-          ? self::$adminConfig['url']
-          : self::$adminConfig['url'].$sitemapWebsitePath;
-        $link = $hostUrl.GeneralFunctions::createHref($sitemapPage);
+        $link = self::createHref($sitemapPage,false,true);
         // add page to sitemap
         $sitemap->url($link, date('Y-m-d',$sitemapPage['lastSaveDate']), 'monthly'); 
     	}
@@ -1418,7 +1412,7 @@ class GeneralFunctions {
   public static function urlEncode($string) {
     $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
     $string = strip_tags($string);
-    preg_match_all('#[\wa-zA-Z0-9\s-_]+#u',$string,$matches);
+    preg_match_all('#[\wa-zA-Z0-9\s\-_]+#u',$string,$matches);
     $string = implode('-',$matches[0]);
     $string = str_replace(' ','_',$string);
     return urlencode($string);
@@ -1432,6 +1426,7 @@ class GeneralFunctions {
   * 
   * @param array        $pageContent  the $pageContent array of a page
   * @param string|false $sessionId    (optional) the session ID string in the following format: "sessionName=sessionId"
+  * @param bool         $fullUrl      (optional) if TRUE it add also the URL to tha href path  
   * 
   * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page and the when speakingURLs, for the websitePath
   * @uses $categoryConfig for the category name if speaking URLs i activated
@@ -1448,48 +1443,53 @@ class GeneralFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function createHref($pageContent, $sessionId = false) {
+  public static function createHref($pageContent, $sessionId = false, $fullUrl = false) {
     
     // vars
     $page = $pageContent['id'];
     $category = $pageContent['category'];
+    $href = '';
+    
+    // add (url) and websitepath
+    if($fullUrl) $href .= self::$adminConfig['url'];
     
     // ->> create HREF with speaking URL
     // *************************************
     if(self::$adminConfig['speakingUrl'] == 'true') {
-    
-      $speakingUrlHref = GeneralFunctions::getDirname($adminConfig['websitePath']);
       
+      $href .= self::getDirname(self::$adminConfig['websitePath']);
+
       // adds the category to the href attribute
       if($category != 0)
-        $speakingUrlHref .= '/category/'.self::urlEncode(self::$categoryConfig[$category]['name']).'/';
+        $href .= 'category/'.self::urlEncode(self::$categoryConfig[$category]['name']).'/';
       else
-        $speakingUrlHref .= '/page/';
+        $href .= 'page/';
 
-      $speakingUrlHref .= self::urlEncode($pageContent['title']);
-      $speakingUrlHref .= '.html';
+      $href .= self::urlEncode($pageContent['title']);
+      $href .= '.html';
       
       if($sessionId)
-        $speakingUrlHref .= '?'.$sessionId;
+        $href .= '?'.$sessionId;
       
-      return preg_replace('#/+#','/',$speakingUrlHref);
+      return $href;
     
     // ->> create HREF with varNames und Ids
     // *************************************
     } else {
-      $getVarHref = '';
+      
+      $href .= self::$adminConfig['websitePath'];
       
       // adds the category to the href attribute
       if($category != 0)
         $categoryLink = self::$adminConfig['varName']['category'].'='.$category.'&amp;';
       else $categoryLink = '';
       
-      $getVarHref = '?'.$categoryLink.self::$adminConfig['varName']['page'].'='.$page;
+      $href .= '?'.$categoryLink.self::$adminConfig['varName']['page'].'='.$page;
       
       if($sessionId)
-        $getVarHref .= '&amp;'.$sessionId;
+        $href .= '&amp;'.$sessionId;
       
-      return $getVarHref;
+      return $href;
     }  
   }
   
