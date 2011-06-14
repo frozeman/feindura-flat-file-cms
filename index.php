@@ -519,7 +519,7 @@ var feindura_pages = [
   <div id="footer">
     <div id="footerBlock">
       <div id="footerMenu">
-        <?php if($showSubFooterMenu) { /* show only when the editor is open */ ?>
+        <?php if($showSubFooterMenu && !isBlocked(true)) { /* show only when the editor is open */ ?>
         <ul class="horizontalButtons">
           <?php
           $showSpacer = false;

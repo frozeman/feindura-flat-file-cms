@@ -21,12 +21,13 @@
  *    add:
  *    $base_url, $base_uri parameters to the constructor.
  *    and
- *    $showError property  
+ *    $showError and $filePermissions property
  */
 
 class Sitemap {
 
   public $showError = true;
+  public $filePermissions = 0755;
   
   private $base_url;
   private $base_uri;
@@ -96,6 +97,7 @@ class Sitemap {
     $fp = fopen($this->base_uri . $file, 'wb');
     fwrite($fp, $xml);
     fclose($fp);
+    @chmod($this->base_uri.$file,$this->filePermissions);
     $this->index++;
     $this->count = 1;
     $num = $this->index; // should have already been incremented
@@ -133,6 +135,7 @@ class Sitemap {
     $fp = fopen($this->base_uri . $index, 'wb');
     fwrite($fp, $xml);
     fclose($fp);
+    @chmod($this->base_uri.$index,$this->filePermissions);
   }
   
   private function xml_tag ($xml, $tag, &$end='') {

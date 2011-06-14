@@ -1366,8 +1366,9 @@ class GeneralFunctions {
     $sitemapPages = self::loadPages(true,true);
     
     // ->> START sitemap
-    $sitemap = new Sitemap($baseUrl,DOCUMENTROOT.$websitePath,false); // gzip encoded
+    $sitemap = new Sitemap($baseUrl,DOCUMENTROOT.$websitePath,true); // gzip encoded
     $sitemap->showError =  false;
+    $sitemap->filePermissions =  self::$adminConfig['permissions'];
     $sitemap->page('pages');
     
     // ->> adds the sitemap ENTRIES

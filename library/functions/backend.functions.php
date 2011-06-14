@@ -124,6 +124,8 @@ function isAdmin() {
  * 
  * Check if an other user is on the current site.
  * 
+ * @param bool $returnBool (optional) Whether the content blocked or a bool will be returned  
+ * 
  * @return string|false The #contentBlocked DIV, if another user is on that site, otherwise FALSE
  * 
  * @static
@@ -133,13 +135,13 @@ function isAdmin() {
  *    - 1.0 initial release
  * 
  */
-function isBlocked() {
+function isBlocked($returnBool = false) {
   foreach($GLOBALS['userCache'] as $cachedUser) {
     $location = trim($cachedUser['location']);
     if($cachedUser['identity'] != IDENTITY &&
        $cachedUser['edit'] &&
        ($location == $_GET['page'] || $location == $_GET['site'])) {
-      return '<div id="contentBlocked">'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'].'<br /><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span></div>';;
+      return ($returnBool) ? true : '<div id="contentBlocked">'.$GLOBALS['langFile']['GENERAL_TEXT_CURRENTLYEDITED'].'<br /><span style="font-size:15px;">'.$GLOBALS['langFile']['DASHBOARD_TITLE_USER'].': <span class="blue">'.$cachedUser['username'].'</span></span></div>';
     }
   }
   return false;
