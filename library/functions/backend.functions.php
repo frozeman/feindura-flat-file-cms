@@ -190,7 +190,7 @@ function userCache() {
     fclose($cache);
   }
   
-  // store old cache lines
+  // STORE OLD CACHE LINES
   if(is_array($cachedLines)) {
     
     // check if a user is already on the current location
@@ -203,13 +203,9 @@ function userCache() {
     foreach($cachedLines as $cachedLine) {
       $cachedLineArray = explode('|#|', $cachedLine);
       
-      $oldLocation = trim($cachedLineArray[3]);
-      
       // stores the user AGAIN with new timestamp, if the user was less than $maxTime on the page,
       // otherwise remove the user form the cache (dont save his line)
       if(!empty($location) && $timeStamp - $cachedLineArray[1] < $maxTime) {
-        
-        //$currentUserEdit = (($oldLocation == $location && isset($cachedLineArray[3])) || $free);
         
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
@@ -220,7 +216,7 @@ function userCache() {
           $stored = true;
         } elseif(!empty($cachedLineArray[0])) {
           $newLines[] = $cachedLine;
-          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => $cachedLineArray[3]);
+          $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => trim($cachedLineArray[3]));
           if(isset($cachedLineArray[4])) $addArray['edit'] = true;
           $return[] = $addArray;
         }
@@ -228,7 +224,7 @@ function userCache() {
     }
   }
 
-  // user doesn't exist, create a new cache line
+  // STORE NEW CACHE LINE
   if($stored === false && !empty($location)) {
     $edit = ($free) ? '|#|edit' : false;
     $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location.$edit;

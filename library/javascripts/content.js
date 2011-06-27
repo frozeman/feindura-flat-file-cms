@@ -610,7 +610,6 @@ window.addEvent('domready', function() {
     (function(){
       new Request({
         url:'library/includes/currentVisitors.include.php',
-        data: 'request=true',
         onSuccess: function(html) {
           if(html) {
             toolTips.detach('a.toolTip');
@@ -620,7 +619,7 @@ window.addEvent('domready', function() {
           } else
             $('currentVisitorsSideBar').set('html','');
         }      
-      }).send();
+      }).send('status=getCurrentVisitors&request=true'); // getCurrentVisitors status prevents userCache overwriting
     }).periodical(30000);
   }
   
