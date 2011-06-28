@@ -311,7 +311,6 @@ $langFile['DASHBOARD_TITLE_USER'] = 'Benutzer';
 $langFile['DASHBOARD_TITLE_ACTIVITY'] = 'letzte Tätigkeiten';
 $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'keine';
 
-$langFile['DASHBOARD_TITLE_STATISTICS_START'] = 'die';
 $langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'meist besuchten Seiten';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'zuletzt besuchten Seiten';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'zuletzt bearbeiteten Seiten';

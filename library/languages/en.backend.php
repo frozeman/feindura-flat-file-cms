@@ -312,7 +312,6 @@ $langFile['DASHBOARD_TITLE_USER'] = 'User';
 $langFile['DASHBOARD_TITLE_ACTIVITY'] = 'last activities';
 $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'none';
 
-$langFile['DASHBOARD_TITLE_STATISTICS_START'] = 'the';
 $langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'most visted pages';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'last visited pages';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'last edited pages';

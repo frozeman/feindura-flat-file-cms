@@ -149,7 +149,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> MOST VISITED PAGE
     echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['mostVisitedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT COUNT
@@ -182,7 +182,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LAST VISITED PAGES
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastVisitedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE
@@ -216,7 +216,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LONGEST VIEWED PAGE
     echo '<div class="innerBlockLeft">';    
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['longestVisitedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by MAX VISIT TIME
@@ -252,7 +252,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> LAST EDITED PAGES
     echo '<div class="innerBlockRight">';    
-    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_START'].' '.$statisticConfig['number']['lastEditedPages'].' '.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';    
+    echo '<h2>'.$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'].'</h2>';    
       echo '<div class="innerBlockListPages">
             <table class="coloredList">';      
       // SORT the Pages by VISIT SAVEDATE

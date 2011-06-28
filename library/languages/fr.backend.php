@@ -289,7 +289,7 @@ $langFile['DASHBOARD_TITLE_STATISTICS'] = 'statistiques du site web';
 $langFile['DASHBOARD_TITLE_USER'] = 'utilisateur';
 $langFile['DASHBOARD_TITLE_ACTIVITY'] = 'dernières activités';
 $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'null';
-$langFile['DASHBOARD_TITLE_STATISTICS_START'] = 'les';
+
 $langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'pages les plus fréquentées';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'dernières pages visitées';
 $langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'dernières pages rédigées';
