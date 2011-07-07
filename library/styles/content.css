@@ -589,7 +589,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 }
     
 .listPagesHead div.lastSaveDate {
-    width: 150px;
+    width: 140px;
     padding-left: 10px;
     }
 .listPagesHead div.counter {
@@ -620,25 +620,27 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     }
 
 .listPages .content div.name {    
-    width: 300px;
+    width: 290px;
     padding: 5px 0px;
     }
 .listPages .content div.lastSaveDate {
-    width: 145px;
+    width: 140px;
+    padding-left: 10px;
     }
 .listPages .content div.counter {
-    width: 115px;
-    padding-right: 4px;
+    width: 95px;
+    padding-left: 10px;
     text-align: center;
     font-weight: bold;
     }
 .listPages .content div.status {
     width: 27px;
     padding-top: 3px;
+    padding-left: 10px;
     }
 .listPages .content div.functions {
     float: right !important;
-    width: 140px;
+    width: 160px;
     margin-right: 10px;
     text-align: right; 
     }
