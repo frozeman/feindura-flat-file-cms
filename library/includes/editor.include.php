@@ -77,7 +77,7 @@ if($adminConfig['user']['fileManager']) {
       <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['editor_htmleditor_hotkeys_h1']; ?></a>
       <div id="hotKeys">
       <br />
-      <table width="450" cellspacing="0" cellpadding="8" border="0" style="border:1px solid #B3B3B4;">
+      <table style="width:450px; padding: 8px; border-spacing: 0; border:1px solid #B3B3B4;">
         <tr>
           <td style="background-color:#EDECEC;">
             <b><?php echo $langFile['editor_htmleditor_hotkeys_field1']; ?></b></td>

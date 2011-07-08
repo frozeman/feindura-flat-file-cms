@@ -43,7 +43,6 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 <html lang="<?= $_SESSION['feindura']['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="content-type" value="text/html; charset=UTF-8" />
   <meta http-equiv="content-language" content="<?php echo $_SESSION['feindura']['language']; ?>" />
   
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
@@ -275,7 +274,7 @@ var feindura_pages = [
   <!-- ** HEADER ******************************************************************************* -->
   <div id="header">
     <div id="sessionTimer" class="toolTip blue" title="<?= $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::"></div>
-    <a id="top" name="top" class="anchorTarget"></a>
+    <a id="top" id="top" class="anchorTarget"></a>
     
     <div id="headerBlock">
       

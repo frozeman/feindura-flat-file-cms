@@ -38,6 +38,7 @@ $oldVersion = '1.0 rc and 1.1rc*';
 $newVersion = '1.1';
 
 ?>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
@@ -47,7 +48,7 @@ $newVersion = '1.1';
     feindura Updater
   </title>
   
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   
   <meta http-equiv="pragma" content="no-cache" /> <!--browser/proxy dont cache-->
   <meta http-equiv="cache-control" content="no-cache" /> <!--proxy dont cache-->

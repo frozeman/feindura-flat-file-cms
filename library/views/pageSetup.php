@@ -69,7 +69,7 @@ if($unwriteableList && checkBasePath()) {
 $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
 ?>  
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="pageConfig" name="pageConfig"><?php echo $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']; ?></a></h1>
+  <h1><a href="#" id="pageConfig"><?php echo $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -97,7 +97,7 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
 $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="thumbnailSettings" name="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
+  <h1><a href="#" id="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -194,7 +194,7 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
 $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden' : '';
 ?>  
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="pageConfig" name="pageConfig"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
+  <h1><a href="#" id="pageConfig"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
   <div class="content">
     <table>
      

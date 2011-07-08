@@ -220,7 +220,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
 </div>
 
 <!-- page settings anchor is here -->
-<a name="pageSettingsAnchor" id="pageSettingsAnchor" class="anchorTarget"></a>
+<a id="pageSettingsAnchor" class="anchorTarget"></a>
 <?php
 
 if(!$newPage) {
@@ -408,7 +408,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_title"><span class="toolTip" title="<?php echo $langFile['editor_pageSettings_title'].'::'.$langFile['editor_pageSettings_title_tip'] ?>">
       <?php echo $langFile['editor_pageSettings_title'] ?></span></label>
       </td><td class="right">
-        <input id="edit_title" name="title" style="width:492px;" value="<?= str_replace('"','&quot;',$pageContent['title']).'"'.$autofocus; ?> />        
+        <input id="edit_title" name="title" style="width:492px;" value="<?= str_replace('"','&quot;',$pageContent['title']); ?>"<?= $autofocus; ?> />        
       </td></tr>
       
       <!-- ***** PAGE DESCRIPTION -->      
@@ -594,7 +594,7 @@ if($pluginsActive) {
 if($pluginsActive && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
 ?>
 <!-- ***** PLUGIN SETTINGS -->
-<a name="pluginSettingsAnchor" id="pluginSettingsAnchor" class="anchorTarget"></a>
+<a id="pluginSettingsAnchor" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
@@ -602,7 +602,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
   ? '&nbsp;<img src="library/images/icons/edited_small.png" class="blockH1Icon toolTip" title="'.$langFile['editor_pluginSettings_h1'].' '.$langFile['editor_block_edited'].'::" alt="icon" width="27" height="23" />'
   : '';
 ?>
-<div class="block<?php echo $hidden; ?>">
+<div class="block<?= $hidden; ?>">
   <h1><a href="#"><?php echo $langFile['editor_pluginSettings_h1'].$blockContentEdited; ?></a></h1>
   <div class="content">
       <?php
@@ -626,7 +626,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
           ?>          
           <table>          
           <tr><td class="left checkboxes">
-          <input type="checkbox" class="inBlockSliderLink" id="plugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?php echo ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
+          <input type="checkbox" class="inBlockSliderLink" id="plugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?= ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
           </td><td class="right checkboxes">
             <label for="plugin_<?= $pluginFolderName; ?>"><b><?= $pluginName; ?></b></label>
             <p><?= $pluginLangFile['plugin_description']; ?></p>
@@ -687,7 +687,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
         }
       }     
       ?>
-    <br />
+    <p>&nbsp;</p>
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
     <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettingsAnchor');" />
   </div>
@@ -699,7 +699,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
 if(isAdmin()) {
 ?>
 <!-- ***** ADVANCED PAGE SETTINGS -->
-<a name="advancedPageSettingsAnchor" id="advancedPageSettingsAnchor" class="anchorTarget"></a>
+<a id="advancedPageSettingsAnchor" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm == 'advancedPageSettings') ? '' : ' hidden';
@@ -739,7 +739,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       </td><td class="right">
       <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['editor_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
-                  
+            
       <tr><td class="left">
       <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['editor_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </td><td class="right">

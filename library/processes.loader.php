@@ -21,7 +21,7 @@
  */
 require_once(dirname(__FILE__)."/includes/secure.include.php");
 
-// if page ID is given, it loads the HTML-Editor
+// when page ID is given, it loads the HTML-Editor
 // --------------------------------------------
 if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category'])) && !empty($_GET['page'])) {
   

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1
-Build 703
+Build 704
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 704: removed some html incompatible attributes
   build 703: fixed listpages funcitons size
   build 702: removed "the" from the page statistics on the dashboard
   build 701: fixed userCache

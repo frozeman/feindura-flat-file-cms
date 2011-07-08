@@ -38,7 +38,7 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
     $hidden = ' hidden';  
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="statisticSettings" name="statisticSettings"><?php echo $langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS']; ?></a></h1>
+  <h1><a href="#" id="statisticSettings"><?php echo $langFile['STATISTICSSETUP_TITLE_STATISTICSSETTINGS']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -118,7 +118,7 @@ if($savedForm == 'clearStatistics')
     $hidden = ' hidden';  
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="clearStatistics" name="clearStatistics"><?php echo $langFile['statisticSetup_clearStatistic_h1']; ?></a></h1>
+  <h1><a href="#" id="clearStatistics"><?php echo $langFile['statisticSetup_clearStatistic_h1']; ?></a></h1>
   <div class="content">
     <table>
           

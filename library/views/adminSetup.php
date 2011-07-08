@@ -77,7 +77,7 @@ foreach ($tab as $buf) {
 $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="fmsSettings" name="fmsSettings"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
+  <h1><a href="#" id="fmsSettings"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -274,7 +274,7 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
 $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-<h1><a href="#" id="userSettings" name="userSettings"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']; ?></a></h1>
+<h1><a href="#" id="userSettings"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']; ?></a></h1>
 <div class="content">
     <table>
      
@@ -335,7 +335,7 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="editorSettings" name="editorSettings"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
+  <h1><a href="#" id="editorSettings"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -407,15 +407,15 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 
 <?php
 
-// BEARBEITUNG DER SPRACHDATEI
+// EDIt websitefiles
 editFiles($adminConfig['websiteFilesPath'], "editWebsitefile",  $langFile['editFilesSettings_h1_websitefiles'], "websiteFilesAnchor");
 
-// BEARBEITUNG DER STYLESHEETDATEI
+// EDIT stylesheets
 editFiles($adminConfig['stylesheetPath'], "editCSSfile", $langFile['editFilesSettings_h1_style'], "cssFilesAnchor", "css");
 
 ?>
 
-<!-- HIER BEGINNT DIE STIL-AUSWAHL BEARBEITUNG DES HTML EDITORS -->
+<!-- EDIT EDITOR-STYLES -->
 <form action="index.php?site=adminSetup#fckstyleFileAnchor" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <div><input type="hidden" name="saveFckStyleFile" value="true" /></div>
 <?php
@@ -429,7 +429,7 @@ fclose($htmlEditorStyleFile);
 $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" name="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
+  <h1><a href="#" id="fckstyleFileAnchor"><?php echo $langFile['adminSetup_styleFileSettings_h1']; ?></a></h1>
   <div class="content">
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles js" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
     <br /><br />
