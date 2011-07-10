@@ -720,12 +720,33 @@ window.addEvent('domready', function() {
           else
             page.setStyle('display','block');
         });
+        
+        // hide empty blocks
+        $$('div.block.listPages').each(function(block) {
+          var isEmpty = true;
+           
+          block.getElements('li').getStyle('display').each(function(display){
+            if(display == 'block')
+              isEmpty = false;
+          });
+          
+          if(!isEmpty)
+            block.setStyle('display','block');
+          else
+            block.setStyle('display','none');
+        });
+      
+      // SHOW the category and pages again, when filter is empty 
       } else {
         $$('div.block.listPages li').each(function(page) {
           page.setStyle('display','block');
         });
+        $$('div.block.listPages').each(function(block) {
+          block.setStyle('display','block');
+        });
       }
       
+      // ->> WHEN filter is started
       // ->> SLIDE all blocks IN
       if(filter.length == 1) {
         $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
@@ -745,7 +766,8 @@ window.addEvent('domready', function() {
           }
         });
         storedOpenBlocks = true;
-        
+      
+      // ->> WHEN filter is cleared   
       // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
       } else if(filter == '' && storedOpenBlocks) {
         $('listPagesFilterCancel').removeEvent('click',cancelListPagesFilter);
