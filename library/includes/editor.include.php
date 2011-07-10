@@ -52,7 +52,9 @@ window.addEvent('domready',function(){
   // set the CONFIGs of the editor with PHP vars (more configs are set in the content.js)
   CKEDITOR.config.baseHref                  = '<?php echo $adminConfig['basePath']."library/thirdparty/ckeditor/"; ?>';
   CKEDITOR.config.language                  = '<?php echo $_SESSION["feindura"]["language"]; ?>';
-  CKEDITOR.config.contentsCss               = ['<?php if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false) { $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?=".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); } ?>'];
+<?php if(($editorStyleFiles = unserialize($editorStyleFiles)) !== false && !empty($editorStyleFiles)) { ?>
+  CKEDITOR.config.contentsCss               = ['<?php $echoStyleFile = ''; foreach($editorStyleFiles as $editorStyleFile) {$uniqueStyleId = (strpos($editorStyleFile,"?") === false) ? "?=".md5(uniqid(rand(),1)) : ''; $echoStyleFile .= $editorStyleFile.$uniqueStyleId."','";} echo substr($echoStyleFile,0,-3); ?>'];
+<?php } ?>
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;

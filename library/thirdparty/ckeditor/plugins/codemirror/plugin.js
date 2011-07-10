@@ -30,34 +30,41 @@ CKEDITOR.plugins.add('codemirror',
 				var node = $$("."+class_editor+" textarea.cke_source");
 				node = node[0];
 				var hlLine;
-
-				codemirror = CodeMirror.fromTextArea(node, {
-					mode: "htmlmixed",
-					lineNumbers: false,
-					onCursorActivity: function() {
-					  codemirror.setLineClass(hlLine, null);
-		        hlLine = codemirror.setLineClass(codemirror.getCursor().line, "CodeMirrorActiveline");
-		      }
-				});
-			}
-		});
-		
-		// перед сменой режима
-		editor.on( 'beforeModeUnload', function( event )
-		{
-			class_editor = event.editor.id;
-			mode = event.editor.mode;
-			
-			// если текущий режим source
-			// то перенести содержимое source в textarea
-			if (mode == 'source')
-			{
-				var node = $$("."+class_editor+" textarea.cke_source");
-				node = node[0];
 				
-				var src = codemirror.getValue();
-				editor.setData(src);
+				if(node && !node.retrieve('codemirror')) {
+  				codemirror = CodeMirror.fromTextArea(node, {
+  					mode: "htmlmixed",
+  					lineNumbers: false,
+  					theme: 'feindura',
+  					onCursorActivity: function() {
+  					  codemirror.setLineClass(hlLine, null);
+  		        hlLine = codemirror.setLineClass(codemirror.getCursor().line, "CodeMirrorActiveline");
+  		        codemirror.save();
+  		      }
+  				});
+  				
+  				node.store('codemirror',true);
+				}
 			}
 		});
+	/*
+	// перед сменой режима
+  editor.on( 'beforeModeUnload', function( event )
+  {
+    class_editor = event.editor.id;
+    mode = event.editor.mode;
+    
+    // если текущий режим source
+    // то перенести содержимое source в textarea
+    if (mode == 'source')
+    {
+      var node = $$("."+class_editor+" textarea.cke_source");
+      node = node[0];
+      
+      var src = codemirror.getValue();
+      editor.setData(src);
+    }
+  });
+  */
 	}
 });

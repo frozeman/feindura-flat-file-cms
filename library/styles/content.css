@@ -801,7 +801,6 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     position: relative;
     width: 750px !important;
     height: 360px;
-    background: url("../images/bg/formularBg.png") no-repeat #ffffff !important;
     padding: 10px;
     }
 #content .editor textarea:hover {
@@ -1295,7 +1294,10 @@ a.deleteUser:hover, a.deleteUser:focus {
 /* *** INPUT */
 
 input, input[type="text"], textarea, select, div.CodeMirror {
-    background: url("../images/bg/formularBg.png") no-repeat #ffffff;
+    background-color: #fff;
+    -moz-box-shadow:inset 1px 1px 5px #ccc;
+    -webkit-box-shadow:inset 1px 1px 5px #ccc;
+    box-shadow:inset 1px 1px 5px #ccc;
     border: 1px solid #BEC0C3;
     padding: 2px 4px;
     margin: 1px 0px;
@@ -1307,6 +1309,12 @@ input:hover, textarea:hover, select:hover, div.CodeMirror:hover {
 input:focus, textarea:focus, select:focus, div.CodeMirror:focus {
     border: 1px solid #CF974D;
     }
+input[type="button"], input[type="submit"] {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: transparent;
+}
 input[readonly="readonly"], textarea[readonly="readonly"] {
     border: 1px dotted #cccccc;
     color: #7F7F7F;
@@ -1329,23 +1337,6 @@ textarea, div.CodeMirror-gutter-text, div.CodeMirror-lines {
     line-height: 18px;
     padding: 10px;
     }
-    
-/* CKEditor hacks for CodeMirror */
-.cke_skin_kama .CodeMirror
-{
-    overflow-y: auto;
-    overflow-x: auto;
-    height: 400px; /* варьируйте под размер поля CKEditor'a */
-    width: 760px; /* варьируйте под размер поля CKEditor'a */
-    line-height: 1em;
-    _position: relative; /* IE6 hack */
-} 
-.cke_skin_kama .CodeMirror *
-{
-    font-size: 14px;
-    white-space:pre;
-    width:;
-}
 
 label {
   cursor: pointer;
@@ -1398,13 +1389,43 @@ input[type="file"]{ /* works only in safari*/
     width: 300px;
     }
 
+/* CKEditor HACKS for CodeMirror */
+.cke_contents_HTMLEditor {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+.cke_skin_kama textarea.cke_source { /* Hack to be able to fullscreen the CKEditor when in CodeMirror */
+  display: block !important;
+  position: absolute !important;
+  visibility: hidden;
+}
+.cke_skin_kama .CodeMirror {
+  height: 100%;
+  width: 99%;
+}
+.cke_skin_kama .CodeMirror-scroll {
+  height: 100%;
+  width: 100%;
+  /*max-height: 500px;*/
+  _position: relative; /* IE6 hack */
+} 
+.cke_skin_kama .CodeMirror-scroll * {
+  font-size: 14px;
+  white-space:pre;
+}
+.cke_skin_kama .CodeMirror-lines {
+  max-width: 740px; /* Hack to prevent oversizeing of the "textarea" */
+}
+
 /****************/	
 /* *** TEXTAREA */
 
-textarea.editFiles, div.CodeMirror {
-  width:743px;
-  height:550px;
+textarea.editFiles, .CodeMirror-scroll  {
+  width: 758px;
+  height: 550px;
 }
+
 div.content.editFiles textarea {
   margin-top: 15px !important;
 }

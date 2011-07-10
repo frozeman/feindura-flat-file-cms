@@ -1,9 +1,17 @@
 .CodeMirror {
-  overflow: auto;
-  height: 300px;
   line-height: 1em;
   font-family: monospace;
-  _position: relative; /* IE6 hack */
+}
+
+.CodeMirror-scroll {
+  overflow: auto;
+  height: 300px;*
+  /* This is needed to prevent an IE[67] bug where the scrolled content
+     is visible outside of the scrolling box. */
+  position: relative;
+}
+.CodeMirror-scroll div:first-child {
+  width: auto !important; /* fix to prevent that "CodeMirrorActiveline" goes smaller */
 }
 
 .CodeMirror-gutter {
@@ -29,6 +37,15 @@
   border-radius: 0;
   border-width: 0; margin: 0; padding: 0; background: transparent;
   font-family: inherit;
+  font-size: inherit;
+  padding: 0; margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+.CodeMirror textarea {
+  font-family: inherit !important;
+  font-size: inherit !important;
 }
 
 .CodeMirror-cursor {
@@ -52,34 +69,21 @@ span.CodeMirror-selected {
 .CodeMirror-matchingbracket {color: #0f0 !important;}
 .CodeMirror-nonmatchingbracket {color: #f22 !important;}
 
-span.xml-tag {color: #a0b;}
-span.xml-attribute {color: #69A9D3;}
-span.xml-attname {color: #A57F56;}
-span.xml-comment {color: #999;}
-span.xml-cdata {color: #48a;}
-span.xml-processing {color: #666; background-color: #E5E3E5;}
-span.xml-entity {color: #A84D08;}
-
-span.css-at {color: #708;}
-span.css-unit {color: #69A9D3;}
-span.css-value {color: #A57F56;}
-span.css-identifier {color: #444;}
-span.css-selector {color: #11B;}
-span.css-important {color: #A57F56;}
-span.css-colorcode {color: #299;}
-span.css-comment {color: #999;}
-span.css-string {color: #A84D08;}
-
-span.js-keyword {color: #90b;}
-span.js-atom {color: #291;}
-span.js-variabledef {color: #00f;}
-span.js-localvariable {color: #049;}
-span.js-comment {color: #999;}
-span.js-string {color: #A84D08;}
-
-span.c-like-keyword {color: #90b;}
-span.c-like-number {color: #291;}
-span.c-like-comment {color: #999;}
-span.c-like-string {color: #A84D08;}
-span.c-like-preprocessor {color: #049;}
-span.c-like-var {color: #597CBB;}
+/* theme */
+.cm-s-feindura span.cm-number, .cm-s-feindura span.cm-string {color: #C7682B;}
+.cm-s-feindura span.cm-atom {color: #DF8F08;}
+.cm-s-feindura span.cm-def {color: #A48D77;}
+.cm-s-feindura span.cm-comment {color: #999;font-style: italic;}
+.cm-s-feindura span.cm-meta {color: #555;font-style: italic;}
+.cm-s-feindura span.cm-variable {color: #597CBB;}
+.cm-s-feindura span.cm-variable-2 {color: #597CBB;}
+.cm-s-feindura span.cm-variable-3 {color: #597CBB;}
+.cm-s-feindura span.cm-property {color: color: #597CBB;}
+.cm-s-feindura span.cm-qualifier {color: #827CBB; font-weight: bold;}
+.cm-s-feindura span.cm-keyword {color: #BC8D77; font-weight: bold;}
+.cm-s-feindura span.cm-builtin {color: #299;}
+.cm-s-feindura span.cm-error {background-color: #A84D08;}
+.cm-s-feindura span.cm-tag {color: #943CAA;}
+.cm-s-feindura span.cm-attribute {color: #686DF1;}
+.cm-s-feindura span.cm-bracket {color: #8991D6;}
+.cm-s-feindura span.cm-operator {color: #8991D6;}

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.1
-Build 706
+Build 707
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.1.1
   
+  build 707: add CodeMirror to the CKEditor for syntax highlighting, not perfectly working yet
   build 706: add new CKEditor and MooRTE version
   build 705: hide empty blocks when filtering in listpages
   build 704: removed some html incompatible attributes
