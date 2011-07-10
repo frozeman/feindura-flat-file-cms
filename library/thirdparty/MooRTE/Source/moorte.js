@@ -254,8 +254,8 @@ MooRTE.Range = {
 }());
 MooRTE.Tabs = {};
 MooRTE.Utilities = {
-	exec: function(args){
-		args = Array.from(args);
+	exec: function(){ // args
+		args = Array.from(arguments).flatten();
 		document.execCommand(args[0], args[2]||null, args[1]||false);
 	}
 	, shortcuts: function(e){
@@ -482,8 +482,8 @@ MooRTE.Utilities = {
 		else {
 			// MooRTE.Utilities.convertunit(size[0],size[1],'px'); Convert em's, xx-small, etc.
 			size = size.split(/([^\d]+)/)[0];
-			[0,10,13,16,18,24,32,48].every(function(s,i){	
-				if ((s - size) < 0) return true;
+			[0,10,13,16,18,24,32,48].every(function(s,i){
+				if (s < size) return true;
 				size = !(s - size) || dir < 0 ? i + dir : i;
 			});
 		}

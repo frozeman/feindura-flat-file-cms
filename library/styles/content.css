@@ -1329,6 +1329,23 @@ textarea, div.CodeMirror-gutter-text, div.CodeMirror-lines {
     line-height: 18px;
     padding: 10px;
     }
+    
+/* CKEditor hacks for CodeMirror */
+.cke_skin_kama .CodeMirror
+{
+    overflow-y: auto;
+    overflow-x: auto;
+    height: 400px; /* варьируйте под размер поля CKEditor'a */
+    width: 760px; /* варьируйте под размер поля CKEditor'a */
+    line-height: 1em;
+    _position: relative; /* IE6 hack */
+} 
+.cke_skin_kama .CodeMirror *
+{
+    font-size: 14px;
+    white-space:pre;
+    width:;
+}
 
 label {
   cursor: pointer;
