@@ -223,8 +223,8 @@ $langFile['BUTTON_ADMINSETUP'] = 'Administrator Einstellungen';
 $langFile['BUTTON_PAGESETUP'] = 'Seiten Einstellungen';
 $langFile['BUTTON_PLUGINSETUP'] = 'Plugins Einstellungen';
 $langFile['BUTTON_STATISTICSETUP'] = 'Statistik Einstellungen';
-$langFile['BUTTON_USERSETUP'] = 'Benutzer Verwaltung';
-$langFile['BUTTON_BACKUP'] = 'Backup Wiederherst.';
+$langFile['BUTTON_USERSETUP'] = 'Benutzer';
+$langFile['BUTTON_BACKUP'] = 'Backups';
 
 // SUB MENU/FOOTER
 $langFile['BUTTON_FILEMANAGER'] = 'Dateimanager';

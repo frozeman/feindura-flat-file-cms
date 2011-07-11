@@ -31,23 +31,19 @@ CKEDITOR.plugins.add('codemirror',
 				node = node[0];
 				var hlLine;
 				
-				if(node && !node.retrieve('codemirror')) {
-  				codemirror = CodeMirror.fromTextArea(node, {
-  					mode: "htmlmixed",
-  					lineNumbers: false,
-  					theme: 'feindura',
-  					onCursorActivity: function() {
-  					  codemirror.setLineClass(hlLine, null);
-  		        hlLine = codemirror.setLineClass(codemirror.getCursor().line, "CodeMirrorActiveline");
-  		        codemirror.save();
-  		      }
-  				});
-  				
-  				node.store('codemirror',true);
-				}
+				codemirror = CodeMirror.fromTextArea(node, {
+					mode: "htmlmixed",
+					lineNumbers: false,
+					theme: 'feindura',
+					onCursorActivity: function() {
+					  codemirror.setLineClass(hlLine, null);
+		        hlLine = codemirror.setLineClass(codemirror.getCursor().line, "CodeMirrorActiveline");
+		        codemirror.save();
+		      }
+				});
 			}
 		});
-	/*
+	
 	// перед сменой режима
   editor.on( 'beforeModeUnload', function( event )
   {
@@ -61,10 +57,8 @@ CKEDITOR.plugins.add('codemirror',
       var node = $$("."+class_editor+" textarea.cke_source");
       node = node[0];
       
-      var src = codemirror.getValue();
-      editor.setData(src);
+      codemirror.toTextArea();
     }
   });
-  */
 	}
 });

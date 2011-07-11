@@ -210,8 +210,8 @@ $langFile['BUTTON_ADMINSETUP'] = 'préférences administrateur';
 $langFile['BUTTON_PAGESETUP'] = 'préférences site web';
 $langFile['BUTTON_PLUGINSETUP'] = 'préférences plugins';
 $langFile['BUTTON_STATISTICSETUP'] = 'préférences statistiques';
-$langFile['BUTTON_USERSETUP'] = 'gestion de l\'utilisateur';
-$langFile['BUTTON_BACKUP'] = 'Sauvegarde Restauration';
+$langFile['BUTTON_USERSETUP'] = 'utilisateurs';
+$langFile['BUTTON_BACKUP'] = 'sauvegardes';
 
 // SUB MENU/FOOTER
 $langFile['BUTTON_FILEMANAGER'] = 'gestionnaire des fichiers';

@@ -225,8 +225,8 @@ $langFile['BUTTON_ADMINSETUP'] = 'Administrator Settings';
 $langFile['BUTTON_PAGESETUP'] = 'Pages Settings';
 $langFile['BUTTON_PLUGINSETUP'] = 'Plugins Settings';
 $langFile['BUTTON_STATISTICSETUP'] = 'Statistic Settings';
-$langFile['BUTTON_USERSETUP'] = 'User Management';
-$langFile['BUTTON_BACKUP'] = 'Backup Restore';
+$langFile['BUTTON_USERSETUP'] = 'Users';
+$langFile['BUTTON_BACKUP'] = 'Backups';
 
 // SUB MENU/FOOTER
 $langFile['BUTTON_FILEMANAGER'] = 'File Manager';
