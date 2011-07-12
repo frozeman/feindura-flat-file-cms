@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.1
-Build 708
+Build 709
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.1.1
   
+  build 709: fixed resizing of codemirror in CKEditor
   build 708: fixed Codemirror plugin; saving now works again
   build 707: add CodeMirror to the CKEditor for syntax highlighting, not perfectly working yet
   build 706: add new CKEditor and MooRTE version

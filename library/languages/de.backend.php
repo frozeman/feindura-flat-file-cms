@@ -311,10 +311,10 @@ $langFile['DASHBOARD_TITLE_USER'] = 'Benutzer';
 $langFile['DASHBOARD_TITLE_ACTIVITY'] = 'letzte Tätigkeiten';
 $langFile['DASHBOARD_TEXT_ACTIVITY_NONE'] = 'keine';
 
-$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'meist besuchten Seiten';
-$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'zuletzt besuchten Seiten';
-$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'zuletzt bearbeiteten Seiten';
-$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'am längsten betrachteten Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED'] = 'meist besuchte Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED'] = 'zuletzt besuchte Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED'] = 'zuletzt bearbeitete Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED'] = 'am längsten betrachtete Seiten';
 
 $langFile['DASHBOARD_TITLE_REFERER'] = 'Webseiten von denen die letzten Besucher gekommen sind';
 

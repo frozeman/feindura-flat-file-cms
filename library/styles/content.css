@@ -1368,7 +1368,7 @@ textarea.autogrow {
 }
   
 /****************/	
-/* *** INPUT TYPEs */
+/* *** INPUT TYPES */
 
 input.short {
     width: 60px !important;
@@ -1390,41 +1390,38 @@ input[type="file"]{ /* works only in safari*/
     }
 
 /* CKEditor HACKS for CodeMirror */
-.cke_contents_HTMLEditor {
-  position: relative;
-  overflow: hidden;
-  display: block;
-}
 .cke_skin_kama textarea.cke_source { /* Hack to be able to fullscreen the CKEditor when in CodeMirror */
   display: block !important;
   position: absolute !important;
   visibility: hidden;
 }
+#cke_contents_HTMLEditor {
+  display: block;
+}
 .cke_skin_kama .CodeMirror {
   height: 100%;
-  width: 99%;
 }
 .cke_skin_kama .CodeMirror-scroll {
   height: 100%;
-  width: 100%;
-  /*max-height: 500px;*/
   _position: relative; /* IE6 hack */
 } 
 .cke_skin_kama .CodeMirror-scroll * {
   font-size: 14px;
   white-space:pre;
-}
-.cke_skin_kama .CodeMirror-lines {
-  max-width: 740px; /* Hack to prevent oversizeing of the "textarea" */
+  max-width: 750px; /* Hack to prevent oversizeing of the "textarea" */
 }
 
-/****************/	
-/* *** TEXTAREA */
-
+/* HACKS for CodeMirror */
 textarea.editFiles, .CodeMirror-scroll  {
   width: 758px;
   height: 550px;
 }
+.CodeMirrorActiveline {
+  background-color: #E8EEF9 !important;
+}
+
+/****************/  
+/* *** TEXTAREA */
 
 div.content.editFiles textarea {
   margin-top: 15px !important;
@@ -1437,9 +1434,6 @@ textarea#fckStyleFile, textarea#fckStyleFile + div.CodeMirror {
 }
 textarea#fckStyleFile + div.CodeMirror {
   margin-top: 30px;
-}
-.CodeMirrorActiveline {
-  background-color: #E8EEF9 !important;
 }
 
 a.addStyleFilePath {

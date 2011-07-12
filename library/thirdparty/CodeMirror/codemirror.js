@@ -161,10 +161,13 @@ var CodeMirror = (function() {
         code.appendChild(node);
         node.style.left = left + "px";
         if (where == "over") top = pos.y;
-        else if (where == "fit") {
-          var vspace = lines.length * lineHeight(), hspace = code.clientWidth - paddingLeft();
-          top = pos.y + node.offsetHeight > vspace ? vspace - node.offsetHeight : pos.y;
-          if (left + node.offsetWidth > hspace) left = hspace - node.offsetWidth;
+        else if (where == "near") {
+          var vspace = Math.max(scroller.offsetHeight, lines.length * lineHeight()),
+              hspace = Math.max(code.clientWidth, lineSpace.clientWidth) - paddingLeft();
+          if (pos.yBot + node.offsetHeight > vspace && pos.y > node.offsetHeight)
+            top = pos.y - node.offsetHeight;
+          if (left + node.offsetWidth > hspace)
+            left = hspace - node.offsetWidth;
         }
         node.style.top = (top + paddingTop()) + "px";
         node.style.left = (left + paddingLeft()) + "px";
@@ -762,9 +765,13 @@ var CodeMirror = (function() {
       }
 
       var textWidth = stringWidth(maxLine);
-      lineSpace.style.width = textWidth > scroller.clientWidth ? textWidth + "px" : "";
-      // Needed to prevent odd wrapping/hiding of widgets placed in here.
-      code.style.width = (lineSpace.offsetWidth + lineSpace.offsetLeft) + "px";
+      if (textWidth > scroller.clientWidth) {
+        lineSpace.style.width = textWidth + "px";
+        // Needed to prevent odd wrapping/hiding of widgets placed in here.
+        code.style.width = scroller.scrollWidth + "px";
+      } else {
+        lineSpace.style.width = code.style.width = "";
+      }
 
       // Since this is all rather error prone, it is honoured with the
       // only assertion in the whole file.

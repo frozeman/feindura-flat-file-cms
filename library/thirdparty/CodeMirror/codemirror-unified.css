@@ -5,13 +5,10 @@
 
 .CodeMirror-scroll {
   overflow: auto;
-  height: 300px;*
+  height: 300px;
   /* This is needed to prevent an IE[67] bug where the scrolled content
      is visible outside of the scrolling box. */
   position: relative;
-}
-.CodeMirror-scroll div:first-child {
-  width: auto !important; /* fix to prevent that "CodeMirrorActiveline" goes smaller */
 }
 
 .CodeMirror-gutter {
