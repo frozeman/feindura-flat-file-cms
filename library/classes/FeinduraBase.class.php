@@ -1020,19 +1020,19 @@ class FeinduraBase {
   protected function createAttributes($id, $class, $attributes) {
   
       $attributeString = '';
-      
+ 
       // add ID
-      if((is_string($id) || is_numeric($id)) && !empty($class))
+      if((is_string($id) || is_numeric($id)) && !empty($id))
         $attributeString .= ' id="'.$id.'"';
-	
+
       // add CLASS
       if((is_string($class) || is_numeric($class)) && !empty($class))
         $attributeString .= ' class="'.$class.'"';
       
       // add ATTRIBUTES
-      if((is_string($attributes) || is_numeric($attributes)) && !empty($class))
+      if((is_string($attributes) || is_numeric($attributes)) && !empty($attributes))
 	      $attributeString .= ' '.$attributes;
-        
+       
       return $attributeString;    
   }
 

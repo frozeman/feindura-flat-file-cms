@@ -648,12 +648,13 @@ $blockContentEdited = (isset($pageContent['plugins']))
           if(!empty($pluginConfig) && is_array($pluginConfig)) {
             foreach($pluginConfig as $key => $value) {
               
+              $value = (!isset($pageContent['plugins'][$pluginFolderName][$key]) && $pageContent['plugins'][$pluginFolderName][$key] !== false)
+                ? $value
+                : $pageContent['plugins'][$pluginFolderName][$key];
               $inputLength = (is_numeric($value)) ? ' short' : '';
               $keyName = (isset($pluginLangFile[$key])) ? $pluginLangFile[$key] : $key;
               $keyTip = (isset($pluginLangFile[$key.'_tip'])) ? ' class="toolTip'.$inputLength.'" title="'.$pluginLangFile[$key.'_tip'].'::"' : '';
-              $value = (empty($pageContent['plugins'][$pluginFolderName][$key]) && $pageContent['plugins'][$pluginFolderName][$key] !== false)
-                ? $value
-                : $pageContent['plugins'][$pluginFolderName][$key];
+              
               
               if(is_bool($value)) {
                 echo (!$checkboxes) ? '<tr><td class="leftBottom"></td><td></td></tr>' : '';
