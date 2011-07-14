@@ -438,7 +438,7 @@ function saveCategories($newCategories) {
   
   createBasicFolders();
   
-  // öffnet die category.config.php zum schreiben
+  // open category.config.php for writing
   if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","wb")) {
 
       // *** write CATEGORIES
@@ -1067,7 +1067,7 @@ RewriteEngine on
 RewriteBase /
 # rewrite "/page/*.html" and "/category/*/*.html"
 # and also passes the session var
-RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that follows only if the request doesn’t end in one of these file extensions.
+RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js)$ [NC] #do the stuff that follows only if the request doesnt end in one of these file extensions.
 RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http://','https://'),'',$_SERVER["HTTP_HOST"]).'$
 '.$newRewriteRule.'
 </IfModule>';
@@ -1615,7 +1615,7 @@ function saveEditedFiles(&$savedForm) {
   // ->> NEW FILE
   } elseif(!empty($_POST['newFile'])) { // creates a new file if a filename was input in the field
         
-    //$_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","§",'"',"'","(",")"), '_', $_POST['newFile']);
+    //$_POST['newFile'] = str_replace( array(" ","%","+","&","#","!","?","$","Â§",'"',"'","(",")"), '_', $_POST['newFile']);
     $_POST['newFile'] = XssFilter::path($_POST['newFile'],false,'noname.txt');
     
     // check if a path is included
