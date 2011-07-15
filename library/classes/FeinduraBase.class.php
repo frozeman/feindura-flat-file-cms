@@ -1428,9 +1428,10 @@ class FeinduraBase {
   * @see Feindura::createMenuByTags()
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.0.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.0.1 fixed issue when get a single tag as string
   *    - 1.0 initial release
   * 
   */   
@@ -1450,8 +1451,9 @@ class FeinduraBase {
         $tags = explode(';',$tags);
       elseif(strstr($tags,' '))
         $tags = explode(' ',$tags);
-      else return false;
-      
+      else
+        $tags = array($tags);
+
     // if array clear whitespaces in array
     } elseif(is_array($tags)) {
      foreach($tags as $tag) {
