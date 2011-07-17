@@ -2037,7 +2037,70 @@ class Feindura extends FeinduraBase {
     // call the right function
     return $this->showPage($page, $shortenText, $useHtml);
   }
+
+  /**
+  * <b>Name</b>  hasPlugins()<br />
+  * <b>Alias</b> hasPlugin()<br />
+  * <b>Alias</b> isPlugins()<br />
+  * <b>Alias</b> isPlugin()<br />
+  *
+  * Check whether the given plugin(s) are activated for the given page.
+  *
+  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  *
+  *
+  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
+  * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
+  *
+  * @uses Feindura::$page
+  * @uses Feindura::showPlugins()											 to check for the activated plugins
+  * @uses FeinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
+  *
+  * @uses GeneralFunctions::getPageCategory()          to get the category of the page
+  *
+  * @return bool whether the plugin(s) are activated or not
+  *
+  * @see getPageTitle()
+  * @see Feindura::showPlugins()
+  * @see FeinduraBase::generatePage()
+  *
+  * @access public
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  *
+  */
+  public function hasPlugins($plugins = true, $page = false) {
   
+    return $this->showPlugins($plugins,$page,false);
+  }
+  /**
+   * Alias of {@link hasPlugins()}
+   * @ignore
+   */
+  public function hasPlugin($plugins = true, $page = false) {
+    // call the right function
+    return $this->hasPlugins($plugins, $page);
+  }
+  /**
+  * Alias of {@link hasPlugins()}
+  * @ignore
+  */
+  public function isPlugins($plugins = true, $page = false) {
+    // call the right function
+    return $this->hasPlugins($plugins, $page);
+  }
+  /**
+  * Alias of {@link hasPlugins()}
+  * @ignore
+  */
+  public function isPlugin($plugins = true, $page = false) {
+    // call the right function
+    return $this->hasPlugins($plugins, $page);
+  }
+ 
  /**
   * <b>Name</b>  showPlugins()<br />
   * <b>Alias</b> showPlugin()<br />  
@@ -2056,6 +2119,7 @@ class Feindura extends FeinduraBase {
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
   * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
+  * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check the activation (used by {@link Feindura::hasPlugins()})
   * 
   * @uses Feindura::$page
   * 
@@ -2076,7 +2140,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
- public function showPlugins($plugins = true, $page = false) {    
+ public function showPlugins($plugins = true, $page = false, $returnPlugin = true) {    
     
     // var
     $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
@@ -2105,23 +2169,32 @@ class Feindura extends FeinduraBase {
                  is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins) && // activated in the adminConfig or categoryConfig
                  $plugin['active'] // activated in the page                 
                  ) {
-            
-                // create plugin config
-                $pluginConfig = $plugin;
-                unset($pluginConfig['active']); // remove the active value from the plugin config
-
-                // -> include the plugin
-          		  if($singlePlugin)
-          		    return include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
-          		  else  
-                  $pluginsReturn[$pluginName] = include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
+                
+                if($returnPlugin) {
+                
+                  // create plugin config
+                  $pluginConfig = $plugin;
+                  unset($pluginConfig['active']); // remove the active value from the plugin config
+  
+                  // -> include the plugin
+            		  if($singlePlugin)
+            		    return include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
+            		  else  
+                    $pluginsReturn[$pluginName] = include(dirname(__FILE__).'/../../plugins/'.$pluginName.'/include.php');
+                
+                } else
+                $pluginsReturn = true;
               }
             }
           }         
         }            
       }       
-    }    
-    return $pluginsReturn;
+    }
+    
+    if($returnPlugin)    
+      return $pluginsReturn;
+    else
+     return ($pluginsReturn) ? true : false;
   }
   /**
   * Alias of {@link showPlugins()}
