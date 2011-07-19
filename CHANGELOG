@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.1
-Build 713
+Build 714
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.1.1
   
+  build 714: add reauired to chapta input in contact form
   build 713: add Feindura::hasPlugins() Method, to check whether a plugin is activated for a specific page.
   build 712: fixed hasTags(); fixed issue when get a single tag as string
   build 711: add old Image.class.php, for thumbnails

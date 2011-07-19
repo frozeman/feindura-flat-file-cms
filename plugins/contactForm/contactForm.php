@@ -560,7 +560,7 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
     $chapta = new chapta(rand(1000,9999));      
     $_SESSION['plugin_contactForm']['chaptacheck'] = $chapta->getNum();
     $return .= '<div id="contactForm_chaptaNumbers">'.$chapta->printNumber().'</div>';
-    $return .= '<input type="number" id="contactForm_field_chapta" name="chapta" size="4" min="1000" max="9999" autocomplete="off" maxlength="4" />';
+    $return .= '<input type="number" id="contactForm_field_chapta" name="chapta" size="4" min="1000" max="9999" autocomplete="off" maxlength="4" required="required" />';
     
     $return .= '<br /><input type="submit" id="contactForm_button_send" value="'.$this->langFile['button_send'].'" />
     <span id="contactForm_text_mandatoryfields">'.$this->mandatoryStar.' '.$this->langFile['text_mandatoryfields'].'</span>
