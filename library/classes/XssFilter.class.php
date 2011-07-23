@@ -409,7 +409,7 @@ class XssFilter {
   */
   public static function url($data, $encode = false, $default = false){
      if(!empty($data) || $data == 0) {
-        preg_match("/^[a-zA-Z]+[:]{1}[\/\/]{2}[A-Za-z0-9\-_]+\.*[\|\+\[\]A-Za-z0-9\.\/%&#=\?\-_]+$/i",$data,$find);
+        preg_match("/^[a-zA-Z]+[:]{1}[\/\/]{2}[A-Za-z0-9\-_]+\.*[\+\[\]A-Za-z0-9\.\/|:%&#=\?\-_]+$/i",$data,$find);
          if (!empty($find[0])) {
            preg_match("#\.\.#",$find[0],$findCatch); // disallow ".."
            $data = preg_replace('#/{2,}#','//',$find[0]);
