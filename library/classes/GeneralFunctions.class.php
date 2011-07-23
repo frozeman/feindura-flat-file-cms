@@ -303,7 +303,7 @@ class GeneralFunctions {
 /**
   * <b>Name</b> getDirname()<br />
   * 
-  * use the dirname function only if there is a "." of a file in the name, or the last sign is not and "/".
+  * Returns the dirname of a <var>$dir</var> parameter, by checking whether the last part of the path is a filename or a dir.
   * 
   * @param string $dir the path to get the dirname from
   * 
@@ -317,7 +317,7 @@ class GeneralFunctions {
   */
   public static function getDirname($dir) {
     if(!empty($dir) && (strpos($dir,'.') !== false || substr($dir,-1) != '/'))
-      return preg_replace('#/+#','/',str_replace('\\','/',dirname(self::$adminConfig['websitePath'])).'/');
+      return preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)).'/');
     else
       return $dir;
   }

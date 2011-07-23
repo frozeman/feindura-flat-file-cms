@@ -197,17 +197,12 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
         else
           $categoryInLink = $adminConfig['varName']['category'].'='.$pageContent['category'].'&amp;';
         
-        
         // shows the page link
-        $hostUrl = ($adminConfig['speakingUrl'])
-          ? $adminConfig['url']
-          : $adminConfig['url'].$adminConfig['websitePath'];
-        
         echo '<tr>
               <td class="left">
               <span class="info"><strong>'.$langFile['editor_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
-              <span class="info" style="font-size:11px;"><a href="'.$hostUrl.GeneralFunctions::createHref($pageContent).'" class="extern">'.$hostUrl.GeneralFunctions::createHref($pageContent).'</a></span>
+              <span class="info" style="font-size:11px;"><a href="'.$adminConfig['url'].GeneralFunctions::createHref($pageContent).'" class="extern">'.$adminConfig['url'].GeneralFunctions::createHref($pageContent).'</a></span>
               </td>
               </tr>';
       }
