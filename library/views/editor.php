@@ -202,7 +202,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
               <td class="left">
               <span class="info"><strong>'.$langFile['editor_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
-              <span class="info" style="font-size:11px;"><a href="'.$adminConfig['url'].GeneralFunctions::createHref($pageContent).'" class="extern">'.$adminConfig['url'].GeneralFunctions::createHref($pageContent).'</a></span>
+              <span class="info" style="font-size:11px;"><a href="'.GeneralFunctions::createHref($pageContent,false,true).'" class="extern">'.GeneralFunctions::createHref($pageContent,false,true).'</a></span>
               </td>
               </tr>';
       }

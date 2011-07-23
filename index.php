@@ -158,14 +158,14 @@ if($_GET['site'] == 'addons') {
   var currentSite = '<?= $_GET["site"]; ?>';
   var currentPage = '<?= $_GET["page"]; ?>';
   
-  /* transport for CKEditor feindura links */
+  /* transport pages for CKEditor feindura links */
   <?php
   if(!empty($_GET['page'])) {
     $getPages = GeneralFunctions::loadPages(true,true);
   ?>
-var feindura_pages = [
-['-',''],
-<?php foreach($getPages as $getPage) {
+  var feindura_pages = [
+  ['-',''],
+  <?php foreach($getPages as $getPage) {
     echo "['".str_replace("'",'',$getPage['title'])."','".$adminConfig['websitePath']."?page=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>

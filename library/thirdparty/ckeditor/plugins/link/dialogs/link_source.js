@@ -545,15 +545,17 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								type : 'select',
 								label : feindura_langFile['CKEDITOR_TITLE_LINKS'],
 								'default' : '',
+								items: feindura_pages,
 								onShow: function(){
 								  feindura_pages.each(function(page){
-                    if(page.contains(this.getDialog().getContentElement( 'info', 'url' ).getValue()))
+								    var pageHref = page[1].substring(page[1].indexOf('?'));
+								    var inputHref = this.getDialog().getContentElement( 'info', 'url' ).getValue().substring(this.getDialog().getContentElement( 'info', 'url' ).getValue().indexOf('?'));
+                    if(pageHref == inputHref) {
                      this.setValue(page[1]);
-                  },this); 
+                    }
+                  },this);
                 },
-                items: feindura_pages,
-								onChange : function()
-								{
+								onChange : function()	{
 								  var	urlCmb = this.getDialog().getContentElement( 'info', 'url' );
 									urlCmb.setValue( this.getValue() );
 								}

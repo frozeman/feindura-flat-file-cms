@@ -1429,7 +1429,7 @@ class GeneralFunctions {
   * 
   * @param array        $pageContent  the $pageContent array of a page
   * @param string|false $sessionId    (optional) the session ID string in the following format: "sessionName=sessionId"
-  * @param bool         $fullUrl      (optional) if TRUE it add also the URL to tha href path  
+  * @param bool         $fullUrl      (optional) if TRUE it add also the URL to the href path  
   * 
   * @uses $adminConfig    for the variabel names which the $_GET variable will use for category and page and the when speakingURLs, for the websitePath
   * @uses $categoryConfig for the category name if speaking URLs i activated

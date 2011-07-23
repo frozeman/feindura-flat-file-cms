@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.1
-Build 716
+Build 717
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
   
 1.1.1
   
+  build 717: fixed link.js, the link Dialog of the CKEditor
   build 716: fixed getDirname() method
   build 715: fixed xssFilter:url
   build 714: add reauired to chapta input in contact form
