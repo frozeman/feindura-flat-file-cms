@@ -1549,10 +1549,11 @@ class StatisticFunctions {
   * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a robot, or the $pageContent parameter is not a valid $pageContent array
   * 
   * @static
-  * @version 1.01
+  * @version 1.0.2
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.01 prevent save searchwords to be counted miltuple times
+  *    - 1.0.2 fixed scalar value returned from readPageStatistics()
+  *    - 1.0.1 prevent save searchwords to be counted miltuple times
   *    - 1.0 initial release
   * 
   */
@@ -1572,7 +1573,10 @@ class StatisticFunctions {
          
       // LOAD the $pageStatistics array
       $pageStatistics = GeneralFunctions::readPageStatistics($pageId);
-      if(!$pageStatistics) $pageStatistics['id'] = $pageId;
+      if(!is_array($pageStatistics)) {
+      	$pageStatistics = array();
+      	$pageStatistics['id'] = $pageId;
+      }
       
       // STORE last visited page IDs in a session array and the time
       $_SESSION['feindura']['log']['lastPages'][] = $pageStatistics['id'];      
