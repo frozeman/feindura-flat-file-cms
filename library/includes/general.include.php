@@ -24,8 +24,9 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 /**
  * The absolut path of the webserver
- */ 
-$_SERVER['DOCUMENT_ROOT'] = str_replace('\\','/',realpath((getenv('DOCUMENT_ROOT') && preg_match('#^'.preg_quote(realpath(getenv('DOCUMENT_ROOT'))).'#', realpath(__FILE__))) ? getenv('DOCUMENT_ROOT') : str_replace(dirname(@$_SERVER['SCRIPT_NAME']), '', str_replace(DIRECTORY_SEPARATOR, '/', dirname(__FILE__)))));
+ */
+// doesnt work on some webservers 
+//$_SERVER['DOCUMENT_ROOT'] = str_replace('\\','/',realpath((getenv('DOCUMENT_ROOT') && preg_match('#^'.preg_quote(realpath(getenv('DOCUMENT_ROOT'))).'#', realpath(__FILE__))) ? getenv('DOCUMENT_ROOT') : str_replace(dirname(@$_SERVER['SCRIPT_NAME']), '', str_replace(DIRECTORY_SEPARATOR, '/', dirname(__FILE__)))));
 define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT']);
 
 /**
