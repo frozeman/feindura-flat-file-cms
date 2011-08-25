@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.1
-Build 720
+Build 721
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 721: try to fix DOCUMENTROOT on windows IIS servers
   build 720: removed complicated $_SERVER['DOCUMENT_ROOT'] creation, just simple use the given docuement root
   build 719: fixed check in countAndSavePageStatistics when scalar value returned from readPageStatistics()
   
