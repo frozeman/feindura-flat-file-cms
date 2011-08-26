@@ -23,14 +23,22 @@ header('Content-Type:text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
 /**
- * The absolut path of the webserver
+ * Fix the $_SERVER['REQUEST_URI'] for IIS Server
  */
-if(empty($_SERVER['DOCUMENT_ROOT'])) {
-  $D_R_localpath=getenv("SCRIPT_NAME");
-  $D_R_absolutepath=realpath($D_R_localPath);
-  // a fix for Windows slashes
-  $D_R_absolutepath=str_replace("\\","/",$D_R_absolutepath);
-  $_SERVER['DOCUMENT_ROOT']=substr($D_R_absolutepath,0,strpos($D_R_absolutepath,$localpath));
+if (!isset($_SERVER['REQUEST_URI'])) {
+  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
+  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
+    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
+  }
+}
+
+/**
+ * The absolut path of the webserver, with fix for IIS Server
+ */
+if(!isset($_SERVER['DOCUMENT_ROOT'])) {
+  if ( empty($_SERVER['DOCUMENT_ROOT'] ) )
+  $_SERVER['DOCUMENT_ROOT'] = str_replace( '\\', '/', substr(
+    $_SERVER['SCRIPT_FILENAME'], 0, 0-strlen($_SERVER['PHP_SELF'])));
 }
 define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT']);
 
