@@ -104,14 +104,14 @@ function isAdmin() {
     $username = $_SESSION['feindura']['session']['username'];
     
     // check if the user exists
-    if(!empty($username)) {
-      if(array_key_exists($username,$GLOBALS['userConfig'])) {
-        
-        // check if the user is admin
-        return ($GLOBALS['userConfig'][$username]['admin'])
-          ? true
-          : false;
-        
+    if(!empty($username)) {      
+      foreach($GLOBALS['userConfig'] as $user) {
+        if($user['username'] == $username) {
+          // check if the user is admin
+          return ($user['admin'])
+            ? true
+            : false;
+        }          
       }
     }
   }

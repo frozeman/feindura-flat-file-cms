@@ -148,7 +148,7 @@ if($unwriteableList && checkBasePath()) {
                 $markPassword = (empty($user['password']))
                   ? ' class="toolTip red" title="'.$langFile['userSetup_password_missing'].'::"'
                   : '';
-          echo $userInfoPassword[$user['username']];
+          echo $userInfoPassword[$user['id']];
                 
           echo '<tr><td class="left">
                 <label for="users'.$user['id'].'password"'.$markPassword.'>'.$passwordTitle.'</label>

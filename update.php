@@ -17,7 +17,7 @@
  * update.php
  * 
  * for updating from 
- * 1.0 rc -> 1.1
+ * 1.0 rc -> 1.1.2
  *
  * @version 0.15
  */
@@ -25,7 +25,7 @@
 /**
  * Includes all necessary configs, functions and classes
  */
-$wrongDiractory = (include("library/includes/backend.include.php"))
+$wrongDirectory = (include("library/includes/backend.include.php"))
   ? false : true;
 
 // VARs
@@ -34,8 +34,8 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 // gets the version of the feindura CMS
 
-$oldVersion = '1.0 rc and 1.1rc*';
-$newVersion = '1.1';
+$oldVersion = '>= 1.0 rc';
+$newVersion = '1.1.2';
 
 ?>
 <!DOCTYPE html>
@@ -137,7 +137,7 @@ $newVersion = '1.1';
   //$basePath = preg_replace('#\/+#','/',$basePath);
   
   // WRONG PATH WARNING
-  if($wrongDiractory) {
+  if($wrongDirectory) {
     echo '<br /><span class="warning">You must place the "updater.php" file inside your <span class="feindura"><em>fein</em>dura</span> folder!</span>';
     $updatePossible = false;
   }
@@ -637,6 +637,23 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       echo '</span>';
       $succesfullUpdate = false;
     }
+    
+    
+    // ->> UPDATE from 1.1.1
+    if(!empty($userConfig) && is_array($userConfig)) {
+      $newUserConfig = array();
+      foreach($userConfig as $user) {
+        $newUserConfig[$user['id']] = $user;
+      }
+      
+      if(saveUserConfig($newUserConfig))
+        echo 'userConfig <span class="succesfull">succesfully updated</span><br />';
+      else {
+        echo 'userConfig <span class="notSuccesfull">could not be updated</span><br />';
+        $succesfullUpdate = false;
+      }
+    }    
+    
     
     // -> final success text or failure warning
     if($succesfullUpdate)

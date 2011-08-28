@@ -39,9 +39,15 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 
   // -> if user exits
   if(!empty($userConfig)) {
-  
-    if(!empty($_POST['username']) && array_key_exists($_POST['username'],$userConfig)) {
-      if(md5($_POST['password']) == $userConfig[$_POST['username']]['password']) {
+    
+    $currentUser = false;
+    foreach($userConfig as $user) {
+      if($user['username'] == $_POST['username'])
+        $currentUser = $user;
+    }
+    
+    if(!empty($_POST['username']) && $currentUser) {
+      if(md5($_POST['password']) == $currentUser['password']) {
         $_SESSION['feindura']['session']['username'] = $_POST['username'];
         $_SESSION['feindura']['session']['loggedIn'] = true;
         $_SESSION['feindura']['session']['host'] = HOST;
@@ -65,9 +71,15 @@ if(isset($_GET['logout']) || (isset($_SESSION['feindura']['session']['end']) && 
 if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['username'])) {
   $userConfig = @include("config/user.config.php");
   
-  if(array_key_exists($_POST['username'],$userConfig)) {
+  $currentUser = false;
+  foreach($userConfig as $user) {
+    if($user['username'] == $_POST['username'])
+      $currentUser = $user;
+  }
+  
+  if($currentUser) {
     
-    $userEmail = $userConfig[$_POST['username']]['email'];
+    $userEmail = $currentUser['email'];
     
     if(!empty($userEmail)) {
     
@@ -84,7 +96,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
       
       // change users password
       $newUserConfig = $userConfig;
-      $newUserConfig[$_POST['username']]['password'] = md5($newPassword);
+      $newUserConfig[$currentUser['id']]['password'] = md5($newPassword);
       
       // send mail with the new password
       if(saveUserConfig($newUserConfig)) {

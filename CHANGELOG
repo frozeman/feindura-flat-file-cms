@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1.1
-Build 722
+1.1.2
+Build 723
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
+
+1.1.2
   
+  build 723: changed user config style, keys are now only numbers, instead of the usernames
   build 722: fixed $_SERVER['REQUEST_URI'] for IIS Server
   build 721: try to fix DOCUMENTROOT on windows IIS servers
   build 720: removed complicated $_SERVER['DOCUMENT_ROOT'] creation, just simple use the given docuement root

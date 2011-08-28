@@ -41,7 +41,7 @@ if((isset($_POST['send']) && $_POST['send'] ==  'userSetup' && isset($_POST['cre
       $userConfig = array(); 
        
   // add a new user to the user array
-  $userConfig['UnnamedUser'] = array('id' => $newId);
+  $userConfig[$newId] = array('id' => $newId);
   if(saveUserConfig($userConfig)) {
      $userInfo = $langFile['userSetup_createUser_created'];
      StatisticFunctions::saveTaskLog(25); // <- SAVE the task in a LOG FILE
@@ -89,28 +89,28 @@ if(isset($_POST['send']) && $_POST['send'] == 'userSetup') {
   $newUserConfig = $_POST['users'];
   // prepare user POST data
   foreach($newUserConfig as $user => $configs) {
-    $newUserConfig[$configs['username']] = $configs;
-    unset($newUserConfig[$user]);
+    //$newUserConfig[$configs['id']] = $configs;
+    //unset($newUserConfig[$user]);
     $configs['password'] = XssFilter::text($configs['password']);
     $configs['password_confirm'] = XssFilter::text($configs['password_confirm']);
     
     // CHECK for password change
-    if(!empty($configs['password']) && $configs['password'] != $userConfig[$configs['username']]['password']) {
+    if(!empty($configs['password']) && $configs['password'] != $userConfig[$configs['id']]['password']) {
       // check confirmation
       if($configs['password'] == $configs['password_confirm']) {
-        $newUserConfig[$configs['username']]['password'] = md5($newUserConfig[$configs['username']]['password']);
+        $newUserConfig[$configs['id']]['password'] = md5($newUserConfig[$configs['id']]['password']);
         $userPassChanged = true;        
-        $userInfoPassword[$configs['username']] = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['userSetup_password_success'].'</span></td></tr>';
+        $userInfoPassword[$configs['id']] = '<tr><td clas="left"></td><td><span class="blue">'.$langFile['userSetup_password_success'].'</span></td></tr>';
       } else {
         $userInfo = $langFile['userSetup_password_confirm_wrong'];
-        $userInfoPassword[$configs['username']] = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';
-        $newUserConfig[$configs['username']]['password'] = $userConfig[$configs['username']]['password'];
+        $userInfoPassword[$configs['id']] = '<tr><td clas="left"></td><td><span class="red">'.$userInfo.'</span></td></tr>';
+        $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
       }
     } else
-      $newUserConfig[$configs['username']]['password'] = $userConfig[$configs['username']]['password'];
+      $newUserConfig[$configs['id']]['password'] = $userConfig[$configs['id']]['password'];
     
     // clear the password confirm var
-    unset($newUserConfig[$configs['username']]['password_confirm']);
+    unset($newUserConfig[$configs['id']]['password_confirm']);
     
     // get the username which was saved
     $savedUsername = ($_POST['savedUserId'] = $configs['id']) ? $configs['username'] : '';
