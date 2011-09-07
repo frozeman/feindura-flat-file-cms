@@ -20,6 +20,67 @@
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */
-require_once(dirname(__FILE__)."/../includes/secure.include.php");
+require_once(dirname(__FILE__)."/../includes/backend.include.php");
+
+// -> GET current USER
+$currentUser = false;
+foreach($userConfig as $user) {
+  if($user['username'] == $_POST['username'])
+    $currentUser = $user;
+}
+
+// ->> CHECK LOGIN
+if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
+  // return only TRUE, if an account will be add in the AddFeinduraViewController class
+  if($_POST['status'] == 'CHECK') die('TRUE');
+  
+  // ->> RETURN STATISTICS JSON OBJECT
+  elseif($_POST['status'] == 'FETCH') {
+    
+    $returnJSON = array();
+    $returnJSON['title'] = $websiteConfig['title'];
+    $returnJSON['statistics'] = array();
+    $returnJSON['statistics']['userVisitCount'] = $websiteStatistic['userVisitCount'];
+    $returnJSON['statistics']['robotVisitCount'] = $websiteStatistic['robotVisitCount'];
+    $returnJSON['statistics']['firstVisit'] = $websiteStatistic['firstVisit'];
+    $returnJSON['statistics']['lastVisit'] = $websiteStatistic['lastVisit'];
+    
+    // browser
+    $returnJSON['statistics']['browser'] = unserialize($websiteStatistic['browser']);
+    
+    // searchwords
+    $pagesStats = GeneralFunctions::loadPagesStatistics(true);  
+    $allSearchwords = array();
+    foreach($pagesStats as $pageStats) {
+      if(!empty($pageStats['searchWords'])) {
+        $allSearchwords = StatisticFunctions::addDataToDataString($allSearchwords,$pageStats['searchWords']);
+      }
+    }
+    $returnJSON['statistics']['searchWords'] = unserialize($allSearchwords);
+    
+    // pages
+    $pages = GeneralFunctions::loadPages(true,true);
+    $pagesArray = array();
+    foreach($pagesStats as $key => $pageStats) {
+      $tmpPage['data']['title'] = $pages[$key]['title'];
+      $tmpPage['data']['firstVisit'] = $pageStats['firstVisit'];
+      $tmpPage['data']['lastVisit'] = $pageStats['lastVisit'];
+      $tmpPage['data']['visitTimeMin'] = unserialize($pageStats['visitTimeMin']);
+      $tmpPage['data']['visitTimeMax'] = unserialize($pageStats['visitTimeMax']);
+      $tmpPage['number'] = $pageStats['visitorCount'];
+      
+      $pagesArray[] = $tmpPage;
+    }
+    $returnJSON['statistics']['pages'] = $pagesArray;
+    
+    
+    // add refere
+    // add activity
+    
+    $returnJSON = json_encode($returnJSON);
+    die($returnJSON);
+  }
+} else
+  die('FALSE');
 
 ?>

@@ -33,7 +33,7 @@ $category = $_POST['category'];
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $_SESSION['feindura']['language']; ?>">
+<html lang="<?php echo $_SESSION['feinduraSession']['language']; ?>">
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" type="text/css" href="../styles/windowBox.css" media="screen" />

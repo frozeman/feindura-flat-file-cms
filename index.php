@@ -32,7 +32,7 @@ require_once(dirname(__FILE__)."/library/processes.loader.php");
 // VARs
 // -----------------------------------------------------------------------------------
 // store the current location, this will be used when the user comes back from the frontend
-$_SESSION['feindura']['session']['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
+$_SESSION['feinduraSession']['login']['currentBackendLocation'] = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI'];
 
 // if feindura starts first set page to 'dashboard'
 if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
@@ -40,10 +40,10 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?= $_SESSION['feindura']['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="<?= $_SESSION['feinduraSession']['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="content-language" content="<?php echo $_SESSION['feindura']['language']; ?>" />
+  <meta http-equiv="content-language" content="<?php echo $_SESSION['feinduraSession']['language']; ?>" />
   
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
@@ -138,7 +138,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feindura']['language']; ?>.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['language']; ?>.js"></script>
 <?php } ?>
  
   <!-- javascripts -->
@@ -177,7 +177,7 @@ if($_GET['site'] == 'addons') {
     var fileManager = new FileManager({
         url: 'library/controllers/filemanager.controller.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
-        language: '<?= $_SESSION["feindura"]["language"]; ?>',
+        language: '<?= $_SESSION["feinduraSession"]["language"]; ?>',
         destroy: true,
         upload: true,
         move_or_copy: true,
@@ -218,13 +218,13 @@ if($_GET['site'] == 'addons') {
     });
     <?php }
     
-    if(!empty($userConfig) && isset($_SESSION['feindura']['session']['end'])) {
+    if(!empty($userConfig) && isset($_SESSION['feinduraSession']['login']['end'])) {
     ?>
     // ->> starts the session counter
     var div = $('sessionTimer'),
     coundown = new CountDown({
       //initialized 30s from now
-      date: new Date(<?= $_SESSION['feindura']['session']['end'].'000'; ?>),
+      date: new Date(<?= $_SESSION['feinduraSession']['login']['end'].'000'; ?>),
       //update every 100ms
       frequency: 1000,
       //update the div#counter

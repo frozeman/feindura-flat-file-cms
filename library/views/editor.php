@@ -607,8 +607,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars
-      	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feindura']['language'].'.php'))
-      	  ? $_SESSION['feindura']['language']
+      	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['language'].'.php'))
+      	  ? $_SESSION['feinduraSession']['language']
       	  : 'en';
         unset($pluginConfig,$pluginLangFile);
         $pluginFolderName = basename($pluginFolder);       

@@ -1062,7 +1062,7 @@ class Feindura extends FeinduraBase {
         $metaTags .= '  <link rel="stylesheet" type="text/css" href="'.$this->adminConfig['basePath'].'library/thirdparty/MooRTE/feinduraSkin/rteFeinduraSkin.css" />'."\n";
         
         // -> move body padding, if frontend edititng is not deactivated
-        if(!$_SESSION['feindura']['session']['deactivateFrontendEditing'])
+        if(!$_SESSION['feinduraSession']['login']['deactivateFrontendEditing'])
           $metaTags .= '<style type="text/css" id="feindura_bodyStyle">
    body {
      padding-top: 60px !important;
@@ -1095,8 +1095,8 @@ class Feindura extends FeinduraBase {
   // transport feindura PHP vars to javascript
   var feindura_url =                       '".$this->adminConfig['url']."';
   var feindura_basePath =                  '".$this->adminConfig['basePath']."';
-  var feindura_currentBackendLocation =    '".$_SESSION['feindura']['session']['currentBackendLocation']."';
-  var feindura_deactivateFrontendEditing = '".$_SESSION['feindura']['session']['deactivateFrontendEditing']."';
+  var feindura_currentBackendLocation =    '".$_SESSION['feinduraSession']['login']['currentBackendLocation']."';
+  var feindura_deactivateFrontendEditing = '".$_SESSION['feinduraSession']['login']['deactivateFrontendEditing']."';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:      \"".$this->languageFile['errorWindow_h1']."\",
     ERROR_SAVE:             \"".$this->languageFile['editor_savepage_error_save']."\",

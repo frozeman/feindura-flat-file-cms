@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.2
-Build 723
+Build 724
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1.2
   
+  build 724: changed feindura session key word due to an issue with some php installations, fixed data to add, and add new feindura webmaster tool features
   build 723: changed user config style, keys are now only numbers, instead of the usernames
   build 722: fixed $_SERVER['REQUEST_URI'] for IIS Server
   build 721: try to fix DOCUMENTROOT on windows IIS servers

@@ -29,9 +29,9 @@ if(isset($_POST['password'])) $_POST['password'] = XssFilter::text($_POST['passw
 
 // -> if NO USER EXISTS
 if(empty($userConfig)) {
-  $_SESSION['feindura']['session']['username'] = false;
-  $_SESSION['feindura']['session']['loggedIn'] = true;
-  $_SESSION['feindura']['session']['host'] = HOST;
+  $_SESSION['feinduraSession']['login']['username'] = false;
+  $_SESSION['feinduraSession']['login']['loggedIn'] = true;
+  $_SESSION['feinduraSession']['login']['host'] = HOST;
 }
 
 // ->> LOGIN FORM SEND
@@ -48,10 +48,10 @@ if(isset($_POST) && $_POST['action'] == 'login') {
     
     if(!empty($_POST['username']) && $currentUser) {
       if(md5($_POST['password']) == $currentUser['password']) {
-        $_SESSION['feindura']['session']['username'] = $_POST['username'];
-        $_SESSION['feindura']['session']['loggedIn'] = true;
-        $_SESSION['feindura']['session']['host'] = HOST;
-        $_SESSION['feindura']['session']['end'] = time() + $sessionLifeTime; // $sessionLifeTime is set in the backend.include.php
+        $_SESSION['feinduraSession']['login']['username'] = $_POST['username'];
+        $_SESSION['feinduraSession']['login']['loggedIn'] = true;
+        $_SESSION['feinduraSession']['login']['host'] = HOST;
+        $_SESSION['feinduraSession']['login']['end'] = time() + $sessionLifeTime; // $sessionLifeTime is set in the backend.include.php
       } else
         $loginError = $langFile['LOGIN_ERROR_WRONGPASSWORD'];
     } else
@@ -61,9 +61,9 @@ if(isset($_POST) && $_POST['action'] == 'login') {
 }
 
 // -> LOGOUT
-if(isset($_GET['logout']) || (isset($_SESSION['feindura']['session']['end']) && $_SESSION['feindura']['session']['end'] <= time())) { // automatically logout after 5 hours
-  $_SESSION['feindura']['session'] = array();
-  unset($_SESSION['feindura']['session']);
+if(isset($_GET['logout']) || (isset($_SESSION['feinduraSession']['login']['end']) && $_SESSION['feinduraSession']['login']['end'] <= time())) { // automatically logout after 5 hours
+  $_SESSION['feinduraSession']['login'] = array();
+  unset($_SESSION['feinduraSession']['login']);
   $loggedOut = true;
 }
 
@@ -118,7 +118,7 @@ if(isset($_POST) && $_POST['action'] == 'resetPassword' && !empty($_POST['userna
 // LOG
 echo session_name().'<br />';
 echo 'server host: '.HOST.'<br />';
-echo 'storedID: '.$_SESSION['feindura']['session']['host'].'<br />';
+echo 'storedID: '.$_SESSION['feinduraSession']['login']['host'].'<br />';
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
@@ -126,8 +126,8 @@ echo '</pre>';
 
 // ->> CHECK if user is logged in
 // *****************************************************
-if($_SESSION['feindura']['session']['loggedIn'] === true &&
-   $_SESSION['feindura']['session']['host'] === HOST) {
+if($_SESSION['feinduraSession']['login']['loggedIn'] === true &&
+   $_SESSION['feinduraSession']['login']['host'] === HOST) {
    // does nothing :-)
 
 // ->> SHOW LOGIN FORM

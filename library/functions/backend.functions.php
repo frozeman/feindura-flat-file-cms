@@ -101,7 +101,7 @@ function isAdmin() {
   
   if(!empty($GLOBALS['userConfig'])) {
     
-    $username = $_SESSION['feindura']['session']['username'];
+    $username = $_SESSION['feinduraSession']['login']['username'];
     
     // check if the user exists
     if(!empty($username)) {      
@@ -209,8 +209,8 @@ function userCache() {
         
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
-          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location.$edit;
-          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
+          $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$location.$edit;
+          $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feinduraSession']['login']['username'], 'location' => $location);
           if($free) $addArray['edit'] = true;
           $return[] = $addArray;
           $stored = true;
@@ -227,8 +227,8 @@ function userCache() {
   // STORE NEW CACHE LINE
   if($stored === false && !empty($location)) {
     $edit = ($free) ? '|#|edit' : false;
-    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feindura']['session']['username'].'|#|'.$location.$edit;
-    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feindura']['session']['username'], 'location' => $location);
+    $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$location.$edit;
+    $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feinduraSession']['login']['username'], 'location' => $location);
     if($free) $addArray['edit'] = true;
     $return[] = $addArray;
   }

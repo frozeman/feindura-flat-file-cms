@@ -81,7 +81,7 @@ if($_POST['save'] && isBlocked() === false) {
   
     // speichert den inhalt in der flatfile
     $_POST['lastSaveDate'] = time();
-    $_POST['lastSaveAuthor'] = $_SESSION['feindura']['session']['username'];
+    $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['username'];
     $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     

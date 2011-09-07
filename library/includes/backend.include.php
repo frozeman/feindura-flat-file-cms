@@ -118,13 +118,13 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
 // and includes the langFile
 
 // -> check language
-//unset($_SESSION['feindura']['language']);
+//unset($_SESSION['feinduraSession']['language']);
 if(isset($_GET['language'])) $_GET['language'] = XssFilter::alphabetical($_GET['language']);
-if(isset($_SESSION['feindura']['language'])) $_SESSION['feindura']['language'] = XssFilter::alphabetical($_SESSION['feindura']['language']);
-if(isset($_GET['language'])) $_SESSION['feindura']['language'] = $_GET['language'];
+if(isset($_SESSION['feinduraSession']['language'])) $_SESSION['feinduraSession']['language'] = XssFilter::alphabetical($_SESSION['feinduraSession']['language']);
+if(isset($_GET['language'])) $_SESSION['feinduraSession']['language'] = $_GET['language'];
 
-$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feindura']['language']);
-$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feindura']['language']);
+$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['language']);
+$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['language']);
 
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);

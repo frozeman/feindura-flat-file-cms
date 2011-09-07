@@ -62,9 +62,9 @@ if($_POST['save'] == 'true') {
 // -----------------------------------------------------------------------------
 if($_POST['deactivateFrontendEditing']) {
   if($_POST['deactivateFrontendEditing'] == 'true')
-    $_SESSION['feindura']['session']['deactivateFrontendEditing'] = true;
+    $_SESSION['feinduraSession']['login']['deactivateFrontendEditing'] = true;
   if($_POST['deactivateFrontendEditing'] == 'false')
-    unset($_SESSION['feindura']['session']['deactivateFrontendEditing']);
+    unset($_SESSION['feinduraSession']['login']['deactivateFrontendEditing']);
 }
 
 ?>
