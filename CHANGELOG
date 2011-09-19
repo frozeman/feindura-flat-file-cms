@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.2
-Build 724
+Build 725
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
+
+  build 725: xss filter the language var
 
 1.1.2
   
