@@ -601,11 +601,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $checkFiles[] = dirname(__FILE__).'/statistic/visit.statistic.cache';
     if(!unlink(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php') &&
       is_file(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';
-      // from 1.1.2
-    if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php') &&
-      is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php';
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';      
 
     
     // delete lowercase class names
