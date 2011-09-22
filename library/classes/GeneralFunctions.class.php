@@ -316,7 +316,7 @@ class GeneralFunctions {
   * 
   */
   public static function getDirname($dir) {
-    if(!empty($dir) && (strpos($dir,'.') !== false || substr($dir,-1) != '/'))
+    if(!empty($dir) && ((strpos($dir,'.') !== false && (strlen($dir) - strpos($dir,'.') <= 5)) && substr($dir,-1) != '/'))
       return preg_replace('#/+#','/',str_replace('\\','/',dirname($dir)).'/');
     else
       return $dir;

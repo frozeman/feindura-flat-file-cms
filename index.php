@@ -386,6 +386,7 @@ if($_GET['site'] == 'addons') {
       }
     }
     
+
     $showCreatePage = ($generallyCreatePages || //&& $_GET['site'] == 'pages'
                        (!empty($_GET['page']) &&
                        ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
@@ -408,7 +409,7 @@ if($_GET['site'] == 'addons') {
       
      // -> CHEACK if show DELETE PAGE
     $showDeletePage = (!$newPage && empty($_GET['site']) && !empty($_GET['page']) && $_GET['page'] != 'new') ? true : false;
-    
+
     ?>
     
     <!-- ************************************************************************* -->
