@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.2
-Build 724
+Build 726
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,9 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
+  build 726: add feinduraWebmasterTool-0.1.controller.php
+  build 725: xss filter the language var
+  
 1.1.2
   
   build 724: changed feindura session key word due to an issue with some php installations, fixed data to add, and add new feindura webmaster tool features
