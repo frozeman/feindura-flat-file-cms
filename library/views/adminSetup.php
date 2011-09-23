@@ -344,7 +344,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       </colgroup>
 
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if(!isset($adminConfig['editor']['safeHtml']) || $adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
       <label for="cfg_editorSafeHtml" class="toolTip" title="::<?= $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?= $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></label><br />
       </td></tr>
