@@ -1714,6 +1714,9 @@ class GeneralFunctions {
   */
   public static function htmLawed($string, $config = false) {
     
+    if(!self::$adminConfig['editor']['htmlLawed'])
+      return $string;
+    
     // default
     $htmlLawedConfig = array(
       'comment' => 2,

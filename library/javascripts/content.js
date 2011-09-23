@@ -89,6 +89,16 @@ function addField(containerId,inputName) {
     return false;
 }
 
+function disableSafeHtml(checkbox) {
+  if(checkbox.checked) {
+    $('cfg_editorSafeHtml').disabled = false;
+    $('cfg_editorSafeHtml').retrieve('fancyform_replacment').removeClass('fancyform_disabled')
+  } else {
+    $('cfg_editorSafeHtml').disabled = true;
+    $('cfg_editorSafeHtml').retrieve('fancyform_replacment').addClass('fancyform_disabled');
+  }
+}
+
 // ------------------------------------------------------------------------------
 // SET UP the REALTIME THUMBNAIL SIZE SCALE, all given vars are the object IDs
 function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) {
@@ -1111,6 +1121,8 @@ window.addEvent('domready', function() {
   // set depency for page sortingByDate
   feinduraFancyForm.setDepency($('cfg_pageSortByPageDate'),$('cfg_pagePageDate'));
   feinduraFancyForm.setDepency($('cfg_pagePageDate'),$('cfg_pageSortByPageDate'),false,false);
+  // set depency for page editorHtmlLawed
+  feinduraFancyForm.setDepency($('cfg_editorHtmlLawed'),$('cfg_editorSafeHtml'),false,false);
   
   
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------

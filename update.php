@@ -274,6 +274,7 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     $adminConfig['pages']['createDelete'] = (isset($adminConfig['pages']['createdelete'])) ? $adminConfig['pages']['createdelete'] : $adminConfig['pages']['createDelete'];
     $adminConfig['user']['editStyleSheets'] = (isset($adminConfig['user']['editStylesheets'])) ? $adminConfig['user']['editStylesheets'] : $adminConfig['user']['editStyleSheets'];
     if(!isset($adminConfig['editor']['safeHtml'])) $adminConfig['editor']['safeHtml'] = false;
+    if(!isset($adminConfig['editor']['htmlLawed'])) $adminConfig['editor']['htmlLawed'] = true;
     
     // save all activated plugins as serialized string
     if($adminConfig['pages']['plugins'] === true || $adminConfig['pages']['plugins'] === 'true')

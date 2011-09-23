@@ -438,8 +438,10 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'If you don\'t want
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Settings';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED'] = 'filter HTML (uses <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED'] = 'Filters the HTML code before saving. This can cause problems in HTML code with a lot of Javascript.';
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML'] = 'safe HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">details</a>)';
-$langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML'] = 'The HTML-Code will be filtered with the safest settings. That means tha for example &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; and &lt;script&gt; tags are not allowed.';
+$langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML'] = 'The HTML-Code will be filtered with the safest settings. That means that for example &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; and &lt;script&gt; tags are not allowed.';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Key mode';
 $langFile['adminSetup_editorSettings_field1_hint'] = 'SHIFT + ENTER always generates a &quot;&lt;br&gt;&quot;';
 $langFile['adminSetup_editorSettings_field1_tip'] = 'Sets which HTML-Tag will be add when pressing the ENTER-Key in the HTML-Editor.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';

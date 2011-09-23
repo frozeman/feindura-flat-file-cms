@@ -342,9 +342,15 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       <colgroup>
       <col class="left" />
       </colgroup>
+      
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_editorHtmlLawed" name="cfg_editorHtmlLawed" onclick="disableSafeHtml(this);" value="true"<?php if($adminConfig['editor']['htmlLawed']) echo ' checked="checked"'; ?> /><br />
+      </td><td class="right checkboxes">
+      <label for="cfg_editorHtmlLawed" class="toolTip" title="::<?= $langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED']; ?>"><?= $langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED']; ?></label><br />
+      </td></tr>
 
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
+      <input type="checkbox" id="cfg_editorSafeHtml" name="cfg_editorSafeHtml" value="true"<?php if(!$adminConfig['editor']['htmlLawed']) echo ' disabled="disabled"';if($adminConfig['editor']['safeHtml']) echo ' checked="checked"'; ?> /><br />
       </td><td class="right checkboxes">
       <label for="cfg_editorSafeHtml" class="toolTip" title="::<?= $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']; ?>"><?= $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']; ?></label><br />
       </td></tr>

@@ -436,6 +436,8 @@ $langFile['ADMINSETUP_USERPERMISSIONS_textarea1_inputTip'] = 'Wenn Du keine Info
 
 // ---------- editor Settings
 $langFile['adminSetup_editorSettings_h1'] = 'HTML-Editor-Einstellungen';
+$langFile['ADMINSETUP_TEXT_EDITOR_HTMLLAWED'] = 'HTML filtern (verwendet <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">htmlLawed</a>)';
+$langFile['ADMINSETUP_TIP_EDITOR_HTMLLAWED'] = 'Filtert den HTML-Code bevor er gespeichert wird, das kann jedoch bei HTML-Code mit viel Javascript zu Problemen führen.';
 $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML'] = 'sicheres HTML (<a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm#s3.6">Details</a>)';
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML'] = 'Dadurch wird der HTML-Code mit den sichersten Einstellungen gefiltert, d.h. zum Beispiel dass keine &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; und &lt;script&gt; Tags erlaubt sind.';
 $langFile['adminSetup_editorSettings_field1'] = 'ENTER-Taste Modus';

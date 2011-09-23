@@ -778,6 +778,7 @@ function saveAdminConfig($adminConfig) {
     fwrite($file,"\$adminConfig['pages']['sorting'] =      '".XssFilter::alphabetical($adminConfig['pages']['sorting'],'manually')."';\n");
     fwrite($file,"\$adminConfig['pages']['sortReverse'] =  ".XssFilter::bool($adminConfig['pages']['sortReverse'],true).";\n\n");
     
+    fwrite($file,"\$adminConfig['editor']['htmlLawed'] =  ".XssFilter::bool($adminConfig['editor']['htmlLawed'],true).";\n");
     fwrite($file,"\$adminConfig['editor']['safeHtml'] =   ".XssFilter::bool($adminConfig['editor']['safeHtml'],true).";\n");
     fwrite($file,"\$adminConfig['editor']['enterMode'] =  '".XssFilter::alphabetical($adminConfig['editor']['enterMode'])."';\n");
     fwrite($file,"\$adminConfig['editor']['styleFile'] =  '".$adminConfig['editor']['styleFile']."';\n"); // XssFilter is in prepareStyleFilePaths() function

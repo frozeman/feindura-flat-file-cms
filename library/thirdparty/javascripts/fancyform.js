@@ -154,14 +154,16 @@ var FancyForm = new Class ({
 				if(typeOf(c.retrieve('fancyform_depencies')) == 'elements') {
 				  c.retrieve('fancyform_depencies').each(function(depency) {
 				    var depencyReplacement = depency.retrieve('fancyform_replacment');
-				    if(depencyReplacement.hasClass('fancyform_disabled'))
-		          return;
+				    /*
+            if(depency.disabled)
+            		          return;
+            */
 		        var elementValue = depency.retrieve('fancyform_checkElement_-' + c.retrieve('fancyform_uniqueID'));   
-				    var depencyValue = depency.retrieve('fancyform_checkDepencies_-' + c.retrieve('fancyform_uniqueID')); 
-				    if(depencyValue === true && c.getProperty('checked') == elementValue &&
+				    var depencyValue = depency.retrieve('fancyform_checkDepencies_-' + c.retrieve('fancyform_uniqueID'));
+				    if(depencyValue === true && c.checked == elementValue &&
                (depencyReplacement.hasClass('fancyform_unchecked') || depencyReplacement.hasClass('fancyform_unselected')))
               depency.setProperty('checked', 'checked');
-            else if(depencyValue === false && c.getProperty('checked') == elementValue &&
+            else if(depencyValue === false && c.checked == elementValue &&
                     (depencyReplacement.hasClass('fancyform_checked') || depencyReplacement.hasClass('fancyform_selected')))
               depency.removeProperty('checked');
 			      this.update(depencyReplacement);

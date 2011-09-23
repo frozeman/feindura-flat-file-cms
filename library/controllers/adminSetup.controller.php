@@ -53,6 +53,10 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
       $_POST['cfg_varNameModul'] = 'modul';
   }
   
+  // -> check Filter settings
+  if(empty($_POST['cfg_editorHtmlLawed']))
+    unset($_POST['cfg_editorSafeHtml']);
+  
   // -> add <br> to the USER-INFO and check html code
   $_POST['cfg_userInfo'] = nl2br($_POST['cfg_userInfo']);
   $_POST['cfg_userInfo'] = GeneralFunctions::htmLawed($_POST['cfg_userInfo'],array(
@@ -99,6 +103,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   //$adminConfig['pages']['plugins'] = $_POST['cfg_pagePlugins'];
   //$adminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
   
+  $adminConfig['editor']['htmlLawed'] = $_POST['cfg_editorHtmlLawed'];
   $adminConfig['editor']['safeHtml'] = $_POST['cfg_editorSafeHtml'];
   $adminConfig['editor']['enterMode'] = $_POST['cfg_editorEnterMode'];
   $adminConfig['editor']['styleFile'] = prepareStyleFilePaths($_POST['cfg_editorStyleFile']);
