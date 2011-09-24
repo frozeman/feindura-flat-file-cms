@@ -460,11 +460,11 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       flock($statisticFile,LOCK_EX);        
       fwrite($statisticFile,PHPSTARTTAG);  
             
-      fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    '".$websiteStatistic["userVisitCount"]."';\n");
-      fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  '".$websiteStatistic["robotVisitCount"]."';\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".$websiteStatistic["userVisitCount"].";\n");
+      fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =  ".$websiteStatistic["robotVisitCount"].";\n\n");
       
-      fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        '".$websiteStatistic["firstVisit"]."';\n");
-      fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         '".$websiteStatistic["lastVisit"]."';\n\n");
+      fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".$websiteStatistic["firstVisit"].";\n");
+      fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".$websiteStatistic["lastVisit"].";\n\n");
       
       fwrite($statisticFile,"\$websiteStatistic['browser'] =      '".$websiteStatistic["browser"]."';\n\n");
       
