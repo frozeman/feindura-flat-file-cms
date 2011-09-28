@@ -1403,7 +1403,7 @@ class StatisticFunctions {
       if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","wb")) {
         
         flock($statisticFile,LOCK_EX);
-        fwrite($statisticFile,PHPSTARTTAG);  
+        fwrite($statisticFile,PHPSTARTTAG);
               
         fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n");
         fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =   ".XssFilter::int(self::$websiteStatistic["robotVisitCount"],0).";\n\n");
@@ -1637,7 +1637,7 @@ class StatisticFunctions {
           
           preg_match('/('.implode('|', array_keys($search_engines)).')\./', $parts['host'], $matches);
           $searchWords = (isset($matches[1]) && isset($query[$search_engines[$matches[1]]])) ? $query[$search_engines[$matches[1]]] : '';
-          echo '-> '.$searchWords;
+/*           echo '-> '.$searchWords; */
           $searchWords = explode(' ',$searchWords);
           
           // gos through searchwords and check if there already saved

@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.2
-Build 730
+Build 731
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 731: forgot to remove a debugging echo
   build 730: changed the input's css of the contactForm plugin to % values
   build 729: add htmlLawed settings switch
   build 728: fixed the safeHTML switch
