@@ -209,14 +209,18 @@ function userCache() {
         
         if($cachedLineArray[0] == IDENTITY) {
           $edit = ($free) ? '|#|edit' : false;
+          
           $newLines[] = IDENTITY.'|#|'.$timeStamp.'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$location.$edit;
           $addArray = array('identity' => IDENTITY, 'timestamp' => $timeStamp, 'username' => $_SESSION['feinduraSession']['login']['username'], 'location' => $location);
+          
           if($free) $addArray['edit'] = true;
           $return[] = $addArray;
           $stored = true;
         } elseif(!empty($cachedLineArray[0])) {
           $newLines[] = $cachedLine;
+          
           $addArray = array('identity' => $cachedLineArray[0], 'timestamp' => $cachedLineArray[1], 'username' => $cachedLineArray[2], 'location' => trim($cachedLineArray[3]));
+          
           if(isset($cachedLineArray[4])) $addArray['edit'] = true;
           $return[] = $addArray;
         }

@@ -21,7 +21,9 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-  
+
+1.1.3
+
   build 731: forgot to remove a debugging echo
   build 730: changed the input's css of the contactForm plugin to % values
   build 729: add htmlLawed settings switch

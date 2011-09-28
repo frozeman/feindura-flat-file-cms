@@ -17,7 +17,7 @@
  * update.php
  * 
  * for updating from 
- * 1.0 rc -> 1.1.2
+ * 1.0 rc -> 1.1.3
  *
  * @version 0.15
  */
@@ -35,7 +35,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 // gets the version of the feindura CMS
 
 $oldVersion = '>= 1.0 rc';
-$newVersion = '1.1.2';
+$newVersion = '1.1.3';
 
 ?>
 <!DOCTYPE html>
@@ -602,7 +602,11 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $checkFiles[] = dirname(__FILE__).'/statistic/visit.statistic.cache';
     if(!unlink(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php') &&
       is_file(dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php'))
-      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';      
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/PHP/sessionLister.php';
+    // since 1.1.2
+    if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php') &&
+      is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/controllers/feinduraWebmasterTool.controller.php';  
 
     
     // delete lowercase class names
