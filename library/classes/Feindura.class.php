@@ -828,7 +828,7 @@ class Feindura extends FeinduraBase {
  /**
   * <b>Name</b>     getLanguage()<br />
   * 
-  * Returns the {@link $language language country code} which was set in the feindura:FeinduraBase() constructor.
+  * Returns the {@link $language language country code} which was set in the {@link feinduraBase:__construct()}.
   * 
   * @uses FeinduraBase::$language	the language country code like "en", "de", ... which will be returned
   * 
@@ -852,7 +852,7 @@ class Feindura extends FeinduraBase {
   * <b>Name</b>     getLanguageFile()<br />
   * 
   * 
-  * Check a specific directory for files which have a language code inside the filename (see <var>$filename</var> parameter). hen a matching file is found it includes these and return it.
+  * Check a specific directory for files which have a language code inside the filename (see <var>$filename</var> parameter). When a matching file is found it includes these and return it.
   * If no match could be found it try to find a file with the browser language code, if this didnt work either it uses the <var>$standardLang</var> parameter.
   * 
   * Example of a language file
@@ -958,7 +958,7 @@ class Feindura extends FeinduraBase {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n";
 
       // -> create TITLE
-      if($currentPage = GeneralFunctions::readPage($this->page,$this->category))
+      if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
         $pageNameInTitle = strip_tags($currentPage['title']).' - ';
       
       // -> add TITLE
