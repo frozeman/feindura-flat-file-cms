@@ -1077,8 +1077,10 @@ class GeneralFunctions {
     if($category === true) {
     	// puts the categories IDs in an array
     	$category = array(0); // start with the non category
-    	foreach(self::$categoryConfig as $eachCategory) {
-    	  $category[] = $eachCategory['id'];
+    	if(is_array(self::$categoryConfig)) {
+      	foreach(self::$categoryConfig as $eachCategory) {
+      	  $category[] = $eachCategory['id'];
+      	}
     	}
     }
     

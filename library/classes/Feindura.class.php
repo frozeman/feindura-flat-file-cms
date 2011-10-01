@@ -958,7 +958,7 @@ class Feindura extends FeinduraBase {
         $metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n";
 
       // -> create TITLE
-      if($this->getCurrentPageId() && ($currentPage = GeneralFunctions::readPage($this->page,$this->category)))
+      if($currentPage = GeneralFunctions::readPage($this->page,$this->category))
         $pageNameInTitle = strip_tags($currentPage['title']).' - ';
       
       // -> add TITLE
