@@ -22,6 +22,7 @@
 header('Content-Type:text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
+
 // ->> get CONFIGS
 /**
  * The administrator-settings config
