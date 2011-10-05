@@ -35,12 +35,7 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 /**
  * The absolut path of the webserver, with fix for IIS Server
  */
-if(!isset($_SERVER['DOCUMENT_ROOT'])) {
-  if ( empty($_SERVER['DOCUMENT_ROOT'] ) )
-  $_SERVER['DOCUMENT_ROOT'] = str_replace( '\\', '/', substr(
-    $_SERVER['SCRIPT_FILENAME'], 0, 0-strlen($_SERVER['PHP_SELF'])));
-}
-define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT']);
+define('DOCUMENTROOT', str_replace(dirname($_SERVER['SCRIPT_NAME']).'/library/includes/general.include.php','',__FILE__));
 
 /**
  * The required PHP version
