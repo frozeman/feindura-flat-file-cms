@@ -22,62 +22,6 @@
 header('Content-Type:text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
-/**
- * Fix the $_SERVER['REQUEST_URI'] for IIS Server
- */
-if (!isset($_SERVER['REQUEST_URI'])) {
-  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
-  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
-    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
-  }
-}
-
-/**
- * The absolut path of the webserver, with fix for IIS Server
- */
-define('DOCUMENTROOT', str_replace(dirname($_SERVER['SCRIPT_NAME']).'/library/includes/general.include.php','',__FILE__));
-
-/**
- * The required PHP version
- */ 
-define('REQUIREDPHPVERSION','5.1');
-
-/**
- * The host of feindura
- */ 
-define('HOST', $_SERVER['SERVER_NAME']);
-
-/**
- * The identity of the user
- */ 
-if($_SERVER['REMOTE_ADDR'] == '::1') $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
-
-$phpTags = file(dirname(__FILE__)."/../includes/phpTags.include.php");
-/**
- * The php start tag for us in saveing functions
- */ 
-define('PHPSTARTTAG',$phpTags[0]."\n");
-/**
- * The php end tag for us in saveing functions
- */ 
-define('PHPENDTAG',"\n".$phpTags[1]);
-
-// -> GET VERSION and BUILD nr
-$changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
-$version = trim($changelogFile[2]);
-$buildNr = explode(' ',$changelogFile[3]);
-
-/**
- * The version of feindura
- */ 
-define('VERSION',$version);
-
-/**
- * The build number of feindura
- */ 
-define('BUILD',trim($buildNr[1]));
-
 // ->> get CONFIGS
 /**
  * The administrator-settings config
@@ -162,6 +106,63 @@ if($fp = @fopen(dirname(__FILE__).'/../../statistic/website.statistic.php','r'))
 } else
   $websiteStatistic = array();
 $GLOBALS['websiteStatistic'];
+
+
+/**
+ * Fix the $_SERVER['REQUEST_URI'] for IIS Server
+ */
+if (!isset($_SERVER['REQUEST_URI'])) {
+  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
+  if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
+    $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
+  }
+}
+
+/**
+ * The absolut path of the webserver, with fix for IIS Server
+ */
+define('DOCUMENTROOT', str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__));
+
+/**
+ * The required PHP version
+ */ 
+define('REQUIREDPHPVERSION','5.1');
+
+/**
+ * The host of feindura
+ */ 
+define('HOST', $_SERVER['SERVER_NAME']);
+
+/**
+ * The identity of the user
+ */ 
+if($_SERVER['REMOTE_ADDR'] == '::1') $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
+
+$phpTags = file(dirname(__FILE__)."/../includes/phpTags.include.php");
+/**
+ * The php start tag for us in saveing functions
+ */ 
+define('PHPSTARTTAG',$phpTags[0]."\n");
+/**
+ * The php end tag for us in saveing functions
+ */ 
+define('PHPENDTAG',"\n".$phpTags[1]);
+
+// -> GET VERSION and BUILD nr
+$changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
+$version = trim($changelogFile[2]);
+$buildNr = explode(' ',$changelogFile[3]);
+
+/**
+ * The version of feindura
+ */ 
+define('VERSION',$version);
+
+/**
+ * The build number of feindura
+ */ 
+define('BUILD',trim($buildNr[1]));
 
 
 // ->> autoload CLASSES
