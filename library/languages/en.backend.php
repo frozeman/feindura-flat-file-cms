@@ -806,7 +806,7 @@ $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'] = 'Backup before the restor
 
 $langFile['BACKUP_BUTTON_DOWNLOAD'] = 'create current backup';
 $langFile['BACKUP_TEXT_BACKUP'] = 'A backup creates a <code>.zip</code> file with the <span class="blue">"pages","config"</span> and <span class="blue">"statistic"</span> folders.<br />The upload folder will not be saved.';
-$langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="blue">A backup of the current state will be created before the backup.</ span>';
+$langFile['BACKUP_TEXT_RESTORE'] = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br /><span class="blue">A backup of the current state will be created before the restore.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE'] = 'Delete backup';
 $langFile['BACKUP_TEXT_DELETE_QUESTION1'] = 'Really delete'; // really delete backup 2010-11-05 15:03?
 $langFile['BACKUP_TEXT_DELETE_QUESTION2'] = '?';

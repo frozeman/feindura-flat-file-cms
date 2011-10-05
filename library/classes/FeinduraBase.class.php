@@ -211,8 +211,6 @@ class FeinduraBase {
   *    - <var>$websiteConfig</var> the website-settings config (included in the {@link general.include.php})
   *    - <var>$categoryConfig</var> the categories-settings config (included in the {@link general.include.php})
   * 
-  * <b>Used Constants</b><br />
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
   * @param string $language (optional) A country code "de", "en", ... to load the right frontend language-file and will be set to the {@link $language} property 
   * 

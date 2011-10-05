@@ -238,7 +238,7 @@ class GeneralFunctions {
     
     // var
     $return = array();
-    $fullPath = (strpos($fullPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$fullPath : $fullPath;
+    $langPath = (strpos($langPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$langPath : $langPath;
     
     // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
     $browserLanguages = self::getBrowserLanguages($standardLang);

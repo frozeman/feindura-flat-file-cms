@@ -26,7 +26,7 @@ require_once(dirname(__FILE__)."/../../includes/secure.include.php");
 
 echo ' '; // hack for safari, otherwise it throws an error that he could not find htmlentities like &ouml;
 
-$backupTime = filemtime(DOCUMENTROOT.$_GET['file']);
+$backupTime = filemtime('..'.$_GET['file']);
 $backupName .= (strpos($_GET['file'],'restore') === false)
           ? $langFile['BACKUP_TITLE_BACKUP'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime)
           : $langFile['BACKUP_TEXT_RESTORE_BACKUPBEFORERESTORE'].'<br />'.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($backupTime)).' '.StatisticFunctions::formatTime($backupTime);

@@ -58,7 +58,7 @@ window.addEvent('domready',function(){
   CKEDITOR.config.bodyId                    = '<?php echo $editorStyleId; ?>';
   CKEDITOR.config.bodyClass                 = '<?php echo $editorStyleClass; ?>';
   CKEDITOR.config.enterMode                 = <?php if($adminConfig['editor']['enterMode'] == "br") echo "CKEDITOR.ENTER_BR"; else echo "CKEDITOR.ENTER_P"; ?>;
-<?php if(file_exists(DOCUMENTROOT.$adminConfig['basePath']."config/htmlEditorStyles.js")) { ?>
+<?php if(file_exists("config/htmlEditorStyles.js")) { ?>
   CKEDITOR.config.stylesSet                 = 'htmlEditorStyles:../../../config/htmlEditorStyles.js';
 <?php
 }

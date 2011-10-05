@@ -1054,8 +1054,9 @@ function saveSpeakingUrl(&$errorWindow) {
   // vars
   $save = false;
   $data = false;
-  //$websitePath = GeneralFunctions::getDirname($_POST['cfg_websitePath']);
-  $htaccessFile = DOCUMENTROOT.'/.htaccess';
+  $websitePath = GeneralFunctions::getDirname($_POST['cfg_websitePath']);
+  $websitePath = (empty($websitePath)) ? '/': $websitePath;
+  $htaccessFile = DOCUMENTROOT.$websitePath.'.htaccess';
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
@@ -1222,7 +1223,7 @@ function createBackup($backupFile) {
   // -> generate archive
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFile);
-  $catchError = $archive->add($GLOBALS['adminConfig']['realBasePath'].'config/,'.$GLOBALS['adminConfig']['realBasePath'].'statistic/,'.$GLOBALS['adminConfig']['realBasePath'].'pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
+  $catchError = $archive->add('config/,statistic/,pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['basePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
   
   if($catchError == 0)
     return $archive->errorInfo(true);
@@ -1711,8 +1712,6 @@ function delDir($dir) {
  * 
  * Check if the <var>$folder</var> parameter is a directory, otherwise it return a warning text.
  * 
- * <b>Used Constants</b><br />
- *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
  * 
  * <b>Used Global Variables</b><br />
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})    

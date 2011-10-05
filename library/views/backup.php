@@ -29,7 +29,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ----------------------------------------------------------------------------------------
 
 // -> var
-$backupFolder = $adminConfig['realBasePath'].'backups/';
+$backupFolder = 'backups/';
 
 // -> check if the folder is writeable
 $unwriteableList = false;

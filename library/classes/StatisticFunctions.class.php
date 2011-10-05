@@ -1307,8 +1307,7 @@ class StatisticFunctions {
   *   - which browser and how often visited this website
   * 
   * <b>Used Global Variables</b>
-  *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting
-  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver  
+  *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting 
   * 
   * <b>Used Constants</b>
   *    - <var>PHPSTARTTAG</var> the php start tag
