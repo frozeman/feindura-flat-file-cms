@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.3
-Build 737
+Build 738
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,7 +22,8 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
-  build 756: hopefully now it fix the DOCUMENTROOT
+  build 738: use standard DOCUMENTROOT when no feindura basePath exists to create the real one; fixed REQUEST_URI replacement
+  build 737: hopefully now it fix the DOCUMENTROOT
   build 736: get the DOCUMENTROOT now like this: str_replace(dirname($_SERVER['SCRIPT_NAME']).'/library/includes/general.include.php','',__FILE__)
   build 735: try to remove DOCUMENTROOT where it was possible
   build 734: small fix from the last commit

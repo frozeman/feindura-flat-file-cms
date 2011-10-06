@@ -113,7 +113,7 @@ $GLOBALS['websiteStatistic'];
  * Fix the $_SERVER['REQUEST_URI'] for IIS Server
  */
 if (!isset($_SERVER['REQUEST_URI'])) {
-  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
+  $_SERVER['REQUEST_URI'] = substr($_SERVER['SCRIPT_NAME'],0);
   if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
     $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
   }
@@ -122,7 +122,8 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 /**
  * The absolut path of the webserver, with fix for IIS Server
  */
-define('DOCUMENTROOT', str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__));
+$docRoot = (empty($adminConfig['basePath'])) ? $_SERVER['DOCUMENT_ROOT']: str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__);
+define('DOCUMENTROOT', $docRoot); unset($docRoot);
 
 /**
  * The required PHP version
