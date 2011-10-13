@@ -24,6 +24,7 @@ $pluginLangFile['plugin_description']  = 'Erzeugt ein Kontaktformular zum senden
 
 /* CONFIG ************************************************************************************ */
 
+$pluginLangFile['captcha'] = 'Verwende Captcha';
 $pluginLangFile['recipient'] = 'Empf&auml;nger';
 $pluginLangFile['appellation'] = 'Anrede anzeigen';
 $pluginLangFile['appellation_mandatory'] = 'Anrede als Pflichfeld?';
@@ -59,7 +60,7 @@ $pluginLangFile['form_send'] = 'Ihre Nachricht wurde erfolgreich verschickt!';
 $pluginLangFile['link_back'] = 'Zur&uuml;ck';
 $pluginLangFile['text_mandatoryfields'] = 'Notwendige Angaben';
 $pluginLangFile['error_mandatoryfields'] = 'Folgende Felder m&uuml;ssen noch ausgef&uuml;llt werden:';
-$pluginLangFile['error_chapta'] = '<b>Zahlenverifikation fehlgeschlagen!</b><br />Bitte &uuml;berpr&uuml;fe die 4-stellige Zahlenverifikation.';
+$pluginLangFile['error_captcha'] = '<b>Zahlenverifikation fehlgeschlagen!</b><br />Bitte &uuml;berpr&uuml;fe die 4-stellige Zahlenverifikation.';
 $pluginLangFile['field_appellation'] = 'Anrede';
 $pluginLangFile['field_appellation_man'] = 'Herr';
 $pluginLangFile['field_appellation_woman'] = 'Frau';
@@ -76,7 +77,7 @@ $pluginLangFile['field_email'] = 'E-Mail';
 $pluginLangFile['field_phone'] = 'Telefon';
 $pluginLangFile['field_fax'] = 'Fax';
 $pluginLangFile['field_message'] = 'Nachricht';
-$pluginLangFile['field_chapta'] = '&Uuml;bertrage bitte die Zahl in das Feld.';
+$pluginLangFile['field_captcha'] = '&Uuml;bertrage bitte die Zahl in das Feld.';
 $pluginLangFile['button_send'] = 'SENDEN';
 
 $pluginLangFile['message_subject'] = 'Kontaktformular'; // Websitetitle contact form

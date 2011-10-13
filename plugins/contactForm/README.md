@@ -17,14 +17,14 @@ You should have received a copy of the GNU General Public License along with thi
 if not,see <http://www.gnu.org/licenses/>.
 _____________________________________________
 
-### VERSION 1.0
+### VERSION 1.0.1
 
 ### AUTHOR
 Fabian Vogelsteller <http://frozeman.de>
 
 
 ### DESCRIPTION
-This plugin creates an contactform to send an email, it uses also a simple chapta protection
+This plugin creates an contactform to send an email, it uses also a simple captcha protection
 
 ### USAGE
 The contactForm plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the feindura class (when activated in the page with the $pageId).

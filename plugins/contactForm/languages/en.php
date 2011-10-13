@@ -24,6 +24,7 @@ $pluginLangFile['plugin_description']  = 'Creates a contact form to send emails.
 
 /* CONFIG ************************************************************************************ */
 
+$pluginLangFile['captcha'] = 'use captcha';
 $pluginLangFile['recipient'] = 'Recipient';
 $pluginLangFile['appellation'] = 'show appellation';
 $pluginLangFile['appellation_mandatory'] = 'appellation is mandatory?';
@@ -55,11 +56,11 @@ $pluginLangFile['fax_mandatory'] = 'fax is mandatory?';
 /* CONTACTFORM ******************************************************************************* */
 
 $pluginLangFile['form_title'] = 'Contact Form';
-$pluginLangFile['form_send'] = 'Youre message was sent succesfully!';
+$pluginLangFile['form_send'] = 'Youre message was succesfully sent!';
 $pluginLangFile['link_back'] = 'back';
 $pluginLangFile['text_mandatoryfields'] = 'Mandatory information';
 $pluginLangFile['error_mandatoryfields'] = 'The following fields have to be filled:';
-$pluginLangFile['error_chapta'] = '<b>Number verification failed!</b><br />Please check the 4-digit verification number.';
+$pluginLangFile['error_captcha'] = '<b>Number verification failed!</b><br />Please check the 4-digit verification number.';
 $pluginLangFile['field_appellation'] = 'appellation';
 $pluginLangFile['field_appellation_man'] = 'Mr';
 $pluginLangFile['field_appellation_woman'] = 'Mrs';
@@ -76,8 +77,8 @@ $pluginLangFile['field_email'] = 'E-Mail';
 $pluginLangFile['field_phone'] = 'Phone';
 $pluginLangFile['field_fax'] = 'Fax';
 $pluginLangFile['field_message'] = 'Message';
-$pluginLangFile['field_chapta'] = 'Please enter the number into the field.';
-$pluginLangFile['button_send'] = 'SENDEN';
+$pluginLangFile['field_captcha'] = 'Please enter the number into the field.';
+$pluginLangFile['button_send'] = 'SEND';
 
 $pluginLangFile['message_subject'] = 'contact form'; // Websitetitle contact form
 $pluginLangFile['message_title1'] = 'You get a mesage from'; // You get a mesage from the Website title contact formular

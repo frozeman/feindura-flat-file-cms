@@ -39,14 +39,14 @@ div.plugin_contactForm {
   width: 96%;
 }
 
-#contactForm_field_chapta {
+#contactForm_field_captcha {
   position: relative;
   top: -25px;
   left: 85px;
   width: 60px;
 }
 
-#contactForm_chaptaNumbers {
+#contactForm_captchaNumbers {
   margin-top: 15px;
   line-height: 0px;
 }
@@ -63,8 +63,8 @@ div.plugin_contactForm {
 #contactForm_error {
 }
 
-/* CHAPTA */
-.plugin_contactForm .chapta_letters {
+/* captcha */
+.plugin_contactForm .captcha_letters {
   display: inline-block;
 	color: #000;
 	background-color: #000;
@@ -74,7 +74,7 @@ div.plugin_contactForm {
 	font-size: 12px;
 	padding: 0px;
 }
-.plugin_contactForm .chapta_background {
+.plugin_contactForm .captcha_background {
   display: inline-block;
   color: transparent;
   background-color: transparent;

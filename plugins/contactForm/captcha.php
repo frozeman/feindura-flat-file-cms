@@ -1,13 +1,13 @@
 <?php
-  # Chapta Von Rene Schmidt (rene@reneschmidt.de)
+  # Captcha Von Rene Schmidt (rene@reneschmidt.de)
   
-  class chaptaDigit {
+  class captchaDigit {
   
     var $bits = array(1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384);
     var $matrix  = array();
     var $bitmasks = array(31599, 18740, 29607, 31143, 18921, 31183, 31695, 18855, 31727, 31215);
   
-    function chaptaDigit( $dig ) {
+    function captchaDigit( $dig ) {
       $this->matrix[] = array(0, 0, 0); // 2^0, 2^1, 2^2 ... usw.
       $this->matrix[] = array(0, 0, 0);
       $this->matrix[] = array(0, 0, 0);
@@ -29,17 +29,18 @@
     }
   }
   
-  class chapta {
+  class captcha {
   
     var $num = 0;
     var $digits = array();
   
-    function chapta( $num ) {
+    function captcha
+    ( $num ) {
       $this->num = (int)$num;
   
       $r = "{$this->num}";
       for( $i=0; $i<strlen($r); $i++ )
-        $this->digits[] = new chaptaDigit((int)$r[$i]);
+        $this->digits[] = new captchaDigit((int)$r[$i]);
     }
   
     function getNum() { return $this->num; }
@@ -50,8 +51,8 @@
       for($row=0; $row<count($this->digits[0]->matrix); $row++) {
         foreach( $this->digits as $digit ) {
           foreach($digit->matrix[$row] as $cell)
-            $return .= ($cell === 1) ? '<span class="chapta_letters">&nbsp;</span>' : '<span class="chapta_background">&nbsp;</span>';
-          $return .= '<span class="chapta_background">&nbsp;</span>';
+            $return .= ($cell === 1) ? '<span class="captcha_letters">&nbsp;</span>' : '<span class="captcha_background">&nbsp;</span>';
+          $return .= '<span class="captcha_background">&nbsp;</span>';
         }
         $return .= "<br />\n";
       }

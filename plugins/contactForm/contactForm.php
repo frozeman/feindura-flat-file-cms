@@ -22,13 +22,13 @@
  * @subpackage contactForm
  */
 
-// include the chapta
-require(dirname(__FILE__).'/chapta.php');
+// include the captcha
+require(dirname(__FILE__).'/captcha.php');
 
 /**
 * contactForm Plugin class
 * 
-* This class creates an contact form with a simple chapta check.
+* This class creates an contact form with a simple captcha check.
 * 
 * <b>Notice</b>: The contact form is surrounded by an '<div class="contactForm">' tag to help to style the contact form.
 * 
@@ -40,10 +40,11 @@ require(dirname(__FILE__).'/chapta.php');
 * @package [Plugins]
 * @subpackage contactForm
 * 
-* @version 1.0.5
+* @version 1.0.6
 * <br />
 * <b>ChangeLog</b><br />
-*    - 1.0.5 fixes in chapta css
+*    - 1.0.6 add captcha setting, to deactivate it
+*    - 1.0.5 fixes in captcha css
 *    - 1.0.4 add html5 input types
 *    - 1.0.3 convert to PHP 5 class
 *    - 1.0.2 add XssFilter
@@ -215,7 +216,8 @@ class contactForm {
       }
 
       // -> transfer data to the session
-      $chaptaCheck = $_SESSION['plugin_contactForm']['chaptacheck'];
+      if($this->config['captcha'])
+        $captchaCheck = $_SESSION['plugin_contactForm']['captchacheck'];
       $_SESSION['plugin_contactForm'] = @$_POST;
       $message = str_replace("\n", '<br>', $_POST['message']);
       
@@ -239,8 +241,8 @@ class contactForm {
       // MANDATORY FILEDS CHECK
       if($mandatoryfieldsOk) {
         
-        // CHAPTA CHECK
-        if($_POST['chapta'] == $chaptaCheck) {
+        // captcha CHECK
+        if(!$this->config['captcha'] || $_POST['captcha'] == $captchaCheck) {
         
           $senddate  = date('d.m.Y');
           $sendtime = date("H:i");          
@@ -305,53 +307,53 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
 '.$address.$street.$city.$country.$website.$email.$phone.$fax.'<br>
 </body></html>';
 
-        // ->> use phpMailer
-        if(@include(dirname(__FILE__).'/phpMailer/class.phpmailer.php')) {
+          // ->> use phpMailer
+          if(@include(dirname(__FILE__).'/phpMailer/class.phpmailer.php')) {
+            
+            $mail = new phpmailer();
+            
+            $mail->CharSet = 'UTF-8';
+            $mail->IsHTML(true);
+            
+            if(empty($_POST['email'])) {
+              $mail->From = $this->recipient;
+              $mail->FromName = "no-reply";
+            } else {
+              $mail->From = $_POST['email'];
+              $mail->FromName = $_POST['firstname'].' '.$_POST['lastname'];
+            }
+            
+            $mail->Subject = $subject;
+            
+            $mail->Body = $mailcontent;
+            $mail->AltBody = preg_replace("/ +/", ' ', strip_tags($mailcontent));
+            
+            $mail->AddAddress($this->recipient);
+            
+            $result = $mail->Send();
           
-          $mail = new phpmailer();
-          
-          $mail->CharSet = 'UTF-8';
-          $mail->IsHTML(true);
-          
-          if(empty($_POST['email'])) {
-            $mail->From = $this->recipient;
-            $mail->FromName = "no-reply";
+          // ->> if PHP couldn't include phpMailer
           } else {
-            $mail->From = $_POST['email'];
-            $mail->FromName = $_POST['firstname'].' '.$_POST['lastname'];
+          
+            $message = preg_replace("/ +/", ' ', strip_tags($mailcontent));
+            
+            $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail          
+            $header .= (empty($_POST['email']))
+              ? 'From: "no-reply" <'.$this->recipient.">\r\n"
+              : 'From: "'.$_POST['firstname'].' '.$_POST['lastname'].'" <'.$_POST['email'].">\r\n";          
+            $header .= 'X-Mailer: PHP/'.PHP_VERSION;
+            
+            mail($this->recipient, $subject, $message, $header);
+          
           }
           
-          $mail->Subject = $subject;
+          $return .= '<p><b>'.$this->langFile['form_send'].'</b></p>';
           
-          $mail->Body = $mailcontent;
-          $mail->AltBody = preg_replace("/ +/", ' ', strip_tags($mailcontent));
-          
-          $mail->AddAddress($this->recipient);
-          
-          $result = $mail->Send();
+          unset($_SESSION['plugin_contactForm']);
         
-        // ->> if PHP couldn't include phpMailer
+        // ERROR - captcha INCORRECT
         } else {
-        
-          $message = preg_replace("/ +/", ' ', strip_tags($mailcontent));
-          
-          $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n"; // UTF-8 plain text mail          
-          $header .= (empty($_POST['email']))
-            ? 'From: "no-reply" <'.$this->recipient.">\r\n"
-            : 'From: "'.$_POST['firstname'].' '.$_POST['lastname'].'" <'.$_POST['email'].">\r\n";          
-          $header .= 'X-Mailer: PHP/'.PHP_VERSION;
-          
-          mail($this->recipient, $subject, $message, $header);
-        
-        }
-        
-        $return .= '<p><b>'.$this->langFile['form_send'].'</b></p>';
-        
-        unset($_SESSION['plugin_contactForm']);
-        
-        // ERROR - CHAPTA INCORRECT
-        } else {
-        $return .= '<span id="contactForm_error"><b>'.$this->langFile['error_chapta'].'</b><br />
+          $return .= '<span id="contactForm_error"><b>'.$this->langFile['error_captcha'].'</b><br />
               <a href="'.$this->currentUrl.'&amp;rnd#plugin_contactFormAnchor">'.$this->langFile['link_back'].'</a></span>'."\n";
         }
 
@@ -553,14 +555,15 @@ $mailcontent = '<html><head><title>'.$subject.'</title>
       $return .= '<label for="contactForm_field_message"'.$notFilled.'><b>'.$this->langFile['field_message'].$this->mandatoryStar.'</b></label><br />';
     
     
-    $return .= '<textarea rows="9" id="contactForm_field_message" name="message" required="required">'.@$_SESSION['plugin_contactForm']['message'].'</textarea><br />
-    <br />
-    <b>'.$this->langFile['field_chapta'].$this->mandatoryStar.'</b>';
-
-    $chapta = new chapta(rand(1000,9999));      
-    $_SESSION['plugin_contactForm']['chaptacheck'] = $chapta->getNum();
-    $return .= '<div id="contactForm_chaptaNumbers">'.$chapta->printNumber().'</div>';
-    $return .= '<input type="number" id="contactForm_field_chapta" name="chapta" size="4" min="1000" max="9999" autocomplete="off" maxlength="4" required="required" />';
+    $return .= '<textarea rows="9" id="contactForm_field_message" name="message" required="required">'.@$_SESSION['plugin_contactForm']['message'].'</textarea>';
+    
+    if($this->config['captcha']) {
+      $return .= '<br /><br /><b>'.$this->langFile['field_captcha'].$this->mandatoryStar.'</b>';  
+      $captcha = new captcha(rand(1000,9999));      
+      $_SESSION['plugin_contactForm']['captchacheck'] = $captcha->getNum();
+      $return .= '<div id="contactForm_captchaNumbers">'.$captcha->printNumber().'</div>';
+      $return .= '<input type="number" id="contactForm_field_captcha" name="captcha" size="4" min="1000" max="9999" step="1" autocomplete="off" maxlength="4" required="required" />';
+    }
     
     $return .= '<br /><input type="submit" id="contactForm_button_send" value="'.$this->langFile['button_send'].'" />
     <span id="contactForm_text_mandatoryfields">'.$this->mandatoryStar.' '.$this->langFile['text_mandatoryfields'].'</span>

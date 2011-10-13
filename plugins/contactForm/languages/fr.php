@@ -26,6 +26,7 @@ $pluginLangFile['plugin_description']  = 'Cr&eacute;e un fiche contact pour envo
 
 /* CONFIG ************************************************************************************ */
 
+$pluginLangFile['captcha'] = 'utilisez captcha';
 $pluginLangFile['recipient'] = 'destinataire';
 $pluginLangFile['appellation'] = 'montrer le titre';
 $pluginLangFile['appellation_mandatory'] = 'titre comme champs obligatoire?';
@@ -63,7 +64,7 @@ $pluginLangFile['form_send'] = 'Votre courrier a &eacute;t&eacute; envoy&eacute;
 $pluginLangFile['link_back'] = 'en arri&egrave;re';
 $pluginLangFile['text_mandatoryfields'] = 'champs obligatoires';
 $pluginLangFile['error_mandatoryfields'] = 'Les champs suivants doivent &ecirc;tre remplis:';
-$pluginLangFile['error_chapta'] = '<b>V&eacute;rification a &eacute;t&eacute; &eacute;chou&eacute;!</b><br />SVP v&eacute;rifiez la v&eacute;rification a quatre num&eacute;ros.';
+$pluginLangFile['error_captcha'] = '<b>V&eacute;rification a &eacute;t&eacute; &eacute;chou&eacute;!</b><br />SVP v&eacute;rifiez la v&eacute;rification a quatre num&eacute;ros.';
 $pluginLangFile['field_appellation'] = 'Titre';
 $pluginLangFile['field_appellation_man'] = 'Monsieur';
 $pluginLangFile['field_appellation_woman'] = 'Madame';
@@ -80,7 +81,7 @@ $pluginLangFile['field_email'] = 'Adresse &eacute;lectronique';
 $pluginLangFile['field_phone'] = 'T&eacute;l&eacute;phone';
 $pluginLangFile['field_fax'] = 'T&eacute;l&eacute;copie';
 $pluginLangFile['field_message'] = 'Courrier';
-$pluginLangFile['field_chapta'] = 'SVP &eacute;crivez le chiffre dans le champs.';
+$pluginLangFile['field_captcha'] = 'SVP &eacute;crivez le chiffre dans le champs.';
 $pluginLangFile['button_send'] = 'ENVOYER';
 
 $pluginLangFile['message_subject'] = 'fiche contact'; // Websitetitle contact form

@@ -17,9 +17,9 @@
  * update.php
  * 
  * for updating from 
- * 1.0 rc -> 1.1.3
+ * 1.0 rc -> 1.1.4
  *
- * @version 0.15
+ * @version 0.1.6
  */
 
 /**
@@ -35,7 +35,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 // gets the version of the feindura CMS
 
 $oldVersion = '>= 1.0 rc';
-$newVersion = '1.1.3';
+$newVersion = '1.1.4';
 
 ?>
 <!DOCTYPE html>
@@ -311,6 +311,10 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $pageContent['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
       $pageContent['log_visitorCount'] = (isset($pageContent['log_visitorcount'])) ? $pageContent['log_visitorcount'] : $pageContent['log_visitorCount'];
       $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
+      
+      // activate the captcha in the contactForm plugins, when the contactForm is activated
+      if($pageContent['plugins']['contactForm']['active'] && $pageContent['plugins']['contactForm']['captcha'] !== false)
+        $pageContent['plugins']['contactForm']['captcha'] = true;
       
       // -> change such a date: 2010-03-20 17:50:27 to unix timestamp
       // mktime(hour,minute,seconds,month,day,year)

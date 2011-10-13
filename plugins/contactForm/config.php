@@ -19,6 +19,7 @@
  * @see XssFilter::text
  */ 
 
+$pluginConfig['captcha'] = true;
 $pluginConfig['recipient'] = 'name@providor.net';
 $pluginConfig['appellation'] = true;
 $pluginConfig['appellation_mandatory'] = false;
