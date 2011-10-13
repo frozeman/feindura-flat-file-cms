@@ -24,7 +24,6 @@
  * -> $feindura_websiteConfig
  * -> $feindura_categoryConfig
  * -> $feindura_statisticConfig
- * -> $feindura_pluginsConfig
  * -> $feindura_websiteStatistic
  */
 
@@ -49,9 +48,8 @@ $feindura_adminConfig = $adminConfig;
 $feindura_websiteConfig = $websiteConfig;
 $feindura_categoryConfig = $categoryConfig;
 $feindura_statisticConfig = $statisticConfig;
-$feindura_pluginsConfig = $pluginsConfig;
 $feindura_websiteStatistic = $websiteStatistic;
 // -> delete old config vars
-unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$pluginsConfig,$websiteStatistic);
+unset($adminConfig,$websiteConfig,$categoryConfig,$statisticConfig,$websiteStatistic);
 
 ?>

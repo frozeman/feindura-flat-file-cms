@@ -181,8 +181,6 @@ $langFile['LOG_PAGESETUP_CATEGORIES_NEW'] = 'Neue Kategorie erstellt';
 $langFile['LOG_PAGESETUP_CATEGORIES_DELETED'] = 'Kategorie gelöscht';
 $langFile['LOG_PAGESETUP_CATEGORIES_MOVED'] = 'Kategorie verschoben';
 
-$langFile['LOG_PLUGINSETUP_SAVED'] = 'Plugin-Einstellungen gespeichert von';
-
 $langFile['LOG_FILE_SAVED'] = 'Datei gespeichert';
 $langFile['LOG_FILE_DELETED'] = 'Datei gelöscht';
 
@@ -221,7 +219,6 @@ $langFile['BUTTON_SEARCH'] = 'Seiten durchsuchen';
 $langFile['HEADER_TITLE_ADMINMENU'] = 'Administration';
 $langFile['BUTTON_ADMINSETUP'] = 'Administrator Einstellungen';
 $langFile['BUTTON_PAGESETUP'] = 'Seiten Einstellungen';
-$langFile['BUTTON_PLUGINSETUP'] = 'Plugins Einstellungen';
 $langFile['BUTTON_STATISTICSETUP'] = 'Statistik Einstellungen';
 $langFile['BUTTON_USERSETUP'] = 'Benutzer';
 $langFile['BUTTON_BACKUP'] = 'Backups';
@@ -649,20 +646,6 @@ $langFile['userSetup_admin_tip'] = 'Legt fest ob der Benutzer Administratorrecht
 
 $langFile['userSetup_error_create'] = '<b>Ein neuer Benutzer konnte nicht angelegt werden.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
-
-/*
-* pluginSetup.php
-*/
-
-// ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-
-$langFile['PLUGINSETUP_TITLE'] = 'Plugins-Einstellungen';
-$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Plugins bieten erweiterte Funktionen für die Seiten der Webseite. Jeder Seite können die unten aktivierten Plugins hinzugefügt werden, sofern Plugins in den <a href="?site=pageSetup">'.$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS'].'</a>, bei der jeweiligen Kategorie, aktiviert sind.<br /><br /><i>Auf der Webseite werden die Plugins mittels der <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> Methode eingebunden.</i>';
-
-$langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'Dateien bearbeiten';
-$langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin aktivieren';
-$langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
-
 
 /*
 * editor.php

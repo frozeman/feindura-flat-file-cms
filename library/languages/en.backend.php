@@ -181,8 +181,6 @@ $langFile['LOG_PAGESETUP_CATEGORIES_NEW'] = 'New category created';
 $langFile['LOG_PAGESETUP_CATEGORIES_DELETED'] = 'Category deleted';
 $langFile['LOG_PAGESETUP_CATEGORIES_MOVED'] = 'Category moved';
 
-$langFile['LOG_PLUGINSETUP_SAVED'] = 'Plugin-Settings saved of';
-
 $langFile['LOG_FILE_SAVED'] = 'File saved';
 $langFile['LOG_FILE_DELETED'] = 'File deleted';
 
@@ -223,7 +221,6 @@ $langFile['BUTTON_SEARCH'] = 'Search Pages';
 $langFile['HEADER_TITLE_ADMINMENU'] = 'Administration';
 $langFile['BUTTON_ADMINSETUP'] = 'Administrator Settings';
 $langFile['BUTTON_PAGESETUP'] = 'Pages Settings';
-$langFile['BUTTON_PLUGINSETUP'] = 'Plugins Settings';
 $langFile['BUTTON_STATISTICSETUP'] = 'Statistic Settings';
 $langFile['BUTTON_USERSETUP'] = 'Users';
 $langFile['BUTTON_BACKUP'] = 'Backups';
@@ -651,20 +648,6 @@ $langFile['userSetup_admin_tip'] = 'Determines whether the user has administrato
 
 $langFile['userSetup_error_create'] = '<b> A new user could not be created.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
-
-/*
-* pluginSetup.php
-*/
-
-// ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-
-$langFile['PLUGINSETUP_TITLE'] = 'Plugins-Settings';
-$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Plugins provide enhanced capabilities for the pages of the website. You can add the below activated plugins to every page, as far as they are acivated in the <a href="?site=pageSetup">'.$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS'].'</a>, in the respective category.<br /><br /><i>The plugins will be included in the website through the <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a> method.</i>';
-
-$langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'Edit files';
-$langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin activated';
-$langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
-
 
 /*
 * editor.php

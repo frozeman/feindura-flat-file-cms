@@ -168,7 +168,6 @@ $langFile['LOG_PAGESETUP_CATEGORIES_SAVED'] = 'catégories sauvegardés';
 $langFile['LOG_PAGESETUP_CATEGORIES_NEW'] = 'nouvelle catégorie crée';
 $langFile['LOG_PAGESETUP_CATEGORIES_DELETED'] = 'catégorie éffacée';
 $langFile['LOG_PAGESETUP_CATEGORIES_MOVED'] = 'catégorie déplacée';
-$langFile['LOG_PLUGINSETUP_SAVED'] = 'préférences plugins sauvegardé';
 
 $langFile['LOG_FILE_SAVED'] = 'fichier sauvegardé';
 $langFile['LOG_FILE_DELETED'] = 'fichier sauvegardé';
@@ -208,7 +207,6 @@ $langFile['BUTTON_SEARCH'] = 'fouiller tout le site web';
 $langFile['HEADER_TITLE_ADMINMENU'] = 'administration';
 $langFile['BUTTON_ADMINSETUP'] = 'préférences administrateur';
 $langFile['BUTTON_PAGESETUP'] = 'préférences site web';
-$langFile['BUTTON_PLUGINSETUP'] = 'préférences plugins';
 $langFile['BUTTON_STATISTICSETUP'] = 'préférences statistiques';
 $langFile['BUTTON_USERSETUP'] = 'utilisateurs';
 $langFile['BUTTON_BACKUP'] = 'sauvegardes';
@@ -607,19 +605,6 @@ $langFile['userSetup_admin_tip'] = 'Définit si lutilisateur possède les droits
 
 $langFile['userSetup_error_create'] = '<b>Un nouveau utilisateur na pas été crée.</b>'.$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
 $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'].'config/user.config.php';
-
-/*
-* pluginSetup.php
-*/
-
-// ---------- PLUGIN SETUP (on toolTips tooTips.js converts the "[" and "]" tags in the tittle attribute to "<" ">")
-
-$langFile['PLUGINSETUP_TITLE'] = 'paramètres plugins';
-$langFile['PLUGINSETUP_TEXT_DESCRIPTION'] = 'Les plugins mettent en disposition des fonctions avancés pour le site web. Les plugins activés peuvent être attribués à chaque page, si les plugins <a href="?site=pageSetup">'.$langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS'].'</a>, sont activés dans la catégorie.<br /><br /><i>Les plugins sur le site web sont implementés par cette méthode <a href="http://feindura.org/api/%5BImplementation%5D/feindura.html#showPlugins">ShowPlugins()</a>.</i>';
-
-$langFile['PLUGINSETUP_TITLE_EDITFILES'] = 'traiter les fichiers';
-$langFile['PLUGINSETUP_TEXT_ACTIVE'] = 'Plugin activée';
-$langFile['PLUGINSETUP_ERROR_SAVE'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['ERROR_SAVE_FILE'].$adminConfig['basePath'];
 
 /*
 * editor.php

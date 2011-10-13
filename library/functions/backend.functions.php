@@ -968,63 +968,6 @@ function saveStatisticConfig($statisticConfig) {
 }
 
 /**
- * <b>Name</b> savePluginsConfig()<br />
- * 
- * Saves the plugins-settings config array to the "config/plugins.config.php" file.
- * 
- * <b>Used Constants</b><br />
- *    - <var>PHPSTARTTAG</var> the php start tag
- *    - <var>PHPENDTAG</var> the php end tag
- * 
- * @param array $pluginsConfig a $pluginsConfig array to save
- * 
- * @return bool TRUE if the file was succesfull saved, otherwise FALSE
- * 
- * @example backend/pluginsConfig.array.example.php of the $adminConfig array
- * 
- * @version 1.0.3
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0.3 check now if the pluginsfolder still exist 
- *    - 1.0.2 add XssFilter to every value 
- *    - 1.0.1 add mootools selection 
- *    - 1.0 initial release
- * 
- */
-function savePluginsConfig($pluginsConfig) {
-
-  // **** opens plugin.config.php for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/plugins.config.php","wb")) {
-    
-    // -> escape \ and '
-    $pluginsConfig = XssFilter::escapeBasics($pluginsConfig);
-     
-    // sort the plugins alphabetical
-    ksort($pluginsConfig);
-    
-    // CHECK BOOL VALUES and change to FALSE   
-    flock($file,LOCK_EX); 
-    fwrite($file,PHPSTARTTAG); //< ?php
-    
-    if(is_array($pluginsConfig)) {
-      foreach($pluginsConfig as $key => $value) {
-        if(file_exists(dirname(__FILE__).'/../../plugins/'.$key))
-          fwrite($file,"\$pluginsConfig['$key']['active'] =     ".XssFilter::bool($pluginsConfig[$key]['active'],true).";\n");
-      }
-    }
-    
-    fwrite($file,"\nreturn \$pluginsConfig;");
-       
-    fwrite($file,PHPENDTAG); //? >
-    flock($file,LOCK_UN);
-    fclose($file);
-
-    return true;
-  } else
-    return false;
-}
-
-/**
  * <b>Name</b> saveSpeakingUrl()<br />
  * 
  * Check if speakingUrl is activated and save a speakingUrl redirect (with mod_rewrite) to the .htacces file in the document root.

@@ -86,7 +86,7 @@ foreach($logContent as $logRow) {
         $logText = $langFile['LOG_WEBSITESETUP_SAVED'];
         break;
     case 11:
-        $logText = $langFile['LOG_PLUGINSETUP_SAVED'];
+        //$logText = $langFile['LOG_PLUGINSETUP_SAVED'];
         break;
     case 12:
         $logText = $langFile['LOG_FILE_SAVED'];

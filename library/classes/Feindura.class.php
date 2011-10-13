@@ -1035,18 +1035,17 @@ class Feindura extends FeinduraBase {
           
           $metaTags .= '  <link rel="alternate" type="application/atom+xml" title="'.$channelTitle.' (Atom)" href="'.$feedsLink.'atom.xml"'.$tagEnding."\n";
           $metaTags .= '  <link rel="alternate" type="application/rss+xml" title="'.$channelTitle.' (RSS 2.0)" href="'.$feedsLink.'rss2.xml"'.$tagEnding."\n";
+          
+          $metaTags .= "\n";
         }
       }
-      
-      $metaTags .= "\n";
       
       // -> add plugin-stylesheets
       $plugins = GeneralFunctions::readFolder($this->adminConfig['realBasePath'].'plugins/');
       if(is_array($plugins)) {
         foreach($plugins['folders'] as $pluginFolder) {
           $pluginName = basename($pluginFolder);
-          if($this->pluginsConfig[$pluginName]['active'])
-            $metaTags .= GeneralFunctions::createStyleTags($pluginFolder,false);
+          $metaTags .= GeneralFunctions::createStyleTags($pluginFolder,false);
         }
       }
         
@@ -2165,7 +2164,6 @@ class Feindura extends FeinduraBase {
 
               // go through all plugins and load the required ones
               if((is_bool($plugins) || in_array($pluginName,$plugins)) && // is in the requested plugins array
-                 $this->pluginsConfig[$pluginName]['active'] && // activated in the pluginsConfig
                  is_array($activatedPlugins) && in_array($pluginName,$activatedPlugins) && // activated in the adminConfig or categoryConfig
                  $plugin['active'] // activated in the page                 
                  ) {

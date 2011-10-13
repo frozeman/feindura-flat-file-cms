@@ -68,11 +68,6 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       if(isBlocked()) break;
       include (dirname(__FILE__).'/controllers/userSetup.controller.php');
       break;
-    // PLUGIN SETUP
-    case 'pluginSetup':
-      if(isBlocked()) break;
-      if(isAdmin()) include (dirname(__FILE__).'/controllers/pluginSetup.controller.php');
-      break;
     // MODUL SETUP
     case 'modulSetup':
       if(isBlocked()) break;

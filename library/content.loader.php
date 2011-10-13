@@ -103,11 +103,6 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       echo isBlocked();
       if(isAdmin()) include (dirname(__FILE__).'/views/userSetup.php');
       break;
-    // PLUGIN SETUP
-    case 'pluginSetup':
-      echo isBlocked();
-      if(isAdmin()) include (dirname(__FILE__).'/views/pluginSetup.php');
-      break;
     // MODUL SETUP
     case 'modulSetup':
       echo isBlocked();

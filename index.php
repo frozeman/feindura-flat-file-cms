@@ -308,7 +308,7 @@ if($_GET['site'] == 'addons') {
       </div>
     </div>
     
-    <!-- ADMIN-SPACE -->
+    <!-- ADMIN MENU -->
     <?php if(isAdmin()) { ?>
     <div id="adminMenu">
       <?php // show the admin part if the user is admin, or no other user is admin, administrator, root or superuser
@@ -321,26 +321,15 @@ if($_GET['site'] == 'addons') {
           <td><a href="?site=pageSetup" tabindex="11" class="pageSetup<?php if($_GET['site'] == 'pageSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PAGESETUP']; ?>"><span><?php echo $langFile['BUTTON_PAGESETUP']; ?></span></a></td>
           </tr><tr>
           <td><a href="?site=statisticSetup" tabindex="14" class="statisticSetup<?php if($_GET['site'] == 'statisticSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_STATISTICSETUP']; ?>"><span><?php echo $langFile['BUTTON_STATISTICSETUP']; ?></span></a></td>
-          <?php
-          // CHECKS if one of the plugins/ or modules/ folders is empty
-          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/') || !GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
-          <?php
-          // CHECKS if the plugins/ folder is empty
-          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/plugins/')) { ?>
-          <td><a href="?site=pluginSetup" tabindex="14" class="pluginSetup<?php if($_GET['site'] == 'pluginSetup') echo ' active'; ?>" title="<?php  echo $langFile['BUTTON_PLUGINSETUP']; ?>"><span><?php echo $langFile['BUTTON_PLUGINSETUP']; ?></span></a></td>
-          </tr>
-          <?php }
-          // CHECKS if the modlues/ folder is empty
-          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
-          <tr>
-          <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
-          <td></td>
-          <?php }
-          } ?>
+          <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
           </tr>
           <tr>
           <td><a href="?site=userSetup" tabindex="12" class="userSetup<?php if($_GET['site'] == 'userSetup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_USERSETUP']; ?>"><span><?php echo $langFile['BUTTON_USERSETUP']; ?></span></a></td>
-          <td><a href="?site=backup" tabindex="13" class="backup<?php if($_GET['site'] == 'backup') echo ' active'; ?>" title="<?php echo $langFile['BUTTON_BACKUP']; ?>"><span><?php echo $langFile['BUTTON_BACKUP']; ?></span></a></td>
+          <?php //}
+          // CHECKS if the modlues/ folder is empty
+          if(!GeneralFunctions::folderIsEmpty(dirname(__FILE__).'/modules/')) { ?>
+          <td><a href="?site=modulSetup" tabindex="15" class="modulSetup<?php if($_GET['site'] == 'modulSetup') echo ' active'; ?>" title="<?php  echo $langFile['btn_modulSetup']; ?>"><span><?php echo $langFile['btn_modulSetup']; ?></span></a></td>
+          <?php } ?>
           </tr>      
         </table>
       </div>      

@@ -24,15 +24,12 @@
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
-// -> save the plugin config, to remove not existing plugins from the plugins config
-savePluginsConfig($pluginsConfig);
-
-// ->> CHECK if plugins are activated
-$pluginsActive = false;
-foreach($pluginsConfig as $pluginConfig) {
-  if($pluginConfig['active'])
-    $pluginsActive = true;    
-}
+// LOAD PLUGINS
+$plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
+$newPlugins = array();
+foreach($plugins['folders'] as $pluginFolder)
+  $newPlugins[] = basename($pluginFolder);
+$plugins = $newPlugins;
 
 // CHECKs THE IF THE NECESSARY FILEs ARE WRITEABLE, otherwise throw an error
 // ----------------------------------------------------------------------------------------
@@ -232,7 +229,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <label for="cfg_pagefeeds"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_TIP_FEEDS']; ?>"><?php echo $langFile['PAGESETUP_TEXT_FEEDS']; ?></span></label>
       </td></tr>
       
-      <?php if($pluginsActive) { ?>
+      <?php if(!empty($plugins)) { ?>
       <tr><td class="leftTop"></td><td>
       
       <tr><td class="left">
@@ -241,11 +238,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       </td><td class="right">
       <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple" style="width:250px;max-height:130px;">
         <?php
-        foreach($pluginsConfig as $pluginName => $pluginConfig) {
-          if($pluginConfig['active']) {
-            $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
-            echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';  
-          }    
+        foreach($plugins as $pluginName) {
+          $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
+          echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';    
         }
         ?>
       </select>
@@ -476,7 +471,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <label for="categories'.$category['id'].'feeds"><span class="toolTip" title="'.$langFile['PAGESETUP_TEXT_FEEDS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_FEEDS'].'">'.$langFile['PAGESETUP_TEXT_FEEDS'].'</span></label>
                 </td></tr>';
           
-          if($pluginsActive) {
+          if(!empty($plugins)) {
             echo '<tr><td class="leftTop"></td><td>';
   
             echo '<tr><td class="left">';
@@ -484,11 +479,9 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
             echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>';
             echo '</td><td class="right">';
             echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple" style="width:250px;max-height:130px;">';
-              foreach($pluginsConfig as $pluginName => $pluginConfig) {
-                if($pluginConfig['active']) {
-                  $selected = (in_array($pluginName,unserialize($category['plugins']))) ? ' selected="selected"' : '' ;
-                  echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';  
-                }  
+              foreach($plugins as $pluginName) {
+                $selected = (in_array($pluginName,unserialize($category['plugins']))) ? ' selected="selected"' : '' ;
+                echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';   
               }            
             echo '</select>';
             echo '&nbsp;<span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS'].'</span>';

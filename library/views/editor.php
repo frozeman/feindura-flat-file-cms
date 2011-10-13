@@ -573,20 +573,12 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
 if($newPage)
   include_once(dirname(__FILE__).'/../includes/editor.include.php');
 
-// ->> CHECK if plugins are activated
-$pluginsActive = false;
-foreach($pluginsConfig as $pluginConfig) {
-  if($pluginConfig['active'])
-    $pluginsActive = true;    
-}
 // get the activated plugins
-if($pluginsActive) {
-  $activatedPlugins = ($_GET['category'] === 0)
-    ? unserialize($adminConfig['pages']['plugins'])
-    : unserialize($categoryConfig[$_GET['category']]['plugins']);
-}
+$activatedPlugins = ($_GET['category'] === 0)
+  ? unserialize($adminConfig['pages']['plugins'])
+  : unserialize($categoryConfig[$_GET['category']]['plugins']);
 
-if($pluginsActive && is_array($activatedPlugins) && count($activatedPlugins) >= 1) {
+if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) { // && $pluginsActive
 ?>
 <!-- ***** PLUGIN SETTINGS -->
 <a id="pluginSettingsAnchor" class="anchorTarget"></a>
@@ -617,7 +609,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
         $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
         
         // LIST PLUGINS
-        if($pluginsConfig[$pluginFolderName]['active'] && in_array($pluginFolderName,$activatedPlugins)) {
+        if(in_array($pluginFolderName,$activatedPlugins)) {
           ?>          
           <table>          
           <tr><td class="left checkboxes">

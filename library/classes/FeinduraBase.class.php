@@ -139,23 +139,6 @@ class FeinduraBase {
   */
   public $categoryConfig;
   
- /**
-  * Contains the plugin-settings config set in the CMS backend
-  * 
-  * The file with the plugin-settings config array is situated at <i>"feindura-CMS/config/plugin.config.php"</i>.
-  *   
-  * This settings will be set to this property in the {@link __construct() FeinduraBase} constructor.
-  * 
-  * Example array:
-  * {@example backend/pluginsConfig.array.example.php}
-  * 
-  * @var array
-  * @access public
-  * @see FeinduraBase::__construct()
-  * 
-  */
-  public $pluginsConfig;
-  
   
  /**
   * A country code (example: <i>de, en,</i> ..) to set the language of the frontend language-files
@@ -243,7 +226,6 @@ class FeinduraBase {
     $this->adminConfig = $GLOBALS["feindura_adminConfig"];
     $this->websiteConfig = $GLOBALS["feindura_websiteConfig"];
     $this->categoryConfig = $GLOBALS["feindura_categoryConfig"];
-    $this->pluginsConfig = $GLOBALS["feindura_pluginsConfig"];
 
     // eventually LOGOUT
     if(isset($_GET['feindura_logout']))
