@@ -133,7 +133,7 @@ $newVersion = '1.1.4';
     echo 'hm... you current version is <b>'.VERSION.'</b> you cannot use this updater, :-(';
     echo '<br /><span class="warning">it\'s only for updating to '.$newVersion.'!</span>';
   }
-  //$basePath = dirname($_SERVER['SCRIPT_NAME']).'/';
+  //$basePath = dirname($_SERVER['PHP_SELF']).'/';
   //$basePath = preg_replace('#\/+#','/',$basePath);
   
   // WRONG PATH WARNING
@@ -149,7 +149,7 @@ $newVersion = '1.1.4';
 Good, your current version is <b><?= VERSION; ?></b>, but your content isn't updated yet?
 <div>
 <h2>Do you want to update all pages and configs, so that they work with feindura <?= $newVersion ?>?</h2>
-<form action="<?= $_SERVER['SCRIPT_NAME']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="<?= $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 <input type="hidden" name="asking" value="true" />
 <input type="submit" value="UPDATE" />
 </div>

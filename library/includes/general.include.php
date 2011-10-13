@@ -113,7 +113,7 @@ $GLOBALS['websiteStatistic'];
  * Fix the $_SERVER['REQUEST_URI'] for IIS Server
  */
 if (!isset($_SERVER['REQUEST_URI'])) {
-  $_SERVER['REQUEST_URI'] = substr($_SERVER['SCRIPT_NAME'],0);
+  $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'],0);
   if (isset($_SERVER['QUERY_STRING']) AND $_SERVER['QUERY_STRING'] != "") {
     $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
   }

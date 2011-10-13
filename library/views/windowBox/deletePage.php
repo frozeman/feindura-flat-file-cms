@@ -80,7 +80,7 @@ if(!$asking) {
 
 ?>
 <div>
-<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?= $_SERVER['SCRIPT_NAME']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
+<form action="?site=deletePage" method="post" enctype="multipart/form-data" id="deletePageForm" onsubmit="requestSite('<?= $_SERVER['PHP_SELF']; ?>','','deletePageForm');return false;" accept-charset="UTF-8">
 <input type="hidden" name="category" value="<?= $category; ?>" />
 <input type="hidden" name="page" value="<?= $page; ?>" />
 <input type="hidden" name="id" value="<?php echo $page; ?>" />

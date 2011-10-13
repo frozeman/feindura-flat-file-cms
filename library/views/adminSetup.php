@@ -103,7 +103,7 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
       <?php echo $langFile['ADMINSETUP_GENERAL_field2'] ?></span></label>
       </td><td class="right">
       <?php
-      $checkPath = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
+      $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
       ?>
       <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>" />
       </td></tr>

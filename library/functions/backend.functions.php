@@ -1834,7 +1834,7 @@ function checkBasePath() {
   $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
   $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
   
-  $checkPath = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
+  $checkPath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
   
   if($GLOBALS['adminConfig']['basePath'] == $checkPath &&
      $baseUrl == $checkUrl)

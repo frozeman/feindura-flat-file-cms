@@ -73,7 +73,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   $serverProtocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,strpos($_SERVER["SERVER_PROTOCOL"],'/'))).((empty($_SERVER["HTTPS"])) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "");
   
   $adminConfig['url'] = $serverProtocol."://".$_SERVER['SERVER_NAME'];
-  $adminConfig['basePath'] = preg_replace('#/+#','/',dirname($_SERVER['SCRIPT_NAME']).'/');
+  $adminConfig['basePath'] = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
   $adminConfig['realBasePath'] = preg_replace("/\\\+/", '/',realPath(preg_replace("/\\\+/",'/',dirname(__FILE__).'/../../'))).'/';
   $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];
   
