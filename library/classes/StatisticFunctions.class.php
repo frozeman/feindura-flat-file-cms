@@ -30,9 +30,10 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 0.62
+* @version 0.6.3
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 0.6.3 check if add searchwords and add data to dataString is not empty
 *    - 0.62 change to static class
 *    - 0.61 doesnt extend GeneralFunctions anymore, no creates an instance of it
 *    - 0.60 add hasVistiCache()
@@ -1038,9 +1039,10 @@ class StatisticFunctions {
   * @return string the modified data-string
   * 
   * @static
-  * @version 1.1
+  * @version 1.1.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.1.1 check if add data is not empty
   *    - 1.1 changed to searialize data
   *    - 1.0 initial release
   * 
@@ -1065,7 +1067,7 @@ class StatisticFunctions {
             }
           }
         }
-        
+        // add data
         foreach($newDataToAddArray as $key => $value) {
           if(!empty($value['data'])) { // add only data values which is not empty
             $newDataToAddArray[$key]['data'] = XssFilter::text($value['data']);
@@ -1109,8 +1111,10 @@ class StatisticFunctions {
       // -> add the new data
       if(is_array($newdata) && !empty($newdata)) {    
         foreach($newdata as $dataVariable) {
-          $dataVariable = XssFilter::text($dataVariable);
-          $newDataArray[] = array('data' => mb_strtolower($dataVariable,'UTF-8'), 'number' => 1);
+          if(!empty($dataVariable)) { // add only data values which is not empty
+            $dataVariable = XssFilter::text($dataVariable);
+            $newDataArray[] = array('data' => mb_strtolower($dataVariable,'UTF-8'), 'number' => 1);
+          }
         }
       }
       
@@ -1550,9 +1554,10 @@ class StatisticFunctions {
   * @return bool TRUE if the page-statistic was saved succesfully or FALSE if the user agent is a robot, or the $pageContent parameter is not a valid $pageContent array
   * 
   * @static
-  * @version 1.0.2
+  * @version 1.0.3
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.3 check if searchwords are not empty
   *    - 1.0.2 fixed scalar value returned from readPageStatistics()
   *    - 1.0.1 prevent save searchwords to be counted miltuple times
   *    - 1.0 initial release
@@ -1642,7 +1647,7 @@ class StatisticFunctions {
           // gos through searchwords and check if there already saved
           $newSearchWords = array();
           foreach($searchWords as $searchWord) {
-            if(in_array($searchWord,$_SESSION['feinduraSession']['log']['searchwords']) === false) {
+            if(!empty($searchWord) && in_array($searchWord,$_SESSION['feinduraSession']['log']['searchwords']) === false) {
               $newSearchWords[] = $searchWord;
               $_SESSION['feinduraSession']['log']['searchwords'][] = $searchWord;
             }
