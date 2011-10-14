@@ -211,7 +211,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add before any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.
   * 
   * @var string|false If no text should be add before a link, set it to FALSE.
   * @access public
@@ -227,7 +227,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add after any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.
   * 
   * @var string|false If no text should be add after a link, set it to FALSE.
   * @access public
@@ -243,7 +243,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add before the link text but inside any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.  
   * 
   * @var string|false If no text should be add before a link text, set it to FALSE.
   * @access public
@@ -259,7 +259,7 @@ class Feindura extends FeinduraBase {
   * Contains a string which will be add after the link text but inside any <a></a> tag
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this text.  
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will get this string.  
   * 
   * @var string|false If no text should be add after a link text, set it to FALSE.
   * @access public
