@@ -162,7 +162,7 @@ class Sitemap {
     $engines['www.bing.com'] = '/webmaster/ping.aspx?siteMap=' . urlencode($sitemap);
     $engines['submissions.ask.com'] = '/ping?sitemap=' . urlencode($sitemap);
     foreach ($engines as $host => $path) {
-      if ($fp = fsockopen($host, 80)) {
+      if ($fp = @fsockopen($host, 80)) {
         $send = "HEAD $path HTTP/1.1\r\n";
         $send .= "HOST: $host\r\n";
         $send .= "CONNECTION: Close\r\n\r\n";

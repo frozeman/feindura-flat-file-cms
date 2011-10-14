@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.4
-Build 742
+Build 743
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1.4
   
+  build 743: small fix in sitemap.php
   build 742: REMOVED pluginSetup completely , it seems not to be necessary
   build 741: changed $_SERVER['SCRIPT_NAME'] to $_SERVER['PHP_SELF']
   build 740: add captcha setting to contactForm
