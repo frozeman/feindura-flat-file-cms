@@ -126,7 +126,7 @@ define('HOST', $_SERVER['SERVER_NAME']);
 /**
  * The identity of the user
  */ 
-if($_SERVER['REMOTE_ADDR'] == '::1') $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
 
 $phpTags = file(dirname(__FILE__)."/../includes/phpTags.include.php");
