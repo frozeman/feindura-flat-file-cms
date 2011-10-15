@@ -609,9 +609,10 @@ class FeinduraBase {
   * @see Feindura::listPages()
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.0.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.0.1 fixed description return
   *    - 1.0 initial release
   * 
   */
@@ -725,8 +726,6 @@ class FeinduraBase {
     
     // ->> MODIFING pageContent
     // ************************
-    
-    
     if(!empty($pageContent['content'])) {
       
       $htmlLawedConfig['safe'] = ($this->adminConfig['editor']['safeHtml']) ? 1 : 0;
@@ -789,7 +788,7 @@ class FeinduraBase {
        $return['content']   = "\n".$pageContentEdited."\n"; //$contentBefore.$contentStartTag.$pageContentEdited.$contentEndTag.$contentAfter;
     
     if(!empty($pageContent['description']))
-       $return['description'] = $pageContent['content'];
+       $return['description'] = $pageContent['description'];
     
     if(!empty($pageContent['tags']))
        $return['tags']   = $pageContent['tags'];

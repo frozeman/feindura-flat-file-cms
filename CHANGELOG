@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.4
-Build 744
+Build 745
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1.4
   
+  build 745: fixed description return in generatePage
   build 744: remove block multiple users when creating a new page
   build 743: small fix in sitemap.php
   build 742: REMOVED pluginSetup completely , it seems not to be necessary
