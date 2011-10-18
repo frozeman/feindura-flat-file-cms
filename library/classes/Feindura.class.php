@@ -2017,7 +2017,7 @@ class Feindura extends FeinduraBase {
             $generatedPage['title'] = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.'">'.$generatedPage['title'].'</span>';
                         
             if(!preg_match('#<script.*>#',$generatedPage['content']))
-              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.'" style="display:inline-block;">'.$generatedPage['content'].'</div>'."\n";
+              $generatedPage['content'] = "\n".'<div class="feindura_editPage" data-feindura="'.$page.' '.$category.'">'.$generatedPage['content'].'</div>'."\n";
             else
               $generatedPage['content'] = "\n".'<div class="feindura_editPageDisabled  feindura_toolTip" data-feindura="'.$page.' '.$category.'" title="'.$this->languageFile['EDITPAGE_TIP_DISABLED'].'">'.$generatedPage['content'].'</div>'."\n";
           }
