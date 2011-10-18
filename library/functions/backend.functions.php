@@ -1006,7 +1006,7 @@ function saveSpeakingUrl(&$errorWindow) {
   
   $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2$3 [QSA,L]'."\n";
   $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1$2 [QSA,L]';
-  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.$XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2$3 [QSA,L]'."\n";
+  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2$3 [QSA,L]'."\n";
   $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/(.*)\.html\?*(.*)$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1$2 [QSA,L]';
   
   $speakingUrlCode = '#
