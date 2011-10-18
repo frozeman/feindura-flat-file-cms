@@ -1011,6 +1011,16 @@ class StatisticFunctions {
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
     //unset($_SESSION);
     
+    // #### DUMP ####
+    if(empty(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
+      $dump = 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."/n";
+      $dump = '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."/n";
+      $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."/n";
+      $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."/n";
+      $dump .= '$_SESSION: '.print_r($_SESSION,true)."/n";
+      mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output OUTSIDE', $dump);
+    }
+    
     // doesnt save anything if visitor is a logged in user
     if($_SESSION['feinduraSession']['login']['loggedIn'])
       return false;
@@ -1044,9 +1054,20 @@ class StatisticFunctions {
         
         // -> COUNT the USER UP
         if(!isset(self::$websiteStatistic['userVisitCount']) ||
-           (isset(self::$websiteStatistic['userVisitCount']) && empty(self::$websiteStatistic['userVisitCount'])))
+           (isset(self::$websiteStatistic['userVisitCount']) && empty(self::$websiteStatistic['userVisitCount']))) {
+           
+          // #### DUMP ####
+          if(empty(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
+            $dump = 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."/n";
+            $dump = '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."/n";
+            $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."/n";
+            $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."/n";
+            $dump .= '$_SESSION: '.print_r($_SESSION,true)."/n";
+            mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output INSIDE', $dump);
+          }
+          
           self::$websiteStatistic['userVisitCount'] = 1;
-        else
+        } else
           self::$websiteStatistic['userVisitCount']++;
         
         // -> adds the user BROWSER
