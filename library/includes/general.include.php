@@ -34,7 +34,7 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 if(!$adminConfig = @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig = array();
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
-$GLOBALS['adminConfig'];
+$GLOBALS['adminConfig'] = $adminConfig;
 
 /**
  * The user-settings config
@@ -45,7 +45,7 @@ $GLOBALS['adminConfig'];
  */
 if(!$userConfig = @include_once(dirname(__FILE__)."/../../config/user.config.php"))
   $userConfig = array();
-$GLOBALS['userConfig'];
+$GLOBALS['userConfig'] = $userConfig;
 
 /**
  * The website-settings config
@@ -56,7 +56,7 @@ $GLOBALS['userConfig'];
  */
 if(!$websiteConfig = @include_once(dirname(__FILE__)."/../../config/website.config.php"))
   $websiteConfig = array();
-$GLOBALS['websiteConfig'];
+$GLOBALS['websiteConfig'] = $websiteConfig;
 
 /**
  * The categories-settings config
@@ -67,7 +67,7 @@ $GLOBALS['websiteConfig'];
  */
 if(!$categoryConfig = @include_once(dirname(__FILE__)."/../../config/category.config.php"))
   $categoryConfig = array();
-$GLOBALS['categoryConfig'];
+$GLOBALS['categoryConfig'] = $categoryConfig;
 
 /**
  * The statistic-settings config
@@ -78,7 +78,7 @@ $GLOBALS['categoryConfig'];
  */
 if(!$statisticConfig = @include_once(dirname(__FILE__)."/../../config/statistic.config.php"))
   $statisticConfig = array();
-$GLOBALS['statisticConfig'];
+$GLOBALS['statisticConfig'] = $statisticConfig;
 
 /**
  * The website-statistics
@@ -94,7 +94,7 @@ if($fp = @fopen(dirname(__FILE__).'/../../statistic/website.statistic.php','r'))
   fclose($fp);
 } else
   $websiteStatistic = array();
-$GLOBALS['websiteStatistic'];
+$GLOBALS['websiteStatistic'] = $websiteStatistic;
 
 
 /**
@@ -177,4 +177,8 @@ function __autoload($class_name) {
  */ 
 require_once(dirname(__FILE__)."/../functions/sort.functions.php");
 require_once(dirname(__FILE__)."/../thirdparty/PHP/htmLawed.php");
+
+// INIT STATIC CLASSES
+GeneralFunctions::init();
+StatisticFunctions::init();
 ?>

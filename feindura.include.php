@@ -16,7 +16,7 @@
  * 
  * feindura.include.php
  * 
- * @version 0.13
+ * @version 0.1.3
  * 
  * 
  * !!! PROTECTED VARs (do not overwrite these in your script)
@@ -38,10 +38,6 @@ if(!isset($_COOKIE['feindura_checkCookies']) || $_COOKIE['feindura_checkCookies'
 
 // -> INCLUDE ALL important FUNCTIONS, CLASSES and CONFIG vars
 require_once(dirname(__FILE__)."/library/includes/general.include.php");
-
-// INIT STATIC CLASSES
-GeneralFunctions::init();
-StatisticFunctions::init();
 
 // -> rename the config var names
 $feindura_adminConfig = $adminConfig;

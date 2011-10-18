@@ -294,7 +294,7 @@ if(!empty($adminConfig['user']['info'])) {
     }
     
     // SHOW tag CLOUD
-    if($tagCloud = StatisticFunctions::createTagCloud($allSearchwords)) {
+    if($tagCloud = createTagCloud($allSearchwords)) {
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION'].'</h2>';
       echo '<div class="tagCloud">'.$tagCloud.'</div>';
       echo '<br /><div class="verticalSeparator"></div><br />';
@@ -303,7 +303,7 @@ if(!empty($adminConfig['user']['info'])) {
     // ---------------------------------
     // -> BROWSER CHART
     
-    if($browserChart = StatisticFunctions::createBrowserChart($websiteStatistic['browser'])) {
+    if($browserChart = createBrowserChart($websiteStatistic['browser'])) {
       echo '<h2 style="font-size:15px;text-align:center;border:none;margin-bottom:8px;">'.$langFile['STATISTICS_TITLE_BROWSERCHART'].'</h2>';
       echo $browserChart;
       echo '<br /><br /><div class="verticalSeparator"></div><br />';

@@ -152,9 +152,9 @@ class GeneralFunctions {
   public static function init() {
     
     // GET CONFIG FILES and SET CONFIG PROPERTIES
-    self::$adminConfig = (isset($GLOBALS["adminConfig"])) ? $GLOBALS["adminConfig"] : $GLOBALS["feindura_adminConfig"];
-    self::$categoryConfig = (isset($GLOBALS["categoryConfig"])) ? $GLOBALS["categoryConfig"] : $GLOBALS["feindura_categoryConfig"];
-    self::$websiteConfig = (isset($GLOBALS["websiteConfig"])) ? $GLOBALS["websiteConfig"] : $GLOBALS["feindura_websiteConfig"];
+    self::$adminConfig = $GLOBALS["adminConfig"];
+    self::$categoryConfig = $GLOBALS["categoryConfig"];
+    self::$websiteConfig = $GLOBALS["websiteConfig"];
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -259,7 +259,7 @@ class GeneralFunctions {
       //echo $fullPath."<br>\n";
       
       // provide config inside the language files
-      $adminConfig = (isset($GLOBALS['feindura_adminConfig'])) ? $GLOBALS['feindura_adminConfig'] : $GLOBALS['adminConfig'];
+      $adminConfig = self::$adminConfig;
  
       $languageFile = @include($fullPath);
       if(is_array($languageFile)) {

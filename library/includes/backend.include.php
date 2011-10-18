@@ -95,10 +95,6 @@ mb_http_output('UTF-8');
 // create the config, pages and statistic folders if they dont exist
 createBasicFolders();
 
-// INIT STATIC CLASSES
-GeneralFunctions::init();
-StatisticFunctions::init();
-
 // *---* sets the basic VARIABLEs ---------------------------------------------------------
 $frontendEditing  = false; // used to include this backend.inlcude.php script into the secure.include.php, if true it only loads the feindura.include.php
 $errorWindow      = false; // when string the errorWindow with this string is displayed
