@@ -29,9 +29,10 @@
 * 
 * @package [Implementation]-[Backend]
 * 
-* @version 1.3
+* @version 1.3.1
 * <br>
 *  <b>ChangeLog</b><br>
+*    - 1.3.1 add schemes to htmlLawed
 *    - 1.3 rewrite of checkLanguageFiles(), now loadLanguageFile()
 *    - 1.2 changed class to static class
 *    - 1.19 add parseDefaultLanguage() to checkLanguageFiles()
@@ -1726,8 +1727,12 @@ class GeneralFunctions {
       'tidy' => -1, // will be made tidy in the FeinduraBase::generatePage() method
       'no_deprecated_attr' => 0,
       'and_mark' => 1, // change & to \x06
-      'unique_ids' => 0
+      'unique_ids' => 0,
+      'schemes' => 'href:aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, telnet;
+      action, cite, codebase, data, href, longdesc, model, pluginspage, pluginurl, src, style, usemap:file, http, https;
+      classid: file, http, https,clsid;'
     );
+    
     // turn safe mode on, if activated
     $htmlLawedConfig['safe'] = (self::$adminConfig['editor']['safeHtml']) ? 1 : 0;
     // add custom config
