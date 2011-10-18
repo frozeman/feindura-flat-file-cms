@@ -1025,7 +1025,7 @@ RewriteCond %{HTTP_HOST} ^'.str_replace(array('http://www.','https://www.','http
   $oldSpeakingUrlCode = str_replace($newRewriteRule,$oldRewriteRule,$speakingUrlCode);
   
   // -> looks if the MOD_REWRITE modul exists
-  $apacheModules = (function_exists('apache_get_modules')) ? apache_get_modules() : array(false);
+  $apacheModules = (function_exists('apache_get_modules')) ? apache_get_modules() : array('mod_rewrite');
   if(!in_array('mod_rewrite',$apacheModules)) {
     $_POST['cfg_speakingUrl'] = '';
     return;

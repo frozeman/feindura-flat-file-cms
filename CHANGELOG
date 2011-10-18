@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.4
-Build 748
+Build 749
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1.4
   
+  build 749: allow now also to activate speakingUrls, even if the apache_modules function is not available to tell whether the mod_rewrite modul is existing or not
   build 748: removed frontend editing feindura edit block display: inline-block 
   build 747: add new CKeditor
   build 746: generalFunctions add schemes to htmlLawed, add new htmlLawed version

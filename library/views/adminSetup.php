@@ -209,11 +209,10 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
       <?php
         $apacheModules = (function_exists('apache_get_modules'))
         ? apache_get_modules()
-        : array(false);
-
+        : array('mod_rewrite');
       ?>
-      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" <?php if(!in_array('mod_rewrite',$apacheModules)) echo 'disabled="disabled"'; ?>>
-        <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; echo ' class="inputToolTip" title="'.$langFile['ADMINSETUP_GENERAL_speakingUrl_warning'].'"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];?></option>
+      <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" class="inputToolTip" title="<?= $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
+        <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];?></option>
         <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'];?></option>
       </select>
       <span class="hint">
