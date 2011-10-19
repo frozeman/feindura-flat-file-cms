@@ -432,19 +432,19 @@ function createBasicFolders() {
  * 
  * @example backend/categoryConfig.array.example.php of the $categoryConfig array
  * 
- * @version 1.0.1
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.2 add prevent resetting check
  *    - 1.0.1 add XssFilter to every value
  *    - 1.0 initial release
  * 
  */
 function saveCategories($newCategories) {
   
-  createBasicFolders();
-  
   // open category.config.php for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/category.config.php","wb")) {
+  if($newCategories !== 1 && // prevent resetting config
+     $file = fopen(dirname(__FILE__)."/../../config/category.config.php","wb")) {
 
       // *** write CATEGORIES
       flock($file,LOCK_EX);
@@ -714,9 +714,10 @@ function movePage($page, $fromCategory, $toCategory) {
  * 
  * @example backend/adminConfig.array.example.php of the $adminConfig array
  * 
- * @version 1.1.1
+ * @version 1.1.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.1.2 add prevent resetting check
  *    - 1.1.1 fixed chmod permissions
  *    - 1.1 add sorting
  *    - 1.0.2 add XssFilter to every value
@@ -725,9 +726,11 @@ function movePage($page, $fromCategory, $toCategory) {
  * 
  */
 function saveAdminConfig($adminConfig) {
+  
 
   // **** opens admin.config.php for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/admin.config.php","wb")) {
+  if($adminConfig !== 1 && // prevent resetting config
+     $file = fopen(dirname(__FILE__)."/../../config/admin.config.php","wb")) {
     
     // clear the thumbnail path, when no upload path is specified
     if(empty($adminConfig['uploadPath'])) $adminConfig['pageThumbnail']['path'] = '';
@@ -821,9 +824,10 @@ function saveAdminConfig($adminConfig) {
  * 
  * @example backend/userConfig.array.example.php of the $userConfig array
  * 
- * @version 1.0.1
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.2 add prevent resetting check
  *    - 1.0.1 add XssFilter to every value 
  *    - 1.0 initial release
  * 
@@ -831,7 +835,8 @@ function saveAdminConfig($adminConfig) {
 function saveUserConfig($userConfig) {
    
   // opens the file for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/user.config.php","wb")) {
+  if($userConfig !== 1 && // prevent resetting config
+     $file = fopen(dirname(__FILE__)."/../../config/user.config.php","wb")) {
     
     // -> escape \ and '
     $userConfig = XssFilter::escapeBasics($userConfig);
@@ -875,9 +880,10 @@ function saveUserConfig($userConfig) {
  * 
  * @example backend/websiteConfig.array.example.php of the $websiteConfig array
  * 
- * @version 1.0.2
+ * @version 1.0.3
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.3 add prevent resetting check
  *    - 1.0.2 add XssFilter to every value 
  *    - 1.0.1 removed $websiteconfig['email'], because its now set up in the contactForm plugin
  *    - 1.0 initial release
@@ -886,7 +892,8 @@ function saveUserConfig($userConfig) {
 function saveWebsiteConfig($websiteConfig) {
    
   // opens the file for writing
-  if($file = fopen(dirname(__FILE__)."/../../config/website.config.php","wb")) {
+  if($websiteConfig !== 1 && // prevent resetting config
+     $file = fopen(dirname(__FILE__)."/../../config/website.config.php","wb")) {
   
     // -> escape \ and '
     $websiteConfig = XssFilter::escapeBasics($websiteConfig);
@@ -930,9 +937,10 @@ function saveWebsiteConfig($websiteConfig) {
  * 
  * @example backend/statisticConfig.array.example.php of the $statisticConfig array
  * 
- * @version 1.0.1
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.2 add prevent resetting check
  *    - 1.0.1 add XssFilter to every value 
  *    - 1.0 initial release
  * 
@@ -940,7 +948,8 @@ function saveWebsiteConfig($websiteConfig) {
 function saveStatisticConfig($statisticConfig) {
    
   // opens the file for writing
-  if($file = fopen("config/statistic.config.php","wb")) {
+  if($statisticConfig !== 1 && // prevent resetting config
+     $file = fopen("config/statistic.config.php","wb")) {
     
     // -> escape \ and '
     $statisticConfig = XssFilter::escapeBasics($statisticConfig);

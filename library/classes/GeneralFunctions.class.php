@@ -522,7 +522,7 @@ class GeneralFunctions {
   * @uses getStoredPages()		for getting the {@link $storedPages} property
   * @uses addStoredPage()		to store a new loaded $pageContent array in the {@link $storedPages} property
   * 
-  * @return array|FALSE the $pageContent array of the requested page or FALSE, if it couldn't open the file
+  * @return array|FALSE the $pageContent array of the requested page or FALSE, if it couldn't open the file, or NULL when the file exists but couldnt be loaded properly
   * 
   * @static
   * @version 1.0
@@ -576,11 +576,18 @@ class GeneralFunctions {
         fclose($fp);
       }
       
-      if($pageContent) {
+      // return content array
+      if(is_array($pageContent)) {
         // UNESCPAE the SINGLE QUOTES '
         $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
         return self::addStoredPage($pageContent);
-      } else  // returns false if it couldn't include the page
+        
+      // return failure while loading the content (file exists but couldn't be loaded)
+      } elseif($pageContent === 1) {
+        return null;
+        
+      // returns false if it couldn't include the file (file doesnt exists)
+      } else
         return false;
     }
   }
@@ -728,7 +735,7 @@ class GeneralFunctions {
   * @param int $pageId a page ID or a $pageStatistics array (will then returned immediately)
   * 
   * 
-  * @return array|FALSE the $pageStatistics array of the requested page or FALSE, if it couldn't open the file
+  * @return array|FALSE|NULL the $pageStatistics array of the requested page or FALSE, if it couldn't open the file, or NULL when the file exists but couldnt be loaded properly
   * 
   * @static
   * @version 1.0
@@ -758,10 +765,17 @@ class GeneralFunctions {
       flock($fp,LOCK_UN);
       fclose($fp);
     }
-
-    if($pageStatistics) {
+    
+    // return content array
+    if(is_array($pageStatistics)) {
       return $pageStatistics;
-    } else  // returns false if it couldn't include the page stats
+      
+    // return failure while loading the content (file exists but couldn't be loaded)
+    } elseif($pageStatistics === 1) {
+      return null;
+      
+    // returns false if it couldn't include the file (file doesnt exists)
+    } else
       return false;
   }
 
@@ -1039,9 +1053,9 @@ class GeneralFunctions {
   }
   
  /**
-  * <b>Name</b> loadPages()<br>
+  * <b>Name</b> loadPagesStatistics()<br>
   * 
-  * Loads the $pageContent arrays from pages in a specific category(ies) or all categories.
+  * Loads the $pageStatistics arrays from pages in a specific category(ies) or all categories.
   * 
   * Loads all $pageStatistics arrays of a given category, by going through the {@link $storedPageIds} property and load the right "[pageID].statistics.php".
   * 

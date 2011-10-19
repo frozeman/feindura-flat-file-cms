@@ -978,6 +978,10 @@ class StatisticFunctions {
   *   - first visit date time
   *   - last visit date time
   *   - which browser and how often visited this website
+  *
+  * Saves the time spend on the last Pages
+  *   - minimal time spend on the page
+  *   - maxmimal time spend on the page
   * 
   * <b>Used Global Variables</b>
   *    - <var>$_SESSION</var> to store whether the user visited the website already, to prevent double counting 
@@ -1012,23 +1016,26 @@ class StatisticFunctions {
     //unset($_SESSION);
     
     // #### DUMP ####
-    if(!isset(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
-      $dump = 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."/n";
-      $dump = '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."/n";
-      $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."/n";
-      $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."/n";
-      $dump .= '$_SESSION: '.print_r($_SESSION,true)."/n";
+    if(!isset(self::$websiteStatistic) || self::$websiteStatistic === 1) {
+      $dump = (self::$websiteStatistic === true) ? "ITs TRUE\n" : "";
+      $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
+      $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";
+      $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."\n";
+      $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."\n";
+      $dump .= '$_SESSION: '.print_r($_SESSION,true)."\n";
       mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output OUTSIDE', $dump);
     }
     
     // doesnt save anything if visitor is a logged in user
-    if($_SESSION['feinduraSession']['login']['loggedIn'] || !isset(self::$websiteStatistic)) // prevent reseting the statistics
+    if($_SESSION['feinduraSession']['login']['loggedIn'])
       return false;
+      
+    $hasCurrentVisitors = self::visitorCache(); // count and renew the current visitors
 
     // COUNT if the user/robot isn't already counted
     // **********************************************
-    if((isset($_SESSION['feinduraSession']['log']['visited']) && $_SESSION['feinduraSession']['log']['visited'] === false) ||
-       (!isset($_SESSION['feinduraSession']['log']['visited']) && self::visitorCache() === false)) {
+    if(self::$websiteStatistic !== 1 && ((isset($_SESSION['feinduraSession']['log']['visited']) && $_SESSION['feinduraSession']['log']['visited'] === false) ||
+       (!isset($_SESSION['feinduraSession']['log']['visited']) && $hasCurrentVisitors === false))) {
 
       // ->> CHECKS if the user is NOT a BOT/SPIDER
       if(self::isRobot() === false) {
@@ -1058,11 +1065,12 @@ class StatisticFunctions {
            
           // #### DUMP ####
           if(empty(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
-            $dump = 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."/n";
-            $dump = '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."/n";
-            $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."/n";
-            $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."/n";
-            $dump .= '$_SESSION: '.print_r($_SESSION,true)."/n";
+            $dump = (self::$websiteStatistic === true) ? "ITs TRUE\n" : "";
+            $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
+            $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";
+            $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."\n";
+            $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."\n";
+            $dump .= '$_SESSION: '.print_r($_SESSION,true)."\n";
             mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output INSIDE', $dump);
           }
           
@@ -1118,6 +1126,7 @@ class StatisticFunctions {
       }
     
     // ->> save the time of the last visited page
+    // **********************************************
     } elseif(self::isRobot() === false) { // ->> CHECKS if the user is NOT a BOT/SPIDER
       
       // -------------------------------------------------------------------------------------
@@ -1133,9 +1142,14 @@ class StatisticFunctions {
         
         // ->> start of foreach(lastPages)
         foreach($_SESSION['feinduraSession']['log']['lastPages'] as $lastPageId) {
-        
+          
           // load the last page again
           $lastPage = GeneralFunctions::readPageStatistics($lastPageId);
+          
+          // prevent resetting page stats
+          if($lastPage === null)
+            break;
+          
           if(!$lastPage) $lastPage['id'] = $lastPageId;
           
           $visitTime = time() - XssFilter::int($_SESSION['feinduraSession']['log']['lastTimestamp'],0);
@@ -1218,8 +1232,6 @@ class StatisticFunctions {
   * 
   * Saves the following values of the page-statistic:<br>
   *   - number of user visits
-  *   - minimal time spend on the page
-  *   - maxmimal time spend on the page
   *   - first visit date time
   *   - last visit date time
   *   - which searchwords and how often they occured
@@ -1267,7 +1279,12 @@ class StatisticFunctions {
          
       // LOAD the $pageStatistics array
       $pageStatistics = GeneralFunctions::readPageStatistics($pageId);
-      if(!is_array($pageStatistics)) {
+      
+      // prevent resetting page stats
+      if($pageStatistics === null)
+        return false;
+      
+      if(!$pageStatistics) {
       	$pageStatistics = array();
       	$pageStatistics['id'] = $pageId;
       }
