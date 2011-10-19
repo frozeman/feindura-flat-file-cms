@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.4
-Build 752
+Build 753
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1.4
   
+  build 753: changed the dump and add a possible fix
   build 752: add mail dump output, to figure out why its resetting the stats
   build 751: moved createTagCloud() and createBrowserChart() to the backend.functions.php
   build 750: fix in speakingUrl path

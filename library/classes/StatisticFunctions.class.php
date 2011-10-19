@@ -1009,10 +1009,10 @@ class StatisticFunctions {
   public static function saveWebsiteStats() {
     
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
-    //unset($_SESSION);
+    unset($_SESSION);
     
     // #### DUMP ####
-    if(empty(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
+    if(!isset(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
       $dump = 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."/n";
       $dump = '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."/n";
       $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."/n";
@@ -1022,7 +1022,7 @@ class StatisticFunctions {
     }
     
     // doesnt save anything if visitor is a logged in user
-    if($_SESSION['feinduraSession']['login']['loggedIn'])
+    if($_SESSION['feinduraSession']['login']['loggedIn'] || !isset(self::$websiteStatistic)) // prevent reseting the statistics
       return false;
 
     // COUNT if the user/robot isn't already counted
