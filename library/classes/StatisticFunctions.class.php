@@ -1009,7 +1009,7 @@ class StatisticFunctions {
   public static function saveWebsiteStats() {
     
     // $_SESSION needed for check if the user has already visited the page AND reduce memory, because only run once the isRobot() public static function
-    unset($_SESSION);
+    //unset($_SESSION);
     
     // #### DUMP ####
     if(!isset(self::$websiteStatistic) || self::$websiteStatistic['userVisitCount'] == 0) {
