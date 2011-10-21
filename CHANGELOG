@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.4
-Build 754
+Build 755
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,6 +24,7 @@ ChangeLog:
 
 1.1.4
   
+  build 755: small fix in the loadLanguageFile() method
   build 754: hopefully finally fixed the reset statistics issue
   build 753: changed the dump and add a possible fix
   build 752: add mail dump output, to figure out why its resetting the stats
