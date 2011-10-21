@@ -244,10 +244,10 @@ class GeneralFunctions {
     // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
     $browserLanguages = self::getBrowserLanguages($standardLang);
     // add the current language code
-    if(!empty($currentLangCode)) {
-      $currentLangCodeArray = array($currentLangCode => 2); // set it as the highest qvalue
+    if(!empty($currentLangCode) && !is_array($currentLangCode)) {
+      $currentLangCode = array($currentLangCode => 2); // set it as the highest qvalue
       //$browserLanguages = currentLangCodeArray + $browserLanguages;
-      $browserLanguages = array_merge($browserLanguages,$currentLangCodeArray);
+      $browserLanguages = array_merge($browserLanguages,$currentLangCode);
       natsort($browserLanguages);
       $browserLanguages = array_reverse($browserLanguages);
     }
