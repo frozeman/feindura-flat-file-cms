@@ -233,21 +233,22 @@ class GeneralFunctions {
   */
   public static function loadLanguageFile($langPath = false, $filename = '%lang%.php', &$currentLangCode = false, $standardLang = 'en') {
      
+    // var
+    $return = array();
+     
     // checks if a path given
     if(!is_string($langPath) || empty($langPath))
       $langPath = dirname(__FILE__).'/../languages/'; 
-    
-    // var
-    $return = array();
-    $langPath = (strpos($langPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$langPath : $langPath;
-    
+    else
+      $langPath = (strpos($langPath,DOCUMENTROOT) === false) ? DOCUMENTROOT.$langPath : $langPath;
+
     // checks if the BROWSER STANDARD LANGUAGE is found in the SUPPORTED COUNTRY CODE         
     $browserLanguages = self::getBrowserLanguages($standardLang);
     // add the current language code
     if(!empty($currentLangCode) && !is_array($currentLangCode)) {
-      $currentLangCode = array($currentLangCode => 2); // set it as the highest qvalue
+      $currentLangCodeArray = array($currentLangCode => 2); // set it as the highest qvalue
       //$browserLanguages = currentLangCodeArray + $browserLanguages;
-      $browserLanguages = array_merge($browserLanguages,$currentLangCode);
+      $browserLanguages = array_merge($browserLanguages,$currentLangCodeArray);
       natsort($browserLanguages);
       $browserLanguages = array_reverse($browserLanguages);
     }
