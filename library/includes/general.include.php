@@ -31,7 +31,7 @@ error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
  * 
  * @global array $GLOBALS['adminConfig']
  */
-if(!$adminConfig = @include_once(dirname(__FILE__)."/../../config/admin.config.php"))
+if(!$adminConfig = @include(dirname(__FILE__)."/../../config/admin.config.php"))
   $adminConfig = array();
 if(empty($adminConfig['permissions'])) $adminConfig['permissions'] = 0755;
 $GLOBALS['adminConfig'] = $adminConfig;
@@ -43,7 +43,7 @@ $GLOBALS['adminConfig'] = $adminConfig;
  * 
  * @global array $GLOBALS['userConfig']
  */
-if(!$userConfig = @include_once(dirname(__FILE__)."/../../config/user.config.php"))
+if(!$userConfig = @include(dirname(__FILE__)."/../../config/user.config.php"))
   $userConfig = array();
 $GLOBALS['userConfig'] = $userConfig;
 
@@ -54,7 +54,7 @@ $GLOBALS['userConfig'] = $userConfig;
  * 
  * @global array $GLOBALS['websiteConfig']
  */
-if(!$websiteConfig = @include_once(dirname(__FILE__)."/../../config/website.config.php"))
+if(!$websiteConfig = @include(dirname(__FILE__)."/../../config/website.config.php"))
   $websiteConfig = array();
 $GLOBALS['websiteConfig'] = $websiteConfig;
 
@@ -65,7 +65,7 @@ $GLOBALS['websiteConfig'] = $websiteConfig;
  * 
  * @global array $GLOBALS['categoryConfig']
  */
-if(!$categoryConfig = @include_once(dirname(__FILE__)."/../../config/category.config.php"))
+if(!$categoryConfig = @include(dirname(__FILE__)."/../../config/category.config.php"))
   $categoryConfig = array();
 $GLOBALS['categoryConfig'] = $categoryConfig;
 
@@ -76,7 +76,7 @@ $GLOBALS['categoryConfig'] = $categoryConfig;
  * 
  * @global array $GLOBALS['statisticConfig']
  */
-if(!$statisticConfig = @include_once(dirname(__FILE__)."/../../config/statistic.config.php"))
+if(!$statisticConfig = @include(dirname(__FILE__)."/../../config/statistic.config.php"))
   $statisticConfig = array();
 $GLOBALS['statisticConfig'] = $statisticConfig;
 
@@ -87,12 +87,7 @@ $GLOBALS['statisticConfig'] = $statisticConfig;
  * 
  * @global array $GLOBALS['websiteStatistic']
  */
-if($fp = @fopen(dirname(__FILE__).'/../../statistic/website.statistic.php','r')) {
-  flock($fp,LOCK_SH);
-  if(!$websiteStatistic = @include_once(dirname(__FILE__)."/../../statistic/website.statistic.php")) $websiteStatistic = array();
-  flock($fp,LOCK_UN);
-  fclose($fp);
-} else
+if(!$websiteStatistic = @include(dirname(__FILE__)."/../../statistic/website.statistic.php"))
   $websiteStatistic = array();
 $GLOBALS['websiteStatistic'] = $websiteStatistic;
 
