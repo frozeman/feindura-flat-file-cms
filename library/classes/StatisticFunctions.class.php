@@ -558,30 +558,29 @@ class StatisticFunctions {
       fclose($logFile);
     }
       
-    if($logFile = @fopen($logFilePath,"wb")) {
       
-      // adds the Object
-      $object = ($object) ? '|#|'.$object : false;
-      
-      // -> create the new log string
-      $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$task.$object;
-      
-      // -> write the new log file
-      flock($logFile,LOCK_EX);    
-      fwrite($logFile,$newLog."\n");    
-      $count = 2;
-      if(is_array($oldLog)) {
-        foreach($oldLog as $oldLogRow) {
-          fwrite($logFile,$oldLogRow);
-          // stops the log after 120 entries
-          if($count == $maxEntries)
-            break;
-          $count++;
-        }
+    // adds the Object
+    $object = ($object) ? '|#|'.$object : false;
+    
+    // -> create the new log string
+    $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$task.$object;
+    
+    // CREATE file content
+    $fileContent = '';
+    $fileContent .= $newLog."\n";
+    $count = 2;
+    if(is_array($oldLog)) {
+      foreach($oldLog as $oldLogRow) {
+        $fileContent .= $oldLogRow;
+        // stops the log after 120 entries
+        if($count == $maxEntries)
+          break;
+        $count++;
       }
-      flock($logFile,LOCK_UN);
-      fclose($logFile);
-      
+    }
+    
+    // -> write file
+    if(file_put_contents($logFilePath, $fileContent, LOCK_EX)) {
       // -> add permissions on the first creation
       if(!$oldLog) @chmod($logFilePath, self::$adminConfig['permissions']);
       
@@ -627,34 +626,35 @@ class StatisticFunctions {
     // -> SAVE REFERER LOG
     if(isset($_SERVER['HTTP_REFERER']) &&
        !empty($_SERVER['HTTP_REFERER']) &&
-       strpos($_SERVER['HTTP_REFERER'],str_replace('www.','',self::$adminConfig['url'])) === false && // checks if referer is not the own page
-       $logFile = @fopen($logFilePath,"wb")) {
+       strpos($_SERVER['HTTP_REFERER'],str_replace('www.','',self::$adminConfig['url'])) === false) { // checks if referer is not the own page
       
       // -> create the new log string
       $newLog = time().'|#|'.$_SERVER['HTTP_REFERER'];
       
-      // -> write the new log file
-      flock($logFile,LOCK_EX);
-      fwrite($logFile,$newLog."\n");    
+      // CREATE file content
+      $fileContent = '';
+      $fileContent .= $newLog."\n";    
       $count = 2;
       if(is_array($oldLog)) {
         foreach($oldLog as $oldLogRow) {
-          fwrite($logFile,$oldLogRow);
+          $fileContent .= $oldLogRow;
           // stops the log after 120 entries
           if($count == $maxEntries)
             break;      
           $count++;
         }
       }
-      flock($logFile,LOCK_UN);
-      fclose($logFile);
       
-      // -> add permissions on the first creation
-      if(!$oldLog) @chmod($logFilePath, self::$adminConfig['permissions']);
-      
-      return true;
-    } else
-      return false;
+      // -> write file
+      if(file_put_contents($logFilePath, $fileContent, LOCK_EX)) {
+        // -> add permissions on the first creation
+        if(!$oldLog) @chmod($logFilePath, self::$adminConfig['permissions']);
+        
+        return true;
+      } else
+        return false;
+    }
+    return false;
   }
   
  /**
@@ -914,18 +914,17 @@ class StatisticFunctions {
         $newLines[] = $timeStamp.'|#|'.$type.'|#|'.$userAgentMd5.'|#|'.$_SERVER['REMOTE_ADDR'];
       }
     
-    // ->> OPEN visitor.statistic.cache for writing
-    if($cache = @fopen($cacheFile,"wb")) {
-      flock($cache,LOCK_EX);
-      foreach($newLines as $newLine) {
-        $newLine = preg_replace('#[\r\n]+#','',$newLine);
-        fwrite($cache,$newLine."\n");
-      }
-      flock($cache,LOCK_UN);
-      fclose($cache);
-      
+    // CREATE file content
+    $fileContent = '';
+    foreach($newLines as $newLine) {
+      $newLine = preg_replace('#[\r\n]+#','',$newLine);
+      $fileContent .= $newLine."\n";
+    }
+    
+    // -> write file
+    if(file_put_contents($cacheFile, $fileContent, LOCK_EX)) {
       // -> add permissions on the first creation
-      if(!$cachedLines) @chmod($cacheFile, self::$adminConfig['permissions']);   
+      if(!$cachedLines) @chmod($cacheFile, self::$adminConfig['permissions']); 
     }
     
     // return the right value
@@ -1028,11 +1027,11 @@ class StatisticFunctions {
 
       // ->> CHECKS if the user is NOT a BOT/SPIDER
       if(self::isRobot() === false) {
-   
+        
         // -------------------------------------------------------------------------------------
-        // -->> --------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------
         // ->> WEBSITE STATISTIC
-        // -------------- 
+        // ---------------------
         
         // -> saves the FIRST WEBSITE VISIT
         // -----------------------------
@@ -1075,32 +1074,28 @@ class StatisticFunctions {
         self::$websiteStatistic['robotVisitCount']++;
       }
       
-      // ->> OPEN website.statistic.php for writing
-      if($statisticFile = @fopen(dirname(__FILE__)."/../../statistic/website.statistic.php","wb")) {
-        
-        flock($statisticFile,LOCK_EX);
-        fwrite($statisticFile,PHPSTARTTAG);
-              
-        fwrite($statisticFile,"\$websiteStatistic['userVisitCount'] =    ".XssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n");
-        fwrite($statisticFile,"\$websiteStatistic['robotVisitCount'] =   ".XssFilter::int(self::$websiteStatistic["robotVisitCount"],0).";\n\n");
-        
-        fwrite($statisticFile,"\$websiteStatistic['firstVisit'] =        ".XssFilter::int(self::$websiteStatistic["firstVisit"],0).";\n");
-        fwrite($statisticFile,"\$websiteStatistic['lastVisit'] =         ".XssFilter::int(self::$websiteStatistic["lastVisit"],0).";\n\n");
-        
-        fwrite($statisticFile,"\$websiteStatistic['browser'] =           '".self::$websiteStatistic["browser"]."';\n\n"); // XssFilter in the addDataToDataString() method
-        
-        fwrite($statisticFile,"return \$websiteStatistic;");
-              
-        fwrite($statisticFile,PHPENDTAG);        
-        flock($statisticFile,LOCK_UN);
-        fclose($statisticFile);
-        
-        // -> add permissions on the first creation
-        if(self::$websiteStatistic["userVisitCount"] === 1) @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", self::$adminConfig['permissions']);
-        
+      // ->> CREATE writing string
+      $statisticFile = '';
+      $statisticFile .= PHPSTARTTAG;
+      $statisticFile .= "\$websiteStatistic['userVisitCount'] =    ".XssFilter::int(self::$websiteStatistic["userVisitCount"],0).";\n";
+      $statisticFile .= "\$websiteStatistic['robotVisitCount'] =   ".XssFilter::int(self::$websiteStatistic["robotVisitCount"],0).";\n\n";
+      
+      $statisticFile .= "\$websiteStatistic['firstVisit'] =        ".XssFilter::int(self::$websiteStatistic["firstVisit"],0).";\n";
+      $statisticFile .= "\$websiteStatistic['lastVisit'] =         ".XssFilter::int(self::$websiteStatistic["lastVisit"],0).";\n\n";
+      
+      $statisticFile .= "\$websiteStatistic['browser'] =           '".self::$websiteStatistic["browser"]."';\n\n"; // XssFilter in the addDataToDataString() method
+      
+      $statisticFile .= "return \$websiteStatistic;";
+      $statisticFile .= PHPENDTAG;
+      
+      // -> SAVE the flat file
+      if(file_put_contents(dirname(__FILE__)."/../../statistic/website.statistic.php", $statisticFile, LOCK_EX))
         // saves the user as visited
         $_SESSION['feinduraSession']['log']['visited'] = true;
-      }
+      
+      // -> add permissions on the first creation
+      if(self::$websiteStatistic["userVisitCount"] === 1) @chmod(dirname(__FILE__)."/../../statistic/website.statistic.php", self::$adminConfig['permissions']);
+      
     
     // ->> save the time of the last visited page
     // **********************************************

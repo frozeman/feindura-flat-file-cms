@@ -238,20 +238,17 @@ function userCache() {
     $return[] = $addArray;
   }
   
-  // ->> OPEN user.statistic.cache for writing
-  if($cache = @fopen($cacheFile,"wb")) {
-    flock($cache,LOCK_EX);
-    
-    foreach($newLines as $newLine) {
-      $newLine = trim($newLine);
-      fwrite($cache,$newLine."\n");
-    }
-    flock($cache,LOCK_UN);
-    fclose($cache);
-    
+  // CREATE file content
+  $fileContent = '';
+  foreach($newLines as $newLine) {
+    $newLine = trim($newLine);
+    $fileContent .= $newLine."\n";
+  }
+  
+  // -> write file
+  if(file_put_contents($cacheFile, $fileContent, LOCK_EX))
     // -> add permissions on the first creation
     if(!$cachedLines) @chmod($cacheFile, $GLOBALS['adminConfig']['permissions']);   
-  }
   
   // return the right users
   return $return;

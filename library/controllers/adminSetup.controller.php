@@ -162,13 +162,10 @@ if(isset($_POST['saveFckStyleFile'])) {
 ]);";
   
   $fckstylewrite 	= GeneralFunctions::smartStripslashes($fckstylewrite);
-  
-  if($file = fopen("config/htmlEditorStyles.js","wb")) {
-    flock($file,LOCK_EX);
-    fwrite($file,$fckstylewrite);
-    flock($file,LOCK_UN);
-    fclose($file);
-  
+    
+  // -> write file
+  if(file_put_contents(dirname(__FILE__)."/../../config/htmlEditorStyles.js", $fckstylewrite, LOCK_EX)) {
+    
     // give documentSaved status
     $documentSaved = true;
     StatisticFunctions::saveTaskLog(9); // <- SAVE the task in a LOG FILE
@@ -180,7 +177,7 @@ if(isset($_POST['saveFckStyleFile'])) {
 }
 
 // ---------- SAVE the editFiles
-include_once(dirname(__FILE__).'/../controllers/saveEditFiles.controller.php');
+include_once(dirname(__FILE__).'/saveEditFiles.controller.php');
 
 // RE-INCLUDE
 if($savedSettings) {

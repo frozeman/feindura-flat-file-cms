@@ -646,30 +646,30 @@ class GeneralFunctions {
     : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
     
     // open the flatfile
-    if(is_numeric($pageContent['id']) && ($file = fopen($filePath,"wb"))) {
+    if(is_numeric($pageContent['id'])) {
 
       // escape \ and '
       $pageContent = XssFilter::escapeBasics($pageContent);
      
-      // WRITE
-      flock($file,LOCK_EX);
-      fwrite($file,PHPSTARTTAG);
+      // CREATE file content
+      $fileContent = '';
+      $fileContent .= PHPSTARTTAG;
       
-      fwrite($file,"\$pageContent['id'] =                 ".XssFilter::int($pageContent['id'],0).";\n");
-      fwrite($file,"\$pageContent['category'] =           ".XssFilter::int($pageContent['category'],0).";\n");
-      fwrite($file,"\$pageContent['sortOrder'] =          ".XssFilter::int($pageContent['sortOrder'],0).";\n");
-      fwrite($file,"\$pageContent['public'] =             ".XssFilter::bool($pageContent['public'],true).";\n\n");
+      $fileContent .= "\$pageContent['id'] =                 ".XssFilter::int($pageContent['id'],0).";\n";
+      $fileContent .= "\$pageContent['category'] =           ".XssFilter::int($pageContent['category'],0).";\n";
+      $fileContent .= "\$pageContent['sortOrder'] =          ".XssFilter::int($pageContent['sortOrder'],0).";\n";
+      $fileContent .= "\$pageContent['public'] =             ".XssFilter::bool($pageContent['public'],true).";\n\n";
       
-      fwrite($file,"\$pageContent['lastSaveDate'] =       ".XssFilter::int($pageContent['lastSaveDate'],0).";\n");
-      fwrite($file,"\$pageContent['lastSaveAuthor'] =     '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"); 
+      $fileContent .= "\$pageContent['lastSaveDate'] =       ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
+      $fileContent .= "\$pageContent['lastSaveAuthor'] =     '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"; 
       
-      fwrite($file,"\$pageContent['title'] =              '".self::htmLawed(strip_tags($pageContent['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n");
-      fwrite($file,"\$pageContent['description'] =        '".XssFilter::text($pageContent['description'])."';\n\n");      
+      $fileContent .= "\$pageContent['title'] =              '".self::htmLawed(strip_tags($pageContent['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
+      $fileContent .= "\$pageContent['description'] =        '".XssFilter::text($pageContent['description'])."';\n\n";   
       
-      fwrite($file,"\$pageContent['pageDate']['before'] = '".XssFilter::text($pageContent['pageDate']['before'])."';\n");
-      fwrite($file,"\$pageContent['pageDate']['date'] =   ".XssFilter::int($pageContent['pageDate']['date'],0).";\n");
-      fwrite($file,"\$pageContent['pageDate']['after'] =  '".XssFilter::text($pageContent['pageDate']['after'])."';\n");           
-      fwrite($file,"\$pageContent['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContent['tags']),','))."';\n\n");
+      $fileContent .= "\$pageContent['pageDate']['before'] = '".XssFilter::text($pageContent['pageDate']['before'])."';\n";
+      $fileContent .= "\$pageContent['pageDate']['date'] =   ".XssFilter::int($pageContent['pageDate']['date'],0).";\n";
+      $fileContent .= "\$pageContent['pageDate']['after'] =  '".XssFilter::text($pageContent['pageDate']['after'])."';\n";
+      $fileContent .= "\$pageContent['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContent['tags']),','))."';\n\n";
       
       // write the plugins
       if(is_array($pageContent['plugins'])) {
@@ -682,43 +682,46 @@ class GeneralFunctions {
                  is_bool($pageContent['plugins'][$key][$insideKey]) ||
                  $pageContent['plugins'][$key][$insideKey] == 'true' ||
                  $pageContent['plugins'][$key][$insideKey] == 'false')
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".XssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n");
+                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".XssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n";
               elseif(strpos(strtolower($insideKey),'url') !== false)
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n");
+                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n";
               elseif(strpos(strtolower($insideKey),'path') !== false)
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n");
+                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n";
               elseif(strpos(strtolower($insideKey),'number') !== false)
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n");
+                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n";
               else
-                fwrite($file,"\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n");
+                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n";
             }
-            fwrite($file,"\n");
+            $fileContent .= "\n";
           }        
         }
       }
       
-      fwrite($file,"\$pageContent['thumbnail'] =          '".XssFilter::filename($pageContent['thumbnail'])."';\n");
-      fwrite($file,"\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"); //XssFilter is in prepareStyleFilePaths() function
-      fwrite($file,"\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n");
-      fwrite($file,"\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n");
+      $fileContent .= "\$pageContent['thumbnail'] =          '".XssFilter::filename($pageContent['thumbnail'])."';\n";
+      $fileContent .= "\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
+      $fileContent .= "\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n";
+      $fileContent .= "\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n";
 
-      fwrite($file,"\$pageContent['content'] = '".trim(self::htmLawed($pageContent['content']))."';\n\n");
+      $fileContent .= "\$pageContent['content'] = '".trim(self::htmLawed($pageContent['content']))."';\n\n";
       
-      fwrite($file,"return \$pageContent;");
+      $fileContent .= "return \$pageContent;";
+      $fileContent .= PHPENDTAG;
       
-      fwrite($file,PHPENDTAG);
-      flock($file,LOCK_UN);
-      fclose($file);
-      
-      // writes the new saved page to the $storedPages property      
-      self::removeStoredPage($pageContent['id']); // remove the old one
-      unset($pageContent);
-      $pageContent = include($filePath);
-      self::addStoredPage($pageContent);
-      // reset the stored page ids
-      self::$storedPageIds = null;
-      
-      return true;
+      if(file_put_contents($filePath, $fileContent, LOCK_EX)) {
+        
+        @chmod($filePath,self::$adminConfig['permissions']);
+        
+        // writes the new saved page to the $storedPages property      
+        self::removeStoredPage($pageContent['id']); // remove the old one
+        unset($pageContent);
+        $pageContent = include($filePath);
+        self::addStoredPage($pageContent);
+        // reset the stored page ids
+        self::$storedPageIds = null;
+        
+        return true;
+      } else
+        return false;
     }  
     return false;  
   }
@@ -814,36 +817,32 @@ class GeneralFunctions {
     // check if statistics folder exists
     if(!is_dir(dirname(__FILE__).'/../../statistic/pages/'))
       @mkdir(dirname(__FILE__).'/../../statistic/pages/',self::$adminConfig['permissions'],true);
-    
-    // open the flatfile
-    if($file = fopen(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',"wb")) {
 
-      // escape \ and '
-      //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
-     
-      // WRITE
-      flock($file,LOCK_EX);
-      fwrite($file,PHPSTARTTAG);
-      
-      fwrite($file,"\$pageStatistics['id'] =             ".XssFilter::int($pageStatistics['id'],0).";\n");
-      fwrite($file,"\$pageStatistics['visitorCount'] =   ".XssFilter::int($pageStatistics['visitorCount'],0).";\n");
-      fwrite($file,"\$pageStatistics['firstVisit'] =     ".XssFilter::int($pageStatistics['firstVisit'],0).";\n");
-      fwrite($file,"\$pageStatistics['lastVisit'] =      ".XssFilter::int($pageStatistics['lastVisit'],0).";\n");
-      fwrite($file,"\$pageStatistics['visitTimeMin'] =   '".$pageStatistics['visitTimeMin']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-      fwrite($file,"\$pageStatistics['visitTimeMax'] =   '".$pageStatistics['visitTimeMax']."';\n"); // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
-      fwrite($file,"\$pageStatistics['searchWords'] =    '".$pageStatistics['searchWords']."';\n\n"); // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
-      
-      fwrite($file,"return \$pageStatistics;");
-      
-      fwrite($file,PHPENDTAG);
-      flock($file,LOCK_UN);
-      fclose($file);
-      
+    // escape \ and '
+    //$pageStatistics = XssFilter::escapeBasics($pageStatistics);
+   
+    // CREATE file content
+    $fileContent = '';
+    $fileContent .= PHPSTARTTAG;
+    
+    $fileContent .= "\$pageStatistics['id'] =             ".XssFilter::int($pageStatistics['id'],0).";\n";
+    $fileContent .= "\$pageStatistics['visitorCount'] =   ".XssFilter::int($pageStatistics['visitorCount'],0).";\n";
+    $fileContent .= "\$pageStatistics['firstVisit'] =     ".XssFilter::int($pageStatistics['firstVisit'],0).";\n";
+    $fileContent .= "\$pageStatistics['lastVisit'] =      ".XssFilter::int($pageStatistics['lastVisit'],0).";\n";
+    $fileContent .= "\$pageStatistics['visitTimeMin'] =   '".$pageStatistics['visitTimeMin']."';\n"; // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+    $fileContent .= "\$pageStatistics['visitTimeMax'] =   '".$pageStatistics['visitTimeMax']."';\n"; // XssFilter in saveWebsiteStats() method in the StatisticFunctions.class.php
+    $fileContent .= "\$pageStatistics['searchWords'] =    '".$pageStatistics['searchWords']."';\n\n"; // XssFilter in the addDataToDataString() method in the StatisticFunctions.class.php
+    
+    $fileContent .= "return \$pageStatistics;";
+    
+    $fileContent .= PHPENDTAG;
+    
+    // -> write file
+    if(file_put_contents(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php', $fileContent, LOCK_EX)) {
       @chmod(dirname(__FILE__).'/../../statistic/pages/'.$pageStatistics['id'].'.statistics.php',self::$adminConfig['permissions']);
-      
       return true;
-    }
-    return false;  
+    } else
+      return false; 
   }
   
  /**
