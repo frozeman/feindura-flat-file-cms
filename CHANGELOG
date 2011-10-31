@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
-1.1.4
-Build 760
+1.1.5
+Build 761
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,9 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+1.1.5
+
+  build 761: create 1.1.5 release
   build 760: removed fopen() from the backend.functions.php and replaced it with file_put_contents()
   build 759: fixed now the reset statistics issue, by using file_put_contents() instead of fopen, changed fopen() in most cases to file_put_contents(); TODO: change still in backend.function.php
   build 758: try to fix the statistics reset again, by removing the lock_sh when read websiteStatistics
