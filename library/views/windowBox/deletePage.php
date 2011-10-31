@@ -16,7 +16,7 @@
  * 
  * deletePage.php
  * 
- * @version 0.93
+ * @version 1.0
  */
 
 /**
@@ -56,6 +56,11 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
 
   // DELETING PAGE
   if(@unlink(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
+  
+    // delete statistics
+    if(is_file(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php'))
+      @unlink(dirname(__FILE__).'/../../../statistic/pages/'.$page.'.statistics.php');
+    // delete thumbnail
     if(!empty($pageContent['thumbnail']))
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     

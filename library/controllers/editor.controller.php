@@ -63,6 +63,10 @@ if($_POST['save'] && isBlocked() === false) {
     
     $logText = 0;
     
+    // delete statistics, if still exist
+    if(is_file(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php'))
+      @unlink(dirname(__FILE__).'/../../statistic/pages/'.$page.'.statistics.php');
+    
     GeneralFunctions::$storedPageIds = null; // set storedPageIds to null so the page IDs will be reloaded next time
     
   // *** SAVE PAGE ----------------------
