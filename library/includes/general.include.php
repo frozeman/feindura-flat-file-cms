@@ -105,8 +105,16 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 /**
  * The absolut path of the webserver, with fix for IIS Server
  */ 
-$docRoot = (empty($adminConfig['basePath'])) ? $_SERVER['DOCUMENT_ROOT']: str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__);
-define('DOCUMENTROOT', $docRoot); unset($docRoot);
+if(empty($adminConfig['basePath'])) {
+  $localpath=$_SERVER["SCRIPT_NAME"];
+  $absolutepath=realpath($localPath);
+  // a fix for Windows slashes
+  $absolutepath=str_replace("\\","/",$absolutepath);
+  $docRoot = (dirname($localpath) != '/') ? str_replace(dirname($localpath),'',$absolutepath) : $absolutepath;
+
+} else
+  $docRoot = str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__);
+define('DOCUMENTROOT', $docRoot); unset($docRoot,$localpath,$absolutepath);
 
 /**
  * The required PHP version

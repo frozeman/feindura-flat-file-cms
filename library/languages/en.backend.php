@@ -497,7 +497,7 @@ $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS'] = 'Activate plugins';
 $langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS'] = 'Specifies if the user can use plugins in pages without category.';
 
 // ---------- category settings
-$langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES'] = 'Manage-Categories';
+$langFile['PAGESETUP_CATEGORY_TITLE_CATEGORIES'] = 'Manage categories';
 $langFile['PAGESETUP_CATEGORY_TEXT_CATEGORYNAME'] = 'Name';
 
 $langFile['PAGESETUP_CATEGORY_TEXT_CREATECATEGORY'] = 'Create new category';

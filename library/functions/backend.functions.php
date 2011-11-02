@@ -413,6 +413,7 @@ function removeDocumentRootFromPaths($postData) {
       $return[$postKey] = removeDocumentRootFromPaths($post);
     else
       $return[$postKey] = $post;
+
   }
   return $return;
 }
