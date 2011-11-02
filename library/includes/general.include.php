@@ -104,7 +104,7 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 
 /**
  * The absolut path of the webserver, with fix for IIS Server
- */
+ */ 
 $docRoot = (empty($adminConfig['basePath'])) ? $_SERVER['DOCUMENT_ROOT']: str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__);
 define('DOCUMENTROOT', $docRoot); unset($docRoot);
 

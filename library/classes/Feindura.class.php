@@ -1041,7 +1041,7 @@ class Feindura extends FeinduraBase {
       }
       
       // -> add plugin-stylesheets
-      $plugins = GeneralFunctions::readFolder($this->adminConfig['realBasePath'].'plugins/');
+      $plugins = GeneralFunctions::readFolder(dirname(__FILE__).'/../../plugins/');
       if(is_array($plugins)) {
         foreach($plugins['folders'] as $pluginFolder) {
           $pluginName = basename($pluginFolder);

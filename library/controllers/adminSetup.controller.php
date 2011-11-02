@@ -26,12 +26,13 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
-  addSlashesToPOSTPaths($_POST);
+  $_POST = addSlashesToPaths($_POST);
+  $_POST = removeDocumentRootFromPaths($_POST);
   
-  // ** adds a "/" on the beginning of all absolute paths
+  // ** ensure that the website path with a filename, doesnt have aslahs on the end
   if(!empty($_POST['cfg_websitePath']) && strpos($_POST['cfg_websitePath'],'.') !== false)
-        $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
-  
+    $_POST['cfg_websitePath'] = substr($_POST['cfg_websitePath'],0,-1);
+
   // ->> add SPEAKING URL to .htaccess
   // --------------------------
   saveSpeakingUrl($errorWindow);

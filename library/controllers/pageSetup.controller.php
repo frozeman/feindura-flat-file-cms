@@ -30,7 +30,8 @@ $categoryInfo = false;
 if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
-  addSlashesToPOSTPaths($_POST);
+  $_POST = addSlashesToPaths($_POST);
+  $_POST = removeDocumentRootFromPaths($_POST);
   
   // ** removes a "/" on the beginning of all relative paths
   if(!empty($_POST['cfg_thumbPath']) && substr($_POST['cfg_thumbPath'],0,1) == '/')

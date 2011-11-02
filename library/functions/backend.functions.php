@@ -356,20 +356,24 @@ function getNewUserId() {
 }
 
 /**
- * <b>Name</b> addSlashesToPOSTPaths()<br />
+ * <b>Name</b> addSlashesToPaths()<br />
  * 
- * Ensures that the the post vars with a 'Path' in the key value start and end with a slash.
+ * Ensures that all values of the $postData var with a 'Path' in the key value start and end with a slash.
  * 
+ * @param array $postData an array with path values
+ *
+ * @return array the changed $postData parameter
  * 
- * @version 1.0.1
+ * @version 1.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.2 now returns the changed $postData parameter
  *    - 1.0.1 add slash to start also 
  *    - 1.0 initial release
  * 
  */
-function addSlashesToPOSTPaths($postData) {
-  foreach($postData as $postKey => $post) {  
+function addSlashesToPaths($postData) {
+  foreach($postData as $postKey => $post) {
     if(strpos($postKey,'Path')!== false) {
       if(!empty($post) && substr($post,-1) !== '/')
         $post = $post.'/'; // add slash to the end
@@ -377,11 +381,40 @@ function addSlashesToPOSTPaths($postData) {
         $post = '/'.$post; // add slash to the start
       $post = preg_replace("#/+#",'/',$post);
       
-      $_POST[$postKey] = $post;
+      $return[$postKey] = $post;
     
     } elseif(is_array($post))
-      addSlashesToPOSTPaths($post);
+      $return[$postKey] = addSlashesToPaths($post);
+    else
+      $return[$postKey] = $post;
   }
+  return $return;
+}
+/**
+ * <b>Name</b> removeDocumentRootFromPaths()<br />
+ * 
+ * Removes the DOCUMENTROOT from all values of the $postData var with a 'Path' in the key value. 
+ *
+ * @param array $postData an array with path values
+ *
+ * @return array the changed $postData parameter
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function removeDocumentRootFromPaths($postData) {
+  foreach($postData as $postKey => $post) {
+    if(strpos($postKey,'Path')!== false)
+      $return[$postKey] = str_replace(DOCUMENTROOT,'',$post);
+    elseif(is_array($post))
+      $return[$postKey] = removeDocumentRootFromPaths($post);
+    else
+      $return[$postKey] = $post;
+  }
+  return $return;
 }
 
 /**
@@ -724,6 +757,7 @@ function movePage($page, $fromCategory, $toCategory) {
  *    - 1.0 initial release
  * 
  */
+ 
 function saveAdminConfig($adminConfig) {
   
   // prevent resetting config
@@ -744,6 +778,7 @@ function saveAdminConfig($adminConfig) {
     $permissions = (is_string($adminConfig['permissions']))
        ? octdec($adminConfig['permissions'])
        : $adminConfig['permissions'];
+    
     @chmod(dirname(__FILE__)."/../../config/admin.config.php", $permissions);
     
     // CREATE file content
