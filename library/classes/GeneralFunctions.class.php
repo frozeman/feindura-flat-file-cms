@@ -262,9 +262,6 @@ class GeneralFunctions {
       $fullPath = preg_replace('#/+#','/',$langPath.'/'.$filenameReplaced);
       
       //echo $fullPath."<br>\n";
-      
-      // provide config inside the language files
-      $adminConfig = self::$adminConfig;
  
       $languageFile = @include($fullPath);
       if(is_array($languageFile)) {

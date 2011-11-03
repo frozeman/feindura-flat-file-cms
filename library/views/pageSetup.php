@@ -41,7 +41,7 @@ $unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/category.
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
     </div>
@@ -83,8 +83,8 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'generalPageConfig'; submitAnchor('pageSettingsForm','generalPageConfig');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'generalPageConfig'; submitAnchor('pageSettingsForm','generalPageConfig');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -173,7 +173,7 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
       <?php echo $langFile['adminSetup_thumbnailSettings_field3'] ?></span></label>
       </td><td class="right">
       <input style="width:auto;" readonly="readonly" size="<?php echo strlen($adminConfig['uploadPath'])+5; ?>" value="<?php echo $adminConfig['uploadPath']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip1']; ?>" />
-      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo $langFile['adminSetup_thumbnailSettings_field3_inputTip2']; ?>" />
+      <input id="cfg_thumbPath" name="cfg_thumbPath" style="width:150px;" value="<?php echo $adminConfig['pageThumbnail']['path']; ?>" class="toolTip" title="<?php echo sprintf($langFile['adminSetup_thumbnailSettings_field3_inputTip2'],$adminConfig['uploadPath']); ?>" />
       </td></tr>
       
             
@@ -181,8 +181,8 @@ $hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -287,8 +287,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'nonCategoryPages'; submitAnchor('pageSettingsForm','nonCategoryPages');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'nonCategoryPages'; submitAnchor('pageSettingsForm','nonCategoryPages');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -626,13 +626,13 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           // SUBMIT: IF advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
           // and gives the submit anchor to the FORM      
-          echo '<input type="submit" value="" name="saveCategories" class="button submit center" title="'.$langFile['form_submit'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'category'.$category['id'].'\');" />
+          echo '<input type="submit" value="" name="saveCategories" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'category'.$category['id'].'\');" />
                 </div>'; // end slide in box
           
         }
       }        
       ?>    
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
     
   </div>
   <div class="bottom"></div>

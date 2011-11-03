@@ -1556,7 +1556,7 @@ function editFiles($filesPath, $status, $titleText, $anchorName, $fileType = fal
   if($isDir) {
     if($isFiles)
       echo '<a href="?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'#'.$anchorName.'" onclick="openWindowBox(\'library/views/windowBox/deleteEditFiles.php?site='.$_GET['site'].'&amp;status=deleteEditFiles&amp;editFilesStatus='.$status.'&amp;file='.$editFile.'&amp;anchorName='.$anchorName.'\',\''.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'\');return false;" class="cancel left toolTip" title="'.$GLOBALS['langFile']['editFilesSettings_deleteFile'].'::" style="float:left;"></a>';
-    echo '<br /><br /><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['form_submit'].'" />';
+    echo '<br /><br /><input type="submit" value="" name="saveEditedFiles" class="button submit right" title="'.$GLOBALS['langFile']['FORM_BUTTON_SUBMIT'].'" />';
   }
   echo '</div>
       <div class="bottom"></div>
@@ -1724,7 +1724,7 @@ function delDir($dir) {
 function isFolderWarning($folder) {
   
   if(!GeneralFunctions::getRealPath($folder) && is_dir($folder) === false) {
-      return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_isFolder'].'</span><br />';
+      return '<span class="warning"><b>&quot;'.$folder.'&quot;</b> -> '.$GLOBALS['langFile']['ADMINSETUP_TEXT_ISFOLDERERROR'].'</span><br />';
   } else
     return false;
 }
@@ -1755,7 +1755,7 @@ function isWritableWarning($fileFolder) {
   $fileFolder = GeneralFunctions::getRealPath($fileFolder);
 
   if(file_exists($fileFolder) && is_writable($fileFolder) === false) {
-    return '<span class="warning toolTip" title="'.$fileFolder.'::'.$GLOBALS['langFile']['adminSetup_error_writeAccess_tip'].'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['adminSetup_error_writeAccess'].'</span><br />';
+    return '<span class="warning toolTip" title="'.$fileFolder.'::'.sprintf($GLOBALS['langFile']['ADMINSETUP_TOOLTIP_WRITEACCESSERROR'],$GLOBALS['adminConfig']['permissions']).'"><b>&quot;'.$fileFolder.'&quot;</b> -> '.$GLOBALS['langFile']['ADMINSETUP_TEXT_WRITEACCESSERROR'].'</span><br />';
   } else
     return false;
 }

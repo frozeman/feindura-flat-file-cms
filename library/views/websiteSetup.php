@@ -39,7 +39,7 @@ if($adminConfig['user']['editStyleSheets'])
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
     </div>
@@ -111,8 +111,8 @@ $hidden = ($savedForm != 'websiteConfig') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" name="websiteConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>

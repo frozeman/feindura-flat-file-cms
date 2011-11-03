@@ -36,7 +36,7 @@ $checkFolders[] = $adminConfig['uploadPath'];
 // gives the error OUTPUT if one of these files in unwriteable
 if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
     </div>
@@ -47,7 +47,7 @@ if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($chec
 // show error if admin.config.php is not readable
 } elseif(DOCUMENTROOT === false && $unwriteableConfig = isWritableWarningRecursive(array($checkFolders[0]))) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
     <div class="content">
       <p>'.$unwriteableConfig.'</p><!-- need <p> tags for margin-left:..-->
     </div>
@@ -231,7 +231,7 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
       ?>
       <select id="cfg_speakingUrl" name="cfg_speakingUrl" style="width:160px;" class="inputToolTip" title="<?= $langFile['ADMINSETUP_GENERAL_speakingUrl_warning'] ?>"<?php if(!in_array('mod_rewrite',$apacheModules)) echo ' disabled="disabled"'; ?>>
         <option value="true"<?php if($adminConfig['speakingUrl'] == 'true') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true'].' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];?></option>
-        <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.$langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'];?></option>
+        <option value=""<?php if($adminConfig['speakingUrl'] == '') echo ' selected="selected"'; ?>><?php echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false'].' &nbsp;&nbsp;&nbsp;-> '.sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']);?></option>
       </select>
       <span class="hint">
       <?php
@@ -243,7 +243,7 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
           echo $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example'];
           $varNamesStyle = ' disabled="disabled"';
         } else {
-          echo $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'];
+          echo sprintf($langFile['ADMINSETUP_GENERAL_speakingUrl_false_example'],$adminConfig['varName']['category'],$adminConfig['varName']['page']);
           $varNamesStyle = '';
         }
       ?>
@@ -279,8 +279,8 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -341,8 +341,8 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -420,8 +420,8 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -458,8 +458,8 @@ $hidden = ($savedForm != 'fckStyleFile') ? ' hidden' : '';
   <div class="content">
     <textarea name="fckStyleFile" cols="90" rows="30" class="editFiles js" id="fckStyleFile"><?php echo $htmlEditorStyleContent; ?></textarea>
     <br /><br />
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" name="saveFckStyles" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>

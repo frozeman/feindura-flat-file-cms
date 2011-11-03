@@ -38,7 +38,7 @@ $unwriteableList .= isWritableWarning($backupFolder);
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
     </div>
@@ -118,7 +118,7 @@ $hidden = ($savedForm != 'restorBackup') ? ' hidden' : '';
       </div>
       <br />
       <br />    
-      <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+      <input type="submit" value="" name="restoreBackup" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
     </form>
   </div>
   <div class="bottom"></div>

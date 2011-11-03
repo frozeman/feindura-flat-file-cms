@@ -33,7 +33,7 @@ $unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/user.conf
 // gives the error OUTPUT if one of these files in unwriteable
 if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
-    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <h1>'.$langFile['ADMINSETUP_TITLE_ERROR'].'</h1>
     <div class="content">
       <p>'.$unwriteableList.'</p><!-- need <p> tags for margin-left:..-->
     </div>
@@ -177,7 +177,7 @@ if($unwriteableList && checkBasePathAndURL()) {
           echo '<tr><td class="spacer checkboxes"></td><td></td></tr>';
           echo '</table>';
            
-          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['form_submit'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');" />'; // end slide in box
+          echo '<input type="submit" value="" name="saveUserSetup" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="$(\'savedUserId\').value = \''.$user['id'].'\'; submitAnchor(\'userForm\',\'userId'.$user['id'].'\');" />'; // end slide in box
           
         }
       }        

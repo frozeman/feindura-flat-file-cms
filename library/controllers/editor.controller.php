@@ -75,7 +75,7 @@ if($_POST['save'] && isBlocked() === false) {
     // if flatfile exists, load $pageContent array
     // (necessary for: thumbnail, sortOrder and logs)
     if(!$pageContent = GeneralFunctions::readPage($page,$category))
-      $errorWindow .= $langFile['file_error_read'];
+      $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['realBasePath']);
    
     $logText = 1; 
   }
@@ -131,7 +131,7 @@ if($_POST['save'] && isBlocked() === false) {
       GeneralFunctions::saveSitemap();
       
     } else
-      $errorWindow .= $langFile['editor_savepage_error_save'];
+      $errorWindow .= sprintf($langFile['editor_savepage_error_save'],$adminConfig['realBasePath']);
   }
   
   // sets which block should be opend after saving

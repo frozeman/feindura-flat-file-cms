@@ -96,8 +96,8 @@ if($savedForm == 'statisticConfig' || $savedForm === false)
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="statisticConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" name="statisticConfig" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -156,8 +156,8 @@ if($savedForm == 'clearStatistics')
       
     </table>
     
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="openWindowBox('library/views/windowBox/clearStatistics.php','<?php echo $langFile['statisticSetup_clearStatistic_h1']; ?>');return false;" />
+    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="openWindowBox('library/views/windowBox/clearStatistics.php','<?php echo $langFile['statisticSetup_clearStatistic_h1']; ?>');return false;" />
   </div>
   <div class="bottom"></div>
 </div>

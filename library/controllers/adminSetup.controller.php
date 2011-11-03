@@ -132,7 +132,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
     StatisticFunctions::saveTaskLog(8); // <- SAVE the task in a LOG FILE
     
   } else
-    $errorWindow .= $langFile['ADMINSETUP_GENERAL_error_save'];
+    $errorWindow .= sprintf($langFile['ADMINSETUP_GENERAL_error_save'],$adminConfig['realBasePath']);
   
   $savedForm = $_POST['savedBlock'];
   $savedSettings = true;

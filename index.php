@@ -152,7 +152,7 @@ if($_GET['site'] == 'addons') {
   var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:                "<?= $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                       "<?= $langFile['editor_savepage_error_save']; ?>",
+    ERROR_SAVE:                       "<?= sprintf($langFile['editor_savepage_error_save'],$adminConfig['realBasePath']); ?>",
     CKEDITOR_TITLE_LINKS:             "<?= (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>"
   };
   var currentSite = '<?= $_GET["site"]; ?>';

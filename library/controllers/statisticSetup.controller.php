@@ -33,7 +33,7 @@ if($_POST['send'] && isset($_POST['statisticConfig'])) {
       $documentSaved = true;
       StatisticFunctions::saveTaskLog(19); // <- SAVE the task in a LOG FILE
     } else
-      $errorWindow .= $langFile['STATISTICSSETUP_ERROR_SAVE'];
+      $errorWindow .= sprintf($langFile['STATISTICSSETUP_ERROR_SAVE'],$adminConfig['realBasePath']);
   
   $savedForm = 'statisticConfig';
   $savedSettings = true;
@@ -59,7 +59,7 @@ if($_POST['sendClearstatistics']) {
         // set documentSaved status
         $documentSaved = true;
       } else
-        $errorWindow .= $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
+        $errorWindow .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['realBasePath']);
     }
     
     // set the messagebox; save tasklog
@@ -83,7 +83,7 @@ if($_POST['sendClearstatistics']) {
         // set documentSaved status
         $documentSaved = true;
       } else
-        $errorWindow .= $langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'];
+        $errorWindow .= sprintf($langFile['statisticSetup_clearStatistic_pagesStatistics_error_read'],$adminConfig['realBasePath']);
     }
     
     // set the messagebox; save tasklog

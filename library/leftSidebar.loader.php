@@ -203,8 +203,8 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
       echo '<h3>'.$langFile['ADMINSETUP_TEXT_PHPVERSION'].'</h3>
       <p>'.PHP_VERSION.'</p>';
        
-      echo '<h3>'.$langFile['adminSetup_srvRootPath'].'</h3>';   
-      echo '<p class="toolTip" title="'.$langFile['adminSetup_srvRootPath'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
+      echo '<h3>'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'</h3>';   
+      echo '<p class="toolTip" title="'.$langFile['ADMINSETUP_TITLE_DOCUMENTROOT'].'::'.DOCUMENTROOT.'">'.DOCUMENTROOT.'</p>
           </div></div>';
       
       break;

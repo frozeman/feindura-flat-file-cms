@@ -922,6 +922,7 @@ div.leftSidebarLoadingCircle {
   margin-right: 13px;
   font-size: 10px;
   overflow: hidden;
+  word-wrap: break-word;
 }
   
 #leftSidebar .sidebarInfo h2, #leftSidebar .sidebarInfo h3 {

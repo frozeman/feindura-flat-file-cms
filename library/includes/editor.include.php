@@ -134,5 +134,5 @@ if($adminConfig['user']['fileManager']) {
       </div>
     </div>
     
-    <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" />
+    <input type="submit" value="" id="HTMLEditorSubmit" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" />
 </div>
