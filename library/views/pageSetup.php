@@ -39,7 +39,7 @@ $unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/admin.con
 $unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/category.config.php');  
 
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePath()) {
+if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
@@ -54,19 +54,20 @@ if($unwriteableList && checkBasePath()) {
 
 ?>
 
-<form action="index.php?site=pageSetup#top" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=pageSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="pageSettingsForm">
   <div>
   <input type="hidden" name="send" value="pageConfig" />
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />
   </div>
 
 <!-- GENERAL PAGE CONFIG -->
+<a id="generalPageConfig" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
 ?>  
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="pageConfig"><?php echo $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -83,18 +84,19 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'generalPageConfig';" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'generalPageConfig'; submitAnchor('pageSettingsForm','generalPageConfig');" />
   </div>
   <div class="bottom"></div>
 </div>
 
 <!-- THUMBNAIL SETTINGS -->
+<a id="thumbnailSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
+$hidden = ($savedForm != 'thumbnailSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="thumbnailSettings"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['adminSetup_thumbnailSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -180,18 +182,19 @@ $hidden = ($savedForm != 'thumbnailConfig') ? ' hidden' : '';
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'thumbnailConfig';" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'thumbnailSettings'; submitAnchor('pageSettingsForm','thumbnailSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
 
 <!-- NON CATEGORY PAGES CONFIG -->
+<a id="nonCategoryPages" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden' : '';
 ?>  
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="pageConfig"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -285,7 +288,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'nonCategoryPages';" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'nonCategoryPages'; submitAnchor('pageSettingsForm','nonCategoryPages');" />
   </div>
   <div class="bottom"></div>
 </div>

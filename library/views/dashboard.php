@@ -37,9 +37,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <!-- gives a warning if javascript is not activated -->
 <noscript>
 <div class="block warning">
-  <h1><?php echo $langFile['warning_jsWarning_h1']; ?></h1>
+  <h1><?php echo $langFile['WARNING_TITLE_JAVASCRIPT']; ?></h1>
   <div class="content">
-    <p><?php echo $langFile['warning_jsWarning']; ?></p><!-- need <p> tags for margin-left:..--> 
+    <p><?php echo $langFile['WARNING_TEXT_JAVASCRIPT']; ?></p><!-- need <p> tags for margin-left:..--> 
   </div>
   <div class="bottom"></div>  
 </div>

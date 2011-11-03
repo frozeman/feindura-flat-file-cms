@@ -58,6 +58,7 @@ if(!$adminConfig['user']['fileManager'])
       var fileManager = new FileManager({
           url: '../../controllers/filemanager.controller.php',
           assetBasePath: '../../thirdparty/MooTools-FileManager/Assets',
+          documentRootPath: '<?= DOCUMENTROOT ?>',
           language: '<?= $_SESSION["feinduraSession"]["language"]; ?>',
           uploadAuthData: {session: '<?= session_id(); ?>'},
           filter: '<?= $_GET["mimType"]; ?>',

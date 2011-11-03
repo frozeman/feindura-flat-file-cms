@@ -252,21 +252,20 @@ $langFile['ERROR_SAVE_FOLDER_PART1'] = '<br /><br />Please check the write permi
 
 $langFile['ERROR_FOLDER_PART2'] = '&quot; Folder, it\'s subfolders and files.';
 
-/*
-* ---------- WARNINGs
-*/
+// -> WARNINGS
+$langFile['WARNING_TITLE_STARTPAGE'] = 'The start page is not set!';
+$langFile['WARNING_TEXT_STARTPAGE'] = 'Please set a page as start page.<br />Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="startPageIcon"></span> icon on the desired page.';
 
-$langFile['warning_startPageWarning_h1'] = 'The start page is not set!';
-$langFile['warning_startPageWarning'] = 'Please set a page as start page.<br />Go to <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> and click on the <span class="startPageIcon"></span> icon on the desired page.';
+$langFile['WARNING_TITLE_DOCUMENTROOT'] = 'Your Document Root couldn\'t be resolved automatically!';
+$langFile['WARNING_TEXT_DOCUMENTROOT'] = 'To correctly resolve the Document Root, go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and set the &quot;real feindura path&quot; of your <span class="logoname">fein<span>dura</span></span> CMS manually.';
 
+$langFile['WARNING_TITLE_BASEPATH'] = '<span class="logoname">fein<span>dura</span></span> is not configurated!';
+$langFile['WARNING_TEXT_BASEPATH'] = 'The <i>base path</i> of the CMS doesn\'t match the one in the administrator-settings.<br />
+Please go to the <a href="?site=adminSetup#adminSettings">administrator-settings</a> and configure your <span class="logoname">fein<span>dura</span></span> CMS.';
 
-$langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> is not configurated!';
-$langFile['warning_fmsConfWarning'] = 'The <i>base path</i> of the CMS doesn\'t match the one in the administrator-settings.<br />
-Please go to the <a href="?site=adminSetup">administrator-settings</a> and configure your <span class="logoname">fein<span>dura</span></span> CMS';
-
-$langFile['warning_jsWarning_h1'] = 'Please activate Javascript';
+$langFile['WARNING_TITLE_JAVASCRIPT'] = 'Please activate Javascript';
 // no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['warning_jsWarning'] = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong></p>
+$langFile['WARNING_TEXT_JAVASCRIPT'] = '<strong>To fully use <span class="logoname">fein<span>dura</span></span>, you need to activate  Javascript!</strong></p>
 <h2>in Firefox</h2>
 <p>Click on "Edit" > "Preferences" and under content chedck the box "activate JavaScript" and finish with OK.</p>
 <h2>in Internet Explorer</h2>
@@ -277,7 +276,7 @@ There you set under &quote;Security&quote; > &quote;Standardlevel&quote; choose 
 <h2>in Mozilla</h2>
 <p>Click on "Edit" > "Preferences". Under the point "Advanced" > "Scripts & Plugins" check "Navigator" and finish with OK.</p>
 <h2>in Opera</h2>
-<p>Click on "Extras" > "Preferences". Under "Advanced" > "Content" check "activate JavaScript" and click OK to finsih.';
+<p>Click on "Extras" > "Preferences". Under "Advanced" > "Content" check "activate JavaScript" and click OK to finish.';
 
 $langFile['DASHBOARD_TITLE_IEWARNING'] = '<span class="logoname">fein<span>dura</span></span> is not made for older versions of the Internet Explorers';
 $langFile['DASHBOARD_TEXT_IEWARNING'] = 'To completely use  <span class="logoname">fein<span>dura</span></span> CMS you need at leats Internet Explorer 8.<br /><br />Please install a newer version of the Internet Explorer,<br /> or install the <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame Plugin</a> for Internet Explorer,<br />or download and install the free <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.google.com/chrome/">Chrome</a> Browser.';
@@ -290,8 +289,8 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED'] = 'Page is currently being edited...';
 
 // ---------- QUICKMENU
 
-$langFile['btn_quickmenu_categories'] = 'Categories';
-$langFile['btn_quickmenu_pages'] = 'Pages of';
+$langFile['SIDEBARMENU_TITLE_CATEGORIES'] = 'Categories';
+$langFile['SIDEBARMENU_TITLE_PAGES'] = 'Pages of';
 
 /*
 * dashboard.php
@@ -385,14 +384,17 @@ $langFile['ADMINSETUP_GENERAL_field2'] = 'feindura path';
 $langFile['ADMINSETUP_GENERAL_field2_tip'] = 'The base path will be determined automatically and saved, the first time the settings are saved.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'The path will be added automatically';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Please save the settings!';
+$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'] = 'Real feindura Path';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH'] = 'The real file path of your [span class=logoname]fein[span]dura[/span][/span] cms, relative to the Document Root.';
+$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH'] = '<b>Example</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8'] = 'Website path';
 $langFile['ADMINSETUP_GENERAL_field8_tip'] = 'The [b]absolute path[/b] where the website is situated.';
 $langFile['ADMINSETUP_GENERAL_field4'] = 'Upload path';
 $langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Files like uploaded pictures, Flash-Animations oder documents will be saved here.[br /][br /][span class=hint]The files can be uploaded on the Link button > Upload in the HTML-Editor or in the file manager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]This files can be edited further down, or in the website-settings (if it\'s activated in the user-settings).[br /][br /]';
-$langFile['ADMINSETUP_GENERAL_field5'] = 'File path for website files';
-$langFile['ADMINSETUP_GENERAL_field5_tip'] = 'A folder with files which are used by the website. E.g to make a website multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
-$langFile['ADMINSETUP_GENERAL_field6'] = 'File path for stylesheets';
+$langFile['ADMINSETUP_GENERAL_field5'] = 'Path for website files';
+$langFile['ADMINSETUP_GENERAL_field5_tip'] = 'A folder path with files which are used by your website. E.g to make a website multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6'] = 'Path for stylesheets';
 $langFile['ADMINSETUP_GENERAL_field6_tip'] = 'A [b]absolute path[/b] where stylesheet files are. E.g. which can be edited by the user.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] = 'Permissions for files and folders';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Every file or folder created by [span class=logoname]fein[span]dura[/span][/span] will get these permissions.';

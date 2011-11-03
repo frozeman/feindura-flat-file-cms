@@ -38,6 +38,7 @@ $browser = new FileManager(array(
   'directory' => $adminConfig['uploadPath'],
   'thumbnailPath' => $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],
   'assetBasePath' => $adminConfig['basePath'].'library/thirdparty/MooTools-FileManager/Assets',
+  'documentRootPath' => DOCUMENTROOT,
   'chmod' => $adminConfig['permissions'],
   'dateFormat' => ($adminConfig['dateFormat'] == 'eu') ? 'd.m.Y H:i' : 'Y-m-d H:i',
   'upload' => true,

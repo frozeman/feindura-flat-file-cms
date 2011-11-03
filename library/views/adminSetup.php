@@ -34,7 +34,7 @@ $checkFolders[] = $adminConfig['stylesheetPath'];
 $checkFolders[] = $adminConfig['uploadPath'];
 
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList = isWritableWarningRecursive($checkFolders)) {
+if(DOCUMENTROOT !== false && $unwriteableList = isWritableWarningRecursive($checkFolders)) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">
@@ -42,7 +42,17 @@ if($unwriteableList = isWritableWarningRecursive($checkFolders)) {
     </div>
     <div class="bottom"></div>  
   </div>'; 
-  
+  echo '<div class="blockSpacer"></div>';
+
+// show error if admin.config.php is not readable
+} elseif(DOCUMENTROOT === false && $unwriteableConfig = isWritableWarningRecursive(array($checkFolders[0]))) {
+  echo '<div class="block warning">
+    <h1>'.$langFile['adminSetup_error_title'].'</h1>
+    <div class="content">
+      <p>'.$unwriteableConfig.'</p><!-- need <p> tags for margin-left:..-->
+    </div>
+    <div class="bottom"></div>  
+  </div>'; 
   echo '<div class="blockSpacer"></div>';
 }
 
@@ -62,22 +72,20 @@ foreach ($tab as $buf) {
 
 ?>
 
-<!-- anchor for the adminSettings 
-<a name="adminSettingsTop" id="adminSettingsTop" class="anchor"></a>-->
-
-<form action="index.php?site=adminSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+<form action="index.php?site=adminSetup" method="post" enctype="multipart/form-data" accept-charset="UTF-8" id="adminSettingsForm">
   <div>
   <input type="hidden" name="send" value="adminSetup" />
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />
   </div>
   
 <!-- BASIC SETTINGS -->
+<a id="adminSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
-$hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
+$hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentrootWarning()) ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="fmsSettings"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['ADMINSETUP_GENERAL_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -107,7 +115,17 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
       ?>
       <input id="cfg_basePath" name="cfg_basePath"<?php if($adminConfig['basePath'] != $checkPath) echo ' style="color:#C5451F !important;" value="'.$langFile['ADMINSETUP_GENERAL_field2_inputWarningText'].'"'; else echo ' value="'.$adminConfig['basePath'].'"'; ?> readonly="readonly" class="inputToolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field2_inputTip']; ?>" />
       </td></tr>
-
+      
+      <?php if(checkBasePathAndURL() && documentrootWarning()) { ?>
+      <tr><td class="left">
+      <label for="cfg_realBasePath"><span class="toolTip red" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'].'::'.$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH'] ?>">
+      <?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'] ?></span></label>
+      </td><td class="right">
+      <input size="40" id="cfg_realBasePath" name="cfg_realBasePath" value="<?php echo $adminConfig['realBasePath']; ?>" class="inputToolTip red" title="<?php echo $langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'].'::'.$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH']; ?>" />
+      <span class="hint"><?php echo $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']; ?></span>
+      </td></tr>
+    
+      <?php } ?>
       <tr><td class="left">
       <label for="cfg_websitePath"><span class="toolTip" title="<?php echo $langFile['ADMINSETUP_GENERAL_field8'].'::'.$langFile['ADMINSETUP_GENERAL_field8_tip'] ?>">
       <?php echo $langFile['ADMINSETUP_GENERAL_field8'] ?></span></label>
@@ -262,18 +280,19 @@ $hidden = ($savedForm != 'fmsSettings' && checkBasePath()) ? ' hidden' : '';
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'fmsSettings';" />
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'adminSettings'; submitAnchor('adminSettingsForm','adminSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
 
 <!-- USER PERMISSIONS -->
+<a id="userSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-<h1><a href="#" id="userSettings"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']; ?></a></h1>
+<h1><a href="#"><?php echo $langFile['ADMINSETUP_USERPERMISSIONS_TITLE']; ?></a></h1>
 <div class="content">
     <table>
      
@@ -323,18 +342,19 @@ $hidden = ($savedForm != 'userSettings') ? ' hidden' : '';
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings';" />
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'userSettings'; submitAnchor('adminSettingsForm','userSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
 
 <!-- EDITOR SETTINGS -->
+<a id="editorSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
 ?>
 <div class="block<?php echo $hidden; ?>">
-  <h1><a href="#" id="editorSettings"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
+  <h1><a href="#"><?php echo $langFile['adminSetup_editorSettings_h1']; ?></a></h1>
   <div class="content">
     <table>
      
@@ -401,7 +421,7 @@ $hidden = ($savedForm != 'editorSettings') ? ' hidden' : '';
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings';" />
+    <input type="submit" value="" name="adminConfig" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'editorSettings'; submitAnchor('adminSettingsForm','editorSettings');" />
   </div>
   <div class="bottom"></div>
 </div>

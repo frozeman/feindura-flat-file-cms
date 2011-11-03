@@ -274,7 +274,7 @@ if($_GET['site'] == 'addons') {
   <!-- ** HEADER ******************************************************************************* -->
   <div id="header">
     <div id="sessionTimer" class="toolTip blue" title="<?= $langFile['LOGIN_TIP_AUTOLOGOUT']; ?>::"></div>
-    <a id="top" id="top" class="anchorTarget"></a>
+    <a id="top"></a>
     
     <div id="headerBlock">
       

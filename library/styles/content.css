@@ -451,9 +451,12 @@ a.image {
 
 /* anchor targets*/
 a.anchorTarget {
+  position: relative;
+  display: block;
   visibility: hidden;
   padding-left: 0px;
   height: 0px;
+  top: -30px;
   background: none;
 }
 

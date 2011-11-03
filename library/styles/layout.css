@@ -37,7 +37,7 @@ span.blue, label.blue, h1.blue, div.blue, li.blue {
 span.brown, label.brown, h1.brown, li.brown {
     color: #D7943C !important;
     }
-span.red, label.red, h1.red, ul.red, div.red {
+span.red, label.red, h1.red, ul.red, div.red, input.red {
     color: #A02F00 !important;
     }
 

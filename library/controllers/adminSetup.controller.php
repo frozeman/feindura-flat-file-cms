@@ -25,6 +25,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // ****** ---------- SAVE ADMIN CONFIG in config/admin.config.php
 if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
+  $checkBasePathAndURL = checkBasePathAndURL();
+  
   // ** ensure the the post vars with a 'Path' in the key value ending with a '/'
   $_POST = addSlashesToPaths($_POST);
   $_POST = removeDocumentRootFromPaths($_POST);
@@ -75,7 +77,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   
   $adminConfig['url'] = $serverProtocol."://".$_SERVER['SERVER_NAME'];
   $adminConfig['basePath'] = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
-  $adminConfig['realBasePath'] = preg_replace("/\\\+/", '/',realPath(preg_replace("/\\\+/",'/',dirname(__FILE__).'/../../'))).'/';
+  
+  // set the REAL BASE PATH
+  if((empty($adminConfig['realBasePath']) || !$checkBasePathAndURL) && !isset($_POST['cfg_realBasePath'])) {
+    $_POST['cfg_realBasePath'] = $adminConfig['basePath'];
+  }
+  
+  $adminConfig['realBasePath'] = $_POST['cfg_realBasePath'];
   $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];
   
   $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  

@@ -211,6 +211,10 @@ class GeneralFunctions {
   * 
   * If no match to the browser language is found it uses the <var>$standardLang</var> parameter for loading a languageFile.
   * 
+  *
+  * <b>Used Constants</b><br>
+  *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+  *
   * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
   * @param string       $filename         (optional) the structure of the filename, which should be loaded. the "%lang%" will be replaced with the country code like "%lang%.backend.php" -> "en.backend.php"
   * @param string@false &$currentLangCode (optional) (Note: this variable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't find any language file which fits the browsers language code.  
@@ -853,6 +857,7 @@ class GeneralFunctions {
   * Example of the returned array:
   * {@example loadPageIds.return.example.php}
   * 
+  *
   * <b>Used Constants</b><br>
   *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
   * 
@@ -1990,8 +1995,8 @@ class GeneralFunctions {
       foreach($filesInFolder['files'] as $file) {
         // -> check for CSS FILES
         if(substr($file,-4) == '.css') {
-          // -> removes the $adminConfig('basePath')
-          if($backend) $file = str_replace(self::$adminConfig['basePath'],'',$file);
+          // -> removes the $adminConfig('realBasePath')
+          if($backend) $file = str_replace(self::$adminConfig['realBasePath'],'',$file);
           // -> WRITES the HTML-Style-Tags
           $return .= '  <link rel="stylesheet" type="text/css" href="'.$file.'" />'."\n";
         }

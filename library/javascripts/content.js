@@ -288,7 +288,7 @@ function blockSlider(givenId) {
       h1SlideButton.addEvent('click', function(e) {
       	  e.stop();
      	    if(!slideContent.get('slide').open) {
-     	      scrollToElement.start(window.getPosition().x,block.getPosition().y - 80);
+     	      scrollToElement.start(window.getPosition().x,block.getPosition().y - 30);
       	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
       	    block.removeClass('hidden'); // change the arrow
           } else
@@ -527,12 +527,11 @@ window.addEvent('load', function() {
 
     autoResizeThumbnailPreview();    
     
-    // SCROLL to ANCHORS  (should fix chrome and safari scroll problem)
-    if(Browser.safari || Browser.chrome) {
-      var anchorId = window.location.hash.substring(1);
-      if($(anchorId) != null)
-        (function(){ new Fx.Scroll(window,{duration:100}).set(0,this.getPosition().y); }).delay(100,$(anchorId));
-    }
+    // SCROLL to ANCHORS after loading the pages (should fix problems with slided in blocks)
+    var anchorId = window.location.hash.substring(1);
+    if($(anchorId) != null)
+      (function(){ new Fx.Scroll(window,{duration:100}).set(0,this.getPosition().y); }).delay(100,$(anchorId));
+
 });
 
 // *---------------------------------------------------------------------------------------------------*

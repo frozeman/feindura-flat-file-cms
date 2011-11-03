@@ -14,14 +14,19 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// content.loader.php version 0.32
+// content.loader.php version 0.4
 
-  
+
 // ***********************************************************************
-// CHECKs if the current basePath is matching the real basePath
+// CHECKs if the DOCUMENTROOT could be resolved succesfully
+// if not throw an warning
+echo documentrootWarning();
+
+// ***********************************************************************
+// CHECKs if the current basePath is matching the url basePath
 // if not throw an warning
 if($_GET['site'] != 'adminSetup')
-echo basePathWarning();
+  echo basePathWarning();
 
 // ***********************************************************************
 // CHECKs if a STARTPAGE is SET and if this page exists

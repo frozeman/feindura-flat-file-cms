@@ -395,6 +395,9 @@ function addSlashesToPaths($postData) {
  * 
  * Removes the DOCUMENTROOT from all values of the $postData var with a 'Path' in the key value. 
  *
+ * <b>Used Constants</b><br />
+ *    - <var>DOCUMENTROOT</var> the absolut path of the webserver
+ *
  * @param array $postData an array with path values
  *
  * @return array the changed $postData parameter
@@ -1215,7 +1218,7 @@ function createBackup($backupFile) {
   // -> generate archive
   require_once(dirname(__FILE__).'/../thirdparty/PHP/pclzip.lib.php');
   $archive = new PclZip($backupFile);
-  $catchError = $archive->add('config/,statistic/,pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['basePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
+  $catchError = $archive->add('config/,statistic/,pages/',PCLZIP_OPT_REMOVE_PATH, $GLOBALS['adminConfig']['realBasePath']);//,PCLZIP_OPT_SET_CHMOD,$GLOBALS['adminConfig']['permissions']);
   
   if($catchError == 0)
     return $archive->errorInfo(true);
@@ -1806,7 +1809,7 @@ function isWritableWarningRecursive($folders) {
 }
 
 /**
- * <b>Name</b> checkBasePath()<br />
+ * <b>Name</b> checkBasePathAndURL()<br />
  * 
  * Check if the current path of the CMS is matching the <var>$adminConfig['basePath']</var>
  * And if the current URL is matching the <var>$adminConfig['url']</var>.
@@ -1822,7 +1825,7 @@ function isWritableWarningRecursive($folders) {
  *    - 1.0 initial release
  * 
  */
-function checkBasePath() {
+function checkBasePathAndURL() {
   $baseUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$GLOBALS['adminConfig']['url']);
   $checkUrl = preg_replace('#^[a-zA-Z]+[:]{1}[\/\/]{2}|w{3}\.#','',$_SERVER["SERVER_NAME"]);
   
@@ -1836,14 +1839,45 @@ function checkBasePath() {
 }
 
 /**
- * <b>Name</b> checkBasePath()<br />
+ * <b>Name</b> documentrootWarning()<br />
+ * 
+ * Returns a warning if the DOCUMENTROOT couldn't be resolved automaticaly.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$adminConfig</var> the administrator-settings config (included in the {@link general.include.php})
+ *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
+ * 
+ * 
+ * @return string|false a warning if the basePath is wrong, otherwise FALSE
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function documentrootWarning() {
+  if(checkBasePathAndURL() && (DOCUMENTROOT === false || empty($GLOBALS['adminConfig']['realBasePath']))) {
+    return '<div class="block warning">
+            <h1>'.$GLOBALS['langFile']['WARNING_TITLE_DOCUMENTROOT'].'</h1>
+            <div class="content">
+              <p>'.$GLOBALS['langFile']['WARNING_TEXT_DOCUMENTROOT'].'</p><!-- need <p> tags for margin-left:..--> 
+            </div> 
+            <div class="bottom"></div> 
+          </div>';
+  } else
+    return false;
+}
+
+/**
+ * <b>Name</b> basePathWarning()<br />
  * 
  * Returns a warning if the current path of the CMS and the current URL is not matching with the ones set in the <var>$adminConfig</var>.
  * 
  * <b>Used Global Variables</b><br />
  *    - <var>$langFile</var> the backend language-file (included in the {@link general.include.php})
  * 
- * @uses checkBasePath() to check if the current pathand URL are matching
+ * @uses checkBasePathAndURL() to check if the current pathand URL are matching
  * 
  * @return string|false a warning if the basePath is wrong, otherwise FALSE
  * 
@@ -1854,11 +1888,11 @@ function checkBasePath() {
  * 
  */
 function basePathWarning() {
-  if(checkBasePath() === false) {
+  if(checkBasePathAndURL() === false) {
     return '<div class="block warning">
-            <h1>'.$GLOBALS['langFile']['warning_fmsConfWarning_h1'].'</h1>
+            <h1>'.$GLOBALS['langFile']['WARNING_TITLE_BASEPATH'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['warning_fmsConfWarning'].'</p><!-- need <p> tags for margin-left:..--> 
+              <p>'.$GLOBALS['langFile']['WARNING_TEXT_BASEPATH'].'</p><!-- need <p> tags for margin-left:..--> 
             </div> 
             <div class="bottom"></div> 
           </div>';
@@ -1867,7 +1901,7 @@ function basePathWarning() {
 }
 
 /**
- * <b>Name</b> checkBasePath()<br />
+ * <b>Name</b> startPageWarning()<br />
  * 
  * Retruns a warning if the current set start page is existing.
  * 
@@ -1889,7 +1923,7 @@ function basePathWarning() {
  */
 function startPageWarning() {
   
-  if(checkBasePath() === false || !is_dir(dirname(__FILE__).'/../../pages/'))
+  if(checkBasePathAndURL() === false || !is_dir(dirname(__FILE__).'/../../pages/'))
     return false;
   
   if($GLOBALS['adminConfig']['setStartPage'] && !empty($GLOBALS['websiteConfig']['startPage']) && ($startPageCategory = GeneralFunctions::getPageCategory($GLOBALS['websiteConfig']['startPage'])) != 0)
@@ -1899,9 +1933,9 @@ function startPageWarning() {
 
   if($GLOBALS['adminConfig']['setStartPage'] && (empty($GLOBALS['websiteConfig']['startPage']) || !file_exists(dirname(__FILE__).'/../../pages/'.$startPageCategory.$GLOBALS['websiteConfig']['startPage'].'.php'))) {
     return '<div class="block info">
-            <h1>'.$GLOBALS['langFile']['warning_startPageWarning_h1'].'</h1>
+            <h1>'.$GLOBALS['langFile']['WARNING_TITLE_STARTPAGE'].'</h1>
             <div class="content">
-              <p>'.$GLOBALS['langFile']['warning_startPageWarning'].'</p><!-- need <p> tags for margin-left:..--> 
+              <p>'.$GLOBALS['langFile']['WARNING_TEXT_STARTPAGE'].'</p><!-- need <p> tags for margin-left:..--> 
             </div> 
             <div class="bottom"></div> 
           </div>';

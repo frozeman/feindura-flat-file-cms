@@ -72,7 +72,7 @@ $langFile['DATE_INT'] = 'AAAA-MM-JJ';
 $langFile['DATE_EU'] = 'JJ.MM.AAAA';
 $langFile['CATEGORIES_TEXT_NONCATEGORY'] = 'pages';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY'] = 'pages sans catégorie';
-$langFile['TEXT_EXAMPLE'] = 'example';
+$langFile['TEXT_EXAMPLE'] = 'par exemple';
 
 $langFile['HEADER_BUTTON_GOTOWEBSITE'] = 'Feindura::S\'il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
 
@@ -100,7 +100,7 @@ $langFile['STYLESHEETS_TOOLTIP_ID'] = 'Ici un attribut ID peut être indiqué po
 $langFile['STYLESHEETS_TOOLTIP_CLASS'] = 'Ici un attribut class peut être indiqué pour l\'attribuer au tag de l\'éditeur HTML-Editor <body>.';
 
 $langFile['STYLESHEETS_TOOLTIP_ADDSTYLEFILE'] = 'ajouter fichier feuille de style';
-$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'] = '<b>example</b> &quot;/style/layout.css&quot;';
+$langFile['STYLESHEETS_EXAMPLE_STYLEFILE'] = '<b>par exemple</b> &quot;/style/layout.css&quot;';
 
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE'] = 'chemin absolue';
@@ -238,18 +238,20 @@ $langFile['ERROR_SAVE_FOLDER_PART1'] = '<br /><br />Svp contrôlez les droits d\
 
 $langFile['ERROR_FOLDER_PART2'] = '&quot; fichiers, du sous-fichier et des dossier.';
 
-/*
-* ---------- WARNINGs
-*/
+// -> WARNINGS
+$langFile['WARNING_TITLE_STARTPAGE'] = 'La page d\'acceuil n\'est pas définie.';
+$langFile['WARNING_TEXT_STARTPAGE'] = 'Svp définissez une page d\'acceuil.<br />Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
 
-$langFile['warning_startPageWarning_h1'] = 'La page d\'acceuil n\'est pas définie.';
-$langFile['warning_startPageWarning'] = 'Svp définissez une page d\'acceuil.<br />Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
-$langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> n\'a pas encore été configuré!';
-$langFile['warning_fmsConfWarning'] = 'La <i>chemin de base</i>ne correspond pas avec les préférences l\'administrateur.<br />
-Cliquez sur <a href="?site=adminSetup">préférences administrateur</a> et met en service ton <span class="logoname">fein<span>dura</span></span> CMS';
-$langFile['warning_jsWarning_h1'] = 'Activer le javascript';
+$langFile['WARNING_TITLE_DOCUMENTROOT'] = 'Le Document Root ne pouvait pas être résolus automatiquement!';
+$langFile['WARNING_TEXT_DOCUMENTROOT'] = 'Pour résoudre correctement le Document Root, allez à la <a href="?site=adminSetup#adminSettings">administrator-settings</a> et définir le "chemin réel du feindura" de votre <span class="logoname">fein<span>dura</span></span> CMS.';
+
+$langFile['WARNING_TITLE_BASEPATH'] = '<span class="logoname">fein<span>dura</span></span> n\'a pas encore été configuré!';
+$langFile['WARNING_TEXT_BASEPATH'] = 'La <i>chemin de base</i>ne correspond pas avec les préférences l\'administrateur.<br />
+Cliquez sur <a href="?site=adminSetup#adminSettings">préférences administrateur</a> et met en service ton <span class="logoname">fein<span>dura</span></span> CMS';
+
+$langFile['WARNING_TITLE_JAVASCRIPT'] = 'Activer le javascript';
 // no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['warning_jsWarning'] = '<strong>Pour <span class="logoname">fein<span>dura</span></span> utiliser complètement le javasrcipt doit être activé!</strong></p>
+$langFile['WARNING_TEXT_JAVASCRIPT'] = '<strong>Pour <span class="logoname">fein<span>dura</span></span> utiliser complètement le javasrcipt doit être activé!</strong></p>
 <h2>dans le navigateur Firefox</h2>
 <p>Cliquez dans le menu sur "insérer" > "paramètres". Sous contenu cliquez sur "activer JavaScript" et valider avec ok.</p>
 <h2>dans le navigateur Internet Explorer</h2>
@@ -272,8 +274,8 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED'] = 'Page est actuellement en cours de m
 */
 
 // ---------- QUICKMENU
-$langFile['btn_quickmenu_categories'] = 'catégories';
-$langFile['btn_quickmenu_pages'] = 'pages de';
+$langFile['SIDEBARMENU_TITLE_CATEGORIES'] = 'catégories';
+$langFile['SIDEBARMENU_TITLE_PAGES'] = 'pages de';
 
 /*
 * dashboard.php
@@ -356,12 +358,15 @@ $langFile['ADMINSETUP_GENERAL_field2'] = 'chemin du feindura';
 $langFile['ADMINSETUP_GENERAL_field2_tip'] = 'La chemin principale sera estimé automatiquement et sauvegardé avec la configuration.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'La chemin principale sera mise automatiquement';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Svp sauvegardez la configuration!';
+$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'] = 'chemin réel du feindura';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH'] = 'Le chemin réel du fichier de votre [span class=logoname]fein[span]dura[/span][/span] cms, relatif du Document Root.';
+$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH'] = '<b>par exemple</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8'] = 'chemin du site web';
 $langFile['ADMINSETUP_GENERAL_field8_tip'] = 'Le [b]chemin absolue[/b], contenant les site web.';
 $langFile['ADMINSETUP_GENERAL_field4'] = 'chemin upload';
 $langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Ici des fichiers comme des images, animations flashs ou documents vont être téléchargés.[br /][br /][span class=hint]pour insérer des fichiers, cliquez dans le HTML-Editor insérer lien > upload transféré ou dans le gestionnaire de fichiers.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]ces fichiers peuvent être rédigés plus bas ou dans le paramètrages du site web (si cette option est activé pour le site web).[br /][br /]';
-$langFile['ADMINSETUP_GENERAL_field5'] = 'chemin du dossier du site web';
+$langFile['ADMINSETUP_GENERAL_field5'] = 'chemin d\'un dossier des fichiers';
 $langFile['ADMINSETUP_GENERAL_field5_tip'] = 'Un dossier contenant des fichiers. Ces fichiers peuvent par ex. être utilisés pour avoir une version multilinguale du site web.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6'] = 'chemin des feuilles de style';
 $langFile['ADMINSETUP_GENERAL_field6_tip'] = 'Une chemin absolue [b]chemin absolue[/b] contenat les feuilles de style qui peuvent être rédigés par ex. par les utilisateurs.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];

@@ -31,7 +31,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $unwriteableList .= isWritableWarning(dirname(__FILE__).'/../../config/user.config.php');
 
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePath()) {
+if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">

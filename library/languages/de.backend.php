@@ -250,22 +250,20 @@ $langFile['ERROR_SAVE_FOLDER_PART1'] = '<br /><br />Bitte überprüfe die Schrei
 
 $langFile['ERROR_FOLDER_PART2'] = '&quot; Ordners dessen Unterordner und Dateien.';
 
+// -> WARNINGS
+$langFile['WARNING_TITLE_STARTPAGE'] = 'Die Startseite ist nicht festgelegt!';
+$langFile['WARNING_TEXT_STARTPAGE'] = 'Bitte lege eine Seite als Startseite fest.<br />Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
 
-/*
-* ---------- WARNINGs
-*/
+$langFile['WARNING_TITLE_DOCUMENTROOT'] = 'Das Dokumenten-Wurzelverzeichnis konnte nicht automatisch bestimmt werden!';
+$langFile['WARNING_TEXT_DOCUMENTROOT'] = 'Um das Dokumenten-Wurzelverzeichnis korrekt auflösen zu können, trage bitte den &quot;echten feindura Pfad&quot; deines <span class="logoname">fein<span>dura</span></span> CMS in den <a href="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> ein.';
 
-$langFile['warning_startPageWarning_h1'] = 'Die Startseite ist nicht festgelegt!';
-$langFile['warning_startPageWarning'] = 'Bitte lege eine Seite als Startseite fest.<br />Gehe zu <a href="?site=pages">'.$langFile['BUTTON_PAGES'].'</a> und klicke bei der gewünschten Seite auf das <span class="startPageIcon"></span> Symbol';
+$langFile['WARNING_TITLE_BASEPATH'] = '<span class="logoname">fein<span>dura</span></span> wurde noch nicht konfiguriert!';
+$langFile['WARNING_TEXT_BASEPATH'] = 'Der <i>Basispfad</i> stimmt nicht mit dem in den Administrator-Einstellungen angegebenen Pfad überein.<br />
+Bitte gehe in die <a href="?site=adminSetup#adminSettings">Administrator-Einstellungen</a> und konfiguriere dein <span class="logoname">fein<span>dura</span></span> CMS';
 
-
-$langFile['warning_fmsConfWarning_h1'] = '<span class="logoname">fein<span>dura</span></span> wurde noch nicht konfiguriert!';
-$langFile['warning_fmsConfWarning'] = 'Der <i>Basispfad</i> stimmt nicht mit dem in den Administrator-Einstellungen angegebenen Pfad überein.<br />
-Bitte gehe in die <a href="?site=adminSetup">Administrator-Einstellungen</a> und konfiguriere dein <span class="logoname">fein<span>dura</span></span> CMS';
-
-$langFile['warning_jsWarning_h1'] = 'Bitte aktiviere Javascript';
+$langFile['WARNING_TITLE_JAVASCRIPT'] = 'Bitte aktiviere Javascript';
 // no <p> tag on the start and the end, its already in the dashboard.php
-$langFile['warning_jsWarning'] = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu können, muss Javascript aktiviert sein!</strong></p>
+$langFile['WARNING_TEXT_JAVASCRIPT'] = '<strong>Um <span class="logoname">fein<span>dura</span></span> voll nutzen zu können, muss Javascript aktiviert sein!</strong></p>
 <h2>im Firefox</h2>
 <p>Klicke in der obersten Menüleiste auf &quot;Bearbeiten&quot; > &quot;Einstellungen&quot;. Unter Inhalt aktivierst du den Punkt "JavaScript aktivieren" und bestätigst dann mit OK.</p>
 <h2>im Internet Explorer</h2>
@@ -289,8 +287,8 @@ $langFile['GENERAL_TEXT_CURRENTLYEDITED'] = 'Seite wird gerade bearbeitet...';
 
 // ---------- QUICKMENU
 
-$langFile['btn_quickmenu_categories'] = 'Kategorien';
-$langFile['btn_quickmenu_pages'] = 'Seiten von';
+$langFile['SIDEBARMENU_TITLE_CATEGORIES'] = 'Kategorien';
+$langFile['SIDEBARMENU_TITLE_PAGES'] = 'Seiten von';
 
 /*
 * dashboard.php
@@ -383,14 +381,17 @@ $langFile['ADMINSETUP_GENERAL_field2'] = 'feindura-Pfad';
 $langFile['ADMINSETUP_GENERAL_field2_tip'] = 'Der Hauptpfad wird automatisch ermittelt und beim speichern der Einstellungen übernommen.';
 $langFile['ADMINSETUP_GENERAL_field2_inputTip'] = 'Der Pfad wird automatisch eingefügt';
 $langFile['ADMINSETUP_GENERAL_field2_inputWarningText'] = 'Bitte speichere die Einstellungen!';
+$langFile['ADMINSETUP_GENERAL_TEXT_REALBASEPATH'] = 'Echter feindura Pfad';
+$langFile['ADMINSETUP_GENERAL_TOOLTIP_REALBASEPATH'] = 'Der echte dateisystem-basierte Pfad deines [span class=logoname]fein[span]dura[/span][/span] cms, relativ zum Dokumenten-Wurzelverzeichnis.';
+$langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH'] = '<b>Beispiel</b> &quot;/cms/&quot;';
 $langFile['ADMINSETUP_GENERAL_field8'] = 'Webseitenpfad';
 $langFile['ADMINSETUP_GENERAL_field8_tip'] = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.';
 $langFile['ADMINSETUP_GENERAL_field4'] = 'Daten-Uploadpfad';
 $langFile['ADMINSETUP_GENERAL_field4_tip'] = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einfügen > Upload hochgeladen oder im Dateimanager.[/span]';
 $langFile['ADMINSETUP_GENERAL_editfiles_additonal'] = '[br /][br /]Diese Dateien können dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]';
-$langFile['ADMINSETUP_GENERAL_field5'] = 'Dateipfad für Webseitendateien';
-$langFile['ADMINSETUP_GENERAL_field5_tip'] = 'Ein Verzeichnis mit Dateien. Diese Dateien können z.B. verwendet werden um eine Webseite mehrsprachig zu gestalten.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
-$langFile['ADMINSETUP_GENERAL_field6'] = 'Dateipfad für Stylesheetdateien';
+$langFile['ADMINSETUP_GENERAL_field5'] = 'Pfad für Webseitendateien';
+$langFile['ADMINSETUP_GENERAL_field5_tip'] = 'Ein Verzeichnispfad mit Dateien. Diese Dateien können z.B. verwendet werden um eine Webseite mehrsprachig zu gestalten.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
+$langFile['ADMINSETUP_GENERAL_field6'] = 'Pfad für Stylesheetdateien';
 $langFile['ADMINSETUP_GENERAL_field6_tip'] = 'Ein [b]absoluter Pfad[/b] in dem sich Stylesheet-Dateien befinden, die z.B. vom Benutzer bearbeitet werden können.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] = 'Schreibrechte für Dateien und Verzeichnisse';
 $langFile['ADMINSETUP_GENERAL_TIP_PERMISSIONS'] = 'Jeder von [span class=logoname]fein[span]dura[/span][/span] erstellten Datei oder Verzeichnis wird versucht diese Schreibrechte zuzuweisen.';

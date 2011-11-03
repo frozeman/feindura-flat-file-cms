@@ -36,7 +36,7 @@ $unwriteableList = false;
 $unwriteableList .= isWritableWarning($backupFolder);
 
 // gives the error OUTPUT if one of these files in unwriteable
-if($unwriteableList && checkBasePath()) {
+if($unwriteableList && checkBasePathAndURL()) {
   echo '<div class="block warning">
     <h1>'.$langFile['adminSetup_error_title'].'</h1>
     <div class="content">

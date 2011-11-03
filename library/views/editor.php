@@ -215,7 +215,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
 </div>
 
 <!-- page settings anchor is here -->
-<a id="pageSettingsAnchor" class="anchorTarget"></a>
+<a id="pageSettings" class="anchorTarget"></a>
 <?php
 
 if(!$newPage) {
@@ -561,7 +561,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
     </table>
     
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettingsAnchor');" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettings');" />
   </div>
   <div class="bottom"></div>
 </div>
@@ -581,7 +581,7 @@ $activatedPlugins = ($_GET['category'] === 0)
 if(is_array($activatedPlugins) && count($activatedPlugins) >= 1) { // && $pluginsActive
 ?>
 <!-- ***** PLUGIN SETTINGS -->
-<a id="pluginSettingsAnchor" class="anchorTarget"></a>
+<a id="pluginSettings" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
 $hidden = ($newPage || $savedForm == 'pluginSettings') ? '' : ' hidden';
@@ -677,7 +677,7 @@ $blockContentEdited = (isset($pageContent['plugins']))
       ?>
     <p>&nbsp;</p>
     <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['form_cancel']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettingsAnchor');" />
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['form_submit']; ?>" onclick="$('savedBlock').value = 'pluginSettings'; submitAnchor('editorForm','pluginSettings');" />
   </div>
   <div class="bottom"></div>
 </div>

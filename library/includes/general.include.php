@@ -104,17 +104,43 @@ if (!isset($_SERVER['REQUEST_URI'])) {
 
 /**
  * The absolut path of the webserver, with fix for IIS Server
- */ 
-if(empty($adminConfig['basePath'])) {
-  $localpath=$_SERVER["SCRIPT_NAME"];
+ */
+// ->> if no realBasePath exists, GENERATE the DOCUMENTROOT FROM the $_SERVER["SCRIPT_NAME"]
+if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
+  //echo 'generate the docRoot from PHP_SELF';
+  $localpath=$_SERVER["PHP_SELF"];
   $absolutepath=realpath($localPath);
   // a fix for Windows slashes
   $absolutepath=str_replace("\\","/",$absolutepath);
   $docRoot = (dirname($localpath) != '/') ? str_replace(dirname($localpath),'',$absolutepath) : $absolutepath;
-
-} else
-  $docRoot = str_replace($adminConfig['basePath'].'library/includes/general.include.php','',__FILE__);
-define('DOCUMENTROOT', $docRoot); unset($docRoot,$localpath,$absolutepath);
+  
+// ->> else GENERATE the DOCUMENTROOT THROUGH "__FILE__" - "$adminConfig['realBasePath']"
+} else {
+  // -> if the SETTINGS were SAVED FOR THE FIRST TIME (because of a basePathWarning())
+  if(isset($_POST['cfg_basePath']) && $_POST['cfg_basePath'] != preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/')) {
+    //echo 'settings saved for the first time';
+    $basePath = preg_replace('#/+#','/',dirname($_SERVER['PHP_SELF']).'/');
+    
+  // -> if the REAL BASE PATH was JUST SAVED, add slashes when missing
+  } elseif((isset($_POST['cfg_realBasePath']))) {
+    //echo 'realBasePath just saved';
+    $basePath = $_POST['cfg_realBasePath'];
+    if(substr($basePath,-1) !== '/')
+      $basePath = $basePath.'/'; // add slash to the end
+    if(substr($basePath,0,1) !== '/')
+      $basePath = '/'.$basePath; // add slash to the start
+    $basePath = preg_replace("#/+#",'/',$basePath);
+    
+  // -> else USE the REAL BASE PATH
+  } else {
+    //echo 'use the realBasePath';
+    $basePath = $adminConfig['realBasePath'];
+  }
+  
+  $docRoot = str_replace($basePath.'library/includes/general.include.php','',__FILE__);
+  $docRoot = (strpos($docRoot,'general.include.php') !== false || empty($docRoot)) ? false : $docRoot;
+}
+define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutepath);
 
 /**
  * The required PHP version
