@@ -1378,6 +1378,7 @@ class GeneralFunctions {
     
     // vars
     $websitePath = self::getDirname(self::$adminConfig['websitePath']);
+    $realWebsitePath = self::getRealPath($websitePath).'/';
     $baseUrl = self::$adminConfig['url'].$websitePath;
     
     // get the Sitemap class
@@ -1387,7 +1388,7 @@ class GeneralFunctions {
     $sitemapPages = self::loadPages(true,true);
     
     // ->> START sitemap
-    $sitemap = new Sitemap($baseUrl,DOCUMENTROOT.$websitePath,true); // gzip encoded
+    $sitemap = new Sitemap($baseUrl,$realWebsitePath,true); // gzip encoded
     $sitemap->showError =  false;
     $sitemap->filePermissions =  self::$adminConfig['permissions'];
     $sitemap->page('pages');

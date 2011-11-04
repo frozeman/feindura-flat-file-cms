@@ -81,7 +81,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   // set the REAL BASE PATH
   if((empty($adminConfig['realBasePath']) || !$checkBasePathAndURL) && !isset($_POST['cfg_realBasePath'])) {
     $_POST['cfg_realBasePath'] = $adminConfig['basePath'];
-  }
+  } elseif(!isset($_POST['cfg_realBasePath']))
+    $_POST['cfg_realBasePath'] = $adminConfig['realBasePath'];
   
   $adminConfig['realBasePath'] = $_POST['cfg_realBasePath'];
   $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];

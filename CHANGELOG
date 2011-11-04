@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 767
+Build 768
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 768: small fix in the realBasePath saving
   build 767: changed language strings to formatted strings
   build 766: add break-word to the admin settings sidebar and changed the document root title
   build 765: introduced the setable realBasePath, when the url retrieved basePath is not working to resolve the DOCUMENTROOT, you can now set the realBasePath manually
