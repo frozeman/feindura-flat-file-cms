@@ -166,7 +166,7 @@ if($_GET['site'] == 'addons') {
   var feindura_pages = [
   ['-',''],
   <?php foreach($getPages as $getPage) {
-    echo "['".str_replace("'",'',$getPage['title'])."','".$adminConfig['websitePath']."?page=".$getPage['id']."'],\n";
+    echo "['".str_replace("'",'',$getPage['title'])."','?feinduraLink=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   

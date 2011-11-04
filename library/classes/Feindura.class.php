@@ -744,15 +744,17 @@ class Feindura extends FeinduraBase {
   * 
   */
   public function __construct($language = false) {
-    
+
     // RUN the FeinduraBase constructor
     parent::__construct($language);
     
     // saves the current GET vars in the PROPERTIES
     // ********************************************
-    $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId need categories
+    $this->setCurrentCategoryId(true);       // get $_GET['category']  -> first load category then the page, because getCurrentPageId need a category when retrieving the page id from speaking URLs
     $this->setCurrentPageId(true);           // get $_GET['page'] <- set the $this->websiteConfig['startPage'] if there is no $_GET['page'] variable
-  
+    
+    // set category automatically, if it couldn't be retrieved 
+    if($this->category == null) $this->category = GeneralFunctions::getPageCategory($this->page);
   } 
   
   // ****************************************************************************************************************
@@ -1151,7 +1153,7 @@ class Feindura extends FeinduraBase {
   * <samp>'/category/category_name/page_title.html?user=xyz123'</samp>
   * 
   * 
-  * @param int $page a page ID
+  * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
   * 
   * @uses FeinduraBase::loadPrevNextPage()	  to load the current, previous or next page depending of the $page parameter 
   * @uses GeneralFunctions::createHref()      call the right createHref functions in the GeneralFunctions class

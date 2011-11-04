@@ -310,8 +310,16 @@ class FeinduraBase {
        is_numeric($_GET[$this->varNames['page']])) {
        
       // get PAGE GET var
-      return XssFilter::int($_GET[$this->varNames['page']],0); // get the category ID from the $_GET var
+      return XssFilter::int($_GET[$this->varNames['page']],0); // get the page ID from the $_GET var
     
+    // ->> GET PAGE is a feindura link
+    // **********************
+    } elseif(isset($_GET['feinduraLink']) &&
+             !empty($_GET['feinduraLink']) &&
+             is_numeric($_GET['feinduraLink'])) {
+      // get PAGE GET var
+      return XssFilter::int($_GET['feinduraLink'],0); // get the page ID from the $_GET var
+      
     // ->> GET PAGE is a NAME
     // **********************
     } elseif(isset($_GET['page']) &&
@@ -380,9 +388,8 @@ class FeinduraBase {
        !empty($_GET[$this->varNames['category']]) &&
        is_numeric($_GET[$this->varNames['category']])) {
        
-      // get CATEGORY GET var
       return XssFilter::int($_GET[$this->varNames['category']],0); // get the category ID from the $_GET var
-    
+      
     // ->> GET CATEGORY is a NAME
     // **************************
     } elseif(isset($_GET['category']) &&
@@ -406,6 +413,36 @@ class FeinduraBase {
   function getCategoryId() {
     // call the right function
     return $this->getCurrentCategoryId();
+  }
+  
+ /**
+  * <b>Name</b> replaceLinks()<br />
+  * 
+  * Replaces all feindura links (e.g. "?%feinduraLink#1%") inside the given <var>$pageContentString</var> parameter, with real href links.
+  
+  * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
+  * 
+  * @uses GeneralFunctions::createHref()  to create the hreaf of the link
+  * 
+  * @return string the $pageContentString woth replaced feindura links
+  * 
+  * @see FeinduraBase::generatePage()
+  * 
+  * @access protected
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public function replaceLinks($pageContentString) {
+    if(preg_match_all ('#\?*feinduraLink\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
+      // replace each link
+      foreach($matches as $match) {
+        $pageContentString = str_replace($match[0],GeneralFunctions::createHref(GeneralFunctions::readPage($match[1],GeneralFunctions::getPageCategory($match[1])),$this->sessionId),$pageContentString);
+      }
+    }
+    return $pageContentString;
   }
   
  /**
@@ -730,6 +767,9 @@ class FeinduraBase {
       $htmlLawedConfig['valid_xhtml'] = ($this->xHtml) ? 1 : 0;
       $pageContentEdited = GeneralFunctions::htmLawed($pageContent['content'],$htmlLawedConfig);
       
+      // replace feindura links
+      $pageContentEdited = self::replaceLinks($pageContentEdited);
+      
       // clear Html tags?
       if(!$useHtml)
         $pageContentEdited = strip_tags($pageContentEdited);
@@ -806,7 +846,7 @@ class FeinduraBase {
     // -> AFTER all RETURN $return
     // *****************
     return $return;
-  }  
+  }
   
  /**
   * <b>Name</b> createTitle()<br />
@@ -1270,6 +1310,16 @@ class FeinduraBase {
   */ 
   protected function loadPrevNextPage($page) {
     
+    // CHECK if its a $pageContent array, set the $page ID to the $page parameter
+    if(GeneralFunctions::isPageContentArray($page))
+      return $page;
+    
+    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+    $page = $this->getPropertyPage($page);
+
+    //echo '<br />page: '.$page;
+    //echo '<br />category: '.$category;
+    
     // var
     $prevNext = false;
     
@@ -1287,16 +1337,6 @@ class FeinduraBase {
         $page = false;
       } else return false;
     }
-    
-    // CHECK if its a $pageContent array, set the $page ID to the $page parameter
-    if(GeneralFunctions::isPageContentArray($page))
-      return $page;
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    $page = $this->getPropertyPage($page);
-
-    //echo '<br />page: '.$page;
-    //echo '<br />category: '.$category;
      
     // -> IF only $page ID or $pageContent array is given return loaded page
     if($prevNext === false) {
@@ -1505,11 +1545,11 @@ class FeinduraBase {
  /**
   * <b>Name</b> getPropertyPage()<br />
   * 
-  * Returns the {@link Feindura::$page} property if the given <var>$page</var> parameter is FALSE.
+  * Returns the {@link Feindura::$page} property if the given <var>$page</var> parameter is a Boolean.
   * 
   * @param int|bool $page (optional) a page id or a boolean
   * 
-  * @return int|true the {@link Feindura::$page} property or the $page parameter
+  * @return mixed either the {@link Feindura::$page} property or passes the $page parameter
   * 
   * @access protected
   * @version 1.0

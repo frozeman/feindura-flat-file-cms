@@ -1468,6 +1468,9 @@ class GeneralFunctions {
   */
   public static function createHref($pageContent, $sessionId = false, $fullUrl = false) {
     
+    if(!self::isPageContentArray($pageContent))
+      return false;
+    
     // vars
     $page = $pageContent['id'];
     $category = $pageContent['category'];
