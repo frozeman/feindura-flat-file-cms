@@ -1391,6 +1391,16 @@ input[type="radio"]{ /* works only in safari*/
 input[type="file"]{ /* works only in safari*/
     width: 300px;
     }
+    
+/* CKEditor HACKS for input */
+div.cke_dialog_ui_input_text {
+  padding: 0px !important;
+  overflow: hidden;
+}
+input.cke_dialog_ui_input_text {
+  padding: 2px !important;
+  margin: 0 !important;
+}
 
 /* CKEditor HACKS for CodeMirror */
 .cke_skin_kama textarea.cke_source { /* Hack to be able to fullscreen the CKEditor when in CodeMirror */

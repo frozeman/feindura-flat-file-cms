@@ -418,7 +418,7 @@ class FeinduraBase {
  /**
   * <b>Name</b> replaceLinks()<br />
   * 
-  * Replaces all feindura links (e.g. "?%feinduraLink#1%") inside the given <var>$pageContentString</var> parameter, with real href links.
+  * Replaces all feindura links (e.g. "?feinduraPageID=3") inside the given <var>$pageContentString</var> parameter, with real href links.
   
   * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
   * 
@@ -436,7 +436,7 @@ class FeinduraBase {
   * 
   */
   public function replaceLinks($pageContentString) {
-    if(preg_match_all ('#\?*feinduraLink\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
+    if(preg_match_all ('#\?*feinduraPageID\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
       // replace each link
       foreach($matches as $match) {
         $pageContentString = str_replace($match[0],GeneralFunctions::createHref(GeneralFunctions::readPage($match[1],GeneralFunctions::getPageCategory($match[1])),$this->sessionId),$pageContentString);

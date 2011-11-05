@@ -548,8 +548,8 @@ CKEDITOR.dialog.add( 'link', function( editor )
 								items: feindura_pages,
 								onShow: function(){
 								  feindura_pages.each(function(page){
-								    var pageHref = page[1].substring(page[1].indexOf('?'));
-								    var inputHref = this.getDialog().getContentElement( 'info', 'url' ).getValue().substring(this.getDialog().getContentElement( 'info', 'url' ).getValue().indexOf('?'));
+								    var pageHref = page[1].substring(page[1].indexOf('?')).toLowerCase();
+								    var inputHref = this.getDialog().getContentElement( 'info', 'url' ).getValue().substring(this.getDialog().getContentElement( 'info', 'url' ).getValue().indexOf('?')).toLowerCase();
                     if(pageHref == inputHref) {
                      this.setValue(page[1]);
                     }

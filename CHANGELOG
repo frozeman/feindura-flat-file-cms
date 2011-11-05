@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 769
+Build 771
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,8 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 771: fixed ckeditor link dialog inputs
+  build 770: changed the feindura link name to: "?feinduraPageID=3"
   build 769: feindura internal links inside pages a saved as "?feinduraLink=2" and when displayed, replaced by a real href. this allows to have speaking url links even inside pages!
   build 768: small fix in the realBasePath saving
   build 767: changed language strings to formatted strings
