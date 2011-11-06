@@ -615,6 +615,10 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/config/plugins.config.php') &&
       is_file(dirname(__FILE__).'/config/plugins.config.php'))
       $checkFiles[] = dirname(__FILE__).'/config/plugins.config.php';
+    // since 1.1.6
+    if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php') &&
+      is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php';
 
     
     // delete lowercase class names
