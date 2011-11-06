@@ -167,8 +167,10 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
       <?= $langFile['ADMINSETUP_GENERAL_TEXT_PERMISSIONS'] ?></span></label>
       </td><td class="right">
       <select id="cfg_permissions" name="cfg_permissions">
+        <!--
         <option value="0744"<?php if($adminConfig['permissions'] == 0744) echo ' selected="selected"'; ?>>744</option>
         <option value="0754"<?php if($adminConfig['permissions'] == 0754) echo ' selected="selected"'; ?>>754</option>
+        -->
         <option value="0755"<?php if($adminConfig['permissions'] == 0755) echo ' selected="selected"'; ?>>755</option>
         <option value="0775"<?php if($adminConfig['permissions'] == 0775) echo ' selected="selected"'; ?>>775</option>
         <option value="0777"<?php if($adminConfig['permissions'] == 0777) echo ' selected="selected"'; ?>>777</option>

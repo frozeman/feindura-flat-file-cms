@@ -1368,9 +1368,10 @@ class GeneralFunctions {
   * @return bool whether the saving of the sitemap was done or not
   * 
   * @link http://www.sitemaps.org
-  * @version 0.1
+  * @version 0.2
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 0.2 return false if the real website path, couldn't be resolved
   *    - 0.1 initial release
   * 
   */
@@ -1379,6 +1380,8 @@ class GeneralFunctions {
     // vars
     $websitePath = self::getDirname(self::$adminConfig['websitePath']);
     $realWebsitePath = self::getRealPath($websitePath).'/';
+    if($realWebsitePath == '/')
+      return false;
     $baseUrl = self::$adminConfig['url'].$websitePath;
     
     // get the Sitemap class

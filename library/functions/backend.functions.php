@@ -1040,9 +1040,10 @@ function saveStatisticConfig($statisticConfig) {
  * @return void
  * 
  * 
- * @version 1.0
+ * @version 1.0.1
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.1 small fix with website path; add GeneralFunctions::getRealPath()
  *    - 1.0 initial release
  * 
  */
@@ -1053,7 +1054,12 @@ function saveSpeakingUrl(&$errorWindow) {
   $data = false;
   $websitePath = GeneralFunctions::getDirname($_POST['cfg_websitePath']);
   $websitePath = (empty($websitePath)) ? '/': $websitePath;
-  $htaccessFile = DOCUMENTROOT.$websitePath.'.htaccess';
+  $websitePath = GeneralFunctions::getRealPath($websitePath);
+  if($websitePath === false) {
+    $_POST['cfg_speakingUrl'] = '';
+    return false;
+  }
+  $htaccessFile = $websitePath.'/.htaccess';
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
