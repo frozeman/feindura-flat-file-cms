@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
     
-* controllers/feinduraWebmasterTool.controller.php version 0.2
+* controllers/feinduraWebmasterTool.controller.php version 0.3
 */
 
 /**
@@ -38,6 +38,8 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
   elseif($_POST['status'] == 'FETCH') {
     
     $returnJSON = array();
+    $returnJSON['feinduraVersion'] =  VERSION;
+    $returnJSON['feinduraBuild'] =  BUILD;
     $returnJSON['title'] = $websiteConfig['title'];
     $returnJSON['websiteUrl'] = $adminConfig['url'].GeneralFunctions::getDirname($adminConfig['websitePath']);
     $returnJSON['statistics'] = array();
