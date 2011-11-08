@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 774
+Build 775
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 775: small doc fix
   build 774: set default value of Feindura::xHtml to false; fixed small issue with GeneralFunctions::isPublicCategory(), again
   build 773: fixed GeneralFunctions::isPublicCategory()
   build 772: small fixes in real website path resolving

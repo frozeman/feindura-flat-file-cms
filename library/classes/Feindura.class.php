@@ -2257,7 +2257,7 @@ class Feindura extends FeinduraBase {
   * @uses FeinduraBase::generatePage()            to generate every page which will be listed
   * @uses GeneralFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
-  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
   * 
   * @see showPage()
   * @see listPagesByTags()
@@ -2359,7 +2359,7 @@ class Feindura extends FeinduraBase {
   * @uses FeinduraBase::hasTags()                 to get only the pages which have one or more tags from the given $tags parameter
   * @uses listPages()                         to list the pages  
   * 
-  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
   * 
   * @see showPage()
   * @see listPages()
@@ -2457,7 +2457,7 @@ class Feindura extends FeinduraBase {
   * @uses FeinduraBase::loadPagesByDate()   to load the pages which fit in the given time period parameters, sorted by the page date
   * @uses listPages()                   to list the pages  
   * 
-  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
   * 
   * @see showPage()
   * @see listPages()
@@ -2560,7 +2560,7 @@ class Feindura extends FeinduraBase {
   * @uses FeinduraBase::generatePage()            to generate every page which will be listed
   * @uses GeneralFunctions::sortPages()       to sort the $pageContent arrays by category
   * 
-  * @return array the created menu in an array, ready to display in a HTML-page, or an empty array
+  * @return array array with page arrays,containing content and title etc., ready to display in a HTML-page, or an empty array
   * 
   * @see showPage()
   * @see listPages()
