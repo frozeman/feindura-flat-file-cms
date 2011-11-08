@@ -1148,9 +1148,10 @@ class GeneralFunctions {
   * @return array|false an array with ID(s) of the public category(ies)
   * 
   * @access protected
-  * @version 1.0
+  * @version 1.0.1
   * <br />
   * <b>ChangeLog</b><br />
+  *    - 1.0.1 add non category to be public
   *    - 1.0 initial release
   * 
   */
@@ -1159,8 +1160,12 @@ class GeneralFunctions {
     // var
     $newIds = false;
     
+    // ->> non-category
+    if($ids === false || $ids == 0) {
+      $newIds = array(0);
+      
     // ->> ALL categories
-    if($ids === true) {
+    } elseif($ids === true) {
       
         // adds the non-category
         $newIds[] = 0;
