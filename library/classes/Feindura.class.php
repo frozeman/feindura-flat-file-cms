@@ -56,7 +56,7 @@ class Feindura extends FeinduraBase {
   * @var bool
   * @access public
   */
-  public $xHtml = true;
+  public $xHtml = false;
   
  /**
   * Contains the current page ID get from the <var>$_GET</var> variable.
@@ -1412,8 +1412,8 @@ class Feindura extends FeinduraBase {
     $ids = $this->getPropertyIdsByType($idType,$ids);
     
     // -> LOADS the PAGES BY TYPE
-    $pages = $this->loadPagesByType($idType,$ids); 
-    
+    $pages = $this->loadPagesByType($idType,$ids);
+
     // -> if pages should be SORTED BY CATEGORY
     if($sortByCategories === true)
       $pages = GeneralFunctions::sortPages($pages); 
@@ -1432,7 +1432,6 @@ class Feindura extends FeinduraBase {
     } else 
       return array(false);
  
-    
     // -> sets the MENU attributes
     // ----------------------------    
     $menuStartTag = '';
