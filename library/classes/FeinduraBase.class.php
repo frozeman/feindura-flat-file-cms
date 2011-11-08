@@ -422,6 +422,7 @@ class FeinduraBase {
   
   * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
   * 
+  * @uses GeneralFunctions::readPage()		to load the page for createHref()
   * @uses GeneralFunctions::createHref()  to create the hreaf of the link
   * 
   * @return string the $pageContentString woth replaced feindura links
@@ -1121,10 +1122,9 @@ class FeinduraBase {
       // *************** 
       if($ids === true) {
 	
-	// checks if the categories are public         
-	if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false) {
-	  return GeneralFunctions::loadPages($ids);
-	}
+      	// checks if the categories are public         
+      	if(($ids = GeneralFunctions::isPublicCategory($ids)) !== false)
+      	  return GeneralFunctions::loadPages($ids);
       
       // -----------------------------------------    
       // ->> pages IDs
@@ -1154,7 +1154,7 @@ class FeinduraBase {
       } elseif($ids && is_numeric($ids)) {
         $category = GeneralFunctions::getPageCategory($page);
 	      if(($category = GeneralFunctions::isPublicCategory($category)) !== false) {
-          // loads the single page in an array 
+          // loads the single page in an array
           if($pageContent = GeneralFunctions::readPage($ids,$category)) {
             $return[] = $pageContent;
           } else return false;

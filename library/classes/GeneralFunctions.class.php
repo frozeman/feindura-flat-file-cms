@@ -1141,6 +1141,9 @@ class GeneralFunctions {
   * 
   * Checks whether the given category(ies) are public and returns the ID or an array with IDs of the public ones.
   * 
+  *
+  * <b>Notice</b>: This method can either return 0 for the non-category or false. Use "… === false" to check if a category is not public.
+  *
   * @param int|array|bool $ids the category or page ID(s), can be a number or an array with numbers, if TRUE then it check all categories
   * 
   * @uses $categoryConfig      to check if a category is public
@@ -1160,12 +1163,7 @@ class GeneralFunctions {
     // var
     $newIds = false;
     
-    // ->> non-category
-    if($ids === false || $ids == 0) {
-      $newIds = array(0);
-      
-    // ->> ALL categories
-    } elseif($ids === true) {
+    if($ids === true) {
       
         // adds the non-category
         $newIds[] = 0;
@@ -1185,11 +1183,13 @@ class GeneralFunctions {
             }
       
     // -> SINGLE category ID
-    } elseif(is_numeric($ids)) {
+    } elseif(is_numeric($ids) || empty($ids)) {
 
       // checks if the category is public
-      if($ids == 0 || self::$categoryConfig[$ids]['public'])    
+      if(self::$categoryConfig[$ids]['public'])    
         return $ids;
+      elseif(empty($ids))
+        return 0;
       else return false;
     
     } else return false;
