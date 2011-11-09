@@ -981,8 +981,8 @@ class Feindura extends FeinduraBase {
         $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'"'.$tagEnding."\n\n";
       
       // -> add other META TAGs
-      $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n";
-      $metaTags .= '  <meta name="viewport" content="width=device-width, initial-scale=0.5"'.$tagEnding.' <!-- set width for mobile devices -->'."\n\n";
+      $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
+      //$metaTags .= '  <meta name="viewport" content="width=device-width, initial-scale=0.5"'.$tagEnding.' <!-- set width for mobile devices -->'."\n\n";
       //$metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
       //$metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
       

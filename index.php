@@ -282,9 +282,10 @@ if($_GET['site'] == 'addons') {
       <a href="<?= $adminConfig['url'].$adminConfig['websitePath']; ?>"  tabindex="2" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE']; ?>"></a>
       
       <div id="languageSelection">        
-        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=de" tabindex="20" class="de toolTip" title="deutsch::"></a>
-        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=en" tabindex="21" class="en toolTip" title="english::"></a>
-        <a href="<?= (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false) ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) : $_SERVER['REQUEST_URI']; ?><?= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&'; ?>language=fr" tabindex="22" class="fr toolTip" title="français::"></a>
+        <a href="<?= addVariableToUrlParameter('language=de'); ?>" tabindex="20" class="de toolTip" title="deutsch::"></a>
+        <a href="<?= addVariableToUrlParameter('language=en'); ?>" tabindex="21" class="en toolTip" title="english::"></a>
+        <a href="<?= addVariableToUrlParameter('language=fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
+        <a href="<?= addVariableToUrlParameter('language=ru'); ?>" tabindex="23" class="ru toolTip" title="русский::"></a>
       </div>
       
       <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->

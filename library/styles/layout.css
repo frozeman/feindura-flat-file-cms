@@ -172,6 +172,10 @@ span.red, label.red, h1.red, ul.red, div.red, input.red {
     left: 60px;
     background: url("../images/buttons/langSelection_fr.png") no-repeat;
     }
+#languageSelection a.ru {
+    left: 90px;
+    background: url("../images/buttons/langSelection_ru.png") no-repeat;
+    }
 
 
  /****************/

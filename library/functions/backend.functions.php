@@ -1282,6 +1282,31 @@ function prepareStyleFilePaths($givenStyleFiles) {
 }
 
 /**
+ * <b>Name</b> addVariableToUrlParameter()<br />
+ * 
+ * Check if the current $_SERVER['REQUEST_URI'] variable end with ? or & and ads the <var>$parameterString</var> on the end.
+ * 
+ * 
+ * @param string $parameterString a string with parameter(s) in the format: "var=value&var2=value2"
+ * 
+ * @return string the new url with add parameter
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function addVariableToUrlParameter($parameterString) {
+  $return = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false)
+    ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) 
+    : $_SERVER['REQUEST_URI']; 
+  $return .= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&';
+  return $return.$parameterString;
+}
+
+/**
  * <b>Name</b> setStylesByPriority()<br />
  * 
  * Bubbles through the stylesheet-file path, ID or class-attribute
