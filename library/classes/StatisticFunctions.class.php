@@ -1017,8 +1017,28 @@ class StatisticFunctions {
     // doesnt save anything if visitor is a logged in user
     if($_SESSION['feinduraSession']['login']['loggedIn'])
       return false;
-      
+    
     $hasCurrentVisitors = self::visitorCache(); // count and renew the current visitors
+    
+    
+    
+    // #### DUMP ####
+    if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
+      $dump = (self::isRobot()) ? "Is BOT!\n" : "Is not a bot.\n";
+      $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
+      $dump .= ($hasCurrentVisitors) ? 'got it in the visitor.statistic.cache!'."\n\n" : 'is not in the visitor.statistic.cache'."\n\n".
+      
+      $dump .= (is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) ? "website.statistic.php exist!" : "website.statistic.php is gone!!?";
+      $dump .= 'Include again the website.statistic.php: '.print_r(include(dirname(__FILE__)."/../../statistic/website.statistic.php"),true)."\n\n";
+      
+      $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";
+      $dump .= '$GLOBALS["feindura_websiteStatistic"]: '.print_r($GLOBALS["feindura_websiteStatistic"],true)."\n";
+      $dump .= 'self::$websiteStatistic: '.print_r(self::$websiteStatistic,true)."\n";
+      $dump .= '$_SESSION: '.print_r($_SESSION,true)."\n";  	
+      mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output OUTSIDE', $dump); 	
+    }
+    
+    
 
     // COUNT if the user/robot isn't already counted
     // **********************************************
