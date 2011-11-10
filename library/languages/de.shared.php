@@ -52,7 +52,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2'] = 'Sekunden';
 
 $sharedLangFile['errorWindow_h1'] = 'Es sind Fehler aufgetreten!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>';
-$sharedLangFile['editor_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>';
+$sharedLangFile['EDITOR_savepage_error_save'] = '<b>Die Seite konnte nicht gespeichert werden.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'FEHLER<br /><br /><span class="logoname">fein<span>dura</span></span> benötigt mindestens PHP version'; // PHP 5.2.3
 
 

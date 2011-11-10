@@ -653,66 +653,68 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 */
 
 // ---------- page info
-$langFile['editor_h1_createpage'] = 'Neue Seite erstellen';
-$langFile['editor_pageinfo_lastsavedate'] = 'zuletzt bearbeitet';
-$langFile['editor_pageinfo_lastsaveauthor'] = 'von';
-$langFile['editor_pageinfo_linktothispage'] = 'Link zu dieser Seite';
-$langFile['editor_pageinfo_id'] = 'Seiten ID';
-$langFile['editor_pageinfo_id_tip'] = 'Unter dieser ID wird die Seite auf dem Server gespeichert.';
-$langFile['editor_pageinfo_category'] = 'Kategorie';
-$langFile['editor_pageinfo_category_noCategory'] = 'keine Kategorie (ID 0)';
+$langFile['EDITOR_h1_createpage'] = 'Neue Seite erstellen';
+$langFile['EDITOR_pageinfo_lastsavedate'] = 'zuletzt bearbeitet';
+$langFile['EDITOR_pageinfo_lastsaveauthor'] = 'von';
+$langFile['EDITOR_pageinfo_linktothispage'] = 'Link zu dieser Seite';
+$langFile['EDITOR_pageinfo_id'] = 'Seiten ID';
+$langFile['EDITOR_pageinfo_id_tip'] = 'Unter dieser ID wird die Seite auf dem Server gespeichert.';
+$langFile['EDITOR_pageinfo_category'] = 'Kategorie';
+$langFile['EDITOR_pageinfo_category_noCategory'] = 'keine Kategorie (ID 0)';
 
-$langFile['editor_block_edited'] = 'wurden bearbeitet';
-$langFile['editor_pageNotSaved'] = 'noch nicht gespeichert';
+$langFile['EDITOR_TEXT_CHOOSETEMPLATE'] = 'Benutze Vorlage';
+
+$langFile['EDITOR_block_edited'] = 'wurden bearbeitet';
+$langFile['EDITOR_pageNotSaved'] = 'noch nicht gespeichert';
 
 // ---------- page settings
-$langFile['editor_pageSettings_h1'] = 'Einstellungen';
-$langFile['editor_pagestatistics_h1'] = 'Statistik';
+$langFile['EDITOR_pageSettings_h1'] = 'Einstellungen';
+$langFile['EDITOR_pagestatistics_h1'] = 'Statistik';
 
-$langFile['editor_pageSettings_title'] = 'Titel';
-$langFile['editor_pageSettings_title_tip'] = 'Der Titel der Seite';
-$langFile['editor_pageSettings_field1'] = 'Kurzbeschreibung';
-$langFile['editor_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist, wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
-$langFile['editor_pageSettings_field1_tip'] = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
-$langFile['editor_pageSettings_field2'] = 'Tags';
-$langFile['editor_pageSettings_field2_tip'] = 'Tags sind Stichworte für diese Seite.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Die Tags müssen mit &quot;,&quot; getrennt werden.';
-$langFile['editor_pageSettings_field3'] = 'Seitendatum';
-$langFile['editor_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Datum zu sortieren. (z.B. bei Veranstaltungen)';
-$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. &quot;vom 31. Juni bis&quot;.';
-$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Text nach dem Datum::';
-$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'Tag::';
-$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Monat::';
-$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Jahr::[b]Format[/b] JJJJ';
-$langFile['editor_pageSettings_field4'] = 'Status der Seite';
-$langFile['editor_pageSettings_field4_tip'] = '[b]Nur wenn die Seite öffentlich ist, wird diese auf der Webseite angezeigt![/b]';
+$langFile['EDITOR_pageSettings_title'] = 'Titel';
+$langFile['EDITOR_pageSettings_title_tip'] = 'Der Titel der Seite';
+$langFile['EDITOR_pageSettings_field1'] = 'Kurzbeschreibung';
+$langFile['EDITOR_pageSettings_field1_inputTip'] = 'Wenn das Feld leer ist, wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
+$langFile['EDITOR_pageSettings_field1_tip'] = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field2'] = 'Tags';
+$langFile['EDITOR_pageSettings_field2_tip'] = 'Tags sind Stichworte für diese Seite.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip'] = 'Die Tags müssen mit &quot;,&quot; getrennt werden.';
+$langFile['EDITOR_pageSettings_field3'] = 'Seitendatum';
+$langFile['EDITOR_pageSettings_field3_tip'] = 'Das Datum kann dazu verwendet werden, Seiten nach Datum zu sortieren. (z.B. bei Veranstaltungen)';
+$langFile['EDITOR_pageSettings_pagedate_before_inputTip'] = 'Text vor dem Datum::z.B. &quot;vom 31. Juni bis&quot;.';
+$langFile['EDITOR_pageSettings_pagedate_after_inputTip'] = 'Text nach dem Datum::';
+$langFile['EDITOR_pageSettings_pagedate_day_inputTip'] = 'Tag::';
+$langFile['EDITOR_pageSettings_pagedate_month_inputTip'] = 'Monat::';
+$langFile['EDITOR_pageSettings_pagedate_year_inputTip'] = 'Jahr::[b]Format[/b] JJJJ';
+$langFile['EDITOR_pageSettings_field4'] = 'Status der Seite';
+$langFile['EDITOR_pageSettings_field4_tip'] = '[b]Nur wenn die Seite öffentlich ist, wird diese auf der Webseite angezeigt![/b]';
 
-$langFile['editor_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage.[br /]Das Datum sollte folgendes Format haben:';
+$langFile['EDITOR_pageSettings_pagedate_error'] = 'Fehlerhaftes Datumsformat';
+$langFile['EDITOR_pageSettings_pagedate_error_tip'] = 'Dieser Monat hat eventuell keine 31 Tage.[br /]Das Datum sollte folgendes Format haben:';
 
 // ---------- page advanced settings
-$langFile['editor_advancedpageSettings_h1'] = 'Erweiterte Einstellungen';
+$langFile['EDITOR_advancedpageSettings_h1'] = 'Erweiterte Einstellungen';
 
-$langFile['editor_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Wenn alle Felder leer sind, dann werden zuerst die Stylesheet-Einstellungen der Kategorie verwendet, wenn diese auch leer sind dann die aus den HTML-Editor-Einstellungen.';
+$langFile['EDITOR_advancedpageSettings_field1'] = 'Seiten Stylesheet-Datei';
+$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'] = 'Wenn alle Felder leer sind, dann werden zuerst die Stylesheet-Einstellungen der Kategorie verwendet, wenn diese auch leer sind dann die aus den HTML-Editor-Einstellungen.';
 
-$langFile['editor_htmleditor_hotkeys_h1'] = 'Tastenkürzel';
-$langFile['editor_htmleditor_hotkeys_field1'] = 'Alles markieren';
-$langFile['editor_htmleditor_hotkeys_field2'] = 'Kopieren';
-$langFile['editor_htmleditor_hotkeys_field3'] = 'Einfügen';
-$langFile['editor_htmleditor_hotkeys_field4'] = 'Ausschneiden';
-$langFile['editor_htmleditor_hotkeys_field5'] = 'Rückgängig';
-$langFile['editor_htmleditor_hotkeys_field6'] = 'Wiederherstellen';
-$langFile['editor_htmleditor_hotkeys_field7'] = 'Link setzen';
-$langFile['editor_htmleditor_hotkeys_field8'] = 'Fett';
-$langFile['editor_htmleditor_hotkeys_field9'] = 'Kursiv';
-$langFile['editor_htmleditor_hotkeys_field10'] = 'Unterstrichen';
-$langFile['editor_htmleditor_hotkeys_or'] = 'oder';
+$langFile['EDITOR_htmleditor_hotkeys_h1'] = 'Tastenkürzel';
+$langFile['EDITOR_htmleditor_hotkeys_field1'] = 'Alles markieren';
+$langFile['EDITOR_htmleditor_hotkeys_field2'] = 'Kopieren';
+$langFile['EDITOR_htmleditor_hotkeys_field3'] = 'Einfügen';
+$langFile['EDITOR_htmleditor_hotkeys_field4'] = 'Ausschneiden';
+$langFile['EDITOR_htmleditor_hotkeys_field5'] = 'Rückgängig';
+$langFile['EDITOR_htmleditor_hotkeys_field6'] = 'Wiederherstellen';
+$langFile['EDITOR_htmleditor_hotkeys_field7'] = 'Link setzen';
+$langFile['EDITOR_htmleditor_hotkeys_field8'] = 'Fett';
+$langFile['EDITOR_htmleditor_hotkeys_field9'] = 'Kursiv';
+$langFile['EDITOR_htmleditor_hotkeys_field10'] = 'Unterstrichen';
+$langFile['EDITOR_htmleditor_hotkeys_or'] = 'oder';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
+$langFile['EDITOR_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in de.shared.php
 
 // ---------- plugin settings
-$langFile['editor_pluginSettings_h1'] = 'Plugin Einstellungen';
+$langFile['EDITOR_pluginSettings_h1'] = 'Plugin Einstellungen';
 
 /*
 * unsavedPage.php

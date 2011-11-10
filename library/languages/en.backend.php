@@ -656,66 +656,68 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 */
 
 // ---------- page info
-$langFile['editor_h1_createpage'] = 'Create new page';
-$langFile['editor_pageinfo_lastsavedate'] = 'last edit';
-$langFile['editor_pageinfo_lastsaveauthor'] = 'by';
-$langFile['editor_pageinfo_linktothispage'] = 'Link to this page';
-$langFile['editor_pageinfo_id'] = 'Page ID';
-$langFile['editor_pageinfo_id_tip'] = 'The page will be saved under this ID on the server.';
-$langFile['editor_pageinfo_category'] = 'Category';
-$langFile['editor_pageinfo_category_noCategory'] = 'no category (ID 0)';
+$langFile['EDITOR_h1_createpage'] = 'Create new page';
+$langFile['EDITOR_pageinfo_lastsavedate'] = 'last edit';
+$langFile['EDITOR_pageinfo_lastsaveauthor'] = 'by';
+$langFile['EDITOR_pageinfo_linktothispage'] = 'Link to this page';
+$langFile['EDITOR_pageinfo_id'] = 'Page ID';
+$langFile['EDITOR_pageinfo_id_tip'] = 'The page will be saved under this ID on the server.';
+$langFile['EDITOR_pageinfo_category'] = 'Category';
+$langFile['EDITOR_pageinfo_category_noCategory'] = 'no category (ID 0)';
 
-$langFile['editor_block_edited'] = 'were edited';
-$langFile['editor_pageNotSaved'] = 'not saved';
+$langFile['EDITOR_TEXT_CHOOSETEMPLATE'] = 'Use template';
+
+$langFile['EDITOR_block_edited'] = 'were edited';
+$langFile['EDITOR_pageNotSaved'] = 'not saved';
 
 // ---------- page settings
-$langFile['editor_pageSettings_h1'] = 'Settings';
-$langFile['editor_pagestatistics_h1'] = 'Statistic';
+$langFile['EDITOR_pageSettings_h1'] = 'Settings';
+$langFile['EDITOR_pagestatistics_h1'] = 'Statistic';
 
-$langFile['editor_pageSettings_title'] = 'Title';
-$langFile['editor_pageSettings_title_tip'] = 'The title of the page';
-$langFile['editor_pageSettings_field1'] = 'Short description';
-$langFile['editor_pageSettings_field1_inputTip'] = 'If empty it uses the description of the website from the Website-Settings.';
-$langFile['editor_pageSettings_field1_tip'] = 'A short summary of the page content. This description will be used in the META-Tags of the page.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
-$langFile['editor_pageSettings_field2'] = 'Tags';
-$langFile['editor_pageSettings_field2_tip'] = 'Tags are keywords for this page.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'The Tags must be separated by &quot;,&quot;.';
-$langFile['editor_pageSettings_field3'] = 'Pagedate';
-$langFile['editor_pageSettings_field3_tip'] = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
-$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Text before the date::e.g. &quot;from 31st June until&quot;.';
-$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Text after the date::';
-$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'Day::';
-$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Month::';
-$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Year::[b]Format[/b] YYYY';
-$langFile['editor_pageSettings_field4'] = 'Status of the page';
-$langFile['editor_pageSettings_field4_tip'] = '[b]Only if the page is public, it will be shown on the website![/b]';
+$langFile['EDITOR_pageSettings_title'] = 'Title';
+$langFile['EDITOR_pageSettings_title_tip'] = 'The title of the page';
+$langFile['EDITOR_pageSettings_field1'] = 'Short description';
+$langFile['EDITOR_pageSettings_field1_inputTip'] = 'If empty it uses the description of the website from the Website-Settings.';
+$langFile['EDITOR_pageSettings_field1_tip'] = 'A short summary of the page content. This description will be used in the META-Tags of the page.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field2'] = 'Tags';
+$langFile['EDITOR_pageSettings_field2_tip'] = 'Tags are keywords for this page.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip'] = 'The Tags must be separated by &quot;,&quot;.';
+$langFile['EDITOR_pageSettings_field3'] = 'Pagedate';
+$langFile['EDITOR_pageSettings_field3_tip'] = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
+$langFile['EDITOR_pageSettings_pagedate_before_inputTip'] = 'Text before the date::e.g. &quot;from 31st June until&quot;.';
+$langFile['EDITOR_pageSettings_pagedate_after_inputTip'] = 'Text after the date::';
+$langFile['EDITOR_pageSettings_pagedate_day_inputTip'] = 'Day::';
+$langFile['EDITOR_pageSettings_pagedate_month_inputTip'] = 'Month::';
+$langFile['EDITOR_pageSettings_pagedate_year_inputTip'] = 'Year::[b]Format[/b] YYYY';
+$langFile['EDITOR_pageSettings_field4'] = 'Status of the page';
+$langFile['EDITOR_pageSettings_field4_tip'] = '[b]Only if the page is public, it will be shown on the website![/b]';
 
-$langFile['editor_pageSettings_pagedate_error'] = 'Wrong date format';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'This month has eventually no 31 days.[br /]The date should have the follwing format:';
+$langFile['EDITOR_pageSettings_pagedate_error'] = 'Wrong date format';
+$langFile['EDITOR_pageSettings_pagedate_error_tip'] = 'This month has eventually no 31 days.[br /]The date should have the follwing format:';
 
 // ---------- page advanced settings
-$langFile['editor_advancedpageSettings_h1'] = 'Advanced Settings';
+$langFile['EDITOR_advancedpageSettings_h1'] = 'Advanced Settings';
 
-$langFile['editor_advancedpageSettings_field1'] = 'Page stylesheet-file';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'If the fields are empty, then the Stylesheet-Settings of the category will be used and if they are also empty then the one from the HTML-Editor-Settings.';
+$langFile['EDITOR_advancedpageSettings_field1'] = 'Page stylesheet-file';
+$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'] = 'If the fields are empty, then the Stylesheet-Settings of the category will be used and if they are also empty then the one from the HTML-Editor-Settings.';
 
-$langFile['editor_htmleditor_hotkeys_h1'] = 'Shortcut keys';
-$langFile['editor_htmleditor_hotkeys_field1'] = 'select all';
-$langFile['editor_htmleditor_hotkeys_field2'] = 'copy';
-$langFile['editor_htmleditor_hotkeys_field3'] = 'paste';
-$langFile['editor_htmleditor_hotkeys_field4'] = 'cut';
-$langFile['editor_htmleditor_hotkeys_field5'] = 'undo';
-$langFile['editor_htmleditor_hotkeys_field6'] = 'redo';
-$langFile['editor_htmleditor_hotkeys_field7'] = 'set link';
-$langFile['editor_htmleditor_hotkeys_field8'] = 'bold';
-$langFile['editor_htmleditor_hotkeys_field9'] = 'italic';
-$langFile['editor_htmleditor_hotkeys_field10'] = 'underline';
-$langFile['editor_htmleditor_hotkeys_or'] = 'or';
+$langFile['EDITOR_htmleditor_hotkeys_h1'] = 'Shortcut keys';
+$langFile['EDITOR_htmleditor_hotkeys_field1'] = 'select all';
+$langFile['EDITOR_htmleditor_hotkeys_field2'] = 'copy';
+$langFile['EDITOR_htmleditor_hotkeys_field3'] = 'paste';
+$langFile['EDITOR_htmleditor_hotkeys_field4'] = 'cut';
+$langFile['EDITOR_htmleditor_hotkeys_field5'] = 'undo';
+$langFile['EDITOR_htmleditor_hotkeys_field6'] = 'redo';
+$langFile['EDITOR_htmleditor_hotkeys_field7'] = 'set link';
+$langFile['EDITOR_htmleditor_hotkeys_field8'] = 'bold';
+$langFile['EDITOR_htmleditor_hotkeys_field9'] = 'italic';
+$langFile['EDITOR_htmleditor_hotkeys_field10'] = 'underline';
+$langFile['EDITOR_htmleditor_hotkeys_or'] = 'or';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
+$langFile['EDITOR_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
 
 // ---------- plugin settings
-$langFile['editor_pluginSettings_h1'] = 'Plugin Settings';
+$langFile['EDITOR_pluginSettings_h1'] = 'Plugin Settings';
 
 /*
 * unsavedPage.php

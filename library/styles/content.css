@@ -173,6 +173,11 @@ div#contentBlocked {
     overflow: auto;
     }
 
+/* BLOCK SELECT */
+.block select {
+  max-width: 500px;
+}
+
 /****************/  
 /* --- BLOCK-TABLE */
 

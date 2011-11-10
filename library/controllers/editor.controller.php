@@ -131,7 +131,7 @@ if($_POST['save'] && isBlocked() === false) {
       GeneralFunctions::saveSitemap();
       
     } else
-      $errorWindow .= sprintf($langFile['editor_savepage_error_save'],$adminConfig['realBasePath']);
+      $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
   }
   
   // sets which block should be opend after saving
@@ -146,10 +146,13 @@ else
 
 // -> set Title
 if($newPage) {
-  //$pageContent = '';  
-  $pageTitle = $langFile['editor_h1_createpage'];
+  $pageTitle = $langFile['EDITOR_h1_createpage'];
   $_GET['page'] = 'new';
   $page = 'new';
+  
+  // load template
+  if(isset($_GET['template']) && is_numeric($_GET['template']))
+    $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
 } else {  
   $pageTitle = strip_tags($pageContent['title']);

@@ -40,10 +40,9 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?= $_SESSION['feinduraSession']['language']; ?>" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="<?= $_SESSION['feinduraSession']['language']; ?>">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="content-language" content="<?php echo $_SESSION['feinduraSession']['language']; ?>" />
   
   <title>feindura: <?php echo $websiteConfig['title']; ?></title>
   
@@ -152,7 +151,7 @@ if($_GET['site'] == 'addons') {
   var feindura_basePath = '<?= $adminConfig['basePath']; ?>';
   var feindura_langFile = {
     ERRORWINDOW_TITLE:                "<?= $langFile['errorWindow_h1']; ?>",
-    ERROR_SAVE:                       "<?= sprintf($langFile['editor_savepage_error_save'],$adminConfig['realBasePath']); ?>",
+    ERROR_SAVE:                       "<?= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']); ?>",
     CKEDITOR_TITLE_LINKS:             "<?= (!empty($langFile['CKEDITOR_TITLE_LINKS'])) ? $langFile['CKEDITOR_TITLE_LINKS'] : 'feindura pages'; ?>"
   };
   var currentSite = '<?= $_GET["site"]; ?>';
@@ -166,7 +165,8 @@ if($_GET['site'] == 'addons') {
   var feindura_pages = [
   ['-',''],
   <?php foreach($getPages as $getPage) {
-    echo "['".str_replace("'",'',$getPage['title'])."','?feinduraPageID=".$getPage['id']."'],\n";
+    $categoryText = ($getPage['category'] != 0) ? $categoryConfig[$getPage['category']]['name'].' » ' : '';
+    echo "['".str_replace("'",'',$categoryText.$getPage['title'])."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   

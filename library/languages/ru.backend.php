@@ -649,66 +649,68 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 */
 
 // ---------- page info
-$langFile['editor_h1_createpage'] = 'Создание новой страницы';
-$langFile['editor_pageinfo_lastsavedate'] = 'последняя редакция';
-$langFile['editor_pageinfo_lastsaveauthor'] = '-';
-$langFile['editor_pageinfo_linktothispage'] = 'Ссылка на страницу';
-$langFile['editor_pageinfo_id'] = 'ID страницы';
-$langFile['editor_pageinfo_id_tip'] = 'С этим ID страница хранится на сервере.';
-$langFile['editor_pageinfo_category'] = 'Категории';
-$langFile['editor_pageinfo_category_noCategory'] = 'без категории (ID 0)';
+$langFile['EDITOR_h1_createpage'] = 'Создание новой страницы';
+$langFile['EDITOR_pageinfo_lastsavedate'] = 'последняя редакция';
+$langFile['EDITOR_pageinfo_lastsaveauthor'] = '-';
+$langFile['EDITOR_pageinfo_linktothispage'] = 'Ссылка на страницу';
+$langFile['EDITOR_pageinfo_id'] = 'ID страницы';
+$langFile['EDITOR_pageinfo_id_tip'] = 'С этим ID страница хранится на сервере.';
+$langFile['EDITOR_pageinfo_category'] = 'Категории';
+$langFile['EDITOR_pageinfo_category_noCategory'] = 'без категории (ID 0)';
 
-$langFile['editor_block_edited'] = 'изменены';
-$langFile['editor_pageNotSaved'] = 'не сохранено';
+$langFile['EDITOR_TEXT_CHOOSETEMPLATE'] = 'использование шаблонов';
+
+$langFile['EDITOR_block_edited'] = 'изменены';
+$langFile['EDITOR_pageNotSaved'] = 'не сохранено';
 
 // ---------- page settings
-$langFile['editor_pageSettings_h1'] = 'Настройки';
-$langFile['editor_pagestatistics_h1'] = 'Статистика';
+$langFile['EDITOR_pageSettings_h1'] = 'Настройки';
+$langFile['EDITOR_pagestatistics_h1'] = 'Статистика';
 
-$langFile['editor_pageSettings_title'] = 'Заголовок';
-$langFile['editor_pageSettings_title_tip'] = 'Заголовок страницы';
-$langFile['editor_pageSettings_field1'] = 'Короткое описание';
-$langFile['editor_pageSettings_field1_inputTip'] = 'Если пустое - будет использовано умолчательное значение из Настроек сайта.';
-$langFile['editor_pageSettings_field1_tip'] = 'Используется в мета-теге description.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
-$langFile['editor_pageSettings_field2'] = 'Таги';
-$langFile['editor_pageSettings_field2_tip'] = 'Ключевые слова для страницы.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Таги должны быть разделены &quot;,&quot;.';
-$langFile['editor_pageSettings_field3'] = 'Дата';
-$langFile['editor_pageSettings_field3_tip'] = 'Дата может быть использована для сортировки страниц.';
-$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'Текст до даты::например &quot;начиная с 31 июня&quot;.';
-$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'Текст после даты::';
-$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'День::';
-$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'Месяц::';
-$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'Год::[b]Формат[/b] YYYY';
-$langFile['editor_pageSettings_field4'] = 'Статус страницы';
-$langFile['editor_pageSettings_field4_tip'] = '[b]Только активная страница отображается на сайте![/b]';
+$langFile['EDITOR_pageSettings_title'] = 'Заголовок';
+$langFile['EDITOR_pageSettings_title_tip'] = 'Заголовок страницы';
+$langFile['EDITOR_pageSettings_field1'] = 'Короткое описание';
+$langFile['EDITOR_pageSettings_field1_inputTip'] = 'Если пустое - будет использовано умолчательное значение из Настроек сайта.';
+$langFile['EDITOR_pageSettings_field1_tip'] = 'Используется в мета-теге description.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field2'] = 'Таги';
+$langFile['EDITOR_pageSettings_field2_tip'] = 'Ключевые слова для страницы.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip'] = 'Таги должны быть разделены &quot;,&quot;.';
+$langFile['EDITOR_pageSettings_field3'] = 'Дата';
+$langFile['EDITOR_pageSettings_field3_tip'] = 'Дата может быть использована для сортировки страниц.';
+$langFile['EDITOR_pageSettings_pagedate_before_inputTip'] = 'Текст до даты::например &quot;начиная с 31 июня&quot;.';
+$langFile['EDITOR_pageSettings_pagedate_after_inputTip'] = 'Текст после даты::';
+$langFile['EDITOR_pageSettings_pagedate_day_inputTip'] = 'День::';
+$langFile['EDITOR_pageSettings_pagedate_month_inputTip'] = 'Месяц::';
+$langFile['EDITOR_pageSettings_pagedate_year_inputTip'] = 'Год::[b]Формат[/b] YYYY';
+$langFile['EDITOR_pageSettings_field4'] = 'Статус страницы';
+$langFile['EDITOR_pageSettings_field4_tip'] = '[b]Только активная страница отображается на сайте![/b]';
 
-$langFile['editor_pageSettings_pagedate_error'] = 'Ошибочный формат даты';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'В этом месяце не 31 день.[br /]Формат даты может быть следующим:';
+$langFile['EDITOR_pageSettings_pagedate_error'] = 'Ошибочный формат даты';
+$langFile['EDITOR_pageSettings_pagedate_error_tip'] = 'В этом месяце не 31 день.[br /]Формат даты может быть следующим:';
 
 // ---------- page advanced settings
-$langFile['editor_advancedpageSettings_h1'] = 'Дополнительные настройки';
+$langFile['EDITOR_advancedpageSettings_h1'] = 'Дополнительные настройки';
 
-$langFile['editor_advancedpageSettings_field1'] = 'Индивидуальный файл стилей';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Если поле пусто будут использованы настройки категории, если в настройках категории пусто - будут использованы стандартные стили.';
+$langFile['EDITOR_advancedpageSettings_field1'] = 'Индивидуальный файл стилей';
+$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'] = 'Если поле пусто будут использованы настройки категории, если в настройках категории пусто - будут использованы стандартные стили.';
 
-$langFile['editor_htmleditor_hotkeys_h1'] = 'Горячие клавиши';
-$langFile['editor_htmleditor_hotkeys_field1'] = 'выбрать все';
-$langFile['editor_htmleditor_hotkeys_field2'] = 'копировать';
-$langFile['editor_htmleditor_hotkeys_field3'] = 'вставить';
-$langFile['editor_htmleditor_hotkeys_field4'] = 'вырезать';
-$langFile['editor_htmleditor_hotkeys_field5'] = 'шаг назад';
-$langFile['editor_htmleditor_hotkeys_field6'] = 'шаг вперед';
-$langFile['editor_htmleditor_hotkeys_field7'] = 'ссылки';
-$langFile['editor_htmleditor_hotkeys_field8'] = 'жирный';
-$langFile['editor_htmleditor_hotkeys_field9'] = 'наклонный';
-$langFile['editor_htmleditor_hotkeys_field10'] = 'подчеркнутый';
-$langFile['editor_htmleditor_hotkeys_or'] = 'или';
+$langFile['EDITOR_htmleditor_hotkeys_h1'] = 'Горячие клавиши';
+$langFile['EDITOR_htmleditor_hotkeys_field1'] = 'выбрать все';
+$langFile['EDITOR_htmleditor_hotkeys_field2'] = 'копировать';
+$langFile['EDITOR_htmleditor_hotkeys_field3'] = 'вставить';
+$langFile['EDITOR_htmleditor_hotkeys_field4'] = 'вырезать';
+$langFile['EDITOR_htmleditor_hotkeys_field5'] = 'шаг назад';
+$langFile['EDITOR_htmleditor_hotkeys_field6'] = 'шаг вперед';
+$langFile['EDITOR_htmleditor_hotkeys_field7'] = 'ссылки';
+$langFile['EDITOR_htmleditor_hotkeys_field8'] = 'жирный';
+$langFile['EDITOR_htmleditor_hotkeys_field9'] = 'наклонный';
+$langFile['EDITOR_htmleditor_hotkeys_field10'] = 'подчеркнутый';
+$langFile['EDITOR_htmleditor_hotkeys_or'] = 'или';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
+$langFile['EDITOR_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in en.shared.php
 
 // ---------- plugin settings
-$langFile['editor_pluginSettings_h1'] = 'Настройки расширений';
+$langFile['EDITOR_pluginSettings_h1'] = 'Настройки расширений';
 
 /*
 * unsavedPage.php

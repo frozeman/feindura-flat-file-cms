@@ -53,7 +53,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2'] = 'secondes';
 
 $sharedLangFile['errorWindow_h1'] = 'une erreur s\'est produite!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>activation de la page d\'accueil impossible.</b>';
-$sharedLangFile['editor_savepage_error_save'] = '<b>Cette page ne pouvait pas être sauvegardée.</b>';
+$sharedLangFile['EDITOR_savepage_error_save'] = '<b>Cette page ne pouvait pas être sauvegardée.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'ERREUR<br /><br /><span class="logoname">fein<span>dura</span></span> nécessite au moins la version de PHP'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------

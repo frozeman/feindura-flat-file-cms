@@ -76,58 +76,58 @@ if($adminConfig['user']['fileManager']) {
 </script>
 
     <div class="content">
-      <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['editor_htmleditor_hotkeys_h1']; ?></a>
+      <a href="#" id="hotKeysToogle" class="down standardLink"><?php echo $langFile['EDITOR_htmleditor_hotkeys_h1']; ?></a>
       <div id="hotKeys">
       <br />
       <table style="width:450px; padding: 8px; border-spacing: 0; border:1px solid #B3B3B4;">
         <tr>
           <td style="background-color:#EDECEC;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field1']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field1']; ?></b></td>
           <td align="left" style="background-color:#EDECEC;"> STRG + A</td>
         </tr><tr>
           <td style="background-color:#E3E3E3;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field2']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field2']; ?></b></td>
           <td align="left" style="background-color:#E3E3E3;"> STRG + C</td>
         </tr><tr>
           <td style="background-color:#EDECEC;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field3']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field3']; ?></b></td>
           <td align="left" style="background-color:#EDECEC;">
             STRG + V</td>
         </tr><tr>
           <td style="background-color:#E3E3E3;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field4']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field4']; ?></b></td>
           <td align="left" style="background-color:#E3E3E3;">
             STRG + X 
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_or']; ?></b> SHIFT + Del</td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?></b> SHIFT + Del</td>
         </tr><tr>
           <td colspan="2" style="height: 10px;background-color:#fff;"> </td>
         </tr><tr>
           <td style="background-color:#EDECEC;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field5']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field5']; ?></b></td>
           <td align="left" style="background-color:#EDECEC;"> STRG + Z</td>
         </tr><tr>
           <td style="background-color:#E3E3E3;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field6']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field6']; ?></b></td>
           <td align="left" style="background-color:#E3E3E3;">
             STRG + Y 
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_or']; ?></b> STRG + SHIFT + Z</td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_or']; ?></b> STRG + SHIFT + Z</td>
         </tr><tr>
           <td colspan="2" style="height: 10px;background-color:#fff;"> </td>
         </tr><tr>
           <td style="background-color:#EDECEC;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field7']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field7']; ?></b></td>
           <td align="left" style="background-color:#EDECEC;"> STRG + L</td>
         </tr><tr>
           <td style="background-color:#E3E3E3;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field8']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field8']; ?></b></td>
           <td align="left" style="background-color:#E3E3E3;"> STRG + B</td>
         </tr><tr>
           <td style="background-color:#EDECEC;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field9']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field9']; ?></b></td>
           <td align="left" style="background-color:#EDECEC;"> STRG + I</td>
         </tr><tr>
           <td style="background-color:#E3E3E3;">
-            <b><?php echo $langFile['editor_htmleditor_hotkeys_field10']; ?></b></td>
+            <b><?php echo $langFile['EDITOR_htmleditor_hotkeys_field10']; ?></b></td>
           <td align="left" style="background-color:#E3E3E3;"> STRG + U</td>
         </tr>
       </table>

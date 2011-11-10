@@ -617,62 +617,64 @@ $langFile['userSetup_error_save'] = $langFile['ERROR_SAVE_SETTINGS'].$langFile['
 */
 
 // ---------- page info
-$langFile['editor_h1_createpage'] = 'créer nouvelle page';
-$langFile['editor_pageinfo_lastsavedate'] = 'dernièrement traité';
-$langFile['editor_pageinfo_lastsaveauthor'] = 'de';
-$langFile['editor_pageinfo_linktothispage'] = 'lien mènant sur le site web';
-$langFile['editor_pageinfo_id'] = 'ID de la page';
-$langFile['editor_pageinfo_id_tip'] = 'Le site web sera sauvegardé sur le serveur sous cette ID.';
-$langFile['editor_pageinfo_category'] = 'catégorie';
-$langFile['editor_pageinfo_category_noCategory'] = 'aucune catégorie (ID 0)';
+$langFile['EDITOR_h1_createpage'] = 'créer nouvelle page';
+$langFile['EDITOR_pageinfo_lastsavedate'] = 'dernièrement traité';
+$langFile['EDITOR_pageinfo_lastsaveauthor'] = 'de';
+$langFile['EDITOR_pageinfo_linktothispage'] = 'lien mènant sur le site web';
+$langFile['EDITOR_pageinfo_id'] = 'ID de la page';
+$langFile['EDITOR_pageinfo_id_tip'] = 'Le site web sera sauvegardé sur le serveur sous cette ID.';
+$langFile['EDITOR_pageinfo_category'] = 'catégorie';
+$langFile['EDITOR_pageinfo_category_noCategory'] = 'aucune catégorie (ID 0)';
 
-$langFile['editor_block_edited'] = 'ont été édité';
-$langFile['editor_pageNotSaved'] = 'pas sauvegardé';
+$langFile['EDITOR_TEXT_CHOOSETEMPLATE'] = 'utiliser le modèle';
+
+$langFile['EDITOR_block_edited'] = 'ont été édité';
+$langFile['EDITOR_pageNotSaved'] = 'pas sauvegardé';
 
 // ---------- page settings
-$langFile['editor_pageSettings_h1'] = 'paramètres';
-$langFile['editor_pagestatistics_h1'] = 'statistiques';
-$langFile['editor_pageSettings_title'] = 'titre';
-$langFile['editor_pageSettings_title_tip'] = 'Titre de la page.';
-$langFile['editor_pageSettings_field1'] = 'description courte';
-$langFile['editor_pageSettings_field1_inputTip'] = 'Si la case reste vide la description du site web au sein des paramètres du site web sera utilisé.';
-$langFile['editor_pageSettings_field1_tip'] = 'Une description courte du site web. Ceci va être mise dans les tags-META du site web.[br /][br /][span class=hint]'.$langFile['editor_pageSettings_field1_inputTip'].'[/span]';
-$langFile['editor_pageSettings_field2'] = 'tags';
-$langFile['editor_pageSettings_field2_tip'] = 'Tags sont des mots-clé de ce site web.';
-$langFile['editor_pageSettings_field2_tip_inputTip'] = 'Les tags doivent être séparés par la &quot;,&quot;.';
-$langFile['editor_pageSettings_field3'] = 'date du site web';
-$langFile['editor_pageSettings_field3_tip'] = 'La date peut être utilisée pour trier les pages dans l\'ordre chronologique. (par ex. des évenements)';
-$langFile['editor_pageSettings_pagedate_before_inputTip'] = 'texte avant la date::Par ex. &quot;du 31. juin&quot;.';
-$langFile['editor_pageSettings_pagedate_after_inputTip'] = 'texte après la date::';
-$langFile['editor_pageSettings_pagedate_day_inputTip'] = 'jour::';
-$langFile['editor_pageSettings_pagedate_month_inputTip'] = 'mois::';
-$langFile['editor_pageSettings_pagedate_year_inputTip'] = 'an::[b]format[/b] AAAA';
-$langFile['editor_pageSettings_field4'] = 'status de la page';
-$langFile['editor_pageSettings_field4_tip'] = '[b]Une page sera visible sur le site web seulement quand elle est publiée![/b]';
-$langFile['editor_pageSettings_pagedate_error'] = 'format de date incorrect';
-$langFile['editor_pageSettings_pagedate_error_tip'] = 'Ce mois n\'a peut être pas 31 jours.[br /]La date devrait avoir le format suivant:';
+$langFile['EDITOR_pageSettings_h1'] = 'paramètres';
+$langFile['EDITOR_pagestatistics_h1'] = 'statistiques';
+$langFile['EDITOR_pageSettings_title'] = 'titre';
+$langFile['EDITOR_pageSettings_title_tip'] = 'Titre de la page.';
+$langFile['EDITOR_pageSettings_field1'] = 'description courte';
+$langFile['EDITOR_pageSettings_field1_inputTip'] = 'Si la case reste vide la description du site web au sein des paramètres du site web sera utilisé.';
+$langFile['EDITOR_pageSettings_field1_tip'] = 'Une description courte du site web. Ceci va être mise dans les tags-META du site web.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field2'] = 'tags';
+$langFile['EDITOR_pageSettings_field2_tip'] = 'Tags sont des mots-clé de ce site web.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip'] = 'Les tags doivent être séparés par la &quot;,&quot;.';
+$langFile['EDITOR_pageSettings_field3'] = 'date du site web';
+$langFile['EDITOR_pageSettings_field3_tip'] = 'La date peut être utilisée pour trier les pages dans l\'ordre chronologique. (par ex. des évenements)';
+$langFile['EDITOR_pageSettings_pagedate_before_inputTip'] = 'texte avant la date::Par ex. &quot;du 31. juin&quot;.';
+$langFile['EDITOR_pageSettings_pagedate_after_inputTip'] = 'texte après la date::';
+$langFile['EDITOR_pageSettings_pagedate_day_inputTip'] = 'jour::';
+$langFile['EDITOR_pageSettings_pagedate_month_inputTip'] = 'mois::';
+$langFile['EDITOR_pageSettings_pagedate_year_inputTip'] = 'an::[b]format[/b] AAAA';
+$langFile['EDITOR_pageSettings_field4'] = 'status de la page';
+$langFile['EDITOR_pageSettings_field4_tip'] = '[b]Une page sera visible sur le site web seulement quand elle est publiée![/b]';
+$langFile['EDITOR_pageSettings_pagedate_error'] = 'format de date incorrect';
+$langFile['EDITOR_pageSettings_pagedate_error_tip'] = 'Ce mois n\'a peut être pas 31 jours.[br /]La date devrait avoir le format suivant:';
 
 // ---------- page advanced settings
-$langFile['editor_advancedpageSettings_h1'] = 'paramètres avancés';
-$langFile['editor_advancedpageSettings_field1'] = 'page fichier feuille de style';
-$langFile['editor_advancedpageSettings_stylesheet_ifempty'] = 'Quand toutes les cases sont vides, les paramètres des feuilles de style de la catégorie seront utilisés. Si ceux-ci sont vides aussi, les paramètres de l\'éditeur HTML seront utlisés.';
-$langFile['editor_htmleditor_hotkeys_h1'] = 'touches-clés';
-$langFile['editor_htmleditor_hotkeys_field1'] = 'tout sélectionner';
-$langFile['editor_htmleditor_hotkeys_field2'] = 'copier';
-$langFile['editor_htmleditor_hotkeys_field3'] = 'coller';
-$langFile['editor_htmleditor_hotkeys_field4'] = 'couper';
-$langFile['editor_htmleditor_hotkeys_field5'] = 'en arrière';
-$langFile['editor_htmleditor_hotkeys_field6'] = 'réconstituer';
-$langFile['editor_htmleditor_hotkeys_field7'] = 'créer un lien';
-$langFile['editor_htmleditor_hotkeys_field8'] = 'gras';
-$langFile['editor_htmleditor_hotkeys_field9'] = 'italique';
-$langFile['editor_htmleditor_hotkeys_field10'] = 'souligné';
-$langFile['editor_htmleditor_hotkeys_or'] = 'ou';
+$langFile['EDITOR_advancedpageSettings_h1'] = 'paramètres avancés';
+$langFile['EDITOR_advancedpageSettings_field1'] = 'page fichier feuille de style';
+$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'] = 'Quand toutes les cases sont vides, les paramètres des feuilles de style de la catégorie seront utilisés. Si ceux-ci sont vides aussi, les paramètres de l\'éditeur HTML seront utlisés.';
+$langFile['EDITOR_htmleditor_hotkeys_h1'] = 'touches-clés';
+$langFile['EDITOR_htmleditor_hotkeys_field1'] = 'tout sélectionner';
+$langFile['EDITOR_htmleditor_hotkeys_field2'] = 'copier';
+$langFile['EDITOR_htmleditor_hotkeys_field3'] = 'coller';
+$langFile['EDITOR_htmleditor_hotkeys_field4'] = 'couper';
+$langFile['EDITOR_htmleditor_hotkeys_field5'] = 'en arrière';
+$langFile['EDITOR_htmleditor_hotkeys_field6'] = 'réconstituer';
+$langFile['EDITOR_htmleditor_hotkeys_field7'] = 'créer un lien';
+$langFile['EDITOR_htmleditor_hotkeys_field8'] = 'gras';
+$langFile['EDITOR_htmleditor_hotkeys_field9'] = 'italique';
+$langFile['EDITOR_htmleditor_hotkeys_field10'] = 'souligné';
+$langFile['EDITOR_htmleditor_hotkeys_or'] = 'ou';
 
-$langFile['editor_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in fr.shared.php
+$langFile['EDITOR_savepage_error_save'] .= $langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];// also in fr.shared.php
 
 // ---------- plugin settings
-$langFile['editor_pluginSettings_h1'] = 'préférence plugin';
+$langFile['EDITOR_pluginSettings_h1'] = 'préférence plugin';
 
 /*
 * unsavedPage.php

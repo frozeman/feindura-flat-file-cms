@@ -1426,7 +1426,7 @@ function showPageDate($pageContent) {
 
     // CHECKs the DATE FORMAT
     $return = (StatisticFunctions::validateDateFormat(StatisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)
-    ? '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['editor_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pageDate']['date'].$titleDateAfter
+    ? '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['EDITOR_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pageDate']['date'].$titleDateAfter
     : '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$langFile)).$titleDateAfter;
   }    
   return $return;

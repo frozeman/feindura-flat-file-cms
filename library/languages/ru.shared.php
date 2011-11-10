@@ -52,7 +52,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2'] = 'секунд';
 
 $sharedLangFile['errorWindow_h1'] = 'Произошла ошибка!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Не удается установить главной страницей.</b>';
-$sharedLangFile['editor_savepage_error_save'] = '<b>Не удается сохранить страницу.</b>';
+$sharedLangFile['EDITOR_savepage_error_save'] = '<b>Не удается сохранить страницу.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'ОШИБКА<br /><br /><span class="logoname">fein<span>dura</span></span> требует более новую версию PHP'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------

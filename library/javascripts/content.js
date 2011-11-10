@@ -984,14 +984,14 @@ window.addEvent('domready', function() {
   		});
     }
   });
-    
+  
   // -> DISABLE varNames if SPEAKING URL is selected
   if($('cfg_speakingUrl') != null) {
     var smallSize = '50px';
-    
+
     $('cfg_speakingUrl').addEvent('change',function() {      
       // disables all varNames fields is option value == true; speaking url
-      if($('cfg_speakingUrl')[$('cfg_speakingUrl').selectedIndex].value == 'true') {
+      if(this[this.selectedIndex].value == 'true') {
         $('cfg_varNamePage').setProperty(deactivateType,deactivateType);
         $('cfg_varNamePage').tween('width',smallSize);
         $('cfg_varNameCategory').setProperty(deactivateType,deactivateType);
@@ -1324,7 +1324,27 @@ window.addEvent('domready', function() {
         titleSaved = false;
     });
   }
-
+  
+  // CHANGE CATEGORY
+  if($('categorySelection') != null) {
+    $('categorySelection').addEvent('change',function() {
+      window.location.href = '?category=' + this[this.selectedIndex].value + '&page=new';      
+    });
+  }
+  
+  // CHANGE TEMPLATE
+  if($('templateSelection') != null) {
+    $('templateSelection').addEvent('change',function() {
+      newLocation = (window.location.href.indexOf('&template') != -1)
+        ? window.location.href.substr(0,window.location.href.indexOf('&template'))
+        : window.location.href;
+      if(this[this.selectedIndex].value == '-')
+        window.location.href = newLocation;
+      else
+        window.location.href = newLocation + '&template=' + this[this.selectedIndex].value;
+    });
+  }
+  
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MAX
   if($('visitTimeMax') != null) {

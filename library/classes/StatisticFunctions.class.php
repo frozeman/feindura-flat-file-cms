@@ -1020,10 +1020,9 @@ class StatisticFunctions {
     
     $hasCurrentVisitors = self::visitorCache(); // count and renew the current visitors
     
-    
-    
     // #### DUMP ####
-    if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
+    /*
+if(empty(self::$websiteStatistic) || self::$websiteStatistic === 1) {
       $dump = (self::isRobot()) ? "Is BOT!\n" : "Is not a bot.\n";
       $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
       $dump .= ($hasCurrentVisitors) ? 'got it in the visitor.statistic.cache!'."\n\n" : 'is not in the visitor.statistic.cache'."\n\n".
@@ -1037,8 +1036,7 @@ class StatisticFunctions {
       $dump .= '$_SESSION: '.print_r($_SESSION,true)."\n";  	
       mail('fabian@feindura.org', self::$adminConfig['url'].' statistiken geloescht, dump output OUTSIDE', $dump); 	
     }
-    
-    
+*/
 
     // COUNT if the user/robot isn't already counted
     // **********************************************

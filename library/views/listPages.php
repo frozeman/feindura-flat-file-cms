@@ -178,7 +178,7 @@ foreach($allCategories as $category) {
       
       echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags($pageContent['title'])).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
       echo (!empty($pageContent['lastSaveAuthor']))
-        ? '<div class="lastSaveDate toolTip" title="'.$langFile['editor_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
+        ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">'.$lastSaveDate.'</div>';
       echo '<div class="counter toolTip" title="'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</div>
       <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';

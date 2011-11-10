@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 779
+Build 780
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 780: add simple template function, when creating a new page
   build 779: frontendediting removes now also the title when edit is disabled from the disabled edit blocks
   build 778: add new bot list; changed statistics dump
   build 777: statistics reset issue still not solved! so i add again a dump output. (think about using fopen() and ftruncate() ?)
