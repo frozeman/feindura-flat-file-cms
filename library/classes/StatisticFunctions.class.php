@@ -822,8 +822,8 @@ class StatisticFunctions {
       // var
       $userAgent = $_SERVER['HTTP_USER_AGENT'];
       
-      // get the list of bots from the spiders.xml
-      if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
+      // get the list of bots from the spiders_vbulletin.xml
+      if($xml = simplexml_load_file(dirname(__FILE__)."/../thirdparty/spiders_vbulletin.xml", 'SimpleXMLElement', LIBXML_NOCDATA)) {         
         foreach($xml as $xmlData) {
             $bots[] = strtolower($xmlData['ident']);            
         }
@@ -1028,7 +1028,7 @@ class StatisticFunctions {
       $dump .= 'IDENTITY: '.$_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']."\n";
       $dump .= ($hasCurrentVisitors) ? 'got it in the visitor.statistic.cache!'."\n\n" : 'is not in the visitor.statistic.cache'."\n\n".
       
-      $dump .= (is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) ? "website.statistic.php exist!" : "website.statistic.php is gone!!?";
+      $dump .= (is_file(dirname(__FILE__)."/../../statistic/website.statistic.php")) ? "website.statistic.php exist!"."\n" : "website.statistic.php is gone!!?"."\n";
       $dump .= 'Include again the website.statistic.php: '.print_r(include(dirname(__FILE__)."/../../statistic/website.statistic.php"),true)."\n\n";
       
       $dump .= '$GLOBALS["websiteStatistic"): '.print_r($GLOBALS["websiteStatistic"],true)."\n";

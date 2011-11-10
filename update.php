@@ -247,11 +247,17 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     
     echo '<br />';
     
+    // set the DOCUMENTROOT right
+    if(DOCUMENTROOT === false) {
+      $adminConfig['realBasePath'] = $adminConfig['basePath'];
+      $DOCUMENTROOT = str_replace($adminConfig['basePath'].'update.php','',__FILE__);
+    }
+    
     // try to move the pages folder
     $copyError = false;
     $didntCopy = false;
-    if(!empty($adminConfig['savePath']) && is_dir(DOCUMENTROOT.$adminConfig['savePath'])) {
-      copyDir(DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
+    if(!empty($adminConfig['savePath']) && is_dir($DOCUMENTROOT.$adminConfig['savePath'])) {
+      copyDir($DOCUMENTROOT.$adminConfig['savePath'],dirname(__FILE__).'/pages/',$copyError);
     } else
       $didntCopy = true;
     if($copyError === false && $didntCopy === false) {
