@@ -269,9 +269,7 @@
       
       document.body.morph({'padding-top':'5px','background-position-y':'5px'});
       
-      topBar.get('tween').chain(function() {
-        removeEditClasses();
-      });
+      removeEditClasses();
     }
   }
 
