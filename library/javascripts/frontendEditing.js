@@ -217,7 +217,31 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> deactivate frontend editing
   function deactivate(instant) {
+    
+    // remove classes
+    function removeEditClasses() {
+      $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+        pageBlock.moorte('destroy');
+      });
       
+      pageToolbars.each(function(pageToolbar){
+        pageToolbar.setStyle('display','none');
+      });
+      nonEditableBlocks.each(function(nonEditableBlock){
+        nonEditableBlock.removeClass('feindura_editPageDisabled');
+        nonEditableBlock.removeProperty('title');
+        toolTips.detach(nonEditableBlock);
+      });
+      editableBlocks.each(function(editableBlock){
+        editableBlock.removeClass('feindura_editPage');
+        editableBlock.removeProperty('title');
+      });
+      editableTitles.each(function(editableTitle){
+        editableTitle.removeClass('feindura_editTitle');
+        editableTitle.removeProperty('title');
+      });
+    }
+    
     topBarVisible = false;
     
     // INSTANT
@@ -230,23 +254,7 @@
       document.body.setStyle('padding-top',5);
       document.body.setStyle('background-position-y',5);
       
-      $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-        pageBlock.moorte('destroy');
-      });
-      
-      pageToolbars.each(function(pageToolbar){
-        pageToolbar.setStyle('display','none');
-      });
-      nonEditableBlocks.each(function(nonEditableBlock){
-        nonEditableBlock.removeClass('feindura_editPageDisabled');
-        toolTips.detach(nonEditableBlock);
-      });
-      editableBlocks.each(function(editableBlock){
-        editableBlock.removeClass('feindura_editPage');
-      });
-      editableTitles.each(function(editableTitle){
-        editableTitle.removeClass('feindura_editTitle');
-      });
+      removeEditClasses();
     
     // BY TWEEN
     } else {
@@ -262,23 +270,7 @@
       document.body.morph({'padding-top':'5px','background-position-y':'5px'});
       
       topBar.get('tween').chain(function() {
-        $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
-          pageBlock.moorte('destroy');
-        });
-        
-        pageToolbars.each(function(pageToolbar){
-          pageToolbar.setStyle('display','none');
-        });
-        nonEditableBlocks.each(function(nonEditableBlock){
-          nonEditableBlock.removeClass('feindura_editPageDisabled');
-          toolTips.detach(nonEditableBlock);
-        });
-        editableBlocks.each(function(editableBlock){
-          editableBlock.removeClass('feindura_editPage');
-        });
-        editableTitles.each(function(editableTitle){
-          editableTitle.removeClass('feindura_editTitle');
-        });
+        removeEditClasses();
       });
     }
   }
@@ -297,13 +289,16 @@
     });
     nonEditableBlocks.each(function(nonEditableBlock){
       nonEditableBlock.addClass('feindura_editPageDisabled');
+      nonEditableBlock.setProperty('title',nonEditableBlock.retrieve('title'));
       toolTips.attach(nonEditableBlock);
     });
     editableBlocks.each(function(editableBlock){
       editableBlock.addClass('feindura_editPage');
+      editableBlock.setProperty('title',editableBlock.retrieve('title'));
     });
     editableTitles.each(function(editableTitle){
       editableTitle.addClass('feindura_editTitle');
+      editableTitle.setProperty('title',editableTitle.retrieve('title'));
     });
     
     /*
@@ -398,7 +393,11 @@
     
     // ->> GO TROUGH ALL EDITABLE BLOCK
     $$('div.feindura_editPage, span.feindura_editTitle').each(function(pageBlock) {
+    
+      // store title
+      pageBlock.store('title',pageBlock.getProperty('title'));
       
+      // store editable blocks in arrays
       if(pageBlock.hasClass('feindura_editPage'))
         editableBlocks.push(pageBlock);
       if(pageBlock.hasClass('feindura_editTitle'))
@@ -429,6 +428,7 @@
     });
     $$('div.feindura_editPageDisabled').each(function(pageBlock) {
       feindura_setPageIds(pageBlock);
+      pageBlock.store('title',pageBlock.getProperty('title'));
       nonEditableBlocks.push(pageBlock);
       
       pageBlock.addEvents({
