@@ -22,7 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
-  build 777: statistics reset issue still not solved! so i add again a dump output.
+  build 777: statistics reset issue still not solved! so i add again a dump output. (think about using fopen() and ftruncate() ?)
   build 776: add russian translation, thanks to Konstantin Z. http://web-minimalist.ru/ ; deactivate initial device scale meta tag, feindura shouldnt decide this
   build 775: small doc fix
   build 774: set default value of Feindura::xHtml to false; fixed small issue with GeneralFunctions::isPublicCategory(), again
