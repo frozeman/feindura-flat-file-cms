@@ -625,6 +625,9 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php') &&
       is_file(dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php'))
       $checkFiles[] = dirname(__FILE__).'/library/controllers/feinduraWebmasterTool-0.2.controller.php';
+    if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.xml') &&
+      is_file(dirname(__FILE__).'/library/thirdparty/spiders.xml'))
+      $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.xml';
 
     
     // delete lowercase class names
