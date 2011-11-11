@@ -205,8 +205,19 @@ if($categoryRatio) {
 </form>
 </div>
 
+<?php
+
+// create redirect
+$redirect = (empty($site))
+  ? '?category='.$category.'&amp;page='.$page.'&amp;status=reload#pageInformation'
+  : '?site='.$site;
+
+if($site == 'pages')
+  $redirect .= '#categoryAnchor'.$category;
+
+?>
 <!-- ok button, after upload -->
-<a href="?category=<?= $category; ?>&amp;page=<?= $page; ?>" onclick="closeWindowBox('index.php?site=<?= $site; ?>&amp;category=<?= $category; ?>&amp;page=<?= $page; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
+<a href="index.php<?= $redirect; ?>" onclick="closeWindowBox('index.php<?= $redirect; ?>');return false;" id="pageThumbnailOkButton" class="ok center">&nbsp;</a>
 
 <!-- UPLOAD IFRAME -->
 <iframe id="uploadTargetFrame" name="uploadTargetFrame" src="library/controllers/thumbnailUpload.controller.php"></iframe>

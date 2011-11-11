@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 781
+Build 782
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 782: changed some anchor behavior
   build 781: forgot to deactivate the thumbnail pic, when selecting template
   build 780: add simple template function, when creating a new page
   build 779: frontendediting removes now also the title when edit is disabled from the disabled edit blocks

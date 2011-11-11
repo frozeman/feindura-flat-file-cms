@@ -385,7 +385,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 
           // category anchor
           echo '<tr><td class="leftTop">
-                <a name="category'.$category['id'].'" id="category'.$category['id'].'" class="anchorTarget"></a>
+                <a name="category'.$category['id'].'" id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>
                 </td><td></td></tr>';
           
           // category NAME
@@ -626,7 +626,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           // SUBMIT: IF advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
           // and gives the submit anchor to the FORM      
-          echo '<input type="submit" value="" name="saveCategories" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'category'.$category['id'].'\');" />
+          echo '<input type="submit" value="" name="saveCategories" class="button submit center" title="'.$langFile['FORM_BUTTON_SUBMIT'].'" onclick="if(!$(\'advancedConfigTable'.$category['id'].'\').hasClass(\'hidden\')) $(\'savedCategory\').value = \''.$category['id'].'\'; submitAnchor(\'categoriesForm\',\'categoryAnchor'.$category['id'].'\');" />
                 </div>'; // end slide in box
           
         }

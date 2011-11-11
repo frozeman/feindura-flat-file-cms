@@ -41,6 +41,10 @@ if(!$newPage)
   
 ?>
 
+<!-- page information anchor is here -->
+<a id="pageInformation" class="anchorTarget"></a>
+
+
 <div class="block open pageHead">
 <?php
 
@@ -581,9 +585,8 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       <tr><td class="spacer checkboxes"></td><td></td></tr>      
     </table>
-    
-    <!--<input type="reset" value="" class="button cancel" title="<?php echo $langFile['FORM_BUTTON_CANCEL']; ?>" />-->
-    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','pageSettings');" />
+    <?php $setAnchor = ($newPage) ? 'pageInformation' : 'pageSettings';  ?>
+    <input type="submit" value="" class="button submit center" title="<?php echo $langFile['FORM_BUTTON_SUBMIT']; ?>" onclick="$('savedBlock').value = 'pageSettings'; submitAnchor('editorForm','<?= $setAnchor; ?>');" />
   </div>
   <div class="bottom"></div>
 </div>

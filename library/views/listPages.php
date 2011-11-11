@@ -88,6 +88,10 @@ foreach($allCategories as $category) {
     $headerIcon = 'library/images/icons/pageIcon_middle.png';
   }
   
+  // display ANCHOR
+  echo '<!-- categoryAnchor'.$category['id'].' is here -->';
+  echo '<a id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
+  
   // -> CREATE CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
@@ -180,8 +184,10 @@ foreach($allCategories as $category) {
       echo (!empty($pageContent['lastSaveAuthor']))
         ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">'.$lastSaveDate.'</div>';
-      echo '<div class="counter toolTip" title="'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</div>
-      <div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
+      echo '<div class="counter toolTip" title="'.StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']).'">'.$visitorCount.'</div>';
+      
+      // page status
+      echo '<div class="status'.$publicClass.'"><a href="?site='.$_GET['site'].'&amp;status=changePageStatus&amp;public='.$pageContent['public'].'&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" class="toolTip" title="'.$publicText.'::'.$langFile['sortablePageList_changeStatus_linkPage'].'">&nbsp;</a></div>';
       
       // PAGE FUCNTIONS
       echo '<div class="functions">';      
@@ -213,7 +219,7 @@ foreach($allCategories as $category) {
           $activeStartPage = '';
           $startPageTitle = $langFile['sortablePageList_functions_startPage'];
         }        
-        echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTip">&nbsp;</a>';
+        echo '<a href="?site='.$_GET['site'].'&amp;status=setStartPage&amp;category='.$category['id'].'&amp;page='.$pageContent['id'].'#categoryAnchor'.$category['id'].'" title="'.$startPageTitle.'::" class="startPage'.$activeStartPage.' toolTip">&nbsp;</a>';
       }
             
       echo '</div>

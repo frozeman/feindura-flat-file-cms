@@ -58,8 +58,18 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
         StatisticFunctions::saveTaskLog(5,'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
         
         $question = '';
-        echo 'DONTSHOW';        
-        echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php?site='.$site.'&category='.$category.'&page='.$page.'\');/* ]]> */</script>';
+        echo 'DONTSHOW';
+        
+        // create redirect
+        $redirect = (empty($site))
+          ? '?category='.$category.'&amp;page='.$page.'&amp;status=reload#pageInformation'
+          : '?site='.$site;
+        
+        if($site == 'pages')
+          $redirect .= '#categoryAnchor'.$category;
+          
+        // redirect
+        echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
         
     } else {
       // DELETING ERROR --------------
