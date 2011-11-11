@@ -97,7 +97,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
       : '<div style="font-size:11px; text-align:right;">'.$langFile['EDITOR_pageinfo_lastsavedate'].': <b>'.$lastSaveDate.' '.$lastSaveTime.$editedByUser.'</b></div>';
       
     // -> show THUMBNAIL if the page has one
-    if(!empty($pageContent['thumbnail'])) {
+    if(!$newPage && !empty($pageContent['thumbnail'])) {
       
       $thumbnailWidth = @getimagesize(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
       $thumbnailWidth = $thumbnailWidth[0];
