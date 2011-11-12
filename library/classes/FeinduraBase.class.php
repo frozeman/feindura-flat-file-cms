@@ -1283,96 +1283,7 @@ class FeinduraBase {
       
     } else return false;
     //return $return;
-  }
-
- /**
-  * <b>Name</b> loadPrevNextPage()<br />
-  * 
-  * Loads a page, but check first if the given <var>$page</var> parameter is a string with "previous" or "next" and load the right page.
-  * 
-  * If the given <var>$page</var> parameter is "previous" or "next" it loads the previous or the next page of the current {@link Feindura::$page} property.
-  * 
-  * @param int|array|string $page    a page ID, a $pageContent array or a string with "previous" or "next"
-  * 
-  * @uses getPropertyPage()		                 to get the right {@link Feindura::$page} property
-  * @uses GeneralFunctions::readPage()	       to load the $pageContent array of the page and return it
-  * @uses GeneralFunctions::loadPages()	       to load all pages in a category to find the right previous or next page and return it
-  * @uses GeneralFunctions::getPageCategory()  to get the category ID of the given page
-  * 
-  * @return int|array|false the page ID of the right page or FALSE if no page could be loaded (can also return an $pageContent array)
-  * 
-  * @access protected
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  *   
-  */ 
-  protected function loadPrevNextPage($page) {
-    
-    // CHECK if its a $pageContent array, set the $page ID to the $page parameter
-    if(GeneralFunctions::isPageContentArray($page))
-      return $page;
-    
-    // USES the PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
-    $page = $this->getPropertyPage($page);
-
-    //echo '<br />page: '.$page;
-    //echo '<br />category: '.$category;
-    
-    // var
-    $prevNext = false;
-    
-    // -> PREV or NEXT if given direction
-    if(is_string($page) && !is_numeric($page)) {
-      $page = strtolower($page);
-      $page = substr($page,0,4);
-      // PREV
-      if($page == 'prev') {
-        $prevNext = 'prev';
-        $page = false;
-      // NEXT
-      } elseif($page == 'next') {
-        $prevNext = 'next';
-        $page = false;
-      } else return false;
-    }
-     
-    // -> IF only $page ID or $pageContent array is given return loaded page
-    if($prevNext === false) {
-      //return GeneralFunctions::readPage($page,$category);
-      return $page;
-      
-    // ->> ELSE return the previous or the next $pageContent array in the category
-    } else {
-    
-      // gets the category of the page
-      $category = GeneralFunctions::getPageCategory($page);
-      
-      // loads all pages in this category
-      $categoryWithPages = GeneralFunctions::loadPages($category);
-  
-      if($categoryWithPages !== false) {
-        $count = 0;
-        foreach($categoryWithPages as $eachPage) {         
-
-          if($eachPage['id'] == $page) {
-        
-            // NEXT
-            if($prevNext == 'next' && (($count + 1) < count($categoryWithPages)))
-              return $categoryWithPages[($count + 1)]['id'];
-            // PREV
-            elseif($prevNext == 'prev' && (($count - 1) >= 0))
-              return $categoryWithPages[($count - 1)]['id'];
-            else return false;
-          }  
-          
-          $count++;
-        }
-      } else
-        return false;
-    }
-  }  
+  } 
 
  /**
   * <b>Name</b> compareTags()<br />
@@ -1494,6 +1405,259 @@ class FeinduraBase {
   }
   
  /**
+  * <b>Name</b> getPropertyIdsByString()<br />
+  * 
+  * Gets the right page and category IDs. If the <var>$ids</var> parameter is a an array it uses the first value as page ID and the second as category ID.
+  * 
+  * If the given <var>$ids</var> parameter is a string/array with "previous" or "next" it returns the previous or next page ID from the current {@link Feindura::$page} property/{@link Feindura::$category} property on.
+  * If the given <var>$ids</var> parameter is a string/array with "first" or "last" it returns the first or last page ID in that category from the current {@link Feindura::$page} property/{@link Feindura::$category} property on.
+  * If the string is "random" it returns a random page ID in the current category, if its an array like: array('random','random') it would return a random page ID from a random category.
+  *
+  * <b>Notice</b>: What is the first or last page/category depends on the sorting you have of the pages/categories in the feindura backend.
+  * <b>Notice</b>: When using "previous","next","first" or "last" it will jump over pages/categories which are not public and return the next one.
+  *
+  * Examples of possible <var>$ids</var> parameter.
+  * <code>
+  * <?php
+  * false                  // return the ids of the current $page property
+  * 2                      // would return an array with the associated category of that page: array(2,1)
+  * 'next'                 // would return the next page, after the current $page property in the current category
+  * array('next',false)    // the same as above
+  * array('next',45)       // the same as above (it would discard the wrong category ID)
+  * array('next','next')   // same as above (it would discard the wrong category ID)
+  * array(false,'next')    // would return the first page of the next category, in the $categoryConfig property 
+  * array('last','next')   // would return the last page of the next category, in the $categoryConfig property
+  * array('last','first')  // would return the last page of the first category, in the $categoryConfig property
+  * array('last','first')  // would return the last page of the first category, in the $categoryConfig property
+  * array('rand','rand')   // would return a random page of a random category, in the $categoryConfig property
+  * ?>
+  * </code>
+  *
+  * Example return value, where first value is the page ID and the second value is the category ID.
+  * <samp>
+  * array(2,1)
+  * </samp>
+  * 
+  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". (See example) (can also be a $pageContent array)
+  * 
+  * @uses getPropertyPage()		                 to get the right {@link Feindura::$page} property
+  * @uses GeneralFunctions::getPageCategory()  to get the category ID of the given page
+  * @uses GeneralFunctions::loadPages()	       to load all pages in a category to find the right previous or next page and return it
+  * 
+  * @return array|false array with the page ID and category ID of the right page, or FALSE if no page could be resolved (e.g. last page and "next"). (will also pass through a given $pageContent array)
+  * 
+  * @access protected
+  * @version 2.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 2.0 change name from loadPrevNextPage() to getPropertyIdsByString(), and now handles also categories
+  *    - 1.0 initial release
+  *   
+  */ 
+  protected function getPropertyIdsByString($ids) {
+    
+    // vars    
+    // ??include the non-category??
+    //$nonCategory[0] = array('id' => 0);
+    //$categoriesArray = array_merge($nonCategory,$this->categoryConfig);
+    $categoriesArray = $this->categoryConfig;
+    
+    // CHECK if its a $pageContent array, set the $page ID to the $page parameter
+    if(GeneralFunctions::isPageContentArray($ids))
+      return array($ids,$ids['category']);
+    
+    // -> IF ARRAY, separates into page/category
+    if(is_array($ids)) {
+      $page = $ids[0];
+      $category = $ids[1];
+    } else
+      $page = $ids;
+    
+    // ->> check for page/category ids (will not affect $page/$category, if they are strings)
+    // ******
+    
+    // GET page by PRIORITY: 1. -> page var 2. -> PROPERTY page var 3. -> false
+    $page = ((is_bool($page) || empty($page)) && (!is_bool($category) && !empty($category) ))
+      ? false
+      : $this->getPropertyPage($page);
+     
+    // GET the right category for this page
+    $category = (is_numeric($page))//&& !is_bool($category) && !is_string($category)
+      ? GeneralFunctions::getPageCategory($page)
+      // GET category by PRIORITY: 1. -> category var 2. -> PROPERTY category var 3. -> false
+      : $this->getPropertyCategory($category);
+    // ******
+    
+    /*
+    echo '<br>BEFORE';
+    echo '<br />page: '.$page;
+    echo '<br />category: '.$category;
+    */
+    
+    // -> if page AND category are IDs, return it right away
+    if(is_numeric($page) && is_numeric($category))
+      return array($page,$category);
+      
+    // -> if category doesn't exist return false
+    if($category != 0 && is_numeric($category) && !array_key_exists($category, $categoriesArray))
+      return false;
+    
+    // ->> SHORTEN STRINGS
+    // page string
+    if(is_string($page) && !is_numeric($page)) {
+      $page = strtolower($page);
+      $page = substr($page,0,4);
+      // PREV
+      if($page == 'prev') $page = 'prev';
+      // NEXT
+      elseif($page == 'next') $page = 'next';
+      // FIRST
+      elseif($page == 'firs' || $page == 'top') $page = 'first';
+      // LAST
+      elseif($page == 'last' || $page == 'bott') $page = 'last';
+      // RANDOM
+      elseif($page == 'rand' || $page == 'shuf') $page = 'rand';
+    }    
+    // category string
+    if(is_string($category) && !is_numeric($category)) {
+      $category = strtolower($category);
+      $category = substr($category,0,4);
+      // PREV
+      if($category == 'prev') $category = 'prev';
+      // NEXT
+      elseif($category == 'next') $category = 'next';
+      // FIRST
+      elseif($category == 'firs' || $category == 'top') $category = 'first';
+      // LAST
+      elseif($category == 'last' || $category == 'bott') $category = 'last';
+      // RANDOM
+      elseif($category == 'rand' || $category == 'shuf') $category = 'rand';
+    }
+    
+    // ->> NEXT/PREV PAGE
+    // ******
+    if($page == 'next' || $page == 'prev') {
+      // get category of the current page
+      $category = GeneralFunctions::getPageCategory($this->page);     
+      // loads all pages in this category
+      if(($pages = GeneralFunctions::loadPages($category)) !== false) {
+        $pagesCopy = $pages;
+
+        foreach($pages as $eachPage) {
+          // if found current page
+          if($eachPage['id'] == $this->page) {
+            // NEXT
+            if($page == 'next' && $next = next($pagesCopy)) {
+              while($next && !$next['public']) $next = next($pagesCopy); // prevent to pick a non public page
+              return array($next['id'],$next['category']);;
+            // PREV
+            } elseif($page == 'prev' && $prev = prev($pagesCopy)) {
+              while($prev && !$prev['public']) $prev = prev($pagesCopy); // prevent to pick a non public page
+              return array($prev['id'],$prev['category']);
+            // END of CATEGORY
+            } else return false;
+          }  
+          next($pagesCopy); // move the pointer
+        }
+      } else
+        return false;
+    }
+    
+    // ******
+    
+    
+    //->> GET CATEGORY (next,prev,first,last,rand)
+    // ******
+    
+    // NEXT/PREV CATEGORY
+    if($category == 'next' || $category == 'prev') {
+      $categoriesArrayCopy = $categoriesArray;
+      
+      foreach($this->categoryConfig as $eachCategory) {
+        // if found current category
+        if($eachCategory['id'] == $this->category) {
+          // NEXT
+          if($category == 'next' && $next = next($categoriesArrayCopy)) {
+            while($next && !$this->categoryConfig[$next['id']]['public']) $next = next($categoriesArrayCopy); // prevent to pick a non public category
+            $category = $next['id'];
+          // PREV
+          } elseif($category == 'prev' && $prev = prev($categoriesArrayCopy)) {
+            while($prev && !$this->categoryConfig[$prev['id']]['public']) $prev = prev($categoriesArrayCopy); // prevent to pick a non public category
+            $category = $prev['id'];
+          } else
+            return false;
+          unset($categoriesArrayCopy);
+          break;
+        }
+        next($categoriesArrayCopy); // move the pointer
+      }
+    
+    // FIRST CATEGORY
+    } elseif($category == 'first' && $tmpCategory = reset($categoriesArray)) {
+      while($tmpCategory && !$this->categoryConfig[$tmpCategory['id']]['public']) $tmpCategory = next($categoriesArray); // prevent to pick a non public category
+      $category = $tmpCategory['id'];
+      reset($categoriesArray);
+      unset($tmpCategory);
+    
+    // LAST CATEGORY
+    } elseif($category == 'last' && $tmpCategory = end($categoriesArray)) {
+      while($tmpCategory && !$this->categoryConfig[$tmpCategory['id']]['public']) $tmpCategory = prev($categoriesArray); // prevent to pick a non public category
+      $category = $tmpCategory['id'];
+      reset($categoriesArray);
+      unset($tmpCategory);
+    
+    // RANDOM CATEGORY
+    } elseif($category == 'rand') {
+      $categoriesArrayCopy = $categoriesArray;
+      shuffle($categoriesArrayCopy);
+      if($tmpCategory = reset($categoriesArrayCopy)) {
+        while($tmpCategory && !$this->categoryConfig[$tmpCategory['id']]['public']) $tmpCategory = next($categoriesArrayCopy); // prevent to pick a non public category
+        // reached the end? go backwards
+        if(!$tmpCategory) while($tmpCategory && !$this->categoryConfig[$tmpCategory['id']]['public']) $tmpCategory = prev($categoriesArrayCopy); // prevent to pick a non public category
+        $category = $tmpCategory['id'];
+      }
+      unset($tmpCategory);
+      unset($categoriesArrayCopy);
+      
+    // CATEGORY is still not an id?
+    } elseif(!is_numeric($category))
+      return false;
+    // ******
+    
+    //->> GET PAGE (first,last,rand)
+    // ******
+    if(is_bool($page) || $page == 'first' || $page == 'last' || $page == 'rand') {
+   
+      // loads all pages in this category
+      if(($pages = GeneralFunctions::loadPages($category)) !== false) {
+
+        // FIRST PAGE (first or bool)
+        if(($page == 'first' || is_bool($page)) && $tmpPage = reset($pages)) {
+          while($tmpPage && !$tmpPage['public']) $tmpPage = next($pages); // prevent to pick a non public page
+          return array($tmpPage['id'],$tmpPage['category']);
+        // LAST PAGE
+        } elseif($page == 'last' && $tmpPage = end($pages)) {
+          while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pages); // prevent to pick a non public page
+          return array($tmpPage['id'],$tmpPage['category']);
+        // RANDOM PAGE
+        } elseif($page == 'rand') {
+          $pagesCopy = $pages;
+          shuffle($pagesCopy);
+          if($tmpPage = reset($pagesCopy)) {
+            while($tmpPage && !$tmpPage['public']) $tmpPage = next($pagesCopy); // prevent to pick a non public category
+            // reached the end? go backwards
+            if(!$tmpPage) while($tmpPage && !$tmpPage['public']) $tmpPage = prev($pagesCopy); // prevent to pick a non public category
+            return array($tmpPage['id'],$tmpPage['category']);
+          }
+        }
+      }
+    }
+    // ******
+    
+    return false;
+  }
+  
+ /**
   * <b>Name</b> getPropertyIdsByType()<br />
   * 
   * If <var>$ids</var> parameter is FALSE it check the ID-type and returns then the {@link Feindura::$page} or {@link Feindura::$category} property.
@@ -1558,8 +1722,8 @@ class FeinduraBase {
   *    - 1.0 initial release
   * 
   */  
-  protected function getPropertyPage($page = false) { // (false or Number)
-    if(is_bool($page) && is_numeric($this->page))
+  protected function getPropertyPage($page = false) {
+    if((is_bool($page) || empty($page)) && is_numeric($this->page))
       return $this->page;  // set the page var from PROPERTY var
     else
       return $page;
@@ -1568,7 +1732,7 @@ class FeinduraBase {
  /**
   * <b>Name</b> getPropertyCategory()<br />
   * 
-  * Returns the {@link Feindura::$category} property if the given <var>$category</var> parameter is FALSE.
+  * Returns the {@link Feindura::$category} property if the given <var>$category</var> parameter is a Boolean.
   * 
   * @param int|bool $category (optional) a category id or a boolean
   * 
@@ -1581,8 +1745,8 @@ class FeinduraBase {
   *    - 1.0 initial release
   *   
   */  
-  protected function getPropertyCategory($category = false) { // (false or Number)
-    if(is_bool($category) && is_numeric($this->category))
+  protected function getPropertyCategory($category = false) {
+    if((is_bool($category) || empty($category)) && is_numeric($this->category))
       return $this->category;  // set the category var from PROPERTY var
     else
       return $category;

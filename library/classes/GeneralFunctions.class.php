@@ -975,9 +975,10 @@ class GeneralFunctions {
   * @return array an array with the $pageContent arrays of the requested pages
   * 
   * @static
-  * @version 1.0
+  * @version 1.0.1
   * <br>
   * <b>ChangeLog</b><br>
+  *    - 1.0.1 add a simpler way of createing array with non category id in it
   *    - 1.0 initial release
   * 
   */  
@@ -996,12 +997,8 @@ class GeneralFunctions {
       // IF $category TRUE create array with non-category and all category IDs
       if($category === true) {
       	// puts the categories IDs in an array
-      	$category = array(0); // start with the non category
-      	if(is_array(self::$categoryConfig)) {
-        	foreach(self::$categoryConfig as $eachCategory) {
-        	  $category[] = $eachCategory['id'];
-        	}
-      	}
+      	$category = array(0);
+        $category = array_merge($category,array_keys(self::$categoryConfig));
       }
       
       // change category into array
@@ -1214,7 +1211,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function isPageContentArray($page) {               
+  public static function isPageContentArray($page) {
     return (is_array($page) && array_key_exists('id',$page) && array_key_exists('content',$page)) ? true : false;
   }
   

@@ -1137,10 +1137,12 @@ class Feindura extends FeinduraBase {
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br />
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Examples of the returned href string:<br />
-  * <i>("user=xyz123" stands for: sessionname=sessionid)</i>
+  * Example <var$ids</var> parameters:
+  * {@example ids.parameter.example.php}
+  *
+  * Examples of the returned href string: <i>("user=xyz123" stands for: sessionname=sessionid)</i>
   * 
   * Pages without category: 
   * <samp>'?page=1&user=xyz123'</samp>
@@ -1153,11 +1155,11 @@ class Feindura extends FeinduraBase {
   * <samp>'/category/category_name/page_title.html?user=xyz123'</samp>
   * 
   * 
-  * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
+  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   * 
-  * @uses FeinduraBase::loadPrevNextPage()	  to load the current, previous or next page depending of the $page parameter 
-  * @uses GeneralFunctions::createHref()      call the right createHref functions in the GeneralFunctions class
-  * @uses GeneralFunctions::getPageCategory() to get the category of the page    
+  * @uses FeinduraBase::getPropertyIdsByString()	to load the right page and category IDs depending on the $ids parameter
+  * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
+  * @uses GeneralFunctions::getPageCategory()     to get the category of the page    
   * 
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
@@ -1171,16 +1173,15 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createHref($page = false) {
+  public function createHref($ids = false) {
     
-    if($page = $this->loadPrevNextPage($page)) {
- 
+    if($ids = $this->getPropertyIdsByString($ids)) {
       // loads the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($page,GeneralFunctions::getPageCategory($page))) !== false) {
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
           return GeneralFunctions::createHref($pageContent,$this->sessionId);
       }
-        
-    } else return false;    
+    }
+    return false;    
   }
   
  /**
@@ -1195,13 +1196,17 @@ class Feindura extends FeinduraBase {
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property AND set the class name <i>"active"</i> to the link.
+  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: It add the class name <i>"active"</i> to the link, when the current {@link $page} property matches the page ID of the link.
   * 
+  * Example <var$ids</var> parameters:
+  * {@example ids.parameter.example.php}
+  *
   * Example:
   * {@example createLink.example.php}
   * 
-  * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
-  * @param string|bool            $linkText  (optional) a string with a linktext which the link will use, if TRUE it uses the page title of the page, if FALSE no linktext will be used
+  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param string|bool                  $linkText  (optional) a string with a linktext which the link will use, if TRUE it uses the page title of the page, if FALSE no linktext will be used
   * 
   * @uses Feindura::$linkLength
   * @uses Feindura::$linkId
@@ -1225,7 +1230,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailAfter
   * 
   * @uses Feindura::createHref()                        to create the href-attribute
-  * @uses FeinduraBase::loadPrevNextPage()              to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::getPropertyIdsByString()        to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createAttributes()              to create the attributes used by the link <a> tag
   * @uses FeinduraBase::createThumbnail()               to create the thumbnail for the link if the {@link $linkShowThumbnail} property is TRUE
   * @uses FeinduraBase::shortenText()                   to shorten the linktext if the {@link $linkLength} property is set
@@ -1245,15 +1250,15 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createLink($page = false, $linkText = true) {    
+  public function createLink($ids = false, $linkText = true) {    
         
-    //echo 'PAGE: '.$page;
+    //echo 'PAGE: '.$ids;
     
     // LOADS the right $pageContent array
-    if($page = $this->loadPrevNextPage($page)) {
+    if($ids = $this->getPropertyIdsByString($ids)) {
       
       // loads the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($page,GeneralFunctions::getPageCategory($page))) !== false) {
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
       
         // -> CHECK status
         if($pageContent['public'] &&  GeneralFunctions::isPublicCategory($pageContent['category']) !== false) {
@@ -1858,12 +1863,15 @@ class Feindura extends FeinduraBase {
   * Returns the title of a page.
   * This page title will be generated using the title properties.
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
+  * Example <var$ids</var> parameters:
+  * {@example ids.parameter.example.php}
+  *
   * Example:
   * {@example getPageTitle.example.php}
   * 
-  * @param int|string|array|false $page      (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
+  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   * 
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -1871,7 +1879,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$titleShowCategory
   * @uses Feindura::$titleCategorySeparator
   * 
-  * @uses FeinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::createTitle()                  to generate the page title with the right title properties
   * 
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -1888,15 +1896,12 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function getPageTitle($page = false) {    
+  public function getPageTitle($ids = false) {    
    
-    if($page = $this->loadPrevNextPage($page)) {
-      
-      // gets the right category
-      $category = GeneralFunctions::getPageCategory($page);
+    if($ids = $this->getPropertyIdsByString($ids)) {
       
       // loads the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($page,$category)) !== false) {
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
       
         // -> CHECK status
         if($pageContent['public'] &&  GeneralFunctions::isPublicCategory($pageContent['category']) !== false) {
@@ -1910,7 +1915,7 @@ class Feindura extends FeinduraBase {
                                       $this->titleCategorySeparator);                                      
           
           if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) // data-feindura format: "pageID categoryID"
-            $title = '<span class="feindura_editTitle" data-feindura="'.$page.' '.$category.'">'.$title.'</span>';
+            $title = '<span class="feindura_editTitle" data-feindura="'.$pageContent['id'].' '.$pageContent['category'].'">'.$title.'</span>';
           
           return $title;
           
@@ -1922,9 +1927,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link getPageTitle()}
   * @ignore
   */
-  public function getTitle($page = false) {
+  public function getTitle($ids = false) {
     // call the right function
-    return $this->getPageTitle($page);
+    return $this->getPageTitle($ids);
   } 
   
   
@@ -1941,17 +1946,20 @@ class Feindura extends FeinduraBase {
   * an error will be placed in the ['content'] part of the returned array,
   * otherwiese it returns an empty array.<br />
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
+  * Example <var$ids</var> parameters:
+  * {@example ids.parameter.example.php}
+  *
   * Example of the returned array:
   * {@example generatePage.return.example.php}
   * 
   * Example usage:
   * {@example showPage.example.php}
   * 
-  * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
-  * @param int|false              $shortenText  (optional) number of the maximal content text length shown, adds a "more" link at the end or FALSE to not shorten
-  * @param bool                   $useHtml      (optional) whether the content of the page has HTML-tags or not
+  * @param int|string|array|bool $ids          a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|false             $shortenText  (optional) number of the maximal content text length shown, adds a "more" link at the end or FALSE to not shorten
+  * @param bool                  $useHtml      (optional) whether the content of the page has HTML-tags or not
   * 
   * @uses Feindura::$page
   * 
@@ -1975,7 +1983,7 @@ class Feindura extends FeinduraBase {
   * @uses Feindura::$thumbnailBefore
   * @uses Feindura::$thumbnailAfter
   * 
-  * @uses FeinduraBase::loadPrevNextPage()                      to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::getPropertyIdsByString()	              to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                          to generate the array with the page elements
   * @uses StatisticFunctions::countAndSavePageStatistics()      to save the statistic of the page
   * 
@@ -1993,23 +2001,21 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function showPage($page = false, $shortenText = false, $useHtml = true) {    
+  public function showPage($ids = false, $shortenText = false, $useHtml = true) {    
 
-    if($page = $this->loadPrevNextPage($page)) {
-         
+    if($ids = $this->getPropertyIdsByString($ids)) {
+        
+        $page = $ids[0];
+        $category = $ids[1];
+        
         // ->> load SINGLE PAGE
         // *******************
         if($generatedPage = $this->generatePage($page,$this->showErrors,$shortenText,$useHtml)) {
-                         
-          $category = GeneralFunctions::getPageCategory($page);   
-          
-          // -> loads the $pageContent array
-          if(($pageContent = GeneralFunctions::readPage($page,$category)) !== false) {
-            // -> SAVE PAGE STATISTIC
-            // **********************
-            if($pageContent['public'])
-              StatisticFunctions::countAndSavePageStatistics($pageContent['id']);
-          }
+
+          // -> SAVE PAGE STATISTIC
+          // **********************
+          if(!$generatedPage['error'])
+            StatisticFunctions::countAndSavePageStatistics($page);
           
           // -> adds the frontend editing container
           if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION && !$generatedPage['error']) {
@@ -2033,9 +2039,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link showPage()}
   * @ignore
   */
-  public function showPages($page = false, $shortenText = false, $useHtml = true) {
+  public function showPages($ids = false, $shortenText = false, $useHtml = true) {
     // call the right function
-    return $this->showPage($page, $shortenText, $useHtml);
+    return $this->showPage($ids, $shortenText, $useHtml);
   }
 
   /**
@@ -2046,15 +2052,18 @@ class Feindura extends FeinduraBase {
   *
   * Check whether the given plugin(s) are activated for the given page.
   *
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * 
+  * Example <var$ids</var> parameters:
+  * {@example ids.parameter.example.php}
   *
   *
-  * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
-  * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
+  * @param string|array|true     $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
+  * @param int|string|array|bool $ids          a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   *
   * @uses Feindura::$page
   * @uses Feindura::showPlugins()											 to check for the activated plugins
-  * @uses FeinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   *
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page
@@ -2072,33 +2081,33 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   *
   */
-  public function hasPlugins($plugins = true, $page = false) {
+  public function hasPlugins($plugins = true, $ids = false) {
   
-    return $this->showPlugins($plugins,$page,false);
+    return $this->showPlugins($plugins,$ids,false);
   }
   /**
    * Alias of {@link hasPlugins()}
    * @ignore
    */
-  public function hasPlugin($plugins = true, $page = false) {
+  public function hasPlugin($plugins = true, $ids = false) {
     // call the right function
-    return $this->hasPlugins($plugins, $page);
+    return $this->hasPlugins($plugins, $ids);
   }
   /**
   * Alias of {@link hasPlugins()}
   * @ignore
   */
-  public function isPlugins($plugins = true, $page = false) {
+  public function isPlugins($plugins = true, $ids = false) {
     // call the right function
-    return $this->hasPlugins($plugins, $page);
+    return $this->hasPlugins($plugins, $ids);
   }
   /**
   * Alias of {@link hasPlugins()}
   * @ignore
   */
-  public function isPlugin($plugins = true, $page = false) {
+  public function isPlugin($plugins = true, $ids = false) {
     // call the right function
-    return $this->hasPlugins($plugins, $page);
+    return $this->hasPlugins($plugins, $ids);
   }
  
  /**
@@ -2109,7 +2118,10 @@ class Feindura extends FeinduraBase {
   * It can return an array where each element contain the HTML of a plugin (only the activated ones),
   * or if the <var>$plugins</var> parameter is a string with a plugin name (the foldername of the plugin, inside "../feindura_folder/plugins/"), it returns only a string with the HTML of this plugin.   
   * 
-  * <b>Notice</b>: if the <var>$page</var> parameter is FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * 
+  * Example <var$ids</var> parameters:
+  * {@example ids.parameter.example.php}
   * 
   * Example of the returned array:
   * {@example showPlugins.array.example.php}
@@ -2118,12 +2130,12 @@ class Feindura extends FeinduraBase {
   * {@example showPlugins.example.php}
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
-  * @param int|string|array|false $page         (optional) the page ID or a string with "previous" or "next" or FALSE to use the {@link $page} property (can also be a $pageContent array)
-  * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check the activation (used by {@link Feindura::hasPlugins()})
+  * @param int|string|array|bool  $ids          a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
   * 
   * @uses Feindura::$page
   * 
-  * @uses FeinduraBase::loadPrevNextPage()             to load the current, previous or next page depending of the $page parameter
+  * @uses FeinduraBase::getPropertyIdsByString()	     to load the right page and category IDs depending on the $ids parameter
   * @uses FeinduraBase::generatePage()                 to generate the array with the page elements
   * 
   * @uses GeneralFunctions::getPageCategory()          to get the category of the page    
@@ -2140,7 +2152,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
- public function showPlugins($plugins = true, $page = false, $returnPlugin = true) {    
+ public function showPlugins($plugins = true, $ids = false, $returnPlugin = true) {    
     
     // var
     $singlePlugin = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? true : false;
@@ -2148,10 +2160,10 @@ class Feindura extends FeinduraBase {
     if(!is_array($plugins) && !is_bool($plugins))
       $plugins = array($plugins);
     
-    if($page = $this->loadPrevNextPage($page)) {
+    if($ids = $this->getPropertyIdsByString($ids)) {
       
       // LOAD the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($page,GeneralFunctions::getPageCategory($page))) !== false) {
+      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         
         // ->> LOAD the PLUGINS and return them 
         if(($pageContent['category'] == 0 || $this->categoryConfig[$pageContent['category']]['public']) && $pageContent['public']) {
@@ -2199,9 +2211,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link showPlugins()}
   * @ignore
   */
-  public function showPlugin($plugins = true, $page = false) {
+  public function showPlugin($plugins = true, $ids = false) {
     // call the right function
-    return $this->showPlugins($plugins, $page);
+    return $this->showPlugins($plugins, $ids);
   }
 
  /**

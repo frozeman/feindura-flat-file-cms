@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 782
+Build 783
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 783: updated getPropertyIdsByString() to v 2.0; its now possible to use an string or array with "next", "prev" and now also "first", "last" and "rand";
   build 782: changed some anchor behavior
   build 781: forgot to deactivate the thumbnail pic, when selecting template
   build 780: add simple template function, when creating a new page
@@ -661,7 +662,7 @@ ChangeLog:
   build 214: fixes in shortenText() und shortenHtmlText()
   build 213: fixes in listPages.php, no page text is now better placed, and non-category slides in if a other category is activated
   build 212: add listPages() documentation
-  build 211: add documentation; fixes in loadPrevNextPage()
+  build 211: add documentation; fixes in loadPrevNextPage
   build 210: changed toolTip look
   build 209: add documentation for createLink()
   build 208: every checkbox is now in its own table row
@@ -683,7 +684,7 @@ ChangeLog:
   build 192: removed loadPages() and readPage() from the feindura class, now only in generalFunctions class; documentation for feindura class almost finished
   build 191: fixes in publicCategory()
   build 190: small fixes in category status in listPages.php; small fixes in loadPagesByType()
-  build 189: changed prevNextPage() to loadPrevNextPage() and included there the whole page loading process;
+  build 189: changed prevNextPage() to loadPrevNextPage and included there the whole page loading process;
   build 188: cleanup of feindura.class.php
   build 187: removed titleTag and title attributes; title will now returned plain without tags
   build 186: changed getCharacterNumber() to getRealCharacterNumber() and add description

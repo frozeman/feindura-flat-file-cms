@@ -224,19 +224,19 @@
         pageBlock.moorte('destroy');
       });
       
-      pageToolbars.each(function(pageToolbar){
+      pageToolbars.each(function(pageToolbar) {
         pageToolbar.setStyle('display','none');
       });
-      nonEditableBlocks.each(function(nonEditableBlock){
+      nonEditableBlocks.each(function(nonEditableBlock) {
         nonEditableBlock.removeClass('feindura_editPageDisabled');
         nonEditableBlock.removeProperty('title');
         toolTips.detach(nonEditableBlock);
       });
-      editableBlocks.each(function(editableBlock){
+      editableBlocks.each(function(editableBlock) {
         editableBlock.removeClass('feindura_editPage');
         editableBlock.removeProperty('title');
       });
-      editableTitles.each(function(editableTitle){
+      editableTitles.each(function(editableTitle) {
         editableTitle.removeClass('feindura_editTitle');
         editableTitle.removeProperty('title');
       });
