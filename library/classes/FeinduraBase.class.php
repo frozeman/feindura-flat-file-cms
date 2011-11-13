@@ -593,7 +593,7 @@ class FeinduraBase {
   * 
   * @param int|array      $page          page ID or a $pageContent array
   * @param bool           $showErrors    (optional) says if errors like "The page you requested doesn't exist" will be displayed
-  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array, with a number for the text length and a link string, or a bool, whether to add a more link or not. e.g. array(23,false), or array(23,'<a href="…">more</a>')
+  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array, with a number for the text length and a text string, or a bool, whether to add a more link or not. e.g. array(23,false), or array(23,'read more')
   * @param bool           $useHtml       (optional) displays the page content with or without HTML tags
   * 
   * 
@@ -775,7 +775,7 @@ class FeinduraBase {
       
       // clear Html tags?
       if(!$useHtml)
-        $pageContentEdited = strip_tags($pageContentEdited);
+        $pageContentEdited = strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><br><br />');
       
       // -> SHORTEN CONTENT   
       if($shortenText && !is_bool($shortenText)) {
@@ -1801,10 +1801,9 @@ class FeinduraBase {
       $string = preg_replace("/ +/", ' ', $string);
       
       // adds the MORE LINK
-      if($moreLink === true && GeneralFunctions::isPageContentArray($pageContent)) {
-        $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['PAGE_TEXT_MORE'].'</a>';
-      } elseif(is_string($moreLink) && !is_bool($moreLink)) {
-        $string .= " \n".$moreLink;
+      if(($moreLink === true || is_string($moreLink)) && GeneralFunctions::isPageContentArray($pageContent)) {
+        $text = (is_string($moreLink) && !is_bool($moreLink)) ? $moreLink : $this->languageFile['PAGE_TEXT_MORE'];
+        $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$text.'</a>';
       }
       
       return $string;
@@ -1820,7 +1819,7 @@ class FeinduraBase {
   * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
   * 
   * @param string       $string          the string to shorten
-  * @param int|array    $length          the number of maximal characters, or an array with a number for text length and the more string, or a bool, whether to add the more link or not. e.g. array(23,false)
+  * @param int|array    $length          the number of maximal characters, or an array with a number for text length and the more link text string, or a bool, whether to add the more link or not. e.g. array(23,false)
   * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
@@ -1943,11 +1942,10 @@ class FeinduraBase {
         $textWasCut = true;
       }
       
-      // create the MORE LINK
-      if($moreLink === true && GeneralFunctions::isPageContentArray($pageContent)) {
-        $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['PAGE_TEXT_MORE'].'</a>';
-      } elseif(is_string($moreLink) && !is_bool($moreLink)) {
-        $string .= " \n".$moreLink;
+      // add the MORE LINK
+      if(($moreLink === true || is_string($moreLink)) && GeneralFunctions::isPageContentArray($pageContent)) {
+        $text = (is_string($moreLink) && !is_bool($moreLink)) ? $moreLink : $this->languageFile['PAGE_TEXT_MORE'];
+        $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$text.'</a>';
       }
       
       $output = $input;
