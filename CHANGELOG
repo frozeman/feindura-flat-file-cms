@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 789
+Build 790
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 790: get rid of the $robotTxt, $revisitAfter parameters in the createMetaTags() method!! and cleaned out other useless meta tags
   build 789: removed "content-language" meta tag
   build 788: $shortenText parameter can be now string or like: array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
   build 787: when using a string as second value in the $shortenText parameter, it will be used as the links text

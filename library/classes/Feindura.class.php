@@ -946,8 +946,6 @@ class Feindura extends FeinduraBase {
   * @param string|false $author       (optional) the author of the website
   * @param string|bool  $publisher    (optional) the publisher of the website, if TRUE it uses the publisher from the {@link FeinduraBase::$websiteConfig website-settings config}
   * @param string|bool  $copyright    (optional) the copyright owner of the website, if TRUE it uses the copyright from the {@link FeinduraBase::$websiteConfig website-settings config}
-  * @param string|bool  $robotTxt     (optional) if TRUE it sets the "robot.txt" file relative to this HTML page, if this parameter is a string it will be used as e.g. "path/robots.txt"
-  * @param int|false    $revisitAfter (optional) a number of days to revisit the page as information for webcrawler, if FALSE this meta tag will not be set
   * 
   * @uses Feindura::$page               to load the page title of teh righte page
   * @uses Feindura::$category         to load the page title of teh righte page
@@ -964,7 +962,7 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
+  public function createMetaTags($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true) {
       
       // vars
       $metaTags = '';
@@ -983,10 +981,6 @@ class Feindura extends FeinduraBase {
       // -> add CHARSET
       //$metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
       $metaTags .= '<meta charset="'.$charset.'"'.$tagEnding."\n";
-      
-      // -> add language
-      //if($this->language)
-        //$metaTags .= '  <meta http-equiv="content-language" content="'.$this->language.'"'.$tagEnding."\n\n";
 
       // -> create TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
@@ -999,24 +993,11 @@ class Feindura extends FeinduraBase {
       if($this->adminConfig['speakingUrl'])
         $metaTags .= '  <base href="'.$this->adminConfig['url'].GeneralFunctions::getDirname($this->adminConfig['websitePath']).'"'.$tagEnding."\n\n";
       
-      // -> add robots.txt
-      if($robotTxt === true)
-        $metaTags .= '  <meta name="siteinfo" content="robots.txt"'.$tagEnding."\n";
-      elseif(!empty($robotTxt))
-        $metaTags .= '  <meta name="siteinfo" content="'.$robotTxt.'"'.$tagEnding."\n";
-        
-      // -> add REVISIT AFTER
-      if($revisitAfter !== false && is_numeric($revisitAfter))
-        $metaTags .= '  <meta name="revisit_after" content="'.$revisitAfter.'"'.$tagEnding."\n\n";
-      
       // -> add other META TAGs
       $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
       //$metaTags .= '  <meta name="viewport" content="width=device-width, initial-scale=0.5"'.$tagEnding.' <!-- set width for mobile devices -->'."\n\n";
       //$metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
       //$metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
-      
-      // -> add title
-      $metaTags .= '  <meta name="title" content="'.$pageNameInTitle.$this->websiteConfig['title'].'"'.$tagEnding."\n";
       
       // -> add author
       if($author && is_string($author))
@@ -1044,6 +1025,7 @@ class Feindura extends FeinduraBase {
       if($this->websiteConfig['keywords'])
         $metaTags .= '  <meta name="keywords" content="'.$this->websiteConfig['keywords'].'"'.$tagEnding."\n";
       
+      $metaTags .= '  <meta name="generator" content="feindura - flat file cms '.VERSION.' build:'.BUILD.'"'.$tagEnding."\n";
       $metaTags .= "\n";
       
       // -> add FEEDS
@@ -1154,9 +1136,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link createMetaTags()}
   * @ignore
   */
-  public function createMetaTag($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true, $robotTxt = false, $revisitAfter = '10') {
+  public function createMetaTag($charset = 'UTF-8', $author = false, $publisher = true, $copyright = true) {
     // call the right function
-    return $this->createMetaTags($charset, $author, $publisher, $copyright, $robotTxt, $revisitAfter);
+    return $this->createMetaTags($charset, $author, $publisher, $copyright);
   }
   
  /**
