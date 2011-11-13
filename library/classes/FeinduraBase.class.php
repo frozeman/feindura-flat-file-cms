@@ -594,12 +594,12 @@ class FeinduraBase {
   * @param int|array      $page          page ID or a $pageContent array
   * @param bool           $showErrors    (optional) says if errors like "The page you requested doesn't exist" will be displayed
   * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
-  * @param bool           $useHtml       (optional) displays the page content with or without HTML tags
+  * @param bool|string    $useHtml       (optional) displays the page content with or without HTML tags. It also accepts a string with allowed html tags.
   * 
   * 
-  * @uses $adminConfig                            for the thumbnail upload path
-  * @uses $categoryConfig                         to check whether the category of the page allows thumbnails
-  * @uses $languageFile                           for the error texts
+  * @uses $adminConfig       for the thumbnail upload path
+  * @uses $categoryConfig    to check whether the category of the page allows thumbnails
+  * @uses $languageFile      for the error texts
   * 
   * @uses Feindura::$page   
   * 
@@ -774,15 +774,12 @@ class FeinduraBase {
       $pageContentEdited = self::replaceLinks($pageContentEdited);
       
       // clear Html tags?
-      if(!$useHtml)
-        $pageContentEdited = strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><br><br />');
+      if($useHtml === false || is_string($useHtml))
+        $pageContentEdited = (is_string($useHtml)) ? strip_tags($pageContentEdited, $useHtml) : strip_tags($pageContentEdited);
       
       // -> SHORTEN CONTENT   
-      if($shortenText && !is_bool($shortenText)) {
-        $pageContentEdited = ($useHtml)
-          ? $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent)
-          : $this->shortenText(strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><br><br />'), $shortenText, $pageContent);
-      }
+      if($shortenText && !is_bool($shortenText))
+        $pageContentEdited = $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent);
       
       // clear xHTML tags from the content
       if($this->xHtml === false)
@@ -794,17 +791,6 @@ class FeinduraBase {
       $contentEndTag = '';
       $pageContentEdited = '';
     }
-    
-    /* 
-    // CHECK if the CONTENT BEFORE & AFTER is !== true
-    $contentBefore = false;
-    $contentAfter = false;    
-    
-    if($this->contentBefore !== true)
-      $contentBefore = $this->contentBefore;
-    if($this->contentAfter !== true)
-      $contentAfter = $this->contentAfter;
-    */
     
     // -> SET UP the PAGE ELEMENTS
     // *******************
@@ -1062,6 +1048,9 @@ class FeinduraBase {
   * If the <var>$idType</var> parameter start with "pag" it takes the given <var>$ids</var> parameter as page IDs.<br />
   * While it is not important that whether the <var>$idType</var> parameter is written in plural or singular.
   * The <var>$ids</var> parameter is automaticly checked whether its an array with IDs or a single ID.
+  *
+  * Example of the returned $pageContent array: (<b>Note</b> This array will be wraped in another array, not shown here)
+  * {@example readPage.return.example.php}
   * 
   * @param string         $idType           the ID(s) type can be "cat", "category", "categories" or "pag", "page" or "pages"
   * @param int|array|bool $ids              the category or page ID(s), can be a number or an array with numbers, if TRUE it loads all pages
