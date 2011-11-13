@@ -591,10 +591,10 @@ class FeinduraBase {
   * Example of the returned array:
   * {@example generatePage.return.example.php}
   * 
-  * @param int|array  $page          page ID or a $pageContent array
-  * @param bool       $showErrors     (optional) says if errors like "The page you requested doesn't exist" will be displayed
-  * @param int|false  $shortenText   (optional) number of the maximal text length shown, adds a "more" link at the end or FALSE to not shorten
-  * @param bool       $useHtml       (optional) displays the page content with or without HTML tags
+  * @param int|array      $page          page ID or a $pageContent array
+  * @param bool           $showErrors    (optional) says if errors like "The page you requested doesn't exist" will be displayed
+  * @param int|array|bool $shortenText   (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array, with a number for the text length and a link string, or a bool, whether to add a more link or not. e.g. array(23,false), or array(23,'<a href="…">more</a>')
+  * @param bool           $useHtml       (optional) displays the page content with or without HTML tags
   * 
   * 
   * @uses $adminConfig                            for the thumbnail upload path
@@ -776,7 +776,7 @@ class FeinduraBase {
         $pageContentEdited = strip_tags($pageContentEdited);
       
       // -> SHORTEN CONTENT   
-      if($shortenText && $shortenText !== true) {
+      if($shortenText && !is_bool($shortenText)) {
         $pageContentEdited = ($useHtml)
           ? $this->shortenHtmlText($pageContentEdited, $shortenText, $pageContent)
           : $this->shortenText(strip_tags($pageContentEdited, '<b><i><sup><sub><em><strong><br><br />'), $shortenText, $pageContent);
@@ -899,15 +899,6 @@ class FeinduraBase {
          if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
          $titleDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter.' ';
       } else $titleDate = false;      
-      
-      
-      /*
-      // shorten the title
-      if(is_numeric($titleLength))
-        $title = $this->shortenText($fullTitle, $titleLength, false);
-      else
-        $title = $fullTitle;
-      */
         
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
@@ -934,7 +925,7 @@ class FeinduraBase {
       
       // shorten the title
       if(is_numeric($titleLength))
-        $title = $this->shortenText($title, $titleLength, false);
+        $title = $this->shortenText($title, array($titleLength,false), false);
         
       // -> builds the title
       // *******************
@@ -1761,7 +1752,7 @@ class FeinduraBase {
   * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
   * 
   * @param string       $string          the string to shorten
-  * @param int          $length          the number of maximal characters
+  * @param int|array    $length          the number of maximal characters, or an array with a number for text length and the more string, or a bool, whether to add the more link or not. e.g. array(23,false)
   * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
@@ -1779,7 +1770,14 @@ class FeinduraBase {
   * 
   */
   protected function shortenText($string, $length, $pageContent = false, $endString = " ...") {
-            
+      
+      // vars
+      $moreLink = true;
+      if(is_array($length)) {
+        $moreLink = $length[1];
+        $length = $length[0];
+      }
+      
       // shorten the string
       if($length < mb_strlen($string,'UTF-8')) {
         // go until you found a whitespace
@@ -1796,8 +1794,10 @@ class FeinduraBase {
       $string = preg_replace("/ +/", ' ', $string);
       
       // adds the MORE LINK
-      if(is_string($endString) && GeneralFunctions::isPageContentArray($pageContent)) {
+      if($moreLink === true && GeneralFunctions::isPageContentArray($pageContent)) {
         $string .= " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['PAGE_TEXT_MORE'].'</a>';
+      } elseif(is_string($moreLink) && !is_bool($moreLink)) {
+        $string .= " \n".$moreLink;
       }
       
       return $string;
@@ -1813,7 +1813,7 @@ class FeinduraBase {
   * it adds the <var>$endString</var> parameter after the last character and a "more" link on the end of the shortened text.
   * 
   * @param string       $string          the string to shorten
-  * @param int          $length          the number of maximal characters
+  * @param int|array    $length          the number of maximal characters, or an array with a number for text length and the more string, or a bool, whether to add the more link or not. e.g. array(23,false)
   * @param array|false  $pageContent     the pageContent array of the page to create the "more" link to the page from
   * @param string|false $endString       a string which will be put after the last character and before the "more" link
   * 
@@ -1834,6 +1834,12 @@ class FeinduraBase {
       // vars
       $textWasCut = false;
       $rawText = strip_tags($input);
+      $moreLink = true;
+      
+      if(is_array($length)) {
+        $moreLink = $length[1];
+        $length = $length[0];
+      }
       
       // only if the given LENGTH is SMALLER than the RAW TEXT, SHORTEN the TEXT
       // ***********************************************
@@ -1872,8 +1878,7 @@ class FeinduraBase {
         //echo 'realPos: '.$position.'<br />';
         
         // shortens the text
-        //(will also change the plain text back into one with html entities)
-        $input = $this->shortenText($input,$position,false,false);
+        $input = $this->shortenText($input,array($position,false),false,false);
         
         // checks if there is a unclosed html tag (example: <h1..)
         // and shortens the string from this unclosed tag
@@ -1932,8 +1937,10 @@ class FeinduraBase {
       }
       
       // create the MORE LINK
-      if($pageContent !== false && is_array($pageContent)) {
+      if($moreLink === true && GeneralFunctions::isPageContentArray($pageContent)) {
         $moreLink = " \n".'<a href="'.$this->createHref($pageContent).'">'.$this->languageFile['PAGE_TEXT_MORE'].'</a>';
+      } elseif(is_string($moreLink) && !is_bool($moreLink)) {
+        $string .= " \n".$moreLink;
       }
       
       $output = $input;
