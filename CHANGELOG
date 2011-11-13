@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 784
+Build 786
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,8 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 786: add new value to the returned page array: "pageDateTimestamp"
+  build 785: add new properties: $linkPageDateSeparator and $titlePageDateSeparator
   build 784: it's now possible to pass an array for the $shortenText parameter, to deactivate the "more" link add to the end e.g.: array(23,false), and even pass a custom string link as second value: array(23,'<a href="…">more</a>')
   build 783: updated getPropertyIdsByString() to v 2.0; its now possible to use an string or array with "next", "prev" and now also "first", "last" and "rand";
   build 782: changed some anchor behavior

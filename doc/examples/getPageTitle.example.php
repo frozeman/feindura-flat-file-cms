@@ -19,7 +19,7 @@ $myCms->titleLength =              10;
 $myCms->titleAsLink =              true;
 $myCms->titleShowPageDate =        true;
 $myCms->titleShowCategory =        true;
-$myCms->titleCategorySeperator =   ' -> ';
+$myCms->titleCategorySeparator =   ' -> ';
 
 
 // finally create the title from the page with ID "1" using the above set title properties

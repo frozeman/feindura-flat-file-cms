@@ -304,7 +304,7 @@ class Feindura extends FeinduraBase {
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the link text
   * of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + seperator and the link text.<br />
+  * If the {@link $linkShowCategory} property is TRUE, the page date is placed between the category name + separator and the link text.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend
   *   
   * <b>Notice</b>: The page date will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
@@ -325,8 +325,24 @@ class Feindura extends FeinduraBase {
   public $linkShowPageDate = false;
 
  /**
+  * If the {@link $linkShowPageDate} property is TRUE,
+  * this string will be used as a separator between the page date and the link text of any link created by {@link createLink()} or {@link createMenu()}.
+  * 
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this separator.
+  * 
+  * @var string
+  * @access public
+  * 
+  * @see createLink()
+  * @see createMenu()
+  * @example createLink.example.php
+  * 
+  */
+  public $linkPageDateSeparator = ' ';
+
+ /**
   * If TRUE, the category name of the page will be add before the link text
-  * with the {@link $linkCategorySpacer} property as seperator of any link created by {@link createLink()} or {@link createMenu()}.
+  * with the {@link $linkCategorySpacer} property as separator of any link created by {@link createLink()} or {@link createMenu()}.
   * 
   * The category name will only be displayed if the <var>$linkText</var> parameter of {@link createLink()} or {@link createMenu()} methods is TRUE and not a string.
   * 
@@ -347,9 +363,9 @@ class Feindura extends FeinduraBase {
   
  /**
   * If the {@link $linkShowCategory} property is TRUE,
-  * this string will be used as a seperator between the category name and the link text of any link created by {@link createLink()} or {@link createMenu()}.
+  * this string will be used as a separator between the category name and the link text of any link created by {@link createLink()} or {@link createMenu()}.
   * 
-  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this seperator.
+  * <b>Notice</b>: If you set this property and call {@link createMenu()} every link in the menu will use this separator.
   * 
   * @var string
   * @access public
@@ -449,7 +465,7 @@ class Feindura extends FeinduraBase {
  /**
   * If TRUE, page dates are allowed for the pages in this category and the page has a page date then it will be add before the page title.
   * 
-  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + seperator and the page title.<br />
+  * If the {@link $titleShowCategory} property is TRUE, the page date is placed between the category name + separator and the page title.<br />
   * The page date will be added with the page before-date-text and after-date-text from the page editor in the backend.
   * 
   * Example:
@@ -468,7 +484,20 @@ class Feindura extends FeinduraBase {
   public $titleShowPageDate = false;
   
  /**
-  * If TRUE, the category name of the page will be add before the page title with the {@link $linkCategorySpacer} property as seperator.
+  * If the {@link $titleShowPageDate} property is TRUE, this string will be used as a separator between the page date and the page title.
+  * 
+  * @var string
+  * @access public
+  * 
+  * @see getTitle()
+  * @see FeinduraBase::createTitle()
+  * @example showPage.example.php
+  * 
+  */
+  public $titlePageDateSeparator = ' ';
+  
+ /**
+  * If TRUE, the category name of the page will be add before the page title with the {@link $linkCategorySpacer} property as separator.
   * 
   * Example:
   * <samp>
@@ -486,7 +515,7 @@ class Feindura extends FeinduraBase {
   public $titleShowCategory = false;
   
  /**
-  * If the {@link $titleShowCategory} property is TRUE, this string will be used as a seperator between the category name and the page title.
+  * If the {@link $titleShowCategory} property is TRUE, this string will be used as a separator between the category name and the page title.
   * 
   * @var string
   * @access public
@@ -1272,7 +1301,8 @@ class Feindura extends FeinduraBase {
                                          $this->linkLength,
                                          false, // $titleAsLink
                                          $this->linkShowPageDate,
-                                         $this->linkShowCategory,                                       
+                                         $this->linkShowCategory,
+                                         $this->linkPageDateSeparator,                                      
                                          $this->linkCategorySeparator);
           } elseif(is_string($linkText) &&
                    is_numeric($this->linkLength))   
@@ -1912,6 +1942,7 @@ class Feindura extends FeinduraBase {
                                       $this->titleAsLink,                                    
                                       $this->titleShowPageDate,
                                       $this->titleShowCategory,
+                                      $this->titlePageDateSeparator,
                                       $this->titleCategorySeparator);                                      
           
           if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) // data-feindura format: "pageID categoryID"

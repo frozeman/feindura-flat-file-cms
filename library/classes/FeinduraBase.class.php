@@ -658,6 +658,7 @@ class FeinduraBase {
     $return['id'] = false;
     $return['category'] = false;
     $return['pageDate'] = false;
+    $return['pageDateTimestamp'] = false;
     $return['title'] = false;
     $return['thumbnail'] = false;
     $return['thumbnailPath'] = false;
@@ -752,6 +753,7 @@ class FeinduraBase {
                                   $this->titleAsLink,                                  
                                   $this->titleShowPageDate,
                                   $this->titleShowCategory,
+                                  $this->titlePageDateSeparator,
                                   $this->titleCategorySeparator);      
       
     // -> PAGE THUMBNAIL
@@ -813,7 +815,10 @@ class FeinduraBase {
       $return['category'] = $this->categoryConfig[$pageContent['category']]['name'];
     
     if($pageDate)
-       $return['pageDate']  = $pageDate;
+      $return['pageDate']  = $pageDate;
+      
+    if($pageDate)
+      $return['pageDateTimestamp'] = $pageContent['pageDate']['date'];
        
     if(!empty($pageContent['title']))
        $return['title']	    = $title;
@@ -881,7 +886,7 @@ class FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  protected function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titleCategorySeparator = false) {
+  protected function createTitle($pageContent, $titleLength = false, $titleAsLink = false, $titleShowPageDate = false, $titleShowCategory = false, $titlePageDateSeparator = false, $titleCategorySeparator = false) {
       
       // vars 
       $titleBefore = '';
@@ -892,20 +897,22 @@ class FeinduraBase {
            
       // generate titleDate
       if($titleShowPageDate && StatisticFunctions::checkPageDate($pageContent)) {
-         $titleDateBefore = '';
-         $titleDateAfter = '';
-	       // adds spaces on before and after
-         if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
-         if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
-         $titleDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter.' ';
+        $titleDateBefore = '';
+        $titleDateAfter = '';
+        // adds spaces on before and after
+        if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
+        if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+        $titleDate = $titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$this->languageFile)).$titleDateAfter;
+        $titleDate = (is_string($titlePageDateSeparator))
+          ? $titleDate.$titlePageDateSeparator
+          : $titleDate;
       } else $titleDate = false;      
         
       // show the category name
       if($titleShowCategory === true && $pageContent['category'] != 0) {
-        if(is_string($titleCategorySeparator))
-          $titleShowCategory = $this->categoryConfig[$pageContent['category']]['name'].$titleCategorySeparator; // adds the Spacer
-        else
-          $titleShowCategory = $this->categoryConfig[$pageContent['category']]['name'].' ';
+        $titleShowCategory = (is_string($titleCategorySeparator))
+          ? $this->categoryConfig[$pageContent['category']]['name'].$titleCategorySeparator
+          : $this->categoryConfig[$pageContent['category']]['name'];
       } else
         $titleShowCategory = '';
         

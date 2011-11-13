@@ -3,7 +3,8 @@
 array(
   'id' => 1,
   'category' => 'Example Category',
-  'pageDate' => '2000-12-31', // formated depending on the administrator-settings
+  'pageDate' => '2000-12-31', // format depending on the administrator-settings
+  'pageDateTimestamp' => 1325393999,
   'title' => 'Title Example',
   'thumbnail' => '<img src="/path/thumb_page1.png" alt="Thumbnail" title="Title Example" />',
   'thumbnailPath' => '/path/thumb_page1.png',

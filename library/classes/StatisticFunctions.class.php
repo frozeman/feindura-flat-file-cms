@@ -359,7 +359,7 @@ class StatisticFunctions {
   * 
   * Check if a date is valid and returns the date as UNIX-Timestamp
   * 
-  * @param string $dateString a UNIX-Timestamp or the date to validate, with the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing seperators ".", "-", "/", " ", '", "," or ";"
+  * @param string $dateString a UNIX-Timestamp or the date to validate, with the following format: "YYYY-MM-DD", "DD-MM-YYYY" or "YYYY-DD-MM" and the follwing separators ".", "-", "/", " ", '", "," or ";"
   * 
   * @return int|false the timestamp of the date or FALSE if the date is not valid
   * 

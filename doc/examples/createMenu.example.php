@@ -32,7 +32,7 @@ $myCms->linkShowThumbnail =           true;
 $myCms->linkShowThumbnailAfterText =  false;
 $myCms->linkShowPageDate =            true;
 $myCms->linkShowCategory =            true;
-$myCms->linkCategorySeperator =       ' -> ';
+$myCms->linkCategorySeparator =       ' -> ';
 
 // set thumbnail properties
 $myCms->thumbnailAlign =              'left';

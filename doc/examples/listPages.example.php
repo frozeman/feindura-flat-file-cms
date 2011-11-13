@@ -27,7 +27,7 @@ $myCms->titleLength =            20;
 $myCms->titleAsLink =            true;
 $myCms->titleShowPageDate =      true;
 $myCms->titleShowCategory =      false; // has no effect, because page with ID "1" is not in a category
-$myCms->titleCategorySeperator = ' -> ';
+$myCms->titleCategorySeparator = ' -> ';
 
 $myCms->thumbnailAlign =         'left';
 $myCms->thumbnailId =            'thumbId';
