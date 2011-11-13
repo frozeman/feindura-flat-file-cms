@@ -1274,7 +1274,8 @@ class Feindura extends FeinduraBase {
                                          $this->linkShowPageDate,
                                          $this->linkShowCategory,                                       
                                          $this->linkCategorySeparator);
-          } elseif(is_string($linkText))
+          } elseif(is_string($linkText) &&
+                   is_numeric($this->linkLength))   
             $linkText = $this->shortenText($linkText, $this->linkLength);
   	
           // -> sets the LINK
