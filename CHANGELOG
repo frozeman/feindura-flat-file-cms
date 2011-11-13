@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 787
+Build 788
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-  
+
+  build 788: $shortenText parameter can be now string or like: array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
   build 787: when using a string as second value in the $shortenText parameter, it will be used as the links text
   build 786: add new value to the returned page array: "pageDateTimestamp"
   build 785: add new properties: $linkPageDateSeparator and $titlePageDateSeparator
