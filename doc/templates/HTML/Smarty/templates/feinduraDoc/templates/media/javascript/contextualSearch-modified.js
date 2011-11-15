@@ -99,14 +99,14 @@ var contextualSearch = new Class({
             onComplete: function(searchResults) {
 
               var liTemplate = "<li><a href=\"{url}\">{title}</a></li>", markup = '',i;
-              console.log(searchResults);
+              //console.log(searchResults);
             
               if(searchResults.items) {
                 console.logitems;
                 // start off the unordered list
                 markup = '<br><br><ul>';
                  for (i = 0; i < searchResults.items.length; i++) {
-                    markup += '<li><a href="'+ searchResults.items[i].link +'">'+ searchResults.items[i].htmlTitle + '</a></li>';
+                    markup += '<li><a href="'+ searchResults.items[i].link +'">'+ searchResults.items[i].htmlTitle.replace('feindura API - ','') + '</a></li>';
                  }
                 markup += '</ul>';
               } else {
