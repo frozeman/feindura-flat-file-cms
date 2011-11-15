@@ -42,7 +42,7 @@ blockquote {
     padding: 12px 20px;
     padding-bottom: 15px;
     border: 1px dotted #cccccc;
-    background: url("../image/bg/blockquote.png") no-repeat #f9f9f9;
+    background: url("image/bg/blockquote.png") no-repeat #f9f9f9;
     }
 blockquote p {
     margin-top: 0px;
@@ -57,7 +57,7 @@ input.searchButton {
     width: 50px;
     height: 50px;
     padding: 0px !important; /* overwrites the #mainBody a*/
-    background: url("../image/key/searchButton.png") no-repeat  0px 0px !important;
+    background: url("image/key/searchButton.png") no-repeat  0px 0px !important;
     border: none;
     }
 input.searchButton:hover {

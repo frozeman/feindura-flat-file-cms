@@ -1,7 +1,7 @@
 window.addEvent('domready', function() {
   
   var blendOut = '-180px';
-  var minWindowSize = 1420;
+  var minWindowSize = 1520;
   var delayForHide = 1500;
   
   /* slideOut function*/

@@ -39,7 +39,6 @@
 
 /* DOC BLOCK */
 div.docBlock {
-  line-height: 25px;
   padding: 10px;
   }
 
@@ -264,21 +263,24 @@ samp, div.src-code {
 
 .src-code {  font-family: Monospace, Monaco, Courier; font-weight: normal; }
 
-.src-code ol li {
-    margin: -8px 0px !important;
+.src-code li {
+    margin: -4px 0px !important;
     padding: 0px !important;
-    line-height: 12px !important;
+    
     }
     
 .src-code a {
     /*color: #3B7AA5;*/
     font-weight: bold;
-    border-bottom: 1px dotted #999999; }
+    border-bottom: 1px dotted #999999;
+}
 .src-line {
     font-size: 14px;
     font-family: Monospace, Monaco, Courier;
     font-weight: normal;
     color: #333333;
+    margin: 0;
+    padding: 0;
     }
 .src-comm { color: #777777; }
 .src-id { color: #8600C9; }

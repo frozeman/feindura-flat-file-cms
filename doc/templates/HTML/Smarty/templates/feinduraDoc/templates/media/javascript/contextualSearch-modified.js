@@ -26,11 +26,7 @@ var contextualSearch = new Class({
 
     options: {
 
-         site: 'davidwalsh.name',
-
-         targetID: 'searchBox',
-
-         css: 'style.css' 
+         targetID: 'searchBox' 
     },
 
     boxInit: '<div id="moo-search-module" class="fadeBox">'+
@@ -42,162 +38,145 @@ var contextualSearch = new Class({
 
        this.setOptions(options);
           
-           $(this.options.targetID).set('html',this.boxInit.replace('{site}',this.options.site));
+       $(this.options.targetID).set('html',this.boxInit);
 
-           if(this.options.css) {
+       $('search-button').addEvent('click',function(){
+          this.fetchData();
+       }.bind(this)); 
 
-              this.addSkin();
-           }
-
-           $('search-button').addEvent('click',function(){
-              this.fetchData();
-           }.bind(this)); 
-
-           $('search-input').addEvent('keydown',function(event){
-              //if(event.key == 'enter') {
-              this.fetchData()//;}
-           }.bind(this)); 
-
+       $('search-input').addEvent('keydown',function(event){
+          // on enter
+          if(event.key == 'enter') {
+            this.fetchGoogleData()
+          } else {
+            // while typing
+            this.fetchData()
+          }
+       }.bind(this)); 
+       
+       // set up
+       
+        /* PAGE-SEARCH-ENGINE: search for inpage elements */
+        this.resultsOutput = $('moo-search-module-results');
+        this.hitEnterString = '<br>Hit ENTER to search on other pages';
+        
+        // BLEND OUT results if clicked somwhere     
+        document.addEvent('click',function(){
+           $('moo-search-module-results').setStyle('display','none');
+        });
     },
+    
+    fetchGoogleData: function() {
 
-    fetchData: function(){
+        // this gets the user input for the search
+        var input = escape($('search-input').get('value'));
+        var loadingString = '<br><b>Loading...</b>';
+        var root = "https://www.googleapis.com/customsearch/v1?",
 
-            // this gets the user input for the search
-            var input = escape($('search-input').get('value'));
-            
-            /* PAGE-SEARCH-ENGINE: search for inpage elements */
-            var resultsOutput = $('moo-search-module-results');                     
-            // blend out the results after clicking somwhere
-            $('moo-search-module-results').setStyle('display','block');
-             
-            resultsOutput.set("html",'<p><b>Loading...</b></p>'); 
-                          
-            var elementsInPage = new Array();
-            if(input) {
-              $$('[class$=title]').each(function(element) {    
-               if(element.getProperty('text') && element.getProperty('text').test(input,"i"))
-                  elementsInPage.push(element);                      
-              });
-            }
-            
-            
-            
-            /*
-            var root = "http://search.yahooapis.com/WebSearchService/V1/webSearch?",
+        // make the YQL call. Use the path var from above and what the user has typed into the input box
+        googleQuery = 'key=AIzaSyARZLhzOLGymoj8_4U2IhMCw39vgO2iW3Y&cx=001444423393092991869:pfv8g8avuc8&q='+encodeURIComponent(input); //+'&callback=hndlr';
 
-            // make the YQL call. Use the path var from above and what the user has typed into the input box
-            yqlQuery = 'appid=qXuRMjfV34FFJvpyxZUUSjio9tojhxo3gCcvim_InTIFtLwPcSo2eZnbbUzaApUDaHyg34NLyeHD&query=' + input + '&site='+this.options.site;
+        url = root + googleQuery;
+      
+        
+        // REQUEST
+        new Request.JSONP({
 
-            url = root + encodeURIComponent(yqlQuery) + '&format=json';
-            
-            var elementsInPage = new Array();
-            
-            new Request.JSONP({
+            url: url,
 
-                url: url,
-
-                onRequest: function(){
-                    
-                     this.fireEvent('request');
-
-                     var resultsOutput = $('moo-search-module-results');                     
-                     // blend out the results after clicking somwhere
-                     $('moo-search-module-results').setStyle('display','block');
-                     
-                     resultsOutput.set("html",'<p><b>Loading...</b></p>');                    
-                    
-                    // PAGE-SEARCH-ENGINE: search for inpage elements                  
-                    if(input) {
-                      $$('[class$=title]').each(function(element) {    
-                       if(element.getProperty('text') && element.getProperty('text').test(input,"i"))
-                          elementsInPage.push(element);                      
-                      });
-                    }
-                     
-
-                }.bind(this), 
-                onFailure: function(error) { console.log(error); },
-                onComplete: function(searchResults) {
-
-                   var resultsOutput = $('moo-search-module-results'),liTemplate = "<li><a href=\"{url}\">{title}</a></li>", markup = '',i;
-                   console.log(searchResults);
-                    //if we have one result then save
-                   if(searchResults && (searchResults.query.count == 1)) {
-                        markup = '<ul>';
-                        markup += liTemplate.substitute(searchResults.query.results.result);
-                        markup += '</ul>';
-                   } else 
-                  
-                  
-                  
-                  
-                   // show the results if we have them
-                  if(searchResults && (searchResults.query.count > 1)) {
-                  // start off the unordered list
-                    markup = '<ul>';
-                     for (i = 0; i < searchResults.query.count; i++) {
-                        markup += liTemplate.substitute(searchResults.query.results.result[i]);
-                     }
-                    markup += '</ul>';
-                  } else {
-                    markup = "<p>Nothing found in the API by Yahoo</p>";
-                  }      
-                 */
-                 // BLEND OUT results if clicked somwhere     
-                 document.addEvent('click',function(){
-                    $('moo-search-module-results').setStyle('display','none');
-                 });
+            onRequest: function(){
+                
+                this.fireEvent('request');
+                // blend out the results after clicking somwhere
+                this.resultsOutput.setStyle('display','block');
                  
-                 // PAGE-SEARCH-ENGINE: add list for elements in page results
-                 var markup = '';
-                 if (elementsInPage.length >= 1) {                   
-                   markup += '<ul id="elementsInPageResult"></ul>';
+                // prepare uotput and add "Loading..."
+                this.resultsOutput.set("html",this.resultsOutput.get("html").replace(this.hitEnterString,'').replace(loadingString,'') + loadingString);
+                 
+
+            }.bind(this), 
+            onFailure: function(error) { console.log(error); },
+            onComplete: function(searchResults) {
+
+              var liTemplate = "<li><a href=\"{url}\">{title}</a></li>", markup = '',i;
+              console.log(searchResults);
+            
+              if(searchResults.items) {
+                console.logitems;
+                // start off the unordered list
+                markup = '<br><br><ul>';
+                 for (i = 0; i < searchResults.items.length; i++) {
+                    markup += '<li><a href="'+ searchResults.items[i].link +'">'+ searchResults.items[i].htmlTitle + '</a></li>';
                  }
-                   
-                 // hook the markup on the DOM now that it's complete
-                 resultsOutput.set("html", markup);
-                 
-                 //  PAGE-SEARCH-ENGINE: INJECT elements ion page result links
-                 elementsInPage.each(function(element){
-                      var elementText = element.getProperty('text');
-                      var elementTextLower = elementText.toLowerCase();
-                      var inputLower = input.toLowerCase();
-                      elementText = elementText.substring(elementTextLower.indexOf(inputLower) - 20, elementTextLower.indexOf(inputLower) + inputLower.length + 20);
-                      
-                      var inPageElementLi = new Element('li');
-                      
-                      var inPageElementLink = new Element('a',{
-                          'href': 'javascript:void(0)',
-                          'html': elementText, //'..' + elementText + '..',
-                          'events': {
-                                'click': function(){
-                                    new Fx.Scroll(window,{duration: '300',}).start(0,element.getPosition().y - 50);
-                                },
-                            } 
-                          }                      
-                      );                      
-                      inPageElementLi.grab(inPageElementLink);
-                      
-                      $('elementsInPageResult').grab(inPageElementLi,'bottom');
-                  });
-                 
-                //}.bind(this)
+                markup += '</ul>';
+              } else {
+                markup = "<br>Nothing found on other pages";
+              } 
+              
+              this.resultsOutput.set("html", this.resultsOutput.get("html").replace(loadingString,markup));
+              
+        }.bind(this)
 
-            //}).send();  
+      }).send();
+      
+      return this;
+    },
+    
+    fetchData: function(){
+        
+        // this gets the user input for the search
+        var input = escape($('search-input').get('value'));
+                
+        // blend out the results after clicking somwhere
+        this.resultsOutput.setStyle('display','block');
+         
+        this.resultsOutput.set("html",'<p><b>Loading...</b></p>'); 
+                      
+        var elementsInPage = new Array();
+        if(input) {
+          $$('[class$=title]').each(function(element) {    
+           if(element.getProperty('text') && element.getProperty('text').test(input,"i"))
+              elementsInPage.push(element);                      
+          });
+        }
+        
+         
+         // PAGE-SEARCH-ENGINE: add list for elements in page results
+         var markup = '';
+         if (elementsInPage.length >= 1) {                   
+           markup += '<ul id="elementsInPageResult"></ul>';
+         }
+         
+         markup += this.hitEnterString;
+           
+         // hook the markup on the DOM now that it's complete
+         this.resultsOutput.set("html", markup);
+         
+         //  PAGE-SEARCH-ENGINE: INJECT elements ion page result links
+         elementsInPage.each(function(element){
+              var elementText = element.getProperty('text');
+              var elementTextLower = elementText.toLowerCase();
+              var inputLower = input.toLowerCase();
+              elementText = elementText.substring(elementTextLower.indexOf(inputLower) - 20, elementTextLower.indexOf(inputLower) + inputLower.length + 20);
+              
+              var inPageElementLi = new Element('li');
+              
+              var inPageElementLink = new Element('a',{
+                  'href': 'javascript:void(0)',
+                  'html': elementText, //'..' + elementText + '..',
+                  'events': {
+                        'click': function(){
+                            new Fx.Scroll(window,{duration: '300',}).start(0,element.getPosition().y - 50);
+                        },
+                    } 
+                  }                      
+              );                      
+              inPageElementLi.grab(inPageElementLink);
+              
+              $('elementsInPageResult').grab(inPageElementLi,'bottom');
+          });
 
         return this;
     },
 
-    addSkin: function() {
-
-       var style = document.createElement('link'),head = document.getElementsByTagName('head')[0];
-
-           style.setAttribute('rel','stylesheet');
-
-           style.setAttribute('type','text/css');
-
-           style.setAttribute('href',this.options.css);
-
-           head.insertBefore(style,head.firstChild);
-    }
 });//end class
