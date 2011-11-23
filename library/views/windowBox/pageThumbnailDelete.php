@@ -62,7 +62,7 @@ if($asking && file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['
         
         // create redirect
         $redirect = (empty($site))
-          ? '?category='.$category.'&amp;page='.$page.'&amp;status=reload#pageInformation'
+          ? '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'#pageInformation'
           : '?site='.$site;
         
         if($site == 'pages')
