@@ -210,7 +210,7 @@ class Image {
           $y = round($x / $ratioX);
         }
       }
-    // ->> DONT keep the RATIO (but keep ration when, only width OR height is set)
+    // ->> DONT keep the RATIO (but keep ratio when, only width OR height is set)
     } else {
       // RATIO X
       if(!empty($y) && empty($x) && ($y < $this->meta['height'] || $resizeWhenSmaller))

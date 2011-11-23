@@ -66,14 +66,12 @@ if($categoryRatio) {
      $categoryConfig[$category]['thumbRatio'] == '') {
     //$thumbRatioX = ' disabled="disabled"';
     $thumbRatioX = true;
-    $thumbRatio = 'y';
   }
 } else {
   if($adminConfig['pageThumbnail']['ratio'] == 'y' ||
      $adminConfig['pageThumbnail']['ratio'] == '') {
     //$thumbRatioX = ' disabled="disabled"';
     $thumbRatioX = true;
-    $thumbRatio = 'y';
   }
 }
 
@@ -83,16 +81,20 @@ if($categoryRatio) {
      $categoryConfig[$category]['thumbRatio'] == '') {
     //$thumbRatioY = ' disabled="disabled"';
     $thumbRatioY = true;
-    $thumbRatio = 'x';
   }
 } else {
   if($adminConfig['pageThumbnail']['ratio'] == 'x' ||
      $adminConfig['pageThumbnail']['ratio'] == '') {
     //$thumbRatioY = ' disabled="disabled"';
     $thumbRatioY = true;
-    $thumbRatio = 'x';
   }
 }
+
+// SET RATIO
+if($categoryRatio)
+  $thumbRatio = $categoryConfig[$category]['thumbRatio'];
+else
+  $thumbRatio = $adminConfig['pageThumbnail']['ratio'];
 
 ?>
 <h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>

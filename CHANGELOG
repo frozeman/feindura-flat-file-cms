@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.5
-Build 791
+Build 792
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 792: fixed thumbnail ratio issue
   build 791: the $useHtml parameter also accepts now a string with allowed html tags.
   build 790: get rid of the $robotTxt, $revisitAfter parameters in the createMetaTags() method!! and cleaned out other useless meta tags
   build 789: removed "content-language" meta tag
