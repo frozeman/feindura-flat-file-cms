@@ -1,5 +1,5 @@
 <?php
-/* imageGallery plugin */
+/* slideShow plugin */
 /*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
@@ -16,10 +16,10 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /**
- * This file contains the {@link imageGallery} class.
+ * This file contains the {@link slideShow} class.
  * 
  * @package [Plugins]
- * @subpackage imageGallery
+ * @subpackage slideShow
  */
 
 /**
@@ -29,7 +29,7 @@
 require_once(dirname(__FILE__).'/includes/Image.class.php');
 
 /**
-* imageGallery Plugin class
+* slideShow Plugin class
 * 
 * This class reads an folder and creates a gallery out of the pictures in it.
 * 
@@ -41,14 +41,14 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 * </samp> 
 *
 * <b>Notice</b>: works only with "png", "gif" and "jpg" or "jpeg" filetypes.
-* <b>Notice</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery. 
+* <b>Notice</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_slideShow">' tag to help to style the image gallery. 
 * 
 * @author Fabian Vogelsteller <fabian@feindura.org>
 * @copyright Fabian Vogelsteller
 * @license http://www.gnu.org/licenses GNU General Public License version 3
 * 
 * @package [Plugins]
-* @subpackage imageGallery
+* @subpackage slideShow
 * 
 * @version 1.11
 * <br />
@@ -60,7 +60,7 @@ require_once(dirname(__FILE__).'/includes/Image.class.php');
 *    - 1.0 initial release
 * 
 */
-class imageGallery {
+class slideShow {
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** PROPERTIES */
@@ -92,11 +92,9 @@ class imageGallery {
   * 
   * @var int
   * @access public
-  * @see imageGallery::$imageHeight
-  * @see imageGallery::$imageWidth
-  * @see imageGallery::$thumbnailHeight
-  * @see imageGallery::$thumbnailWidth
-  * @see imageGallery::resize()
+  * @see slideShow::$imageHeight
+  * @see slideShow::$imageWidth
+  * @see slideShow::resize()
   * 
   */
   public $resizeWhenSmaller = false;
@@ -109,11 +107,9 @@ class imageGallery {
   * 
   * @var int
   * @access public
-  * @see imageGallery::$imageHeight
-  * @see imageGallery::$imageWidth
-  * @see imageGallery::$thumbnailHeight
-  * @see imageGallery::$thumbnailWidth
-  * @see imageGallery::resize()
+  * @see slideShow::$imageHeight
+  * @see slideShow::$imageWidth
+  * @see slideShow::resize()
   * 
   */
   public $keepRatio = true;
@@ -121,14 +117,14 @@ class imageGallery {
  /**
   * The maximal width of the pictures
   * 
-  * All pictures will be resized to this width when the {@link imageGallery::resizeImages()} method is called.
+  * All pictures will be resized to this width when the {@link slideShow::resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$imageHeight} property is null, it keeps the aspect ratio of the images.
+  * <b>Notice</b>: If the {@link slideShow::$imageHeight} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
-  * @see imageGallery::$imageHeight
-  * @see imageGallery::resizeImages()
+  * @see slideShow::$imageHeight
+  * @see slideShow::resizeImages()
   * 
   */
   public $imageWidth = 800;
@@ -138,51 +134,21 @@ class imageGallery {
   * 
   * All pictures will be resized to this height when the {@link resizeImages()} method is called.
   * 
-  * <b>Notice</b>: If the {@link imageGallery::$imageWidth} property is null, it keeps the aspect ratio of the images.
+  * <b>Notice</b>: If the {@link slideShow::$imageWidth} property is null, it keeps the aspect ratio of the images.
   * 
   * @var int
   * @access public
-  * @see imageGallery::$imageWidth
-  * @see imageGallery::resizeImages()
+  * @see slideShow::$imageWidth
+  * @see slideShow::resizeImages()
   * 
   */
   public $imageHeight = null;
   
  /**
-  * The maximal width of the thumbnails of the pictures
-  * 
-  * the thumbnails will be created with this width when the {@link imageGallery::createThumbanils()} method is called.
-  * 
-  * <b>Notice</b>: If the {@link imageGallery::$thumbnailHeight} property is null, it keeps the aspect ratio of the images.
-  * 
-  * @var int
-  * @access public
-  * @see imageGallery::$thumbnailHeight
-  * @see imageGallery::createThumbanils()
-  * 
-  */
-  public $thumbnailWidth = 100;
-  
- /**
-  * The maximal height of the thumbnails of the pictures
-  * 
-  * the thumbnails will be created with this height when the {@link imageGallery::createThumbanils()} method is called.
-  * 
-  * <b>Notice</b>: If the {@link imageGallery::$thumbnailWidth} property is null, it keeps the aspect ratio of the images.
-  * 
-  * @var int
-  * @access public
-  * @see imageGallery::$thumbnailWidth
-  * @see imageGallery::createThumbanils()
-  * 
-  */
-  public $thumbnailHeight = null;
-  
- /**
   * An array which contains all image filenames and paths
   * 
   * Example Array:
-  * {@example plugins/imageGallery/images.array.example.php}
+  * {@example plugins/slideShow/images.array.example.php}
   * 
   * @var array
   * @access protected
@@ -197,7 +163,7 @@ class imageGallery {
   * @access protected
   * 
   */
-  protected $galleryPath;
+  protected $path;
   
 /**
   * The title of the gallery, retrieved from the "title.txt"
@@ -207,15 +173,6 @@ class imageGallery {
   * 
   */
   protected $title = 'unnamed';
-  
-/**
-  * The image which is shown as the preview image of the gallery, retrieved from the "previewImage.txt"
-  * 
-  * @var string
-  * @access protected
-  * 
-  */
-  protected $previewImage;
   
 /**
   * the timestamp of the latest modification of the files
@@ -241,17 +198,15 @@ class imageGallery {
   * 
   * @param string $folder the absolut path of the folder from where a gallery should be created
   * 
-  * @uses imageGallery::$GeneralFunctions
-  * @uses imageGallery::readFolder() to read the files in the folder, to store the images in the {@link imageGallery::$images} property 
+  * @uses slideShow::$GeneralFunctions
+  * @uses slideShow::readFolder() to read the files in the folder, to store the images in the {@link slideShow::$images} property 
   * 
   * @return void
   * 
   * @access public
-  * @version 1.02
+  * @version 1.0
   * <br />
   * <b>ChangeLog</b><br />
-  *    - changed thumbnail names to "thumb_filename_jpg.png"
-  *    - 1.01 fixed image texts  
   *    - 1.0 initial release
   * 
   */
@@ -300,7 +255,7 @@ class imageGallery {
         // get images
         $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
         if($fileExtension == 'jpg' || $fileExtension == 'jpeg' || $fileExtension == 'png' || $fileExtension == 'gif') {
-          $this->galleryPath = dirname($file).'/';
+          $this->path = dirname($file).'/';
           
           $this->images[$count]['filename'] = basename($file);
           $this->images[$count]['text'] = (is_array($imageTexts) && array_key_exists($this->images[$count]['filename'],$imageTexts))
@@ -363,7 +318,7 @@ class imageGallery {
     $return = false;  
     $fullFolder = $folder;
     
-    // adds the $this->documentRoot  
+    // adds the $this->documentRoot
     $fullFolder = str_replace($this->documentRoot,'',$fullFolder);  
     $fullFolder = $this->documentRoot.$fullFolder;
     
@@ -383,16 +338,16 @@ class imageGallery {
  /**
   * <b>Name</b> resizeImages()<br />
   * 
-  * Resize the images to the size set in the {@link imageGallery::$imageWidth} and {@link imageGallery::$imageHeight} property.
+  * Resize the images to the size set in the {@link slideShow::$imageWidth} and {@link slideShow::$imageHeight} property.
   * 
   * 
   * @return bool TRUE if all images could be resized, otherwise FALSE
   * 
-  * @uses imageGallery::$imageWidth
-  * @uses imageGallery::$imageHeight
-  * @uses imageGallery::$galleryPath  
-  * @uses imageGallery::resize()
-  * @uses imageGallery::readFolder() to read the files in the folder to check if thumbnails are obsolete
+  * @uses slideShow::$imageWidth
+  * @uses slideShow::$imageHeight
+  * @uses slideShow::$path  
+  * @uses slideShow::resize()
+  * @uses slideShow::readFolder() to read the files in the folder
   * 
   * @access protected
   * @version 1.0
@@ -411,7 +366,7 @@ class imageGallery {
     foreach($this->images as $image) {
       
       // vars
-      $imagePath = $this->galleryPath.$image['filename'];      
+      $imagePath = $this->path.$image['filename'];      
       $imageSize = getimagesize($this->documentRoot.$imagePath);
       $sizeDifference = ((empty($this->imageHeight) && $this->imageWidth == $imageSize[0]) || (empty($this->imageWidth) && $this->imageHeight == $imageSize[1]) || ($this->imageWidth  == $imageSize[0] && $this->imageHeight == $imageSize[1]))
         ? false
@@ -430,90 +385,8 @@ class imageGallery {
         $return = false;
     }
     
-    return $return;
-  }
-  
- /**
-  * <b>Name</b> createThumbnails()<br />
-  * 
-  * Resize the images to the size set in the {@link imageGallery::$thumbnailWidth} and {@link imageGallery::$thumbnailHeight} property and copy them to a "thumbnails/" subfolder. 
-  * 
-  * 
-  * @return bool TRUE if all images could be resized, otherwise FALSE
-  * 
-  * @uses imageGallery::$thumbnailWidth
-  * @uses imageGallery::$thumbnailHeight
-  * @uses imageGallery::$galleryPath  
-  * @uses imageGallery::resize()
-  * 
-  * @access protected
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  protected function createThumbnails() {
-    
-    // quit if no image sizes are set
-    if(empty($this->thumbnailWidth) && empty($this->thumbnailHeight))
-      return false;
-    
-    // ->> DELTE OLD THUMBNAILS
-    $thumbnails = $this->readFolder($this->galleryPath.'thumbnails/');
-    
-    if(is_array($thumbnails)) {
-      $oldThumbnails = $thumbnails;
-      // -> CHECK for old thumbnails
-      foreach($this->images as $image) {
-        $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
-        
-        if(in_array($this->galleryPath.'thumbnails/'.$thumbnailName,$thumbnails)) {
-          // unset the thumbnail which are still valid
-          foreach($oldThumbnails as $key => $value) {
-            if($value == $this->galleryPath.'thumbnails/'.$thumbnailName) unset($oldThumbnails[$key]);
-          }
-        }
-      }
-      
-      foreach($oldThumbnails as $oldThumbnail) {
-        // -> delete old thumbnails
-        @unlink($this->documentRoot.$oldThumbnail);
-      }
-    }
-    
-    // resize every image
-    foreach($this->images as $image) {
-    
-      // vars
-      $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
-      $thumbnailPath = $this->galleryPath.'thumbnails/'.$thumbnailName;
-      $imagePath = $this->galleryPath.$image['filename'];
-      $thumbnailSize = (file_exists($this->documentRoot.$thumbnailPath)) ? getimagesize($this->documentRoot.$thumbnailPath) : array(0,0);
-      $sizeDifference = ((empty($this->thumbnailHeight) && $this->thumbnailWidth == $thumbnailSize[0]) || (empty($this->thumbnailWidth) && $this->thumbnailHeight == $thumbnailSize[1]) || ($this->thumbnailWidth  == $thumbnailSize[0] && $this->thumbnailHeight == $thumbnailSize[1]))
-        ? false
-        : true;
-        
-      // create the thumbnail folder
-      if(!is_dir($this->documentRoot.$this->galleryPath.'thumbnails/'))
-        if(!mkdir($this->documentRoot.$this->galleryPath.'thumbnails/'))
-          return false;
-      
-      // resize every thumbnail      
-      if(!file_exists($this->documentRoot.$this->galleryPath.'thumbnails/'.$thumbnailName) || $sizeDifference) {
-        
-        $resize = new Image($imagePath);
-        $resize->resize($this->thumbnailWidth,$this->thumbnailHeight,$this->keepRatio,$this->resizeWhenSmaller);
-        $resize->process('png',$this->documentRoot.$thumbnailPath);
-        unset($resize);
-        
-        $return = true;
-      } else
-        $return = false;
-    }
-    
     // -> create a timestamp when the gallery was edited
-    if($file = @fopen($this->documentRoot.$this->galleryPath.'thumbnails/lastmodification.log',"wb")) {
+    if($file = @fopen($this->documentRoot.$this->path.'lastmodification.log',"wb")) {
       flock($file,LOCK_EX);
         fwrite($file,time());
       flock($file,LOCK_UN);
@@ -530,7 +403,7 @@ class imageGallery {
   * 
   * @return array an array with image links
   * 
-  * @uses imageGallery::$galleryPath  
+  * @uses slideShow::$path  
   * 
   * @access protected
   * @version 1.0
@@ -546,60 +419,26 @@ class imageGallery {
     $tagEnd = ($this->xHtml === true) ? ' />' : '>';
     
     foreach($this->images as $image) {
-      $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
       $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';//' title="'.$image['filename'].'"';
-      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" data-milkbox="imageGallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+      $return[] = '<img src="'.$this->path.$image['filename'].'" alt="slideshow"'.$imageText.$tagEnd."\n";
     }
     
     return $return;    
   }
-
- /**
-  * <b>Name</b> createLinkToGallery()<br />
-  * 
-  * Generates a link to the gallery which shows the {@link imageGallery::$previewImage preview image} and the {@link imageGallery::$title gallery title}.
-  * 
-  * 
-  * @return string the link to the gallery
-  * 
-  * @uses imageGallery::$galleryPath
-  * 
-  * @access public
-  * @version 1.0
-  * <br />
-  * <b>ChangeLog</b><br />
-  *    - 1.0 initial release
-  * 
-  */
-  public function createLinkToGallery() {
-    //var
-    $tagEnd = ($this->xHtml === true) ? ' />' : '>';
-    
-    $thumbnailName = 'thumb_'.str_replace('.','_',$this->previewImage).'.png';
-    $previewImagePath = $this->galleryPath.'thumbnails/'.$thumbnailName;
-    $previewImageSize = getimagesize($this->documentRoot.$previewImagePath);
-    
-    $previewImage = (!empty($this->previewImage)) ? '<img src="'.$previewImagePath.'" alt="previewImage"'.$tagEnd : '';
-    $linkUrl = (strpos($_SERVER['REQUEST_URI'],'?') === false) ? $_SERVER['REQUEST_URI'].'?gallery=' : $_SERVER['REQUEST_URI'].'&amp;gallery=';
-    
-    return '<a href="'.$linkUrl.$this->galleryPath.'">'.$previewImage.'<br />'.$this->title.'</a>';    
-  }
   
  /**
-  * <b>Name</b> showGallery()<br />
+  * <b>Name</b> show()<br />
   * 
-  * Generates the gallery for displaying in an HTML-page
+  * Generates the slide show for displaying in an HTML-page
   * 
-  * <b>Notice</b>: The image gallery is surrounded by an '<div class="feinduraPlugin_imageGallery">' tag to help to style the image gallery.  
+  * <b>Notice</b>: The slide show div tag has also a 'class="feinduraPlugin_slideShow nivoo-slider"' attribute for styling.  
   * 
-  * @param string       $tag         the tag used to create the gallery, can be "ul", "table" or FALSE to return just images
-  * @param int          $breakAfter  (optional) if the $tag parameter is "table" then it defines the number after which the table makes a new row
+  * @param string       $containerId  the ID if the container div, which holds the slideshow
   * @param array        $pageContent (optional) the $pageContent array of the page which uses the plugin, to compare the last edit date with the one from the "lastmodification.log"
   * 
-  * @return string the generated gallery
+  * @return string the generated slide show
   * 
-  * @uses imageGallery::resizeImages()      to check if the images must be resized first and do it
-  * @uses imageGallery::createThumbnail()   to check if thumbnails must be created first
+  * @uses slideShow::resizeImages()      to check if the images must be resized first and do it
   * 
   * @access public
   * @version 1.0
@@ -608,78 +447,24 @@ class imageGallery {
   *    - 1.0 initial release
   * 
   */
-  public function showGallery($tag, $breakAfter = false, $pageContent = false) {    
-    
-    
+  public function show($containerId, $pageContent = false) {    
     
     // CHECK if a $pageContent array is given
-    $lastEditTimestamp = @file_get_contents($this->documentRoot.$this->galleryPath.'thumbnails/lastmodification.log');
-    // -> check if the timestamp of the lastmodification is newer than the one saved in the "thumbnails/lastedit.log"
+    $lastEditTimestamp = @file_get_contents($this->documentRoot.$this->path.'lastmodification.log');
+    // -> check if the timestamp of the lastmodification is newer than the one saved in the "lastmodification.log"
     //echo $this->lastModification.' > '.$lastEditTimestamp;
     if(($pageContent && $pageContent['lastSaveDate'] > $lastEditTimestamp) || $this->lastModification > $lastEditTimestamp) {
       $this->resizeImages();
-      $this->createThumbnails();
-    } 
-    
-    // vars
-    if(is_string($tag) && !empty($tag)) {
-      $startTag = '<'.$tag.'>';
-      $endTag = '</'.$tag.'>';
     }
     
-    // creating the START TR tag
-    if($tag == 'table')
-      $startTag .= '<tr>';
-    
-    // SHOW START-TAG
-    if(!is_bool($tag)) {
-      $gallery .= $startTag;
-    }
-    
-    $count = 1;
+    // add images
     foreach($this->getImages() as $image) {
-          
-      // breaks the CELLs with TR after the given NUMBER of CELLS
-      if($tag == 'table' &&
-         is_numeric($breakAfter) &&
-         ($breakAfter + 1) == $count) {
-        $gallery .= "\n</tr><tr>\n";
-        $count = 1;
-      }
-      
-      // if menuTag is a LIST ------
-      if($tag == 'ul' || $tag == 'ol') {
-        $image = '<li>'.$image."</li>\n";        
-      // if menuTag is a TABLE -----
-      } elseif($tag == 'table')
-        $image = "<td>\n".$image."\n</td>";
-      
       // add image to the gallery
-      $gallery .= $image;
-      
-      // count the table cells
-      $count++;
-    }
-    
-    // fills in the missing TABLE CELLs
-    while($tag == 'table' &&
-          is_numeric($breakAfter) &&
-          $breakAfter >= $count) {
-      $gallery .= "<td></td>\n";
-      $count++;
-    }
-    
-    // creating the END TR tag
-    if($tag == 'table')
-      $endTag = "</tr>\n".$endTag;
-    
-    // SHOW END-TAG
-    if($startTag) {
-      $gallery .= $endTag;
+      $slideshow .= $image;
     }
     
     // RETURN
-    return '<div class="feinduraPlugin_imageGallery">'.$gallery.'</div>';
+    return '<div id="'.$containerId.'" class="feinduraPlugin_slideShow nivoo-slider">'.$slideshow.'</div>';
   }  
 }
 ?>

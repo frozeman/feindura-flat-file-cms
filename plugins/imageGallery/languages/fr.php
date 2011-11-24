@@ -6,8 +6,8 @@
  * 
  * 
  * Every plugin language file has to have:
- *    - $pluginLangFile['plugin_title']        = 'Exampletitle';
- *    - $pluginLangFile['plugin_description']  = 'This is an example plugin dscription.';
+ *    - $pluginLangFile['feinduraPlugin_title']        = 'Exampletitle';
+ *    - $pluginLangFile['feinduraPlugin_description']  = 'This is an example plugin dscription.';
  *  
  * If the array key has an "configname_tip" on the end it will be used as toolTip.
  * E.g.:
@@ -20,13 +20,13 @@
 
 /* PLUGIN ************************************************************************************ */
 
-$pluginLangFile['plugin_title']        = 'gal&eacute;rie des images';
-$pluginLangFile['plugin_description']  = 'Etablit une liste des images dapr&egrave;s un dossier dans la gal&eacute;rie.Chaque image dans le dossier sera affich&eacute;e par une miniature. En cliquant sur les images, elles <a href="http://reghellin.com/milkbox/">lightbox</a> seront affich&eacute;es.';
+$pluginLangFile['feinduraPlugin_title']        = 'gal&eacute;rie des images';
+$pluginLangFile['feinduraPlugin_description']  = 'Etablit une liste des images dapr&egrave;s un dossier dans la gal&eacute;rie.Chaque image dans le dossier sera affich&eacute;e par une miniature. En cliquant sur les images, elles <a href="http://reghellin.com/milkbox/">lightbox</a> seront affich&eacute;es.';
 
 /* CONFIG ************************************************************************************ */
 
 $pluginLangFile['galleryPath']         = 'trace de la gal&eacute;rie';
-$pluginLangFile['galleryPath_tip']     = 'trace absolue du dossier contenant les images:par ex. &quot;/upload/Bildergalerie1&quot;';
+$pluginLangFile['galleryPath_tip']     = 'trace absolue du dossier contenant les images:par ex. &quot;/upload/gallery1&quot;';
 $pluginLangFile['galleryTitle']        = 'titre de la gal&eacute;rie';
 $pluginLangFile['previewImage']        = 'nom du fichier en miniature';
 $pluginLangFile['imageWidth']          = 'largeur de limage';

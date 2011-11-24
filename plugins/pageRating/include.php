@@ -45,11 +45,11 @@
  * @license http://www.gnu.org/licenses GNU General Public License version 3
  * 
  */
-//unset($_SESSION['plugin_pageRating'][$pageContent['id']]['rated']);
+//unset($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated']);
 // var
 $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
 $filePath = str_replace($_SERVER["DOCUMENT_ROOT"],'',$filePath);
-$_SESSION['plugin_pageRating'][$pageContent['id']]['rated'] = ($_SESSION['plugin_pageRating'][$pageContent['id']]['rated'] === 'true') ? 'true' : 'false';
+$_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'true') ? 'true' : 'false';
 $plugin = '';
 
 // -> add mootools if user is not logged into backend
@@ -61,9 +61,9 @@ echo '<script type="text/javascript">
   /* ]]> */
 </script>';
 
-$alreadyRatedClass = ($_SESSION['plugin_pageRating'][$pageContent['id']]['rated'] === 'false') ? ' unrated': '';
+$alreadyRatedClass = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'false') ? ' unrated': '';
 
-$plugin .= '<div class="plugin_pageRating page'.$pageContent['id'].$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['value'].'">';
+$plugin .= '<div class="feinduraPlugin_pageRating page'.$pageContent['id'].$alreadyRatedClass.'" data-pageRating="'.$pageContent['id'].' '.$pageContent['category'].'" title="'.$pageContent['plugins']['pageRating']['value'].'">';
 $plugin .= '<ul>';
 for($i = 1; $i <= 5; $i++) {
   $filled = ($i <= $pageContent['plugins']['pageRating']['value']) ? ' filled' : '' ;
@@ -80,17 +80,17 @@ $plugin .= '<script type="text/javascript">
   var opacLevel = 0.7;
   
   // set already rated to opacity -> opacLevel
-  if('.$_SESSION['plugin_pageRating'][$pageContent['id']]['rated'].') {
-    $$("div.plugin_pageRating.page'.$pageContent['id'].' a").set("opacity",opacLevel).removeClass("unrated");
+  if('.$_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'].') {
+    $$("div.feinduraPlugin_pageRating.page'.$pageContent['id'].' a").set("opacity",opacLevel).removeClass("unrated");
   }
   
-  $$("div.plugin_pageRating.unrated.page'.$pageContent['id'].' a").addEvent("click",function(e){
+  $$("div.feinduraPlugin_pageRating.unrated.page'.$pageContent['id'].' a").addEvent("click",function(e){
     e.stop();
     // var
-    var plugin_pageRating = this.getParent("div.plugin_pageRating");
-    plugin_pageRating.set("tween",{duration:300});
-    var pageIds = plugin_pageRating.getProperty("data-pageRating").split(" ");
-    if(!plugin_pageRating.hasClass("unrated"))
+    var feinduraPlugin_pageRating = this.getParent("div.feinduraPlugin_pageRating");
+    feinduraPlugin_pageRating.set("tween",{duration:300});
+    var pageIds = feinduraPlugin_pageRating.getProperty("data-pageRating").split(" ");
+    if(!feinduraPlugin_pageRating.hasClass("unrated"))
       return;
     
     // save the rating
@@ -99,10 +99,10 @@ $plugin .= '<script type="text/javascript">
       data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&rating="+this.getProperty("data-pageRating"),
       onSuccess: function(rating) {
         if(rating && !isNaN(rating)) {
-          plugin_pageRating.fade(0).get("tween").chain(function(){
+          feinduraPlugin_pageRating.fade(0).get("tween").chain(function(){
              var count = 1;
             // change the stars
-            $$("div.plugin_pageRating a").each(function(link){
+            $$("div.feinduraPlugin_pageRating a").each(function(link){
               if(count <= rating)
                 link.addClass("filled");
               else
@@ -110,15 +110,15 @@ $plugin .= '<script type="text/javascript">
               count++;
             });
             // set rating in title
-            plugin_pageRating.setProperty("title",rating);
-            plugin_pageRating.store("tip:title",rating);
+            feinduraPlugin_pageRating.setProperty("title",rating);
+            feinduraPlugin_pageRating.store("tip:title",rating);
             // remove unrated class
-            plugin_pageRating.fade(opacLevel).removeClass("unrated");
-            plugin_pageRating.fireEvent("rated",rating);
+            feinduraPlugin_pageRating.fade(opacLevel).removeClass("unrated");
+            feinduraPlugin_pageRating.fireEvent("rated",rating);
           });
         // display notice, when rate twice
         } else {
-          plugin_pageRating.set("opacity",opacLevel).removeClass("unrated");
+          feinduraPlugin_pageRating.set("opacity",opacLevel).removeClass("unrated");
         }
       }
     }).send();

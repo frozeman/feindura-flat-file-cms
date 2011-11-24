@@ -1,26 +1,26 @@
 /* FORM */
 
-div.plugin_contactForm {
+div.feinduraPlugin_contactForm {
   width: 500px;
 }
 
-.plugin_contactForm table, .plugin_contactForm td {
+.feinduraPlugin_contactForm table, .feinduraPlugin_contactForm td {
   padding: 0px;
   margin: 0px;
   border: 0px;
   line-height:25px;
   width: 100%;
 }
-.plugin_contactForm td {
+.feinduraPlugin_contactForm td {
   width: 49%;
   padding: 1%;
 }
 
-.plugin_contactForm input {
+.feinduraPlugin_contactForm input {
   width: 96%;
 }
 
-.plugin_contactForm td[colspan] input {
+.feinduraPlugin_contactForm td[colspan] input {
   width: 98%;
 }
 
@@ -64,7 +64,7 @@ div.plugin_contactForm {
 }
 
 /* captcha */
-.plugin_contactForm .captcha_letters {
+.feinduraPlugin_contactForm .captcha_letters {
   display: inline-block;
 	color: #000;
 	background-color: #000;
@@ -74,7 +74,7 @@ div.plugin_contactForm {
 	font-size: 12px;
 	padding: 0px;
 }
-.plugin_contactForm .captcha_background {
+.feinduraPlugin_contactForm .captcha_background {
   display: inline-block;
   color: transparent;
   background-color: transparent;

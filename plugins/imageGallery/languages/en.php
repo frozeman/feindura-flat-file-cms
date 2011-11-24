@@ -6,8 +6,8 @@
  * 
  * 
  * Every plugin language file has to have:
- *    - $pluginLangFile['plugin_title']        = 'Exampletitle';
- *    - $pluginLangFile['plugin_description']  = 'This is an example plugin dscription.';
+ *    - $pluginLangFile['feinduraPlugin_title']        = 'Exampletitle';
+ *    - $pluginLangFile['feinduraPlugin_description']  = 'This is an example plugin dscription.';
  *  
  * If the array key has an "configname_tip" on the end it will be used as toolTip.
  * E.g.:
@@ -19,13 +19,13 @@
 
 /* PLUGIN ************************************************************************************ */
 
-$pluginLangFile['plugin_title']        = 'Image Gallery';
-$pluginLangFile['plugin_description']  = 'Lists images from a folder. A thumbnail will be created automatically for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/">lightbox</a>.';
+$pluginLangFile['feinduraPlugin_title']        = 'Image Gallery';
+$pluginLangFile['feinduraPlugin_description']  = 'Lists images from a folder. A thumbnail will be created automatically for every image. When you click on a image, it will be shown in full size in a <a href="http://reghellin.com/milkbox/">lightbox</a>.';
 
 /* CONFIG ************************************************************************************ */
 
 $pluginLangFile['galleryPath']         = 'path to the gallery';
-$pluginLangFile['galleryPath_tip']     = 'absolut path of the folder where the pictures are in::e.g &quot;/upload/Imagegallery1&quot;';
+$pluginLangFile['galleryPath_tip']     = 'absolut path of the folder, which contains the images::e.g &quot;/upload/Imagegallery1&quot;';
 $pluginLangFile['galleryTitle']        = 'title of the gallery';
 $pluginLangFile['previewImage']        = 'filename of the gallery preview picture';
 $pluginLangFile['imageWidth']          = 'image width';

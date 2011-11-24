@@ -6,8 +6,8 @@
  * 
  * 
  * Every plugin language file has to have:
- *    - $pluginLangFile['plugin_title']        = 'Exampletitle';
- *    - $pluginLangFile['plugin_description']  = 'This is an example plugin dscription.';
+ *    - $pluginLangFile['feinduraPlugin_title']        = 'Exampletitle';
+ *    - $pluginLangFile['feinduraPlugin_description']  = 'This is an example plugin dscription.';
  *  
  * If the array key has an "configname_tip" on the end it will be used as toolTip.
  * E.g.:
@@ -19,8 +19,8 @@
 
 /* PLUGIN ************************************************************************************ */
 
-$pluginLangFile['plugin_title']        = 'Contact Form';
-$pluginLangFile['plugin_description']  = 'Creates a contact form to send emails.';
+$pluginLangFile['feinduraPlugin_title']        = 'Contact Form';
+$pluginLangFile['feinduraPlugin_description']  = 'Creates a contact form to send emails.';
 
 /* CONFIG ************************************************************************************ */
 

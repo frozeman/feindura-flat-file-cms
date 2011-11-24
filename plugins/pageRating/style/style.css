@@ -1,31 +1,31 @@
 /* RATING */
 
-.plugin_pageRating ul {
+.feinduraPlugin_pageRating ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.plugin_pageRating li {
+.feinduraPlugin_pageRating li {
   display: inline-block;
   margin: 0;
   padding: 0;
   float: left;
 }
 
-.plugin_pageRating a.star, .plugin_pageRating a.star:visited {
+.feinduraPlugin_pageRating a.star, .feinduraPlugin_pageRating a.star:visited {
   display: block;
   width: 23px;
   height: 20px;
   background: url("star.png") no-repeat;
   float: left;
 }
-.plugin_pageRating a.star.filled {
+.feinduraPlugin_pageRating a.star.filled {
   background-position: -23px 0;
 }
 /* when modernizer is used */
-.ie6 .plugin_pageRating a.star.filled {
+.ie6 .feinduraPlugin_pageRating a.star.filled {
   background-position: -23px 0 !important;
 }
-.plugin_pageRating.unrated a.star:hover, .plugin_pageRating.unrated a.star:focus {
+.feinduraPlugin_pageRating.unrated a.star:hover, .feinduraPlugin_pageRating.unrated a.star:focus {
   background-position: -46px 0;
 }

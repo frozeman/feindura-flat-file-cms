@@ -1,6 +1,6 @@
 feindura - Flat File Content Management System
 ==============================================
-imageGallery plugin
+slideShow plugin
 ==============================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -24,14 +24,14 @@ Fabian Vogelsteller <http://frozeman.de>
 
 
 ### DESCRIPTION
-This plugin creates automatically an gallery from a folder containing images. On the first load of the plugin in the website,
-the images will be resized to the size set in the plugin settings and thumbnails will be created.
+This plugin creates automatically a slide show from a folder containing images. On the first load of the plugin in the website,
+the images will be resized to the size set in the plugin settings.
 
 ### USAGE
-The imageGallery plugin can be displayed in your website with the showPlugins('imageGallery',$pageId) method from the feindura class (when activated in the page with the $pageId).
+The slideShow plugin can be displayed in your website with the showPlugins('slideShow',$pageId) method from the feindura class (when activated in the page with the $pageId).
 
 ### STYLING
-To style the imageGallery with css use the ".feinduraPlugin_imageGallery" class.
+To style the slideShow with css use the ".feinduraPlugin_slideShow" class.
 
 ### ADDITIONAL
 You can also add image captions by placing a "texts.txt" or "captions.txt" in the folder where the images are, with the following format:
@@ -39,9 +39,9 @@ filename1.jpg###image text
 filename2.png###another image text
 ...
 
-The imageGallery class can also be used without feindura as a image gallery in your websites!
+The imageGallery class can also be used without feindura as a slideShow in your websites!
 
 
 ### USES
-milkbox http://reghellin.com/milkbox/
+NivooSlider http://www.johannes-fischer.de/labs/nivoo-slider/
 MooTools http://mootools.net/ (Attention!! could have conflicts with other frameworks, used by your website!!)

@@ -1,6 +1,6 @@
 <?php
 /**
- * GERMAN (DE) language-file for the pageRating plugin
+ * ENGLISH (EN) language-file for the imageGallery plugin
  * 
  * NEEDS a RETURN $pluginLangFile; at the END
  * 
@@ -14,19 +14,22 @@
  * $pluginLangFile['exampleconfig_tip'] = 'Example config tooltip text';
  * 
  * @package [Plugins]
- * @subpackage pageRating
+ * @subpackage slideShow
  */
 
 /* PLUGIN ************************************************************************************ */
 
-$pluginLangFile['feinduraPlugin_title']        = 'Bewertung';
-$pluginLangFile['feinduraPlugin_description']  = 'Zeigt eine 5 Sterne Bewertungsmöglichkeit an.';
+$pluginLangFile['feinduraPlugin_title']        = 'Slide show';
+$pluginLangFile['feinduraPlugin_description']  = 'Creates a slide show from images in a folder. The images will be automatically resized to the given size. See <a href="http://www.johannes-fischer.de/labs/nivoo-slider/">Nivooslider</a>.';
 
 /* CONFIG ************************************************************************************ */
 
-$pluginLangFile['valueNumber'] = 'Bewertung';
-$pluginLangFile['votesNumber'] = 'Anazhl der Bewertungen';
-
+$pluginLangFile['path']         = 'path to the images';
+$pluginLangFile['path_tip']     = 'absolut path of the folderr, which contains the images::e.g &quot;/upload/slideshow1&quot;';
+$pluginLangFile['imageWidth']          = 'image width';
+$pluginLangFile['imageWidth_tip']      = 'in pixel';
+$pluginLangFile['imageHeight']         = 'image height';
+$pluginLangFile['imageHeight_tip']     = 'in pixel';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

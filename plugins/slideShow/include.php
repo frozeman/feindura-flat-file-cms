@@ -1,5 +1,5 @@
 <?php
-/* imageGallery plugin */
+/* slideShow plugin */
 /*
  * feindura - Flat File Content Management System
  * Copyright (C) Fabian Vogelsteller [frozeman.de]
@@ -16,7 +16,7 @@
  * if not,see <http://www.gnu.org/licenses/>.
  */
 /** 
- * The include file for the imageGallery plugin  
+ * The include file for the slideShow plugin  
  * 
  * See the README.md for more.
  * 
@@ -36,7 +36,7 @@
  * </code>
  * 
  * @package [Plugins]
- * @subpackage imageGallery
+ * @subpackage slideShow
  * 
  * @author Fabian Vogelsteller <fabian@feindura.org>
  * @copyright Fabian Vogelsteller
@@ -48,8 +48,24 @@
 $filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
 $filePath = str_replace(DOCUMENTROOT,'',$filePath);
 $plugin = '';
+$uniqueId = rand(0,999);
 
-// ->> add MooTools and MilkBox
+// set new size
+$resizeWidthBefore = ($pluginConfig['imageWidth'])
+  ? "$('slideShow".$uniqueId."').setStyle('width',".$pluginConfig['imageWidth'].");"
+  : '';
+$resizeHeightBefore = ($pluginConfig['imageHeight'])
+  ? "$('slideShow".$uniqueId."').setStyle('height',".$pluginConfig['imageHeight'].");"
+  : '';
+  
+$resizeWidthAfter = ($pluginConfig['imageWidth'])
+  ? "$$('#slideShow".$uniqueId." div.nivoo-slider-holder').setStyle('width',".$pluginConfig['imageWidth'].");"
+  : '';
+$resizeHeightAfter = ($pluginConfig['imageHeight'])
+  ? "$$('#slideShow".$uniqueId." div.nivoo-slider-holder').setStyle('height',".$pluginConfig['imageHeight'].");"
+  : '';
+
+// ->> add MooTools and NivooSlider
 echo '<script type="text/javascript">
   /* <![CDATA[ */
   // add mootools if user is not logged into backend
@@ -57,25 +73,42 @@ echo '<script type="text/javascript">
     document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-core-1.3.2.js"%3E%3C/script%3E\'));
     document.write(unescape(\'%3Cscript src="'.$this->adminConfig['basePath'].'library/thirdparty/javascripts/mootools-more-1.3.2.1.js"%3E%3C/script%3E\'));
   }
-  // add milkbox
-  document.write(unescape(\'%3Cscript src="'.$filePath.'/milkbox/milkbox.js"%3E%3C/script%3E\')); 
+  // add NivooSlider
+  document.write(unescape(\'%3Cscript src="'.$filePath.'/NivooSlider/NivooSlider.js"%3E%3C/script%3E\')); 
   /* ]]> */
+  </script>';
+  
+echo '<script type="text/javascript">  
+  window.addEvent(\'domready\', function () {
+    // set size
+    '.$resizeWidthBefore.'
+    '.$resizeHeightBefore.'
+  
+    // initialize Nivoo-Slider
+    new NivooSlider($(\'slideShow'.$uniqueId.'\'), {
+    	effect: \'fade\',
+    	interval: 5000,
+    	orientation: \'horizontal\'
+    });
+    
+    // set size for the div.nivoo-slider-holder
+    '.$resizeWidthAfter.'
+    '.$resizeHeightAfter.'
+  });
 </script>';
 
-// load the imageGallery class
-require_once('imageGallery.php');
+// load the slideShow class
+require_once('slideShow.php');
 
-// create an instance of the imageGallery class
-$gallery = new imageGallery($pluginConfig['galleryPath'],DOCUMENTROOT);
+// create an instance of the slideShow class
+$slideShow = new slideShow($pluginConfig['path'],DOCUMENTROOT);
 
 // set configs
-$gallery->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
-$gallery->imageWidth = $pluginConfig['imageWidth'];
-$gallery->imageHeight = $pluginConfig['imageHeight'];
-$gallery->thumbnailWidth = $pluginConfig['thumbnailWidth'];
-$gallery->thumbnailHeight = $pluginConfig['thumbnailHeight'];
+$slideShow->xHtml = $this->xHtml; // set the xHtml property rom the feindura class
+$slideShow->imageWidth = $pluginConfig['imageWidth'];
+$slideShow->imageHeight = $pluginConfig['imageHeight'];
 
-$plugin .= $gallery->showGallery($pluginConfig['tag'],$pluginConfig['breakAfter'],$pageContent);
+$plugin .= $slideShow->show('slideShow'.$uniqueId,$pageContent);
 
 // RETURN the plugin
 // *****************

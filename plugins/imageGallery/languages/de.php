@@ -6,8 +6,8 @@
  * 
  * 
  * Every plugin language file has to have:
- *    - $pluginLangFile['plugin_title']        = 'Exampletitle';
- *    - $pluginLangFile['plugin_description']  = 'This is an example plugin dscription.';
+ *    - $pluginLangFile['feinduraPlugin_title']        = 'Exampletitle';
+ *    - $pluginLangFile['feinduraPlugin_description']  = 'This is an example plugin dscription.';
  *  
  * If the array key has an "configname_tip" on the end it will be used as toolTip.
  * E.g.:
@@ -19,8 +19,8 @@
 
 /* PLUGIN ************************************************************************************ */
 
-$pluginLangFile['plugin_title']        = 'Bildergalerie';
-$pluginLangFile['plugin_description']  = 'Listet Bilder aus einem Ordner als Galerie auf. Dabei wird für jedes Bild im Ordner automatisch ein Vorschaubild erstellt. Beim anklicken werden die Bilder in einer <a href="http://reghellin.com/milkbox/">Lightbox</a> vergr&ouml;&szlig;ert.';
+$pluginLangFile['feinduraPlugin_title']        = 'Bildergalerie';
+$pluginLangFile['feinduraPlugin_description']  = 'Listet Bilder aus einem Ordner als Galerie auf. Dabei wird für jedes Bild im Ordner automatisch ein Vorschaubild erstellt. Beim anklicken werden die Bilder in einer <a href="http://reghellin.com/milkbox/">Lightbox</a> vergr&ouml;&szlig;ert.';
 
 /* CONFIG ************************************************************************************ */
 

@@ -631,17 +631,17 @@ $blockContentEdited = (isset($pageContent['plugins']))
         $pluginFolderName = basename($pluginFolder);       
         $pluginConfig = @include(DOCUMENTROOT.$pluginFolder.'/config.php');
         $pluginLangFile = @include(DOCUMENTROOT.$pluginFolder.'/languages/'.$pluginCountryCode.'.php');
-        $pluginName = (isset($pluginLangFile['plugin_title'])) ? $pluginLangFile['plugin_title'] : $pluginFolderName;
+        $pluginName = (isset($pluginLangFile['feinduraPlugin_title'])) ? $pluginLangFile['feinduraPlugin_title'] : $pluginFolderName;
         
         // LIST PLUGINS
         if(in_array($pluginFolderName,$activatedPlugins)) {
           ?>          
           <table>          
           <tr><td class="left checkboxes">
-          <input type="checkbox" class="inBlockSliderLink" id="plugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?= ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
+          <input type="checkbox" class="inBlockSliderLink" id="feinduraPlugin_<?= $pluginFolderName; ?>" name="plugins[<?= $pluginFolderName; ?>][active]" value="true" <?= ($pageContent['plugins'][$pluginFolderName]['active']) ? 'checked' : ''; ?> />
           </td><td class="right checkboxes">
-            <label for="plugin_<?= $pluginFolderName; ?>"><b><?= $pluginName; ?></b></label>
-            <p><?= $pluginLangFile['plugin_description']; ?></p>
+            <label for="feinduraPlugin_<?= $pluginFolderName; ?>"><b><?= $pluginName; ?></b></label>
+            <p><?= $pluginLangFile['feinduraPlugin_description']; ?></p>
           </td></tr>
           </table>                   
           <?php
@@ -674,9 +674,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
                 $checked = ($value) ? 'checked' : '';
                 echo '<tr><td class="left checkboxes">
                       <input type="hidden" name="plugins['.$pluginFolderName.']['.$key.']" value="false" />
-                      <input type="checkbox" id="plugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.' '.$checked.' />
+                      <input type="checkbox" id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'" name="plugins['.$pluginFolderName.']['.$key.']" value="true"'.$keyTip.' '.$checked.' />
                       </td><td class="right checkboxes">
-                        <label for="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>        
+                        <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>        
                       </td>';
                       
                 $checkboxes = true;
@@ -685,9 +685,9 @@ $blockContentEdited = (isset($pageContent['plugins']))
                 echo ($checkboxes) ? '<tr><td class="leftTop"></td><td></td></tr>' : '';
 
                 echo '<tr><td class="left">
-                      <label for="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
+                      <label for="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$keyTip.'>'.$keyName.'</label>
                       </td><td class="right">
-                        <input id="plugin_'.$pluginFolderName.'_config_'.$key.'"'.$inputLength.' name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.' />        
+                        <input id="feinduraPlugin_'.$pluginFolderName.'_config_'.$key.'"'.$inputLength.' name="plugins['.$pluginFolderName.']['.$key.']" value="'.$value.'"'.$keyTip.' />        
                       </td></tr>';
                       
                 $checkboxes = false;              

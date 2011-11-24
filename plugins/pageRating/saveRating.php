@@ -30,7 +30,7 @@ if(isset($_POST['rating'])) {
    */
   require_once(dirname(__FILE__)."/../../feindura.include.php");
 
-  if($_SESSION['plugin_pageRating'][$_POST['page']]['rated'] === 'true')
+  if($_SESSION['feinduraPlugin_pageRating'][$_POST['page']]['rated'] === 'true')
     die('###RATED###');
   
   // read the page
@@ -42,7 +42,7 @@ if(isset($_POST['rating'])) {
 
   // ->> save the page
   if(GeneralFunctions::savePage($pageContent)) {
-    $_SESSION['plugin_pageRating'][$_POST['page']]['rated'] = 'true';
+    $_SESSION['feinduraPlugin_pageRating'][$_POST['page']]['rated'] = 'true';
   // ->> on failure, return the unsaved data
   } else {
     $return = '####SAVING-ERROR####';

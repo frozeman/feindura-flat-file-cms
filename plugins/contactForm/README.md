@@ -30,7 +30,7 @@ This plugin creates an contactform to send an email, it uses also a simple captc
 The contactForm plugin can be displayed in your website with the showPlugins('contactForm',$pageId) method from the feindura class (when activated in the page with the $pageId).
 
 ### STYLING
-To style the contactForm with css use the ".plugin_contactForm" class.
+To style the contactForm with css use the ".feinduraPlugin_contactForm" class.
 
 ### ADDITIONAL
 The contactForm class can also be used without feindura in your websites!

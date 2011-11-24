@@ -1,7 +1,7 @@
 <?php
 /**
  * @package [Plugins]
- * @subpackage imageGallery
+ * @subpackage slideShow
  * 
  * If the key contains "url","path","number","bool" or "text" it will uses these XssFilter to check the values.
  * If none of this keywords is present it uses the {@link XssFilter::text} filter.
@@ -19,13 +19,9 @@
  * @see XssFilter::text
  */ 
 
-$pluginConfig['galleryPath']         = '';
+$pluginConfig['path']                = '';
 $pluginConfig['imageWidth']          = 800;
 $pluginConfig['imageHeight']         = null;
-$pluginConfig['thumbnailWidth']      = 160;
-$pluginConfig['thumbnailHeight']     = null;
-$pluginConfig['tag']                 = 'table';
-$pluginConfig['breakAfter']          = 3;
 
 return $pluginConfig;
 ?>

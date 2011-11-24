@@ -30,24 +30,24 @@ This plugin allows you to create a rating for each page.
 Just add the plugin to a page (with the showPlugins() method of the feindura class), and your visitors can rate this page.
 
 ### EVENTS
-Event 'rated' will be fired on the "div.plugin_pageRating" element, and the passed parameter is the new rating value.
+Event 'rated' will be fired on the "div.feinduraPlugin_pageRating" element, and the passed parameter is the new rating value.
 Example to catch a rating event:
 
-    $$('div.plugin_pageRating').addEvent('rated',function(rating){
+    $$('div.feinduraPlugin_pageRating').addEvent('rated',function(rating){
       alert('The new value is: ' + rating);
     });
     
 
 ### STYLING
-To generally style the rating with css use the ".plugin_pageRating" class.
+To generally style the rating with css use the ".feinduraPlugin_pageRating" class.
 You can use your own stars by just overwriting the "a.star" class, and set your own background-image and size.
 When a star is selected it gets the ".filled" class too.
 You should apply only hover/focus effects to a "a.star" link when the ratings div has the class "unrated" like here:
-".plugin_pageRating.unrated a.star:hover" (so the hover effect get disabled when the user rated already, because then the unrated class will be removed).
+".feinduraPlugin_pageRating.unrated a.star:hover" (so the hover effect get disabled when the user rated already, because then the unrated class will be removed).
 
 The HTML structure goes like that:
 
-    <div class="plugin_pageRating unrated">
+    <div class="feinduraPlugin_pageRating unrated">
       <ul>
         <li><a href="#" class="star filled"></a></li>
         <li><a href="#" class="star filled"></a></li>
