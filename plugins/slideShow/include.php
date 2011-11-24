@@ -80,20 +80,22 @@ echo '<script type="text/javascript">
   
 echo '<script type="text/javascript">  
   window.addEvent(\'domready\', function () {
-    // set size
-    '.$resizeWidthBefore.'
-    '.$resizeHeightBefore.'
-  
-    // initialize Nivoo-Slider
-    new NivooSlider($(\'slideShow'.$uniqueId.'\'), {
-    	effect: \'fade\',
-    	interval: 5000,
-    	orientation: \'horizontal\'
-    });
+    if($(\'slideShow'.$uniqueId.'\') != null) {
+      // set size
+      '.$resizeWidthBefore.'
+      '.$resizeHeightBefore.'
     
-    // set size for the div.nivoo-slider-holder
-    '.$resizeWidthAfter.'
-    '.$resizeHeightAfter.'
+      // initialize Nivoo-Slider
+      new NivooSlider($(\'slideShow'.$uniqueId.'\'), {
+      	effect: \'fade\',
+      	interval: 5000,
+      	orientation: \'horizontal\'
+      });
+      
+      // set size for the div.nivoo-slider-holder
+      '.$resizeWidthAfter.'
+      '.$resizeHeightAfter.'
+    }
   });
 </script>';
 
