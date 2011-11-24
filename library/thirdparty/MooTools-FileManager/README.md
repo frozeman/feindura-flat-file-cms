@@ -81,7 +81,7 @@ Options
 * hideOnClick: (boolean, defaults to *false*) When true, hides the FileManager when the area outside of it is clicked
 * hideOnSelect: (boolean, defaults to *true*) If set to false, it leavers the FM open after you've clicked the select button, allowing for faster interaction when selecting multiple images.
 * hideOverlay: (boolean, defaults to *false*) When true, hides the background overlay
-* hideQonDelete: (boolean, defaults to *false*) When true, hides the Dialog asking 'are you sure' when you have clicked on any 'delete file/directory' button
+* hideOnDelete: (boolean, defaults to *false*) When true, hides the Dialog asking 'are you sure' when you have clicked on any 'delete file/directory' button
 * zIndex: (integer, defaults to *1000*) The z-index at which the file manager will be placed (CSS attribute). The overlay will be placed at (zIndex - 1), the highest used z-index offset is (zIndex + 3000)
 * styles: (object, defaults to *{}*) Extra styles which will be assigned to the file manager <div>
 * listPaginationSize: (integer, defaults to *100*) When non-zero, add pagination, i.e. split the view of huge directories into pages of N items each (this speeds up rendering and interaction)

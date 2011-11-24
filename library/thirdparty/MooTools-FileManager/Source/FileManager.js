@@ -91,7 +91,7 @@ var FileManager = new Class({
 		hideOnClick: false,
 		hideClose: false,
 		hideOverlay: false,
-		hideQonDelete: false,
+		hideOnDelete: false,
 		hideOnSelect: true,               // (boolean). Default to true. If set to false, it leavers the FM open after a picture select.
     showDirGallery: true,
 		thumbSize4DirGallery: 120,        // To set the thumb gallery container size for each thumb (dir-gal-thumb-bg); depending on size, it will pick either the small or large thumbnail provided by the backend and scale that one
@@ -1463,7 +1463,7 @@ var FileManager = new Class({
 	},
 
 	destroy: function(file) {
-		if (this.options.hideQonDelete) {
+		if (this.options.hideOnDelete) {
 			this.destroy_noQasked(file);
 		}
 		else {
