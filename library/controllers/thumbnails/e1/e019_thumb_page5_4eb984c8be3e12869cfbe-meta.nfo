@@ -1,0 +1,221 @@
+<?php
+
+// legal URL: /thumbnails/thumb_page5_4eb984c8be3e1.png
+
+$statdata = array (
+  0 => 234881028,
+  1 => 8067632,
+  2 => 33188,
+  3 => 1,
+  4 => 501,
+  5 => 20,
+  6 => 0,
+  7 => 60929,
+  8 => 1322103306,
+  9 => 1320781000,
+  10 => 1322101213,
+  11 => 4096,
+  12 => 120,
+  'dev' => 234881028,
+  'ino' => 8067632,
+  'mode' => 33188,
+  'nlink' => 1,
+  'uid' => 501,
+  'gid' => 20,
+  'rdev' => 0,
+  'size' => 60929,
+  'atime' => 1322103306,
+  'mtime' => 1320781000,
+  'ctime' => 1322101213,
+  'blksize' => 4096,
+  'blocks' => 120,
+);
+
+$data = array (
+  'mime_type' => 'image/png',
+  'analysis' => 
+  array (
+    'GETID3_VERSION' => '1.8.5-20110218',
+    'filesize' => 60929,
+    'avdataoffset' => 0,
+    'avdataend' => 60929,
+    'fileformat' => 'png',
+    'video' => 
+    array (
+      'dataformat' => 'png',
+      'lossless' => false,
+      'resolution_x' => 233,
+      'resolution_y' => 128,
+      'bits_per_sample' => 32,
+      'compression_ratio' => 0.510737996245,
+    ),
+    'encoding' => 'UTF-8',
+    'filename' => 'thumb_page5_4eb984c8be3e1.png',
+    'filepath' => '/Users/frozeman/Development/Server/_feindura/_upload/thumbnails',
+    'filenamepath' => '/Users/frozeman/Development/Server/_feindura/_upload/thumbnails/thumb_page5_4eb984c8be3e1.png',
+    'mime_type' => 'image/png',
+    'png' => 
+    array (
+      'IHDR' => 
+      array (
+        'header' => 
+        array (
+          'data_length' => 13,
+          'type_text' => 'IHDR',
+          'type_raw' => 1229472850,
+          'data' => '' . "\0" . '' . "\0" . '' . "\0" . 'é' . "\0" . '' . "\0" . '' . "\0" . '€' . "\0" . '' . "\0" . '' . "\0" . '',
+          'crc' => 4006366833,
+          'flags' => 
+          array (
+            'ancilliary' => false,
+            'private' => false,
+            'reserved' => false,
+            'safe_to_copy' => false,
+          ),
+        ),
+        'width' => 233,
+        'height' => 128,
+        'raw' => 
+        array (
+          'bit_depth' => 8,
+          'color_type' => 6,
+          'compression_method' => 0,
+          'filter_method' => 0,
+          'interlace_method' => 0,
+        ),
+        'compression_method_text' => 'deflate/inflate',
+        'color_type' => 
+        array (
+          'palette' => false,
+          'true_color' => true,
+          'alpha' => true,
+        ),
+      ),
+      'IDAT' => 
+      array (
+        0 => 
+        array (
+          'header' => 
+          array (
+            'data_length' => 3444,
+            'type_text' => 'IDAT',
+            'type_raw' => 1229209940,
+            'crc' => 2459475704,
+            'flags' => 
+            array (
+              'ancilliary' => false,
+              'private' => false,
+              'reserved' => false,
+              'safe_to_copy' => false,
+            ),
+          ),
+        ),
+      ),
+      'IEND' => 
+      array (
+        'header' => 
+        array (
+          'data_length' => 0,
+          'type_text' => 'IEND',
+          'type_raw' => 1229278788,
+          'crc' => 2923585666,
+          'flags' => 
+          array (
+            'ancilliary' => false,
+            'private' => false,
+            'reserved' => false,
+            'safe_to_copy' => false,
+          ),
+          'data' => '',
+        ),
+      ),
+      'encoding' => 'UTF-8',
+    ),
+  ),
+  'mime_type from file extension' => 'image/png',
+  'file_info_dump' => 
+  array (
+    'filesize' => 60929,
+    'AV data offset' => 0,
+    'AV data end' => 60929,
+    'file format' => 'png',
+    'video' => 
+    array (
+      'data format' => 'png',
+      'lossless' => false,
+      'resolution x' => 233,
+      'resolution y' => 128,
+      'bits per sample' => 32,
+      'compression ratio' => 0.510737996245,
+    ),
+    'encoding' => 'UTF-8',
+    'mime type' => 'image/png',
+    'png.IHDR.header' => 
+    array (
+      'data length' => 13,
+      'type text' => 'IHDR',
+      'type raw' => 1229472850,
+      'data' => 
+      BinaryDataContainer::__set_state(array(
+         'binarydata' => '000000e9 00000080 08060000 00',
+         'binarydata_mode' => 'procd',
+         'id3_procsupport_obj' => true,
+      )),
+      'crc' => 4006366833,
+      'flags' => 
+      array (
+        'ancilliary' => false,
+        'private' => false,
+        'reserved' => false,
+        'safe to copy' => false,
+      ),
+    ),
+    'png.IHDR.width' => 233,
+    'png.IHDR.height' => 128,
+    'png.IHDR.raw' => 
+    array (
+      'bit depth' => 8,
+      'color type' => 6,
+      'compression method' => 0,
+      'filter method' => 0,
+      'interlace method' => 0,
+    ),
+    'png.IHDR.compression method text' => 'deflate/inflate',
+    'png.IHDR.color type' => 
+    array (
+      'palette' => false,
+      'true color' => true,
+      'alpha' => true,
+    ),
+    'png.IDAT.0.header' => 
+    array (
+      'data length' => 3444,
+      'type text' => 'IDAT',
+      'type raw' => 1229209940,
+      'crc' => 2459475704,
+      'flags' => 
+      array (
+        'ancilliary' => false,
+        'private' => false,
+        'reserved' => false,
+        'safe to copy' => false,
+      ),
+    ),
+    'png.IEND.header' => 
+    array (
+      'data length' => 0,
+      'type text' => 'IEND',
+      'type raw' => 1229278788,
+      'crc' => 2923585666,
+      'flags' => 
+      array (
+        'ancilliary' => false,
+        'private' => false,
+        'reserved' => false,
+        'safe to copy' => false,
+      ),
+      'data' => '',
+    ),
+    'png.encoding' => 'UTF-8',
+  ),
+);

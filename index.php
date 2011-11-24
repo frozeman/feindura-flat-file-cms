@@ -177,6 +177,7 @@ if($_GET['site'] == 'addons') {
     var fileManager = new FileManager({
         url: 'library/controllers/filemanager.controller.php',
         assetBasePath: 'library/thirdparty/MooTools-FileManager/Assets',
+        documentRootPath: '<?= DOCUMENTROOT; ?>',
         language: '<?= $_SESSION["feinduraSession"]["language"]; ?>',
         destroy: true,
         upload: true,
@@ -186,9 +187,8 @@ if($_GET['site'] == 'addons') {
         download: true,
         hideOnClick: true,
         hideOverlay: true,
-        hideQonDelete: false,
+        hideOnDelete: false,
         listPaginationSize: 100,
-        detailInfoMode: false,
         onShow: function() {
             window.location.hash = '#none';
             $('dimContainer').setStyle('opacity',0);

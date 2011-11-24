@@ -1,0 +1,58 @@
+<?php
+
+// legal URL: /package.yml
+
+$statdata = array (
+  0 => 234881028,
+  1 => 8070673,
+  2 => 33261,
+  3 => 1,
+  4 => 501,
+  5 => 20,
+  6 => 0,
+  7 => 137,
+  8 => 1322103605,
+  9 => 1308316882,
+  10 => 1322103600,
+  11 => 4096,
+  12 => 8,
+  'dev' => 234881028,
+  'ino' => 8070673,
+  'mode' => 33261,
+  'nlink' => 1,
+  'uid' => 501,
+  'gid' => 20,
+  'rdev' => 0,
+  'size' => 137,
+  'atime' => 1322103605,
+  'mtime' => 1308316882,
+  'ctime' => 1322103600,
+  'blksize' => 4096,
+  'blocks' => 8,
+);
+
+$data = array (
+  'mime_type' => 'application/octet-stream',
+  'analysis' => 
+  array (
+    'GETID3_VERSION' => '1.8.5-20110218',
+    'filesize' => 137,
+    'encoding' => 'UTF-8',
+    'filename' => 'package.yml',
+    'filepath' => '/Users/frozeman/Development/Server/_feindura/_upload',
+    'filenamepath' => '/Users/frozeman/Development/Server/_feindura/_upload/package.yml',
+    'error' => 
+    array (
+      0 => 'unable to determine file format',
+    ),
+    'mime_type' => 'application/octet-stream',
+  ),
+  'mime_type from file extension' => 'application/octet-stream',
+  'file_info_dump' => 
+  array (
+    'filesize' => 137,
+    'encoding' => 'UTF-8',
+    'error.0' => 'unable to determine file format',
+    'mime type' => 'application/octet-stream',
+  ),
+);

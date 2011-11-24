@@ -1,0 +1,104 @@
+<?php
+
+// legal URL: /thumbnails/thumb_page15_4ecd641567f21.jpg
+
+$statdata = array (
+  0 => 234881028,
+  1 => 8067627,
+  2 => 33188,
+  3 => 1,
+  4 => 501,
+  5 => 20,
+  6 => 0,
+  7 => 212887,
+  8 => 1322103307,
+  9 => 1322083557,
+  10 => 1322101213,
+  11 => 4096,
+  12 => 416,
+  'dev' => 234881028,
+  'ino' => 8067627,
+  'mode' => 33188,
+  'nlink' => 1,
+  'uid' => 501,
+  'gid' => 20,
+  'rdev' => 0,
+  'size' => 212887,
+  'atime' => 1322103307,
+  'mtime' => 1322083557,
+  'ctime' => 1322101213,
+  'blksize' => 4096,
+  'blocks' => 416,
+);
+
+$data = array (
+  'mime_type' => 'image/jpeg',
+  'analysis' => 
+  array (
+    'GETID3_VERSION' => '1.8.5-20110218',
+    'filesize' => 212887,
+    'avdataoffset' => 0,
+    'avdataend' => 212887,
+    'fileformat' => 'jpg',
+    'video' => 
+    array (
+      'dataformat' => 'jpg',
+      'lossless' => false,
+      'bits_per_sample' => 24,
+      'pixel_aspect_ratio' => 1,
+      'resolution_x' => 960,
+      'resolution_y' => 500,
+      'compression_ratio' => 0.147838194444,
+    ),
+    'warning' => 
+    array (
+      0 => 'exif_read_data() cannot parse non-EXIF data in APP1 (expected "Exif", found "http")',
+    ),
+    'encoding' => 'UTF-8',
+    'filename' => 'thumb_page15_4ecd641567f21.jpg',
+    'filepath' => '/Users/frozeman/Development/Server/_feindura/_upload/thumbnails',
+    'filenamepath' => '/Users/frozeman/Development/Server/_feindura/_upload/thumbnails/thumb_page15_4ecd641567f21.jpg',
+    'mime_type' => 'image/jpeg',
+    'xmp' => 
+    array (
+      'xmp' => 
+      array (
+        'CreatorTool' => 'Adobe Fireworks CS5 11.0.1.7 Macintosh',
+        'CreateDate' => '2011-11-23T21:22:44Z',
+        'ModifyDate' => '2011-11-23T21:25:57Z',
+      ),
+      'dc' => 
+      array (
+        'format' => 'image/jpeg',
+      ),
+    ),
+  ),
+  'mime_type from file extension' => 'image/jpeg',
+  'file_info_dump' => 
+  array (
+    'filesize' => 212887,
+    'AV data offset' => 0,
+    'AV data end' => 212887,
+    'file format' => 'jpg',
+    'video' => 
+    array (
+      'data format' => 'jpg',
+      'lossless' => false,
+      'bits per sample' => 24,
+      'pixel aspect ratio' => 1,
+      'resolution x' => 960,
+      'resolution y' => 500,
+      'compression ratio' => 0.147838194444,
+    ),
+    'warning.0' => 'exif_read_data() cannot parse non-EXIF data in APP1 (expected "Exif", found "http")',
+    'encoding' => 'UTF-8',
+    'mime type' => 'image/jpeg',
+    'xmp.xmp' => 
+    array (
+      'CreatorTool' => 'Adobe Fireworks CS5 11.0.1.7 Macintosh',
+      'CreateDate' => '2011-11-23T21:22:44Z',
+      'ModifyDate' => '2011-11-23T21:25:57Z',
+    ),
+    'xmp.dc.format' => 'image/jpeg',
+  ),
+);

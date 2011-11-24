@@ -3717,19 +3717,9 @@ FileManager.Dialog = new Class({
 		var autofocus_el = (this.options.autofocus_on ? this.el.getElement(this.options.autofocus_on) : (this.el.getElement('button.filemanager-dialog-confirm') || this.el.getElement('button')));
 		if (autofocus_el)
 		{
-			/*if (('autofocus' in autofocus_el) && !(Browser.Engine && Browser.Engine.webkit))
-			{
-				// HTML5 support: see    http://diveintohtml5.org/detect.html
-				//
-				// Unfortunately, it's not really working for me in webkit browsers (Chrome, Safari)  :-((
-				*/
-				autofocus_el.setProperty('autofocus', 'autofocus');
-				autofocus_el.focus();
-			/*}
-			else
-			{
-				// Safari / Chrome have trouble focussing on things not yet fully rendered!
-			}*/
+			// HTML5 support: see    http://diveintohtml5.org/detect.html
+			autofocus_el.setProperty('autofocus', 'autofocus');
+      autofocus_el.focus();
 		}
 		this.el.center().fade(1).get('tween').chain((function() {
 				// Safari / Chrome have trouble focussing on things not yet fully rendered!

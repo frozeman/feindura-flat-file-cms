@@ -1560,9 +1560,9 @@ Version History
    Added "Morgan Multimedia Motion JPEG2000" (MJ2C), "DivX v5" (DX50)
      and "XviD" (XVID) codecs to list of known codecs in
      getid3.riff.php
-   Changed GETID3_INCLUDEPATH path separators to forced /
+   Changed GETID3_INCLUDEPATH path seperators to forced /
      (from \ for Windows)
-   Modified getid3.check.php to only change \ directory separators to
+   Modified getid3.check.php to only change \ directory seperators to
      / on Windows operating systems
    Modified getid3.check.php to handle larger-than-2GB files (which
      now do not return a filesize)
