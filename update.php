@@ -17,7 +17,7 @@
  * update.php
  * 
  * for updating from 
- * 1.0 rc -> 1.1.5
+ * 1.0 rc -> 1.1.6
  *
  * @version 0.1.6
  */
@@ -35,7 +35,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 // gets the version of the feindura CMS
 
 $oldVersion = '>= 1.0 rc';
-$newVersion = '1.1.5';
+$newVersion = '1.1.6';
 
 ?>
 <!DOCTYPE html>
