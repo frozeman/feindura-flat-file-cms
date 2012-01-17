@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 796
+Build 797
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,6 +21,10 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
+  
+  build 797: imageGallery: add unique id to the milkbox imageGallery name
+  
+1.1.6  
   
   build 796: create 1.1.6 release
   build 795: fixed the filemanager thumbnail issue (now showing thumbnails again)

@@ -548,7 +548,7 @@ class imageGallery {
     foreach($this->images as $image) {
       $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
       $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';//' title="'.$image['filename'].'"';
-      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" data-milkbox="imageGallery"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" data-milkbox="imageGallery'.md5(uniqid(rand(),1)).'"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    
