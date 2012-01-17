@@ -24,6 +24,7 @@ $pluginConfig['imageWidth']          = 800;
 $pluginConfig['imageHeight']         = null;
 $pluginConfig['thumbnailWidth']      = 160;
 $pluginConfig['thumbnailHeight']     = null;
+$pluginConfig['filenameCaptions']    = false;
 $pluginConfig['tag']                 = 'table';
 $pluginConfig['breakAfter']          = 3;
 

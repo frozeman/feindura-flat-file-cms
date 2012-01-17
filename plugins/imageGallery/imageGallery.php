@@ -179,6 +179,16 @@ class imageGallery {
   public $thumbnailHeight = null;
   
  /**
+  * If this is TRUE it uses the filename as captions, when no line in a captions.txt exist for this file.
+  * 
+  * @var bool
+  * @access public
+  * @see imageGallery::getImages()
+  * 
+  */
+  public $filenameCaptions = false;
+  
+ /**
   * An array which contains all image filenames and paths
   * 
   * Example Array:
@@ -226,6 +236,15 @@ class imageGallery {
   */
   protected $lastModification = 0;
   
+/**
+  * A unique ID which each imageGallery gets to separate them.
+  * 
+  * @var int
+  * @access protected
+  * 
+  */
+  protected $uniqueId = null;
+  
   
  /**
   * <b>Type</b> constructor<br />
@@ -263,6 +282,9 @@ class imageGallery {
     
     // clerars the cache from other operations
     clearstatcache();
+    
+    // get unique id
+    $this->uniqueId = md5(uniqid(rand(),1));
     
     // read folder
     $files = $this->readFolder($folder);
@@ -547,8 +569,14 @@ class imageGallery {
     
     foreach($this->images as $image) {
       $thumbnailName = 'thumb_'.str_replace('.','_',$image['filename']).'.png';
-      $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';//' title="'.$image['filename'].'"';
-      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" data-milkbox="imageGallery'.md5(uniqid(rand(),1)).'"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
+      
+      // add captions
+      if($this->filenameCaptions)
+        $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : ' title="'.substr($image['filename'],0,strpos($image['filename'],'.')).'"';
+      else
+        $imageText = (!empty($image['text'])) ? ' title="'.$image['text'].'"' : '';
+      
+      $return[] = '<a href="'.$this->galleryPath.$image['filename'].'" data-milkbox="imageGallery#'.$this->uniqueId.'"'.$imageText.'><img src="'.$this->galleryPath.'thumbnails/'.$thumbnailName.'" alt="thumbnail"'.$tagEnd.'</a>';
     }
     
     return $return;    

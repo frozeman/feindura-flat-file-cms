@@ -74,6 +74,7 @@ $gallery->imageWidth = $pluginConfig['imageWidth'];
 $gallery->imageHeight = $pluginConfig['imageHeight'];
 $gallery->thumbnailWidth = $pluginConfig['thumbnailWidth'];
 $gallery->thumbnailHeight = $pluginConfig['thumbnailHeight'];
+$gallery->filenameCaptions = $pluginConfig['filenameCaptions'];
 
 $plugin .= $gallery->showGallery($pluginConfig['tag'],$pluginConfig['breakAfter'],$pageContent);
 
