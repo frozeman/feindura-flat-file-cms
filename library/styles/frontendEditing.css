@@ -124,6 +124,7 @@ div.feindura_editPage,  div.feindura_editPageDisabled, span.feindura_editTitle {
   position: relative;
   outline: none;
   resize: none;
+  display: inline-block;
 }
 div.feindura_editPage:hover, div.feindura_editPageDisabled:hover, span.feindura_editTitle:hover {
   border: 1px solid #666;
