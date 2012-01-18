@@ -1883,7 +1883,7 @@ class Feindura extends FeinduraBase {
   * Example:
   * {@example getPageTitle.example.php}
   * 
-  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|bool $ids    a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   * 
   * @uses Feindura::$titleLength
   * @uses Feindura::$titleAsLink
@@ -1970,7 +1970,7 @@ class Feindura extends FeinduraBase {
   * Example usage:
   * {@example showPage.example.php}
   * 
-  * @param int|string|array|bool $ids          a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|bool $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   * @param int|array|bool        $shortenText  (optional) number of the maximal text length displayed, adds a "more" link at the end or FALSE to not shorten. You can also pass an array: value 1: text length as int, value 2: text string for the link, or a link string.  e.g. array(23,false), array(23,'read more'), or array(23,'<a href="…"'>read more</a>')
   * @param bool|string           $useHtml      (optional) whether the content of the page has HTML-tags or not. It also accepts a string with allowed html tags.
   * 
@@ -2072,7 +2072,7 @@ class Feindura extends FeinduraBase {
   *
   *
   * @param string|array|true     $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
-  * @param int|string|array|bool $ids          a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|bool $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   *
   * @uses Feindura::$page
   * @uses Feindura::showPlugins()											 to check for the activated plugins
@@ -2143,7 +2143,7 @@ class Feindura extends FeinduraBase {
   * {@example showPlugins.example.php}
   * 
   * @param string|array|true      $plugins      (optional) the plugin name or an array with plugin names or TRUE to load all plugins
-  * @param int|string|array|bool  $ids          a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|bool  $ids          a page ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
   * @param bool									  $returnPlugin (optional) whether the plugin is returned, or only a boolean to check if the plugin is available for that page (used by {@link Feindura::hasPlugins()})
   * 
   * @uses Feindura::$page
@@ -2172,9 +2172,9 @@ class Feindura extends FeinduraBase {
     $pluginsReturn = (is_string($plugins) && $plugins != 'true' && $plugins != 'false') ? false : array();
     if(!is_array($plugins) && !is_bool($plugins))
       $plugins = array($plugins);
-    
+     
     if($ids = $this->getPropertyIdsByString($ids)) {
-      
+
       // LOAD the $pageContent array
       if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
         
@@ -2224,9 +2224,9 @@ class Feindura extends FeinduraBase {
   * Alias of {@link showPlugins()}
   * @ignore
   */
-  public function showPlugin($plugins = true, $ids = false) {
+  public function showPlugin($plugins = true, $ids = false, $returnPlugin = true) {
     // call the right function
-    return $this->showPlugins($plugins, $ids);
+    return $this->showPlugins($plugins, $ids, $returnPlugin);
   }
 
  /**
