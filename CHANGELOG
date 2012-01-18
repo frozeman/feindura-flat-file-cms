@@ -26,7 +26,7 @@ ChangeLog:
   build 798: imageGallery: add filename as caption option to the config, filed the unique id
   build 797: imageGallery: add unique id to the milkbox imageGallery name
   
-1.1.6  
+1.1.6
   
   build 796: create 1.1.6 release
   build 795: fixed the filemanager thumbnail issue (now showing thumbnails again)

@@ -1148,9 +1148,9 @@ class Feindura extends FeinduraBase {
   * Depending whether speaking URLs is in the administrator-settings activated, it generates a different href attribute.<br />
   * If cookies are deactivated it attaches the {@link $sessionId} on the end.
   * 
-  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var$ids</var> parameters:
+  * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
   *
   * Examples of the returned href string: <i>("user=xyz123" stands for: sessionname=sessionid)</i>
@@ -1207,10 +1207,10 @@ class Feindura extends FeinduraBase {
   * it creates a link from the previous or the next page starting from the current page ID stored in the {@link $page} property.
   * If there is no current, next or previous page in it returns FALSE.
   * 
-  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * <b>Notice</b>: It add the class name <i>"active"</i> to the link, when the current {@link $page} property matches the page ID of the link.
   * 
-  * Example <var$ids</var> parameters:
+  * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
   *
   * Example:
@@ -1875,9 +1875,9 @@ class Feindura extends FeinduraBase {
   * Returns the title of a page.
   * This page title will be generated using the title properties.
   * 
-  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var$ids</var> parameters:
+  * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
   *
   * Example:
@@ -1959,9 +1959,9 @@ class Feindura extends FeinduraBase {
   * an error will be placed in the ['content'] part of the returned array,
   * otherwiese it returns an empty array.<br />
   * 
-  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var$ids</var> parameters:
+  * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
   *
   * Example of the returned array:
@@ -2065,9 +2065,9 @@ class Feindura extends FeinduraBase {
   *
   * Check whether the given plugin(s) are activated for the given page.
   *
-  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var$ids</var> parameters:
+  * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
   *
   *
@@ -2131,9 +2131,9 @@ class Feindura extends FeinduraBase {
   * It can return an array where each element contain the HTML of a plugin (only the activated ones),
   * or if the <var>$plugins</var> parameter is a string with a plugin name (the foldername of the plugin, inside "../feindura_folder/plugins/"), it returns only a string with the HTML of this plugin.   
   * 
-  * <b>Notice</b>: If the <var>$ids/var> parameter is empty or FALSE it uses the {@link $page} property.
+  * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var$ids</var> parameters:
+  * Example <var>$ids</var> parameters:
   * {@example ids.parameter.example.php}
   * 
   * Example of the returned array:
