@@ -31,7 +31,7 @@ function setToolTips() {
 
   //store titles and text
   feindura_storeTipTexts('.toolTip, .inputToolTip, .thumbnailToolTip');
-  
+
   /* add Tooltips */
   toolTips = new Tips('.toolTip',{
     className: 'feindura_toolTipBox',
@@ -41,7 +41,7 @@ function setToolTips() {
     fixed: false,
     showDelay: 200,
     hideDelay: 0 });
-  
+
   /* thumbnailToolTip */
   var toolTipsInput = new Tips('.thumbnailToolTip',{
     className: 'feindura_toolTipBox',
@@ -49,7 +49,7 @@ function setToolTips() {
     fixed: true,
     showDelay: 130,
     hideDelay: 100 });
-  
+
   // -> window is smaller 1255px
   if(window.getSize().x < 1255) {
     /* inputToolTip */
@@ -58,9 +58,9 @@ function setToolTips() {
       offset: {'x': -275,'y': -20},
       fixed: true,
       showDelay: 100,
-      hideDelay: 100 });    
-      
-  // -> window is larger 1255px   
+      hideDelay: 100 });
+
+  // -> window is larger 1255px
   } else {
     /* inputToolTip */
     var toolTipsInput = new Tips('.inputToolTip',{
@@ -74,13 +74,13 @@ function setToolTips() {
 }
 
 // *** ->> SETUP - functions -----------------------------------------------------------------------------------------------------------------------
- 
+
 // ------------------------------------------------------------------------------
 // ADD a INPUT FIELD
 function addField(containerId,inputName) {
-  
+
   //var newInput = new Element('input', {name: inputName});
-  
+
   if(containerId && $(containerId) != null) {
     var newInput  = new Element('input', {name: inputName});
     $(containerId).grab(newInput,'bottom');
@@ -102,14 +102,14 @@ function disableSafeHtml(checkbox) {
 // ------------------------------------------------------------------------------
 // SET UP the REALTIME THUMBNAIL SIZE SCALE, all given vars are the object IDs
 function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) {
-  
+
   var scaleWidth = function(){
         $(thumbWidthScale).tween('width',$(thumbWidth).get('value'));
       };
   var scaleHeight = function(){
         $(thumbHeightScale).tween('width',$(thumbHeight).get('value'));
       };
-  
+
   // thumbwidth
   if($(thumbWidth) != null) {
       $(thumbWidth).addEvents({
@@ -129,7 +129,7 @@ function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) 
 // ------------------------------------------------------------------------------
 // DISABLE THUMBNAIL SIZE IF RATIO is ON, all given vars are the object IDs
 function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,thumbNoRatio) {
-    
+
   // thumbwidth
   if($(thumbWidthRatio) != null) {
       $(thumbWidthRatio).addEvent('click', function() {
@@ -137,7 +137,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
           $(thumbWidth).removeProperty(deactivateType);
       });
   }
-  
+
   // thumbheight
   if($(thumbHeightRatio) != null) {
       $(thumbHeightRatio).addEvent('click', function() {
@@ -145,7 +145,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
           $(thumbHeight).removeProperty(deactivateType);
       });
   }
-    
+
   // no Ratio
   if($(thumbNoRatio) != null) {
       $(thumbNoRatio).addEvent('click', function() {
@@ -164,7 +164,7 @@ function changeEditFile( site, fileName, status, anchorName ) {
 // -------------------------------------------------
 // -> on SUBMIT goto ANCHOR
 function submitAnchor(formId,anchorName) {
-    
+
   // IE
   if(Browser.ie6 || Browser.ie7) {
     // get form
@@ -196,58 +196,58 @@ function removeChecked(selector) {
 // auto resize of the THUMBNAIL-PREVIEW
 function autoResizeThumbnailPreview() {
   $$('.thumbnailPreview').each(function(thumbnail) {
-      
+
       // only set tween if the img tag has a width attribute,
       // prevent double addEvent and double set of vars
       if(thumbnail.getProperty('width')) {
-        
+
         var oldWidth = thumbnail.getSize().x;
-      
+
         // remove the width property to get the real width
         thumbnail.removeProperty('width');
         var orgWidth = thumbnail.getSize().x;
-        
+
         // add the width property again
         thumbnail.setStyle('width',oldWidth);
-        
+
         // set tween
         thumbnail.set('tween',{duration: '500', transition: Fx.Transitions.Pow.easeOut});
-        
-        //mouseover      
+
+        //mouseover
         thumbnail.addEvent('mouseenter',function() {
           thumbnail.tween('width',orgWidth);
         });
-        
+
         // mouseout
         thumbnail.addEvent('mouseleave',function() {
         thumbnail.tween('width',oldWidth);
         });
-      
+
       }
-    });  
+    });
 }
 
 // -------------------------------------------------
 // BLOCK SLIDE IN/OUT
 function blockSlider(givenId) {
-  
+
   var blocksInDiv = '';
   var scrollToElement = new Fx.Scroll(window,{duration: 300,transition: Fx.Transitions.Quint.easeInOut});
-  
+
   // prepares the given container div id or class
   if(givenId)
     blocksInDiv = givenId + ' ';
-  
-  $$(blocksInDiv + '.block').each(function(block,i) {	   
+
+  $$(blocksInDiv + '.block').each(function(block,i) {
      var h1SlideButton;
 	   var slideContent;
 	   var bottomBorder;
-	   
+
 	   // gets the <a> tag in the <h1>
      if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
-      
+
        h1SlideButton = block.getElement('h1').getElement('a');
-      
+
        block.getElements('div').each(function(passedDiv) {
          // gets slideing content
          if(passedDiv.hasClass('content')) {
@@ -256,8 +256,8 @@ function blockSlider(givenId) {
          if(passedDiv.hasClass('bottom')) {
            bottomBorder = passedDiv;
          }
-      });      
-      
+      });
+
   	  // -> CREATE the SLIDE EFFECT
   	  slideContent.set('slide',{
         duration: 500,
@@ -272,7 +272,7 @@ function blockSlider(givenId) {
                 //this.open = false;
             } else {
                 this.wrapper.setStyle('height','auto'); // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
-                //this.open = true;              
+                //this.open = true;
             }
           }
         }
@@ -295,56 +295,56 @@ function blockSlider(givenId) {
             block.addClass('hidden'); // change the arrow
           slideContent.slide('toggle');
       });
-      
+
       // -> hide the block at start, if it has class "hidden"
       if(block.hasClass('hidden'))  {
         slideContent.slide('hide');
         if(!slideContent.getChildren('textarea.editFiles')[0]) // necessary for CodeMirror to calculate the size of the Codemirror div
-          slideContent.setStyle('display','none'); // to allow sorting above the slided in box	    
+          slideContent.setStyle('display','none'); // to allow sorting above the slided in box
       }
-    } // <-- end go trough blocks      
+    } // <-- end go trough blocks
   });
 }
 
 // -------------------------------------------------
 // BLOCK SLIDE IN/OUT
 function inBlockTableSlider() {
-  
+
   var count = 0;
   var slideLinks = new Array();
-  
+
   // -> GO TROUGH every CATEGORY
   if($$('.block .inBlockSlider') != null && $$('.block .inBlockSliderLink') != null) {
-    
+
     // -----------------------------------------
     // ADD SLIDE TO TABLEs inside a BLOCK
     $$('.block').each(function(block) {
-      
+
       // gets the SLIDE links
       block.getElements('.inBlockSliderLink').each(function(insideBlockLinks) {
         slideLinks.push(insideBlockLinks);
       });
-      
-      block.getElements('.inBlockSlider').each(function(insideBlockTable) {        
-         
+
+      block.getElements('.inBlockSlider').each(function(insideBlockTable) {
+
          // ON COMPLETE
          insideBlockTable.get('slide').addEvent('complete', function(el) {
               layoutFix();
               // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
               if(this.open) {
                 insideBlockTable.get('slide').wrapper.fade('show');
-              } else {              
+              } else {
                 insideBlockTable.get('slide').wrapper.fade('hide');
               }
           });
-        
+
          // slides the hotky div in, on start
          if(insideBlockTable.hasClass('hidden')) {
            //hides the wrapper on start
            insideBlockTable.slide('hide');
            insideBlockTable.get('slide').wrapper.fade('hide');
          }
-         
+
          // sets the SLIDE effect to the SLIDE links
          slideLinks[count].addEvent('click', function(e) {
             if(e.target.match('a')) e.stop();
@@ -352,14 +352,14 @@ function inBlockTableSlider() {
         		insideBlockTable.get('slide').wrapper.fade('show');
         		insideBlockTable.toggleClass('hidden');
         	});
-         
-         count++;      
-      });       
+
+         count++;
+      });
     });
   }
 }
 
-/* pageChangedSign function 
+/* pageChangedSign function
 adds a * to the head and the sideBarMenu link of the page, to show that the page was modified, but not saved yet */
 function pageContentChangedSign() {
   if($('editorForm') != null && !pageContentChanged) {
@@ -370,7 +370,7 @@ function pageContentChangedSign() {
 }
 
 // *** ->> SIDEBARS - functions -----------------------------------------------------------------------------------------------------------------------
-  
+
 // vars
 var sidbarMenuTextLength;
 
@@ -389,25 +389,25 @@ function setSidbarMenuTextLength() {
 // -------------------------------------------------
 // SLIDE IN/OUT and MOUSEOVER RESIZE
 function sidebarMenu() {
-    
+
     setSidbarMenuTextLength();
-  
+
   	$$('.sidebarMenu').each(function(sideBarMenu) {
-	       
-    // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------	   
+
+    // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------
     // gets the <a> tag in the <div class="content"> container and <div class="bottom">
-    
-    // gets the upper toogle button    
-    var slideTopButton = sideBarMenu.getChildren('div.top a')[0];    
-    // gets the bottom toogle button    
-    var slideBottomButton = sideBarMenu.getChildren('div.bottom a')[0];    
+
+    // gets the upper toogle button
+    var slideTopButton = sideBarMenu.getChildren('div.top a')[0];
+    // gets the bottom toogle button
+    var slideBottomButton = sideBarMenu.getChildren('div.bottom a')[0];
     // gets slideing content
     var slideContent = sideBarMenu.getChildren('div.content')[0];
-    
-    
+
+
     // creates the slide effect
-    slideContent.set('slide',{duration: '750', transition: Fx.Transitions.Pow.easeOut});	   
-    
+    slideContent.set('slide',{duration: '750', transition: Fx.Transitions.Pow.easeOut});
+
     // changes the up and down button class from the <div class="top">
     // so that the picture of the upper Toogle Buttons changes
     slideContent.get('slide').addEvent('complete', function(el) {
@@ -415,30 +415,30 @@ function sidebarMenu() {
           sideBarMenu.toggleClass('hidden');
         layoutFix();
     });
-    
+
     // -> sets the SLIDE EFFECT to the buttons
     slideTopButton.addEvent('click', function(e){
-    	e.stop();    		
+    	e.stop();
     	slideContent.get('slide').toggle();
     });
     slideBottomButton.addEvent('click', function(e){
     	e.stop();
     	slideContent.get('slide').toggle();
     });
-    
+
     // -> HIDE the Menu IF it has CLASS "HIDDEN"
     if(sideBarMenu.hasClass('hidden')) {
       slideContent.get('slide').hide();
-    }     	  
-    
-    // ->> RESIZE on MouseOver -------------------------------------------------------------------------------------------     
-    
+    }
+
+    // ->> RESIZE on MouseOver -------------------------------------------------------------------------------------------
+
     // -> sets the RESIZE-TWEEN to the sideBarMenu
     sideBarMenu.set('tween', {duration: '650', transition: Fx.Transitions.Pow.easeOut});
-    
+
     slideContent.addEvent('mouseover', function(e){
     	e.stop();
-    	
+
     	if(sidbarMenuTextLength > 210) {
     	  sideBarMenu.tween('width', sidbarMenuTextLength);
     	} else {
@@ -448,37 +448,37 @@ function sidebarMenu() {
     slideContent.addEvent('mouseout', function(e){
     	e.stop();
     	sideBarMenu.tween('width', '210');
-    });            
-  });  
+    });
+  });
 }
 
 /* ---------------------------------------------------------------------------------- */
 // SIDEBAR AJAX REQUEST
 // send a HTML request to load the new Sidebar content
 function requestLeftSidebar(site,page,category) {
-  
+
   // vars
   if(!page) page = 0;
   if(!category) category = 0;
-  
+
   var jsLoadingCircleContainer = new Element('div', {'class':'leftSidebarLoadingCircle'});
   var removeLoadingCircle;
-  
+
   // creates the request Object
   var requestCategory = new Request.HTML({
     url:'library/leftSidebar.loader.php',
     method: 'get',
     data: 'site=' + site + '&category=' + category + '&page=' + page,
     update: $('leftSidebar'),
-    
+
     //-----------------------------------------------------------------------------
-    onRequest: function() { //-----------------------------------------------------		
-    	
+    onRequest: function() { //-----------------------------------------------------
+
         // -> TWEEN leftSidebar
         $('leftSidebar').set('tween',{duration: 150});
         $('leftSidebar').tween('left','-200px');
         //$('leftSidebar').tween('opacity',0);
-        
+
         // -> ADD the LOADING CIRCLE
     		$('leftSidebar').grab(jsLoadingCircleContainer,'before');
     		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 25, 40, 12, 4, "#999");
@@ -486,18 +486,18 @@ function requestLeftSidebar(site,page,category) {
     },
     //-----------------------------------------------------------------------------
 		onSuccess: function(html) { //-------------------------------------------------
-			
+
 			// -> TWEEN leftSidebar
 			$('leftSidebar').set('tween',{duration: 300});
 			$('leftSidebar').tween('left','0px');
 			//$('leftSidebar').tween('opacity',1);
-			
+
 			$('leftSidebar').get('tween').chain(function(){
         // -> REMOVE the LOADING CIRCLE
         jsLoadingCircleContainer.destroy();
         removeLoadingCircle();
-      });			
-			
+      });
+
 	    sidebarMenu();
 	    setToolTips();
 	    layoutFix();
@@ -511,7 +511,7 @@ function requestLeftSidebar(site,page,category) {
 			$('leftSidebar').set('html',failureText);
 		}
   });
-  
+
   // send only the site
   if(!page && !category)
     requestCategory.send('site=' + site);
@@ -525,8 +525,8 @@ function requestLeftSidebar(site,page,category) {
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('load', function() {
 
-    autoResizeThumbnailPreview();    
-    
+    autoResizeThumbnailPreview();
+
     // SCROLL to ANCHORS after loading the pages (should fix problems with slided in blocks)
     var anchorId = window.location.hash.substring(1);
     if($(anchorId) != null)
@@ -538,7 +538,7 @@ window.addEvent('load', function() {
 //  DOMREADY
 // *---------------------------------------------------------------------------------------------------*
 window.addEvent('domready', function() {
-  
+
   // UPDATE the USER-CACHE every 5 minutes
   (function(){
     new Request({
@@ -550,12 +550,12 @@ window.addEvent('domready', function() {
       }
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
   }).periodical(180000);
-  
+
   // *** ->> SIDEBAR MENU -----------------------------------------------------------------------------------------------------------------------
-  
+
   // makes sidebarmenu dynamic
   sidebarMenu();
-  
+
   // let the errorWindow clos by ESC or ENTER keys
   if($('feindura_errorWindow') != null) {
     document.addEvent('keyup',function(e){
@@ -563,7 +563,7 @@ window.addEvent('domready', function() {
         feindura_closeErrorWindow(e);
     });
   }
-  
+
   // ->> LOG LIST
   // ------------
   if($('sidebarTaskLog') != null) {
@@ -571,23 +571,23 @@ window.addEvent('domready', function() {
     // vars
     var minHeight = 200;
     var maxHeight = 450;
-    
+
     var myScroller = new Scroller('sidebarTaskLog', {area: 150, velocity: 0.1});
     myScroller.start();
-    
+
     // -> adds the TWEEN to the LOG-list
     $('sidebarTaskLog').setStyle('height',minHeight);
     //$('sidebarTaskLog').setStyle('overflow','hidden'); // currently deactivated, allows alos scrolling with mousewheel
- 
+
     // TWEEN OUT
     $('sidebarTaskLog').addEvent('mouseenter', function() {
-      $('sidebarTaskLog').tween('height',maxHeight);      
+      $('sidebarTaskLog').tween('height',maxHeight);
     });
     // TWEEN IN
     $('sidebarTaskLog').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
-    
+
     // TWEEN OUT sidebarScrollUp
     $('sidbarTaskLogScrollUp').addEvent('mouseenter', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
@@ -596,7 +596,7 @@ window.addEvent('domready', function() {
     $('sidbarTaskLogScrollUp').addEvent('mouseleave', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
-    
+
     // TWEEN OUT sidebarScrollDown
     $('sidbarTaskLogScrollDown').addEvent('mouseenter', function() {
       $('sidebarTaskLog').tween('height',maxHeight);
@@ -606,7 +606,7 @@ window.addEvent('domready', function() {
       $('sidebarTaskLog').tween('height',minHeight);
     });
    }
-  
+
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
   if($('sidebarSelection') != null && $('sidebarSelection').hasClass('staticScroller')) {
@@ -627,21 +627,21 @@ window.addEvent('domready', function() {
             toolTips.attach('a.toolTip');
           } else
             $('currentVisitorsSideBar').set('html','');
-        }      
+        }
       }).send('status=getCurrentVisitors&request=true'); // getCurrentVisitors status prevents userCache overwriting
     }).periodical(60000);
   }
-  
+
   // *** ->> ADMIN-MENU -----------------------------------------------------------------------------------------------------------------------
-    
+
   if($('adminMenu') != null) {
     // set the style back, which is set for non javascript users
     $('adminMenu').setStyle('width','172px');
     $('adminMenu').setStyle('overflow','hidden');
-    
+
     // set tween
     $('adminMenu').set('tween',{duration: 350, transition: Fx.Transitions.Quint.easeInOut});
-    
+
     // add resize tween event
     $('adminMenu').addEvents({
       mouseenter : function() { // resize on mouseover
@@ -653,46 +653,46 @@ window.addEvent('domready', function() {
       }
     });
   }
-  
+
   // *** ->> CONTENT -----------------------------------------------------------------------------------------------------------------------
-  
+
   // BLOCK SLIDE IN/OUT
 	blockSlider();
 	inBlockTableSlider();
-  
+
   // ADDs SMOOTHSCROLL to ANCHORS
   var smoothAnchorScroll = new Fx.SmoothScroll({
       wheelStops: true,
       duration: 200
   });
-  
+
   // -------------------------------------------------------------------------------------------
   // TOOLTIPS
   setToolTips();
-  
+
   // *** ->> LISTPAGES -----------------------------------------------------------------------------------------------------------------------
-    
+
   // -------------------------------------------------------------------------------------------
   // TWEEN FUNCTIONS in LIST PAGES ---------------------------------------------------------------
   if($$('ul li div.functions') != null) {
-    
+
     $$('ul li').each(function(li) {
       var functionsDiv = false;
-      
+
       // get the .functions div
       li.getElements('div').each(function(divs) {
         if(divs.hasClass('functions')) {
           functionsDiv = divs;
         }
       });
-      
+
       // add fade in and out event on mouseover
       if(functionsDiv != false) {
         functionsDiv.set('tween',{duration: '1500', transition: Fx.Transitions.Pow.easeOut});
-        
+
         li.addEvent('mouseover',function(e) {
           e.stop();
-          
+
           if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('width','140px');
           else functionsDiv.tween('opacity','1');
         });
@@ -700,16 +700,16 @@ window.addEvent('domready', function() {
           e.stop();
           if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.tween('width','0px');
           else functionsDiv.tween('opacity','0.2');
-        });      
-      
+        });
+
         // HIDE the functions AT STARTUP
         if(navigator.appVersion.match(/MSIE [0-8]/)) functionsDiv.setStyle('width','0px');
-        else functionsDiv.setStyle('opacity','0.2');          
+        else functionsDiv.setStyle('opacity','0.2');
       }
-      
-    });    
+
+    });
   }
-  
+
   // -------------------------------------------------------------------------------------------
   // FILTER LIST PAGES -------------------------------------------------------------------------
   if($('listPagesFilter') != null) {
@@ -717,10 +717,10 @@ window.addEvent('domready', function() {
     var openBlocks = new Array();
     var storedOpenBlocks = false;
     $('listPagesFilter').addEvent('keyup',function(e){
-      
+
       // vars
       var filter = this.get('value');
-      
+
       // ->> FILTER the PAGES
       if(filter) {
         $$('div.block.listPages li').each(function(page) {
@@ -729,23 +729,23 @@ window.addEvent('domready', function() {
           else
             page.setStyle('display','block');
         });
-        
+
         // hide empty blocks
         $$('div.block.listPages').each(function(block) {
           var isEmpty = true;
-           
+
           block.getElements('li').getStyle('display').each(function(display){
             if(display == 'block')
               isEmpty = false;
           });
-          
+
           if(!isEmpty)
             block.setStyle('display','block');
           else
             block.setStyle('display','none');
         });
-      
-      // SHOW the category and pages again, when filter is empty 
+
+      // SHOW the category and pages again, when filter is empty
       } else {
         $$('div.block.listPages li').each(function(page) {
           page.setStyle('display','block');
@@ -754,13 +754,13 @@ window.addEvent('domready', function() {
           block.setStyle('display','block');
         });
       }
-      
+
       // ->> WHEN filter is started
       // ->> SLIDE all blocks IN
       if(filter.length == 1) {
         $('listPagesFilterCancel').addEvent('click',cancelListPagesFilter);
         $('listPagesFilterCancel').setStyle('display','block');
-        
+
         $$('div.block.listPages div.content').each(function(block){
           if(block.getParent('div.listPages').hasClass('hidden')) {
       	    block.getParent('div.listPages').removeClass('hidden'); // change the arrow
@@ -768,126 +768,126 @@ window.addEvent('domready', function() {
       	    block.slide('show');
       	    block.get('slide').wrapper.setStyle('height','auto');
       	    layoutFix();
-      	  
+
       	  // store the open blocks
     	    } else if(!storedOpenBlocks) {
             openBlocks.push(block);
           }
         });
         storedOpenBlocks = true;
-      
-      // ->> WHEN filter is cleared   
+
+      // ->> WHEN filter is cleared
       // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
       } else if(filter == '' && storedOpenBlocks) {
         $('listPagesFilterCancel').removeEvent('click',cancelListPagesFilter);
         $('listPagesFilterCancel').setStyle('display','none');
-        
+
         $$('div.block.listPages div.content').each(function(block){
-          if(!openBlocks.contains(block)) {    	    
+          if(!openBlocks.contains(block)) {
       	    block.getParent('div.listPages').addClass('hidden'); // change the arrow
-            block.slide('hide');          
+            block.slide('hide');
             block.setStyle('display','none'); // to allow sorting above the slided in box (reset)
             block.get('slide').wrapper.setStyle('height',block.getSize().y);
             layoutFix();
           }
         });
-        // clean the stored blocks array      
-        if(storedOpenBlocks) {       
+        // clean the stored blocks array
+        if(storedOpenBlocks) {
           openBlocks.empty();
           storedOpenBlocks = false;
         }
       }
     });
   }
-  
+
   // -------------------------------------------------------------------------------------------
   // LIST PAGES SORTABLE -----------------------------------------------------------------------
   var clicked = false;
   var categoryOld;
   var categoryNew;
-    
+
   if($('sortablePageList_status') != null)
     var sortablePageList_status = $('sortablePageList_status').get('value').split("|");
 
   var preventLink = function (){
       return false;
-  }  
-  
+  }
+
 	var sb = new Sortables('.sortablePageList', {
 		/* set options */
 		//clone: true,
 		revert: true,
 		opacity: 1,
 		snap: 10,
-			
+
 		/* --> initialization stuff here */
 		initialize: function() {
-        
+
 		},
 		/* --> once an item is selected */
 		onStart: function(el,elClone) {
 			el.setStyle('background-position', '0px -81px');
-      			
+
 			categoryOld = el.getParent().get('id').substr(8); // gets the category id where the element comes from
 
 		},
-    // check if sorted	
+    // check if sorted
 		onSort: function(el){
   		clicked = true;
   		$$('.sortablePageList a').each(function(a) { a.addEvent('click',preventLink); }); // prevent clicking the link on sort
-  	},		
+  	},
 		/* --> when a drag is complete */
 		onComplete: function(el) {
-			
+
 			// --> SAVE SORT ----------------------
 			/* nur wenn sortiert wurde wird werden die seiten neu gespeichert */
 			if(clicked) {
 			clicked = false;
-			
+
 			categoryNew = el.getParent().get('id').substr(8); // gets the category id where the element comes from
 			var sortedPageId = el.get('id').substr(4);
 
 			// build a string of the order
 			var sort_order = '';
       var count_sort = 0;
-          
+
 			$$('.sortablePageList li').each(function(li) {
         if(li.getParent().get('id') == el.getParent().get('id') && li.get('id') != null) {
           sort_order = sort_order + li.get('id').substr(4)  + '|'; count_sort++;
         } });
 			$('sort_order' + categoryNew).value = sort_order;
-			
+
 			// if pages has changed the category id in the href!
 			if(categoryOld != categoryNew) {
         el.getElements('div').each(function(div){
             if(div.hasClass('name')) {
                 var oldHref = String(div.getElement('a').get('href'));
-                var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);                
+                var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
                 div.getElement('a').set('href',newHref);
             }
-            
+
             if(div.hasClass('status')) {
-                var oldHref = String(div.getElement('a').get('href'));      
-                var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);                
+                var oldHref = String(div.getElement('a').get('href'));
+                var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
                 div.getElement('a').set('href',newHref);
             }
-            
+
             if(div.hasClass('functions')) {
                 div.getElements('a').each(function(a){
                   var oldHref = String(a.get('href'));
-                  var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);                
+                  var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
                   a.set('href',newHref);
-                  
+
                   if(a.hasClass('deletePage')) {
                       var oldHref = String(a.get('onclick'));
-                      var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);                
+                      var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
                       a.set('onclick',newHref);
-                  }                    
-                });                
+                  }
+                });
             }
         });
       }
-			
+
 			// --> sortiert die Seite mithilfe einer AJAX anfrage an library/controllers/sortPages.controller.php	------------------------------
 				var req = new Request({
 					url:'library/controllers/sortPages.controller.php',
@@ -896,14 +896,14 @@ window.addEvent('domready', function() {
 					data:'sort_order=' + sort_order + '&categoryOld=' + categoryOld +'&categoryNew=' + categoryNew + '&sortedPageId=' + sortedPageId , // + '&do_submit=1&byajax=1&ajax=' + $('auto_submit').checked
 					//-------------------------------------
           onRequest: function() {
-            
-					
+
+
             // put the save new order - text in the loadingBox AND show the loadingBox
             $('loadingBox').getChildren('.content').set('html','<span style="color:#D36100;font-weight:bold;font-size:18px;">'+sortablePageList_status[0]+'</span>');
             $('loadingBox').setStyle('display','block');
             $('loadingBox').fade('hide');
             $('loadingBox').fade('in');
-            
+
 		},
 		//-------------------------------------
 		onSuccess: function(responseText) {
@@ -912,19 +912,19 @@ window.addEvent('domready', function() {
 		  //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
 		  //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
 		  $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
-			
+
 			// remove prevent clicking the link on sort
 			$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
-			
+
 			// remove the "no pages notice" li if there is a page put in this category
-		    $$('.sortablePageList li').each(function(li) { 
+		    $$('.sortablePageList li').each(function(li) {
 			if(li.get('id') == null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
 			  li.destroy();
 			}
 		    });
 
 		    // adds the "no page - notice" li if the old category is empty
-		    if(responseText.substr(0,13) == '<span></span>') {              
+		    if(responseText.substr(0,13) == '<span></span>') {
 		      $$('.sortablePageList').each(function(ul) {
       			if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
       			  var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
@@ -946,50 +946,50 @@ window.addEvent('domready', function() {
 
 	   } // <-- SAVE SORT -- END --------------------
 	 }
-	});  
-  
+	});
+
   // makes the "no pages notice" li un-dragable
   $$('.sortablePageList li').each(function(li) {
       if(li.get('id') == null) {
-        li.removeEvents(); 
+        li.removeEvents();
         li.setStyle('cursor','auto');
       }
   });
-  
+
   // *** ->> SETUP -----------------------------------------------------------------------------------------------------------------------
-  
+
   // -> ADD auto grow to textareas which have the "autogrow" class
   $$('textarea.autogrow').each(function(textarea){
     new Form.AutoGrow(textarea);
-  });  
-  
+  });
+
   // ->> ADMIN-SETUP
   // ---------------
-  
+
   // -> adds realtime THUMBSCALE to the thumbnail Settings
   setThumbScale('cfg_thumbWidth','thumbWidthScale','cfg_thumbHeight','thumbHeightScale');
-  
+
   // -> adds THUMBRATIO deactivation
   setThumbRatio('cfg_thumbWidth','ratioX','cfg_thumbHeight','ratioY','noRatio');
-  
+
   // -> adds Fields to styleSheetsFilePaths
   $$('.addStyleFilePath').each(function(addButton){
     if(addButton != null) {
       var containerId = addButton.getParent().getElement('div').getProperty('id');
       var inputName = addButton.getParent().getElement('div').getElement('input').getProperty('name');
-      
+
       addButton.addEvent('click', function(e) {
         e.stop();
   			addField(containerId,inputName);
   		});
     }
   });
-  
+
   // -> DISABLE varNames if SPEAKING URL is selected
   if($('cfg_speakingUrl') != null) {
     var smallSize = '50px';
 
-    $('cfg_speakingUrl').addEvent('change',function() {      
+    $('cfg_speakingUrl').addEvent('change',function() {
       // disables all varNames fields is option value == true; speaking url
       if(this[this.selectedIndex].value == 'true') {
         $('cfg_varNamePage').setProperty(deactivateType,deactivateType);
@@ -1006,16 +1006,16 @@ window.addEvent('domready', function() {
         $('cfg_varNameCategory').tween('width','300px');
         //$('cfg_varNameModul').removeProperty(deactivateType);
         //$('cfg_varNameModul').tween('width','300px');
-      }      
+      }
     });
   }
-  
-  
+
+
   // ->> PAGE SETUP
   // ---------------
-  
+
   // -> GO TROUGH every CATEGORY and add thumbScale to the advanced category settings
-  if($$('.advancedcategoryConfig') != null) {    
+  if($$('.advancedcategoryConfig') != null) {
     var countCategories = 0;
     // -----------------------------------------
     // ADD SLIDE TO THE ADVANCED CATEGORY SETTINGS
@@ -1027,10 +1027,10 @@ window.addEvent('domready', function() {
       // adds realtime THUMBSCALE to the advanced category settings
       setThumbScale('categories'+countCategories+'thumbWidth','categories'+countCategories+'thumbWidthScale','categories'+countCategories+'thumbHeight','categories'+countCategories+'thumbHeightScale');
       // adds THUMBRATIO deactivation
-      setThumbRatio('categories'+countCategories+'thumbWidth','categories'+countCategories+'ratioX','categories'+countCategories+'thumbHeight','categories'+countCategories+'ratioY','categories'+countCategories+'noRatio'); 
+      setThumbRatio('categories'+countCategories+'thumbWidth','categories'+countCategories+'ratioX','categories'+countCategories+'thumbHeight','categories'+countCategories+'ratioY','categories'+countCategories+'noRatio');
     });
   }
-  
+
   // ----------------------------------------------------
   // ADD CodeMirror TO ALL TEXTAREAs with class editFiles
   $$('textarea.editFiles').each(function(textarea){
@@ -1043,7 +1043,7 @@ window.addEvent('domready', function() {
       mode = 'javascript';
     else
       mode = 'htmlmixed';
-     
+
     var editor = CodeMirror.fromTextArea(textarea, {
       mode: mode,
       lineNumbers: false,
@@ -1054,27 +1054,27 @@ window.addEvent('domready', function() {
       }
     });
   });
-  
+
   // *** ->> FORMS -----------------------------------------------------------------------------------------------------------------------
-    
+
   // ------------------------------------------------------------
   // makes inputs who are empty transparent, and fade in on mouseover
   if($$('.right input') != null) {
         //var smallSize = 50;
         var fade = 0.6;
-        
+
         $$('.right input, .listPagesHead input').each(function(input) {
             // looks for empty inputs
             if(!input.hasClass('noResize') && (input.get('value') == '' || input.get('disabled') != false)) {
-                
+
                 var hasFocus = false;
                 var hasContent = false;
-                
+
                 var inputWidthBefore = input.getStyle('opacity');
                 input.setStyle('opacity', fade); //makes the input small
-                
+
                 input.set('tween',{duration: '500', transition: Fx.Transitions.Sine.easeOut}) //Bounce.easeOut
-                
+
                 input.addEvents({
                   'mouseover' : function() { // resize on mouseover
                       input.tween('opacity',inputWidthBefore);
@@ -1096,16 +1096,16 @@ window.addEvent('domready', function() {
             }
         });
   }
-  
-  
+
+
   // ------------------------------------------------------------
   // ADD FANCY-FORM
   feinduraFancyForm = new FancyForm('input[type="checkbox"], input[type="radio"]');
-  
+
   // ADD DEPENCIES for CHECKBOXES
   $$('input[type="radio"]').each(function(checkbox) {
     var checkboxId = checkbox.get('id');
-    
+
     // go trough checkboxes with id
     if(checkboxId) {
 
@@ -1113,7 +1113,7 @@ window.addEvent('domready', function() {
       if(checkboxId.match(/^categories[0-9]+sortByPageDate$/)) {
         var categoryNumber = checkboxId.match(/[0-9]+/);
         feinduraFancyForm.setDepency(checkbox,$('categories'+categoryNumber+'showPageDate'));
-        feinduraFancyForm.setDepency($('categories'+categoryNumber+'showPageDate'),$('categories'+categoryNumber+'sortByPageDate'),false,false); 
+        feinduraFancyForm.setDepency($('categories'+categoryNumber+'showPageDate'),$('categories'+categoryNumber+'sortByPageDate'),false,false);
       }
     }
   });
@@ -1122,11 +1122,11 @@ window.addEvent('domready', function() {
   feinduraFancyForm.setDepency($('cfg_pagePageDate'),$('cfg_pageSortByPageDate'),false,false);
   // set depency for page editorHtmlLawed
   feinduraFancyForm.setDepency($('cfg_editorHtmlLawed'),$('cfg_editorSafeHtml'),false,false);
-  
-  
+
+
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
-  if($('HTMLEditor') != null) { 
-    
+  if($('HTMLEditor') != null) {
+
     // vars
     var editorStartHeight = window.getSize().y * 0.25;
     var editorTweenToHeight = (window.getSize().y * 0.42 > 380) ? window.getSize().y * 0.42 : 380;
@@ -1135,7 +1135,7 @@ window.addEvent('domready', function() {
     var editorSubmited = false;
     var editorSubmitHeight = $('HTMLEditorSubmit').getSize().y;
     //$('HTMLEditorSubmit').setStyle('height',0);
-    $$('#content .editor .content').setStyle('display','block'); // shows the hot keys  
+    $$('#content .editor .content').setStyle('display','block'); // shows the hot keys
 
     // ------------------------------
     // CONFIG the HTMlEditor
@@ -1156,9 +1156,9 @@ window.addEvent('domready', function() {
     CKEDITOR.config.entities                      = false;
     CKEDITOR.config.extraPlugins                  = 'Media,codemirror'; //stylesheetparser
     CKEDITOR.config.protectedSource.push( /<\?[\s\S]*?\?>/g ); // protect php code
-    
+
     //CKEDITOR.config.disableNativeSpellChecker = false;
-    
+
     CKEDITOR.config.toolbar = [
                               ['Save','-','Maximize','-','Source'],
                               ['Undo','Redo','-','RemoveFormat','SelectAll'],
@@ -1169,9 +1169,9 @@ window.addEvent('domready', function() {
                               ['Bold','Italic','Underline','Strike'],
                               ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
                               ['Outdent','Indent'],
-                              ['Subscript','Superscript'],                                          
+                              ['Subscript','Superscript'],
                               ['NumberedList','BulletedList'],
-                              ['Blockquote','HorizontalRule','Table'],                              
+                              ['Blockquote','HorizontalRule','Table'],
                               ['Link','Unlink','Anchor'],
                               ['Image','Flash','Media'],
                               ['SpecialChar'],
@@ -1180,78 +1180,78 @@ window.addEvent('domready', function() {
                               ['TextColor','BGColor','-'],
                               ['ShowBlocks','-','About']
                               ];		// No comma for the last row.
-  
+
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
   	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
-  	
+
   	// -> adds the EDITOR SLIDE IN/OUT tweens
   	if($('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
     	HTMLEditor.on('instanceReady',function() {
     	  $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
-    	  
+
     	  var editorTweenTimeout;
-    	  
+
         $('cke_HTMLEditor').addEvent('mouseenter',function(e){
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
-          
+
         });
         $$('div.editor').addEvent('mouseleave',function(e){
           clearTimeout(editorTweenTimeout);
           if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorTweenToHeight+5) && $('cke_contents_HTMLEditor').getHeight() >= (editorTweenToHeight-5)) $('cke_contents_HTMLEditor').tween('height',editorStartHeight);
           //editorIsClicked = false;
         });
-        
+
         HTMLEditor.on('focus',function() {
           editorHasFocus = true;
           clearTimeout(editorTweenTimeout);
           if(!editorSubmited && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) $('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);
           //$('HTMLEditorSubmit').tween('height',editorSubmitHeight);
         });
-        
+
         $('HTMLEditorSubmit').addEvent('mousedown',function(e) {
           editorSubmited = true;
         });
-        
+
       });
     }
   }
   // ->> make PAGE TITLE EDITABLE
   if($('editablePageTitle') != null) {
-    
+
     // vars
     var titleSaved = false;
     var titleContent = '';
-    
+
     $('editablePageTitle').moorte({location:'none'});
-    
+
     // ->> SAVE TITLE
     function saveTitle(title,type) {
       if(titleContent != title.get('html')) {
- 
+
         // var
         var jsLoadingCircle = new Element('div',{'class': 'smallLoadingCircle'});
         var removeLoadingCircle = function(){};
-        
+
         // url encodes the string
         title.getChildren('#rteMozFix').destroy();
         var content = encodeURIComponent(title.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
         //request(title,,,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
-        
+
         // save the title
         new Request({
           url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
           method: 'post',
           data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
-          
+
           onRequest: function() {
-            
-            // -> ADD the LOADING CIRCLE     
+
+            // -> ADD the LOADING CIRCLE
             if(!title.contains(jsLoadingCircle))
         		  title.grab(jsLoadingCircle,'top');
-        		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");  
+        		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");
           },
       		onSuccess: function(html) {
-      			
+
       			// -> fade out the loadingCircle
       			jsLoadingCircle.set('tween',{duration: 200});
       			jsLoadingCircle.fade('out');
@@ -1259,7 +1259,7 @@ window.addEvent('domready', function() {
               // -> REMOVE the LOADING CIRCLE
               removeLoadingCircle();
               jsLoadingCircle.dispose();
-              
+
               if(html.contains('####SAVING-ERROR####'))
                 document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
               else {
@@ -1291,19 +1291,19 @@ window.addEvent('domready', function() {
               // add errorWindow
               document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
             });
-            
+
       		}
         }).send();
-        
+
         titleSaved = true;
       }
     }
-    
+
     // ->> GO TROUGH ALL EDITABLE BLOCK
-    
+
     // STORE page IDS in the elements storage
     feindura_setPageIds($('editablePageTitle'));
-    
+
     // save on enter
     $('editablePageTitle').addEvent('keydown', function(e) {
       if(e.key == 'enter' && $(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
@@ -1314,9 +1314,9 @@ window.addEvent('domready', function() {
     // save on blur
     $('editablePageTitle').addEvent('blur', function(e) {
       if($(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
-          saveTitle($(e.target),'title');   
+          saveTitle($(e.target),'title');
       }
-    });    
+    });
     // on focus
     $('editablePageTitle').addEvent('focus', function() {
       titleContent = $('editablePageTitle').get('html');
@@ -1324,14 +1324,14 @@ window.addEvent('domready', function() {
         titleSaved = false;
     });
   }
-  
+
   // CHANGE CATEGORY
   if($('categorySelection') != null) {
     $('categorySelection').addEvent('change',function() {
-      window.location.href = '?category=' + this[this.selectedIndex].value + '&page=new';      
+      window.location.href = '?category=' + this[this.selectedIndex].value + '&page=new';
     });
   }
-  
+
   // CHANGE TEMPLATE
   if($('templateSelection') != null) {
     $('templateSelection').addEvent('change',function() {
@@ -1344,7 +1344,7 @@ window.addEvent('domready', function() {
         window.location.href = newLocation + '&template=' + this[this.selectedIndex].value;
     });
   }
-  
+
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MAX
   if($('visitTimeMax') != null) {
@@ -1354,27 +1354,27 @@ window.addEvent('domready', function() {
      // slides the hotky div in, on start
      slideVisitTimeMax.hide();
      // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMax').addEvent('mouseenter', function(e){  	   
-    		e.stop();    		
+     $('visitTimeMax').addEvent('mouseenter', function(e){
+    		e.stop();
     		slideVisitTimeMax.slideIn();
      });
      // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMax').addEvent('mouseleave', function(e){   
-    		e.stop();    		
+     $('visitTimeMax').addEvent('mouseleave', function(e){
+    		e.stop();
     		//slideVisitTimeMax.slideOut();
      });
      // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMaxContainer').addEvent('mouseenter', function(e){  	   
-    		e.stop();    		
+     $('visitTimeMaxContainer').addEvent('mouseenter', function(e){
+    		e.stop();
     		slideVisitTimeMax.slideIn();
      });
      // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMaxContainer').addEvent('mouseleave', function(e){   
-    		e.stop();    		
+     $('visitTimeMaxContainer').addEvent('mouseleave', function(e){
+    		e.stop();
     		slideVisitTimeMax.slideOut();
      });
   }
-  
+
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MIN
   if($('visitTimeMin') != null) {
@@ -1384,49 +1384,49 @@ window.addEvent('domready', function() {
      // slides the hotky div in, on start
      slideVisitTimeMin.hide();
      // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMin').addEvent('mouseenter', function(e){  	   
-    		e.stop();    		
+     $('visitTimeMin').addEvent('mouseenter', function(e){
+    		e.stop();
     		slideVisitTimeMin.slideIn();
      });
      // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMin').addEvent('mouseleave', function(e){   
+     $('visitTimeMin').addEvent('mouseleave', function(e){
     		e.stop();
     		//slideVisitTimeMin.slideOut();
      });
      // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMinContainer').addEvent('mouseenter', function(e){  	   
-    		e.stop();    		
+     $('visitTimeMinContainer').addEvent('mouseenter', function(e){
+    		e.stop();
     		slideVisitTimeMin.slideIn();
      });
      // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMinContainer').addEvent('mouseleave', function(e){   
+     $('visitTimeMinContainer').addEvent('mouseleave', function(e){
     		e.stop();
     		slideVisitTimeMin.slideOut();
      });
   }
-    
+
   // -----------------------------------------
   // ADD SLIDE TO THE HOTKEYs (Tastenkürzel)
   if($('hotKeys') != null) {
 
      // creates the slide effect
-	   var slideHotkeys = new Fx.Slide($('hotKeys'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
-    
+	   var slideHotkeys = new Fx.Slide($('hotKeys'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});
+
      // slides the hotky div in, on start
      slideHotkeys.hide();
-    
+
      // sets the SLIDE EFFECT to the buttons
      if($('hotKeysToogle') != null) {
-       $('hotKeysToogle').addEvent('click', function(e){  	   
-      		e.stop();    		
+       $('hotKeysToogle').addEvent('click', function(e){
+      		e.stop();
       		slideHotkeys.toggle();
       	});
      }
   }
-  
+
   // -----------------------------------------
   // ->> CHECKS if changes in the editor page was made and add a *
-  
+
   // CHECK if fields are changed
   $$('#editorForm input, #editorForm textarea').each(function(formfields){
     formfields.addEvent('change',function() {
@@ -1437,18 +1437,18 @@ window.addEvent('domready', function() {
   // CHECK if the HTMLeditor content was changed
   if($('HTMLEditor') != null) {
     HTMLEditor.on('blur',function() {
-      if(HTMLEditor.checkDirty()) {        
+      if(HTMLEditor.checkDirty()) {
         pageContentChangedSign();
         pageContentChanged = true;
       }
     });
   }
-  
+
   // throw a warning when user want to leave the page and the page content was changed
   $$('a').each(function(link) {
     var href = link.get('href');
     var onclick = link.get('onclick');
-    
+
     // only on external links, or the sideBarMenu category selection
     if((onclick == null || (onclick != null && onclick.toString().substr(0,18) == 'requestLeftSidebar')) &&
         href != null &&
@@ -1460,8 +1460,8 @@ window.addEvent('domready', function() {
           openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
         }
       });
-    }    
+    }
   });
-  
+
   layoutFix();
 });
