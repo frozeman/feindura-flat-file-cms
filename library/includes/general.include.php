@@ -136,10 +136,11 @@ if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
     //echo 'use the realBasePath';
     $basePath = $adminConfig['realBasePath'];
   }
-  
-  $docRoot = str_replace($basePath.'library/includes/general.include.php','',__FILE__);
+
+  $docRoot = str_replace($basePath.'library/includes/general.include.php','',str_replace("\\","/",__FILE__));
   $docRoot = (strpos($docRoot,'general.include.php') !== false || empty($docRoot)) ? false : $docRoot;
 }
+
 define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutepath);
 
 /**
