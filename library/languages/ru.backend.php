@@ -767,8 +767,7 @@ $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'Ф�
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'Директория с миниатюрами'; // The thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'не существует.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'не создается.';
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1']                    = 'Не удается переместить загруженное изображение в директорию с миниатюрами'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2']                    = '.';
+$langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Не удается переместить загруженное изображение в директорию с миниатюрами %s.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Не удается изменить размер изображения.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Не удается удалить старую миниатюру.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Изображение с таким именем файла уже есть на сервере.<br>Файл переименован в';
@@ -788,8 +787,7 @@ $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'с�
 $langFile['BACKUP_TEXT_BACKUP']                                           = 'Резервная копия упаковывается в <code>.zip</code> архив включая все файлы из директорий <span class="blue">"pages","config"</span> и <span class="blue">"statistic"</span>.<br>Директория <span class="blue">"upload"</span> не упаковывается.';
 $langFile['BACKUP_TEXT_RESTORE']                                          = 'Выберите <span class="logoname"><span>fein</span>dura</span> резервную копию, для возвращения к предыдущему состоянию.<br><span class="blue">До восстановления рекомендуем создать новую резервную копию.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Удалить резервную копию';
-$langFile['BACKUP_TEXT_DELETE_QUESTION1']                                 = 'Удалить'; // really delete backup 2010-11-05 15:03?
-$langFile['BACKUP_TEXT_DELETE_QUESTION2']                                 = '?';
+$langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = 'Удалить %s?'; // really delete backup 2010-11-05 15:03?
 
 $langFile['BACKUP_TITLE_LASTBACKUPS']                                     = 'Скачать резервную копию';
 $langFile['BACKUP_TEXT_NOBACKUP']                                         = 'Резервных копий не создано.';

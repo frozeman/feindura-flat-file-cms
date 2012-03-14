@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 801
+Build 802
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 802: small fixed in the lang files
   build 801: add italian translationa and lang button
   build 800: fixed automatic documentroot resolving on windows
   build 799: changed frontend editing mode block back to: display: inline-block;

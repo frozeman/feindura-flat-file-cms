@@ -774,8 +774,7 @@ $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                    = 'Il file selez
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                    = 'Cartella anteprima'; // The thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                      = 'non esiste.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                  = 'non può essere creata.';
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1']          = 'Impossibile spostare il file caricato nella cartella delle miniature'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2']          = '.';
+$langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                = 'Impossibile spostare il file caricato nella cartella delle miniature %s.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                = 'Impossibile ridimensionare l\'immagine.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                  = 'Impossibile eliminare le vecchie minuature.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                      = 'Un immagine con questo nome esiste già.<br>Il file caricato è stato rinominato';
@@ -795,8 +794,7 @@ $langFile['BACKUP_BUTTON_DOWNLOAD']                             = 'crea backup c
 $langFile['BACKUP_TEXT_BACKUP']                                 = 'Un backup crea una cartella in un file <code>nomefile.zip</code> con le <span class="blue">pagine del sito, i file di configurazione</span> e i <span class="blue"> file delle statistiche</span> I backup servono per ripristinare uno stato precedente dell\'intero sito web.<br><b>ATTENZIONE</b>. La cartella di upload non verrà salvata nel backup ma dovrà essere salvata via FTP.';
 $langFile['BACKUP_TEXT_RESTORE']                                = 'Seleziona qui un <span class="logoname"><span>fein</span>dura</span> backup file, per ripristinare uno stato precedente.<br><span class="blue">Un backup dello stato attuale verrà creato prima di quello del ripristino.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE']                              = 'Elimina backup';
-$langFile['BACKUP_TEXT_DELETE_QUESTION1']                       = 'Vuoi davvero cancellare questo'; // really delete backup 2010-11-05 15:03?
-$langFile['BACKUP_TEXT_DELETE_QUESTION2']                       = '?';
+$langFile['BACKUP_TEXT_DELETE_QUESTION']                        = 'Vuoi davvero cancellare questo %s?'; // really delete backup 2010-11-05 15:03?
 
 $langFile['BACKUP_TITLE_LASTBACKUPS']                           = 'Scarica i backups';
 $langFile['BACKUP_TEXT_NOBACKUP']                               = 'Nessun backup è stato ancora creato.';

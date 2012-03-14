@@ -33,7 +33,7 @@ $backupName .= (strpos($_GET['file'],'restore') === false)
           
 
 // QUESTION
-echo '<h1 class="red">'.$langFile['BACKUP_TEXT_DELETE_QUESTION1'].' <span style="color:#000000;">'.$backupName.'</span> '.$langFile['BACKUP_TEXT_DELETE_QUESTION2'].'</h1>';
+echo '<h1 class="red">'.sprintf($langFile['BACKUP_TEXT_DELETE_QUESTION'],'<span style="color:#000000;">'.$backupName.'</span> ').'</h1>';
 
 ?>
 <div>

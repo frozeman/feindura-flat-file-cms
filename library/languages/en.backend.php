@@ -774,8 +774,7 @@ $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'The
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'The thumbnail folder'; // The thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'doesn\'t exist.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'couldn\'t be created.';
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1']                    = 'Could not move the uploaded file in the thumbnail folder'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2']                    = '.';
+$langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Could not move the uploaded file to the thumbnail folder %s.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Couldn\'t resize the image.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Couldn\'t delete the old thumbnail.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'A image with this filename already exists.<br>The uploaded file was renamed to';
@@ -795,8 +794,7 @@ $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'cre
 $langFile['BACKUP_TEXT_BACKUP']                                           = 'A backup creates a <code>.zip</code> file with the <span class="blue">"pages","config"</span> and <span class="blue">"statistic"</span> folders.<br>The upload folder will not be saved.';
 $langFile['BACKUP_TEXT_RESTORE']                                          = 'Select here a <span class="logoname"><span>fein</span>dura</span> backup file, to restore an old state.<br><span class="blue">A backup of the current state will be created before the restore.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Delete backup';
-$langFile['BACKUP_TEXT_DELETE_QUESTION1']                                 = 'Really delete'; // really delete backup 2010-11-05 15:03?
-$langFile['BACKUP_TEXT_DELETE_QUESTION2']                                 = '?';
+$langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = 'Really delete %s?'; // really delete backup 2010-11-05 15:03?
 
 $langFile['BACKUP_TITLE_LASTBACKUPS']                                     = 'Download backups';
 $langFile['BACKUP_TEXT_NOBACKUP']                                         = 'No backup created yet.';

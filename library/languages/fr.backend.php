@@ -724,8 +724,7 @@ $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'Le 
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'le répertoire des thumbnails'; // ..thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'e\'existe pas.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'il ne pouvait pas être crée.';
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1']                    = 'Le fichier téléchargé ne pouvait pas être déplacé dans le dossier des thumbnails.'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2']                    = 'déplacer.';
+$langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Le fichier téléchargé ne pouvait pas être déplacé dans le dossier des thumbnails %s.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'La taille de l\'image ne pouvait pas être changée.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Le thumbnail récent ne pouvait pas être éffacé.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Il existe dèjà un fichier avec ce nom.<br>Le nom du fichier a été changé en';
@@ -745,8 +744,7 @@ $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'cr�
 $langFile['BACKUP_TEXT_BACKUP']                                           = 'Une sauvegarde crée un fichier <code>.zip</code> avec le <span class="blue">"pages", "config"</span> et <span class="blue">"statistic"</span>dossiers.<br>Le dossier de upload ne sera pas sauvé.';
 $langFile['BACKUP_TEXT_RESTORE']                                          = 'Sélectionnez ici une <span class="logoname"><span>fein</span>dura</span> fichier de sauvegarde, de rétablir un état ancien.<br><span class="blue">Avant de restaurer une sauvegarde de état actuel est créé.</ span>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Supprimer sauvegarde.';
-$langFile['BACKUP_TEXT_DELETE_QUESTION1']                                 = ''; // backup 2010-11-05 15:03 supprimer?
-$langFile['BACKUP_TEXT_DELETE_QUESTION2']                                 = 'supprimer?';
+$langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = '%s supprimer?'; // backup 2010-11-05 15:03 supprimer?
 
 $langFile['BACKUP_TITLE_LASTBACKUPS']                                     = 'télécharger sauvegardes';
 $langFile['BACKUP_TEXT_NOBACKUP']                                         = 'Pas de sauvegarde a été créé pour le moment.';

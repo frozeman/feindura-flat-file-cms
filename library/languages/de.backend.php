@@ -771,8 +771,7 @@ $langFile['PAGETHUMBNAIL_ERROR_wrongformat']                              = 'Die
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_START']                              = 'Das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
 $langFile['PAGETHUMBNAIL_ERROR_NODIR_END']                                = 'existiert nicht.';
 $langFile['PAGETHUMBNAIL_ERROR_CREATEDIR_END']                            = 'konnte nicht erstellt werden.';
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1']                    = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis'; // ..thumbnail-folder..
-$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2']                    = 'verschieben.';
+$langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE']                          = 'Konnte die hochgeladene Datei nicht in das Thumbnail-Verzeichnis %s verschieben.';
 $langFile['PAGETHUMBNAIL_ERROR_CHANGEIMAGESIZE']                          = 'Die Bildgröße konnt nicht geändert werden.';
 $langFile['PAGETHUMBNAIL_ERROR_deleteoldfile']                            = 'Das alte Thumbnail-Bild konnte nicht gelöscht werden.';
 $langFile['PAGETHUMBNAIL_TEXT_fileexists']                                = 'Es existiert bereits eine Datei mit diesem Namen.<br />Die Hochgeladene Datei wurde umbenannt nach';
@@ -792,8 +791,7 @@ $langFile['BACKUP_BUTTON_DOWNLOAD']                                       = 'akt
 $langFile['BACKUP_TEXT_BACKUP']                                           = 'Ein Backup erstellt eine <code>.zip</code> Datei mit den <span class="blue">"pages","config"</span> und <span class="blue">"statistic"</span> Verzeichnissen.<br />Das Upload-Verzeichnis wird nicht gesichert.';
 $langFile['BACKUP_TEXT_RESTORE']                                          = 'Wähle hier eine <span class="logoname"><span>fein</span>dura</span> Backup-Datei aus um einen alten Stand wieder herzustellen.<br /><span class="blue">Vor der Wiederherstellung wird ein Backup des aktuellen Standes erstellt.</span>';
 $langFile['BACKUP_TOOLTIP_DELETE']                                        = 'Backup löschen';
-$langFile['BACKUP_TEXT_DELETE_QUESTION1']                                 = ''; // backup 2010-11-05 15:03 wirklich löschen?
-$langFile['BACKUP_TEXT_DELETE_QUESTION2']                                 = 'wirklich löschen?';
+$langFile['BACKUP_TEXT_DELETE_QUESTION']                                  = '%s wirklich löschen?'; // backup 2010-11-05 15:03 wirklich löschen?
 
 $langFile['BACKUP_TITLE_LASTBACKUPS']                                     = 'Backups herunterladen';
 $langFile['BACKUP_TEXT_NOBACKUP']                                         = 'Es wurde noch kein Backup erstellt.';

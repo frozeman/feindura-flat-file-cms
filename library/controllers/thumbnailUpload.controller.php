@@ -134,7 +134,7 @@ if($_POST['upload']) {
       	$changeFileName = false;
   
       	if(!move_uploaded_file( $_FILES['thumbFile']['tmp_name'], DOCUMENTROOT.$filePath ))
-      	 $error[] = $langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part1'].' (<b>'.$uploadPath.'</b>) '.$langFile['PAGETHUMBNAIL_ERROR_couldntmovefile_part2'];
+      	 $error[] = sprintf($langFile['PAGETHUMBNAIL_ERROR_COULDNTMOVEFILE'],'(<b>'.$uploadPath.'</b>)');
         
         // CHECK FOR ERROR 3
         // --------------------------------------------------------------------------------
