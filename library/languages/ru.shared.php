@@ -25,35 +25,35 @@
 
 // -> GENERAL <-
 
-$sharedLangFile['HEADER_BUTTON_LOGOUT'] = 'Выйти::Нажмите что бы завершить сеанс.';
-$sharedLangFile['sortablePageList_functions_startPage'] = 'Установить главной страницей';
+$sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Выйти::Нажмите что бы завершить сеанс.';
+$sharedLangFile['sortablePageList_functions_startPage']     = 'Установить главной страницей';
 $sharedLangFile['sortablePageList_functions_startPage_set'] = 'Эта страница отмечена как главная';
 
 /* date texts */
 
-$sharedLangFile['DATE_TEXT_YESTERDAY'] = 'Вчера';
-$sharedLangFile['DATE_TEXT_TODAY'] = 'Сегодня';
-$sharedLangFile['DATE_TEXT_TOMORROW'] = 'Завтра';
+$sharedLangFile['DATE_TEXT_YESTERDAY']                      = 'Вчера';
+$sharedLangFile['DATE_TEXT_TODAY']                          = 'Сегодня';
+$sharedLangFile['DATE_TEXT_TOMORROW']                       = 'Завтра';
 
 
 // -> SEARCH
 
-$sharedLangFile['SEARCH_TITLE'] = 'Поиск страниц';
-$sharedLangFile['SEARCH_TITLE_RESULTS'] = 'Результаты поиска для';
-$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'категория';
-$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'слова для поиска';
-$sharedLangFile['SEARCH_TEXT_MATCH_TAGS'] = 'Таги';
-$sharedLangFile['SEARCH_TEXT_RESULTS'] = 'результатов';
-$sharedLangFile['SEARCH_TEXT_TIME_1'] = 'за'; // 12 matches in 0.32 seconds
-$sharedLangFile['SEARCH_TEXT_TIME_2'] = 'секунд';
+$sharedLangFile['SEARCH_TITLE']                             = 'Поиск страниц';
+$sharedLangFile['SEARCH_TITLE_RESULTS']                     = 'Результаты поиска для';
+$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY']               = 'категория';
+$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS']            = 'слова для поиска';
+$sharedLangFile['SEARCH_TEXT_MATCH_TAGS']                   = 'Таги';
+$sharedLangFile['SEARCH_TEXT_RESULTS']                      = 'результатов';
+$sharedLangFile['SEARCH_TEXT_TIME_1']                       = 'за'; // 12 matches in 0.32 seconds
+$sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'секунд';
 
 
 // -> ERROR TEXTs
 
-$sharedLangFile['errorWindow_h1'] = 'Произошла ошибка!';
+$sharedLangFile['errorWindow_h1']                           = 'Произошла ошибка!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Не удается установить главной страницей.</b>';
-$sharedLangFile['EDITOR_savepage_error_save'] = '<b>Не удается сохранить страницу.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'ОШИБКА<br /><br /><span class="logoname">fein<span>dura</span></span> требует более новую версию PHP'; // PHP 5.2.3
+$sharedLangFile['EDITOR_savepage_error_save']               = '<b>Не удается сохранить страницу.</b>';
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ОШИБКА<br /><br /><span class="logoname">fein<span>dura</span></span> требует более новую версию PHP'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

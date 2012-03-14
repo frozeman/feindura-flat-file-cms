@@ -23,35 +23,35 @@
 
 // -> GENERAL <-
 
-$sharedLangFile['HEADER_BUTTON_LOGOUT'] = 'Logout::Click here to logout.';
-$sharedLangFile['sortablePageList_functions_startPage'] = 'Set this page as start page';
+$sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Logout::Click here to logout.';
+$sharedLangFile['sortablePageList_functions_startPage']     = 'Set this page as start page';
 $sharedLangFile['sortablePageList_functions_startPage_set'] = 'This page is the start page';
 
 /* date texts */
 
-$sharedLangFile['DATE_TEXT_YESTERDAY'] = 'Yesterday';
-$sharedLangFile['DATE_TEXT_TODAY'] = 'Today';
-$sharedLangFile['DATE_TEXT_TOMORROW'] = 'Tomorrow';
+$sharedLangFile['DATE_TEXT_YESTERDAY']                      = 'Yesterday';
+$sharedLangFile['DATE_TEXT_TODAY']                          = 'Today';
+$sharedLangFile['DATE_TEXT_TOMORROW']                       = 'Tomorrow';
 
 
 // -> SEARCH
 
-$sharedLangFile['SEARCH_TITLE'] = 'Search pages';
-$sharedLangFile['SEARCH_TITLE_RESULTS'] = 'Search results for';
-$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY'] = 'category';
-$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS'] = 'searchwords';
-$sharedLangFile['SEARCH_TEXT_MATCH_TAGS'] = 'Tags';
-$sharedLangFile['SEARCH_TEXT_RESULTS'] = 'results';
-$sharedLangFile['SEARCH_TEXT_TIME_1'] = 'in'; // 12 matches in 0.32 seconds
-$sharedLangFile['SEARCH_TEXT_TIME_2'] = 'seconds';
+$sharedLangFile['SEARCH_TITLE']                             = 'Search pages';
+$sharedLangFile['SEARCH_TITLE_RESULTS']                     = 'Search results for';
+$sharedLangFile['SEARCH_TEXT_MATCH_CATEGORY']               = 'category';
+$sharedLangFile['SEARCH_TEXT_MATCH_SEARCHWORDS']            = 'searchwords';
+$sharedLangFile['SEARCH_TEXT_MATCH_TAGS']                   = 'Tags';
+$sharedLangFile['SEARCH_TEXT_RESULTS']                      = 'results';
+$sharedLangFile['SEARCH_TEXT_TIME_1']                       = 'in'; // 12 matches in 0.32 seconds
+$sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'seconds';
 
 
 // -> ERROR TEXTs
 
-$sharedLangFile['errorWindow_h1'] = 'An error occured!';
+$sharedLangFile['errorWindow_h1']                           = 'An error occured!';
 $sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Could not set the start page.</b>';
-$sharedLangFile['EDITOR_savepage_error_save'] = '<b>The page could not be saved.</b>';
-$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION'] = 'ERROR<br /><br /><span class="logoname">fein<span>dura</span></span> requires at least PHP version'; // PHP 5.2.3
+$sharedLangFile['EDITOR_savepage_error_save']               = '<b>The page could not be saved.</b>';
+$sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERROR<br /><br /><span class="logoname">fein<span>dura</span></span> requires at least PHP version'; // PHP 5.2.3
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

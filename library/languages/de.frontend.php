@@ -25,27 +25,27 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'Feindura::Klick hier um zum Backend zu gelangen.';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND']          = 'Feindura::Klick hier um zum Backend zu gelangen.';
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Seite im Backend bearbeiten';
 
-$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Bearbeiten der Seite nicht möglich::Die Seite enthält [i]<script>[/i] Tags und kann deshalb nur im Backend bearbeitet werden.';
+$frontendLangFile['EDITPAGE_TIP_DISABLED']           = 'Bearbeiten der Seite nicht möglich::Die Seite enthält [i]<script>[/i] Tags und kann deshalb nur im Backend bearbeitet werden.';
 
 // FRONTEND ERROR TEXTS
 
-$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'Die angeforderte Seite existiert nicht.';
-$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'Die angeforderte Seite ist deaktiviert.';
+$frontendLangFile['PAGE_ERROR_NOPAGE']               = 'Die angeforderte Seite existiert nicht.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC']        = 'Die angeforderte Seite ist deaktiviert.';
 
 
 // DATE TEXTS
 
-$frontendLangFile['DATE_TEXT_YESTERDAY'] = 'Gestern';
-$frontendLangFile['DATE_TEXT_TODAY'] = 'Heute';
-$frontendLangFile['DATE_TEXT_TOMORROW'] = 'Morgen';
+$frontendLangFile['DATE_TEXT_YESTERDAY']             = 'Gestern';
+$frontendLangFile['DATE_TEXT_TODAY']                 = 'Heute';
+$frontendLangFile['DATE_TEXT_TOMORROW']              = 'Morgen';
 
 
 // ADDITIONAL PAGE TEXTS
 
-$frontendLangFile['PAGE_TEXT_MORE'] = 'mehr';
+$frontendLangFile['PAGE_TEXT_MORE']                  = 'mehr';
 
 // -----------------------------------------------------------------------------------------------
 // RETURN ****************************************************************************************

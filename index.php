@@ -16,7 +16,7 @@
  * 
  * index.php
  * 
- * @version 2.1
+ * @version 2.2
  */
 
 /**
@@ -285,7 +285,8 @@ if($_GET['site'] == 'addons') {
         <a href="<?= addVariableToUrlParameter('language=de'); ?>" tabindex="20" class="de toolTip" title="deutsch::"></a>
         <a href="<?= addVariableToUrlParameter('language=en'); ?>" tabindex="21" class="en toolTip" title="english::"></a>
         <a href="<?= addVariableToUrlParameter('language=fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
-        <a href="<?= addVariableToUrlParameter('language=ru'); ?>" tabindex="23" class="ru toolTip" title="русский::"></a>
+        <a href="<?= addVariableToUrlParameter('language=it'); ?>" tabindex="23" class="it toolTip" title="italiano::"></a>
+        <a href="<?= addVariableToUrlParameter('language=ru'); ?>" tabindex="24" class="ru toolTip" title="русский::"></a>
       </div>
       
       <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->

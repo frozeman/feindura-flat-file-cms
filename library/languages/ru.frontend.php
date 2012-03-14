@@ -27,28 +27,28 @@
 // -> GENERAL <-
 */
 
-$frontendLangFile['HEADER_TIP_GOTOBACKEND'] = 'Панель управления::Нажмите что бы войти в панель управления.';
+$frontendLangFile['HEADER_TIP_GOTOBACKEND']          = 'Панель управления::Нажмите что бы войти в панель управления.';
 $frontendLangFile['PAGEFUNCTIONS_TIP_EDITINBACKEND'] = 'Редактировать страницу в панели управления.';
 
-$frontendLangFile['EDITPAGE_TIP_DISABLED'] = 'Невозможно отредактировать страницу::Страница содержит тег [i]<script>[/i] и может быть отредактирована только в панели управления.';
+$frontendLangFile['EDITPAGE_TIP_DISABLED']           = 'Невозможно отредактировать страницу::Страница содержит тег [i]<script>[/i] и может быть отредактирована только в панели управления.';
 
 
 // FRONTEND ERROR TEXTS
 
-$frontendLangFile['PAGE_ERROR_NOPAGE'] = 'Запрашиваемая страница не существует.';
-$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC'] = 'Запрашиваемая страница недоступна.';
+$frontendLangFile['PAGE_ERROR_NOPAGE']               = 'Запрашиваемая страница не существует.';
+$frontendLangFile['PAGE_ERROR_PAGENOTPUBLIC']        = 'Запрашиваемая страница недоступна.';
 
 
 // DATE TEXTS
 
-$frontendLangFile['DATE_TEXT_YESTERDAY'] = 'Вчера';
-$frontendLangFile['DATE_TEXT_TODAY'] = 'Сегодня';
-$frontendLangFile['DATE_TEXT_TOMORROW'] = 'Завтра';
+$frontendLangFile['DATE_TEXT_YESTERDAY']             = 'Вчера';
+$frontendLangFile['DATE_TEXT_TODAY']                 = 'Сегодня';
+$frontendLangFile['DATE_TEXT_TOMORROW']              = 'Завтра';
 
 
 // ADDITIONAL PAGE TEXTS
 
-$frontendLangFile['PAGE_TEXT_MORE'] = 'подробнее';
+$frontendLangFile['PAGE_TEXT_MORE']                  = 'подробнее';
 
 
 // -----------------------------------------------------------------------------------------------
