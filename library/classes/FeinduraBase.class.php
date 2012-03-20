@@ -265,7 +265,6 @@ class FeinduraBase {
     // if no country code is given, it will get the country code automatically
     } else
       $this->language = $this->loadFrontendLanguageFile();
-
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */

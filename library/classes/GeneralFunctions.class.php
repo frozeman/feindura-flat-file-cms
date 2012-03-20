@@ -155,6 +155,9 @@ class GeneralFunctions {
     self::$adminConfig = $GLOBALS["adminConfig"];
     self::$categoryConfig = $GLOBALS["categoryConfig"];
     self::$websiteConfig = $GLOBALS["websiteConfig"];
+
+    // set local for the url encode transliteration
+    setlocale(LC_CTYPE, 'en_US.UTF-8');
   }
   
  /* ---------------------------------------------------------------------------------------------------------------------------- */
@@ -1431,18 +1434,22 @@ class GeneralFunctions {
   * @see Feindura::createHref()
   * 
   * @static
-  * @version 1.0
+  * @version 2.0
   * <br>
   * <b>ChangeLog</b><br>
-  *    - 1.0 initial release
+  *   - 2.0 add transliteration from {@link http://php.vrana.cz/vytvoreni-pratelskeho-url.php}
+  *   - 1.0 initial release
   * 
   */
   public static function urlEncode($string) {
     $string = html_entity_decode($string,ENT_COMPAT,'UTF-8');
     $string = strip_tags($string);
-    preg_match_all('#[\wa-zA-Z0-9\s\-_]+#u',$string,$matches);
-    $string = implode('-',$matches[0]);
-    $string = str_replace(' ','_',$string);
+
+    $string = preg_replace('#[^\\pL0-9_]+#u', '-', $string);
+    $string = trim($string, "-");
+    $string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
+    $string = strtolower($string);
+    $string = preg_replace('#[^-a-z0-9_]+#', '', $string);
     return urlencode($string);
   }
 
