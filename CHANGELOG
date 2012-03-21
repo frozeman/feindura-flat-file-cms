@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 807
+Build 808
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,7 +22,8 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
 
-  build 807: fixed plugin pageRating sav path
+  build 808: changed the lang files
+  build 807: fixed plugin pageRating save path
   build 806: writeable warnings will not display deeper folder warnings, when the folder have already one 
   build 805: add local timezone support for the frontend. it now gets the local timezone of the visitor
   build 804: add italian translation for the plugins, thanks to Raffaele Panariello

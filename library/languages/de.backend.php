@@ -108,8 +108,8 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'Absoluter Pfad';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'Relativer Pfad';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absoluter Pfad';
-$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relativer Pfad';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absoluter Pfad::Absoluter URI Pfad, bedeuted relativ zum Dokumenten-Wurzelverzeichnis.';
+$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relativer Pfad::Relativer URI Pfad, bedeuted relativ zum aktuellen Dokument.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Browserspektrum der Besucher';

@@ -110,8 +110,8 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'абсолютный путь';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'относительный путь';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Абсолютный путь';
-$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Относительный путь';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Абсолютный путь::Абсолютного пути URI, значит, относительно к Document Root.';
+$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Относительный путь::Относительный путь URI, значит, по отношению к текущему документу.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Браузеры используемые посетителями';

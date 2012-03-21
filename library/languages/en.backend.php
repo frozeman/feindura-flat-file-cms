@@ -108,8 +108,8 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'absolute path';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'relative path';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path';
-$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relative Path';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'Absolute Path::Absolute URI Path, means relative to the DocumentRoot.';
+$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'Relative Path::Relative URI Path, means relative to the current document.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'Browser usage of the users';

@@ -105,8 +105,8 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                                = '<b>
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                          = 'chemin absolue';
 $langFile['PATHS_TEXT_RELATIVE']                                          = 'chemin relative';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue';
-$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'chemin relative';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                                       = 'chemin absolue::Chemin de l\'URI absolu, signifie par rapport à la Document Root.';
+$langFile['PATHS_TOOLTIP_RELATIVE']                                       = 'chemin relative::Chemin de l\'URI relative, signifie par rapport au document courant.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                                = 'spectre des navigateurs des visiteurs';

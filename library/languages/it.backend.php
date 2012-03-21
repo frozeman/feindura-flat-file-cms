@@ -108,8 +108,8 @@ $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']                      = '<b>Esempio</b
 // PATHS
 $langFile['PATHS_TEXT_ABSOLUTE']                                = 'percorso assoluto';
 $langFile['PATHS_TEXT_RELATIVE']                                = 'percorso relativo';
-$langFile['PATHS_TOOLTIP_ABSOLUTE']                             = 'Percorso Assoluto';
-$langFile['PATHS_TOOLTIP_RELATIVE']                             = 'Percorso Relativo';
+$langFile['PATHS_TOOLTIP_ABSOLUTE']                             = 'Percorso Assoluto::Percorso URI assoluto, significa che rispetto al documento root.';
+$langFile['PATHS_TOOLTIP_RELATIVE']                             = 'Percorso Relativo::Percorso URI relativo, significa che rispetto al documento corrente.';
 
 // STATISTICS
 $langFile['STATISTICS_TITLE_BROWSERCHART']                      = 'Il browser usato dagli utenti';
