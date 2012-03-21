@@ -47,8 +47,6 @@
  */
 //unset($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated']);
 // var
-$filePath = str_replace('\\','/',dirname(__FILE__)); // replace this on windows servers
-$filePath = str_replace($_SERVER["DOCUMENT_ROOT"],'',$filePath);
 $_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] = ($_SESSION['feinduraPlugin_pageRating'][$pageContent['id']]['rated'] === 'true') ? 'true' : 'false';
 $plugin = '';
 
@@ -95,7 +93,7 @@ $plugin .= '<script type="text/javascript">
     
     // save the rating
     new Request({
-      url: "'.$filePath.'/saveRating.php",
+      url: "'.$this->adminConfig['basePath'].'plugins/pageRating/saveRating.php",
       data: "page=" + pageIds[0] + "&category=" + pageIds[1] + "&rating="+this.getProperty("data-pageRating"),
       onSuccess: function(rating) {
         if(rating && !isNaN(rating)) {
