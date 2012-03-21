@@ -65,7 +65,7 @@ $plugin .= '<div class="feinduraPlugin_pageRating page'.$pageContent['id'].$alre
 $plugin .= '<ul>';
 for($i = 1; $i <= 5; $i++) {
   $filled = ($i <= $pageContent['plugins']['pageRating']['value']) ? ' filled' : '' ;
-  $plugin .= '<li><a href="#" class="star'.$filled.'" data-pageRating="'.$i.'"></a></li>';
+  $plugin .= '<li><a href="#" class="star'.$filled.'" data-pageRating="'.$i.'" onclick="return false;"></a></li>';
 }
 $plugin .= '</ul>';
 $plugin .= '</div>';
