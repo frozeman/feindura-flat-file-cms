@@ -1787,7 +1787,7 @@ function isWritableWarning($fileFolder) {
  */
 function isWritableWarningRecursive($folders) {
   
-  //var
+  // var
   $return = false;
   
   foreach($folders as $folder) {
@@ -1796,7 +1796,7 @@ function isWritableWarningRecursive($folders) {
         $return .= $isFolder;
       } else {
         $return .= isWritableWarning($folder);
-        if($readFolder = GeneralFunctions::readFolderRecursive($folder)) {
+        if(!$return && $readFolder = GeneralFunctions::readFolderRecursive($folder)) { // doesnt check folders deeper, which have a writable warning
           if(is_array($readFolder['folders'])) {
             foreach($readFolder['folders'] as $folder) {
               $return .= isWritableWarning($folder);
