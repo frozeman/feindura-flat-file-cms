@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 804
+Build 805
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 805: add local timezone support for the frontend. it now gets the local timezone of the visitor
   build 804: add italian translation for the plugins, thanks to Raffaele Panariello
   build 803: add transliteration for links
   build 802: small fixed in the lang files

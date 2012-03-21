@@ -955,10 +955,11 @@ class Feindura extends FeinduraBase {
   * @return string with all meta tags ready to display in a HTML page
   * 
   * @access public
-  * @version 1.01
+  * @version 1.0.2
   * <br />
   * <b>ChangeLog</b><br />
-  *    - 1.01 changed readPage() from getCurrentPage() to use only the page property
+  *    - 1.0.2 add {@link GeneralFunctions::setVisitorTimzone()} to set the local timezone
+  *    - 1.0.1 changed readPage() from getCurrentPage() to use only the page property
   *    - 1.0 initial release
   * 
   */
@@ -977,10 +978,13 @@ class Feindura extends FeinduraBase {
         //$siteType = 'text/html';
         $tagEnding = '>';
       }
-      
+
       // -> add CHARSET
-      //$metaTags .= '<meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
-      $metaTags .= '<meta charset="'.$charset.'"'.$tagEnding."\n";
+      //$metaTags .= '  <meta http-equiv="content-type" content="'.$siteType.'; charset='.$charset.'"'.$tagEnding."\n";
+      $metaTags .= '  <meta charset="'.$charset.'"'.$tagEnding."\n";
+
+      // -> Set Visitors Local Timezone
+      $metaTags .= GeneralFunctions::setVisitorTimzone();
 
       // -> create TITLE
       if($currentPage = GeneralFunctions::readPage($this->page,GeneralFunctions::getPageCategory($this->page)))
@@ -995,9 +999,6 @@ class Feindura extends FeinduraBase {
       
       // -> add other META TAGs
       $metaTags .= '  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"'.$tagEnding.' <!-- enable google chrome frame, if available -->'."\n\n";
-      //$metaTags .= '  <meta name="viewport" content="width=device-width, initial-scale=0.5"'.$tagEnding.' <!-- set width for mobile devices -->'."\n\n";
-      //$metaTags .= '  <meta http-equiv="pragma" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n";
-      //$metaTags .= '  <meta http-equiv="cache-control" content="no-cache"'.$tagEnding.' <!-- browser/proxy does not cache -->'."\n\n";
       
       // -> add author
       if($author && is_string($author))
@@ -1061,7 +1062,7 @@ class Feindura extends FeinduraBase {
           $metaTags .= GeneralFunctions::createStyleTags($pluginFolder,false);
         }
       }
-        
+
       // ->> ENABLE FRONTEND EDITING
       // if user is logged into the CMS, add javascripts for implementing ckeditor      
       if($this->loggedIn && $this->adminConfig['user']['frontendEditing'] && PHP_VERSION >= REQUIREDPHPVERSION) {

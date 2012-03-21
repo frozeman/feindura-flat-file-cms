@@ -22,6 +22,9 @@
 header('Content-Type:text/html; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE);// E_ALL ^ E_NOTICE ^ E_WARNING
 
+// set mb_ functions encoding
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
 
 // ->> get CONFIGS
 /**
@@ -144,20 +147,28 @@ if(empty($adminConfig['realBasePath']) && !isset($_POST['cfg_basePath'])) {
 define('DOCUMENTROOT', $docRoot); unset($docRoot,$basePath,$localpath,$absolutepath);
 
 /**
+ * Set the Timezone
+ */
+date_default_timezone_set($adminConfig['timeZone']);
+
+/**
  * The required PHP version
  */ 
 define('REQUIREDPHPVERSION','5.1');
+
 
 /**
  * The host of feindura
  */ 
 define('HOST', $_SERVER['SERVER_NAME']);
 
+
 /**
  * The identity of the user
  */ 
 if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false) $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 define('IDENTITY', md5($_SERVER['HTTP_USER_AGENT'].'::'.$_SERVER['REMOTE_ADDR']));
+
 
 $phpTags = file(dirname(__FILE__)."/../includes/phpTags.include.php");
 /**
@@ -169,10 +180,12 @@ define('PHPSTARTTAG',$phpTags[0]."\n");
  */ 
 define('PHPENDTAG',"\n".$phpTags[1]);
 
+
 // -> GET VERSION and BUILD nr
 $changelogFile = file(dirname(__FILE__)."/../../CHANGELOG");
 $version = trim($changelogFile[2]);
 $buildNr = explode(' ',$changelogFile[3]);
+
 
 /**
  * The version of feindura

@@ -220,7 +220,7 @@ class GeneralFunctions {
   *
   * @param string|false $langPath         (optional) a absolut path to look for a language file which fit the $filename parameter or FALSE to use the "feindura-cms/library/languages" folder
   * @param string       $filename         (optional) the structure of the filename, which should be loaded. the "%lang%" will be replaced with the country code like "%lang%.backend.php" -> "en.backend.php"
-  * @param string@false &$currentLangCode (optional) (Note: this variable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't find any language file which fits the browsers language code.  
+  * @param string|false &$currentLangCode (optional) (Note: this variable will also be changed outside of this method) a variable with the current language code, if this is set it will be first try to load this language file, when it couldn't find any language file which fits the browsers language code.  
   * @param bool         $standardLang     (optional) a standard language for use if no match was found
   * 
   * 
@@ -274,6 +274,81 @@ class GeneralFunctions {
       }
     }
     return $return;
+  }
+
+ /**
+  * <b>Name</b> setVisitorTimzone()<br>
+  * 
+  * Try to get the visitors timezone by using javascript. It will create a redirect along with the visitors local timezone,
+  * which then get catched in the next run of this function and stored in the <var>$_SESSION['feinduraSession']['timezone']</var> variable. 
+  * 
+  * @return string|false FALSE if it could set the local timezone and the redirect script created the script to redirect.
+  *
+  * @see Feindura::createMetaTags()
+  * 
+  * @static
+  * @version 1.0
+  * <br>
+  * <b>ChangeLog</b><br>
+  *    - 1.0 initial release
+  * 
+  */
+  public static function setVisitorTimzone() {
+
+    // var
+    $return = false;
+    //unset($_SESSION['feinduraSession']['timezone']);
+
+    if(!isset($_SESSION['feinduraSession']['timezone'])) {
+      
+        if(!isset($_GET['localTimzone'])) {
+          $return = '   
+  <!-- Get the Visitors Timezone -->
+  <script>
+  var d = new Date()
+  var localTimzoneOffset= -d.getTimezoneOffset()/60;
+  location.href = "'.self::addParameterToUrl().'localTimzone="+localTimzoneOffset;
+  </script>
+
+';
+        } else {
+          $zonelist = array('Kwajalein' => -12.00, 'Pacific/Midway' => -11.00, 'Pacific/Honolulu' => -10.00, 'America/Anchorage' => -9.00, 'America/Los_Angeles' => -8.00, 'America/Denver' => -7.00, 'America/Tegucigalpa' => -6.00, 'America/New_York' => -5.00, 'America/Caracas' => -4.30, 'America/Halifax' => -4.00, 'America/St_Johns' => -3.30, 'America/Argentina/Buenos_Aires' => -3.00, 'America/Sao_Paulo' => -3.00, 'Atlantic/South_Georgia' => -2.00, 'Atlantic/Azores' => -1.00, 'Europe/Dublin' => 0, 'Europe/Belgrade' => 1.00, 'Europe/Minsk' => 2.00, 'Asia/Kuwait' => 3.00, 'Asia/Tehran' => 3.30, 'Asia/Muscat' => 4.00, 'Asia/Yekaterinburg' => 5.00, 'Asia/Kolkata' => 5.30, 'Asia/Katmandu' => 5.45, 'Asia/Dhaka' => 6.00, 'Asia/Rangoon' => 6.30, 'Asia/Krasnoyarsk' => 7.00, 'Asia/Brunei' => 8.00, 'Asia/Seoul' => 9.00, 'Australia/Darwin' => 9.30, 'Australia/Canberra' => 10.00, 'Asia/Magadan' => 11.00, 'Pacific/Fiji' => 12.00, 'Pacific/Tongatapu' => 13.00);
+          $index = array_keys($zonelist, $_GET['localTimzone']);
+          $_SESSION['feinduraSession']['timezone'] = $index[0];
+        }
+    }
+
+    // set to local timezone
+    if(!empty($_SESSION['feinduraSession']['timezone']))
+      date_default_timezone_set($_SESSION['feinduraSession']['timezone']);
+
+    return $return;
+  }
+
+  /**
+   * <b>Name</b> addParameterToUrl()<br />
+   * 
+   * Check if the current $_SERVER['REQUEST_URI'] variable end with ? or & and ads the <var>$parameterString</var> on the end.
+   * 
+   * 
+   * @param string $parameterString (optional) a string with parameter(s) in the format: "var=value&var2=value2"
+   * 
+   * @return string the new url with add parameter
+   * 
+   * 
+   * @version 1.0.1
+   * <br />
+   * <b>ChangeLog</b><br />
+   *    - 1.0.1 moved to GeneralFunctions class
+   *    - 1.0 initial release
+   * 
+   */
+  public static function addParameterToUrl($parameterString = False) {
+    $return = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false)
+      ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) 
+      : $_SERVER['REQUEST_URI']; 
+    $return .= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&';
+    return $return.$parameterString;
   }
 
  /**

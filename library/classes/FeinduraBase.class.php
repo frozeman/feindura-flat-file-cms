@@ -239,7 +239,7 @@ class FeinduraBase {
     // ***************************
     StatisticFunctions::saveWebsiteStats();
     
-    // sets the varNames.. from the adminConfig
+    // sets the varNames['...'] from the adminConfig
     // ****************************************
     // page varName
     if(isset($this->adminConfig['varName']['page']) && !empty($this->adminConfig['varName']['page']))
