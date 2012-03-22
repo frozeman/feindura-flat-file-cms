@@ -46,7 +46,6 @@ $browser = new FileManager(array(
   'create' => true,
   'move' => true,
   'download' => true,
-  'safe' => false, // If true, disallows 'exe', 'dll', 'php', 'php3', 'php4', 'php5', 'phps' and saves them as 'txt' instead.
-  
+  'safe' => false // If true, disallows 'exe', 'dll', 'php', 'php3', 'php4', 'php5', 'phps' and saves them as 'txt' instead.
 ));
 $browser->fireEvent(!empty($_GET['event']) ? $_GET['event'] : null);

@@ -97,7 +97,7 @@ else
   $thumbRatio = $adminConfig['pageThumbnail']['ratio'];
 
 ?>
-<h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags($pageContent['title']).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>
+<h1><?php echo $langFile['pagethumbnail_h1_part1'].' &quot;<span style="color:#000000;">'.strip_tags(getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['pagethumbnail_h1_part2']; ?></h1>
 
 <div id="thumbInfo">
 <ul>

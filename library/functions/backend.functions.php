@@ -356,6 +356,42 @@ function getNewUserId() {
 }
 
 /**
+ * <b>Name</b> getLocalized()<br />
+ * 
+ * Gets the localized version of given <var>$value</var> parameter, which is matchin the GLOBAL <var>$localizedCode</var> variable.
+ * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguagePages']['mainLanguage']</var> variable.
+ * 
+ * <b>Used Global Variables</b><br />
+ *    - <var>$localizedCode</var> the localized code (fetched in the {@link backend.include.php})
+ *  
+ * @param array   $pageContent  the $pageContent array of a page
+ * @param string  $value        the anme of the value, which should be returned localized
+ *   
+ * @return string the localized value of the given <var>$pageContentValue</var> parameter
+ * 
+ * 
+ * @version 1.0
+ * <br />
+ * <b>ChangeLog</b><br />
+ *    - 1.0 initial release
+ * 
+ */
+function getLocalized($pageContent, $value) {
+
+  // get the one matching $GLOBALS['localizedCode']
+  if(isset($pageContent['localized'][$GLOBALS['localizedCode']]))
+    $localizedValues = $pageContent['localized'][$GLOBALS['localizedCode']];
+  // if not get the one matching the "Main Language"
+  elseif(isset($pageContent['localized'][$GLOBALS['adminConfig']['multiLanguagePages']['mainLanguage']]))
+    $localizedValues = $pageContent['localized'][$GLOBALS['adminConfig']['multiLanguagePages']['mainLanguage']];
+  // if not get the first one in the localized array
+  else
+    $localizedValues = current($pageContent['localized']);
+
+  return $localizedValues[$value];
+}
+
+/**
  * <b>Name</b> addSlashesToPaths()<br />
  * 
  * Ensures that all values of the $postData var with a 'Path' in the key value start and end with a slash.
@@ -784,7 +820,7 @@ function saveAdminConfig($adminConfig) {
        : $adminConfig['permissions'];
     
     @chmod(dirname(__FILE__)."/../../config/admin.config.php", $permissions);
-    
+
     // CREATE file content
     $fileContent = '';
     $fileContent .= PHPSTARTTAG; // < ?php
@@ -812,7 +848,10 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['user']['editStyleSheets'] =  ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";  
     $fileContent .= "\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
     
-    $fileContent .= "\$adminConfig['setStartPage'] =          ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
+    $fileContent .= "\$adminConfig['setStartPage'] =                          ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
+    $fileContent .= "\$adminConfig['multiLanguagePages']['active'] =          ".XssFilter::bool($adminConfig['multiLanguagePages']['active'],true).";\n";
+    $fileContent .= "\$adminConfig['multiLanguagePages']['mainLanguage'] =    ".XssFilter::stringStrict($adminConfig['multiLanguagePages']['mainLanguage'],$_SESSION['feinduraSession']['language']).";\n\n";
+
     $fileContent .= "\$adminConfig['pages']['createDelete'] = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
     $fileContent .= "\$adminConfig['pages']['thumbnails'] =   ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
     $fileContent .= "\$adminConfig['pages']['plugins'] =      '".$adminConfig['pages']['plugins']."';\n"; // no XssFilter, comes from a <select>
@@ -1395,9 +1434,12 @@ function showPageDate($pageContent) {
   $titleDateAfter = '';
   
   if(StatisticFunctions::checkPageDate($pageContent)) {
+    $pageDate = getLocalized($pageContent,'pageDate');
+    $pageDateBefore = $pageDate['before'];
+    $pageDateAfter = $pageDate['after'];
   	// adds spaces on before and after
-  	if($pageContent['pageDate']['before']) $titleDateBefore = $pageContent['pageDate']['before'].' ';
-  	if($pageContent['pageDate']['after']) $titleDateAfter = ' '.$pageContent['pageDate']['after'];
+  	if(!empty($pageDateBefore)) $titleDateBefore = $pageDateBefore.' ';
+  	if(!empty($pageDateAfter)) $titleDateAfter = ' '.$pageDateAfter;
 
     // CHECKs the DATE FORMAT
     $return = (StatisticFunctions::validateDateFormat(StatisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)

@@ -104,6 +104,21 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
   echo 'releaseBlock';
 }
 
+
+/**
+ * GET LOCALIZED LANGUAGE CODE
+ * 
+ * @global string $GLOBALS['localizedCode']
+ */
+if($adminConfig['multiLanguagePages']['active'] && isset($_GET['localized']))
+  $localizedCode = $_GET['localized'];
+elseif($adminConfig['multiLanguagePages']['active'] && !isset($_GET['localized']))
+  $localizedCode = $adminConfig['multiLanguagePages']['mainLanguage'];
+else
+  $localizedCode = 0;
+$GLOBALS['localizedCode'] = $localizedCode;
+
+
 // ->> choose LANGUAGE * START * -----------------------------------------------------
 // language shortname will be transfered trough a session (need COOKIES!)
 // and includes the langFile

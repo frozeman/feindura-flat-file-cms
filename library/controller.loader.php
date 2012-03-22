@@ -14,12 +14,13 @@
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
 */
-// processes.loader.php version 0.1
+// controller.loader.php version 0.2
 
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/includes/secure.include.php");
+
 
 // when page ID is given, it loads the HTML-Editor
 // --------------------------------------------
@@ -31,7 +32,7 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
   
   include (dirname(__FILE__).'/controllers/editor.controller.php'); // isBlocked() is inside editor.controller.php
   
-// OTHER BUTTONSwise, load the sites
+// OTHERWISE, load the controllers
 // -------------------------------------------------------------------------------------------------------------
 } else {
   

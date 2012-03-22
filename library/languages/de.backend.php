@@ -484,6 +484,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Seiten-Einstellungen';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Mehrsprachige Seiten';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
+$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Seiten ohne Kategorie';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Seiten erstellen/löschen';
@@ -672,13 +675,13 @@ $langFile['EDITOR_pageSettings_h1']                                       = 'Ein
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Statistik';
 
 $langFile['EDITOR_pageSettings_title']                                    = 'Titel';
-$langFile['EDITOR_pageSettings_title_tip']                                = 'Der Titel der Seite';
+$langFile['EDITOR_pageSettings_title_tip']                                = 'Der Titel der Seite, kann die folgenden HTML-Tags enthalten:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Kurzbeschreibung';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Wenn das Feld leer ist, wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
 $langFile['EDITOR_pageSettings_field1_tip']                               = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Tags';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tags sind Stichworte für diese Seite.';
-$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Die Tags müssen mit &quot;,&quot; getrennt werden.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Die Tags müssen mit &quot;,&quot; (Komma) getrennt werden.';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Seitendatum';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'Das Datum kann dazu verwendet werden, Seiten nach Datum zu sortieren. (z.B. bei Veranstaltungen)';
 $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Text vor dem Datum::z.B. &quot;vom 31. Juni bis&quot;.';

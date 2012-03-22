@@ -246,12 +246,12 @@ span.red, label.red, h1.red, ul.red, div.red, input.red {
     top: 0px;
     left: 0px;
     width: 1024px;
-    height: 237px;
+    height: 155px;
     background: url("../images/bg/footerBlock.png") no-repeat;
     }
 #copyright {
     position: absolute;
-    top: 200px;
+    top: 120px;
     left: 108px;
     width: 100%;
     font-size: 11px;

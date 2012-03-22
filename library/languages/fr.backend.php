@@ -458,6 +458,10 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Les
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'paramètres du site web';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'la page d\'acceuil peut être définie';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'La page d\'acceuil peut être définie par l\'utilisateur.[br /][br /]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'pages en multi-langues';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
+$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'La langue principale';
+
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'pages sans catégories';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'créer/éffacer des pages';
 $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Définit si l\'utilisateur peut créer/éffacer une page sans catégorie.';
@@ -635,13 +639,13 @@ $langFile['EDITOR_pageNotSaved']                                          = 'pas
 $langFile['EDITOR_pageSettings_h1']                                       = 'paramètres';
 $langFile['EDITOR_pagestatistics_h1']                                     = 'statistiques';
 $langFile['EDITOR_pageSettings_title']                                    = 'titre';
-$langFile['EDITOR_pageSettings_title_tip']                                = 'Titre de la page.';
+$langFile['EDITOR_pageSettings_title_tip']                                = 'Titre de la page, peut contenir les balises HTML suivantes:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'description courte';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Si la case reste vide la description du site web au sein des paramètres du site web sera utilisé.';
 $langFile['EDITOR_pageSettings_field1_tip']                               = 'Une description courte du site web. Ceci va être mise dans les tags-META du site web.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'tags';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tags sont des mots-clé de ce site web.';
-$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Les tags doivent être séparés par la &quot;,&quot;.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Les tags doivent être séparés par la &quot;,&quot; (virgule).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'date du site web';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'La date peut être utilisée pour trier les pages dans l\'ordre chronologique. (par ex. des évenements)';
 $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'texte avant la date::Par ex. &quot;du 31. juin&quot;.';

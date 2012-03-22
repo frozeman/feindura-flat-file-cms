@@ -44,21 +44,33 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];   
   
   // -> PREPARE CONFIG VARs
-  $newAdminConfig = $adminConfig;
-  $newAdminConfig['setStartPage'] = $_POST['cfg_setStartPage'];
-  $newAdminConfig['pages']['createDelete'] = $_POST['cfg_pageCreatePages'];
-  $newAdminConfig['pages']['thumbnails'] = $_POST['cfg_pageThumbnailUpload'];  
-  $newAdminConfig['pages']['plugins'] = serialize($_POST['cfg_pagePlugins']);
-  $newAdminConfig['pages']['showTags'] = $_POST['cfg_pageTags'];
-  $newAdminConfig['pages']['showPageDate'] = $_POST['cfg_pagePageDate'];
-  $newAdminConfig['pages']['feeds'] = $_POST['cfg_pagefeeds'];
-  $newAdminConfig['pages']['sorting'] = $_POST['cfg_pageSorting'];
-  $newAdminConfig['pages']['sortReverse'] = $_POST['cfg_pageSortReverse'];
+  $newAdminConfig                                       = $adminConfig; // transfer the rest if the adminConfig
+  $newAdminConfig['setStartPage']                       = $_POST['cfg_setStartPage'];
+  $newAdminConfig['multiLanguagePages']['active']       = $_POST['cfg_multiLanguagePages'];
+  $newAdminConfig['multiLanguagePages']['mainLanguage'] = $_POST['cfg_pagesMainLanguage'];
   
-  $newAdminConfig['pageThumbnail']['width'] =  $_POST['cfg_thumbWidth'];
-  $newAdminConfig['pageThumbnail']['height'] = $_POST['cfg_thumbHeight'];
-  $newAdminConfig['pageThumbnail']['ratio'] = $_POST['cfg_thumbRatio'];
-  $newAdminConfig['pageThumbnail']['path'] = $_POST['cfg_thumbPath'];
+  $newAdminConfig['pages']['createDelete']              = $_POST['cfg_pageCreatePages'];
+  $newAdminConfig['pages']['thumbnails']                = $_POST['cfg_pageThumbnailUpload'];  
+  $newAdminConfig['pages']['plugins']                   = serialize($_POST['cfg_pagePlugins']);
+  $newAdminConfig['pages']['showTags']                  = $_POST['cfg_pageTags'];
+  $newAdminConfig['pages']['showPageDate']              = $_POST['cfg_pagePageDate'];
+  $newAdminConfig['pages']['feeds']                     = $_POST['cfg_pagefeeds'];
+  $newAdminConfig['pages']['sorting']                   = $_POST['cfg_pageSorting'];
+  $newAdminConfig['pages']['sortReverse']               = $_POST['cfg_pageSortReverse'];
+  
+  $newAdminConfig['pageThumbnail']['width']             =  $_POST['cfg_thumbWidth'];
+  $newAdminConfig['pageThumbnail']['height']            = $_POST['cfg_thumbHeight'];
+  $newAdminConfig['pageThumbnail']['ratio']             = $_POST['cfg_thumbRatio'];
+  $newAdminConfig['pageThumbnail']['path']              = $_POST['cfg_thumbPath'];
+
+  // -> CHANGE PAGES to MULTI LANGUAGE pages
+  if($newAdminConfig['multiLanguagePages']['active']) {
+    
+    
+  } else {
+    
+    
+  }
   
   // **** opens admin.config.php for writing
   if(saveAdminConfig($newAdminConfig)) {

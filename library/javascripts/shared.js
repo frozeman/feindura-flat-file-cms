@@ -13,7 +13,7 @@
     if not,see <http://www.gnu.org/licenses/>.
     
 *
-* 
+*
 * shared.php version 0.1 (requires raphael)  */
 
 // create the JS LOADING-CIRCLE
@@ -81,7 +81,7 @@ function feindura_displayError(title,errorText) {
   var errorWindowOkButton = new Element('a',{'class':'feindura_ok', 'href':'#'});
   errorWindowContent.grab(errorWindowOkButton);
   errorWindow.grab(errorWindowContent);
-  errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));     
+  errorWindow.grab(new Element('div',{'class':'feindura_bottom'}));
   
   // add functionality to the ok button
   errorWindowOkButton.addEvent('click',feindura_closeErrorWindow);
@@ -104,19 +104,19 @@ function feindura_closeErrorWindow(e) {
 function feindura_storeTipTexts(elements) {
   $$(elements).each(function(element,index) {
 
-	  if(element.get('title')) {
+    if(element.get('title')) {
       var content = element.get('title').split('::');
-     		
-     	// converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
-  		if(content[1])
-    		content[1] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
+		
+      // converts "[" , "]" in "<" , ">"  but BEFORE it changes "<" and ">" in "&lt;","&gt;"
+      if(content[1])
+        content[1] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[1]);
 
-  		if(content[0])
-    		content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
+      if(content[0])
+        content[0] = feindura_str_replace(new Array("<",">","[", "]"), new Array("&lt;","&gt;","<", ">"), content[0]);
       
-  		element.store('tip:title', content[0]);
-  		element.store('tip:text', content[1]);    		
-  	}
+      element.store('tip:title', content[0]);
+      element.store('tip:text', content[1]);
+    }
 	});
 }
 
@@ -125,5 +125,6 @@ function feindura_setPageIds(editable) {
   var ids = editable.get('data-feindura').split(' ');
   editable.store('page', ids[0]);
   editable.store('category', ids[1]);
+  editable.store('language', ids[2]);
   return editable;
 }

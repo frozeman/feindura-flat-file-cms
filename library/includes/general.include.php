@@ -94,6 +94,18 @@ if(!$websiteStatistic = @include(dirname(__FILE__)."/../../statistic/website.sta
   $websiteStatistic = array();
 $GLOBALS['websiteStatistic'] = $websiteStatistic;
 
+/**
+ * The languages array
+ * 
+ * This languages <var>array</var> is included from: <i>"feindura-CMS/library/thirdparty/languages.array.php"</i>
+ * 
+ * @global array $GLOBALS['languagesArray']
+ */
+if(!$languagesArray = @include(dirname(__FILE__)."/../../library/thirdparty/languages.array.php"))
+  $languagesArray = array();
+natsort($languagesArray);
+$GLOBALS['languagesArray'] = $languagesArray;
+
 
 /**
  * Fix the $_SERVER['REQUEST_URI'] for IIS Server

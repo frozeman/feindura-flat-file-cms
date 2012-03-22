@@ -659,7 +659,9 @@ class GeneralFunctions {
       // return content array
       if(is_array($pageContent)) {
         // UNESCPAE the SINGLE QUOTES '
-        $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
+        foreach ($pageContent['localized'] as $key => $value) {
+          $pageContent['localized'][$key]['content'] = str_replace("\'", "'", $value['content']);
+        }
         return self::addStoredPage($pageContent);
         
       // return failure while loading the content (file exists but couldn't be loaded)
@@ -676,6 +678,7 @@ class GeneralFunctions {
   * <b>Name</b> savePage()<br>
   * 
   * Save a page to it's flatfile.
+  *
   * 
   * Example of the saved $pageContent array:
   * {@example readPage.return.example.php}
@@ -684,8 +687,8 @@ class GeneralFunctions {
   *    - <var>PHPSTARTTAG</var> the php start tag
   *    - <var>PHPENDTAG</var> the php end tag
   * 
-  * @param array $pageContent    the $pageContent array of the page to save
-  * 
+  * @param array        $pageContent       the $pageContent array of the page to save
+  *
   * @uses $adminConfig      for the save path of the flatfiles
   * @uses addStoredPage()  to store the saved file agiain, and overwrite th old stored page
   * 
@@ -698,7 +701,7 @@ class GeneralFunctions {
   *    - 1.0.5 removed page statistics  
   *    - 1.0.4 add XssFilter for every value  
   *    - 1.0.3 creates now category folder automatically  
-  *    - 1.0.2 add preg_replace removing multiple slahses
+  *    - 1.0.2 add preg_replace removing multiple slashes
   *    - 1.0.1 add chmod
   *    - 1.0 initial release
   * 
@@ -709,7 +712,8 @@ class GeneralFunctions {
     if(!self::isPageContentArray($pageContent))
       return false;
 
-    if(empty($pageContent['id']) || (empty($pageContent['category']) && $pageContent['category'] != 0))
+    // safety to dont save pages without ID
+    if(empty($pageContent['id']) || !is_numeric($pageContent['id']) || (empty($pageContent['category']) && $pageContent['category'] != 0))
         return false;
     
     $pageId = $pageContent['id'];
@@ -723,86 +727,86 @@ class GeneralFunctions {
     $filePath = ($categoryId === false || $categoryId == 0)
     ? dirname(__FILE__).'/../../pages/'.$pageId.'.php'
     : dirname(__FILE__).'/../../pages/'.$categoryId.'/'.$pageId.'.php';
+
+    // escape \ and '
+    $pageContent = XssFilter::escapeBasics($pageContent);
+   
+    // CREATE file content
+    $fileContent = '';
+    $fileContent .= PHPSTARTTAG;
     
-    // open the flatfile
-    if(is_numeric($pageContent['id'])) {
+    $fileContent .= "\$pageContent['id'] =                 ".XssFilter::int($pageContent['id'],0).";\n";
+    $fileContent .= "\$pageContent['category'] =           ".XssFilter::int($pageContent['category'],0).";\n";
+    $fileContent .= "\$pageContent['sortOrder'] =          ".XssFilter::int($pageContent['sortOrder'],0).";\n";
+    $fileContent .= "\$pageContent['public'] =             ".XssFilter::bool($pageContent['public'],true).";\n\n";
+    
+    $fileContent .= "\$pageContent['lastSaveDate'] =       ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
+    $fileContent .= "\$pageContent['lastSaveAuthor'] =     '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"; 
+    
+    $fileContent .= "\$pageContent['pageDate']['date'] =   ".XssFilter::int($pageContent['pageDate']['date'],0).";\n\n";
 
-      // escape \ and '
-      $pageContent = XssFilter::escapeBasics($pageContent);
-     
-      // CREATE file content
-      $fileContent = '';
-      $fileContent .= PHPSTARTTAG;
-      
-      $fileContent .= "\$pageContent['id'] =                 ".XssFilter::int($pageContent['id'],0).";\n";
-      $fileContent .= "\$pageContent['category'] =           ".XssFilter::int($pageContent['category'],0).";\n";
-      $fileContent .= "\$pageContent['sortOrder'] =          ".XssFilter::int($pageContent['sortOrder'],0).";\n";
-      $fileContent .= "\$pageContent['public'] =             ".XssFilter::bool($pageContent['public'],true).";\n\n";
-      
-      $fileContent .= "\$pageContent['lastSaveDate'] =       ".XssFilter::int($pageContent['lastSaveDate'],0).";\n";
-      $fileContent .= "\$pageContent['lastSaveAuthor'] =     '".XssFilter::text($pageContent['lastSaveAuthor'])."';\n\n"; 
-      
-      $fileContent .= "\$pageContent['title'] =              '".self::htmLawed(strip_tags($pageContent['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
-      $fileContent .= "\$pageContent['description'] =        '".XssFilter::text($pageContent['description'])."';\n\n";   
-      
-      $fileContent .= "\$pageContent['pageDate']['before'] = '".XssFilter::text($pageContent['pageDate']['before'])."';\n";
-      $fileContent .= "\$pageContent['pageDate']['date'] =   ".XssFilter::int($pageContent['pageDate']['date'],0).";\n";
-      $fileContent .= "\$pageContent['pageDate']['after'] =  '".XssFilter::text($pageContent['pageDate']['after'])."';\n";
-      $fileContent .= "\$pageContent['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContent['tags']),','))."';\n\n";
-      
-      // write the plugins
-      if(is_array($pageContent['plugins'])) {
-        foreach($pageContent['plugins'] as $key => $value) {
-          // save plugin settings only if plugin is activated
-          if($pageContent['plugins'][$key]['active']) {
-            foreach($value as $insideKey => $finalValue) {
-              // CHECK BOOL VALUES and change to FALSE
-              if(strpos(strtolower($insideKey),'bool') !== false ||
-                 is_bool($pageContent['plugins'][$key][$insideKey]) ||
-                 $pageContent['plugins'][$key][$insideKey] == 'true' ||
-                 $pageContent['plugins'][$key][$insideKey] == 'false')
-                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".XssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n";
-              elseif(strpos(strtolower($insideKey),'url') !== false)
-                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n";
-              elseif(strpos(strtolower($insideKey),'path') !== false)
-                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n";
-              elseif(strpos(strtolower($insideKey),'number') !== false)
-                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n";
-              else
-                $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n";
-            }
-            $fileContent .= "\n";
-          }        
-        }
+    // write the plugins
+    if(is_array($pageContent['plugins'])) {
+      foreach($pageContent['plugins'] as $key => $value) {
+        // save plugin settings only if plugin is activated
+        if($pageContent['plugins'][$key]['active']) {
+          foreach($value as $insideKey => $finalValue) {
+            // CHECK BOOL VALUES and change to FALSE
+            if(strpos(strtolower($insideKey),'bool') !== false ||
+               is_bool($pageContent['plugins'][$key][$insideKey]) ||
+               $pageContent['plugins'][$key][$insideKey] == 'true' ||
+               $pageContent['plugins'][$key][$insideKey] == 'false')
+              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = ".XssFilter::bool($pageContent['plugins'][$key][$insideKey],true).";\n";
+            elseif(strpos(strtolower($insideKey),'url') !== false)
+              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::url($pageContent['plugins'][$key][$insideKey])."';\n";
+            elseif(strpos(strtolower($insideKey),'path') !== false)
+              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::path($pageContent['plugins'][$key][$insideKey])."';\n";
+            elseif(strpos(strtolower($insideKey),'number') !== false)
+              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::number($pageContent['plugins'][$key][$insideKey])."';\n";
+            else
+              $fileContent .= "\$pageContent['plugins']['".$key."']['".$insideKey."'] = '".XssFilter::text($pageContent['plugins'][$key][$insideKey])."';\n";
+          }
+          $fileContent .= "\n";
+        }        
       }
-      
-      $fileContent .= "\$pageContent['thumbnail'] =          '".XssFilter::filename($pageContent['thumbnail'])."';\n";
-      $fileContent .= "\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
-      $fileContent .= "\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n";
-      $fileContent .= "\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n";
+    }
+    
+    $fileContent .= "\$pageContent['thumbnail'] =          '".XssFilter::filename($pageContent['thumbnail'])."';\n";
+    $fileContent .= "\$pageContent['styleFile'] =          '".$pageContent['styleFile']."';\n"; //XssFilter is in prepareStyleFilePaths() function
+    $fileContent .= "\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n";
+    $fileContent .= "\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n";
 
-      $fileContent .= "\$pageContent['content'] = '".trim(self::htmLawed($pageContent['content']))."';\n\n";
+    // localized
+    foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
+
+      $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
+      $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
+      $fileContent .= "\$pageContent['localized'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";
+
+      $fileContent .= "\$pageContent['localized'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
+      $fileContent .= "\$pageContent['localized'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n\n";
+
+      $fileContent .= "\$pageContent['localized'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+    }
+    
+    $fileContent .= "return \$pageContent;";
+    $fileContent .= PHPENDTAG;
+    
+    if(file_put_contents($filePath, $fileContent, LOCK_EX)) {
       
-      $fileContent .= "return \$pageContent;";
-      $fileContent .= PHPENDTAG;
+      @chmod($filePath,self::$adminConfig['permissions']);
       
-      if(file_put_contents($filePath, $fileContent, LOCK_EX)) {
-        
-        @chmod($filePath,self::$adminConfig['permissions']);
-        
-        // writes the new saved page to the $storedPages property      
-        self::removeStoredPage($pageContent['id']); // remove the old one
-        unset($pageContent);
-        $pageContent = include($filePath);
-        self::addStoredPage($pageContent);
-        // reset the stored page ids
-        self::$storedPageIds = null;
-        
-        return true;
-      } else
-        return false;
-    }  
-    return false;  
+      // writes the new saved page to the $storedPages property      
+      self::removeStoredPage($pageContent['id']); // remove the old one
+      unset($pageContent);
+      $pageContent = include($filePath);
+      self::addStoredPage($pageContent);
+      // reset the stored page ids
+      self::$storedPageIds = null;
+      
+      return true;
+    } else
+      return false;
   }
 
  /**
@@ -1290,7 +1294,7 @@ class GeneralFunctions {
   * 
   */
   public static function isPageContentArray($page) {
-    return (is_array($page) && array_key_exists('id',$page) && array_key_exists('content',$page)) ? true : false;
+    return (is_array($page) && array_key_exists('id',$page) && array_key_exists('category',$page) && array_key_exists('sortOrder',$page)) ? true : false;
   }
   
  /**

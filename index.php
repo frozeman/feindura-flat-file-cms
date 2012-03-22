@@ -27,7 +27,7 @@ require_once(dirname(__FILE__)."/library/includes/secure.include.php");
 /**
  * Includes the process loader, used to process the sites
  */
-require_once(dirname(__FILE__)."/library/processes.loader.php");
+require_once(dirname(__FILE__)."/library/controller.loader.php");
 
 // VARs
 // -----------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ if($_GET['site'] == 'addons') {
   ['-',''],
   <?php foreach($getPages as $getPage) {
     $categoryText = ($getPage['category'] != 0) ? $categoryConfig[$getPage['category']]['name'].' » ' : '';
-    echo "['".str_replace("'",'',$categoryText.$getPage['title'])."','?feinduraPageID=".$getPage['id']."'],\n";
+    echo "['".str_replace("'",'',$categoryText.getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   
@@ -508,7 +508,7 @@ if($_GET['site'] == 'addons') {
   <!-- ** FOOTER ********************************************************************************* -->
   <div id="footer">
     <div id="footerBlock">
-      <div id="footerMenu">
+      <!-- <div id="footerMenu">
         <?php if($showSubFooterMenu && !isBlocked(true)) { /* show only when the editor is open */ ?>
         <ul class="horizontalButtons">
           <?php
@@ -571,7 +571,7 @@ if($_GET['site'] == 'addons') {
           ?>          
         </ul>
         <?php } ?>
-      </div>
+      </div> -->
       
       <div id="copyright">
         <span class="logoname">fein<span>dura</span></span> - Flat File Content Management System, Copyright &copy; 2009-<?php echo date('Y'); ?> <a href="http://frozeman.de">Fabian Vogelsteller</a> - <span class="logoname">fein<span>dura</span></span> is published under the <a href="LICENSE">GNU General Public License, version 3</a>

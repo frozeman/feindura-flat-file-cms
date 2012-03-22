@@ -27,6 +27,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 $page	= $_GET['page'];
 $category = $_GET['category'];
 
+
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
 if($_POST['save'] && isBlocked() === false) {
@@ -36,10 +37,6 @@ if($_POST['save'] && isBlocked() === false) {
   $category = $_POST['category'];
   $_GET['page'] = $page;
   $_GET['category'] = $category;  
-  
-  // format tags  
-  //$_POST['tags'] = str_replace(array(',',';'), ' ', $_POST['tags']);
-  $_POST['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
   
   // removes double whitespaces and slashes
   $_POST['HTMLEditor'] = preg_replace("/ +/", ' ', $_POST['HTMLEditor'] );
@@ -76,17 +73,30 @@ if($_POST['save'] && isBlocked() === false) {
     // (necessary for: thumbnail, sortOrder and logs)
     if(!$pageContent = GeneralFunctions::readPage($page,$category))
       $errorWindow .= sprintf($langFile['file_error_read'],$adminConfig['realBasePath']);
-   
-    $logText = 1; 
+    
+    $logText = 1;
+
+    // get OTHER LOCALIZED content
+    $_POST['localized'] = $pageContent['localized'];
   }
-  
-  // only save page if no error occured
+
+  // -> only save page if no error occured
   if($errorWindow === false) {
+
+    // STORE LOCALIZED CONTENT
+    $_POST['localized'][$_POST['languageCode']]['pageDate']['before'] = $_POST['pageDate']['before'];
+    $_POST['localized'][$_POST['languageCode']]['pageDate']['after'] = $_POST['pageDate']['after'];
+    $_POST['localized'][$_POST['languageCode']]['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
+    $_POST['localized'][$_POST['languageCode']]['title'] = $_POST['title'];
+    $_POST['localized'][$_POST['languageCode']]['description'] = $_POST['description'];
+    $_POST['localized'][$_POST['languageCode']]['content'] = $_POST['HTMLEditor'];
+    
+    // delete unnecessary variables
+    unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);
   
-    // speichert den inhalt in der flatfile
+    // STORE data right
     $_POST['lastSaveDate'] = time();
     $_POST['lastSaveAuthor'] = $_SESSION['feinduraSession']['login']['username'];
-    $_POST['content'] = $_POST['HTMLEditor'];
     $_POST['thumbnail'] = $pageContent['thumbnail'];
     
     // generates pageDate
@@ -102,9 +112,6 @@ if($_POST['save'] && isBlocked() === false) {
       unset($pageDate);
     }
     
-    //echo '<br />'.$_POST['pageDate']['before'];
-    //echo '<br />'.$_POST['pageDate']['date'];
-    
     if(empty($_POST['sortOrder']))  $_POST['sortOrder'] = $pageContent['sortOrder'];
     
     // adds absolute path slash on the beginning and implode the stylefiles
@@ -114,7 +121,7 @@ if($_POST['save'] && isBlocked() === false) {
     $_POST['styleFile'] = setStylesByPriority($_POST['styleFile'],'styleFile',$category);
     $_POST['styleId'] = setStylesByPriority($_POST['styleId'],'styleId',$category);
     $_POST['styleClass'] = setStylesByPriority($_POST['styleClass'],'styleClass',$category);
-    
+
     if(GeneralFunctions::savePage($_POST)) {
       $documentSaved = true;
       StatisticFunctions::saveTaskLog($logText,'page='.$page); // <- SAVE the task in a LOG FILE
@@ -155,7 +162,7 @@ if($newPage) {
     $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
 } else {  
-  $pageTitle = strip_tags($pageContent['title']);
+  $pageTitle = strip_tags(getLocalized($pageContent,'title'));
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file

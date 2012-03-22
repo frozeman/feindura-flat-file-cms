@@ -486,7 +486,10 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 // ---------- page settings
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Page-Settings';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Set start page';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'The user can set a page as the start page.[br /][br /]The start page will be used if no page variable is given through the [i]$_GET[/i] in the website.';
+$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'The user can set a page as the start page.[br /][br /]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Multi language pages';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'The main language will be selected, if no matching language could be determined automatically.';
+$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Main language';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Pages without category';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Create/delete pages';
@@ -675,13 +678,13 @@ $langFile['EDITOR_pageSettings_h1']                                       = 'Set
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Statistic';
 
 $langFile['EDITOR_pageSettings_title']                                    = 'Title';
-$langFile['EDITOR_pageSettings_title_tip']                                = 'The title of the page';
+$langFile['EDITOR_pageSettings_title_tip']                                = 'The title of the page, can contain the following HTML tags:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Short description';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'If empty it uses the description of the website from the Website-Settings.';
 $langFile['EDITOR_pageSettings_field1_tip']                               = 'A short summary of the page content. This description will be used in the META-Tags of the page.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Tags';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tags are keywords for this page.';
-$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'The Tags must be separated by &quot;,&quot;.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'The Tags must be separated by &quot;,&quot; (comma).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Pagedate';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'The date can be used to sort pages by date. (z.B. bei Veranstaltungen)';
 $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Text before the date::e.g. &quot;from 31st June until&quot;.';
@@ -690,7 +693,7 @@ $langFile['EDITOR_pageSettings_pagedate_day_inputTip']                    = 'Day
 $langFile['EDITOR_pageSettings_pagedate_month_inputTip']                  = 'Month::';
 $langFile['EDITOR_pageSettings_pagedate_year_inputTip']                   = 'Year::[b]Format[/b] YYYY';
 $langFile['EDITOR_pageSettings_field4']                                   = 'Status of the page';
-$langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Only if the page is public, it will be shown on the website![/b]';
+$langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Only if the page is public, it will be shown in the website![/b]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Wrong date format';
 $langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'This month has eventually no 31 days.[br /]The date should have the follwing format:';

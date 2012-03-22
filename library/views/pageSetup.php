@@ -60,7 +60,7 @@ if($unwriteableList && checkBasePathAndURL()) {
   <input type="hidden" name="savedBlock" id="savedBlock" value="" />
   </div>
 
-<!-- GENERAL PAGE CONFIG -->
+<!-- GENERAL PAGE SETTINGS -->
 <a id="generalPageConfig" class="anchorTarget"></a>
 <?php
 // shows the block below if it is the ones which is saved before
@@ -80,6 +80,28 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
       </td><td class="right checkboxes">
       <label for="cfg_setStartPage"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']; ?>"><?php echo $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']; ?></span></label>
       </td></tr>
+
+      <tr><td class="spacer checkboxes"></td><td>
+
+      <tr><td class="left checkboxes">
+      <input type="checkbox" id="cfg_multiLanguagePages" name="cfg_multiLanguagePages" value="true" class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES'].'::'; ?>"<?php if($adminConfig['multiLanguagePages']['active']) echo ' checked="checked"'; ?> />
+      </td><td class="right checkboxes">
+      <label for="cfg_multiLanguagePages"><span class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES'].'::'; ?>"><?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']; ?></span></label>
+      </td></tr>
+
+      <tr><td class="left checkboxes">
+      </td><td class="right checkboxes">
+      <select id="cfg_pagesMainLanguage" name="cfg_pagesMainLanguage" style="width:250px;max-height:130px;"<?php if(!$adminConfig['multiLanguagePages']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']; ?>">
+      <?php
+        foreach($languagesArray as $langKey => $langValue) {
+          $selected = ($langKey == $adminConfig['multiLanguagePages']['mainLanguage']) ? ' selected="selected"' : '' ;
+          echo '<option value="'.$langKey.'"'.$selected.'>'.$langValue.'</option>';    
+        }
+      ?>
+      </select>
+      </td></tr>
+
+      <tr><td class="spacer checkboxes"></td><td>
       
     </table>
     

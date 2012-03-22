@@ -346,9 +346,12 @@ class StatisticFunctions {
   * 
   */
   public static function checkPageDate($pageContent) {
+    $pageDate = getLocalized($pageContent,'pageDate');
+    $pageDateBefore = $pageDate['before'];
+    $pageDateAfter = $pageDate['after'];
     if((isset(self::$categoryConfig[$pageContent['category']]) && ($pageContent['category'] != 0 && self::$categoryConfig[$pageContent['category']]['showPageDate']) ||
        ($pageContent['category'] == 0 && self::$adminConfig['pages']['showPageDate'])) &&
-       (!empty($pageContent['pageDate']['before']) || !empty($pageContent['pageDate']['date']) || !empty($pageContent['pageDate']['after'])))
+       (!empty($pageDateBefore) || !empty($pageContent['pageDate']['date']) || !empty($pageDateAfter)))
        return true;
     else
        return false;

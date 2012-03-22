@@ -84,27 +84,27 @@ if(isset($_POST['send']) && $_POST['send'] ==  'adminSetup') {
   } elseif(!isset($_POST['cfg_realBasePath']))
     $_POST['cfg_realBasePath'] = $adminConfig['realBasePath'];
   
-  $adminConfig['realBasePath'] = $_POST['cfg_realBasePath'];
-  $adminConfig['websitePath'] =  $_POST['cfg_websitePath'];
+  $adminConfig['realBasePath']             = $_POST['cfg_realBasePath'];
+  $adminConfig['websitePath']              =  $_POST['cfg_websitePath'];
   
-  $adminConfig['uploadPath'] = $_POST['cfg_uploadPath'];  
-  $adminConfig['websiteFilesPath'] = $_POST['cfg_websiteFilesPath'];
-  $adminConfig['stylesheetPath'] = $_POST['cfg_stylesheetPath'];
+  $adminConfig['uploadPath']               = $_POST['cfg_uploadPath'];  
+  $adminConfig['websiteFilesPath']         = $_POST['cfg_websiteFilesPath'];
+  $adminConfig['stylesheetPath']           = $_POST['cfg_stylesheetPath'];
   
-  $adminConfig['permissions'] = $_POST['cfg_permissions'];
-  $adminConfig['timeZone'] = $_POST['cfg_timeZone'];
-  $adminConfig['dateFormat'] = $_POST['cfg_dateFormat'];
-  $adminConfig['speakingUrl'] = $_POST['cfg_speakingUrl'];
-    
-  $adminConfig['varName']['page'] = $_POST['cfg_varNamePage'];  
-  $adminConfig['varName']['category'] = $_POST['cfg_varNameCategory'];  
-  $adminConfig['varName']['modul'] = $_POST['cfg_varNameModul'];
+  $adminConfig['permissions']              = $_POST['cfg_permissions'];
+  $adminConfig['timeZone']                 = $_POST['cfg_timeZone'];
+  $adminConfig['dateFormat']               = $_POST['cfg_dateFormat'];
+  $adminConfig['speakingUrl']              = $_POST['cfg_speakingUrl'];
   
-  $adminConfig['user']['frontendEditing'] = $_POST['cfg_userFrontendEditing'];
-  $adminConfig['user']['fileManager'] = (empty($adminConfig['uploadPath'])) ? false : $_POST['cfg_userFileManager'];
+  $adminConfig['varName']['page']          = $_POST['cfg_varNamePage'];  
+  $adminConfig['varName']['category']      = $_POST['cfg_varNameCategory'];  
+  $adminConfig['varName']['modul']         = $_POST['cfg_varNameModul'];
+  
+  $adminConfig['user']['frontendEditing']  = $_POST['cfg_userFrontendEditing'];
+  $adminConfig['user']['fileManager']      = (empty($adminConfig['uploadPath'])) ? false : $_POST['cfg_userFileManager'];
   $adminConfig['user']['editWebsiteFiles'] = $_POST['cfg_userWebsiteFiles'];
-  $adminConfig['user']['editStyleSheets'] = $_POST['cfg_userStylesheets'];  
-  $adminConfig['user']['info'] = $_POST['cfg_userInfo'];
+  $adminConfig['user']['editStyleSheets']  = $_POST['cfg_userStylesheets'];  
+  $adminConfig['user']['info']             = $_POST['cfg_userInfo'];
     
   // -> saved in pageSetup.php
   //$adminConfig['setStartPage'] = $_POST['cfg_setStartPage'];

@@ -16,18 +16,18 @@
  * 
  * includes/editor.include.php
  * 
- * @version 1.0
+ * @version 1.0.1
  */
  
 /**
  * Includes the login.include.php and backend.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
- 
+
 ?>
 <div class="editor">
 <textarea name="HTMLEditor" id="HTMLEditor" cols="90" rows="30">
-<?= htmlspecialchars($pageContent['content'],ENT_NOQUOTES,'UTF-8'); ?>
+<?= htmlspecialchars(getLocalized($pageContent,'content'),ENT_NOQUOTES,'UTF-8'); ?>
 </textarea>
 <?php
 

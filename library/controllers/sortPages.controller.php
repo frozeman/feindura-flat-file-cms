@@ -72,7 +72,7 @@ foreach($sortOrder as $sort) {
       }        
       
       /*
-      echo substr($pageContent['title'],0,4).',';
+      echo substr(getLocalized($pageContent,'title'),0,4).',';
       echo $pageContent['id'].',';
       echo $pageContent['sortOrder'].'|';
       */

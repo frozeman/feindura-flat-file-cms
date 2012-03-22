@@ -21,6 +21,7 @@ var toolTips; // holds the instance of the tooltips
 var deactivateType = 'disabled'; // disabled/readonly
 var myCfe;
 var pageContentChanged = false; // used to give a warning, if a page in the editor.php has been changed and not saved
+var HTMLEditor;
 
 /* GENERAL FUNCTIONS */
 
@@ -28,6 +29,8 @@ var pageContentChanged = false; // used to give a warning, if a page in the edit
 
 /* set toolTips to all objects with a toolTip class */
 function setToolTips() {
+
+  var toolTipsInput;
 
   //store titles and text
   feindura_storeTipTexts('.toolTip, .inputToolTip, .thumbnailToolTip');
@@ -43,7 +46,7 @@ function setToolTips() {
     hideDelay: 0 });
 
   /* thumbnailToolTip */
-  var toolTipsInput = new Tips('.thumbnailToolTip',{
+  toolTipsInput = new Tips('.thumbnailToolTip',{
     className: 'feindura_toolTipBox',
     offset: {'x': -320,'y': -20},
     fixed: true,
@@ -53,7 +56,7 @@ function setToolTips() {
   // -> window is smaller 1255px
   if(window.getSize().x < 1255) {
     /* inputToolTip */
-    var toolTipsInput = new Tips('.inputToolTip',{
+    toolTipsInput = new Tips('.inputToolTip',{
       className: 'feindura_toolTipBox',
       offset: {'x': -275,'y': -20},
       fixed: true,
@@ -63,7 +66,7 @@ function setToolTips() {
   // -> window is larger 1255px
   } else {
     /* inputToolTip */
-    var toolTipsInput = new Tips('.inputToolTip',{
+    toolTipsInput = new Tips('.inputToolTip',{
       className: 'feindura_toolTipBox',
       offset: {'x': 500,'y': -20},
       fixed: true,
@@ -81,7 +84,7 @@ function addField(containerId,inputName) {
 
   //var newInput = new Element('input', {name: inputName});
 
-  if(containerId && $(containerId) != null) {
+  if(containerId && $(containerId) !== null) {
     var newInput  = new Element('input', {name: inputName});
     $(containerId).grab(newInput,'bottom');
 		return true;
@@ -92,7 +95,7 @@ function addField(containerId,inputName) {
 function disableSafeHtml(checkbox) {
   if(checkbox.checked) {
     $('cfg_editorSafeHtml').disabled = false;
-    $('cfg_editorSafeHtml').retrieve('fancyform_replacment').removeClass('fancyform_disabled')
+    $('cfg_editorSafeHtml').retrieve('fancyform_replacment').removeClass('fancyform_disabled');
   } else {
     $('cfg_editorSafeHtml').disabled = true;
     $('cfg_editorSafeHtml').retrieve('fancyform_replacment').addClass('fancyform_disabled');
@@ -111,14 +114,14 @@ function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) 
       };
 
   // thumbwidth
-  if($(thumbWidth) != null) {
+  if($(thumbWidth) !== null) {
       $(thumbWidth).addEvents({
         'keyup': scaleWidth,
         'mouseup': scaleWidth
       });
   }
   // thumbheight
-  if($(thumbHeight) != null) {
+  if($(thumbHeight) !== null) {
       $(thumbHeight).addEvents({
         'keyup': scaleHeight,
         'mouseup': scaleHeight
@@ -131,7 +134,7 @@ function setThumbScale(thumbWidth,thumbWidthScale,thumbHeight,thumbHeightScale) 
 function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,thumbNoRatio) {
 
   // thumbwidth
-  if($(thumbWidthRatio) != null) {
+  if($(thumbWidthRatio) !== null) {
       $(thumbWidthRatio).addEvent('click', function() {
           $(thumbHeight).setProperty(deactivateType,deactivateType);
           $(thumbWidth).removeProperty(deactivateType);
@@ -139,7 +142,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
   }
 
   // thumbheight
-  if($(thumbHeightRatio) != null) {
+  if($(thumbHeightRatio) !== null) {
       $(thumbHeightRatio).addEvent('click', function() {
           $(thumbWidth).setProperty(deactivateType,deactivateType);
           $(thumbHeight).removeProperty(deactivateType);
@@ -147,7 +150,7 @@ function setThumbRatio(thumbWidth,thumbWidthRatio,thumbHeight,thumbHeightRatio,t
   }
 
   // no Ratio
-  if($(thumbNoRatio) != null) {
+  if($(thumbNoRatio) !== null) {
       $(thumbNoRatio).addEvent('click', function() {
           $(thumbWidth).removeProperty(deactivateType);
           $(thumbHeight).removeProperty(deactivateType);
@@ -239,11 +242,9 @@ function blockSlider(givenId) {
     blocksInDiv = givenId + ' ';
 
   $$(blocksInDiv + '.block').each(function(block,i) {
-     var h1SlideButton;
-	   var slideContent;
-	   var bottomBorder;
+     var h1SlideButton, slideContent, bottomBorder;
 
-	   // gets the <a> tag in the <h1>
+     // gets the <a> tag in the <h1>
      if(block.getElement('h1') !== null && block.getElement('h1').getElement('a')) {
 
        h1SlideButton = block.getElement('h1').getElement('a');
@@ -258,8 +259,8 @@ function blockSlider(givenId) {
          }
       });
 
-  	  // -> CREATE the SLIDE EFFECT
-  	  slideContent.set('slide',{
+      // -> CREATE the SLIDE EFFECT
+      slideContent.set('slide',{
         duration: 500,
         //transition: Fx.Transitions.Pow.easeInOut, //Fx.Transitions.Back.easeInOut
         transition: Fx.Transitions.Quint.easeInOut,
@@ -286,11 +287,11 @@ function blockSlider(givenId) {
 
       // -> set click Event for the SLIDE EFFECT to the buttons
       h1SlideButton.addEvent('click', function(e) {
-      	  e.stop();
-     	    if(!slideContent.get('slide').open) {
-     	      scrollToElement.start(window.getPosition().x,block.getPosition().y - 30);
-      	    slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
-      	    block.removeClass('hidden'); // change the arrow
+        e.stop();
+          if(!slideContent.get('slide').open) {
+            scrollToElement.start(window.getPosition().x,block.getPosition().y - 30);
+          slideContent.setStyle('display','block'); // to allow sorting above the slided in box (reset)
+          block.removeClass('hidden'); // change the arrow
           } else
             block.addClass('hidden'); // change the arrow
           slideContent.slide('toggle');
@@ -311,10 +312,10 @@ function blockSlider(givenId) {
 function inBlockTableSlider() {
 
   var count = 0;
-  var slideLinks = new Array();
+  var slideLinks = [];
 
   // -> GO TROUGH every CATEGORY
-  if($$('.block .inBlockSlider') != null && $$('.block .inBlockSliderLink') != null) {
+  if($$('.block .inBlockSlider') !== null && $$('.block .inBlockSliderLink') !== null) {
 
     // -----------------------------------------
     // ADD SLIDE TO TABLEs inside a BLOCK
@@ -348,10 +349,10 @@ function inBlockTableSlider() {
          // sets the SLIDE effect to the SLIDE links
          slideLinks[count].addEvent('click', function(e) {
             if(e.target.match('a')) e.stop();
-        		insideBlockTable.get('slide').toggle();
-        		insideBlockTable.get('slide').wrapper.fade('show');
-        		insideBlockTable.toggleClass('hidden');
-        	});
+            insideBlockTable.get('slide').toggle();
+            insideBlockTable.get('slide').wrapper.fade('show');
+            insideBlockTable.toggleClass('hidden');
+          });
 
          count++;
       });
@@ -362,7 +363,7 @@ function inBlockTableSlider() {
 /* pageChangedSign function
 adds a * to the head and the sideBarMenu link of the page, to show that the page was modified, but not saved yet */
 function pageContentChangedSign() {
-  if($('editorForm') != null && !pageContentChanged) {
+  if($('editorForm') !== null && !pageContentChanged) {
     $$('.notSavedSign' + $('editorForm').get('class')).each(function(notSavedSign) {
       notSavedSign.setStyle('display','inline');
     });
@@ -392,7 +393,7 @@ function sidebarMenu() {
 
     setSidbarMenuTextLength();
 
-  	$$('.sidebarMenu').each(function(sideBarMenu) {
+    $$('.sidebarMenu').each(function(sideBarMenu) {
 
     // ->> SLIDE IN/OUT on click -------------------------------------------------------------------------------------------
     // gets the <a> tag in the <div class="content"> container and <div class="bottom">
@@ -418,12 +419,12 @@ function sidebarMenu() {
 
     // -> sets the SLIDE EFFECT to the buttons
     slideTopButton.addEvent('click', function(e){
-    	e.stop();
-    	slideContent.get('slide').toggle();
+      e.stop();
+      slideContent.get('slide').toggle();
     });
     slideBottomButton.addEvent('click', function(e){
-    	e.stop();
-    	slideContent.get('slide').toggle();
+      e.stop();
+      slideContent.get('slide').toggle();
     });
 
     // -> HIDE the Menu IF it has CLASS "HIDDEN"
@@ -437,17 +438,17 @@ function sidebarMenu() {
     sideBarMenu.set('tween', {duration: '650', transition: Fx.Transitions.Pow.easeOut});
 
     slideContent.addEvent('mouseover', function(e){
-    	e.stop();
+    e.stop();
 
-    	if(sidbarMenuTextLength > 210) {
-    	  sideBarMenu.tween('width', sidbarMenuTextLength);
-    	} else {
-    	  sideBarMenu.tween('width', 210);
-    	}
+    if(sidbarMenuTextLength > 210) {
+      sideBarMenu.tween('width', sidbarMenuTextLength);
+    } else {
+      sideBarMenu.tween('width', 210);
+    }
     });
     slideContent.addEvent('mouseout', function(e){
-    	e.stop();
-    	sideBarMenu.tween('width', '210');
+    e.stop();
+    sideBarMenu.tween('width', '210');
     });
   });
 }
@@ -480,8 +481,8 @@ function requestLeftSidebar(site,page,category) {
         //$('leftSidebar').tween('opacity',0);
 
         // -> ADD the LOADING CIRCLE
-    		$('leftSidebar').grab(jsLoadingCircleContainer,'before');
-    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 25, 40, 12, 4, "#999");
+        $('leftSidebar').grab(jsLoadingCircleContainer,'before');
+        removeLoadingCircle = feindura_loadingCircle(jsLoadingCircleContainer, 25, 40, 12, 4, "#999");
 
     },
     //-----------------------------------------------------------------------------
@@ -498,16 +499,16 @@ function requestLeftSidebar(site,page,category) {
         removeLoadingCircle();
       });
 
-	    sidebarMenu();
-	    setToolTips();
-	    layoutFix();
+      sidebarMenu();
+      setToolTips();
+      layoutFix();
 		},
 		//-----------------------------------------------------------------------------
 		//Our request will most likely succeed, but just in case, we'll add an
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
-		  var failureText = new Element('p');
-		  failureText.set('text','Couldn\'t load the sidebar?');
+      var failureText = new Element('p');
+      failureText.set('text','Couldn\'t load the sidebar?');
 			$('leftSidebar').set('html',failureText);
 		}
   });
@@ -529,7 +530,7 @@ window.addEvent('load', function() {
 
     // SCROLL to ANCHORS after loading the pages (should fix problems with slided in blocks)
     var anchorId = window.location.hash.substring(1);
-    if($(anchorId) != null)
+    if($(anchorId) !== null)
       (function(){ new Fx.Scroll(window,{duration:100}).set(0,this.getPosition().y); }).delay(100,$(anchorId));
 
 });
@@ -545,7 +546,7 @@ window.addEvent('domready', function() {
       url:'library/includes/backend.include.php',
       method: 'get',
       onSuccess: function(html) {
-        if(html == 'releaseBlock' && $('contentBlocked') != null)
+        if(html == 'releaseBlock' && $('contentBlocked') !== null)
           $('contentBlocked').destroy();
       }
     }).send('status=updateUserCache&site='+currentSite+'&page='+currentPage);
@@ -557,7 +558,7 @@ window.addEvent('domready', function() {
   sidebarMenu();
 
   // let the errorWindow clos by ESC or ENTER keys
-  if($('feindura_errorWindow') != null) {
+  if($('feindura_errorWindow') !== null) {
     document.addEvent('keyup',function(e){
       if(e.key == 'esc' || e.key == 'enter')
         feindura_closeErrorWindow(e);
@@ -566,7 +567,7 @@ window.addEvent('domready', function() {
 
   // ->> LOG LIST
   // ------------
-  if($('sidebarTaskLog') != null) {
+  if($('sidebarTaskLog') !== null) {
 
     // vars
     var minHeight = 200;
@@ -609,13 +610,13 @@ window.addEvent('domready', function() {
 
   // ->> SIDEBAR SCROLLES LIKE FIXED
   // ---------------------------
-  if($('sidebarSelection') != null && $('sidebarSelection').hasClass('staticScroller')) {
+  if($('sidebarSelection') !== null && $('sidebarSelection').hasClass('staticScroller')) {
     // adds static scroller
     new StaticScroller('sidebarSelection');
   }
 
   // reload the currentVisitors statistic every 1/2 minute
-  if($('currentVisitorsSideBar') != null) {
+  if($('currentVisitorsSideBar') !== null) {
     (function(){
       new Request({
         url:'library/includes/currentVisitors.include.php',
@@ -634,7 +635,7 @@ window.addEvent('domready', function() {
 
   // *** ->> ADMIN-MENU -----------------------------------------------------------------------------------------------------------------------
 
-  if($('adminMenu') != null) {
+  if($('adminMenu') !== null) {
     // set the style back, which is set for non javascript users
     $('adminMenu').setStyle('width','172px');
     $('adminMenu').setStyle('overflow','hidden');
@@ -674,7 +675,7 @@ window.addEvent('domready', function() {
 
   // -------------------------------------------------------------------------------------------
   // TWEEN FUNCTIONS in LIST PAGES ---------------------------------------------------------------
-  if($$('ul li div.functions') != null) {
+  if($$('ul li div.functions') !== null) {
 
     $$('ul li').each(function(li) {
       var functionsDiv = false;
@@ -687,7 +688,7 @@ window.addEvent('domready', function() {
       });
 
       // add fade in and out event on mouseover
-      if(functionsDiv != false) {
+      if(functionsDiv !== false) {
         functionsDiv.set('tween',{duration: '1500', transition: Fx.Transitions.Pow.easeOut});
 
         li.addEvent('mouseover',function(e) {
@@ -712,9 +713,9 @@ window.addEvent('domready', function() {
 
   // -------------------------------------------------------------------------------------------
   // FILTER LIST PAGES -------------------------------------------------------------------------
-  if($('listPagesFilter') != null) {
+  if($('listPagesFilter') !== null) {
     var cancelListPagesFilter = function() {$('listPagesFilter').set('value',''); $('listPagesFilter').fireEvent('keyup');};
-    var openBlocks = new Array();
+    var openBlocks = [];
     var storedOpenBlocks = false;
     $('listPagesFilter').addEvent('keyup',function(e){
 
@@ -724,7 +725,7 @@ window.addEvent('domready', function() {
       // ->> FILTER the PAGES
       if(filter) {
         $$('div.block.listPages li').each(function(page) {
-          if(page.getChildren('div.name a')[0] != null && !page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase()))
+          if(page.getChildren('div.name a')[0] !== null && !page.getChildren('div.name a')[0].get('text').toLowerCase().contains(filter.toLowerCase()))
             page.setStyle('display','none');
           else
             page.setStyle('display','block');
@@ -763,14 +764,14 @@ window.addEvent('domready', function() {
 
         $$('div.block.listPages div.content').each(function(block){
           if(block.getParent('div.listPages').hasClass('hidden')) {
-      	    block.getParent('div.listPages').removeClass('hidden'); // change the arrow
-      	    block.setStyle('display','block'); // to allow sorting above the slided in box (reset)
-      	    block.slide('show');
-      	    block.get('slide').wrapper.setStyle('height','auto');
-      	    layoutFix();
+            block.getParent('div.listPages').removeClass('hidden'); // change the arrow
+            block.setStyle('display','block'); // to allow sorting above the slided in box (reset)
+            block.slide('show');
+            block.get('slide').wrapper.setStyle('height','auto');
+            layoutFix();
 
-      	  // store the open blocks
-    	    } else if(!storedOpenBlocks) {
+          // store the open blocks
+          } else if(!storedOpenBlocks) {
             openBlocks.push(block);
           }
         });
@@ -778,13 +779,13 @@ window.addEvent('domready', function() {
 
       // ->> WHEN filter is cleared
       // ->> SLIDE the blocks OUT again, besides the one which was in at the beginning
-      } else if(filter == '' && storedOpenBlocks) {
+      } else if(filter === '' && storedOpenBlocks) {
         $('listPagesFilterCancel').removeEvent('click',cancelListPagesFilter);
         $('listPagesFilterCancel').setStyle('display','none');
 
         $$('div.block.listPages div.content').each(function(block){
           if(!openBlocks.contains(block)) {
-      	    block.getParent('div.listPages').addClass('hidden'); // change the arrow
+            block.getParent('div.listPages').addClass('hidden'); // change the arrow
             block.slide('hide');
             block.setStyle('display','none'); // to allow sorting above the slided in box (reset)
             block.get('slide').wrapper.setStyle('height',block.getSize().y);
@@ -806,12 +807,12 @@ window.addEvent('domready', function() {
   var categoryOld;
   var categoryNew;
 
-  if($('sortablePageList_status') != null)
+  if($('sortablePageList_status') !== null)
     var sortablePageList_status = $('sortablePageList_status').get('value').split("|");
 
   var preventLink = function (){
       return false;
-  }
+  };
 
 	var sb = new Sortables('.sortablePageList', {
 		/* set options */
@@ -833,9 +834,9 @@ window.addEvent('domready', function() {
 		},
     // check if sorted
 		onSort: function(el){
-  		clicked = true;
-  		$$('.sortablePageList a').each(function(a) { a.addEvent('click',preventLink); }); // prevent clicking the link on sort
-  	},
+      clicked = true;
+      $$('.sortablePageList a').each(function(a) { a.addEvent('click',preventLink); }); // prevent clicking the link on sort
+    },
 		/* --> when a drag is complete */
 		onComplete: function(el) {
 
@@ -852,7 +853,7 @@ window.addEvent('domready', function() {
       var count_sort = 0;
 
 			$$('.sortablePageList li').each(function(li) {
-        if(li.getParent().get('id') == el.getParent().get('id') && li.get('id') != null) {
+        if(li.getParent().get('id') == el.getParent().get('id') && li.get('id') !== null) {
           sort_order = sort_order + li.get('id').substr(4)  + '|'; count_sort++;
         } });
 			$('sort_order' + categoryNew).value = sort_order;
@@ -860,31 +861,33 @@ window.addEvent('domready', function() {
 			// if pages has changed the category id in the href!
 			if(categoryOld != categoryNew) {
         el.getElements('div').each(function(div){
-            if(div.hasClass('name')) {
-                var oldHref = String(div.getElement('a').get('href'));
-                var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
-                div.getElement('a').set('href',newHref);
-            }
+          var newHref,oldHref;
 
-            if(div.hasClass('status')) {
-                var oldHref = String(div.getElement('a').get('href'));
-                var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
-                div.getElement('a').set('href',newHref);
-            }
+          if(div.hasClass('name')) {
+              oldHref = String(div.getElement('a').get('href'));
+              newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
+              div.getElement('a').set('href',newHref);
+          }
 
-            if(div.hasClass('functions')) {
-                div.getElements('a').each(function(a){
-                  var oldHref = String(a.get('href'));
-                  var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
-                  a.set('href',newHref);
+          if(div.hasClass('status')) {
+              oldHref = String(div.getElement('a').get('href'));
+              newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
+              div.getElement('a').set('href',newHref);
+          }
 
-                  if(a.hasClass('deletePage')) {
-                      var oldHref = String(a.get('onclick'));
-                      var newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
-                      a.set('onclick',newHref);
-                  }
-                });
-            }
+          if(div.hasClass('functions')) {
+              div.getElements('a').each(function(a){
+                oldHref = String(a.get('href'));
+                newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
+                a.set('href',newHref);
+
+                if(a.hasClass('deletePage')) {
+                    oldHref = String(a.get('onclick'));
+                    newHref = oldHref.replace('category=' + categoryOld,'category=' + categoryNew);
+                    a.set('onclick',newHref);
+                }
+              });
+          }
         });
       }
 
@@ -908,49 +911,49 @@ window.addEvent('domready', function() {
 		//-------------------------------------
 		onSuccess: function(responseText) {
 
-		  // FINAL SORT MESSAGE
-		  //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
-		  //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
-		  $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
+      // FINAL SORT MESSAGE
+      //puts the right message which is get from the sortablePageList_status array (hidden input) in the messageBox
+      //$('messageBox_input').set('html',sortablePageList_status[responseText.substr(6,1)]);
+      $('messageBox_input').set('html','<img src="library/images/icons/hintIcon.png" class="hintIcon" /><span style="color:#407287;font-weight:bold;">' + responseText + '</span>');
 
 			// remove prevent clicking the link on sort
 			$$('.sortablePageList a').each(function(a) { a.removeEvent('click',preventLink); });
 
 			// remove the "no pages notice" li if there is a page put in this category
-		    $$('.sortablePageList li').each(function(li) {
-			if(li.get('id') == null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
-			  li.destroy();
-			}
-		    });
+      $$('.sortablePageList li').each(function(li) {
+        if(li.get('id') === null && li.getParent().get('id').substr(8) == categoryNew && responseText.substr(-1) != '4') {
+          li.destroy();
+        }
+      });
 
-		    // adds the "no page - notice" li if the old category is empty
-		    if(responseText.substr(0,13) == '<span></span>') {
-		      $$('.sortablePageList').each(function(ul) {
-      			if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
-      			  var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
-      			  newLi.setStyle('cursor','auto');
-      			  ul.grab(newLi,'top');
-      			}
-		      });
-		    }
+      // adds the "no page - notice" li if the old category is empty
+      if(responseText.substr(0,13) == '<span></span>') {
+        $$('.sortablePageList').each(function(ul) {
+          if(ul.get('id').substr(8) == categoryOld) { // && responseText.substr(-1) != '4'
+            var newLi = new Element('li', {html: '<div class="emptyList">' + sortablePageList_status[1] + '</div>'});
+            newLi.setStyle('cursor','auto');
+            ul.grab(newLi,'top');
+          }
+        });
+      }
 
-		    // RELOADS the sidebarMenu
-		    requestLeftSidebar('pages','0',categoryNew);
+      // RELOADS the sidebarMenu
+      requestLeftSidebar('pages','0',categoryNew);
 
-		    // hide the loadingBox
-		    //$('loadingBox').setStyle('visibility','hidden');
-		    $('loadingBox').fade('show');
-		    $('loadingBox').fade('out');
+      // hide the loadingBox
+      //$('loadingBox').setStyle('visibility','hidden');
+      $('loadingBox').fade('show');
+      $('loadingBox').fade('out');
 		}
-	     }).send();
+  }).send();
 
-	   } // <-- SAVE SORT -- END --------------------
-	 }
+    } // <-- SAVE SORT -- END --------------------
+  }
 	});
 
   // makes the "no pages notice" li un-dragable
   $$('.sortablePageList li').each(function(li) {
-      if(li.get('id') == null) {
+      if(li.get('id') === null) {
         li.removeEvents();
         li.setStyle('cursor','auto');
       }
@@ -974,19 +977,19 @@ window.addEvent('domready', function() {
 
   // -> adds Fields to styleSheetsFilePaths
   $$('.addStyleFilePath').each(function(addButton){
-    if(addButton != null) {
+    if(addButton !== null) {
       var containerId = addButton.getParent().getElement('div').getProperty('id');
       var inputName = addButton.getParent().getElement('div').getElement('input').getProperty('name');
 
       addButton.addEvent('click', function(e) {
         e.stop();
-  			addField(containerId,inputName);
-  		});
+        addField(containerId,inputName);
+      });
     }
   });
 
   // -> DISABLE varNames if SPEAKING URL is selected
-  if($('cfg_speakingUrl') != null) {
+  if($('cfg_speakingUrl') !== null) {
     var smallSize = '50px';
 
     $('cfg_speakingUrl').addEvent('change',function() {
@@ -1014,8 +1017,21 @@ window.addEvent('domready', function() {
   // ->> PAGE SETUP
   // ---------------
 
+  // -> PAGE SETTINGS
+  // -> disables the "main language" field if "multiple languages" checkbox is deactivated
+  if($('cfg_multiLanguagePages') !== null ) {
+    $('cfg_multiLanguagePages').addEvent('change',function() {
+      console.log(this.checked);
+      if(this.checked === true) {
+        $('cfg_pagesMainLanguage').removeProperty(deactivateType);
+      } else {
+        $('cfg_pagesMainLanguage').setProperty(deactivateType,deactivateType);
+      }
+    });
+  }
+
   // -> GO TROUGH every CATEGORY and add thumbScale to the advanced category settings
-  if($$('.advancedcategoryConfig') != null) {
+  if($$('.advancedcategoryConfig') !== null) {
     var countCategories = 0;
     // -----------------------------------------
     // ADD SLIDE TO THE ADVANCED CATEGORY SETTINGS
@@ -1059,13 +1075,13 @@ window.addEvent('domready', function() {
 
   // ------------------------------------------------------------
   // makes inputs who are empty transparent, and fade in on mouseover
-  if($$('.right input') != null) {
+  if($$('.right input') !== null) {
         //var smallSize = 50;
         var fade = 0.6;
 
         $$('.right input, .listPagesHead input').each(function(input) {
             // looks for empty inputs
-            if(!input.hasClass('noResize') && (input.get('value') == '' || input.get('disabled') != false)) {
+            if(!input.hasClass('noResize') && (input.get('value') === '' || input.get('disabled') !== false)) {
 
                 var hasFocus = false;
                 var hasContent = false;
@@ -1073,7 +1089,7 @@ window.addEvent('domready', function() {
                 var inputWidthBefore = input.getStyle('opacity');
                 input.setStyle('opacity', fade); //makes the input small
 
-                input.set('tween',{duration: '500', transition: Fx.Transitions.Sine.easeOut}) //Bounce.easeOut
+                input.set('tween',{duration: '500', transition: Fx.Transitions.Sine.easeOut}); //Bounce.easeOut
 
                 input.addEvents({
                   'mouseover' : function() { // resize on mouseover
@@ -1085,11 +1101,11 @@ window.addEvent('domready', function() {
                   },
                   'blur' : function() { // if onblur set hasFocus = false and tween to small if the input has still no content
                       hasFocus = false;
-                      if(input.get('value') == '')
+                      if(input.get('value') === '')
                         input.tween('opacity',fade);
                   },
                   'mouseout' : function() { // onmouseout, if has not focus tween to small
-                      if(!hasFocus && input.get('value') == '')
+                      if(!hasFocus && input.get('value') === '')
                         input.tween('opacity',fade);
                   }
                 });
@@ -1125,7 +1141,7 @@ window.addEvent('domready', function() {
 
 
   // *** ->> EDITOR -----------------------------------------------------------------------------------------------------------------------
-  if($('HTMLEditor') != null) {
+  if($('HTMLEditor') !== null) {
 
     // vars
     var editorStartHeight = window.getSize().y * 0.25;
@@ -1142,7 +1158,7 @@ window.addEvent('domready', function() {
     CKEDITOR.config.dialog_backgroundCoverColor   = '#333333';
     CKEDITOR.config.uiColor                       = '#cccccc';
     CKEDITOR.config.width                         = 792;
-    if($('documentSaved') != null && $('documentSaved').hasClass('saved'))
+    if($('documentSaved') !== null && $('documentSaved').hasClass('saved'))
       CKEDITOR.config.height                      = editorTweenToHeight;
     else
       CKEDITOR.config.height                      = editorStartHeight;
@@ -1182,17 +1198,17 @@ window.addEvent('domready', function() {
                               ];		// No comma for the last row.
 
     // -> CREATES the editor instance, with replacing the textarea with the id="HTMLEditor"
-  	var HTMLEditor = CKEDITOR.replace('HTMLEditor');
+    HTMLEditor = CKEDITOR.replace('HTMLEditor');
 
-  	// -> adds the EDITOR SLIDE IN/OUT tweens
-  	if($('documentSaved') != null && !$('documentSaved').hasClass('saved')) {
-    	HTMLEditor.on('instanceReady',function() {
-    	  $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
+    // -> adds the EDITOR SLIDE IN/OUT tweens
+    if($('documentSaved') !== null && !$('documentSaved').hasClass('saved')) {
+      HTMLEditor.on('instanceReady',function() {
+        $('cke_contents_HTMLEditor').set('tween',{duration:300, transition: Fx.Transitions.Pow.easeOut});
 
-    	  var editorTweenTimeout;
+        var editorTweenTimeout;
 
         $('cke_HTMLEditor').addEvent('mouseenter',function(e){
-          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight)}).delay(1000);
+          if(!editorIsClicked && !editorSubmited && !editorHasFocus && $('cke_contents_HTMLEditor').getHeight() <= (editorStartHeight+20)) editorTweenTimeout = (function(){$('cke_contents_HTMLEditor').tween('height',editorTweenToHeight);}).delay(1000);
 
         });
         $$('div.editor').addEvent('mouseleave',function(e){
@@ -1216,7 +1232,83 @@ window.addEvent('domready', function() {
     }
   }
   // ->> make PAGE TITLE EDITABLE
-  if($('editablePageTitle') != null) {
+
+  // -> SAVE TITLE
+  function saveTitle(title,type) {
+    if(titleContent != title.get('html')) {
+
+      // var
+      var jsLoadingCircle = new Element('div',{'class': 'smallLoadingCircle'});
+      var removeLoadingCircle = function(){};
+
+      // url encodes the string
+      title.getChildren('#rteMozFix').destroy();
+      var content = encodeURIComponent(title.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
+      //request(title,,,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+
+      // save the title
+      new Request({
+        url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
+        method: 'post',
+        data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
+
+        onRequest: function() {
+
+          // -> ADD the LOADING CIRCLE
+          if(!title.contains(jsLoadingCircle))
+            title.grab(jsLoadingCircle,'top');
+          removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");
+        },
+        onSuccess: function(html) {
+
+        // -> fade out the loadingCircle
+        jsLoadingCircle.set('tween',{duration: 200});
+        jsLoadingCircle.fade('out');
+        jsLoadingCircle.get('tween').chain(function(){
+        // -> REMOVE the LOADING CIRCLE
+        removeLoadingCircle();
+        jsLoadingCircle.dispose();
+
+        if(html.contains('####SAVING-ERROR####'))
+          document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
+        else {
+        // -> UPDATE the TITLE everywhere
+          title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
+          $('edit_title').set('value',html);
+          $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
+          setSidbarMenuTextLength();
+          titleContent = $('editablePageTitle').get('html');
+        // display document saved
+        showDocumentSaved();
+        }
+          });
+        },
+        //-----------------------------------------------------------------------------
+        //Our request will most likely succeed, but just in case, we'll add an
+        //onFailure method which will let the user know what happened.
+        onFailure: function() { //-----------------------------------------------------
+
+          // -> fade out the loadingCircle
+          if(!title.contains(jsLoadingCircle))
+            title.grab(jsLoadingCircle,'top');
+            jsLoadingCircle.set('tween',{duration: 200});
+            jsLoadingCircle.fade('out');
+            jsLoadingCircle.get('tween').chain(function(){
+            // -> REMOVE the LOADING CIRCLE
+            removeLoadingCircle();
+            jsLoadingCircle.dispose();
+            // add errorWindow
+            document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
+          });
+
+        }
+      }).send();
+
+      titleSaved = true;
+    }
+  }
+
+  if($('editablePageTitle') !== null) {
 
     // vars
     var titleSaved = false;
@@ -1224,80 +1316,7 @@ window.addEvent('domready', function() {
 
     $('editablePageTitle').moorte({location:'none'});
 
-    // ->> SAVE TITLE
-    function saveTitle(title,type) {
-      if(titleContent != title.get('html')) {
-
-        // var
-        var jsLoadingCircle = new Element('div',{'class': 'smallLoadingCircle'});
-        var removeLoadingCircle = function(){};
-
-        // url encodes the string
-        title.getChildren('#rteMozFix').destroy();
-        var content = encodeURIComponent(title.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
-        //request(title,,,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
-
-        // save the title
-        new Request({
-          url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
-          method: 'post',
-          data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
-
-          onRequest: function() {
-
-            // -> ADD the LOADING CIRCLE
-            if(!title.contains(jsLoadingCircle))
-        		  title.grab(jsLoadingCircle,'top');
-        		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 8, 15, 12, 2, "#000");
-          },
-      		onSuccess: function(html) {
-
-      			// -> fade out the loadingCircle
-      			jsLoadingCircle.set('tween',{duration: 200});
-      			jsLoadingCircle.fade('out');
-      			jsLoadingCircle.get('tween').chain(function(){
-              // -> REMOVE the LOADING CIRCLE
-              removeLoadingCircle();
-              jsLoadingCircle.dispose();
-
-              if(html.contains('####SAVING-ERROR####'))
-                document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
-              else {
-        			  // -> UPDATE the TITLE everywhere
-                title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
-                $('edit_title').set('value',html);
-                $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
-                setSidbarMenuTextLength();
-                titleContent = $('editablePageTitle').get('html');
-          			// display document saved
-          			showDocumentSaved();
-        			}
-            });
-      		},
-      		//-----------------------------------------------------------------------------
-      		//Our request will most likely succeed, but just in case, we'll add an
-      		//onFailure method which will let the user know what happened.
-      		onFailure: function() { //-----------------------------------------------------
-
-            // -> fade out the loadingCircle
-            if(!title.contains(jsLoadingCircle))
-              title.grab(jsLoadingCircle,'top');
-        			jsLoadingCircle.set('tween',{duration: 200});
-        			jsLoadingCircle.fade('out');
-        			jsLoadingCircle.get('tween').chain(function(){
-              // -> REMOVE the LOADING CIRCLE
-              removeLoadingCircle();
-              jsLoadingCircle.dispose();
-              // add errorWindow
-              document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
-            });
-
-      		}
-        }).send();
-
-        titleSaved = true;
-      }
-    }
+    
 
     // ->> GO TROUGH ALL EDITABLE BLOCK
 
@@ -1306,14 +1325,14 @@ window.addEvent('domready', function() {
 
     // save on enter
     $('editablePageTitle').addEvent('keydown', function(e) {
-      if(e.key == 'enter' && $(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
+      if(e.key == 'enter' && $(e.target) !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
           e.stop();
           saveTitle($(e.target),'title');
       }
     });
     // save on blur
     $('editablePageTitle').addEvent('blur', function(e) {
-      if($(e.target) != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
+      if($(e.target) !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
           saveTitle($(e.target),'title');
       }
     });
@@ -1326,18 +1345,16 @@ window.addEvent('domready', function() {
   }
 
   // CHANGE CATEGORY
-  if($('categorySelection') != null) {
+  if($('categorySelection') !== null) {
     $('categorySelection').addEvent('change',function() {
       window.location.href = '?category=' + this[this.selectedIndex].value + '&page=new';
     });
   }
 
   // CHANGE TEMPLATE
-  if($('templateSelection') != null) {
+  if($('templateSelection') !== null) {
     $('templateSelection').addEvent('change',function() {
-      newLocation = (window.location.href.indexOf('&template') != -1)
-        ? window.location.href.substr(0,window.location.href.indexOf('&template'))
-        : window.location.href;
+      newLocation = (window.location.href.indexOf('&template') != -1) ? window.location.href.substr(0,window.location.href.indexOf('&template')) : window.location.href;
       if(this[this.selectedIndex].value == '-')
         window.location.href = newLocation;
       else
@@ -1347,81 +1364,81 @@ window.addEvent('domready', function() {
 
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MAX
-  if($('visitTimeMax') != null) {
+  if($('visitTimeMax') !== null) {
 
-     // creates the slide effect
-	   var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: 300, transition: Fx.Transitions.Pow.easeOut});
-     // slides the hotky div in, on start
-     slideVisitTimeMax.hide();
-     // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMax').addEvent('mouseenter', function(e){
-    		e.stop();
-    		slideVisitTimeMax.slideIn();
-     });
-     // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMax').addEvent('mouseleave', function(e){
-    		e.stop();
-    		//slideVisitTimeMax.slideOut();
-     });
-     // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMaxContainer').addEvent('mouseenter', function(e){
-    		e.stop();
-    		slideVisitTimeMax.slideIn();
-     });
-     // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMaxContainer').addEvent('mouseleave', function(e){
-    		e.stop();
-    		slideVisitTimeMax.slideOut();
-     });
+    // creates the slide effect
+    var slideVisitTimeMax = new Fx.Slide($('visitTimeMaxContainer'),{duration: 300, transition: Fx.Transitions.Pow.easeOut});
+    // slides the hotky div in, on start
+    slideVisitTimeMax.hide();
+    // sets the SLIDE OUT on MOUSE ENTER
+    $('visitTimeMax').addEvent('mouseenter', function(e){
+      e.stop();
+      slideVisitTimeMax.slideIn();
+    });
+    // sets the SLIDE IN on MOUSE LEAVE
+    $('visitTimeMax').addEvent('mouseleave', function(e){
+      e.stop();
+      //slideVisitTimeMax.slideOut();
+    });
+    // sets the SLIDE OUT on MOUSE ENTER
+    $('visitTimeMaxContainer').addEvent('mouseenter', function(e){
+      e.stop();
+      slideVisitTimeMax.slideIn();
+    });
+    // sets the SLIDE IN on MOUSE LEAVE
+    $('visitTimeMaxContainer').addEvent('mouseleave', function(e){
+      e.stop();
+      slideVisitTimeMax.slideOut();
+    });
   }
 
   // -----------------------------------------
   // ADD SLIDE TO THE VISIT TIME MIN
-  if($('visitTimeMin') != null) {
+  if($('visitTimeMin') !== null) {
 
-     // creates the slide effect
-	   var slideVisitTimeMin = new Fx.Slide($('visitTimeMinContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});
-     // slides the hotky div in, on start
-     slideVisitTimeMin.hide();
-     // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMin').addEvent('mouseenter', function(e){
-    		e.stop();
-    		slideVisitTimeMin.slideIn();
-     });
-     // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMin').addEvent('mouseleave', function(e){
-    		e.stop();
-    		//slideVisitTimeMin.slideOut();
-     });
-     // sets the SLIDE OUT on MOUSE ENTER
-     $('visitTimeMinContainer').addEvent('mouseenter', function(e){
-    		e.stop();
-    		slideVisitTimeMin.slideIn();
-     });
-     // sets the SLIDE IN on MOUSE LEAVE
-     $('visitTimeMinContainer').addEvent('mouseleave', function(e){
-    		e.stop();
-    		slideVisitTimeMin.slideOut();
-     });
+    // creates the slide effect
+    var slideVisitTimeMin = new Fx.Slide($('visitTimeMinContainer'),{duration: '300', transition: Fx.Transitions.Pow.easeOut});
+    // slides the hotky div in, on start
+    slideVisitTimeMin.hide();
+    // sets the SLIDE OUT on MOUSE ENTER
+    $('visitTimeMin').addEvent('mouseenter', function(e){
+      e.stop();
+      slideVisitTimeMin.slideIn();
+    });
+    // sets the SLIDE IN on MOUSE LEAVE
+    $('visitTimeMin').addEvent('mouseleave', function(e){
+      e.stop();
+      //slideVisitTimeMin.slideOut();
+    });
+    // sets the SLIDE OUT on MOUSE ENTER
+    $('visitTimeMinContainer').addEvent('mouseenter', function(e){
+      e.stop();
+      slideVisitTimeMin.slideIn();
+    });
+    // sets the SLIDE IN on MOUSE LEAVE
+    $('visitTimeMinContainer').addEvent('mouseleave', function(e){
+      e.stop();
+      slideVisitTimeMin.slideOut();
+    });
   }
 
   // -----------------------------------------
   // ADD SLIDE TO THE HOTKEYs (Tastenkürzel)
-  if($('hotKeys') != null) {
+  if($('hotKeys') !== null) {
 
-     // creates the slide effect
-	   var slideHotkeys = new Fx.Slide($('hotKeys'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});
+    // creates the slide effect
+    var slideHotkeys = new Fx.Slide($('hotKeys'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});
 
-     // slides the hotky div in, on start
-     slideHotkeys.hide();
+    // slides the hotky div in, on start
+    slideHotkeys.hide();
 
-     // sets the SLIDE EFFECT to the buttons
-     if($('hotKeysToogle') != null) {
+    // sets the SLIDE EFFECT to the buttons
+    if($('hotKeysToogle') !== null) {
        $('hotKeysToogle').addEvent('click', function(e){
-      		e.stop();
-      		slideHotkeys.toggle();
-      	});
-     }
+      e.stop();
+      slideHotkeys.toggle();
+    });
+   }
   }
 
   // -----------------------------------------
@@ -1435,7 +1452,7 @@ window.addEvent('domready', function() {
     });
   });
   // CHECK if the HTMLeditor content was changed
-  if($('HTMLEditor') != null) {
+  if($('HTMLEditor') !== null) {
     HTMLEditor.on('blur',function() {
       if(HTMLEditor.checkDirty()) {
         pageContentChangedSign();
@@ -1450,8 +1467,8 @@ window.addEvent('domready', function() {
     var onclick = link.get('onclick');
 
     // only on external links, or the sideBarMenu category selection
-    if((onclick == null || (onclick != null && onclick.toString().substr(0,18) == 'requestLeftSidebar')) &&
-        href != null &&
+    if((onclick === null || (onclick !== null && onclick.toString().substr(0,18) == 'requestLeftSidebar')) &&
+        href !== null &&
         href.toString().indexOf('#') == -1) {
 
       link.addEvent('click',function(e) {

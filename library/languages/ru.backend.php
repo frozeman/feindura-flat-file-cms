@@ -480,6 +480,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Настройки страниц';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br /][br /]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Тема на нескольких страницах язык';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
+$langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Основной язык';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Страницы без категории';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Создание/удаление страниц';
@@ -668,13 +671,13 @@ $langFile['EDITOR_pageSettings_h1']                                       = 'Н�
 $langFile['EDITOR_pagestatistics_h1']                                     = 'Статистика';
 
 $langFile['EDITOR_pageSettings_title']                                    = 'Заголовок';
-$langFile['EDITOR_pageSettings_title_tip']                                = 'Заголовок страницы';
+$langFile['EDITOR_pageSettings_title_tip']                                = 'Заголовок страницы, mожет содержать следующие теги HTML:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Короткое описание';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Если пустое - будет использовано умолчательное значение из Настроек сайта.';
 $langFile['EDITOR_pageSettings_field1_tip']                               = 'Используется в мета-теге description.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Таги';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Ключевые слова для страницы.';
-$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Таги должны быть разделены &quot;,&quot;.';
+$langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Таги должны быть разделены &quot;,&quot; (запятая).';
 $langFile['EDITOR_pageSettings_field3']                                   = 'Дата';
 $langFile['EDITOR_pageSettings_field3_tip']                               = 'Дата может быть использована для сортировки страниц.';
 $langFile['EDITOR_pageSettings_pagedate_before_inputTip']                 = 'Текст до даты::например &quot;начиная с 31 июня&quot;.';

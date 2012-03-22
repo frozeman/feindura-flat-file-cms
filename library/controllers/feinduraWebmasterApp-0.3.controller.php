@@ -65,7 +65,7 @@ if(is_array($currentUser) && $currentUser['password'] == $_POST['password']) {
     $pages = GeneralFunctions::loadPages(true,true);
     $pagesArray = array();
     foreach($pagesStats as $key => $pageStats) {
-      $tmpPage['data']['title'] = $pages[$key]['title'];
+      $tmpPage['data']['title'] = getLocalized($pages[$key],'title');
       $tmpPage['data']['firstVisit'] = $pageStats['firstVisit'];
       $tmpPage['data']['lastVisit'] = $pageStats['lastVisit'];
       $tmpPage['data']['visitTimeMin'] = unserialize($pageStats['visitTimeMin']);

@@ -34,15 +34,15 @@ if($_POST['save'] == 'true') {
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
   // -> replace the existing data with the new one  
-  $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
-  $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
+  $pageContent['localized'][$_POST['language']]['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['localized'][$_POST['language']]['title'];
+  $pageContent['localized'][$_POST['language']]['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['localized'][$_POST['language']]['content'];
   
   // ->> save the page
   if(GeneralFunctions::savePage($pageContent)) {
     StatisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
     // -> the data which will be returned, to inject into the element in the frontend 
-    $return = ($_POST['type'] == 'title') ? $pageContent['title'] : $return;
-    $return = ($_POST['type'] == 'content') ? $pageContent['content'] : $return;
+    $return = ($_POST['type'] == 'title') ? $pageContent['localized'][$_POST['language']]['title'] : $return;
+    $return = ($_POST['type'] == 'content') ? $pageContent['localized'][$_POST['language']]['content'] : $return;
     $return = str_replace("\'", "'", $return);
     $return = str_replace('\"', '"', $return);
     

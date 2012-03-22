@@ -104,9 +104,10 @@ if(!empty($searchWords)) {
       
       // -> generate toolTip information
       $pageDate = showPageDate($page);
-      if($categoryConfig[$page['category']]['showTags'] && !empty($page['tags'])) {
+      $localizedTags = getLocalized($page,'tags');
+      if($categoryConfig[$page['category']]['showTags'] && !empty($localizedTags)) {
         $pageTags = '[br /][br /]';
-        $pageTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$page['tags'];
+        $pageTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.getLocalized($page,'tags');
       }      
       $startPageText = ($adminConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
         ? $langFile['sortablePageList_functions_startPage_set'].'[br /][br /]'
@@ -123,8 +124,8 @@ if(!empty($searchWords)) {
       
       // first TITLE
       echo '<span class="resultHeadline">';
-      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags($page['title'])).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
-      echo ($result['title']) ? $result['title'] : strip_tags($page['title']);
+      echo '<a href="?category='.$page['category'].'&amp;page='.$page['id'].'" class="toolTip" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')',''),strip_tags(getLocalized($page,'title'))).'::'.$startPageText.'[b]ID[/b] '.$page['id'].$pageDate.$pageTags.'">';
+      echo ($result['title']) ? $result['title'] : strip_tags(getLocalized($page,'title'));
       echo '</a>';
       echo '</span>';
       
@@ -165,10 +166,11 @@ if(!empty($searchWords)) {
           }
           
         // if nothing in the content or description is found its shows the description
-        } elseif(!empty($page['description']))
-          echo '<span class="description">'.$page['description'].'</span>';
+        $localizedDescription = getLocalized($page,'description');
+        } elseif(!empty($localizedDescription))
+          echo '<span class="description">'.getLocalized($page,'description').'</span>';
         else
-          echo substr(strip_tags($page['content']),0,200);
+          echo substr(strip_tags(getLocalized($page,'content')),0,200);
           
         echo '</p>';
         echo '  </div>';

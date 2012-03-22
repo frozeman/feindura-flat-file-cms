@@ -68,10 +68,10 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
  * 
  */
 function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing value
-  if (strcasecmp($a['title'],$b['title']) == 0) {
+  if (strcasecmp(getLocalized($a,'title'),getLocalized($b,'title')) == 0) {
     return 0;
   }
-  return (strcasecmp($a['title'],$b['title']) < 0) ? -1 : 1;
+  return (strcasecmp(getLocalized($a,'title'),getLocalized($b,'title')) < 0) ? -1 : 1;
 }
 
 

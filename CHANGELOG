@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 808
+Build 809
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -21,7 +21,8 @@ if not, see <http://www.gnu.org/licenses>.
 
 ChangeLog:
 ---------
-
+  
+  build 809: started to change to localized pages, still need the add languages buttons and new language creation
   build 808: changed the lang files
   build 807: fixed plugin pageRating save path
   build 806: writeable warnings will not display deeper folder warnings, when the folder have already one 

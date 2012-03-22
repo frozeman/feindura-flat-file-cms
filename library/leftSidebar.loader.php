@@ -49,7 +49,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         else
           $pageSelected = '';
              
-        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.strip_tags($page['title']).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+        echo '<li><a href="?category=0&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.strip_tags(getLocalized($page,'title')).'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
         $tabIndex++;
       }
     } else {
@@ -110,7 +110,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           else
             $pageSelected = '';
                
-          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.$page['title'].'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
+          echo '<li><a href="?category='.$page['category'].'&amp;page='.$page['id'].'" tabindex="'.$tabIndex.'"'.$pageSelected.'><span>'.getLocalized($page,'title').'</span><span style="display:none;" class="toolTip noMark notSavedSignPage'.$page['id'].'" title="'.$langFile['EDITOR_pageNotSaved'].'::"> *</span></a></li>';
           $tabIndex++;
         }       
       } else {

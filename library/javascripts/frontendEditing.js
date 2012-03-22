@@ -21,10 +21,10 @@
   // var
   var pageSaved = false;
   var pageContent = null;
-  var nonEditableBlocks = new Array();
-  var editableBlocks = new Array();
-  var editableTitles = new Array();
-  var pageToolbars =  new Array();
+  var nonEditableBlocks = [];
+  var editableBlocks = [];
+  var editableTitles = [];
+  var pageToolbars =  [];
 
   var toolTips = null;
 
@@ -54,13 +54,13 @@
 
   /* ---------------------------------------------------------------------------------- */
   // ->> SAVE PAGE
-  function savePage(pageBlock,type) {
+  function savePage(pageBlock,type,language) {
     if(pageSaved === false && pageContent != pageBlock.get('html')) {
       pageBlock.getChildren('#rteMozFix').destroy();
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
       // save the page
-      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&language='+language+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
       pageSaved = true;
     }
   }
@@ -80,32 +80,32 @@
       onRequest: function() { //-----------------------------------------------------
 
         // -> TWEEN jsLoadingCircleContainer
-    		if(!pageBlock.contains(loadingFill))
-    		  pageBlock.grab(loadingFill,'top');
+        if(!pageBlock.contains(loadingFill))
+          pageBlock.grab(loadingFill,'top');
         loadingFill.set('tween',{duration: 100});
         loadingFill.setStyle('opacity',0);
         loadingFill.tween('opacity',0.8);
 
         // -> ADD the LOADING CIRCLE
         if(!pageBlock.contains(jsLoadingCircle))
-    		  pageBlock.grab(jsLoadingCircle,'top');
-    		centerOnElement(jsLoadingCircle,pageBlock);
-    		removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
-    		jsLoadingCircle.fade('in');
+          pageBlock.grab(jsLoadingCircle,'top');
+        centerOnElement(jsLoadingCircle,pageBlock);
+        removeLoadingCircle = feindura_loadingCircle(jsLoadingCircle, 24, 40, 12, 4, "#000");
+        jsLoadingCircle.fade('in');
       },
-  		onSuccess: function(html) { //-------------------------------------------------
+      onSuccess: function(html) { //-------------------------------------------------
 
-  			// -> fade out the loading fill
-  			loadingFill.set('tween',{duration: 200});
-  			loadingFill.fade('out');
-  			loadingFill.get('tween').chain(function(){
+        // -> fade out the loading fill
+        loadingFill.set('tween',{duration: 200});
+        loadingFill.fade('out');
+        loadingFill.get('tween').chain(function(){
           loadingFill.dispose();
-  			});
+        });
 
-  			// -> fade out the loadingCircle
-  			jsLoadingCircle.set('tween',{duration: 200});
-  			jsLoadingCircle.fade('out');
-  			jsLoadingCircle.get('tween').chain(function(){
+        // -> fade out the loadingCircle
+        jsLoadingCircle.set('tween',{duration: 200});
+        jsLoadingCircle.fade('out');
+        jsLoadingCircle.get('tween').chain(function(){
           // -> REMOVE the LOADING CIRCLE
           removeLoadingCircle();
           jsLoadingCircle.dispose();
@@ -128,32 +128,32 @@
             });
           }
         });
-  		},
-  		// The request will most likely succeed, but just in case, we'll add an
-  		// onFailure method which will let the user know what happened.
-  		onFailure: function() { //-----------------------------------------------------
+      },
+      // The request will most likely succeed, but just in case, we'll add an
+      // onFailure method which will let the user know what happened.
+      onFailure: function() { //-----------------------------------------------------
 
         // -> fade out the loading fill
-  			loadingFill.set('tween',{duration: 200});
-  			loadingFill.fade('out');
-  			loadingFill.get('tween').chain(function(){
+        loadingFill.set('tween',{duration: 200});
+        loadingFill.fade('out');
+        loadingFill.get('tween').chain(function(){
           loadingFill.dispose();
-  			});
+        });
 
         // -> fade out the loadingCircle
         if(!pageBlock.contains(jsLoadingCircle))
           pageBlock.grab(jsLoadingCircle,'top');
-  			jsLoadingCircle.set('tween',{duration: 200});
-  			jsLoadingCircle.fade('out');
-  			jsLoadingCircle.get('tween').chain(function(){
-  			   // -> REMOVE the LOADING CIRCLE
-  			   removeLoadingCircle();
-  			   jsLoadingCircle.dispose();
-  			   // add errorWindow
-           document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
+        jsLoadingCircle.set('tween',{duration: 200});
+        jsLoadingCircle.fade('out');
+        jsLoadingCircle.get('tween').chain(function(){
+          // -> REMOVE the LOADING CIRCLE
+          removeLoadingCircle();
+          jsLoadingCircle.dispose();
+          // add errorWindow
+          document.body.grab(feindura_displayError(errorTexts.title,errorTexts.text),'top');
         });
 
-  		}
+      }
     }).send(data);
   }
 
@@ -161,37 +161,37 @@
   // ->> Center Icon in Element, but moves the center up when the element is scrolled away
   function centerOnElement(icon,element) {
 
-  	// vars
-  	var elementXtop = element.getPosition().x - window.getScroll().x;
-  	var elementYtop = element.getPosition().y - window.getScroll().y;
-  	var elementXbottom = (window.getScroll().x + window.getSize().x) - (element.getPosition().x + element.getSize().x);
-  	var elementYbottom = (window.getScroll().y + window.getSize().y) - (element.getPosition().y + element.getSize().y);
-  	var iconX = 0;
-  	var iconY = 0;
+    // vars
+    var elementXtop = element.getPosition().x - window.getScroll().x;
+    var elementYtop = element.getPosition().y - window.getScroll().y;
+    var elementXbottom = (window.getScroll().x + window.getSize().x) - (element.getPosition().x + element.getSize().x);
+    var elementYbottom = (window.getScroll().y + window.getSize().y) - (element.getPosition().y + element.getSize().y);
+    var iconX = 0;
+    var iconY = 0;
 
-  	// X
-  	if(element.getPosition().x + element.getSize().x > window.getSize().x) {
-    	if(elementXtop > 0)
+    // X
+    if(element.getPosition().x + element.getSize().x > window.getSize().x) {
+      if(elementXtop > 0)
         iconX = (window.getSize().x - elementXtop) / 2;
-    	else if(elementXtop < 0 && elementXbottom < 0)
+      else if(elementXtop < 0 && elementXbottom < 0)
         iconX = window.getScroll().x - element.getPosition().x + (window.getSize().x / 2);
       else if(elementXbottom > 0)
         iconX = window.getScroll().x - element.getPosition().x + ((window.getSize().x - elementXbottom) / 2);
     } else
       iconX = '50%';
 
-  	// Y
-  	if(element.getPosition().y + element.getSize().y > window.getSize().y) {
-    	if(elementYtop > 0)
+    // Y
+    if(element.getPosition().y + element.getSize().y > window.getSize().y) {
+      if(elementYtop > 0)
         iconY = (window.getSize().y - elementYtop) / 2;
-    	else if(elementYtop < 0 && elementYbottom < 0)
+      else if(elementYtop < 0 && elementYbottom < 0)
         iconY = window.getScroll().y - element.getPosition().y + (window.getSize().y / 2);
       else if(elementYbottom > 0)
         iconY = window.getScroll().y - element.getPosition().y + ((window.getSize().y - elementYbottom) / 2);
     } else
       iconY = '50%';
 
-  	// set the position
+    // set the position
 		icon.setStyles({
       left: iconX,
       top: iconY
@@ -204,7 +204,7 @@
     // store titles and text
     feindura_storeTipTexts('.feindura_toolTip');
 
-  	// add the tooltips to the elements
+    // add the tooltips to the elements
     toolTips = new Tips('.feindura_toolTip',{
       className: 'feindura_toolTipBox',
       offset: {'x': 10,'y': 15},
@@ -246,7 +246,7 @@
     // INSTANT
     if(instant) {
       logo.setStyle('top', '-55px');
-      if($$('div.MooRTE.rtePageTop')[0] != null)
+      if($$('div.MooRTE.rtePageTop')[0] !== null)
         $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
       topBar.setStyle('top', '-55px');
 
@@ -262,7 +262,7 @@
       new Request({ url: feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php' }).send('deactivateFrontendEditing=true');
 
       logo.tween('top', '-55px');
-      if($$('div.MooRTE.rtePageTop')[0] != null)
+      if($$('div.MooRTE.rtePageTop')[0] !== null)
         $$('div.MooRTE.rtePageTop')[0].tween('top', '-25px');
       topBar.tween('top', '-55px');
 
@@ -304,14 +304,14 @@
     });
     */
 
-    if($$('div.feindura_editPage, span.feindura_editTitle')[0] != null) {
+    if($$('div.feindura_editPage, span.feindura_editTitle')[0] !== null) {
       //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
       feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
       $$('div.MooRTE.rtePageTop')[0].setStyle('top', '-25px');
     }
 
     logo.tween('top', '0px');
-    if($$('div.MooRTE.rtePageTop')[0] != null)
+    if($$('div.MooRTE.rtePageTop')[0] !== null)
       $$('div.MooRTE.rtePageTop')[0].tween('top', '30px');
     topBar.tween('top', '0px');
     document.body.morph({'padding-top':'60px','background-position-y':'60px'});
@@ -321,12 +321,12 @@
   /* ---------------------------------------------------------------------------------- */
   // ->> create TOP BAR
   function topBarTemplate() {
-    var links = new Array();
+    var links = [];
     links[0] = new Element('a',{ 'href': feindura_logoutUrl, 'class': 'feindura_logout feindura_toolTip', 'title': feindura_langFile.BUTTON_LOGOUT });
     links[1] = new Element('a',{ 'href': feindura_url + feindura_currentBackendLocation, 'class': 'feindura_toBackend feindura_toolTip', 'title': feindura_langFile.BUTTON_GOTOBACKEND });
 
     // Hide button
-    links[2] =new Element('a',{ 'href': 'javascript:void(0)', 'class': 'feindura_topBarHide'});
+    links[2] = new Element('a',{ 'href': 'javascript:void(0)', 'class': 'feindura_topBarHide'});
     links[2].addEvent('mouseup', function(e) {
         e.stop();
         if(topBarVisible) deactivate();
@@ -338,7 +338,7 @@
     });
 
     return topBar;
-  };
+  }
 
   /* ---------------------------------------------------------------------------------- */
   // ->> create PAGE BAR
@@ -351,7 +351,7 @@
       values.startPageText = feindura_langFile.FUNCTIONS_STARTPAGE;
     }
 
-    var links = new Array();
+    var links = [];
 
     // setStartPage
     if(feindura_setStartPage == '1') {
@@ -408,11 +408,11 @@
         var page = document.id(e.target);
 
         //alert(MooRTE.Elements.linkPop.visible);
-        if(page != null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop == null )) {
+        if(page !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
           if(page.hasClass('feindura_editPage'))
-            savePage(page,'content');
+            savePage(page,'content',this.retrieve('language'));
           else if(page.hasClass('feindura_editTitle'))
-            savePage(page,'title');
+            savePage(page,'title',this.retrieve('language'));
         }
       });
       // on focus
@@ -499,7 +499,7 @@
       pageBar.addEvent('mouseleave', function(e) { if(!pageBlockFocused) pageBar.fade('out'); });
     });
 
-    addToolTips()
+    addToolTips();
 
     // ->> ADD EDITOR
     // **************
@@ -511,16 +511,16 @@
               if(MooRTE.activeField == page) {
                 pageSaved = false;
                 if(page.hasClass('feindura_editPage'))
-                  savePage(page,'content');
+                  savePage(page,'content',page.retrieve('language'));
                 else if(page.hasClass('feindura_editTitle'))
-                  savePage(page,'title');
+                  savePage(page,'title',page.retrieve('language'));
               }
           });
         }}
     });
 
     // -> create editor instance to edit all divs which have the class "feindura_editPage"
-    if(!feindura_deactivateFrontendEditing && $$('div.feindura_editPage, span.feindura_editTitle')[0] != null)
+    if(!feindura_deactivateFrontendEditing && $$('div.feindura_editPage, span.feindura_editTitle')[0] !== null)
       //$$('div.feindura_editPage, span.feindura_editTitle').moorte({skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'})
       feinduraMooRTE = new MooRTE({elements:'div.feindura_editPage, span.feindura_editTitle',skin:'rteFeinduraSkin', buttons: MooRTEButtons,location:'pageTop'});
 

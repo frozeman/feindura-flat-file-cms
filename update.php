@@ -312,9 +312,22 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $pageContent['sortOrder'] = (isset($pageContent['sortorder'])) ? $pageContent['sortorder'] : $pageContent['sortOrder'];
       $pageContent['lastSaveDate'] = (isset($pageContent['lastsavedate'])) ? $pageContent['lastsavedate'] : $pageContent['lastSaveDate'];
       $pageContent['lastSaveAuthor'] = (isset($pageContent['lastsaveauthor'])) ? $pageContent['lastsaveauthor'] : $pageContent['lastSaveAuthor'];
-      $pageContent['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
       $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
-      $pageContent['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
+
+      // v1.2 - localized
+      if(!isset($pageContent['localized'])) {
+
+        $pageContent['localized'][0]['title'] = $pageContent['title'];
+        $pageContent['localized'][0]['content'] = $pageContent['content'];
+        $pageContent['localized'][0]['description'] = $pageContent['description'];
+        $pageContent['localized'][0]['tags'] = $pageContent['tags'];
+
+        // page date before/after
+        $pageContent['localized'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
+        $pageContent['localized'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
+      
+      }
+
       $pageContent['log_visitorCount'] = (isset($pageContent['log_visitorcount'])) ? $pageContent['log_visitorcount'] : $pageContent['log_visitorCount'];
       $pageContent['log_searchWords'] = (isset($pageContent['log_searchwords'])) ? $pageContent['log_searchwords'] : $pageContent['log_searchWords'];
       
