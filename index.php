@@ -127,7 +127,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/ckeditor/ckeditor.js<?= '?v='.BUILD; ?>"></script>
   
   <!-- thirdparty/MooRTE -->
-  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.js<?= '?v='.BUILD; ?>"></script>
+  <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.compressed.js<?= '?v='.BUILD; ?>"></script>
 <?php
   }
   if($adminConfig['user']['fileManager'] && ($_GET['site'] == 'pages' || !empty($_GET['page']))) { ?>
