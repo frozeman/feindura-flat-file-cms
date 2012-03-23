@@ -60,7 +60,7 @@ $headerColorClass = ($_GET['category'] != 0)
 
 // adds the page and category IDs for the MooRTE saving of the title
 $titleIDs = (!$newPage) // data-feindura format: "pageID categoryID"
-  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].'"'
+  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].' '.$localizedCode.'"'
   : '';
 
 $titleIsEditable = (!$newPage)

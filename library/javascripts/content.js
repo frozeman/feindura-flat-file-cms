@@ -1234,7 +1234,7 @@ window.addEvent('domready', function() {
   // ->> make PAGE TITLE EDITABLE
 
   // -> SAVE TITLE
-  function saveTitle(title,type) {
+  function saveTitle(title,type,language) {
     if(titleContent != title.get('html')) {
 
       // var
@@ -1250,7 +1250,7 @@ window.addEvent('domready', function() {
       new Request({
         url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
         method: 'post',
-        data: 'save=true&type='+type+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
+        data: 'save=true&type='+type+'&language='+language+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
 
         onRequest: function() {
 
@@ -1272,14 +1272,14 @@ window.addEvent('domready', function() {
         if(html.contains('####SAVING-ERROR####'))
           document.body.grab(feindura_displayError(feindura_langFile.ERRORWINDOW_TITLE,feindura_langFile.ERROR_SAVE),'top');
         else {
-        // -> UPDATE the TITLE everywhere
+          // -> UPDATE the TITLE everywhere
           title.set('html', html+"<p id='rteMozFix' style='display:none'><br></p>");
           $('edit_title').set('value',html);
           $$('#leftSidebar .verticalButtons a.active').getLast().getChildren('span').set('html',html);
           setSidbarMenuTextLength();
           titleContent = $('editablePageTitle').get('html');
-        // display document saved
-        showDocumentSaved();
+          // display document saved
+          showDocumentSaved();
         }
           });
         },
@@ -1316,8 +1316,6 @@ window.addEvent('domready', function() {
 
     $('editablePageTitle').moorte({location:'none'});
 
-    
-
     // ->> GO TROUGH ALL EDITABLE BLOCK
 
     // STORE page IDS in the elements storage
@@ -1327,13 +1325,13 @@ window.addEvent('domready', function() {
     $('editablePageTitle').addEvent('keydown', function(e) {
       if(e.key == 'enter' && $(e.target) !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
           e.stop();
-          saveTitle($(e.target),'title');
+          saveTitle($(e.target),'title',this.retrieve('language'));
       }
     });
     // save on blur
     $('editablePageTitle').addEvent('blur', function(e) {
       if($(e.target) !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
-          saveTitle($(e.target),'title');
+          saveTitle($(e.target),'title',this.retrieve('language'));
       }
     });
     // on focus
