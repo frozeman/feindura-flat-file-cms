@@ -166,7 +166,7 @@ if($_GET['site'] == 'addons') {
   ['-',''],
   <?php foreach($getPages as $getPage) {
     $categoryText = ($getPage['category'] != 0) ? $categoryConfig[$getPage['category']]['name'].' » ' : '';
-    echo "['".str_replace("'",'',$categoryText.getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
+    echo "['".str_replace("'",'',$categoryText.GeneralFunctions::getLocalized($getPage,'title'))."','?feinduraPageID=".$getPage['id']."'],\n";
     } ?>  ];
   <?php } ?>
   

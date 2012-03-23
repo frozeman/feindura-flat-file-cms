@@ -356,42 +356,6 @@ function getNewUserId() {
 }
 
 /**
- * <b>Name</b> getLocalized()<br />
- * 
- * Gets the localized version of given <var>$value</var> parameter, which is matchin the GLOBAL <var>$localizedCode</var> variable.
- * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguagePages']['mainLanguage']</var> variable.
- * 
- * <b>Used Global Variables</b><br />
- *    - <var>$localizedCode</var> the localized code (fetched in the {@link backend.include.php})
- *  
- * @param array   $pageContent  the $pageContent array of a page
- * @param string  $value        the anme of the value, which should be returned localized
- *   
- * @return string the localized value of the given <var>$pageContentValue</var> parameter
- * 
- * 
- * @version 1.0
- * <br />
- * <b>ChangeLog</b><br />
- *    - 1.0 initial release
- * 
- */
-function getLocalized($pageContent, $value) {
-
-  // get the one matching $GLOBALS['localizedCode']
-  if(isset($pageContent['localized'][$GLOBALS['localizedCode']]))
-    $localizedValues = $pageContent['localized'][$GLOBALS['localizedCode']];
-  // if not get the one matching the "Main Language"
-  elseif(isset($pageContent['localized'][$GLOBALS['adminConfig']['multiLanguagePages']['mainLanguage']]))
-    $localizedValues = $pageContent['localized'][$GLOBALS['adminConfig']['multiLanguagePages']['mainLanguage']];
-  // if not get the first one in the localized array
-  else
-    $localizedValues = current($pageContent['localized']);
-
-  return $localizedValues[$value];
-}
-
-/**
  * <b>Name</b> addSlashesToPaths()<br />
  * 
  * Ensures that all values of the $postData var with a 'Path' in the key value start and end with a slash.
@@ -1434,7 +1398,7 @@ function showPageDate($pageContent) {
   $titleDateAfter = '';
   
   if(StatisticFunctions::checkPageDate($pageContent)) {
-    $pageDate = getLocalized($pageContent,'pageDate');
+    $pageDate = GeneralFunctions::getLocalized($pageContent,'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
   	// adds spaces on before and after

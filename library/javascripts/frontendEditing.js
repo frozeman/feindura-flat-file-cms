@@ -54,13 +54,13 @@
 
   /* ---------------------------------------------------------------------------------- */
   // ->> SAVE PAGE
-  function savePage(pageBlock,type,language) {
+  function savePage(pageBlock,type) {
     if(pageSaved === false && pageContent != pageBlock.get('html')) {
       pageBlock.getChildren('#rteMozFix').destroy();
       // url encodes the string
       var content = encodeURIComponent(pageBlock.get('html')).replace( /\%20/g, '+' ).replace( /!/g, '%21' ).replace( /'/g, '%27' ).replace( /\(/g, '%28' ).replace( /\)/g, '%29' ).replace( /\*/g, '%2A' ).replace( /\~/g, '%7E' );
       // save the page
-      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&language='+language+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
+      request(pageBlock,feindura_url + feindura_basePath + 'library/controllers/frontendEditing.controller.php','save=true&type='+type+'&language='+pageBlock.retrieve('language')+'&category='+pageBlock.retrieve('category')+'&page='+pageBlock.retrieve('page')+'&data='+content,{title: feindura_langFile.ERRORWINDOW_TITLE,text: feindura_langFile.ERROR_SAVE},'post',true);
       pageSaved = true;
     }
   }
@@ -405,14 +405,12 @@
 
       // save on blur
       pageBlock.addEvent('blur', function(e) {
-        var page = document.id(e.target);
-
         //alert(MooRTE.Elements.linkPop.visible);
-        if(page !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
-          if(page.hasClass('feindura_editPage'))
-            savePage(page,'content',this.retrieve('language'));
-          else if(page.hasClass('feindura_editTitle'))
-            savePage(page,'title',this.retrieve('language'));
+        if((typeof(MooRTE.Elements.linkPop) == 'undefined' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
+          if(this.hasClass('feindura_editPage'))
+            savePage(this,'content');
+          else if(this.hasClass('feindura_editTitle'))
+            savePage(this,'title');
         }
       });
       // on focus
@@ -511,9 +509,9 @@
               if(MooRTE.activeField == page) {
                 pageSaved = false;
                 if(page.hasClass('feindura_editPage'))
-                  savePage(page,'content',page.retrieve('language'));
+                  savePage(page,'content');
                 else if(page.hasClass('feindura_editTitle'))
-                  savePage(page,'title',page.retrieve('language'));
+                  savePage(page,'title');
               }
           });
         }}

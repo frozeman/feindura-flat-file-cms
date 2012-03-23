@@ -151,7 +151,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = GeneralFunctions::shortenString(strip_tags(getLocalized($pageContent,'title')),32);
+      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),32);
       $visitorCount = GeneralFunctions::shortenString(StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']),12);
       
       // -> show lastSaveDate
@@ -161,7 +161,7 @@ foreach($allCategories as $category) {
       $pageDate = showPageDate($pageContent);
       
       // -> show tags
-      $localizedTags = getLocalized($pageContent,'tags');
+      $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
       if($category['showTags'] && !empty($localizedTags)) {
         $showTags = '[br /][br /]';
         $showTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$localizedTags;
@@ -181,7 +181,7 @@ foreach($allCategories as $category) {
         $startPageText = '';
       }
       
-      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(getLocalized($pageContent,'title'))).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
+      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
       echo (!empty($pageContent['lastSaveAuthor']))
         ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">'.$lastSaveDate.'</div>';

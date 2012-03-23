@@ -44,13 +44,13 @@ function openWindowBox(site,siteTitle,fixed) {
     //$('#windowBoxContainer').setStyle('visibility','visible');
     
     // set the fade
-    $('windowBox').set('opacity',0);  			
+    $('windowBox').set('opacity',0);
     $('windowBox').tween('opacity',1);
-	  $('windowRequestBox').slide('show');		  
+    $('windowRequestBox').slide('show');
 
     // IE HACK, wont bring the bottom div to the top
 		if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-		   $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
+      $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
 		}
     
 		// send HTML request
@@ -93,11 +93,11 @@ function closeWindowBox(redirectAfter) {
   
   // last effect
   $('dimContainer').get('tween').chain(function(e) {
-	   $('dimContainer').setStyle('display','none');
-	   $$('#windowBox .boxTop').set('html',loadingText);
-	   
-	   if(redirectAfter)
-	     document.location.href = redirectAfter;
+    $('dimContainer').setStyle('display','none');
+    $$('#windowBox .boxTop').set('html',loadingText);
+
+    if(redirectAfter)
+      document.location.href = redirectAfter;
   });
     
   return false;
@@ -118,8 +118,8 @@ function requestSite(site,siteTitle,formId) {
     onRequest: function() { //-----------------------------------------------------
         
         // checks if the windowRequestBox is empty, means that an new window is opend
-  		  if($('windowRequestBox').get('text') != '')
-  		    newWindow = false;
+        if($('windowRequestBox').get('text') !== '')
+          newWindow = false;
         
         // shows the LOADING
         if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
@@ -130,7 +130,7 @@ function requestSite(site,siteTitle,formId) {
         }
     },
     //-----------------------------------------------------------------------------
-		onSuccess: function(html,childs,rawText) { //-------------------------------------------------      
+		onSuccess: function(html,childs,rawText) { //-------------------------------------------------
 
       if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/))
         removeLoadingCircle();
@@ -147,56 +147,54 @@ function requestSite(site,siteTitle,formId) {
       SlideWindowBox.slideOut().chain(function() {
           
         // fill in the content
-  			if(site) {
-    			//Clear the text currently inside the results div.
-    			$('windowRequestBox').set('html', '');
-    			//Inject the new DOM elements into the results div.
-    			$('windowRequestBox').adopt(html);
-  			}
-  			
-  			// fire a event if the page is loaded
-  			$('windowBox').fireEvent('loaded',$('windowRequestBox'));
-  
-			  
-  			// only when the a new window is opend slide in ------------
-  			if(newWindow) {
-  			
-    		  // first fill in the title
-    		  if(siteTitle) {
-      			//Inject the new DOM elements into the boxTop div.
-      			$$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();return false;"></a>');
-    			} else {
+        if(site) {
+          //Clear the text currently inside the results div.
+          $('windowRequestBox').set('html', '');
+          //Inject the new DOM elements into the results div.
+          $('windowRequestBox').adopt(html);
+        }
+
+        // fire a event if the page is loaded
+        $('windowBox').fireEvent('loaded',$('windowRequestBox'));
+
+        // only when the a new window is opend slide in ------------
+        if(newWindow) {
+
+          // first fill in the title
+          if(siteTitle) {
+            //Inject the new DOM elements into the boxTop div.
+            $$('#windowBox .boxTop').set('html',siteTitle + '<a href="#" onclick="closeWindowBox();return false;"></a>');
+          } else {
             //Clear the boxTop <div>
-      		  $$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
+            $$('#windowBox .boxTop').set('html', '<a href="#" onclick="closeWindowBox(false);return false;"></a>');
           }
             
           // IE HACK, wont bring the bottom div to the bottom
-    			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-      			$('windowBox').getChildren('.boxBottom').setStyle('top','68px');
-      			$('windowBox').getChildren('.boxBottom').set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
-      			$('windowBox').getChildren('.boxBottom').tween('top',$('windowRequestBox').getSize().y);
-    			}
-    		
-    		// else RESIZE ------------
-  			} else {
+          if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
+            $('windowBox').getChildren('.boxBottom').setStyle('top','68px');
+            $('windowBox').getChildren('.boxBottom').set('tween',{duration: 500, transition: Fx.Transitions.Pow.easeOut});
+            $('windowBox').getChildren('.boxBottom').tween('top',$('windowRequestBox').getSize().y);
+          }
+
+        // else RESIZE ------------
+        } else {
             
           // IE HACK, wont bring the bottom div to the bottom
-    			if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
-      			$('windowBox').getChildren('.boxBottom').setStyle('top',$('windowRequestBox').getSize().y);
-    			}
+          if(navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+            $('windowBox').getChildren('.boxBottom').setStyle('top',$('windowRequestBox').getSize().y);
         }
-  			
-  			// slides in again
+
+        // slides in again
         this.slideIn();
-  			
-  			/* set toolTips to all objects with a toolTip class */
-  			setToolTips();
-  			  
-			}).chain(function(){
+
+        /* set toolTips to all objects with a toolTip class */
+        setToolTips();
+
+      }).chain(function(){
         // sets the height of the wrapper to auto after the slide,
         // so that the windowRequestBox, resizes automaticly when content is changing
-        if(SlideWindowBox.wrapper.offsetHeight != 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
-        SlideWindowBox.wrapper.setStyle('height','auto');
+        if(SlideWindowBox.wrapper.offsetHeight !== 0 && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/))
+          SlideWindowBox.wrapper.setStyle('height','auto');
       });
 
 		},
@@ -205,7 +203,7 @@ function requestSite(site,siteTitle,formId) {
 		//onFailure method which will let the user know what happened.
 		onFailure: function() { //-----------------------------------------------------
 			$('windowRequestBox').set('text', 'The request failed.');
-		  }
+    }
   }).post(formular);
 }
 
@@ -222,8 +220,8 @@ function startUploadAnimation() {
     uploadAnimationElement = feindura_loadingCircle('windowBoxDimmer', 23, 35, 12, 5, "#fff");
   } else {
     uploadAnimationElement = new Element('div', {id: 'loadingCircle', style: 'position: absolute !important; top: 20px; left: 55px; width: 48px !important;'});
-    $('windowRequestBox').grab(uploadAnimationElement,'top'); 
-  }  
+    $('windowRequestBox').grab(uploadAnimationElement,'top');
+  }
   return true;
 }
 //--------------------------------------------------
@@ -235,8 +233,8 @@ function stopUploadAnimation() {
   $('uploadTargetFrame').tween('height','100px');
   
   // removes the loading animation
-  if(uploadAnimationElement != null) {
-  
+  if(uploadAnimationElement !== null) {
+    // IE HACK
     if(!navigator.appVersion.match(/MSIE ([0-7]\.\d)/)) {
       uploadAnimationElement();
       //$('windowBoxDimmer').setStyle('padding',0);
@@ -289,7 +287,7 @@ window.addEvent('domready', function() {
   $('windowBox').addEvent('loaded',function(windowContent) {
     
     // checks if the pageThumbnailUpload site is opend
-    if($('pageThumbnailUploadForm') != null) {
+    if($('pageThumbnailUploadForm') !== null) {
       // hides the iframe on startup
       $('uploadTargetFrame').setStyle('width','0px');
       $('uploadTargetFrame').setStyle('height','0px');
@@ -299,21 +297,21 @@ window.addEvent('domready', function() {
     
       // -----------------------------------------
       // ADD SLIDE TO THE THUMB-SIZE
-      if($('thumbSize') != null && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {  
+      if($('thumbSize') !== null && !navigator.appVersion.match(/MSIE ([0-6]\.\d)/)) {
     
-         // creates the slide effect
-    	   var slideThumbSize = new Fx.Slide($('thumbSize'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});  
+        // creates the slide effect
+        var slideThumbSize = new Fx.Slide($('thumbSize'),{duration: '750', transition: Fx.Transitions.Pow.easeOut});
         
-         // slides the hotky div in, on start
-         slideThumbSize.hide();
+        // slides the hotky div in, on start
+        slideThumbSize.hide();
         
-         // sets the SLIDE EFFECT to the buttons
-         if($('thumbSizeToogle') != null) {
-           $('thumbSizeToogle').addEvent('click', function(e){  	   
-          		e.stop();    		
-          		slideThumbSize.toggle();
-          	});
-         }
+        // sets the SLIDE EFFECT to the buttons
+        if($('thumbSizeToogle') !== null) {
+          $('thumbSizeToogle').addEvent('click', function(e){
+          e.stop();
+          slideThumbSize.toggle();
+        });
+        }
       }
       
       // sets the realtime
@@ -323,5 +321,4 @@ window.addEvent('domready', function() {
 			//autoResizeThumbnailPreview();
     }
   });
-  
 });

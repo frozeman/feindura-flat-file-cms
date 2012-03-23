@@ -584,6 +584,50 @@ class GeneralFunctions {
       return false;
   }
   
+  /**
+   * <b>Name</b> getLocalized()<br />
+   * 
+   * Gets the localized version of given <var>$value</var> parameter, which is matchin the GLOBAL <var>$localizedCode</var> variable.
+   * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguagePages']['mainLanguage']</var> variable.
+   * 
+   * <b>Used Global Variables</b><br />
+   *    - <var>$localizedCode</var> the localized code (fetched in the {@link backend.include.php})
+   *  
+   * @param array   $pageContent  the $pageContent array of a page
+   * @param string  $value        the anme of the value, which should be returned localized
+   *   
+   * @return string the localized value of the given <var>$pageContentValue</var> parameter
+   * 
+   * 
+   * @static
+   * @version 1.0
+   * <br />
+   * <b>ChangeLog</b><br />
+   *    - 1.0 initial release
+   * 
+   */
+  public static function getLocalized($pageContent, $value, $localizedCode = false) {
+
+    // var
+    if($localizedCode === false)
+      $localizedCode = $GLOBALS['localizedCode'];
+
+    // get the one matching $GLOBALS['localizedCode']
+    if(isset($pageContent['localized'][$localizedCode]))
+      $localizedValues = $pageContent['localized'][$localizedCode];
+    // if not get the one matching the "Main Language"
+    elseif(isset($pageContent['localized'][self::$adminConfig['multiLanguagePages']['mainLanguage']]))
+      $localizedValues = $pageContent['localized'][self::$adminConfig['multiLanguagePages']['mainLanguage']];
+    // if not get the first one in the localized array
+    elseif(is_array($pageContent['localized']))
+      $localizedValues = current($pageContent['localized']);
+    // legacy fallback
+    else
+      return $pageContent[$value];
+
+    return $localizedValues[$value];
+  }
+
  /**
   * <b>Name</b> readPage()<br>
   * 
@@ -659,9 +703,13 @@ class GeneralFunctions {
       // return content array
       if(is_array($pageContent)) {
         // UNESCPAE the SINGLE QUOTES '
-        foreach ($pageContent['localized'] as $key => $value) {
-          $pageContent['localized'][$key]['content'] = str_replace("\'", "'", $value['content']);
-        }
+        if(is_array($pageContent['localized'])) {
+          foreach ($pageContent['localized'] as $key => $value)
+            $pageContent['localized'][$key]['content'] = str_replace("\'", "'", $value['content']);
+        // legacy fallback
+        } else
+          $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
+
         return self::addStoredPage($pageContent);
         
       // return failure while loading the content (file exists but couldn't be loaded)

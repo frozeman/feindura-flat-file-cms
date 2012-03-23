@@ -1234,7 +1234,7 @@ window.addEvent('domready', function() {
   // ->> make PAGE TITLE EDITABLE
 
   // -> SAVE TITLE
-  function saveTitle(title,type,language) {
+  function saveTitle(title,type) {
     if(titleContent != title.get('html')) {
 
       // var
@@ -1250,7 +1250,7 @@ window.addEvent('domready', function() {
       new Request({
         url: feindura_basePath + 'library/controllers/frontendEditing.controller.php',
         method: 'post',
-        data: 'save=true&type='+type+'&language='+language+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
+        data: 'save=true&type='+type+'&language='+title.retrieve('language')+'&category='+title.retrieve('category')+'&page='+title.retrieve('page')+'&data='+content,
 
         onRequest: function() {
 
@@ -1323,15 +1323,15 @@ window.addEvent('domready', function() {
 
     // save on enter
     $('editablePageTitle').addEvent('keydown', function(e) {
-      if(e.key == 'enter' && $(e.target) !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
+      if(e.key == 'enter' && (typeof(MooRTE.Elements.linkPop) == 'undefined' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
           e.stop();
-          saveTitle($(e.target),'title',this.retrieve('language'));
+          saveTitle(this,'title');
       }
     });
     // save on blur
     $('editablePageTitle').addEvent('blur', function(e) {
-      if($(e.target) !== null && ((MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false) || MooRTE.Elements.linkPop === null )) {
-          saveTitle($(e.target),'title',this.retrieve('language'));
+      if((typeof(MooRTE.Elements.linkPop) == 'undefined' || (MooRTE.Elements.linkPop && MooRTE.Elements.linkPop.visible === false))) {
+          saveTitle(this,'title');
       }
     });
     // on focus

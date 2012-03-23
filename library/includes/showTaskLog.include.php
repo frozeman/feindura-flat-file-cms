@@ -165,7 +165,7 @@ foreach($logContent as $logRow) {
       $pageId = GeneralFunctions::cleanSpecialChars($pageId); // removes \n\r
       $pageContent = GeneralFunctions::readPage($pageId,GeneralFunctions::getPageCategory($pageId));
       
-      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags(getLocalized($pageContent,'title')).'">'.GeneralFunctions::shortenString(strip_tags(getLocalized($pageContent,'title')), $maxLength).'</a>';
+      $taskObject .= '<a href="?category='.$pageContent['category'].'&amp;page='.$pageContent['id'].'" tabindex="'.$count.'" title="'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'">'.GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')), $maxLength).'</a>';
       
       $foundObject = true;
     }

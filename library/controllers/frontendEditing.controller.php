@@ -29,20 +29,31 @@ if($_POST['save'] == 'true') {
   
   // var
   $return = '';
+  $tmpReturn = '';
   
   // read the page
   $pageContent = GeneralFunctions::readPage($_POST['page'],$_POST['category']);
 
-  // -> replace the existing data with the new one  
-  $pageContent['localized'][$_POST['language']]['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['localized'][$_POST['language']]['title'];
-  $pageContent['localized'][$_POST['language']]['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['localized'][$_POST['language']]['content'];
-  
+  // -> replace the existing data with the new one
+  if(is_array($pageContent['localized'])) {
+    $pageContent['localized'][$_POST['language']]['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['localized'][$_POST['language']]['title'];
+    $pageContent['localized'][$_POST['language']]['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['localized'][$_POST['language']]['content'];
+    $tmpReturn = ($_POST['type'] == 'title') ? $pageContent['localized'][$_POST['language']]['title'] : $tmpReturn;
+    $tmpReturn = ($_POST['type'] == 'content') ? $pageContent['localized'][$_POST['language']]['content'] : $tmpReturn;
+  // legacy fallback
+  } else {
+    $pageContent['title'] = ($_POST['type'] == 'title') ? $_POST['data'] : $pageContent['title'];
+    $pageContent['content'] = ($_POST['type'] == 'content') ? $_POST['data'] : $pageContent['content'];
+    $tmpReturn = ($_POST['type'] == 'title') ? $pageContent['title'] : $tmpReturn;
+    $tmpReturn = ($_POST['type'] == 'content') ? $pageContent['content'] : $tmpReturn;
+  }
+
   // ->> save the page
   if(GeneralFunctions::savePage($pageContent)) {
     StatisticFunctions::saveTaskLog(1,'page='.$_POST['page']); // <- SAVE the task in a LOG FILE
-    // -> the data which will be returned, to inject into the element in the frontend 
-    $return = ($_POST['type'] == 'title') ? $pageContent['localized'][$_POST['language']]['title'] : $return;
-    $return = ($_POST['type'] == 'content') ? $pageContent['localized'][$_POST['language']]['content'] : $return;
+
+    // -> the data which will be returned, to inject into the element in the frontend
+    $return = $tmpReturn;
     $return = str_replace("\'", "'", $return);
     $return = str_replace('\"', '"', $return);
     
@@ -54,7 +65,7 @@ if($_POST['save'] == 'true') {
   // ->> on failure, return the unsaved data
   } else {
     $return = '####SAVING-ERROR####';
-  }  
+  }
   echo $return;
 }
 
