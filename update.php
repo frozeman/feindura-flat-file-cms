@@ -641,7 +641,31 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     if(!unlink(dirname(__FILE__).'/library/thirdparty/spiders.xml') &&
       is_file(dirname(__FILE__).'/library/thirdparty/spiders.xml'))
       $checkFiles[] = dirname(__FILE__).'/library/thirdparty/spiders.xml';
-
+    // since 1.2
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_createPage.png';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_deletePage.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_deletePage.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_deletePage.png';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_deleteThumb.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_deleteThumb.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_deleteThumb.png';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_editPage.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_editPage.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_editPage.png';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_fileManager.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_fileManager.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_fileManager.png';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_spacer.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_spacer.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_spacer.png';
+    if(!unlink(dirname(__FILE__).'/library/images/buttons/footerMenu_uploadThumb.png') &&
+      is_file(dirname(__FILE__).'/library/images/buttons/footerMenu_uploadThumb.png'))
+      $checkFiles[] = dirname(__FILE__).'/library/images/buttons/footerMenu_uploadThumb.png';
+    if(!unlink(dirname(__FILE__).'/library/processes.controller.php') &&
+      is_file(dirname(__FILE__).'/library/processes.controller.php'))
+      $checkFiles[] = dirname(__FILE__).'/library/processes.controller.php';
     
     // delete lowercase class names
     if(strpos(strtolower(PHP_OS),'win') === false) {

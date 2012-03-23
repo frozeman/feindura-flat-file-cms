@@ -68,7 +68,7 @@ function sortBySortOrder($a, $b) {     // (Array) $a = current; $b = follwing va
  * 
  */
 function sortAlphabetical($a, $b) {     // (Array) $a = current; $b = follwing value
-  //var
+
   // make comparinssion multibyte save
   $a = iconv("UTF-8", "ASCII//TRANSLIT", getLocalized($a,'title'));//getLocalized($a,'title');//
   $a = strtolower($a);
