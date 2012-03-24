@@ -75,7 +75,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'pag
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'pages sans catégorie';
 $langFile['TEXT_EXAMPLE']                                                 = 'par exemple';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE']                                    = 'Feindura::S\'il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Feindura::S\'il vous plaît cliquez ici pour éditer les pages directement sur votre site web.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
@@ -225,6 +225,8 @@ $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'té
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Télécharger thumbnail pour cette page.';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'éffacer thumbnail de la page';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Éffacer thumbnail de cette page.';
+$langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'supprimer langue';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Supprimer langue &quot;%s&quot; pour cette page';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'vers le haut';
@@ -461,9 +463,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Les
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'paramètres du site web';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'la page d\'acceuil peut être définie';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'pages en multi-langues';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'site multi-langue';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'La langue principale';
+$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'pages sans catégories';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'créer/éffacer des pages';

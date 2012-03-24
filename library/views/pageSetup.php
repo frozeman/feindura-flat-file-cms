@@ -84,21 +84,44 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
       <tr><td class="spacer checkboxes"></td><td>
 
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_multiLanguagePages" name="cfg_multiLanguagePages" value="true" class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES'].'::'; ?>"<?php if($adminConfig['multiLanguagePages']['active']) echo ' checked="checked"'; ?> />
+      <input type="checkbox" id="cfg_multiLanguageWebsite" name="cfg_multiLanguageWebsite" value="true" <?php if($adminConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> />
       </td><td class="right checkboxes">
-      <label for="cfg_multiLanguagePages"><span class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES'].'::'; ?>"><?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']; ?></span></label>
+      <label for="cfg_multiLanguageWebsite"><?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']; ?></label>
       </td></tr>
 
+      <!-- Website Language Selection -->
       <tr><td class="left checkboxes">
       </td><td class="right checkboxes">
-      <select id="cfg_pagesMainLanguage" name="cfg_pagesMainLanguage" style="width:250px;max-height:130px;"<?php if(!$adminConfig['multiLanguagePages']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']; ?>">
+      <select id="cfg_websiteLanguageChoices" name="cfg_websiteLanguageChoices[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?>>
       <?php
         foreach($languageCodes as $langKey => $langValue) {
-          $selected = ($langKey == $adminConfig['multiLanguagePages']['mainLanguage']) ? ' selected="selected"' : '' ;
-          echo '<option value="'.$langKey.'"'.$selected.'>'.$langValue.'</option>';    
+          if(!in_array($langKey, $adminConfig['multiLanguageWebsite']['languages']))
+            echo '<option value="'.$langKey.'">'.$langValue.'</option>';    
         }
       ?>
       </select>
+      <select id="cfg_websiteLanguages" name="cfg_websiteLanguages[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?>>
+      <?php
+        if(!empty($adminConfig['multiLanguageWebsite']['languages'])) {
+          foreach($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
+            echo '<option value="'.$langKey.'" selected="selected">'.$languageCodes[$langKey].'</option>';  
+          }
+        }
+      ?>
+      </select>
+      </td></tr>
+
+      <!-- Websites Main Language -->
+      <tr id="websiteMainLanguageTr"<?php if(empty($adminConfig['multiLanguageWebsite']['languages'])) echo ' style="display:none;"'; ?>><td class="left checkboxes">
+      <label for="cfg_multiLanguageWebsite"><span class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']; ?>"><?= $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']; ?></span></label>
+      </td><td class="right checkboxes">
+      <select id="cfg_websiteMainLanguage" name="cfg_websiteMainLanguage"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']; ?>">
+      <?php
+        foreach($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
+          $selected = ($langKey == $adminConfig['multiLanguageWebsite']['mainLanguage']) ? ' selected="selected"' : '' ;
+          echo '<option value="'.$langKey.'"'.$selected.'>'.$languageCodes[$langKey].'</option>';    
+        }
+      ?></select>
       </td></tr>
 
       <tr><td class="spacer checkboxes"></td><td>
@@ -261,7 +284,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
       <label for="cfg_pagePlugins"><span class="toolTip" title="<?php echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::' ?>">
       <?= $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'] ?></span></label>
       </td><td class="right">
-      <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple" style="width:250px;max-height:130px;">
+      <select id="cfg_pagePlugins" name="cfg_pagePlugins[]" multiple="multiple">
         <?php
         foreach($plugins as $pluginName) {
           $selected = (in_array($pluginName,unserialize($adminConfig['pages']['plugins']))) ? ' selected="selected"' : '' ;
@@ -503,7 +526,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
             echo '<label for="categories'.$category['id'].'plugins"><span class="toolTip" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'::'.$langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS'].'">';
             echo $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS'].'</span></label>';
             echo '</td><td class="right">';
-            echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple" style="width:250px;max-height:130px;">';
+            echo '<select id="categories'.$category['id'].'plugins" name="categories['.$category['id'].'][plugins][]" multiple="multiple">';
               foreach($plugins as $pluginName) {
                 $selected = (in_array($pluginName,unserialize($category['plugins']))) ? ' selected="selected"' : '' ;
                 echo '<option value="'.$pluginName.'"'.$selected.'>'.$pluginName.'</option>';   

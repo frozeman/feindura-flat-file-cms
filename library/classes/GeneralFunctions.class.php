@@ -590,13 +590,13 @@ class GeneralFunctions {
   /**
    * <b>Name</b> getLocalized()<br />
    * 
-   * Gets the localized version of given <var>$value</var> parameter, which matches the <var>$_SESSION['feinduraSession']['pageLanguage']</var> variable.
-   * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguagePages']['mainLanguage']</var> variable.
+   * Gets the localized version of given <var>$value</var> parameter, which matches the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> variable.
+   * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguageWebsite']['mainLanguage']</var> variable.
    * 
    *  
    * @param array        $pageContent  the $pageContent array of a page
    * @param string       $value        the anme of the value, which should be returned localized
-   * @param string|false $languageCode a language code, which should be used to localize the given <var>$pageContent</var> parameter. If FALSE it uses <var>$_SESSION['feinduraSession']['pageLanguage']</var>.
+   * @param string|false $languageCode a language code, which should be used to localize the given <var>$pageContent</var> parameter. If FALSE it uses <var>$_SESSION['feinduraSession']['websiteLanguage']</var>.
    *   
    * @return string the localized value of the given <var>$pageContentValue</var> parameter
    * 
@@ -612,14 +612,14 @@ class GeneralFunctions {
 
     // var
     if($languageCode === false)
-      $languageCode = $_SESSION['feinduraSession']['pageLanguage'];
+      $languageCode = $_SESSION['feinduraSession']['websiteLanguage'];
 
-    // get the one matching $GLOBALS['pageLanguage']
+    // get the one matching $GLOBALS['websiteLanguage']
     if(isset($pageContent['localization'][$languageCode]))
       $localizedValues = $pageContent['localization'][$languageCode];
     // if not get the one matching the "Main Language"
-    elseif(isset($pageContent['localization'][self::$adminConfig['multiLanguagePages']['mainLanguage']]))
-      $localizedValues = $pageContent['localization'][self::$adminConfig['multiLanguagePages']['mainLanguage']];
+    elseif(isset($pageContent['localization'][self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
+      $localizedValues = $pageContent['localization'][self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
     // if not get the first one in the localized array
     elseif(is_array($pageContent['localization']))
       $localizedValues = current($pageContent['localization']);

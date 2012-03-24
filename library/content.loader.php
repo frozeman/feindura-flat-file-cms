@@ -75,13 +75,21 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
     case 'deletePage':
       include (dirname(__FILE__).'/views/windowBox/deletePage.php');
       break;
-    // PGAETHUMBNAIL UPLOAD
+    // PAGE THUMBNAIL UPLOAD
     case 'pageThumbnailUpload':
       include (dirname(__FILE__).'/views/windowBox/pageThumbnailUpload.php');
       break;
-    // PGAETHUMBNAIL DELETE
+    // PAGE THUMBNAIL DELETE
     case 'pageThumbnailDelete':
       include (dirname(__FILE__).'/views/windowBox/pageThumbnailDelete.php');
+      break;
+    // ADD PAGE LANGUAGE
+    case 'addPageLanguage':
+      include (dirname(__FILE__).'/views/windowBox/addPageLanguage.php');
+      break;
+    // REMOVE PAGE LANGUAGE
+    case 'removePageLanguage':
+      include (dirname(__FILE__).'/views/windowBox/removePageLanguage.php');
       break;
     // WEBSITE SETUP
     case 'websiteSetup':

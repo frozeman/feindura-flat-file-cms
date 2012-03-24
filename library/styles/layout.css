@@ -535,13 +535,28 @@ ul.verticalButtons {
     }
 
 /* ------------------------- */
-/* --- spacer (button ul list defined in layout.css)*/
+/* --- spacer (button ul list defined in layout.css) */
 
 .subMenu li.spacer {
     width: 14px;
     height: 47px;
     background: url("../images/buttons/subMenu_spacer.png") no-repeat;
     }
+
+/* ------------------------- */
+/* --- submenu selection */
+
+.subMenu select {
+    position: relative;
+    margin: 12px 12px;
+    margin-left: 1px;
+    padding: 1px 3px;
+    font-size: 14px;
+}
+
+.subMenu img.flag {
+    margin-left: 8px;
+}
     
 /****************/
 /* --- buttons */
@@ -580,6 +595,14 @@ ul.verticalButtons {
 /* deleteThumb */ 
 .subMenu a.pageThumbnailDelete {
     background: url("../images/buttons/subMenu_deleteThumb.png") no-repeat;
+    }
+/* addPageLanguage */ 
+.subMenu a.addPageLanguage {
+    background: url("../images/buttons/subMenu_addPageLanguage.png") no-repeat;
+    }
+/* removePageLanguage */ 
+.subMenu a.removePageLanguage {
+    background: url("../images/buttons/subMenu_removePageLanguage.png") no-repeat;
     }
 
 

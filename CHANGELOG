@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 815
+Build 817
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,8 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 817: changed the name from pageLanguage -> websiteLanguage
+  build 816: add language selection
   build 815: add new date format MDY
   build 814: add flags to listPages + editor, still missing subMenu, changed htacces SpeakingURL reg ex
   build 813: add new MooRTE version

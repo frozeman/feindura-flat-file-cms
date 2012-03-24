@@ -42,12 +42,13 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $_POST['cfg_thumbWidth'] = $adminConfig['pageThumbnail']['width'];
   if(!isset($_POST['cfg_thumbHeight']))
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];   
-  
+
   // -> PREPARE CONFIG VARs
   $newAdminConfig                                       = $adminConfig; // transfer the rest if the adminConfig
   $newAdminConfig['setStartPage']                       = $_POST['cfg_setStartPage'];
-  $newAdminConfig['multiLanguagePages']['active']       = $_POST['cfg_multiLanguagePages'];
-  $newAdminConfig['multiLanguagePages']['mainLanguage'] = $_POST['cfg_pagesMainLanguage'];
+  $newAdminConfig['multiLanguageWebsite']['active']       = $_POST['cfg_multiLanguageWebsite'];
+  $newAdminConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['cfg_websiteMainLanguage'];
+  $newAdminConfig['multiLanguageWebsite']['languages']    = $_POST['cfg_websiteLanguages'];
   
   $newAdminConfig['pages']['createDelete']              = $_POST['cfg_pageCreatePages'];
   $newAdminConfig['pages']['thumbnails']                = $_POST['cfg_pageThumbnailUpload'];  
@@ -64,7 +65,7 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pageThumbnail']['path']              = $_POST['cfg_thumbPath'];
 
   // -> CHANGE PAGES to MULTI LANGUAGE pages
-  if($newAdminConfig['multiLanguagePages']['active']) {
+  if($newAdminConfig['multiLanguageWebsite']['active']) {
     
     
   } else {
@@ -229,8 +230,8 @@ if(isset($_POST['send']) && $_POST['send'] ==  'categorySetup' && isset($_POST['
 
 // RE-INCLUDE
 if($savedSettings) {
-  $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
-  $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
+  unset($adminConfig); $adminConfig = @include (dirname(__FILE__)."/../../config/admin.config.php");
+  unset($categoryConfig); $categoryConfig = @include (dirname(__FILE__)."/../../config/category.config.php");
   // RESET of the vars in the classes
   GeneralFunctions::$storedPageIds = null;
   GeneralFunctions::$storedPages = null;

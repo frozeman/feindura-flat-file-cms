@@ -810,9 +810,14 @@ function saveAdminConfig($adminConfig) {
     $fileContent .= "\$adminConfig['user']['editStyleSheets'] =  ".XssFilter::bool($adminConfig['user']['editStyleSheets'],true).";\n";  
     $fileContent .= "\$adminConfig['user']['info'] =             '".$adminConfig['user']['info']."';\n\n"; // htmLawed in adminSetup.controller.php
     
-    $fileContent .= "\$adminConfig['setStartPage'] =                          ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
-    $fileContent .= "\$adminConfig['multiLanguagePages']['active'] =          ".XssFilter::bool($adminConfig['multiLanguagePages']['active'],true).";\n";
-    $fileContent .= "\$adminConfig['multiLanguagePages']['mainLanguage'] =    ".XssFilter::stringStrict($adminConfig['multiLanguagePages']['mainLanguage'],$_SESSION['feinduraSession']['backendLanguage']).";\n\n";
+    $fileContent .= "\$adminConfig['setStartPage'] =                        ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
+    $fileContent .= "\$adminConfig['multiLanguageWebsite']['active'] =        ".XssFilter::bool($adminConfig['multiLanguageWebsite']['active'],true).";\n";
+    if(is_array($adminConfig['multiLanguageWebsite']['languages'])) {
+      foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langKey) {
+        $fileContent .= "\$adminConfig['multiLanguageWebsite']['languages'][] =   ".XssFilter::alphabetical($langKey,$_SESSION['feinduraSession']['backendLanguage']).";\n";
+      }
+    }
+    $fileContent .= "\$adminConfig['multiLanguageWebsite']['mainLanguage'] =  ".XssFilter::alphabetical($adminConfig['multiLanguageWebsite']['mainLanguage'],$_SESSION['feinduraSession']['backendLanguage']).";\n\n";
 
     $fileContent .= "\$adminConfig['pages']['createDelete'] = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
     $fileContent .= "\$adminConfig['pages']['thumbnails'] =   ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    

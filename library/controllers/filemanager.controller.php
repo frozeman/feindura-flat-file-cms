@@ -13,8 +13,9 @@
 
     You should have received a copy of the GNU General Public License along with this program;
     if not,see <http://www.gnu.org/licenses/>.
-    
-* controllers/filemanager.controller.php version 0.1
+  
+* controllers/filemanager.controller.php
+* @version 0.2
 */
 
 /**
@@ -50,8 +51,6 @@ switch ($adminConfig['dateFormat']) {
     $dateFormat = 'Y-m-d H:i';
     break;
 }
-
-$dateFormat
 
 $browser = new FileManager(array(
   'directory' => $adminConfig['uploadPath'],

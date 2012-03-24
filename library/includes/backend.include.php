@@ -109,18 +109,18 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
  * 
  */
 //XSS Filter
-if(isset($_GET['pageLanguage'])) $_GET['pageLanguage'] = XssFilter::alphabetical($_GET['pageLanguage']);
-if(isset($_SESSION['feinduraSession']['pageLanguage'])) $_SESSION['feinduraSession']['pageLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['pageLanguage']);
+if(isset($_GET['websiteLanguage'])) $_GET['websiteLanguage'] = XssFilter::alphabetical($_GET['websiteLanguage']);
+if(isset($_SESSION['feinduraSession']['websiteLanguage'])) $_SESSION['feinduraSession']['websiteLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['websiteLanguage']);
 
-if($adminConfig['multiLanguagePages']['active'] && isset($_GET['pageLanguage']))
-  $pageLanguage = $_GET['pageLanguage'];
-elseif($adminConfig['multiLanguagePages']['active'] && !isset($_GET['pageLanguage']))
-  $pageLanguage = $_SESSION['feinduraSession']['pageLanguage']; //$adminConfig['multiLanguagePages']['mainLanguage'];
-else
-  $pageLanguage = 0;
-// reset the pageLanguage SESSION var
-$_SESSION['feinduraSession']['pageLanguage'] = $pageLanguage;
-unset($pageLanguage);
+if($adminConfig['multiLanguageWebsite']['active'] && isset($_GET['websiteLanguage']))
+  $websiteLanguage = $_GET['websiteLanguage'];
+elseif($adminConfig['multiLanguageWebsite']['active'] && !isset($_GET['websiteLanguage']) && !empty($_SESSION['feinduraSession']['websiteLanguage']))
+  $websiteLanguage = $_SESSION['feinduraSession']['websiteLanguage'];
+elseif(!empty($adminConfig['multiLanguageWebsite']['mainLanguage']))
+  $websiteLanguage = $adminConfig['multiLanguageWebsite']['mainLanguage'];
+// reset the websiteLanguage SESSION var
+$_SESSION['feinduraSession']['websiteLanguage'] = $websiteLanguage;
+unset($websiteLanguage);
 
 /**
  * SET the BACKEND LANGUAGE

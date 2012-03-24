@@ -34,7 +34,7 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
       <input type="hidden" name="save" value="true" />
       <input type="hidden" name="category" value="'.$_GET['category'].'" />
       <input type="hidden" name="id" value="'.$_GET['page'].'" />
-      <input type="hidden" name="pageLanguage" value="'.$_SESSION['feinduraSession']['pageLanguage'].'" />
+      <input type="hidden" name="websiteLanguage" value="'.$_SESSION['feinduraSession']['websiteLanguage'].'" />
       <input type="hidden" name="savedBlock" id="savedBlock" value="" />
       </div>';
 
@@ -60,7 +60,7 @@ $headerColorClass = ($_GET['category'] != 0)
 
 // adds the page and category IDs for the MooRTE saving of the title
 $titleData = (!$newPage) // data-feindura format: "pageID categoryID"
-  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].' '.$_SESSION['feinduraSession']['pageLanguage'].'"'
+  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].' '.$_SESSION['feinduraSession']['websiteLanguage'].'"'
   : '';
 
 $titleIsEditable = (!$newPage)
@@ -235,7 +235,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
                 <span class="info"><strong>'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'</strong></span>
                 </td><td class="right">';
                 foreach ($pageContent['localization'] as $langCode => $values) {
-                  echo '<a href="'.GeneralFunctions::addParameterToUrl('pageLanguage',$langCode).'" class="image" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> '.$languageCodes[$langCode].'</a><br>';
+                  echo '<a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="image" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> '.$languageCodes[$langCode].'</a><br>';
                 }
           echo '</td>
                 </tr>';

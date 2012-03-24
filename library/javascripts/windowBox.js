@@ -41,7 +41,7 @@ function openWindowBox(site,siteTitle,fixed) {
     
     // set the display to block
     $('windowBoxContainer').fade('show');
-    //$('#windowBoxContainer').setStyle('visibility','visible');
+    // $('windowBoxContainer').setStyle('visibility','visible');
     
     // set the fade
     $('windowBox').set('opacity',0);
@@ -77,7 +77,7 @@ function closeWindowBox(redirectAfter) {
 	// slides the windowRequestBox out
 	SlideWindowBoxClose.slideOut().chain(function(){
       // set the html inside the windowRequestBox div back.
-			$('windowRequestBox').set('html', '');
+			$('windowRequestBox').empty();
 			$('windowRequestBox').setStyle('height', 'auto');
 			
 			// fades the windowBox

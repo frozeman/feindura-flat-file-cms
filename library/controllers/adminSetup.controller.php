@@ -193,7 +193,7 @@ include_once(dirname(__FILE__).'/saveEditFiles.controller.php');
 if($savedSettings) {
   if($fp = @fopen(dirname(__FILE__).'/../../config/admin.config.php','r')) {
     flock($fp,LOCK_SH);
-    $adminConfig = include(dirname(__FILE__)."/../../config/admin.config.php");
+    unset($adminConfig); $adminConfig = include(dirname(__FILE__)."/../../config/admin.config.php");
     flock($fp,LOCK_UN);
     fclose($fp);
   }

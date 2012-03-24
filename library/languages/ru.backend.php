@@ -77,7 +77,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'С�
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Страницы без категории';
 $langFile['TEXT_EXAMPLE']                                                 = 'Пример';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE']                                    = 'Редактировать на сайте::Нажмите что бы редактировать страницы на сайте.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Редактировать на сайте::Нажмите что бы редактировать страницы на сайте.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'пикселей';
@@ -241,6 +241,8 @@ $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'З�
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Загрузить миниатюру к этой странице';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Удалить минитюру страницы';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Удалить миниатюру к этой странице';
+$langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Удаление языка';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Удаление языка &quot;%s&quot; для этой страницы';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Вверх';
@@ -482,9 +484,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Настройки страниц';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Тема на нескольких страницах язык';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'Мульти язык сайта';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Основной язык';
+$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Страницы без категории';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Создание/удаление страниц';

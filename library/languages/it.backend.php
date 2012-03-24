@@ -75,7 +75,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Pag
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Pagine Senza Categoria';
 $langFile['TEXT_EXAMPLE']                                                 = 'Esempio';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE']                                    = 'Editing Frontale::Clicca qui per modificare le pagine direttamente nel tuo sito web.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Editing Frontale::Clicca qui per modificare le pagine direttamente nel tuo sito web.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
@@ -239,6 +239,8 @@ $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Car
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Carica Miniatura';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Elimina Miniatura Della Pagina';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Elimina Miniatura';
+$langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Elimina Lingua';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Eliminare Lingua &quot;%s&quot; per questa pagina';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Torna Su';
@@ -489,9 +491,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'I T
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Impostazzioni-Pagina';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Imposta Pagina Iniziale';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'L\'utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Pagine in lingua Multi';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'Sito web multi lingua';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'lingua principale';
+$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Pagine-Senza-Categoria';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Creare Cancellare Pagine';

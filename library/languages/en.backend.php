@@ -75,7 +75,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Pag
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Pages without category';
 $langFile['TEXT_EXAMPLE']                                                 = 'Example';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE']                                    = 'Frontend Editing::Click here to edit the pages directly in your website.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Frontend Editing::Click here to edit the pages directly in your website.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'pixel';
@@ -234,11 +234,13 @@ $langFile['BUTTON_TOOLTIP_CREATEPAGE']                                    = 'Cre
 $langFile['BUTTON_DELETEPAGE']                                            = 'Delete Page';
 $langFile['BUTTON_TOOLTIP_DELETEPAGE']                                    = 'Delete this page';
 $langFile['BUTTON_FRONTENDEDITPAGE']                                      = 'Edit page in the frontend';
-$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE']                              = 'Edit this page directly on the website.';
+$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE']                              = 'Edit this page directly on the website';
 $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Upload a page thumbnail';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Upload a thumbnail for this page';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Delete a page thumbnail';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Delete the thumbnail of this page';
+$langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Delete Language';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Delete language &quot;%s&quot; for this page';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Up';
@@ -489,9 +491,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Page-Settings';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Set start page';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'The user can set a page as the start page.[br][br]The start page will be used if no page variable is given through the [i]$_GET[/i] variable in the website.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Multi language pages';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'The main language will be selected, if no matching language could be determined automatically.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'Multi language Website';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Main language';
+$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'The main language will be selected, if no matching language could be determined automatically.';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Pages without category';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Create/delete pages';

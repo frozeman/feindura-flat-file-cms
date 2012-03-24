@@ -1333,12 +1333,18 @@ input[disabled="disabled"], textarea[disabled="disabled"] {
 label.disabled {
   color: #ccc;
 }
-input[type=search] { -webkit-appearance:textfield; -webkit-box-sizing:content-box; }
+input[type="search"] { -webkit-appearance:textfield; -webkit-box-sizing:content-box; }
 ::-webkit-search-decoration { display: none; }
     
 select {
     padding: 1px 4px;
     }
+
+select[multiple="multiple"] {
+    width: 250px;
+    max-height: 130px;
+    vertical-align: top;
+}
 
 textarea, div.CodeMirror-gutter-text, div.CodeMirror-lines {
     line-height: 18px;

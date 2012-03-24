@@ -1013,22 +1013,93 @@ window.addEvent('domready', function() {
     });
   }
 
-
   // ->> PAGE SETUP
   // ---------------
 
   // -> PAGE SETTINGS
-  // -> disables the "main language" field if "multiple languages" checkbox is deactivated
-  if($('cfg_multiLanguagePages') !== null ) {
-    $('cfg_multiLanguagePages').addEvent('change',function() {
-      console.log(this.checked);
+
+  // -> MULTI LANGUAGE WEBSITE
+  if($('cfg_multiLanguageWebsite') !== null ) {
+
+    // var
+    var selectedMainLanguage = $('cfg_websiteMainLanguage').getSelected();
+    selectedMainLanguage = selectedMainLanguage[0];
+
+    // -> disables the multiple language fields if "multiple languages" checkbox is deactivated
+    $('cfg_multiLanguageWebsite').addEvent('change',function() {
       if(this.checked === true) {
-        $('cfg_pagesMainLanguage').removeProperty(deactivateType);
+        $('cfg_websiteLanguages').removeProperty(deactivateType);
+        $('cfg_websiteMainLanguage').removeProperty(deactivateType);
+        $('cfg_websiteLanguageChoices').removeProperty(deactivateType);
       } else {
-        $('cfg_pagesMainLanguage').setProperty(deactivateType,deactivateType);
+        $('cfg_websiteLanguages').setProperty(deactivateType,deactivateType);
+        $('cfg_websiteMainLanguage').setProperty(deactivateType,deactivateType);
+        $('cfg_websiteLanguageChoices').setProperty(deactivateType,deactivateType);
       }
     });
+
+    // -> get and save the selected main language
+    $('cfg_websiteMainLanguage').addEvent('change',function(e){
+      selectedMainLanguage = this.getSelected();
+      selectedMainLanguage = selectedMainLanguage[0];
+    });
+
+    // -> ADD selected languages to the main Language and page language selection
+    $('cfg_websiteLanguageChoices').addEvent('change',function(e){
+      // get selected languages
+      var option = this.getSelected();
+      // -> move the selected ones to the cfg_websiteLanguages <select>
+      // option.removeProperty('selected');
+      option.inject($('cfg_websiteLanguages'));
+
+      // create a copy of the <option> tag to be injected into the mainLanguage <select>
+      var newOption = new Option(option.get("html"), option.get("value"));
+      // -> add the selection to the mainLanguage <select>
+      newOption.inject($('cfg_websiteMainLanguage'));
+
+      // show the mainLanguage <select> if its not empty
+      if($('cfg_websiteMainLanguage').getChildren().length !== 0) $('websiteMainLanguageTr').setStyle('display','table-row');
+    });
+
+    // -> REMOVE selected languages from the main Language and page language selection
+    $('cfg_websiteLanguages').addEvent('click',function(e){
+      // prevent self destruction
+      if(e.target === $('cfg_websiteLanguages'))
+        return;
+
+      var allLanguages = $('cfg_websiteLanguageChoices').getChildren();
+      $('cfg_websiteLanguageChoices').empty();
+      // get selected languages
+      var option = e.target;
+      // -> move the selected ones to the cfg_websiteLanguageChoices <select>
+      option.removeProperty('selected');
+      option.inject($('cfg_websiteLanguageChoices','top'));
+      allLanguages.inject($('cfg_websiteLanguageChoices','top'));
+
+      // remove the selected on from the mainLanguage <select>
+      $('cfg_websiteMainLanguage').getChildren().each(function(mainLanguageOption) {
+        if(mainLanguageOption.get('value') == option.get('value'))
+          mainLanguageOption.destroy();
+      });
+
+      // select all languages again
+      $('cfg_websiteLanguages').getChildren().setProperty('selected','selected');
+
+      // hide the mainLanguage <select> if its empty
+      if($('cfg_websiteMainLanguage').getChildren().length === 0) $('websiteMainLanguageTr').setStyle('display','none');
+    });
   }
+
+  // -> CHANGE WEBSITE LANGUAGE
+  if($('websiteLanguageSelection') !== null) {
+    $('websiteLanguageSelection').addEvent('change',function(){
+      var language = this.getSelected();
+      newLocation = (window.location.href.indexOf('&websiteLanguage') != -1) ? window.location.href.substr(0,window.location.href.indexOf('&websiteLanguage')) : window.location.href;
+      
+      window.location.href = newLocation + '&websiteLanguage=' + language.get('value');
+    });
+  }
+
 
   // -> GO TROUGH every CATEGORY and add thumbScale to the advanced category settings
   if($$('.advancedcategoryConfig') !== null) {

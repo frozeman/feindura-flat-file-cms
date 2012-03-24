@@ -75,7 +75,7 @@ $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Sei
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Seiten ohne Kategorie';
 $langFile['TEXT_EXAMPLE']                                                 = 'Beispiel';
 
-$langFile['HEADER_BUTTON_GOTOWEBSITE']                                    = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt in der Webseite zu bearbeiten.';
+$langFile['HEADER_BUTTON_GOTOWEBSITE_FRONTENDEDITING']                    = 'Frontend-Bearbeitung::Klick hier um die Seiten direkt in der Webseite zu bearbeiten.';
 
 // THUMBNAILS
 $langFile['THUMBNAIL_TEXT_UNIT']                                          = 'Pixel';
@@ -237,6 +237,8 @@ $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Sei
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Thumbnail für diese Seite hochladen.';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Seiten-Thumbnail löschen';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Thumbnail von dieser Seite löschen.';
+$langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Sprache löschen';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Sprache &quot;%s&quot; für diese Seite löschen';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'Nach oben';
@@ -486,9 +488,9 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Seiten-Einstellungen';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Mehrsprachige Seiten';
-$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'Mehrsprachige Webseite';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
+$langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
 
 $langFile['PAGESETUP_PAGES_TITLE_NONCATEGORYPAGES']                       = 'Seiten ohne Kategorie';
 $langFile['PAGESETUP_PAGES_TEXT_CREATEPAGES']                             = 'Seiten erstellen/löschen';
