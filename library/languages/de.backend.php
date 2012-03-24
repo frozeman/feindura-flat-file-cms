@@ -68,8 +68,9 @@ $langFile['LOGIN_TIP_AUTOLOGOUT']                                         = 'Aut
 
 // -> GENERAL <-
 
-$langFile['DATE_INT']                                                     = 'JJJJ-MM-TT';
-$langFile['DATE_EU']                                                      = 'TT.MM.JJJJ';
+$langFile['DATE_YMD']                                                     = 'JJJJ-MM-TT';
+$langFile['DATE_DMY']                                                     = 'TT.MM.JJJJ';
+$langFile['DATE_MDY']                                                     = 'MM/TT/JJJJ';
 $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Seiten';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Seiten ohne Kategorie';
 $langFile['TEXT_EXAMPLE']                                                 = 'Beispiel';
@@ -405,12 +406,12 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Mod
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Der Name der [b]$_GET Variable[/b] die für die Seiten Verlinkung verwendet wird.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Datumsformat';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br]Entweder:[br]DIN 5008 ('.$langFile['DATE_EU'].') oder[br]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Zeitzone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Wird nur für das [span class=logoname]fein[span]dura[/span][/span] Backend verwendet.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'URL Format';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Speaking URLs';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/beispiel_category/beispiel.html';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/kategorie-name/seiten-name';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URLs mit Variablen';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Das URL Format, welches für die Seiten-Verlinkung verwendet wird.[br][br]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul verfügbar ist.';

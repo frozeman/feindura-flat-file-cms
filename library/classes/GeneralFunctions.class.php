@@ -1633,7 +1633,7 @@ class GeneralFunctions {
         $href .= 'page/';
 
       $href .= self::urlEncode(GeneralFunctions::getLocalized($pageContent,'title',$languageCode));
-      //$href .= '.html';
+      //$href .= '/'; //'.html';
       
       if($sessionId)
         $href .= '?'.$sessionId;

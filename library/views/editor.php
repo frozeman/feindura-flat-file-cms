@@ -490,11 +490,8 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       <label for="edit_pagedate">
       <?php
       
-      // get date format
-      if($adminConfig['dateFormat'] == 'eu')
-        $dateFormat = $langFile['DATE_EU'];
-      else
-        $dateFormat = $langFile['DATE_INT'];
+      // GET date format LANGUAGE TEXT
+      $dateFormat = $langFile['DATE_'.$adminConfig['dateFormat']];
       
       // CHECKs the DATE FORMAT
       if(!empty($pageDate) && StatisticFunctions::validateDateFormat($pageDate) === false)
@@ -552,11 +549,21 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
           
         $pageDateTags['year'] = '<input class="short toolTip" name="pageDate[year]" title="'.$langFile['EDITOR_pageSettings_pagedate_year_inputTip'].'" value="'.$year.'" maxlength="4" />'."\n";
         
-        // -> WRITES the SORT DATE TAGS
-        if($adminConfig['dateFormat'] == 'eu') {
-          echo $pageDateTags['day'].' . '.$pageDateTags['month'].' . '.$pageDateTags['year'];
-        } elseif($adminConfig['dateFormat'] == 'int') {
-          echo $pageDateTags['year'].' - '.$pageDateTags['month'].' - '.$pageDateTags['day'];
+        // -> SHOWS the PAGE DATE INPUTS
+        switch ($adminConfig['dateFormat']) {
+          case 'YMD':
+            echo $pageDateTags['year'].' - '.$pageDateTags['month'].' - '.$pageDateTags['day'];
+            break;
+          case 'DMY':
+            echo $pageDateTags['day'].' . '.$pageDateTags['month'].' . '.$pageDateTags['year'];
+            break;
+          case 'MDY':
+            echo $pageDateTags['month'].' / '.$pageDateTags['day'].' / '.$pageDateTags['year'];
+            break;
+          
+          default:
+            echo $pageDateTags['year'].' - '.$pageDateTags['month'].' - '.$pageDateTags['day'];
+            break;
         }
         
         ?>

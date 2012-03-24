@@ -70,8 +70,9 @@ $langFile['LOGIN_TIP_AUTOLOGOUT']                                         = 'А�
 
 // -> GENERAL <-
 
-$langFile['DATE_INT']                                                     = 'YYYY-MM-DD';
-$langFile['DATE_EU']                                                      = 'DD.MM.YYYY';
+$langFile['DATE_YMD']                                                     = 'YYYY-MM-DD';
+$langFile['DATE_DMY']                                                     = 'DD.MM.YYYY';
+$langFile['DATE_MDY']                                                     = 'MM/DD/YYYY';
 $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Страницы';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Страницы без категории';
 $langFile['TEXT_EXAMPLE']                                                 = 'Пример';
@@ -401,12 +402,12 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'П�
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Имя GET-переменной которая будет использоваться для формирования ссылки.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Формат даты';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=logoname]fein[span]dura[/span][/span] и на сайте.[br]Может быть:[br]DIN 5008 ('.$langFile['DATE_EU'].') [br]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=logoname]fein[span]dura[/span][/span] и на сайте.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Часовой пояс';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Используется только в [span class=logoname]fein[span]dura[/span][/span] панели управления.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Формат URL';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'ЧПУ';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/example_category/example.html';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL с переменными';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]ЧПУ работают только если есть модуль [b]Apache[/b] [b]mod_rewrite[/b].[br][br][b]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/b]';

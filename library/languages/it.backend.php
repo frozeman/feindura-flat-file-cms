@@ -68,8 +68,9 @@ $langFile['LOGIN_TIP_AUTOLOGOUT']                                         = 'Sar
 
 // -> GENERAL <-
 
-$langFile['DATE_INT']                                                     = 'YYYY-MM-DD';
-$langFile['DATE_EU']                                                      = 'DD.MM.YYYY';
+$langFile['DATE_YMD']                                                     = 'YYYY-MM-DD';
+$langFile['DATE_DMY']                                                     = 'DD.MM.YYYY';
+$langFile['DATE_MDY']                                                     = 'MM/DD/YYYY';
 $langFile['CATEGORIES_TEXT_NONCATEGORY']                                  = 'Pagine';
 $langFile['CATEGORIES_TOOLTIP_NONCATEGORY']                               = 'Pagine Senza Categoria';
 $langFile['TEXT_EXAMPLE']                                                 = 'Esempio';
@@ -408,12 +409,12 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Nom
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modulo[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Il nome della variabile [b]$_GET[/b] che verrà utilizzato per collegare le pagine del sito web.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Formato Data';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sarà utilizzato da [span class=logoname]fein[span]dura[/span][/span] per le date del sito web.[br]Può essere:[br]DIN 5008 ('.$langFile['DATE_EU'].') oppure[br]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sarà utilizzato da [span class=logoname]fein[span]dura[/span][/span] per le date del sito web.';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time Zone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Utilizzato da [span class=logoname]fein[span]dura[/span][/span] solo per il Backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Formato URL';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Speaking URLs';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/example_category/example.html';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/category-name/example-page';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URLs con variabili';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Questo sarà il formato URL che verrà utilizzato per collegare le pagine.[br][br]Speaking URLs funziona solo se [b]Apache[/b] ha attivato [b]mod_rewrite[/b] e il modulo è disponibile.';

@@ -193,7 +193,7 @@ class StatisticFunctions {
   * Converst a given timestamp into the a specific format type.
   * 
   * @param int    $timeStamp a UNIX-Timestamp
-  * @param string $format    (optional) the format type can be "eu" to format into: "DD-MM-YYYY", or "int" to format into: "YYYYY-MM-DD", if FALSE it uses the format set in the administrator-settings config
+  * @param string $format    (optional) the format type can be "DMY" to format into: "DD-MM-YYYY", "YMD" to format into: "YYYYY-MM-DD" or "MDY" to format into: "MM-DD-YYYYY", if FALSE it uses the format set in the administrator-settings config
   * 
   * @uses $adminConfig  to get the right date format, if no format is given
   * 
@@ -214,13 +214,21 @@ class StatisticFunctions {
              
     if($format === false)
       $format = self::$adminConfig['dateFormat'];
-        
-    if($format == 'eu') {
-        return date('d.m.Y',$timeStamp);
-    } elseif($format == 'int') {
+    
+    switch ($format) {
+      case 'YMD':
         return date('Y-m-d',$timeStamp);
-    } else
+        break;
+      case 'DMY':
+        return date('d.m.Y',$timeStamp);
+        break;
+      case 'MDY':
+        return date('m/d/Y',$timeStamp);
+        break;
+      default:
         return $timeStamp;
+        break;
+    }
   }
   
  /**

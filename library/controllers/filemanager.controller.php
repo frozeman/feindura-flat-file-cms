@@ -34,13 +34,32 @@ if(!empty($adminConfig['uploadPath']) && !is_dir(DOCUMENTROOT.$adminConfig['uplo
 
 require_once(dirname(__FILE__).'/../thirdparty/MooTools-FileManager/Assets/Connector/FileManager.php');
 
+// set the right dateformat
+switch ($adminConfig['dateFormat']) {
+  case 'YMD':
+    $dateFormat = 'Y-m-d H:i';
+    break;
+  case 'DMY':
+    $dateFormat = 'd.m.Y H:i';
+    break;
+  case 'MDY':
+    $dateFormat = 'm/d/Y H:i';
+    break;
+  
+  default:
+    $dateFormat = 'Y-m-d H:i';
+    break;
+}
+
+$dateFormat
+
 $browser = new FileManager(array(
   'directory' => $adminConfig['uploadPath'],
   'thumbnailPath' => $adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'],
   'assetBasePath' => $adminConfig['basePath'].'library/thirdparty/MooTools-FileManager/Assets',
   'documentRootPath' => DOCUMENTROOT,
   'chmod' => $adminConfig['permissions'],
-  'dateFormat' => ($adminConfig['dateFormat'] == 'eu') ? 'd.m.Y H:i' : 'Y-m-d H:i',
+  'dateFormat' => $dateFormat,
   'upload' => true,
   'destroy' => true,
   'create' => true,

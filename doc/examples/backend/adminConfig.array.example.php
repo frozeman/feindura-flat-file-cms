@@ -7,7 +7,7 @@ $adminConfig['websitePath'] =      '/'; // it's also possible: "/index.php"
 $adminConfig['uploadPath'] =       '/feinduraCMS/upload/';
 $adminConfig['websiteFilesPath'] = '';
 $adminConfig['stylesheetPath'] =   '/styles/';
-$adminConfig['dateFormat'] =       'int'; // can be "int" or "eu"
+$adminConfig['dateFormat'] =       'YMD'; // can be "YMD", "MDY" or "DMY"
 $adminConfig['speakingUrl'] =      false;
 
 $adminConfig['varName']['page'] =     'page';

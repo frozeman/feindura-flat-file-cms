@@ -214,8 +214,9 @@ $hidden = ($savedForm != 'adminSettings' && checkBasePathAndURL() && !documentro
       <?php echo $langFile['ADMINSETUP_GENERAL_field7'] ?></span></label>
       </td><td class="right">
       <select id="cfg_dateFormat" name="cfg_dateFormat">
-        <option value="eu"<?php if($adminConfig['dateFormat'] == 'eu') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_EU'];?></option>
-        <option value="int"<?php if($adminConfig['dateFormat'] == 'int') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_INT'];?></option>
+        <option value="YMD"<?php if($adminConfig['dateFormat'] == 'YMD') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_YMD'];?></option>
+        <option value="DMY"<?php if($adminConfig['dateFormat'] == 'DMY') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_DMY'];?></option>
+        <option value="MDY"<?php if($adminConfig['dateFormat'] == 'MDY') echo ' selected="selected"'; ?>><?php echo $langFile['DATE_MDY'];?></option>
       </select>
       </td></tr>
       
