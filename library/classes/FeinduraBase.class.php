@@ -232,8 +232,8 @@ class FeinduraBase {
     $this->loggedIn = ($_SESSION['feinduraSession']['login']['loggedIn'] === true && $_SESSION['feinduraSession']['login']['host'] === HOST) ? true : false;
     
     // set backend language if logged in
-    if($this->loggedIn && $language === false)
-      $language = $_SESSION['feinduraSession']['language'];
+    // if($this->loggedIn && $language === false)
+    //   $language = $_SESSION['feinduraSession']['backendLanguage'];
     
     // save the website statistics
     // ***************************
@@ -418,11 +418,12 @@ class FeinduraBase {
   * <b>Name</b> replaceLinks()<br />
   * 
   * Replaces all feindura links (e.g. "?feinduraPageID=3") inside the given <var>$pageContentString</var> parameter, with real href links.
-  
+  *
   * @param string $pageContentString      the page content string, to replace all feindura links, with real hrefs
   * 
   * @uses GeneralFunctions::readPage()		to load the page for createHref()
   * @uses GeneralFunctions::createHref()  to create the hreaf of the link
+  * @uses FeinduraBase::language
   * 
   * @return string the $pageContentString woth replaced feindura links
   * 
@@ -439,7 +440,7 @@ class FeinduraBase {
     if(preg_match_all ('#\?*feinduraPageID\=([0-9]+)#i', $pageContentString, $matches,PREG_SET_ORDER)) {
       // replace each link
       foreach($matches as $match) {
-        $pageContentString = str_replace($match[0],GeneralFunctions::createHref(GeneralFunctions::readPage($match[1],GeneralFunctions::getPageCategory($match[1])),$this->sessionId),$pageContentString);
+        $pageContentString = str_replace($match[0],GeneralFunctions::createHref(GeneralFunctions::readPage($match[1],GeneralFunctions::getPageCategory($match[1])),$this->sessionId,$this->language),$pageContentString);
       }
     }
     return $pageContentString;

@@ -551,7 +551,7 @@ h1 img.listPagesH1Icon {
     }
 
 /****************/	
-/* *** listPages HEAD */
+/* *** listPages HEADER */
 
 div.listPagesHead {
     width: 790px;
@@ -570,7 +570,7 @@ div.listPagesHead {
     display: inline-block;
     max-height: 25px;
     padding: 4px 0px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     white-space: nowrap;
     float: left;
     }
@@ -597,15 +597,14 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 }
     
 .listPagesHead div.lastSaveDate {
-    width: 140px;
-    padding-left: 10px;
+    width: 145px;
     }
 .listPagesHead div.counter {
-    width: 60px;
+    width: 80px;
     text-align: center;
     }
 .listPagesHead div.status {
-    width: 90px;
+    width: 60px;
     text-align: center;
     }
 .listPagesHead div.functions {
@@ -629,27 +628,27 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 
 .listPages .content div.name {    
     width: 290px;
-    padding: 5px 0px;
+    padding: 6px 0px;
     }
 .listPages .content div.lastSaveDate {
     width: 140px;
     padding-left: 10px;
     }
 .listPages .content div.counter {
-    width: 95px;
-    padding-left: 10px;
+    width: 85px;
+    padding: 6px 5px;
     text-align: center;
     font-weight: bold;
     }
 .listPages .content div.status {
     width: 27px;
-    padding-top: 3px;
-    padding-left: 10px;
+    padding: 3px 5px; 
     }
 .listPages .content div.functions {
     float: right !important;
-    width: 160px;
-    margin-right: 10px;
+    width: 170px;
+    padding: 5px 10px;
+    padding-left: 0px;
     text-align: right; 
     }
 
@@ -780,7 +779,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 .listPages .content .status.nonpublic a {
     background: url("../images/icons/page_nonpublic.png") no-repeat !important;
     }
-  
+
     
 /* --- EDITOR ------------------------------------------------------------------------------------------------------------------- */
     

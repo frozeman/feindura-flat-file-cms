@@ -34,7 +34,7 @@ echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['p
       <input type="hidden" name="save" value="true" />
       <input type="hidden" name="category" value="'.$_GET['category'].'" />
       <input type="hidden" name="id" value="'.$_GET['page'].'" />
-      <input type="hidden" name="languageCode" value="'.$localizedCode.'" />
+      <input type="hidden" name="pageLanguage" value="'.$_SESSION['feinduraSession']['pageLanguage'].'" />
       <input type="hidden" name="savedBlock" id="savedBlock" value="" />
       </div>';
 
@@ -60,7 +60,7 @@ $headerColorClass = ($_GET['category'] != 0)
 
 // adds the page and category IDs for the MooRTE saving of the title
 $titleData = (!$newPage) // data-feindura format: "pageID categoryID"
-  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].' '.$localizedCode.'"'
+  ? ' data-feindura="'.$_GET['page'].' '.$_GET['category'].' '.$_SESSION['feinduraSession']['pageLanguage'].'"'
   : '';
 
 $titleIsEditable = (!$newPage)
@@ -228,14 +228,28 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
         else
           $categoryInLink = $adminConfig['varName']['category'].'='.$pageContent['category'].'&amp;';
         
+        // shows the page languages
+        if(!isset($pageContent['localization'][0])) {
+          echo '<tr>
+                <td class="left">
+                <span class="info"><strong>'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].'</strong></span>
+                </td><td class="right">';
+                foreach ($pageContent['localization'] as $langCode => $values) {
+                  echo '<a href="'.GeneralFunctions::addParameterToUrl('pageLanguage',$langCode).'" class="image" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> '.$languageCodes[$langCode].'</a><br>';
+                }
+          echo '</td>
+                </tr>';
+        }
+
         // shows the page link
         echo '<tr>
               <td class="left">
               <span class="info"><strong>'.$langFile['EDITOR_pageinfo_linktothispage'].'</strong></span>
               </td><td class="right">
-              <span class="info" style="font-size:11px;"><a href="'.GeneralFunctions::createHref($pageContent,false,true).'" class="extern">'.GeneralFunctions::createHref($pageContent,false,true).'</a></span>
+              <span class="info" style="font-size:11px;"><a href="'.GeneralFunctions::createHref($pageContent,false,false,true).'" class="extern">'.GeneralFunctions::createHref($pageContent,false,false,true).'</a></span>
               </td>
               </tr>';
+     
       }
       ?>        
       <tr><td class="leftBottom"></td><td></td></tr>
@@ -484,7 +498,7 @@ $hidden = ($newPage || $savedForm == 'pageSettings') ? '' : ' hidden';
       
       // CHECKs the DATE FORMAT
       if(!empty($pageDate) && StatisticFunctions::validateDateFormat($pageDate) === false)
-        echo '<span class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br /][b]'.$dateFormat.'[/b]"><b>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</b></span>'; 
+        echo '<span class="toolTip red" title="'.$langFile['EDITOR_pageSettings_pagedate_error'].'::'.$langFile['EDITOR_pageSettings_pagedate_error_tip'].'[br][b]'.$dateFormat.'[/b]"><b>'.$langFile['EDITOR_pageSettings_pagedate_error'].'</b></span>'; 
       else
         echo '<span class="toolTip" title="'.$langFile['EDITOR_pageSettings_field3'].'::'.$langFile['EDITOR_pageSettings_field3_tip'].'">'.$langFile['EDITOR_pageSettings_field3'].'</span>';
       ?>
@@ -629,8 +643,8 @@ $blockContentEdited = (isset($pageContent['plugins']))
       foreach($plugins['folders'] as $pluginFolder) {
       
         // vars
-      	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['language'].'.php'))
-      	  ? $_SESSION['feinduraSession']['language']
+      	$pluginCountryCode = (file_exists(DOCUMENTROOT.$pluginFolder.'/languages/'.$_SESSION['feinduraSession']['backendLanguage'].'.php'))
+      	  ? $_SESSION['feinduraSession']['backendLanguage']
       	  : 'en';
         unset($pluginConfig,$pluginLangFile);
         $pluginFolderName = basename($pluginFolder);       
@@ -739,7 +753,7 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       <tr><td class="leftTop"></td><td></td></tr>
       
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br /][br /][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_STYLEFILE']; ?></span>
       </td><td class="right">
       <div id="pageStyleFilesInputs" class="inputToolTip" title="<?php echo $langFile['PATHS_TOOLTIP_ABSOLUTE'].'::[span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>">
       <span class="hint" style="float:right;width:190px;"><?php echo $langFile['STYLESHEETS_EXAMPLE_STYLEFILE']; ?></span>
@@ -753,13 +767,13 @@ $blockContentEdited = ((!empty($pageContent['styleFile']) && $pageContent['style
       </td></tr>
                   
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br /][br /][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_ID']; ?></span>
       </td><td class="right">
       <input name="styleId" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleId'],'styleId',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>
             
       <tr><td class="left">
-      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
+      <span class="toolTip" title="<?php echo $langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['EDITOR_advancedpageSettings_stylesheet_ifempty'].'[/span]'; ?>"><?php echo $langFile['STYLESHEETS_TEXT_CLASS']; ?></span>
       </td><td class="right">
       <input name="styleClass" value="<?php echo GeneralFunctions::getStylesByPriority($pageContent['styleClass'],'styleClass',$pageContent['category']); ?>" class="inputToolTip" title="<?php echo $langFile['EDITOR_advancedpageSettings_stylesheet_ifempty']; ?>" />
       </td></tr>

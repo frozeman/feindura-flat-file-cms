@@ -85,8 +85,8 @@ $langFile['THUMBNAIL_TEXT_NAME']                                          = 'М�
 $langFile['THUMBNAIL_TEXT_WIDTH']                                         = 'Миниатюра <b>ширина</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT']                                        = 'Миниатюра <b>высота</b>';
 
-$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Стандартная ширина::Ширина миниатюры в пикселах.[br /][br /]Изображение будет уменьшено согласно этому значению.';
-$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Стандартная высота::Высота миниатюры в пикселах.[br /][br /]Изображение будет уменьшено согласно этому значению.';
+$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Стандартная ширина::Ширина миниатюры в пикселах.[br][br]Изображение будет уменьшено согласно этому значению.';
+$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Стандартная высота::Высота миниатюры в пикселах.[br][br]Изображение будет уменьшено согласно этому значению.';
 
 $langFile['THUMBNAIL_TEXT_RATIO']                                         = 'Пропорции';
 $langFile['THUMBNAIL_TEXT_KEEPRATIO']                                     = 'сохранять пропорции';
@@ -320,8 +320,9 @@ $langFile['sortablePageList_headText3']                                   = 'В�
 $langFile['sortablePageList_headText4']                                   = 'Статус';
 $langFile['sortablePageList_headText5']                                   = 'Операции';
 
-$langFile['sortablePageList_pagedate']                                    = 'Дата';
-$langFile['sortablePageList_tags']                                        = 'Таги';
+$langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'Дата';
+$langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'Таги';
+$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'Языки';
 
 $langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL']                        = 'сортировать по алфавиту';
 $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'сортировать по дате';
@@ -384,7 +385,7 @@ $langFile['ADMINSETUP_GENERAL_field8']                                    = 'П�
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = '[b]Абсолютный путь[/b] расположения файлов сайта.';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Путь для загрузи файлов';
 $langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Файлы вроде иллюстраций, изображений, флеш-анимациии другие будут закачиваться по этому адресу.';
-$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br /][br /]Файлы могут редактироваться в сеции Настройки сайта, (если выбраны соответсвующие Пользовательские настроки).[br /][br /]';
+$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Файлы могут редактироваться в сеции Настройки сайта, (если выбраны соответсвующие Пользовательские настроки).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Путь к файлам сайта';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Путь к файлам сайта. Для использования многоязычности.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Путь к файлам стилей';
@@ -400,7 +401,7 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'П�
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Имя GET-переменной которая будет использоваться для формирования ссылки.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Формат даты';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=logoname]fein[span]dura[/span][/span] и на сайте.[br /]Может быть:[br /]DIN 5008 ('.$langFile['DATE_EU'].') [br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Используется в [span class=logoname]fein[span]dura[/span][/span] и на сайте.[br]Может быть:[br]DIN 5008 ('.$langFile['DATE_EU'].') [br]ISO 8601 ('.$langFile['DATE_INT'].')';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Часовой пояс';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Используется только в [span class=logoname]fein[span]dura[/span][/span] панели управления.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Формат URL';
@@ -408,7 +409,7 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Ч�
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/example_category/example.html';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URL с переменными';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br /][br /]ЧПУ работают только если есть модуль [b]Apache[/b] [b]mod_rewrite[/b].[br /][br /][b]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/b]';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Формат URL используется при формировании всех ссылок на сайте.[br][br]ЧПУ работают только если есть модуль [b]Apache[/b] [b]mod_rewrite[/b].[br][br][b]ВНИМАНИЕ: С РУССКИМИ НАЗВАНИЯМИ СТРАНИЦ И КАТЕГОРИЙ ЧПУ НЕ РАБОТАЕТ (на данный момент)![/b]';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ВНИМАНИЕ!::[span class=red]Если при использовании ЧПУ возникнут проблемы, вы должны удалить файл [b].htaccess[/b] из корня сайта.[/span]';
 
 // ---------- speaking url ERRORs
@@ -436,7 +437,7 @@ $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'б�
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'HTML-код будет фильтроваться на максимально безопасном уровне. Это означает что, например теги &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object&gt; и &lt;script&gt; будут вырезаны.';
 $langFile['adminSetup_editorSettings_field1']                             = 'Режим клавиши ENTER';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER всегда вставляет &quot;&lt;br&gt;&quot;';
-$langFile['adminSetup_editorSettings_field1_tip']                         = 'Вставляет при нажатии ENTER выбранный тег.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
+$langFile['adminSetup_editorSettings_field1_tip']                         = 'Вставляет при нажатии ENTER выбранный тег.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Если не задано - атрибут ID не будет присвоен.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Если не задано - атрибут class не будет присвоен.';
 
@@ -445,7 +446,7 @@ $langFile['adminSetup_thumbnailSettings_h1']                              = 'Н�
 $langFile['adminSetup_thumbnailSettings_field3']                          = 'Путь для сохранения'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Дирктория в которую будут сохраняться миниатюры.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Директория загрузок';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Относительный путь::Относительный путь &quot;[b]%s[/b]&quot; path.[br /][br /]Без открывающего слеша впереди - &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Относительный путь::Относительный путь &quot;[b]%s[/b]&quot; path.[br][br]Без открывающего слеша впереди - &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
@@ -479,7 +480,7 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 // ---------- page settings
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Настройки страниц';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br /][br /]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
+$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Тема на нескольких страницах язык';
 $langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Основной язык';
@@ -490,7 +491,7 @@ $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Д�
 $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']                        = 'Загрузка миниатюр';
 $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']                         = 'Дает пользователю возможность загружать миниатюры для страниц без категории.';
 $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']                                = 'Редактирование тегов';
-$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Дает пользователю возможность редактировать теги у страниц без категории.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Дает пользователю возможность редактировать теги у страниц без категории.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS']                         = 'Активировать плагины';
 $langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']                          = 'Дает пользователю возможность использовать плагины в страницах без категории.';
 
@@ -531,7 +532,7 @@ $langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES']                           = 'Д�
 $langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS']                     = 'Загрузка миниатюр';
 $langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS']                      = 'Дает пользователю возможность загружать миниатюры для страниц в этой категории.';
 $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Редактирование тегов';
-$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Дает пользователю возможность редактировать теги для страниц в этой категории.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Дает пользователю возможность редактировать теги для страниц в этой категории.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Активные расширения';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Дает пользователю возможность использовать выбранные расширения для страниц в этой категории.';
 $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Удерживайте клавишу CTRL для выбора нескольких расширений.';
@@ -544,7 +545,7 @@ $langFile['PAGESETUP_TIP_FEEDS']                                          = 'В�
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Включает выдачу xml-лент для категории в форматах: RSS 2.0 и Atom.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Сортировать страницы по дате';
-$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Страницы созданные позже (более новые) будут выводится в списке [b]вверху[/b].[br /][br /][span class=hint]Деактивирует ручную сортировку.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Страницы созданные позже (более новые) будут выводится в списке [b]вверху[/b].[br][br][span class=hint]Деактивирует ручную сортировку.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Ручная сотрировка';
 $langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Последние созданные страницы [b]вверху[/b].';
@@ -573,7 +574,7 @@ $langFile['websiteSetup_websiteConfig_field3_tip']                        = 'И�
 
 $langFile['websiteSetup_websiteConfig_field4']                            = 'Ключевые слова (meta-keywords)';
 $langFile['websiteSetup_websiteConfig_field4_tip']                        = 'Используются в мета-теге keywords.';
-$langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Ключевые слова должны быть разделены &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br /]слово1,слово2, и т.д.';
+$langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Ключевые слова должны быть разделены &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br]слово1,слово2, и т.д.';
 $langFile['websiteSetup_websiteConfig_field5']                            = 'Описание (meta-description)';
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Используется в мета-теге description.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Короткое описание не больше 2-5 строчек.';
@@ -674,7 +675,7 @@ $langFile['EDITOR_pageSettings_title']                                    = 'З�
 $langFile['EDITOR_pageSettings_title_tip']                                = 'Заголовок страницы, mожет содержать следующие теги HTML:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Короткое описание';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Если пустое - будет использовано умолчательное значение из Настроек сайта.';
-$langFile['EDITOR_pageSettings_field1_tip']                               = 'Используется в мета-теге description.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field1_tip']                               = 'Используется в мета-теге description.[br][br][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Таги';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Ключевые слова для страницы.';
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Таги должны быть разделены &quot;,&quot; (запятая).';
@@ -689,7 +690,7 @@ $langFile['EDITOR_pageSettings_field4']                                   = 'С�
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Только активная страница отображается на сайте![/b]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Ошибочный формат даты';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В этом месяце не 31 день.[br /]Формат даты может быть следующим:';
+$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'В этом месяце не 31 день.[br]Формат даты может быть следующим:';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Дополнительные настройки';

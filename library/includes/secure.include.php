@@ -41,8 +41,6 @@ if(isset($_POST['category'])) $_POST['category'] = XssFilter::int($_POST['catego
 // -> check PAGE
 if(isset($_GET['page']) && $_GET['page'] !== 'new') $_GET['page'] = XssFilter::int($_GET['page'],0);
 if(isset($_POST['page']) && $_POST['page'] !== 'new') $_POST['page'] = XssFilter::int($_POST['page'],0);
-// ->check langauge var
-if(isset($_GET['language'])) $_GET['language'] = XssFilter::alphabetical($_GET['language']);
 
 // ->> CHECK INPUTS
 // ****************

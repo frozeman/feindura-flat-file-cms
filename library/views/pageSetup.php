@@ -93,7 +93,7 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
       </td><td class="right checkboxes">
       <select id="cfg_pagesMainLanguage" name="cfg_pagesMainLanguage" style="width:250px;max-height:130px;"<?php if(!$adminConfig['multiLanguagePages']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']; ?>">
       <?php
-        foreach($languagesArray as $langKey => $langValue) {
+        foreach($languageCodes as $langKey => $langValue) {
           $selected = ($langKey == $adminConfig['multiLanguagePages']['mainLanguage']) ? ' selected="selected"' : '' ;
           echo '<option value="'.$langKey.'"'.$selected.'>'.$langValue.'</option>';    
         }
@@ -427,7 +427,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 // deleteCategory
           echo '<td class="right" style="width:525px;">
                 <div style="border-bottom: 1px dotted #cccccc;width:400px;height:15px;float:left !important;"></div>
-                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.$category['name'].'[br /][br /][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';          
+                <a href="?site=pageSetup&amp;status=deleteCategory&amp;category='.$category['id'].'#categories" class="deleteCategory toolTip" onclick="openWindowBox(\'library/views/windowBox/deleteCategory.php?status=deleteCategory&amp;category='.$category['id'].'\',\''.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'\');return false;" title="'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY'].'::'.$category['name'].'[br][br][span style=color:#990000;]'.$langFile['PAGESETUP_CATEGORY_TEXT_DELETECATEGORY_WARNING'].'[/span]"></a>';          
           echo '</td></tr>';
                 // category name
           echo '<tr><td class="left">
@@ -564,7 +564,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'].'</span></td></tr>';
           
           echo '<tr><td class="left">
-                <span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br /][br /][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                <span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'::'.$langFile['STYLESHEETS_TOOLTIP_STYLEFILE'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
                 '.$langFile['STYLESHEETS_TEXT_STYLEFILE'].'</span>
                 </td><td class="right">
                 <div id="categoryStyleFilesInputs'.$category['id'].'" class="inputToolTip" title="'.$langFile['PATHS_TOOLTIP_ABSOLUTE'].'::[span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
@@ -577,14 +577,14 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 </td></tr>';
                 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br /][br /][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                <label for="categories'.$category['id'].'styleId"><span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_ID'].'::'.$langFile['STYLESHEETS_TOOLTIP_ID'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
                 '.$langFile['STYLESHEETS_TEXT_ID'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'styleId" name="categories['.$category['id'].'][styleId]" value="'.GeneralFunctions::getStylesByPriority($category['styleId'],'styleId',$category['id']).'" class="inputToolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'" />
                 </td></tr>';
                 
           echo '<tr><td class="left">
-                <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br /][br /][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
+                <label for="categories'.$category['id'].'styleClass"><span class="toolTip" title="'.$langFile['STYLESHEETS_TEXT_CLASS'].'::'.$langFile['STYLESHEETS_TOOLTIP_CLASS'].'[br][br][span class=hint]'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'[/span]">
                 '.$langFile['STYLESHEETS_TEXT_CLASS'].'</span></label>
                 </td><td class="right">
                 <input id="categories'.$category['id'].'styleClass" name="categories['.$category['id'].'][styleClass]" value="'.GeneralFunctions::getStylesByPriority($category['styleClass'],'styleClass',$category['id']).'" class="inputToolTip" title="'.$langFile['PAGESETUP_CATEGORY_TIP_STYLESHEETS_EMPTY'].'" />

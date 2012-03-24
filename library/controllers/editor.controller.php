@@ -77,19 +77,19 @@ if($_POST['save'] && isBlocked() === false) {
     $logText = 1;
 
     // get OTHER LOCALIZED content
-    $_POST['localized'] = $pageContent['localized'];
+    $_POST['localization'] = $pageContent['localization'];
   }
 
   // -> only save page if no error occured
   if($errorWindow === false) {
 
     // STORE LOCALIZED CONTENT
-    $_POST['localized'][$_POST['languageCode']]['pageDate']['before'] = $_POST['pageDate']['before'];
-    $_POST['localized'][$_POST['languageCode']]['pageDate']['after'] = $_POST['pageDate']['after'];
-    $_POST['localized'][$_POST['languageCode']]['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
-    $_POST['localized'][$_POST['languageCode']]['title'] = $_POST['title'];
-    $_POST['localized'][$_POST['languageCode']]['description'] = $_POST['description'];
-    $_POST['localized'][$_POST['languageCode']]['content'] = $_POST['HTMLEditor'];
+    $_POST['localization'][$_POST['pageLanguage']]['pageDate']['before'] = $_POST['pageDate']['before'];
+    $_POST['localization'][$_POST['pageLanguage']]['pageDate']['after'] = $_POST['pageDate']['after'];
+    $_POST['localization'][$_POST['pageLanguage']]['tags'] = preg_replace("/ +/", ' ', $_POST['tags']);
+    $_POST['localization'][$_POST['pageLanguage']]['title'] = $_POST['title'];
+    $_POST['localization'][$_POST['pageLanguage']]['description'] = $_POST['description'];
+    $_POST['localization'][$_POST['pageLanguage']]['content'] = $_POST['HTMLEditor'];
     
     // delete unnecessary variables
     unset($_POST['pageDate']['before'],$_POST['pageDate']['after'],$_POST['tags'],$_POST['title'],$_POST['description'],$_POST['HTMLEditor']);

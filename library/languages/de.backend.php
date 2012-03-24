@@ -83,8 +83,8 @@ $langFile['THUMBNAIL_TEXT_NAME']                                          = 'Sei
 $langFile['THUMBNAIL_TEXT_WIDTH']                                         = 'Thumbnail <b>Breite</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT']                                        = 'Thumbnail <b>Höhe</b>';
 
-$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Größe skaliert.';
-$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Standardhöhe::Die Höhe des Thumbnails in Pixeln.[br /][br /]Das Bild wird beim hochladen auf die angegebene Größe skaliert.';
+$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Standardbreite::Die Breite des Thumbnails in Pixeln.[br][br]Das Bild wird beim hochladen auf die angegebene Größe skaliert.';
+$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Standardhöhe::Die Höhe des Thumbnails in Pixeln.[br][br]Das Bild wird beim hochladen auf die angegebene Größe skaliert.';
 
 $langFile['THUMBNAIL_TEXT_RATIO']                                         = 'Seitenverhältnis';
 $langFile['THUMBNAIL_TEXT_KEEPRATIO']                                     = 'Seitenverhältnis beibehalten';
@@ -325,8 +325,9 @@ $langFile['sortablePageList_headText3']                                   = 'Bes
 $langFile['sortablePageList_headText4']                                   = 'Status';
 $langFile['sortablePageList_headText5']                                   = 'Funktionen';
 
-$langFile['sortablePageList_pagedate']                                    = 'Seiten-Datum';
-$langFile['sortablePageList_tags']                                        = 'Tags';
+$langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'Seiten-Datum';
+$langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'Tags';
+$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'Sprachen';
 
 $langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL']                        = 'alphabetisch sortiert';
 $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'nach Seitendatum sortiert';
@@ -387,8 +388,8 @@ $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Webseitenpfad';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Der [b]absolute Pfad[/b], unter dem sich die Webseite befindet.';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Daten-Uploadpfad';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br /][br /][span class=hint]Dateien werden im HTML-Editor unter Link-einfügen > Upload hochgeladen oder im Dateimanager.[/span]';
-$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br /][br /]Diese Dateien können dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br /][br /]';
+$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'Hier werden Dateien wie Bilder, Flash-Animation oder Dokumente hochgeladen.[br][br][span class=hint]Dateien werden im HTML-Editor unter Link-einfügen > Upload hochgeladen oder im Dateimanager.[/span]';
+$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Diese Dateien können dann weiter unten oder in den Webseiten-Einstellungen bearbeitet werden (sollte dies in den Benutzer-Einstellungen aktiviert sein).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Pfad für Webseitendateien';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Ein Verzeichnispfad mit Dateien. Diese Dateien können z.B. verwendet werden um eine Webseite mehrsprachig zu gestalten.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Pfad für Stylesheetdateien';
@@ -404,7 +405,7 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Mod
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modul[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Der Name der [b]$_GET Variable[/b] die für die Seiten Verlinkung verwendet wird.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Datumsformat';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br /]Entweder:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oder[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Wird in [span class=logoname]fein[span]dura[/span][/span] und der Webseite verwendet.[br]Entweder:[br]DIN 5008 ('.$langFile['DATE_EU'].') oder[br]ISO 8601 ('.$langFile['DATE_INT'].')';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Zeitzone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Wird nur für das [span class=logoname]fein[span]dura[/span][/span] Backend verwendet.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'URL Format';
@@ -412,8 +413,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Spe
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/beispiel_category/beispiel.html';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URLs mit Variablen';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Das URL Format, welches für die Seiten-Verlinkung verwendet wird.[br /][br /]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul verfügbar ist.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gelöscht werden.[/span][br /][br /](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Das URL Format, welches für die Seiten-Verlinkung verwendet wird.[br][br]Speaking URLs funktionieren nur wenn im [b]Apache[/b] das [b]mod_rewrite[/b] Modul verfügbar ist.';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'WARNUNG!::[span class=red]Sollten Fehler bei der Vewendung von Speaking URLs auftreten, muss die [b].htaccess Datei[/b] im Dokumenten-Root Pfad des Webservers gelöscht werden.[/span][br][br](In manchen FTP-Programmen muss man erst die versteckten Dateien anzeigen, um die .htaccess Datei sichtbar zu machen)';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> konnte nicht aktiviert werden'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
@@ -440,7 +441,7 @@ $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'sic
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Dadurch wird der HTML-Code mit den sichersten Einstellungen gefiltert, d.h. zum Beispiel dass keine &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; und &lt;script&gt; Tags erlaubt sind.';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Taste Modus';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER erzeugt immer ein &quot;&lt;br&gt;&quot;';
-$langFile['adminSetup_editorSettings_field1_tip']                         = 'Legt fest welcher HTML-Tag beim drücken der ENTER-Taste gesetzt wird.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
+$langFile['adminSetup_editorSettings_field1_tip']                         = 'Legt fest welcher HTML-Tag beim drücken der ENTER-Taste gesetzt wird.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Wenn das Feld leer ist, wird keine Id verwendet.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Wenn das Feld leer ist, wird keine Klasse verwendet.';
 
@@ -449,7 +450,7 @@ $langFile['adminSetup_thumbnailSettings_h1']                              = 'Sei
 $langFile['adminSetup_thumbnailSettings_field3']                          = 'Speicherpfad'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Der Pfad innerhalb des Daten-Upload Pfads, in dem die Thumbnails gespeichert werden.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Der Daten-Upload Pfad';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Relativer Pfad::Relativ zum &quot;[b]%s[/b]&quot; Pfad.[br /][br /]Beginnt ohne &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Relativer Pfad::Relativ zum &quot;[b]%s[/b]&quot; Pfad.[br][br]Beginnt ohne &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
@@ -464,7 +465,7 @@ $langFile['editFilesSettings_h1_websitefiles']                            = 'Web
 $langFile['editFilesSettings_noDir']                                      = 'ist kein gültiges Verzeichnis!';
 $langFile['editFilesSettings_chooseFile']                                 = 'Datei auswählen';
 $langFile['editFilesSettings_createFile']                                 = 'Neue Datei anlegen';
-$langFile['editFilesSettings_createFile_inputTip']                        = 'Wenn hier ein Dateiname eingetragen wird, dann wird eine Neue Datei erstellt,[br /]und [b]die derzeit ausgewählte Datei wird nicht gespeichert![/b]';
+$langFile['editFilesSettings_createFile_inputTip']                        = 'Wenn hier ein Dateiname eingetragen wird, dann wird eine Neue Datei erstellt,[br]und [b]die derzeit ausgewählte Datei wird nicht gespeichert![/b]';
 $langFile['editFilesSettings_noFile']                                     = 'Es sind noch keine Dateien vorhanden';
 
 $langFile['editFilesSettings_deleteFile']                                 = 'Datei löschen';
@@ -483,7 +484,7 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 // ---------- page settings
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Seiten-Einstellungen';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Startseite ist einstellbar';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br /][br /]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
+$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Startseite ist vom Benutzer selbst einstellbar.[br][br]Die eingestellte Startseite wird angezeigt wenn keine Seiten-Variablen in der Webseite übergeben werden bzw. keine Seite aufgerufen wurde.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Mehrsprachige Seiten';
 $langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'Die Hauptsprache wird verwendet, wenn nicht automatisch eine passende Sprache erfasst werden konnte.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Hauptsprache';
@@ -494,7 +495,7 @@ $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Leg
 $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']                        = 'Thumbnails hochladen';
 $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']                         = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Seiten-Thumbnails hochladen kann.';
 $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']                                = 'Tags bearbeiten';
-$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Tags bearbeiten kann.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS']                         = 'Plugins aktivieren';
 $langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']                          = 'Legt fest ob der Benutzer, innerhalb der Seiten ohne Kategorie, Plugins verwenden kann.';
 
@@ -535,7 +536,7 @@ $langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES']                           = 'Leg
 $langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS']                     = 'Thumbnails hochladen';
 $langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS']                      = 'Legt fest ob der Benutzer Thumbnails für jede Seite in dieser Kategorie hochzuladen kann.';
 $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Tags bearbeiten';
-$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Es können Tags für die Seiten in dieser Kategorie festgelegt werden.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Es können Tags für die Seiten in dieser Kategorie festgelegt werden.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Plugins aktivieren';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Plugins für die Seiten in dieser Kategorie aktivieren';
 $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Halte die STRG-Taste gedrückt um mehrere Plugins auszuwählen.';
@@ -551,7 +552,7 @@ $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Sei
 $langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Neu erstellte Seiten erscheinen [b]oben[/b].';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Seiten nach Seitendatum sortieren';
-$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Seiten mit jüngeren Datum erscheinen [b]oben[/b].[br /][br /][span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Seiten mit jüngeren Datum erscheinen [b]oben[/b].[br][br][span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTALPHABETICAL']                              = 'Seiten alphabetisch sortieren';
 $langFile['PAGESETUP_TIP_SORTALPHABETICAL']                               = '[span class=hint]Manuelles Sortieren ist nicht mehr möglich.[/span]';
@@ -577,7 +578,7 @@ $langFile['websiteSetup_websiteConfig_field3_tip']                        = 'Der
 
 $langFile['websiteSetup_websiteConfig_field4']                            = 'Suchmaschinen-Stichworte';
 $langFile['websiteSetup_websiteConfig_field4_tip']                        = 'Die meisten Suchmaschienen durchsuchen den Seiteninhalt nach Stichworten, jedoch sollte man hier einige Schlüsselwörter angeben, welche in den <meta> Tags der webseite verwendet werden.';
-$langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Die Stichworte müssen mit &quot;,&quot; getrennt werden::'.$langFile['TEXT_EXAMPLE'].':[br /]stichwort1,stichwort2,etc';
+$langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Die Stichworte müssen mit &quot;,&quot; getrennt werden::'.$langFile['TEXT_EXAMPLE'].':[br]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_field5']                            = 'Webseitenbeschreibung';
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Eine kurze Beschreibung die von den Suchmaschienen verwendet wird wenn Stichworte in der Webseiten-URL gefunden wurden aber nicht im inhalt.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Ein kurzer Text mit nicht mehr als 3 Zeilen.';
@@ -678,7 +679,7 @@ $langFile['EDITOR_pageSettings_title']                                    = 'Tit
 $langFile['EDITOR_pageSettings_title_tip']                                = 'Der Titel der Seite, kann die folgenden HTML-Tags enthalten:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Kurzbeschreibung';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Wenn das Feld leer ist, wird die Webseiten-Beschreibung aus den Webseiten-Einstellungen verwendet.';
-$langFile['EDITOR_pageSettings_field1_tip']                               = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field1_tip']                               = 'Eine kurze Zusammenfassung der Seite. Diese kommt in die META-Tags der Seite.[br][br][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Tags';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'Tags sind Stichworte für diese Seite.';
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'Die Tags müssen mit &quot;,&quot; (Komma) getrennt werden.';
@@ -693,7 +694,7 @@ $langFile['EDITOR_pageSettings_field4']                                   = 'Sta
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Nur wenn die Seite öffentlich ist, wird diese auf der Webseite angezeigt![/b]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Fehlerhaftes Datumsformat';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Dieser Monat hat eventuell keine 31 Tage.[br /]Das Datum sollte folgendes Format haben:';
+$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Dieser Monat hat eventuell keine 31 Tage.[br]Das Datum sollte folgendes Format haben:';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Erweiterte Einstellungen';

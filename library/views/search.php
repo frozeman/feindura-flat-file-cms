@@ -106,11 +106,11 @@ if(!empty($searchWords)) {
       $pageDate = showPageDate($page);
       $localizedTags = GeneralFunctions::getLocalized($page,'tags');
       if($categoryConfig[$page['category']]['showTags'] && !empty($localizedTags)) {
-        $pageTags = '[br /][br /]';
-        $pageTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.GeneralFunctions::getLocalized($page,'tags');
+        $pageTags = '[br][br]';
+        $pageTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].'[/b][br]'.GeneralFunctions::getLocalized($page,'tags');
       }      
       $startPageText = ($adminConfig['setStartPage'] && $page['id'] == $websiteConfig['startPage'])
-        ? $langFile['sortablePageList_functions_startPage_set'].'[br /][br /]'
+        ? $langFile['sortablePageList_functions_startPage_set'].'[br][br]'
         : '';
       
       echo '<div class="block open search"><h1>&nbsp;</h1>';

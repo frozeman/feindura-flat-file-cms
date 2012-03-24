@@ -45,7 +45,7 @@ if(!$adminConfig['user']['fileManager'])
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['language']; ?>.js"></script>
+  <script type="text/javascript" src="../../thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
 
   <script type="text/javascript">
   /* <![CDATA[ */

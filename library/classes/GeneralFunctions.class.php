@@ -301,19 +301,19 @@ class GeneralFunctions {
 
     if(!isset($_SESSION['feinduraSession']['timezone'])) {
       
-        if(!isset($_GET['localTimzone'])) {
+        if(!isset($_GET['localTimezone'])) {
           $return = '   
   <!-- Get the Visitors Timezone -->
   <script>
   var d = new Date()
-  var localTimzoneOffset= -d.getTimezoneOffset()/60;
-  location.href = "'.self::addParameterToUrl().'localTimzone="+localTimzoneOffset;
+  var localTimezoneOffset= -d.getTimezoneOffset()/60;
+  location.href = "'.self::addParameterToUrl('localTimezone').'"+localTimezoneOffset;
   </script>
 
 ';
         } else {
           $zonelist = array('Kwajalein' => -12.00, 'Pacific/Midway' => -11.00, 'Pacific/Honolulu' => -10.00, 'America/Anchorage' => -9.00, 'America/Los_Angeles' => -8.00, 'America/Denver' => -7.00, 'America/Tegucigalpa' => -6.00, 'America/New_York' => -5.00, 'America/Caracas' => -4.30, 'America/Halifax' => -4.00, 'America/St_Johns' => -3.30, 'America/Argentina/Buenos_Aires' => -3.00, 'America/Sao_Paulo' => -3.00, 'Atlantic/South_Georgia' => -2.00, 'Atlantic/Azores' => -1.00, 'Europe/Dublin' => 0, 'Europe/Belgrade' => 1.00, 'Europe/Minsk' => 2.00, 'Asia/Kuwait' => 3.00, 'Asia/Tehran' => 3.30, 'Asia/Muscat' => 4.00, 'Asia/Yekaterinburg' => 5.00, 'Asia/Kolkata' => 5.30, 'Asia/Katmandu' => 5.45, 'Asia/Dhaka' => 6.00, 'Asia/Rangoon' => 6.30, 'Asia/Krasnoyarsk' => 7.00, 'Asia/Brunei' => 8.00, 'Asia/Seoul' => 9.00, 'Australia/Darwin' => 9.30, 'Australia/Canberra' => 10.00, 'Asia/Magadan' => 11.00, 'Pacific/Fiji' => 12.00, 'Pacific/Tongatapu' => 13.00);
-          $index = array_keys($zonelist, $_GET['localTimzone']);
+          $index = array_keys($zonelist, $_GET['localTimezone']);
           $_SESSION['feinduraSession']['timezone'] = $index[0];
         }
     }
@@ -331,24 +331,27 @@ class GeneralFunctions {
    * Check if the current $_SERVER['REQUEST_URI'] variable end with ? or & and ads the <var>$parameterString</var> on the end.
    * 
    * 
-   * @param string $parameterString (optional) a string with parameter(s) in the format: "var=value&var2=value2"
+   * @param string        $key   the key of the new parameter to add
+   * @param string|false  $value (optional) the value of the new parameter to add
    * 
    * @return string the new url with add parameter
    * 
    * 
-   * @version 1.0.1
+   * @version 2.0
    * <br />
    * <b>ChangeLog</b><br />
+   *    - 2.0 complete rewrite according to {@link http://stackoverflow.com/questions/909193/is-there-a-php-library-that-handles-url-parameters-adding-removing-or-replacin}
    *    - 1.0.1 moved to GeneralFunctions class
    *    - 1.0 initial release
    * 
    */
-  public static function addParameterToUrl($parameterString = False) {
-    $return = (strpos($_SERVER['REQUEST_URI'],'?site=') !== false && strpos($_SERVER['REQUEST_URI'],'&') !== false)
-      ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'&')) 
-      : $_SERVER['REQUEST_URI']; 
-    $return .= (strpos($_SERVER['REQUEST_URI'],'?') === false) ? '?' : '&';
-    return $return.$parameterString;
+  public static function addParameterToUrl($key,$value = '') {
+    $query    = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+    $params = array();
+    parse_str($query, $params);
+    $params[$key] = $value;
+    $query = http_build_query($params);
+    return '?'.$query;
   }
 
  /**
@@ -587,14 +590,13 @@ class GeneralFunctions {
   /**
    * <b>Name</b> getLocalized()<br />
    * 
-   * Gets the localized version of given <var>$value</var> parameter, which is matchin the GLOBAL <var>$localizedCode</var> variable.
+   * Gets the localized version of given <var>$value</var> parameter, which matches the <var>$_SESSION['feinduraSession']['pageLanguage']</var> variable.
    * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguagePages']['mainLanguage']</var> variable.
    * 
-   * <b>Used Global Variables</b><br />
-   *    - <var>$localizedCode</var> the localized code (fetched in the {@link backend.include.php})
    *  
-   * @param array   $pageContent  the $pageContent array of a page
-   * @param string  $value        the anme of the value, which should be returned localized
+   * @param array        $pageContent  the $pageContent array of a page
+   * @param string       $value        the anme of the value, which should be returned localized
+   * @param string|false $languageCode a language code, which should be used to localize the given <var>$pageContent</var> parameter. If FALSE it uses <var>$_SESSION['feinduraSession']['pageLanguage']</var>.
    *   
    * @return string the localized value of the given <var>$pageContentValue</var> parameter
    * 
@@ -606,21 +608,21 @@ class GeneralFunctions {
    *    - 1.0 initial release
    * 
    */
-  public static function getLocalized($pageContent, $value, $localizedCode = false) {
+  public static function getLocalized($pageContent, $value, $languageCode = false) {
 
     // var
-    if($localizedCode === false)
-      $localizedCode = $GLOBALS['localizedCode'];
+    if($languageCode === false)
+      $languageCode = $_SESSION['feinduraSession']['pageLanguage'];
 
-    // get the one matching $GLOBALS['localizedCode']
-    if(isset($pageContent['localized'][$localizedCode]))
-      $localizedValues = $pageContent['localized'][$localizedCode];
+    // get the one matching $GLOBALS['pageLanguage']
+    if(isset($pageContent['localization'][$languageCode]))
+      $localizedValues = $pageContent['localization'][$languageCode];
     // if not get the one matching the "Main Language"
-    elseif(isset($pageContent['localized'][self::$adminConfig['multiLanguagePages']['mainLanguage']]))
-      $localizedValues = $pageContent['localized'][self::$adminConfig['multiLanguagePages']['mainLanguage']];
+    elseif(isset($pageContent['localization'][self::$adminConfig['multiLanguagePages']['mainLanguage']]))
+      $localizedValues = $pageContent['localization'][self::$adminConfig['multiLanguagePages']['mainLanguage']];
     // if not get the first one in the localized array
-    elseif(is_array($pageContent['localized']))
-      $localizedValues = current($pageContent['localized']);
+    elseif(is_array($pageContent['localization']))
+      $localizedValues = current($pageContent['localization']);
     // legacy fallback
     else
       return $pageContent[$value];
@@ -703,9 +705,9 @@ class GeneralFunctions {
       // return content array
       if(is_array($pageContent)) {
         // UNESCPAE the SINGLE QUOTES '
-        if(is_array($pageContent['localized'])) {
-          foreach ($pageContent['localized'] as $key => $value)
-            $pageContent['localized'][$key]['content'] = str_replace("\'", "'", $value['content']);
+        if(is_array($pageContent['localization'])) {
+          foreach ($pageContent['localization'] as $key => $value)
+            $pageContent['localization'][$key]['content'] = str_replace("\'", "'", $value['content']);
         // legacy fallback
         } else
           $pageContent['content'] = str_replace("\'", "'", $pageContent['content']);
@@ -825,16 +827,16 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n";
 
     // localized
-    foreach ($pageContent['localized'] as $langCode => $pageContentLocalized) {
+    foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
 
-      $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
-      $fileContent .= "\$pageContent['localized'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
-      $fileContent .= "\$pageContent['localized'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";
+      $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
+      $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
+      $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";
 
-      $fileContent .= "\$pageContent['localized'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
-      $fileContent .= "\$pageContent['localized'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n\n";
+      $fileContent .= "\$pageContent['localization'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
+      $fileContent .= "\$pageContent['localization'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n\n";
 
-      $fileContent .= "\$pageContent['localized'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+      $fileContent .= "\$pageContent['localization'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
     }
     
     $fileContent .= "return \$pageContent;";
@@ -1576,7 +1578,7 @@ class GeneralFunctions {
     $string = trim($string, "-");
     $string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
     $string = strtolower($string);
-    $string = preg_replace('#[^-a-z0-9_]+#', '', $string);
+    $string = preg_replace('#[^a-z0-9_-]+#', '', $string);
     return urlencode($string);
   }
 
@@ -1605,7 +1607,7 @@ class GeneralFunctions {
   *    - 1.0 initial release
   * 
   */
-  public static function createHref($pageContent, $sessionId = false, $fullUrl = false) {
+  public static function createHref($pageContent, $sessionId = false, $languageCode = false,$fullUrl = false) {
     
     if(!self::isPageContentArray($pageContent))
       return false;
@@ -1630,8 +1632,8 @@ class GeneralFunctions {
       else
         $href .= 'page/';
 
-      $href .= self::urlEncode($pageContent['title']);
-      $href .= '.html';
+      $href .= self::urlEncode(GeneralFunctions::getLocalized($pageContent,'title',$languageCode));
+      //$href .= '.html';
       
       if($sessionId)
         $href .= '?'.$sessionId;

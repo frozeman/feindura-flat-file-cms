@@ -40,7 +40,7 @@ if(empty($_GET['site']) && empty($_GET['category']) && empty($_GET['page']))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?= $_SESSION['feinduraSession']['language']; ?>">
+<html lang="<?= $_SESSION['feinduraSession']['backendLanguage']; ?>">
 <head>
   <meta charset="UTF-8" />
   
@@ -137,7 +137,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Fx.ProgressBar.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader/Swiff.Uploader.js"></script>
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/Uploader.js"></script>
-  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['language']; ?>.js"></script>
+  <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Language/Language.<?= $_SESSION['feinduraSession']['backendLanguage']; ?>.js"></script>
 <?php } ?>
  
   <!-- javascripts -->
@@ -282,11 +282,11 @@ if($_GET['site'] == 'addons') {
       <a href="<?= $adminConfig['url'].$adminConfig['websitePath']; ?>"  tabindex="2" class="toWebsite toolTip" title="<?= $langFile['HEADER_BUTTON_GOTOWEBSITE']; ?>"></a>
       
       <div id="languageSelection">        
-        <a href="<?= GeneralFunctions::addParameterToUrl('language=de'); ?>" tabindex="20" class="de toolTip" title="deutsch::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('language=en'); ?>" tabindex="21" class="en toolTip" title="english::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('language=fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('language=it'); ?>" tabindex="23" class="it toolTip" title="italiano::"></a>
-        <a href="<?= GeneralFunctions::addParameterToUrl('language=ru'); ?>" tabindex="24" class="ru toolTip" title="русский::"></a>
+        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','de'); ?>" tabindex="20" class="de toolTip" title="deutsch::"></a>
+        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','en'); ?>" tabindex="21" class="en toolTip" title="english::"></a>
+        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','fr'); ?>" tabindex="22" class="fr toolTip" title="français::"></a>
+        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','it'); ?>" tabindex="23" class="it toolTip" title="italiano::"></a>
+        <a href="<?= GeneralFunctions::addParameterToUrl('backendLanguage','ru'); ?>" tabindex="24" class="ru toolTip" title="русский::"></a>
       </div>
       
       <h1 style="display:none;">feindura - flat file cms</h1><!-- just for the outline of the HTML page -->

@@ -129,7 +129,6 @@ function isAdmin() {
  * 
  * @return string|false The #contentBlocked DIV, if another user is on that site, otherwise FALSE
  * 
- * @static
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
@@ -163,7 +162,6 @@ function isBlocked($returnBool = false) {
  * 
  * @return array an array with all users and current sites/pages
  * 
- * @static
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
@@ -814,7 +812,7 @@ function saveAdminConfig($adminConfig) {
     
     $fileContent .= "\$adminConfig['setStartPage'] =                          ".XssFilter::bool($adminConfig['setStartPage'],true).";\n";
     $fileContent .= "\$adminConfig['multiLanguagePages']['active'] =          ".XssFilter::bool($adminConfig['multiLanguagePages']['active'],true).";\n";
-    $fileContent .= "\$adminConfig['multiLanguagePages']['mainLanguage'] =    ".XssFilter::stringStrict($adminConfig['multiLanguagePages']['mainLanguage'],$_SESSION['feinduraSession']['language']).";\n\n";
+    $fileContent .= "\$adminConfig['multiLanguagePages']['mainLanguage'] =    ".XssFilter::stringStrict($adminConfig['multiLanguagePages']['mainLanguage'],$_SESSION['feinduraSession']['backendLanguage']).";\n\n";
 
     $fileContent .= "\$adminConfig['pages']['createDelete'] = ".XssFilter::bool($adminConfig['pages']['createDelete'],true).";\n";
     $fileContent .= "\$adminConfig['pages']['thumbnails'] =   ".XssFilter::bool($adminConfig['pages']['thumbnails'],true).";\n";    
@@ -1066,10 +1064,10 @@ function saveSpeakingUrl(&$errorWindow) {
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
-  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2$3 [QSA,L]'."\n";
-  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/(.*)\.html\?*(.*)$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1$2 [QSA,L]';
-  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(.*)/(.*)\.html\?*(.*)$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2$3 [QSA,L]'."\n";
-  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/(.*)\.html\?*(.*)$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1$2 [QSA,L]';
+  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
+  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1 [QSA,L]';
+  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
+  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1 [QSA,L]';
   
   $speakingUrlCode = '#
 # feindura -flat file cms - speakingURL activation
@@ -1383,7 +1381,6 @@ function showStyleFileInputs($styleFiles,$inputNames) {
  * 
  * @return string the page date as text string, or an error text
  * 
- * @static
  * @version 1.0
  * <br>
  * <b>ChangeLog</b><br>
@@ -1407,8 +1404,8 @@ function showPageDate($pageContent) {
 
     // CHECKs the DATE FORMAT
     $return = (StatisticFunctions::validateDateFormat(StatisticFunctions::formatDate($pageContent['pageDate']['date'])) === false)
-    ? '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.'[span style=color:#950300]'.$langFile['EDITOR_pageSettings_pagedate_error'].':[/span][br /] '.$pageContent['pageDate']['date'].$titleDateAfter
-    : '[br /][br /][b]'.$GLOBALS['langFile']['sortablePageList_pagedate'].'[/b][br /]'.$titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$langFile)).$titleDateAfter;
+    ? '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.'[span style=color:#950300]'.$langFile['EDITOR_pageSettings_pagedate_error'].':[/span][br] '.$pageContent['pageDate']['date'].$titleDateAfter
+    : '[br][b]'.$GLOBALS['langFile']['SORTABLEPAGELIST_TIP_PAGEDATE'].':[/b] '.$titleDateBefore.StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['pageDate']['date'],$langFile)).$titleDateAfter;
   }    
   return $return;
 }
@@ -1966,7 +1963,6 @@ function startPageWarning() {
 * 
 * @return string|false the browser chart or FALSE
 * 
-* @static
 * @version 1.0.2
 * <br>
 * <b>ChangeLog</b><br>
@@ -2251,7 +2247,6 @@ function createBrowserChart($browserString) {
 * 
 * @return string|false the tag-cloud or FALSE if the $tagString parameter is empty
 * 
-* @static
 * @version 1.0.1
 * <br>
 * <b>ChangeLog</b><br>
@@ -2288,6 +2283,32 @@ function createTagCloud($serializedTags,$minFontSize = 10,$maxFontSize = 20) {
   
   // return the tag-cloud or false
   return $return;
+}
+
+/**
+* <b>Name</b> getFlag()<br>
+* 
+* Returns the right flag from the <var>library/images/icons/flags</var> folder.
+* If no flag with the given <var>$countryCode</var> parameter exists, it returns a generic flag (<var>library/images/icons/flags/none.png</var>).
+* 
+* @param string $countryCode a country code like "en"
+* 
+* @return string the URL of the flag, relative to the "feindura" folder
+* 
+* @version 1.0
+* <br>
+* <b>ChangeLog</b><br>
+*    - 1.0 initial release
+* 
+*/
+function getFlag($countryCode) {
+
+  // var
+  $countryCode = strtolower($countryCode);
+  return (file_exists(dirname(__FILE__).'/../images/icons/flags/'.$countryCode.'.png'))
+    ? 'library/images/icons/flags/'.$countryCode.'.png'
+    : 'library/images/icons/flags/none.png';
+
 }
 
 ?>

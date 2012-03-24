@@ -31,8 +31,8 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 <div class="listPagesHead">
   <div class="name"><?= $langFile['sortablePageList_headText1']; ?> <input type="text" value="" size="25" id="listPagesFilter" /><a href="#" id="listPagesFilterCancel"></a></div>
   <div class="lastSaveDate"><?= $langFile['sortablePageList_headText2']; ?></div>
-  <div class="status"><?= $langFile['sortablePageList_headText3']; ?></div>
-  <div class="counter"><?= $langFile['sortablePageList_headText4']; ?></div>
+  <div class="counter"><?= $langFile['sortablePageList_headText3']; ?></div>
+  <div class="status"><?= $langFile['sortablePageList_headText4']; ?></div>
   <div class="functions"><?= $langFile['sortablePageList_headText5']; ?></div>
 </div>
 
@@ -92,7 +92,7 @@ foreach($allCategories as $category) {
   echo '<!-- categoryAnchor'.$category['id'].' is here -->';
   echo '<a id="categoryAnchor'.$category['id'].'" class="anchorTarget"></a>';
   
-  // -> CREATE CATEGORY HEADLINE
+  // -> CATEGORY HEADLINE
   echo "\n\n".'<div class="block listPages'.$hidden.'">';
   	  // onclick="return false;" and set href to allow open categories olaso without javascript activated //a tag used line-height:30px;??
     echo '<h1'.$headerColor.'><a href="?site=pages&amp;category='.$category['id'].'" onclick="return false;"><span class="toolTip" title="ID '.$category['id'].'::"><img src="'.$headerIcon.'" alt="category icon" width="35" height="35" />'.$category['name'].'</span> '.$sorting.'</a></h1>
@@ -136,12 +136,12 @@ foreach($allCategories as $category) {
       $pageStatistics = GeneralFunctions::readPageStatistics($pageContent['id']);
 
       // vars
-      $pageDate = '';
-      $showTags = '';
+      $toolTipPageDate = '';
+      $toolTipTags = '';
+      $toolTipPageLanguages = '';
       $sort_order[] = $pageContent['sortOrder'];
     
       // show whether the page is public or nonpublic
-
       if($pageContent['public']) {
         $publicClass = ' public';
         $publicText = $langFile['STATUS_PAGE_PUBLIC'];
@@ -157,17 +157,25 @@ foreach($allCategories as $category) {
       // -> show lastSaveDate
       $lastSaveDate = StatisticFunctions::formatDate(StatisticFunctions::dateDayBeforeAfter($pageContent['lastSaveDate'],$langFile)).' '.StatisticFunctions::formatTime($pageContent['lastSaveDate']);
       
-      // -> show pageDate
-      $pageDate = showPageDate($pageContent);
+      // -> generate pageDate for toolTip
+      $toolTipPageDate = showPageDate($pageContent);
       
-      // -> show tags
+      // -> generate tags for toolTip
       $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
       if($category['showTags'] && !empty($localizedTags)) {
-        $showTags = '[br /][br /]';
-        $showTags .= '[b]'.$langFile['sortablePageList_tags'].'[/b][br /]'.$localizedTags;
+        $toolTipTags = '[br]';
+        $toolTipTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
       }
-      
-      // -----------------------   ********  ---------------------- 
+
+      // -> generate page languages for toolTip
+      if(!isset($pageContent['localization'][0])) {
+        $toolTipPageLanguages .= '[br][b]'.$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION'].':[/b]';
+        foreach ($pageContent['localization'] as $langCode => $values) {
+          $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
+        }
+      }
+
+      // -----------------------  ********  ---------------------- 
       // LIST PAGES
       // id'.$pageContent['id'].' sort'.$pageContent['sortOrder'].' cat: '.$pageContent['category'].' 
       echo '<li id="page'.$pageContent['id'].'">';
@@ -175,13 +183,18 @@ foreach($allCategories as $category) {
       // startpage icon before the name
       if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
         $activeStartPage = ' startPage';
-        $startPageText = $langFile['sortablePageList_functions_startPage_set'].'[br /][br /]';
+        $startPageText = $langFile['sortablePageList_functions_startPage_set'].'[br]';
       } else {
         $activeStartPage = '';
         $startPageText = '';
       }
       
-      echo '<div class="name"><a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'" title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::'.$startPageText.'[b]ID[/b] '.$pageContent['id'].$pageDate.$showTags.'"><b>'.$title.'</b></a></div>';
+      echo '<div class="name">
+            <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'"
+            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
+            '.$startPageText.'[b]ID:[/b] '.$pageContent['id'].$toolTipPageDate.$toolTipTags.$toolTipPageLanguages.'">
+            <b>'.$title.'</b>
+            </a></div>';
       echo (!empty($pageContent['lastSaveAuthor']))
         ? '<div class="lastSaveDate toolTip" title="'.$langFile['EDITOR_h1_lastsaveauthor'].' '.$pageContent['lastSaveAuthor'].'::">'.$lastSaveDate.'</div>'
         : '<div class="lastSaveDate">'.$lastSaveDate.'</div>';

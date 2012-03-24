@@ -83,8 +83,8 @@ $langFile['THUMBNAIL_TEXT_NAME']                                          = 'Pag
 $langFile['THUMBNAIL_TEXT_WIDTH']                                         = 'Larghezza <b>Miniatura</b>';
 $langFile['THUMBNAIL_TEXT_HEIGHT']                                        = 'Altezza <b>Miniatura</b>';
 
-$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Larghezza Standard::La larghezza della miniatura è sempre misurata in pixels.[br /][br /]L\'immagine verrà ridimensionata a questo valore dopo il caricamento.';
-$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Altezza Standard::L\'altezza della miniatura è sempre misurata in pixels.[br /][br /]L\'immagine verrà ridimensionata a questo valore dopo il caricamento.';
+$langFile['THUMBNAIL_TOOLTIP_WIDTH']                                      = 'Larghezza Standard::La larghezza della miniatura è sempre misurata in pixels.[br][br]L\'immagine verrà ridimensionata a questo valore dopo il caricamento.';
+$langFile['THUMBNAIL_TOOLTIP_HEIGHT']                                     = 'Altezza Standard::L\'altezza della miniatura è sempre misurata in pixels.[br][br]L\'immagine verrà ridimensionata a questo valore dopo il caricamento.';
 
 $langFile['THUMBNAIL_TEXT_RATIO']                                         = 'Rapporto';
 $langFile['THUMBNAIL_TEXT_KEEPRATIO']                                     = 'mantenere questo rapporto';
@@ -328,8 +328,9 @@ $langFile['sortablePageList_headText3']                                   = 'Vis
 $langFile['sortablePageList_headText4']                                   = 'Stato';
 $langFile['sortablePageList_headText5']                                   = 'Funzioni';
 
-$langFile['sortablePageList_pagedate']                                    = 'Data pagina';
-$langFile['sortablePageList_tags']                                        = 'Tags';
+$langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'Data pagina';
+$langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'Tags';
+$langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'Lingue';
 
 $langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL']                        = 'in ordine alfabetico';
 $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'in ordine per data';
@@ -390,8 +391,8 @@ $langFile['ADMINSETUP_GENERAL_EXAMPLE_REALBASEPATH']                      = '<b>
 $langFile['ADMINSETUP_GENERAL_field8']                                    = 'Percorso Sito Web';
 $langFile['ADMINSETUP_GENERAL_field8_tip']                                = 'Il [b]percorso assoluto[/b] in cui il sito si trova.';
 $langFile['ADMINSETUP_GENERAL_field4']                                    = 'Percorso Upload';
-$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'File come foto caricate, Animazioni-Flash e altri tipi di documenti verranno salvati qui.[br /][br /][span class=hint]I file possono essere caricati sul pulsante Link > Carica in Editor-HTML o nel file manager.[/span]';
-$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br /][br /]Questi file possono essere modificati più in basso, o nelle impostazioni-website (se è attivato dalle impostazioni-utente).[br /][br /]';
+$langFile['ADMINSETUP_GENERAL_field4_tip']                                = 'File come foto caricate, Animazioni-Flash e altri tipi di documenti verranno salvati qui.[br][br][span class=hint]I file possono essere caricati sul pulsante Link > Carica in Editor-HTML o nel file manager.[/span]';
+$langFile['ADMINSETUP_GENERAL_editfiles_additonal']                       = '[br][br]Questi file possono essere modificati più in basso, o nelle impostazioni-website (se è attivato dalle impostazioni-utente).[br][br]';
 $langFile['ADMINSETUP_GENERAL_field5']                                    = 'Percorso Per I File';
 $langFile['ADMINSETUP_GENERAL_field5_tip']                                = 'Crea un percorso per la cartella con i file che vengono utilizzati dal tuo sito web. Esempio: per fare un sito web multi-language.'.$langFile['ADMINSETUP_GENERAL_editfiles_additonal'];
 $langFile['ADMINSETUP_GENERAL_field6']                                    = 'Percorso Per I Fogli Di Stile';
@@ -407,7 +408,7 @@ $langFile['ADMINSETUP_GENERAL_varName3']                                  = 'Nom
 $langFile['ADMINSETUP_GENERAL_varName3_inputTip']                         = $langFile['ADMINSETUP_GENERAL_varName_ifempty'].'&quot;[b]modulo[/b]&quot;';
 $langFile['ADMINSETUP_GENERAL_varName_tip']                               = 'Il nome della variabile [b]$_GET[/b] che verrà utilizzato per collegare le pagine del sito web.';
 $langFile['ADMINSETUP_GENERAL_field7']                                    = 'Formato Data';
-$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sarà utilizzato da [span class=logoname]fein[span]dura[/span][/span] per le date del sito web.[br /]Può essere:[br /]DIN 5008 ('.$langFile['DATE_EU'].') oppure[br /]ISO 8601 ('.$langFile['DATE_INT'].')';
+$langFile['ADMINSETUP_GENERAL_field7_tip']                                = 'Sarà utilizzato da [span class=logoname]fein[span]dura[/span][/span] per le date del sito web.[br]Può essere:[br]DIN 5008 ('.$langFile['DATE_EU'].') oppure[br]ISO 8601 ('.$langFile['DATE_INT'].')';
 $langFile['ADMINSETUP_TEXT_TIMEZONE']                                     = 'Time Zone';
 $langFile['ADMINSETUP_TIP_TIMEZONE']                                      = 'Utilizzato da [span class=logoname]fein[span]dura[/span][/span] solo per il Backend.';
 $langFile['ADMINSETUP_GENERAL_speakingUrl']                               = 'Formato URL';
@@ -415,8 +416,8 @@ $langFile['ADMINSETUP_GENERAL_speakingUrl_true']                          = 'Spe
 $langFile['ADMINSETUP_GENERAL_speakingUrl_true_example']                  = '/category/example_category/example.html';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false']                         = 'URLs con variabili';
 $langFile['ADMINSETUP_GENERAL_speakingUrl_false_example']                 = 'index.php?%s=1&%s=1';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Questo sarà il formato URL che verrà utilizzato per collegare le pagine.[br /][br /]Speaking URLs funziona solo se [b]Apache[/b] ha attivato [b]mod_rewrite[/b] e il modulo è disponibile.';
-$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ATTENZIONE!::[span class=red]Se si verifica un errore durante l\'utilizzo di [i]Speaking URLs[/i], sarà necessario eliminare il file - [b].htaccess[/b] - [br /]Questo file dal percorso principale del vostro server web va eliminato solo se si desidera usare speaking URLs.[/span][br /][br /](In alcuni programmi FTP si devono mostrare i file nascosti in primo luogo, per vedere il file .Htaccess altrimenti esso risulterà invisibile)';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_tip']                           = 'Questo sarà il formato URL che verrà utilizzato per collegare le pagine.[br][br]Speaking URLs funziona solo se [b]Apache[/b] ha attivato [b]mod_rewrite[/b] e il modulo è disponibile.';
+$langFile['ADMINSETUP_GENERAL_speakingUrl_warning']                       = 'ATTENZIONE!::[span class=red]Se si verifica un errore durante l\'utilizzo di [i]Speaking URLs[/i], sarà necessario eliminare il file - [b].htaccess[/b] - [br]Questo file dal percorso principale del vostro server web va eliminato solo se si desidera usare speaking URLs.[/span][br][br](In alcuni programmi FTP si devono mostrare i file nascosti in primo luogo, per vedere il file .Htaccess altrimenti esso risulterà invisibile)';
 
 // ---------- speaking url ERRORs
 $langFile['ADMINSETUP_GENERAL_speakingUrl_error_save']                    = '<b>Speaking URLs</b> non può essere attivato'.$langFile['ERROR_SAVE_FILE'].'/.htaccess';
@@ -443,7 +444,7 @@ $langFile['ADMINSETUP_TEXT_EDITOR_SAFEHTML']                              = 'saf
 $langFile['ADMINSETUP_TIP_EDITOR_SAFEHTML']                               = 'Questo è il codice HTML con le impostazioni più sicure che viene filtrato, vale a dire per esempio che nessun tag del tipo &lt;applet&gt;,&lt;embed&gt;,&lt;embed&gt;,&lt;object &gt; e &lt;script&gt; sono ammessi.';
 $langFile['adminSetup_editorSettings_field1']                             = 'ENTER-Key mode';
 $langFile['adminSetup_editorSettings_field1_hint']                        = 'SHIFT + ENTER genera sempre un &quot;&lt;br&gt;&quot;';
-$langFile['adminSetup_editorSettings_field1_tip']                         = 'Specifica quali tag HTML quando si preme il tasto ENTER verranno impostati.[br /][br /][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
+$langFile['adminSetup_editorSettings_field1_tip']                         = 'Specifica quali tag HTML quando si preme il tasto ENTER verranno impostati.[br][br][span class=hint]'.$langFile['adminSetup_editorSettings_field1_hint'].'.[/span]';
 $langFile['adminSetup_editorSettings_field3_inputTip']                    = 'Se il campo è vuoto, non viene utilizzato l\'ID.';
 $langFile['adminSetup_editorSettings_field4_inputTip']                    = 'Se il campo è vuoto, nessuna classe verrà utilizza.';
 
@@ -452,7 +453,7 @@ $langFile['adminSetup_thumbnailSettings_h1']                              = 'Pag
 $langFile['adminSetup_thumbnailSettings_field3']                          = 'Percorso Salvato'; // Thumbnail-Speicherpfad
 $langFile['adminSetup_thumbnailSettings_field3_tip']                      = 'Inserisci la cartella all\'interno del percorso di caricamento relativo che sarà usato per salvare le miniature.';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip1']                = 'Il percorso dei files caricati';
-$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Percorso Relativo::Rispetta questo percorso relativo e inserisci qui i file delle miniature &quot;[b]%s[/b] thumbnails&quot;.[br /][br /]Usa sempre un nome con la sintassi minuscola senza spazi e non inserire all\'inizio del nome lo slash &quot;/&quot;';
+$langFile['adminSetup_thumbnailSettings_field3_inputTip2']                = 'Percorso Relativo::Rispetta questo percorso relativo e inserisci qui i file delle miniature &quot;[b]%s[/b] thumbnails&quot;.[br][br]Usa sempre un nome con la sintassi minuscola senza spazi e non inserire all\'inizio del nome lo slash &quot;/&quot;';
 $langFile['adminSetup_thumbnailSettings_field3_inputTip3']                = '<b>'.$langFile['TEXT_EXAMPLE'].'</b> &quot;thumbnails/&quot; ';
 
 // ---------- styleFile Settings
@@ -486,7 +487,7 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'I T
 // ---------- page settings
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Impostazzioni-Pagina';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Imposta Pagina Iniziale';
-$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'L\'utente può impostare una pagina come pagina iniziale.[br /][br /]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
+$langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'L\'utente può impostare una pagina come pagina iniziale.[br][br]Se selezionata questa impostazione l\'utente può decidere la pagina da visualizzare all\'entrata nel sito. Quando nessuna variabile [i]$_GET[/i] di altre pagine vengono passate nel sito o in qualunque pagina che è stata già visualizzata, sarà quella selezionata la Home Page.';
 $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEPAGES']                      = 'Pagine in lingua Multi';
 $langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEPAGES']                       = 'La lingua principale sarà selezionato, se non la lingua di corrispondenza è stato possibile determinare automaticamente.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'lingua principale';
@@ -497,7 +498,7 @@ $langFile['PAGESETUP_PAGES_TIP_CREATEPAGES']                              = 'Det
 $langFile['PAGESETUP_PAGES_TEXT_UPLOADTHUMBNAILS']                        = 'Carica Miniature';
 $langFile['PAGESETUP_PAGES_TIP_UPLOADTHUMBNAILS']                         = 'Determina se l\'utente, all\'interno delle pagine senza una categoria, può caricare e usare le miniature in esse inserite.';
 $langFile['PAGESETUP_PAGES_TEXT_EDITTAGS']                                = 'Modificare Tag';
-$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Determina se l\'utente, all\'interno delle pagine senza una categoria, può modificare i tag.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_PAGES_TIP_EDITTAGS']                                 = 'Determina se l\'utente, all\'interno delle pagine senza una categoria, può modificare i tag.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_PAGES_TEXT_ACTIVATEPLUGINS']                         = 'Abilitare Plugin';
 $langFile['PAGESETUP_PAGES_TIP_ACTIVATEPLUGINS']                          = 'Determina se l\'utente, all\'interno delle pagine senza una categoria, può utilizzare i plugin.';
 
@@ -538,7 +539,7 @@ $langFile['PAGESETUP_CATEGORY_TIP_CREATEPAGES']                           = 'Spe
 $langFile['PAGESETUP_CATEGORY_TEXT_UPLOADTHUMBNAILS']                     = 'Caricare Miniature';
 $langFile['PAGESETUP_CATEGORY_TIP_UPLOADTHUMBNAILS']                      = 'Specifica se l\'utente può caricare le miniature delle pagine in questa categoria.';
 $langFile['PAGESETUP_CATEGORY_TEXT_EDITTAGS']                             = 'Modificare I Tag';
-$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Specifica se l\'utente può modificare i tag nella pagine in questa categoria.[br /]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
+$langFile['PAGESETUP_CATEGORY_TIP_EDITTAGS']                              = 'Specifica se l\'utente può modificare i tag nella pagine in questa categoria.[br]'.$langFile['PAGESETUP_PAGES_TIP_TAG'];
 $langFile['PAGESETUP_CATEGORY_TEXT_ACTIVATEPLUGINS']                      = 'Attivare Plugin';
 $langFile['PAGESETUP_CATEGORY_TIP_ACTIVATEPLUGINS']                       = 'Specifica se l\'utente può utilizzare i plugin nelle pagine in questa categoria.';
 $langFile['PAGESETUP_CATEGORY_HINT_ACTIVATEPLUGINS']                      = 'Tenere premuto il tasto CTRL per selezionare più di un plugin.';
@@ -551,7 +552,7 @@ $langFile['PAGESETUP_TIP_FEEDS']                                          = 'Att
 $langFile['PAGESETUP_CATEGORY_TIP_FEEDS']                                 = 'Attiva RSS 2.0 e Atom Feed per le pagine in questa categoria.';
 
 $langFile['PAGESETUP_TIP_SORTBYPAGEDATE']                                 = 'Ordinare Per Data';
-$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Le pagine con una data più recente appariranno in [b]testa[/b] alla lista delle pagine.[br /][br /][span class=hint]Usa questa impostazione per inserire le pagine in ordine di creazione.[/span]';
+$langFile['PAGESETUP_TIP_SORTBYDATE']                                     = 'Le pagine con una data più recente appariranno in [b]testa[/b] alla lista delle pagine.[br][br][span class=hint]Usa questa impostazione per inserire le pagine in ordine di creazione.[/span]';
 
 $langFile['PAGESETUP_TEXT_SORTMANUALLY']                                  = 'Ordinare Manualmente';
 $langFile['PAGESETUP_TIP_SORTMANUALLY']                                   = 'Le Pagine appena create, appariranno sempre [b]in cima[/b] alla lista delle pagine.';
@@ -580,7 +581,7 @@ $langFile['websiteSetup_websiteConfig_field3_tip']                        = 'Il 
 
 $langFile['websiteSetup_websiteConfig_field4']                            = 'Parole Chiave';
 $langFile['websiteSetup_websiteConfig_field4_tip']                        = 'La maggior parte dei motori di ricerca inseguono i contenuti del sito per parole chiave, tuttavia qui è possibile elencare alcune parole chiave che saranno memorizzate nei tag <meta> delle pagine web.';
-$langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Parole Chiave Separate Da &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br /]stichwort1,stichwort2,etc';
+$langFile['websiteSetup_websiteConfig_field4_inputTip']                   = 'Parole Chiave Separate Da &quot;,&quot;::'.$langFile['TEXT_EXAMPLE'].':[br]stichwort1,stichwort2,etc';
 $langFile['websiteSetup_websiteConfig_field5']                            = 'Descrizione Sito Web';
 $langFile['websiteSetup_websiteConfig_field5_tip']                        = 'Inserire qui una breve descrizione per l\'uso dei motori di ricerca, se lo SearchWords è stato trovato nell\'URL del sito web e non nel contenuto verrà mostrato come titolo di anteprima dal motore di ricerca.';
 $langFile['websiteSetup_websiteConfig_field5_inputTip']                   = 'Testo Breve Non Più Di 3 Linee.';
@@ -681,7 +682,7 @@ $langFile['EDITOR_pageSettings_title']                                    = 'Tit
 $langFile['EDITOR_pageSettings_title_tip']                                = 'Il titolo della pagina, può contenere i seguenti tag HTML:[br]<a> <span> <em> <strong> <i> <b> <abbr> <code> <samp> <kbd> <var>';
 $langFile['EDITOR_pageSettings_field1']                                   = 'Breve descrizione';
 $langFile['EDITOR_pageSettings_field1_inputTip']                          = 'Se vuoto, utilizza la descrizione nel tag del sito  dalle Impostazioni-SitoWeb.';
-$langFile['EDITOR_pageSettings_field1_tip']                               = 'Una breve sintesi del contenuto della pagina. Questa descrizione sarà utilizzata nella meta-tag della pagina.[br /][br /][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
+$langFile['EDITOR_pageSettings_field1_tip']                               = 'Una breve sintesi del contenuto della pagina. Questa descrizione sarà utilizzata nella meta-tag della pagina.[br][br][span class=hint]'.$langFile['EDITOR_pageSettings_field1_inputTip'].'[/span]';
 $langFile['EDITOR_pageSettings_field2']                                   = 'Tags';
 $langFile['EDITOR_pageSettings_field2_tip']                               = 'I tag sono parole chiave che fanno da riferimento per questa pagina.';
 $langFile['EDITOR_pageSettings_field2_tip_inputTip']                      = 'I tag devono essere separati da una &quot;,&quot; (virgola).';
@@ -696,7 +697,7 @@ $langFile['EDITOR_pageSettings_field4']                                   = 'Sta
 $langFile['EDITOR_pageSettings_field4_tip']                               = '[b]Solo quando la pagina è pubblica, sarà visualizzata sul Web![/b]';
 
 $langFile['EDITOR_pageSettings_pagedate_error']                           = 'Il formato della data è sbagliato';
-$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Questo mese finalmente non è di 31 giorni.[br /]La data dovrebbe avere il seguente formato:';
+$langFile['EDITOR_pageSettings_pagedate_error_tip']                       = 'Questo mese finalmente non è di 31 giorni.[br]La data dovrebbe avere il seguente formato:';
 
 // ---------- page advanced settings
 $langFile['EDITOR_advancedpageSettings_h1']                               = 'Impostazioni Avanzate';

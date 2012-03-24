@@ -315,16 +315,16 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
       $pageContent['pageDate']['date'] = (isset($pageContent['pagedate']['date'])) ? $pageContent['pagedate']['date'] : $pageContent['pageDate']['date'];
 
       // v1.2 - localized
-      if(!isset($pageContent['localized'])) {
+      if(!isset($pageContent['localization'])) {
 
-        $pageContent['localized'][0]['title'] = $pageContent['title'];
-        $pageContent['localized'][0]['content'] = $pageContent['content'];
-        $pageContent['localized'][0]['description'] = $pageContent['description'];
-        $pageContent['localized'][0]['tags'] = $pageContent['tags'];
+        $pageContent['localization'][0]['title'] = $pageContent['title'];
+        $pageContent['localization'][0]['content'] = $pageContent['content'];
+        $pageContent['localization'][0]['description'] = $pageContent['description'];
+        $pageContent['localization'][0]['tags'] = $pageContent['tags'];
 
         // page date before/after
-        $pageContent['localized'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
-        $pageContent['localized'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
+        $pageContent['localization'][0]['pageDate']['before'] = (isset($pageContent['pagedate']['before'])) ? $pageContent['pagedate']['before'] : $pageContent['pageDate']['before'];
+        $pageContent['localization'][0]['pageDate']['after'] = (isset($pageContent['pagedate']['after'])) ? $pageContent['pagedate']['after'] : $pageContent['pageDate']['after'];
       
       }
 

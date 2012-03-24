@@ -1151,28 +1151,28 @@ class Feindura extends FeinduraBase {
   * 
   * <b>Notice</b>: If the <var>$ids</var> parameter is empty or FALSE it uses the {@link $page} property.
   * 
-  * Example <var>$ids</var> parameters:
+  * Examples of the <var>$id</var> parameters:
   * {@example ids.parameter.example.php}
   *
-  * Examples of the returned href string: <i>("user=xyz123" stands for: sessionname=sessionid)</i>
-  * 
+  * Examples of the returned href string:
+  *
   * Pages without category: 
-  * <samp>'?page=1&user=xyz123'</samp>
+  * <samp>'?page=1'</samp>
   * Pages with category:
-  * <samp>'?category=1&page=1&user=xyz123'</samp>
+  * <samp>'?category=1&page=1'</samp>
   * 
   * Speaking URL href for pages without category: 
-  * <samp>'/page/page_title.html?user=xyz123'</samp>
+  * <samp>'/page/page_title.html'</samp>
   * Speaking URL href for pages with category:
-  * <samp>'/category/category_name/page_title.html?user=xyz123'</samp>
+  * <samp>'/category/category_name/page_title.html'</samp>
   * 
   * 
-  * @param int|string|array|bool $ids    a page ID, array with page and category IDs, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples) (can also be a $pageContent array)
+  * @param int|string|array|bool $id    a page ID, array with page and category ID, or a string/array with "previous","next","first","last" or "random". If FALSE it uses the {@link $page} property. (See examples)
   * 
   * @uses FeinduraBase::getPropertyIdsByString()	to load the right page and category IDs depending on the $ids parameter
   * @uses GeneralFunctions::createHref()          call the right createHref functions in the GeneralFunctions class
   * @uses GeneralFunctions::getPageCategory()     to get the category of the page    
-  * 
+  * @uses FeinduraBase::language
   * 
   * @return string|false the generated href attribute, or FALSE if no page could be loaded
   * 
@@ -1185,12 +1185,12 @@ class Feindura extends FeinduraBase {
   *    - 1.0 initial release
   * 
   */
-  public function createHref($ids = false) {
+  public function createHref($id = false) {
     
-    if($ids = $this->getPropertyIdsByString($ids)) {
+    if($id = $this->getPropertyIdsByString($id)) {
       // loads the $pageContent array
-      if(($pageContent = GeneralFunctions::readPage($ids[0],$ids[1])) !== false) {
-          return GeneralFunctions::createHref($pageContent,$this->sessionId);
+      if(($pageContent = GeneralFunctions::readPage($id[0],$id[1])) !== false) {
+          return GeneralFunctions::createHref($pageContent,$this->sessionId,$this->language);
       }
     }
     return false;    

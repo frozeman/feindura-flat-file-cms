@@ -104,36 +104,41 @@ if($_GET['status'] == 'updateUserCache' && isBlocked() === false) {
   echo 'releaseBlock';
 }
 
+/**
+ * GET the PAGE LANGUAGE CODE
+ * 
+ */
+//XSS Filter
+if(isset($_GET['pageLanguage'])) $_GET['pageLanguage'] = XssFilter::alphabetical($_GET['pageLanguage']);
+if(isset($_SESSION['feinduraSession']['pageLanguage'])) $_SESSION['feinduraSession']['pageLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['pageLanguage']);
+
+if($adminConfig['multiLanguagePages']['active'] && isset($_GET['pageLanguage']))
+  $pageLanguage = $_GET['pageLanguage'];
+elseif($adminConfig['multiLanguagePages']['active'] && !isset($_GET['pageLanguage']))
+  $pageLanguage = $_SESSION['feinduraSession']['pageLanguage']; //$adminConfig['multiLanguagePages']['mainLanguage'];
+else
+  $pageLanguage = 0;
+// reset the pageLanguage SESSION var
+$_SESSION['feinduraSession']['pageLanguage'] = $pageLanguage;
+unset($pageLanguage);
 
 /**
- * GET LOCALIZED LANGUAGE CODE
- * 
- * @global string $GLOBALS['localizedCode']
+ * SET the BACKEND LANGUAGE
+ * And loads the langauge files
+ *
  */
-if($adminConfig['multiLanguagePages']['active'] && isset($_GET['localized']))
-  $localizedCode = $_GET['localized'];
-elseif($adminConfig['multiLanguagePages']['active'] && !isset($_GET['localized']))
-  $localizedCode = $adminConfig['multiLanguagePages']['mainLanguage'];
-else
-  $localizedCode = 0;
-$GLOBALS['localizedCode'] = $localizedCode;
-
-
-// ->> choose LANGUAGE * START * -----------------------------------------------------
-// language shortname will be transfered trough a session (need COOKIES!)
-// and includes the langFile
-
 // -> check language
-//unset($_SESSION['feinduraSession']['language']);
-if(isset($_GET['language'])) $_GET['language'] = XssFilter::alphabetical($_GET['language']);
-if(isset($_SESSION['feinduraSession']['language'])) $_SESSION['feinduraSession']['language'] = XssFilter::alphabetical($_SESSION['feinduraSession']['language']);
-if(isset($_GET['language'])) $_SESSION['feinduraSession']['language'] = $_GET['language'];
+//unset($_SESSION['feinduraSession']['backendLanguage']);
+//XSS Filter
+if(isset($_GET['backendLanguage'])) $_GET['backendLanguage'] = XssFilter::alphabetical($_GET['backendLanguage']);
+if(isset($_SESSION['feinduraSession']['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = XssFilter::alphabetical($_SESSION['feinduraSession']['backendLanguage']);
 
-$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['language']);
-$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['language']);
+if(isset($_GET['backendLanguage'])) $_SESSION['feinduraSession']['backendLanguage'] = $_GET['backendLanguage'];
+
+$backendLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.backend.php',$_SESSION['feinduraSession']['backendLanguage']);
+$sharedLangFile = GeneralFunctions::loadLanguageFile(false,'%lang%.shared.php',$_SESSION['feinduraSession']['backendLanguage']);
 
 $langFile = array_merge($sharedLangFile,$backendLangFile);
 unset($backendLangFile,$sharedLangFile);
-// *---* choose LANGUAGE * END * -----------------------------------------------------
 
 ?>
