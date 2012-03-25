@@ -574,7 +574,7 @@ class StatisticFunctions {
     $object = ($object) ? '|#|'.$object : false;
     
     // -> create the new log string
-    $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.$task.$object;
+    $newLog = time().'|#|'.$_SESSION['feinduraSession']['login']['username'].'|#|'.serialize($task).$object;
     
     // CREATE file content
     $fileContent = '';

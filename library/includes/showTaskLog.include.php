@@ -22,7 +22,7 @@
 * log Data
 *    - $logRow[0] = date and time
 *    - $logRow[1] = username
-*    - $logRow[2] = log text
+*    - $logRow[2] = log text (can also be an serialized array with [logTextNumber,LogFormatStringValue])
 *    - $logRow[3] = log data
 * 
 * @version 0.1.1
@@ -50,6 +50,15 @@ foreach($logContent as $logRow) {
   ? '<br /><span>'.$langFile['DASHBOARD_TITLE_USER'].': <b>'.$logRow[1].'</b></span>'
   : '';
   
+  // LOGTEXT NUMBER can also be an array with: [logText,logTextValue]
+  // legacy Fallback
+  $logTextNumber = (is_numeric($logRow[2])) ? $logRow[2] : unserialize($logRow[2]);
+
+  if(is_array($logTextNumber)) {
+    $logRow[2] = $logTextNumber[0];
+    $logTextValue = $logTextNumber[1];
+  }
+
   // add the right languageText
   switch($logRow[2]) {
     case 0:
@@ -147,6 +156,9 @@ foreach($logContent as $logRow) {
         break;
     case 31:
         $logText = $langFile['LOG_BACKUP_DELETED'];
+        break;
+    case 32:
+        $logText = sprintf($langFile['LOG_PAGELANGUAGE_DELETED'],$logTextValue);
         break;
   }
   

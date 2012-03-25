@@ -189,6 +189,9 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'Bac
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Backup ripristinato';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Backup cancellato';
 
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Lingua &quot;%s&quot; per la seguente pagina cancellata:';
+
+
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'Pagina Pubblica';
 $langFile['STATUS_PAGE_NONPUBLIC']                                        = 'Pagina Nascosta';
@@ -744,6 +747,14 @@ $langFile['deletePage_notexisting_part1']                                 = 'La 
 $langFile['deletePage_notexisting_part2']                                 = 'non esiste';
 
 $langFile['deletePage_finish_error']                                      = 'ERRORE: La pagina non può essere cancellata!';
+
+/*
+* deletePageLanguage.php
+*/
+
+// ---------- DELETE PAGE LANGUAGE
+
+$langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Sei sicuro di voler eliminare il lingua &quot;%s&quot; per questa pagina?';
 
 /*
 * pageThumbnailDelete.php

@@ -130,7 +130,7 @@ if($_GET['site'] == 'addons') {
   <script type="text/javascript" src="library/thirdparty/MooRTE/Source/moorte.compressed.js<?= '?v='.BUILD; ?>"></script>
 <?php
   }
-  if($adminConfig['user']['fileManager'] && ($_GET['site'] == 'pages' || !empty($_GET['page']))) { ?>
+  if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
   
   <!-- thirdparty/MooTools-FileManager -->
   <script type="text/javascript" src="library/thirdparty/MooTools-FileManager/Source/FileManager.js<?= '?v='.BUILD; ?>"></script>
@@ -171,7 +171,7 @@ if($_GET['site'] == 'addons') {
   <?php } ?>
   
   window.addEvent('domready', function () {
-    <?php if(($_GET['site'] == 'pages' || !empty($_GET['page'])) && $adminConfig['user']['fileManager']) { ?>
+    <?php if($adminConfig['user']['fileManager'] && (!empty($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup')) { ?>
     // ->> include filemanager
     var hideFileManager = function(){this.hide();}
     var fileManager = new FileManager({
@@ -384,7 +384,7 @@ if($_GET['site'] == 'addons') {
                        ($_GET['category'] === 0 && $adminConfig['pages']['createDelete']) ||
                        ($_GET['category'] !== 0 && $categoryConfig[$_GET['category']]['createDelete']))) ? true : false;
     
-    $isInPageEditor = ($newPage || $_GET['site'] == 'pages') ? false : true;
+    $isInPageEditor = (isset($_GET['page']) && !$newPage) ? true : false;
     
     // -> CHECK for pageThumbnailUpload
     $showPageThumbnailUpload = (!$newPage &&
@@ -484,10 +484,10 @@ if($_GET['site'] == 'addons') {
               <!-- <li class="spacer">&nbsp;</li> -->
               <!-- <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> tabindex="35" class="addPageLanguage toolTip">&nbsp;</a></li> -->
             <?php
-            // REMOVE PAGE LANGUAGE
-            if(isset($_GET['page']) && $adminConfig['multiLanguageWebsite']['active'] && !isset($pageContent['localization'][0])) { ?>
+            // DELETE PAGE LANGUAGE
+            if(isset($_GET['page']) && $adminConfig['multiLanguageWebsite']['active'] && !isset($pageContent['localization'][0]) && isset($pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
               <!-- <li class="spacer">&nbsp;</li> -->
-              <li><a <?php echo 'href="?site=removePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/removePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']]).'::"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']]).'::"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
             <?php }
 
             ?>          

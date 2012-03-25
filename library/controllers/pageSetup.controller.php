@@ -65,15 +65,27 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   $newAdminConfig['pageThumbnail']['path']              = $_POST['cfg_thumbPath'];
 
   // -> CHANGE PAGES to MULTI LANGUAGE pages
-  if($newAdminConfig['multiLanguageWebsite']['active']) {
-    
-    
+  if($newAdminConfig['multiLanguageWebsite']['active'] == 'true') {
+    $allPages = GeneralFunctions::loadPages(true);
+    foreach($allPages as $pageContent) {
+
+      // change the non localized content to the mainLanguage
+      if(is_array($pageContent['localization'][0])) {
+        $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']] = $pageContent['localization'][0];
+        unset($pageContent['localization'][0]);
+      }
+
+      if(!GeneralFunctions::savePage($pageContent))
+        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
+    }
+
+  // -> CHANGE TO SINGLE LANGUAGE
   } else {
     
     
   }
   
-  // **** opens admin.config.php for writing
+  // -> save ADMIN SETTINGS
   if(saveAdminConfig($newAdminConfig)) {
     // give documentSaved status
     $documentSaved = true;

@@ -84,12 +84,12 @@ if(empty($_GET['site']) && ($_GET['category'] == 0 || !empty($_GET['category']))
       include (dirname(__FILE__).'/views/windowBox/pageThumbnailDelete.php');
       break;
     // ADD PAGE LANGUAGE
-    case 'addPageLanguage':
-      include (dirname(__FILE__).'/views/windowBox/addPageLanguage.php');
-      break;
+    // case 'addPageLanguage':
+    //   include (dirname(__FILE__).'/views/windowBox/addPageLanguage.php');
+    //   break;
     // REMOVE PAGE LANGUAGE
-    case 'removePageLanguage':
-      include (dirname(__FILE__).'/views/windowBox/removePageLanguage.php');
+    case 'deletePageLanguage':
+      include (dirname(__FILE__).'/views/windowBox/deletePageLanguage.php');
       break;
     // WEBSITE SETUP
     case 'websiteSetup':

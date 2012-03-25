@@ -829,6 +829,9 @@ class GeneralFunctions {
     // localized
     foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
 
+      // remove the '' when its 0 (for non localized pages)
+      $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
+
       $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
       $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
       $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";

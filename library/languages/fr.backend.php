@@ -177,6 +177,8 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'sau
 $langFile['LOG_BACKUP_RESTORED']                                          = 'restauration de sauvegarde';
 $langFile['LOG_BACKUP_DELETED']                                           = 'supprimé de sauvegarde';
 
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Langue &quot;%s&quot; pour la page suivante supprimé:';
+
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'site web public';
 $langFile['STATUS_PAGE_NONPUBLIC']                                        = 'site web caché';
@@ -701,6 +703,14 @@ $langFile['deletePage_question_part2']                                    = 'vou
 $langFile['deletePage_notexisting_part1']                                 = 'le site web';
 $langFile['deletePage_notexisting_part2']                                 = 'n\'existe pas';
 $langFile['deletePage_finish_error']                                      = 'ERREUR: La page ne pouvait pas être éffacée!';
+
+/*
+* deletePageLanguage.php
+*/
+
+// ---------- DELETE PAGE LANGUAGE
+
+$langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Voulez-vous vraiment supprimer la langue &quot;%s&quot; pour cette page?';
 
 /*
 * pageThumbnailDelete.php

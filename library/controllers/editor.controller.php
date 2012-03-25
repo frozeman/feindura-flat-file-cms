@@ -131,7 +131,7 @@ if($_POST['save'] && isBlocked() === false) {
         ? dirname(__FILE__).'/../../pages/'.$pageContent['id'].'.php'
         : dirname(__FILE__).'/../../pages/'.$pageContent['category'].'/'.$pageContent['id'].'.php';
       chmod($filePath, $adminConfig['permissions']);
-      
+
       // ->> save the FEEDS, if activated
       GeneralFunctions::saveFeeds($pageContent['category']);
       // ->> save the SITEMAP

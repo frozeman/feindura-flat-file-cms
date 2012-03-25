@@ -34,7 +34,7 @@ $asking = $_POST['asking'];
 // load the page
 $pageContent = GeneralFunctions::readPage($page,$category);
 
-// sets the none category (0) to emtpy
+// sets the none category (0) to empty
 $categoryPath = ($category == 0) ? '' : $category.'/';
 
 // QUESTION
@@ -64,7 +64,7 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
     if(!empty($pageContent['thumbnail']))
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
-    GeneralFunctions::addStoredPage($pageContent,true); // REMOVES the $pageContent array from the $storedPages property
+    GeneralFunctions::removeStoredPage($pageContent['id']); // REMOVES the $pageContent array from the $storedPages property
     StatisticFunctions::saveTaskLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))); // <- SAVE the task in a LOG FILE
     
     $question = '';

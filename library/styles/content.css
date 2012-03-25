@@ -1337,7 +1337,7 @@ input[type="search"] { -webkit-appearance:textfield; -webkit-box-sizing:content-
 ::-webkit-search-decoration { display: none; }
     
 select {
-    padding: 1px 4px;
+    padding: 1px;
     }
 
 select[multiple="multiple"] {

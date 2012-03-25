@@ -191,6 +191,9 @@ $langFile['LOG_BACKUP_CREATED']                                           = 'К�
 $langFile['LOG_BACKUP_RESTORED']                                          = 'Копия восстановлена';
 $langFile['LOG_BACKUP_DELETED']                                           = 'Копия удалена';
 
+$langFile['LOG_PAGELANGUAGE_DELETED']                                     = 'Язык &quot;%s&quot; на следующей странице удалены:';
+
+
 // PAGE/CATEGORY STATUS
 $langFile['STATUS_PAGE_PUBLIC']                                           = 'Страница активна';
 $langFile['STATUS_PAGE_NONPUBLIC']                                        = 'Страница скрыта';
@@ -737,6 +740,14 @@ $langFile['deletePage_notexisting_part1']                                 = 'С�
 $langFile['deletePage_notexisting_part2']                                 = 'не существует';
 
 $langFile['deletePage_finish_error']                                      = 'ОШИБКА: Страница не может быть удалена!';
+
+/*
+* deletePageLanguage.php
+*/
+
+// ---------- DELETE PAGE LANGUAGE
+
+$langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Вы действительно хотите удалить язык &quot;%s&quot; на этой странице?';
 
 /*
 * pageThumbnailDelete.php
