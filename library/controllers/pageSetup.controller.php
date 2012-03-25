@@ -70,9 +70,16 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     foreach($allPages as $pageContent) {
 
       // change the non localized content to the mainLanguage
-      if(is_array($pageContent['localization'][0])) {
-        $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']] = $pageContent['localization'][0];
+      if(is_array($pageContent['localization']) && is_array(current($pageContent['localization']))) {
+        
+        $useLocalization = (isset($pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
+          ? $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
+          : current($pageContent['localization']);
+
+        // put the mainLanguage on the top
+        $pageContent['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localization']);
         unset($pageContent['localization'][0]);
+
       }
 
       if(!GeneralFunctions::savePage($pageContent))

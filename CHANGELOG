@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 821
+Build 822
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 822: fixed set main language for localization
   build 821: fixed bubbling the right current website language
   build 820: fixed isBlocked()
   build 819: add switch languages with selection, add and fixed LeavePagesWithoutSaving() function

@@ -19,7 +19,7 @@
 
 $frontendEditing = true; // to prevent that the backend.include.php will be included inside the secure.include.php
 /**
- * Includes the login.include.php and backend.include.php and filter the basic data
+ * Includes the login.include.php and feindura.include.php and filter the basic data
  */
 require_once(dirname(__FILE__)."/../includes/secure.include.php");
 
