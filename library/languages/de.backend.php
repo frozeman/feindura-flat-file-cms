@@ -240,6 +240,8 @@ $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Sei
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Thumbnail für diese Seite hochladen.';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Seiten-Thumbnail löschen';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Thumbnail von dieser Seite löschen.';
+$langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Sprache hinzufügen';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Füge eine neue Sprache zu dieser Seite hinzu';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Sprache löschen';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Sprache &quot;%s&quot; für diese Seite löschen';
 

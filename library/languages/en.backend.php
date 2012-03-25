@@ -230,17 +230,19 @@ $langFile['BUTTON_BACKUP']                                                = 'Bac
 
 // SUB MENU/FOOTER
 $langFile['BUTTON_FILEMANAGER']                                           = 'File Manager';
-$langFile['BUTTON_TOOLTIP_FILEMANAGER']                                   = 'manage your files and pictures';
+$langFile['BUTTON_TOOLTIP_FILEMANAGER']                                   = 'Manage your files and pictures';
 $langFile['BUTTON_CREATEPAGE']                                            = 'New Page';
-$langFile['BUTTON_TOOLTIP_CREATEPAGE']                                    = 'Create new page';
+$langFile['BUTTON_TOOLTIP_CREATEPAGE']                                    = 'Create a new page';
 $langFile['BUTTON_DELETEPAGE']                                            = 'Delete Page';
 $langFile['BUTTON_TOOLTIP_DELETEPAGE']                                    = 'Delete this page';
-$langFile['BUTTON_FRONTENDEDITPAGE']                                      = 'Edit page in the frontend';
-$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE']                              = 'Edit this page directly on the website';
-$langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Upload a page thumbnail';
+$langFile['BUTTON_FRONTENDEDITPAGE']                                      = 'Frontend editing';
+$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE']                              = 'Edit this page directly in the website';
+$langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Upload thumbnail';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Upload a thumbnail for this page';
-$langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Delete a page thumbnail';
+$langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Delete thumbnail';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Delete the thumbnail of this page';
+$langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Add Language';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Add a new language translation to this page';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Delete Language';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Delete language &quot;%s&quot; for this page';
 

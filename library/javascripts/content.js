@@ -499,6 +499,7 @@ function requestLeftSidebar(site,page,category) {
         removeLoadingCircle();
       });
 
+      LeavingWithoutSavingWarning();
       sidebarMenu();
       setToolTips();
       layoutFix();
@@ -520,6 +521,34 @@ function requestLeftSidebar(site,page,category) {
   else
     requestCategory.send();
 }
+
+// -------------------------------------------------
+// -> THROW a WARNING when user want to LEAVE THE PAGE WITHOUT SAVING
+function LeavingWithoutSavingWarning() {
+  $$('a').each(function(link) {
+    var href = link.get('href');
+    var onclick = link.get('onclick');
+
+    // only on external links, or the sideBarMenu page selection (prevent category selection)
+    if((onclick === null || (onclick !== null && onclick.toString().substr(0,18) !== 'requestLeftSidebar')) &&
+        href !== null &&
+        href.toString().indexOf('#') == -1) {
+
+      // prevent that the link get clicked before pageContentChanged was checked
+      link.setProperty('onclick','return false;');
+
+      link.addEvent('mouseup',function(e) {
+        if(pageContentChanged) {
+          e.stop();
+          openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
+        // let the link get clicked
+        } else
+          link.removeProperty('onclick');
+      });
+    }
+  });
+}
+
 
 // *---------------------------------------------------------------------------------------------------*
 //  LOAD (if all pics are loaded)
@@ -1095,8 +1124,12 @@ window.addEvent('domready', function() {
     $('websiteLanguageSelection').addEvent('change',function(){
       var language = this.getSelected();
       newLocation = (window.location.href.indexOf('&websiteLanguage') != -1) ? window.location.href.substr(0,window.location.href.indexOf('&websiteLanguage')) : window.location.href;
-      
-      window.location.href = newLocation + '&websiteLanguage=' + language.get('value');
+      newLocation += '&websiteLanguage=' + language.get('value');
+
+      if(pageContentChanged)
+        openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(newLocation),false,false);
+      else
+        window.location.href = newLocation;
     });
   }
 
@@ -1511,6 +1544,7 @@ window.addEvent('domready', function() {
   }
 
   // -----------------------------------------
+  // LEAVING WITHOUT SAVING CHECKS
   // ->> CHECKS if changes in the editor page was made and add a *
 
   // CHECK if fields are changed
@@ -1528,26 +1562,9 @@ window.addEvent('domready', function() {
         pageContentChanged = true;
       }
     });
+
+    LeavingWithoutSavingWarning();
   }
-
-  // throw a warning when user want to leave the page and the page content was changed
-  $$('a').each(function(link) {
-    var href = link.get('href');
-    var onclick = link.get('onclick');
-
-    // only on external links, or the sideBarMenu category selection
-    if((onclick === null || (onclick !== null && onclick.toString().substr(0,18) == 'requestLeftSidebar')) &&
-        href !== null &&
-        href.toString().indexOf('#') == -1) {
-
-      link.addEvent('click',function(e) {
-        if(pageContentChanged) {
-          e.stop();
-          openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(href),false,false);
-        }
-      });
-    }
-  });
 
   layoutFix();
 });

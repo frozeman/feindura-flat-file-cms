@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 818
+Build 819
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 819: add switch languages with selection, add and fixed LeavePagesWithoutSaving() function
   build 818: transforms now non localized to multilanguage pages, but not backwards (see pageSetup.controller.php)
   build 817: changed the name from pageLanguage -> websiteLanguage
   build 816: add language selection

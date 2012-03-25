@@ -430,66 +430,80 @@ if($_GET['site'] == 'addons') {
 
             // FILE MANAGER
             if($adminConfig['user']['fileManager']) { ?>
-              <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>::">&nbsp;</a></li>
+              <li><a href="?site=fileManager" tabindex="29" class="fileManager toolTip" title="<?= $langFile['BUTTON_FILEMANAGER'].'::'.$langFile['BUTTON_TOOLTIP_FILEMANAGER']; ?>">&nbsp;</a></li>
             <?php
             }
 
             // FRONTEND EDITING
             if($isInPageEditor && $adminConfig['user']['frontendEditing']) { ?>
               <li class="spacer">&nbsp;</li>
-              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'::"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="'.$adminConfig['url'].$adminConfig['websitePath'].'?'.$adminConfig['varName']['category'].'='.$_GET['category'].'&amp;'.$adminConfig['varName']['page'].'='.$_GET['page'].'" title="'.$langFile['BUTTON_FRONTENDEDITPAGE'].'::'.$langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE'].'"'; ?> tabindex="30" class="editPage toolTip">&nbsp;</a></li>
             <?php
             }
             
             // CREATE NEW PAGE
             if($showCreatePage) { ?>
               <li class="spacer">&nbsp;</li>
-              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?php echo $langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>::">&nbsp;</a></li>
+              <li><a href="<?php echo '?category='.$_GET['category'].'&amp;page=new'; ?>" tabindex="31" class="createPage toolTip" title="<?= $langFile['BUTTON_CREATEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_CREATEPAGE']; ?>">&nbsp;</a></li>
             <?php
             // DELETEPAGE
             if($showDeletePage) { ?>
-              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'::"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=deletePage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePage.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_DELETEPAGE'].'\',true);return false;" title="'.$langFile['BUTTON_DELETEPAGE'].'::'.$langFile['BUTTON_TOOLTIP_DELETEPAGE'].'"'; ?> tabindex="32" class="deletePage toolTip">&nbsp;</a></li>
             <?php }          
             }         
             
             // PAGETHUMBNAILUPLOAD
             if($showPageThumbnailUpload) { ?>
               <li class="spacer">&nbsp;</li>
-              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> tabindex="33" class="pageThumbnailUpload toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=pageThumbnailUpload&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailUpload.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'"'; ?> tabindex="33" class="pageThumbnailUpload toolTip">&nbsp;</a></li>
             <?php
             // PAGETHUMBNAILDELETE
             if($showPageThumbnailDelete) { ?>
-              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'::"'; ?> tabindex="34" class="pageThumbnailDelete toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="34" class="pageThumbnailDelete toolTip">&nbsp;</a></li>
             <?php }
             }     
 
+            // ADD PAGE LANGUAGE
+            if($isInPageEditor && $adminConfig['multiLanguageWebsite']['active']) { ?>
+              <li class="spacer">&nbsp;</li>
+              <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'::'.$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD'].'"'; ?> tabindex="35" class="addPageLanguage toolTip">&nbsp;</a></li>
+            <?php
+            // DELETE PAGE LANGUAGE
+            if(isset($_GET['page']) && !isset($pageContent['localization'][0]) && isset($pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
+              <!-- <li class="spacer">&nbsp;</li> -->
+              <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[b]'.$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']].'[/b]').'"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
+            <?php }
+            }
+
+
             // PAGE LANGUAGE SELECTION with
-            if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages'])) { ?>
+            if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages'])) { 
+              // var
+              $isPageEditor = (isset($_GET['page']) && isset($pageContent['localization'])) ? true : false;
+
+              // load the right language codes:
+              // when PAGE EDITOR load the localization array
+              // else load the WEBSITE LANGAUGES
+              $languageSlection = ($isPageEditor)
+                ? array_keys($pageContent['localization'])
+                : $adminConfig['multiLanguageWebsite']['languages'];
+
+              // get the right flag
+              $currentLanguageCode = in_array($_SESSION['feinduraSession']['websiteLanguage'], $languageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($languageSlection);
+              ?>
               <li class="spacer">&nbsp;</li>
               <li>
-                <img src="<?= getFlag($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" />
+                <img src="<?= getFlag($currentLanguageCode); ?>" class="flag" title="<?= $languageCodes[$currentLanguageCode]; ?>" />
                 <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
-                  <?php
-                  foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+                <?php
+                  foreach($languageSlection as $langCode) {
                     $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
                     echo '<option value="'.$langCode.'"'.$selected.'>'.$languageCodes[$langCode].'</option>';
                   }
-                  ?>
+                ?>
                 </select>
             <?php
             }
-
-            // ADD PAGE LANGUAGE
-            // if($showWebsiteLanguageSelection && $adminConfig['multiLanguageWebsite']['active']) { ?>
-              <!-- <li class="spacer">&nbsp;</li> -->
-              <!-- <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD'].'::"'; ?> tabindex="35" class="addPageLanguage toolTip">&nbsp;</a></li> -->
-            <?php
-            // DELETE PAGE LANGUAGE
-            if(isset($_GET['page']) && $adminConfig['multiLanguageWebsite']['active'] && !isset($pageContent['localization'][0]) && isset($pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
-              <!-- <li class="spacer">&nbsp;</li> -->
-              <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']]).'::"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
-            <?php }
-
             ?>          
           </ul>
         </div>        
