@@ -244,6 +244,8 @@ $langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'З�
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Загрузить миниатюру к этой странице';
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Удалить минитюру страницы';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Удалить миниатюру к этой странице';
+$langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Добавить языка';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Добавить новый перевод этой страницы';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Удаление языка';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Удаление языка &quot;%s&quot; для этой страницы';
 

@@ -238,10 +238,12 @@ $langFile['BUTTON_DELETEPAGE']                                            = 'Eli
 $langFile['BUTTON_TOOLTIP_DELETEPAGE']                                    = 'Elimina Questa Pagina';
 $langFile['BUTTON_FRONTENDEDITPAGE']                                      = 'Modifica Pagina Frontalmente';
 $langFile['BUTTON_TOOLTIP_FRONTENDEDITPAGE']                              = 'Modifica Pagina Sul Sito.';
-$langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Carica Miniatura Nella Pagina';
-$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Carica Miniatura';
-$langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Elimina Miniatura Della Pagina';
-$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Elimina Miniatura';
+$langFile['BUTTON_THUMBNAIL_UPLOAD']                                      = 'Carica Miniatura';
+$langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Carica Miniatura Nella Pagina';
+$langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Elimina Miniatura';
+$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Elimina Miniatura Della Pagina';
+$langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Aggiungi Lingua';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Aggiungere una nuova traduzione lingua di questa pagina';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Elimina Lingua';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Eliminare Lingua &quot;%s&quot; per questa pagina';
 
