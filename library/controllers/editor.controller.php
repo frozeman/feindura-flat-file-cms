@@ -171,4 +171,10 @@ if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbn
   GeneralFunctions::savePage($pageContent);
 }
 
+
+/// ->> GET THE CURRENT PAGE LANGUAGE CODE
+
+// load the language codes
+$currentlanguageSlection = array_keys($pageContent['localization']);
+
 ?>

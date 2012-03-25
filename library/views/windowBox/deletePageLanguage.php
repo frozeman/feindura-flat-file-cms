@@ -16,7 +16,7 @@
  * 
  * deletePageLanguage.php
  * 
- * @version 0.1
+ * @version 0.2
  */
 
 /**
@@ -28,21 +28,22 @@ echo ' '; // hack for safari, otherwise it throws an error that he could not fin
 
 // gets the vars
 $category = (isset($_POST['category'])) ? $_POST['category'] : $_GET['category'];  
-$page = (isset($_POST['page'])) ? $_POST['page'] : $_GET['page'];  
+$page = (isset($_POST['page'])) ? $_POST['page'] : $_GET['page'];
+$language = (isset($_POST['language'])) ? $_POST['language'] : $_GET['language'];  
 $asking = $_POST['asking'];
 
 // QUESTION
-$question = '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION'],'<span style="color:#000000;">'.$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']].'</span>').'</h1>';
+$question = '<h1 class="red">'.sprintf($langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION'],'<span style="color:#000000;">'.$languageCodes[$language].'</span>').'</h1>';
 
 // DELETING PROCESS
 if($_POST['asking']) {
   // load the page
   $pageContent = GeneralFunctions::readPage($page,$category);
 
-  unset($pageContent['localization'][$_POST['language']]);
+  unset($pageContent['localization'][$language]);
 
   if(GeneralFunctions::savePage($pageContent)) {
-    StatisticFunctions::saveTaskLog(array(32,$languageCodes[$_POST['language']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(array(32,$languageCodes[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
 
     // ->> save the FEEDS, if activated
     GeneralFunctions::saveFeeds($pageContent['category']);
@@ -69,7 +70,7 @@ if(!$asking) {
 <form action="?site=deletePageLanguage" method="post" enctype="multipart/form-data" id="deletePageLanguageForm" onsubmit="requestSite('<?= $_SERVER['PHP_SELF']; ?>','','deletePageLanguageForm');return false;" accept-charset="UTF-8">
 <input type="hidden" name="category" value="<?= $category; ?>" />
 <input type="hidden" name="page" value="<?= $page; ?>" />
-<input type="hidden" name="language" value="<?php echo $_SESSION['feinduraSession']['websiteLanguage']; ?>" />
+<input type="hidden" name="language" value="<?php echo $language; ?>" />
 <input type="hidden" name="asking" value="true" />
 
 
