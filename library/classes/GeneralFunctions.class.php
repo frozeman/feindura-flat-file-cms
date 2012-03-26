@@ -331,8 +331,8 @@ class GeneralFunctions {
    * Check if the current $_SERVER['REQUEST_URI'] variable end with ? or & and ads the <var>$parameterString</var> on the end.
    * 
    * 
-   * @param string        $key   the key of the new parameter to add
-   * @param string|false  $value (optional) the value of the new parameter to add
+   * @param string|array        $key   the key of the new parameter to add, if array, the value parameter must also be an array
+   * @param string|array|false  $value (optional) the value of the new parameter to add
    * 
    * @return string the new url with add parameter
    * 
@@ -340,7 +340,7 @@ class GeneralFunctions {
    * @version 2.0
    * <br />
    * <b>ChangeLog</b><br />
-   *    - 2.0 complete rewrite according to {@link http://stackoverflow.com/questions/909193/is-there-a-php-library-that-handles-url-parameters-adding-removing-or-replacin}
+   *    - 2.0 complete rewrite based on {@link http://stackoverflow.com/questions/909193/is-there-a-php-library-that-handles-url-parameters-adding-removing-or-replacin}
    *    - 1.0.1 moved to GeneralFunctions class
    *    - 1.0 initial release
    * 
@@ -349,7 +349,16 @@ class GeneralFunctions {
     $query    = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
     $params = array();
     parse_str($query, $params);
-    $params[$key] = $value;
+    
+    if(is_array($key) && is_array($value)) {
+      $count = 0;
+      foreach ($key as $k) {
+        $params[$k] = $value[$count];
+        $count++;
+      }
+    } else
+      $params[$key] = $value;
+
     $query = http_build_query($params);
     return '?'.$query;
   }
@@ -593,10 +602,12 @@ class GeneralFunctions {
    * Gets the localized version of given <var>$value</var> parameter, which matches the <var>$_SESSION['feinduraSession']['websiteLanguage']</var> variable.
    * If no matching localized version of this value exists, it returns the one matching the <var>$adminConfig['multiLanguageWebsite']['mainLanguage']</var> variable.
    * 
+   * <b>Used Global Variables</b><br />
+   *   - <var>$_GET['status']</var> if the value is "addLanguage", it forces to load the <var>$languageCode</var> parameter
    *  
-   * @param array        $pageContent  the $pageContent array of a page
-   * @param string       $value        the anme of the value, which should be returned localized
-   * @param string|false $languageCode a language code, which should be used to localize the given <var>$pageContent</var> parameter. If FALSE it uses <var>$_SESSION['feinduraSession']['websiteLanguage']</var>.
+   * @param array        $pageContent    the $pageContent array of a page
+   * @param string       $value          the anme of the value, which should be returned localized
+   * @param bool         $forceLanguage  if TRUE the language will be forced to be loaded, even if it does not exist
    *   
    * @return string the localized value of the given <var>$pageContentValue</var> parameter
    * 
@@ -608,14 +619,13 @@ class GeneralFunctions {
    *    - 1.0 initial release
    * 
    */
-  public static function getLocalized($pageContent, $value, $languageCode = false) {
+  public static function getLocalized($pageContent, $value, $forceLanguage = false) {
 
     // var
-    if($languageCode === false)
-      $languageCode = $_SESSION['feinduraSession']['websiteLanguage'];
-
+    $languageCode = $_SESSION['feinduraSession']['websiteLanguage'];
+    
     // get the one matching $GLOBALS['websiteLanguage']
-    if(isset($pageContent['localization'][$languageCode]))
+    if(isset($pageContent['localization'][$languageCode]) || $forceLanguage)
       $localizedValues = $pageContent['localization'][$languageCode];
     // if not get the one matching the "Main Language"
     elseif(isset($pageContent['localization'][self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))

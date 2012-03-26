@@ -748,7 +748,7 @@ class Feindura extends FeinduraBase {
   * 
   * The constructor of the class, sets all basic properties.
   * 
-  * Run the {@link FeinduraBase::__construct()} class constructor to set all necessary properties
+  * Calls the {@link FeinduraBase::__construct()} class constructor to set all necessary properties
   * Fetch the <var>$_GET</var> variable (if existing) and set it to the {@link $page} and {@link $category} properties.<br />
   * If there is no page and category ID it sets the start page ID from the {@link FeinduraBase::$websiteConfig website-settings config}.
   * 
@@ -784,7 +784,7 @@ class Feindura extends FeinduraBase {
     
     // set category automatically, if it couldn't be retrieved 
     if($this->category == null) $this->category = GeneralFunctions::getPageCategory($this->page);
-  } 
+  }
   
   // ****************************************************************************************************************
   // METHODs -------------------------------------------------------------------------------------------------

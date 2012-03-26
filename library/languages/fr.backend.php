@@ -228,9 +228,9 @@ $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Té
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'éffacer thumbnail de la page';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Éffacer thumbnail de cette page.';
 $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Ajouter une langue';
-$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Ajouter une traduction nouvelle langue sur cette pagee';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Ajouter une nouvelle langue sur cette page.';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'supprimer langue';
-$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Supprimer langue &quot;%s&quot; pour cette page';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Supprimer langue &quot;%s&quot; pour cette page.';
 
 // OTHER BUTTONS
 $langFile['BUTTON_UP']                                                    = 'vers le haut';

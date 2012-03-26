@@ -242,7 +242,7 @@ $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Upl
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Delete thumbnail';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Delete the thumbnail of this page';
 $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Add Language';
-$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Add a new language translation to this page';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Add a new language to this page';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Delete Language';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Delete language &quot;%s&quot; for this page';
 

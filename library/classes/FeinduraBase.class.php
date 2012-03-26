@@ -266,7 +266,35 @@ class FeinduraBase {
     } else
       $this->language = $this->loadFrontendLanguageFile();
   }
+
+
+ /* ---------------------------------------------------------------------------------------------------------------------------- */
+ /* *** DESTRUCTOR *** */
+ /* **************************************************************************************************************************** */
   
+ /**
+  * <b>Type</b> destructor<br /> 
+  * 
+  * The destructor of the class, will generate the cached site, if activated.
+  * 
+  * @uses FeinduraBase::cachePage() caches the page, if caching is activated
+  * 
+  * @return void
+  * 
+  * @see FeinduraBase::__construct()
+  * 
+  * @access public
+  * @version 1.0
+  * <br />
+  * <b>ChangeLog</b><br />
+  *    - 1.0 initial release
+  * 
+  */
+  public function __destruct() {
+    
+  }
+
+
  /* ---------------------------------------------------------------------------------------------------------------------------- */
  /* *** METHODS *** */
  /* **************************************************************************************************************************** */

@@ -26,7 +26,7 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // -----------------------------------------------------------------------------
 $page	= $_GET['page'];
 $category = $_GET['category'];
-
+$addLanguage = ($_GET['status'] == 'addLanguage') ? true : false;
 
 // SAVE the PAGE
 // -----------------------------------------------------------------------------
@@ -162,7 +162,7 @@ if($newPage) {
     $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
 } else {  
-  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title'));
+  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',$addLanguage));
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
@@ -170,11 +170,5 @@ if(!file_exists(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbn
   $pageContent['thumbnail'] = '';
   GeneralFunctions::savePage($pageContent);
 }
-
-
-/// ->> GET THE CURRENT PAGE LANGUAGE CODE
-
-// load the language codes
-$currentlanguageSlection = array_keys($pageContent['localization']);
 
 ?>

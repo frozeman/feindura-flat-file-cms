@@ -402,7 +402,16 @@ if($_GET['site'] == 'addons') {
     $showSubMenu = ((isset($_GET['page']) || $_GET['site'] == 'pages' || $_GET['site'] == 'websiteSetup' || $_GET['site'] == 'pageSetup') && 
        ($showWebsiteLanguageSelection ||$showPageThumbnailUpload || $showCreatePage || $showPageThumbnailUpload || $adminConfig['user']['fileManager'] || $showDeletePage)) ? true : false;
       
+
+    // ->> RE-SET CURRENT WEBSITE LANGUAGE based on the pages languages
+    // -> use the languages of the page
+    $currentlanguageSlection = (isset($pageContent['localization'])) ? array_keys($pageContent['localization']) : $adminConfig['multiLanguageWebsite']['languages'];
     
+    // -> add new language to the page languages selection, if status is "addLanguage"
+    if($addLanguage)
+      $currentlanguageSlection = $adminConfig['multiLanguageWebsite']['languages'] + array_keys($pageContent['localization']);
+    $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: $adminConfig['multiLanguageWebsite']['mainLanguage']; //current($currentlanguageSlection);
+
     ?>
     
     <!-- ************************************************************************* -->
@@ -461,7 +470,7 @@ if($_GET['site'] == 'addons') {
             if($showPageThumbnailDelete) { ?>
               <li><a <?php echo 'href="?site=pageThumbnailDelete&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/pageThumbnailDelete.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_THUMBNAIL_DELETE'].'::'.$langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE'].'"'; ?> tabindex="34" class="pageThumbnailDelete toolTip">&nbsp;</a></li>
             <?php }
-            }     
+            }
 
             // ADD PAGE LANGUAGE
             if($isInPageEditor && $adminConfig['multiLanguageWebsite']['active']) { ?>
@@ -469,32 +478,27 @@ if($_GET['site'] == 'addons') {
               <li><a <?php echo 'href="?site=addPageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'" onclick="openWindowBox(\'library/views/windowBox/addPageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'\',\''.$langFile['BUTTON_THUMBNAIL_UPLOAD'].'\',true);return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_ADD'].'::'.$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD'].'"'; ?> tabindex="35" class="addPageLanguage toolTip">&nbsp;</a></li>
             <?php
             // DELETE PAGE LANGUAGE
-            if(isset($_GET['page']) && !isset($pageContent['localization'][0]) && isset($pageContent['localization'][$currentPageWebsiteLanguage])) { ?>
+            if(isset($_GET['page']) && !isset($pageContent['localization'][0]) && isset($pageContent['localization'][$_SESSION['feinduraSession']['websiteLanguage']])) { ?>
               <!-- <li class="spacer">&nbsp;</li> -->
-              <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$currentPageWebsiteLanguage.'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$currentPageWebsiteLanguage.'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[b]'.$languageCodes[$currentPageWebsiteLanguage].'[/b]').'"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
+              <li><a <?php echo 'href="?site=deletePageLanguage&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'" onclick="openWindowBox(\'library/views/windowBox/deletePageLanguage.php?site='.$_GET['site'].'&amp;category='.$_GET['category'].'&amp;page='.$_GET['page'].'&amp;language='.$_SESSION['feinduraSession']['websiteLanguage'].'\',\''.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'\',true);return false;" title="'.$langFile['BUTTON_WEBSITELANGUAGE_DELETE'].'::'.sprintf($langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE'],'[b]'.$languageCodes[$_SESSION['feinduraSession']['websiteLanguage']].'[/b]').'"'; ?> tabindex="36" class="removePageLanguage toolTip">&nbsp;</a></li>
             <?php }
             }
 
 
             // PAGE LANGUAGE SELECTION with
             if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages'])) {
-
-              // -> available VARs from the editor.controller.php
-              // $currentlanguageSlection
-              $currentlanguageSlection = (isset($currentlanguageSlection))
-                    ? $currentlanguageSlection
-                    : $adminConfig['multiLanguageWebsite']['languages'];
-                    
-              $currentPageWebsiteLanguage = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: current($currentlanguageSlection);
               ?>
               <li class="spacer">&nbsp;</li>
               <li>
-                <img src="<?= getFlag($currentPageWebsiteLanguage); ?>" class="flag" title="<?= $languageCodes[$currentPageWebsiteLanguage]; ?>" />
+                <img src="<?= getFlag($_SESSION['feinduraSession']['websiteLanguage']); ?>" class="flag" title="<?= $languageCodes[$_SESSION['feinduraSession']['websiteLanguage']]; ?>" />
                 <select name="websiteLanguageSelection" id="websiteLanguageSelection" tabindex="37">
                 <?php
+                  // create language selection
                   foreach($currentlanguageSlection as $langCode) {
-                    $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
-                    echo '<option value="'.$langCode.'"'.$selected.'>'.$languageCodes[$langCode].'</option>';
+                    if(!isset($pageContent) || isset($pageContent['localization'][$langCode]) || ($addLanguage && $_SESSION['feinduraSession']['websiteLanguage'] == $langCode)) {
+                      $selected = ($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) ? ' selected="selected"' : '';
+                      echo '<option value="'.$langCode.'"'.$selected.' style="color:#cccccc;">'.$languageCodes[$langCode].'</option>';
+                    }
                   }
                 ?>
                 </select>

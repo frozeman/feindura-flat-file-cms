@@ -243,7 +243,7 @@ $langFile['BUTTON_TOOLTIP_THUMBNAIL_UPLOAD']                              = 'Car
 $langFile['BUTTON_THUMBNAIL_DELETE']                                      = 'Elimina Miniatura';
 $langFile['BUTTON_TOOLTIP_THUMBNAIL_DELETE']                              = 'Elimina Miniatura Della Pagina';
 $langFile['BUTTON_WEBSITELANGUAGE_ADD']                                   = 'Aggiungi Lingua';
-$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Aggiungere una nuova traduzione lingua di questa pagina';
+$langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_ADD']                           = 'Aggiungere un nuovo linguaggio di questa pagina';
 $langFile['BUTTON_WEBSITELANGUAGE_DELETE']                                = 'Elimina Lingua';
 $langFile['BUTTON_TOOLTIP_WEBSITELANGUAGE_DELETE']                        = 'Eliminare Lingua &quot;%s&quot; per questa pagina';
 
