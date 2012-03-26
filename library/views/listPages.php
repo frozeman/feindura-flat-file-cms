@@ -173,6 +173,11 @@ foreach($allCategories as $category) {
         foreach ($pageContent['localization'] as $langCode => $values) {
           $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
         }
+        // list not yet existing languages of the page
+        foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+          if(!array_key_exists($langCode, $pageContent['localization']))
+            $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] [span class=grey][s]'.$languageCodes[$langCode].'[/s][/span]';
+        }
       }
 
       // -----------------------  ********  ---------------------- 

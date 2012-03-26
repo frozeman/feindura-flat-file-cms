@@ -239,7 +239,7 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
                   if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" />';
                   echo '<br>';
                 }
-                // list not existing languages
+                // list not yet existing languages of the page
                 foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
                   if(!array_key_exists($langCode, $pageContent['localization'])) {
                     echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'addLanguage')).'" class="image grey" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> <s>'.$languageCodes[$langCode].'</s></a>';
