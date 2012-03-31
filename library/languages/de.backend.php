@@ -769,6 +769,16 @@ $langFile['WINDOWBOX_TEXT_ADDPAGE_SELECTLANGUAGE']                        = 'Spr
 
 
 /*
+* deletewebsiteLanguages.php
+*/
+
+// ---------- DELETE WEBSITE LANGUAGES
+
+$langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION']              = 'Die folgenden Sprachen werden von allen Seiten gelöscht!<br>&quot;%s&quot;';
+$langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION']               = 'Mehrsprachige Webseite wurde deaktiviert!<br>Alle Seiten werden auf die vorherige Hauptsprache (<b>%s</b>) umgestellt.';
+
+
+/*
 * pageThumbnailDelete.php
 */
 

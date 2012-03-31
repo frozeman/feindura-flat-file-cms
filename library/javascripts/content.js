@@ -25,6 +25,7 @@ var HTMLEditor;
 
 /* GENERAL FUNCTIONS */
 
+
 // *** ->> TOOLTIPS - functions -----------------------------------------------------------------------------------------------------------------------
 
 /* set toolTips to all objects with a toolTip class */
@@ -1056,8 +1057,55 @@ window.addEvent('domready', function() {
   if($('cfg_multiLanguageWebsite') !== null ) {
 
     // var
+    var websiteLanguages = $('cfg_websiteLanguages').getChildren('option').get('value');
     var selectedMainLanguage = $('cfg_websiteMainLanguage').getSelected();
     selectedMainLanguage = selectedMainLanguage[0];
+
+    // -> CHECK if languages were changed
+    $('pageSettingsForm').addEvent('submit',function(e){
+
+      // vars
+      var newLangs = $('cfg_websiteLanguages').getChildren('option').get('value');
+      var removedLangs = [];
+      var removedLangString = '';
+      var status = '';
+
+      // get removed languages
+      websiteLanguages.each(function(value){
+        if(!newLangs.contains(value)) {
+          removedLangs.push(value);
+        }
+      });
+
+      // IF MULTI LANGAUGES were DEACTIVATED
+      if(!$('cfg_multiLanguageWebsite').getProperty('checked')) {
+        status = 'deactivated';
+        websiteLanguages.each(function(lang){
+          removedLangString += lang;
+          if(lang != websiteLanguages[websiteLanguages.length-1])
+            removedLangString += ',';
+        });
+      // IF LANGUAGES were REMOVED
+      } else if(removedLangs.length > 0) {
+        status = 'changed';
+        removedLangs.each(function(lang){
+          removedLangString += lang;
+          if(lang != removedLangs[removedLangs.length-1])
+            removedLangString += ',';
+        });
+      }
+
+
+      // -> show dialog if langauges will be deleted
+      if(removedLangString !== '') {
+        e.stop();
+        openWindowBox('library/views/windowBox/deleteWebsiteLanguages.php?site=pageSetup&status='+status+'&mainLanguage='+$('cfg_websiteMainLanguage').get('value')+'&languages='+removedLangString,false);
+      }
+
+      // reset the website Langauges variable
+      // websiteLanguages = Array.clone($('cfg_websiteLanguages').getChildren('option').get('value'));
+    });
+    
 
     // -> disables the multiple language fields if "multiple languages" checkbox is deactivated
     $('cfg_multiLanguageWebsite').addEvent('change',function() {

@@ -67,11 +67,15 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
   // -> CHANGE PAGES to MULTI LANGUAGE pages
   if($newAdminConfig['multiLanguageWebsite']['active'] == 'true') {
     $allPages = GeneralFunctions::loadPages(true);
+
     foreach($allPages as $pageContent) {
+
+      // $pageContent['localization'][0] = (!isset($pageContent['localization'][0])) ? array() : $pageContent['localization'][0];
 
       // change the non localized content to the mainLanguage
       if(is_array($pageContent['localization']) && is_array(current($pageContent['localization']))) {
         
+        // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
         $useLocalization = (isset($pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
           ? $pageContent['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
           : current($pageContent['localization']);
@@ -79,7 +83,6 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         // put the mainLanguage on the top
         $pageContent['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localization']);
         unset($pageContent['localization'][0]);
-
       }
 
       if(!GeneralFunctions::savePage($pageContent))
@@ -88,8 +91,24 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
 
   // -> CHANGE TO SINGLE LANGUAGE
   } else {
-    
-    
+    $allPages = GeneralFunctions::loadPages(true);
+
+    foreach($allPages as $pageContent) {
+
+      // change the localized content to non localized content using the the mainLanguage
+      if(is_array($pageContent['localization']) && isset($pageContent['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
+        $storedMainLanguageArray = $pageContent['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
+        unset($pageContent['localization']);
+        $pageContent['localization'][0] = $storedMainLanguageArray;
+      
+      // if the mainLanguage didnt exist create an empty array
+      } else
+        $pageContent['localization'][0] = array();
+
+      if(!GeneralFunctions::savePage($pageContent))
+        $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
+    }
+
   }
   
   // -> save ADMIN SETTINGS

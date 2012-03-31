@@ -469,7 +469,7 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Les
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'paramètres du site web';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'la page d\'acceuil peut être définie';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'site multi-langue';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'site web multi-langues';
 $langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Utilisez [b]double clic[/b] pour sélectionner les langues.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'La langue principale';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
@@ -724,6 +724,16 @@ $langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Vou
 // ---------- ADD PAGE LANGUAGE
 
 $langFile['WINDOWBOX_TEXT_ADDPAGE_SELECTLANGUAGE']                        = 'Sélectionnez la langue';
+
+
+/*
+* deletewebsiteLanguages.php
+*/
+
+// ---------- DELETE WEBSITE LANGUAGES
+
+$langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION']              = 'Les langues suivantes seront supprimées de toutes les pages!<br>&quot;%s&quot;';
+$langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION']               = 'Site web multi-langues était désactivé!<br>Toutes les pages seront mis à la langue principale ancienne (<b>%s</b>).';
 
 
 /*

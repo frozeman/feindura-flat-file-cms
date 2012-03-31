@@ -770,6 +770,16 @@ $langFile['WINDOWBOX_TEXT_ADDPAGE_SELECTLANGUAGE']                        = 'Sel
 
 
 /*
+* deletewebsiteLanguages.php
+*/
+
+// ---------- DELETE WEBSITE LANGUAGES
+
+$langFile['WINDOWBOX_TITLE_DELETEWEBSITELANGUAGES_QUESTION']              = 'The following languages will be deleted from all pages!<br>&quot;%s&quot;';
+$langFile['WINDOWBOX_TEXT_DELETEWEBSITELANGUAGES_QUESTION']               = 'Multi language website was deactivated!<br>All pages will be set to the former main language (<b>%s</b>).';
+
+
+/*
 * pageThumbnailDelete.php
 */
 

@@ -106,6 +106,14 @@ windowBox.css version 0.2 */
     color: #888888;
     }
 
+/****************/  
+/* *** ELEMENTS */
+
+#windowBox p {
+    font-size: 14px;
+    margin: 5px 10px;
+}
+
 /****************/	
 /* *** CLOSE */
 
