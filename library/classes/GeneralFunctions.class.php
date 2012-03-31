@@ -1639,12 +1639,23 @@ class GeneralFunctions {
       
       $href .= self::getDirname(self::$adminConfig['websitePath']);
 
-      // adds the category to the href attribute
+      // adds the CATEGORY to the href attribute
       if($category != 0)
-        $href .= 'category/'.self::urlEncode(self::$categoryConfig[$category]['name']).'/';
+        $href .= 'category/';
       else
         $href .= 'page/';
 
+      // add the LANGUAGE if multilanguage page
+      if(self::$adminConfig['multiLanguageWebsite']['active']) {
+        $language = (isset($_SESSION['feinduraSession']['websiteLanguage'])) ? $_SESSION['feinduraSession']['websiteLanguage'] : $_SESSION['feinduraSession']['language'];
+        $href .= $language.'/';
+      }
+
+      // adds the CATEGORY NAME to the href attribute
+      if($category != 0)
+        $href .= self::urlEncode(self::$categoryConfig[$category]['name']).'/';
+
+      // add PAGE NAME
       $href .= self::urlEncode(GeneralFunctions::getLocalized($pageContent,'title',$languageCode));
       //$href .= '/'; //'.html';
       

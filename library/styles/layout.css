@@ -40,7 +40,7 @@ span.brown, label.brown, h1.brown, li.brown {
 span.red, label.red, h1.red, ul.red, div.red, input.red {
     color: #A02F00 !important;
     }
-span.grey, a.grey {
+span.gray, a.gray {
     color: #999 !important;
 }
 
@@ -509,7 +509,7 @@ ul.verticalButtons {
     z-index: 7;
     position: absolute;
     top: -3px;
-    left: 25px; /* right: 250px; */
+    left: 23px; /* right: 250px; */
     width: auto;
     height: 56px; /* org height 64px */
     overflow: visible;
@@ -741,7 +741,7 @@ div.leftSidebarLoadingCircle {
 #leftSidebar .sidebarMenu .top.brown span {
     color: #536068; /* color: #668CA6; */ 
     }
-#leftSidebar .sidebarMenu .top.grey span {
+#leftSidebar .sidebarMenu .top.gray span {
     color: #666666;
     }
 
@@ -752,8 +752,8 @@ div.leftSidebarLoadingCircle {
 #leftSidebar .sidebarMenu.free .top.brown {
     background: url("../images/bg/sidebarMenu_freeTop_brown.png") repeat-x right top;
     }
-#leftSidebar .sidebarMenu.free .top.grey {
-    background: url("../images/bg/sidebarMenu_freeTop_grey.png") repeat-x right top;
+#leftSidebar .sidebarMenu.free .top.gray {
+    background: url("../images/bg/sidebarMenu_freeTop_gray.png") repeat-x right top;
     }
 /* fixed */
 #leftSidebar .sidebarMenu.fixed .top.blue {

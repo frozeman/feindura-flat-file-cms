@@ -25,8 +25,8 @@
 
 $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Logout::Klicke hier um dich auszuloggen.';
 
-$sharedLangFile['sortablePageList_functions_startPage']     = 'Diese Seite als Startseite festlegen';
-$sharedLangFile['sortablePageList_functions_startPage_set'] = 'Diese Seite ist die Startseite';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Diese Seite als Startseite festlegen';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'Diese Seite ist die Startseite';
 
 /* date texts */
 
@@ -51,7 +51,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'Sekunden';
 // -> ERROR TEXTs
 
 $sharedLangFile['errorWindow_h1']                           = 'Es sind Fehler aufgetreten!';
-$sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>';
+$sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>Die Startseite konnte nicht festgelegt werden.</b>';
 $sharedLangFile['EDITOR_savepage_error_save']               = '<b>Die Seite konnte nicht gespeichert werden.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'FEHLER<br /><br /><span class="logoname">fein<span>dura</span></span> benötigt mindestens PHP version'; // PHP 5.2.3
 

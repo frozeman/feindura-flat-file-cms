@@ -56,6 +56,7 @@ function openWindowBox(site,siteTitle,fixed) {
 		// send HTML request
     requestSite(site,siteTitle);
 	}
+  return false;
 }
 
 /* ---------------------------------------------------------------------------------- */

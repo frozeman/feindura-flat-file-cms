@@ -308,12 +308,12 @@ $langFile['DASHBOARD_TITLE_REFERER']                                      = 'sit
 */
 
 // ---------- PAGES SORTABLE LIST
-$langFile['sortablePageList_h1']                                          = 'contenu de ton site web';
-$langFile['sortablePageList_headText1']                                   = 'filtre';
-$langFile['sortablePageList_headText2']                                   = 'dernièrement rédigé';
-$langFile['sortablePageList_headText3']                                   = 'visiteurs';
-$langFile['sortablePageList_headText4']                                   = 'status';
-$langFile['sortablePageList_headText5']                                   = 'fonctions';
+$langFile['SORTABLEPAGELIST_h1']                                          = 'contenu de ton site web';
+$langFile['SORTABLEPAGELIST_headText1']                                   = 'filtre';
+$langFile['SORTABLEPAGELIST_headText2']                                   = 'dernièrement rédigé';
+$langFile['SORTABLEPAGELIST_headText3']                                   = 'visiteurs';
+$langFile['SORTABLEPAGELIST_headText4']                                   = 'status';
+$langFile['SORTABLEPAGELIST_headText5']                                   = 'fonctions';
 
 $langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'date sur le site web';
 $langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'tags';
@@ -322,21 +322,23 @@ $langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'lan
 $langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL']                        = 'triés par ordre alphabétique';
 $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'trié par ordre chronologique';
 
-$langFile['sortablePageList_functions_editPage']                          = 'rédiger la page';
-$langFile['sortablePageList_changeStatus_linkPage']                       = 'Cliquer ici pour changer le status du site web.';
-$langFile['sortablePageList_changeStatus_linkCategory']                   = 'Cliquer ici pour changer le status de la catégorie.';
+$langFile['SORTABLEPAGELIST_functions_editPage']                          = 'rédiger la page';
+$langFile['SORTABLEPAGELIST_changeStatus_linkPage']                       = 'Cliquer ici pour changer le status du site web.';
+$langFile['SORTABLEPAGELIST_changeStatus_linkCategory']                   = 'Cliquer ici pour changer le status de la catégorie.';
+
+$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'langues disparues';
 
 $langFile['file_error_read']                                              = '<b>lecture du site web impossible.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_setStartPage_error_save']                     .= $langFile['ERROR_SAVE_FILE'].' &quot;%sconfig/website.config.php&quot;'; // also in fr.shared.php
-$langFile['sortablePageList_changeStatusPage_error_save']                 = '<b>le status du site web ne pouvé pas être changé.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_changeStatusCategory_error_save']             = '<b>le status de la catégorie ne pouvé pas être changé.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_info']                                        = 'L\'ordre du site web peut être changé <b>ordre site web</b> par <b>Drag and Drop</b> ainsi que les pages peuvent être interchangées entre les catégories différentes.';
-$langFile['sortablePageList_save']                                        = 'sauvegarder le nouvel ordre ...';
-$langFile['sortablePageList_save_finished']                               = 'nouvel ordre sauvegardé!';
-$langFile['sortablePageList_error_save']                                  = '<b>les pages ne pouvaient pas être sauvgardées.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_read']                                  = '<b>les pages ne pouvaient pas être lus.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_move']                                  = '<b>la page ne pouvait pas être mise dans la nouvelle catégorie.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_categoryEmpty']                               = 'Keine Seiten vorhanden';
+$langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $langFile['ERROR_SAVE_FILE'].' &quot;%sconfig/website.config.php&quot;'; // also in fr.shared.php
+$langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>le status du site web ne pouvé pas être changé.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>le status de la catégorie ne pouvé pas être changé.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_info']                                        = 'L\'ordre du site web peut être changé <b>ordre site web</b> par <b>Drag and Drop</b> ainsi que les pages peuvent être interchangées entre les catégories différentes.';
+$langFile['SORTABLEPAGELIST_save']                                        = 'sauvegarder le nouvel ordre ...';
+$langFile['SORTABLEPAGELIST_save_finished']                               = 'nouvel ordre sauvegardé!';
+$langFile['SORTABLEPAGELIST_error_save']                                  = '<b>les pages ne pouvaient pas être sauvgardées.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_error_read']                                  = '<b>les pages ne pouvaient pas être lus.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_error_move']                                  = '<b>la page ne pouvait pas être mise dans la nouvelle catégorie.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Keine Seiten vorhanden';
 
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'sauvegarder';
@@ -467,7 +469,8 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Les
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'paramètres du site web';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'la page d\'acceuil peut être définie';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'La page d\'acceuil peut être définie par l\'utilisateur.[br][br]La page d\'acceuil définie sera publié, si aucune variable du site web sera transmise ou bien la page ne sera pas éxecutée.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'site multi-langue';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'site multi-langue';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Utilisez [b]double clic[/b] pour sélectionner les langues.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'La langue principale';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'La langue principale sera choisi, si aucune langue correspondante pourrait être déterminé automatiquement.';
 
@@ -713,6 +716,15 @@ $langFile['deletePage_finish_error']                                      = 'ERR
 // ---------- DELETE PAGE LANGUAGE
 
 $langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Voulez-vous vraiment supprimer la langue &quot;%s&quot; pour cette page?';
+
+/*
+* addPageLanguage.php
+*/
+
+// ---------- ADD PAGE LANGUAGE
+
+$langFile['WINDOWBOX_TEXT_ADDPAGE_SELECTLANGUAGE']                        = 'Sélectionnez la langue';
+
 
 /*
 * pageThumbnailDelete.php

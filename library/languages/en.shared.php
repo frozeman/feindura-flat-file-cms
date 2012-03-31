@@ -24,8 +24,8 @@
 // -> GENERAL <-
 
 $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Logout::Click here to logout.';
-$sharedLangFile['sortablePageList_functions_startPage']     = 'Set this page as start page';
-$sharedLangFile['sortablePageList_functions_startPage_set'] = 'This page is the start page';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'Set this page as start page';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'This page is the start page';
 
 /* date texts */
 
@@ -49,7 +49,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'seconds';
 // -> ERROR TEXTs
 
 $sharedLangFile['errorWindow_h1']                           = 'An error occured!';
-$sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>Could not set the start page.</b>';
+$sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>Could not set the start page.</b>';
 $sharedLangFile['EDITOR_savepage_error_save']               = '<b>The page could not be saved.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERROR<br /><br /><span class="logoname">fein<span>dura</span></span> requires at least PHP version'; // PHP 5.2.3
 

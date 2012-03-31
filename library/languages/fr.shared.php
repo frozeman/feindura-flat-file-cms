@@ -26,8 +26,8 @@
 
 $sharedLangFile['HEADER_BUTTON_LOGOUT']                     = 'Déconnexion::Déconnexion Cliquez ici pour être.';
 
-$sharedLangFile['sortablePageList_functions_startPage']     = 'définir cette page comme page d\'acceuil';
-$sharedLangFile['sortablePageList_functions_startPage_set'] = 'cette page est la page d\'acceuil';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage']     = 'définir cette page comme page d\'acceuil';
+$sharedLangFile['SORTABLEPAGELIST_functions_startPage_set'] = 'cette page est la page d\'acceuil';
 
 /* date texts */
 
@@ -52,7 +52,7 @@ $sharedLangFile['SEARCH_TEXT_TIME_2']                       = 'secondes';
 // -> ERROR TEXTs
 
 $sharedLangFile['errorWindow_h1']                           = 'une erreur s\'est produite!';
-$sharedLangFile['sortablePageList_setStartPage_error_save'] = '<b>activation de la page d\'accueil impossible.</b>';
+$sharedLangFile['SORTABLEPAGELIST_setStartPage_error_save'] = '<b>activation de la page d\'accueil impossible.</b>';
 $sharedLangFile['EDITOR_savepage_error_save']               = '<b>Cette page ne pouvait pas être sauvegardée.</b>';
 $sharedLangFile['ADMINSETUP_ERROR_PHPVERSION']              = 'ERREUR<br /><br /><span class="logoname">fein<span>dura</span></span> nécessite au moins la version de PHP'; // PHP 5.2.3
 

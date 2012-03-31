@@ -333,6 +333,16 @@ a.up {
     background-position: 0px 6px !important;
     }
 
+/* WINDOBOX BLOCK and TABLE */
+#windowBox .block td {
+    background: none !important;
+    font-weight: bold;
+}
+#windowBox .block td.left {
+    width: 280px;
+}
+
+
 /* --------------------------------------------- */  
 /* *** ELEMENTS */
 /* --------------------------------------------- */  
@@ -425,7 +435,7 @@ a.up {
     margin-bottom: 50px;
     background: url("../images/bg/content_blockSpacer.png") no-repeat;
     }
-    
+
 /****************/  
 /* - BLOCK and WINDOBOX Standard Links */  
 .block a, #windowBox a, a.standardLink {
@@ -576,11 +586,11 @@ div.listPagesHead {
     }
 
 .listPagesHead div.name {    
-    width: 300px;
+    width: 270px;
     padding-left: 15px;    
     }
 .listPagesHead div.name input {
-    width: 200px;
+    width: 170px;
     padding-right: 23px;
     }
 a#listPagesFilterCancel {
@@ -604,11 +614,11 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     text-align: center;
     }
 .listPagesHead div.status {
-    width: 60px;
+    width: 70px;
     text-align: center;
     }
 .listPagesHead div.functions {
-    width: 145px;
+    width: 200px;
     text-align: center;
     }
 
@@ -627,7 +637,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     }
 
 .listPages .content div.name {    
-    width: 290px;
+    width: 260px;
     padding: 6px 0px;
     }
 .listPages .content div.lastSaveDate {
@@ -641,7 +651,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     font-weight: bold;
     }
 .listPages .content div.status {
-    width: 27px;
+    width: 54px;
     padding: 3px 5px; 
     }
 .listPages .content div.functions {
@@ -665,7 +675,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     z-index: 2; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
     top: -1px;
-    left: 592px;
+    left: 538px;
     }
     
 .listPages div.category div.status {
@@ -678,7 +688,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     z-index: 6; /* fixes the problem that it hides the functions div under the h1 */
     position: absolute;
     top: 0px;
-    left: 44px;  
+    left: 174px;  
     width: 115px;
     height: 27px;
     text-align: left;
@@ -756,12 +766,22 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
 /****************/	
 /* *** PUBLI/NON-PUBLIC links for CATEGORY and PAGES*/
 
+/* LANGUAGE STATUS */
+.listPages .status span.missingLanguages {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    background: url("../images/icons/listPages_missingLanguages.png") no-repeat !important;
+}
+
 /* works for pages status and category status */
 .listPages .status a {
     display: block;
     width: 27px;
     height: 27px;
     text-decoration: none;
+    padding-left: 0px !important;
+    float: left;
     }
 
 /* for categories */

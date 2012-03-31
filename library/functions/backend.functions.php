@@ -1050,9 +1050,10 @@ function saveStatisticConfig($statisticConfig) {
  * @return void
  * 
  * 
- * @version 1.0.1
+ * @version 1.0.2
  * <br />
  * <b>ChangeLog</b><br />
+ *    - 1.0.2 add "(?:[a-z]{2}/{1})?" to allow "en/" etc.
  *    - 1.0.1 small fix with website path; add GeneralFunctions::getRealPath()
  *    - 1.0 initial release
  * 
@@ -1073,10 +1074,10 @@ function saveSpeakingUrl(&$errorWindow) {
   $newWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($_POST['cfg_websitePath'])),1);
   $oldWebsitePath = substr(GeneralFunctions::getDirname(XssFilter::path($GLOBALS['adminConfig']['websitePath'])),1);
   
-  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
-  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1 [QSA,L]';
-  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
-  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1 [QSA,L]';
+  $newRewriteRule = 'RewriteRule ^'.$newWebsitePath.'category/(?:[a-z]{2}/{1})?([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
+  $newRewriteRule .= 'RewriteRule ^'.$newWebsitePath.'page/(?:[a-z]{2}/{1})?([a-z0-9_-]+).*?$ '.XssFilter::path($_POST['cfg_websitePath']).'?page=$1 [QSA,L]';
+  $oldRewriteRule = 'RewriteRule ^'.$oldWebsitePath.'category/(?:[a-z]{2}/{1})?([a-z0-9_-]+)/([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?category=$1&page=$2 [QSA,L]'."\n";
+  $oldRewriteRule .= 'RewriteRule ^'.$oldWebsitePath.'page/(?:[a-z]{2}/{1})?([a-z0-9_-]+).*?$ '.XssFilter::path($GLOBALS['adminConfig']['websitePath']).'?page=$1 [QSA,L]';
   
   $speakingUrlCode = '#
 # feindura -flat file cms - speakingURL activation

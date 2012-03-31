@@ -333,9 +333,11 @@ function inBlockTableSlider() {
               layoutFix();
               // mootools creates an container around slideContent, so that it doesn't resize anymore automaticly, so i have to reset height auto for this container
               if(this.open) {
-                insideBlockTable.get('slide').wrapper.fade('show');
+                this.wrapper.fade('show');
+                this.wrapper.setStyle('height','auto');
               } else {
-                insideBlockTable.get('slide').wrapper.fade('hide');
+                this.wrapper.fade('hide');
+                this.wrapper.setStyle('height',insideBlockTable.getChildren('tbody').getSize().y);
               }
           });
 
@@ -529,8 +531,11 @@ function LeavingWithoutSavingWarning() {
     var href = link.get('href');
     var onclick = link.get('onclick');
 
-    // only on external links, or the sideBarMenu page selection (prevent category selection)
-    if((onclick === null || (onclick !== null && onclick.toString().substr(0,18) !== 'requestLeftSidebar')) &&
+    // only on external links (not the sideBarMenu page selection or links which open the windowBox)
+    if((onclick === null ||
+       (onclick !== null &&
+        onclick.toString().substr(0,13) !== 'openWindowBox' &&
+        onclick.toString().substr(0,18) !== 'requestLeftSidebar')) &&
         href !== null &&
         href.toString().indexOf('#') == -1) {
 
@@ -836,8 +841,8 @@ window.addEvent('domready', function() {
   var categoryOld;
   var categoryNew;
 
-  if($('sortablePageList_status') !== null)
-    var sortablePageList_status = $('sortablePageList_status').get('value').split("|");
+  if($('SORTABLEPAGELIST_status') !== null)
+    var sortablePageList_status = $('SORTABLEPAGELIST_status').get('value').split("|");
 
   var preventLink = function (){
       return false;
@@ -1074,7 +1079,7 @@ window.addEvent('domready', function() {
     });
 
     // -> ADD selected languages to the main Language and page language selection
-    $('cfg_websiteLanguageChoices').addEvent('change',function(e){
+    $('cfg_websiteLanguageChoices').addEvent('dblclick',function(e){
       // get selected languages
       var option = this.getSelected();
       // -> move the selected ones to the cfg_websiteLanguages <select>

@@ -1113,9 +1113,9 @@ class Feindura extends FeinduraBase {
   var feindura_langFile = {
     ERRORWINDOW_TITLE:      \"".$this->languageFile['errorWindow_h1']."\",
     ERROR_SAVE:             \"".$this->languageFile['EDITOR_savepage_error_save']."\",
-    ERROR_SETSTARTPAGE:     \"".$this->languageFile['sortablePageList_setStartPage_error_save']."\",
-    FUNCTIONS_STARTPAGE_SET:\"".$this->languageFile['sortablePageList_functions_startPage_set']."\",
-    FUNCTIONS_STARTPAGE:    \"".$this->languageFile['sortablePageList_functions_startPage']."\",
+    ERROR_SETSTARTPAGE:     \"".$this->languageFile['SORTABLEPAGELIST_setStartPage_error_save']."\",
+    FUNCTIONS_STARTPAGE_SET:\"".$this->languageFile['SORTABLEPAGELIST_functions_startPage_set']."\",
+    FUNCTIONS_STARTPAGE:    \"".$this->languageFile['SORTABLEPAGELIST_functions_startPage']."\",
     FUNCTIONS_EDITPAGE:     \"".$this->languageFile['PAGEFUNCTIONS_TIP_EDITINBACKEND']."\",
     BUTTON_LOGOUT:          \"".$this->languageFile['HEADER_BUTTON_LOGOUT']."\",
     BUTTON_GOTOBACKEND:     \"".$this->languageFile['HEADER_TIP_GOTOBACKEND']."\"

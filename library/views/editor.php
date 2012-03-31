@@ -27,6 +27,9 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 // -> available VARs from the editor.controller.php
 // $pageTitle
 
+// -> available VARs from index.php -> subMenu
+// $missingLanguages
+
 
 // ->> SHOW the FORM
 echo '<form action="index.php?category='.$_GET['category'].'&amp;page='.$_GET['page'].'" method="post" accept-charset="UTF-8" id="editorForm" class="Page'.$_GET['page'].'">
@@ -75,7 +78,7 @@ if($newPage) {
 // -> checks for startpage, and show STARTPAGE ICON
 if($adminConfig['setStartPage'] && $pageContent['id'] == $websiteConfig['startPage']) {
   $startPageIcon = '<img src="library/images/icons/startPageIcon_middle.png" width="33" height="30" />';
-  $startPageTitle = ' toolTip" title="'.$langFile['sortablePageList_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
+  $startPageTitle = ' toolTip" title="'.$langFile['SORTABLEPAGELIST_functions_startPage_set'].'::" style="line-height:left;'; //" comes in the h1
 }
 
 // shows the text of the sorting of a CATEGORY
@@ -240,11 +243,11 @@ echo '<h1 class="'.$headerColorClass.$startPageTitle.'">'.$newPageIcon.$startPag
                   echo '<br>';
                 }
                 // list not yet existing languages of the page
-                foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-                  if(!array_key_exists($langCode, $pageContent['localization'])) {
-                    echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'addLanguage')).'" class="image grey" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> <s>'.$languageCodes[$langCode].'</s></a>';
-                    if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" />';
-                    echo '<br>';
+                if($missingLanguages) {
+                  foreach ($missingLanguages as $langCode) {
+                      echo '<a href="'.GeneralFunctions::addParameterToUrl(array('websiteLanguage','status'),array($langCode,'addLanguage')).'" class="image gray" style="font-size:12px;"><img src="'.getFlag($langCode).'" class="flag"> <s>'.$languageCodes[$langCode].'</s></a>';
+                      if($_SESSION['feinduraSession']['websiteLanguage'] == $langCode) echo '<img src="library/images/icons/edited_small.png" style="position:absolute; margin-top:1px;" />';
+                      echo '<br>';
                   }
                 }
           echo '</td>

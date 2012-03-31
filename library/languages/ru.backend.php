@@ -321,12 +321,12 @@ $langFile['DASHBOARD_TITLE_REFERER']                                      = 'И�
 */
 
 // ---------- PAGES SORTABLE LIST
-$langFile['sortablePageList_h1']                                          = 'Содержание сайта';
-$langFile['sortablePageList_headText1']                                   = 'фильтр';
-$langFile['sortablePageList_headText2']                                   = 'Редактировалось';
-$langFile['sortablePageList_headText3']                                   = 'Визитов';
-$langFile['sortablePageList_headText4']                                   = 'Статус';
-$langFile['sortablePageList_headText5']                                   = 'Операции';
+$langFile['SORTABLEPAGELIST_h1']                                          = 'Содержание сайта';
+$langFile['SORTABLEPAGELIST_headText1']                                   = 'фильтр';
+$langFile['SORTABLEPAGELIST_headText2']                                   = 'Редактировалось';
+$langFile['SORTABLEPAGELIST_headText3']                                   = 'Визитов';
+$langFile['SORTABLEPAGELIST_headText4']                                   = 'Статус';
+$langFile['SORTABLEPAGELIST_headText5']                                   = 'Операции';
 
 $langFile['SORTABLEPAGELIST_TIP_PAGEDATE']                                = 'Дата';
 $langFile['SORTABLEPAGELIST_TIP_TAGS']                                    = 'Таги';
@@ -335,23 +335,25 @@ $langFile['SORTABLEPAGELIST_TIP_LOCALIZATION']                            = 'Я�
 $langFile['SORTABLEPAGELIST_TIP_SORTALPHABETICAL']                        = 'сортировать по алфавиту';
 $langFile['SORTABLEPAGELIST_TIP_SORTBYPAGEDATE']                          = 'сортировать по дате';
 
-$langFile['sortablePageList_functions_editPage']                          = 'Редактировать';
+$langFile['SORTABLEPAGELIST_functions_editPage']                          = 'Редактировать';
 
-$langFile['sortablePageList_changeStatus_linkPage']                       = 'Нажмите что бы изменить статус страницы.';
-$langFile['sortablePageList_changeStatus_linkCategory']                   = 'Нажмите что бы изменить статус категории';
+$langFile['SORTABLEPAGELIST_changeStatus_linkPage']                       = 'Нажмите что бы изменить статус страницы.';
+$langFile['SORTABLEPAGELIST_changeStatus_linkCategory']                   = 'Нажмите что бы изменить статус категории';
+
+$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING']                     = 'Отсутствует языках';
 
 $langFile['file_error_read']                                              = '<b>Не удается прочесть страницу.</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_setStartPage_error_save']                     .= $langFile['ERROR_SAVE_FILE'].' &quot;%sconfig/website.config.php&quot;'; // also in en.shared.php
-$langFile['sortablePageList_changeStatusPage_error_save']                 = '<b>Не удается изменить статус страницы.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_changeStatusCategory_error_save']             = '<b>Не удается изменить статус категории.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_setStartPage_error_save']                     .= $langFile['ERROR_SAVE_FILE'].' &quot;%sconfig/website.config.php&quot;'; // also in en.shared.php
+$langFile['SORTABLEPAGELIST_changeStatusPage_error_save']                 = '<b>Не удается изменить статус страницы.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_changeStatusCategory_error_save']             = '<b>Не удается изменить статус категории.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
 
-$langFile['sortablePageList_info']                                        = 'Вы можете менять порядок <b>сортировки</b> используя принцип <b>Нажми & Тащи</b> :)';
-$langFile['sortablePageList_save']                                        = 'Сохранение сортировки ...';
-$langFile['sortablePageList_save_finished']                               = 'Порядок сортировки изменен!';
-$langFile['sortablePageList_error_save']                                  = '<b>Не удается сохранить страницу.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_read']                                  = '<b>Страницы не читаются!</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_error_move']                                  = '<b>Не удается переместить страницу в новую категорию.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
-$langFile['sortablePageList_categoryEmpty']                               = 'Нет страниц';
+$langFile['SORTABLEPAGELIST_info']                                        = 'Вы можете менять порядок <b>сортировки</b> используя принцип <b>Нажми & Тащи</b> :)';
+$langFile['SORTABLEPAGELIST_save']                                        = 'Сохранение сортировки ...';
+$langFile['SORTABLEPAGELIST_save_finished']                               = 'Порядок сортировки изменен!';
+$langFile['SORTABLEPAGELIST_error_save']                                  = '<b>Не удается сохранить страницу.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_error_read']                                  = '<b>Страницы не читаются!</b>'.$langFile['ERROR_READ_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_error_move']                                  = '<b>Не удается переместить страницу в новую категорию.</b>'.$langFile['ERROR_SAVE_FOLDER_PART1'].'%spages/'.$langFile['ERROR_FOLDER_PART2'];
+$langFile['SORTABLEPAGELIST_categoryEmpty']                               = 'Нет страниц';
 
 // ---------- FORMULAR
 $langFile['FORM_BUTTON_SUBMIT']                                           = 'Сохранить';
@@ -489,7 +491,8 @@ $langFile['PAGESETUP_PAGES_TIP_TAG']                                      = 'Tag
 $langFile['PAGESETUP_PAGES_TITLE_PAGESETTINGS']                           = 'Настройки страниц';
 $langFile['PAGESETUP_PAGES_TEXT_SETSTARTPAGE']                            = 'Установка главной страницы';
 $langFile['PAGESETUP_PAGES_TIP_SETSTARTPAGE']                             = 'Дает возможность установить любую страницу в качестве главной (стартовой).[br][br]Стартовая страница выводится если запрос в [i]$_GET[/i] пуст.';
-$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                      = 'Мульти язык сайта';
+$langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']                    = 'Мульти язык сайта';
+$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE']                     = 'Используйте [b]двойной клик[/b] для выбора языка.';
 $langFile['PAGESETUP_PAGES_TEXT_MAINLANGUAGE']                            = 'Основной язык';
 $langFile['PAGESETUP_PAGES_TIP_MAINLANGUAGE']                             = 'Основной язык будет выбран, если нет соответствующего языка может быть определен автоматически.';
 
@@ -750,6 +753,16 @@ $langFile['deletePage_finish_error']                                      = 'О�
 // ---------- DELETE PAGE LANGUAGE
 
 $langFile['WINDOWBOX_TEXT_DELETEPAGELANGUAGE_QUESTION']                   = 'Вы действительно хотите удалить язык &quot;%s&quot; на этой странице?';
+
+
+/*
+* addPageLanguage.php
+*/
+
+// ---------- ADD PAGE LANGUAGE
+
+$langFile['WINDOWBOX_TEXT_ADDPAGE_SELECTLANGUAGE']                        = 'Выберите язык';
+
 
 /*
 * pageThumbnailDelete.php

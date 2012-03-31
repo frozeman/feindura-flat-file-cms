@@ -53,7 +53,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
         $tabIndex++;
       }
     } else {
-      echo '<li><a href="#" onclick="return false;"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+      echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
     }
       
   echo '</ul>          
@@ -98,7 +98,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
     echo '<div class="spacer arrow"></div>';
     
     echo '<div class="sidebarMenu free">
-    <div class="top grey"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$categoryConfig[$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.$categoryConfig[$_GET['category']]['name'].'::">&nbsp;</a></div>
+    <div class="top gray"><img src="library/images/icons/pageIcon_middle.png" class="icon" alt="icon" width="35" height="35" /><span>'.$categoryConfig[$_GET['category']]['name'].'</span><a href="#" class="toolTip" title="'.$langFile['SIDEBARMENU_TITLE_PAGES'].' '.$categoryConfig[$_GET['category']]['name'].'::">&nbsp;</a></div>
     <div class="content white">
       <ul class="verticalButtons">';      
       
@@ -114,7 +114,7 @@ if((!empty($_GET['page']) && empty($_GET['site'])) || $_GET['site'] == 'pages') 
           $tabIndex++;
         }       
       } else {
-        echo '<li><a href="#" onclick="return false;"><span>'.$langFile['sortablePageList_categoryEmpty'].'</span></a></li>';
+        echo '<li><a href="#" onclick="return false;"><span>'.$langFile['SORTABLEPAGELIST_categoryEmpty'].'</span></a></li>';
       }        
     echo '</ul>          
       </div>

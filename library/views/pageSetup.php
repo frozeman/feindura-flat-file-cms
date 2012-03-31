@@ -84,15 +84,15 @@ $hidden = ($savedForm != 'generalPageConfig') ? ' hidden' : '';
       <tr><td class="spacer checkboxes"></td><td>
 
       <tr><td class="left checkboxes">
-      <input type="checkbox" id="cfg_multiLanguageWebsite" name="cfg_multiLanguageWebsite" value="true" <?php if($adminConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> />
+      <input type="checkbox" id="cfg_multiLanguageWebsite" name="cfg_multiLanguageWebsite" value="true" <?php if($adminConfig['multiLanguageWebsite']['active']) echo ' checked="checked"'; ?> class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>" />
       </td><td class="right checkboxes">
-      <label for="cfg_multiLanguageWebsite"><?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']; ?></label>
+      <label for="cfg_multiLanguageWebsite" class="toolTip" title="<?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE'].'::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>"><?= $langFile['PAGESETUP_PAGES_TEXT_MULTILANGUAGEWEBSITE']; ?></label>
       </td></tr>
 
       <!-- Website Language Selection -->
       <tr><td class="left checkboxes">
       </td><td class="right checkboxes">
-      <select id="cfg_websiteLanguageChoices" name="cfg_websiteLanguageChoices[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?>>
+      <select id="cfg_websiteLanguageChoices" name="cfg_websiteLanguageChoices[]" multiple="multiple"<?php if(!$adminConfig['multiLanguageWebsite']['active']) echo ' disabled="disabled"'; ?> class="toolTip" title="<?= '::'.$langFile['PAGESETUP_PAGES_TIP_MULTILANGUAGEWEBSITE'] ; ?>">
       <?php
         foreach($languageCodes as $langKey => $langValue) {
           if(!in_array($langKey, $adminConfig['multiLanguageWebsite']['languages']))
@@ -584,6 +584,8 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
                 <col class="left" />
                 </colgroup>
                 
+                <tbody>
+
                 <tr><td class="leftTop"></td><td><span class="hint">'.$langFile['PAGESETUP_CATEGORY_HINT_ADVANCEDSETTINGS'].'</span></td></tr>';
           
           echo '<tr><td class="left">
@@ -667,6 +669,7 @@ $hidden = ($savedForm !== false && $savedForm != 'nonCategoryPages') ? ' hidden'
           
           // finish the TABLE for one category
           echo '<tr><td class="leftBottom"></td><td></td></tr>
+                </tbody>
                 </table>';
           
           // SUBMIT: IF advancedConfigTable has not Class "hidden" it stores the categoryId in the savedCategory input
