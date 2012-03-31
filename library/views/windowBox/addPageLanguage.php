@@ -64,21 +64,20 @@ $question .= '</select>
 
 // DELETING PROCESS
 if($_POST['asking']) {
-  // load the page
-  $pageContent = GeneralFunctions::readPage($page,$category);
 
-  unset($pageContent['localization'][$language]);
+  if($_POST['useLanguageSelection'] != 'none')
+    $pageContent['localization'][$_POST['addLanguageSelection']] = $pageContent['localization'][$_POST['useLanguageSelection']];
+  else
+    $pageContent['localization'][$_POST['addLanguageSelection']] = array();
+
 
   if(GeneralFunctions::savePage($pageContent)) {
-    StatisticFunctions::saveTaskLog(array(32,$languageCodes[$language]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
-
-    // ->> save the FEEDS, if activated
-    GeneralFunctions::saveFeeds($pageContent['category']);
+    StatisticFunctions::saveTaskLog(array(33,$languageCodes[$_POST['addLanguageSelection']]),'page='.$pageContent['id']); // <- SAVE the task in a LOG FILE
     
     $question = '';
     echo 'DONTSHOW';        
     // create redirect
-    $redirect = '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'&websiteLanguage='.key($pageContent['localization']).'#pageInformation';
+    $redirect = '?category='.$category.'&page='.$page.'&status=reload'.rand(1,99).'&websiteLanguage='.$_POST['addLanguageSelection'];
       
     // redirect
     echo '<script type="text/javascript">/* <![CDATA[ */closeWindowBox(\'index.php'.$redirect.'\');/* ]]> */</script>';
@@ -88,18 +87,18 @@ if($_POST['asking']) {
 
 }
 
-echo $question;
-
 if(!$asking) {
 
 ?>
 <div>
-<form action="?site=deletePageLanguage" method="post" enctype="multipart/form-data" id="deletePageLanguageForm" onsubmit="requestSite('<?= $_SERVER['PHP_SELF']; ?>','','deletePageLanguageForm');return false;" accept-charset="UTF-8">
+<form action="?site=addPageLanguage" method="post" enctype="multipart/form-data" id="addPageLanguageForm" onsubmit="requestSite('<?= $_SERVER['PHP_SELF']; ?>','','addPageLanguageForm');return false;" accept-charset="UTF-8">
 <input type="hidden" name="category" value="<?= $category; ?>" />
 <input type="hidden" name="page" value="<?= $page; ?>" />
-<input type="hidden" name="language" value="<?php echo $language; ?>" />
 <input type="hidden" name="asking" value="true" />
 
+<?php
+echo $question;
+?>
 
 <a href="?site=pages&amp;category=<?= $category; ?>&amp;page=<?php echo $page; ?>" class="cancel" onclick="closeWindowBox();return false;">&nbsp;</a>
 <input type="submit" value="" class="button submit" />

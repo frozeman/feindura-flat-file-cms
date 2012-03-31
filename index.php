@@ -407,9 +407,9 @@ if($_GET['site'] == 'addons') {
     // -> use the languages of the page
     $currentlanguageSlection = (isset($pageContent['localization'])) ? array_keys($pageContent['localization']) : $adminConfig['multiLanguageWebsite']['languages'];
 
-    // -> add new language to the page languages selection, if status is "addLanguage"
+    // -> add new language to the page languages selection, if $_GET['status'] = "addLanguage"
     if($addLanguage)
-      $currentlanguageSlection = $adminConfig['multiLanguageWebsite']['languages'] + array_keys($pageContent['localization']);
+      $currentlanguageSlection = array_unique(array_merge($adminConfig['multiLanguageWebsite']['languages'],array_keys($pageContent['localization'])));
     $_SESSION['feinduraSession']['websiteLanguage'] = in_array($_SESSION['feinduraSession']['websiteLanguage'], $currentlanguageSlection) ? $_SESSION['feinduraSession']['websiteLanguage']: $adminConfig['multiLanguageWebsite']['mainLanguage']; //current($currentlanguageSlection);
 
     // if NEW PAGE, overwrite with the mainLanguage
@@ -504,7 +504,7 @@ if($_GET['site'] == 'addons') {
 
 
             // PAGE LANGUAGE SELECTION with
-            if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages'])) {
+            if($adminConfig['multiLanguageWebsite']['active'] && !empty($adminConfig['multiLanguageWebsite']['languages']) && (!isset($pageContent) || !empty($pageContent['localization']))) {
               ?>
               <li class="spacer">&nbsp;</li>
               <li>

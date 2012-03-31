@@ -1,7 +1,7 @@
 feindura - Flat File Content Management System
 Version
 1.1.6
-Build 825
+Build 826
 ==================================================
 Copyright (C) Fabian Vogelsteller [frozeman.de]
 published under the GNU General Public License version 3
@@ -22,6 +22,7 @@ if not, see <http://www.gnu.org/licenses>.
 ChangeLog:
 ---------
   
+  build 826: finished add language dialog
   build 825: add missing languages icon; add add language windowBox (not finished yet)
   build 824: add not yet existing languages listing also to listPages.php
   build 823: fixed language selection
