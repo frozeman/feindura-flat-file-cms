@@ -771,7 +771,7 @@ a#listPagesFilterCancel:hover, a#listPagesFilterCancel:focus {
     display: inline-block;
     width: 27px;
     height: 27px;
-    background: url("../images/icons/listPages_missingLanguages.png") no-repeat !important;
+    background: url("../images/icons/missingLanguages_small.png") no-repeat !important;
 }
 
 /* works for pages status and category status */

@@ -122,15 +122,15 @@ $langFile['STATISTICS_TEXT_SEARCHWORD_PART2']                             = 'mal
 $langFile['STATISTICS_TOOLTIP_SEARCHWORD']                                = 'Anklicken um nach diesem Suchwort in allen Seiten zu suchen.';
 
 $langFile['STATISTICS_TEXT_VISITORCOUNT']                                 = 'Besucher';
-$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'aktuelle Besucher';
-$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'letzte Aktivität';
+$langFile['STATISTICS_TEXT_CURRENTVISITORS']                              = 'Aktuelle Besucher';
+$langFile['STATISTICS_TEXT_LASTACTIVITY']                                 = 'Letzte Aktivität';
 
 $langFile['STATISTICS_TITLE_PAGESTATISTICS']                              = 'Seiten Statistiken';
 
-$langFile['STATISTICS_TEXT_VISITTIME_MAX']                                = 'längste Verweildauer';
-$langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'kürzeste Verweildauer';
-$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'erster Besuch';
-$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'letzter Besuch';
+$langFile['STATISTICS_TEXT_VISITTIME_MAX']                                = 'Längste Verweildauer';
+$langFile['STATISTICS_TEXT_VISITTIME_MIN']                                = 'Kürzeste Verweildauer';
+$langFile['STATISTICS_TEXT_FIRSTVISIT']                                   = 'Erster Besuch';
+$langFile['STATISTICS_TEXT_LASTVISIT']                                    = 'Letzter Besuch';
 $langFile['STATISTICS_TEXT_NOVISIT']                                      = 'Es hat noch niemand diese Seite besucht.';
 $langFile['STATISTICS_TEXT_SEARCHWORD_DESCRIPTION']                       = 'Suchworte die von
 <a href                                                                   ="http://www.google.de">Google</a>,
@@ -311,13 +311,13 @@ $langFile['DASHBOARD_TEXT_WELCOME']                                       = '<sp
 $langFile['DASHBOARD_TITLE_STATISTICS']                                   = 'Webseiten-Statistik';
 
 $langFile['DASHBOARD_TITLE_USER']                                         = 'Benutzer';
-$langFile['DASHBOARD_TITLE_ACTIVITY']                                     = 'letzte Tätigkeiten';
-$langFile['DASHBOARD_TEXT_ACTIVITY_NONE']                                 = 'keine';
+$langFile['DASHBOARD_TITLE_ACTIVITY']                                     = 'Letzte Tätigkeiten';
+$langFile['DASHBOARD_TEXT_ACTIVITY_NONE']                                 = 'Keine';
 
-$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED']                       = 'meist besuchte Seiten';
-$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED']                       = 'zuletzt besuchte Seiten';
-$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED']                        = 'zuletzt bearbeitete Seiten';
-$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED']                     = 'am längsten betrachtete Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_MOSTVISITED']                       = 'Meist besuchte Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTVISITED']                       = 'Zuletzt besuchte Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LASTEDITED']                        = 'Zuletzt bearbeitete Seiten';
+$langFile['DASHBOARD_TITLE_STATISTICS_LONGESTVIEWED']                     = 'Am längsten betrachtete Seiten';
 
 $langFile['DASHBOARD_TITLE_REFERER']                                      = 'Webseiten von denen die letzten Besucher gekommen sind';
 

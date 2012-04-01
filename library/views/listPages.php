@@ -176,9 +176,9 @@ foreach($allCategories as $category) {
         }
         // list not yet existing languages of the page
         foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-          if(!array_key_exists($langCode, $pageContent['localization'])) {
+          if(!isset($pageContent['localization'][$langCode])) {
             $toolTipPageLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] [span class=gray][s]'.$languageCodes[$langCode].'[/s][/span]';
-            $missingLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode].'';
+            $missingLanguages .= ' [br][img src='.getFlag($langCode).' class=flag] '.$languageCodes[$langCode];
           }
         }
       }

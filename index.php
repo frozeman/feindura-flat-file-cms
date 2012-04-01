@@ -422,9 +422,8 @@ if($_GET['site'] == 'addons') {
     if($isInPageEditor) {
       $missingLanguages = false;
       foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
-        if(!array_key_exists($langCode, $pageContent['localization'])) {
+        if(!isset($pageContent['localization'][$langCode]))
           $missingLanguages[] = $langCode;
-        }
       }
     } else
       $missingLanguages = false;

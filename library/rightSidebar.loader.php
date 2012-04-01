@@ -35,7 +35,7 @@ switch($_GET['site']) {
       echo '<div class="bottom"></div></div>';
     break;
     
-  // ***** adminSetup sideBar -------------------------------------------- *********
+  // ***** statisticSetup sideBar -------------------------------------------- *********
   case 'statisticSetup':    
     if($deletedStatistics) {
       echo '<div id="rightSidebarMessageBox">';
@@ -46,15 +46,36 @@ switch($_GET['site']) {
       echo '<div class="bottom"></div></div>';
     }
     break;
+
+  // ***** websiteSetup sideBar -------------------------------------------- *********
+  case 'websiteSetup':
+    if($adminConfig['multiLanguageWebsite']['languages'] != array_keys($websiteConfig['localization'])) {
+      echo '<div id="rightSidebarMessageBox">';
+        echo '<div class="content">';
+        echo '<img src="library/images/icons/missingLanguages.png" class="hintIcon" width="50" height="50" />';
+        echo '<h1>'.$langFile['SORTABLEPAGELIST_TOOLTIP_LANGUAGEMISSING'].'</h1>';
+        echo '<ul class="flags">';
+        foreach ($adminConfig['multiLanguageWebsite']['languages'] as $langCode) {
+          if(!isset($websiteConfig['localization'][$langCode])) {
+            echo '<li><img src="'.getFlag($langCode).'" class="flag"> <a href="'.GeneralFunctions::addParameterToUrl('websiteLanguage',$langCode).'" class="standardLink">'.$languageCodes[$langCode].'</a></li>';
+          }
+        }
+        echo '</ul>';
+        echo '</div>';
+      echo '<div class="bottom"></div></div>';
+    }
+    break; 
     
   // ***** DEFAULT --------------------------------------------------------- *********
   default:
     $currentVisitorFullDetail = false;
     $currentVisitors = include('library/includes/currentVisitors.include.php');
     if($currentVisitors) {
-        echo '<div id="currentVisitorsSideBar">';
+        echo '<div id="rightSidebarMessageBox">';
+        echo '<div class="content">';
         echo $currentVisitors;
         echo '</div>';
+        echo '<div class="bottom"></div></div>';
     }
     break;
     
