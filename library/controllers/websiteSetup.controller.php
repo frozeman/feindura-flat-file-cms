@@ -26,8 +26,20 @@ require_once(dirname(__FILE__)."/../includes/secure.include.php");
 if(isset($_POST['send']) && $_POST['send'] ==  'websiteSetup') {
 
     // gets the startPage var and put it in the POST var
-    $_POST['startPage'] = $websiteConfig['startPage'];
-    $_POST['copyright'] = $_POST['websiteConfig_copyright'];
+    $_POST['startPage']    = $websiteConfig['startPage'];
+    $_POST['localization'] = $websiteConfig['localization'];
+
+    // STORE LOCALIZED CONTENT
+    $_POST['localization'][$_POST['websiteLanguage']]['title']       = $_POST['title'];
+    $_POST['localization'][$_POST['websiteLanguage']]['publisher']   = $_POST['publisher'];
+    $_POST['localization'][$_POST['websiteLanguage']]['copyright']   = $_POST['websiteConfig_copyright'];
+    $_POST['keywords']                                               = str_replace(";", ',', $_POST['keywords']);
+    $_POST['localization'][$_POST['websiteLanguage']]['keywords']    = preg_replace("# +#", ' ', $_POST['keywords']);
+    $_POST['localization'][$_POST['websiteLanguage']]['description'] = $_POST['description'];
+    
+    // delete unnecessary variables
+    unset($_POST['title'],$_POST['publisher'],$_POST['websiteConfig_copyright'],$_POST['keywords'],$_POST['description']);
+
     if(saveWebsiteConfig($_POST)) {
       // give documentSaved status
       $documentSaved = true;

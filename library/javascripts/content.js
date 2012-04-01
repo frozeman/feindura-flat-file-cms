@@ -25,6 +25,20 @@ var HTMLEditor;
 
 /* GENERAL FUNCTIONS */
 
+// add parameter to a url
+function addParameterToUrl(key,value) {
+
+  var parameter = '';
+  var newLocation = window.location.href;
+  if(window.location.href.indexOf('#') != -1) {
+    newLocation = window.location.href.substr(0,window.location.href.indexOf('#'));
+    parameter = window.location.href.substr(window.location.href.indexOf('#'));
+  }
+  newLocation = (newLocation.indexOf('&'+key) != -1) ? newLocation.substr(0,newLocation.indexOf('&'+key)) : newLocation;
+  newLocation += '&'+key + '=' + value + parameter;
+
+  return newLocation;
+}
 
 // *** ->> TOOLTIPS - functions -----------------------------------------------------------------------------------------------------------------------
 
@@ -1172,12 +1186,12 @@ window.addEvent('domready', function() {
     });
   }
 
-  // -> CHANGE WEBSITE LANGUAGE
+  // -> CHANGE WEBSITE LANGUAGE through SELECTION
   if($('websiteLanguageSelection') !== null) {
-    $('websiteLanguageSelection').addEvent('change',function(){
-      var language = this.getSelected();
-      newLocation = (window.location.href.indexOf('&websiteLanguage') != -1) ? window.location.href.substr(0,window.location.href.indexOf('&websiteLanguage')) : window.location.href;
-      newLocation += '&websiteLanguage=' + language.get('value');
+    $('websiteLanguageSelection').addEvent('change',function() {
+
+      var language = this.getSelected().get('value');
+      var newLocation = addParameterToUrl('websiteLanguage',language);
 
       if(pageContentChanged)
         openWindowBox('library/views/windowBox/unsavedPage.php?target=' + escape(newLocation),false,false);

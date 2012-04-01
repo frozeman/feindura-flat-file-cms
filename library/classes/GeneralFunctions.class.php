@@ -605,11 +605,11 @@ class GeneralFunctions {
    * <b>Used Global Variables</b><br />
    *   - <var>$_GET['status']</var> if the value is "addLanguage", it forces to load the <var>$languageCode</var> parameter
    *  
-   * @param array        $pageContent    the $pageContent array of a page
-   * @param string       $value          the anme of the value, which should be returned localized
-   * @param bool         $forceLanguage  if TRUE the language will be forced to be loaded, even if it does not exist
+   * @param array        $localizationArray   a localized array in the form of: array('de' => .. , 'en' => .. )
+   * @param string       $value               the anme of the value, which should be returned localized
+   * @param bool         $forceLanguage       if TRUE the language will be forced to be loaded, even if it does not exist
    *   
-   * @return string the localized value of the given <var>$pageContentValue</var> parameter
+   * @return string the localized value of the given <var>$localizationArray</var> parameter
    * 
    * 
    * @static
@@ -619,23 +619,23 @@ class GeneralFunctions {
    *    - 1.0 initial release
    * 
    */
-  public static function getLocalized($pageContent, $value, $forceLanguage = false) {
+  public static function getLocalized($localizationArray, $value, $forceLanguage = false) {
 
     // var
     $languageCode = $_SESSION['feinduraSession']['websiteLanguage'];
     
     // get the one matching $GLOBALS['websiteLanguage']
-    if(isset($pageContent['localization'][$languageCode]) || $forceLanguage)
-      $localizedValues = $pageContent['localization'][$languageCode];
+    if(isset($localizationArray[$languageCode]) || $forceLanguage)
+      $localizedValues = $localizationArray[$languageCode];
     // if not get the one matching the "Main Language"
-    elseif(isset($pageContent['localization'][self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
-      $localizedValues = $pageContent['localization'][self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
+    elseif(isset($localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']]))
+      $localizedValues = $localizationArray[self::$adminConfig['multiLanguageWebsite']['mainLanguage']];
     // if not get the first one in the localized array
-    elseif(is_array($pageContent['localization']))
-      $localizedValues = current($pageContent['localization']);
+    elseif(is_array($localizationArray))
+      $localizedValues = current($localizationArray);
     // legacy fallback
     else
-      return $pageContent[$value];
+      return $localizationArray[$value];
 
     return $localizedValues[$value];
   }
@@ -836,20 +836,22 @@ class GeneralFunctions {
     $fileContent .= "\$pageContent['styleId'] =            '".XssFilter::string($pageContent['styleId'])."';\n";
     $fileContent .= "\$pageContent['styleClass'] =         '".XssFilter::string($pageContent['styleClass'])."';\n\n";
 
-    // localized
-    foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
+    // save localized
+    if(is_array($pageContent['localization'])) {
+      foreach ($pageContent['localization'] as $langCode => $pageContentLocalized) {
 
-      // remove the '' when its 0 (for non localized pages)
-      $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
+        // remove the '' when its 0 (for non localized pages)
+        $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
 
-      $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
-      $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
-      $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['before'] = '".XssFilter::text($pageContentLocalized['pageDate']['before'])."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['pageDate']['after'] =  '".XssFilter::text($pageContentLocalized['pageDate']['after'])."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['tags'] =               '".XssFilter::text(trim(preg_replace("#[\;,]+#", ',', $pageContentLocalized['tags']),','))."';\n\n";
 
-      $fileContent .= "\$pageContent['localization'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
-      $fileContent .= "\$pageContent['localization'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['title'] =              '".self::htmLawed(strip_tags($pageContentLocalized['title'],'<a><span><em><strong><i><b><abbr><code><samp><kbd><var>'))."';\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['description'] =        '".XssFilter::text($pageContentLocalized['description'])."';\n\n";
 
-      $fileContent .= "\$pageContent['localization'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+        $fileContent .= "\$pageContent['localization'][".$langCode."]['content'] = '".trim(self::htmLawed($pageContentLocalized['content']))."';\n\n";
+      }
     }
     
     $fileContent .= "return \$pageContent;";
@@ -1656,7 +1658,7 @@ class GeneralFunctions {
         $href .= self::urlEncode(self::$categoryConfig[$category]['name']).'/';
 
       // add PAGE NAME
-      $href .= self::urlEncode(GeneralFunctions::getLocalized($pageContent,'title',$languageCode));
+      $href .= self::urlEncode(GeneralFunctions::getLocalized($pageContent['localization'],'title',$languageCode));
       //$href .= '/'; //'.html';
       
       if($sessionId)

@@ -152,7 +152,7 @@ foreach($allCategories as $category) {
       }
       
       // shorten the title
-      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent,'title')),27);
+      $title = GeneralFunctions::shortenString(strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title')),27);
       $visitorCount = GeneralFunctions::shortenString(StatisticFunctions::formatHighNumber($pageStatistics['visitorCount']),12);
       
       // -> show lastSaveDate
@@ -162,7 +162,7 @@ foreach($allCategories as $category) {
       $toolTipPageDate = showPageDate($pageContent);
       
       // -> generate tags for toolTip
-      $localizedTags = GeneralFunctions::getLocalized($pageContent,'tags');
+      $localizedTags = GeneralFunctions::getLocalized($pageContent['localization'],'tags');
       if($category['showTags'] && !empty($localizedTags)) {
         $toolTipTags = '[br]';
         $toolTipTags .= '[b]'.$langFile['SORTABLEPAGELIST_TIP_TAGS'].':[/b] '.$localizedTags;
@@ -199,7 +199,7 @@ foreach($allCategories as $category) {
       
       echo '<div class="name">
             <a href="?category='.$category['id'].'&amp;page='.$pageContent['id'].'" class="toolTip'.$activeStartPage.'"
-            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))).'::
+            title="'.str_replace(array('[',']','<','>','"'),array('(',')','(',')','&quot;'),strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title'))).'::
             '.$startPageText.'[b]ID:[/b] '.$pageContent['id'].$toolTipPageDate.$toolTipTags.$toolTipPageLanguages.'">
             <b>'.$title.'</b>
             </a></div>';

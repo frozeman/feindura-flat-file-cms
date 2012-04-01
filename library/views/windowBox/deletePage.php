@@ -39,7 +39,7 @@ $categoryPath = ($category == 0) ? '' : $category.'/';
 
 // QUESTION
 if(is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'.php')) {
-  $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent,'title')).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
+  $question = '<h1 class="red">'.$langFile['deletePage_question_part1'].' &quot;<span style="color:#000000;">'.strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title')).'</span>&quot; '.$langFile['deletePage_question_part2'].'</h1>';
 
 // NOT EXISTING
 } else {
@@ -65,7 +65,7 @@ if($asking && is_file(dirname(__FILE__).'/../../../pages/'.$categoryPath.$page.'
       @unlink(DOCUMENTROOT.$adminConfig['uploadPath'].$adminConfig['pageThumbnail']['path'].$pageContent['thumbnail']);
     
     GeneralFunctions::removeStoredPage($pageContent['id']); // REMOVES the $pageContent array from the $storedPages property
-    StatisticFunctions::saveTaskLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent,'title'))); // <- SAVE the task in a LOG FILE
+    StatisticFunctions::saveTaskLog(2,strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title'))); // <- SAVE the task in a LOG FILE
     
     $question = '';
     echo 'DONTSHOW';        

@@ -952,13 +952,22 @@ function saveWebsiteConfig($websiteConfig) {
     $fileContent = '';
     $fileContent .= PHPSTARTTAG; //< ?php
 
-    $fileContent .= "\$websiteConfig['title']          = '".XssFilter::text($websiteConfig['title'])."';\n";
-    $fileContent .= "\$websiteConfig['publisher']      = '".XssFilter::text($websiteConfig['publisher'])."';\n";
-    $fileContent .= "\$websiteConfig['copyright']      = '".XssFilter::text($websiteConfig['copyright'])."';\n";
-    $fileContent .= "\$websiteConfig['keywords']       = '".XssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $websiteConfig['keywords']),','))."';\n";
-    $fileContent .= "\$websiteConfig['description']    = '".XssFilter::text($websiteConfig['description'])."';\n\n";
-    
     $fileContent .= "\$websiteConfig['startPage']      = ".XssFilter::int($websiteConfig['startPage'],0).";\n\n";
+
+    // save localized
+    if(is_array($websiteConfig['localization'])) {
+      foreach ($websiteConfig['localization'] as $langCode => $websiteConfigLocalized) {
+
+        // remove the '' when its 0 (for non localized pages)
+        $langCode = (is_numeric($langCode)) ? $langCode : "'".$langCode."'";
+
+        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['title']          = '".XssFilter::text($websiteConfigLocalized['title'])."';\n";
+        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['publisher']      = '".XssFilter::text($websiteConfigLocalized['publisher'])."';\n";
+        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['copyright']      = '".XssFilter::text($websiteConfigLocalized['copyright'])."';\n";
+        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['keywords']       = '".XssFilter::text(trim(preg_replace("#[\; ,]+#", ',', $websiteConfigLocalized['keywords']),','))."';\n";
+        $fileContent .= "\$websiteConfig['localization'][".$langCode."]['description']    = '".XssFilter::text($websiteConfigLocalized['description'])."';\n\n";
+      }
+    }
     
     $fileContent .= "return \$websiteConfig;";
   
@@ -1405,7 +1414,7 @@ function showPageDate($pageContent) {
   $titleDateAfter = '';
   
   if(StatisticFunctions::checkPageDate($pageContent)) {
-    $pageDate = GeneralFunctions::getLocalized($pageContent,'pageDate');
+    $pageDate = GeneralFunctions::getLocalized($pageContent['localization'],'pageDate');
     $pageDateBefore = $pageDate['before'];
     $pageDateAfter = $pageDate['after'];
   	// adds spaces on before and after

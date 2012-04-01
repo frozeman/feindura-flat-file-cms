@@ -436,6 +436,14 @@ Good, your current version is <b><?= VERSION; ?></b>, but your content isn't upd
     }
     
     // ->> SAVE NEW websiteConfig
+    // v1.2 - localized
+    if(!isset($websiteConfig['localization'])) {
+      $websiteConfig['localization'][0]['title']       = $websiteConfig['title'];
+      $websiteConfig['localization'][0]['publisher']   = $websiteConfig['publisher'];
+      $websiteConfig['localization'][0]['copyright']   = $websiteConfig['copyright'];
+      $websiteConfig['localization'][0]['keywords']    = $websiteConfig['keywords'];
+      $websiteConfig['localization'][0]['description'] = $websiteConfig['description'];
+    }
     if(saveWebsiteConfig($websiteConfig))
       echo 'websiteConfig <span class="succesfull">succesfully updated</span><br />';
     else {

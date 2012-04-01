@@ -44,30 +44,31 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
     $_POST['cfg_thumbHeight'] = $adminConfig['pageThumbnail']['height'];   
 
   // -> PREPARE CONFIG VARs
-  $newAdminConfig                                       = $adminConfig; // transfer the rest if the adminConfig
-  $newAdminConfig['setStartPage']                       = $_POST['cfg_setStartPage'];
+  $newAdminConfig                                         = $adminConfig; // transfer the rest if the adminConfig
+  $newAdminConfig['setStartPage']                         = $_POST['cfg_setStartPage'];
   $newAdminConfig['multiLanguageWebsite']['active']       = $_POST['cfg_multiLanguageWebsite'];
   $newAdminConfig['multiLanguageWebsite']['mainLanguage'] = $_POST['cfg_websiteMainLanguage'];
   $newAdminConfig['multiLanguageWebsite']['languages']    = $_POST['cfg_websiteLanguages'];
   
-  $newAdminConfig['pages']['createDelete']              = $_POST['cfg_pageCreatePages'];
-  $newAdminConfig['pages']['thumbnails']                = $_POST['cfg_pageThumbnailUpload'];  
-  $newAdminConfig['pages']['plugins']                   = serialize($_POST['cfg_pagePlugins']);
-  $newAdminConfig['pages']['showTags']                  = $_POST['cfg_pageTags'];
-  $newAdminConfig['pages']['showPageDate']              = $_POST['cfg_pagePageDate'];
-  $newAdminConfig['pages']['feeds']                     = $_POST['cfg_pagefeeds'];
-  $newAdminConfig['pages']['sorting']                   = $_POST['cfg_pageSorting'];
-  $newAdminConfig['pages']['sortReverse']               = $_POST['cfg_pageSortReverse'];
+  $newAdminConfig['pages']['createDelete']                = $_POST['cfg_pageCreatePages'];
+  $newAdminConfig['pages']['thumbnails']                  = $_POST['cfg_pageThumbnailUpload'];  
+  $newAdminConfig['pages']['plugins']                     = serialize($_POST['cfg_pagePlugins']);
+  $newAdminConfig['pages']['showTags']                    = $_POST['cfg_pageTags'];
+  $newAdminConfig['pages']['showPageDate']                = $_POST['cfg_pagePageDate'];
+  $newAdminConfig['pages']['feeds']                       = $_POST['cfg_pagefeeds'];
+  $newAdminConfig['pages']['sorting']                     = $_POST['cfg_pageSorting'];
+  $newAdminConfig['pages']['sortReverse']                 = $_POST['cfg_pageSortReverse'];
   
-  $newAdminConfig['pageThumbnail']['width']             =  $_POST['cfg_thumbWidth'];
-  $newAdminConfig['pageThumbnail']['height']            = $_POST['cfg_thumbHeight'];
-  $newAdminConfig['pageThumbnail']['ratio']             = $_POST['cfg_thumbRatio'];
-  $newAdminConfig['pageThumbnail']['path']              = $_POST['cfg_thumbPath'];
+  $newAdminConfig['pageThumbnail']['width']               =  $_POST['cfg_thumbWidth'];
+  $newAdminConfig['pageThumbnail']['height']              = $_POST['cfg_thumbHeight'];
+  $newAdminConfig['pageThumbnail']['ratio']               = $_POST['cfg_thumbRatio'];
+  $newAdminConfig['pageThumbnail']['path']                = $_POST['cfg_thumbPath'];
 
   // -> CHANGE PAGES to MULTI LANGUAGE pages
   if($newAdminConfig['multiLanguageWebsite']['active'] == 'true') {
-    $allPages = GeneralFunctions::loadPages(true);
 
+    // -> CHANGE PAGES
+    $allPages = GeneralFunctions::loadPages(true);
     foreach($allPages as $pageContent) {
 
       // $pageContent['localization'][0] = (!isset($pageContent['localization'][0])) ? array() : $pageContent['localization'][0];
@@ -84,15 +85,29 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
         $pageContent['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $pageContent['localization']);
         unset($pageContent['localization'][0]);
       }
-
       if(!GeneralFunctions::savePage($pageContent))
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
     }
 
+    // -> CHANGE WEBSITE CONFIG
+    if(is_array($websiteConfig['localization']) && is_array(current($websiteConfig['localization']))) {
+      // get the either the already existing mainLanguage, or use the next following language as the mainLanguage
+      $useLocalization = (isset($websiteConfig['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]))
+        ? $websiteConfig['localization'][$newAdminConfig['multiLanguageWebsite']['mainLanguage']]
+        : current($websiteConfig['localization']);
+
+      // put the mainLanguage on the top
+      $websiteConfig['localization'] = array_merge(array($newAdminConfig['multiLanguageWebsite']['mainLanguage'] => $useLocalization), $websiteConfig['localization']);
+      unset($websiteConfig['localization'][0]);
+    }
+    if(!saveWebsiteConfig($websiteConfig))
+      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
+
   // -> CHANGE TO SINGLE LANGUAGE
   } else {
-    $allPages = GeneralFunctions::loadPages(true);
 
+    // -> CHANGE PAGES
+    $allPages = GeneralFunctions::loadPages(true);
     foreach($allPages as $pageContent) {
 
       // change the localized content to non localized content using the the mainLanguage
@@ -108,6 +123,20 @@ if(isset($_POST['send']) && $_POST['send'] ==  'pageConfig') {
       if(!GeneralFunctions::savePage($pageContent))
         $errorWindow .= sprintf($langFile['EDITOR_savepage_error_save'],$adminConfig['realBasePath']);
     }
+
+
+    // -> CHANGE WEBSITE CONFIG
+    // change the localized content to non localized content using the the mainLanguage
+    if(is_array($websiteConfig['localization']) && isset($websiteConfig['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']])) {
+      $storedMainLanguageArray = $websiteConfig['localization'][$adminConfig['multiLanguageWebsite']['mainLanguage']];
+      unset($websiteConfig['localization']);
+      $websiteConfig['localization'][0] = $storedMainLanguageArray;
+    
+    // if the mainLanguage didnt exist create an empty array
+    } else
+      $websiteConfig['localization'][0] = array();
+    if(!saveWebsiteConfig($websiteConfig))
+      $errorWindow .= sprintf($langFile['websiteSetup_websiteConfig_error_save'],$adminConfig['realBasePath']);
 
   }
   

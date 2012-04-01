@@ -162,7 +162,7 @@ if($newPage) {
     $pageContent = GeneralFunctions::readPage($_GET['template'],GeneralFunctions::getPageCategory($_GET['template']));
   
 } else {  
-  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent,'title',$addLanguage));
+  $pageTitle = strip_tags(GeneralFunctions::getLocalized($pageContent['localization'],'title',$addLanguage));
 }
 
 // -> check if the thumbnail still exists, if not clear the thumbnail state of the file
